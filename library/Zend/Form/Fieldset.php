@@ -10,7 +10,6 @@
 namespace Zend\Form;
 
 use Traversable;
-use Zend\Form\Element\Submit;
 use Zend\Stdlib\Hydrator;
 use Zend\Stdlib\Hydrator\HydratorAwareInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
@@ -403,7 +402,7 @@ class Fieldset extends Element implements FieldsetInterface
                 continue;
             }
 
-            if ($element instanceof Submit) {
+            if ($element instanceof Element\Submit) {
                 continue;
             }
 
