@@ -402,6 +402,10 @@ class Fieldset extends Element implements FieldsetInterface
                 continue;
             }
 
+            if ($element instanceof Element\Submit) {
+                continue;
+            }
+
             $element->setValue($value);
         }
     }
