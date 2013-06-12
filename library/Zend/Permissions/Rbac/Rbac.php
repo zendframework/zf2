@@ -22,7 +22,7 @@ class Rbac extends AbstractIterator
     protected $createMissingRoles = false;
 
     /**
-     * @param  boolean                     $createMissingRoles
+     * @param  bool                     $createMissingRoles
      * @return \Zend\Permissions\Rbac\Rbac
      */
     public function setCreateMissingRoles($createMissingRoles)
@@ -33,7 +33,7 @@ class Rbac extends AbstractIterator
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getCreateMissingRoles()
     {
@@ -45,7 +45,7 @@ class Rbac extends AbstractIterator
      *
      * @param  string|RoleInterface               $child
      * @param  array|RoleInterface|null           $parents
-     * @return RoleInterface
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function addRole($child, $parents = null)

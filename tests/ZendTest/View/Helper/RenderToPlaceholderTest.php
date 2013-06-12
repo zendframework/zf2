@@ -29,7 +29,7 @@ class RenderToPlaceholderTest extends \PHPUnit_Framework_TestCase
     public function testDefaultEmpty()
     {
         $this->view->plugin('renderToPlaceholder')->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
-        $placeholder = new PlaceholderHelper();
+        $placeholder = $this->view->plugin('placeholder');
         $this->assertEquals("Foo Bar" . "\n", $placeholder->__invoke('fooPlaceholder')->getValue());
     }
 

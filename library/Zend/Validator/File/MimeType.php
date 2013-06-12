@@ -201,9 +201,8 @@ class MimeType extends AbstractValidator
                 $file
             ));
         } else {
-            $const = defined('FILEINFO_MIME_TYPE') ? FILEINFO_MIME_TYPE : FILEINFO_MIME;
             ErrorHandler::start(E_NOTICE|E_WARNING);
-            $this->finfo = finfo_open($const, $file);
+            $this->finfo = finfo_open(FILEINFO_MIME_TYPE, $file);
             $error       = ErrorHandler::stop();
             if (empty($this->finfo)) {
                 $this->finfo = null;
@@ -376,16 +375,15 @@ class MimeType extends AbstractValidator
 
         $mimefile = $this->getMagicFile();
         if (class_exists('finfo', false)) {
-            $const = defined('FILEINFO_MIME_TYPE') ? FILEINFO_MIME_TYPE : FILEINFO_MIME;
             if (!$this->isMagicFileDisabled() && (!empty($mimefile) && empty($this->finfo))) {
                 ErrorHandler::start(E_NOTICE|E_WARNING);
-                $this->finfo = finfo_open($const, $mimefile);
+                $this->finfo = finfo_open(FILEINFO_MIME_TYPE, $mimefile);
                 ErrorHandler::stop();
             }
 
             if (empty($this->finfo)) {
                 ErrorHandler::start(E_NOTICE|E_WARNING);
-                $this->finfo = finfo_open($const);
+                $this->finfo = finfo_open(FILEINFO_MIME_TYPE);
                 ErrorHandler::stop();
             }
 
@@ -393,11 +391,6 @@ class MimeType extends AbstractValidator
             if (!empty($this->finfo)) {
                 $this->type = finfo_file($this->finfo, $file);
             }
-        }
-
-        if (empty($this->type) &&
-            (function_exists('mime_content_type') && ini_get('mime_magic.magicfile'))) {
-                $this->type = mime_content_type($file);
         }
 
         if (empty($this->type) && $this->getHeaderCheck()) {

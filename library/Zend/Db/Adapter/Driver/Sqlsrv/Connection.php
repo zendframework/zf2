@@ -9,8 +9,8 @@
 
 namespace Zend\Db\Adapter\Driver\Sqlsrv;
 
-use Zend\Db\Adapter\Driver\Sqlsrv\Exception\ErrorException;
 use Zend\Db\Adapter\Driver\ConnectionInterface;
+use Zend\Db\Adapter\Driver\Sqlsrv\Exception\ErrorException;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
@@ -147,6 +147,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function getResource()
     {
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
         return $this->resource;
     }
 

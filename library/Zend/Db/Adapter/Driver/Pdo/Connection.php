@@ -186,6 +186,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function getResource()
     {
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
         return $this->resource;
     }
 
@@ -416,7 +419,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Get last generated id
      *
      * @param string $name
-     * @return integer|null|false
+     * @return int|null|false
      */
     public function getLastGeneratedValue($name = null)
     {

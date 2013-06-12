@@ -9,19 +9,14 @@
 
 namespace Zend\View\Strategy;
 
+use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
 use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 
-class PhpRendererStrategy implements ListenerAggregateInterface
+class PhpRendererStrategy extends AbstractListenerAggregate
 {
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = array();
-
     /**
      * Placeholders that may hold content
      *
@@ -63,7 +58,6 @@ class PhpRendererStrategy implements ListenerAggregateInterface
     public function setContentPlaceholders(array $contentPlaceholders)
     {
         $this->contentPlaceholders = $contentPlaceholders;
-
         return $this;
     }
 
@@ -78,31 +72,12 @@ class PhpRendererStrategy implements ListenerAggregateInterface
     }
 
     /**
-     * Attach the aggregate to the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @param  int $priority
-     * @return void
+     * {@inheritDoc}
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
-    }
-
-    /**
-     * Detach aggregate listeners from the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
     }
 
     /**
@@ -148,10 +123,9 @@ class PhpRendererStrategy implements ListenerAggregateInterface
         // populated, and set the content from them.
         if (empty($result)) {
             $placeholders = $renderer->plugin('placeholder');
-            $registry     = $placeholders->getRegistry();
             foreach ($this->contentPlaceholders as $placeholder) {
-                if ($registry->containerExists($placeholder)) {
-                    $result = (string) $registry->getContainer($placeholder);
+                if ($placeholders->containerExists($placeholder)) {
+                    $result = (string) $placeholders->getContainer($placeholder);
                     break;
                 }
             }

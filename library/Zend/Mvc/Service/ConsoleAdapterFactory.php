@@ -10,10 +10,10 @@
 namespace Zend\Mvc\Service;
 
 use stdClass;
+use Zend\Console\Adapter\AdapterInterface;
+use Zend\Console\Console;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Console\Console;
-use Zend\Console\Adapter\AdapterInterface;
 
 class ConsoleAdapterFactory implements FactoryInterface
 {
@@ -29,7 +29,7 @@ class ConsoleAdapterFactory implements FactoryInterface
      *         'charset' => 'MyConsoleCharset',     // always use this console charset
      *      ),
      *      'service_manager' => array(
-     *          'invocables' => array(
+     *          'invokables' => array(
      *              'MyConsoleAdapter' => 'Zend\Console\Adapter\Windows',
      *              'MyConsoleCharset' => 'Zend\Console\Charset\DESCG',
      *          )

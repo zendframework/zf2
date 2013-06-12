@@ -9,10 +9,10 @@
 
 namespace Zend\Session\Config;
 
+use Traversable;
 use Zend\Session\Config\ConfigInterface;
 use Zend\Session\Exception;
 use Zend\Validator\Hostname as HostnameValidator;
-use Traversable;
 
 /**
  * Standard session configuration
@@ -803,7 +803,7 @@ class StandardConfig implements ConfigInterface
             throw new Exception\BadMethodCallException(sprintf(
                 'Method "%s" does not exist in %s',
                 $method,
-                get_called_class()
+                get_class($this)
             ));
         }
     }

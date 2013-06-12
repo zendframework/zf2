@@ -107,7 +107,7 @@ class Result implements \Iterator, ResultInterface
     /**
      * Is query result?
      *
-     * @return boolean
+     * @return bool
      */
     public function isQueryResult()
     {
@@ -116,7 +116,7 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Get affected rows
-     * @return integer
+     * @return int
      */
     public function getAffectedRows()
     {
@@ -141,18 +141,15 @@ class Result implements \Iterator, ResultInterface
     /**
      * Load from oci8 result
      *
-     * @return boolean
+     * @return bool
      */
     protected function loadData()
     {
-        $this->currentComplete = false;
-        $this->currentData = null;
-
+        $this->currentComplete = true;
         $this->currentData = oci_fetch_assoc($this->resource);
 
         if ($this->currentData !== false) {
             $this->position++;
-            $this->currentComplete = true;
             return true;
         }
         return false;
@@ -187,12 +184,12 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Valid
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {
         if ($this->currentComplete) {
-            return true;
+            return ($this->currentData !== false);
         }
 
         return $this->loadData();
@@ -200,7 +197,7 @@ class Result implements \Iterator, ResultInterface
 
     /**
      * Count
-     * @return integer
+     * @return int
      */
     public function count()
     {

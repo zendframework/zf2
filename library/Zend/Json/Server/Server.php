@@ -155,8 +155,8 @@ class Server extends AbstractServer
      * Handle request
      *
      * @param  Request $request
-     * @throws Exception\InvalidArgumentException
      * @return null|Response
+     * @throws Exception\InvalidArgumentException
      */
     public function handle($request = false)
     {
@@ -497,7 +497,7 @@ class Server extends AbstractServer
         }
 
         $params        = $request->getParams();
-        $invocable     = $this->table->getMethod($method);
+        $invokable     = $this->table->getMethod($method);
         $serviceMap    = $this->getServiceMap();
         $service       = $serviceMap->getService($method);
         $serviceParams = $service->getParams();
@@ -507,11 +507,10 @@ class Server extends AbstractServer
         }
 
         //Make sure named parameters are passed in correct order
-        if (is_string( key( $params ) )) {
-
-            $callback = $invocable->getCallback();
+        if (is_string(key($params))) {
+            $callback = $invokable->getCallback();
             if ('function' == $callback->getType()) {
-                $reflection = new ReflectionFunction( $callback->getFunction() );
+                $reflection = new ReflectionFunction($callback->getFunction());
             } else {
 
                 $reflection = new ReflectionMethod(
@@ -523,9 +522,9 @@ class Server extends AbstractServer
             $orderedParams = array();
             foreach ($reflection->getParameters() as $refParam) {
                 if (array_key_exists($refParam->getName(), $params)) {
-                    $orderedParams[ $refParam->getName() ] = $params[ $refParam->getName() ];
+                    $orderedParams[$refParam->getName()] = $params[$refParam->getName()];
                 } elseif ($refParam->isOptional()) {
-                    $orderedParams[ $refParam->getName() ] = null;
+                    $orderedParams[$refParam->getName()] = null;
                 } else {
                     return $this->fault('Invalid params', Error::ERROR_INVALID_PARAMS);
                 }
@@ -534,7 +533,7 @@ class Server extends AbstractServer
         }
 
         try {
-            $result = $this->_dispatch($invocable, $params);
+            $result = $this->_dispatch($invokable, $params);
         } catch (\Exception $e) {
             return $this->fault($e->getMessage(), $e->getCode(), $e);
         }

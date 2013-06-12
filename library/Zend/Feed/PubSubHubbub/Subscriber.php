@@ -12,10 +12,9 @@ namespace Zend\Feed\PubSubHubbub;
 use DateInterval;
 use DateTime;
 use Traversable;
+use Zend\Feed\Uri;
 use Zend\Http\Request as HttpRequest;
 use Zend\Stdlib\ArrayUtils;
-use Zend\Uri;
-use Zend\Version\Version;
 
 class Subscriber
 {
@@ -194,7 +193,7 @@ class Subscriber
      */
     public function setTopicUrl($url)
     {
-        if (empty($url) || !is_string($url) || !Uri\UriFactory::factory($url)->isValid()) {
+        if (empty($url) || !is_string($url) || !Uri::factory($url)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 .' of "' . $url . '" must be a non-empty string and a valid'
                 .' URL');
@@ -257,7 +256,7 @@ class Subscriber
      */
     public function setCallbackUrl($url)
     {
-        if (empty($url) || !is_string($url) || !Uri\UriFactory::factory($url)->isValid()) {
+        if (empty($url) || !is_string($url) || !Uri::factory($url)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . ' URL');
@@ -327,7 +326,7 @@ class Subscriber
      */
     public function addHubUrl($url)
     {
-        if (empty($url) || !is_string($url) || !Uri\UriFactory::factory($url)->isValid()) {
+        if (empty($url) || !is_string($url) || !Uri::factory($url)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . ' URL');
@@ -387,7 +386,7 @@ class Subscriber
      */
     public function addAuthentication($url, array $authentication)
     {
-        if (empty($url) || !is_string($url) || !Uri\UriFactory::factory($url)->isValid()) {
+        if (empty($url) || !is_string($url) || !Uri::factory($url)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . ' URL');
@@ -619,7 +618,7 @@ class Subscriber
                 $client->setAuth($auth[0], $auth[1]);
             }
             $client->setUri($url);
-            $client->setRawBody($this->_getRequestParameters($url, $mode));
+            $client->setRawBody($params = $this->_getRequestParameters($url, $mode));
             $response = $client->send();
             if ($response->getStatusCode() !== 204
                 && $response->getStatusCode() !== 202
@@ -735,7 +734,7 @@ class Subscriber
             'topic_url'          => $params['hub.topic'],
             'hub_url'            => $hubUrl,
             'created_time'       => $now->format('Y-m-d H:i:s'),
-            'lease_seconds'      => $expires,
+            'lease_seconds'      => $params['hub.lease_seconds'],
             'verify_token'       => hash('sha256', $params['hub.verify_token']),
             'secret'             => null,
             'expiration_time'    => $expires,

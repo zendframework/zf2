@@ -9,14 +9,14 @@
 
 namespace Zend\Feed\Reader\Extension\Atom;
 
+use DateTime;
 use DOMDocument;
 use DOMElement;
 use stdClass;
 use Zend\Feed\Reader;
 use Zend\Feed\Reader\Collection;
 use Zend\Feed\Reader\Extension;
-use Zend\Stdlib\DateTime;
-use Zend\Uri;
+use Zend\Feed\Uri;
 
 class Entry extends Extension\AbstractEntry
 {
@@ -170,7 +170,7 @@ class Entry extends Extension\AbstractEntry
         }
 
         if ($dateCreated) {
-            $date = DateTime::createFromISO8601($dateCreated);
+            $date = new DateTime($dateCreated);
         }
 
         $this->data['datecreated'] = $date;
@@ -198,7 +198,7 @@ class Entry extends Extension\AbstractEntry
         }
 
         if ($dateModified) {
-            $date = DateTime::createFromISO8601($dateModified);
+            $date = new DateTime($dateModified);
         }
 
         $this->data['datemodified'] = $date;
@@ -394,7 +394,7 @@ class Entry extends Extension\AbstractEntry
     /**
      * Get the number of comments/replies for current entry
      *
-     * @return integer
+     * @return int
      */
     public function getCommentCount()
     {
@@ -548,10 +548,10 @@ class Entry extends Extension\AbstractEntry
      */
     protected function absolutiseUri($link)
     {
-        if (!Uri\UriFactory::factory($link)->isAbsolute()) {
+        if (!Uri::factory($link)->isAbsolute()) {
             if ($this->getBaseUrl() !== null) {
                 $link = $this->getBaseUrl() . $link;
-                if (!Uri\UriFactory::factory($link)->isValid()) {
+                if (!Uri::factory($link)->isValid()) {
                     $link = null;
                 }
             }

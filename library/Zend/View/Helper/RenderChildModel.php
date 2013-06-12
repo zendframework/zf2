@@ -21,11 +21,15 @@ use Zend\View\Model\ModelInterface as Model;
 class RenderChildModel extends AbstractHelper
 {
     /**
-     * @var Model Current view model
+     * Current view model
+     *
+     * @var Model
      */
     protected $current;
 
     /**
+     * View model helper instance
+     *
      * @var ViewModel
      */
     protected $viewModelHelper;
@@ -64,6 +68,7 @@ class RenderChildModel extends AbstractHelper
         $return  = $view->render($model);
         $helper  = $this->getViewModelHelper();
         $helper->setCurrent($current);
+
         return $return;
     }
 
@@ -105,6 +110,7 @@ class RenderChildModel extends AbstractHelper
             ));
         }
 
+
         return $helper->getCurrent();
     }
 
@@ -115,8 +121,12 @@ class RenderChildModel extends AbstractHelper
      */
     protected function getViewModelHelper()
     {
-        if (!$this->viewModelHelper) {
-            $this->viewModelHelper = $this->getView()->plugin('view_model');
+        if ($this->viewModelHelper) {
+            return $this->viewModelHelper;
+        }
+
+        if (method_exists($this->getView(), 'plugin')) {
+            $this->viewModelHelper = $this->view->plugin('view_model');
         }
 
         return $this->viewModelHelper;

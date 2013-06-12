@@ -9,10 +9,10 @@
 
 namespace Zend\Navigation\Page;
 
+use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteStackInterface;
 use Zend\Navigation\Exception;
-use Zend\Mvc\ModuleRouteListener;
 
 /**
  * Represents a page that is defined using controller, action, route
@@ -33,6 +33,13 @@ class Mvc extends AbstractPage
      * @var string
      */
     protected $controller;
+
+    /**
+     * URL query part to use when assembling URL
+     *
+     * @var array|string
+     */
+    protected $query;
 
     /**
      * Params to use when assembling URL
@@ -67,6 +74,13 @@ class Mvc extends AbstractPage
      * @var RouteMatch
      */
     protected $routeMatch;
+
+    /**
+     * If true and set routeMatch than getHref will use routeMatch params
+     * to assemble uri
+     * @var bool
+     */
+    protected $useRouteMatch = false;
 
     /**
      * Router for assembling URLs
@@ -183,7 +197,23 @@ class Mvc extends AbstractPage
             );
         }
 
-        $params = $this->getParams();
+        if ($this->useRouteMatch()) {
+            $rmParams = $this->getRouteMatch()->getParams();
+
+            if (isset($rmParams[ModuleRouteListener::ORIGINAL_CONTROLLER])) {
+                $rmParams['controller'] = $rmParams[ModuleRouteListener::ORIGINAL_CONTROLLER];
+                unset($rmParams[ModuleRouteListener::ORIGINAL_CONTROLLER]);
+            }
+
+            if (isset($rmParams[ModuleRouteListener::MODULE_NAMESPACE])) {
+                unset($rmParams[ModuleRouteListener::MODULE_NAMESPACE]);
+            }
+
+            $params = array_merge($rmParams, $this->getParams());
+        } else {
+            $params = $this->getParams();
+        }
+
 
         if (($param = $this->getController()) != null) {
             $params['controller'] = $param;
@@ -205,13 +235,18 @@ class Mvc extends AbstractPage
         }
 
         $options = array('name' => $name);
-        $url = $router->assemble($params, $options);
 
         // Add the fragment identifier if it is set
         $fragment = $this->getFragment();
         if (null !== $fragment) {
-            $url .= '#' . $fragment;
+            $options['fragment'] = $fragment;
         }
+
+        if (null !== ($query = $this->getQuery())) {
+            $options['query'] = $query;
+        }
+
+        $url = $router->assemble($params, $options);
 
         return $this->hrefCache = $url;
     }
@@ -282,6 +317,32 @@ class Mvc extends AbstractPage
     public function getController()
     {
         return $this->controller;
+    }
+
+    /**
+     * Sets URL query part to use when assembling URL
+     *
+     * @see getHref()
+     * @param  array|string|null $query    URL query part
+     * @return self   fluent interface, returns self
+     */
+    public function setQuery($query)
+    {
+        $this->query      = $query;
+        $this->hrefCache  = null;
+        return $this;
+    }
+
+    /**
+     * Returns URL query part to use when assembling URL
+     *
+     * @see getHref()
+     *
+     * @return array|string|null  URL query part (as an array or string) or null
+     */
+    public function getQuery()
+    {
+        return $this->query;
     }
 
     /**
@@ -370,6 +431,30 @@ class Mvc extends AbstractPage
     public function setRouteMatch(RouteMatch $matches)
     {
         $this->routeMatch = $matches;
+        return $this;
+    }
+
+    /**
+     * Get the useRouteMatch flag
+     *
+     * @return bool
+     */
+    public function useRouteMatch()
+    {
+        return $this->useRouteMatch;
+    }
+
+    /**
+     * Set whether the page should use route match params for assembling link uri
+     *
+     * @see getHref()
+     * @param bool $useRouteMatch [optional]
+     * @return Mvc
+     */
+    public function setUseRouteMatch($useRouteMatch = true)
+    {
+        $this->useRouteMatch = (bool) $useRouteMatch;
+        $this->hrefCache = null;
         return $this;
     }
 

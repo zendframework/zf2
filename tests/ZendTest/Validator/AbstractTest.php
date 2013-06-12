@@ -11,8 +11,9 @@
 namespace ZendTest\Validator;
 
 use ReflectionMethod;
-use Zend\I18n\Translator\Translator;
 use Zend\Validator\AbstractValidator;
+use Zend\Validator\EmailAddress;
+use Zend\Validator\Hostname;
 
 /**
  * @category   Zend
@@ -51,7 +52,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $this->testTranslatorNullByDefault();
         set_error_handler(array($this, 'errorHandlerIgnore'));
-        $translator = new Translator();
+        $translator = new TestAsset\Translator();
         restore_error_handler();
         $this->validator->setTranslator($translator);
         $this->assertSame($translator, $this->validator->getTranslator());
@@ -77,7 +78,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $loader->translations = array(
             'fooMessage' => 'This is the translated message for %value%',
         );
-        $translator = new Translator();
+        $translator = new TestAsset\Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
 
@@ -95,7 +96,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $loader->translations = array(
             '%value% was passed' => 'This is the translated message for %value%',
         );
-        $translator = new Translator();
+        $translator = new TestAsset\Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
 
@@ -145,7 +146,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     public function testTranslatorEnabledPerDefault()
     {
         set_error_handler(array($this, 'errorHandlerIgnore'));
-        $translator = new Translator();
+        $translator = new TestAsset\Translator();
         $this->validator->setTranslator($translator);
         $this->assertTrue($this->validator->isTranslatorEnabled());
     }
@@ -156,7 +157,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $loader->translations = array(
             '%value% was passed' => 'This is the translated message for %value%',
         );
-        $translator = new Translator();
+        $translator = new TestAsset\Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
         $this->validator->setTranslator($translator);
@@ -181,10 +182,12 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $messages = $this->validator->getMessageTemplates();
         $this->assertEquals(
-            array('fooMessage' => '%value% was passed'), $messages);
+            array('fooMessage' => '%value% was passed',
+                  'barMessage' => '%value% was wrong'), $messages);
 
         $this->assertEquals(
-            array(TestAsset\ConcreteValidator::FOO_MESSAGE => '%value% was passed'),
+            array(TestAsset\ConcreteValidator::FOO_MESSAGE => '%value% was passed',
+                  TestAsset\ConcreteValidator::BAR_MESSAGE => '%value% was wrong'),
             $messages
             );
     }
@@ -198,7 +201,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMock('Zend\I18n\Translator\Translator');
+        $translatorMock = $this->getMock('ZendTest\Validator\TestAsset\Translator');
         $this->validator->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->validator->getTranslator());
@@ -218,7 +221,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->validator->hasTranslator());
 
-        $translatorMock = $this->getMock('Zend\I18n\Translator\Translator');
+        $translatorMock = $this->getMock('ZendTest\Validator\TestAsset\Translator');
         AbstractValidator::setDefaultTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, AbstractValidator::getDefaultTranslator());
@@ -237,6 +240,52 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('foo', $message);
         $this->assertContains('bar', $message);
         $this->assertContains('baz', $message);
+    }
+
+    public function testNonIdenticalMessagesAllReturned()
+    {
+        $this->assertFalse($this->validator->isValid('invalid'));
+
+        $messages = $this->validator->getMessages();
+
+        $this->assertCount(2, $messages);
+        $this->assertEquals(array(
+            TestAsset\ConcreteValidator::FOO_MESSAGE => 'invalid was passed',
+            TestAsset\ConcreteValidator::BAR_MESSAGE => 'invalid was wrong'
+        ), $messages);
+    }
+
+    public function testIdenticalMessagesNotReturned()
+    {
+        $this->validator->setMessage('Default error message');
+
+        $this->assertFalse($this->validator->isValid('invalid'));
+
+        $messages = $this->validator->getMessages();
+
+        $this->assertCount(1, $messages);
+        $this->assertEquals('Default error message', reset($messages));
+    }
+
+    public function testIdenticalAndNonIdenticalMessagesReturned()
+    {
+        $validator = new EmailAddress();
+
+        $this->assertFalse($validator->isValid('invalid@email.coma'));
+        $this->assertCount(3, $validator->getMessages());
+        $this->assertArrayHasKey(EmailAddress::INVALID_HOSTNAME, $validator->getMessages());
+        $this->assertArrayHasKey(Hostname::UNKNOWN_TLD, $validator->getMessages());
+        $this->assertArrayHasKey(Hostname::LOCAL_NAME_NOT_ALLOWED, $validator->getMessages());
+
+        $validator->setMessages(array(
+            EmailAddress::INVALID_HOSTNAME => 'This is the same error message',
+            Hostname::UNKNOWN_TLD => 'This is the same error message'
+        ));
+
+        $this->assertFalse($validator->isValid('invalid@email.coma'));
+        $this->assertCount(2, $validator->getMessages());
+        $this->assertArrayHasKey(EmailAddress::INVALID_HOSTNAME, $validator->getMessages());
+        $this->assertArrayHasKey(Hostname::LOCAL_NAME_NOT_ALLOWED, $validator->getMessages());
     }
 
     /**

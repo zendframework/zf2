@@ -11,9 +11,9 @@ namespace Zend\Serializer\Adapter;
 
 use stdClass;
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
-use Zend\Serializer\Exception;
 use Zend\Math\BigInteger;
+use Zend\Serializer\Exception;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @link       http://www.python.org
@@ -234,7 +234,7 @@ class PythonPickle extends AbstractAdapter
             throw new Exception\RuntimeException(sprintf(
                 'PHP-Type "%s" can not be serialized by %s',
                 gettype($value),
-                get_called_class()
+                get_class($this)
             ));
         }
     }
@@ -421,7 +421,9 @@ class PythonPickle extends AbstractAdapter
         $this->memorize($value);
 
         foreach ($value as $k => $v) {
-            $this->pickle .= $this->write($k) . $this->write($v) . self::OP_SETITEM;
+            $this->write($k);
+            $this->write($v);
+            $this->pickle .= self::OP_SETITEM;
         }
     }
 
@@ -441,7 +443,8 @@ class PythonPickle extends AbstractAdapter
         $this->memorize($value);
 
         foreach ($value as $v) {
-            $this->pickle .= $this->write($v) . self::OP_APPEND;
+            $this->write($v);
+            $this->pickle .= self::OP_APPEND;
         }
     }
 

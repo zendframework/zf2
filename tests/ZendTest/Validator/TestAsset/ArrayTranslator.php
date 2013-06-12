@@ -10,15 +10,15 @@
 
 namespace ZendTest\Validator\TestAsset;
 
-use Zend\I18n\Translator;
+use Zend\I18n\Translator as I18nTranslator;
 
-class ArrayTranslator implements Translator\Loader\FileLoaderInterface
+class ArrayTranslator implements I18nTranslator\Loader\FileLoaderInterface
 {
     public $translations;
 
     public function load($filename, $locale)
     {
-        $textDomain =  new Translator\TextDomain($this->translations);
+        $textDomain =  new I18nTranslator\TextDomain($this->translations);
         return $textDomain;
     }
 }

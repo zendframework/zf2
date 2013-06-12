@@ -11,9 +11,9 @@ namespace Zend\Db\Sql\Platform\Oracle;
 
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\DriverInterface;
-use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
+use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Sql\ExpressionInterface;
 use Zend\Db\Sql\Platform\PlatformDecoratorInterface;
 use Zend\Db\Sql\Select;
@@ -32,6 +32,14 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
     public function setSubject($select)
     {
         $this->select = $select;
+    }
+
+    /**
+     * @see \Zend\Db\Sql\Select::renderTable
+     */
+    protected function renderTable($table, $alias = null)
+    {
+        return $table . ' ' . $alias;
     }
 
     /**
@@ -109,20 +117,29 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         ));
 
         if ($parameterContainer) {
-            // create bottom part of query, with offset and limit using row_number
-            array_push($sqls, ') b WHERE rownum <= (:offset+:limit)) WHERE b_rownum >= (:offset + 1)');
-
-            $parameterContainer->offsetSet('offset', $this->offset, $parameterContainer::TYPE_INTEGER);
-            $parameterContainer->offsetSet('limit', $this->limit, $parameterContainer::TYPE_INTEGER);
+            if ($this->limit === null) {
+                array_push($sqls, ') b ) WHERE b_rownum > (:offset)');
+                $parameterContainer->offsetSet('offset', $this->offset, $parameterContainer::TYPE_INTEGER);
+            } else {
+                // create bottom part of query, with offset and limit using row_number
+                array_push($sqls, ') b WHERE rownum <= (:offset+:limit)) WHERE b_rownum >= (:offset + 1)');
+                $parameterContainer->offsetSet('offset', $this->offset, $parameterContainer::TYPE_INTEGER);
+                $parameterContainer->offsetSet('limit', $this->limit, $parameterContainer::TYPE_INTEGER);
+            }
         } else {
-            array_push($sqls, ') b WHERE rownum <= ('
-                . (int) $this->offset
-                . '+'
-                . (int) $this->limit
-                . ')) WHERE b_rownum >= ('
-                . (int) $this->offset
-                . ' + 1)'
-            );
+            if ($this->limit === null) {
+                array_push($sqls, ') b ) WHERE b_rownum > ('. (int) $this->offset. ')'
+                );
+            } else {
+                array_push($sqls, ') b WHERE rownum <= ('
+                        . (int) $this->offset
+                        . '+'
+                        . (int) $this->limit
+                        . ')) WHERE b_rownum >= ('
+                        . (int) $this->offset
+                        . ' + 1)'
+                );
+            }
         }
 
         $sqls[self::SELECT] = $this->createSqlFromSpecificationAndParameters(

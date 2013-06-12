@@ -148,11 +148,7 @@ class Oci8 implements DriverInterface, Profiler\ProfilerAwareInterface
      */
     public function getDatabasePlatformName($nameFormat = self::NAME_FORMAT_CAMELCASE)
     {
-        if ($nameFormat == self::NAME_FORMAT_CAMELCASE) {
-            return 'Oracle';
-        } else {
-            return 'Oracle';
-        }
+        return 'Oracle';
     }
 
     /**
@@ -199,7 +195,8 @@ class Oci8 implements DriverInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * @param resource $resource
+     * @param  resource $resource
+     * @param  null     $isBuffered
      * @return Result
      */
     public function createResult($resource, $isBuffered = null)

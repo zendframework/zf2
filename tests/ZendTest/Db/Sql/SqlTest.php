@@ -16,7 +16,7 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $mockAdapter = null;
-    
+
     /**
      * Sql object
      * @var Sql
@@ -52,7 +52,7 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $sql->setTable('foo');
         $this->assertSame('foo', $sql->getTable());
 
-        $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', 'Table must be a string or instance of TableIdentifier.');
+        $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', 'Table must be a string, array or instance of TableIdentifier.');
         $sql->setTable(null);
     }
 
@@ -115,14 +115,14 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->sql->delete('bar');
 
     }
-    
+
     /**
      * @covers Zend\Db\Sql\Sql::prepareStatementForSqlObject
      */
     public function testPrepareStatementForSqlObject()
-    {        
+    {
         $insert = $this->sql->insert()->columns(array('foo'));
-        $stmt = $this->sql->prepareStatementForSqlObject($insert);        
+        $stmt = $this->sql->prepareStatementForSqlObject($insert);
         $this->assertInstanceOf('Zend\Db\Adapter\Driver\StatementInterface', $stmt);
     }
 }

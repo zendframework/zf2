@@ -37,6 +37,9 @@ class FormSelectTest extends CommonTestCase
             array(
                 'label' => 'This is the third label',
                 'value' => 'value3',
+                'attributes' => array(
+                    'class' => 'test-class',
+                ),
             ),
         );
         $element->setValueOptions($options);
@@ -58,6 +61,9 @@ class FormSelectTest extends CommonTestCase
         $this->assertContains('value="value1"', $markup);
         $this->assertContains('value="value2"', $markup);
         $this->assertContains('value="value3"', $markup);
+
+        //Test class attribute on third option
+        $this->assertRegexp('#option .*?value="value3" class="test-class"#', $markup);
     }
 
     public function testCanMarkSingleOptionAsSelected()
@@ -237,6 +243,43 @@ class FormSelectTest extends CommonTestCase
 
         $markup = $this->helper->__invoke($element);
         $this->assertContains('>translated content<', $markup);
+    }
+
+    public function testCanTranslateOptGroupLabel()
+    {
+        $element = new SelectElement('test');
+        $element->setValueOptions(array(
+            'optgroup' => array(
+                'label' => 'translate me',
+                'options' => array(
+                    '0' => 'foo',
+                    '1' => 'bar',
+                ),
+            ),
+        ));
+
+        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator->expects($this->at(0))
+                       ->method('translate')
+                       ->with('translate me')
+                       ->will($this->returnValue('translated label'));
+        $mockTranslator->expects($this->at(1))
+                       ->method('translate')
+                       ->with('foo')
+                       ->will($this->returnValue('translated foo'));
+        $mockTranslator->expects($this->at(2))
+                       ->method('translate')
+                       ->with('bar')
+                       ->will($this->returnValue('translated bar'));
+
+        $this->helper->setTranslator($mockTranslator);
+        $this->assertTrue($this->helper->hasTranslator());
+
+        $markup = $this->helper->__invoke($element);
+
+        $this->assertContains('label="translated label"', $markup);
+        $this->assertContains('>translated foo<', $markup);
+        $this->assertContains('>translated bar<', $markup);
     }
 
     public function testTranslatorMethods()

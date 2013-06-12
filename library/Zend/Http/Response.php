@@ -233,13 +233,13 @@ class Response extends AbstractMessage implements ResponseInterface
     /**
      * Set HTTP status code and (optionally) message
      *
-     * @param  integer $code
+     * @param  int $code
      * @throws Exception\InvalidArgumentException
      * @return Response
      */
     public function setStatusCode($code)
     {
-        $const = get_called_class() . '::STATUS_CODE_' . $code;
+        $const = get_class($this) . '::STATUS_CODE_' . $code;
         if (!is_numeric($code) || !defined($const)) {
             $code = is_scalar($code) ? $code : gettype($code);
             throw new Exception\InvalidArgumentException(sprintf(

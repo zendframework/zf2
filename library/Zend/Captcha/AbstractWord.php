@@ -9,8 +9,8 @@
 
 namespace Zend\Captcha;
 
-use Zend\Session\Container;
 use Zend\Math\Rand;
+use Zend\Session\Container;
 
 /**
  * AbstractWord-based captcha adapter
@@ -73,7 +73,7 @@ abstract class AbstractWord extends AbstractAdapter
     /**
      * Session lifetime for the captcha data
      *
-     * @var integer
+     * @var int
      */
     protected $timeout = 300;
 
@@ -105,7 +105,7 @@ abstract class AbstractWord extends AbstractAdapter
     /**
      * Length of the word to generate
      *
-     * @var integer
+     * @var int
      */
     protected $wordlen = 8;
 
@@ -134,7 +134,7 @@ abstract class AbstractWord extends AbstractAdapter
     /**
      * Retrieve word length to use when generating captcha
      *
-     * @return integer
+     * @return int
      */
     public function getWordlen()
     {
@@ -144,7 +144,7 @@ abstract class AbstractWord extends AbstractAdapter
     /**
      * Set word length of captcha
      *
-     * @param integer $wordlen
+     * @param int $wordlen
      * @return AbstractWord
      */
     public function setWordlen($wordlen)
@@ -248,7 +248,7 @@ abstract class AbstractWord extends AbstractAdapter
                 throw new Exception\InvalidArgumentException("Session class $this->sessionClass not found");
             }
             $this->session = new $this->sessionClass('Zend_Form_Captcha_' . $id);
-            $this->session->setExpirationHops(1, null, true);
+            $this->session->setExpirationHops(1, null);
             $this->session->setExpirationSeconds($this->getTimeout());
         }
         return $this->session;

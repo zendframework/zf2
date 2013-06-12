@@ -28,7 +28,6 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        Registry::unsetRegistry();
         $this->helper = new Registry();
     }
 
@@ -130,19 +129,6 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $this->helper->setContainerClass('ZendTest\View\Helper\Placeholder\MockContainer');
         $container = $this->helper->createContainer('foo');
         $this->assertTrue($container instanceof MockContainer);
-    }
-
-    public function testGetRegistryReturnsRegistryInstance()
-    {
-        $registry = Registry::getRegistry();
-        $this->assertTrue($registry instanceof Registry);
-    }
-
-    public function testGetRegistrySubsequentTimesReturnsSameInstance()
-    {
-        $registry1 = Registry::getRegistry();
-        $registry2 = Registry::getRegistry();
-        $this->assertSame($registry1, $registry2);
     }
 
     /**

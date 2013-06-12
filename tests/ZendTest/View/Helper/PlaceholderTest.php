@@ -29,8 +29,6 @@ class PlaceholderTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        PlaceholderRegistry::unsetRegistry();
-
         $this->helper = new Placeholder();
     }
 
@@ -43,13 +41,6 @@ class PlaceholderTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($this->helper);
-        PlaceholderRegistry::unsetRegistry();
-    }
-
-    public function testMultiplePlaceholdersUseSameRegistry()
-    {
-        $placeholder = new Placeholder();
-        $this->assertSame($this->helper->getRegistry(), $placeholder->getRegistry());
     }
 
     /**

@@ -96,7 +96,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $prefixColumnsWithTable = true;
 
     /**
-     * @var string|TableIdentifier
+     * @var string|array|TableIdentifier
      */
     protected $table = null;
 
@@ -148,7 +148,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Constructor
      *
-     * @param  null|string $table
+     * @param  null|string|array|TableIdentifier $table
      */
     public function __construct($table = null)
     {
@@ -545,13 +545,38 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Returns whether the table is read only or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isTableReadOnly()
     {
         return $this->tableReadOnly;
     }
 
+    /**
+     * Render table with alias in from/join parts
+     *
+     * @todo move TableIdentifier concatination here
+     * @param string $table
+     * @param string $alias
+     * @return string
+     */
+    protected function renderTable($table, $alias = null)
+    {
+        $sql = $table;
+        if ($alias) {
+            $sql .= ' AS ' . $alias;
+        }
+        return $sql;
+    }
+
+    /**
+     * Process the select part
+     *
+     * @param PlatformInterface $platform
+     * @param DriverInterface $driver
+     * @param ParameterContainer $parameterContainer
+     * @return null|array
+     */
     protected function processSelect(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
         $expr = 1;
@@ -585,7 +610,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         if ($alias) {
             $fromTable = $platform->quoteIdentifier($alias);
-            $table .= ' AS ' . $fromTable;
+            $table = $this->renderTable($table, $fromTable);
         } else {
             $fromTable = $table;
         }

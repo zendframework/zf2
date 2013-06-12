@@ -11,6 +11,7 @@
 namespace ZendTest\Mvc\Controller;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use ReflectionObject;
 use stdClass;
 use Zend\EventManager\SharedEventManager;
 use Zend\Http\Response;
@@ -103,6 +104,21 @@ class RestfulControllerTest extends TestCase
         $result = $this->controller->dispatch($this->request, $this->response);
         $this->assertEquals($entities, $result);
         $this->assertEquals('replaceList', $this->routeMatch->getParam('action'));
+    }
+
+    public function testDispatchInvokesPatchListMethodWhenNoActionPresentAndPatchInvokedWithoutIdentifier()
+    {
+        $entities = array(
+            array('id' => uniqid(), 'name' => __FUNCTION__),
+            array('id' => uniqid(), 'name' => __FUNCTION__),
+            array('id' => uniqid(), 'name' => __FUNCTION__),
+        );
+        $string = http_build_query($entities);
+        $this->request->setMethod('PATCH')
+                      ->setContent($string);
+        $result = $this->controller->dispatch($this->request, $this->response);
+        $this->assertEquals($entities, $result);
+        $this->assertEquals('patchList', $this->routeMatch->getParam('action'));
     }
 
     public function testDispatchInvokesDeleteMethodWhenNoActionPresentAndDeleteInvokedWithIdentifier()
@@ -372,7 +388,7 @@ class RestfulControllerTest extends TestCase
         $this->assertFalse($this->controller->requestHasContentType($this->request, TestAsset\RestfulTestController::CONTENT_TYPE_JSON));
     }
 
-    public function testDispatchViaPatchWithoutIdentifierReturns405Response()
+    public function testDispatchViaPatchWithoutIdentifierReturns405ResponseIfPatchListThrowsException()
     {
         $entity = new stdClass;
         $entity->name = 'foo';
@@ -393,5 +409,45 @@ class RestfulControllerTest extends TestCase
         $result = $this->controller->dispatch($this->request, $this->response);
         $this->assertInstanceOf('Zend\Http\Response', $result);
         $this->assertEquals(405, $result->getStatusCode());
+    }
+
+    public function testDispatchInvokesGetMethodWhenNoActionPresentAndZeroIdentifierPresentOnGet()
+    {
+        $entity = new stdClass;
+        $this->controller->entity = $entity;
+        $this->routeMatch->setParam('id', 0);
+        $result = $this->controller->dispatch($this->request, $this->response);
+        $this->assertArrayHasKey('entity', $result);
+        $this->assertEquals($entity, $result['entity']);
+        $this->assertEquals('get', $this->routeMatch->getParam('action'));
+    }
+
+    public function testIdentifierNameDefaultsToId()
+    {
+        $this->assertEquals('id', $this->controller->getIdentifierName());
+    }
+
+    public function testCanSetIdentifierName()
+    {
+        $this->controller->setIdentifierName('name');
+        $this->assertEquals('name', $this->controller->getIdentifierName());
+    }
+
+    public function testUsesConfiguredIdentifierNameToGetIdentifier()
+    {
+        $r = new ReflectionObject($this->controller);
+        $getIdentifier = $r->getMethod('getIdentifier');
+        $getIdentifier->setAccessible(true);
+
+        $this->controller->setIdentifierName('name');
+
+        $this->routeMatch->setParam('name', 'foo');
+        $result = $getIdentifier->invoke($this->controller, $this->routeMatch, $this->request);
+        $this->assertEquals('foo', $result);
+
+        $this->routeMatch->setParam('name', false);
+        $this->request->getQuery()->set('name', 'bar');
+        $result = $getIdentifier->invoke($this->controller, $this->routeMatch, $this->request);
+        $this->assertEquals('bar', $result);
     }
 }

@@ -246,7 +246,7 @@ class SqliteMetadata extends AbstractSource
         $sql .= $name;
 
         if (null !== $value) {
-            $sql .= '(' . $p->quoteValue($value) . ')';
+            $sql .= '(' . $p->quoteTrustedValue($value) . ')';
         }
 
         $results = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
@@ -267,7 +267,7 @@ class SqliteMetadata extends AbstractSource
                 'CREATE',
                 array('TEMP|TEMPORARY'),
                 'VIEW',
-                array('IF','NOT','EXISTS'),
+                array('IF', 'NOT', 'EXISTS'),
                 $identifierChain,
                 'AS',
                 '(?<view_definition>.+)',
@@ -294,15 +294,15 @@ class SqliteMetadata extends AbstractSource
                 'CREATE',
                 array('TEMP|TEMPORARY'),
                 'TRIGGER',
-                array('IF','NOT','EXISTS'),
+                array('IF', 'NOT', 'EXISTS'),
                 $identifierChain,
                 array('(?<action_timing>BEFORE|AFTER|INSTEAD\\s+OF)',),
                 '(?<event_manipulation>DELETE|INSERT|UPDATE)',
-                array('OF','(?<column_usage>' . $identifierList . ')'),
+                array('OF', '(?<column_usage>' . $identifierList . ')'),
                 'ON',
                 '(?<event_object_table>' . $identifier . ')',
-                array('FOR','EACH','ROW'),
-                array('WHEN','(?<action_condition>.+)'),
+                array('FOR', 'EACH', 'ROW'),
+                array('WHEN', '(?<action_condition>.+)'),
                 '(?<action_statement>BEGIN',
                 '.+',
                 'END)',

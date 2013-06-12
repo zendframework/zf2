@@ -137,6 +137,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function getResource()
     {
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
         return $this->resource;
     }
 
@@ -176,7 +179,13 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         $connection = array_filter($connection); // remove nulls
         $connection = http_build_query($connection, null, ' '); // @link http://php.net/pg_connect
 
+        set_error_handler(function ($number, $string) {
+            throw new Exception\RuntimeException(
+                __METHOD__ . ': Unable to connect to database', null, new Exception\ErrorException($string, $number)
+            );
+        });
         $this->resource = pg_connect($connection);
+        restore_error_handler();
 
         if ($this->resource === false) {
             throw new Exception\RuntimeException(sprintf(
@@ -209,7 +218,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function beginTransaction()
     {
-        // TODO: Implement beginTransaction() method.
+        if ($this->inTransaction) {
+            throw new Exception\RuntimeException('Nested transactions are not supported');
+        }
+
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
+        pg_query($this->resource, 'BEGIN');
+        $this->inTransaction = true;
     }
 
     /**
@@ -217,7 +235,12 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function commit()
     {
-        // TODO: Implement commit() method.
+        if (!$this->inTransaction) {
+            return; // We ignore attempts to commit non-existing transaction
+        }
+
+        pg_query($this->resource, 'COMMIT');
+        $this->inTransaction = false;
     }
 
     /**
@@ -225,7 +248,12 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function rollback()
     {
-        // TODO: Implement rollback() method.
+        if (!$this->inTransaction) {
+            return;
+        }
+
+        pg_query($this->resource, 'ROLLBACK');
+        $this->inTransaction = false;
     }
 
     /**
