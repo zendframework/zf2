@@ -366,6 +366,71 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @testdox: unit test: test limit()
+     * @covers Zend\Db\Sql\Select::limit
+     */
+    public function testLimit()
+    {
+        $select = new Select;
+        $this->assertSame($select, $select->limit(5));
+        return $select;
+    }
+
+    /**
+     * @testdox: unit test: Test getRawState() returns information populated via limit()
+     * @covers Zend\Db\Sql\Select::getRawState
+     * @depends testLimit
+     */
+    public function testGetRawStateViaLimit(Select $select)
+    {
+        $this->assertEquals(5, $select->getRawState($select::LIMIT));
+    }
+
+    /**
+     * @testdox: unit test: test limit() throws execption when invalid parameter passed
+     * @covers Zend\Db\Sql\Select::limit
+     */
+    public function testLimitExceptionOnInvalidParameter()
+    {
+        $select = new Select;
+        $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', 'Zend\Db\Sql\Select::limit expects parameter to be numeric');
+        $select->limit('foobar');
+    }
+
+    /**
+     * @testdox: unit test: test offset()
+     * @covers Zend\Db\Sql\Select::offset
+     */
+    public function testOffset()
+    {
+        $select = new Select;
+        $this->assertSame($select, $select->offset(10));
+        return $select;
+    }
+
+    /**
+     * @testdox: unit test: Test getRawState() returns information populated via offset()
+     * @covers Zend\Db\Sql\Select::getRawState
+     * @depends testOffset
+     */
+    public function testGetRawStateViaOffset(Select $select)
+    {
+        $this->assertEquals(10, $select->getRawState($select::OFFSET));
+    }
+
+    /**
+     * @testdox: unit test: test offset() throws exception when invalid parameter passed
+     * @covers Zend\Db\Sql\Select::offset
+     */
+    public function testOffsetExceptionOnInvalidParameter()
+    {
+        $select = new Select;
+        $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', 'Zend\Db\Sql\Select::offset expects parameter to be numeric');
+        $select->offset('foobar');
+    }
+
+
+    /**
      * @testdox unit test: Test group() returns same Select object (is chainable)
      * @covers Zend\Db\Sql\Select::group
      */
@@ -412,6 +477,34 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     public function testGetRawStateViaHaving(Select $select)
     {
         $this->assertInstanceOf('Zend\Db\Sql\Having', $select->getRawState('having'));
+    }
+
+    /**
+     * @testdox unit test: Test combine() returns same Select object (is chainable)
+     * @covers Zend\Db\Sql\Select::combine
+     */
+    public function testCombine()
+    {
+        $select = new Select;
+        $combine = new Select;
+        $return = $select->combine($combine, $select::COMBINE_UNION, 'ALL');
+        $this->assertSame($select, $return);
+
+        return $return;
+    }
+
+    /**
+     * @testdox unit test: Test getRawState() returns information populated via combine()
+     * @covers Zend\Db\Sql\Select::getRawState
+     * @depends testCombine
+     */
+    public function testGetRawStateViaCombine(Select $select)
+    {
+        $state = $select->getRawState('combine');
+        $this->assertInstanceOf('Zend\Db\Sql\Select', $state['select']);
+        $this->assertNotSame($select, $state['select']);
+        $this->assertEquals(Select::COMBINE_UNION, $state['type']);
+        $this->assertEquals('ALL', $state['modifier']);
     }
 
     /**
@@ -558,6 +651,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      * @covers Zend\Db\Sql\Select::processOrder
      * @covers Zend\Db\Sql\Select::processLimit
      * @covers Zend\Db\Sql\Select::processOffset
+     * @covers Zend\Db\Sql\Select::processCombine
      */
     public function testProcessMethods(Select $select, $unused, $unused2, $unused3, $internalTests)
     {
@@ -1041,6 +1135,29 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             'processSelect' => array(array(array('"bar"', '"bar"')), '"foo" AS "x"')
         );
 
+        $select44 = new Select;
+        $select44->from('foo')->where('a = b');
+        $select44b = new Select;
+        $select44b->from('bar')->where('c = d');
+        $select44->combine($select44b, Select::COMBINE_UNION, 'ALL');
+        $sqlPrep44 = // same
+        $sqlStr44 = '( SELECT "foo".* FROM "foo" WHERE a = b ) UNION ALL ( SELECT "bar".* FROM "bar" WHERE c = d )';
+        $internalTests44 = array(
+            'processCombine' => array('UNION ALL', 'SELECT "bar".* FROM "bar" WHERE c = d')
+        );
+
+        // limit with offset
+        $select45 = new Select;
+        $select45->from('foo')->limit("5")->offset("10");
+        $sqlPrep45 = 'SELECT "foo".* FROM "foo" LIMIT ? OFFSET ?';
+        $sqlStr45 = 'SELECT "foo".* FROM "foo" LIMIT \'5\' OFFSET \'10\'';
+        $params45 = array('limit' => 5, 'offset' => 10);
+        $internalTests45 = array(
+            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processLimit'  => array('?'),
+            'processOffset' => array('?')
+        );
+
         /**
          * $select = the select object
          * $sqlPrep = the sql as a result of preparation
@@ -1095,6 +1212,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select41, $sqlPrep41, array(),    $sqlStr41, $internalTests41),
             array($select42, $sqlPrep42, array(),    $sqlStr42, $internalTests42),
             array($select43, $sqlPrep43, array(),    $sqlStr43, $internalTests43),
+            array($select44, $sqlPrep44, array(),    $sqlStr44, $internalTests44),
+            array($select45, $sqlPrep45, $params45,  $sqlStr45, $internalTests45),
         );
     }
 }

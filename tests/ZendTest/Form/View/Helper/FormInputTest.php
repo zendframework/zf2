@@ -97,6 +97,9 @@ class FormInputTest extends CommonTestCase
         $this->$assertion($expected, $markup);
     }
 
+    /**
+     * @return array
+     */
     public function validAttributes()
     {
         return array(
@@ -322,6 +325,7 @@ class FormInputTest extends CommonTestCase
 
     /**
      * @dataProvider validAttributes
+     * @return       void
      */
     public function testAllValidFormMarkupAttributesPresentInElementAreRendered($attribute, $assertion)
     {
