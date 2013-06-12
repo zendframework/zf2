@@ -41,7 +41,6 @@ class ConsoleModelOptions extends AbstractModelOptions
     public function setErrorLevel($errorLevel)
     {
         $this->errorLevel = (int) $errorLevel;
-
         return $this;
     }
 

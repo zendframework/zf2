@@ -15,10 +15,10 @@ use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
 use Zend\Http\Request;
 use Zend\Http\Response;
-use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Model\ViewModel;
 use Zend\View\Renderer;
+use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Resolver;
 use Zend\View\Variables as ViewVariables;
 use Zend\View\View;
@@ -321,7 +321,7 @@ class ViewTest extends TestCase
     {
         $this->attachTestStrategies();
         $test = (object) array('flag' => false);
-        $this->view->getEventManager()->attach('renderer.post', function ($e) use ($test) {
+        $this->view->getEventManager()->attach(ViewEvent::EVENT_RENDERER_POST, function (ViewEvent $e) use ($test) {
             $test->flag = true;
         });
         $variables = array(
@@ -349,7 +349,7 @@ class ViewTest extends TestCase
             return $renderer;
         });
 
-        $this->view->getEventManager(ViewEvent::EVENT_RENDERER_POST, function($e) use ($model2) {
+        $this->view->getEventManager(ViewEvent::EVENT_RENDERER_POST, function(ViewEvent $e) use ($model2) {
             $e->setModel($model2);
         });
 

@@ -76,7 +76,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     {
         $it = new \ArrayIterator(array('controller' => 'ctrl', 'action' => 'act'));
 
-        $url = $this->url->__invoke('default', $it);
+        $url = $this->helper->__invoke('default', $it);
         $this->assertEquals('/ctrl/act', $url);
     }
 
@@ -85,7 +85,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
      */
     public function testThrowsExceptionOnInvalidParams()
     {
-        $this->url->__invoke('default', 'invalid params');
+        $this->helper->__invoke('default', 'invalid params');
     }
 
     public function testPluginWithoutRouteMatchesInEventRaisesExceptionWhenNoRouteProvided()

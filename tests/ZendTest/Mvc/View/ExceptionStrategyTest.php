@@ -68,7 +68,7 @@ class ExceptionStrategyTest extends TestCase
                 $this->assertArrayNotHasKey('message', $variables);
                 $this->assertArrayNotHasKey('exception', $variables);
                 $this->assertArrayNotHasKey('display_exceptions', $variables);
-                $this->assertNotEquals('error', $model->getTemplate());
+                $this->assertNotEquals('error', $model->getOptions()->getTemplate());
             }
         }
     }
@@ -123,7 +123,7 @@ class ExceptionStrategyTest extends TestCase
             $this->assertArrayNotHasKey('message', $variables);
             $this->assertArrayNotHasKey('exception', $variables);
             $this->assertArrayNotHasKey('display_exceptions', $variables);
-            $this->assertNotEquals('error', $model->getTemplate());
+            $this->assertNotEquals('error', $model->getOptions()->getTemplate());
         }
     }
 
@@ -187,7 +187,7 @@ class ExceptionStrategyTest extends TestCase
             $this->assertArrayNotHasKey('message', $variables);
             $this->assertArrayNotHasKey('exception', $variables);
             $this->assertArrayNotHasKey('display_exceptions', $variables);
-            $this->assertNotEquals('error', $model->getTemplate());
+            $this->assertNotEquals('error', $model->getOptions()->getTemplate());
         }
     }
 }

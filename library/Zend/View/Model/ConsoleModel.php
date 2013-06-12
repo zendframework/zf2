@@ -105,7 +105,6 @@ class ConsoleModel extends ViewModel
     public function setResult($text)
     {
         $this->setVariable(self::RESULT, $text);
-
         return $this;
     }
 

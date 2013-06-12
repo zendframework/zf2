@@ -60,7 +60,6 @@ abstract class AbstractModelOptions extends AbstractOptions
     public function setAppend($flag)
     {
         $this->append = (bool) $flag;
-
         return $this;
     }
 
@@ -84,7 +83,6 @@ abstract class AbstractModelOptions extends AbstractOptions
     public function setCaptureTo($capture)
     {
         $this->captureTo = (string) $capture;
-
         return $this;
     }
 
@@ -107,7 +105,6 @@ abstract class AbstractModelOptions extends AbstractOptions
     public function setHasParent($flag)
     {
         $this->hasParent = (bool) $flag;
-
         return $this;
     }
 
@@ -130,7 +127,6 @@ abstract class AbstractModelOptions extends AbstractOptions
     public function setTemplate($template)
     {
         $this->template = (string) $template;
-
         return $this;
     }
 
@@ -154,7 +150,6 @@ abstract class AbstractModelOptions extends AbstractOptions
     public function setTerminal($flag)
     {
         $this->terminal = (bool) $flag;
-
         return $this;
     }
 

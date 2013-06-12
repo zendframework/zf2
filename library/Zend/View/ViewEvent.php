@@ -60,7 +60,6 @@ class ViewEvent extends Event
     public function setModel(Model $model)
     {
         $this->model = $model;
-
         return $this;
     }
 
@@ -83,7 +82,6 @@ class ViewEvent extends Event
     public function setRenderer(Renderer $renderer)
     {
         $this->renderer = $renderer;
-
         return $this;
     }
 
@@ -106,7 +104,6 @@ class ViewEvent extends Event
     public function setRequest(Request $request)
     {
         $this->request = $request;
-
         return $this;
     }
 
@@ -129,7 +126,6 @@ class ViewEvent extends Event
     public function setResponse(Response $response)
     {
         $this->response = $response;
-
         return $this;
     }
 
@@ -152,7 +148,6 @@ class ViewEvent extends Event
     public function setResult($result)
     {
         $this->result = $result;
-
         return $this;
     }
 

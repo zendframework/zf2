@@ -125,9 +125,9 @@ class NavigationTest extends AbstractTest
 
     public function testMultipleNavigationsAndOneMenuDisplayedTwoTimes()
     {
-        $expected = $this->_helper->setContainer($this->_nav1)->menu()->getContainer();
-        $this->_helper->setContainer($this->_nav2)->menu()->getContainer();
-        $actual = $this->_helper->setContainer($this->_nav1)->menu()->getContainer();
+        $expected = $this->helper->setContainer($this->_nav1)->menu()->getContainer();
+        $this->helper->setContainer($this->_nav2)->menu()->getContainer();
+        $actual = $this->helper->setContainer($this->_nav1)->menu()->getContainer();
 
         $this->assertEquals($expected, $actual);
     }

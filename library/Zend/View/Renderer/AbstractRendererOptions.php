@@ -33,7 +33,6 @@ abstract class AbstractRendererOptions extends AbstractOptions implements TreeRe
     public function setCanRenderTrees($renderTrees)
     {
         $this->renderTrees = (bool) $renderTrees;
-
         return $this;
     }
 

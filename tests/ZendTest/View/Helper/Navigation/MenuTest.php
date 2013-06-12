@@ -523,7 +523,7 @@ class MenuTest extends AbstractTest
         ));
 
         $expected = $this->_getExpected('menu/addclasstolistitem_as_false.html');
-        $actual   = $this->_helper->renderMenu($container);
+        $actual   = $this->helper->renderMenu($container);
 
         $this->assertEquals(trim($expected), trim($actual));
     }
@@ -542,7 +542,7 @@ class MenuTest extends AbstractTest
         ));
 
         $expected = $this->_getExpected('menu/addclasstolistitem_as_true.html');
-        $actual = $this->_helper->renderMenu($container, $options);
+        $actual = $this->helper->renderMenu($container, $options);
 
         $this->assertEquals(trim($expected), trim($actual));
     }
@@ -560,7 +560,7 @@ class MenuTest extends AbstractTest
         $container = new \Zend\Navigation\Navigation($pages);
 
         $expected = $this->_getExpected('menu/onlyactivebranch_addclasstolistitem.html');
-        $actual = $this->_helper->renderMenu($container, $options);
+        $actual = $this->helper->renderMenu($container, $options);
 
         $this->assertEquals(trim($expected), trim($actual));
     }

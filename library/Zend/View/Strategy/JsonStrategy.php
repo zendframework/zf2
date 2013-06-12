@@ -68,7 +68,6 @@ class JsonStrategy extends AbstractListenerAggregate
     public function setCharset($charset)
     {
         $this->charset = (string) $charset;
-
         return $this;
     }
 

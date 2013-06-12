@@ -128,7 +128,6 @@ class ConsoleRenderer implements Renderer
     public function setFilterChain(FilterChain $filters)
     {
         $this->filterChain = $filters;
-
         return $this;
     }
 

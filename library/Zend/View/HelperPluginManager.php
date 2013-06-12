@@ -106,7 +106,6 @@ class HelperPluginManager extends AbstractPluginManager
     public function setRenderer(Renderer\RendererInterface $renderer)
     {
         $this->renderer = $renderer;
-
         return $this;
     }
 

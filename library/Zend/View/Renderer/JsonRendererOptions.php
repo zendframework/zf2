@@ -75,7 +75,6 @@ class JsonRendererOptions extends AbstractRendererOptions
     public function setMergeUnnamedChildren($mergeUnnamedChildren)
     {
         $this->mergeUnnamedChildren = (bool) $mergeUnnamedChildren;
-
         return $this;
     }
 

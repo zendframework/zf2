@@ -102,7 +102,6 @@ class FeedModel extends AbstractModel
     public function setFeed(Feed $feed)
     {
         $this->feed = $feed;
-
         return $this;
     }
 

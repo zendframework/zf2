@@ -146,7 +146,7 @@ class RouteNotFoundStrategyTest extends TestCase
         $this->strategy->prepareNotFoundViewModel($event);
         $model = $event->getResult();
         if ($model instanceof ViewModel) {
-            $this->assertNotEquals($this->strategy->getNotFoundTemplate(), $model->getTemplate());
+            $this->assertNotEquals($this->strategy->getNotFoundTemplate(), $model->getOptions()->getTemplate());
             $variables = $model->getVariables();
             $this->assertArrayNotHasKey('message', $variables);
         }
@@ -162,7 +162,7 @@ class RouteNotFoundStrategyTest extends TestCase
         $this->strategy->prepareNotFoundViewModel($event);
         $model = $event->getResult();
         if ($model instanceof ViewModel) {
-            $this->assertNotEquals($this->strategy->getNotFoundTemplate(), $model->getTemplate());
+            $this->assertNotEquals($this->strategy->getNotFoundTemplate(), $model->getOptions()->getTemplate());
             $variables = $model->getVariables();
             $this->assertArrayNotHasKey('message', $variables);
         }

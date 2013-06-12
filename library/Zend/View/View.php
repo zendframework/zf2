@@ -44,7 +44,6 @@ class View implements EventManagerAwareInterface
     public function setRequest(Request $request)
     {
         $this->request = $request;
-
         return $this;
     }
 
@@ -67,7 +66,6 @@ class View implements EventManagerAwareInterface
     public function setResponse(Response $response)
     {
         $this->response = $response;
-
         return $this;
     }
 
@@ -110,7 +108,7 @@ class View implements EventManagerAwareInterface
     {
         $events->setIdentifiers(array(
             __CLASS__,
-            get_class($this),
+            get_called_class(),
         ));
         $this->events = $events;
 
@@ -149,7 +147,6 @@ class View implements EventManagerAwareInterface
     public function addRenderingStrategy($callable, $priority = 1)
     {
         $this->getEventManager()->attach(ViewEvent::EVENT_RENDERER, $callable, $priority);
-
         return $this;
     }
 
@@ -171,7 +168,6 @@ class View implements EventManagerAwareInterface
     public function addResponseStrategy($callable, $priority = 1)
     {
         $this->getEventManager()->attach(ViewEvent::EVENT_RESPONSE, $callable, $priority);
-
         return $this;
     }
 
@@ -211,7 +207,7 @@ class View implements EventManagerAwareInterface
 
         // If EVENT_RENDERER or EVENT_RENDERER_POST changed the model, make sure
         // we use this new model instead of the current $model
-        $model   = $event->getModel();
+        $model = $event->getModel();
 
         // If we have children, render them first, but only if:
         // a) the renderer does not implement TreeRendererInterface, or

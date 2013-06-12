@@ -226,7 +226,6 @@ class PhpRenderer implements Renderer
     public function setResolver(Resolver $resolver)
     {
         $this->__resolver = $resolver;
-
         return $this;
     }
 
@@ -459,7 +458,6 @@ class PhpRenderer implements Renderer
     public function setFilterChain(FilterChain $filters)
     {
         $this->__filterChain = $filters;
-
         return $this;
     }
 
@@ -576,7 +574,6 @@ class PhpRenderer implements Renderer
     public function addTemplate($template)
     {
         $this->__templates[] = $template;
-
         return $this;
     }
 

@@ -95,7 +95,6 @@ class FeedRenderer implements Renderer
     public function setResolver(Resolver $resolver)
     {
         $this->resolver = $resolver;
-
         return $this;
     }
 

@@ -77,7 +77,6 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
     public function attach(Resolver $resolver, $priority = 1)
     {
         $this->queue->insert($resolver, $priority);
-
         return $this;
     }
 
