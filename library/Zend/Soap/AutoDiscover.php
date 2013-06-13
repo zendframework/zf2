@@ -87,6 +87,13 @@ class AutoDiscover
      * @var DiscoveryStrategy
      */
     protected $discoveryStrategy;
+    
+    /**
+     * Service user rights
+     *
+     * @var array
+     */
+    protected $userRights = array();
 
     /**
      * Constructor
@@ -345,6 +352,41 @@ class AutoDiscover
         $this->class = $class;
         return $this;
     }
+    
+    /**
+     * Set User Rights for methods
+     * 
+     * @param array $userRights
+     * @throws Exception\InvalidArgumentException
+     * @return void
+     */
+    public function setUserRights($userRights) {
+        if(!is_array($userRights)) {
+    		throw new Exception\InvalidArgumentException('Invalid access');
+    	}
+    	
+    	$this->userRights = $userRights;
+    }
+    
+    /**
+     * Checks if user has rights to use method
+     * 
+     * @param array $methodAccess
+     * @return bool
+     */
+    protected function checkAccessRights($methodAccess) {
+    	if(empty($this->userRights) || empty($methodAccess)) {
+    		return true;
+    	}
+    	
+    	foreach($this->userRights as $userAccess) {
+    		if(in_array($userAccess, $methodAccess)) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
 
     /**
      * Add a Single or Multiple Functions to the WSDL
@@ -461,6 +503,10 @@ class AutoDiscover
         }
 
         $functionName = $wsdl->translateType($function->getName());
+        
+        if(!$this->checkAccessRights($function->getAccessRights())) {
+            return;
+        }
 
         // Add the input message (parameters)
         $args = array();
