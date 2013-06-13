@@ -19,4 +19,12 @@ interface FilterInterface
      * @return mixed
      */
     public function filter($value);
+
+    /**
+     * Proxy to filter method (this allows to make any filters Callable)
+     *
+     * @param  mixed $value
+     * @return mixed
+     */
+    public function __invoke($value);
 }

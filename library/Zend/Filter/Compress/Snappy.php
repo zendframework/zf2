@@ -14,15 +14,14 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for php snappy (http://code.google.com/p/php-snappy/)
  */
-class Snappy implements CompressionAlgorithmInterface
+class Snappy implements CompressionAdapterInterface
 {
     /**
      * Class constructor
      *
-     * @param null|array|\Traversable $options (Optional) Options to set
      * @throws Exception\ExtensionNotLoadedException if snappy extension not loaded
      */
-    public function __construct($options = null)
+    public function __construct()
     {
         if (!extension_loaded('snappy')) {
             throw new Exception\ExtensionNotLoadedException('This filter needs the snappy extension');
@@ -30,11 +29,7 @@ class Snappy implements CompressionAlgorithmInterface
     }
 
     /**
-     * Compresses the given content
-     *
-     * @param  string $content
-     * @return string
-     * @throws Exception\RuntimeException on memory, output length or data warning
+     * {@inheritDoc}
      */
     public function compress($content)
     {
@@ -48,11 +43,7 @@ class Snappy implements CompressionAlgorithmInterface
     }
 
     /**
-     * Decompresses the given content
-     *
-     * @param  string $content
-     * @return string
-     * @throws Exception\RuntimeException on memory, output length or data warning
+     * {@inheritDoc}
      */
     public function decompress($content)
     {
@@ -66,9 +57,7 @@ class Snappy implements CompressionAlgorithmInterface
     }
 
     /**
-     * Returns the adapter name
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function toString()
     {

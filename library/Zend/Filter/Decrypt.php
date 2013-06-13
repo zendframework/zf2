@@ -9,21 +9,24 @@
 
 namespace Zend\Filter;
 
+use Zend\Stdlib\AbstractOptions;
+
 /**
  * Decrypts a given string
  */
 class Decrypt extends Encrypt
 {
     /**
-     * Defined by Zend\Filter\Filter
-     *
      * Decrypts the content $value with the defined settings
-     *
-     * @param  string $value Content to decrypt
-     * @return string The decrypted content
+     * {@inheritDoc}
      */
     public function filter($value)
     {
+        $adapter = $this->getAdapter();
+        if (($adapterOptions = $this->getAdapterOptions()) && $adapter instanceof AbstractOptions) {
+            $adapter->setFromArray($adapterOptions);
+        }
+
         return $this->adapter->decrypt($value);
     }
 }

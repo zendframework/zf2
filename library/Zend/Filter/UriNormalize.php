@@ -22,26 +22,14 @@ class UriNormalize extends AbstractFilter
      *
      * @var string
      */
-    protected $defaultScheme = null;
+    protected $defaultScheme;
 
     /**
      * Enforced scheme for scheme-less URIs. See setEnforcedScheme docs for info
      *
      * @var string
      */
-    protected $enforcedScheme = null;
-
-    /**
-     * Sets filter options
-     *
-     * @param array|\Traversable|null $options
-     */
-    public function __construct($options = null)
-    {
-        if ($options) {
-            $this->setOptions($options);
-        }
-    }
+    protected $enforcedScheme;
 
     /**
      * Set the default scheme to use when parsing scheme-less URIs
@@ -50,16 +38,25 @@ class UriNormalize extends AbstractFilter
      * normalize the URI and thus may affect the resulting normalize URI.
      *
      * @param  string $defaultScheme
-     * @return \Zend\Filter\UriNormalize
+     * @return void
      */
     public function setDefaultScheme($defaultScheme)
     {
-        $this->defaultScheme = $defaultScheme;
-        return $this;
+        $this->defaultScheme = (string) $defaultScheme;
     }
 
     /**
-     * Set a URI scheme to enforce on schemeless URIs
+     * Get the default scheme to use when parsing scheme-less URIs
+     *
+     * @return string
+     */
+    public function getDefaultScheme()
+    {
+        return $this->defaultScheme;
+    }
+
+    /**
+     * Set a URI scheme to enforce on scheme-less URIs
      *
      * This allows forcing input values such as 'www.example.com/foo' into
      * 'http://www.example.com/foo'.
@@ -70,19 +67,26 @@ class UriNormalize extends AbstractFilter
      * real-world user mishaps, it may yield unexpected results at times.
      *
      * @param  string $enforcedScheme
-     * @return \Zend\Filter\UriNormalize
+     * @return void
      */
     public function setEnforcedScheme($enforcedScheme)
     {
-        $this->enforcedScheme = $enforcedScheme;
-        return $this;
+        $this->enforcedScheme = (string) $enforcedScheme;
+    }
+
+    /**
+     * Get the URI scheme to enforce on scheme-less URIs
+     *
+     * @return string
+     */
+    public function getEnforcedScheme()
+    {
+        return $this->enforcedScheme;
     }
 
     /**
      * Filter the URL by normalizing it and applying a default scheme if set
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {
@@ -121,7 +125,7 @@ class UriNormalize extends AbstractFilter
      *
      * @param Uri $uri
      */
-    protected function enforceScheme(Uri $uri)
+    private function enforceScheme(Uri $uri)
     {
         $path = $uri->getPath();
         if (strpos($path, '/') !== false) {

@@ -14,15 +14,14 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Lzf
  */
-class Lzf implements CompressionAlgorithmInterface
+class Lzf implements CompressionAdapterInterface
 {
     /**
      * Class constructor
      *
-     * @param  null $options
      * @throws Exception\ExtensionNotLoadedException if lzf extension missing
      */
-    public function __construct($options = null)
+    public function __construct()
     {
         if (!extension_loaded('lzf')) {
             throw new Exception\ExtensionNotLoadedException('This filter needs the lzf extension');
@@ -30,11 +29,7 @@ class Lzf implements CompressionAlgorithmInterface
     }
 
     /**
-     * Compresses the given content
-     *
-     * @param  string $content
-     * @return string
-     * @throws Exception\RuntimeException if error occurs during compression
+     * {@inheritDoc}
      */
     public function compress($content)
     {
@@ -47,11 +42,7 @@ class Lzf implements CompressionAlgorithmInterface
     }
 
     /**
-     * Decompresses the given content
-     *
-     * @param  string $content
-     * @return string
-     * @throws Exception\RuntimeException if error occurs during decompression
+     * {@inheritDoc}
      */
     public function decompress($content)
     {
@@ -64,9 +55,7 @@ class Lzf implements CompressionAlgorithmInterface
     }
 
     /**
-     * Returns the adapter name
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function toString()
     {

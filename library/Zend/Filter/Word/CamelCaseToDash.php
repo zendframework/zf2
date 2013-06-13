@@ -13,10 +13,11 @@ class CamelCaseToDash extends CamelCaseToSeparator
 {
     /**
      * Constructor
-     *
      */
     public function __construct()
     {
-        parent::__construct('-');
+        parent::__construct(array(
+            'separator' => '-'
+        ));
     }
 }

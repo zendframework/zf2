@@ -27,7 +27,7 @@ class StripTags extends AbstractFilter
      *
      * @var array
      */
-    protected $tagsAllowed = array();
+    protected $allowedTags = array();
 
     /**
      * Array of allowed attributes for all allowed tags
@@ -36,140 +36,84 @@ class StripTags extends AbstractFilter
      *
      * @var array
      */
-    protected $attributesAllowed = array();
+    protected $allowedAttributes = array();
 
     /**
-     * Sets the filter options
-     * Allowed options are
-     *     'allowTags'     => Tags which are allowed
-     *     'allowAttribs'  => Attributes which are allowed
-     *     'allowComments' => Are comments allowed ?
+     * Sets the allowed tags
      *
-     * @param  string|array|Traversable $options
+     * @param  array|string $allowedTags
+     * @return void
      */
-    public function __construct($options = null)
+    public function setTagsAllowed($allowedTags)
     {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-        if ((!is_array($options)) || (is_array($options) && !array_key_exists('allowTags', $options) &&
-            !array_key_exists('allowAttribs', $options) && !array_key_exists('allowComments', $options))) {
-            $options = func_get_args();
-            $temp['allowTags'] = array_shift($options);
-            if (!empty($options)) {
-                $temp['allowAttribs'] = array_shift($options);
-            }
+        $allowedTags = (array) $allowedTags;
 
-            if (!empty($options)) {
-                $temp['allowComments'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
-
-        if (array_key_exists('allowTags', $options)) {
-            $this->setTagsAllowed($options['allowTags']);
-        }
-
-        if (array_key_exists('allowAttribs', $options)) {
-            $this->setAttributesAllowed($options['allowAttribs']);
-        }
-    }
-
-    /**
-     * Returns the tagsAllowed option
-     *
-     * @return array
-     */
-    public function getTagsAllowed()
-    {
-        return $this->tagsAllowed;
-    }
-
-    /**
-     * Sets the tagsAllowed option
-     *
-     * @param  array|string $tagsAllowed
-     * @return StripTags Provides a fluent interface
-     */
-    public function setTagsAllowed($tagsAllowed)
-    {
-        if (!is_array($tagsAllowed)) {
-            $tagsAllowed = array($tagsAllowed);
-        }
-
-        foreach ($tagsAllowed as $index => $element) {
+        foreach ($allowedTags as $index => $element) {
             // If the tag was provided without attributes
             if (is_int($index) && is_string($element)) {
-                // Canonicalize the tag name
-                $tagName = strtolower($element);
-                // Store the tag as allowed with no attributes
-                $this->tagsAllowed[$tagName] = array();
-            }
-            // Otherwise, if a tag was provided with attributes
-            elseif (is_string($index) && (is_array($element) || is_string($element))) {
-                // Canonicalize the tag name
+                // Canonicalize the tag name and store the tag as allowed with no attributes
+                $tagName                     = strtolower($element);
+                $this->allowedTags[$tagName] = array();
+            } elseif (is_string($index) && (is_array($element) || is_string($element))) {
+                // Canonicalize the tag name and the attributes
                 $tagName = strtolower($index);
-                // Canonicalize the attributes
-                if (is_string($element)) {
-                    $element = array($element);
-                }
+                $element = (array) $element;
+
                 // Store the tag as allowed with the provided attributes
-                $this->tagsAllowed[$tagName] = array();
+                $this->allowedTags[$tagName] = array();
                 foreach ($element as $attribute) {
                     if (is_string($attribute)) {
                         // Canonicalize the attribute name
-                        $attributeName = strtolower($attribute);
-                        $this->tagsAllowed[$tagName][$attributeName] = null;
+                        $attributeName                               = strtolower($attribute);
+                        $this->allowedTags[$tagName][$attributeName] = null;
                     }
                 }
             }
         }
-
-        return $this;
     }
 
     /**
-     * Returns the attributesAllowed option
+     * Returns the allowed tags
      *
      * @return array
      */
-    public function getAttributesAllowed()
+    public function getAllowedTags()
     {
-        return $this->attributesAllowed;
+        return $this->allowedTags;
     }
 
     /**
-     * Sets the attributesAllowed option
+     * Sets the allowed attributes option
      *
-     * @param  array|string $attributesAllowed
-     * @return StripTags Provides a fluent interface
+     * @param  array|string $allowedAttributes
+     * @return void
      */
-    public function setAttributesAllowed($attributesAllowed)
+    public function setAllowedAttributes($allowedAttributes)
     {
-        if (!is_array($attributesAllowed)) {
-            $attributesAllowed = array($attributesAllowed);
-        }
+        $allowedAttributes = (array) $allowedAttributes;
 
         // Store each attribute as allowed
-        foreach ($attributesAllowed as $attribute) {
+        foreach ($allowedAttributes as $attribute) {
             if (is_string($attribute)) {
                 // Canonicalize the attribute name
-                $attributeName = strtolower($attribute);
-                $this->attributesAllowed[$attributeName] = null;
+                $attributeName                           = strtolower($attribute);
+                $this->allowedAttributes[$attributeName] = null;
             }
         }
-
-        return $this;
     }
 
     /**
-     * Defined by Zend\Filter\FilterInterface
+     * Returns the allowed attributes
      *
-     * @todo improve docblock descriptions
-     *
-     * @param  string $value
-     * @return string
+     * @return array
+     */
+    public function getAllowedAttributes()
+    {
+        return $this->allowedAttributes;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function filter($value)
     {
@@ -193,8 +137,8 @@ class StripTags extends AbstractFilter
 
         // Initialize accumulator for filtered data
         $dataFiltered = '';
-        // Parse the input data iteratively as regular pre-tag text followed by a
-        // tag; either may be empty strings
+
+        // Parse the input data iteratively as regular pre-tag text followed by a tag; either may be empty strings
         preg_match_all('/([^<]*)(<?[^>]*>?)/', (string) $value, $matches);
 
         // Iterate over each set of matches
@@ -206,7 +150,7 @@ class StripTags extends AbstractFilter
             // If a tag exists in this match, then filter the tag
             $tag = $matches[2][$index];
             if (strlen($tag)) {
-                $tagFiltered = $this->_filterTag($tag);
+                $tagFiltered = $this->filterTag($tag);
             } else {
                 $tagFiltered = '';
             }
@@ -224,7 +168,7 @@ class StripTags extends AbstractFilter
      * @param  string $tag
      * @return string
      */
-    protected function _filterTag($tag)
+    private function filterTag($tag)
     {
         // Parse the tag into:
         // 1. a starting delimiter (mandatory)
@@ -245,7 +189,7 @@ class StripTags extends AbstractFilter
         $tagEnd        = $matches[5];
 
         // If the tag is not an allowed tag, then remove the tag entirely
-        if (!isset($this->tagsAllowed[$tagName])) {
+        if (!isset($this->allowedTags[$tagName])) {
             return '';
         }
 
@@ -267,8 +211,8 @@ class StripTags extends AbstractFilter
                 $attributeValue     = empty($matches[3][$index]) ? $matches[5][$index] : $matches[3][$index];
 
                 // If the attribute is not allowed, then remove it entirely
-                if (!array_key_exists($attributeName, $this->tagsAllowed[$tagName])
-                    && !array_key_exists($attributeName, $this->attributesAllowed)) {
+                if (!array_key_exists($attributeName, $this->allowedTags[$tagName])
+                    && !array_key_exists($attributeName, $this->allowedAttributes)) {
                     continue;
                 }
                 // Add the attribute to the accumulator

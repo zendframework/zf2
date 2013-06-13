@@ -16,6 +16,9 @@ class DashToUnderscore extends SeparatorToSeparator
      */
     public function __construct()
     {
-        parent::__construct('-', '_');
+        parent::__construct(array(
+            'search_separator'      => '-',
+            'replacement_separator' => '_'
+        ));
     }
 }

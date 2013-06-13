@@ -19,64 +19,35 @@ class HtmlEntities extends AbstractFilter
      *
      * @var int
      */
-    protected $quoteStyle;
+    protected $quoteStyle = ENT_QUOTES;
 
     /**
      * Corresponds to the third htmlentities() argument
      *
      * @var string
      */
-    protected $encoding;
+    protected $encoding = 'UTF-8';
 
     /**
      * Corresponds to the forth htmlentities() argument
      *
      * @var bool
      */
-    protected $doubleQuote;
+    protected $doubleQuote = true;
 
     /**
-     * Sets filter options
+     * Sets the quote style option
      *
-     * @param array|Traversable $options
+     * @param  int $quoteStyle
+     * @return void
      */
-    public function __construct($options = array())
+    public function setQuoteStyle($quoteStyle)
     {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-        if (!is_array($options)) {
-            $options = func_get_args();
-            $temp['quotestyle'] = array_shift($options);
-            if (!empty($options)) {
-                $temp['charset'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
-
-        if (!isset($options['quotestyle'])) {
-            $options['quotestyle'] = ENT_QUOTES;
-        }
-
-        if (!isset($options['encoding'])) {
-            $options['encoding'] = 'UTF-8';
-        }
-        if (isset($options['charset'])) {
-            $options['encoding'] = $options['charset'];
-        }
-
-        if (!isset($options['doublequote'])) {
-            $options['doublequote'] = true;
-        }
-
-        $this->setQuoteStyle($options['quotestyle']);
-        $this->setEncoding($options['encoding']);
-        $this->setDoubleQuote($options['doublequote']);
+        $this->quoteStyle = (int) $quoteStyle;
     }
 
     /**
-     * Returns the quoteStyle option
+     * Returns the quote style option
      *
      * @return int
      */
@@ -86,17 +57,15 @@ class HtmlEntities extends AbstractFilter
     }
 
     /**
-     * Sets the quoteStyle option
+     * Set encoding
      *
-     * @param  int $quoteStyle
-     * @return HtmlEntities Provides a fluent interface
+     * @param  string $value
+     * @return void
      */
-    public function setQuoteStyle($quoteStyle)
+    public function setEncoding($value)
     {
-        $this->quoteStyle = $quoteStyle;
-        return $this;
+        $this->encoding = (string) $value;
     }
-
 
     /**
      * Get encoding
@@ -109,44 +78,18 @@ class HtmlEntities extends AbstractFilter
     }
 
     /**
-     * Set encoding
+     * Sets the double quote option
      *
-     * @param  string $value
-     * @return HtmlEntities
+     * @param  bool $doubleQuote
+     * @return void
      */
-    public function setEncoding($value)
+    public function setDoubleQuote($doubleQuote)
     {
-        $this->encoding = (string) $value;
-        return $this;
+        $this->doubleQuote = (bool) $doubleQuote;
     }
 
     /**
-     * Returns the charSet option
-     *
-     * Proxies to {@link getEncoding()}
-     *
-     * @return string
-     */
-    public function getCharSet()
-    {
-        return $this->getEncoding();
-    }
-
-    /**
-     * Sets the charSet option
-     *
-     * Proxies to {@link setEncoding()}
-     *
-     * @param  string $charSet
-     * @return HtmlEntities Provides a fluent interface
-     */
-    public function setCharSet($charSet)
-    {
-        return $this->setEncoding($charSet);
-    }
-
-    /**
-     * Returns the doubleQuote option
+     * Returns the double quote option
      *
      * @return bool
      */
@@ -156,41 +99,28 @@ class HtmlEntities extends AbstractFilter
     }
 
     /**
-     * Sets the doubleQuote option
-     *
-     * @param  bool $doubleQuote
-     * @return HtmlEntities Provides a fluent interface
-     */
-    public function setDoubleQuote($doubleQuote)
-    {
-        $this->doubleQuote = (bool) $doubleQuote;
-        return $this;
-    }
-
-    /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns the string $value, converting characters to their corresponding HTML entity
      * equivalents where they exist
-     *
-     * @param  string $value
-     * @throws Exception\DomainException
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {
-        $filtered = htmlentities((string) $value, $this->getQuoteStyle(), $this->getEncoding(), $this->getDoubleQuote());
+        $filtered = htmlentities((string) $value, $this->quoteStyle, $this->encoding, $this->doubleQuote);
+
         if (strlen((string) $value) && !strlen($filtered)) {
             if (!function_exists('iconv')) {
                 throw new Exception\DomainException('Encoding mismatch has resulted in htmlentities errors');
             }
-            $enc      = $this->getEncoding();
-            $value    = iconv('', $this->getEncoding() . '//IGNORE', (string) $value);
-            $filtered = htmlentities($value, $this->getQuoteStyle(), $enc, $this->getDoubleQuote());
+
+            // Ignored characters that cannot be represented in the target encoding
+            $value    = iconv('', $this->encoding . '//IGNORE', (string) $value);
+            $filtered = htmlentities($value, $this->quoteStyle, $this->encoding, $this->doubleQuote);
+
             if (!strlen($filtered)) {
                 throw new Exception\DomainException('Encoding mismatch has resulted in htmlentities errors');
             }
         }
+
         return $filtered;
     }
 }

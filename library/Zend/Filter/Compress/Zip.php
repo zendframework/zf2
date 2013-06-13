@@ -15,22 +15,17 @@ use ZipArchive;
 /**
  * Compression adapter for zip
  */
-class Zip extends AbstractCompressionAlgorithm
+class Zip extends AbstractCompressionAdapter
 {
     /**
-     * Compression Options
-     * array(
-     *     'archive'  => Archive to use
-     *     'password' => Password to use
-     *     'target'   => Target to write the files to
-     * )
-     *
-     * @var array
+     * @var string
      */
-    protected $options = array(
-        'archive' => null,
-        'target'  => null,
-    );
+    protected $archive;
+
+    /**
+     * @var string
+     */
+    protected $target;
 
     /**
      * Class constructor
@@ -43,7 +38,19 @@ class Zip extends AbstractCompressionAlgorithm
         if (!extension_loaded('zip')) {
             throw new Exception\ExtensionNotLoadedException('This filter needs the zip extension');
         }
+
         parent::__construct($options);
+    }
+
+    /**
+     * Sets the archive to use for de-/compression
+     *
+     * @param  string $archive Archive to use
+     * @return void
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $archive);
     }
 
     /**
@@ -53,21 +60,23 @@ class Zip extends AbstractCompressionAlgorithm
      */
     public function getArchive()
     {
-        return $this->options['archive'];
+        return $this->archive;
     }
 
     /**
-     * Sets the archive to use for de-/compression
+     * Sets the target to use
      *
-     * @param  string $archive Archive to use
-     * @return Zip
+     * @param  string $target
+     * @throws Exception\InvalidArgumentException
+     * @return void
      */
-    public function setArchive($archive)
+    public function setTarget($target)
     {
-        $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $archive);
-        $this->options['archive'] = $archive;
+        if (!file_exists(dirname($target))) {
+            throw new Exception\InvalidArgumentException('The directory "$target" does not exist');
+        }
 
-        return $this;
+        $this->target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $target);
     }
 
     /**
@@ -77,33 +86,11 @@ class Zip extends AbstractCompressionAlgorithm
      */
     public function getTarget()
     {
-        return $this->options['target'];
+        return $this->target;
     }
 
     /**
-     * Sets the target to use
-     *
-     * @param  string $target
-     * @throws Exception\InvalidArgumentException
-     * @return Zip
-     */
-    public function setTarget($target)
-    {
-        if (!file_exists(dirname($target))) {
-            throw new Exception\InvalidArgumentException("The directory '$target' does not exist");
-        }
-
-        $target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $target);
-        $this->options['target'] = $target;
-        return $this;
-    }
-
-    /**
-     * Compresses the given content
-     *
-     * @param  string $content
-     * @return string Compressed archive
-     * @throws Exception\RuntimeException if unable to open zip archive, or error during compression
+     * {@inheritDoc}
      */
     public function compress($content)
     {
@@ -117,6 +104,7 @@ class Zip extends AbstractCompressionAlgorithm
         if (file_exists($content)) {
             $content  = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
             $basename = substr($content, strrpos($content, DIRECTORY_SEPARATOR) + 1);
+
             if (is_dir($content)) {
                 $index    = strrpos($content, DIRECTORY_SEPARATOR) + 1;
                 $content .= DIRECTORY_SEPARATOR;
@@ -171,16 +159,12 @@ class Zip extends AbstractCompressionAlgorithm
         }
 
         $zip->close();
+
         return $this->options['archive'];
     }
 
     /**
-     * Decompresses the given content
-     *
-     * @param  string $content
-     * @return string
-     * @throws Exception\RuntimeException If archive file not found, target directory not found,
-     *                                    or error during decompression
+     * {@inheritDoc}
      */
     public function decompress($content)
     {
@@ -217,7 +201,16 @@ class Zip extends AbstractCompressionAlgorithm
         }
 
         $zip->close();
+
         return $target;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toString()
+    {
+        return 'Zip';
     }
 
     /**
@@ -226,7 +219,7 @@ class Zip extends AbstractCompressionAlgorithm
      * @param  string $error
      * @return string
      */
-    public function errorString($error)
+    private function errorString($error)
     {
         switch ($error) {
             case ZipArchive::ER_MULTIDISK :
@@ -301,15 +294,5 @@ class Zip extends AbstractCompressionAlgorithm
             default :
                 return 'Unknown error within ZIP Archive';
         }
-    }
-
-    /**
-     * Returns the adapter name
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return 'Zip';
     }
 }

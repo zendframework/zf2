@@ -12,12 +12,16 @@ namespace Zend\Filter\Word;
 class SeparatorToDash extends SeparatorToSeparator
 {
     /**
-     * Constructor
-     *
-     * @param  string  $searchSeparator  Separator to search for change
+     * @param array|\Traversable $options
      */
-    public function __construct($searchSeparator = ' ')
+    public function __construct(array $options = array())
     {
-        parent::__construct($searchSeparator, '-');
+        if (!isset($options['search_separator'])) {
+            $options['search_separator'] = ' ';
+        }
+
+        $options['replacement_operator'] = '-';
+
+        parent::__construct($options);
     }
 }

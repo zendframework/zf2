@@ -12,35 +12,48 @@ namespace Zend\Filter;
 abstract class AbstractUnicode extends AbstractFilter
 {
     /**
+     * @var string
+     */
+    protected $encoding;
+
+    /**
+     * Class constructor
+     *
+     * @param  array|null $options
+     * @throws Exception\ExtensionNotLoadedException
+     */
+    public function __construct($options = null)
+    {
+        if (!extension_loaded('mbstring')) {
+            throw new Exception\ExtensionNotLoadedException(sprintf(
+                'This filter ("%s") needs the mbstring extension',
+                get_class($this)
+            ));
+        }
+
+        parent::__construct($options);
+    }
+
+    /**
      * Set the input encoding for the given string
      *
-     * @param  string|null $encoding
-     * @return StringToLower
+     * @param  string $encoding
+     * @return void
      * @throws Exception\InvalidArgumentException
      * @throws Exception\ExtensionNotLoadedException
      */
-    public function setEncoding($encoding = null)
+    public function setEncoding($encoding)
     {
-        if ($encoding !== null) {
-            if (!function_exists('mb_strtolower')) {
-                throw new Exception\ExtensionNotLoadedException(sprintf(
-                    '%s requires mbstring extension to be loaded',
-                    get_class($this)
-                ));
-            }
-
-            $encoding    = strtolower($encoding);
-            $mbEncodings = array_map('strtolower', mb_list_encodings());
-            if (!in_array($encoding, $mbEncodings)) {
-                throw new Exception\InvalidArgumentException(sprintf(
-                    "Encoding '%s' is not supported by mbstring extension",
-                    $encoding
-                ));
-            }
+        $encoding    = strtolower($encoding);
+        $mbEncodings = array_map('strtolower', mb_list_encodings());
+        if (!in_array($encoding, $mbEncodings)) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Encoding "%s" is not supported by mbstring extension',
+                $encoding
+            ));
         }
 
-        $this->options['encoding'] = $encoding;
-        return $this;
+        $this->encoding = $encoding;
     }
 
     /**
@@ -50,10 +63,10 @@ abstract class AbstractUnicode extends AbstractFilter
      */
     public function getEncoding()
     {
-        if ($this->options['encoding'] === null && function_exists('mb_internal_encoding')) {
-            $this->options['encoding'] = mb_internal_encoding();
+        if (null === $this->encoding && function_exists('mb_internal_encoding')) {
+            $this->encoding['encoding'] = mb_internal_encoding();
         }
 
-        return $this->options['encoding'];
+        return $this->encoding;
     }
 }

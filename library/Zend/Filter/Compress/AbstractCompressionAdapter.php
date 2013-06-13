@@ -7,19 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\Word;
+namespace Zend\Filter\Compress;
 
-class UnderscoreToDash extends SeparatorToSeparator
+use Zend\Stdlib\AbstractOptions;
+
+/**
+ * Abstract compression adapter
+ */
+abstract class AbstractCompressionAdapter extends AbstractOptions implements CompressionAdapterInterface
 {
-    /**
-     * Constructor
-     *
-     */
-    public function __construct()
-    {
-        parent::__construct(array(
-            'search_separator'      => '_',
-            'replacement_separator' => '-'
-        ));
-    }
 }

@@ -17,22 +17,28 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Tar
  */
-class Tar extends AbstractCompressionAlgorithm
+class Tar extends AbstractCompressionAdapter
 {
     /**
-     * Compression Options
-     * array(
-     *     'archive'  => Archive to use
-     *     'target'   => Target to write the files to
-     * )
-     *
-     * @var array
+     * Compression mode constants
      */
-    protected $options = array(
-        'archive'  => null,
-        'target'   => '.',
-        'mode'     => null,
-    );
+    const COMPRESSION_MODE_BZ2 = 'bz2';
+    const COMPRESSION_MODE_GZ  = 'gz';
+
+    /**
+     * @var string
+     */
+    protected $compressionMode;
+
+    /**
+     * @var string
+     */
+    protected $archive;
+
+    /**
+     * @var string
+     */
+    protected $target = '.';
 
     /**
      * Class constructor
@@ -52,37 +58,24 @@ class Tar extends AbstractCompressionAlgorithm
     }
 
     /**
+     * Sets the archive to use for de-/compression
+     *
+     * @param  string $archive Archive to use
+     * @return void
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $archive);
+    }
+
+    /**
      * Returns the set archive
      *
      * @return string
      */
     public function getArchive()
     {
-        return $this->options['archive'];
-    }
-
-    /**
-     * Sets the archive to use for de-/compression
-     *
-     * @param  string $archive Archive to use
-     * @return Tar
-     */
-    public function setArchive($archive)
-    {
-        $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $archive);
-        $this->options['archive'] = $archive;
-
-        return $this;
-    }
-
-    /**
-     * Returns the set target path
-     *
-     * @return string
-     */
-    public function getTarget()
-    {
-        return $this->options['target'];
+        return $this->archive;
     }
 
     /**
@@ -98,19 +91,17 @@ class Tar extends AbstractCompressionAlgorithm
             throw new Exception\InvalidArgumentException("The directory '$target' does not exist");
         }
 
-        $target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $target);
-        $this->options['target'] = $target;
-        return $this;
+        $this->target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $target);
     }
 
     /**
-     * Returns the set compression mode
+     * Returns the set target path
      *
      * @return string
      */
-    public function getMode()
+    public function getTarget()
     {
-        return $this->options['mode'];
+        return $this->target;
     }
 
     /**
@@ -118,42 +109,46 @@ class Tar extends AbstractCompressionAlgorithm
      *
      * Either Gz or Bz2.
      *
-     * @param string $mode
-     * @return Tar
+     * @param  string $compressionMode
+     * @return void
      * @throws Exception\InvalidArgumentException for invalid $mode values
      * @throws Exception\ExtensionNotLoadedException if bz2 mode selected but extension not loaded
      * @throws Exception\ExtensionNotLoadedException if gz mode selected but extension not loaded
      */
-    public function setMode($mode)
+    public function setCompressionMode($compressionMode)
     {
-        $mode = ucfirst(strtolower($mode));
-        if (($mode != 'Bz2') && ($mode != 'Gz')) {
-            throw new Exception\InvalidArgumentException("The mode '$mode' is unknown");
+        if (!in_array($compressionMode, array(self::COMPRESSION_MODE_BZ2, self::COMPRESSION_MODE_GZ))) {
+            throw new Exception\InvalidArgumentException('The mode "$mode" is unknown');
         }
 
-        if (($mode == 'Bz2') && (!extension_loaded('bz2'))) {
+        if (($compressionMode == 'Bz2') && (!extension_loaded('bz2'))) {
             throw new Exception\ExtensionNotLoadedException('This mode needs the bz2 extension');
         }
 
-        if (($mode == 'Gz') && (!extension_loaded('zlib'))) {
+        if (($compressionMode == 'Gz') && (!extension_loaded('zlib'))) {
             throw new Exception\ExtensionNotLoadedException('This mode needs the zlib extension');
         }
 
-        $this->options['mode'] = $mode;
-        return $this;
+        $this->compressionMode = $compressionMode;
     }
 
     /**
-     * Compresses the given content
+     * Returns the set compression mode
      *
-     * @param  string $content
      * @return string
-     * @throws Exception\RuntimeException if unable to create temporary file
-     * @throws Exception\RuntimeException if unable to create archive
+     */
+    public function getCompressionMode()
+    {
+        return $this->compressionMode;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function compress($content)
     {
-        $archive = new Archive_Tar($this->getArchive(), $this->getMode());
+        $archive = new Archive_Tar($this->getArchive(), $this->getCompressionMode());
+
         if (!file_exists($content)) {
             $file = $this->getTarget();
             if (is_dir($file)) {
@@ -169,12 +164,13 @@ class Tar extends AbstractCompressionAlgorithm
         }
 
         if (is_dir($content)) {
-            // collect all file infos
-            foreach (new RecursiveIteratorIterator(
-                        new RecursiveDirectoryIterator($content, RecursiveDirectoryIterator::KEY_AS_PATHNAME),
-                        RecursiveIteratorIterator::SELF_FIRST
-                    ) as $directory => $info
-            ) {
+            // Collect all file infos
+            $recursiveIterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($content, RecursiveDirectoryIterator::KEY_AS_PATHNAME),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+
+            foreach ($recursiveIterator as $directory => $info) {
                 if ($info->isFile()) {
                     $file[] = $directory;
                 }
@@ -184,6 +180,7 @@ class Tar extends AbstractCompressionAlgorithm
         }
 
         $result  = $archive->create($content);
+
         if ($result === false) {
             throw new Exception\RuntimeException('Error creating the Tar archive');
         }
@@ -192,12 +189,7 @@ class Tar extends AbstractCompressionAlgorithm
     }
 
     /**
-     * Decompresses the given content
-     *
-     * @param  string $content
-     * @return string
-     * @throws Exception\RuntimeException if unable to find archive
-     * @throws Exception\RuntimeException if error occurs decompressing archive
+     * {@inheritDoc}
      */
     public function decompress($content)
     {
@@ -207,7 +199,8 @@ class Tar extends AbstractCompressionAlgorithm
         }
 
         $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
-        $archive = new Archive_Tar($archive, $this->getMode());
+        $archive = new Archive_Tar($archive, $this->getCompressionMode());
+
         $target  = $this->getTarget();
         if (!is_dir($target)) {
             $target = dirname($target) . DIRECTORY_SEPARATOR;
@@ -222,9 +215,7 @@ class Tar extends AbstractCompressionAlgorithm
     }
 
     /**
-     * Returns the adapter name
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function toString()
     {

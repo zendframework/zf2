@@ -12,7 +12,7 @@ namespace Zend\Filter\Compress;
 /**
  * Compression interface
  */
-interface CompressionAlgorithmInterface
+interface CompressionAdapterInterface
 {
     /**
      * Compresses $value with the defined settings

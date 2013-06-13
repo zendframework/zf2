@@ -10,6 +10,9 @@
 namespace Zend\Filter;
 
 use Traversable;
+use Zend\Filter\Encrypt\EncryptionAdapterInterface;
+use Zend\Filter\Encrypt\EncryptionAdapterPluginManager;
+use Zend\Stdlib\AbstractOptions;
 use Zend\Stdlib\ArrayUtils;
 
 /**
@@ -18,75 +21,76 @@ use Zend\Stdlib\ArrayUtils;
 class Encrypt extends AbstractFilter
 {
     /**
+     * @var EncryptionAdapterPluginManager
+     */
+    protected $adapterPluginManager;
+
+    /**
      * Encryption adapter
+     *
+     * @var EncryptionAdapterInterface
      */
     protected $adapter;
 
     /**
-     * Class constructor
-     *
-     * @param string|array|Traversable $options (Optional) Options to set, if null mcrypt is used
+     * Compression adapter constructor options
      */
-    public function __construct($options = null)
-    {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
+    protected $adapterOptions = array();
 
-        $this->setAdapter($options);
+    /**
+     * @param EncryptionAdapterPluginManager $adapterPluginManager
+     * @param array|Traversable|null         $options
+     */
+    public function __construct(EncryptionAdapterPluginManager $adapterPluginManager, $options = null)
+    {
+        $this->adapterPluginManager = $adapterPluginManager;
+        parent::__construct($options);
     }
 
     /**
-     * Returns the name of the set adapter
+     * Set the adapter (if a string, it is pulled from a encryption adapter plugin manager)
      *
-     * @return string
+     * @param string|EncryptionAdapterInterface $adapter
+     * @return void
+     */
+    public function setAdapter($adapter)
+    {
+        if (is_string($adapter)) {
+            $adapter = $this->adapterPluginManager->get($adapter);
+        }
+
+        $this->adapter = $adapter;
+    }
+
+    /**
+     * Get the current compression adapter
+     *
+     * @return EncryptionAdapterInterface
      */
     public function getAdapter()
     {
-        return $this->adapter->toString();
+        return $this->adapter;
     }
 
     /**
-     * Sets new encryption options
+     * Set adapter options
      *
-     * @param  string|array $options (Optional) Encryption options
-     * @return Encrypt
-     * @throws Exception\DomainException
-     * @throws Exception\InvalidArgumentException
+     * @param  array $options
+     * @return void
      */
-    public function setAdapter($options = null)
+    public function setAdapterOptions(array $options)
     {
-        if (is_string($options)) {
-            $adapter = $options;
-        } elseif (isset($options['adapter'])) {
-            $adapter = $options['adapter'];
-            unset($options['adapter']);
-        } else {
-            $adapter = 'BlockCipher';
-        }
+        $this->adapterOptions = $options;
+    }
 
-        if (!is_array($options)) {
-            $options = array();
-        }
-
-        if (class_exists('Zend\Filter\Encrypt\\' . ucfirst($adapter))) {
-            $adapter = 'Zend\Filter\Encrypt\\' . ucfirst($adapter);
-        } elseif (!class_exists($adapter)) {
-            throw new Exception\DomainException(
-                sprintf('%s expects a valid registry class name; received "%s", which did not resolve',
-                    __METHOD__,
-                    $adapter
-            ));
-        }
-
-        $this->adapter = new $adapter($options);
-        if (!$this->adapter instanceof Encrypt\EncryptionAlgorithmInterface) {
-            throw new Exception\InvalidArgumentException(
-                "Encoding adapter '" . $adapter
-                . "' does not implement Zend\\Filter\\Encrypt\\EncryptionAlgorithmInterface");
-        }
-
-        return $this;
+    /**
+     * Retrieve adapter options
+     *
+     * @return array
+     */
+    public function getAdapterOptions()
+    {
+        return $this->adapterOptions;
     }
 
     /**
@@ -108,15 +112,16 @@ class Encrypt extends AbstractFilter
     }
 
     /**
-     * Defined by Zend\Filter\Filter
-     *
      * Encrypts the content $value with the defined settings
-     *
-     * @param  string $value Content to encrypt
-     * @return string The encrypted content
+     * {@inheritDoc}
      */
     public function filter($value)
     {
+        $adapter = $this->getAdapter();
+        if (($adapterOptions = $this->getAdapterOptions()) && $adapter instanceof AbstractOptions) {
+            $adapter->setFromArray($adapterOptions);
+        }
+
         return $this->adapter->encrypt($value);
     }
 }

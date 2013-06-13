@@ -10,10 +10,9 @@
 namespace Zend\Filter\Encrypt;
 
 use Traversable;
-use Zend\Filter\Compress;
-use Zend\Filter\Decompress;
+use Zend\Filter\Compress\CompressionAdapterPluginManager;
 use Zend\Filter\Exception;
-use Zend\Stdlib\ArrayUtils;
+use Zend\Stdlib\AbstractOptions;
 use Zend\Crypt\BlockCipher as CryptBlockCipher;
 use Zend\Crypt\Exception as CryptException;
 use Zend\Crypt\Symmetric\Exception as SymmetricException;
@@ -21,10 +20,11 @@ use Zend\Crypt\Symmetric\Exception as SymmetricException;
 /**
  * Encryption adapter for Zend\Crypt\BlockCipher
  */
-class BlockCipher implements EncryptionAlgorithmInterface
+class BlockCipher extends AbstractEncryptionAdapter
 {
     /**
      * Definitions for encryption
+     *
      * array(
      *     'key'           => encryption key string
      *     'key_iteration' => the number of iterations for the PBKDF2 key generation
@@ -47,20 +47,13 @@ class BlockCipher implements EncryptionAlgorithmInterface
     protected $blockCipher;
 
     /**
-     * Internal compression
-     *
-     * @var array
-     */
-    protected $compression;
-
-    /**
      * Class constructor
      *
+     * @param  CompressionAdapterPluginManager $compressionAdapterPluginManager
      * @param  string|array|Traversable $options Encryption Options
      * @throws Exception\RuntimeException
-     * @throws Exception\InvalidArgumentException
      */
-    public function __construct($options)
+    public function __construct(CompressionAdapterPluginManager $compressionAdapterPluginManager, $options = null)
     {
         try {
             $this->blockCipher = CryptBlockCipher::factory('mcrypt', $this->encryption);
@@ -68,20 +61,52 @@ class BlockCipher implements EncryptionAlgorithmInterface
             throw new Exception\RuntimeException('The BlockCipher cannot be used without the Mcrypt extension');
         }
 
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        } elseif (is_string($options)) {
-            $options = array('key' => $options);
-        } elseif (!is_array($options)) {
+        parent::__construct($compressionAdapterPluginManager, $options);
+    }
+
+    /**
+     * Sets new encryption options
+     *
+     * @param  string|array $options Encryption options
+     * @return void
+     * @throws Exception\InvalidArgumentException
+     */
+    public function setEncryption($options)
+    {
+        if (is_string($options)) {
+            $this->blockCipher->setKey($options);
+            $this->encryption['key'] = $options;
+
+            return;
+        }
+
+        if (!is_array($options)) {
             throw new Exception\InvalidArgumentException('Invalid options argument provided to filter');
         }
 
-        if (array_key_exists('compression', $options)) {
-            $this->setCompression($options['compression']);
-            unset($options['compress']);
+        $options = $options + $this->encryption;
+
+        if (isset($options['key'])) {
+            $this->setKey($options['key']);
         }
 
-        $this->setEncryption($options);
+        if (isset($options['algorithm'])) {
+            $this->setAlgorithm($options['algorithm']);
+        }
+
+        if (isset($options['hash'])) {
+            $this->setHash($options['hash']);
+        }
+
+        if (isset($options['vector'])) {
+            $this->setVector($options['vector']);
+        }
+
+        if (isset($options['key_iteration'])) {
+            $this->blockCipher->setKeyIteration($options['key_iteration']);
+        }
+
+        $this->encryption = $options;
     }
 
     /**
@@ -95,57 +120,73 @@ class BlockCipher implements EncryptionAlgorithmInterface
     }
 
     /**
-     * Sets new encryption options
+     * Set the algorithm
      *
-     * @param  string|array $options Encryption options
-     * @return BlockCipher
+     * @param  string $algorithm
      * @throws Exception\InvalidArgumentException
      */
-    public function setEncryption($options)
+    public function setAlgorithm($algorithm)
     {
-        if (is_string($options)) {
-            $this->blockCipher->setKey($options);
-            $this->encryption['key'] = $options;
-            return $this;
+        try {
+            $this->blockCipher->setCipherAlgorithm($algorithm);
+        } catch (CryptException\InvalidArgumentException $e) {
+            throw new Exception\InvalidArgumentException("The algorithm '$algorithm' is not supported");
         }
 
-        if (!is_array($options)) {
-            throw new Exception\InvalidArgumentException('Invalid options argument provided to filter');
+        $this->encryption['algorithm'] = $algorithm;
+    }
+
+    /**
+     * Get the algorithm
+     *
+     * @return string
+     */
+    public function getAlgorithm()
+    {
+        return $this->encryption['algorithm'];
+    }
+
+    /**
+     * Set the hash used for authentication
+     *
+     * @param  string $hash
+     * @throws Exception\InvalidArgumentException
+     */
+    public function setHash($hash)
+    {
+        try {
+            $this->blockCipher->setHashAlgorithm($hash);
+        } catch (CryptException\InvalidArgumentException $e) {
+            throw new Exception\InvalidArgumentException("The hash '$hash' is not supported");
+        }
+    }
+
+    /**
+     * Get the hash used for authentication
+     *
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->encryption['hash'];
+    }
+
+    /**
+     * Set the initialization vector
+     *
+     * @param  string $vector
+     * @return void
+     * @throws Exception\InvalidArgumentException
+     */
+    public function setVector($vector)
+    {
+        try {
+            $this->blockCipher->setSalt($vector);
+        } catch (CryptException\InvalidArgumentException $e) {
+            throw new Exception\InvalidArgumentException($e->getMessage());
         }
 
-        $options = $options + $this->encryption;
-
-        if (isset($options['key'])) {
-            $this->blockCipher->setKey($options['key']);
-        }
-
-        if (isset($options['algorithm'])) {
-            try {
-                $this->blockCipher->setCipherAlgorithm($options['algorithm']);
-            } catch (CryptException\InvalidArgumentException $e) {
-                throw new Exception\InvalidArgumentException("The algorithm '{$options['algorithm']}' is not supported");
-            }
-        }
-
-        if (isset($options['hash'])) {
-            try {
-                $this->blockCipher->setHashAlgorithm($options['hash']);
-            } catch (CryptException\InvalidArgumentException $e) {
-                throw new Exception\InvalidArgumentException("The algorithm '{$options['hash']}' is not supported");
-            }
-        }
-
-        if (isset($options['vector'])) {
-            $this->setVector($options['vector']);
-        }
-
-        if (isset($options['key_iteration'])) {
-            $this->blockCipher->setKeyIteration($options['key_iteration']);
-        }
-
-        $this->encryption = $options;
-
-        return $this;
+        $this->encryption['vector'] = $vector;
     }
 
     /**
@@ -159,28 +200,10 @@ class BlockCipher implements EncryptionAlgorithmInterface
     }
 
     /**
-     * Set the inizialization vector
-     *
-     * @param  string $vector
-     * @return BlockCipher
-     * @throws Exception\InvalidArgumentException
-     */
-    public function setVector($vector)
-    {
-        try {
-            $this->blockCipher->setSalt($vector);
-        } catch (CryptException\InvalidArgumentException $e) {
-            throw new Exception\InvalidArgumentException($e->getMessage());
-        }
-        $this->encryption['vector'] = $vector;
-        return $this;
-    }
-
-    /**
      * Set the encryption key
      *
      * @param  string $key
-     * @return BlockCipher
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function setKey($key)
@@ -190,8 +213,8 @@ class BlockCipher implements EncryptionAlgorithmInterface
         } catch (CryptException\InvalidArgumentException $e) {
             throw new Exception\InvalidArgumentException($e->getMessage());
         }
+
         $this->encryption['key'] = $key;
-        return $this;
     }
 
     /**
@@ -205,46 +228,13 @@ class BlockCipher implements EncryptionAlgorithmInterface
     }
 
     /**
-     * Returns the compression
-     *
-     * @return array
-     */
-    public function getCompression()
-    {
-        return $this->compression;
-    }
-
-    /**
-     * Sets a internal compression for values to encrypt
-     *
-     * @param  string|array $compression
-     * @return BlockCipher
-     */
-    public function setCompression($compression)
-    {
-        if (is_string($this->compression)) {
-            $compression = array('adapter' => $compression);
-        }
-
-        $this->compression = $compression;
-        return $this;
-    }
-
-    /**
-     * Defined by Zend\Filter\FilterInterface
-     *
-     * Encrypts $value with the defined settings
-     *
-     * @param  string $value The content to encrypt
-     * @throws Exception\InvalidArgumentException
-     * @return string The encrypted content
+     * {@inheritDoc}
      */
     public function encrypt($value)
     {
-        // compress prior to encryption
-        if (!empty($this->compression)) {
-            $compress = new Compress($this->compression);
-            $value    = $compress($value);
+        // Compress prior to encryption
+        if (null !== $this->compression) {
+            $value = $this->compression->compress($value);
         }
 
         try {
@@ -252,34 +242,31 @@ class BlockCipher implements EncryptionAlgorithmInterface
         } catch (CryptException\InvalidArgumentException $e) {
             throw new Exception\InvalidArgumentException($e->getMessage());
         }
+
         return $encrypted;
     }
 
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
-     * Decrypts $value with the defined settings
-     *
-     * @param  string $value Content to decrypt
-     * @return string The decrypted content
+     * {@inheritDoc}
      */
     public function decrypt($value)
     {
-        $decrypted = $this->blockCipher->decrypt($value);
+        try {
+            $decrypted = $this->blockCipher->decrypt($value);
+        } catch (CryptException\InvalidArgumentException $e) {
+            throw new Exception\InvalidArgumentException($e->getMessage());
+        }
 
         // decompress after decryption
-        if (!empty($this->compression)) {
-            $decompress = new Decompress($this->compression);
-            $decrypted  = $decompress($decrypted);
+        if (null !== $this->compression) {
+            $decrypted = $this->compression->decompress($decrypted);
         }
 
         return $decrypted;
     }
 
     /**
-     * Returns the adapter name
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function toString()
     {

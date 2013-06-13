@@ -12,7 +12,7 @@ namespace Zend\Filter\Encrypt;
 /**
  * Encryption interface
  */
-interface EncryptionAlgorithmInterface
+interface EncryptionAdapterInterface
 {
     /**
      * Encrypts $value with the defined settings

@@ -31,22 +31,9 @@ class FilterPluginManager extends AbstractPluginManager
         'basename'                  => 'Zend\Filter\BaseName',
         'boolean'                   => 'Zend\Filter\Boolean',
         'callback'                  => 'Zend\Filter\Callback',
-        'compress'                  => 'Zend\Filter\Compress',
-        'compressbz2'               => 'Zend\Filter\Compress\Bz2',
-        'compressgz'                => 'Zend\Filter\Compress\Gz',
-        'compresslzf'               => 'Zend\Filter\Compress\Lzf',
-        'compressrar'               => 'Zend\Filter\Compress\Rar',
-        'compresssnappy'            => 'Zend\Filter\Compress\Snappy',
-        'compresstar'               => 'Zend\Filter\Compress\Tar',
-        'compresszip'               => 'Zend\Filter\Compress\Zip',
         'datetimeformatter'         => 'Zend\Filter\DateTimeFormatter',
-        'decompress'                => 'Zend\Filter\Decompress',
-        'decrypt'                   => 'Zend\Filter\Decrypt',
         'digits'                    => 'Zend\Filter\Digits',
         'dir'                       => 'Zend\Filter\Dir',
-        'encrypt'                   => 'Zend\Filter\Encrypt',
-        'encryptblockcipher'        => 'Zend\Filter\Encrypt\BlockCipher',
-        'encryptopenssl'            => 'Zend\Filter\Encrypt\Openssl',
         'filedecrypt'               => 'Zend\Filter\File\Decrypt',
         'fileencrypt'               => 'Zend\Filter\File\Encrypt',
         'filelowercase'             => 'Zend\Filter\File\LowerCase',
@@ -81,6 +68,16 @@ class FilterPluginManager extends AbstractPluginManager
     );
 
     /**
+     * @var array
+     */
+    protected $factories = array(
+        'compress'                  => 'Zend\Filter\Factory\CompressFilterFactory',
+        'decompress'                => 'Zend\Filter\Factory\DecompressFilterFactory',
+        'decrypt'                   => 'Zend\Filter\Factory\DecryptFilterFactory',
+        'encrypt'                   => 'Zend\Filter\Factory\EncryptFilterFactory',
+    );
+
+    /**
      * Whether or not to share by default; default to false
      *
      * @var bool
@@ -99,12 +96,8 @@ class FilterPluginManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof FilterInterface) {
+        if ($plugin instanceof FilterInterface || is_callable($plugin)) {
             // we're okay
-            return;
-        }
-        if (is_callable($plugin)) {
-            // also okay
             return;
         }
 

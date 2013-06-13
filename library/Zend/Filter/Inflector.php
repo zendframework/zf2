@@ -10,7 +10,6 @@
 namespace Zend\Filter;
 
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
 
 /**
  * Filter chain for string inflection
@@ -20,12 +19,7 @@ class Inflector extends AbstractFilter
     /**
      * @var FilterPluginManager
      */
-    protected $pluginManager = null;
-
-    /**
-     * @var string
-     */
-    protected $target = null;
+    protected $filterPluginManager;
 
     /**
      * @var bool
@@ -38,6 +32,11 @@ class Inflector extends AbstractFilter
     protected $targetReplacementIdentifier = ':';
 
     /**
+     * @var string
+     */
+    protected $target = '';
+
+    /**
      * @var array
      */
     protected $rules = array();
@@ -45,37 +44,13 @@ class Inflector extends AbstractFilter
     /**
      * Constructor
      *
+     * @param FilterPluginManager $filterPluginManager
      * @param string|array|Traversable $options Options to set
      */
-    public function __construct($options = null)
+    public function __construct(FilterPluginManager $filterPluginManager, $options = null)
     {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-        if (!is_array($options)) {
-            $options = func_get_args();
-            $temp    = array();
-
-            if (!empty($options)) {
-                $temp['target'] = array_shift($options);
-            }
-
-            if (!empty($options)) {
-                $temp['rules'] = array_shift($options);
-            }
-
-            if (!empty($options)) {
-                $temp['throwTargetExceptionsOn'] = array_shift($options);
-            }
-
-            if (!empty($options)) {
-                $temp['targetReplacementIdentifier'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
-
-        $this->setOptions($options);
+        $this->filterPluginManager = $filterPluginManager;
+        parent::__construct($options);
     }
 
     /**
@@ -85,62 +60,7 @@ class Inflector extends AbstractFilter
      */
     public function getPluginManager()
     {
-        if (!$this->pluginManager instanceof FilterPluginManager) {
-            $this->setPluginManager(new FilterPluginManager());
-        }
-
-        return $this->pluginManager;
-    }
-
-    /**
-     * Set plugin manager
-     *
-     * @param  FilterPluginManager $manager
-     * @return Inflector
-     */
-    public function setPluginManager(FilterPluginManager $manager)
-    {
-        $this->pluginManager = $manager;
-        return $this;
-    }
-
-    /**
-     * Set options
-     *
-     * @param  array|Traversable $options
-     * @return Inflector
-     */
-    public function setOptions($options)
-    {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-
-        // Set plugin manager
-        if (array_key_exists('pluginManager', $options)) {
-            if (is_scalar($options['pluginManager']) && class_exists($options['pluginManager'])) {
-                $options['pluginManager'] = new $options['pluginManager'];
-            }
-            $this->setPluginManager($options['pluginManager']);
-        }
-
-        if (array_key_exists('throwTargetExceptionsOn', $options)) {
-            $this->setThrowTargetExceptionsOn($options['throwTargetExceptionsOn']);
-        }
-
-        if (array_key_exists('targetReplacementIdentifier', $options)) {
-            $this->setTargetReplacementIdentifier($options['targetReplacementIdentifier']);
-        }
-
-        if (array_key_exists('target', $options)) {
-            $this->setTarget($options['target']);
-        }
-
-        if (array_key_exists('rules', $options)) {
-            $this->addRules($options['rules']);
-        }
-
-        return $this;
+        return $this->filterPluginManager;
     }
 
     /**
@@ -148,12 +68,11 @@ class Inflector extends AbstractFilter
      * identifier is still found within an inflected target.
      *
      * @param bool $throwTargetExceptionsOn
-     * @return Inflector
+     * @return void
      */
     public function setThrowTargetExceptionsOn($throwTargetExceptionsOn)
     {
-        $this->throwTargetExceptionsOn = ($throwTargetExceptionsOn == true) ? true : false;
-        return $this;
+        $this->throwTargetExceptionsOn = (bool) $throwTargetExceptionsOn;
     }
 
     /**
@@ -170,15 +89,11 @@ class Inflector extends AbstractFilter
      * Set the Target Replacement Identifier, by default ':'
      *
      * @param string $targetReplacementIdentifier
-     * @return Inflector
+     * @return void
      */
     public function setTargetReplacementIdentifier($targetReplacementIdentifier)
     {
-        if ($targetReplacementIdentifier) {
-            $this->targetReplacementIdentifier = (string) $targetReplacementIdentifier;
-        }
-
-        return $this;
+        $this->targetReplacementIdentifier = (string) $targetReplacementIdentifier;
     }
 
     /**
@@ -192,16 +107,14 @@ class Inflector extends AbstractFilter
     }
 
     /**
-     * Set a Target
-     * ex: 'scripts/:controller/:action.:suffix'
+     * Set a Target (ex: 'scripts/:controller/:action.:suffix')
      *
      * @param string
-     * @return Inflector
+     * @return void
      */
     public function setTarget($target)
     {
         $this->target = (string) $target;
-        return $this;
     }
 
     /**
@@ -215,15 +128,14 @@ class Inflector extends AbstractFilter
     }
 
     /**
-     * Set Target Reference
+     * Set target Reference
      *
-     * @param reference $target
-     * @return Inflector
+     * @param mixed $target
+     * @return void
      */
     public function setTargetReference(&$target)
     {
         $this->target =& $target;
-        return $this;
     }
 
     /**
@@ -231,13 +143,12 @@ class Inflector extends AbstractFilter
      * clears the rules before adding them.
      *
      * @param array $rules
-     * @return Inflector
+     * @return void
      */
-    public function setRules(Array $rules)
+    public function setRules(array $rules)
     {
         $this->clearRules();
         $this->addRules($rules);
-        return $this;
     }
 
     /**
@@ -254,11 +165,12 @@ class Inflector extends AbstractFilter
      *     );
      *
      * @param array
-     * @return Inflector
+     * @return void
      */
-    public function addRules(Array $rules)
+    public function addRules(array $rules)
     {
         $keys = array_keys($rules);
+
         foreach ($keys as $spec) {
             if ($spec[0] == ':') {
                 $this->addFilterRule($spec, $rules[$spec]);
@@ -266,8 +178,6 @@ class Inflector extends AbstractFilter
                 $this->setStaticRule($spec, $rules[$spec]);
             }
         }
-
-        return $this;
     }
 
     /**
@@ -277,16 +187,18 @@ class Inflector extends AbstractFilter
      * rules if found, false otherwise.
      *
      * @param  string $spec
-     * @return array|false
+     * @return array
      */
     public function getRules($spec = null)
     {
         if (null !== $spec) {
-            $spec = $this->_normalizeSpec($spec);
+            $spec = $this->normalizeSpec($spec);
+
             if (isset($this->rules[$spec])) {
                 return $this->rules[$spec];
             }
-            return false;
+
+            return array();
         }
 
         return $this->rules;
@@ -297,28 +209,29 @@ class Inflector extends AbstractFilter
      *
      * @param string $spec
      * @param int $index
-     * @return FilterInterface|false
+     * @return FilterInterface|null
      */
     public function getRule($spec, $index)
     {
-        $spec = $this->_normalizeSpec($spec);
+        $spec = $this->normalizeSpec($spec);
+
         if (isset($this->rules[$spec]) && is_array($this->rules[$spec])) {
             if (isset($this->rules[$spec][$index])) {
                 return $this->rules[$spec][$index];
             }
         }
-        return false;
+
+        return null;
     }
 
     /**
-     * ClearRules() clears the rules currently in the inflector
+     * Clears the rules currently in the inflector
      *
-     * @return Inflector
+     * @return void
      */
     public function clearRules()
     {
         $this->rules = array();
-        return $this;
     }
 
     /**
@@ -327,13 +240,14 @@ class Inflector extends AbstractFilter
      *
      * @param string $spec
      * @param array|string|\Zend\Filter\FilterInterface $ruleSet
-     * @return Inflector
+     * @return void
      */
     public function setFilterRule($spec, $ruleSet)
     {
-        $spec = $this->_normalizeSpec($spec);
+        $spec = $this->normalizeSpec($spec);
+
         $this->rules[$spec] = array();
-        return $this->addFilterRule($spec, $ruleSet);
+        $this->addFilterRule($spec, $ruleSet);
     }
 
     /**
@@ -341,11 +255,11 @@ class Inflector extends AbstractFilter
      *
      * @param mixed $spec
      * @param mixed $ruleSet
-     * @return Inflector
+     * @return void
      */
     public function addFilterRule($spec, $ruleSet)
     {
-        $spec = $this->_normalizeSpec($spec);
+        $spec = $this->normalizeSpec($spec);
         if (!isset($this->rules[$spec])) {
             $this->rules[$spec] = array();
         }
@@ -361,10 +275,8 @@ class Inflector extends AbstractFilter
         }
 
         foreach ($ruleSet as $rule) {
-            $this->rules[$spec][] = $this->_getRule($rule);
+            $this->rules[$spec][] = $this->resolveRule($rule);
         }
-
-        return $this;
     }
 
     /**
@@ -372,13 +284,12 @@ class Inflector extends AbstractFilter
      *
      * @param string $name
      * @param string $value
-     * @return Inflector
+     * @return void
      */
     public function setStaticRule($name, $value)
     {
-        $name = $this->_normalizeSpec($name);
+        $name = $this->normalizeSpec($name);
         $this->rules[$name] = (string) $value;
-        return $this;
     }
 
     /**
@@ -390,13 +301,12 @@ class Inflector extends AbstractFilter
      *
      * @param string $name
      * @param mixed $reference
-     * @return Inflector
+     * @return void
      */
     public function setStaticRuleReference($name, &$reference)
     {
-        $name = $this->_normalizeSpec($name);
+        $name = $this->normalizeSpec($name);
         $this->rules[$name] =& $reference;
-        return $this;
     }
 
     /**
@@ -449,7 +359,7 @@ class Inflector extends AbstractFilter
      * @param  string $spec
      * @return string
      */
-    protected function _normalizeSpec($spec)
+    private function normalizeSpec($spec)
     {
         return ltrim((string) $spec, ':&');
     }
@@ -457,16 +367,15 @@ class Inflector extends AbstractFilter
     /**
      * Resolve named filters and convert them to filter objects.
      *
-     * @param  string $rule
+     * @param  FilterInterface|string $rule
      * @return FilterInterface
      */
-    protected function _getRule($rule)
+    private function resolveRule($rule)
     {
         if ($rule instanceof FilterInterface) {
             return $rule;
         }
 
-        $rule = (string) $rule;
-        return $this->getPluginManager()->get($rule);
+        return $this->filterPluginManager->get((string) $rule);
     }
 }

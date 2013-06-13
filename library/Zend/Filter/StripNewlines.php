@@ -13,12 +13,8 @@ class StripNewlines extends AbstractFilter
 {
 
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns $value without newline control characters
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter ($value)
     {
