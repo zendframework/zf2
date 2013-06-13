@@ -71,6 +71,12 @@ abstract class AbstractFunction
      */
     protected $prototypes = array();
 
+    /**
+     * Function/method accessRights
+     * @var array
+     */
+    protected $accessRights = array();
+
     private $return;
     private $returnDesc;
     private $paramDesc;
@@ -233,6 +239,9 @@ abstract class AbstractFunction
         $parameters = $function->getParameters();
         $scanner    = new DocBlockReflection(($function->getDocComment()) ? : '/***/');
         $helpText   = $scanner->getLongDescription();
+        
+        /* @var \Zend\Code\Reflection\DocBlack\Tag\GenericTag $accessTag */
+        $accessTags = $scanner->getTag('access');
         /* @var \Zend\Code\Reflection\DocBlock\Tag\ParamTag[] $paramTags */
         $paramTags = $scanner->getTags('param');
         /* @var \Zend\Code\Reflection\DocBlock\Tag\ReturnTag $returnTag */
@@ -255,6 +264,14 @@ abstract class AbstractFunction
         } else {
             $return     = array('void');
             $returnDesc = '';
+        }
+        
+        if($accessTags) {
+            $content = $accessTags->getContent();
+        	$acls = explode(' ', $content);
+        	if(is_array($acls)) {
+        		$this->setAccessRights($acls);
+        	}
         }
 
         $paramTypesTmp = array();
@@ -402,6 +419,31 @@ abstract class AbstractFunction
     public function getDescription()
     {
         return $this->description;
+    }
+    
+    /**
+     * Set the access rights
+     * 
+     * @param array $array
+     * @throws Exception\InvalidArgumentException
+     * @return void
+     */
+    public function setAccessRights($array) {
+        
+    	if(!is_array($array)) {
+    		throw new Exception\InvalidArgumentException('Invalid access');
+    	}
+    	
+    	$this->accessRights = $array;
+    }
+    
+    /**
+     * Retrieve access rights
+     * 
+     * @return array
+     */
+    public function getAccessRights() {
+    	return $this->accessRights;
     }
 
     /**
