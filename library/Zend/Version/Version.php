@@ -73,7 +73,7 @@ final class Version
      * @param string $service Version Service with which to retrieve the version
      * @return string
      */
-    public static function getLatest($service = self::VERSION_SERVICE_ZEND)
+    public static function getLatest($service = self::VERSION_SERVICE_GITHUB)
     {
         if (null === static::$latestVersion) {
             static::$latestVersion = 'not available';
