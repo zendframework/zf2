@@ -80,7 +80,7 @@ final class Version
             if ($service == self::VERSION_SERVICE_GITHUB) {
                 $url  = 'https://api.github.com/repos/zendframework/zf2/git/refs/tags/release-';
 
-                $apiResponse = Json::decode(file_get_contents($url), Json::TYPE_ARRAY);
+                $apiResponse = Json::decode(self::readUrlContent($url), Json::TYPE_ARRAY);
 
                 // Simplify the API response into a simple array of version numbers
                 $tags = array_map(function ($tag) {
@@ -92,15 +92,55 @@ final class Version
                     return version_compare($a, $b, '>') ? $a : $b;
                 });
             } elseif ($service == self::VERSION_SERVICE_ZEND) {
-                $handle = fopen('http://framework.zend.com/api/zf-version?v=2', 'r');
-                if (false !== $handle) {
-                    static::$latestVersion = stream_get_contents($handle);
-                    fclose($handle);
-                }
+                $url = 'http://framework.zend.com/api/zf-version?v=2';
+
+                static::$latestVersion = self::readUrlContent($url);
             }
         }
 
         return static::$latestVersion;
+    }
+
+    /**
+     * Fetches the content from the given SSL URL, using the work-around for the 
+     * Signed SSL and sending the ZF2's Github Repository as user-agent.
+     *
+     * In some environments, for security reasons, the directive "allow_url_fopen" 
+     * is disabled in favor of cURL. 
+     * 
+     * Defaulting to cURL for performance reasons.
+     *
+     * @param string $url The URL from the service to retrieve the version
+     * @return string
+     */
+    protected static function readUrlContent($url)
+    {
+        $contents = '';
+        if (function_exists('curl_init')) {
+            //The server supports cURL
+            $c = curl_init();
+            curl_setopt($c, CURLOPT_USERAGENT, 'zendframework/zf2');
+            curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($c, CURLOPT_URL, $url);
+            $contents = curl_exec($c);
+            curl_close($c);
+        } elseif (ini_get('allow_url_fopen')) {
+            //URL-aware fopen enabled
+            $context = stream_context_create(array(
+                'http' => array(
+                    'method' => 'GET',
+                    'header' => 'User-Agent: zendframework/zf2',
+                ),
+                'ssl'  => array(
+                    'allow_self_signed' => true,
+                    'verify_peer'       => false,
+                )
+            ));
+
+            $contents = file_get_contents($url, false, $context);
+        }
+        return $contents;
     }
 
     /**
