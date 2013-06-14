@@ -294,6 +294,14 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
         $server = new AutoDiscover();
         $server->getUri();
     }
+    
+    /**
+     * @expectedException \Zend\Soap\Exception\InvalidArgumentException
+     */
+    public function testSetUserRightsException() {
+        $server = new AutoDiscover();
+        $server->setUserRights('');
+    }
 
     public function testClassMap()
     {
