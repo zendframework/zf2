@@ -67,7 +67,7 @@ class FileGenerator extends AbstractGenerator
      * @param  string $filePath
      * @param  bool $includeIfNotAlreadyIncluded
      * @throws Exception\InvalidArgumentException If file does not exists
-     * @throes Exception\RuntimeException If file exists but is not included or required
+     * @throws Exception\RuntimeException If file exists but is not included or required
      * @return FileGenerator
      */
     public static function fromReflectedFileName($filePath, $includeIfNotAlreadyIncluded = true)
