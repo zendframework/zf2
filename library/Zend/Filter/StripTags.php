@@ -173,6 +173,11 @@ class StripTags extends AbstractFilter
      */
     public function filter($value)
     {
+        // Do not filter non-string values
+        if (!is_string($value)) {
+            return $value;
+        }
+
         $value = (string) $value;
 
         // Strip HTML comments first

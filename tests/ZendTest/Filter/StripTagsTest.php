@@ -10,6 +10,7 @@
 
 namespace ZendTest\Filter;
 
+use stdClass;
 use Zend\Filter\StripTags as StripTagsFilter;
 
 /**
@@ -537,5 +538,18 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
         $this->_filter->setAttributesAllowed(array('data-id','data-name'));
 
         $this->assertEquals($expected, $this->_filter->filter($input));
+    }
+
+    public function testFilterDoesNotTouchNonStrings()
+    {
+        $input = new stdClass();
+
+        $expected = $input;
+        $actual = $this->_filter->filter($input);
+
+        $this->assertSame(
+            $expected,
+            $actual
+        );
     }
 }
