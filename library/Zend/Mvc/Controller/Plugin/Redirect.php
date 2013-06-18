@@ -63,14 +63,14 @@ class Redirect extends AbstractPlugin
     public function toUrl($url, $code = Response::STATUS_CODE_302)
     {
         //ensure we only allow one of these 2 redirect codes
-        if ($code == Response::STATUS_CODE_301 || $code == Response::STATUS_CODE_302) {
-            $response = $this->getResponse();
-            $response->getHeaders()->addHeaderLine('Location', $url);
-            $response->setStatusCode($code);
-            return $response;
-        } else {
+        if ($code != Response::STATUS_CODE_301 && $code != Response::STATUS_CODE_302) {
             throw new Exception\InvalidArgumentException('Redirect needs to be 301 or 302');
         }
+        
+        $response = $this->getResponse();
+        $response->getHeaders()->addHeaderLine('Location', $url);
+        $response->setStatusCode($code);
+        return $response;
     }
 
     /**
