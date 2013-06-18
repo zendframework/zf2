@@ -55,14 +55,22 @@ class Redirect extends AbstractPlugin
      * Redirect to the given URL
      *
      * @param  string $url
+     * @param  int $code Either 301 or 302, depending on type (default 302)
      * @return Response
+     * @throws Exception\InvalidArgumentException if the redirect type is
+     *         not a valid type (i.e. not 301 or 302)
      */
-    public function toUrl($url)
+    public function toUrl($url, $code = Response::STATUS_CODE_302)
     {
-        $response = $this->getResponse();
-        $response->getHeaders()->addHeaderLine('Location', $url);
-        $response->setStatusCode(302);
-        return $response;
+        //ensure we only allow one of these 2 redirect codes
+        if ($code == Response::STATUS_CODE_301 || $code == Response::STATUS_CODE_302) {
+            $response = $this->getResponse();
+            $response->getHeaders()->addHeaderLine('Location', $url);
+            $response->setStatusCode($code);
+            return $response;
+        } else {
+            throw new Exception\InvalidArgumentException('Redirect needs to be 301 or 302');
+        }
     }
 
     /**
