@@ -29,11 +29,18 @@ class Redirect extends AbstractPlugin
      * @param  array $params Parameters to use in url generation, if any
      * @param  array $options RouteInterface-specific options to use in url generation, if any
      * @param  bool $reuseMatchedParams Whether to reuse matched parameters
+     * @param  int $code The redirect code, either 301 or 302 (default 302)
      * @return Response
      * @throws Exception\DomainException if composed controller does not implement InjectApplicationEventInterface, or
      *         router cannot be found in controller event
      */
-    public function toRoute($route = null, $params = array(), $options = array(), $reuseMatchedParams = false)
+    public function toRoute(
+        $route = null,
+        $params = array(),
+        $options = array(),
+        $reuseMatchedParams = false,
+        $code = Response::STATUS_CODE_302
+    )
     {
         $controller = $this->getController();
         if (!$controller || !method_exists($controller, 'plugin')) {
@@ -48,20 +55,28 @@ class Redirect extends AbstractPlugin
             $url = $urlPlugin->fromRoute($route, $params, $options, $reuseMatchedParams);
         }
 
-        return $this->toUrl($url);
+        return $this->toUrl($url, $code);
     }
 
     /**
      * Redirect to the given URL
      *
      * @param  string $url
+     * @param  int $code Either 301 or 302, depending on type (default 302)
      * @return Response
+     * @throws Exception\InvalidArgumentException if the redirect type is
+     *         not a valid type (i.e. not 301 or 302)
      */
-    public function toUrl($url)
+    public function toUrl($url, $code = Response::STATUS_CODE_302)
     {
+        //ensure we only allow one of these 2 redirect codes
+        if ($code != Response::STATUS_CODE_301 && $code != Response::STATUS_CODE_302) {
+            throw new Exception\InvalidArgumentException('Redirect needs to be 301 or 302');
+        }
+        
         $response = $this->getResponse();
         $response->getHeaders()->addHeaderLine('Location', $url);
-        $response->setStatusCode(302);
+        $response->setStatusCode($code);
         return $response;
     }
 

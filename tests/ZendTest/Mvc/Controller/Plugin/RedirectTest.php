@@ -69,6 +69,22 @@ class RedirectTest extends TestCase
         $this->assertEquals('/foo', $location->getFieldValue());
     }
 
+    public function testPluginCanRedirectToUrlWithPermanentCode()
+    {
+        $response = $this->plugin->toUrl('/foo', Response::STATUS_CODE_301);
+        $this->assertTrue($response->isRedirect());
+        $this->assertEquals(Response::STATUS_CODE_301, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $location = $headers->get('Location');
+        $this->assertEquals('/foo', $location->getFieldValue());
+    }
+
+    public function testPluginRedirectFailsWithInvalidCode()
+    {
+        $this->setExpectedException('Zend\Mvc\Exception\InvalidArgumentException', 'Redirect needs to be 301 or 302');
+        $response = $this->plugin->toUrl('/sauce', 200);
+    }
+
     public function testPluginWithoutControllerRaisesDomainException()
     {
         $plugin = new RedirectPlugin();
