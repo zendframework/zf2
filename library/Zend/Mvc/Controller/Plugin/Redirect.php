@@ -29,11 +29,18 @@ class Redirect extends AbstractPlugin
      * @param  array $params Parameters to use in url generation, if any
      * @param  array $options RouteInterface-specific options to use in url generation, if any
      * @param  bool $reuseMatchedParams Whether to reuse matched parameters
+     * @param  int $code The redirect code, either 301 or 302 (default 302)
      * @return Response
      * @throws Exception\DomainException if composed controller does not implement InjectApplicationEventInterface, or
      *         router cannot be found in controller event
      */
-    public function toRoute($route = null, $params = array(), $options = array(), $reuseMatchedParams = false)
+    public function toRoute(
+        $route = null,
+        $params = array(),
+        $options = array(),
+        $reuseMatchedParams = false,
+        $code = Response::STATUS_CODE_302
+    )
     {
         $controller = $this->getController();
         if (!$controller || !method_exists($controller, 'plugin')) {
@@ -48,7 +55,7 @@ class Redirect extends AbstractPlugin
             $url = $urlPlugin->fromRoute($route, $params, $options, $reuseMatchedParams);
         }
 
-        return $this->toUrl($url);
+        return $this->toUrl($url, $code);
     }
 
     /**
