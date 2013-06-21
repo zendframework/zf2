@@ -14,7 +14,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
     /**
      * EOL character
      *
-     * @todo: get rid of redundant reassignment, here for BC
+     * @deprecated just use PHP_EOL
      */
     const EOL = PHP_EOL;
 
