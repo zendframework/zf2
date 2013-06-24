@@ -123,4 +123,30 @@ class FormElementManager extends AbstractPluginManager
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
     }
+
+    /**
+     * Attempt to create an instance via an invokable class
+     *
+     * Overrides parent implementation by passing $requestedName always and
+     * $creationOptions if non-null to the constructor.
+     *
+     * @param  string $canonicalName
+     * @param  string $requestedName
+     * @return null|\stdClass
+     * @throws \Zend\ServiceManager\Exception\ServiceNotCreatedException If resolved class does not exist
+     */
+    protected function createFromInvokable($canonicalName, $requestedName)
+    {
+        $invokable = $this->invokableClasses[$canonicalName];
+
+        if (NULL === $this->creationOptions
+            || (is_array($this->creationOptions) && empty($this->creationOptions))
+        ) {
+            $instance = new $invokable($requestedName);
+        } else {
+            $instance = new $invokable($requestedName, $this->creationOptions);
+        }
+
+        return $instance;
+    }
 }
