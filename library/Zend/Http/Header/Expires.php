@@ -9,6 +9,9 @@
 
 namespace Zend\Http\Header;
 
+use DateTime;
+use DateTimeZone;
+
 /**
  * Expires Header
  *
@@ -24,5 +27,23 @@ class Expires extends AbstractDate
     public function getFieldName()
     {
         return 'Expires';
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * Allows to set 0 as a valid expired date
+     * and will be parsed as 1097-01-01 00:00 GMT
+     *
+     * @param string|DateTime $date
+     * @return AbstractDate
+     * @throws Exception\InvalidArgumentException
+     */
+    public function setDate($date)
+    {
+        if ($date === '0') {
+            $date = new DateTime('@0', new DateTimeZone('UTC'));
+        }
+        return parent::setDate($date);
     }
 }
