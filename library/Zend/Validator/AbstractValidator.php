@@ -10,10 +10,12 @@
 namespace Zend\Validator;
 
 use Traversable;
+use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Stdlib\ArrayUtils;
 
 abstract class AbstractValidator implements
-    Translator\TranslatorAwareInterface,
+    TranslatorAwareInterface,
     ValidatorInterface
 {
     /**
@@ -25,7 +27,7 @@ abstract class AbstractValidator implements
 
     /**
      * Default translation object for all validate objects
-     * @var Translator\TranslatorInterface
+     * @var \Zend\I18n\Translator\TranslatorInterface
      */
     protected static $defaultTranslator;
 
@@ -392,12 +394,12 @@ abstract class AbstractValidator implements
     /**
      * Set translation object
      *
-     * @param  Translator\TranslatorInterface|null $translator
+     * @param  \Zend\I18n\Translator\TranslatorInterface|null $translator
      * @param  string          $textDomain (optional)
      * @return AbstractValidator
      * @throws Exception\InvalidArgumentException
      */
-    public function setTranslator(Translator\TranslatorInterface $translator = null, $textDomain = null)
+    public function setTranslator(TranslatorInterface $translator = null, $textDomain = null)
     {
         $this->abstractOptions['translator'] = $translator;
         if (null !== $textDomain) {
@@ -409,7 +411,7 @@ abstract class AbstractValidator implements
     /**
      * Return translation object
      *
-     * @return Translator\TranslatorInterface|null
+     * @return \Zend\I18n\Translator\TranslatorInterface|null
      */
     public function getTranslator()
     {
@@ -463,13 +465,13 @@ abstract class AbstractValidator implements
     /**
      * Set default translation object for all validate objects
      *
-     * @param  Translator\TranslatorInterface|null $translator
+     * @param  \Zend\I18n\Translator\TranslatorInterface|null $translator
      * @param  string          $textDomain (optional)
      * @return void
      * @throws Exception\InvalidArgumentException
      */
     public static function setDefaultTranslator(
-        Translator\TranslatorInterface $translator = null, $textDomain = null
+        TranslatorInterface $translator = null, $textDomain = null
     )
     {
         static::$defaultTranslator = $translator;
@@ -481,7 +483,7 @@ abstract class AbstractValidator implements
     /**
      * Get default translation object for all validate objects
      *
-     * @return Translator\TranslatorInterface|null
+     * @return \Zend\I18n\Translator\TranslatorInterface|null
      */
     public static function getDefaultTranslator()
     {
