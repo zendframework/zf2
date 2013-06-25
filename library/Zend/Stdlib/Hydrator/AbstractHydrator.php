@@ -14,8 +14,9 @@ use Zend\Stdlib\Exception;
 use Zend\Stdlib\Hydrator\Filter\FilterComposite;
 use Zend\Stdlib\Hydrator\StrategyEnabledInterface;
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Stdlib\Hydrator\Filter\FilterProviderInterface;
 
-abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInterface
+abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInterface, FilterProviderInterface
 {
     /**
      * The list with strategies that this hydrator has.
