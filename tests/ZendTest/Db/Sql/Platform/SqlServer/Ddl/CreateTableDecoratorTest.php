@@ -16,21 +16,23 @@ use Zend\Db\Sql\Ddl\Column\Column;
 
 class CreateTableDecoratorTest extends \PHPUnit_Framework_TestCase
 {
-
+    /**
+     * @covers Zend\Db\Sql\Platform\SqlServer\Ddl\CreateTableDecorator::getSqlString
+     */
     public function testGetSqlString()
     {
         $ctd = new CreateTableDecorator();
-        
+
         $ct = new CreateTable('foo');
         $this->assertEquals("CREATE TABLE \"foo\" (\n)", $ctd->setSubject($ct)->getSqlString());
 
         $ct = new CreateTable('foo', true);
         $this->assertEquals("CREATE TABLE \"#foo\" (\n)", $ctd->setSubject($ct)->getSqlString());
-        
+
         $ct = new CreateTable('foo');
         $ct->addColumn(new Column('bar'));
         $this->assertEquals("CREATE TABLE \"foo\" (\n    \"bar\" INTEGER NOT NULL\n)", $ctd->setSubject($ct)->getSqlString());
-        
+
         $ct = new CreateTable('foo', true);
         $ct->addColumn(new Column('bar'));
         $this->assertEquals("CREATE TABLE \"#foo\" (\n    \"bar\" INTEGER NOT NULL\n)", $ctd->setSubject($ct)->getSqlString());
