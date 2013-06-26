@@ -35,5 +35,4 @@ class CreateTableDecoratorTest extends \PHPUnit_Framework_TestCase
         $ct->addColumn(new Column('bar'));
         $this->assertEquals("CREATE TABLE \"#foo\" (\n    \"bar\" INTEGER NOT NULL\n)", $ctd->setSubject($ct)->getSqlString());
     }
-
 }

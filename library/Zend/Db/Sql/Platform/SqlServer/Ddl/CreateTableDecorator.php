@@ -42,7 +42,7 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
         }
         return parent::getSqlString($platform);
     }
-    
+
     protected function processTable(PlatformInterface $adapterPlatform = null)
     {
         $ret = array('');
@@ -52,9 +52,6 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
             $table = '';
         }
         $ret[] = $adapterPlatform->quoteIdentifier($table . ltrim($this->table, '#'));
-        
         return $ret;
     }
-    
-    
 }
