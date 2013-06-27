@@ -87,8 +87,16 @@ class SessionConfig extends StandardConfig
 
         $result = ini_set($key, $storageValue);
         if (FALSE === $result) {
-            throw new \InvalidArgumentException("'" . $key .
-                    "' is not a valid sessions-related ini setting.");
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '"%s" is not a valid session-related PHP configuration ' .
+                    'option, or your PHP configuration does not allow it to ' .
+                    'be overridden. Check that the setting is spelled ' .
+                    'correctly and that it was not previously set via ' .
+                    '"php_admin_value" or "php_admin_flag".',
+                    $key
+                )
+            );
         }
         return $this;
     }
