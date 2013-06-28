@@ -388,6 +388,13 @@ class FormRow extends AbstractHelper
         if (!$this->elementHelper instanceof FormElement) {
             $this->elementHelper = new FormElement();
         }
+        
+        if ($this->hasTranslator()) {
+            $this->elementHelper->setTranslator(
+                $this->getTranslator(),
+                $this->getTranslatorTextDomain()
+            );
+        }
 
         return $this->elementHelper;
     }
@@ -409,6 +416,13 @@ class FormRow extends AbstractHelper
 
         if (!$this->elementErrorsHelper instanceof FormElementErrors) {
             $this->elementErrorsHelper = new FormElementErrors();
+        }
+
+        if ($this->hasTranslator()) {
+            $this->elementErrorsHelper->setTranslator(
+                $this->getTranslator(),
+                $this->getTranslatorTextDomain()
+            );
         }
 
         return $this->elementErrorsHelper;
