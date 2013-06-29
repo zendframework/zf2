@@ -258,22 +258,35 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * Ensures that an InvalidArgumentException is raised if array is used
-     *
-     * @return void
-     */
-    public function testExceptionRaisedIfArrayUsed()
+    public function dataNotStringValues()
     {
-        $input = array('<', '>');
+        return array(
+            'int' => array(
+                'value' => 1
+            ),
+            'null' => array(
+                'value' => null
+            ),
+            'object' => array(
+                'value' => new \ArrayObject()
+            ),
+            'array' => array(
+                'value' => array()
+            ),
+            'closure' => array(
+                'value' => function(){}
+            )
+        );
+    }
 
-        try {
-            $this->_filter->filter($input);
-        } catch (\Zend\Filter\Exception\InvalidArgumentException $expected) {
-            return;
-        }
+    /**
+     * @dataProvider dataNotStringValues
+     */
+    public function testFilterNotString($value)
+    {
+        $filter = new $this->_filter();
 
-        $this->fail('An expected InvalidArgumentException has not been raised.');
+        $this->assertSame($value, $filter->filter($value));
     }
 
     /**
