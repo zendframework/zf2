@@ -539,21 +539,34 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->_filter->filter($input));
     }
 
-    /**
-     * Ensures that an InvalidArgumentException is raised if array is used
-     *
-     * @return void
-     */
-    public function testExceptionRaisedIfArrayUsed()
+    public function dataNotStringValues()
     {
-        $input = array('<li data-name="Test User" data-id="11223"></li>', '<li data-name="Test User 2" data-id="456789"></li>');
+        return array(
+            'int' => array(
+                'value' => 1
+            ),
+            'null' => array(
+                'value' => null
+            ),
+            'object' => array(
+                'value' => new \ArrayObject()
+            ),
+            'array' => array(
+                'value' => array()
+            ),
+            'closure' => array(
+                'value' => function(){}
+            )
+        );
+    }
 
-        try {
-            $this->_filter->filter($input);
-        } catch (\Zend\Filter\Exception\InvalidArgumentException $expected) {
-            return;
-        }
+    /**
+     * @dataProvider dataNotStringValues
+     */
+    public function testFilterNotString($value)
+    {
+        $filter = $this->_filter;
 
-        $this->fail('An expected InvalidArgumentException has not been raised.');
+        $this->assertSame($value, $filter->filter($value));
     }
 }
