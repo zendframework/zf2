@@ -14,6 +14,7 @@ use Zend\Stdlib\Exception;
 use Zend\Stdlib\Hydrator\Filter\FilterComposite;
 use Zend\Stdlib\Hydrator\StrategyEnabledInterface;
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Stdlib\Hydrator\Strategy\DefaultStrategy;
 
 abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInterface
 {
@@ -109,11 +110,9 @@ abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInt
      */
     public function extractValue($name, $value, $object = null)
     {
-        if ($this->hasStrategy($name)) {
-            $strategy = $this->getStrategy($name);
-            $value = $strategy->extract($value, $object);
-        }
-        return $value;
+        $strategy = $this->hasStrategy($name) ? $this->getStrategy($name) : new DefaultStrategy();
+
+        return $strategy->extract($value, $object);
     }
 
     /**
@@ -126,11 +125,9 @@ abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInt
      */
     public function hydrateValue($name, $value, $data = null)
     {
-        if ($this->hasStrategy($name)) {
-            $strategy = $this->getStrategy($name);
-            $value = $strategy->hydrate($value, $data);
-        }
-        return $value;
+        $strategy = $this->hasStrategy($name) ? $this->getStrategy($name) : new DefaultStrategy();
+
+        return $strategy->hydrate($value, $data);
     }
 
     /**
