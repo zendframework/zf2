@@ -159,21 +159,34 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(mb_internal_encoding(), $this->_filter->getEncoding());
     }
 
-    /**
-     * Ensures that an InvalidArgumentException is raised if array is used
-     *
-     * @return void
-     */
-    public function testExceptionRaisedIfArrayUsed()
+    public function dataNotStringValues()
     {
-        $input = array('abc', 'def');
+        return array(
+            'int' => array(
+                'value' => 1
+            ),
+            'null' => array(
+                'value' => null
+            ),
+            'object' => array(
+                'value' => new \ArrayObject()
+            ),
+            'array' => array(
+                'value' => array()
+            ),
+            'closure' => array(
+                'value' => function(){}
+            )
+        );
+    }
 
-        try {
-            $this->_filter->filter($input);
-            } catch (\Zend\Filter\Exception\InvalidArgumentException $expected) {
-            return;
-        }
+    /**
+     * @dataProvider dataNotStringValues
+     */
+    public function testFilterNotString($value)
+    {
+        $filter = $this->_filter;
 
-        $this->fail('An expected InvalidArgumentException has not been raised.');
+        $this->assertSame($value, $filter->filter($value));
     }
 }
