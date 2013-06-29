@@ -107,25 +107,34 @@ class RealPathTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($path, $filter($path3));
     }
 
-    /**
-     * Ensures that an InvalidArgumentException is raised if array is used
-     *
-     * @return void
-     */
-    public function testExceptionRaisedIfArrayUsed()
+    public function dataNotStringValues()
     {
-        $filter   = $this->_filter;
-        $input = array(
-            $this->_filesPath . DIRECTORY_SEPARATOR . 'file.1',
-            $this->_filesPath . DIRECTORY_SEPARATOR . 'file.2'
+        return array(
+            'int' => array(
+                'value' => 1
+            ),
+            'null' => array(
+                'value' => null
+            ),
+            'object' => array(
+                'value' => new \ArrayObject()
+            ),
+            'array' => array(
+                'value' => array()
+            ),
+            'closure' => array(
+                'value' => function(){}
+            )
         );
+    }
 
-        try {
-            $filter->filter($input);
-        } catch (\Zend\Filter\Exception\InvalidArgumentException $expected) {
-            return;
-        }
+    /**
+     * @dataProvider dataNotStringValues
+     */
+    public function testFilterNotString($value)
+    {
+        $filter = $this->_filter;
 
-        $this->fail('An expected InvalidArgumentException has not been raised.');
+        $this->assertSame($value, $filter->filter($value));
     }
 }
