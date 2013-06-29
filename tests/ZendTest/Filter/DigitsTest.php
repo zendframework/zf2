@@ -86,22 +86,31 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function dataNotScalarValues()
+    {
+        return array(
+            'null' => array(
+                'value' => null
+            ),
+            'object' => array(
+                'value' => new \ArrayObject()
+            ),
+            'array' => array(
+                'value' => array()
+            ),
+            'closure' => array(
+                'value' => function(){}
+            )
+        );
+    }
+
     /**
-     * Ensures that an InvalidArgumentException is raised if array is used
-     *
-     * @return void
+     * @dataProvider dataNotScalarValues
      */
-    public function testExceptionRaisedIfArrayUsed()
+    public function testFilterNotString($value)
     {
         $filter = new DigitsFilter();
-        $input = array('abc123', 'abc 123');
 
-        try {
-            $filter->filter($input);
-        } catch (\Zend\Filter\Exception\InvalidArgumentException $expected) {
-            return;
-        }
-
-        $this->fail('An expected InvalidArgumentException has not been raised.');
+        $this->assertSame($value, $filter->filter($value));
     }
 }
