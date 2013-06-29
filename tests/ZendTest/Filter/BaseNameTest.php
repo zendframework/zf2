@@ -37,22 +37,34 @@ class BaseNameTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function dataNotStringValues()
+    {
+        return array(
+            'int' => array(
+                'value' => 1
+            ),
+            'null' => array(
+                'value' => null
+            ),
+            'object' => array(
+                'value' => new \ArrayObject()
+            ),
+            'array' => array(
+                'value' => array()
+            ),
+            'closure' => array(
+                'value' => function(){}
+            )
+        );
+    }
+
     /**
-     * Ensures that an InvalidArgumentException is raised if array is used
-     *
-     * @return void
+     * @dataProvider dataNotStringValues
      */
-    public function testExceptionRaisedIfArrayUsed()
+    public function testFilterNotString($value)
     {
         $filter = new BaseNameFilter();
-        $input = array('/path/to/filename', '/path/to/filename.ext');
 
-        try {
-            $filter->filter($input);
-        } catch (\Zend\Filter\Exception\InvalidArgumentException $expected) {
-            return;
-        }
-
-        $this->fail('An expected InvalidArgumentException has not been raised.');
+        $this->assertSame($value, $filter->filter($value));
     }
 }
