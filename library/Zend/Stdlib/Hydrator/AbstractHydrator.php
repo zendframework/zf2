@@ -14,8 +14,9 @@ use Zend\Stdlib\Exception;
 use Zend\Stdlib\Hydrator\Filter\FilterComposite;
 use Zend\Stdlib\Hydrator\StrategyEnabledInterface;
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Stdlib\Hydrator\Strategy\DefaultStrategy;
 
-abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInterface
+abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInterface, FilterEnabledInterface
 {
     /**
      * The list with strategies that this hydrator has.
@@ -100,40 +101,6 @@ abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInt
     }
 
     /**
-     * Converts a value for extraction. If no strategy exists the plain value is returned.
-     *
-     * @param  string $name  The name of the strategy to use.
-     * @param  mixed  $value  The value that should be converted.
-     * @param  array  $object The object is optionally provided as context.
-     * @return mixed
-     */
-    public function extractValue($name, $value, $object = null)
-    {
-        if ($this->hasStrategy($name)) {
-            $strategy = $this->getStrategy($name);
-            $value = $strategy->extract($value, $object);
-        }
-        return $value;
-    }
-
-    /**
-     * Converts a value for hydration. If no strategy exists the plain value is returned.
-     *
-     * @param string $name The name of the strategy to use.
-     * @param mixed $value The value that should be converted.
-     * @param array $data The whole data is optionally provided as context.
-     * @return mixed
-     */
-    public function hydrateValue($name, $value, $data = null)
-    {
-        if ($this->hasStrategy($name)) {
-            $strategy = $this->getStrategy($name);
-            $value = $strategy->hydrate($value, $data);
-        }
-        return $value;
-    }
-
-    /**
      * Get the filter instance
      *
      * @return Filter\FilterComposite
@@ -194,5 +161,35 @@ abstract class AbstractHydrator implements HydratorInterface, StrategyEnabledInt
     public function removeFilter($name)
     {
         return $this->filterComposite->removeFilter($name);
+    }
+
+    /**
+     * Converts a value for extraction. If no strategy exists the plain value is returned.
+     *
+     * @param  string $name  The name of the strategy to use.
+     * @param  mixed  $value  The value that should be converted.
+     * @param  array  $object The object is optionally provided as context.
+     * @return mixed
+     */
+    public function extractValue($name, $value, $object = null)
+    {
+        $strategy = $this->hasStrategy($name) ? $this->getStrategy($name) : new DefaultStrategy();
+
+        return $strategy->extract($value, $object);
+    }
+
+    /**
+     * Converts a value for hydration. If no strategy exists the plain value is returned.
+     *
+     * @param string $name The name of the strategy to use.
+     * @param mixed $value The value that should be converted.
+     * @param array $data The whole data is optionally provided as context.
+     * @return mixed
+     */
+    public function hydrateValue($name, $value, $data = null)
+    {
+        $strategy = $this->hasStrategy($name) ? $this->getStrategy($name) : new DefaultStrategy();
+
+        return $strategy->hydrate($value, $data);
     }
 }
