@@ -22,7 +22,16 @@ class InputFilterPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $factories = array(
+        'Zend\InputFilter\Input'       => 'Zend\InputFilter\Factory\InputFactory',
+        'Zend\InputFilter\InputFilter' => 'Zend\InputFilter\Factory\InputFilterFactory'
+    );
+
+    /**
+     * @var array
+     */
+    protected $aliases = array(
+        'input'       => 'Zend\InputFilter\Input',
         'inputfilter' => 'Zend\InputFilter\InputFilter'
     );
 
@@ -34,7 +43,9 @@ class InputFilterPluginManager extends AbstractPluginManager
     protected $shareByDefault = false;
 
     /**
-     * {@inheritDoc}
+     * @param  mixed $plugin
+     * @return InputInterface|InputFilterInterface
+     * @throws Exception\RuntimeException
      */
     public function validatePlugin($plugin)
     {

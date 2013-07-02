@@ -60,14 +60,6 @@ interface InputInterface
     public function getRawValue();
 
     /**
-     * Set if the validation should break if one validator fails
-     *
-     * @param  bool $breakOnFailure
-     * @return void
-     */
-    public function setBreakOnFailure($breakOnFailure);
-
-    /**
      * Set if the input is required. This is a shortcut of manually adding a NotEmpty validator with
      * a very high priority into the validator chain
      *
@@ -84,6 +76,29 @@ interface InputInterface
     public function isRequired();
 
     /**
+     * Set if the input is allowed to be empty
+     *
+     * @param  bool $allowEmpty
+     * @return void
+     */
+    public function setAllowEmpty($allowEmpty);
+
+    /**
+     * Get if the input is allowed to be empty
+     *
+     * @return bool
+     */
+    public function allowEmpty();
+
+    /**
+     * Set if the validation should break if one validator fails
+     *
+     * @param  bool $breakOnFailure
+     * @return void
+     */
+    public function setBreakOnFailure($breakOnFailure);
+
+    /**
      * If set to true, then no other inputs are validated
      *
      * @return bool
@@ -91,11 +106,27 @@ interface InputInterface
     public function breakOnFailure();
 
     /**
+     * Set the filter chain
+     *
+     * @param  FilterChain $filterChain
+     * @return void
+     */
+    public function setFilterChain(FilterChain $filterChain);
+
+    /**
      * Get the filter chain
      *
      * @return FilterChain
      */
     public function getFilterChain();
+
+    /**
+     * Set the validator chain
+     *
+     * @param  ValidatorChain $validatorChain
+     * @return void
+     */
+    public function setValidatorChain(ValidatorChain $validatorChain);
 
     /**
      * Get the validator chain

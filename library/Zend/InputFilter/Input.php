@@ -30,6 +30,11 @@ class Input implements InputInterface
     /**
      * @var bool
      */
+    protected $allowEmpty = false;
+
+    /**
+     * @var bool
+     */
     protected $breakOnFailure = false;
 
     /**
@@ -123,6 +128,22 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
+    public function setAllowEmpty($allowEmpty)
+    {
+        $this->allowEmpty = (bool) $allowEmpty;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function allowEmpty()
+    {
+        return $this->allowEmpty;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setBreakOnFailure($breakOnFailure)
     {
         $this->breakOnFailure = (bool) $breakOnFailure;
@@ -139,9 +160,25 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
+    public function setFilterChain(FilterChain $filterChain)
+    {
+        $this->filterChain = $filterChain;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getFilterChain()
     {
         return $this->filterChain;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setValidatorChain(ValidatorChain $validatorChain)
+    {
+        $this->validatorChain = $validatorChain;
     }
 
     /**
@@ -158,6 +195,11 @@ class Input implements InputInterface
     public function isValid($context = null)
     {
         if ($this->validatorChain->isValid($this->data, $context)) {
+            return true;
+        }
+
+        // If allow empty, we also return true
+        if ($this->allowEmpty && empty($this->data)) {
             return true;
         }
 

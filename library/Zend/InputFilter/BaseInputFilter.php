@@ -76,11 +76,16 @@ class BaseInputFilter implements InputFilterInterface
      */
     public function get($name)
     {
-        if (!isset($this->data[$name])) {
-            // @TODO: throw exception
+        if (!isset($this->children[$name])) {
+            throw new Exception\RuntimeException(sprintf(
+                'No input or input filter named "%s" was found in input filter of type "%s" with the name "%s"',
+                $name,
+                __CLASS__,
+                $this->getName()
+            ));
         }
 
-        return $this->data[$name];
+        return $this->children[$name];
     }
 
     /**
@@ -88,7 +93,7 @@ class BaseInputFilter implements InputFilterInterface
      */
     public function has($name)
     {
-        return isset($this->data[$name]);
+        return isset($this->children[$name]);
     }
 
     /**
@@ -96,7 +101,7 @@ class BaseInputFilter implements InputFilterInterface
      */
     public function remove($name)
     {
-        unset($this->data[$name]);
+        unset($this->children[$name]);
     }
 
     /**
@@ -205,7 +210,7 @@ class BaseInputFilter implements InputFilterInterface
     }
 
     /**
-     * @return RecursiveFilterIterator
+     * @return AbstractValidationGroupFilter
      */
     public function getValidationGroupFilter()
     {
@@ -224,21 +229,10 @@ class BaseInputFilter implements InputFilterInterface
         $this->validationGroup = $validationGroup;
 
         foreach ($this->children as $name => $inputOrInputFilter) {
-            if ($inputOrInputFilter instanceof InputFilterInterface) {
+            if ($inputOrInputFilter instanceof InputFilterInterface && isset($validationGroup[$name])) {
                 $inputOrInputFilter->setValidationGroup($validationGroup[$name]);
             }
         }
-
-        // If a given key refers to another input filter, we give it the validation group
-
-        /*foreach ($this->validationGroup as $key => $value) {
-            if (isset($this->inputs[$key]) && $this->inputs[$key] instanceof InputFilterInterface) {
-                $this->inputs[$key]->setValidationGroup($value);
-
-                unset($this->validationGroup[$key]);
-                $this->validationGroup[] = $key;
-            }
-        }*/
     }
 
     /**

@@ -15,14 +15,14 @@ namespace Zend\InputFilter;
 class InputFilter extends BaseInputFilter
 {
     /**
-     * @var InputFilterFactory
+     * @var Factory
      */
     protected $factory;
 
     /**
-     * @param InputFilterFactory $factory
+     * @param Factory $factory
      */
-    public function __construct(InputFilterFactory $factory)
+    public function __construct(Factory $factory)
     {
         $this->factory = $factory;
     }
@@ -30,7 +30,7 @@ class InputFilter extends BaseInputFilter
     /**
      * Get the input filter factory
      *
-     * @return InputFilterFactory
+     * @return Factory
      */
     public function getFactory()
     {
