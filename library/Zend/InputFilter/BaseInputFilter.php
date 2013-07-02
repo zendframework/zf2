@@ -10,6 +10,8 @@
 namespace Zend\InputFilter;
 
 use RecursiveIteratorIterator;
+use Zend\Filter\InputFilter\AbstractValidationGroupFilter;
+use Zend\Filter\InputFilter\ValidationGroupArrayFilter;
 
 /**
  * Base input filter. This class expects concrete instance of InputInterface or InputFilterInterface. To allow
@@ -36,6 +38,11 @@ class BaseInputFilter implements InputFilterInterface
      * @var InputInterface[]
      */
     protected $invalidInputs = array();
+
+    /**
+     * @var AbstractValidationGroupFilter
+     */
+    protected $validationGroupFilter;
 
     /**
      * @var array
@@ -189,6 +196,27 @@ class BaseInputFilter implements InputFilterInterface
     }
 
     /**
+     * @param  AbstractValidationGroupFilter $validationGroupFilter
+     * @return void
+     */
+    public function setValidationGroupFilter(AbstractValidationGroupFilter $validationGroupFilter)
+    {
+        $this->validationGroupFilter = $validationGroupFilter;
+    }
+
+    /**
+     * @return RecursiveFilterIterator
+     */
+    public function getValidationGroupFilter()
+    {
+        if (null === $this->validationGroupFilter) {
+            $this->validationGroupFilter = new ValidationGroupArrayFilter($this);
+        }
+
+        return $this->validationGroupFilter;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function setValidationGroup(array $validationGroup)
@@ -251,7 +279,7 @@ class BaseInputFilter implements InputFilterInterface
         // different set of data
         $this->validInputs = $this->invalidInputs = $this->errorMessages = array();
 
-        $validationGroupFilter = new ValidationGroupFilter($this);
+        $validationGroupFilter = $this->getValidationGroupFilter();
         $recursiveIterator     = new RecursiveIteratorIterator($validationGroupFilter, RecursiveIteratorIterator::LEAVES_ONLY);
         $valid                 = true;
 
