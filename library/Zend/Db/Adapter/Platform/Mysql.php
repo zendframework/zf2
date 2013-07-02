@@ -14,7 +14,7 @@ use Zend\Db\Adapter\Driver\Mysqli;
 use Zend\Db\Adapter\Driver\Pdo;
 use Zend\Db\Adapter\Exception;
 
-class Mysql implements PlatformInterface
+class Mysql extends AbstractPlatform
 {
     /** @var \mysqli|\PDO */
     protected $resource = null;
@@ -149,25 +149,6 @@ class Mysql implements PlatformInterface
     }
 
     /**
-     * Quote value list
-     *
-     * @param string|string[] $valueList
-     * @return string
-     */
-    public function quoteValueList($valueList)
-    {
-        if (!is_array($valueList)) {
-            return $this->quoteValue($valueList);
-        }
-
-        $value = reset($valueList);
-        do {
-            $valueList[key($valueList)] = $this->quoteValue($value);
-        } while ($value = next($valueList));
-        return implode(', ', $valueList);
-    }
-
-    /**
      * Get identifier separator
      *
      * @return string
@@ -177,38 +158,4 @@ class Mysql implements PlatformInterface
         return '.';
     }
 
-    /**
-     * Quote identifier in fragment
-     *
-     * @param  string $identifier
-     * @param  array $safeWords
-     * @return string
-     */
-    public function quoteIdentifierInFragment($identifier, array $safeWords = array())
-    {
-        // regex taken from @link http://dev.mysql.com/doc/refman/5.0/en/identifiers.html
-        $parts = preg_split('#([^0-9,a-z,A-Z$_])#', $identifier, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
-        if ($safeWords) {
-            $safeWords = array_flip($safeWords);
-            $safeWords = array_change_key_case($safeWords, CASE_LOWER);
-        }
-        foreach ($parts as $i => $part) {
-            if ($safeWords && isset($safeWords[strtolower($part)])) {
-                continue;
-            }
-            switch ($part) {
-                case ' ':
-                case '.':
-                case '*':
-                case 'AS':
-                case 'As':
-                case 'aS':
-                case 'as':
-                    break;
-                default:
-                    $parts[$i] = '`' . str_replace('`', '``', $part) . '`';
-            }
-        }
-        return implode('', $parts);
-    }
 }
