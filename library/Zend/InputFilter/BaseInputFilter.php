@@ -9,8 +9,8 @@
 
 namespace Zend\InputFilter;
 
+use RecursiveFilterIterator;
 use RecursiveIteratorIterator;
-use Zend\Filter\InputFilter\AbstractValidationGroupFilter;
 use Zend\Filter\InputFilter\ValidationGroupArrayFilter;
 
 /**
@@ -40,7 +40,7 @@ class BaseInputFilter implements InputFilterInterface
     protected $invalidInputs = array();
 
     /**
-     * @var AbstractValidationGroupFilter
+     * @var RecursiveFilterIterator
      */
     protected $validationGroupFilter;
 
@@ -201,16 +201,16 @@ class BaseInputFilter implements InputFilterInterface
     }
 
     /**
-     * @param  AbstractValidationGroupFilter $validationGroupFilter
+     * @param  RecursiveFilterIterator $validationGroupFilter
      * @return void
      */
-    public function setValidationGroupFilter(AbstractValidationGroupFilter $validationGroupFilter)
+    public function setValidationGroupFilter(RecursiveFilterIterator $validationGroupFilter)
     {
         $this->validationGroupFilter = $validationGroupFilter;
     }
 
     /**
-     * @return AbstractValidationGroupFilter
+     * @return RecursiveFilterIterator
      */
     public function getValidationGroupFilter()
     {
@@ -274,8 +274,17 @@ class BaseInputFilter implements InputFilterInterface
         $this->validInputs = $this->invalidInputs = $this->errorMessages = array();
 
         $validationGroupFilter = $this->getValidationGroupFilter();
-        $recursiveIterator     = new RecursiveIteratorIterator($validationGroupFilter, RecursiveIteratorIterator::LEAVES_ONLY);
-        $valid                 = true;
+
+        // The inner iterator must be an input filter interface, which is itself recursively iterable
+        if (!$validationGroupFilter->getInnerIterator() instanceof InputFilterInterface) {
+            throw new Exception\RuntimeException(
+                'The validation group filter\'s inner recursive iterator must be an instance of Zend\InputFilter\InputFilterInterface, but "%s" given',
+                get_class($validationGroupFilter->getInnerIterator())
+            );
+        }
+
+        $recursiveIterator = new RecursiveIteratorIterator($validationGroupFilter, RecursiveIteratorIterator::LEAVES_ONLY);
+        $valid             = true;
 
         /** @var InputInterface $input */
         foreach ($recursiveIterator as $name => $input) {

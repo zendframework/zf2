@@ -9,12 +9,13 @@
 
 namespace Zend\Filter\InputFilter;
 
-use Zend\InputFilter\InputFilterInterface;
+use RecursiveFilterIterator;
+use RecursiveIterator;
 
 /**
  * Validation group filter based on a simple array defined in the input filter
  */
-class ValidationGroupArrayFilter extends AbstractValidationGroupFilter
+class ValidationGroupArrayFilter extends RecursiveFilterIterator
 {
     /**
      * @var array
@@ -22,9 +23,9 @@ class ValidationGroupArrayFilter extends AbstractValidationGroupFilter
     protected $validationGroup;
 
     /**
-     * @param InputFilterInterface $iterator
+     * @param RecursiveIterator $iterator
      */
-    public function __construct(InputFilterInterface $iterator)
+    public function __construct(RecursiveIterator $iterator)
     {
         parent::__construct($iterator);
 

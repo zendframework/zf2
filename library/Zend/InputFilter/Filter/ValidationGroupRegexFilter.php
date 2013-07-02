@@ -9,13 +9,14 @@
 
 namespace Zend\Filter\InputFilter;
 
-use Zend\InputFilter\InputFilterInterface;
+use RecursiveFilterIterator;
+use RecursiveIterator;
 
 /**
  * Validation group filter based on a Regex. The validation group array that may be defined in
  * the input filter is therefore silently ignored
  */
-class ValidationGroupRegexFilter extends AbstractValidationGroupFilter
+class ValidationGroupRegexFilter extends RecursiveFilterIterator
 {
     /**
      * @var string
@@ -23,10 +24,10 @@ class ValidationGroupRegexFilter extends AbstractValidationGroupFilter
     protected $regex;
 
     /**
-     * @param InputFilterInterface $iterator
-     * @param string               $regex
+     * @param RecursiveIterator $iterator
+     * @param string            $regex
      */
-    public function __construct(InputFilterInterface $iterator, $regex)
+    public function __construct(RecursiveIterator $iterator, $regex)
     {
         parent::__construct($iterator);
         $this->regex = (string) $regex;
