@@ -166,10 +166,15 @@ class FeatureSet
     /**
      * @param string $method
      * @param array $arguments
-     * @return void
+     * @return null|mixed
      */
     public function callMagicCall($method, $arguments)
     {
-        $this->apply($method, $arguments);
+        foreach ($this->features as $feature) {
+            if (method_exists($feature, $method)) {
+                return call_user_func_array(array($feature, $method), $arguments);
+            }
+        }
+        return null;
     }
 }
