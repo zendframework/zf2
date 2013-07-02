@@ -160,7 +160,6 @@ class FeatureSet
                 return true;
             }
         }
-        
         return false;
     }
 
