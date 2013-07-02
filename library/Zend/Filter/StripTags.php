@@ -90,7 +90,7 @@ class StripTags extends AbstractFilter
      * Sets the tagsAllowed option
      *
      * @param  array|string $tagsAllowed
-     * @return StripTags Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setTagsAllowed($tagsAllowed)
     {
@@ -143,7 +143,7 @@ class StripTags extends AbstractFilter
      * Sets the attributesAllowed option
      *
      * @param  array|string $attributesAllowed
-     * @return StripTags Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setAttributesAllowed($attributesAllowed)
     {
@@ -173,6 +173,14 @@ class StripTags extends AbstractFilter
      */
     public function filter($value)
     {
+        if(!is_scalar($value)){
+            throw new Exception\InvalidArgumentException(sprintf(
+                '%s expects parameter to be scalar, "%s" given',
+                __METHOD__,
+                (is_object($value) ? get_class($value) : gettype($value))
+            ));
+        }
+
         $value = (string) $value;
 
         // Strip HTML comments first

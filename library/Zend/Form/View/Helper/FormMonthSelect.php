@@ -175,7 +175,7 @@ class FormMonthSelect extends AbstractHelper
     }
 
     /**
-     * Retrive pattern to use for Date rendering
+     * Retrieve pattern to use for Date rendering
      *
      * @return string
      */
@@ -257,8 +257,8 @@ class FormMonthSelect extends AbstractHelper
 
         $result = array();
         for ($month = 1; $month <= 12; $month++) {
-            $key   = $keyFormatter->format($date);
-            $value = $valueFormatter->format($date);
+            $key   = $keyFormatter->format($date->getTimestamp());
+            $value = $valueFormatter->format($date->getTimestamp());
             $result[$key] = $value;
 
             $date->modify('+1 month');
