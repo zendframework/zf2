@@ -30,7 +30,7 @@ abstract class AbstractPlatform implements PlatformInterface
 
         $parts = preg_split('/([\.\s]' . $safeRegex . ')/i', $identifier, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 
-        $safeWords = array_merge($safeWords, array(' '=>1, '.'=>1, 'as'=>1));
+        $safeWords = array_merge($safeWords, array('*'=>1,  ' '=>1, '.'=>1, 'as'=>1));
         foreach ($parts as $i => $part) {
             if (!isset($safeWords[strtolower($part)])) {
                 $parts[$i] = $this->quoteIdentifier($part);
