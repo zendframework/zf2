@@ -139,7 +139,7 @@ class MultiCheckboxTest extends TestCase
     public function testElementNotRequiredByDefault()
     {
         $element = new MultiCheckboxElement();
-        $filters = $element-> getInputSpecification();
+        $filters = $element->getInputSpecification();
         $this->assertEquals(false, $filters['required']);
     }
 
