@@ -128,7 +128,27 @@ class MultiCheckbox extends Checkbox
         }
         return $this->validator;
     }
+    
+    /**
+     * Provide default input rules for this element
+     *
+     * Attaches the captcha as a validator.
+     *
+     * @return array
+     */
+    public function getInputSpecification()
+    {
+        $spec = array(
+            'name' => $this->getName(),
+            'required' => false,
+            'validators' => array(
+                $this->getValidator()
+            )
+        );
 
+        return $spec;
+    }
+    
     /**
      * Get only the values from the options attribute
      *
