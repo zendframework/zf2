@@ -35,8 +35,8 @@ class MultiCheckboxTest extends TestCase
             '3' => 'Option 3',
         );
         $element->setAttributes(array(
-            'options' => $options,
-        ));
+                'options' => $options,
+            ));
         $element->setUseHiddenElement($useHiddenElement);
 
         $inputSpec = $element->getInputSpecification();
@@ -87,8 +87,8 @@ class MultiCheckboxTest extends TestCase
     {
         $element = new MultiCheckboxElement('my-checkbox');
         $element->setAttributes(array(
-            'options' => $options,
-        ));
+                'options' => $options,
+            ));
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $explodeValidator = $inputSpec['validators'][0];
@@ -109,12 +109,11 @@ class MultiCheckboxTest extends TestCase
         $inArrayValidator=$inputSpec['validators'][0]->getValidator();
 
         $element->setAttributes(array(
-            'options' => $options,
-        ));
+                'options' => $options,
+            ));
         $haystack=$inArrayValidator->getHaystack();
         $this->assertCount(count($options), $haystack);
     }
-
 
     public function testAttributeType()
     {
@@ -129,13 +128,13 @@ class MultiCheckboxTest extends TestCase
     {
         $element = new MultiCheckboxElement();
         $element->setOptions(array(
-                                  'value_options' => array('bar' => 'baz'),
-                                  'options' => array('foo' => 'bar'),
-                             ));
+                'value_options' => array('bar' => 'baz'),
+                'options' => array('foo' => 'bar'),
+            ));
         $this->assertEquals(array('bar' => 'baz'), $element->getOption('value_options'));
         $this->assertEquals(array('foo' => 'bar'), $element->getOption('options'));
     }
-    
+
     public function testElementNotRequiredByDefault()
     {
         $element = new MultiCheckboxElement();
@@ -148,11 +147,11 @@ class MultiCheckboxTest extends TestCase
         $form = new Form();
         $form->add(
             array(
-                 'name'       => 'foo',
-                 'type'       => 'MultiCheckbox',
-                 'attributes' => array(
+                'name'       => 'foo',
+                'type'       => 'MultiCheckbox',
+                'attributes' => array(
                     'id'       => 'bar',
-                 ),
+                ),
             )
         );
         $form->setData(array());
