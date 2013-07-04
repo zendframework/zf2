@@ -130,6 +130,15 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/foo.html', $url->__invoke(true));
     }
 
+    public function testServerUrlWithTrueParamAndEmptyRequestUri()
+    {
+        $_SERVER['HTTPS']       = 'off';
+        $_SERVER['HTTP_HOST']   = 'example.com';
+
+        $url = new Helper\ServerUrl();
+        $this->assertEquals('http://example.com', $url->__invoke(true));
+    }
+
     public function testServerUrlWithInteger()
     {
         $_SERVER['HTTPS']     = 'off';

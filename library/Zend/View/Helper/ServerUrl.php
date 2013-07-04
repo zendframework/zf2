@@ -56,7 +56,7 @@ class ServerUrl extends AbstractHelper
     public function __invoke($requestUri = null)
     {
         if ($requestUri === true) {
-            $path = $_SERVER['REQUEST_URI'];
+            $path = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
         } elseif (is_string($requestUri)) {
             $path = $requestUri;
         } else {
