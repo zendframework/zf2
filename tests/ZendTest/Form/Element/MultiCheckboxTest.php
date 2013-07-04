@@ -14,6 +14,7 @@ namespace ZendTest\Form\Element;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement;
+use Zend\Form\Form;
 
 class MultiCheckboxTest extends TestCase
 {
@@ -133,5 +134,28 @@ class MultiCheckboxTest extends TestCase
                              ));
         $this->assertEquals(array('bar' => 'baz'), $element->getOption('value_options'));
         $this->assertEquals(array('foo' => 'bar'), $element->getOption('options'));
+    }
+    
+    public function testElementNotRequiredByDefault()
+    {
+        $element = new MultiCheckboxElement();
+        $filters = $element-> getInputSpecification();
+        $this->assertEquals(false, $filters['required']);
+    }
+
+    public function testFormIsValidWhenMultiCheckboxHasNoData()
+    {
+        $form = new Form();
+        $form->add(
+            array(
+                 'name'       => 'foo',
+                 'type'       => 'MultiCheckbox',
+                 'attributes' => array(
+                    'id'       => 'bar',
+                 ),
+            )
+        );
+        $form->setData(array());
+        $this->assertEquals(true, $form->isValid());
     }
 }
