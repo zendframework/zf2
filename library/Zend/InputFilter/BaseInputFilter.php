@@ -215,7 +215,7 @@ class BaseInputFilter implements InputFilterInterface
     public function getValidationGroupFilter()
     {
         if (null === $this->validationGroupFilter) {
-            $this->validationGroupFilter = new ValidationGroupArrayFilter($this);
+            $this->validationGroupFilter = new ValidationGroupArrayFilter($this, $this->getValidationGroup());
         }
 
         return $this->validationGroupFilter;
@@ -267,7 +267,7 @@ class BaseInputFilter implements InputFilterInterface
     /**
      * {@inheritDoc}
      */
-    public function isValid()
+    public function isValid($context = null)
     {
         // Reset valid inputs, invalid inputs and error messages to allow this method to be called with
         // different set of data
@@ -291,7 +291,9 @@ class BaseInputFilter implements InputFilterInterface
             /** @var InputFilter $inputFilter */
             $inputFilter = $recursiveIterator->getSubIterator()->getInnerIterator();
 
-            if ($input->isValid()) {
+            $input->setData(isset($inputFilter->data[$name]) ? $inputFilter->data[$name] : null);
+
+            if ($input->isValid($context)) {
                 $inputFilter->validInputs[$name] = $input;
                 continue;
             }
@@ -368,6 +370,13 @@ class BaseInputFilter implements InputFilterInterface
      */
     public function getChildren()
     {
-        return current($this->children);
+        /** @var InputFilterInterface $children */
+        $children = current($this->children);
+        $name     = $children->getName();
+
+        // Lazily inject the data
+        $children->setData(isset($this->data[$name]) ? $this->data[$name] : array());
+
+        return $children;
     }
 }

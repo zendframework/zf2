@@ -151,7 +151,8 @@ interface InputFilterInterface extends RecursiveIterator
     /**
      * Check if the input filter is valid
      *
+     * @param  mixed|null $context An optional context used for validation
      * @return bool
      */
-    public function isValid();
+    public function isValid($context = null);
 }

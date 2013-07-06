@@ -24,14 +24,15 @@ class ValidationGroupArrayFilter extends RecursiveFilterIterator
 
     /**
      * @param RecursiveIterator $iterator
+     * @param array             $validationGroup
      */
-    public function __construct(RecursiveIterator $iterator)
+    public function __construct(RecursiveIterator $iterator, array $validationGroup)
     {
         parent::__construct($iterator);
 
         // This is an optimization, this way we can check using isset, which is way faster than
         // in_array (especially with very large arrays)
-        $this->validationGroup = array_flip($iterator->getValidationGroup());
+        $this->validationGroup = array_flip($validationGroup);
     }
 
     /**
