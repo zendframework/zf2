@@ -39,7 +39,11 @@ class BasePath extends AbstractHelper
         }
 
         if (null !== $file) {
-            $file = '/' . ltrim($file, '/');
+            if ($this->basePath === '/') {
+                $file =  ltrim($file, '/');
+            }   else {
+                $file = '/' . ltrim($file, '/');
+            }
         }
 
         return $this->basePath . $file;
@@ -53,7 +57,11 @@ class BasePath extends AbstractHelper
      */
     public function setBasePath($basePath)
     {
-        $this->basePath = rtrim($basePath, '/');
+        if ($basePath === '/') {
+            $this->basePath = '/';
+        } else {
+            $this->basePath = rtrim($basePath, '/');
+        }
         return $this;
     }
 }
