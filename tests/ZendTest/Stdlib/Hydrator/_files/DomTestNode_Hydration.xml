@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DomTestNode sampleattr="">
+    <NodeOne></NodeOne>
+    <NodeTwo></NodeTwo>
+    <ParentNode>
+        <NodeThree></NodeThree>
+    </ParentNode>
+</DomTestNode>
