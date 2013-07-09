@@ -53,7 +53,11 @@ class BasePath extends AbstractHelper
      */
     public function setBasePath($basePath)
     {
-        $this->basePath = rtrim($basePath, '/');
+        if ($basePath === '/') {
+            $this->basePath = '/';
+        } else {
+            $this->basePath = rtrim($basePath, '/');
+        }
         return $this;
     }
 }
