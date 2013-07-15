@@ -79,8 +79,10 @@ class FormElementErrors extends AbstractHelper
         $escapeHtml      = $this->getEscapeHtmlHelper();
         $messagesToPrint = array();
         array_walk_recursive($messages, function ($item) use (&$messagesToPrint, $escapeHtml) {
+            if (!in_array($item, $messagesToPrint)) {
                 $messagesToPrint[] = $escapeHtml($item);
-            });
+            }
+        });
 
         if (empty($messagesToPrint)) {
             return '';

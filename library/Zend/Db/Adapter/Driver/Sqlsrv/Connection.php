@@ -239,6 +239,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
+     * In transaction
+     *
+     * @return bool
+     */
+    public function inTransaction()
+    {
+        return $this->inTransaction;
+    }
+
+    /**
      * Commit
      */
     public function commit()
@@ -298,10 +308,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $returnValue = sqlsrv_query($this->resource, $sql);
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish($sql);
-        }
-
         // if the returnValue is something other than a Sqlsrv_result, bypass wrapping it
         if ($returnValue === false) {
             $errors = sqlsrv_errors();
@@ -316,6 +322,11 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $result = $this->driver->createResult($returnValue);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($result);
+        }
+
         return $result;
     }
 

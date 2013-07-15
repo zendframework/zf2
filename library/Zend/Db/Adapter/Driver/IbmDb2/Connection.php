@@ -219,6 +219,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
+     * In transaction
+     *
+     * @return bool
+     */
+    public function inTransaction()
+    {
+        // TODO: Implement inTransaction() method.
+    }
+
+    /**
      * Commit
      *
      * @return ConnectionInterface
@@ -258,16 +268,17 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         $resultResource = db2_exec($this->resource, $sql);
         restore_error_handler();
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish($sql);
-        }
-
         // if the returnValue is something other than a pg result resource, bypass wrapping it
         if ($resultResource === false) {
             throw new Exception\InvalidQueryException(db2_stmt_errormsg());
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($resultPrototype);
+        }
+
         return $resultPrototype;
     }
 

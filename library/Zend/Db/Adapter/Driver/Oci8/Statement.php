@@ -252,16 +252,17 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $ret = @oci_execute($this->resource, OCI_COMMIT_ON_SUCCESS);
         }
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish();
-        }
-
         if ($ret === false) {
             $e = oci_error($this->resource);
             throw new Exception\RuntimeException($e['message'], $e['code']);
         }
 
         $result = $this->driver->createResult($this->resource);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($result);
+        }
+
         return $result;
     }
 

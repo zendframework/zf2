@@ -256,6 +256,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
+     * In transaction
+     *
+     * @return bool
+     */
+    public function inTransaction()
+    {
+        return $this->inTransaction;
+    }
+
+    /**
      * Commit
      *
      * @return void
@@ -311,16 +321,17 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $resultResource = $this->resource->query($sql);
 
-        if ($this->profiler) {
-            $this->profiler->profilerFinish($sql);
-        }
-
         // if the returnValue is something other than a mysqli_result, bypass wrapping it
         if ($resultResource === false) {
             throw new Exception\InvalidQueryException($this->resource->error);
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish($resultPrototype);
+        }
+
         return $resultPrototype;
     }
 

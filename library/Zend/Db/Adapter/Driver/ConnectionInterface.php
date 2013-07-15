@@ -54,6 +54,13 @@ interface ConnectionInterface
     public function beginTransaction();
 
     /**
+     * In transaction
+     *
+     * @return bool
+     */
+    public function inTransaction();
+
+    /**
      * Commit
      *
      * @return ConnectionInterface

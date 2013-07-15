@@ -69,6 +69,22 @@ class SessionManager extends AbstractManager
     }
 
     /**
+     * Does a session cookie exist?
+     *
+     * @return bool
+     */
+    public function sessionCookieExists()
+    {
+        $name = $this->getConfig()->getOption('name');
+
+        if ($name) {
+            return isset($_COOKIE[$name]);
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Start session
      *
      * if No session currently exists, attempt to start it. Calls
