@@ -12,41 +12,75 @@ namespace Zend\View\Model;
 use Traversable;
 use Zend\Json\Json;
 use Zend\Stdlib\ArrayUtils;
+use Zend\View\Exception;
+use Zend\View\Variables;
 
-class JsonModel extends ViewModel
+class JsonModel extends AbstractModel
 {
     /**
-     * JSON probably won't need to be captured into a
-     * a parent container by default.
+     * Model options
      *
-     * @var string
+     * @var JsonModelOptions
      */
-    protected $captureTo = null;
+    protected $options;
 
     /**
-     * JSONP callback (if set, wraps the return in a function call)
+     * Constructor
      *
-     * @var string
+     * @param  null|array|Traversable $variables
+     * @param  null|array|Traversable|JsonModelOptions $options
      */
-    protected $jsonpCallback = null;
+    public function __construct($variables = null, $options = null)
+    {
+        if (null === $variables) {
+            $variables = new Variables();
+        }
+
+        // Initializing the variables container
+        $this->setVariables($variables, true);
+
+        if (null !== $options) {
+            $this->setOptions($options);
+        }
+    }
 
     /**
-     * JSON is usually terminal
+     * Set model options
      *
-     * @var bool
-     */
-    protected $terminate = true;
-
-    /**
-     * Set the JSONP callback function name
-     *
-     * @param  string $callback
+     * @param  array|\Traversable|JsonModelOptions $options
+     * @throws Exception\InvalidArgumentException
      * @return JsonModel
      */
-    public function setJsonpCallback($callback)
+    public function setOptions($options)
     {
-        $this->jsonpCallback = $callback;
+        if (!$options instanceof JsonModelOptions) {
+            if (is_object($options) && !$options instanceof Traversable) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'Expected instance of Zend\View\Model\JsonModelOptions; '
+                    . 'received "%s"', get_class($options))
+                );
+            }
+
+            $options = new JsonModelOptions($options);
+        }
+
+        $this->options = $options;
+
         return $this;
+    }
+
+    /**
+     * Get model options
+     *
+     * @return JsonModelOptions
+     */
+    public function getOptions()
+    {
+        if (!$this->options) {
+            $this->setOptions(new JsonModelOptions());
+        }
+
+        return $this->options;
     }
 
     /**
@@ -61,9 +95,10 @@ class JsonModel extends ViewModel
             $variables = ArrayUtils::iteratorToArray($variables);
         }
 
-        if (null !== $this->jsonpCallback) {
-            return $this->jsonpCallback.'('.Json::encode($variables).');';
+        if (null !== $this->getOptions()->getJsonpCallback()) {
+            return $this->getOptions()->getJsonpCallback().'('.Json::encode($variables).');';
         }
+
         return Json::encode($variables);
     }
 }

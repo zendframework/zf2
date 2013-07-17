@@ -19,17 +19,23 @@ use Zend\View\HelperPluginManager;
 use Zend\View\Helper\FlashMessenger;
 use ZendTest\Session\TestAsset\TestManager as SessionManager;
 
-/**
- * Test class for Zend_View_Helper_Cycle.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class FlashMessengerTest extends TestCase
 {
+    /**
+     * @var FlashMessenger
+     */
+    protected $helper;
+
+    /**
+     * @var PluginFlashMessenger
+     */
+    protected $plugin;
+
+    /**
+     * @var SessionManager
+     */
+    protected $session;
+
     public function setUp()
     {
         $this->session = new SessionManager();

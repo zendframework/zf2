@@ -10,27 +10,19 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
-use Zend\Navigation\Navigation;
 use Zend\Config\Factory as ConfigFactory;
+use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\Navigation\Navigation;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\Permissions\Acl\Resource\GenericResource;
 use Zend\ServiceManager\ServiceManager;
-use Zend\I18n\Translator\Translator;
 use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Helper\Navigation\AbstractHelper;
 use ZendTest\View\Helper\TestAsset;
 
-/**
- * Base class for navigation view helper tests
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {
     const REGISTRY_KEY = 'Zend_Navigation';
@@ -52,26 +44,26 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      *
      * @var string
      */
-    protected $_helperName;
+    protected $helperName;
 
     /**
      * View helper
      *
-     * @var Zend\View\Helper\Navigation\AbstractHelper
+     * @var AbstractHelper
      */
-    protected $_helper;
+    protected $helper;
 
     /**
      * The first container in the config file (files/navigation.xml)
      *
-     * @var Zend_Navigation
+     * @var Navigation
      */
     protected $_nav1;
 
     /**
      * The second container in the config file (files/navigation.xml)
      *
-     * @var Navigation\Navigation
+     * @var Navigation
      */
     protected $_nav2;
 
@@ -98,11 +90,11 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $view->resolver()->addPath($cwd . '/_files/mvc/views');
 
         // create helper
-        $this->_helper = new $this->_helperName;
-        $this->_helper->setView($view);
+        $this->helper = new $this->helperName;
+        $this->helper->setView($view);
 
         // set nav1 in helper as default
-        $this->_helper->setContainer($this->_nav1);
+        $this->helper->setContainer($this->_nav1);
 
         // setup service manager
         $smConfig = array(

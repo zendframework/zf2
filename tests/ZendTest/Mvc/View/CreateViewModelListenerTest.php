@@ -17,13 +17,18 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\View\Http\CreateViewModelListener;
 use Zend\View\Model\ViewModel;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class CreateViewModelListenerTest extends TestCase
 {
+    /**
+     * @var MvcEvent
+     */
+    protected $event;
+
+    /**
+     * @var CreateViewModelListener
+     */
+    protected $listener;
+
     public function setUp()
     {
         $this->listener   = new CreateViewModelListener();

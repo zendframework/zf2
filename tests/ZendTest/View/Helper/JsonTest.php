@@ -15,17 +15,17 @@ use Zend\Http\Response;
 use Zend\Json\Json as JsonFormatter;
 use Zend\View\Helper\Json as JsonHelper;
 
-/**
- * Test class for Zend_View_Helper_Json
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class JsonTest extends TestCase
 {
+    /**
+     * @var JsonHelper
+     */
+    protected $helper;
+
+    /**
+     * @var Response
+     */
+    protected $response;
 
     /**
      * Sets up the fixture, for example, open a network connection.

@@ -11,6 +11,7 @@ namespace Zend\View\Strategy;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
+use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 
@@ -88,6 +89,13 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      */
     public function selectRenderer(ViewEvent $e)
     {
+        $model = $e->getModel();
+
+        // no view model; do nothing
+        if (!$model instanceof Model) {
+            return;
+        }
+
         return $this->renderer;
     }
 

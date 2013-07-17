@@ -123,7 +123,7 @@ class ExceptionStrategy extends AbstractListenerAggregate
                     'exception'          => $e->getParam('exception'),
                     'display_exceptions' => $this->displayExceptions(),
                 ));
-                $model->setTemplate($this->getExceptionTemplate());
+                $model->getOptions()->setTemplate($this->getExceptionTemplate());
                 $e->setResult($model);
 
                 $response = $e->getResponse();

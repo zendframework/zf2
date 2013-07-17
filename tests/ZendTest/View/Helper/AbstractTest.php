@@ -13,13 +13,6 @@ namespace ZendTest\View\Helper;
 use PHPUnit_Framework_TestCase as TestCase;
 use ZendTest\View\Helper\TestAsset\ConcreteHelper;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class AbstractTest extends TestCase
 {
     /**

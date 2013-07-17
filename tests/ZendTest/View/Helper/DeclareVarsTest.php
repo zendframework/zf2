@@ -13,15 +13,13 @@ namespace ZendTest\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\DeclareVars;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class DeclareVarsTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var View
+     */
+    protected $view;
+
     public function setUp()
     {
         $view = new View();

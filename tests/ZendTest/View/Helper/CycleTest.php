@@ -10,23 +10,14 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper;
+use Zend\View\Helper\Cycle;
 
-/**
- * Test class for Zend_View_Helper_Cycle.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class CycleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_Cycle
+     * @var Cycle
      */
-    public $helper;
+    protected $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -36,7 +27,7 @@ class CycleTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->helper = new Helper\Cycle();
+        $this->helper = new Cycle();
     }
 
     /**
@@ -53,7 +44,7 @@ class CycleTest extends \PHPUnit_Framework_TestCase
     public function testCycleMethodReturnsObjectInstance()
     {
         $cycle = $this->helper->__invoke();
-        $this->assertTrue($cycle instanceof Helper\Cycle);
+        $this->assertTrue($cycle instanceof Cycle);
     }
 
     public function testAssignAndGetValues()

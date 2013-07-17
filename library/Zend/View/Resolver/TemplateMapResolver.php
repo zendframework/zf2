@@ -69,6 +69,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
         }
 
         $this->map = $map;
+
         return $this;
     }
 
@@ -103,6 +104,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
         }
 
         $this->map[$nameOrMap] = $path;
+
         return $this;
     }
 
@@ -128,6 +130,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
         }
 
         $this->map = array_replace_recursive($this->map, $map);
+
         return $this;
     }
 
@@ -154,6 +157,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
         if (!$this->has($name)) {
             return false;
         }
+
         return $this->map[$name];
     }
 

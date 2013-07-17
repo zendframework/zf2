@@ -9,30 +9,31 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
+use Zend\View\Helper\Navigation;
 
 class AbstractHelperTest extends AbstractTest
 {
+    /**
+     * View helper
+     *
+     * @var Navigation\AbstractHelper
+     */
+    protected $helper;
+
     /**
      * Class name for view helper to test
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation';
-
-    /**
-     * View helper
-     *
-     * @var \Zend\View\Helper\Navigation\Breadcrumbs
-     */
-    protected $_helper;
+    protected $helperName = 'Zend\View\Helper\Navigation';
 
     protected function tearDown()
     {
         parent::tearDown();
-        $this->_helper->setDefaultAcl(null);
-        $this->_helper->setAcl(null);
-        $this->_helper->setDefaultRole(null);
-        $this->_helper->setRole(null);
+        $this->helper->setDefaultAcl(null);
+        $this->helper->setAcl(null);
+        $this->helper->setDefaultRole(null);
+        $this->helper->setRole(null);
     }
 
     public function testHasACLChecksDefaultACL()
@@ -40,9 +41,9 @@ class AbstractHelperTest extends AbstractTest
         $aclContainer = $this->_getAcl();
         $acl = $aclContainer['acl'];
 
-        $this->assertEquals(false, $this->_helper->hasACL());
-        $this->_helper->setDefaultAcl($acl);
-        $this->assertEquals(true, $this->_helper->hasAcl());
+        $this->assertEquals(false, $this->helper->hasACL());
+        $this->helper->setDefaultAcl($acl);
+        $this->assertEquals(true, $this->helper->hasAcl());
     }
 
     public function testHasACLChecksMemberVariable()
@@ -50,9 +51,9 @@ class AbstractHelperTest extends AbstractTest
         $aclContainer = $this->_getAcl();
         $acl = $aclContainer['acl'];
 
-        $this->assertEquals(false, $this->_helper->hasAcl());
-        $this->_helper->setAcl($acl);
-        $this->assertEquals(true, $this->_helper->hasAcl());
+        $this->assertEquals(false, $this->helper->hasAcl());
+        $this->helper->setAcl($acl);
+        $this->assertEquals(true, $this->helper->hasAcl());
     }
 
     public function testHasRoleChecksDefaultRole()
@@ -60,9 +61,9 @@ class AbstractHelperTest extends AbstractTest
         $aclContainer = $this->_getAcl();
         $role = $aclContainer['role'];
 
-        $this->assertEquals(false, $this->_helper->hasRole());
-        $this->_helper->setDefaultRole($role);
-        $this->assertEquals(true, $this->_helper->hasRole());
+        $this->assertEquals(false, $this->helper->hasRole());
+        $this->helper->setDefaultRole($role);
+        $this->assertEquals(true, $this->helper->hasRole());
     }
 
     public function testHasRoleChecksMemberVariable()
@@ -70,8 +71,8 @@ class AbstractHelperTest extends AbstractTest
         $aclContainer = $this->_getAcl();
         $role = $aclContainer['role'];
 
-        $this->assertEquals(false, $this->_helper->hasRole());
-        $this->_helper->setRole($role);
-        $this->assertEquals(true, $this->_helper->hasRole());
+        $this->assertEquals(false, $this->helper->hasRole());
+        $this->helper->setRole($role);
+        $this->assertEquals(true, $this->helper->hasRole());
     }
 }

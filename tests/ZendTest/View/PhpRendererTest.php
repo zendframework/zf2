@@ -17,12 +17,6 @@ use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
 use Zend\Filter\FilterChain;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- */
 class PhpRendererTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -196,6 +190,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testNestedRenderingRestoresVariablesCorrectly()
     {
         $expected = "inner\n<p>content</p>";
+
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('testNestedOuter.phtml', array('content' => '<p>content</p>'));
         $this->assertEquals($expected, $test);
@@ -277,7 +272,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
-        $model->setTemplate('empty');
+        $model->getOptions()->setTemplate('empty');
 
         $content = $this->renderer->render($model);
         $this->assertRegexp('/\s*Empty view\s*/s', $content);
@@ -304,7 +299,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
-        $model->setTemplate('test');
+        $model->getOptions()->setTemplate('test');
         $model->setVariable('bar', 'bar');
 
         $content = $this->renderer->render($model);
@@ -322,7 +317,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
-        $model->setTemplate('empty');
+        $model->getOptions()->setTemplate('empty');
 
         $content = $this->renderer->render($model);
         $helper  = $this->renderer->plugin('view_model');
@@ -338,7 +333,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
-        $model->setTemplate('exception');
+        $model->getOptions()->setTemplate('exception');
 
         try {
             $this->renderer->render($model);
@@ -361,7 +356,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testDoesNotRenderTreesOfViewModelsByDefault()
     {
-        $this->assertFalse($this->renderer->canRenderTrees());
+        $this->assertFalse($this->renderer->getOptions()->canRenderTrees());
     }
 
     /**
@@ -369,10 +364,10 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderTreesOfViewModelsCapabilityIsMutable()
     {
-        $this->renderer->setCanRenderTrees(true);
-        $this->assertTrue($this->renderer->canRenderTrees());
-        $this->renderer->setCanRenderTrees(false);
-        $this->assertFalse($this->renderer->canRenderTrees());
+        $this->renderer->getOptions()->setCanRenderTrees(true);
+        $this->assertTrue($this->renderer->getOptions()->canRenderTrees());
+        $this->renderer->getOptions()->setCanRenderTrees(false);
+        $this->assertFalse($this->renderer->getOptions()->canRenderTrees());
     }
 
     /**
@@ -381,7 +376,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testIfViewModelComposesVariablesInstanceThenRendererUsesIt()
     {
         $model = new ViewModel();
-        $model->setTemplate('template');
+        $model->getOptions()->setTemplate('template');
         $vars  = $model->getVariables();
         $vars['foo'] = 'BAR-BAZ-BAT';
 

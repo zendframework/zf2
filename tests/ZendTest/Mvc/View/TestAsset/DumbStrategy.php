@@ -15,13 +15,6 @@ use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 
-/**
- * Mock renderer
- *
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class DumbStrategy implements Renderer
 {
     protected $resolver;

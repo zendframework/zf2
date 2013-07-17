@@ -17,48 +17,46 @@ use Zend\Permissions\Acl;
 use Zend\Permissions\Acl\Role;
 use Zend\Permissions\Acl\Resource;
 use Zend\View;
+use Zend\View\Helper\Doctype;
 use Zend\View\Helper\Navigation;
 
-/**
- * Tests Zend_View_Helper_Navigation_Links
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class LinksTest extends AbstractTest
 {
+    /**
+     * View helper
+     *
+     * @var Navigation\Links
+     */
+    protected $helper;
+
     /**
      * Class name for view helper to test
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Links';
+    protected $helperName = 'Zend\View\Helper\Navigation\Links';
 
     /**
-     * View helper
-     *
-     * @var Zend\View\Helper\Navigation\Links
+     * @var Doctype
      */
-    protected $_helper;
+    protected $helperDoctype;
 
-    private $_doctypeHelper;
-    private $_oldDoctype;
+    /**
+     * @var Doctype
+     */
+    private $helperDoctypeOld;
 
     public function setUp()
     {
         parent::setUp();
 
         // doctype fix (someone forgot to clean up after their unit tests)
-        $this->_doctypeHelper = $this->_helper->getView()->plugin('doctype');
-        $this->_oldDoctype = $this->_doctypeHelper->getDoctype();
-        $this->_doctypeHelper->setDoctype(
-                \Zend\View\Helper\Doctype::HTML4_LOOSE);
+        $this->helperDoctype = $this->helper->getView()->plugin('doctype');
+        $this->helperDoctypeOld = $this->helperDoctype->getDoctype();
+        $this->helperDoctype->setDoctype(Doctype::HTML4_LOOSE);
 
         // disable all active pages
-        foreach ($this->_helper->findAllByActive(true) as $page) {
+        foreach ($this->helper->findAllByActive(true) as $page) {
             $page->active = false;
         }
     }
@@ -66,42 +64,42 @@ class LinksTest extends AbstractTest
     public function tearDown()
     {
         return;
-        $this->_doctypeHelper->setDoctype($this->_oldDoctype);
+        $this->helperDoctype->setDoctype($this->helperDoctypeOld);
     }
 
     public function testCanRenderFromServiceAlias()
     {
         $sm = $this->serviceManager;
-        $this->_helper->setServiceLocator($sm);
+        $this->helper->setServiceLocator($sm);
 
-        $returned = $this->_helper->render('Navigation');
+        $returned = $this->helper->render('Navigation');
         $this->assertEquals($returned, $this->_getExpected('links/default.html'));
     }
 
     public function testHelperEntryPointWithoutAnyParams()
     {
-        $returned = $this->_helper->__invoke();
-        $this->assertEquals($this->_helper, $returned);
+        $returned = $this->helper->__invoke();
+        $this->assertEquals($this->helper, $returned);
         $this->assertEquals($this->_nav1, $returned->getContainer());
     }
 
     public function testHelperEntryPointWithContainerParam()
     {
-        $returned = $this->_helper->__invoke($this->_nav2);
-        $this->assertEquals($this->_helper, $returned);
+        $returned = $this->helper->__invoke($this->_nav2);
+        $this->assertEquals($this->helper, $returned);
         $this->assertEquals($this->_nav2, $returned->getContainer());
     }
 
     public function testDoNotRenderIfNoPageIsActive()
     {
-        $this->assertEquals('', $this->_helper->render());
+        $this->assertEquals('', $this->helper->render());
     }
 
     public function testDetectRelationFromStringPropertyOfActivePage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
+        $active = $this->helper->findOneByLabel('Page 2');
         $active->addRel('example', 'http://www.example.com/');
-        $found = $this->_helper->findRelation($active, 'rel', 'example');
+        $found = $this->helper->findRelation($active, 'rel', 'example');
 
         $expected = array(
             'type'  => 'Zend\Navigation\Page\Uri',
@@ -120,12 +118,12 @@ class LinksTest extends AbstractTest
 
     public function testDetectRelationFromPageInstancePropertyOfActivePage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
+        $active = $this->helper->findOneByLabel('Page 2');
         $active->addRel('example', AbstractPage::factory(array(
             'uri' => 'http://www.example.com/',
             'label' => 'An example page'
         )));
-        $found = $this->_helper->findRelExample($active);
+        $found = $this->helper->findRelExample($active);
 
         $expected = array(
             'type'  => 'Zend\Navigation\Page\Uri',
@@ -144,12 +142,12 @@ class LinksTest extends AbstractTest
 
     public function testDetectRelationFromArrayPropertyOfActivePage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
+        $active = $this->helper->findOneByLabel('Page 2');
         $active->addRel('example', array(
             'uri' => 'http://www.example.com/',
             'label' => 'An example page'
         ));
-        $found = $this->_helper->findRelExample($active);
+        $found = $this->helper->findRelExample($active);
 
         $expected = array(
             'type'  => 'Zend\Navigation\Page\Uri',
@@ -168,12 +166,12 @@ class LinksTest extends AbstractTest
 
     public function testDetectRelationFromConfigInstancePropertyOfActivePage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
+        $active = $this->helper->findOneByLabel('Page 2');
         $active->addRel('example', new Config\Config(array(
             'uri' => 'http://www.example.com/',
             'label' => 'An example page'
         )));
-        $found = $this->_helper->findRelExample($active);
+        $found = $this->helper->findRelExample($active);
 
         $expected = array(
             'type'  => 'Zend\Navigation\Page\Uri',
@@ -192,7 +190,7 @@ class LinksTest extends AbstractTest
 
     public function testDetectMultipleRelationsFromArrayPropertyOfActivePage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
+        $active = $this->helper->findOneByLabel('Page 2');
 
         $active->addRel('alternate', array(
             array(
@@ -205,7 +203,7 @@ class LinksTest extends AbstractTest
             )
         ));
 
-        $found = $this->_helper->findRelAlternate($active);
+        $found = $this->helper->findRelAlternate($active);
 
         $expected = array('type' => 'array', 'count' => 2);
         $actual = array('type' => gettype($found), 'count' => count($found));
@@ -214,7 +212,7 @@ class LinksTest extends AbstractTest
 
     public function testDetectMultipleRelationsFromConfigPropertyOfActivePage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
+        $active = $this->helper->findOneByLabel('Page 2');
 
         $active->addRel('alternate', new Config\Config(array(
             array(
@@ -227,7 +225,7 @@ class LinksTest extends AbstractTest
             )
         )));
 
-        $found = $this->_helper->findRelAlternate($active);
+        $found = $this->helper->findRelAlternate($active);
 
         $expected = array('type' => 'array', 'count' => 2);
         $actual = array('type' => gettype($found), 'count' => count($found));
@@ -247,13 +245,13 @@ class LinksTest extends AbstractTest
             'uri'   => 'http://www.example.com/'
         ));
 
-        $active = $this->_helper->findOneByLabel('Page 2');
+        $active = $this->helper->findOneByLabel('Page 2');
         $expected = array();
         $actual = array();
 
         foreach ($types as $type) {
             $active->addRel($type, $samplePage);
-            $found = $this->_helper->findRelation($active, 'rel', $type);
+            $found = $this->helper->findRelation($active, 'rel', $type);
 
             $expected[$type] = $samplePage->getLabel();
             $actual[$type]   = $found->getLabel();
@@ -266,71 +264,71 @@ class LinksTest extends AbstractTest
 
     public function testFindStartPageByTraversal()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.1');
+        $active = $this->helper->findOneByLabel('Page 2.1');
         $expected = 'Home';
-        $actual = $this->_helper->findRelStart($active)->getLabel();
+        $actual = $this->helper->findRelStart($active)->getLabel();
         $this->assertEquals($expected, $actual);
     }
 
     public function testDoNotFindStartWhenGivenPageIsTheFirstPage()
     {
-        $active = $this->_helper->findOneByLabel('Home');
-        $actual = $this->_helper->findRelStart($active);
+        $active = $this->helper->findOneByLabel('Home');
+        $actual = $this->helper->findRelStart($active);
         $this->assertNull($actual, 'Should not find any start page');
     }
 
     public function testFindNextPageByTraversalShouldFindChildPage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
+        $active = $this->helper->findOneByLabel('Page 2');
         $expected = 'Page 2.1';
-        $actual = $this->_helper->findRelNext($active)->getLabel();
+        $actual = $this->helper->findRelNext($active)->getLabel();
         $this->assertEquals($expected, $actual);
     }
 
     public function testFindNextPageByTraversalShouldFindSiblingPage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.1');
+        $active = $this->helper->findOneByLabel('Page 2.1');
         $expected = 'Page 2.2';
-        $actual = $this->_helper->findRelNext($active)->getLabel();
+        $actual = $this->helper->findRelNext($active)->getLabel();
         $this->assertEquals($expected, $actual);
     }
 
     public function testFindNextPageByTraversalShouldWrap()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.2.2');
+        $active = $this->helper->findOneByLabel('Page 2.2.2');
         $expected = 'Page 2.3';
-        $actual = $this->_helper->findRelNext($active)->getLabel();
+        $actual = $this->helper->findRelNext($active)->getLabel();
         $this->assertEquals($expected, $actual);
     }
 
     public function testFindPrevPageByTraversalShouldFindParentPage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.1');
+        $active = $this->helper->findOneByLabel('Page 2.1');
         $expected = 'Page 2';
-        $actual = $this->_helper->findRelPrev($active)->getLabel();
+        $actual = $this->helper->findRelPrev($active)->getLabel();
         $this->assertEquals($expected, $actual);
     }
 
     public function testFindPrevPageByTraversalShouldFindSiblingPage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.2');
+        $active = $this->helper->findOneByLabel('Page 2.2');
         $expected = 'Page 2.1';
-        $actual = $this->_helper->findRelPrev($active)->getLabel();
+        $actual = $this->helper->findRelPrev($active)->getLabel();
         $this->assertEquals($expected, $actual);
     }
 
     public function testFindPrevPageByTraversalShouldWrap()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.3');
+        $active = $this->helper->findOneByLabel('Page 2.3');
         $expected = 'Page 2.2.2';
-        $actual = $this->_helper->findRelPrev($active)->getLabel();
+        $actual = $this->helper->findRelPrev($active)->getLabel();
         $this->assertEquals($expected, $actual);
     }
 
     public function testShouldFindChaptersFromFirstLevelOfPagesInContainer()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.3');
-        $found = $this->_helper->findRelChapter($active);
+        $active = $this->helper->findOneByLabel('Page 2.3');
+        $found = $this->helper->findRelChapter($active);
 
         $expected = array('Page 1', 'Page 2', 'Page 3', 'Zym');
         $actual = array();
@@ -343,8 +341,8 @@ class LinksTest extends AbstractTest
 
     public function testFindingChaptersShouldExcludeSelfIfChapter()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
-        $found = $this->_helper->findRelChapter($active);
+        $active = $this->helper->findOneByLabel('Page 2');
+        $found = $this->helper->findRelChapter($active);
 
         $expected = array('Page 1', 'Page 3', 'Zym');
         $actual = array();
@@ -357,8 +355,8 @@ class LinksTest extends AbstractTest
 
     public function testFindSectionsWhenActiveChapterPage()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
-        $found = $this->_helper->findRelSection($active);
+        $active = $this->helper->findOneByLabel('Page 2');
+        $found = $this->helper->findRelSection($active);
         $expected = array('Page 2.1', 'Page 2.2', 'Page 2.3');
         $actual = array();
         foreach ($found as $page) {
@@ -369,22 +367,22 @@ class LinksTest extends AbstractTest
 
     public function testDoNotFindSectionsWhenActivePageIsASection()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.2');
-        $found = $this->_helper->findRelSection($active);
+        $active = $this->helper->findOneByLabel('Page 2.2');
+        $found = $this->helper->findRelSection($active);
         $this->assertNull($found);
     }
 
     public function testDoNotFindSectionsWhenActivePageIsASubsection()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.2.1');
-        $found = $this->_helper->findRelation($active, 'rel', 'section');
+        $active = $this->helper->findOneByLabel('Page 2.2.1');
+        $found = $this->helper->findRelation($active, 'rel', 'section');
         $this->assertNull($found);
     }
 
     public function testFindSubsectionWhenActivePageIsSection()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.2');
-        $found = $this->_helper->findRelSubsection($active);
+        $active = $this->helper->findOneByLabel('Page 2.2');
+        $found = $this->helper->findRelSubsection($active);
 
         $expected = array('Page 2.2.1', 'Page 2.2.2');
         $actual = array();
@@ -396,29 +394,29 @@ class LinksTest extends AbstractTest
 
     public function testDoNotFindSubsectionsWhenActivePageIsASubSubsection()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.2.1');
-        $found = $this->_helper->findRelSubsection($active);
+        $active = $this->helper->findOneByLabel('Page 2.2.1');
+        $found = $this->helper->findRelSubsection($active);
         $this->assertNull($found);
     }
 
     public function testDoNotFindSubsectionsWhenActivePageIsAChapter()
     {
-        $active = $this->_helper->findOneByLabel('Page 2');
-        $found = $this->_helper->findRelSubsection($active);
+        $active = $this->helper->findOneByLabel('Page 2');
+        $found = $this->helper->findRelSubsection($active);
         $this->assertNull($found);
     }
 
     public function testFindRevSectionWhenPageIsSection()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.2');
-        $found = $this->_helper->findRevSection($active);
+        $active = $this->helper->findOneByLabel('Page 2.2');
+        $found = $this->helper->findRevSection($active);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
     public function testFindRevSubsectionWhenPageIsSubsection()
     {
-        $active = $this->_helper->findOneByLabel('Page 2.2.1');
-        $found = $this->_helper->findRevSubsection($active);
+        $active = $this->helper->findOneByLabel('Page 2.2.1');
+        $found = $this->helper->findRevSubsection($active);
         $this->assertEquals('Page 2.2', $found->getLabel());
     }
 
@@ -429,8 +427,8 @@ class LinksTest extends AbstractTest
         $acl->addRole(new Role\GenericRole('admin'));
         $acl->addResource(new Resource\GenericResource('protected'));
         $acl->allow('admin', 'protected');
-        $this->_helper->setAcl($acl);
-        $this->_helper->setRole($acl->getRole('member'));
+        $this->helper->setAcl($acl);
+        $this->helper->setRole($acl->getRole('member'));
 
         $samplePage = AbstractPage::factory(array(
             'label'    => 'An example page',
@@ -438,7 +436,7 @@ class LinksTest extends AbstractTest
             'resource' => 'protected'
         ));
 
-        $active = $this->_helper->findOneByLabel('Home');
+        $active = $this->helper->findOneByLabel('Home');
         $expected = array(
             'alternate'  => false,
             'stylesheet' => false,
@@ -461,7 +459,7 @@ class LinksTest extends AbstractTest
         foreach ($expected as $type => $discard) {
             $active->addRel($type, $samplePage);
 
-            $found = $this->_helper->findRelation($active, 'rel', $type);
+            $found = $this->helper->findRelation($active, 'rel', $type);
             if (null === $found) {
                 $actual[$type] = false;
             } elseif (is_array($found)) {
@@ -481,20 +479,20 @@ class LinksTest extends AbstractTest
         $acl->addRole(new Role\GenericRole('admin'));
         $acl->addResource(new Resource\GenericResource('protected'));
         $acl->allow('admin', 'protected');
-        $this->_helper->setAcl($acl);
-        $this->_helper->setRole($acl->getRole('member'));
+        $this->helper->setAcl($acl);
+        $this->helper->setRole($acl->getRole('member'));
 
-        $oldContainer = $this->_helper->getContainer();
-        $container = $this->_helper->getContainer();
+        $oldContainer = $this->helper->getContainer();
+        $container = $this->helper->getContainer();
         $iterator = new \RecursiveIteratorIterator(
             $container,
             \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($iterator as $page) {
             $page->resource = 'protected';
         }
-        $this->_helper->setContainer($container);
+        $this->helper->setContainer($container);
 
-        $active = $this->_helper->findOneByLabel('Home');
+        $active = $this->helper->findOneByLabel('Home');
         $search = array(
             'start'      => 'Page 1',
             'next'       => 'Page 1',
@@ -510,8 +508,8 @@ class LinksTest extends AbstractTest
         foreach ($search as $type => $active) {
             $expected[$type] = false;
 
-            $active = $this->_helper->findOneByLabel($active);
-            $found = $this->_helper->findRelation($active, 'rel', $type);
+            $active = $this->helper->findOneByLabel($active);
+            $found = $this->helper->findRelation($active, 'rel', $type);
 
             if (null === $found) {
                 $actual[$type] = false;
@@ -527,9 +525,9 @@ class LinksTest extends AbstractTest
 
     public function testFindRelationMustSpecifyRelOrRev()
     {
-        $active = $this->_helper->findOneByLabel('Home');
+        $active = $this->helper->findOneByLabel('Home');
         try {
-            $this->_helper->findRelation($active, 'foo', 'bar');
+            $this->helper->findRelation($active, 'foo', 'bar');
             $this->fail('An invalid value was given, but a ' .
                         'Zend_View_Exception was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
@@ -539,9 +537,9 @@ class LinksTest extends AbstractTest
 
     public function testRenderLinkMustSpecifyRelOrRev()
     {
-        $active = $this->_helper->findOneByLabel('Home');
+        $active = $this->helper->findOneByLabel('Home');
         try {
-            $this->_helper->renderLink($active, 'foo', 'bar');
+            $this->helper->renderLink($active, 'foo', 'bar');
             $this->fail('An invalid value was given, but a ' .
                         'Zend_View_Exception was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
@@ -578,7 +576,7 @@ class LinksTest extends AbstractTest
         );
 
         // find active page and create page to use for relations
-        $active = $this->_helper->findOneByLabel('Page 1');
+        $active = $this->helper->findOneByLabel('Page 1');
         $forcedRelation = new UriPage(array(
             'label' => 'Forced page',
             'uri'   => '#'
@@ -591,7 +589,7 @@ class LinksTest extends AbstractTest
         }
 
         // build actual result
-        $actual = $this->_helper->findAllRelations($active);
+        $actual = $this->helper->findAllRelations($active);
         foreach ($actual as $attrib => $relations) {
             foreach ($relations as $type => $pages) {
                 foreach ($pages as $key => $page) {
@@ -626,7 +624,7 @@ class LinksTest extends AbstractTest
 
     public function testSingleRenderFlags()
     {
-        $active = $this->_helper->findOneByLabel('Home');
+        $active = $this->helper->findOneByLabel('Home');
         $active->active = true;
 
         $expected = array();
@@ -638,14 +636,14 @@ class LinksTest extends AbstractTest
             $active->addRel($type, 'http://www.example.com/');
             $active->addRev($type, 'http://www.example.com/');
 
-            $this->_helper->setRenderFlag($newFlag);
+            $this->helper->setRenderFlag($newFlag);
             $expectedOutput = '<link '
                               . 'rel="' . $type . '" '
-                              . 'href="http://www.example.com/">' . constant($this->_helperName.'::EOL')
+                              . 'href="http://www.example.com/">' . constant($this->helperName.'::EOL')
                             . '<link '
                               . 'rev="' . $type . '" '
                               . 'href="http://www.example.com/">';
-            $actualOutput = $this->_helper->render();
+            $actualOutput = $this->helper->render();
 
             $expected[$type] = $expectedOutput;
             $actual[$type]   = $actualOutput;
@@ -662,57 +660,57 @@ class LinksTest extends AbstractTest
     {
         $newFlag = Navigation\Links::RENDER_NEXT |
                    Navigation\Links::RENDER_PREV;
-        $this->_helper->setRenderFlag($newFlag);
-        $active = $this->_helper->findOneByLabel('Page 1.1');
+        $this->helper->setRenderFlag($newFlag);
+        $active = $this->helper->findOneByLabel('Page 1.1');
         $active->active = true;
 
         // test data
         $expected = '<link rel="next" href="page2" title="Page 2">'
-                  . constant($this->_helperName.'::EOL')
+                  . constant($this->helperName.'::EOL')
                   . '<link rel="prev" href="page1" title="Page 1">';
-        $actual = $this->_helper->render();
+        $actual = $this->helper->render();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testIndenting()
     {
-        $active = $this->_helper->findOneByLabel('Page 1.1');
+        $active = $this->helper->findOneByLabel('Page 1.1');
         $newFlag = Navigation\Links::RENDER_NEXT |
                    Navigation\Links::RENDER_PREV;
-        $this->_helper->setRenderFlag($newFlag);
-        $this->_helper->setIndent('  ');
+        $this->helper->setRenderFlag($newFlag);
+        $this->helper->setIndent('  ');
         $active->active = true;
 
         // build expected and actual result
         $expected = '  <link rel="next" href="page2" title="Page 2">'
-                  . constant($this->_helperName.'::EOL')
+                  . constant($this->helperName.'::EOL')
                   . '  <link rel="prev" href="page1" title="Page 1">';
-        $actual = $this->_helper->render();
+        $actual = $this->helper->render();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testSetMaxDepth()
     {
-        $this->_helper->setMaxDepth(1);
-        $this->_helper->findOneByLabel('Page 2.3.3')->setActive(); // level 2
+        $this->helper->setMaxDepth(1);
+        $this->helper->findOneByLabel('Page 2.3.3')->setActive(); // level 2
         $flag = Navigation\Links::RENDER_NEXT;
 
         $expected = '<link rel="next" href="page2/page2_3/page2_3_1" title="Page 2.3.1">';
-        $actual = $this->_helper->setRenderFlag($flag)->render();
+        $actual = $this->helper->setRenderFlag($flag)->render();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testSetMinDepth()
     {
-        $this->_helper->setMinDepth(2);
-        $this->_helper->findOneByLabel('Page 2.3')->setActive(); // level 1
+        $this->helper->setMinDepth(2);
+        $this->helper->findOneByLabel('Page 2.3')->setActive(); // level 1
         $flag = Navigation\Links::RENDER_NEXT;
 
         $expected = '';
-        $actual = $this->_helper->setRenderFlag($flag)->render();
+        $actual = $this->helper->setRenderFlag($flag)->render();
 
         $this->assertEquals($expected, $actual);
     }

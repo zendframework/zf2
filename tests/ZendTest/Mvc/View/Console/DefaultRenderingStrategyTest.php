@@ -18,13 +18,11 @@ use Zend\Mvc\View\Console\DefaultRenderingStrategy;
 use Zend\Stdlib\Response;
 use Zend\View\Model;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class DefaultRenderingStrategyTest extends TestCase
 {
+    /**
+     * @var DefaultRenderingStrategy
+     */
     protected $strategy;
 
     public function setUp()

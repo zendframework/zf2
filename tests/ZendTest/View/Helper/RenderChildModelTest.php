@@ -11,19 +11,39 @@
 namespace ZendTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\View\Helper\RenderChildModel;
+use Zend\View\Helper\ViewModel as ViewModelHelper;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Resolver\TemplateMapResolver;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class RenderChildModelTest extends TestCase
 {
+    /**
+     * @var RenderChildModel
+     */
+    protected $helper;
+
+    /**
+     * @var ViewModelHelper
+     */
+    protected $helperViewModel;
+
+    /**
+     * @var ViewModel
+     */
+    protected $parent;
+
+    /**
+     * @var PhpRenderer
+     */
+    protected $renderer;
+
+    /**
+     * @var TemplateMapResolver
+     */
+    protected $resolver;
+
     public function setUp()
     {
         $this->resolver = new TemplateMapResolver(array(
@@ -33,16 +53,16 @@ class RenderChildModelTest extends TestCase
             'complex' => __DIR__ . '/../_templates/nested-view-model-complexlayout.phtml',
         ));
         $this->renderer = $renderer = new PhpRenderer();
-        $renderer->setCanRenderTrees(true);
+        $renderer->getOptions()->setCanRenderTrees(true);
         $renderer->setResolver($this->resolver);
 
-        $this->viewModelHelper = $renderer->plugin('view_model');
+        $this->helperViewModel = $renderer->plugin('view_model');
         $this->helper          = $renderer->plugin('render_child_model');
 
         $this->parent = new ViewModel();
-        $this->parent->setTemplate('layout');
-        $this->viewModelHelper->setRoot($this->parent);
-        $this->viewModelHelper->setCurrent($this->parent);
+        $this->parent->getOptions()->setTemplate('layout');
+        $this->helperViewModel->setRoot($this->parent);
+        $this->helperViewModel->setCurrent($this->parent);
     }
 
     public function testRendersEmptyStringWhenUnableToResolveChildModel()
@@ -54,8 +74,8 @@ class RenderChildModelTest extends TestCase
     public function setupFirstChild()
     {
         $child1 = new ViewModel();
-        $child1->setTemplate('child1');
-        $child1->setCaptureTo('child1');
+        $child1->getOptions()->setTemplate('child1');
+        $child1->getOptions()->setCaptureTo('child1');
         $this->parent->addChild($child1);
         return $child1;
     }
@@ -70,8 +90,8 @@ class RenderChildModelTest extends TestCase
     public function setupSecondChild()
     {
         $child2 = new ViewModel();
-        $child2->setTemplate('child2');
-        $child2->setCaptureTo('child2');
+        $child2->getOptions()->setTemplate('child2');
+        $child2->getOptions()->setCaptureTo('child2');
         $this->parent->addChild($child2);
         return $child2;
     }
@@ -90,10 +110,10 @@ class RenderChildModelTest extends TestCase
     public function testRendersNestedChildren()
     {
         $child1 = $this->setupFirstChild();
-        $child1->setTemplate('layout');
+        $child1->getOptions()->setTemplate('layout');
         $child2 = new ViewModel();
-        $child2->setTemplate('child1');
-        $child2->setCaptureTo('content');
+        $child2->getOptions()->setTemplate('child1');
+        $child2->getOptions()->setCaptureTo('content');
         $child1->addChild($child2);
 
         $result = $this->helper->render('child1');
@@ -104,17 +124,17 @@ class RenderChildModelTest extends TestCase
 
     public function testRendersSequentialChildrenWithNestedChildren()
     {
-        $this->parent->setTemplate('complex');
+        $this->parent->getOptions()->setTemplate('complex');
         $child1 = $this->setupFirstChild();
-        $child1->setTemplate('layout');
-        $child1->setCaptureTo('content');
+        $child1->getOptions()->setTemplate('layout');
+        $child1->getOptions()->setCaptureTo('content');
 
         $child2 = $this->setupSecondChild();
-        $child2->setCaptureTo('sidebar');
+        $child2->getOptions()->setCaptureTo('sidebar');
 
         $nested = new ViewModel();
-        $nested->setTemplate('child1');
-        $nested->setCaptureTo('content');
+        $nested->getOptions()->setTemplate('child1');
+        $nested->getOptions()->setCaptureTo('content');
         $child1->addChild($nested);
 
         $result = $this->renderer->render($this->parent);

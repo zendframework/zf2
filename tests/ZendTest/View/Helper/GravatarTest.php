@@ -14,13 +14,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Gravatar;
 
-/**
- * @category   Zend
- * @package    Zendview
- * @subpackage UnitTests
- * @group      Zendview
- * @group      Zendview_Helper
- */
 class GravatarTest extends TestCase
 {
     /**
@@ -36,7 +29,7 @@ class GravatarTest extends TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->helper = new Gravatar();
         $this->view   = new View();

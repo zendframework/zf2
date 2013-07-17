@@ -17,14 +17,25 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\View\Http\InjectTemplateListener;
 use Zend\View\Model\ViewModel;
+use ZendTest\Mvc\Controller\TestAsset\SampleController;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class InjectTemplateListenerTest extends TestCase
 {
+    /**
+     * @var MvcEvent
+     */
+    protected $event;
+
+    /**
+     * @var InjectTemplateListener
+     */
+    protected $listener;
+
+    /**
+     * @var RouteMatch
+     */
+    protected $routeMatch;
+
     public function setUp()
     {
         $this->listener   = new InjectTemplateListener();
@@ -43,7 +54,7 @@ class InjectTemplateListenerTest extends TestCase
 
         $this->listener->injectTemplate($this->event);
 
-        $this->assertEquals('foo/somewhat/useful', $model->getTemplate());
+        $this->assertEquals('foo/somewhat/useful', $model->getOptions()->getTemplate());
     }
 
     public function testUsesModuleAndControllerOnlyIfNoActionInRouteMatch()
@@ -55,7 +66,7 @@ class InjectTemplateListenerTest extends TestCase
 
         $this->listener->injectTemplate($this->event);
 
-        $this->assertEquals('foo/somewhat', $model->getTemplate());
+        $this->assertEquals('foo/somewhat', $model->getOptions()->getTemplate());
     }
 
     public function testNormalizesLiteralControllerNameIfNoNamespaceSeparatorPresent()
@@ -67,7 +78,7 @@ class InjectTemplateListenerTest extends TestCase
 
         $this->listener->injectTemplate($this->event);
 
-        $this->assertEquals('somewhat', $model->getTemplate());
+        $this->assertEquals('somewhat', $model->getOptions()->getTemplate());
     }
 
     public function testNormalizesNamesToLowercase()
@@ -80,7 +91,7 @@ class InjectTemplateListenerTest extends TestCase
 
         $this->listener->injectTemplate($this->event);
 
-        $this->assertEquals('somewhat.derived/some-uber-cool', $model->getTemplate());
+        $this->assertEquals('somewhat.derived/some-uber-cool', $model->getOptions()->getTemplate());
     }
 
     public function testLackOfViewModelInResultBypassesTemplateInjection()
@@ -95,12 +106,12 @@ class InjectTemplateListenerTest extends TestCase
         $this->routeMatch->setParam('action', 'useful');
 
         $model = new ViewModel();
-        $model->setTemplate('custom');
+        $model->getOptions()->setTemplate('custom');
         $this->event->setResult($model);
 
         $this->listener->injectTemplate($this->event);
 
-        $this->assertEquals('custom', $model->getTemplate());
+        $this->assertEquals('custom', $model->getOptions()->getTemplate());
     }
 
     public function testMapsSubNamespaceToSubDirectoryWithControllerFromRouteMatch()
@@ -113,7 +124,7 @@ class InjectTemplateListenerTest extends TestCase
         $this->event->setResult($model);
         $this->listener->injectTemplate($this->event);
 
-        $this->assertEquals('sweet-apple-acres/reports/cider-sales/pinkie-pie-revenue', $model->getTemplate());
+        $this->assertEquals('sweet-apple-acres/reports/cider-sales/pinkie-pie-revenue', $model->getOptions()->getTemplate());
     }
 
     public function testMapsSubNamespaceToSubDirectoryWithControllerFromEventTarget()
@@ -121,14 +132,14 @@ class InjectTemplateListenerTest extends TestCase
         $this->routeMatch->setParam(ModuleRouteListener::MODULE_NAMESPACE, 'ZendTest\Mvc\Controller\TestAsset');
         $this->routeMatch->setParam('action', 'test');
 
-        $myViewModel  = new ViewModel();
-        $myController = new \ZendTest\Mvc\Controller\TestAsset\SampleController();
+        $model  = new ViewModel();
+        $controller = new SampleController();
 
-        $this->event->setTarget($myController);
-        $this->event->setResult($myViewModel);
+        $this->event->setTarget($controller);
+        $this->event->setResult($model);
         $this->listener->injectTemplate($this->event);
 
-        $this->assertEquals('zend-test/controller/test-asset/sample/test', $myViewModel->getTemplate());
+        $this->assertEquals('zend-test/controller/test-asset/sample/test', $model->getOptions()->getTemplate());
     }
 
     public function testAttachesListenerAtExpectedPriority()

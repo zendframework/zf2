@@ -10,31 +10,21 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
 use Zend\View;
+use Zend\View\Helper\HeadScript;
+use Zend\View\Helper\Placeholder\Registry;
 
-/**
- * Test class for Zend_View_Helper_HeadScript.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class HeadScriptTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadScript
-     */
-    public $helper;
-
-    /**
      * @var string
      */
-    public $basePath;
+    protected $basePath;
 
+    /**
+     * @var HeadScript
+     */
+    protected $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -45,7 +35,7 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\HeadScript();
+        $this->helper = new HeadScript();
     }
 
     /**
@@ -62,7 +52,7 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function testHeadScriptReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertTrue($placeholder instanceof Helper\HeadScript);
+        $this->assertTrue($placeholder instanceof HeadScript);
     }
 
     public function testSetPrependAppendAndOffsetSetThrowExceptionsOnInvalidItems()

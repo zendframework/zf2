@@ -15,26 +15,17 @@ use Zend\View\Helper\Partial;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * Test class for Partial view helper.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class PartialTest extends TestCase
 {
-    /**
-     * @var Partial
-     */
-    public $helper;
-
     /**
      * @var string
      */
     public $basePath;
+
+    /**
+     * @var Partial
+     */
+    public $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -157,7 +148,7 @@ class PartialTest extends TestCase
             'foo' => 'bar',
             'bar' => 'baz',
         ));
-        $model->setTemplate('partialVars.phtml');
+        $model->getOptions()->setTemplate('partialVars.phtml');
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');

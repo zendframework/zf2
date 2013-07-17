@@ -53,7 +53,7 @@ class InjectViewModelListener extends AbstractListenerAggregate
 
         $model = $e->getViewModel();
 
-        if ($result->terminate()) {
+        if ($result->getOptions()->isTerminal()) {
             $e->setViewModel($result);
             return;
         }

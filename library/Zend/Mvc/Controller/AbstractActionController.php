@@ -110,7 +110,7 @@ abstract class AbstractActionController extends AbstractController
     protected function createConsoleNotFoundModel($response)
     {
         $viewModel = new ConsoleModel();
-        $viewModel->setErrorLevel(1);
+        $viewModel->getOptions()->setErrorLevel(1);
         $viewModel->setResult('Page not found');
         return $viewModel;
     }

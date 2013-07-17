@@ -54,8 +54,8 @@ class FeedStrategy extends AbstractListenerAggregate
     {
         $model = $e->getModel();
 
+        // no FeedModel present; do nothing
         if (!$model instanceof Model\FeedModel) {
-            // no FeedModel present; do nothing
             return;
         }
 
@@ -85,11 +85,11 @@ class FeedStrategy extends AbstractListenerAggregate
 
         // If the result is a feed, export it
         if ($result instanceof Feed) {
-            $result = $result->export($renderer->getFeedType());
+            $result = $result->export($renderer->getOptions()->getFeedType());
         }
 
         // Get the content-type header based on feed type
-        $feedType = $renderer->getFeedType();
+        $feedType = $renderer->getOptions()->getFeedType();
         $feedType = ('rss' == $feedType)
                   ? 'application/rss+xml'
                   : 'application/atom+xml';

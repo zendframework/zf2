@@ -9,50 +9,85 @@
 
 namespace Zend\View\Model;
 
+use Traversable;
+use Zend\View\Exception;
+use Zend\View\Variables;
 
 class ConsoleModel extends ViewModel
 {
     const RESULT = 'result';
 
     /**
-     * Console output doesn't support containers.
+     * Model options
      *
-     * @var string
+     * @var ConsoleModelOptions
      */
-    protected $captureTo = null;
+    protected $options;
 
     /**
-     * Console output should always be terminal.
+     * Constructor
      *
-     * @var bool
+     * @param  null|array|Traversable $variables
+     * @param  null|array|Traversable|ConsoleModelOptions $options
      */
-    protected $terminate = true;
-
-    /**
-     * Set error level to return after the application ends.
-     *
-     * @param int $errorLevel
-     */
-    public function setErrorLevel($errorLevel)
+    public function __construct($variables = null, $options = null)
     {
-        $this->options['errorLevel'] = $errorLevel;
-    }
+        if (null === $variables) {
+            $variables = new Variables();
+        }
 
-    /**
-     * @return int
-     */
-    public function getErrorLevel()
-    {
-        if (array_key_exists('errorLevel', $this->options)) {
-            return $this->options['errorLevel'];
+        // Initializing the variables container
+        $this->setVariables($variables, true);
+
+        if (null !== $options) {
+            $this->setOptions($options);
         }
     }
 
     /**
-     * Set result text.
+     * Set model options
+     *
+     * @param  array|\Traversable|ConsoleModelOptions $options
+     * @throws Exception\InvalidArgumentException
+     * @return ConsoleModel
+     */
+    public function setOptions($options)
+    {
+        if (!$options instanceof ConsoleModelOptions) {
+            if (is_object($options) && !$options instanceof Traversable) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'Expected instance of Zend\View\Model\ConsoleModelOptions; '
+                    . 'received "%s"', get_class($options))
+                );
+            }
+
+            $options = new ConsoleModelOptions($options);
+        }
+
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Get model options
+     *
+     * @return ConsoleModelOptions
+     */
+    public function getOptions()
+    {
+        if (!$this->options) {
+            $this->setOptions(new ConsoleModelOptions());
+        }
+
+        return $this->options;
+    }
+
+    /**
+     * Set result text
      *
      * @param string  $text
-     * @return \Zend\View\Model\ConsoleModel
+     * @return ConsoleModel
      */
     public function setResult($text)
     {
@@ -61,7 +96,7 @@ class ConsoleModel extends ViewModel
     }
 
     /**
-     * Get result text.
+     * Get result text
      *
      * @return mixed
      */

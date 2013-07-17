@@ -13,11 +13,6 @@ namespace ZendTest\View\Resolver;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\View\Resolver;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class AggregateResolverTest extends TestCase
 {
     public function testAggregateIsEmptyByDefault()

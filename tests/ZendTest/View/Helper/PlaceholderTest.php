@@ -10,25 +10,16 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper;
+use Zend\View\Helper\Placeholder;
 use Zend\View\Helper\Placeholder\Registry as PlaceholderRegistry;
+use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * Test class for Zend_View_Helper_Placeholder.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class PlaceholderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_Placeholder
+     * @var Placeholder
      */
-    public $placeholder;
+    protected $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -38,7 +29,7 @@ class PlaceholderTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->placeholder = new Helper\Placeholder();
+        $this->helper = new Placeholder();
     }
 
     /**
@@ -49,7 +40,7 @@ class PlaceholderTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        unset($this->placeholder);
+        unset($this->helper);
     }
 
     /**
@@ -58,8 +49,8 @@ class PlaceholderTest extends \PHPUnit_Framework_TestCase
     public function testSetView()
     {
         $view = new View();
-        $this->placeholder->setView($view);
-        $this->assertSame($view, $this->placeholder->getView());
+        $this->helper->setView($view);
+        $this->assertSame($view, $this->helper->getView());
     }
 
     /**
@@ -67,7 +58,7 @@ class PlaceholderTest extends \PHPUnit_Framework_TestCase
      */
     public function testPlaceholderRetrievesContainer()
     {
-        $container = $this->placeholder->__invoke('foo');
+        $container = $this->helper->__invoke('foo');
         $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container\AbstractContainer', $container);
     }
 
@@ -76,8 +67,8 @@ class PlaceholderTest extends \PHPUnit_Framework_TestCase
      */
     public function testPlaceholderRetrievesSameContainerOnSubsequentCalls()
     {
-        $container1 = $this->placeholder->__invoke('foo');
-        $container2 = $this->placeholder->__invoke('foo');
+        $container1 = $this->helper->__invoke('foo');
+        $container2 = $this->helper->__invoke('foo');
         $this->assertSame($container1, $container2);
     }
 }

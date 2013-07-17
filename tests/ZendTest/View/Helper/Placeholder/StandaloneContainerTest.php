@@ -11,20 +11,12 @@
 namespace ZendTest\View\Helper\Placeholder;
 
 use Zend\View\Helper\Placeholder\Container;
+use Zend\View\Helper\Placeholder\Container\AbstractStandalone;
+use Zend\View\Helper\Placeholder\Container\AbstractContainer;
 use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * Test class for Zend_View_Helper_Placeholder_StandaloneContainer.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Foo
      */
@@ -137,11 +129,11 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class Foo extends \Zend\View\Helper\Placeholder\Container\AbstractStandalone
+class Foo extends AbstractStandalone
 {
     protected $_regKey = 'foo';
     public function direct() {}
 }
 
-class Bar extends \Zend\View\Helper\Placeholder\Container\AbstractContainer
+class Bar extends AbstractContainer
 {}

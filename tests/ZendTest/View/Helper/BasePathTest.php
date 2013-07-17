@@ -13,13 +13,6 @@ namespace ZendTest\View\Helper;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\View\Helper\BasePath;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class BasePathTest extends TestCase
 {
     public function testBasePathWithoutFile()

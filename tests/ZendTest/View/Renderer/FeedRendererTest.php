@@ -11,21 +11,23 @@
 namespace ZendTest\View\Renderer;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Model\ModelInterface as Model;
+use stdClass;
 use Zend\View\Model\FeedModel;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\FeedRenderer;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class FeedRendererTest extends TestCase
 {
+    /**
+     * @var FeedRenderer
+     */
+    protected $renderer;
+
     public function setUp()
     {
         $this->renderer = new FeedRenderer();
+
+        date_default_timezone_set('Europe/Prague');
     }
 
     protected function getFeedData($type)
@@ -72,43 +74,43 @@ class FeedRendererTest extends TestCase
     public function testRendersFeedModelAccordingToTypeProvidedInModel()
     {
         $model = new FeedModel($this->getFeedData('atom'));
-        $model->setOption('feed_type', 'atom');
+        $model->getOptions()->setFeedType('atom');
+
         $xml = $this->renderer->render($model);
+
         $this->assertContains('<' . '?xml', $xml);
         $this->assertContains('atom', $xml);
     }
 
     public function testRendersFeedModelAccordingToRenderTypeIfNoTypeProvidedInModel()
     {
-        $this->renderer->setFeedType('atom');
+        $this->renderer->getOptions()->setFeedType('atom');
         $model = new FeedModel($this->getFeedData('atom'));
-        $xml = $this->renderer->render($model);
-        $this->assertContains('<' . '?xml', $xml);
-        $this->assertContains('atom', $xml);
-    }
 
-    public function testCastsViewModelToFeedModelUsingFeedTypeOptionProvided()
-    {
-        $model = new ViewModel($this->getFeedData('atom'));
-        $model->setOption('feed_type', 'atom');
         $xml = $this->renderer->render($model);
+
         $this->assertContains('<' . '?xml', $xml);
         $this->assertContains('atom', $xml);
     }
 
     public function testCastsViewModelToFeedModelUsingRendererFeedTypeIfNoFeedTypeOptionInModel()
     {
-        $this->renderer->setFeedType('atom');
+        $this->setExpectedException(
+            'Zend\View\Exception\InvalidArgumentException',
+            'Zend\View\Renderer\FeedRenderer::render expects '
+            . 'a "Zend\View\Model\FeedModel" or a string feed type as the first '
+            . 'argument; received "Zend\View\Model\ViewModel"');
+
         $model = new ViewModel($this->getFeedData('atom'));
-        $xml = $this->renderer->render($model);
-        $this->assertContains('<' . '?xml', $xml);
-        $this->assertContains('atom', $xml);
+
+        $this->renderer->getOptions()->setFeedType('atom');
+        $this->renderer->render($model);
     }
 
     public function testStringModelWithValuesProvidedCastsToFeed()
     {
-        $this->renderer->setFeedType('atom');
-        $xml = $this->renderer->render('layout', $this->getFeedData('atom'));
+        $xml = $this->renderer->render('atom', $this->getFeedData('atom'));
+
         $this->assertContains('<' . '?xml', $xml);
         $this->assertContains('atom', $xml);
     }
@@ -116,12 +118,35 @@ class FeedRendererTest extends TestCase
     public function testNonStringNonModelArgumentRaisesException()
     {
         $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects');
+
         $this->renderer->render(array('foo'));
     }
 
     public function testSettingUnacceptableFeedTypeRaisesException()
     {
         $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects a string of either "rss" or "atom"');
-        $this->renderer->setFeedType('foobar');
+
+        $this->renderer->getOptions()->setFeedType('foobar');
+    }
+
+    public function testEngineIsInstanceOfFeedRenderer()
+    {
+        $this->assertInstanceOf('Zend\View\Renderer\FeedRenderer', $this->renderer->getEngine());
+    }
+
+    public function testOptionsRaisesAnExceptionPassingInvalidArgument()
+    {
+        $this->setExpectedException(
+            'Zend\View\Exception\InvalidArgumentException',
+            'Expected instance of Zend\View\Renderer\FeedRendererOptions; received "stdClass"');
+
+        $this->renderer->setOptions(new stdClass);
+    }
+
+    public function testOptionsReturnInstanceOfFeedRendererOptions()
+    {
+        $this->assertInstanceOf(
+            'Zend\View\Renderer\FeedRendererOptions',
+            $this->renderer->getOptions());
     }
 }

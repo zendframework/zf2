@@ -11,6 +11,7 @@ namespace Zend\View\Model;
 
 use Countable;
 use IteratorAggregate;
+use Traversable;
 
 /**
  * Interface describing a view model.
@@ -23,31 +24,22 @@ use IteratorAggregate;
 interface ModelInterface extends Countable, IteratorAggregate
 {
     /**
-     * Set renderer option/hint
+     * Set options
      *
-     * @param  string $name
-     * @param  mixed $value
-     * @return ModelInterface
-     */
-    public function setOption($name, $value);
-
-    /**
-     * Set renderer options/hints en masse
-     *
-     * @param  array|\Traversable $options
-     * @return ModelInterface
+     * @param array|Traversable|AbstractModelOptions $options
+     * @return ModelInterface Fluent interface
      */
     public function setOptions($options);
 
     /**
-     * Get renderer options/hints
+     * Get options
      *
-     * @return array|\Traversable
+     * @return AbstractModelOptions
      */
     public function getOptions();
 
     /**
-     * Get a single view variable
+     * Get a single variable
      *
      * @param  string       $name
      * @param  mixed|null   $default (optional) default value if the variable is not present.
@@ -56,7 +48,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     public function getVariable($name, $default = null);
 
     /**
-     * Set view variable
+     * Set a single variable
      *
      * @param  string $name
      * @param  mixed $value
@@ -65,7 +57,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     public function setVariable($name, $value);
 
     /**
-     * Set view variables en masse
+     * Set all variables
      *
      * @param  array|\ArrayAccess $variables
      * @return ModelInterface
@@ -73,26 +65,11 @@ interface ModelInterface extends Countable, IteratorAggregate
     public function setVariables($variables);
 
     /**
-     * Get view variables
+     * Get all variables
      *
      * @return array|\ArrayAccess
      */
     public function getVariables();
-
-    /**
-     * Set the template to be used by this model
-     *
-     * @param  string $template
-     * @return ModelInterface
-     */
-    public function setTemplate($template);
-
-    /**
-     * Get the template to be used by this model
-     *
-     * @return string
-     */
-    public function getTemplate();
 
     /**
      * Add a child model
@@ -119,50 +96,4 @@ interface ModelInterface extends Countable, IteratorAggregate
      * @return bool
      */
     public function hasChildren();
-
-    /**
-     * Set the name of the variable to capture this model to, if it is a child model
-     *
-     * @param  string $capture
-     * @return ModelInterface
-     */
-    public function setCaptureTo($capture);
-
-    /**
-     * Get the name of the variable to which to capture this model
-     *
-     * @return string
-     */
-    public function captureTo();
-
-    /**
-     * Set flag indicating whether or not this is considered a terminal or standalone model
-     *
-     * @param  bool $terminate
-     * @return ModelInterface
-     */
-    public function setTerminal($terminate);
-
-    /**
-     * Is this considered a terminal or standalone model?
-     *
-     * @return bool
-     */
-    public function terminate();
-
-
-    /**
-     * Set flag indicating whether or not append to child  with the same capture
-     *
-     * @param  bool $append
-     * @return ModelInterface
-     */
-    public function setAppend($append);
-
-    /**
-     * Is this append to child  with the same capture?
-     *
-     * @return bool
-     */
-    public function isAppend();
 }

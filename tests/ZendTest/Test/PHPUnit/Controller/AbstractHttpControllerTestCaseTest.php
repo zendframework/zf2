@@ -572,12 +572,12 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         // get and assert view controller
         $viewModel = $mvcEvent->getResult();
         $this->assertEquals(true, $viewModel instanceof ViewModel);
-        $this->assertEquals($viewModel->getTemplate(), 'baz/index/unittests');
+        $this->assertEquals($viewModel->getOptions()->getTemplate(), 'baz/index/unittests');
 
         // get and assert view manager layout
         $layout = $mvcEvent->getViewModel();
         $this->assertEquals(true, $layout instanceof ViewModel);
-        $this->assertEquals($layout->getTemplate(), 'layout/layout');
+        $this->assertEquals($layout->getOptions()->getTemplate(), 'layout/layout');
 
         // children layout must be the controller view
         $this->assertEquals($viewModel, current($layout->getChildren()));
@@ -600,6 +600,6 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $result = $this->triggerApplicationEvent(MvcEvent::EVENT_DISPATCH);
         $viewModel = $this->getApplication()->getMvcEvent()->getResult();
         $this->assertEquals(true, $viewModel instanceof ViewModel);
-        $this->assertEquals($viewModel->getTemplate(), 'baz/index/unittests');
+        $this->assertEquals($viewModel->getOptions()->getTemplate(), 'baz/index/unittests');
     }
 }

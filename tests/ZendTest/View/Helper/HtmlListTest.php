@@ -10,22 +10,20 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper;
+use Zend\View\Helper\HtmlList;
 use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class HtmlListTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HtmlList
+     * @var HtmlList
      */
-    public $helper;
+    protected $helper;
+
+    /**
+     * @var View
+     */
+    protected $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -33,10 +31,10 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
      *
      * @access protected
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->view   = new View();
-        $this->helper = new Helper\HtmlList();
+        $this->helper = new HtmlList();
         $this->helper->setView($this->view);
     }
 
@@ -112,11 +110,11 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
 
         $list = $this->helper->__invoke($items);
 
-        $this->assertContains('<ul>' . Helper\HtmlList::EOL, $list);
-        $this->assertContains('</ul>' . Helper\HtmlList::EOL, $list);
-        $this->assertContains('one<ul>' . Helper\HtmlList::EOL.'<li>four', $list);
-        $this->assertContains('<li>six</li>' . Helper\HtmlList::EOL . '</ul>' .
-            Helper\HtmlList::EOL . '</li>' . Helper\HtmlList::EOL . '<li>two', $list);
+        $this->assertContains('<ul>' . HtmlList::EOL, $list);
+        $this->assertContains('</ul>' . HtmlList::EOL, $list);
+        $this->assertContains('one<ul>' . HtmlList::EOL.'<li>four', $list);
+        $this->assertContains('<li>six</li>' . HtmlList::EOL . '</ul>' .
+            HtmlList::EOL . '</li>' . HtmlList::EOL . '<li>two', $list);
     }
 
     /*
@@ -128,12 +126,12 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
 
         $list = $this->helper->__invoke($items);
 
-        $this->assertContains('<ul>' . Helper\HtmlList::EOL, $list);
-        $this->assertContains('</ul>' . Helper\HtmlList::EOL, $list);
-        $this->assertContains('one<ul>' . Helper\HtmlList::EOL . '<li>four', $list);
-        $this->assertContains('<li>four<ul>' . Helper\HtmlList::EOL . '<li>six', $list);
-        $this->assertContains('<li>five</li>' . Helper\HtmlList::EOL . '</ul>' .
-            Helper\HtmlList::EOL . '</li>' . Helper\HtmlList::EOL . '<li>two', $list);
+        $this->assertContains('<ul>' . HtmlList::EOL, $list);
+        $this->assertContains('</ul>' . HtmlList::EOL, $list);
+        $this->assertContains('one<ul>' . HtmlList::EOL . '<li>four', $list);
+        $this->assertContains('<li>four<ul>' . HtmlList::EOL . '<li>six', $list);
+        $this->assertContains('<li>five</li>' . HtmlList::EOL . '</ul>' .
+            HtmlList::EOL . '</li>' . HtmlList::EOL . '<li>two', $list);
     }
 
     public function testListWithValuesToEscapeForZF2283()

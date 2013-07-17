@@ -49,7 +49,7 @@ class InjectTemplateListener extends AbstractListenerAggregate
             return;
         }
 
-        $template = $model->getTemplate();
+        $template = $model->getOptions()->getTemplate();
         if (!empty($template)) {
             return;
         }
@@ -88,7 +88,7 @@ class InjectTemplateListener extends AbstractListenerAggregate
         if (null !== $action) {
             $template .= '/' . $this->inflectName($action);
         }
-        $model->setTemplate($template);
+        $model->getOptions()->setTemplate($template);
     }
 
     /**

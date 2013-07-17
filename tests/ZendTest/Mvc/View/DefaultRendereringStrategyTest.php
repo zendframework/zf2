@@ -26,11 +26,6 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Strategy\PhpRendererStrategy;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class DefaultRenderingStrategyTest extends TestCase
 {
     protected $event;
@@ -96,7 +91,7 @@ class DefaultRenderingStrategyTest extends TestCase
             return $renderer;
         }, 100);
         $model = new ViewModel(array('foo' => 'bar'));
-        $model->setOption('template', 'content');
+        $model->getOptions()->setTemplate('content');
         $this->event->setResult($model);
 
         $result = $this->strategy->render($this->event);
@@ -123,7 +118,7 @@ class DefaultRenderingStrategyTest extends TestCase
             return $renderer;
         }, 100);
         $model = new ViewModel(array('foo' => 'bar'));
-        $model->setOption('template', 'content');
+        $model->getOptions()->setTemplate('content');
         $this->event->setViewModel($model);
         $this->event->setResult($this->response);
 
@@ -141,7 +136,7 @@ class DefaultRenderingStrategyTest extends TestCase
         $this->view->getEventManager()->attach($strategy);
 
         $model = new ViewModel();
-        $model->setTemplate('exception');
+        $model->getOptions()->setTemplate('exception');
         $this->event->setViewModel($model);
 
         $services = new ServiceManager();

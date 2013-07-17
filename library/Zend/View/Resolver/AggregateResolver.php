@@ -110,6 +110,7 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
         }
 
         $this->lastLookupFailure = static::FAILURE_NOT_FOUND;
+
         return false;
     }
 

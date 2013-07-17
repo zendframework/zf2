@@ -14,11 +14,6 @@ use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\View\Resolver\TemplateMapResolver;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class TemplateMapResolverTest extends TestCase
 {
     public function testMapIsEmptyByDefault()

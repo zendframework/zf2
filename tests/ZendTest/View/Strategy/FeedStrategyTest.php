@@ -22,11 +22,6 @@ use Zend\View\Renderer\FeedRenderer;
 use Zend\View\Strategy\FeedStrategy;
 use Zend\View\ViewEvent;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class FeedStrategyTest extends TestCase
 {
     public function setUp()
@@ -76,7 +71,7 @@ class FeedStrategyTest extends TestCase
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertSame($this->renderer, $result);
-        $this->assertNotSame('atom', $result->getFeedType());
+        $this->assertNotSame('atom', $result->getOptions()->getFeedType());
     }
 
     public function testLackOfFeedModelOrAcceptHeaderDoesNotSelectFeedStrategy()
@@ -121,7 +116,7 @@ class FeedStrategyTest extends TestCase
 
     public function testMatchingRendererAndStringResultInjectsResponse()
     {
-        $this->renderer->setFeedType('atom');
+        $this->renderer->getOptions()->setFeedType('atom');
         $expected = '<?xml version="1.0"><root><content>content</content></root>';
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
@@ -178,7 +173,7 @@ class FeedStrategyTest extends TestCase
 
     public function testMatchingRendererAndFeedResultInjectsResponse()
     {
-        $this->renderer->setFeedType('atom');
+        $this->renderer->getOptions()->setFeedType('atom');
         $expected = FeedFactory::factory($this->getFeedData('atom'));
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
@@ -194,7 +189,7 @@ class FeedStrategyTest extends TestCase
 
     public function testResponseContentTypeIsBasedOnFeedType()
     {
-        $this->renderer->setFeedType('rss');
+        $this->renderer->getOptions()->setFeedType('rss');
         $expected = FeedFactory::factory($this->getFeedData('rss'));
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);

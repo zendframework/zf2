@@ -23,6 +23,29 @@ class Layout extends AbstractHelper
     protected $viewModelHelper;
 
     /**
+     * Get layout template
+     *
+     * @return string
+     */
+    public function getLayout()
+    {
+        return $this->getRoot()->getOptions()->getTemplate();
+    }
+
+    /**
+     * Set layout template
+     *
+     * @param  string $template
+     * @return Layout
+     */
+    public function setTemplate($template)
+    {
+        $this->getRoot()->getOptions()->setTemplate((string) $template);
+
+        return $this;
+    }
+
+    /**
      * Set layout template or retrieve "layout" view model
      *
      * If no arguments are given, grabs the "root" or "layout" view model.
@@ -38,16 +61,6 @@ class Layout extends AbstractHelper
         }
 
         return $this->setTemplate($template);
-    }
-
-    /**
-     * Get layout template
-     *
-     * @return string
-     */
-    public function getLayout()
-    {
-        return $this->getRoot()->getTemplate();
     }
 
     /**
@@ -68,18 +81,6 @@ class Layout extends AbstractHelper
         }
 
         return $helper->getRoot();
-    }
-
-    /**
-     * Set layout template
-     *
-     * @param  string $template
-     * @return Layout
-     */
-    public function setTemplate($template)
-    {
-        $this->getRoot()->setTemplate((string) $template);
-        return $this;
     }
 
     /**

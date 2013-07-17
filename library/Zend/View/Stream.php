@@ -106,6 +106,7 @@ class Stream
     {
         $ret = substr($this->data, $this->pos, $count);
         $this->pos += strlen($ret);
+
         return $ret;
     }
 

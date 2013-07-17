@@ -16,26 +16,17 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\View\Helper\PartialLoop;
 use Zend\View\Renderer\PhpRenderer as View;
 
-/**
- * Test class for Zend_View_Helper_PartialLoop.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
- */
 class PartialLoopTest extends TestCase
 {
-    /**
-     * @var PartialLoop
-     */
-    public $helper;
-
     /**
      * @var string
      */
     public $basePath;
+
+    /**
+     * @var PartialLoop
+     */
+    public $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
