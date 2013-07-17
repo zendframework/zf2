@@ -210,7 +210,7 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         ));
 
         $expectedOutput = <<<EOS
-abstract class SampleClass extends ExtendedClassName implements Iterator, Traversable
+abstract class SampleClass extends \ExtendedClassName implements \Iterator, \Traversable
 {
 
     public \$foo = null;
@@ -243,8 +243,8 @@ EOS;
         $code = $classGenerator->generate();
 
         $expectedClassDef = 'class ClassWithInterface'
-            . ' implements ZendTest\Code\Generator\TestAsset\OneInterface'
-            . ', ZendTest\Code\Generator\TestAsset\TwoInterface';
+            . ' implements \ZendTest\Code\Generator\TestAsset\OneInterface'
+            . ', \ZendTest\Code\Generator\TestAsset\TwoInterface';
         $this->assertContains($expectedClassDef, $code);
     }
 
@@ -261,8 +261,8 @@ EOS;
         $code = $classGenerator->generate();
 
         $expectedClassDef = 'class NewClassWithInterface'
-            . ' extends ZendTest\Code\Generator\TestAsset\ClassWithInterface'
-            . ' implements ZendTest\Code\Generator\TestAsset\ThreeInterface';
+            . ' extends \ZendTest\Code\Generator\TestAsset\ClassWithInterface'
+            . ' implements \ZendTest\Code\Generator\TestAsset\ThreeInterface';
         $this->assertContains($expectedClassDef, $code);
     }
 
@@ -298,7 +298,7 @@ CODE;
             ->setExtendedClass('ParentClass');
 
         $expected = <<<CODE
-class MyClass extends ParentClass
+class MyClass extends \ParentClass
 {
 
 
