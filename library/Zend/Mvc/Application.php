@@ -297,12 +297,13 @@ class Application implements
                 return $response;
             }
             if ($event->getError()) {
-                return $this->completeRequest($event);
+                $this->completeRequest($event);
             }
             return $event->getResponse();
         }
         if ($event->getError()) {
-            return $this->completeRequest($event);
+            $this->completeRequest($event);
+            return $event->getResponse();
         }
 
         // Trigger dispatch event
@@ -320,8 +321,7 @@ class Application implements
         $response = $this->getResponse();
         $event->setResponse($response);
         $this->completeRequest($event);
-
-        return $this;
+        return $response;
     }
 
     /**
