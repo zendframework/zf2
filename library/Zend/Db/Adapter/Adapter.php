@@ -274,7 +274,7 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
         if (isset($parameters['options'])) {
             $options = (array) $parameters['options'];
             unset($parameters['options']);
-        }
+        }    
 
         $driverName = strtolower($parameters['driver']);
         switch ($driverName) {
@@ -285,7 +285,7 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
                 $driver = new Driver\Sqlsrv\Sqlsrv($parameters);
                 break;
             case 'oci8':
-                $driver = new Driver\Oci8\Oci8($parameters);
+                $driver = new Driver\Oci8\Oci8($parameters, null, null, $options);
                 break;
             case 'pgsql':
                 $driver = new Driver\Pgsql\Pgsql($parameters);
@@ -333,8 +333,9 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
                 // PDO is only supported driver for quoting values in this platform
                 return new Platform\SqlServer(($this->driver instanceof Driver\Pdo\Pdo) ? $this->driver : null);
             case 'Oracle':
+                $driver = ($this->driver instanceof Driver\Oci8\Oci8 || $this->driver instanceof Driver\Pdo\Pdo) ? $this->driver : null;
                 // oracle does not accept a driver as an option, no driver specific quoting available
-                return new Platform\Oracle($options);
+                return new Platform\Oracle($driver, $options);
             case 'Sqlite':
                 // PDO is only supported driver for quoting values in this platform
                 return new Platform\Sqlite(($this->driver instanceof Driver\Pdo\Pdo) ? $this->driver : null);
