@@ -50,6 +50,7 @@ $rules = array(
     'help|h'      => 'Get usage message',
     'library|l-s' => 'Library to parse; if none provided, assumes current directory',
     'view|v-s'    => 'View path to parse; if none provided, assumes view as template directory',
+    'useViewPath' => 'Use the view path to overwrite the key path mapping (instead of library path)',
     'output|o-s'  => 'Where to write map file; if not provided, assumes "template_map.php" in library directory',
     'append|a'    => 'Append to map file if it exists',
     'overwrite|w' => 'Whether or not to overwrite existing map file',
@@ -88,6 +89,11 @@ if (isset($opts->v)) {
         exit(2);
     }
     $viewPath = $opts->v;
+}
+
+$replacePath = $libraryPath;
+if(isset($opts->useViewPath)){
+    $replacePath = str_replace(DIRECTORY_SEPARATOR, '/', realpath($viewPath));
 }
 
 if (!is_dir($viewPath)) {
@@ -178,7 +184,7 @@ foreach ($l as $file) {
     // Add in relative path to library
     $filename = $relativePathForMap . $filename;
     $baseName =  $file->getBasename('.' . $file->getExtension());
-    $mapName  = str_replace($libraryPath . '/', '', str_replace(DIRECTORY_SEPARATOR, '/', $file->getPath()) . '/' . $baseName);
+    $mapName  = str_replace($replacePath . '/', '', str_replace(DIRECTORY_SEPARATOR, '/', $file->getPath()) . '/' . $baseName);
     $map->{$mapName} = $filename;
 }
 
