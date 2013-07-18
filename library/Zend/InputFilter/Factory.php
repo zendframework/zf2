@@ -273,14 +273,14 @@ class Factory
             $inputFilterSpecification = ArrayUtils::iteratorToArray($inputFilterSpecification);
         }
 
-        $type = 'Zend\InputFilter\InputFilter';
-
         if (isset($inputFilterSpecification['type']) && is_string($inputFilterSpecification['type'])) {
-            $type = $inputFilterSpecification['type'];
+            $inputFilter = $this->getInputFilterManager()->get($inputFilterSpecification['type']);
             unset($inputFilterSpecification['type']);
         }
+        else {
+            $inputFilter = new InputFilter;
+        }
 
-        $inputFilter = $this->getInputFilterManager()->get($type);
 
         if ($inputFilter instanceof CollectionInputFilter) {
             if (isset($inputFilterSpecification['input_filter'])) {
