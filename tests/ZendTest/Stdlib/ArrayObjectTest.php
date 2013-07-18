@@ -275,6 +275,14 @@ class ArrayObjectTest extends TestCase
         $this->assertFalse(isset($ar['unknown']));
     }
 
+    public function testOffsetSetNullExists()
+    {
+        $ar = new ArrayObject();
+        $ar['foo'] = null;
+
+        $this->assertTrue($ar->offsetExists('foo'));
+    }
+
     public function testOffsetGetThrowsExceptionOnProtectedProperty()
     {
         if (version_compare(PHP_VERSION, '5.3.4') < 0) {
