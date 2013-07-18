@@ -18,11 +18,11 @@ class AnnotationBuilderTest extends TestCase
 {
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_FORM_ANNOTATION_SUPPORT')
+        /*if (!defined('TESTS_ZEND_FORM_ANNOTATION_SUPPORT')
             || !constant('TESTS_ZEND_FORM_ANNOTATION_SUPPORT')
         ) {
             $this->markTestSkipped('Enable TESTS_ZEND_FORM_ANNOTATION_SUPPORT to test annotation parsing');
-        }
+        }*/
     }
 
     public function testCanCreateFormFromStandardEntity()
@@ -217,6 +217,16 @@ class AnnotationBuilderTest extends TestCase
         $inputFilter = $form->getInputFilter();
         $sampleinput = $inputFilter->get('sampleinput');
         $this->assertTrue($sampleinput->allowEmpty());
+    }
+
+    public function testInputNotRequiredByDefault()
+    {
+        $entity = new TestAsset\Annotation\SampleEntity();
+        $builder = new Annotation\AnnotationBuilder();
+        $form = $builder->createForm($entity);
+        $inputFilter = $form->getInputFilter();
+        $sampleinput = $inputFilter->get('anotherSampleInput');
+        $this->assertFalse($sampleinput->isRequired());
     }
 
     public function testObjectElementAnnotation()
