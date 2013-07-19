@@ -140,7 +140,8 @@ class Oracle implements PlatformInterface
         }
         
         // @todo check extension/driver security
-        if (get_resource_type($this->resource) == 'oci8 connection') {
+        if (get_resource_type($this->resource) == 'oci8 connection' || 
+                get_resource_type($this->resource) == 'oci8 persistent connection') {
             return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
         }
         
