@@ -37,13 +37,13 @@ class RouteMatch extends BaseRouteMatch
     }
 
     /**
-     * setMatchedRouteName(): defined by BaseRouteMatch.
+     * Prepend the matched route name with another route
      *
      * @see    BaseRouteMatch::setMatchedRouteName()
      * @param  string $name
      * @return RouteMatch
      */
-    public function setMatchedRouteName($name)
+    public function prependMatchedRouteName($name)
     {
         if ($this->matchedRouteName === null) {
             $this->matchedRouteName = $name;
