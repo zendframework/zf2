@@ -37,19 +37,11 @@ class RouteMatchTest extends TestCase
         $this->assertEquals(15, $match->getLength());
     }
 
-    public function testMatchedRouteNameIsSet()
+    public function testPrependMatchedRouteName()
     {
         $match = new RouteMatch(array());
         $match->setMatchedRouteName('foo');
-
-        $this->assertEquals('foo', $match->getMatchedRouteName());
-    }
-
-    public function testMatchedRouteNameIsPrependedWhenAlreadySet()
-    {
-        $match = new RouteMatch(array());
-        $match->setMatchedRouteName('foo');
-        $match->setMatchedRouteName('bar');
+        $match->prependMatchedRouteName('bar');
 
         $this->assertEquals('bar/foo', $match->getMatchedRouteName());
     }
