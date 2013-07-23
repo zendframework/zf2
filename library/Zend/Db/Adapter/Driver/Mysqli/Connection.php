@@ -202,16 +202,6 @@ class Connection extends AbstractConnection
     }
 
     /**
-     * In transaction
-     *
-     * @return bool
-     */
-    public function inTransaction()
-    {
-        return $this->inTransaction;
-    }
-
-    /**
      * Commit
      *
      * @return self
