@@ -300,8 +300,12 @@ class Connection extends AbstractConnection
             $this->connect();
         }
 
-        $this->resource->beginTransaction();
-        $this->inTransaction = true;
+        if (0 === $this->nestedTransactionsCount) {
+            $this->resource->beginTransaction();
+            $this->inTransaction = true;
+        }
+
+        $this->nestedTransactionsCount ++;
 
         return $this;
     }
@@ -327,8 +331,18 @@ class Connection extends AbstractConnection
             $this->connect();
         }
 
-        $this->resource->commit();
-        $this->inTransaction = false;
+        if ($this->inTransaction) {
+            $this->nestedTransactionsCount --;
+        }
+
+        /*
+         * This shouldn't check for being in a transaction since
+         * after issuing a SET autocommit=0; we have to commit too.
+         */
+        if (0 === $this->nestedTransactionsCount) {
+            $this->resource->commit();
+            $this->inTransaction = false;
+        }
 
         return $this;
     }
@@ -350,7 +364,9 @@ class Connection extends AbstractConnection
         }
 
         $this->resource->rollBack();
-        $this->inTransaction = false;
+
+        $this->inTransaction           = false;
+        $this->nestedTransactionsCount = 0;
 
         return $this;
     }
