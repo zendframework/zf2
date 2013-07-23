@@ -132,6 +132,7 @@ class Connection extends ConnectionAbstract
         if (!$this->isConnected()) {
             $this->connect();
         }
+
         return $this->resource;
     }
 
