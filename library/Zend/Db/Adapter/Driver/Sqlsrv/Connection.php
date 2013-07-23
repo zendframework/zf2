@@ -9,37 +9,18 @@
 
 namespace Zend\Db\Adapter\Driver\Sqlsrv;
 
+use Zend\Db\Adapter\Driver\ConnectionAbstract;
 use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Driver\Sqlsrv\Exception\ErrorException;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
-class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
+class Connection extends ConnectionAbstract
 {
     /**
      * @var Sqlsrv
      */
     protected $driver = null;
-
-    /**
-     * @var Profiler\ProfilerInterface
-     */
-    protected $profiler = null;
-
-    /**
-     * @var array
-     */
-    protected $connectionParameters = array();
-
-    /**
-     * @var resource
-     */
-    protected $resource = null;
-
-    /**
-     * @var bool
-     */
-    protected $inTransaction = false;
 
     /**
      * Constructor
@@ -68,46 +49,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     {
         $this->driver = $driver;
         return $this;
-    }
-
-    /**
-     * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
-     */
-    public function setProfiler(Profiler\ProfilerInterface $profiler)
-    {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    /**
-     * @return null|Profiler\ProfilerInterface
-     */
-    public function getProfiler()
-    {
-        return $this->profiler;
-    }
-
-    /**
-     * Set connection parameters
-     *
-     * @param  array $connectionParameters
-     * @return Connection
-     */
-    public function setConnectionParameters(array $connectionParameters)
-    {
-        $this->connectionParameters = $connectionParameters;
-        return $this;
-    }
-
-    /**
-     * Get connection parameters
-     *
-     * @return array
-     */
-    public function getConnectionParameters()
-    {
-        return $this->connectionParameters;
     }
 
     /**
@@ -140,17 +81,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
         $this->resource = $resource;
         return $this;
-    }
-
-    /**
-     * @return resource
-     */
-    public function getResource()
-    {
-        if (!$this->isConnected()) {
-            $this->connect();
-        }
-        return $this->resource;
     }
 
     /**
@@ -228,24 +158,34 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * Begin transaction
+     *
+     * @return Connection
      */
     public function beginTransaction()
     {
         // http://msdn.microsoft.com/en-us/library/cc296151.aspx
         /*
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
         $this->resource->autocommit(false);
         $this->inTransaction = true;
         */
+
+        return $this;
     }
 
     /**
      * Commit
+     *
+     * @return Connection
      */
     public function commit()
     {
         // http://msdn.microsoft.com/en-us/library/cc296194.aspx
         /*
-        if (!$this->resource) {
+        if (!$this->isConnected()) {
             $this->connect();
         }
 
@@ -253,16 +193,20 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $this->inTransaction = false;
         */
+
+        return $this;
     }
 
     /**
      * Rollback
+     *
+     * @return Connection
      */
     public function rollback()
     {
         // http://msdn.microsoft.com/en-us/library/cc296176.aspx
         /*
-        if (!$this->resource) {
+        if (!$this->isConnected()) {
             throw new \Exception('Must be connected before you can rollback.');
         }
 
@@ -271,8 +215,10 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $this->resource->rollback();
-        return $this;
+        $this->inTransaction = false;
         */
+
+        return $this;
     }
 
     /**

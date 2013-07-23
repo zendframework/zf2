@@ -9,11 +9,12 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
+use Zend\Db\Adapter\Driver\ConnectionAbstract;
 use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
-class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
+class Connection extends ConnectionAbstract
 {
     /**
      * @var Pdo
@@ -21,29 +22,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     protected $driver = null;
 
     /**
-     * @var Profiler\ProfilerInterface
-     */
-    protected $profiler = null;
-
-    /**
-     * @var string
-     */
-    protected $driverName = null;
-
-    /**
-     * @var array
-     */
-    protected $connectionParameters = array();
-
-    /**
      * @var \PDO
      */
     protected $resource = null;
-
-    /**
-     * @var bool
-     */
-    protected $inTransaction = false;
 
     /**
      * Constructor
@@ -75,34 +56,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
-     */
-    public function setProfiler(Profiler\ProfilerInterface $profiler)
-    {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    /**
-     * @return null|Profiler\ProfilerInterface
-     */
-    public function getProfiler()
-    {
-        return $this->profiler;
-    }
-
-    /**
-     * Get driver name
-     *
-     * @return null|string
-     */
-    public function getDriverName()
-    {
-        return $this->driverName;
-    }
-
-    /**
      * Set connection parameters
      *
      * @param array $connectionParameters
@@ -123,16 +76,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                 3
             ));
         }
-    }
-
-    /**
-     * Get connection parameters
-     *
-     * @return array
-     */
-    public function getConnectionParameters()
-    {
-        return $this->connectionParameters;
     }
 
     /**
@@ -309,19 +252,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * Disconnect
-     *
-     * @return Connection
-     */
-    public function disconnect()
-    {
-        if ($this->isConnected()) {
-            $this->resource = null;
-        }
-        return $this;
-    }
-
-    /**
      * Begin transaction
      *
      * @return Connection
@@ -331,8 +261,10 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         if (!$this->isConnected()) {
             $this->connect();
         }
+
         $this->resource->beginTransaction();
         $this->inTransaction = true;
+
         return $this;
     }
 
@@ -349,6 +281,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $this->resource->commit();
         $this->inTransaction = false;
+
         return $this;
     }
 
@@ -364,11 +297,13 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             throw new Exception\RuntimeException('Must be connected before you can rollback');
         }
 
-        if (!$this->inTransaction) {
+        if (!$this->inTransaction()) {
             throw new Exception\RuntimeException('Must call beginTransaction() before you can rollback');
         }
 
         $this->resource->rollBack();
+        $this->inTransaction = false;
+
         return $this;
     }
 
