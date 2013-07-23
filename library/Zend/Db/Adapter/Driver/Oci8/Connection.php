@@ -9,40 +9,17 @@
 
 namespace Zend\Db\Adapter\Driver\Oci8;
 
+use Zend\Db\Adapter\Driver\ConnectionAbstract;
 use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
-class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
+class Connection extends ConnectionAbstract
 {
     /**
      * @var Oci8
      */
     protected $driver = null;
-
-    /**
-     * @var Profiler\ProfilerInterface
-     */
-    protected $profiler = null;
-
-    /**
-     * Connection parameters
-     *
-     * @var array
-     */
-    protected $connectionParameters = array();
-
-    /**
-     * @var
-     */
-    protected $resource = null;
-
-    /**
-     * In transaction
-     *
-     * @var bool
-     */
-    protected $inTransaction = false;
 
     /**
      * Constructor
@@ -69,46 +46,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     {
         $this->driver = $driver;
         return $this;
-    }
-
-    /**
-     * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
-     */
-    public function setProfiler(Profiler\ProfilerInterface $profiler)
-    {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    /**
-     * @return null|Profiler\ProfilerInterface
-     */
-    public function getProfiler()
-    {
-        return $this->profiler;
-    }
-
-    /**
-     * Set connection parameters
-     *
-     * @param  array $connectionParameters
-     * @return Connection
-     */
-    public function setConnectionParameters(array $connectionParameters)
-    {
-        $this->connectionParameters = $connectionParameters;
-        return $this;
-    }
-
-    /**
-     * Get connection parameters
-     *
-     * @return array
-     */
-    public function getConnectionParameters()
-    {
-        return $this->connectionParameters;
     }
 
     /**
@@ -232,6 +169,8 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
     /**
      * Begin transaction
+     *
+     * @return Connection
      */
     public function beginTransaction()
     {
@@ -241,34 +180,32 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         // A transaction begins when the first SQL statement that changes data is executed with oci_execute() using the OCI_NO_AUTO_COMMIT flag.
         $this->inTransaction = true;
-    }
 
-    /**
-     * In transaction
-     *
-     * @return bool
-     */
-    public function inTransaction()
-    {
-        return $this->inTransaction;
+        return $this;
     }
 
     /**
      * Commit
+     *
+     * @return Connection
      */
     public function commit()
     {
-        if (!$this->resource) {
+        if (!$this->isConnected()) {
             $this->connect();
         }
 
-        if ($this->inTransaction) {
+        if ($this->inTransaction()) {
             $valid = oci_commit($this->resource);
             if ($valid === false) {
                 $e = oci_error($this->resource);
                 throw new Exception\InvalidQueryException($e['message'], $e['code']);
             }
+
+            $this->inTransaction = false;
         }
+
+        return $this;
     }
 
     /**
@@ -278,11 +215,11 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function rollback()
     {
-        if (!$this->resource) {
+        if (!$this->isConnected()) {
             throw new Exception\RuntimeException('Must be connected before you can rollback.');
         }
 
-        if (!$this->inTransaction) {
+        if (!$this->inTransaction()) {
             throw new Exception\RuntimeException('Must call commit() before you can rollback.');
         }
 
@@ -291,6 +228,8 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             $e = oci_error($this->resource);
             throw new Exception\InvalidQueryException($e['message'], $e['code']);
         }
+
+        $this->inTransaction = false;
 
         return $this;
     }

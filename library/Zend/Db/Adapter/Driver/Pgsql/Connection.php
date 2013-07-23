@@ -9,40 +9,16 @@
 
 namespace Zend\Db\Adapter\Driver\Pgsql;
 
-use Zend\Db\Adapter\Driver\ConnectionInterface;
+use Zend\Db\Adapter\Driver\ConnectionAbstract;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
-class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
+class Connection extends ConnectionAbstract
 {
     /**
      * @var Pgsql
      */
     protected $driver = null;
-
-    /**
-     * @var Profiler\ProfilerInterface
-     */
-    protected $profiler = null;
-
-    /**
-     * Connection parameters
-     *
-     * @var array
-     */
-    protected $connectionParameters = array();
-
-    /**
-     * @var resource
-     */
-    protected $resource = null;
-
-    /**
-     * In transaction
-     *
-     * @var bool
-     */
-    protected $inTransaction = false;
 
     /**
      * Constructor
@@ -59,57 +35,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * Set connection parameters
-     *
-     * @param  array $connectionParameters
-     * @return Connection
-     */
-    public function setConnectionParameters(array $connectionParameters)
-    {
-        $this->connectionParameters = $connectionParameters;
-        return $this;
-    }
-
-    /**
      * Set driver
      *
-     * @param  Pgsql $driver
+     * @param  Pgsql      $driver
      * @return Connection
      */
     public function setDriver(Pgsql $driver)
     {
         $this->driver = $driver;
+
         return $this;
-    }
-
-    /**
-     * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
-     */
-    public function setProfiler(Profiler\ProfilerInterface $profiler)
-    {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    /**
-     * @return null|Profiler\ProfilerInterface
-     */
-    public function getProfiler()
-    {
-        return $this->profiler;
-    }
-
-    /**
-     * Set resource
-     *
-     * @param  resource $resource
-     * @return Connection
-     */
-    public function setResource($resource)
-    {
-        $this->resource = $resource;
-        return;
     }
 
     /**
@@ -127,20 +62,8 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         if ($result == false) {
             return null;
         }
-        return pg_fetch_result($result, 0, 'currentschema');
-    }
 
-    /**
-     * Get resource
-     *
-     * @return resource
-     */
-    public function getResource()
-    {
-        if (!$this->isConnected()) {
-            $this->connect();
-        }
-        return $this->resource;
+        return pg_fetch_result($result, 0, 'currentschema');
     }
 
     /**
@@ -165,6 +88,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                     return $p[$name];
                 }
             }
+
             return null;
         };
 
@@ -214,11 +138,13 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * @return void
+     * Begin transaction
+     *
+     * @return Connection
      */
     public function beginTransaction()
     {
-        if ($this->inTransaction) {
+        if ($this->inTransaction()) {
             throw new Exception\RuntimeException('Nested transactions are not supported');
         }
 
@@ -228,46 +154,54 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         pg_query($this->resource, 'BEGIN');
         $this->inTransaction = true;
+
+        return $this;
     }
 
     /**
-     * In transaction
+     * Commit
      *
-     * @return bool
-     */
-    public function inTransaction()
-    {
-        return $this->inTransaction;
-    }
-
-    /**
-     * @return void
+     * @return Connection
      */
     public function commit()
     {
-        if (!$this->inTransaction) {
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
+        if (!$this->inTransaction()) {
             return; // We ignore attempts to commit non-existing transaction
         }
 
         pg_query($this->resource, 'COMMIT');
         $this->inTransaction = false;
+
+        return $this;
     }
 
     /**
-     * @return void
+     * Rollback
+     *
+     * @return Connection
      */
     public function rollback()
     {
-        if (!$this->inTransaction) {
-            return;
+        if (!$this->isConnected()) {
+            throw new Exception\RuntimeException('Must be connected before you can rollback');
+        }
+
+        if (!$this->inTransaction()) {
+            throw new Exception\RuntimeException('Must call beginTransaction() before you can rollback');
         }
 
         pg_query($this->resource, 'ROLLBACK');
         $this->inTransaction = false;
+
+        return $this;
     }
 
     /**
-     * @param  string $sql
+     * @param  string                                         $sql
      * @throws Exception\InvalidQueryException
      * @return resource|\Zend\Db\ResultSet\ResultSetInterface
      */
@@ -293,11 +227,12 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
         return $resultPrototype;
     }
 
     /**
-     * @param  null $name Ignored
+     * @param  null   $name Ignored
      * @return string
      */
     public function getLastGeneratedValue($name = null)
@@ -306,6 +241,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             return null;
         }
         $result = pg_query($this->resource, 'SELECT CURRVAL(\'' . str_replace('\'', '\\\'', $name) . '\') as "currval"');
+
         return pg_fetch_result($result, 0, 'currval');
     }
 }

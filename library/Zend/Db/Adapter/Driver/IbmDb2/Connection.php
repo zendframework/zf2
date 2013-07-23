@@ -9,29 +9,17 @@
 
 namespace Zend\Db\Adapter\Driver\IbmDb2;
 
+use Zend\Db\Adapter\Driver\ConnectionAbstract;
 use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
-class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
+class Connection extends ConnectionAbstract
 {
-    /** @var IbmDb2 */
+    /**
+     * @var IbmDb2
+     */
     protected $driver = null;
-
-    /**
-     * @var array
-     */
-    protected $connectionParameters = null;
-
-    /**
-     * @var resource
-     */
-    protected $resource = null;
-
-    /**
-     * @var Profiler\ProfilerInterface
-     */
-    protected $profiler = null;
 
     /**
      * Constructor
@@ -65,42 +53,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
-     */
-    public function setProfiler(Profiler\ProfilerInterface $profiler)
-    {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    /**
-     * @return null|Profiler\ProfilerInterface
-     */
-    public function getProfiler()
-    {
-        return $this->profiler;
-    }
-
-    /**
-     * @param array $connectionParameters
-     * @return Connection
-     */
-    public function setConnectionParameters(array $connectionParameters)
-    {
-        $this->connectionParameters = $connectionParameters;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getConnectionParameters()
-    {
-        return $this->connectionParameters;
-    }
-
-    /**
      * @param  resource $resource DB2 resource
      * @return Connection
      */
@@ -126,16 +78,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $info = db2_server_info($this->resource);
         return (isset($info->DB_NAME) ? $info->DB_NAME : '');
-    }
-
-    /**
-     * Get resource
-     *
-     * @return mixed
-     */
-    public function getResource()
-    {
-        return $this->resource;
     }
 
     /**
@@ -210,31 +152,37 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Begin transaction
      *
-     * @return ConnectionInterface
+     * @return Connection
      */
     public function beginTransaction()
     {
         // TODO: Implement beginTransaction() method.
+
+        return $this;
     }
 
     /**
      * Commit
      *
-     * @return ConnectionInterface
+     * @return Connection
      */
     public function commit()
     {
         // TODO: Implement commit() method.
+
+        return $this;
     }
 
     /**
      * Rollback
      *
-     * @return ConnectionInterface
+     * @return Connection
      */
     public function rollback()
     {
         // TODO: Implement rollback() method.
+
+        return $this;
     }
 
     /**

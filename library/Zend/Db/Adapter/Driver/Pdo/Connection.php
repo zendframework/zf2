@@ -9,11 +9,11 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\ConnectionInterface;
+use Zend\Db\Adapter\Driver\ConnectionAbstract;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
-class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
+class Connection extends ConnectionAbstract
 {
     /**
      * @var Pdo
@@ -21,29 +21,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     protected $driver = null;
 
     /**
-     * @var Profiler\ProfilerInterface
-     */
-    protected $profiler = null;
-
-    /**
-     * @var string
-     */
-    protected $driverName = null;
-
-    /**
-     * @var array
-     */
-    protected $connectionParameters = array();
-
-    /**
      * @var \PDO
      */
     protected $resource = null;
-
-    /**
-     * @var bool
-     */
-    protected $inTransaction = false;
 
     /**
      * @var string
@@ -53,7 +33,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Constructor
      *
-     * @param array|\PDO|null $connectionParameters
+     * @param  array|\PDO|null                    $connectionParameters
      * @throws Exception\InvalidArgumentException
      */
     public function __construct($connectionParameters = null)
@@ -70,47 +50,20 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Set driver
      *
-     * @param Pdo $driver
+     * @param  Pdo        $driver
      * @return Connection
      */
     public function setDriver(Pdo $driver)
     {
         $this->driver = $driver;
+
         return $this;
-    }
-
-    /**
-     * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
-     */
-    public function setProfiler(Profiler\ProfilerInterface $profiler)
-    {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    /**
-     * @return null|Profiler\ProfilerInterface
-     */
-    public function getProfiler()
-    {
-        return $this->profiler;
-    }
-
-    /**
-     * Get driver name
-     *
-     * @return null|string
-     */
-    public function getDriverName()
-    {
-        return $this->driverName;
     }
 
     /**
      * Set connection parameters
      *
-     * @param array $connectionParameters
+     * @param  array $connectionParameters
      * @return void
      */
     public function setConnectionParameters(array $connectionParameters)
@@ -128,16 +81,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                 3
             ));
         }
-    }
-
-    /**
-     * Get connection parameters
-     *
-     * @return array
-     */
-    public function getConnectionParameters()
-    {
-        return $this->connectionParameters;
     }
 
     /**
@@ -186,19 +129,21 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         if ($result instanceof \PDOStatement) {
             return $result->fetchColumn();
         }
+
         return false;
     }
 
     /**
      * Set resource
      *
-     * @param  \PDO $resource
+     * @param  \PDO       $resource
      * @return Connection
      */
     public function setResource(\PDO $resource)
     {
         $this->resource = $resource;
         $this->driverName = strtolower($this->resource->getAttribute(\PDO::ATTR_DRIVER_NAME));
+
         return $this;
     }
 
@@ -212,6 +157,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         if (!$this->isConnected()) {
             $this->connect();
         }
+
         return $this->resource;
     }
 
@@ -345,19 +291,6 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * Disconnect
-     *
-     * @return Connection
-     */
-    public function disconnect()
-    {
-        if ($this->isConnected()) {
-            $this->resource = null;
-        }
-        return $this;
-    }
-
-    /**
      * Begin transaction
      *
      * @return Connection
@@ -367,8 +300,10 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         if (!$this->isConnected()) {
             $this->connect();
         }
+
         $this->resource->beginTransaction();
         $this->inTransaction = true;
+
         return $this;
     }
 
@@ -395,6 +330,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $this->resource->commit();
         $this->inTransaction = false;
+
         return $this;
     }
 
@@ -410,11 +346,13 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             throw new Exception\RuntimeException('Must be connected before you can rollback');
         }
 
-        if (!$this->inTransaction) {
+        if (!$this->inTransaction()) {
             throw new Exception\RuntimeException('Must call beginTransaction() before you can rollback');
         }
 
         $this->resource->rollBack();
+        $this->inTransaction = false;
+
         return $this;
     }
 
@@ -447,6 +385,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $result = $this->driver->createResult($resultResource, $sql);
+
         return $result;
 
     }
@@ -454,7 +393,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Prepare
      *
-     * @param string $sql
+     * @param  string    $sql
      * @return Statement
      */
     public function prepare($sql)
@@ -464,13 +403,14 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $statement = $this->driver->createStatement($sql);
+
         return $statement;
     }
 
     /**
      * Get last generated id
      *
-     * @param string $name
+     * @param  string            $name
      * @return string|null|false
      */
     public function getLastGeneratedValue($name = null)
@@ -484,6 +424,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         } catch (\Exception $e) {
             // do nothing
         }
+
         return false;
     }
 
