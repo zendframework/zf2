@@ -63,13 +63,72 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Standalone commit is possible after a SET autocommit=0;
+     * Standalone commit after a SET autocommit=0;
      *
      * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::commit()
      */
     public function testCommitWithoutBeginReturnsInstanceOfConnection()
     {
         $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->wrapper->commit());
+    }
+
+    /**
+     * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::inTransaction()
+     * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::beginTransaction()
+     * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::commit()
+     */
+    public function testNestedTransactionsCommit()
+    {
+        $nested = 0;
+
+        $this->assertFalse($this->wrapper->inTransaction());
+
+        // 1st transaction
+        $this->wrapper->beginTransaction();
+        $this->assertTrue($this->wrapper->inTransaction());
+        $this->assertSame(++ $nested, $this->wrapper->getNestedTransactionsCount());
+
+        // 2nd transaction
+        $this->wrapper->beginTransaction();
+        $this->assertTrue($this->wrapper->inTransaction());
+        $this->assertSame(++ $nested, $this->wrapper->getNestedTransactionsCount());
+
+        // 1st commit
+        $this->wrapper->commit();
+        $this->assertTrue($this->wrapper->inTransaction());
+        $this->assertSame(-- $nested, $this->wrapper->getNestedTransactionsCount());
+
+        // 2nd commit
+        $this->wrapper->commit();
+        $this->assertFalse($this->wrapper->inTransaction());
+        $this->assertSame(-- $nested, $this->wrapper->getNestedTransactionsCount());
+    }
+
+    /**
+     * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::inTransaction()
+     * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::beginTransaction()
+     * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::rollback()
+     */
+    public function testNestedTransactionsRollback()
+    {
+        $nested = 0;
+
+        $this->assertFalse($this->wrapper->inTransaction());
+
+        // 1st transaction
+        $this->wrapper->beginTransaction();
+        $this->assertTrue($this->wrapper->inTransaction());
+        $this->assertSame(++ $nested, $this->wrapper->getNestedTransactionsCount());
+
+        // 2nd transaction
+        $this->wrapper->beginTransaction();
+        $this->assertTrue($this->wrapper->inTransaction());
+        $this->assertSame(++ $nested, $this->wrapper->getNestedTransactionsCount());
+
+        // Rollback
+        $this->wrapper->rollback();
+        $this->assertFalse($this->wrapper->inTransaction());
+        $this->assertSame(0, $this->wrapper->getNestedTransactionsCount());
     }
 
     /**
@@ -112,6 +171,23 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
     {
         $this->wrapper->rollback();
     }
+
+    /**
+     * Standalone commit after a SET autocommit=0;
+     *
+     * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::inTransaction()
+     * @covers \Zend\Db\Adapter\Driver\Pdo\Connection::commit()
+     */
+    public function testStandaloneCommit()
+    {
+        $this->assertFalse($this->wrapper->inTransaction());
+        $this->assertSame(0, $this->wrapper->getNestedTransactionsCount());
+
+        $this->wrapper->commit();
+
+        $this->assertFalse($this->wrapper->inTransaction());
+        $this->assertSame(0, $this->wrapper->getNestedTransactionsCount());
+    }
 }
 
 class Wrapper extends Connection
@@ -119,5 +195,10 @@ class Wrapper extends Connection
     public function __construct()
     {
         $this->resource = new PdoStubDriver('foo', 'bar', 'baz');
+    }
+
+    public function getNestedTransactionsCount()
+    {
+        return $this->nestedTransactionsCount;
     }
 }
