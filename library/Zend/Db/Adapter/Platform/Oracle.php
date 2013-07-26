@@ -59,7 +59,7 @@ class Oracle implements PlatformInterface
             return $this;
         }
 
-        throw new Exception\InvalidArgumentException($driver->getDatabasePlatformName().'$driver must be a Oci8 or Mysql PDO Zend\Db\Adapter\Driver, Oci8 instance or Oci PDO instance');
+        throw new Exception\InvalidArgumentException('$driver must be a Oci8 or Mysql PDO Zend\Db\Adapter\Driver, Oci8 instance or Oci PDO instance');
     }
     
     /**
