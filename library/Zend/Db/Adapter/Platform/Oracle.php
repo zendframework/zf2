@@ -140,12 +140,13 @@ class Oracle implements PlatformInterface
             return $this->resource->quote($value);
         }
         
-        // @todo check extension/driver security
-        if (get_resource_type($this->resource) == 'oci8 connection' || 
-                get_resource_type($this->resource) == 'oci8 persistent connection') {
-            return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
+        if($this->resource){
+            // @todo check extension/driver security
+            if (get_resource_type($this->resource) == 'oci8 connection' || 
+                    get_resource_type($this->resource) == 'oci8 persistent connection') {
+                return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
+            }
         }
-        
         
         trigger_error(
             'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
