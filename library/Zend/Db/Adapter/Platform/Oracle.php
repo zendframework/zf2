@@ -51,6 +51,7 @@ class Oracle implements PlatformInterface
     {
         if ($driver instanceof Oci8\Oci8
             || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Oracle')
+            || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'SQLite')
             || ($driver instanceof \oci8)
             || ($driver instanceof \PDO && $driver->getAttribute(\PDO::ATTR_DRIVER_NAME) == 'oci')
         ) {
