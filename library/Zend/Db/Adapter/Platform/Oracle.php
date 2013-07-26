@@ -28,7 +28,7 @@ class Oracle implements PlatformInterface
     /**
      * @param array $options
      */
-    public function __construct($driver, $options = array())
+    public function __construct($driver = null, $options = array())
     {
         if (isset($options['quote_identifiers'])
             && ($options['quote_identifiers'] == false
