@@ -131,7 +131,7 @@ class OracleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('"foo"."bar"', $this->platform->quoteIdentifierInFragment('foo.bar'));
         $this->assertEquals('"foo" as "bar"', $this->platform->quoteIdentifierInFragment('foo as bar'));
 
-        $platform = new Oracle(array('quote_identifiers' => false));
+        $platform = new Oracle(null, array('quote_identifiers' => false));
         $this->assertEquals('foo.bar', $platform->quoteIdentifierInFragment('foo.bar'));
         $this->assertEquals('foo as bar', $platform->quoteIdentifierInFragment('foo as bar'));
 
