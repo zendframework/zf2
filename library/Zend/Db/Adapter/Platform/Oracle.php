@@ -51,7 +51,7 @@ class Oracle implements PlatformInterface
     {
         if ($driver instanceof Oci8\Oci8
             || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Oracle')
-            || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'SQLite')
+            || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Sqlite')
             || ($driver instanceof \oci8)
             || ($driver instanceof \PDO && $driver->getAttribute(\PDO::ATTR_DRIVER_NAME) == 'oci')
         ) {
@@ -59,7 +59,7 @@ class Oracle implements PlatformInterface
             return $this;
         }
 
-        throw new Exception\InvalidArgumentException($driver->getDatabasePlatformName().'$driver must be a Oci8 or Mysql PDO Zend\Db\Adapter\Driver, Oci8 instance or Oci PDO instance');
+        throw new Exception\InvalidArgumentException('$driver must be a Oci8 or Mysql PDO Zend\Db\Adapter\Driver, Oci8 instance or Oci PDO instance');
     }
     
     /**
