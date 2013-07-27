@@ -190,7 +190,8 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
          */
         $banners = array();
         if ($moduleManager !== null) {
-            foreach ($moduleManager->getLoadedModules(false) as $module) {
+            //Display by seniority of modules determined by them enabling order
+            foreach (array_reverse($moduleManager->getLoadedModules(false)) as $module) {
                 // Strict-type on ConsoleBannerProviderInterface, or duck-type
                 // on the method it defines
                 if (!$module instanceof ConsoleBannerProviderInterface
@@ -243,7 +244,9 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
         $usageInfo = array();
 
         if ($moduleManager !== null) {
-            foreach ($moduleManager->getLoadedModules(false) as $name => $module) {
+            //Display by seniority of modules determined by them enabling order
+            $loadedModulesBySeniority = array_reverse($moduleManager->getLoadedModules(false), true);
+            foreach ($loadedModulesBySeniority as $name => $module) {
                 // Strict-type on ConsoleUsageProviderInterface, or duck-type
                 // on the method it defines
                 if (!$module instanceof ConsoleUsageProviderInterface
