@@ -53,7 +53,7 @@ abstract class AbstractController implements
     protected $plugins;
 
     /**
-     * @var Request
+     * @var HttpRequest
      */
     protected $request;
 
