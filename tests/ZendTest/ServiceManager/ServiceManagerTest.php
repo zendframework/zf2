@@ -483,15 +483,13 @@ class ServiceManagerTest extends TestCase
         $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Bar', $bar);
     }
 
+    /**
+     * @expectedException ZendTest\ServiceManager\TestAsset\FooException
+     */
     public function testExceptionThrowingFactory()
     {
         $this->serviceManager->setFactory('foo', 'ZendTest\ServiceManager\TestAsset\ExceptionThrowingFactory');
-        try {
-            $this->serviceManager->get('foo');
-            $this->fail("No exception thrown");
-        } catch (Exception\ServiceNotCreatedException $e) {
-            $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\FooException', $e->getPrevious());
-        }
+        $this->serviceManager->get('foo');
     }
 
     /**
@@ -510,7 +508,7 @@ class ServiceManagerTest extends TestCase
     }
 
     /**
-     * @expectedException Zend\ServiceManager\Exception\ServiceNotCreatedException
+     * @expectedException RuntimeException
      */
     public function testDoNotFallbackToAbstractFactory()
     {
