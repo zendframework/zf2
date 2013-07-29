@@ -445,4 +445,15 @@ class Segment implements RouteInterface
     {
         return rawurldecode($value);
     }
+
+
+    /**
+     * Gets the default values
+     *
+     * @return array
+     */
+    public function getDefaults()
+    {
+        return $this->defaults;
+    }
 }

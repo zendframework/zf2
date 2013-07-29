@@ -22,4 +22,11 @@ interface RouteInterface extends BaseRoute
      * @return array
      */
     public function getAssembledParams();
+
+    /**
+     * Gets the default values
+     *
+     * @return array
+     */
+    public function getDefaults() ;
 }

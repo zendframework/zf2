@@ -1,132 +1,147 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
-namespace Zend\Mvc\Router\Http;
-
-use Traversable;
-use Zend\Mvc\Router\Exception;
-use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\RequestInterface as Request;
-
-/**
- * Literal route.
- */
-class Literal implements RouteInterface
-{
     /**
-     * RouteInterface to match.
+     * Zend Framework (http://framework.zend.com/)
      *
-     * @var string
+     * @link      http://github.com/zendframework/zf2 for the canonical source repository
+     * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+     * @license   http://framework.zend.com/license/new-bsd New BSD License
      */
-    protected $route;
+
+    namespace Zend\Mvc\Router\Http;
+
+    use Traversable;
+    use Zend\Mvc\Router\Exception;
+    use Zend\Stdlib\ArrayUtils;
+    use Zend\Stdlib\RequestInterface as Request;
 
     /**
-     * Default values.
-     *
-     * @var array
+     * Literal route.
      */
-    protected $defaults;
-
-    /**
-     * Create a new literal route.
-     *
-     * @param  string $route
-     * @param  array  $defaults
-     */
-    public function __construct($route, array $defaults = array())
+    class Literal implements RouteInterface
     {
-        $this->route    = $route;
-        $this->defaults = $defaults;
-    }
+        /**
+         * RouteInterface to match.
+         *
+         * @var string
+         */
+        protected $route;
+        /**
+         * Default values.
+         *
+         * @var array
+         */
+        protected $defaults;
 
-    /**
-     * factory(): defined by RouteInterface interface.
-     *
-     * @see    \Zend\Mvc\Router\RouteInterface::factory()
-     * @param  array|Traversable $options
-     * @return Literal
-     * @throws Exception\InvalidArgumentException
-     */
-    public static function factory($options = array())
-    {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        } elseif (!is_array($options)) {
-            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
+        /**
+         * Create a new literal route.
+         *
+         * @param  string $route
+         * @param  array  $defaults
+         */
+        public function __construct($route, array $defaults = array())
+        {
+            $this->route    = $route;
+            $this->defaults = $defaults;
         }
 
-        if (!isset($options['route'])) {
-            throw new Exception\InvalidArgumentException('Missing "route" in options array');
+        /**
+         * factory(): defined by RouteInterface interface.
+         *
+         * @see    \Zend\Mvc\Router\RouteInterface::factory()
+         *
+         * @param  array|Traversable $options
+         *
+         * @return Literal
+         * @throws Exception\InvalidArgumentException
+         */
+        public static function factory($options = array())
+        {
+            if ($options instanceof Traversable) {
+                $options = ArrayUtils::iteratorToArray($options);
+            } elseif (!is_array($options)) {
+                throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
+            }
+
+            if (!isset($options['route'])) {
+                throw new Exception\InvalidArgumentException('Missing "route" in options array');
+            }
+
+            if (!isset($options['defaults'])) {
+                $options['defaults'] = array();
+            }
+
+            return new static($options['route'], $options['defaults']);
         }
 
-        if (!isset($options['defaults'])) {
-            $options['defaults'] = array();
-        }
+        /**
+         * match(): defined by RouteInterface interface.
+         *
+         * @see    \Zend\Mvc\Router\RouteInterface::match()
+         *
+         * @param  Request      $request
+         * @param  integer|null $pathOffset
+         *
+         * @return RouteMatch|null
+         */
+        public function match(Request $request, $pathOffset = null)
+        {
+            if (!method_exists($request, 'getUri')) {
+                return null;
+            }
 
-        return new static($options['route'], $options['defaults']);
-    }
+            $uri  = $request->getUri();
+            $path = $uri->getPath();
 
-    /**
-     * match(): defined by RouteInterface interface.
-     *
-     * @see    \Zend\Mvc\Router\RouteInterface::match()
-     * @param  Request      $request
-     * @param  integer|null $pathOffset
-     * @return RouteMatch|null
-     */
-    public function match(Request $request, $pathOffset = null)
-    {
-        if (!method_exists($request, 'getUri')) {
-            return null;
-        }
-
-        $uri  = $request->getUri();
-        $path = $uri->getPath();
-
-        if ($pathOffset !== null) {
-            if ($pathOffset >= 0 && strlen($path) >= $pathOffset && !empty($this->route)) {
-                if (strpos($path, $this->route, $pathOffset) === $pathOffset) {
-                    return new RouteMatch($this->defaults, strlen($this->route));
+            if ($pathOffset !== null) {
+                if ($pathOffset >= 0 && strlen($path) >= $pathOffset && !empty($this->route)) {
+                    if (strpos($path, $this->route, $pathOffset) === $pathOffset) {
+                        return new RouteMatch($this->defaults, strlen($this->route));
+                    }
                 }
+
+                return null;
+            }
+
+            if ($path === $this->route) {
+                return new RouteMatch($this->defaults, strlen($this->route));
             }
 
             return null;
         }
 
-        if ($path === $this->route) {
-            return new RouteMatch($this->defaults, strlen($this->route));
+        /**
+         * assemble(): Defined by RouteInterface interface.
+         *
+         * @see    \Zend\Mvc\Router\RouteInterface::assemble()
+         *
+         * @param  array $params
+         * @param  array $options
+         *
+         * @return mixed
+         */
+        public function assemble(array $params = array(), array $options = array())
+        {
+            return $this->route;
         }
 
-        return null;
-    }
+        /**
+         * getAssembledParams(): defined by RouteInterface interface.
+         *
+         * @see    RouteInterface::getAssembledParams
+         * @return array
+         */
+        public function getAssembledParams()
+        {
+            return array();
+        }
 
-    /**
-     * assemble(): Defined by RouteInterface interface.
-     *
-     * @see    \Zend\Mvc\Router\RouteInterface::assemble()
-     * @param  array $params
-     * @param  array $options
-     * @return mixed
-     */
-    public function assemble(array $params = array(), array $options = array())
-    {
-        return $this->route;
+        /**
+         * Gets the default values
+         *
+         * @return array
+         */
+        public function getDefaults()
+        {
+            return $this->defaults;
+        }
     }
-
-    /**
-     * getAssembledParams(): defined by RouteInterface interface.
-     *
-     * @see    RouteInterface::getAssembledParams
-     * @return array
-     */
-    public function getAssembledParams()
-    {
-        return array();
-    }
-}

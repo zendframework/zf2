@@ -170,4 +170,14 @@ class Regex implements RouteInterface
     {
         return $this->assembledParams;
     }
+
+    /**
+     * Gets the default values
+     *
+     * @return array
+     */
+    public function getDefaults()
+    {
+        return $this->defaults;
+    }
 }
