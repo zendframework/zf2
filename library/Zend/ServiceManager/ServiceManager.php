@@ -852,16 +852,9 @@ class ServiceManager implements ServiceLocatorInterface
             $circularDependencyResolver[$depKey] = true;
             $instance = call_user_func($callable, $this, $cName, $rName);
             unset($circularDependencyResolver[$depKey]);
-        } catch (Exception\ServiceNotFoundException $e) {
-            unset($circularDependencyResolver[$depKey]);
-            throw $e;
         } catch (\Exception $e) {
             unset($circularDependencyResolver[$depKey]);
-            throw new Exception\ServiceNotCreatedException(
-                sprintf('An exception was raised while creating "%s"; no instance returned', $rName),
-                $e->getCode(),
-                $e
-            );
+            throw $e;
         }
         if ($instance === null) {
             throw new Exception\ServiceNotCreatedException('The factory was called but did not return an instance.');
