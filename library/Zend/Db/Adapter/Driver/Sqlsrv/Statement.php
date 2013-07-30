@@ -193,9 +193,9 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
         $sql = ($sql) ?: $this->sql;
 
         $pRef = &$this->parameterReferences;
-        for ($position = 0, $count = substr_count($sql, '?'); $position < $count; $position++) {
-            $pRef[$position] = array('', SQLSRV_PARAM_IN, null, null);
-        }
+        //for ($position = 0, $count = substr_count($sql, '?'); $position < $count; $position++) {
+        //    $pRef[$position] = array('', SQLSRV_PARAM_IN, null, null);
+        //}
 
         $this->resource = sqlsrv_prepare($this->sqlsrv, $sql, $pRef);
 
@@ -220,9 +220,9 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      */
     public function execute($parameters = null)
     {
-        if (!$this->isPrepared) {
-            $this->prepare();
-        }
+        //if (!$this->isPrepared) {
+        //    $this->prepare();
+        //}
 
         /** START Standard ParameterContainer Merging Block */
         if (!$this->parameterContainer instanceof ParameterContainer) {
@@ -242,6 +242,10 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $this->bindParametersFromContainer();
         }
         /** END Standard ParameterContainer Merging Block */
+
+        if (!$this->isPrepared) {
+            $this->prepare();
+        }
 
         if ($this->profiler) {
             $this->profiler->profilerStart($this);
@@ -271,11 +275,16 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      */
     protected function bindParametersFromContainer()
     {
+        
         $values = $this->parameterContainer->getPositionalArray();
-        $position = 0;
-        foreach ($values as $value) {
-            $this->parameterReferences[$position++][0] = $value;
-        }
+        $this->parameterReferences = $values;
+        
+        
+        //$values = $this->parameterContainer->getPositionalArray();
+        //$position = 0;
+        //foreach ($values as $value) {
+        //    $this->parameterReferences[$position++][0] = $value;
+        //}
 
         // @todo bind errata
         //foreach ($this->parameterContainer as $name => &$value) {
