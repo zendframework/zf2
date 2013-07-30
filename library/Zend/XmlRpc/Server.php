@@ -503,20 +503,6 @@ class Server extends AbstractServer
     }
 
     /**
-     * Map PHP type to XML-RPC type
-     *
-     * @param  string $type
-     * @return string
-     */
-    protected function _fixType($type)
-    {
-        if (isset($this->typeMap[$type])) {
-            return $this->typeMap[$type];
-        }
-        return 'void';
-    }
-
-    /**
      * Handle an xmlrpc call (actual work)
      *
      * @param  Request $request
