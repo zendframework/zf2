@@ -134,15 +134,12 @@ class Oracle implements PlatformInterface
     {               
         if ($this->resource instanceof DriverInterface) {
             $this->resource = $this->resource->getConnection()->getResource();   
-        }
-        
-        if ($this->resource instanceof \PDO) {
-            return $this->resource->quote($value);
-        }
+        }        
         
         if($this->resource){
             // @todo check extension/driver security
-            if (get_resource_type($this->resource) == 'oci8 connection' || 
+            if ($this->resource instanceof \PDO || 
+                    get_resource_type($this->resource) == 'oci8 connection' || 
                     get_resource_type($this->resource) == 'oci8 persistent connection') {
                 return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
             }
