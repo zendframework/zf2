@@ -106,17 +106,7 @@ class DbSelect implements AdapterInterface
         $select->reset(Select::LIMIT);
         $select->reset(Select::OFFSET);
         $select->reset(Select::ORDER);
-        
-        //get Joins
-        $joins = $select->getRawState(Select::JOINS);
-        if($joins){
-            //clear Joins
-            $select->reset(Select::JOINS);
-            foreach ($joins as $join) {
-                // Creates join without columns            
-                $select->join($join['name'], $join['on'], array(), $join['type']);
-            } 
-        }
+
         $countSelect = new Select;
         $countSelect->columns(array('c' => new Expression('COUNT(1)')));
         $countSelect->from(array('original_select' => $select));
