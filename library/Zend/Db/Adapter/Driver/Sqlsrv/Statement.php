@@ -220,9 +220,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      */
     public function execute($parameters = null)
     {
-        //if (!$this->isPrepared) {
-        //    $this->prepare();
-        //}
 
         /** START Standard ParameterContainer Merging Block */
         if (!$this->parameterContainer instanceof ParameterContainer) {
