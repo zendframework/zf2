@@ -164,22 +164,11 @@ abstract class AbstractSql
 
     protected function processSubSelect(Select $subselect, PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
-        if ($driver) {
-            $stmtContainer = new StatementContainer;
-
-            // Track subselect prefix and count for parameters
-            $this->processInfo['subselectCount']++;
-            $subselect->processInfo['subselectCount'] = $this->processInfo['subselectCount'];
-            $subselect->processInfo['paramPrefix'] = 'subselect' . $subselect->processInfo['subselectCount'];
-
-            // call subselect
-            $subselect->prepareStatement(new \Zend\Db\Adapter\Adapter($driver, $platform), $stmtContainer);
-
-            // copy count
-            $this->processInfo['subselectCount'] = $subselect->processInfo['subselectCount'];
-
-            $parameterContainer->merge($stmtContainer->getParameterContainer()->getNamedArray());
-            $sql = $stmtContainer->getSql();
+        if ($driver) {            
+            $adapter = new \Zend\Db\Adapter\Adapter($driver, $platform);                        
+            $sqlPlataform = new Sql($adapter);            
+            return $sqlPlataform->getSqlStringForSqlObject($subselect);
+            
         } else {
             $sql = $subselect->getSqlString($platform);
         }
