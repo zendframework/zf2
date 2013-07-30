@@ -350,6 +350,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
             if (!isset($this->validGlobalAttributes[$attribute])
                 && !isset($this->validTagAttributes[$attribute])
                 && 'data-' != substr($attribute, 0, 5)
+                && 'ng-' != substr($attribute, 0, 3)
             ) {
                 // Invalid attribute for the current tag
                 unset($attributes[$key]);
