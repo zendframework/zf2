@@ -270,8 +270,16 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
     protected function bindParametersFromContainer()
     {
         
-        $values = $this->parameterContainer->getPositionalArray();
-        $this->parameterReferences = $values;
+        $parameters = $this->parameterContainer->getNamedArray();
+
+        $position = 0;
+        foreach ($parameters as &$value) {
+            if(is_array($value)){
+                $this->parameterReferences[$position++] = $value;
+            }else{
+                $this->parameterReferences[$position++] = [$value,\SQLSRV_PARAM_IN, null,null];
+            } 
+        }
         
         // @todo bind errata
         //foreach ($this->parameterContainer as $name => &$value) {
