@@ -274,7 +274,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             if (is_array($value)) {
                 $this->parameterReferences[$position++] = $value;
             } else {
-                $this->parameterReferences[$position++] = [$value, \SQLSRV_PARAM_IN, null, null];
+                $this->parameterReferences[$position++] = array($value, \SQLSRV_PARAM_IN, null, null);
             }
         }
 
