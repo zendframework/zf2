@@ -236,7 +236,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $this->bindParametersFromContainer();
         }
         /** END Standard ParameterContainer Merging Block */
-
         if (!$this->isPrepared) {
             $this->prepare();
         }
@@ -269,18 +268,16 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      */
     protected function bindParametersFromContainer()
     {
-        
         $parameters = $this->parameterContainer->getNamedArray();
-
         $position = 0;
         foreach ($parameters as &$value) {
-            if(is_array($value)){
+            if (is_array($value)) {
                 $this->parameterReferences[$position++] = $value;
-            }else{
-                $this->parameterReferences[$position++] = [$value,\SQLSRV_PARAM_IN, null,null];
-            } 
+            } else {
+                $this->parameterReferences[$position++] = [$value, \SQLSRV_PARAM_IN, null, null];
+            }
         }
-        
+
         // @todo bind errata
         //foreach ($this->parameterContainer as $name => &$value) {
         //    $p[$position][0] = $value;
