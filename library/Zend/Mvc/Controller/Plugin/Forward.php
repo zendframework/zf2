@@ -156,7 +156,7 @@ class Forward extends AbstractPlugin
     {
         // Convert the problem list from two-dimensional array to more convenient id => event => class format:
         $formattedProblems = array();
-        foreach ($this->getListenersToDetach() as $current) {
+        foreach ($listenerToDetach = $this->getListenersToDetach() as $current) {
             if (!isset($formattedProblems[$current['id']])) {
                 $formattedProblems[$current['id']] = array();
             }

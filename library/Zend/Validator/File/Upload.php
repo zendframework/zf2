@@ -143,7 +143,7 @@ class Upload extends AbstractValidator
         if (array_key_exists($value, $this->getFiles())) {
             $files = array_merge($files, $this->getFiles($value));
         } else {
-            foreach ($this->getFiles() as $file => $content) {
+            foreach ($getFiles = $this->getFiles() as $file => $content) {
                 if (isset($content['name']) && ($content['name'] === $value)) {
                     $files = array_merge($files, $this->getFiles($file));
                 }

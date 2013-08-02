@@ -181,7 +181,7 @@ class Definition implements Countable, Iterator
     public function toArray()
     {
         $methods = array();
-        foreach ($this->getMethods() as $key => $method) {
+        foreach ($methods = $this->getMethods() as $key => $method) {
             $methods[$key] = $method->toArray();
         }
         return $methods;

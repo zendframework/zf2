@@ -129,35 +129,35 @@ class Config implements ConfigInterface
             $serviceManager->setAllowOverride($allowOverride);
         }
 
-        foreach ($this->getFactories() as $name => $factory) {
+        foreach ($factories = $this->getFactories() as $name => $factory) {
             $serviceManager->setFactory($name, $factory);
         }
 
-        foreach ($this->getAbstractFactories() as $factory) {
+        foreach ($abstractFactories = $this->getAbstractFactories() as $factory) {
             $serviceManager->addAbstractFactory($factory);
         }
 
-        foreach ($this->getInvokables() as $name => $invokable) {
+        foreach ($invokables = $this->getInvokables() as $name => $invokable) {
             $serviceManager->setInvokableClass($name, $invokable);
         }
 
-        foreach ($this->getServices() as $name => $service) {
+        foreach ($services = $this->getServices() as $name => $service) {
             $serviceManager->setService($name, $service);
         }
 
-        foreach ($this->getAliases() as $alias => $nameOrAlias) {
+        foreach ($aliases = $this->getAliases() as $alias => $nameOrAlias) {
             $serviceManager->setAlias($alias, $nameOrAlias);
         }
 
-        foreach ($this->getInitializers() as $initializer) {
+        foreach ($initializers = $this->getInitializers() as $initializer) {
             $serviceManager->addInitializer($initializer);
         }
 
-        foreach ($this->getShared() as $name => $isShared) {
+        foreach ($shared = $this->getShared() as $name => $isShared) {
             $serviceManager->setShared($name, $isShared);
         }
 
-        foreach ($this->getDelegators() as $originalServiceName => $delegators) {
+        foreach ($getDelegators = $this->getDelegators() as $originalServiceName => $delegators) {
             foreach ($delegators as $delegator) {
                 $serviceManager->addDelegator($originalServiceName, $delegator);
             }

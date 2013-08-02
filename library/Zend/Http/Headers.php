@@ -361,7 +361,7 @@ class Headers implements Countable, Iterator
     public function toString()
     {
         $headers = '';
-        foreach ($this->toArray() as $fieldName => $fieldValue) {
+        foreach ($headerArray = $this->toArray() as $fieldName => $fieldValue) {
             if (is_array($fieldValue)) {
                 // Handle multi-value headers
                 foreach ($fieldValue as $value) {

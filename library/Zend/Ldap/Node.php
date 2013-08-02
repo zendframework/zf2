@@ -310,7 +310,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
      */
     protected function ensureRdnAttributeValues($overwrite = false)
     {
-        foreach ($this->getRdnArray() as $key => $value) {
+        foreach ($rdnArray = $this->getRdnArray() as $key => $value) {
             if (!array_key_exists($key, $this->currentData) || $overwrite) {
                 Attribute::setAttribute($this->currentData, $key, $value, false);
             } elseif (!in_array($value, $this->currentData[$key])) {

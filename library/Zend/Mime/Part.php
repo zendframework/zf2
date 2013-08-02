@@ -200,7 +200,7 @@ class Part
     public function getHeaders($EOL = Mime::LINEEND)
     {
         $res = '';
-        foreach ($this->getHeadersArray($EOL) as $header) {
+        foreach ($headersArray = $this->getHeadersArray($EOL) as $header) {
             $res .= $header[0] . ': ' . $header[1] . $EOL;
         }
 

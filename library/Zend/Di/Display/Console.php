@@ -101,14 +101,14 @@ class Console
         echo PHP_EOL . '  Aliases:' . PHP_EOL;
 
         $configuredTypes = array();
-        foreach ($this->di->instanceManager()->getAliases() as $alias => $class) {
+        foreach ($instanceManagerAliases = $this->di->instanceManager()->getAliases() as $alias => $class) {
             echo '    ' . $alias . ' [type: ' . $class . ']' . PHP_EOL;
             $configuredTypes[] = $alias;
         }
 
         echo PHP_EOL . '  Classes:' . PHP_EOL;
 
-        foreach ($this->di->instanceManager()->getClasses() as $class) {
+        foreach ($instanceManagerClassess = $this->di->instanceManager()->getClasses() as $class) {
             echo '    ' . $class . PHP_EOL;
             $configuredTypes[] = $class;
         }

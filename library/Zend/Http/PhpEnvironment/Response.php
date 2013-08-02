@@ -90,7 +90,7 @@ class Response extends HttpResponse
         header($status);
 
         /** @var \Zend\Http\Header\HeaderInterface $header */
-        foreach ($this->getHeaders() as $header) {
+        foreach ($headers = $this->getHeaders() as $header) {
             if ($header instanceof MultipleHeaderInterface) {
                 header($header->toString(), false);
                 continue;

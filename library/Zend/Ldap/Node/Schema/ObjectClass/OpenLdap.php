@@ -87,7 +87,7 @@ class OpenLdap extends Schema\AbstractItem implements ObjectClassInterface
     {
         $must = $this->must;
         $may  = $this->may;
-        foreach ($this->getParents() as $p) {
+        foreach ($parents = $this->getParents() as $p) {
             $must = array_merge($must, $p->getMustContain());
             $may  = array_merge($may, $p->getMayContain());
         }

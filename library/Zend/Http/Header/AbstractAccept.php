@@ -67,7 +67,7 @@ abstract class AbstractAccept implements HeaderInterface
             $headerLine = substr($headerLine, $pos);
         }
 
-        foreach ($this->getFieldValuePartsFromHeaderLine($headerLine) as $value) {
+        foreach ($headerLines = $this->getFieldValuePartsFromHeaderLine($headerLine) as $value) {
             $this->addFieldValuePartToQueue($value);
         }
     }
@@ -298,7 +298,7 @@ abstract class AbstractAccept implements HeaderInterface
             $matchAgainst = $this->getFieldValuePartsFromHeaderLine($matchAgainst);
         }
 
-        foreach ($this->getPrioritized() as $left) {
+        foreach ($prioritized = $this->getPrioritized() as $left) {
             foreach ($matchAgainst as $right) {
                 if ($right->type == '*' || $left->type == '*') {
                     if ($this->matchAcceptParams($left, $right)) {

@@ -483,7 +483,7 @@ class BaseInputFilter implements InputFilterInterface, UnknownInputsCapableInter
     public function getMessages()
     {
         $messages = array();
-        foreach ($this->getInvalidInput() as $name => $input) {
+        foreach ($validInput = $this->getInvalidInput() as $name => $input) {
             $messages[$name] = $input->getMessages();
         }
 

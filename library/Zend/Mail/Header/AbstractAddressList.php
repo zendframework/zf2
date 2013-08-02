@@ -100,7 +100,7 @@ abstract class AbstractAddressList implements HeaderInterface
     {
         $emails   = array();
         $encoding = $this->getEncoding();
-        foreach ($this->getAddressList() as $address) {
+        foreach ($addressList = $this->getAddressList() as $address) {
             $email = $address->getEmail();
             $name  = $address->getName();
             if (empty($name)) {

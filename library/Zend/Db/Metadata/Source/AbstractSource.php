@@ -100,7 +100,7 @@ abstract class AbstractSource implements MetadataInterface
         }
 
         $tables = array();
-        foreach ($this->getTableNames($schema, $includeViews) as $tableName) {
+        foreach ($tablesNames = $this->getTableNames($schema, $includeViews) as $tableName) {
             $tables[] = $this->getTable($tableName, $schema);
         }
         return $tables;

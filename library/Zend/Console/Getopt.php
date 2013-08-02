@@ -538,7 +538,7 @@ class Getopt
     public function getArguments()
     {
         $result = $this->getRemainingArgs();
-        foreach ($this->getOptions() as $option) {
+        foreach ($options = $this->getOptions() as $option) {
             $result[$option] = $this->getOption($option);
         }
         return $result;

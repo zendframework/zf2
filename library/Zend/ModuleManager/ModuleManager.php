@@ -77,7 +77,7 @@ class ModuleManager implements ModuleManagerInterface
             return $this;
         }
 
-        foreach ($this->getModules() as $moduleName => $module) {
+        foreach ($modules = $this->getModules() as $moduleName => $module) {
             if (is_object($module)) {
                 if (!is_string($moduleName)) {
                     throw new Exception\RuntimeException(sprintf(

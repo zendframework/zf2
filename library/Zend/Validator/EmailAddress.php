@@ -438,7 +438,7 @@ class EmailAddress extends AbstractValidator
         if (!$hostname) {
             $this->error(self::INVALID_HOSTNAME);
             // Get messages and errors from hostnameValidator
-            foreach ($this->getHostnameValidator()->getMessages() as $code => $message) {
+            foreach ($hostnameValidators = $this->getHostnameValidator()->getMessages() as $code => $message) {
                 $this->abstractOptions['messages'][$code] = $message;
             }
         } elseif ($this->options['useMxCheck']) {
