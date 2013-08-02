@@ -176,7 +176,7 @@ class Form extends Fieldset implements FormInterface
         if ($this->wrapElements()) {
             $this->prepareElement($this);
         } else {
-            foreach ($this->getIterator() as $elementOrFieldset) {
+            foreach ($iterators = $this->getIterator() as $elementOrFieldset) {
                 if ($elementOrFieldset instanceof FormInterface) {
                     $elementOrFieldset->prepare();
                 } elseif ($elementOrFieldset instanceof ElementPrepareAwareInterface) {

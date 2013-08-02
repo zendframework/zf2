@@ -163,7 +163,7 @@ abstract class AbstractDecorator implements Decorator
     protected function wrapTag($html)
     {
         $escaper = $this->getEscaper();
-        foreach ($this->getHTMLTags() as $key => $data) {
+        foreach ($htmlTags = $this->getHTMLTags() as $key => $data) {
             if (is_array($data)) {
                 $attributes = '';
                 $htmlTag    = $key;

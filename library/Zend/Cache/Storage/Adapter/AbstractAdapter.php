@@ -90,7 +90,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     public function __destruct()
     {
-        foreach ($this->getPluginRegistry() as $plugin) {
+        foreach ($pluginRegistries = $this->getPluginRegistry() as $plugin) {
             $this->removePlugin($plugin);
         }
 

@@ -1205,7 +1205,7 @@ class Client implements Stdlib\DispatchableInterface
                 }
 
                 // Encode files
-                foreach ($this->getRequest()->getFiles()->toArray() as $file) {
+                foreach ($requestFilesArray = $this->getRequest()->getFiles()->toArray() as $file) {
                     $fhead = array('Content-Type' => $file['ctype']);
                     $body .= $this->encodeFormData($boundary, $file['formname'], $file['data'], $file['filename'], $fhead);
                 }

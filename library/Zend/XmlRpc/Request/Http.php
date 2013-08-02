@@ -97,7 +97,7 @@ class Http extends XmlRpcRequest
     public function getFullRequest()
     {
         $request = '';
-        foreach ($this->getHeaders() as $key => $value) {
+        foreach ($headers = $this->getHeaders() as $key => $value) {
             $request .= $key . ': ' . $value . "\n";
         }
 

@@ -187,7 +187,7 @@ abstract class AbstractNode implements ArrayAccess, Countable
     public function getAttributes($includeSystemAttributes = true)
     {
         $data = array();
-        foreach ($this->getData($includeSystemAttributes) as $name => $value) {
+        foreach ($dataIncludeSystemAttributes = $this->getData($includeSystemAttributes) as $name => $value) {
             $data[$name] = $this->getAttribute($name, null);
         }
         return $data;

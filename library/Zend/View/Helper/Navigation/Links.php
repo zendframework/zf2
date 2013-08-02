@@ -553,7 +553,7 @@ class Links extends AbstractHelper
 
         if ($page->hasPages()) {
             // given page has child pages, loop chapters
-            foreach ($this->findRoot($page) as $chapter) {
+            foreach ($roots = $this->findRoot($page) as $chapter) {
                 // is page a section?
                 if ($chapter->hasPage($page)) {
                     foreach ($page as $subsection) {

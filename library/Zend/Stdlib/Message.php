@@ -105,7 +105,7 @@ class Message implements MessageInterface
     public function toString()
     {
         $request = '';
-        foreach ($this->getMetadata() as $key => $value) {
+        foreach ($metadatas = $this->getMetadata() as $key => $value) {
             $request .= sprintf(
                 "%s: %s\r\n",
                 (string) $key,

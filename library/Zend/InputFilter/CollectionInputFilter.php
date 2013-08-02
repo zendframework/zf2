@@ -260,7 +260,7 @@ class CollectionInputFilter extends InputFilter
     public function getMessages()
     {
         $messages = array();
-        foreach ($this->getInvalidInput() as $key => $inputs) {
+        foreach ($validInput = $this->getInvalidInput() as $key => $inputs) {
             foreach ($inputs as $name => $input) {
                 $messages[$key][$name] = $input->getMessages();
             }

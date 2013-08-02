@@ -395,7 +395,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     protected function isDuplicateStylesheet($uri)
     {
-        foreach ($this->getContainer() as $item) {
+        foreach ($containers = $this->getContainer() as $item) {
             if (($item->rel == 'stylesheet') && ($item->href == $uri)) {
                 return true;
             }

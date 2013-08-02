@@ -508,7 +508,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function getProperty($propertyName)
     {
-        foreach ($this->getProperties() as $property) {
+        foreach ($properties = $this->getProperties() as $property) {
             if ($property->getName() == $propertyName) {
                 return $property;
             }
@@ -660,13 +660,13 @@ class ClassGenerator extends AbstractGenerator
             return true;
         }
 
-        foreach ($this->getProperties() as $property) {
+        foreach ($properties = $this->getProperties() as $property) {
             if ($property->isSourceDirty()) {
                 return true;
             }
         }
 
-        foreach ($this->getMethods() as $method) {
+        foreach ($methods = $this->getMethods() as $method) {
             if ($method->isSourceDirty()) {
                 return true;
             }
