@@ -193,11 +193,8 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
         $sql = ($sql) ?: $this->sql;
 
         $pRef = &$this->parameterReferences;
-        for ($position = 0, $count = substr_count($sql, '?'); $position < $count; $position++) {
-            $pRef[$position] = array('', SQLSRV_PARAM_IN, null, null);
-        }
 
-        $this->resource = sqlsrv_prepare($this->sqlsrv, $sql, $pRef);
+        $this->resource = sqlsrv_prepare($this->sqlsrv, $sql, $pRef, array('Scrollable'=> \SQLSRV_CURSOR_STATIC));
 
         $this->isPrepared = true;
         return $this;
@@ -220,9 +217,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      */
     public function execute($parameters = null)
     {
-        if (!$this->isPrepared) {
-            $this->prepare();
-        }
 
         /** START Standard ParameterContainer Merging Block */
         if (!$this->parameterContainer instanceof ParameterContainer) {
@@ -242,6 +236,9 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $this->bindParametersFromContainer();
         }
         /** END Standard ParameterContainer Merging Block */
+        if (!$this->isPrepared) {
+            $this->prepare();
+        }
 
         if ($this->profiler) {
             $this->profiler->profilerStart($this);
@@ -271,10 +268,14 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      */
     protected function bindParametersFromContainer()
     {
-        $values = $this->parameterContainer->getPositionalArray();
+        $parameters = $this->parameterContainer->getNamedArray();
         $position = 0;
-        foreach ($values as $value) {
-            $this->parameterReferences[$position++][0] = $value;
+        foreach ($parameters as &$value) {
+            if (is_array($value)) {
+                $this->parameterReferences[$position++] = $value;
+            } else {
+                $this->parameterReferences[$position++] = array($value, \SQLSRV_PARAM_IN, null, null);
+            }
         }
 
         // @todo bind errata
