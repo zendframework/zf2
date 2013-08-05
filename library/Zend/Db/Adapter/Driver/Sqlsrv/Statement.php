@@ -194,7 +194,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
         $pRef = &$this->parameterReferences;
 
-        $this->resource = sqlsrv_prepare($this->sqlsrv, $sql, $pRef);
+        $this->resource = sqlsrv_prepare($this->sqlsrv, $sql, $pRef, array('Scrollable'=> \SQLSRV_CURSOR_STATIC));
 
         $this->isPrepared = true;
         return $this;
