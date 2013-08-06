@@ -74,7 +74,7 @@ class FormDateTimeLocalTest extends CommonTestCase
             array('min',            'assertContains'),
             array('multiple',       'assertNotContains'),
             array('pattern',        'assertNotContains'),
-            array('placeholder',    'assertNotContains'),
+            array('placeholder',    'assertContains'),
             array('readonly',       'assertContains'),
             array('required',       'assertContains'),
             array('size',           'assertNotContains'),

@@ -32,6 +32,7 @@ class FormDateTime extends FormInput
         'step'           => true,
         'type'           => true,
         'value'          => true,
+        'placeholder'    => true,
     );
 
     /**
