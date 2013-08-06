@@ -55,6 +55,7 @@ class TreeRouteStack extends SimpleRouteStack
                 'method'   => __NAMESPACE__ . '\Method',
             ) as $name => $class
         ) {
+            if ($routes->has($name, false)) continue;
             $routes->setInvokableClass($name, $class);
         };
     }
