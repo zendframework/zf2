@@ -182,7 +182,7 @@ abstract class AbstractSql
             $parameterContainer->merge($stmtContainer->getParameterContainer()->getNamedArray());
             $sql = $stmtContainer->getSql();
         } else {
-            $sql = $subselect->getSqlString($platform, $driver);
+            $sql = $subselect->getSqlString($platform);
         }
         return $sql;
     }
