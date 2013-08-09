@@ -72,11 +72,15 @@ class Factory
                 case 'allow_empty':
                     $input->setAllowEmpty(true);
                     break;
+                case 'fallback_value':
+                    $input->setFallbackValue($value);
+                    break;
                 case 'filters':
                     $this->populateFilters($input, $value);
                     break;
                 case 'validators':
                     $this->populateValidators($input, $value);
+                    break;
             }
         }
 
@@ -127,6 +131,12 @@ class Factory
         }
     }
 
+    /**
+     * @param  InputInterface             $input
+     * @param  ValidatorChain|Traversable $validators
+     * @return void
+     * @throws Exception\RuntimeException
+     */
     protected function populateValidators(InputInterface $input, $validators)
     {
         if ($validators instanceof ValidatorChain) {

@@ -38,12 +38,12 @@ interface InputInterface
     public function getName();
 
     /**
-     * Set the data of the input
+     * Set the raw value of the input
      *
-     * @param  $data
+     * @param  $value
      * @return void
      */
-    public function setData($data);
+    public function setValue($value);
 
     /**
      * Get the filtered value
@@ -58,6 +58,21 @@ interface InputInterface
      * @return mixed
      */
     public function getRawValue();
+
+    /**
+     * Set the fallback value
+     *
+     * @param  mixed $fallbackValue
+     * @return void
+     */
+    public function setFallbackValue($fallbackValue);
+
+    /**
+     * Get the fallback value
+     *
+     * @return mixed
+     */
+    public function getFallbackValue();
 
     /**
      * Set if the input is required. This is a shortcut of manually adding a NotEmpty validator with

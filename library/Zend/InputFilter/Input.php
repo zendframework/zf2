@@ -50,7 +50,12 @@ class Input implements InputInterface
     /**
      * @var mixed
      */
-    protected $data;
+    protected $value;
+
+    /**
+     * @var mixed
+     */
+    protected $fallbackValue;
 
     /**
      * @var array
@@ -86,9 +91,9 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
-    public function setData($data)
+    public function setValue($value)
     {
-        $this->data = $data;
+        $this->value = $value;
     }
 
     /**
@@ -96,7 +101,7 @@ class Input implements InputInterface
      */
     public function getValue()
     {
-        return $this->filterChain->filter($this->data);
+        return $this->filterChain->filter($this->value);
     }
 
     /**
@@ -104,7 +109,23 @@ class Input implements InputInterface
      */
     public function getRawValue()
     {
-        return $this->data;
+        return $this->value;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setFallbackValue($fallbackValue)
+    {
+        $this->fallbackValue = $fallbackValue;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFallbackValue()
+    {
+        return $this->fallbackValue;
     }
 
     /**
@@ -194,13 +215,17 @@ class Input implements InputInterface
      */
     public function isValid($context = null)
     {
-        if ($this->validatorChain->isValid($this->data, $context)) {
+        if ($this->validatorChain->isValid($this->value, $context)) {
             return true;
         }
 
-        // If allow empty, we also return true
-        if ($this->allowEmpty && empty($this->data)) {
-            return true;
+        if (empty($this->value)) {
+            if ($this->fallbackValue) {
+                $this->setValue($this->fallbackValue);
+                return true;
+            } elseif ($this->allowEmpty) {
+                return true;
+            }
         }
 
         $this->errorMessages = $this->validatorChain->getMessages();
