@@ -151,8 +151,9 @@ interface InputCollectionInterface extends RecursiveIterator
     /**
      * Check if the input filter is valid
      *
-     * @param  mixed|null $context An optional context used for validation
+     * @param  mixed|null $context  An optional context used for validation
+     * @param  int        $maxDepth Allow to specify a max depth recursion to validate nested input collections
      * @return bool
      */
-    public function isValid($context = null);
+    public function isValid($context = null, $maxDepth = -1);
 }

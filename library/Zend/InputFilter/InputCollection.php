@@ -294,7 +294,7 @@ class InputCollection implements InputCollectionInterface
     /**
      * {@inheritDoc}
      */
-    public function isValid($context = null)
+    public function isValid($context = null, $maxDepth = -1)
     {
         // Reset valid inputs, invalid inputs and error messages to allow this method to be called with
         // different set of data
@@ -312,6 +312,10 @@ class InputCollection implements InputCollectionInterface
 
         $recursiveIterator = new RecursiveIteratorIterator($validationGroupFilter, RecursiveIteratorIterator::LEAVES_ONLY);
         $valid             = true;
+
+        if ($maxDepth !== -1) {
+            $recursiveIterator->setMaxDepth($maxDepth);
+        }
 
         /** @var InputInterface $input */
         foreach ($recursiveIterator as $name => $input) {
