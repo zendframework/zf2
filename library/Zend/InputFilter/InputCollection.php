@@ -12,7 +12,7 @@ namespace Zend\InputFilter;
 use RecursiveFilterIterator;
 use RecursiveIteratorIterator;
 use Traversable;
-use Zend\Filter\InputFilter\ValidationGroupArrayFilter;
+use Zend\InputFilter\Filter\ValidationGroupArrayFilter;
 
 /**
  * Input collection class

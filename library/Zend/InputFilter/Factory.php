@@ -47,6 +47,8 @@ class Factory
 
         $inputOrInputCollection = $this->inputFilterPluginManager->get($specification['type']);
 
+        unset($specification['type']);
+
         if ($inputOrInputCollection instanceof InputInterface) {
             return $this->createInputFromSpecification($inputOrInputCollection, $specification);
         }
@@ -103,7 +105,18 @@ class Factory
     {
         foreach ($specification as $key => $value) {
             switch($key) {
-                // @TODO: todo
+                case 'children':
+                    foreach ($value as $name => $inputOrInputCollection) {
+                        $inputCollection->add($inputOrInputCollection, $name);
+                    }
+                    break;
+                default:
+                    // Delegate any other option to a setter method, if any, so that custom
+                    // input collection can have their own specific options
+                    $method = 'set' . ucfirst($key);
+                    if (method_exists($inputCollection, $method)) {
+                        $inputCollection->$method($value);
+                    }
             }
         }
 

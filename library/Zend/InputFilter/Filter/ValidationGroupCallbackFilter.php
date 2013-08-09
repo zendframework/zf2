@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\InputFilter;
+namespace Zend\InputFilter\Filter;
 
 use RecursiveFilterIterator;
 use RecursiveIterator;
@@ -16,8 +16,8 @@ use RecursiveIterator;
  * Validation group filter based on a callback. The validation group array that may be defined in
  * the input collection is therefore silently ignored
  *
- * The callback must accept three parameters: the first one is the current item's value, the second one
- * is the current item's key, and the third one is the Iterator instance that is being filtered
+ * The callback must accept three parameters: the first one is the current item's value (the input instance), the second
+ * one is the current item's key (the input's name), and the third one is the Iterator instance that is being filtered
  */
 class ValidationGroupCallbackFilter extends RecursiveFilterIterator
 {
@@ -41,6 +41,6 @@ class ValidationGroupCallbackFilter extends RecursiveFilterIterator
      */
     public function accept()
     {
-        return (bool) call_user_func($this->callback, array($this->current(), $this->key(), $this->getInnerIterator()));
+        return (bool) call_user_func_array($this->callback, array($this->current(), $this->key(), $this->getInnerIterator()));
     }
 }

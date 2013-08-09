@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\InputFilter;
+namespace Zend\InputFilter\Filter;
 
 use RecursiveFilterIterator;
 use RecursiveIterator;
