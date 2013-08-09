@@ -20,19 +20,6 @@ namespace Zend\InputFilter;
 class CollectionInputFilter extends InputFilter
 {
     /**
-     * @var InputFilterInterface
-     */
-    protected $innerInputFilter;
-
-    /**
-     * @param InputFilterInterface $inputFilter
-     */
-    public function __construct(InputFilterInterface $inputFilter)
-    {
-        $this->innerInputFilter = $inputFilter;
-    }
-
-    /**
      * The logic here is to iterate through the data, execute the validation and aggregate
      * the error messages, if any. The collection input filter is considered as invalid if
      * one or more collection element is invalid
