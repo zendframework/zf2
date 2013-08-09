@@ -23,16 +23,18 @@ class InputFilterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = array(
-        'Zend\InputFilter\Input'       => 'Zend\InputFilter\Factory\InputFactory',
-        'Zend\InputFilter\InputFilter' => 'Zend\InputFilter\Factory\InputFilterFactory'
+        'Zend\InputFilter\FileInput'       => 'Zend\InputFilter\Factory\FileInputFactory',
+        'Zend\InputFilter\Input'           => 'Zend\InputFilter\Factory\InputFactory',
+        'Zend\InputFilter\InputCollection' => 'Zend\InputFilter\Factory\InputCollectionFactory'
     );
 
     /**
      * @var array
      */
     protected $aliases = array(
-        'input'       => 'Zend\InputFilter\Input',
-        'inputfilter' => 'Zend\InputFilter\InputFilter'
+        'fileinput'       => 'Zend\InputFilter\FileInput',
+        'input'           => 'Zend\InputFilter\Input',
+        'inputcollection' => 'Zend\InputFilter\InputCollection'
     );
 
     /**
@@ -44,18 +46,18 @@ class InputFilterPluginManager extends AbstractPluginManager
 
     /**
      * @param  mixed $plugin
-     * @return InputInterface|InputFilterInterface
+     * @return InputInterface|InputCollectionInterface
      * @throws Exception\RuntimeException
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof InputInterface || $plugin instanceof InputFilterInterface) {
+        if ($plugin instanceof InputInterface || $plugin instanceof InputCollectionInterface) {
             // we're okay
             return;
         }
 
         throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement Zend\InputFilter\InputInterface or Zend\InputFilter\InputFilterInterface',
+            'Plugin of type %s is invalid; must implement Zend\InputFilter\InputInterface or Zend\InputFilter\InputCollectionInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
     }

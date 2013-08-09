@@ -15,10 +15,9 @@ use Traversable;
 use Zend\Filter\InputFilter\ValidationGroupArrayFilter;
 
 /**
- * Base input filter. This class expects concrete instance of InputInterface or InputFilterInterface. To allow
- * usage through a factory, please see the InputFilter class
+ * Input collection class
  */
-class InputFilter implements InputFilterInterface
+class InputCollection implements InputCollectionInterface
 {
     /**
      * @var Factory
@@ -31,7 +30,7 @@ class InputFilter implements InputFilterInterface
     protected $name;
 
     /**
-     * @var InputFilterInterface[]|InputInterface[]
+     * @var InputCollectionInterface[]|InputInterface[]
      */
     protected $children = array();
 
@@ -74,7 +73,7 @@ class InputFilter implements InputFilterInterface
     }
 
     /**
-     * Get the input filter factory
+     * Get the input collection factory
      *
      * @return Factory
      */
@@ -86,17 +85,17 @@ class InputFilter implements InputFilterInterface
     /**
      * {@inheritDoc}
      */
-    public function add($inputOrInputFilter, $name = null)
+    public function add($inputOrInputCollection, $name = null)
     {
-        if (is_array($inputOrInputFilter) || $inputOrInputFilter instanceof Traversable) {
-            $inputOrInputFilter = $this->factory->createFromSpecification($inputOrInputFilter);
+        if (is_array($inputOrInputCollection) || $inputOrInputCollection instanceof Traversable) {
+            $inputOrInputCollection = $this->factory->createFromSpecification($inputOrInputCollection);
         }
 
         if (null !== $name) {
-            $inputOrInputFilter->setName($name);
+            $inputOrInputCollection->setName($name);
         }
 
-        $this->children[$inputOrInputFilter->getName()] = $inputOrInputFilter;
+        $this->children[$inputOrInputCollection->getName()] = $inputOrInputCollection;
     }
 
     /**
@@ -106,7 +105,7 @@ class InputFilter implements InputFilterInterface
     {
         if (!isset($this->children[$name])) {
             throw new Exception\RuntimeException(sprintf(
-                'No input or input filter named "%s" was found in input filter of type "%s" with the name "%s"',
+                'No input or input collection named "%s" was found in input collection of type "%s" with the name "%s"',
                 $name,
                 __CLASS__,
                 $this->getName()
@@ -183,11 +182,11 @@ class InputFilter implements InputFilterInterface
     {
         $values = array();
 
-        foreach ($this->children as $name => $inputOrInputFilter) {
-            if ($inputOrInputFilter instanceof InputInterface) {
-                $values[$name] = $inputOrInputFilter->getValue();
+        foreach ($this->children as $name => $inputOrInputCollection) {
+            if ($inputOrInputCollection instanceof InputInterface) {
+                $values[$name] = $inputOrInputCollection->getValue();
             } else {
-                $values[$name] = $inputOrInputFilter->getValues();
+                $values[$name] = $inputOrInputCollection->getValues();
             }
         }
 
@@ -201,11 +200,11 @@ class InputFilter implements InputFilterInterface
     {
         $values = array();
 
-        foreach ($this->children as $name => $inputOrInputFilter) {
-            if ($inputOrInputFilter instanceof InputInterface) {
-                $values[$name] = $inputOrInputFilter->getRawValue();
+        foreach ($this->children as $name => $inputOrInputCollection) {
+            if ($inputOrInputCollection instanceof InputInterface) {
+                $values[$name] = $inputOrInputCollection->getRawValue();
             } else {
-                $values[$name] = $inputOrInputFilter->getRawValues();
+                $values[$name] = $inputOrInputCollection->getRawValues();
             }
         }
 
@@ -256,9 +255,9 @@ class InputFilter implements InputFilterInterface
     {
         $this->validationGroup = $validationGroup;
 
-        foreach ($this->children as $name => $inputOrInputFilter) {
-            if ($inputOrInputFilter instanceof InputFilterInterface && isset($validationGroup[$name])) {
-                $inputOrInputFilter->setValidationGroup($validationGroup[$name]);
+        foreach ($this->children as $name => $inputOrInputCollection) {
+            if ($inputOrInputCollection instanceof InputCollectionInterface && isset($validationGroup[$name])) {
+                $inputOrInputCollection->setValidationGroup($validationGroup[$name]);
             }
         }
     }
@@ -303,10 +302,10 @@ class InputFilter implements InputFilterInterface
 
         $validationGroupFilter = $this->getValidationGroupFilter();
 
-        // The inner iterator must be an input filter interface, which is itself recursively iterable
-        if (!$validationGroupFilter->getInnerIterator() instanceof InputFilterInterface) {
+        // The inner iterator must be an input collection interface, which is itself recursively iterable
+        if (!$validationGroupFilter->getInnerIterator() instanceof InputCollectionInterface) {
             throw new Exception\RuntimeException(
-                'The validation group filter\'s inner recursive iterator must be an instance of Zend\InputFilter\InputFilterInterface, but "%s" given',
+                'The validation group filter\'s inner recursive iterator must be an instance of Zend\InputFilter\InputCollectionInterface, but "%s" given',
                 get_class($validationGroupFilter->getInnerIterator())
             );
         }
@@ -316,20 +315,20 @@ class InputFilter implements InputFilterInterface
 
         /** @var InputInterface $input */
         foreach ($recursiveIterator as $name => $input) {
-            /** @var InputFilter $inputFilter */
-            $inputFilter = $recursiveIterator->getSubIterator()->getInnerIterator();
+            /** @var InputCollection $inputCollection */
+            $inputCollection = $recursiveIterator->getSubIterator()->getInnerIterator();
 
-            $input->setValue(isset($inputFilter->data[$name]) ? $inputFilter->data[$name] : null);
+            $input->setValue(isset($inputCollection->data[$name]) ? $inputCollection->data[$name] : null);
 
             if ($input->isValid($context)) {
-                $inputFilter->validInputs[$name] = $input;
+                $inputCollection->validInputs[$name] = $input;
                 continue;
             }
 
-            $inputFilter->invalidInputs[$name] = $input;
+            $inputCollection->invalidInputs[$name] = $input;
             $valid = false;
 
-            $inputFilter->setErrorMessages($name, $input->getErrorMessages());
+            $inputCollection->setErrorMessages($name, $input->getErrorMessages());
 
             if ($input->breakOnFailure()) {
                 return false;
@@ -390,7 +389,7 @@ class InputFilter implements InputFilterInterface
      */
     public function hasChildren()
     {
-        return current($this->children) instanceof InputFilterInterface;
+        return current($this->children) instanceof InputCollectionInterface;
     }
 
     /**
@@ -398,7 +397,7 @@ class InputFilter implements InputFilterInterface
      */
     public function getChildren()
     {
-        /** @var InputFilterInterface $children */
+        /** @var InputCollectionInterface $children */
         $children = current($this->children);
         $name     = $children->getName();
 

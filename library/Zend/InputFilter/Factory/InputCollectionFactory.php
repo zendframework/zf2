@@ -10,20 +10,20 @@
 namespace Zend\InputFilter\Factory;
 
 use Zend\InputFilter\Factory;
-use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputCollection;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Factory used to create an input filter
+ * Factory used to create an input collection
  */
-class InputFilterFactory implements FactoryInterface
+class InputCollectionFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new InputFilter(new Factory($serviceLocator));
+        return new InputCollection(new Factory($serviceLocator));
     }
 }

@@ -14,7 +14,7 @@ use RecursiveIterator;
 
 /**
  * Validation group filter based on a Regex. The validation group array that may be defined in
- * the input filter is therefore silently ignored
+ * the input collection is therefore silently ignored
  */
 class ValidationGroupRegexFilter extends RecursiveFilterIterator
 {

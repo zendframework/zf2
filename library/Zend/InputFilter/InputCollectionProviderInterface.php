@@ -10,14 +10,14 @@
 namespace Zend\InputFilter;
 
 /**
- * Input filter provider interface
+ * Input collection provider interface
  */
-interface InputFilterProviderInterface
+interface InputCollectionProviderInterface
 {
     /**
-     * Should return an array specification compatible with {@link Zend\InputFilter\Factory::createInputFilter()}
+     * Should return an array specification compatible with {@link Zend\InputFilter\Factory::createInputCollection()}
      *
      * @return array
      */
-    public function getInputFilterSpecification();
+    public function getInputCollectionSpecification();
 }

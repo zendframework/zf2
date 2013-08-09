@@ -32,8 +32,8 @@ class Factory
     }
 
     /**
-     * @param array|Traversable $specification
-     * @return InputInterface|InputFilterInterface
+     * @param  array|Traversable $specification
+     * @return InputInterface|InputCollectionInterface
      */
     public function createFromSpecification($specification)
     {
@@ -45,18 +45,18 @@ class Factory
             $specification['type'] = 'Zend\InputFilter\Input';
         }
 
-        $inputOrInputFilter = $this->inputFilterPluginManager->get($specification['type']);
+        $inputOrInputCollection = $this->inputFilterPluginManager->get($specification['type']);
 
-        if ($inputOrInputFilter instanceof InputInterface) {
-            return $this->createInputFromSpecification($inputOrInputFilter, $specification);
+        if ($inputOrInputCollection instanceof InputInterface) {
+            return $this->createInputFromSpecification($inputOrInputCollection, $specification);
         }
 
-        return $this->createInputFilterFromSpecification($inputOrInputFilter, $specification);
+        return $this->createInputCollectionFromSpecification($inputOrInputCollection, $specification);
     }
 
     /**
      * @param  InputInterface $input
-     * @param  array $specification
+     * @param  array          $specification
      * @return InputInterface
      */
     protected function createInputFromSpecification(InputInterface $input, array $specification)
@@ -81,6 +81,13 @@ class Factory
                 case 'validators':
                     $this->populateValidators($input, $value);
                     break;
+                default:
+                    // Delegate any other option to a setter method, if any, so that custom
+                    // input can have their own specific options
+                    $method = 'set' . ucfirst($key);
+                    if (method_exists($input, $method)) {
+                        $input->$method($value);
+                    }
             }
         }
 
@@ -88,11 +95,11 @@ class Factory
     }
 
     /**
-     * @param  InputFilterInterface $inputFilter
-     * @param  array $specification
-     * @return InputFilterInterface
+     * @param  InputCollectionInterface $inputCollection
+     * @param  array                    $specification
+     * @return InputCollectionInterface
      */
-    protected function createInputFilterFromSpecification(InputFilterInterface $inputFilter, array $specification)
+    protected function createInputCollectionFromSpecification(InputCollectionInterface $inputCollection, array $specification)
     {
         foreach ($specification as $key => $value) {
             switch($key) {
@@ -100,7 +107,7 @@ class Factory
             }
         }
 
-        return $inputFilter;
+        return $inputCollection;
     }
 
     /**

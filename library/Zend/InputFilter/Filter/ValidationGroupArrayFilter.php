@@ -13,7 +13,7 @@ use RecursiveFilterIterator;
 use RecursiveIterator;
 
 /**
- * Validation group filter based on a simple array defined in the input filter
+ * Validation group filter based on a simple array defined in the input collection
  */
 class ValidationGroupArrayFilter extends RecursiveFilterIterator
 {

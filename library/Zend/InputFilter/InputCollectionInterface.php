@@ -12,30 +12,30 @@ namespace Zend\InputFilter;
 use RecursiveIterator;
 
 /**
- * Input filter interface
+ * Input collection interface
  */
-interface InputFilterInterface extends RecursiveIterator
+interface InputCollectionInterface extends RecursiveIterator
 {
     /**
-     * Add an input or another input filter (if no name was set, it will extract the one set in
-     * the input or input filter)
+     * Add an input or another input collection (if no name was set, it will extract the one set in
+     * the input or input collection)
      *
-     * @param  InputInterface|InputFilterInterface $inputOrInputFilter
-     * @param  string|null                         $name
+     * @param  InputInterface|InputCollectionInterface $inputOrInputCollection
+     * @param  string|null                             $name
      * @return void
      */
-    public function add($inputOrInputFilter, $name = null);
+    public function add($inputOrInputCollection, $name = null);
 
     /**
-     * Get an input or an input filter by name
+     * Get an input or an input collection by name
      *
      * @param  string $name
-     * @return InputInterface|InputFilterInterface
+     * @return InputInterface|InputCollectionInterface
      */
     public function get($name);
 
     /**
-     * Check if the input filter contains an input or another input filter with the name given
+     * Check if the input collection contains an input or another input collection with the name given
      *
      * @param  string $name
      * @return bool
@@ -43,7 +43,7 @@ interface InputFilterInterface extends RecursiveIterator
     public function has($name);
 
     /**
-     * Remove the input or input filter from the given name
+     * Remove the input or input collection from the given name
      *
      * @param  string $name
      * @return void
@@ -51,7 +51,7 @@ interface InputFilterInterface extends RecursiveIterator
     public function remove($name);
 
     /**
-     * Set the name of the input filter
+     * Set the name of the input collection
      *
      * @param  string $name
      * @return void
@@ -59,7 +59,7 @@ interface InputFilterInterface extends RecursiveIterator
     public function setName($name);
 
     /**
-     * Get the name of the input filter
+     * Get the name of the input collection
      *
      * @return string
      */

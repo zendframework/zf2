@@ -14,7 +14,7 @@ use RecursiveIterator;
 
 /**
  * Validation group filter based on a callback. The validation group array that may be defined in
- * the input filter is therefore silently ignored
+ * the input collection is therefore silently ignored
  *
  * The callback must accept three parameters: the first one is the current item's value, the second one
  * is the current item's key, and the third one is the Iterator instance that is being filtered
