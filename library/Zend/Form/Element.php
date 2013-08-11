@@ -314,6 +314,7 @@ class Element implements
     {
         if (is_string($label)) {
             $this->label = $label;
+            $this->options['label'] = $label;
         }
 
         return $this;
