@@ -17,6 +17,6 @@ class Int extends AbstractFilter
      */
     public function filter($value)
     {
-        return (int) ((string) $value);
+        return (int) $value;
     }
 }

@@ -13,6 +13,8 @@ use Traversable;
 
 /**
  * Filter chain for string inflection
+ *
+ * @TODO: this one needs some cleaning
  */
 class Inflector extends AbstractFilter
 {

@@ -9,8 +9,6 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-
 class Null extends AbstractFilter
 {
     const TYPE_BOOLEAN      = 1;
