@@ -17,7 +17,7 @@ class StringToLower extends AbstractUnicode
      */
     public function filter($value)
     {
-        if (null !== $this->encoding) {
+        if (null !== $this->getEncoding()) {
             return mb_strtolower((string) $value,  $this->encoding);
         }
 

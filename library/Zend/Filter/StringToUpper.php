@@ -17,7 +17,7 @@ class StringToUpper extends AbstractUnicode
      */
     public function filter($value)
     {
-        if (null !== $this->encoding) {
+        if (null !== $this->getEncoding()) {
             return mb_strtoupper((string) $value,  $this->encoding);
         }
 
