@@ -202,9 +202,9 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function getFilters()
     {
-    	if (null === $this->filters) {
-    		$this->filters = new PriorityQueue();
-    	}
+        if (null === $this->filters) {
+            $this->filters = new PriorityQueue();
+        }
         return $this->filters;
     }
 

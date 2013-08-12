@@ -423,9 +423,9 @@ class Fieldset extends Element implements FieldsetInterface
      */
     public function getIterator()
     {
-    	if (null === $this->iterator) {
-    		$this->iterator = new PriorityQueue();
-    	}
+        if (null === $this->iterator) {
+            $this->iterator = new PriorityQueue();
+        }
         return $this->iterator;
     }
 
