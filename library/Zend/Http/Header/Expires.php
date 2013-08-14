@@ -20,6 +20,11 @@ use DateTimeZone;
 class Expires extends AbstractDate
 {
     /**
+     * 
+     */
+    protected $invalidDate = '';
+
+    /**
      * Get header name
      *
      * @return string
@@ -30,20 +35,44 @@ class Expires extends AbstractDate
     }
 
     /**
-     * {@inheritdoc}
+     * Checks if the current date is invalid
      *
-     * Allows to set 0 as a valid expired date
-     * and will be parsed as 1097-01-01 00:00 GMT
-     *
-     * @param string|DateTime $date
-     * @return AbstractDate
-     * @throws Exception\InvalidArgumentException
+     * @return boolean
      */
-    public function setDate($date)
+    public function isDateInvalid()
     {
-        if ($date === '0') {
-            $date = new DateTime('@0', new DateTimeZone('UTC'));
+        return ($this->invalidDate === false);
+    }
+
+    /**
+     * Get the invalid date
+     *
+     * @return string
+     */
+    public function getInvalidDate()
+    {
+        if (!$this->isDateInvalid()) {
+            throw new Exception\RuntimeException("The current date isn't invalid");
         }
-        return parent::setDate($date);
+        return $this->invalidDate;
+    }
+
+    /**
+     * Set an invalid date string
+     * 
+     * @param string $invalidDate
+     */
+    public function setInvalidDate($invalidDate)
+    {
+        try {
+            new DateTime($invalidDate);
+        } catch (\Exception $e) {
+            $this->invalidDate = $invalidDate;
+            return;
+        }
+
+        throw new Exception\InvalidArgumentException(
+            "The date {$invalidDate} is valid and can't be used as an invalid date"
+        );
     }
 }
