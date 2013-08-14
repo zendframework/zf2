@@ -182,11 +182,6 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
             ));
         }
 
-        // Can't do anything with empty data
-        if (empty($data)) {
-            return;
-        }
-
         if (count($data) < $this->getCount()) {
             if (!$this->allowRemove) {
                 throw new Exception\DomainException(sprintf(
