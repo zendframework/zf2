@@ -65,7 +65,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      *
-     * @var array 
+     * @var array
      */
     protected $options = array();
 
