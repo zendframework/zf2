@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -66,7 +65,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
     /**
      *
-     * @var array 
+     * @var array
      */
     protected $options = array();
 
