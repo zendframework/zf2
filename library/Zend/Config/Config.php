@@ -336,34 +336,43 @@ class Config implements Countable, Iterator, ArrayAccess
      * - Items in $merge with INTEGER keys will be appended.
      * - Items in $merge with STRING keys will overwrite current values.
      *
+     * Only allow setting of a property if $allowModifications  was set to true
+     * on construction. Otherwise, throw an exception.
+     *
      * @param  Config $merge
      * @return Config
+     * @throws Exception\RuntimeException
      */
     public function merge(Config $merge)
     {
-        /** @var Config $value */
-        foreach ($merge as $key => $value) {
-            if (array_key_exists($key, $this->data)) {
-                if (is_int($key)) {
-                    $this->data[] = $value;
-                } elseif ($value instanceof self && $this->data[$key] instanceof self) {
-                    $this->data[$key]->merge($value);
+
+        if ($this->allowModifications) {
+            /** @var Config $value */
+            foreach ($merge as $key => $value) {
+                if (array_key_exists($key, $this->data)) {
+                    if (is_int($key)) {
+                        $this->data[] = $value;
+                    } elseif ($value instanceof self && $this->data[$key] instanceof self) {
+                        $this->data[$key]->merge($value);
+                    } else {
+                        if ($value instanceof self) {
+                            $this->data[$key] = new static($value->toArray(), $this->allowModifications);
+                        } else {
+                            $this->data[$key] = $value;
+                        }
+                    }
                 } else {
                     if ($value instanceof self) {
                         $this->data[$key] = new static($value->toArray(), $this->allowModifications);
                     } else {
                         $this->data[$key] = $value;
                     }
-                }
-            } else {
-                if ($value instanceof self) {
-                    $this->data[$key] = new static($value->toArray(), $this->allowModifications);
-                } else {
-                    $this->data[$key] = $value;
-                }
 
-                $this->count++;
+                    $this->count++;
+                }
             }
+        } else {
+            throw new Exception\RuntimeException('Config is read only');
         }
 
         return $this;

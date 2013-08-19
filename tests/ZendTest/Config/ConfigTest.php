@@ -179,7 +179,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testCountAfterMerge()
     {
-        $data = new Config($this->toCombineB);
+        $data = new Config($this->toCombineB, true);
         $data->merge(
             new Config($this->toCombineA)
         );
@@ -325,7 +325,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testMerge()
     {
-        $configA = new Config($this->toCombineA);
+        $configA = new Config($this->toCombineA, true);
         $configB = new Config($this->toCombineB);
         $configA->merge($configB);
 
@@ -372,6 +372,19 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         // config->replaceNumerical
         $this->assertSame(true, $configA->replaceNumerical);
 
+    }
+
+    public function testMergeException()
+    {
+        // allow modifications is off by default - expect an exception
+        $configA = new Config($this->toCombineA);
+        $configB = new Config($this->toCombineB);
+
+        $this->assertTrue(isset($configA->foo));
+        $this->assertTrue(isset($configB->foo));
+
+        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
+        $configA->merge($configB);
     }
 
     public function testArrayAccess()
@@ -630,7 +643,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'bSpecific' => 100
         );
 
-        $configA = new Config($arrayA);
+        $configA = new Config($arrayA, true);
         $configB = new Config($arrayB);
 
         $configA->merge($configB); // merge B onto A
