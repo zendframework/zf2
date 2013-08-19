@@ -9,12 +9,13 @@
 
 namespace Zend\Log;
 
+use Psr\Log\LoggerAwareInterface as PsrLoggerAwareInterface;
 use Zend\Log\LoggerInterface;
 
 /**
  * Logger aware interface
  */
-interface LoggerAwareInterface
+interface LoggerAwareInterface extends PsrLoggerAwareInterface
 {
     public function setLogger(LoggerInterface $logger);
 }
