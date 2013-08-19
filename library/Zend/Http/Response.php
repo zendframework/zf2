@@ -437,7 +437,7 @@ class Response extends AbstractMessage implements ResponseInterface
      * @return string
      * @throws Exception\RuntimeException
      */
-    protected function decodeChunkedBody($body)
+    public function decodeChunkedBody($body)
     {
         $decBody = '';
 
@@ -466,7 +466,7 @@ class Response extends AbstractMessage implements ResponseInterface
      * @return string
      * @throws Exception\RuntimeException
      */
-    protected function decodeGzip($body)
+    public function decodeGzip($body)
     {
         if (!function_exists('gzinflate')) {
             throw new Exception\RuntimeException(
@@ -496,7 +496,7 @@ class Response extends AbstractMessage implements ResponseInterface
      * @return string
      * @throws Exception\RuntimeException
      */
-    protected function decodeDeflate($body)
+    public function decodeDeflate($body)
     {
         if (!function_exists('gzuncompress')) {
             throw new Exception\RuntimeException(
