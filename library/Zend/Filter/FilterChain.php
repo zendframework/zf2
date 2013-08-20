@@ -47,12 +47,12 @@ class FilterChain extends AbstractFilter implements Countable
     /**
      * Attach a filter to the chain
      *
-     * @param  FilterInterface $filter A Filter implementation or valid PHP callback
-     * @param  int             $priority Priority at which to enqueue filter; defaults to 1 (higher executes earlier)
+     * @param  FilterInterface|Callable $filter A Filter implementation or valid PHP callback
+     * @param  int                      $priority Priority at which to enqueue filter; defaults to 1 (higher executes earlier)
      * @throws Exception\InvalidArgumentException
      * @return void
      */
-    public function attach(FilterInterface $filter, $priority = self::DEFAULT_PRIORITY)
+    public function attach(Callable $filter, $priority = self::DEFAULT_PRIORITY)
     {
         $this->filters->insert($filter, $priority);
     }
@@ -73,7 +73,7 @@ class FilterChain extends AbstractFilter implements Countable
     /**
      * Get all the filters
      *
-     * @return PriorityQueue
+     * @return PriorityQueue|FilterInterface[]
      */
     public function getFilters()
     {
