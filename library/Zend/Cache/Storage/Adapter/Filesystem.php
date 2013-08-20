@@ -519,7 +519,7 @@ class Filesystem extends AbstractAdapter implements
                 $casToken = filemtime($filespec . '.dat') . filesize($filespec . '.dat');
             }
             $success  = true;
-            return $data;
+            return unserialize($data);
 
         } catch (BaseException $e) {
             $success = false;
@@ -560,7 +560,7 @@ class Filesystem extends AbstractAdapter implements
                     unset($keys[$i]);
                 }
 
-                $result[$key] = $data;
+                $result[$key] = unserialize($data);
             }
 
             // TODO: Don't check ttl after first iteration
@@ -890,14 +890,14 @@ class Filesystem extends AbstractAdapter implements
 
         // write data in non-blocking mode
         $wouldblock = null;
-        $this->putFileContent($filespec . '.dat', $value, true, $wouldblock);
+        $this->putFileContent($filespec . '.dat', serialize($value), true, $wouldblock);
 
         // delete related tag file (if present)
         $this->unlink($filespec . '.tag');
 
         // Retry writing data in blocking mode if it was blocked before
         if ($wouldblock) {
-            $this->putFileContent($filespec . '.dat', $value);
+            $this->putFileContent($filespec . '.dat', serialize($value));
         }
 
         return true;
@@ -933,7 +933,7 @@ class Filesystem extends AbstractAdapter implements
             $wouldblock  = null;
 
             foreach ($contents as $file => & $content) {
-                $this->putFileContent($file, $content, $nonBlocking, $wouldblock);
+                $this->putFileContent($file, serialize($content), $nonBlocking, $wouldblock);
                 if (!$nonBlocking || !$wouldblock) {
                     unset($contents[$file]);
                 }
