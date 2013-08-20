@@ -616,7 +616,8 @@ class Fieldset extends Element implements FieldsetInterface
      */
     public function __clone()
     {
-        $items = $this->getIterator()->toArray(PriorityQueue::EXTR_BOTH);
+        $iterator  = $this->getIterator();
+        $items     = $iterator->toArray(PriorityQueue::EXTR_BOTH);
 
         $this->byName    = array();
         $this->elements  = array();
@@ -627,7 +628,7 @@ class Fieldset extends Element implements FieldsetInterface
             $elementOrFieldset = clone $item['data'];
             $name = $elementOrFieldset->getName();
 
-            $this->getIterator()->insert($elementOrFieldset, $item['priority']);
+            $iterator->insert($elementOrFieldset, $item['priority']);
             $this->byName[$name] = $elementOrFieldset;
 
             if ($elementOrFieldset instanceof FieldsetInterface) {
