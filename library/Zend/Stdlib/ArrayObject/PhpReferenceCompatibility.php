@@ -282,7 +282,7 @@ abstract class PhpReferenceCompatibility implements IteratorAggregate, ArrayAcce
      */
     public function offsetExists($key)
     {
-        return isset($this->storage[$key]);
+        return array_key_exists($key, $this->storage);
     }
 
     /**
