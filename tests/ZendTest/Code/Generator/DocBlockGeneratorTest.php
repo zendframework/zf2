@@ -73,7 +73,7 @@ class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
         $target = <<<EOS
 /**
  * @blah
- * @param string
+ * @param  string
  * @return int
  */
 
