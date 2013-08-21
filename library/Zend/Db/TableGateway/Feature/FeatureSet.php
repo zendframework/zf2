@@ -11,10 +11,19 @@ namespace Zend\Db\TableGateway\Feature;
 
 use Zend\Db\TableGateway\AbstractTableGateway;
 
+/**
+ * Class FeatureSet
+ */
 class FeatureSet
 {
+    /**
+     * @const string
+     */
     const APPLY_HALT = 'halt';
 
+    /**
+     * @var AbstractTableGateway
+     */
     protected $tableGateway = null;
 
     /**
@@ -27,6 +36,9 @@ class FeatureSet
      */
     protected $magicSpecifications = array();
 
+    /**
+     * @param array $features
+     */
     public function __construct(array $features = array())
     {
         if ($features) {
@@ -34,6 +46,9 @@ class FeatureSet
         }
     }
 
+    /**
+     * @param AbstractTableGateway $tableGateway
+     */
     public function setTableGateway(AbstractTableGateway $tableGateway)
     {
         $this->tableGateway = $tableGateway;
@@ -43,6 +58,9 @@ class FeatureSet
         return $this;
     }
 
+    /**
+     * @param string $featureClassName
+     */
     public function getFeatureByClassName($featureClassName)
     {
         $feature = false;
@@ -55,6 +73,9 @@ class FeatureSet
         return $feature;
     }
 
+    /**
+     * @param array $features
+     */
     public function addFeatures(array $features)
     {
         foreach ($features as $feature) {
@@ -63,6 +84,9 @@ class FeatureSet
         return $this;
     }
 
+    /**
+     * @param AbstractFeature $feature
+     */
     public function addFeature(AbstractFeature $feature)
     {
         $this->features[] = $feature;
@@ -70,6 +94,10 @@ class FeatureSet
         return $this;
     }
 
+    /**
+     * @param string $method
+     * @param array $args
+     */
     public function apply($method, $args)
     {
         foreach ($this->features as $feature) {
@@ -127,17 +155,26 @@ class FeatureSet
      */
     public function canCallMagicCall($method)
     {
+        foreach ($this->features as $feature) {
+            if (method_exists($feature, $method)) {
+                return true;
+            }
+        }
         return false;
     }
 
     /**
      * @param string $method
      * @param array $arguments
-     * @return mixed
+     * @return null|mixed
      */
     public function callMagicCall($method, $arguments)
     {
-        $return = null;
-        return $return;
+        foreach ($this->features as $feature) {
+            if (method_exists($feature, $method)) {
+                return call_user_func_array(array($feature, $method), $arguments);
+            }
+        }
+        return null;
     }
 }
