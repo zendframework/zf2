@@ -50,7 +50,7 @@ class Smtp implements TransportInterface
     public function __construct(SmtpOptions $options = null)
     {
         if (!$options instanceof SmtpOptions) {
-            $options = new SmtpOptions();
+            $options = new SmtpOptions($options);
         }
         $this->setOptions($options);
     }
