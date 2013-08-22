@@ -58,7 +58,7 @@ class ClassMethodsHydrator extends AbstractHydrator
 
         // If a normalizer is defined, it can act as a hook
         if (null !== $this->normalizer) {
-
+            $result = $this->normalizer->denormalize($result, $object);
         }
 
         return $result;
@@ -69,6 +69,11 @@ class ClassMethodsHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
+        // If a normalizer is defined, it can act as a hook
+        if (null !== $this->normalizer) {
+            $data = $this->normalizer->normalize($data, $object);
+        }
+
         foreach ($data as $property => $value) {
             $method = 'set' . $property; // No need to uppercase, PHP is case insensible
 
