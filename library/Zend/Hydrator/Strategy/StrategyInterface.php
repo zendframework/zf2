@@ -19,7 +19,7 @@ interface StrategyInterface
      * Converts the given value so that it can be extracted by the hydrator
      *
      * @param  mixed $value   The original value
-     * @param  mixed $context An optional context (most often, the object itself)
+     * @param  mixed $context An optional context (most often, the array or data)
      * @return mixed
      */
     public function extract($value, $context = null);
