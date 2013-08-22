@@ -20,7 +20,20 @@ trait ProvidesCompositeFilterTrait
     protected $compositeFilter;
 
     /**
+     * Set the composite filter
+     *
+     * @param  CompositeFilter $compositeFilter
+     * @return void
+     */
+    public function setCompositeFilter(CompositeFilter $compositeFilter)
+    {
+        $this->compositeFilter = $compositeFilter;
+    }
+
+    /**
      * Get the composite filter
+     *
+     * @return CompositeFilter
      */
     public function getCompositeFilter()
     {

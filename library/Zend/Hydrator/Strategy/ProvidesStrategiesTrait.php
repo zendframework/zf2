@@ -81,4 +81,14 @@ trait ProvidesStrategiesTrait
     {
         return $this->strategies;
     }
+
+    /**
+     * Clear all the strategies
+     *
+     * @return void
+     */
+    public function clearStrategies()
+    {
+        $this->strategies = array();
+    }
 }
