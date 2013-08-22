@@ -7,12 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\ExtractorFilter;
+namespace Zend\Hydrator\Filter;
 
 /**
- * This filter evaluates to false if the property (or method) starts by "get"
+ * This filter evaluates to true if the property (or method) starts by "get"
  */
-class GetExtractorFilter implements ExtractorFilterInterface
+class GetExtractorFilter implements FilterInterface
 {
     /**
      * {@inheritDoc}

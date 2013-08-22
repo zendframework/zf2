@@ -9,17 +9,26 @@
 
 namespace Zend\Hydrator;
 
-use Zend\Hydrator\ExtractorFilter\ProvidesExtractorFilters;
+use Zend\Hydrator\Filter\CompositeFilter;
+use Zend\Hydrator\Filter\ProvidesCompositeFilter;
 use Zend\Hydrator\Strategy\ProvidesStrategies;
 
 /**
- * This abstract hydrator provides a built-in support for filters and strategies. Most
+ * This abstract hydrator provides a built-in support for filters and strategies. All
  * standards ZF3 hydrators extend this class
  */
 abstract class AbstractHydrator implements HydratorInterface
 {
-    use ProvidesExtractorFilters;
+    use ProvidesCompositeFilter;
     use ProvidesStrategies;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->compositeFilter = new CompositeFilter();
+    }
 
     /**
      * Extract the value using a strategy, if one is set

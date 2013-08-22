@@ -7,21 +7,31 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\ExtractorFilter;
+namespace Zend\Hydrator\Filter;
 
 /**
- * This filter evaluates to false if the property (or method) starts by "has"
+ * This filter evaluates a Callable
  */
-class HasExtractorFilter implements ExtractorFilterInterface
+class CallableFilter implements FilterInterface
 {
+    /**
+     * @var Callable
+     */
+    protected $callable;
+
+    /**
+     * @param Callable $callable
+     */
+    public function __construct(Callable $callable)
+    {
+        $this->callable = $callable;
+    }
+
     /**
      * {@inheritDoc}
      */
     public function filter($property)
     {
-        $pos = strpos($property, '::');
-        $pos = $pos !== false ? $pos + 2 : 0;
-
-        return substr($property, $pos, 3) === 'has';
+        return call_user_func($this->callable, $property);
     }
 }

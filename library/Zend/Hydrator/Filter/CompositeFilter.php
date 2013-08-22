@@ -7,11 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\ExtractorFilter;
+namespace Zend\Hydrator\Filter;
 
-use Countable;
-
-class CompositeExtractorFilter implements ExtractorFilterInterface, Countable
+/**
+ * A composite filter is built as a tree of filters
+ */
+class CompositeFilter implements FilterInterface
 {
     /**
      * Constant to add with "or" / "and" conditition
@@ -37,25 +38,6 @@ class CompositeExtractorFilter implements ExtractorFilterInterface, Countable
      */
     public function filter($property)
     {
-        // TODO: Implement filter() method.
-    }
-
-    /**
-     * Proxy to filter, to make it callable
-     *
-     * @param  $property
-     * @return bool
-     */
-    public function __invoke($property)
-    {
-        return $this->filter($property);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function count()
-    {
-        // TODO: Implement count() method.
+        return true;
     }
 }

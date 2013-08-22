@@ -7,14 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\ExtractorFilter;
+namespace Zend\Hydrator\Filter;
 
 /**
- * An filter is a special filter that is run before any property is
- * extracted, so that it allows the user to add constraints about what is (or is not)
- * extracted from an object
+ * An filter is a special filter that is run before any property is extracted, so that
+ * it allows the user to add constraints about what is (or is not) extracted from an object
  */
-interface ExtractorFilterInterface
+interface FilterInterface
 {
     /**
      * Should return true to extract the given property, false otherwise

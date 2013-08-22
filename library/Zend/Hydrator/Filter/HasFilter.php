@@ -7,26 +7,21 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\ExtractorFilter;
+namespace Zend\Hydrator\Filter;
 
-use FilterIterator;
-use Iterator;
-
-class ExtractorFilterIterator extends FilterIterator
+/**
+ * This filter evaluates to true if the property (or method) starts by "has"
+ */
+class HasFilter implements FilterInterface
 {
-    /**
-     *
-     */
-    public function __construct(array $filters, Iterator $iterator)
-    {
-        parent::__construct($iterator);
-    }
-
     /**
      * {@inheritDoc}
      */
-    public function accept()
+    public function filter($property)
     {
-        // TODO: Implement accept() method.
+        $pos = strpos($property, '::');
+        $pos = $pos !== false ? $pos + 2 : 0;
+
+        return substr($property, $pos, 3) === 'has';
     }
 }

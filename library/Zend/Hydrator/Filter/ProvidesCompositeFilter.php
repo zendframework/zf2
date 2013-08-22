@@ -7,52 +7,23 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\ExtractorFilter;
+namespace Zend\Hydrator\Filter;
 
 /**
- * This trait adds the ability to attach extractor filters to a hydrator
+ * This trait adds the ability to attach filters to a hydrator through a composite filter
  */
-trait ProvidesExtractorFilters
+trait ProvidesCompositeFilter
 {
     /**
-     * @var ExtractorFilterPluginManager
-     */
-    protected $extractorFilterPluginManager;
-
-    /**
-     * @var array|ExtractorFilterInterface[]
+     * @var CompositeFilter
      */
     protected $compositeFilter;
 
     /**
-     * Set the extractor filter plugin manager
-     *
-     * @param  ExtractorFilterPluginManager $extractorFilterPluginManager
-     * @return void
-     */
-    public function setExtractorFilterPluginManager(ExtractorFilterPluginManager $extractorFilterPluginManager)
-    {
-        $this->extractorFilterPluginManager = $extractorFilterPluginManager;
-    }
-
-    /**
-     * @return ExtractorFilterPluginManager
-     */
-    public function getExtractorFilterPluginManager()
-    {
-        if (null === $this->extractorFilterPluginManager) {
-            $this->extractorFilterPluginManager = new ExtractorFilterPluginManager();
-        }
-
-        return $this->extractorFilterPluginManager;
-    }
-
-    /**
-     * @return array|ExtractorFilterInterface[]
+     * Get the composite filter
      */
     public function getCompositeFilter()
     {
-        $this->filters[] = new GetExtractorFilter();
-        return $this->filters;
+        return $this->compositeFilter;
     }
 }

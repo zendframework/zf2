@@ -19,9 +19,14 @@ class ObjectPropertyHydrator extends AbstractHydrator
      */
     public function extract($object)
     {
-        $data = $this->filterData(get_object_vars($object));
+        $data = get_object_vars($object);
 
         foreach ($data as $property => $value) {
+            if (!$this->compositeFilter->filter($property)) {
+                unset($data[$property]);
+                continue;
+            }
+
             $data[$property] = $this->extractValue($property, $value, $object);
         }
 
