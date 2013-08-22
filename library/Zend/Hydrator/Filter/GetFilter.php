@@ -17,7 +17,7 @@ class GetExtractorFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function filter($property)
+    public function filter($property, $context = null)
     {
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;

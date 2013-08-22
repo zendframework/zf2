@@ -16,7 +16,7 @@ use Zend\Hydrator\Exception\InvalidArgumentException;
 /**
  * This filter evaluates to true if a method have no parameters or only optional parameters
  */
-class OptionalParametersFilter
+class OptionalParametersFilter implements FilterInterface
 {
     /**
      * Map of methods already analyzed by {@see \Zend\Hydrator\Filter\OptionalParametersFilter::filter()},
@@ -29,14 +29,14 @@ class OptionalParametersFilter
     /**
      * {@inheritDoc}
      */
-    public function filter($property)
+    public function filter($property, $context = null)
     {
         if (isset(self::$propertiesCache[$property])) {
             return self::$propertiesCache[$property];
         }
 
         try {
-            $reflectionMethod = new ReflectionMethod($property);
+            $reflectionMethod = new ReflectionMethod($context, $property);
         } catch (ReflectionException $exception) {
             throw new InvalidArgumentException(sprintf('Method %s doesn\'t exist', $property));
         }

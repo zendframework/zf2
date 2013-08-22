@@ -30,7 +30,7 @@ class CallableFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function filter($property)
+    public function filter($property, $context = null)
     {
         return call_user_func($this->callable, $property);
     }

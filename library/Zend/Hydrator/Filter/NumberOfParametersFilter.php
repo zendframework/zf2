@@ -16,7 +16,7 @@ use Zend\Hydrator\Exception\InvalidArgumentException;
 /**
  * This filter evaluates to true if a method has a given number of parameters
  */
-class NumberOfParametersFilter
+class NumberOfParametersFilter implements FilterInterface
 {
     /**
      * The number of parameters being accepted
@@ -36,10 +36,10 @@ class NumberOfParametersFilter
     /**
      * {@inheritDoc}
      */
-    public function filter($property)
+    public function filter($property, $context = null)
     {
         try {
-            $reflectionMethod = new ReflectionMethod($property);
+            $reflectionMethod = new ReflectionMethod($context, $property);
         } catch (ReflectionException $exception) {
             throw new InvalidArgumentException(
                 "Method $property doesn't exist"

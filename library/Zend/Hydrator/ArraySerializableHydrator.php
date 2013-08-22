@@ -28,7 +28,7 @@ class ArraySerializableHydrator extends AbstractHydrator
         $data = $object->getArrayCopy();
 
         foreach ($data as $property => $value) {
-            if (!$this->compositeFilter->filter($property)) {
+            if (!$this->compositeFilter->filter($property, $object)) {
                 unset($data[$property]);
                 continue;
             }

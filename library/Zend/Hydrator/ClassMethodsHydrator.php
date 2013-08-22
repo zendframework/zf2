@@ -9,6 +9,8 @@
 
 namespace Zend\Hydrator;
 
+use Zend\Hydrator\Filter\OptionalParametersFilter;
+
 /**
  * This hydrator uses getter/setter methods to extract/hydrate, respectively
  *
@@ -32,6 +34,7 @@ class ClassMethodsHydrator extends AbstractHydrator
         // as we use preg_filter, which automatically returns NULL if the method does not
         // match a specific pattern. We only need to make sure that it does not need
         // any required parameters
+        $this->compositeFilter->addFilter(new OptionalParametersFilter());
     }
 
     /**
@@ -43,13 +46,14 @@ class ClassMethodsHydrator extends AbstractHydrator
         $result  = array();
 
         foreach ($methods as $method) {
-            $method = preg_filter(array('/get/', '/is/', '/has/'), '', $method);
+            // Remove get/is/has prefix from method, so that we get property name
+            $property = preg_filter(array('/get/', '/is/', '/has/'), '', $method);
 
-            if (null === $method || !$this->compositeFilter->filter($method)) {
+            if (null === $property || !$this->compositeFilter->filter($method, $object)) {
                 continue;
             }
 
-            $result[strtolower($method)] = $object->$method();
+            $result[strtolower($property)] = $object->$method();
         }
 
         return $result;

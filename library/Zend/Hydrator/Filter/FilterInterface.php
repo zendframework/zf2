@@ -19,7 +19,8 @@ interface FilterInterface
      * Should return true to extract the given property, false otherwise
      *
      * @param  string $property The name of the property
+     * @param  object $context  An optional context (most often, an object)
      * @return bool
      */
-    public function filter($property);
+    public function filter($property, $context = null);
 }
