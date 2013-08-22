@@ -10,9 +10,9 @@
 namespace Zend\Hydrator\Filter;
 
 /**
- * This filter evaluates to false if the given method name matches
+ * This filter exclude any method that have the given name
  */
-class MethodMatchFilter implements FilterInterface
+class ExcludeMethodFilter implements FilterInterface
 {
     /**
      * The method to exclude
@@ -22,30 +22,21 @@ class MethodMatchFilter implements FilterInterface
     protected $method;
 
     /**
-     * Either an exclude or an include
-     *
-     * @var bool
+     * @param string $method The method to exclude
      */
-    protected $exclude;
-
-    /**
-     * @param string $method  The method to exclude or include
-     * @param bool   $exclude If the method should be excluded
-     */
-    public function __construct($method, $exclude = true)
+    public function __construct($method)
     {
-        $this->method  = (string) $method;
-        $this->exclude = (bool) $exclude;
+        $this->method = (string) $method;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filter($property, $context = null)
+    public function accept($property, $context = null)
     {
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;
 
-        return substr($property, $pos) === $this->method && $this->exclude;
+        return substr($property, $pos) !== $this->method;
     }
 }

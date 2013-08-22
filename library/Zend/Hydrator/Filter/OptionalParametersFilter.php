@@ -14,7 +14,7 @@ use ReflectionMethod;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
 /**
- * This filter evaluates to true if a method have no parameters or only optional parameters
+ * This filter accepts any method that don't have any required parameters (only optional)
  */
 class OptionalParametersFilter implements FilterInterface
 {
@@ -29,7 +29,7 @@ class OptionalParametersFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function filter($property, $context = null)
+    public function accept($property, $context = null)
     {
         if (isset(self::$propertiesCache[$property])) {
             return self::$propertiesCache[$property];

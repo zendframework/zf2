@@ -10,7 +10,7 @@
 namespace Zend\Hydrator\Filter;
 
 /**
- * This filter evaluates a Callable
+ * This filter accepts any method where the Callable returns true
  */
 class CallableFilter implements FilterInterface
 {
@@ -30,7 +30,7 @@ class CallableFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function filter($property, $context = null)
+    public function accept($property, $context = null)
     {
         return call_user_func($this->callable, $property);
     }

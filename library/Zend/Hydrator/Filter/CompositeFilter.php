@@ -97,7 +97,7 @@ class CompositeFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function filter($property, $context = null)
+    public function accept($property, $context = null)
     {
         // If there are no filters attached, we decide to filter
         if (empty($this->filters)) {
@@ -107,7 +107,7 @@ class CompositeFilter implements FilterInterface
         // If condition is OR, only one filter needs to evaluate to true
         if ($this->type === self::CONDITION_OR) {
             foreach ($this->filters as $filter) {
-                if ($filter->filter($property, $context) === true) {
+                if ($filter->accept($property, $context) === true) {
                     return true;
                 }
             }
@@ -115,7 +115,7 @@ class CompositeFilter implements FilterInterface
 
         // If condition is AND, all the filters need to evaluate to true
         foreach ($this->filters as $filter) {
-            if ($filter->filter($property, $context) === false) {
+            if ($filter->accept($property, $context) === false) {
                 return false;
             }
         }

@@ -10,14 +10,14 @@
 namespace Zend\Hydrator\Filter;
 
 /**
- * This filter evaluates to true if the property (or method) starts by "is"
+ * This filter accepts any method that starts with "is"
  */
 class IsFilter implements FilterInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function filter($property, $context = null)
+    public function accept($property, $context = null)
     {
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;

@@ -10,17 +10,17 @@
 namespace Zend\Hydrator\Filter;
 
 /**
- * An filter is a special filter that is run before any property is extracted, so that
+ * An filter is a special class that is run before any property/method is extracted, so that
  * it allows the user to add constraints about what is (or is not) extracted from an object
  */
 interface FilterInterface
 {
     /**
-     * Should return true to extract the given property, false otherwise
+     * Should return true if it accepts the given property/method, false otherwise
      *
      * @param  string $property The name of the property
      * @param  object $context  An optional context (most often, an object)
      * @return bool
      */
-    public function filter($property, $context = null);
+    public function accept($property, $context = null);
 }

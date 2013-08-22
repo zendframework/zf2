@@ -14,7 +14,7 @@ use ReflectionMethod;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
 /**
- * This filter evaluates to true if a method has a given number of parameters
+ * This filter accepts any method that have a given number of accepted parameters
  */
 class NumberOfParametersFilter implements FilterInterface
 {
@@ -36,7 +36,7 @@ class NumberOfParametersFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function filter($property, $context = null)
+    public function accept($property, $context = null)
     {
         try {
             $reflectionMethod = new ReflectionMethod($context, $property);
@@ -46,10 +46,6 @@ class NumberOfParametersFilter implements FilterInterface
             );
         }
 
-        if ($reflectionMethod->getNumberOfParameters() !== $this->numberOfParameters) {
-            return false;
-        }
-
-        return true;
+        return $reflectionMethod->getNumberOfParameters() === $this->numberOfParameters;
     }
 }

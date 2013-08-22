@@ -22,7 +22,7 @@ class ObjectPropertyHydrator extends AbstractHydrator
         $data = get_object_vars($object);
 
         foreach ($data as $property => $value) {
-            if (!$this->compositeFilter->filter($property, $object)) {
+            if (!$this->compositeFilter->accept($property, $object)) {
                 unset($data[$property]);
                 continue;
             }

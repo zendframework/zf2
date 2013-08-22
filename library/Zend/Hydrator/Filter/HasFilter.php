@@ -10,14 +10,14 @@
 namespace Zend\Hydrator\Filter;
 
 /**
- * This filter evaluates to true if the property (or method) starts by "has"
+ * This filter accepts any method that starts with "has"
  */
 class HasFilter implements FilterInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function filter($property, $context = null)
+    public function accept($property, $context = null)
     {
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;

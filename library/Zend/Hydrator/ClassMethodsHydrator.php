@@ -49,7 +49,7 @@ class ClassMethodsHydrator extends AbstractHydrator
             // Remove get/is/has prefix from method, so that we get property name
             $property = preg_filter(array('/get/', '/is/', '/has/'), '', $method);
 
-            if (null === $property || !$this->compositeFilter->filter($method, $object)) {
+            if (null === $property || !$this->compositeFilter->accept($method, $object)) {
                 continue;
             }
 
