@@ -15,9 +15,9 @@ namespace Zend\Hydrator\Filter;
 trait ProvidesCompositeFilterTrait
 {
     /**
-     * @var CompositeFilter
+     * @var CompositeFilter|null
      */
-    protected $compositeFilter;
+    protected $compositeFilter = null;
 
     /**
      * Set the composite filter

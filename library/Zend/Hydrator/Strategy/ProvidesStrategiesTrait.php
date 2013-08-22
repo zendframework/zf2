@@ -21,7 +21,7 @@ trait ProvidesStrategiesTrait
      *
      * @var array|StrategyInterface[]
      */
-    protected $strategies;
+    protected $strategies = array();
 
     /**
      * Add a new strategy for a given property

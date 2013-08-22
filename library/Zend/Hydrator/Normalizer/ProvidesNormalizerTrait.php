@@ -15,9 +15,9 @@ namespace Zend\Hydrator\Normalizer;
 trait ProvidesNormalizerTrait
 {
     /**
-     * @var NormalizerInterface
+     * @var NormalizerInterface|null
      */
-    protected $normalizer;
+    protected $normalizer = null;
 
     /**
      * Set the normalizer
