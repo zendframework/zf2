@@ -12,7 +12,7 @@ namespace Zend\Hydrator\Filter;
 /**
  * This trait adds the ability to attach filters to a hydrator through a composite filter
  */
-trait ProvidesCompositeFilter
+trait ProvidesCompositeFilterTrait
 {
     /**
      * @var CompositeFilter

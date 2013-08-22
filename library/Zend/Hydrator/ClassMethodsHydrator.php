@@ -56,6 +56,11 @@ class ClassMethodsHydrator extends AbstractHydrator
             $result[strtolower($property)] = $object->$method();
         }
 
+        // If a normalizer is defined, it can act as a hook
+        if (null !== $this->normalizer) {
+
+        }
+
         return $result;
     }
 

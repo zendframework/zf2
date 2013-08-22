@@ -10,8 +10,9 @@
 namespace Zend\Hydrator;
 
 use Zend\Hydrator\Filter\CompositeFilter;
-use Zend\Hydrator\Filter\ProvidesCompositeFilter;
-use Zend\Hydrator\Strategy\ProvidesStrategies;
+use Zend\Hydrator\Filter\ProvidesCompositeFilterTrait;
+use Zend\Hydrator\Normalizer\ProvidesNormalizerTrait;
+use Zend\Hydrator\Strategy\ProvidesStrategiesTrait;
 
 /**
  * This abstract hydrator provides a built-in support for filters and strategies. All
@@ -19,8 +20,9 @@ use Zend\Hydrator\Strategy\ProvidesStrategies;
  */
 abstract class AbstractHydrator implements HydratorInterface
 {
-    use ProvidesCompositeFilter;
-    use ProvidesStrategies;
+    use ProvidesCompositeFilterTrait;
+    use ProvidesNormalizerTrait;
+    use ProvidesStrategiesTrait;
 
     /**
      * Constructor

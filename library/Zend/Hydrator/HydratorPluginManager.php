@@ -44,7 +44,7 @@ class HydratorPluginManager extends AbstractPluginManager
         }
 
         throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement Zend\Stdlib\Hydrator\HydratorInterface',
+            'Plugin of type %s is invalid; must implement Zend\Hydrator\HydratorInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
     }

@@ -14,7 +14,7 @@ use Zend\Hydrator\Strategy\StrategyInterface;
 /**
  * This trait adds the ability to use strategies for a hydrator
  */
-trait ProvidesStrategies
+trait ProvidesStrategiesTrait
 {
     /**
      * List of strategies, indexed by a property name
