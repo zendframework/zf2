@@ -35,11 +35,13 @@ class CompositeFilter implements FilterInterface
     /**
      * Constructor
      *
-     * @param int $type
+     * @param array $filters
+     * @param int   $type
      */
-    public function __construct($type = self::CONDITION_OR)
+    public function __construct(array $filters = array(), $type = self::CONDITION_OR)
     {
-        $this->type = $type;
+        $this->filters = $filters;
+        $this->type    = $type;
     }
 
     /**
@@ -99,7 +101,7 @@ class CompositeFilter implements FilterInterface
      */
     public function accept($property, $context = null)
     {
-        // If there are no filters attached, we decide to filter
+        // If there are no filters attached, we decide to always accept
         if (empty($this->filters)) {
             return true;
         }
