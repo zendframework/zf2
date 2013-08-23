@@ -10,23 +10,23 @@
 namespace Zend\Hydrator\Filter;
 
 /**
- * This filter exclude any method that have the given name
+ * This filter exclude any methods that have a name in the array
  */
-class ExcludeMethodFilter implements FilterInterface
+class ExcludeMethodsFilter implements FilterInterface
 {
     /**
-     * The method to exclude
+     * The methods to exclude
      *
-     * @var string
+     * @var array
      */
-    protected $method;
+    protected $methods;
 
     /**
-     * @param string $method The method to exclude
+     * @param array|string $methods The methods to exclude
      */
-    public function __construct($method)
+    public function __construct($methods)
     {
-        $this->method = (string) $method;
+        $this->methods = (array) $methods;
     }
 
     /**
@@ -37,6 +37,6 @@ class ExcludeMethodFilter implements FilterInterface
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;
 
-        return substr($property, $pos) !== $this->method;
+        return !in_array(substr($property, $pos), $this->methods);
     }
 }
