@@ -53,7 +53,7 @@ class ClassMethodsHydrator extends AbstractHydrator
                 continue;
             }
 
-            $result[strtolower($property)] = $object->$method();
+            $result[strtolower($property)] = $this->extractValue($property, $object->$method(), $object);
         }
 
         // If a normalizer is defined, it can act as a hook
@@ -75,7 +75,7 @@ class ClassMethodsHydrator extends AbstractHydrator
         }
 
         foreach ($data as $property => $value) {
-            $method = 'set' . $property; // No need to uppercase, PHP is case insensible
+            $method = 'set' . $property; // No need to uppercase, PHP is case insensitive
 
             if (method_exists($object, $method)) {
                 $value = $this->hydrateValue($property, $value, $data);
