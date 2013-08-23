@@ -495,13 +495,18 @@ class CollectionTest extends TestCase
         /** @var \Zend\Form\Element\Collection $collection */
         $collection = $this->form->get('colors');
         $collection->setAllowRemove(true);
-        $collection->setCount(0);
 
-
-        // By default, $collection contains 2 elements
+        // by default we have 2 elements
         $data = array();
-
+        $data[] = 'blue';
         $collection->populateValues($data);
+        //this should pass the test
+        $this->assertEquals(1, count($collection->getElements()));
+
+        $data = array();
+        //according to logic we should pass and empty array to remove all elements
+        $collection->populateValues($data);
+        //this will fail
         $this->assertEquals(0, count($collection->getElements()));
     }
 }
