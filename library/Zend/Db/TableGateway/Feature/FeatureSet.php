@@ -66,7 +66,7 @@ class FeatureSet
     public function addFeature(AbstractFeature $feature)
     {
         $this->features[] = $feature;
-        $feature->setTableGateway($feature);
+        $feature->setTableGateway($this->tableGateway);
         return $this;
     }
 
