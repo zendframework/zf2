@@ -497,6 +497,7 @@ class CollectionTest extends TestCase
         $collection->setAllowRemove(true);
 
         // by default we have 2 elements
+        // remove one of the elements
         $data = array();
         $data[] = 'blue';
         $collection->populateValues($data);
