@@ -35,7 +35,7 @@ class DateStep extends Date
     protected $baseValue = '1970-01-01T00:00:00Z';
 
     /**
-     * Date step interval (defaults to 1 day).
+     * Date step interval (defaults to 1 second).
      * Uses the DateInterval specification.
      *
      * @var DateInterval
@@ -88,7 +88,7 @@ class DateStep extends Date
         if (isset($options['step'])) {
             $this->setStep($options['step']);
         } else {
-            $this->setStep(new DateInterval('P1D'));
+            $this->setStep(new DateInterval('PT1S'));
         }
         if (array_key_exists('format', $options)) {
             $this->setFormat($options['format']);
