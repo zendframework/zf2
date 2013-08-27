@@ -32,6 +32,6 @@ class CallableFilter implements FilterInterface
      */
     public function accept($property, $context = null)
     {
-        return call_user_func($this->callable, $property);
+        return $this->callable($property);
     }
 }
