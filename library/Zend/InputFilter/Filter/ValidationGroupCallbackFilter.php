@@ -41,6 +41,6 @@ class ValidationGroupCallbackFilter extends RecursiveFilterIterator
      */
     public function accept()
     {
-        return (bool) call_user_func_array($this->callback, array($this->current(), $this->key(), $this->getInnerIterator()));
+        return (bool) $this->callback($this->current(), $this->key(), $this->getInnerIterator());
     }
 }
