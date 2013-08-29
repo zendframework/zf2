@@ -17,24 +17,6 @@ use Zend\Code\Reflection\DocBlock\Tag\TagInterface as ReflectionDocBlockTag;
 class Tag extends AbstractGenerator
 {
     /**
-     * @var array
-     */
-    protected static $typeFormats = array(
-        array(
-            'param',
-            '@param <type> <variable> <description>'
-        ),
-        array(
-            'return',
-            '@return <type> <description>'
-        ),
-        array(
-            'tag',
-            '@<name> <description>'
-        )
-    );
-
-    /**
      * @var string
      */
     protected $name = null;
@@ -43,19 +25,6 @@ class Tag extends AbstractGenerator
      * @var string
      */
     protected $description = null;
-
-    /**
-     * @param  array $options
-     */
-    public function __construct(array $options = array())
-    {
-        if (isset($options['name'])) {
-            $this->setName($options['name']);
-        }
-        if (isset($options['description'])) {
-            $this->setDescription($options['description']);
-        }
-    }
 
     /**
      * Build a Tag generator object from a reflection object

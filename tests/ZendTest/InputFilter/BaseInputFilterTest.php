@@ -564,6 +564,22 @@ class BaseInputFilterTest extends TestCase
         $this->assertFalse($filter->isValid());
     }
 
+    public function testValidationMarksInputInvalidWhenNotRequiredAndAllowEmptyFlagIsFalse()
+    {
+        $filter = new InputFilter();
+
+        $foo   = new Input();
+        $foo->setRequired(false);
+        $foo->setAllowEmpty(false);
+
+        $filter->add($foo, 'foo');
+
+        $data = array('foo' => '');
+        $filter->setData($data);
+
+        $this->assertFalse($filter->isValid());
+    }
+
     public static function contextDataProvider()
     {
         return array(
@@ -748,5 +764,23 @@ class BaseInputFilterTest extends TestCase
         $this->assertCount(2, $filters);
         $this->assertEquals('foo', $filters['foo']->getName());
         $this->assertEquals('bar', $filters['bar']->getName());
+    }
+
+    /**
+     * @group 4996
+     */
+    public function testAddingExistingInputWillMergeIntoExisting()
+    {
+        $filter = new InputFilter();
+
+        $foo1    = new Input('foo');
+        $foo1->setRequired(true);
+        $filter->add($foo1);
+
+        $foo2    = new Input('foo');
+        $foo2->setRequired(false);
+        $filter->add($foo2);
+
+        $this->assertFalse($filter->get('foo')->isRequired());
     }
 }

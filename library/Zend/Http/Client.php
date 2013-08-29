@@ -205,6 +205,10 @@ class Client implements Stdlib\DispatchableInterface
      */
     public function getAdapter()
     {
+        if (! $this->adapter) {
+            $this->setAdapter($this->config['adapter']);
+        }
+
         return $this->adapter;
     }
 
@@ -820,10 +824,7 @@ class Client implements Stdlib\DispatchableInterface
         $this->redirectCounter = 0;
         $response = null;
 
-        // Make sure the adapter is loaded
-        if ($this->adapter == null) {
-            $this->setAdapter($this->config['adapter']);
-        }
+        $adapter = $this->getAdapter();
 
         // Send the first request. If redirected, continue.
         do {
@@ -876,7 +877,7 @@ class Client implements Stdlib\DispatchableInterface
             }
 
             // check that adapter supports streaming before using it
-            if (is_resource($body) && !($this->adapter instanceof Client\Adapter\StreamInterface)) {
+            if (is_resource($body) && !($adapter instanceof Client\Adapter\StreamInterface)) {
                 throw new Client\Exception\RuntimeException('Adapter does not support streaming');
             }
 
@@ -904,7 +905,7 @@ class Client implements Stdlib\DispatchableInterface
                     rewind($stream);
                 }
                 // cleanup the adapter
-                $this->adapter->setOutputStream(null);
+                $adapter->setOutputStream(null);
                 $response = Response\Stream::fromStream($response, $stream);
                 $response->setStreamName($this->streamName);
                 if (!is_string($this->config['outputstream'])) {

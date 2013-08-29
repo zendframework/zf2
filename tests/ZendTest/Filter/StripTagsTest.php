@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\StripTags as StripTagsFilter;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @category   Zend
@@ -537,5 +538,32 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
         $this->_filter->setAttributesAllowed(array('data-id','data-name'));
 
         $this->assertEquals($expected, $this->_filter->filter($input));
+    }
+
+    /**
+     * Ensures that a warning is raised if array is used
+     *
+     * @return void
+     */
+    public function testWarningIsRaisedIfArrayUsed()
+    {
+        $input = array('<li data-name="Test User" data-id="11223"></li>', '<li data-name="Test User 2" data-id="456789"></li>');
+
+        ErrorHandler::start(E_USER_WARNING);
+        $filtered = $this->_filter->filter($input);
+        $err = ErrorHandler::stop();
+
+        $this->assertEquals($input, $filtered);
+        $this->assertInstanceOf('ErrorException', $err);
+        $this->assertContains('cannot filter', $err->getMessage());
+    }
+
+    /**
+     * @return void
+     */
+    public function testReturnsNullIfNullIsUsed()
+    {
+        $filtered = $this->_filter->filter(null);
+        $this->assertNull($filtered);
     }
 }

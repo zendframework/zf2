@@ -15,7 +15,7 @@
         "doctrine/annotations": ">=1.0",
         "ircmaxell/random-lib": "dev-master",
         "ircmaxell/security-lib": "dev-master",
-        "ocramius/proxy-manager": "0.3.*",
+        "ocramius/proxy-manager": "0.4.*",
         "phpunit/PHPUnit": "3.7.*"
     },
     "suggest": {
@@ -28,12 +28,13 @@
     },
     "autoload": {
         "psr-0": {
-            "Zend\\": "library/",
-            "ZendTest\\": "tests/"
+            "Zend\\": "library/"
         }
     },
     "bin": [
-        "bin/classmap_generator.php"
+        "bin/classmap_generator.php",
+        "bin/pluginmap_generator.php",
+        "bin/templatemap_generator.php"
     ],
     "replace": {
         "zendframework/zend-authentication": "self.version",
@@ -72,6 +73,7 @@
         "zendframework/zend-permissions-acl": "self.version",
         "zendframework/zend-permissions-rbac": "self.version",
         "zendframework/zend-progressbar": "self.version",
+        "zendframework/zend-resources": "self.version",
         "zendframework/zend-serializer": "self.version",
         "zendframework/zend-server": "self.version",
         "zendframework/zend-servicemanager": "self.version",

@@ -90,7 +90,7 @@ class StripTags extends AbstractFilter
      * Sets the tagsAllowed option
      *
      * @param  array|string $tagsAllowed
-     * @return StripTags Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setTagsAllowed($tagsAllowed)
     {
@@ -143,7 +143,7 @@ class StripTags extends AbstractFilter
      * Sets the attributesAllowed option
      *
      * @param  array|string $attributesAllowed
-     * @return StripTags Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setAttributesAllowed($attributesAllowed)
     {
@@ -166,13 +166,31 @@ class StripTags extends AbstractFilter
     /**
      * Defined by Zend\Filter\FilterInterface
      *
-     * @todo improve docblock descriptions
+     * If the value provided is non-scalar, the value will remain unfiltered
+     * and an E_USER_WARNING will be raised indicating it's unfilterable.
      *
+     * @todo   improve docblock descriptions
      * @param  string $value
-     * @return string
+     * @return string|mixed
      */
     public function filter($value)
     {
+        if (null === $value) {
+            return null;
+        }
+
+        if (!is_scalar($value)){
+            trigger_error(
+                sprintf(
+                    '%s expects parameter to be scalar, "%s" given; cannot filter',
+                    __METHOD__,
+                    (is_object($value) ? get_class($value) : gettype($value))
+                ),
+                E_USER_WARNING
+            );
+            return $value;
+        }
+
         $value = (string) $value;
 
         // Strip HTML comments first

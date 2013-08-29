@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\Int as IntFilter;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @category   Zend
@@ -40,5 +41,34 @@ class IntTest extends \PHPUnit_Framework_TestCase
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
         }
+    }
+
+    /**
+     * Ensures that a warning is raised if array is used
+     *
+     * @return void
+     */
+    public function testWarningIsRaisedIfArrayUsed()
+    {
+        $filter = new IntFilter();
+        $input = array('123 test', '456 test');
+
+        ErrorHandler::start(E_USER_WARNING);
+        $filtered = $filter->filter($input);
+        $err = ErrorHandler::stop();
+
+        $this->assertEquals($input, $filtered);
+        $this->assertInstanceOf('ErrorException', $err);
+        $this->assertContains('cannot filter', $err->getMessage());
+    }
+
+    /**
+     * @return void
+     */
+    public function testReturnsNullIfNullIsUsed()
+    {
+        $filter   = new IntFilter();
+        $filtered = $filter->filter(null);
+        $this->assertNull($filtered);
     }
 }

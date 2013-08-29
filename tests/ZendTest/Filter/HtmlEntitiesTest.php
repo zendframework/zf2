@@ -12,6 +12,7 @@ namespace ZendTest\Filter;
 
 use Zend\Filter\HtmlEntities as HtmlEntitiesFilter;
 use Zend\Filter\Exception;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @category   Zend
@@ -256,6 +257,33 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
             $this->assertTrue($e instanceof Exception\DomainException);
         }
+    }
+
+    /**
+     * Ensures that a warning is raised if array is used
+     *
+     * @return void
+     */
+    public function testWarningIsRaisedIfArrayUsed()
+    {
+        $input = array('<', '>');
+
+        ErrorHandler::start(E_USER_WARNING);
+        $filtered = $this->_filter->filter($input);
+        $err = ErrorHandler::stop();
+
+        $this->assertEquals($input, $filtered);
+        $this->assertInstanceOf('ErrorException', $err);
+        $this->assertContains('cannot filter', $err->getMessage());
+    }
+
+    /**
+     * @return void
+     */
+    public function testReturnsNullIfNullIsUsed()
+    {
+        $filtered = $this->_filter->filter(null);
+        $this->assertNull($filtered);
     }
 
     /**

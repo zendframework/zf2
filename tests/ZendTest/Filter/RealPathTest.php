@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\RealPath as RealPathFilter;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @category   Zend
@@ -105,5 +106,36 @@ class RealPathTest extends \PHPUnit_Framework_TestCase
                . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '.'
                . DIRECTORY_SEPARATOR . '_files';
         $this->assertEquals($path, $filter($path3));
+    }
+
+    /**
+     * Ensures that a warning is raised if array is used
+     *
+     * @return void
+     */
+    public function testWarningIsRaisedIfArrayUsed()
+    {
+        $filter   = $this->_filter;
+        $input = array(
+            $this->_filesPath . DIRECTORY_SEPARATOR . 'file.1',
+            $this->_filesPath . DIRECTORY_SEPARATOR . 'file.2'
+        );
+
+        ErrorHandler::start(E_USER_WARNING);
+        $filtered = $filter->filter($input);
+        $err = ErrorHandler::stop();
+
+        $this->assertEquals($input, $filtered);
+        $this->assertInstanceOf('ErrorException', $err);
+        $this->assertContains('cannot filter', $err->getMessage());
+    }
+
+    /**
+     * @return void
+     */
+    public function testReturnsNullIfNullIsUsed()
+    {
+        $filtered = $this->_filter->filter(null);
+        $this->assertNull($filtered);
     }
 }

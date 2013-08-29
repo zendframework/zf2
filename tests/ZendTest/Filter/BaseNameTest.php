@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\BaseName as BaseNameFilter;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @category   Zend
@@ -35,5 +36,34 @@ class BaseNameTest extends \PHPUnit_Framework_TestCase
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
         }
+    }
+
+    /**
+     * Ensures that a warning is raised if array is used
+     *
+     * @return void
+     */
+    public function testWarningIsRaisedIfArrayUsed()
+    {
+        $filter = new BaseNameFilter();
+        $input = array('/path/to/filename', '/path/to/filename.ext');
+
+        ErrorHandler::start(E_USER_WARNING);
+        $filtered = $filter->filter($input);
+        $err = ErrorHandler::stop();
+
+        $this->assertEquals($input, $filtered);
+        $this->assertInstanceOf('ErrorException', $err);
+        $this->assertContains('cannot filter', $err->getMessage());
+    }
+
+    /**
+     * @return void
+     */
+    public function testReturnsNullIfNullIsUsed()
+    {
+        $filter   = new BaseNameFilter();
+        $filtered = $filter->filter(null);
+        $this->assertNull($filtered);
     }
 }

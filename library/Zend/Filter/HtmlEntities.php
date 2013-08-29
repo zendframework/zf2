@@ -89,7 +89,7 @@ class HtmlEntities extends AbstractFilter
      * Sets the quoteStyle option
      *
      * @param  int $quoteStyle
-     * @return HtmlEntities Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setQuoteStyle($quoteStyle)
     {
@@ -112,7 +112,7 @@ class HtmlEntities extends AbstractFilter
      * Set encoding
      *
      * @param  string $value
-     * @return HtmlEntities
+     * @return self
      */
     public function setEncoding($value)
     {
@@ -138,7 +138,7 @@ class HtmlEntities extends AbstractFilter
      * Proxies to {@link setEncoding()}
      *
      * @param  string $charSet
-     * @return HtmlEntities Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setCharSet($charSet)
     {
@@ -159,7 +159,7 @@ class HtmlEntities extends AbstractFilter
      * Sets the doubleQuote option
      *
      * @param  bool $doubleQuote
-     * @return HtmlEntities Provides a fluent interface
+     * @return self Provides a fluent interface
      */
     public function setDoubleQuote($doubleQuote)
     {
@@ -173,12 +173,31 @@ class HtmlEntities extends AbstractFilter
      * Returns the string $value, converting characters to their corresponding HTML entity
      * equivalents where they exist
      *
+     * If the value provided is non-scalar, the value will remain unfiltered
+     * and an E_USER_WARNING will be raised indicating it's unfilterable.
+     *
      * @param  string $value
-     * @throws Exception\DomainException
-     * @return string
+     * @return string|mixed
+     * @throws Exception\DomainException on encoding mismatches
      */
     public function filter($value)
     {
+        if (null === $value) {
+            return null;
+        }
+
+        if (!is_scalar($value)){
+            trigger_error(
+                sprintf(
+                    '%s expects parameter to be scalar, "%s" given; cannot filter',
+                    __METHOD__,
+                    (is_object($value) ? get_class($value) : gettype($value))
+                ),
+                E_USER_WARNING
+            );
+            return $value;
+        }
+
         $filtered = htmlentities((string) $value, $this->getQuoteStyle(), $this->getEncoding(), $this->getDoubleQuote());
         if (strlen((string) $value) && !strlen($filtered)) {
             if (!function_exists('iconv')) {
