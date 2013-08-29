@@ -20,8 +20,8 @@ interface InputCollectionInterface extends RecursiveIterator
      * Add an input or another input collection (if no name was set, it will extract the one set in
      * the input or input collection)
      *
-     * @param  InputInterface|InputCollectionInterface $inputOrInputCollection
-     * @param  string|null                             $name
+     * @param  InputInterface|InputCollectionInterface|array $inputOrInputCollection
+     * @param  string|null                                   $name
      * @return void
      */
     public function add($inputOrInputCollection, $name = null);
@@ -151,9 +151,9 @@ interface InputCollectionInterface extends RecursiveIterator
     /**
      * Check if the input filter is valid
      *
+     * @param  array      $data     Data to validate
      * @param  mixed|null $context  An optional context used for validation
-     * @param  int        $maxDepth Allow to specify a max depth recursion to validate nested input collections
      * @return bool
      */
-    public function isValid($context = null, $maxDepth = -1);
+    public function validate(array $data, $context = null);
 }

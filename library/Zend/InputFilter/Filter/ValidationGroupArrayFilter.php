@@ -26,7 +26,7 @@ class ValidationGroupArrayFilter extends RecursiveFilterIterator
      * @param RecursiveIterator $iterator
      * @param array             $validationGroup
      */
-    public function __construct(RecursiveIterator $iterator, array $validationGroup)
+    public function __construct(RecursiveIterator $iterator, array $validationGroup = array())
     {
         parent::__construct($iterator);
 
@@ -40,6 +40,6 @@ class ValidationGroupArrayFilter extends RecursiveFilterIterator
      */
     public function accept()
     {
-        return isset($this->validationGroup[$this->key()]);
+        return true; //isset($this->validationGroup[$this->key()]);
     }
 }

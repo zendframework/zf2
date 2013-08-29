@@ -17,13 +17,27 @@ class ValidationResult implements ValidationResultInterface
     /**
      * @var array
      */
-    protected $errorMessages;
+    protected $rawValues = array();
 
     /**
+     * @var array
+     */
+    protected $values = array();
+
+    /**
+     * @var array
+     */
+    protected $errorMessages = array();
+
+    /**
+     * @param array $rawValues
+     * @param array $values
      * @param array $errorMessages
      */
-    public function __construct(array $errorMessages)
+    public function __construct(array $rawValues, array $values, array $errorMessages)
     {
+        $this->rawValues     = $rawValues;
+        $this->values        = $values;
         $this->errorMessages = $errorMessages;
     }
 
@@ -33,6 +47,22 @@ class ValidationResult implements ValidationResultInterface
     public function isValid()
     {
         return empty($this->errorMessages);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValues()
+    {
+        $this->values;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRawValues()
+    {
+        $this->rawValues;
     }
 
     /**
