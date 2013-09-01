@@ -3,21 +3,20 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace Zend\Mvc\View\Http;
 
+use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface as Events;
-use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\ModuleRouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 
-class InjectTemplateListener implements ListenerAggregateInterface
+class InjectTemplateListener extends AbstractListenerAggregate
 {
     /**
      * FilterInterface/inflector used to normalize names for use as template identifiers
@@ -27,36 +26,11 @@ class InjectTemplateListener implements ListenerAggregateInterface
     protected $inflector;
 
     /**
-     * Listeners we've registered
-     *
-     * @var array
-     */
-    protected $listeners = array();
-
-    /**
-     * Attach listeners
-     *
-     * @param  Events $events
-     * @return void
+     * {@inheritDoc}
      */
     public function attach(Events $events)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'injectTemplate'), -90);
-    }
-
-    /**
-     * Detach listeners
-     *
-     * @param  Events $events
-     * @return void
-     */
-    public function detach(Events $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
     }
 
     /**
@@ -90,9 +64,21 @@ class InjectTemplateListener implements ListenerAggregateInterface
         }
 
         $module     = $this->deriveModuleNamespace($controller);
-        $controller = $this->deriveControllerClass($controller);
 
+        if ($namespace = $routeMatch->getParam(ModuleRouteListener::MODULE_NAMESPACE)) {
+            $controllerSubNs = $this->deriveControllerSubNamespace($namespace);
+            if (!empty($controllerSubNs)) {
+                if (!empty($module)) {
+                    $module .= '/' . $controllerSubNs;
+                } else {
+                    $module = $controllerSubNs;
+                }
+            }
+        }
+
+        $controller = $this->deriveControllerClass($controller);
         $template   = $this->inflectName($module);
+
         if (!empty($template)) {
             $template .= '/';
         }
@@ -133,6 +119,25 @@ class InjectTemplateListener implements ListenerAggregateInterface
         }
         $module = substr($controller, 0, strpos($controller, '\\'));
         return $module;
+    }
+
+    /**
+     * @param $namespace
+     * @return string
+     */
+    protected function deriveControllerSubNamespace($namespace)
+    {
+        if (!strstr($namespace, '\\')) {
+            return '';
+        }
+        $nsArray = explode('\\', $namespace);
+
+        // Remove the first two elements representing the module and controller directory.
+        $subNsArray = array_slice($nsArray, 2);
+        if (empty($subNsArray)) {
+            return '';
+        }
+        return implode('/', $subNsArray);
     }
 
     /**

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_ModuleManager
  */
 
 namespace Zend\ModuleManager\Listener;
@@ -17,11 +16,6 @@ use Zend\ServiceManager\Config as ServiceConfig;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ArrayUtils;
 
-/**
- * @category   Zend
- * @package    Zend_ModuleManager
- * @subpackage Listener
- */
 class ServiceListener implements ServiceListenerInterface
 {
     /**
@@ -250,7 +244,7 @@ class ServiceListener implements ServiceListenerInterface
         if (!$config instanceof ServiceConfig) {
             throw new Exception\RuntimeException(sprintf(
                 'Invalid service manager configuration class provided; received "%s", expected an instance of Zend\ServiceManager\Config',
-                $class
+                (is_object($config) ? get_class($config) : (is_scalar($config) ? $config : gettype($config)))
             ));
         }
 

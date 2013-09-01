@@ -3,17 +3,12 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace Zend\Filter;
 
-/**
- * @category   Zend
- * @package    Zend_Filter
- */
 class StaticFilter
 {
     /**
@@ -33,7 +28,7 @@ class StaticFilter
         if ($manager instanceof FilterPluginManager) {
             $manager->setShareByDefault(false);
         }
-        self::$plugins = $manager;
+        static::$plugins = $manager;
     }
 
     /**
@@ -43,10 +38,10 @@ class StaticFilter
      */
     public static function getPluginManager()
     {
-        if (null === self::$plugins) {
+        if (null === static::$plugins) {
             static::setPluginManager(new FilterPluginManager());
         }
-        return self::$plugins;
+        return static::$plugins;
     }
 
     /**
@@ -55,7 +50,7 @@ class StaticFilter
      *
      * The first argument of this method is a data input value, that you would have filtered.
      * The second argument is a string, which corresponds to the basename of the filter class,
-     * relative to the Zend_Filter namespace. This method automatically loads the class,
+     * relative to the Zend\Filter namespace. This method automatically loads the class,
      * creates an instance, and applies the filter() method to the data input. You can also pass
      * an array of constructor arguments, if they are needed for the filter class.
      *

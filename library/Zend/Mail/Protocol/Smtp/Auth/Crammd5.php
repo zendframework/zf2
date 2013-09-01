@@ -3,21 +3,17 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mail
  */
 
 namespace Zend\Mail\Protocol\Smtp\Auth;
 
+use Zend\Crypt\Hmac;
 use Zend\Mail\Protocol\Smtp;
 
 /**
  * Performs CRAM-MD5 authentication
- *
- * @category   Zend
- * @package    Zend_Mail
- * @subpackage Protocol
  */
 class Crammd5 extends Smtp
 {
@@ -71,8 +67,7 @@ class Crammd5 extends Smtp
 
 
     /**
-     * @todo Perform CRAM-MD5 authentication with supplied credentials
-     *
+     * Performs CRAM-MD5 authentication with supplied credentials
      */
     public function auth()
     {
@@ -137,23 +132,11 @@ class Crammd5 extends Smtp
      *
      * @param  string $key   Challenge key (usually password)
      * @param  string $data  Challenge data
-     * @param  int    $block Length of blocks
+     * @param  int    $block Length of blocks (deprecated; unused)
      * @return string
      */
     protected function _hmacMd5($key, $data, $block = 64)
     {
-        if (strlen($key) > 64) {
-            $key = pack('H32', md5($key));
-        } elseif (strlen($key) < 64) {
-            $key = str_pad($key, $block, "\0");
-        }
-
-        $k_ipad = substr($key, 0, 64) ^ str_repeat(chr(0x36), 64);
-        $k_opad = substr($key, 0, 64) ^ str_repeat(chr(0x5C), 64);
-
-        $inner = pack('H32', md5($k_ipad . $data));
-        $digest = md5($k_opad . $inner);
-
-        return $digest;
+        return Hmac::compute($key, 'md5', $data);
     }
 }

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace Zend\Filter;
@@ -13,10 +12,6 @@ namespace Zend\Filter;
 use Traversable;
 use Zend\Stdlib\ErrorHandler;
 
-/**
- * @category   Zend
- * @package    Zend_Filter
- */
 class RealPath extends AbstractFilter
 {
     /**
@@ -29,7 +24,7 @@ class RealPath extends AbstractFilter
     /**
      * Class constructor
      *
-     * @param boolean|Traversable $existsOrOptions Options to set
+     * @param  bool|Traversable $existsOrOptions Options to set
      */
     public function __construct($existsOrOptions = true)
     {
@@ -47,19 +42,19 @@ class RealPath extends AbstractFilter
      * TRUE when the path must exist
      * FALSE when not existing paths can be given
      *
-     * @param  boolean $flag Path must exist
-     * @return RealPath
+     * @param  bool $flag Path must exist
+     * @return self
      */
     public function setExists($flag = true)
     {
-        $this->options['exists'] = (boolean) $flag;
+        $this->options['exists'] = (bool) $flag;
         return $this;
     }
 
     /**
      * Returns true if the filtered path must exist
      *
-     * @return boolean
+     * @return bool
      */
     public function getExists()
     {
@@ -71,11 +66,30 @@ class RealPath extends AbstractFilter
      *
      * Returns realpath($value)
      *
+     * If the value provided is non-scalar, the value will remain unfiltered
+     * and an E_USER_WARNING will be raised indicating it's unfilterable.
+     *
      * @param  string $value
-     * @return string
+     * @return string|mixed
      */
     public function filter($value)
     {
+        if (null === $value) {
+            return null;
+        }
+
+        if (!is_scalar($value)){
+            trigger_error(
+                sprintf(
+                    '%s expects parameter to be scalar, "%s" given; cannot filter',
+                    __METHOD__,
+                    (is_object($value) ? get_class($value) : gettype($value))
+                ),
+                E_USER_WARNING
+            );
+            return $value;
+        }
+
         $path = (string) $value;
         if ($this->options['exists']) {
             return realpath($path);

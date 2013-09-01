@@ -3,19 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mail
  */
 
 namespace Zend\Mail\Storage\Message;
 
 use Zend\Mail\Storage\Part;
 
-/**
- * @category   Zend
- * @package    Zend_Mail
- */
 class File extends Part\File implements MessageInterface
 {
     /**
@@ -27,8 +22,8 @@ class File extends Part\File implements MessageInterface
     /**
      * Public constructor
      *
-     * In addition to the parameters of Zend_Mail_Part::__construct() this constructor supports:
-     * - flags array with flags for message, keys are ignored, use constants defined in Zend_Mail_Storage
+     * In addition to the parameters of Zend\Mail\Storage\Part::__construct() this constructor supports:
+     * - flags array with flags for message, keys are ignored, use constants defined in Zend\Mail\Storage
      *
      * @param  array $params
      * @throws \Zend\Mail\Storage\Exception\ExceptionInterface

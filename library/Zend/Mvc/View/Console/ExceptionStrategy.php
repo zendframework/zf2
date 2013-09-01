@@ -3,26 +3,20 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace Zend\Mvc\View\Console;
 
+use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ConsoleModel;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage View
- */
-class ExceptionStrategy implements ListenerAggregateInterface
+class ExceptionStrategy extends AbstractListenerAggregate
 {
     /**
      * Display exceptions?
@@ -44,38 +38,32 @@ class ExceptionStrategy implements ListenerAggregateInterface
 :file::line
 :stack
 ======================================================================
+   Previous Exception(s):
+:previous
 
 EOT;
 
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * A template for message to show in console when an exception has previous exceptions.
+     * @var string
      */
-    protected $listeners = array();
+    protected $previousMessage = <<<EOT
+======================================================================
+ :className
+ :message
+----------------------------------------------------------------------
+:file::line
+:stack
+
+EOT;
 
     /**
-     * Attach the aggregate to the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
+     * {@inheritDoc}
      */
     public function attach(EventManagerInterface $events)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'prepareExceptionViewModel'));
-    }
-
-    /**
-     * Detach aggregate listeners from the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'prepareExceptionViewModel'));
     }
 
     /**
@@ -137,6 +125,26 @@ EOT;
     }
 
     /**
+     * Sets template for previous message that will be shown in Console.
+     *
+     * @param string $previousMessage
+     * @return ExceptionStrategy
+     */
+    public function setPreviousMessage($previousMessage)
+    {
+        $this->previousMessage = $previousMessage;
+        return $this;
+    }
+
+    /**
+     * @return callable|string
+     */
+    public function getPreviousMessage()
+    {
+        return $this->previousMessage;
+    }
+
+    /**
      * Create an exception view model, and set the HTTP status code
      *
      * @todo   dispatch.error does not halt dispatch unless a response is
@@ -177,6 +185,30 @@ EOT;
                     $callback = $this->message;
                     $message = (string) $callback($exception, $this->displayExceptions);
                 } elseif ($this->displayExceptions && $exception instanceof \Exception) {
+                    $previous = '';
+                    $previousException = $exception->getPrevious();
+                    while($previousException) {
+                        $previous .= str_replace(
+                            array(
+                                ':className',
+                                ':message',
+                                ':code',
+                                ':file',
+                                ':line',
+                                ':stack',
+                            ),array(
+                                get_class($previousException),
+                                $previousException->getMessage(),
+                                $previousException->getCode(),
+                                $previousException->getFile(),
+                                $previousException->getLine(),
+                                $exception->getTraceAsString(),
+                            ),
+                            $this->previousMessage
+                        );
+                        $previousException = $previousException->getPrevious();
+                    }
+
                     /* @var $exception \Exception */
                     $message = str_replace(
                         array(
@@ -186,6 +218,7 @@ EOT;
                             ':file',
                             ':line',
                             ':stack',
+                            ':previous',
                         ),array(
                             get_class($exception),
                             $exception->getMessage(),
@@ -193,6 +226,7 @@ EOT;
                             $exception->getFile(),
                             $exception->getLine(),
                             $exception->getTraceAsString(),
+                            $previous
                         ),
                         $this->message
                     );
@@ -205,7 +239,9 @@ EOT;
                             ':file',
                             ':line',
                             ':stack',
+                            ':previous',
                         ),array(
+                            '',
                             '',
                             '',
                             '',

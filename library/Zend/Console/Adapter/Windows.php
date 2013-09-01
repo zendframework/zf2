@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Console
  */
 
 namespace Zend\Console\Adapter;
@@ -13,11 +12,6 @@ namespace Zend\Console\Adapter;
 use Zend\Console\Charset;
 use Zend\Console\Exception;
 
-/**
- * @category   Zend
- * @package    Zend_Console
- * @subpackage Adapter
- */
 class Windows extends Virtual
 {
     /**
@@ -59,7 +53,7 @@ class Windows extends Virtual
         }
 
         if (count($this->probeResult) && (int) $this->probeResult[0]) {
-            $width = (int)$this->probeResult[0];
+            $width = (int) $this->probeResult[0];
         } else {
             $width = parent::getWidth();
         }
@@ -148,15 +142,6 @@ class Windows extends Virtual
         }
 
         return false;
-    }
-
-    /**
-     * Set cursor position
-     * @param int $x
-     * @param int $y
-     */
-    public function setPos($x, $y)
-    {
     }
 
     /**
@@ -263,7 +248,7 @@ class Windows extends Virtual
 
                 // Fetch the char from mask
                 $char = substr($mask, $return - 1, 1);
-            } while (!$char || ($mask !== null && !stristr($mask, $char)));
+            } while ("" === $char || ($mask !== null && false === strstr($mask, $char)));
 
             return $char;
         }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_View
  */
@@ -156,6 +156,19 @@ class PartialLoopTest extends TestCase
         }
     }
 
+    /**
+     * @return void
+     */
+    public function testPassingNullDataThrowsExcpetion()
+    {
+        $view = new View();
+        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
+        $this->helper->setView($view);
+
+        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException');
+        $result = $this->helper->__invoke('partialLoop.phtml', null);
+    }
+
     public function testPassingNoArgsReturnsHelperInstance()
     {
         $test = $this->helper->__invoke();
@@ -245,7 +258,7 @@ class PartialLoopTest extends TestCase
     /**
      * @group ZF-2737
      */
-    public function testPartialLoopIncramentsPartialCounter()
+    public function testPartialLoopIncrementsPartialCounter()
     {
         $data = array(
             array('message' => 'foo'),
@@ -258,15 +271,8 @@ class PartialLoopTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
-        $result = $this->helper->__invoke('partialLoopCouter.phtml', $data);
-        foreach ($data as $key => $item) {
-            $string = sprintf(
-                'This is an iteration: %s, pointer at %d',
-                $item['message'],
-                $key + 1
-            );
-            $this->assertContains($string, $result, $result);
-        }
+        $this->helper->__invoke('partialLoopCouter.phtml', $data);
+        $this->assertEquals(4, $this->helper->getPartialCounter());
     }
 
     /**
@@ -285,17 +291,11 @@ class PartialLoopTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
-        $result = $this->helper->__invoke('partialLoopCouter.phtml', $data);
-        foreach ($data as $key=>$item) {
-            $string = 'This is an iteration: ' . $item['message'] . ', pointer at ' . ($key+1);
-            $this->assertContains($string, $result);
-        }
+        $this->helper->__invoke('partialLoopCouter.phtml', $data);
+        $this->assertEquals(4, $this->helper->getPartialCounter());
 
-        $result = $this->helper->__invoke('partialLoopCouter.phtml', $data);
-        foreach ($data as $key=>$item) {
-            $string = 'This is an iteration: ' . $item['message'] . ', pointer at ' . ($key+1);
-            $this->assertContains($string, $result);
-        }
+        $this->helper->__invoke('partialLoopCouter.phtml', $data);
+        $this->assertEquals(4, $this->helper->getPartialCounter());
     }
 }
 

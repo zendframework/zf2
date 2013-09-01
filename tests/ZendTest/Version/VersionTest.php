@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_VersionTest.php
  */
@@ -65,6 +65,19 @@ class Zend_VersionTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('This test requires openssl extension to be enabled in PHP');
         }
         $actual = Version::getLatest();
+
+        $this->assertRegExp('/^[1-2](\.[0-9]+){2}/', $actual);
+    }
+
+    public function testFetchLatestZENDVersion()
+    {
+        if (!constant('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
+            $this->markTestSkipped('Version online tests are not enabled');
+        }
+        if (!extension_loaded('openssl')) {
+            $this->markTestSkipped('This test requires openssl extension to be enabled in PHP');
+        }
+        $actual = Version::getLatest('ZEND');
 
         $this->assertRegExp('/^[1-2](\.[0-9]+){2}/', $actual);
     }

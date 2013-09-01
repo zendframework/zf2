@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Session
  */
 
 namespace Zend\Session\SaveHandler;
@@ -15,10 +14,6 @@ use Zend\Cache\Storage\StorageInterface as CacheStorage;
 
 /**
  * Cache session save handler
- *
- * @category   Zend
- * @package    Zend_Session
- * @subpackage SaveHandler
  */
 class Cache implements SaveHandlerInterface
 {
@@ -57,7 +52,7 @@ class Cache implements SaveHandlerInterface
      *
      * @param string $savePath
      * @param string $name
-     * @return boolean
+     * @return bool
      */
     public function open($savePath, $name)
     {
@@ -71,7 +66,7 @@ class Cache implements SaveHandlerInterface
     /**
      * Close session
      *
-     * @return boolean
+     * @return bool
      */
     public function close()
     {
@@ -86,7 +81,7 @@ class Cache implements SaveHandlerInterface
      */
     public function read($id)
     {
-        return $this->getCacheStorge()->getItem($id);
+        return $this->getCacheStorage()->getItem($id);
     }
 
     /**
@@ -94,33 +89,33 @@ class Cache implements SaveHandlerInterface
      *
      * @param string $id
      * @param string $data
-     * @return boolean
+     * @return bool
      */
     public function write($id, $data)
     {
-        return $this->getCacheStorge()->setItem($id, $data);
+        return $this->getCacheStorage()->setItem($id, $data);
     }
 
     /**
      * Destroy session
      *
      * @param string $id
-     * @return boolean
+     * @return bool
      */
     public function destroy($id)
     {
-        return $this->getCacheStorge()->removeItem($id);
+        return $this->getCacheStorage()->removeItem($id);
     }
 
     /**
      * Garbage Collection
      *
      * @param int $maxlifetime
-     * @return boolean
+     * @return bool
      */
     public function gc($maxlifetime)
     {
-        $cache = $this->getCacheStorge();
+        $cache = $this->getCacheStorage();
         if ($cache instanceof ClearExpiredCacheStorage) {
             return $cache->clearExpired();
         }
@@ -140,12 +135,20 @@ class Cache implements SaveHandlerInterface
     }
 
     /**
-     * Get Cache Storage Adapter Object
+     * Get cache storage
      *
      * @return CacheStorage
      */
-    public function getCacheStorge()
+    public function getCacheStorage()
     {
         return $this->cacheStorage;
+    }
+
+    /**
+     * @deprecated Misspelled method - use getCacheStorage() instead
+     */
+    public function getCacheStorge()
+    {
+        return $this->getCacheStorage();
     }
 }

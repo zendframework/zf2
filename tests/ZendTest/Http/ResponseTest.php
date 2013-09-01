@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Http
  */
@@ -88,7 +88,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('OK', $response->getReasonPhrase());
     }
 
-    public function testGzipResponse ()
+    public function testGzipResponse()
     {
         $response_text = file_get_contents(__DIR__ . '/_files/response_gzip');
 
@@ -99,7 +99,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('f24dd075ba2ebfb3bf21270e3fdc5303', md5($res->getContent()));
     }
 
-    public function testDeflateResponse ()
+    public function testDeflateResponse()
     {
         $response_text = file_get_contents(__DIR__ . '/_files/response_deflate');
 
@@ -131,7 +131,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('c830dd74bb502443cf12514c185ff174', md5($res->getContent()));
     }
 
-    public function testChunkedResponse ()
+    public function testChunkedResponse()
     {
         $response_text = file_get_contents(__DIR__ . '/_files/response_chunked');
 

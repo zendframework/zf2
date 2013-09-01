@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Filter
  */
@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\StringToLower as StringToLowerFilter;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @category   Zend
@@ -157,5 +158,32 @@ class StringToLowerTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->assertEquals(mb_internal_encoding(), $this->_filter->getEncoding());
+    }
+
+    /**
+     * Ensures that a warning is raised if array is used
+     *
+     * @return void
+     */
+    public function testWarningIsRaisedIfArrayUsed()
+    {
+        $input = array('ABC', 'DEF');
+
+        ErrorHandler::start(E_USER_WARNING);
+        $filtered = $this->_filter->filter($input);
+        $err = ErrorHandler::stop();
+
+        $this->assertEquals($input, $filtered);
+        $this->assertInstanceOf('ErrorException', $err);
+        $this->assertContains('cannot filter', $err->getMessage());
+    }
+
+    /**
+     * @return void
+     */
+    public function testReturnsNullIfNullIsUsed()
+    {
+        $filtered = $this->_filter->filter(null);
+        $this->assertNull($filtered);
     }
 }

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Loader
  */
 
 namespace Zend\Loader;
@@ -13,16 +12,10 @@ namespace Zend\Loader;
 use ReflectionClass;
 use Traversable;
 
-require_once __DIR__ . '/SplAutoloader.php';
-
 if (class_exists('Zend\Loader\AutoloaderFactory')) {
     return;
 }
 
-/**
- * @category   Zend
- * @package    Zend_Loader
- */
 abstract class AutoloaderFactory
 {
     const STANDARD_AUTOLOADER = 'Zend\Loader\StandardAutoloader';
@@ -84,7 +77,7 @@ abstract class AutoloaderFactory
             );
         }
 
-        foreach ($options as $class => $options) {
+        foreach ($options as $class => $autoloaderOptions) {
             if (!isset(static::$loaders[$class])) {
                 $autoloader = static::getStandardAutoloader();
                 if (!class_exists($class) && !$autoloader->autoload($class)) {
@@ -94,7 +87,7 @@ abstract class AutoloaderFactory
                     );
                 }
 
-                if (!self::isSubclassOf($class, 'Zend\Loader\SplAutoloader')) {
+                if (!static::isSubclassOf($class, 'Zend\Loader\SplAutoloader')) {
                     require_once 'Exception/InvalidArgumentException.php';
                     throw new Exception\InvalidArgumentException(
                         sprintf('Autoloader class %s must implement Zend\\Loader\\SplAutoloader', $class)
@@ -102,14 +95,14 @@ abstract class AutoloaderFactory
                 }
 
                 if ($class === static::STANDARD_AUTOLOADER) {
-                    $autoloader->setOptions($options);
+                    $autoloader->setOptions($autoloaderOptions);
                 } else {
-                    $autoloader = new $class($options);
+                    $autoloader = new $class($autoloaderOptions);
                 }
                 $autoloader->register();
                 static::$loaders[$class] = $autoloader;
             } else {
-                static::$loaders[$class]->setOptions($options);
+                static::$loaders[$class]->setOptions($autoloaderOptions);
             }
         }
     }

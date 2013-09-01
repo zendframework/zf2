@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Form
  */
@@ -23,7 +23,6 @@ class AnnotationBuilderTest extends TestCase
         ) {
             $this->markTestSkipped('Enable TESTS_ZEND_FORM_ANNOTATION_SUPPORT to test annotation parsing');
         }
-
     }
 
     public function testCanCreateFormFromStandardEntity()
@@ -187,6 +186,17 @@ class AnnotationBuilderTest extends TestCase
         $this->assertEquals(array('class' => 'label'), $username->getLabelAttributes());
     }
 
+    public function testCanHandleHydratorArrayAnnotation()
+    {
+        $entity  = new TestAsset\Annotation\EntityWithHydratorArray();
+        $builder = new Annotation\AnnotationBuilder();
+        $form    = $builder->createForm($entity);
+
+        $hydrator = $form->getHydrator();
+        $this->assertInstanceOf('Zend\Stdlib\Hydrator\ClassMethods', $hydrator);
+        $this->assertFalse($hydrator->getUnderscoreSeparatedKeys());
+    }
+
     public function testAllowTypeAsElementNameInInputFilter()
     {
         $entity  = new TestAsset\Annotation\EntityWithTypeAsElementName();
@@ -196,5 +206,41 @@ class AnnotationBuilderTest extends TestCase
         $this->assertInstanceOf('Zend\Form\Form', $form);
         $element = $form->get('type');
         $this->assertInstanceOf('Zend\Form\Element', $element);
+    }
+
+    public function testAllowEmptyInput()
+    {
+        $entity  = new TestAsset\Annotation\SampleEntity();
+        $builder = new Annotation\AnnotationBuilder();
+        $form    = $builder->createForm($entity);
+
+        $inputFilter = $form->getInputFilter();
+        $sampleinput = $inputFilter->get('sampleinput');
+        $this->assertTrue($sampleinput->allowEmpty());
+    }
+
+    public function testInputNotRequiredByDefault()
+    {
+        $entity = new TestAsset\Annotation\SampleEntity();
+        $builder = new Annotation\AnnotationBuilder();
+        $form = $builder->createForm($entity);
+        $inputFilter = $form->getInputFilter();
+        $sampleinput = $inputFilter->get('anotherSampleInput');
+        $this->assertFalse($sampleinput->isRequired());
+    }
+
+    public function testObjectElementAnnotation()
+    {
+        $entity = new TestAsset\Annotation\EntityUsingObjectProperty();
+        $builder = new Annotation\AnnotationBuilder();
+        $form = $builder->createForm($entity);
+
+        $fieldset = $form->get('object');
+        /* @var $fieldset Zend\Form\Fieldset */
+
+        $this->assertInstanceOf('Zend\Form\Fieldset',$fieldset);
+        $this->assertInstanceOf('ZendTest\Form\TestAsset\Annotation\Entity',$fieldset->getObject());
+        $this->assertInstanceOf("Zend\Stdlib\Hydrator\ClassMethods",$fieldset->getHydrator());
+        $this->assertFalse($fieldset->getHydrator()->getUnderscoreSeparatedKeys());
     }
 }

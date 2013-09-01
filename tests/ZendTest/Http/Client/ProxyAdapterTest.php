@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Http
  */
@@ -28,6 +28,11 @@ use Zend\Http\Client;
  */
 class ProxyAdapterTest extends SocketTest
 {
+
+
+    protected $host;
+    protected $port;
+
     /**
      * Configuration array
      *
@@ -43,6 +48,8 @@ class ProxyAdapterTest extends SocketTest
             if (! $host)
                 $this->markTestSkipped('No valid proxy host name or address specified.');
 
+            $this->host = $host;
+
             $port = (int) $port;
             if ($port == 0) {
                 $port = 8080;
@@ -50,6 +57,8 @@ class ProxyAdapterTest extends SocketTest
                 if (($port < 1 || $port > 65535))
                     $this->markTestSkipped("$port is not a valid proxy port number. Should be between 1 and 65535.");
             }
+
+            $this->port = $port;
 
             $user = '';
             $pass = '';
@@ -110,4 +119,18 @@ class ProxyAdapterTest extends SocketTest
         $this->assertEquals(TRUE, $config['sslverifypeer']);
         $this->assertEquals(FALSE, $config['sslallowselfsigned']);
     }
+
+    /**
+     * Test that the proxy keys normalised by the client are correctly converted to what the proxy adapter expects.
+     */
+    public function testProxyKeysCorrectlySetInProxyAdapter()
+    {
+        $adapterConfig = $this->_adapter->getConfig();
+        $adapterHost = $adapterConfig['proxy_host'];
+        $adapterPort = $adapterConfig['proxy_port'];
+
+        $this->assertSame($this->host, $adapterHost);
+        $this->assertSame($this->port, $adapterPort);
+    }
+
 }

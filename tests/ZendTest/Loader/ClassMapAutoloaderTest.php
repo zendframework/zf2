@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Loader
  */
@@ -147,7 +147,8 @@ class ClassMapAutoloaderTest extends \PHPUnit_Framework_TestCase
     {
         $map = array('ZendTest\UnusualNamespace\ClassMappedClass' => __DIR__ . '/TestAsset/ClassMappedClass.php');
         $this->loader->registerAutoloadMap($map);
-        $this->loader->autoload('ZendTest\UnusualNamespace\ClassMappedClass');
+        $loaded = $this->loader->autoload('ZendTest\UnusualNamespace\ClassMappedClass');
+        $this->assertSame('ZendTest\UnusualNamespace\ClassMappedClass', $loaded);
         $this->assertTrue(class_exists('ZendTest\UnusualNamespace\ClassMappedClass', false));
     }
 
@@ -155,7 +156,7 @@ class ClassMapAutoloaderTest extends \PHPUnit_Framework_TestCase
     {
         $map = array('ZendTest\UnusualNamespace\ClassMappedClass' => __DIR__ . '/TestAsset/ClassMappedClass.php');
         $this->loader->registerAutoloadMap($map);
-        $this->loader->autoload('ZendTest\UnusualNamespace\UnMappedClass');
+        $this->assertFalse($this->loader->autoload('ZendTest\UnusualNamespace\UnMappedClass'));
         $this->assertFalse(class_exists('ZendTest\UnusualNamespace\UnMappedClass', false));
     }
 
@@ -172,7 +173,8 @@ class ClassMapAutoloaderTest extends \PHPUnit_Framework_TestCase
     {
         $map = 'phar://' . __DIR__ . '/_files/classmap.phar/test/.//../autoload_classmap.php';
         $this->loader->registerAutoloadMap($map);
-        $this->loader->autoload('some\loadedclass');
+        $loaded = $this->loader->autoload('some\loadedclass');
+        $this->assertSame('some\loadedclass', $loaded);
         $this->assertTrue(class_exists('some\loadedclass', false));
 
         // will not register duplicate, even with a different relative path

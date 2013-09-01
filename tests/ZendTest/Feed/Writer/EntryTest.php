@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Feed
  */
@@ -706,5 +706,33 @@ class EntryTest extends \PHPUnit_Framework_TestCase
 
         $entry->setSource($entry->createSource());
         $this->assertInstanceOf('Zend\Feed\Writer\Source', $entry->getSource());
+    }
+
+    public function testFluentInterface()
+    {
+        $entry = new Writer\Entry;
+
+        $result = $entry->addAuthor(array('name' => 'foo'))
+                        ->addAuthors(array(array('name' => 'foo')))
+                        ->setEncoding('utf-8')
+                        ->setCopyright('copyright')
+                        ->setContent('content')
+                        ->setDateCreated(null)
+                        ->setDateModified(null)
+                        ->setDescription('description')
+                        ->setId('1')
+                        ->setLink('http://www.example.com')
+                        ->setCommentCount(1)
+                        ->setCommentLink('http://www.example.com')
+                        ->setCommentFeedLink(array('uri' => 'http://www.example.com', 'type' => 'rss'))
+                        ->setCommentFeedLinks(array(array('uri' => 'http://www.example.com', 'type' => 'rss')))
+                        ->setTitle('title')
+                        ->addCategory(array('term' => 'category'))
+                        ->addCategories(array(array('term' => 'category')))
+                        ->setEnclosure(array('uri' => 'http://www.example.com'))
+                        ->setType('type')
+                        ->setSource(new \Zend\Feed\Writer\Source());
+
+        $this->assertSame($result, $entry);
     }
 }

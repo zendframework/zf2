@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Http
  */
 
 namespace Zend\Http\Header;
@@ -43,7 +42,7 @@ class CacheControl implements HeaderInterface
         }
 
         // @todo implementation details
-        $header->directives = self::parseValue($value);
+        $header->directives = static::parseValue($value);
 
         return $header;
     }
@@ -61,7 +60,7 @@ class CacheControl implements HeaderInterface
     /**
      * Checks if the internal directives array is empty
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -74,7 +73,7 @@ class CacheControl implements HeaderInterface
      * For directives like 'private', use the default $value = true
      *
      * @param string $key
-     * @param string|boolean $value
+     * @param string|bool $value
      * @return CacheControl - provides the fluent interface
      */
     public function addDirective($key, $value = true)
@@ -87,7 +86,7 @@ class CacheControl implements HeaderInterface
      * Check the internal directives array for a directive
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function hasDirective($key)
     {
@@ -171,7 +170,7 @@ class CacheControl implements HeaderInterface
         $lastMatch = null;
 
         state_directive:
-        switch (self::match(array('[a-zA-Z][a-zA-Z_-]*'), $value, $lastMatch)) {
+        switch (static::match(array('[a-zA-Z][a-zA-Z_-]*'), $value, $lastMatch)) {
             case 0:
                 $directive = $lastMatch;
                 goto state_value;
@@ -183,7 +182,7 @@ class CacheControl implements HeaderInterface
         }
 
         state_value:
-        switch (self::match(array('="[^"]*"', '=[^",\s;]*'), $value, $lastMatch)) {
+        switch (static::match(array('="[^"]*"', '=[^",\s;]*'), $value, $lastMatch)) {
             case 0:
                 $directives[$directive] = substr($lastMatch, 2, -1);
                 goto state_separator;
@@ -201,7 +200,7 @@ class CacheControl implements HeaderInterface
         }
 
         state_separator:
-        switch (self::match(array('\s*,\s*', '$'), $value, $lastMatch)) {
+        switch (static::match(array('\s*,\s*', '$'), $value, $lastMatch)) {
             case 0:
                 goto state_directive;
                 break;

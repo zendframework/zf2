@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Db
  */
 
 namespace Zend\Db\TableGateway\Feature;
@@ -13,12 +12,8 @@ namespace Zend\Db\TableGateway\Feature;
 use Zend\Db\Metadata\Metadata;
 use Zend\Db\Metadata\MetadataInterface;
 use Zend\Db\TableGateway\Exception;
+use Zend\Db\Metadata\Object\TableObject;
 
-/**
- * @category   Zend
- * @package    Zend_Db
- * @subpackage TableGateway
- */
 class MetadataFeature extends AbstractFeature
 {
 
@@ -60,7 +55,11 @@ class MetadataFeature extends AbstractFeature
         // set locally
         $this->sharedData['metadata']['columns'] = $columns;
 
-        // process primary key
+        // process primary key only if table is a table; there are no PK constraints on views
+        if (!($m->getTable($t->table) instanceof TableObject)) {
+            return;
+        }
+
         $pkc = null;
 
         foreach ($m->getConstraints($t->table) as $constraint) {

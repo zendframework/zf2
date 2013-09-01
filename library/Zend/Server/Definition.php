@@ -3,20 +3,19 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Server
  */
 
 namespace Zend\Server;
 
+use Countable;
+use Iterator;
+
 /**
  * Server methods metadata
- *
- * @category   Zend
- * @package    Zend_Server
  */
-class Definition implements \Countable, \Iterator
+class Definition implements Countable, Iterator
 {
     /**
      * @var array Array of \Zend\Server\Method\Definition objects
@@ -58,7 +57,7 @@ class Definition implements \Countable, \Iterator
      * @param  array|\Zend\Server\Method\Definition $method
      * @param  null|string $name
      * @return \Zend\Server\Definition
-     * @throws \Zend\Server\Exception\ExceptionInterface if duplicate or invalid method provided
+     * @throws \Zend\Server\Exception\InvalidArgumentException if duplicate or invalid method provided
      */
     public function addMethod($method, $name = null)
     {
@@ -235,7 +234,7 @@ class Definition implements \Countable, \Iterator
      */
     public function rewind()
     {
-        return reset($this->methods);
+        reset($this->methods);
     }
 
     /**

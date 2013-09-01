@@ -1,20 +1,8 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Mvc_Router
- * @subpackage Http
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -25,20 +13,18 @@
 namespace Zend\Mvc\Router\Console;
 
 use Traversable;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Mvc\Router\Exception;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Filter\FilterChain;
+use Zend\Mvc\Router\Exception;
+use Zend\Stdlib\RequestInterface as Request;
 use Zend\Validator\ValidatorChain;
 
 /**
  * Segment route.
  *
- * @package    Zend_Mvc_Router
- * @subpackage Http
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @see        http://manuals.rubyonrails.com/read/chapter/65
+ * @see        http://guides.rubyonrails.org/routing.html
  */
 class Catchall implements RouteInterface
 {
@@ -72,12 +58,12 @@ class Catchall implements RouteInterface
     protected $assembledParams = array();
 
     /**
-     * @var \Zend\Validator\ValidatorChain
+     * @var ValidatorChain
      */
     protected $validators;
 
     /**
-     * @var \Zend\Filter\FilterChain
+     * @var FilterChain
      */
     protected $filters;
 
@@ -95,7 +81,7 @@ class Catchall implements RouteInterface
     /**
      * factory(): defined by Route interface.
      *
-     * @see    Route::factory()
+     * @see    \Zend\Mvc\Router\RouteInterface::factory()
      * @param  array|Traversable $options
      * @return Simple
      */
@@ -123,7 +109,7 @@ class Catchall implements RouteInterface
     /**
      * assemble(): Defined by Route interface.
      *
-     * @see    Route::assemble()
+     * @see    \Zend\Mvc\Router\RouteInterface::assemble()
      * @param  array $params
      * @param  array $options
      * @return mixed
@@ -136,7 +122,7 @@ class Catchall implements RouteInterface
     /**
      * getAssembledParams(): defined by Route interface.
      *
-     * @see    Route::getAssembledParams
+     * @see    RouteInterface::getAssembledParams
      * @return array
      */
     public function getAssembledParams()

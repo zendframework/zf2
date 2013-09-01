@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Di
  */
 
 namespace Zend\Di\Definition;
@@ -14,9 +13,6 @@ use Zend\Di\Exception;
 
 /**
  * Class definitions based on a configuration array
- *
- * @category   Zend
- * @package    Zend_Di
  */
 class BuilderDefinition implements DefinitionInterface
 {
@@ -295,20 +291,26 @@ class BuilderDefinition implements DefinitionInterface
     public function getMethodParameters($class, $method)
     {
         $class = $this->getClass($class);
+
         if ($class === false) {
             throw new Exception\RuntimeException('Cannot find class object in this builder definition.');
         }
+
         $methods = $class->getInjectionMethods();
+
         /* @var $methodObj Builder\InjectionMethod */
         foreach ($methods as $methodObj) {
             if ($methodObj->getName() === $method) {
                 $method = $methodObj;
             }
         }
+
         if (!$method instanceof Builder\InjectionMethod) {
             throw new Exception\RuntimeException('Cannot find method object for method ' . $method . ' in this builder definition.');
         }
+
         $methodParameters = array();
+
         /* @var $method Builder\InjectionMethod */
         foreach ($method->getParameters() as $name => $info) {
             $methodParameters[$class->getName() . '::' . $method->getName() . ':' . $name] = $info;
@@ -316,5 +318,4 @@ class BuilderDefinition implements DefinitionInterface
 
         return $methodParameters;
     }
-
 }

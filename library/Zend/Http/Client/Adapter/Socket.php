@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Http
  */
 
 namespace Zend\Http\Client\Adapter;
@@ -20,10 +19,6 @@ use Zend\Stdlib\ErrorHandler;
 /**
  * A sockets based (stream\socket\client) adapter class for Zend\Http\Client. Can be used
  * on almost every PHP environment, and does not require any special extensions.
- *
- * @category   Zend
- * @package    Zend_Http
- * @subpackage Client_Adapter
  */
 class Socket implements HttpAdapter, StreamInterface
 {
@@ -51,14 +46,14 @@ class Socket implements HttpAdapter, StreamInterface
      *
      * @var array
      */
-    protected $connected_to = array(null, null);
+    protected $connectedTo = array(null, null);
 
     /**
      * Stream for storing output
      *
      * @var resource
      */
-    protected $out_stream = null;
+    protected $outStream = null;
 
     /**
      * Parameters array
@@ -111,7 +106,7 @@ class Socket implements HttpAdapter, StreamInterface
         }
         if (!is_array($options)) {
             throw new AdapterException\InvalidArgumentException(
-                'Array or Zend_Config object expected, got ' . gettype($options)
+                'Array or Zend\Config object expected, got ' . gettype($options)
             );
         }
 
@@ -183,13 +178,17 @@ class Socket implements HttpAdapter, StreamInterface
      *
      * @param string  $host
      * @param int     $port
-     * @param boolean $secure
+     * @param  bool $secure
      * @throws AdapterException\RuntimeException
      */
     public function connect($host, $port = 80, $secure = false)
     {
         // If we are connected to the wrong host, disconnect first
-        if (($this->connected_to[0] != $host || $this->connected_to[1] != $port)) {
+        $connectedHost = (strpos($this->connectedTo[0], '://'))
+            ? substr($this->connectedTo[0], (strpos($this->connectedTo[0], '://') + 3), strlen($this->connectedTo[0]))
+            : $this->connectedTo[0];
+
+        if ($connectedHost != $host || $this->connectedTo[1] != $port) {
             if (is_resource($this->socket)) {
                 $this->close();
             }
@@ -267,8 +266,8 @@ class Socket implements HttpAdapter, StreamInterface
             }
 
             if ($secure || $this->config['sslusecontext']) {
-                if ($this->config['ssltransport'] && isset(self::$sslCryptoTypes[$this->config['ssltransport']])) {
-                    $sslCryptoMethod = self::$sslCryptoTypes[$this->config['ssltransport']];
+                if ($this->config['ssltransport'] && isset(static::$sslCryptoTypes[$this->config['ssltransport']])) {
+                    $sslCryptoMethod = static::$sslCryptoTypes[$this->config['ssltransport']];
                 } else {
                     $sslCryptoMethod = STREAM_CRYPTO_METHOD_SSLv3_CLIENT;
                 }
@@ -279,8 +278,10 @@ class Socket implements HttpAdapter, StreamInterface
                 if (!$test || $error) {
                     // Error handling is kind of difficult when it comes to SSL
                     $errorString = '';
-                    while (($sslError = openssl_error_string()) != false) {
-                        $errorString .= "; SSL error: $sslError";
+                    if (extension_loaded('openssl')) {
+                        while (($sslError = openssl_error_string()) != false) {
+                            $errorString .= "; SSL error: $sslError";
+                        }
                     }
                     $this->close();
 
@@ -307,8 +308,8 @@ class Socket implements HttpAdapter, StreamInterface
                 $host = 'tcp://' . $host;
             }
 
-            // Update connected_to
-            $this->connected_to = array($host, $port);
+            // Update connectedTo
+            $this->connectedTo = array($host, $port);
         }
     }
 
@@ -318,13 +319,13 @@ class Socket implements HttpAdapter, StreamInterface
      *
      * @param string        $method
      * @param \Zend\Uri\Uri $uri
-     * @param string        $http_ver
+     * @param string        $httpVer
      * @param array         $headers
      * @param string        $body
      * @throws AdapterException\RuntimeException
      * @return string Request as string
      */
-    public function write($method, $uri, $http_ver = '1.1', $headers = array(), $body = '')
+    public function write($method, $uri, $httpVer = '1.1', $headers = array(), $body = '')
     {
         // Make sure we're properly connected
         if (! $this->socket) {
@@ -333,7 +334,7 @@ class Socket implements HttpAdapter, StreamInterface
 
         $host = $uri->getHost();
         $host = (strtolower($uri->getScheme()) == 'https' ? $this->config['ssltransport'] : 'tcp') . '://' . $host;
-        if ($this->connected_to[0] != $host || $this->connected_to[1] != $uri->getPort()) {
+        if ($this->connectedTo[0] != $host || $this->connectedTo[1] != $uri->getPort()) {
             throw new AdapterException\RuntimeException('Trying to write but we are connected to the wrong host');
         }
 
@@ -343,7 +344,7 @@ class Socket implements HttpAdapter, StreamInterface
         // Build request headers
         $path = $uri->getPath();
         if ($uri->getQuery()) $path .= '?' . $uri->getQuery();
-        $request = "{$method} {$path} HTTP/{$http_ver}\r\n";
+        $request = "{$method} {$path} HTTP/{$httpVer}\r\n";
         foreach ($headers as $k => $v) {
             if (is_string($k)) $v = ucfirst($k) . ": $v";
             $request .= "$v\r\n";
@@ -360,7 +361,7 @@ class Socket implements HttpAdapter, StreamInterface
         ErrorHandler::start();
         $test  = fwrite($this->socket, $request);
         $error = ErrorHandler::stop();
-        if (!$test) {
+        if (false === $test) {
             throw new AdapterException\RuntimeException('Error writing request to server', 0, $error);
         }
 
@@ -421,11 +422,11 @@ class Socket implements HttpAdapter, StreamInterface
         }
 
         // If we got a 'transfer-encoding: chunked' header
-        $transfer_encoding = $headers->get('transfer-encoding');
-        $content_length = $headers->get('content-length');
-        if ($transfer_encoding !== false) {
+        $transferEncoding = $headers->get('transfer-encoding');
+        $contentLength = $headers->get('content-length');
+        if ($transferEncoding !== false) {
 
-            if (strtolower($transfer_encoding->getFieldValue()) == 'chunked') {
+            if (strtolower($transferEncoding->getFieldValue()) == 'chunked') {
 
                 do {
                     $line  = fgets($this->socket);
@@ -445,19 +446,19 @@ class Socket implements HttpAdapter, StreamInterface
                     $chunksize = hexdec($chunksize);
 
                     // Read next chunk
-                    $read_to = ftell($this->socket) + $chunksize;
+                    $readTo = ftell($this->socket) + $chunksize;
 
                     do {
-                        $current_pos = ftell($this->socket);
-                        if ($current_pos >= $read_to) break;
+                        $currentPos = ftell($this->socket);
+                        if ($currentPos >= $readTo) break;
 
-                        if ($this->out_stream) {
-                            if (stream_copy_to_stream($this->socket, $this->out_stream, $read_to - $current_pos) == 0) {
+                        if ($this->outStream) {
+                            if (stream_copy_to_stream($this->socket, $this->outStream, $readTo - $currentPos) == 0) {
                               $this->_checkSocketReadTimeout();
                               break;
                              }
                         } else {
-                            $line = fread($this->socket, $read_to - $current_pos);
+                            $line = fread($this->socket, $readTo - $currentPos);
                             if ($line === false || strlen($line) === 0) {
                                 $this->_checkSocketReadTimeout();
                                 break;
@@ -471,45 +472,45 @@ class Socket implements HttpAdapter, StreamInterface
                     ErrorHandler::stop();
                     $this->_checkSocketReadTimeout();
 
-                    if (!$this->out_stream) {
+                    if (!$this->outStream) {
                         $response .= $chunk;
                     }
                 } while ($chunksize > 0);
             } else {
                 $this->close();
                 throw new AdapterException\RuntimeException('Cannot handle "' .
-                    $transfer_encoding->getFieldValue() . '" transfer encoding');
+                    $transferEncoding->getFieldValue() . '" transfer encoding');
             }
 
             // We automatically decode chunked-messages when writing to a stream
-            // this means we have to disallow the Zend_Http_Response to do it again
-            if ($this->out_stream) {
+            // this means we have to disallow the Zend\Http\Response to do it again
+            if ($this->outStream) {
                 $response = str_ireplace("Transfer-Encoding: chunked\r\n", '', $response);
             }
         // Else, if we got the content-length header, read this number of bytes
-        } elseif ($content_length !== false) {
+        } elseif ($contentLength !== false) {
 
             // If we got more than one Content-Length header (see ZF-9404) use
             // the last value sent
-            if (is_array($content_length)) {
-                $content_length = $content_length[count($content_length) - 1];
+            if (is_array($contentLength)) {
+                $contentLength = $contentLength[count($contentLength) - 1];
             }
-            $contentLength = $content_length->getFieldValue();
+            $contentLength = $contentLength->getFieldValue();
 
-            $current_pos = ftell($this->socket);
+            $currentPos = ftell($this->socket);
             $chunk = '';
 
-            for ($read_to = $current_pos + $contentLength;
-                 $read_to > $current_pos;
-                 $current_pos = ftell($this->socket)) {
+            for ($readTo = $currentPos + $contentLength;
+                 $readTo > $currentPos;
+                 $currentPos = ftell($this->socket)) {
 
-                 if ($this->out_stream) {
-                     if (stream_copy_to_stream($this->socket, $this->out_stream, $read_to - $current_pos) == 0) {
+                 if ($this->outStream) {
+                     if (stream_copy_to_stream($this->socket, $this->outStream, $readTo - $currentPos) == 0) {
                           $this->_checkSocketReadTimeout();
                           break;
                      }
                  } else {
-                    $chunk = fread($this->socket, $read_to - $current_pos);
+                    $chunk = fread($this->socket, $readTo - $currentPos);
                     if ($chunk === false || strlen($chunk) === 0) {
                         $this->_checkSocketReadTimeout();
                         break;
@@ -526,8 +527,8 @@ class Socket implements HttpAdapter, StreamInterface
         } else {
 
             do {
-                if ($this->out_stream) {
-                    if (stream_copy_to_stream($this->socket, $this->out_stream) == 0) {
+                if ($this->outStream) {
+                    if (stream_copy_to_stream($this->socket, $this->outStream) == 0) {
                           $this->_checkSocketReadTimeout();
                           break;
                      }
@@ -567,7 +568,7 @@ class Socket implements HttpAdapter, StreamInterface
             ErrorHandler::stop();
         }
         $this->socket = null;
-        $this->connected_to = array(null, null);
+        $this->connectedTo = array(null, null);
     }
 
     /**
@@ -599,7 +600,7 @@ class Socket implements HttpAdapter, StreamInterface
      */
     public function setOutputStream($stream)
     {
-        $this->out_stream = $stream;
+        $this->outStream = $stream;
         return $this;
     }
 

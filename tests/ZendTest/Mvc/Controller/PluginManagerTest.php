@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Mvc
  */
@@ -15,6 +15,7 @@ use ZendTest\Mvc\Controller\TestAsset\SampleController;
 use ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePlugin;
 use ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructor;
 use Zend\Mvc\Controller\PluginManager;
+use Zend\ServiceManager\ServiceManager;
 
 class PluginManagerTest extends TestCase
 {
@@ -69,6 +70,40 @@ class PluginManagerTest extends TestCase
         $pluginManager = new PluginManager;
         $pluginManager->setInvokableClass('samplePlugin', 'ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructor');
         $plugin = $pluginManager->get('samplePlugin', 'foo');
+        $this->assertEquals($plugin->getBar(), 'foo');
+    }
+
+    public function testDefinesFactoryForIdentityPlugin()
+    {
+        $pluginManager = new PluginManager;
+        $this->assertTrue($pluginManager->has('identity'));
+    }
+
+    public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
+    {
+        $services = new ServiceManager();
+        $services->setInvokableClass('Zend\Authentication\AuthenticationService', 'Zend\Authentication\AuthenticationService');
+        $pluginManager = new PluginManager;
+        $pluginManager->setServiceLocator($services);
+        $identity = $pluginManager->get('identity');
+        $expected = $services->get('Zend\Authentication\AuthenticationService');
+        $this->assertSame($expected, $identity->getAuthenticationService());
+    }
+
+    public function testCanCreateByFactory()
+    {
+        $pluginManager = new PluginManager;
+        $pluginManager->setFactory('samplePlugin', 'ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginFactory');
+        $plugin = $pluginManager->get('samplePlugin');
+        $this->assertInstanceOf('\ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePlugin', $plugin);
+    }
+
+    public function testCanCreateByFactoryWithConstrutor()
+    {
+        $pluginManager = new PluginManager;
+        $pluginManager->setFactory('samplePlugin', 'ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructorFactory');
+        $plugin = $pluginManager->get('samplePlugin', 'foo');
+        $this->assertInstanceOf('\ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructor', $plugin);
         $this->assertEquals($plugin->getBar(), 'foo');
     }
 }

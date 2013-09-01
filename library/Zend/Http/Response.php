@@ -3,20 +3,18 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Http
  */
 
 namespace Zend\Http;
 
+use Zend\Stdlib\ErrorHandler;
 use Zend\Stdlib\ResponseInterface;
 
 /**
  * HTTP Response
  *
- * @category  Zend
- * @package   Zend_Http
  * @link      http://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html#sec6
  */
 class Response extends AbstractMessage implements ResponseInterface
@@ -235,13 +233,13 @@ class Response extends AbstractMessage implements ResponseInterface
     /**
      * Set HTTP status code and (optionally) message
      *
-     * @param  integer $code
+     * @param  int $code
      * @throws Exception\InvalidArgumentException
      * @return Response
      */
     public function setStatusCode($code)
     {
-        $const = get_called_class() . '::STATUS_CODE_' . $code;
+        $const = get_class($this) . '::STATUS_CODE_' . $code;
         if (!is_numeric($code) || !defined($const)) {
             $code = is_scalar($code) ? $code : gettype($code);
             throw new Exception\InvalidArgumentException(sprintf(
@@ -476,7 +474,17 @@ class Response extends AbstractMessage implements ResponseInterface
             );
         }
 
-        return gzinflate(substr($body, 10));
+        ErrorHandler::start();
+        $return = gzinflate(substr($body, 10));
+        $test = ErrorHandler::stop();
+        if ($test) {
+            throw new Exception\RuntimeException(
+                'Error occurred during gzip inflation',
+                0,
+                $test
+            );
+        }
+        return $return;
     }
 
     /**
@@ -500,7 +508,7 @@ class Response extends AbstractMessage implements ResponseInterface
          * Some servers (IIS ?) send a broken deflate response, without the
          * RFC-required zlib header.
          *
-         * We try to detect the zlib header, and if it does not exsit we
+         * We try to detect the zlib header, and if it does not exist we
          * teat the body is plain DEFLATE content.
          *
          * This method was adapted from PEAR HTTP_Request2 by (c) Alexey Borzov

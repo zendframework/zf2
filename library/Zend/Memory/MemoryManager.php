@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Memory
  */
 
 namespace Zend\Memory;
@@ -19,9 +18,6 @@ use Zend\Cache\Storage\StorageInterface as CacheStorage;
  *
  * This class encapsulates memory menagement operations, when PHP works
  * in limited memory mode.
- *
- * @category   Zend
- * @package    Zend_Memory
  */
 class MemoryManager
 {
@@ -37,7 +33,7 @@ class MemoryManager
      * Default value is 2/3 of memory_limit php.ini variable
      * Negative value means no limit
      *
-     * @var integer
+     * @var int
      */
     private $memoryLimit = -1;
 
@@ -46,21 +42,21 @@ class MemoryManager
      * Default value is 16K
      * Negative value means that memory objects are never swapped
      *
-     * @var integer
+     * @var int
      */
     private $minSize = 16384;
 
     /**
      * Overall size of memory, used by values
      *
-     * @var integer
+     * @var int
      */
     private $memorySize = 0;
 
     /**
-     * Id for next Zend_Memory object
+     * Id for next Zend\Memory object
      *
-     * @var integer
+     * @var int
      */
     private $nextId = 0;
 
@@ -104,7 +100,7 @@ class MemoryManager
     /**
      * Unique memory manager id
      *
-     * @var integer
+     * @var int
      */
     private $managerId;
 
@@ -139,19 +135,18 @@ class MemoryManager
         $this->_generateMemManagerId();
 
         $memoryLimitStr = trim(ini_get('memory_limit'));
-        if ($memoryLimitStr != ''  &&  $memoryLimitStr != -1) {
-            $this->memoryLimit = (integer)$memoryLimitStr;
-            switch (strtolower($memoryLimitStr[strlen($memoryLimitStr)-1])) {
+        if ($memoryLimitStr != '' && $memoryLimitStr != -1) {
+            $this->memoryLimit = (int) $memoryLimitStr;
+            switch (strtolower($memoryLimitStr[strlen($memoryLimitStr) - 1])) {
                 case 'g':
                     $this->memoryLimit *= 1024;
-                    // Break intentionally omitted
+                    // no break
                 case 'm':
                     $this->memoryLimit *= 1024;
-                    // Break intentionally omitted
+                    // no break
                 case 'k':
                     $this->memoryLimit *= 1024;
                     break;
-
                 default:
                     break;
             }
@@ -179,7 +174,7 @@ class MemoryManager
     /**
      * Set memory grow limit
      *
-     * @param integer $newLimit
+     * @param int $newLimit
      */
     public function setMemoryLimit($newLimit)
     {
@@ -191,7 +186,7 @@ class MemoryManager
     /**
      * Get memory grow limit
      *
-     * @return integer
+     * @return int
      */
     public function getMemoryLimit()
     {
@@ -201,7 +196,7 @@ class MemoryManager
     /**
      * Set minimum size of values, which may be swapped
      *
-     * @param integer $newSize
+     * @param int $newSize
      */
     public function setMinSize($newSize)
     {
@@ -211,7 +206,7 @@ class MemoryManager
     /**
      * Get minimum size of values, which may be swapped
      *
-     * @return integer
+     * @return int
      */
     public function getMinSize()
     {
@@ -219,7 +214,7 @@ class MemoryManager
     }
 
     /**
-     * Create new Zend_Memory value container
+     * Create new Zend\Memory value container
      *
      * @param string $value
      * @return Container\ContainerInterface
@@ -231,7 +226,7 @@ class MemoryManager
     }
 
     /**
-     * Create new Zend_Memory value container, which has value always
+     * Create new Zend\Memory value container, which has value always
      * locked in memory
      *
      * @param string $value
@@ -244,10 +239,10 @@ class MemoryManager
     }
 
     /**
-     * Create new Zend_Memory object
+     * Create new Zend\Memory object
      *
      * @param string $value
-     * @param boolean $locked
+     * @param  bool $locked
      * @return \Zend\Memory\Container\ContainerInterface
      * @throws \Zend\Memory\Exception\ExceptionInterface
      */
@@ -279,7 +274,7 @@ class MemoryManager
      *
      * @internal
      * @param Container\Movable $container
-     * @param integer $id
+     * @param int $id
      * @return null
      */
     public function unlink(Container\Movable $container, $id)
@@ -304,7 +299,7 @@ class MemoryManager
      *
      * @internal
      * @param \Zend\Memory\Container\Movable $container
-     * @param integer $id
+     * @param int $id
      */
     public function processUpdate(Container\Movable $container, $id)
     {
@@ -319,7 +314,7 @@ class MemoryManager
         }
 
         // Remove just updated object from list of candidates to unload
-        if ( isset($this->unloadCandidates[$id])) {
+        if (isset($this->unloadCandidates[$id])) {
             unset($this->unloadCandidates[$id]);
         }
 
@@ -391,7 +386,7 @@ class MemoryManager
      * if object is not changed since last swap
      *
      * @param \Zend\Memory\Container\Movable $container
-     * @param integer $id
+     * @param int $id
      */
     private function _swap(Container\Movable $container, $id)
     {
@@ -414,7 +409,7 @@ class MemoryManager
      *
      * @internal
      * @param \Zend\Memory\Container\Movable $container
-     * @param integer $id
+     * @param int $id
      */
     public function load(Container\Movable $container, $id)
     {

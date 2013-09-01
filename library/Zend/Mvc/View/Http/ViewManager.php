@@ -3,18 +3,17 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace Zend\Mvc\View\Http;
 
 use ArrayAccess;
 use Traversable;
+use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\Exception;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\View\SendResponseListener;
 use Zend\ServiceManager\ServiceManager;
@@ -34,7 +33,7 @@ use Zend\View\View;
  *
  * Defines and manages the following services:
  *
- * - ViewHelperManager (also aliased to Zend\View\HelperPluginManager and ViewHelperBroker)
+ * - ViewHelperManager (also aliased to Zend\View\HelperPluginManager)
  * - ViewTemplateMapResolver (also aliased to Zend\View\Resolver\TemplateMapResolver)
  * - ViewTemplatePathStack (also aliased to Zend\View\Resolver\TemplatePathStack)
  * - ViewResolver (also aliased to Zend\View\Resolver\AggregateResolver and ResolverInterface)
@@ -45,25 +44,21 @@ use Zend\View\View;
  * - ExceptionStrategy (also aliased to Zend\Mvc\View\Http\ExceptionStrategy)
  * - RouteNotFoundStrategy (also aliased to Zend\Mvc\View\Http\RouteNotFoundStrategy and 404Strategy)
  * - ViewModel
- *
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage View
  */
-class ViewManager implements ListenerAggregateInterface
+class ViewManager extends AbstractListenerAggregate
 {
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = array();
-
     /**
      * @var object application configuration service
      */
     protected $config;
 
     /**
-     * @var \Zend\ServiceManager\ServiceManager
+     * @var MvcEvent
+     */
+    protected $event;
+
+    /**
+     * @var ServiceManager
      */
     protected $services;
 
@@ -83,10 +78,7 @@ class ViewManager implements ListenerAggregateInterface
     /**@-*/
 
     /**
-     * Attach the aggregate to the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
+     * {@inheritDoc}
      */
     public function attach(EventManagerInterface $events)
     {
@@ -134,7 +126,6 @@ class ViewManager implements ListenerAggregateInterface
         $createViewModelListener = new CreateViewModelListener();
         $injectTemplateListener  = new InjectTemplateListener();
         $injectViewModelListener = new InjectViewModelListener();
-        $sendResponseListener    = new SendResponseListener();
 
         $this->registerMvcRenderingStrategies($events);
         $this->registerViewStrategies();
@@ -142,8 +133,8 @@ class ViewManager implements ListenerAggregateInterface
         $events->attach($routeNotFoundStrategy);
         $events->attach($exceptionStrategy);
         $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($injectViewModelListener, 'injectViewModel'), -100);
+        $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($injectViewModelListener, 'injectViewModel'), -100);
         $events->attach($mvcRenderingStrategy);
-        $events->attach($sendResponseListener);
 
         $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($createViewModelListener, 'createViewModelFromArray'), -80);
         $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($routeNotFoundStrategy, 'prepareNotFoundViewModel'), -90);
@@ -155,7 +146,7 @@ class ViewManager implements ListenerAggregateInterface
     /**
      * Instantiates and configures the renderer's helper manager
      *
-     * @return ViewHelperManager
+     * @return \Zend\View\HelperPluginManager
      */
     public function getHelperManager()
     {
@@ -192,7 +183,7 @@ class ViewManager implements ListenerAggregateInterface
         }
 
         $this->renderer = new ViewPhpRenderer;
-        $this->renderer->setHelperPluginManager($this->getHelpermanager());
+        $this->renderer->setHelperPluginManager($this->getHelperManager());
         $this->renderer->setResolver($this->getResolver());
 
         $model       = $this->getViewModel();

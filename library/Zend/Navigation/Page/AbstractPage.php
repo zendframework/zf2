@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
  */
 
 namespace Zend\Navigation\Page;
@@ -18,10 +17,6 @@ use Zend\Stdlib\ArrayUtils;
 
 /**
  * Base class for Zend\Navigation\Page pages
- *
- * @category   Zend
- * @package    Zend_Navigation
- * @subpackage Page
  */
 abstract class AbstractPage extends AbstractContainer
 {
@@ -114,6 +109,13 @@ abstract class AbstractPage extends AbstractContainer
     protected $privilege;
 
     /**
+     * Permission associated with this page
+     *
+     * @var mixed|null
+     */
+    protected $permission;
+
+    /**
      * Whether this page should be considered active
      *
      * @var bool
@@ -144,19 +146,19 @@ abstract class AbstractPage extends AbstractContainer
     // Initialization:
 
     /**
-     * Factory for Zend_Navigation_Page classes
+     * Factory for Zend\Navigation\Page classes
      *
      * A specific type to construct can be specified by specifying the key
      * 'type' in $options. If type is 'uri' or 'mvc', the type will be resolved
-     * to Zend_Navigation_Page_Uri or Zend_Navigation_Page_Mvc. Any other value
+     * to Zend\Navigation\Page\Uri or Zend\Navigation\Page\Mvc. Any other value
      * for 'type' will be considered the full name of the class to construct.
-     * A valid custom page class must extend Zend_Navigation_Page.
+     * A valid custom page class must extend Zend\Navigation\Page\AbstractPage.
      *
      * If 'type' is not given, the type of page to construct will be determined
      * by the following rules:
      * - If $options contains either of the keys 'action', 'controller',
-     *   or 'route', a Zend_Navigation_Page_Mvc page will be created.
-     * - If $options contains the key 'uri', a Zend_Navigation_Page_Uri page
+     *   or 'route', a Zend\Navigation\Page\Mvc page will be created.
+     * - If $options contains the key 'uri', a Zend\Navigation\Page\Uri page
      *   will be created.
      *
      * @param  array|Traversable $options  options used for creating page
@@ -706,6 +708,31 @@ abstract class AbstractPage extends AbstractContainer
     }
 
     /**
+     * Sets permission associated with this page
+     *
+     * @param  mixed|null $permission  [optional] permission to associate
+     *                                  with this page. Default is null, which
+     *                                  sets no permission.
+     *
+     * @return AbstractPage fluent interface, returns self
+     */
+    public function setPermission($permission = null)
+    {
+        $this->permission = $permission;
+        return $this;
+    }
+
+    /**
+     * Returns permission associated with this page
+     *
+     * @return mixed|null  permission or null
+     */
+    public function getPermission()
+    {
+        return $this->permission;
+    }
+
+    /**
      * Sets whether page should be considered active or not
      *
      * @param  bool $active [optional] whether page should be
@@ -876,7 +903,7 @@ abstract class AbstractPage extends AbstractContainer
             );
         }
 
-        $method = 'set' . self::normalizePropertyName($property);
+        $method = 'set' . static::normalizePropertyName($property);
 
         if ($method != 'setOptions' && method_exists($this, $method)
         ) {
@@ -907,7 +934,7 @@ abstract class AbstractPage extends AbstractContainer
             );
         }
 
-        $method = 'get' . self::normalizePropertyName($property);
+        $method = 'get' . static::normalizePropertyName($property);
 
         if (method_exists($this, $method)) {
             return $this->$method();
@@ -963,7 +990,7 @@ abstract class AbstractPage extends AbstractContainer
      */
     public function __isset($name)
     {
-        $method = 'get' . self::normalizePropertyName($name);
+        $method = 'get' . static::normalizePropertyName($name);
         if (method_exists($this, $method)) {
             return true;
         }
@@ -982,7 +1009,7 @@ abstract class AbstractPage extends AbstractContainer
      */
     public function __unset($name)
     {
-        $method = 'set' . self::normalizePropertyName($name);
+        $method = 'set' . static::normalizePropertyName($name);
         if (method_exists($this, $method)) {
             throw new Exception\InvalidArgumentException(
                 sprintf(
@@ -1132,9 +1159,10 @@ abstract class AbstractPage extends AbstractContainer
             'order'     => $this->getOrder(),
             'resource'  => $this->getResource(),
             'privilege' => $this->getPrivilege(),
+            'permission' => $this->getPermission(),
             'active'    => $this->isActive(),
             'visible'   => $this->isVisible(),
-            'type'      => get_called_class(),
+            'type'      => get_class($this),
             'pages'     => parent::toArray(),
         ));
     }

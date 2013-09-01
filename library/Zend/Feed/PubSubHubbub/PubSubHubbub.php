@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace Zend\Feed\PubSubHubbub;
@@ -14,10 +13,6 @@ use Zend\Escaper\Escaper;
 use Zend\Feed\Reader;
 use Zend\Http;
 
-/**
- * @category   Zend
- * @package    Zend_Feed_Pubsubhubbub
- */
 class PubSubHubbub
 {
     /**
@@ -48,7 +43,7 @@ class PubSubHubbub
     /**
      * Simple utility function which imports any feed URL and
      * determines the existence of Hub Server endpoints. This works
-     * best if directly given an instance of Zend_Feed_Reader_Atom|Rss
+     * best if directly given an instance of Zend\Feed\Reader\Atom|Rss
      * to leverage off.
      *
      * @param  \Zend\Feed\Reader\Feed\AbstractFeed|string $source
@@ -70,7 +65,7 @@ class PubSubHubbub
     }
 
     /**
-     * Allows the external environment to make Zend_Oauth use a specific
+     * Allows the external environment to make ZendOAuth use a specific
      * Client instance.
      *
      * @param  Http\Client $httpClient
@@ -78,7 +73,7 @@ class PubSubHubbub
      */
     public static function setHttpClient(Http\Client $httpClient)
     {
-        self::$httpClient = $httpClient;
+        static::$httpClient = $httpClient;
     }
 
     /**
@@ -90,12 +85,12 @@ class PubSubHubbub
      */
     public static function getHttpClient()
     {
-        if (!isset(self::$httpClient)) {
-            self::$httpClient = new Http\Client;
+        if (!isset(static::$httpClient)) {
+            static::$httpClient = new Http\Client;
         } else {
-            self::$httpClient->resetParameters();
+            static::$httpClient->resetParameters();
         }
-        return self::$httpClient;
+        return static::$httpClient;
     }
 
     /**
@@ -106,7 +101,7 @@ class PubSubHubbub
      */
     public static function clearHttpClient()
     {
-        self::$httpClient = null;
+        static::$httpClient = null;
     }
 
     /**

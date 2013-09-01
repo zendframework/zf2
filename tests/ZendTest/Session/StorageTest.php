@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Session
  */
@@ -219,5 +219,38 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Session\Exception\RuntimeException',
                                     'Cannot clear storage as it is marked immutable');
         $this->storage->clear();
+    }
+
+    public function testRequestAccessTimeIsPreservedEvenInFactoryMethod()
+    {
+        $this->assertNotEmpty($this->storage->getRequestAccessTime());
+        $this->storage->fromArray(array());
+        $this->assertNotEmpty($this->storage->getRequestAccessTime());
+    }
+
+    public function testToArrayWithMetaData()
+    {
+        $this->storage->foo = 'bar';
+        $this->storage->bar = 'baz';
+        $this->storage->setMetadata('foo', 'bar');
+        $expected = array(
+            '__ZF' => array(
+                '_REQUEST_ACCESS_TIME' => $this->storage->getRequestAccessTime(),
+                'foo' => 'bar',
+            ),
+            'foo' => 'bar',
+            'bar' => 'baz',
+        );
+        $this->assertSame($expected, $this->storage->toArray(true));
+    }
+
+    public function testUnsetMultidimensional()
+    {
+        if (version_compare(PHP_VERSION, '5.3.4') < 0) {
+            $this->markTestSkipped('Known issue on versions of PHP less than 5.3.4');
+        }
+        $this->storage['foo'] = array('bar' => array('baz' => 'boo'));
+        unset($this->storage['foo']['bar']['baz']);
+        unset($this->storage['foo']['bar']);
     }
 }

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_ModuleManager
  */
 
 namespace Zend\ModuleManager;
@@ -15,15 +14,13 @@ use Zend\EventManager\Event;
 /**
  * Custom event for use with module manager
  * Composes Module objects
- *
- * @category Zend
- * @package  Zend_ModuleManager
  */
 class ModuleEvent extends Event
 {
     /**
      * Module events triggered by eventmanager
      */
+    CONST EVENT_MERGE_CONFIG        = 'mergeConfig';
     CONST EVENT_LOAD_MODULES        = 'loadModules';
     CONST EVENT_LOAD_MODULE_RESOLVE = 'loadModule.resolve';
     CONST EVENT_LOAD_MODULE         = 'loadModule';

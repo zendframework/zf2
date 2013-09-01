@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace Zend\Filter;
@@ -13,10 +12,6 @@ namespace Zend\Filter;
 use Countable;
 use Zend\Stdlib\PriorityQueue;
 
-/**
- * @category   Zend
- * @package    Zend_Filter
- */
 class FilterChain extends AbstractFilter implements Countable
 {
     /**
@@ -39,6 +34,7 @@ class FilterChain extends AbstractFilter implements Countable
     /**
      * Initialize filter chain
      *
+     * @param null|array|Traversable $options
      */
     public function __construct($options = null)
     {
@@ -49,6 +45,11 @@ class FilterChain extends AbstractFilter implements Countable
         }
     }
 
+    /**
+     * @param  array|Traversable $options
+     * @return self
+     * @throws Exception\InvalidArgumentException
+     */
     public function setOptions($options)
     {
         if (!is_array($options) && !$options instanceof \Traversable) {
@@ -115,7 +116,7 @@ class FilterChain extends AbstractFilter implements Countable
      * Set plugin manager instance
      *
      * @param  FilterPluginManager $plugins
-     * @return FilterChain
+     * @return self
      */
     public function setPluginManager(FilterPluginManager $plugins)
     {
@@ -142,7 +143,7 @@ class FilterChain extends AbstractFilter implements Countable
      * @param  callable|FilterInterface $callback A Filter implementation or valid PHP callback
      * @param  int $priority Priority at which to enqueue filter; defaults to 1000 (higher executes earlier)
      * @throws Exception\InvalidArgumentException
-     * @return FilterChain
+     * @return self
      */
     public function attach($callback, $priority = self::DEFAULT_PRIORITY)
     {
@@ -162,13 +163,13 @@ class FilterChain extends AbstractFilter implements Countable
     /**
      * Attach a filter to the chain using a short name
      *
-     * Retrieves the filter from the attached plugin broker, and then calls attach()
+     * Retrieves the filter from the attached plugin manager, and then calls attach()
      * with the retrieved instance.
      *
      * @param  string $name
      * @param  mixed $options
      * @param  int $priority Priority at which to enqueue filter; defaults to 1000 (higher executes earlier)
-     * @return FilterChain
+     * @return self
      */
     public function attachByName($name, $options = array(), $priority = self::DEFAULT_PRIORITY)
     {
@@ -185,12 +186,12 @@ class FilterChain extends AbstractFilter implements Countable
      * Merge the filter chain with the one given in parameter
      *
      * @param FilterChain $filterChain
-     * @return FilterChain
+     * @return self
      */
     public function merge(FilterChain $filterChain)
     {
-        foreach ($filterChain->filters as $filter) {
-            $this->attach($filter);
+        foreach ($filterChain->filters->toArray(PriorityQueue::EXTR_BOTH) as $item) {
+            $this->attach($item['data'], $item['priority']);
         }
 
         return $this;

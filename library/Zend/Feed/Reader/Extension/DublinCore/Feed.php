@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace Zend\Feed\Reader\Extension\DublinCore;
@@ -15,10 +14,6 @@ use Zend\Feed\Reader;
 use Zend\Feed\Reader\Collection;
 use Zend\Feed\Reader\Extension;
 
-/**
-* @category Zend
-* @package Zend_Feed_Reader
-*/
 class Feed extends Extension\AbstractFeed
 {
     /**
@@ -50,16 +45,16 @@ class Feed extends Extension\AbstractFeed
         }
 
         $authors = array();
-        $list    = $this->xpath->query('//dc11:creator');
+        $list    = $this->getXpath()->query('//dc11:creator');
 
         if (!$list->length) {
-            $list = $this->xpath->query('//dc10:creator');
+            $list = $this->getXpath()->query('//dc10:creator');
         }
         if (!$list->length) {
-            $list = $this->xpath->query('//dc11:publisher');
+            $list = $this->getXpath()->query('//dc11:publisher');
 
             if (!$list->length) {
-                $list = $this->xpath->query('//dc10:publisher');
+                $list = $this->getXpath()->query('//dc10:publisher');
             }
         }
 
@@ -93,10 +88,10 @@ class Feed extends Extension\AbstractFeed
         }
 
         $copyright = null;
-        $copyright = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc11:rights)');
+        $copyright = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc11:rights)');
 
         if (!$copyright) {
-            $copyright = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc10:rights)');
+            $copyright = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc10:rights)');
         }
 
         if (!$copyright) {
@@ -120,10 +115,10 @@ class Feed extends Extension\AbstractFeed
         }
 
         $description = null;
-        $description = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc11:description)');
+        $description = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc11:description)');
 
         if (!$description) {
-            $description = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc10:description)');
+            $description = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc10:description)');
         }
 
         if (!$description) {
@@ -147,10 +142,10 @@ class Feed extends Extension\AbstractFeed
         }
 
         $id = null;
-        $id = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc11:identifier)');
+        $id = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc11:identifier)');
 
         if (!$id) {
-            $id = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc10:identifier)');
+            $id = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc10:identifier)');
         }
 
         $this->data['id'] = $id;
@@ -170,10 +165,10 @@ class Feed extends Extension\AbstractFeed
         }
 
         $language = null;
-        $language = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc11:language)');
+        $language = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc11:language)');
 
         if (!$language) {
-            $language = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc10:language)');
+            $language = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc10:language)');
         }
 
         if (!$language) {
@@ -197,10 +192,10 @@ class Feed extends Extension\AbstractFeed
         }
 
         $title = null;
-        $title = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc11:title)');
+        $title = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc11:title)');
 
         if (!$title) {
-            $title = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc10:title)');
+            $title = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc10:title)');
         }
 
         if (!$title) {
@@ -224,14 +219,14 @@ class Feed extends Extension\AbstractFeed
         }
 
         $d = null;
-        $date = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc11:date)');
+        $date = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc11:date)');
 
         if (!$date) {
-            $date = $this->xpath->evaluate('string(' . $this->getXpathPrefix() . '/dc10:date)');
+            $date = $this->getXpath()->evaluate('string(' . $this->getXpathPrefix() . '/dc10:date)');
         }
 
         if ($date) {
-            $d = DateTime::createFromFormat(DateTime::ISO8601, $date);
+            $d = new DateTime($date);
         }
 
         $this->data['date'] = $d;
@@ -250,10 +245,10 @@ class Feed extends Extension\AbstractFeed
             return $this->data['categories'];
         }
 
-        $list = $this->xpath->evaluate($this->getXpathPrefix() . '//dc11:subject');
+        $list = $this->getXpath()->evaluate($this->getXpathPrefix() . '//dc11:subject');
 
         if (!$list->length) {
-            $list = $this->xpath->evaluate($this->getXpathPrefix() . '//dc10:subject');
+            $list = $this->getXpath()->evaluate($this->getXpathPrefix() . '//dc10:subject');
         }
 
         if ($list->length) {
@@ -280,7 +275,7 @@ class Feed extends Extension\AbstractFeed
      */
     protected function registerNamespaces()
     {
-        $this->xpath->registerNamespace('dc10', 'http://purl.org/dc/elements/1.0/');
-        $this->xpath->registerNamespace('dc11', 'http://purl.org/dc/elements/1.1/');
+        $this->getXpath()->registerNamespace('dc10', 'http://purl.org/dc/elements/1.0/');
+        $this->getXpath()->registerNamespace('dc11', 'http://purl.org/dc/elements/1.1/');
     }
 }

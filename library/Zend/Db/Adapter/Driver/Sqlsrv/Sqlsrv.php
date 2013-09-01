@@ -3,22 +3,17 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Db
  */
 
 namespace Zend\Db\Adapter\Driver\Sqlsrv;
 
 use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Adapter\Exception;
+use Zend\Db\Adapter\Profiler;
 
-/**
- * @category   Zend
- * @package    Zend_Db
- * @subpackage Adapter
- */
-class Sqlsrv implements DriverInterface
+class Sqlsrv implements DriverInterface, Profiler\ProfilerAwareInterface
 {
 
     /**
@@ -37,6 +32,11 @@ class Sqlsrv implements DriverInterface
     protected $resultPrototype = null;
 
     /**
+     * @var null|Profiler\ProfilerInterface
+     */
+    protected $profiler = null;
+
+    /**
      * @param array|Connection|resource $connection
      * @param null|Statement $statementPrototype
      * @param null|Result $resultPrototype
@@ -50,6 +50,30 @@ class Sqlsrv implements DriverInterface
         $this->registerConnection($connection);
         $this->registerStatementPrototype(($statementPrototype) ?: new Statement());
         $this->registerResultPrototype(($resultPrototype) ?: new Result());
+    }
+
+    /**
+     * @param Profiler\ProfilerInterface $profiler
+     * @return Sqlsrv
+     */
+    public function setProfiler(Profiler\ProfilerInterface $profiler)
+    {
+        $this->profiler = $profiler;
+        if ($this->connection instanceof Profiler\ProfilerAwareInterface) {
+            $this->connection->setProfiler($profiler);
+        }
+        if ($this->statementPrototype instanceof Profiler\ProfilerAwareInterface) {
+            $this->statementPrototype->setProfiler($profiler);
+        }
+        return $this;
+    }
+
+    /**
+     * @return null|Profiler\ProfilerInterface
+     */
+    public function getProfiler()
+    {
+        return $this->profiler;
     }
 
     /**
@@ -100,9 +124,9 @@ class Sqlsrv implements DriverInterface
     {
         if ($nameFormat == self::NAME_FORMAT_CAMELCASE) {
             return 'SqlServer';
-        } else {
-            return 'SQLServer';
         }
+
+        return 'SQLServer';
     }
 
     /**
@@ -133,14 +157,18 @@ class Sqlsrv implements DriverInterface
     public function createStatement($sqlOrResource = null)
     {
         $statement = clone $this->statementPrototype;
-        if (is_string($sqlOrResource)) {
-            $statement->setSql($sqlOrResource);
+        if (is_resource($sqlOrResource)) {
+            $statement->initialize($sqlOrResource);
+        } else {
             if (!$this->connection->isConnected()) {
                 $this->connection->connect();
             }
             $statement->initialize($this->connection->getResource());
-        } elseif (is_resource($sqlOrResource)) {
-            $statement->setResource($sqlOrResource);
+            if (is_string($sqlOrResource)) {
+                $statement->setSql($sqlOrResource);
+            } elseif ($sqlOrResource != null) {
+                throw new Exception\InvalidArgumentException('createStatement() only accepts an SQL string or a Sqlsrv resource');
+            }
         }
         return $statement;
     }
@@ -181,5 +209,4 @@ class Sqlsrv implements DriverInterface
     {
         return $this->getConnection()->getLastGeneratedValue();
     }
-
 }

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_XmlRpc
  */
 
 namespace Zend\XmlRpc;
@@ -45,10 +44,6 @@ use Zend\Server\Reflection;
  * $response = $server->handle();
  * echo $response;
  * </code>
- *
- * @category   Zend
- * @package    Zend_XmlRpc
- * @subpackage Server
  */
 class Server extends AbstractServer
 {
@@ -84,7 +79,6 @@ class Server extends AbstractServer
         'i4'                         => 'i4',
         'int'                        => 'int',
         'integer'                    => 'int',
-        'Zend\Math\BigInteger'       => 'i8',
         'i8'                         => 'i8',
         'ex:i8'                      => 'i8',
         'double'                     => 'double',
@@ -120,7 +114,7 @@ class Server extends AbstractServer
     /**
      * Flag: whether or not {@link handle()} should return a response instead
      * of automatically emitting it.
-     * @var boolean
+     * @var bool
      */
     protected $returnResponse = false;
 
@@ -172,8 +166,8 @@ class Server extends AbstractServer
      *
      * @param string|array|callable $function  Valid callback
      * @param string                $namespace Optional namespace prefix
+     * @throws Server\Exception\InvalidArgumentException
      * @return void
-     * @throws \Zend\XmlRpc\Exception\InvalidArgumentException
      */
     public function addFunction($function, $namespace = '')
     {
@@ -259,7 +253,7 @@ class Server extends AbstractServer
      *
      * The response is always available via {@link getResponse()}.
      *
-     * @param boolean $flag
+     * @param  bool $flag
      * @return Server
      */
     public function setReturnResponse($flag = true)
@@ -271,7 +265,7 @@ class Server extends AbstractServer
     /**
      * Retrieve return response flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getReturnResponse()
     {
@@ -336,7 +330,7 @@ class Server extends AbstractServer
             } else {
                 $type = gettype($definition);
             }
-            throw new Server\Exception\InvalidArgumentException('Unable to load server definition; must be an array or Zend_Server_Definition, received ' . $type, 612);
+            throw new Server\Exception\InvalidArgumentException('Unable to load server definition; must be an array or Zend\Server\Definition, received ' . $type, 612);
         }
 
         $this->table->clearMethods();
@@ -435,11 +429,11 @@ class Server extends AbstractServer
      *
      * @param  string $class
      * @throws Server\Exception\InvalidArgumentException if invalid response class
-     * @return boolean True if class was set, false if not
+     * @return bool True if class was set, false if not
      */
     public function setResponseClass($class)
     {
-        if (!class_exists($class) || !self::isSubclassOf($class, 'Zend\XmlRpc\Response')) {
+        if (!class_exists($class) || !static::isSubclassOf($class, 'Zend\XmlRpc\Response')) {
             throw new Server\Exception\InvalidArgumentException('Invalid response class');
 
         }

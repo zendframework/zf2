@@ -3,18 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mime
  */
 
 namespace Zend\Mime;
 
 /**
  * Support class for MultiPart Mime Messages
- *
- * @category   Zend
- * @package    Zend_Mime
  */
 class Mime
 {
@@ -95,11 +91,11 @@ class Mime
      * false, encode the string for secure delivery.
      *
      * @param string $str
-     * @return boolean
+     * @return bool
      */
     public static function isPrintable($str)
     {
-        return (strcspn($str, self::$qpKeysString) == strlen($str));
+        return (strcspn($str, static::$qpKeysString) == strlen($str));
     }
 
     /**
@@ -154,7 +150,7 @@ class Mime
     private static function _encodeQuotedPrintable($str)
     {
         $str = str_replace('=', '=3D', $str);
-        $str = str_replace(self::$qpKeys, self::$qpReplaceValues, $str);
+        $str = str_replace(static::$qpKeys, static::$qpReplaceValues, $str);
         $str = rtrim($str);
         return $str;
     }
@@ -191,7 +187,7 @@ class Mime
         $tmp = "";
         while (strlen($str) > 0) {
             $currentLine = max(count($lines)-1, 0);
-            $token       = self::getNextQuotedPrintableToken($str);
+            $token       = static::getNextQuotedPrintableToken($str);
             $str         = substr($str, strlen($token));
 
             $tmp .= $token;
@@ -253,7 +249,7 @@ class Mime
         $suffix = '?=';
         $remainingLength = $lineLength - strlen($prefix) - strlen($suffix);
 
-        $encodedValue = self::encodeBase64($str, $remainingLength, $lineEnd);
+        $encodedValue = static::encodeBase64($str, $remainingLength, $lineEnd);
         $encodedValue = str_replace($lineEnd, $suffix . $lineEnd . ' ' . $prefix, $encodedValue);
         $encodedValue = $prefix . $encodedValue . $suffix;
         return $encodedValue;
@@ -285,7 +281,7 @@ class Mime
     {
         // This string needs to be somewhat unique
         if ($boundary === null) {
-            $this->boundary = '=_' . md5(microtime(1) . self::$makeUnique++);
+            $this->boundary = '=_' . md5(microtime(1) . static::$makeUnique++);
         } else {
             $this->boundary = $boundary;
         }
@@ -296,17 +292,17 @@ class Mime
      *
      * @param string $str
      * @param string $encoding
-     * @param string $EOL EOL string; defaults to {@link Zend_Mime::LINEEND}
+     * @param string $EOL EOL string; defaults to {@link LINEEND}
      * @return string
      */
     public static function encode($str, $encoding, $EOL = self::LINEEND)
     {
         switch ($encoding) {
             case self::ENCODING_BASE64:
-                return self::encodeBase64($str, self::LINELENGTH, $EOL);
+                return static::encodeBase64($str, self::LINELENGTH, $EOL);
 
             case self::ENCODING_QUOTEDPRINTABLE:
-                return self::encodeQuotedPrintable($str, self::LINELENGTH, $EOL);
+                return static::encodeQuotedPrintable($str, self::LINELENGTH, $EOL);
 
             default:
                 /**

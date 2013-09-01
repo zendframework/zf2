@@ -3,28 +3,24 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Log
  */
 
 namespace Zend\Log\Writer;
 
+use Traversable;
 use Zend\Log\Exception;
-use Zend\Log\Logger;
 use Zend\Log\Formatter\Simple as SimpleFormatter;
+use Zend\Log\Logger;
 
 /**
  * Writes log messages to syslog
- *
- * @category   Zend
- * @package    Zend_Log
- * @subpackage Writer
  */
 class Syslog extends AbstractWriter
 {
     /**
-     * Maps Zend_Log priorities to PHP's syslog priorities
+     * Maps Zend\Log priorities to PHP's syslog priorities
      *
      * @var array
      */
@@ -87,23 +83,34 @@ class Syslog extends AbstractWriter
      * @param  array $params Array of options; may include "application" and "facility" keys
      * @return Syslog
      */
-    public function __construct(array $params = array())
+    public function __construct($params = null)
     {
-        if (isset($params['application'])) {
-            $this->appName = $params['application'];
+        if ($params instanceof Traversable) {
+            $params = iterator_to_array($params);
         }
 
         $runInitializeSyslog = true;
-        if (isset($params['facility'])) {
-            $this->setFacility($params['facility']);
-            $runInitializeSyslog = false;
+
+        if (is_array($params)) {
+            parent::__construct($params);
+
+            if (isset($params['application'])) {
+                $this->appName = $params['application'];
+            }
+
+            if (isset($params['facility'])) {
+                $this->setFacility($params['facility']);
+                $runInitializeSyslog = false;
+            }
         }
 
         if ($runInitializeSyslog) {
             $this->initializeSyslog();
         }
 
-        $this->setFormatter(new SimpleFormatter('%message%'));
+        if ($this->formatter === null) {
+            $this->setFormatter(new SimpleFormatter('%message%'));
+        }
     }
 
     /**
@@ -149,8 +156,8 @@ class Syslog extends AbstractWriter
      */
     protected function initializeSyslog()
     {
-        self::$lastApplication = $this->appName;
-        self::$lastFacility    = $this->facility;
+        static::$lastApplication = $this->appName;
+        static::$lastFacility    = $this->facility;
         openlog($this->appName, LOG_PID, $this->facility);
     }
 
@@ -231,8 +238,8 @@ class Syslog extends AbstractWriter
             $priority = $this->defaultPriority;
         }
 
-        if ($this->appName !== self::$lastApplication
-            || $this->facility !== self::$lastFacility
+        if ($this->appName !== static::$lastApplication
+            || $this->facility !== static::$lastFacility
         ) {
             $this->initializeSyslog();
         }

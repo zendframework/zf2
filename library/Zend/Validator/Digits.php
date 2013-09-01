@@ -3,19 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Validator
  */
 
 namespace Zend\Validator;
 
 use Zend\Filter\Digits as DigitsFilter;
 
-/**
- * @category   Zend
- * @package    Zend_Validate
- */
 class Digits extends AbstractValidator
 {
     const NOT_DIGITS   = 'notDigits';
@@ -44,7 +39,7 @@ class Digits extends AbstractValidator
      * Returns true if and only if $value only contains digit characters
      *
      * @param  string $value
-     * @return boolean
+     * @return bool
      */
     public function isValid($value)
     {
@@ -60,11 +55,11 @@ class Digits extends AbstractValidator
             return false;
         }
 
-        if (null === self::$filter) {
-            self::$filter = new DigitsFilter();
+        if (null === static::$filter) {
+            static::$filter = new DigitsFilter();
         }
 
-        if ($this->getValue() !== self::$filter->filter($this->getValue())) {
+        if ($this->getValue() !== static::$filter->filter($this->getValue())) {
             $this->error(self::NOT_DIGITS);
             return false;
         }

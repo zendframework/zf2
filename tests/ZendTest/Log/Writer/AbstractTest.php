@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Log
  */
@@ -30,14 +30,10 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->_writer = new ConcreteWriter();
     }
 
-    /**
-     * @group ZF-6085
-     */
-    public function testSetFormatter()
+    public function testSetSimpleFormatterByName()
     {
-        $this->_writer->setFormatter(new SimpleFormatter());
-        $this->setExpectedException('PHPUnit_Framework_Error');
-        $this->_writer->setFormatter(new \StdClass());
+        $instance = $this->_writer->setFormatter('simple');
+        $this->assertAttributeInstanceOf('Zend\Log\Formatter\Simple', 'formatter', $instance);
     }
 
     public function testAddFilter()
@@ -45,7 +41,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->_writer->addFilter(1);
         $this->_writer->addFilter(new RegexFilter('/mess/'));
         $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException');
-        $this->_writer->addFilter(new \StdClass());
+        $this->_writer->addFilter(new \stdClass());
     }
 
     public function testAddMockFilterByName()
@@ -80,5 +76,34 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $writer->setConvertWriteErrorsToExceptions(false);
         $this->setExpectedException('PHPUnit_Framework_Error_Warning');
         $writer->write(array('message' => 'test'));
+    }
+
+    public function testConstructorWithOptions()
+    {
+        $options = array('filters' => array(
+                             array(
+                                 'name' => 'mock',
+                             ),
+                             array(
+                                 'name' => 'priority',
+                                 'options' => array(
+                                     'priority' => 3,
+                                 ),
+                             ),
+                         ),
+                        'formatter' => array(
+                             'name' => 'base',
+                         ),
+                    );
+
+        $writer = new ConcreteWriter($options);
+
+        $this->assertAttributeInstanceOf('Zend\Log\Formatter\Base', 'formatter', $writer);
+
+        $filters = $this->readAttribute($writer, 'filters');
+        $this->assertCount(2, $filters);
+
+        $this->assertInstanceOf('Zend\Log\Filter\Priority', $filters[1]);
+        $this->assertEquals(3, $this->readAttribute($filters[1], 'priority'));
     }
 }

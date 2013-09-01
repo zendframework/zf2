@@ -3,20 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mail
  */
 
 namespace Zend\Mail\Protocol;
 
 use Zend\Stdlib\ErrorHandler;
 
-/**
- * @category   Zend
- * @package    Zend_Mail
- * @subpackage Protocol
- */
 class Imap
 {
     /**
@@ -76,12 +70,26 @@ class Imap
      */
     public function connect($host, $port = null, $ssl = false)
     {
-        if ($ssl == 'SSL') {
-            $host = 'ssl://' . $host;
+        $isTls = false;
+
+        if ($ssl) {
+            $ssl = strtolower($ssl);
         }
 
-        if ($port === null) {
-            $port = $ssl === 'SSL' ? 993 : 143;
+        switch ($ssl) {
+            case 'ssl':
+                $host = 'ssl://' . $host;
+                if (!$port) {
+                    $port = 993;
+                }
+                break;
+            case 'tls':
+                $isTls = true;
+                // break intentionally omitted
+            default:
+                if (!$port) {
+                    $port = 143;
+                }
         }
 
         ErrorHandler::start();
@@ -89,7 +97,7 @@ class Imap
         $error = ErrorHandler::stop();
         if (!$this->socket) {
             throw new Exception\RuntimeException(sprintf(
-                'cannot connect to host%s',
+                'cannot connect to host %s',
                 ($error ? sprintf('; error = %s (errno = %d )', $error->getMessage(), $error->getCode()) : '')
             ), 0, $error);
         }
@@ -98,7 +106,7 @@ class Imap
             throw new Exception\RuntimeException('host doesn\'t allow connection');
         }
 
-        if ($ssl === 'TLS') {
+        if ($isTls) {
             $result = $this->requestAndResponse('STARTTLS');
             $result = $result && stream_socket_enable_crypto($this->socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
             if (!$result) {
@@ -541,10 +549,10 @@ class Imap
         } elseif ($to === INF) {
             $set = (int) $from . ':*';
         } else {
-            $set = (int) $from . ':' . (int)$to;
+            $set = (int) $from . ':' . (int) $to;
         }
 
-        $items = (array)$items;
+        $items = (array) $items;
         $itemList = $this->escapeList($items);
 
         $tag = null;  // define $tag variable before first use
@@ -798,5 +806,4 @@ class Imap
         }
         return array();
     }
-
 }

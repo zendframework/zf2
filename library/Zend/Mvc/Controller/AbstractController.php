@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace Zend\Mvc\Controller;
@@ -16,7 +15,6 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Http\Request as HttpRequest;
-use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
@@ -28,9 +26,20 @@ use Zend\Stdlib\ResponseInterface as Response;
 /**
  * Abstract controller
  *
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage Controller
+ * Convenience methods for pre-built plugins (@see __call):
+ *
+ * @method \Zend\View\Model\ModelInterface acceptableViewModelSelector(array $matchAgainst = null, bool $returnDefault = true, \Zend\Http\Header\Accept\FieldValuePart\AbstractFieldValuePart $resultReference = null)
+ * @method bool|array|\Zend\Http\Response fileprg(\Zend\Form\Form $form, $redirect = null, $redirectToUrl = false)
+ * @method bool|array|\Zend\Http\Response filePostRedirectGet(\Zend\Form\Form $form, $redirect = null, $redirectToUrl = false)
+ * @method \Zend\Mvc\Controller\Plugin\FlashMessenger flashMessenger()
+ * @method \Zend\Mvc\Controller\Plugin\Forward forward()
+ * @method mixed|null identity()
+ * @method \Zend\Mvc\Controller\Plugin\Layout|\Zend\View\Model\ModelInterface layout(string $template = null)
+ * @method \Zend\Mvc\Controller\Plugin\Params|mixed params(string $param = null, mixed $default = null)
+ * @method \Zend\Http\Response|array prg(string $redirect = null, bool $redirectToUrl = false)
+ * @method \Zend\Http\Response|array postRedirectGet(string $redirect = null, bool $redirectToUrl = false)
+ * @method \Zend\Mvc\Controller\Plugin\Redirect redirect()
+ * @method \Zend\Mvc\Controller\Plugin\Url url()
  */
 abstract class AbstractController implements
     Dispatchable,
@@ -103,7 +112,7 @@ abstract class AbstractController implements
           ->setResponse($response)
           ->setTarget($this);
 
-        $result = $this->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH, $e, function($test) {
+        $result = $this->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH, $e, function ($test) {
             return ($test instanceof Response);
         });
 
@@ -153,9 +162,9 @@ abstract class AbstractController implements
         $events->setIdentifiers(array(
             'Zend\Stdlib\DispatchableInterface',
             __CLASS__,
-            get_called_class(),
+            get_class($this),
             $this->eventIdentifier,
-            substr(get_called_class(), 0, strpos(get_called_class(), '\\'))
+            substr(get_class($this), 0, strpos(get_class($this), '\\'))
         ));
         $this->events = $events;
         $this->attachDefaultListeners();
@@ -189,7 +198,7 @@ abstract class AbstractController implements
      */
     public function setEvent(Event $e)
     {
-        if ($e instanceof Event && !$e instanceof MvcEvent) {
+        if (!$e instanceof MvcEvent) {
             $eventParams = $e->getParams();
             $e = new MvcEvent();
             $e->setParams($eventParams);
@@ -246,15 +255,15 @@ abstract class AbstractController implements
             $this->setPluginManager(new PluginManager());
         }
 
+        $this->plugins->setController($this);
         return $this->plugins;
     }
 
     /**
      * Set plugin manager
      *
-     * @param  string|PluginManager $plugins
+     * @param  PluginManager $plugins
      * @return AbstractController
-     * @throws Exception\InvalidArgumentException
      */
     public function setPluginManager(PluginManager $plugins)
     {

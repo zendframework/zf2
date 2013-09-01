@@ -1,21 +1,9 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Translator
- * @subpackage Resource
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright  Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -176,7 +164,7 @@ return array(
 
     // Zend_Validate_File_WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "Previše reči, maksimalno '%max%' je dozvoljeno, '%count%' je izbrojano",
-    "Too less words, minimum '%min%' are expected but '%count%' were counted" => "Premalo reči, minimalno '%min%' je očekivano, '%count%' je izbrojano",
+    "Too few words, minimum '%min%' are expected but '%count%' were counted" => "Premalo reči, minimalno '%min%' je očekivano, '%count%' je izbrojano",
     "File '%value%' could not be found" => "Fajl '%value%' ne može biti pronađen",
 
     // Zend_Validate_Float

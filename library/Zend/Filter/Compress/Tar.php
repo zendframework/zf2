@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace Zend\Filter\Compress;
@@ -17,9 +16,6 @@ use Zend\Filter\Exception;
 
 /**
  * Compression adapter for Tar
- *
- * @category   Zend
- * @package    Zend_Filter
  */
 class Tar extends AbstractCompressionAlgorithm
 {
@@ -69,7 +65,7 @@ class Tar extends AbstractCompressionAlgorithm
      * Sets the archive to use for de-/compression
      *
      * @param  string $archive Archive to use
-     * @return Tar
+     * @return self
      */
     public function setArchive($archive)
     {
@@ -93,7 +89,7 @@ class Tar extends AbstractCompressionAlgorithm
      * Sets the target path to use
      *
      * @param  string $target
-     * @return Tar
+     * @return self
      * @throws Exception\InvalidArgumentException if target path does not exist
      */
     public function setTarget($target)
@@ -123,7 +119,7 @@ class Tar extends AbstractCompressionAlgorithm
      * Either Gz or Bz2.
      *
      * @param string $mode
-     * @return Tar
+     * @return self
      * @throws Exception\InvalidArgumentException for invalid $mode values
      * @throws Exception\ExtensionNotLoadedException if bz2 mode selected but extension not loaded
      * @throws Exception\ExtensionNotLoadedException if gz mode selected but extension not loaded

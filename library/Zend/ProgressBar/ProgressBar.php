@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_ProgressBar
  */
 
 namespace Zend\ProgressBar;
@@ -14,10 +13,7 @@ use Zend\ProgressBar\Exception;
 use Zend\Session;
 
 /**
- * Zend_ProgressBar offers an interface for multiple environments.
- *
- * @category  Zend
- * @package   Zend_ProgressBar
+ * Zend\ProgressBar offers an interface for multiple environments.
  */
 class ProgressBar
 {
@@ -45,7 +41,7 @@ class ProgressBar
     /**
      * Start time of the progressbar, required for ETA
      *
-     * @var integer
+     * @var int
      */
     protected $startTime;
 

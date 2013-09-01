@@ -3,17 +3,12 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mime
  */
 
 namespace Zend\Mime;
 
-/**
- * @category   Zend
- * @package    Zend_Mime
- */
 class Message
 {
 
@@ -21,7 +16,7 @@ class Message
     protected $mime = null;
 
     /**
-     * Returns the list of all Zend_Mime_Parts in the message
+     * Returns the list of all Zend\Mime\Part in the message
      *
      * @return array of \Zend\Mime\Part
      */
@@ -31,7 +26,7 @@ class Message
     }
 
     /**
-     * Sets the given array of Zend_Mime_Parts as the array for the message
+     * Sets the given array of Zend\Mime\Part as the array for the message
      *
      * @param array $parts
      */
@@ -41,7 +36,7 @@ class Message
     }
 
     /**
-     * Append a new Zend_Mime_Part to the current message
+     * Append a new Zend\Mime\Part to the current message
      *
      * @param \Zend\Mime\Part $part
      */
@@ -57,7 +52,7 @@ class Message
      * Check if message needs to be sent as multipart
      * MIME message or if it has only one part.
      *
-     * @return boolean
+     * @return bool
      */
     public function isMultiPart()
     {
@@ -65,10 +60,10 @@ class Message
     }
 
     /**
-     * Set Zend_Mime object for the message
+     * Set Zend\Mime\Mime object for the message
      *
      * This can be used to set the boundary specifically or to use a subclass of
-     * Zend_Mime for generating the boundary.
+     * Zend\Mime for generating the boundary.
      *
      * @param \Zend\Mime\Mime $mime
      */
@@ -78,7 +73,7 @@ class Message
     }
 
     /**
-     * Returns the Zend_Mime object in use by the message
+     * Returns the Zend\Mime\Mime object in use by the message
      *
      * If the object was not present, it is created and returned. Can be used to
      * determine the boundary used in this message.
@@ -101,19 +96,19 @@ class Message
      * only one part is present, the content of this part is returned. If no
      * part had been added, an empty string is returned.
      *
-     * Parts are separated by the mime boundary as defined in Zend_Mime. If
-     * {@link setMime()} has been called before this method, the Zend_Mime
-     * object set by this call will be used. Otherwise, a new Zend_Mime object
+     * Parts are separated by the mime boundary as defined in Zend\Mime\Mime. If
+     * {@link setMime()} has been called before this method, the Zend\Mime\Mime
+     * object set by this call will be used. Otherwise, a new Zend\Mime\Mime object
      * is generated and used.
      *
-     * @param string $EOL EOL string; defaults to {@link Zend_Mime::LINEEND}
+     * @param string $EOL EOL string; defaults to {@link Zend\Mime\Mime::LINEEND}
      * @return string
      */
     public function generateMessage($EOL = Mime::LINEEND)
     {
-        if (! $this->isMultiPart()) {
-            $body = array_shift($this->parts);
-            $body = $body->getContent($EOL);
+        if (!$this->isMultiPart()) {
+            $part = current($this->parts);
+            $body = $part->getContent($EOL);
         } else {
             $mime = $this->getMime();
 
@@ -181,8 +176,8 @@ class Message
      */
     protected static function _disassembleMime($body, $boundary)
     {
-        $start = 0;
-        $res = array();
+        $start  = 0;
+        $res    = array();
         // find every mime part limiter and cut out the
         // string before it.
         // the part before the first boundary string is discarded:
@@ -212,12 +207,12 @@ class Message
     }
 
     /**
-     * Decodes a MIME encoded string and returns a Zend_Mime_Message object with
+     * Decodes a MIME encoded string and returns a Zend\Mime\Message object with
      * all the MIME parts set according to the given string
      *
      * @param string $message
      * @param string $boundary
-     * @param string $EOL EOL string; defaults to {@link Zend_Mime::LINEEND}
+     * @param string $EOL EOL string; defaults to {@link Zend\Mime\Mime::LINEEND}
      * @throws Exception\RuntimeException
      * @return \Zend\Mime\Message
      */
@@ -225,10 +220,11 @@ class Message
     {
         $parts = Decode::splitMessageStruct($message, $boundary, $EOL);
 
-        $res = new self();
+        $res = new static();
         foreach ($parts as $part) {
+
             // now we build a new MimePart for the current Message Part:
-            $newPart = new Part($part['body']);
+            $properties = array();
             foreach ($part['header'] as $header) {
                 /** @var \Zend\Mail\Header\HeaderInterface $header */
                 /**
@@ -239,32 +235,51 @@ class Message
                 $fieldValue = $header->getFieldValue();
                 switch (strtolower($fieldName)) {
                     case 'content-type':
-                        $newPart->type = $fieldValue;
+                        $properties['type'] = $fieldValue;
                         break;
                     case 'content-transfer-encoding':
-                        $newPart->encoding = $fieldValue;
+                        $properties['encoding'] = $fieldValue;
                         break;
                     case 'content-id':
-                        $newPart->id = trim($fieldValue,'<>');
+                        $properties['id'] = trim($fieldValue,'<>');
                         break;
                     case 'content-disposition':
-                        $newPart->disposition = $fieldValue;
+                        $properties['disposition'] = $fieldValue;
                         break;
                     case 'content-description':
-                        $newPart->description = $fieldValue;
+                        $properties['description'] = $fieldValue;
                         break;
                     case 'content-location':
-                        $newPart->location = $fieldValue;
+                        $properties['location'] = $fieldValue;
                         break;
                     case 'content-language':
-                        $newPart->language = $fieldValue;
+                        $properties['language'] = $fieldValue;
                         break;
                     default:
                         throw new Exception\RuntimeException('Unknown header ignored for MimePart:' . $fieldName);
                 }
             }
+
+            $body = $part['body'];
+
+            if (isset($properties['encoding'])) {
+                switch ($properties['encoding']) {
+                    case 'quoted-printable':
+                        $body = quoted_printable_decode($body);
+                        break;
+                    case 'base64':
+                        $body = base64_decode($body);
+                        break;
+                }
+            }
+
+            $newPart = new Part($body);
+            foreach ($properties as $key => $value) {
+                $newPart->$key = $value;
+            }
             $res->addPart($newPart);
         }
+
         return $res;
     }
 }

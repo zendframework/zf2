@@ -3,20 +3,15 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Json
  */
 
 namespace Zend\Json\Server;
 
-/**
- * @category   Zend
- * @package    Zend_Json
- */
 class Error
 {
-    const ERROR_PARSE           = -32768;
+    const ERROR_PARSE           = -32700;
     const ERROR_INVALID_REQUEST = -32600;
     const ERROR_INVALID_METHOD  = -32601;
     const ERROR_INVALID_PARAMS  = -32602;

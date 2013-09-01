@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Db
  */
@@ -48,8 +48,18 @@ class BetweenTest extends TestCase
     {
         $between = new Between('foo.bar', 1, 300);
         $this->assertEquals('foo.bar', $between->getIdentifier());
-        $this->assertEquals(1, $between->getMinValue());
-        $this->assertEquals(300, $between->getMaxValue());
+        $this->assertSame(1, $between->getMinValue());
+        $this->assertSame(300, $between->getMaxValue());
+
+        $between = new Between('foo.bar', 0, 1);
+        $this->assertEquals('foo.bar', $between->getIdentifier());
+        $this->assertSame(0, $between->getMinValue());
+        $this->assertSame(1, $between->getMaxValue());
+
+        $between = new Between('foo.bar', -1, 0);
+        $this->assertEquals('foo.bar', $between->getIdentifier());
+        $this->assertSame(-1, $between->getMinValue());
+        $this->assertSame(0, $between->getMaxValue());
     }
 
     /**
@@ -117,4 +127,5 @@ class BetweenTest extends TestCase
         ));
         $this->assertEquals($expected, $this->between->getExpressionData());
     }
+
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Loader
  */
@@ -197,4 +197,28 @@ class ManagerTest extends TestCase
         $this->assertTrue(class_exists('PharModuleExplicit\Module'));
     }
 
+    public function testCanLoadModulesFromClassMap()
+    {
+        $loader = new ModuleAutoloader();
+        $loader->setModuleClassMap(array(
+            'BarModule\Module' =>     __DIR__ . '/_files/BarModule/Module.php',
+            'PharModuleMap\Module' => __DIR__ . '/_files/PharModuleMap.phar',
+        ));
+        $loader->register();
+
+        $this->assertTrue(class_exists('BarModule\Module'));
+        $this->assertTrue(class_exists('PharModuleMap\Module'));
+    }
+
+    public function testCanLoadModulesFromNamespace()
+    {
+        $loader = new ModuleAutoloader(array(
+            'FooModule\*' => __DIR__ . '/_files/FooModule',
+            'FooModule' => __DIR__ . '/_files/FooModule',
+        ));
+        $loader->register();
+        $this->assertTrue(class_exists('FooModule\BarModule\Module'));
+        $this->assertTrue(class_exists('FooModule\SubModule\Module'));
+        $this->assertTrue(class_exists('FooModule\Module'));
+    }
 }

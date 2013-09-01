@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace Zend\Filter\Compress;
@@ -14,9 +13,6 @@ use Zend\Filter\Exception;
 
 /**
  * Compression adapter for Rar
- *
- * @category   Zend
- * @package    Zend_Filter
  */
 class Rar extends AbstractCompressionAlgorithm
 {
@@ -66,7 +62,7 @@ class Rar extends AbstractCompressionAlgorithm
      * Sets the callback to use
      *
      * @param  string $callback
-     * @return Rar
+     * @return self
      * @throws Exception\InvalidArgumentException if invalid callback provided
      */
     public function setCallback($callback)
@@ -93,7 +89,7 @@ class Rar extends AbstractCompressionAlgorithm
      * Sets the archive to use for de-/compression
      *
      * @param  string $archive Archive to use
-     * @return Rar
+     * @return self
      */
     public function setArchive($archive)
     {
@@ -117,7 +113,7 @@ class Rar extends AbstractCompressionAlgorithm
      * Sets the password to use
      *
      * @param  string $password
-     * @return Rar
+     * @return self
      */
     public function setPassword($password)
     {
@@ -139,7 +135,7 @@ class Rar extends AbstractCompressionAlgorithm
      * Sets the targetpath to use
      *
      * @param  string $target
-     * @return Rar
+     * @return self
      * @throws Exception\InvalidArgumentException if specified target directory does not exist
      */
     public function setTarget($target)
@@ -182,14 +178,12 @@ class Rar extends AbstractCompressionAlgorithm
      * Decompresses the given content
      *
      * @param  string $content
-     * @return boolean
+     * @return bool
      * @throws Exception\RuntimeException if archive not found, cannot be opened,
      *                                    or error during decompression
      */
     public function decompress($content)
     {
-        $archive = $this->getArchive();
-
         if (!file_exists($content)) {
             throw new Exception\RuntimeException('RAR Archive not found');
         }

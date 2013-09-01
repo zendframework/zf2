@@ -3,16 +3,13 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace Zend\Feed\Writer;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer
 */
 class Writer
 {
@@ -44,7 +41,7 @@ class Writer
     const TYPE_RSS_ANY          = 'rss';
 
     /**
-     * @var ExtensionManager
+     * @var ExtensionManagerInterface
      */
     protected static $extensionManager = null;
 
@@ -65,24 +62,24 @@ class Writer
     /**
      * Set plugin loader for use with Extensions
      *
-     * @param ExtensionManager
+     * @param ExtensionManagerInterface
      */
-    public static function setExtensionManager(ExtensionManager $extensionManager)
+    public static function setExtensionManager(ExtensionManagerInterface $extensionManager)
     {
-        self::$extensionManager = $extensionManager;
+        static::$extensionManager = $extensionManager;
     }
 
     /**
      * Get plugin manager for use with Extensions
      *
-     * @return ExtensionManager
+     * @return ExtensionManagerInterface
      */
     public static function getExtensionManager()
     {
-        if (!isset(self::$extensionManager)) {
-            self::setExtensionManager(new ExtensionManager());
+        if (!isset(static::$extensionManager)) {
+            static::setExtensionManager(new ExtensionManager());
         }
-        return self::$extensionManager;
+        return static::$extensionManager;
     }
 
     /**
@@ -98,8 +95,8 @@ class Writer
         $entryName         = $name . '\Entry';
         $feedRendererName  = $name . '\Renderer\Feed';
         $entryRendererName = $name . '\Renderer\Entry';
-        $manager           = self::getExtensionManager();
-        if (self::isRegistered($name)) {
+        $manager           = static::getExtensionManager();
+        if (static::isRegistered($name)) {
             if ($manager->has($feedName)
                 || $manager->has($entryName)
                 || $manager->has($feedRendererName)
@@ -117,16 +114,16 @@ class Writer
                 . 'using Plugin Loader. Check prefix paths are configured and extension exists.');
         }
         if ($manager->has($feedName)) {
-            self::$extensions['feed'][] = $feedName;
+            static::$extensions['feed'][] = $feedName;
         }
         if ($manager->has($entryName)) {
-            self::$extensions['entry'][] = $entryName;
+            static::$extensions['entry'][] = $entryName;
         }
         if ($manager->has($feedRendererName)) {
-            self::$extensions['feedRenderer'][] = $feedRendererName;
+            static::$extensions['feedRenderer'][] = $feedRendererName;
         }
         if ($manager->has($entryRendererName)) {
-            self::$extensions['entryRenderer'][] = $entryRendererName;
+            static::$extensions['entryRenderer'][] = $entryRendererName;
         }
     }
 
@@ -134,7 +131,7 @@ class Writer
      * Is a given named Extension registered?
      *
      * @param  string $extensionName
-     * @return boolean
+     * @return bool
      */
     public static function isRegistered($extensionName)
     {
@@ -142,10 +139,10 @@ class Writer
         $entryName         = $extensionName . '\Entry';
         $feedRendererName  = $extensionName . '\Renderer\Feed';
         $entryRendererName = $extensionName . '\Renderer\Entry';
-        if (in_array($feedName, self::$extensions['feed'])
-            || in_array($entryName, self::$extensions['entry'])
-            || in_array($feedRendererName, self::$extensions['feedRenderer'])
-            || in_array($entryRendererName, self::$extensions['entryRenderer'])
+        if (in_array($feedName, static::$extensions['feed'])
+            || in_array($entryName, static::$extensions['entry'])
+            || in_array($feedRendererName, static::$extensions['feedRenderer'])
+            || in_array($entryRendererName, static::$extensions['entryRenderer'])
         ) {
             return true;
         }
@@ -159,7 +156,7 @@ class Writer
      */
     public static function getExtensions()
     {
-        return self::$extensions;
+        return static::$extensions;
     }
 
     /**
@@ -169,8 +166,8 @@ class Writer
      */
     public static function reset()
     {
-        self::$extensionManager = null;
-        self::$extensions   = array(
+        static::$extensionManager = null;
+        static::$extensions   = array(
             'entry'         => array(),
             'feed'          => array(),
             'entryRenderer' => array(),
@@ -185,13 +182,13 @@ class Writer
      */
     public static function registerCoreExtensions()
     {
-        self::registerExtension('DublinCore');
-        self::registerExtension('Content');
-        self::registerExtension('Atom');
-        self::registerExtension('Slash');
-        self::registerExtension('WellFormedWeb');
-        self::registerExtension('Threading');
-        self::registerExtension('ITunes');
+        static::registerExtension('DublinCore');
+        static::registerExtension('Content');
+        static::registerExtension('Atom');
+        static::registerExtension('Slash');
+        static::registerExtension('WellFormedWeb');
+        static::registerExtension('Threading');
+        static::registerExtension('ITunes');
     }
 
     public static function lcfirst($str)

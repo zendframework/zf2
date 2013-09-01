@@ -3,31 +3,37 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
  */
 
 namespace Zend\View\Strategy;
 
+use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Http\Request as HttpRequest;
 use Zend\View\Model;
 use Zend\View\Renderer\JsonRenderer;
 use Zend\View\ViewEvent;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage Strategy
- */
-class JsonStrategy implements ListenerAggregateInterface
+class JsonStrategy extends AbstractListenerAggregate
 {
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * Character set for associated content-type
+     *
+     * @var string
      */
-    protected $listeners = array();
+    protected $charset = 'utf-8';
+
+    /**
+     * Multibyte character sets that will trigger a binary content-transfer-encoding
+     *
+     * @var array
+     */
+    protected $multibyteCharsets = array(
+        'UTF-16',
+        'UTF-32',
+    );
 
     /**
      * @var JsonRenderer
@@ -45,11 +51,7 @@ class JsonStrategy implements ListenerAggregateInterface
     }
 
     /**
-     * Attach the aggregate to the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @param  int $priority
-     * @return void
+     * {@inheritDoc}
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
@@ -58,18 +60,25 @@ class JsonStrategy implements ListenerAggregateInterface
     }
 
     /**
-     * Detach aggregate listeners from the specified event manager
+     * Set the content-type character set
      *
-     * @param  EventManagerInterface $events
-     * @return void
+     * @param  string $charset
+     * @return JsonStrategy
      */
-    public function detach(EventManagerInterface $events)
+    public function setCharset($charset)
     {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
+        $this->charset = (string) $charset;
+        return $this;
+    }
+
+    /**
+     * Retrieve the current character set
+     *
+     * @return string
+     */
+    public function getCharset()
+    {
+        return $this->charset;
     }
 
     /**
@@ -83,36 +92,13 @@ class JsonStrategy implements ListenerAggregateInterface
     {
         $model = $e->getModel();
 
-        $request = $e->getRequest();
-        if (!$request instanceof HttpRequest) {
-            // Not an HTTP request; cannot autodetermine
-            return ($model instanceof Model\JsonModel) ? $this->renderer : null;
+        if (!$model instanceof Model\JsonModel) {
+            // no JsonModel; do nothing
+            return;
         }
 
-        $headers = $request->getHeaders();
-        if (!$headers->has('accept')) {
-            return ($model instanceof Model\JsonModel) ? $this->renderer : null;
-        }
-
-        $accept  = $headers->get('Accept');
-        if (($match = $accept->match('application/json, application/javascript')) == false) {
-            return ($model instanceof Model\JsonModel) ? $this->renderer : null;
-        }
-
-        if ($match->getTypeString() == 'application/json') {
-            // application/json Accept header found
-            return $this->renderer;
-        }
-
-        if ($match->getTypeString() == 'application/javascript') {
-            // application/javascript Accept header found
-            if (false != ($callback = $request->getQuery()->get('callback'))) {
-                $this->renderer->setJsonpCallback($callback);
-            }
-            return $this->renderer;
-        }
-
-        return ($model instanceof Model\JsonModel) ? $this->renderer : null;
+        // JsonModel found
+        return $this->renderer;
     }
 
     /**
@@ -139,10 +125,18 @@ class JsonStrategy implements ListenerAggregateInterface
         $response = $e->getResponse();
         $response->setContent($result);
         $headers = $response->getHeaders();
+
         if ($this->renderer->hasJsonpCallback()) {
-            $headers->addHeaderLine('content-type', 'application/javascript');
+            $contentType = 'application/javascript';
         } else {
-            $headers->addHeaderLine('content-type', 'application/json');
+            $contentType = 'application/json';
+        }
+
+        $contentType .= '; charset=' . $this->charset;
+        $headers->addHeaderLine('content-type', $contentType);
+
+        if (in_array(strtoupper($this->charset), $this->multibyteCharsets)) {
+            $headers->addHeaderLine('content-transfer-encoding', 'BINARY');
         }
     }
 }

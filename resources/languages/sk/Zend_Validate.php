@@ -1,21 +1,9 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Translator
- * @subpackage Resource
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright  Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -175,7 +163,7 @@ return array(
 
     // Zend_Validate_File_WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "Príliš veľa slov. Maximálne je ich dovolených '%max%', ale bolo zadaných '%count%'",
-    "Too less words, minimum '%min%' are expected but '%count%' were counted" => "Príliš málo slov. Musí ich byť aspoň '%min%', ale bolo zadaných len '%count%'",
+    "Too few words, minimum '%min%' are expected but '%count%' were counted" => "Príliš málo slov. Musí ich byť aspoň '%min%', ale bolo zadaných len '%count%'",
     "File '%value%' is not readable or does not exist" => "Súbor '%value%' buď nie je čitateľný, alebo neexistuje",
 
     // Zend_Validate_Float
@@ -191,16 +179,16 @@ return array(
 
     // Zend_Validate_Hostname
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
-    "'%value%' appears to be an IP address, but IP addresses are not allowed" => "'%value%' vyzerá ako IP adresa, ale tie nie sú dovolené",
-    "'%value%' appears to be a DNS hostname but cannot match TLD against known list" => "'%value%' vyzerá ako hostname, ale nemohol byť overený voči známym TLD",
-    "'%value%' appears to be a DNS hostname but contains a dash in an invalid position" => "'%value%' vyzerá ako hostname, ale obsahuje pomlčku na nedovolenom mieste",
-    "'%value%' appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'" => "'%value%' vyzerá ako hostname, ale nezodpovedá formátu hostname pre '%tld%'",
-    "'%value%' appears to be a DNS hostname but cannot extract TLD part" => "'%value%' síce vyzerá ako hostname, ale nemožno určiť TLD",
-    "'%value%' does not match the expected structure for a DNS hostname" => "'%value%' nezodpovedá očakávanej štruktúre hostname",
-    "'%value%' does not appear to be a valid local network name" => "'%value%' nevyzerá ako platné sieťové meno",
-    "'%value%' appears to be a local network name but local network names are not allowed" => "'%value%' vyzerá ako hostname lokálnej siete, tie ale nie sú povolené",
-    "'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded" => "'%value%' vyzerá ako DNS hostname ale zadanú punycode notáciu nie je možné dekódovať",
-    "'%value%' does not appear to be a valid URI hostname" => "'%value%' nevyzerá ako platné URI hostname",
+    "The input appears to be an IP address, but IP addresses are not allowed" => "Zadaná hodnota vyzerá ako IP adresa, ale tie nie sú dovolené",
+    "The input appears to be a DNS hostname but cannot match TLD against known list" => "Zadaná hodnota vyzerá ako hostname, ale nemohol byť overený voči známym TLD",
+    "The input appears to be a DNS hostname but contains a dash in an invalid position" => "Zadaná hodnota vyzerá ako hostname, ale obsahuje pomlčku na nedovolenom mieste",
+    "The input appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'" => "Zadaná hodnota vyzerá ako hostname, ale nezodpovedá formátu hostname pre '%tld%'",
+    "The input appears to be a DNS hostname but cannot extract TLD part" => "Zadaná hodnota síce vyzerá ako hostname, ale nemožno určiť TLD",
+    "The input does not match the expected structure for a DNS hostname" => "Zadaná hodnota nezodpovedá očakávanej štruktúre hostname",
+    "The input does not appear to be a valid local network name" => "Zadaná hodnota nevyzerá ako platné sieťové meno",
+    "The input appears to be a local network name but local network names are not allowed" => "Zadaná hodnota vyzerá ako hostname lokálnej siete, tie ale nie sú povolené",
+    "The input appears to be a DNS hostname but the given punycode notation cannot be decoded" => "Zadaná hodnota vyzerá ako DNS hostname ale zadanú punycode notáciu nie je možné dekódovať",
+    "The input does not appear to be a valid URI hostname" => "Zadaná hodnota nevyzerá ako platné URI hostname",
 
     // Zend_Validate_Iban
     "Unknown country within the IBAN '%value%'" => "Neznámý štát v IBAN '%value%'",

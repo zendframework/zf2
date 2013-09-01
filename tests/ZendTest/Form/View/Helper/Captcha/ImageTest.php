@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Form
  */
@@ -24,6 +24,7 @@ use ZendTest\Form\View\Helper\CommonTestCase;
 class ImageTest extends CommonTestCase
 {
     protected $tmpDir;
+    protected $testDir;
 
     public function setUp()
     {
@@ -62,11 +63,17 @@ class ImageTest extends CommonTestCase
     public function tearDown()
     {
         // remove captcha images
-        foreach (new DirectoryIterator($this->tmpDir) as $file) {
+        if (!isset($this->testDir)) {
+            parent::tearDown();
+            return;
+        }
+
+        foreach (new DirectoryIterator($this->testDir) as $file) {
             if (!$file->isDot() && !$file->isDir()) {
                 unlink($file->getPathname());
             }
         }
+        parent::tearDown();
     }
 
     /**

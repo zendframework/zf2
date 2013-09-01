@@ -3,18 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Barcode
  */
 
 namespace Zend\Barcode\Object;
 
 /**
  * Class for generate Code39 barcode
- *
- * @category   Zend
- * @package    Zend_Barcode
  */
 class Code39 extends AbstractObject
 {
@@ -119,9 +115,9 @@ class Code39 extends AbstractObject
         $text = parent::getTextToDisplay();
         if (substr($text, 0, 1) != '*' && substr($text, -1) != '*') {
             return '*' . $text . '*';
-        } else {
-            return $text;
         }
+
+        return $text;
     }
 
     /**
@@ -141,7 +137,7 @@ class Code39 extends AbstractObject
                 $barcodeTable[] = array((int) $visible, $width, 0, 1);
                 $visible = ! $visible;
             }
-            $barcodeTable[] = array(0 , $this->barThinWidth);
+            $barcodeTable[] = array(0, $this->barThinWidth);
         }
         return $barcodeTable;
     }

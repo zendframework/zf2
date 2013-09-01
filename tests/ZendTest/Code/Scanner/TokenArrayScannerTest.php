@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Code
  */
@@ -19,9 +19,22 @@ class TokenArrayScannerTest extends TestCase
     public function testScannerReturnsNamespaces()
     {
         $tokenScanner = new TokenArrayScanner(token_get_all(file_get_contents((__DIR__ . '/../TestAsset/FooClass.php'))));
+        $this->assertTrue($tokenScanner->hasNamespace('ZendTest\Code\TestAsset'));
         $namespaces = $tokenScanner->getNamespaces();
         $this->assertInternalType('array', $namespaces);
         $this->assertContains('ZendTest\Code\TestAsset', $namespaces);
+    }
+
+    public function testScannerReturnsNamespacesInNotNamespacedClasses()
+    {
+        $tokenScanner = new TokenArrayScanner(token_get_all(file_get_contents((__DIR__ . '/../TestAsset/FooBarClass.php'))));
+        $uses = $tokenScanner->getUses();
+        $this->assertInternalType('array', $uses);
+        $foundUses = array();
+        foreach ($uses as $use) {
+            $foundUses[] = $use['use'];
+        }
+        $this->assertContains('ArrayObject', $foundUses);
     }
 
     public function testScannerReturnsClassNames()

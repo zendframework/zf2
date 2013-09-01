@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Debug.php
  */
 
 namespace Zend\Debug;
@@ -14,9 +13,6 @@ use Zend\Escaper\Escaper;
 
 /**
  * Concrete class for generating debug dumps related to the output source.
- *
- * @category   Zend
- * @package    Zend_Debug
  */
 class Debug
 {
@@ -38,10 +34,10 @@ class Debug
      */
     public static function getSapi()
     {
-        if (self::$sapi === null) {
-            self::$sapi = PHP_SAPI;
+        if (static::$sapi === null) {
+            static::$sapi = PHP_SAPI;
         }
-        return self::$sapi;
+        return static::$sapi;
     }
 
     /**
@@ -53,7 +49,7 @@ class Debug
      */
     public static function setSapi($sapi)
     {
-        self::$sapi = $sapi;
+        static::$sapi = $sapi;
     }
 
     /**
@@ -91,7 +87,7 @@ class Debug
      * @param  bool   $echo  OPTIONAL Echo output if true.
      * @return string
      */
-    public static function dump($var, $label=null, $echo=true)
+    public static function dump($var, $label = null, $echo = true)
     {
         // format the label
         $label = ($label===null) ? '' : rtrim($label) . ' ';
@@ -103,7 +99,7 @@ class Debug
 
         // neaten the newlines and indents
         $output = preg_replace("/\]\=\>\n(\s+)/m", "] => ", $output);
-        if (self::getSapi() == 'cli') {
+        if (static::getSapi() == 'cli') {
             $output = PHP_EOL . $label
                     . PHP_EOL . $output
                     . PHP_EOL;
@@ -119,9 +115,8 @@ class Debug
         }
 
         if ($echo) {
-            echo($output);
+            echo $output;
         }
         return $output;
     }
-
 }

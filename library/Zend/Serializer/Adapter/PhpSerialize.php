@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Serializer
  */
 
 namespace Zend\Serializer\Adapter;
@@ -13,11 +12,6 @@ namespace Zend\Serializer\Adapter;
 use Zend\Serializer\Exception;
 use Zend\Stdlib\ErrorHandler;
 
-/**
- * @category   Zend
- * @package    Zend_Serializer
- * @subpackage Adapter
- */
 class PhpSerialize extends AbstractAdapter
 {
     /**
@@ -34,8 +28,8 @@ class PhpSerialize extends AbstractAdapter
     {
         // needed to check if a returned false is based on a serialize false
         // or based on failure (igbinary can overwrite [un]serialize functions)
-        if (self::$serializedFalse === null) {
-            self::$serializedFalse = serialize(false);
+        if (static::$serializedFalse === null) {
+            static::$serializedFalse = serialize(false);
         }
 
         parent::__construct($options);
@@ -78,7 +72,7 @@ class PhpSerialize extends AbstractAdapter
 
         // If we have a serialized boolean false value, just return false;
         // prevents the unserialize handler from creating an error.
-        if ($serialized === self::$serializedFalse) {
+        if ($serialized === static::$serializedFalse) {
             return false;
         }
 

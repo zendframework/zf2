@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Http
  */
 
 namespace Zend\Http\Header;
@@ -34,8 +33,6 @@ use stdClass;
  *                        |---|                                priority
  *
  *
- * @category   Zend
- * @package    Zend\Http\Header
  * @see        http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
  * @author     Dolf Schimmel - Freeaqingme
  */
@@ -171,7 +168,7 @@ abstract class AbstractAccept implements HeaderInterface
                 $explode = explode('=', $param, 2);
 
                 $value = trim($explode[1]);
-                if ($value[0] == '"' && substr($value, -1) == '"') {
+                if (isset($value[0]) && $value[0] == '"' && substr($value, -1) == '"') {
                     $value = substr(substr($value, 1), 0, -1);
                 }
 
@@ -220,9 +217,11 @@ abstract class AbstractAccept implements HeaderInterface
                             '/', '[', ']', '?', '=', '{', '}',  ' ',  "\t");
 
         $escaped = preg_replace_callback('/[[:cntrl:]"\\\\]/', // escape cntrl, ", \
-                                         function($v) { return '\\' . $v[0]; },
-                                         $value
-                    );
+            function ($v) {
+                return '\\' . $v[0];
+            },
+            $value
+        );
 
         if ($escaped == $value && !array_intersect(str_split($value), $separators)) {
             $value = $key . '=' . $value;
@@ -291,7 +290,7 @@ abstract class AbstractAccept implements HeaderInterface
      * Match a media string against this header
      *
      * @param array|string $matchAgainst
-     * @return array|boolean The matched value or false
+     * @return AcceptFieldValuePart|bool The matched value or false
      */
     public function match($matchAgainst)
     {
@@ -302,8 +301,10 @@ abstract class AbstractAccept implements HeaderInterface
         foreach ($this->getPrioritized() as $left) {
             foreach ($matchAgainst as $right) {
                 if ($right->type == '*' || $left->type == '*') {
-                    if ($res = $this->matchAcceptParams($left, $right)) {
-                        return $res;
+                    if ($this->matchAcceptParams($left, $right)) {
+                        $left->setMatchedAgainst($right);
+
+                        return $left;
                     }
                 }
 
@@ -313,8 +314,10 @@ abstract class AbstractAccept implements HeaderInterface
                             ($left->format == $right->format ||
                                     $right->format == '*' || $left->format == '*')))
                     {
-                        if ($res = $this->matchAcceptParams($left, $right)) {
-                            return $res;
+                        if ($this->matchAcceptParams($left, $right)) {
+                            $left->setMatchedAgainst($right);
+
+                            return $left;
                         }
                     }
                 }
@@ -331,17 +334,24 @@ abstract class AbstractAccept implements HeaderInterface
      *
      * @param array $match1
      * @param array $match2
-     * @return boolean|array
+     * @return bool|array
      */
     protected function matchAcceptParams($match1, $match2)
     {
         foreach ($match2->params as $key => $value) {
             if (isset($match1->params[$key])) {
                 if (strpos($value, '-')) {
-                    $values = explode('-', $value, 2);
-                    if ($values[0] > $match1->params[$key] ||
-                            $values[1] < $match1->params[$key])
-                    {
+                    preg_match(
+                        '/^(?|([^"-]*)|"([^"]*)")-(?|([^"-]*)|"([^"]*)")\z/',
+                        $value,
+                        $pieces
+                    );
+
+                    if (count($pieces) == 3 &&
+                        (version_compare($pieces[1], $match1->params[$key], '<=')  xor
+                         version_compare($pieces[2], $match1->params[$key], '>=')
+                        )
+                    ) {
                         return false;
                     }
                 } elseif (strpos($value, '|')) {
@@ -401,7 +411,7 @@ abstract class AbstractAccept implements HeaderInterface
      */
     protected function sortFieldValueParts()
     {
-        $sort = function($a, $b) { // If A has higher prio than B, return -1.
+        $sort = function ($a, $b) { // If A has higher prio than B, return -1.
             if ($a->priority > $b->priority) {
                 return -1;
             } elseif ($a->priority < $b->priority) {
@@ -409,7 +419,7 @@ abstract class AbstractAccept implements HeaderInterface
             }
 
             // Asterisks
-            $values = array('type', 'subtype','format');
+            $values = array('type', 'subtype', 'format');
             foreach ($values as $value) {
                 if ($a->$value == '*' && $b->$value != '*') {
                     return 1;
@@ -446,5 +456,4 @@ abstract class AbstractAccept implements HeaderInterface
 
         return $this->fieldValueParts;
     }
-
 }

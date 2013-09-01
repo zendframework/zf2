@@ -3,20 +3,16 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace Zend\Feed\PubSubHubbub\Subscriber;
 
 use Zend\Feed\PubSubHubbub;
-use Zend\Uri;
+use Zend\Feed\PubSubHubbub\Exception;
+use Zend\Feed\Uri;
 
-/**
- * @category   Zend
- * @package    Zend_Feed_Pubsubhubbub
- */
 class Callback extends PubSubHubbub\AbstractCallback
 {
     /**
@@ -30,7 +26,7 @@ class Callback extends PubSubHubbub\AbstractCallback
      * Holds a manually set subscription key (i.e. identifies a unique
      * subscription) which is typical when it is not passed in the query string
      * but is part of the Callback URL path, requiring manual retrieval e.g.
-     * using a route and the Zend_Controller_Action::_getParam() method.
+     * using a route and the \Zend\Mvc\Router\RouteMatch::getParam() method.
      *
      * @var string
      */
@@ -93,19 +89,34 @@ class Callback extends PubSubHubbub\AbstractCallback
          * Handle any (un)subscribe confirmation requests
          */
         } elseif ($this->isValidHubVerification($httpGetData)) {
-            $data = $this->currentSubscriptionData;
             $this->getHttpResponse()->setContent($httpGetData['hub_challenge']);
-            $data['subscription_state'] = PubSubHubbub\PubSubHubbub::SUBSCRIPTION_VERIFIED;
-            if (isset($httpGetData['hub_lease_seconds'])) {
-                $data['lease_seconds'] = $httpGetData['hub_lease_seconds'];
+
+            switch (strtolower($httpGetData['hub_mode'])) {
+                case 'subscribe':
+                    $data = $this->currentSubscriptionData;
+                    $data['subscription_state'] = PubSubHubbub\PubSubHubbub::SUBSCRIPTION_VERIFIED;
+                    if (isset($httpGetData['hub_lease_seconds'])) {
+                        $data['lease_seconds'] = $httpGetData['hub_lease_seconds'];
+                    }
+                    $this->getStorage()->setSubscription($data);
+                    break;
+                case 'unsubscribe':
+                    $verifyTokenKey = $this->_detectVerifyTokenKey($httpGetData);
+                    $this->getStorage()->deleteSubscription($verifyTokenKey);
+                    break;
+                default:
+                    throw new Exception\RuntimeException(sprintf(
+                        'Invalid hub_mode ("%s") provided',
+                        $httpGetData['hub_mode']
+                    ));
             }
-            $this->getStorage()->setSubscription($data);
         /**
          * Hey, C'mon! We tried everything else!
          */
         } else {
             $this->getHttpResponse()->setStatusCode(404);
         }
+
         if ($sendResponseNow) {
             $this->sendResponse();
         }
@@ -150,7 +161,7 @@ class Callback extends PubSubHubbub\AbstractCallback
         ) {
             return false;
         }
-        if (!Uri\UriFactory::factory($httpGetData['hub_topic'])->isValid()) {
+        if (!Uri::factory($httpGetData['hub_topic'])->isValid()) {
             return false;
         }
 

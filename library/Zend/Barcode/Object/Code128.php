@@ -3,25 +3,21 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Barcode
  */
 
 namespace Zend\Barcode\Object;
 
 /**
  * Class for generate Code128 barcode
- *
- * @category   Zend
- * @package    Zend_Barcode
  */
 class Code128 extends AbstractObject
 {
     /**
      * Drawing of checksum
      * (even if it's sometime optional, most of time it's required)
-     * @var boolean
+     * @var bool
      */
     protected $withChecksum = true;
 
@@ -119,7 +115,7 @@ class Code128 extends AbstractObject
 
     /**
      * Width of the barcode (in pixels)
-     * @return integer
+     * @return int
      */
     protected function calculateBarcodeWidth()
     {
@@ -218,8 +214,8 @@ class Code128 extends AbstractObject
             $char = $string[$pos];
             $code = null;
 
-            if (self::_isDigit($string, $pos, 4) && $currentCharset != 'C'
-             || self::_isDigit($string, $pos, 2) && $currentCharset == 'C') {
+            if (static::_isDigit($string, $pos, 4) && $currentCharset != 'C'
+             || static::_isDigit($string, $pos, 2) && $currentCharset == 'C') {
                 /**
                  * Switch to C if the next 4 chars are numeric or stay C if the next 2
                  * chars are numeric

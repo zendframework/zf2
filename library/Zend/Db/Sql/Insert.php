@@ -3,24 +3,18 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Db
  */
 
 namespace Zend\Db\Sql;
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Adapter\StatementContainerInterface;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Adapter\Platform\Sql92;
+use Zend\Db\Adapter\StatementContainerInterface;
 
-/**
- * @category   Zend
- * @package    Zend_Db
- * @subpackage Sql
- */
 class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
 {
     /**#@+
@@ -41,7 +35,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     );
 
     /**
-     * @var string
+     * @var string|TableIdentifier
      */
     protected $table            = null;
     protected $columns          = array();
@@ -54,7 +48,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Constructor
      *
-     * @param  null|string $table
+     * @param  null|string|TableIdentifier $table
      */
     public function __construct($table = null)
     {
@@ -66,7 +60,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Crete INTO clause
      *
-     * @param  string $table
+     * @param  string|TableIdentifier $table
      * @return Insert
      */
     public function into($table)
@@ -101,24 +95,27 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
             throw new \InvalidArgumentException('values() expects an array of values');
         }
 
+        // determine if this is assoc or a set of values
         $keys = array_keys($values);
         $firstKey = current($keys);
 
-        if (is_string($firstKey)) {
-            if ($flag == self::VALUES_MERGE) {
-                $this->columns(array_merge($this->columns, $keys));
-            } else {
-                $this->columns($keys);
-            }
-            $values = array_values($values);
-        } elseif (is_int($firstKey)) {
-            $values = array_values($values);
+        if ($flag == self::VALUES_SET) {
+            $this->columns = array();
+            $this->values = array();
         }
 
-        if ($flag == self::VALUES_MERGE) {
-            $this->values = array_merge($this->values, $values);
-        } else {
-            $this->values = $values;
+        if (is_string($firstKey)) {
+            foreach ($keys as $key) {
+                if (($index = array_search($key, $this->columns)) !== false) {
+                    $this->values[$index] = $values[$key];
+                } else {
+                    $this->columns[] = $key;
+                    $this->values[] = $values[$key];
+                }
+            }
+        } elseif (is_int($firstKey)) {
+            // determine if count of columns should match count of values
+            $this->values = array_merge($this->values, array_values($values));
         }
 
         return $this;
@@ -137,11 +134,11 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Prepare statement
      *
-     * @param  Adapter $adapter
+     * @param  AdapterInterface $adapter
      * @param  StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(Adapter $adapter, StatementContainerInterface $statementContainer)
+    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
     {
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
@@ -152,20 +149,36 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $statementContainer->setParameterContainer($parameterContainer);
         }
 
-        $table = $platform->quoteIdentifier($this->table);
+        $table = $this->table;
+        $schema = null;
+
+        // create quoted table name to use in insert processing
+        if ($table instanceof TableIdentifier) {
+            list($table, $schema) = $table->getTableAndSchema();
+        }
+
+        $table = $platform->quoteIdentifier($table);
+
+        if ($schema) {
+            $table = $platform->quoteIdentifier($schema) . $platform->getIdentifierSeparator() . $table;
+        }
 
         $columns = array();
         $values  = array();
 
         foreach ($this->columns as $cIndex => $column) {
             $columns[$cIndex] = $platform->quoteIdentifier($column);
-            if ($this->values[$cIndex] instanceof Expression) {
-                $exprData = $this->processExpression($this->values[$cIndex], $platform, $adapter);
+            if (isset($this->values[$cIndex]) && $this->values[$cIndex] instanceof Expression) {
+                $exprData = $this->processExpression($this->values[$cIndex], $platform, $driver);
                 $values[$cIndex] = $exprData->getSql();
                 $parameterContainer->merge($exprData->getParameterContainer());
             } else {
                 $values[$cIndex] = $driver->formatParameterName($column);
-                $parameterContainer->offsetSet($column, $this->values[$cIndex]);
+                if (isset($this->values[$cIndex])) {
+                    $parameterContainer->offsetSet($column, $this->values[$cIndex]);
+                } else {
+                    $parameterContainer->offsetSet($column, null);
+                }
             }
         }
 
@@ -188,7 +201,19 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
         $adapterPlatform = ($adapterPlatform) ?: new Sql92;
-        $table = $adapterPlatform->quoteIdentifier($this->table);
+        $table = $this->table;
+        $schema = null;
+
+        // create quoted table name to use in insert processing
+        if ($table instanceof TableIdentifier) {
+            list($table, $schema) = $table->getTableAndSchema();
+        }
+
+        $table = $adapterPlatform->quoteIdentifier($table);
+
+        if ($schema) {
+            $table = $adapterPlatform->quoteIdentifier($schema) . $adapterPlatform->getIdentifierSeparator() . $table;
+        }
 
         $columns = array_map(array($adapterPlatform, 'quoteIdentifier'), $this->columns);
         $columns = implode(', ', $columns);
@@ -198,7 +223,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
             if ($value instanceof Expression) {
                 $exprData = $this->processExpression($value, $adapterPlatform);
                 $values[] = $exprData->getSql();
-            } elseif (is_null($value)) {
+            } elseif ($value === null) {
                 $values[] = 'NULL';
             } else {
                 $values[] = $adapterPlatform->quoteValue($value);

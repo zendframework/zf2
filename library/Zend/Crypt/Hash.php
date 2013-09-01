@@ -3,59 +3,52 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
  */
 
 namespace Zend\Crypt;
 
-/**
- * @category   Zend
- * @package    Zend_Crypt
- */
 class Hash
 {
-    const OUTPUT_STRING = 'string';
-    const OUTPUT_BINARY = 'binary';
+    const OUTPUT_STRING = false;
+    const OUTPUT_BINARY = true;
 
     /**
-     * List of hash algorithms supported
+     * Last algorithm supported
      *
-     * @var array
+     * @var string|null
      */
-    protected static $supportedAlgorithms = array();
+    protected static $lastAlgorithmSupported;
 
     /**
-     * @param  string $hash
-     * @param  string $data
-     * @param  string $output
+     * @param  string  $hash
+     * @param  string  $data
+     * @param  bool $output
      * @throws Exception\InvalidArgumentException
      * @return string
      */
     public static function compute($hash, $data, $output = self::OUTPUT_STRING)
     {
-        $hash = strtolower($hash);
-        if (!self::isSupported($hash)) {
+        if (!$hash || ($hash !== static::$lastAlgorithmSupported && !static::isSupported($hash))) {
             throw new Exception\InvalidArgumentException(
                 'Hash algorithm provided is not supported on this PHP installation'
             );
         }
 
-        $output = ($output === self::OUTPUT_BINARY);
         return hash($hash, $data, $output);
     }
 
     /**
      * Get the output size according to the hash algorithm and the output format
      *
-     * @param  string $hash
-     * @param  string $output
-     * @return integer
+     * @param  string  $hash
+     * @param  bool $output
+     * @return int
      */
     public static function getOutputSize($hash, $output = self::OUTPUT_STRING)
     {
-        return strlen(self::compute($hash, 'data', $output));
+        return strlen(static::compute($hash, 'data', $output));
     }
 
     /**
@@ -65,20 +58,34 @@ class Hash
      */
     public static function getSupportedAlgorithms()
     {
-        if (empty(self::$supportedAlgorithms)) {
-            self::$supportedAlgorithms = hash_algos();
-        }
-        return self::$supportedAlgorithms;
+        return hash_algos();
     }
 
     /**
      * Is the hash algorithm supported?
      *
-     * @param  string $algo
-     * @return boolean
+     * @param  string $algorithm
+     * @return bool
      */
-    public static function isSupported($algo)
+    public static function isSupported($algorithm)
     {
-        return in_array($algo, self::getSupportedAlgorithms());
+        if ($algorithm === static::$lastAlgorithmSupported) {
+            return true;
+        }
+
+        if (in_array(strtolower($algorithm), hash_algos(), true)) {
+            static::$lastAlgorithmSupported = $algorithm;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Clear the cache of last algorithm supported
+     */
+    public static function clearLastAlgorithmCache()
+    {
+        static::$lastAlgorithmSupported = null;
     }
 }

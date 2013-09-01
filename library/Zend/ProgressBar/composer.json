@@ -15,5 +15,14 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zend-stdlib": "self.version"
+    },
+    "suggest": {
+        "zendframework/zend-json": "Zend\\Json component"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.2-dev",
+            "dev-develop": "2.3-dev"
+        }
     }
 }

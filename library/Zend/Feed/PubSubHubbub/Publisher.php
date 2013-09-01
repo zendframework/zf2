@@ -3,23 +3,17 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace Zend\Feed\PubSubHubbub;
 
 use Traversable;
+use Zend\Feed\Uri;
 use Zend\Http\Request as HttpRequest;
 use Zend\Stdlib\ArrayUtils;
-use Zend\Uri;
-use Zend\Version\Version;
 
-/**
- * @category   Zend
- * @package    Zend_Feed_Pubsubhubbub
- */
 class Publisher
 {
     /**
@@ -40,7 +34,7 @@ class Publisher
 
     /**
      * An array of any errors including keys for 'response', 'hubUrl'.
-     * The response is the actual Zend_Http_Response object.
+     * The response is the actual Zend\Http\Response object.
      *
      * @var array
      */
@@ -55,7 +49,7 @@ class Publisher
     protected $parameters = array();
 
     /**
-     * Constructor; accepts an array or Zend_Config instance to preset
+     * Constructor; accepts an array or Zend\Config\Config instance to preset
      * options for the Publisher without calling all supported setter
      * methods in turn.
      *
@@ -106,7 +100,7 @@ class Publisher
      */
     public function addHubUrl($url)
     {
-        if (empty($url) || !is_string($url) || !Uri\UriFactory::factory($url)->isValid()) {
+        if (empty($url) || !is_string($url) || !Uri::factory($url)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . 'URL');
@@ -165,7 +159,7 @@ class Publisher
      */
     public function addUpdatedTopicUrl($url)
     {
-        if (empty($url) || !is_string($url) || !Uri\UriFactory::factory($url)->isValid()) {
+        if (empty($url) || !is_string($url) || !Uri::factory($url)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . 'URL');
@@ -225,7 +219,7 @@ class Publisher
      */
     public function notifyHub($url)
     {
-        if (empty($url) || !is_string($url) || !Uri\UriFactory::factory($url)->isValid()) {
+        if (empty($url) || !is_string($url) || !Uri::factory($url)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter "url"'
                 . ' of "' . $url . '" must be a non-empty string and a valid'
                 . 'URL');
@@ -247,7 +241,7 @@ class Publisher
      * If a Hub notification fails, certain data will be retained in an
      * an array retrieved using getErrors(), if a failure occurs for any Hubs
      * the isSuccess() check will return FALSE. This method is designed not
-     * to needlessly fail with an Exception/Error unless from Zend_Http_Client.
+     * to needlessly fail with an Exception/Error unless from Zend\Http\Client.
      *
      * @return void
      * @throws Exception\RuntimeException
@@ -359,7 +353,7 @@ class Publisher
 
     /**
      * Return an array of errors met from any failures, including keys:
-     * 'response' => the Zend_Http_Response object from the failure
+     * 'response' => the Zend\Http\Response object from the failure
      * 'hubUrl' => the URL of the Hub Server whose notification failed
      *
      * @return array

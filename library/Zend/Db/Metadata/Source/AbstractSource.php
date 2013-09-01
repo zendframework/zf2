@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Db
  */
 
 namespace Zend\Db\Metadata\Source;
@@ -14,11 +13,6 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\Metadata\MetadataInterface;
 use Zend\Db\Metadata\Object;
 
-/**
- * @category   Zend
- * @package    Zend_Db
- * @subpackage Metadata
- */
 abstract class AbstractSource implements MetadataInterface
 {
     const DEFAULT_SCHEMA = '__DEFAULT_SCHEMA__';
@@ -146,6 +140,7 @@ abstract class AbstractSource implements MetadataInterface
                 throw new \Exception('Table "' . $tableName . '" is of an unsupported type "' . $data['table_type'] . '"');
         }
         $table->setColumns($this->getColumns($tableName, $schema));
+        $table->setConstraints($this->getConstraints($tableName, $schema));
         return $table;
     }
 
@@ -361,9 +356,6 @@ abstract class AbstractSource implements MetadataInterface
             'referenced_table_schema' => 'setReferencedTableSchema',
             'referenced_table_name'   => 'setReferencedTableName',
             'referenced_columns'      => 'setReferencedColumns',
-            'match_option'            => 'setMatchOption',
-            'update_rule'             => 'setUpdateRule',
-            'delete_rule'             => 'setDeleteRule',
             'check_clause'            => 'setCheckClause',
         ) as $key => $setMethod) {
             if (isset($info[$key])) {
@@ -388,7 +380,7 @@ abstract class AbstractSource implements MetadataInterface
             $schema = $this->defaultSchema;
         }
 
-        $this->loadConstraintData($table, $schema);
+        $this->loadConstraintReferences($table, $schema);
 
         // organize references first
         $references = array();
@@ -397,6 +389,8 @@ abstract class AbstractSource implements MetadataInterface
                 $references[$refKeyInfo['constraint_name']] = $refKeyInfo;
             }
         }
+
+        $this->loadConstraintDataKeys($schema);
 
         $keys = array();
         foreach ($this->data['constraint_keys'][$schema] as $constraintKeyInfo) {
@@ -512,10 +506,18 @@ abstract class AbstractSource implements MetadataInterface
         }
     }
 
+    /**
+     * Load schema data
+     */
     protected function loadSchemaData()
     {
     }
 
+    /**
+     * Load table name data
+     *
+     * @param string $schema
+     */
     protected function loadTableNameData($schema)
     {
         if (isset($this->data['table_names'][$schema])) {
@@ -525,6 +527,12 @@ abstract class AbstractSource implements MetadataInterface
         $this->prepareDataHierarchy('table_names', $schema);
     }
 
+    /**
+     * Load column data
+     *
+     * @param string $table
+     * @param string $schema
+     */
     protected function loadColumnData($table, $schema)
     {
         if (isset($this->data['columns'][$schema][$table])) {
@@ -534,6 +542,12 @@ abstract class AbstractSource implements MetadataInterface
         $this->prepareDataHierarchy('columns', $schema, $table);
     }
 
+    /**
+     * Load constraint data
+     *
+     * @param string $table
+     * @param string $schema
+     */
     protected function loadConstraintData($table, $schema)
     {
         if (isset($this->data['constraints'][$schema])) {
@@ -543,6 +557,40 @@ abstract class AbstractSource implements MetadataInterface
         $this->prepareDataHierarchy('constraints', $schema);
     }
 
+    /**
+     * Load constraint data keys
+     *
+     * @param string $schema
+     */
+    protected function loadConstraintDataKeys($schema)
+    {
+        if (isset($this->data['constraint_keys'][$schema])) {
+            return;
+        }
+
+        $this->prepareDataHierarchy('constraint_keys', $schema);
+    }
+
+    /**
+     * Load constraint references
+     *
+     * @param string $table
+     * @param string $schema
+     */
+    protected function loadConstraintReferences($table, $schema)
+    {
+        if (isset($this->data['constraint_references'][$schema])) {
+            return;
+        }
+
+        $this->prepareDataHierarchy('constraint_references', $schema);
+    }
+
+    /**
+     * Load trigger data
+     *
+     * @param string $schema
+     */
     protected function loadTriggerData($schema)
     {
         if (isset($this->data['triggers'][$schema])) {
@@ -551,5 +599,4 @@ abstract class AbstractSource implements MetadataInterface
 
         $this->prepareDataHierarchy('triggers', $schema);
     }
-
 }

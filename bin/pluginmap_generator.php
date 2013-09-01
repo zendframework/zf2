@@ -1,22 +1,13 @@
 #!/usr/bin/env php
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
  * @category   Zend
  * @package    Zend_Loader
  * @subpackage Exception
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -146,7 +137,7 @@ if ($appending) {
     $content = str_replace("\\'", "'", $content);
 
     // Convert to an array and remove the first "array ("
-    $content = explode(PHP_EOL, $content);
+    $content = explode("\n", $content);
     array_shift($content);
 
     // Load existing class map file and remove the closing "bracket ");" from it
@@ -154,7 +145,7 @@ if ($appending) {
     array_pop($existing);
 
     // Merge
-    $content = implode(PHP_EOL, $existing + $content);
+    $content = implode("\n", $existing + $content);
 } else {
     // Create a file with the class/file map.
     // Stupid syntax highlighters make separating < from PHP declaration necessary
@@ -167,6 +158,9 @@ if ($appending) {
     // Fix \' strings from injected DIRECTORY_SEPARATOR usage in iterator_apply op
     $content = str_replace("\\'", "'", $content);
 }
+
+// Make the file end by EOL
+$content = rtrim($content, "\n") . "\n";
 
 // Write the contents to disk
 file_put_contents($output, $content);

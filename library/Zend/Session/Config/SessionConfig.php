@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Session
  */
 
 namespace Zend\Session\Config;
@@ -14,10 +13,6 @@ use Zend\Session\Exception;
 
 /**
  * Session configuration proxying to session INI options
- *
- * @category   Zend
- * @package    Zend_Session
- * @subpackage Configuration
  */
 class SessionConfig extends StandardConfig
 {
@@ -70,12 +65,10 @@ class SessionConfig extends StandardConfig
     /**
      * Set storage option in backend configuration store
      *
-     * Does nothing in this implementation; others might use it to set things
-     * such as INI settings.
-     *
      * @param  string $storageName
      * @param  mixed $storageValue
      * @return SessionConfig
+     * @throws \InvalidArgumentException
      */
     public function setStorageOption($storageName, $storageValue)
     {
@@ -92,7 +85,11 @@ class SessionConfig extends StandardConfig
                 break;
         }
 
-        ini_set($key, $storageValue);
+        $result = ini_set($key, $storageValue);
+        if (FALSE === $result) {
+            throw new \InvalidArgumentException("'" . $key .
+                    "' is not a valid sessions-related ini setting.");
+        }
         return $this;
     }
 
@@ -146,6 +143,24 @@ class SessionConfig extends StandardConfig
         $this->setOption('save_handler', $phpSaveHandler);
         return $this;
     }
+
+    /**
+     * Set session.save_path
+     *
+     * @param  string $savePath
+     * @return SessionConfig
+     * @throws Exception\InvalidArgumentException on invalid path
+     */
+    public function setSavePath($savePath)
+    {
+        if ($this->getOption('save_handler') == 'files') {
+            parent::setSavePath($savePath);
+        }
+        $this->savePath = $savePath;
+        $this->setOption('save_path', $savePath);
+        return $this;
+    }
+
 
     /**
      * Set session.serialize_handler

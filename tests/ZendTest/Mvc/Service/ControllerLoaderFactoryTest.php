@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  * @package   Zend_Mvc
  */
@@ -15,6 +15,9 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Mvc\Service\ControllerLoaderFactory;
 use Zend\Mvc\Service\ControllerPluginManagerFactory;
 use Zend\Mvc\Service\DiFactory;
+use Zend\Mvc\Service\DiStrictAbstractServiceFactoryFactory;
+use Zend\Mvc\Service\DiAbstractServiceFactoryFactory;
+use Zend\Mvc\Service\DiServiceInitializerFactory;
 use Zend\Mvc\Service\EventManagerFactory;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
@@ -40,8 +43,11 @@ class ControllerLoaderFactoryTest extends TestCase
         $this->services->setService('Zend\ServiceManager\ServiceLocatorInterface', $this->services);
         $this->services->setFactory('ControllerLoader', $loaderFactory);
         $this->services->setService('Config', $config);
-        $this->services->setFactory('ControllerPluginBroker', new ControllerPluginManagerFactory());
+        $this->services->setFactory('ControllerPluginManager', new ControllerPluginManagerFactory());
         $this->services->setFactory('Di', new DiFactory());
+        $this->services->setFactory('DiStrictAbstractServiceFactory', new DiStrictAbstractServiceFactoryFactory());
+        $this->services->setFactory('DiAbstractServiceFactory', new DiAbstractServiceFactoryFactory());
+        $this->services->setFactory('DiServiceInitializer', new DiServiceInitializerFactory());
         $this->services->setFactory('EventManager', new EventManagerFactory());
         $this->services->setInvokableClass('SharedEventManager', 'Zend\EventManager\SharedEventManager');
     }
@@ -87,7 +93,7 @@ class ControllerLoaderFactoryTest extends TestCase
         $this->assertInstanceOf('ZendTest\Mvc\Service\TestAsset\Dispatchable', $controller);
         $this->assertSame($this->services, $controller->getServiceLocator());
         $this->assertSame($this->services->get('EventManager'), $controller->getEventManager());
-        $this->assertSame($this->services->get('ControllerPluginBroker'), $controller->getPluginManager());
+        $this->assertSame($this->services->get('ControllerPluginManager'), $controller->getPluginManager());
     }
 
     public function testWillInstantiateControllersFromDiAbstractFactoryWhenWhitelisted()
@@ -162,5 +168,17 @@ class ControllerLoaderFactoryTest extends TestCase
         // invalid controller exception (because we're not getting a \Zend\Stdlib\DispatchableInterface after all)
         $controller = $this->loader->get($controllerName);
         $this->assertSame($testService, $controller->injectedValue);
+    }
+
+    public function testCallPluginWithControllerPluginManager()
+    {
+        $controllerpluginManager = $this->services->get('ControllerPluginManager');
+        $controllerpluginManager->setInvokableClass('samplePlugin', 'ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePlugin');
+
+        $controller    = new \ZendTest\Mvc\Controller\TestAsset\SampleController;
+        $controllerpluginManager->setController($controller);
+
+        $plugin = $controllerpluginManager->get('samplePlugin');
+        $this->assertEquals($controller, $plugin->getController());
     }
 }
