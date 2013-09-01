@@ -26,6 +26,11 @@ class Smtp implements TransportInterface
      * @var SmtpOptions
      */
     protected $options;
+    
+    /**
+     * @var Envelope
+     */
+    protected $envelope;
 
     /**
      * @var Protocol\Smtp
@@ -66,7 +71,7 @@ class Smtp implements TransportInterface
         $this->options = $options;
         return $this;
     }
-
+    
     /**
      * Get options
      *
@@ -75,6 +80,28 @@ class Smtp implements TransportInterface
     public function getOptions()
     {
         return $this->options;
+    }
+    
+    /**
+     * Set options
+     *
+     * @param  SmtpOptions $options
+     * @return Smtp
+     */
+    public function setEnvelope(Envelope $envelope)
+    {
+        $this->envelope = $envelope;
+        return $this;
+    }
+    
+    /**
+     * Get envelope
+     *
+     * @return SmtpOptions
+     */
+    public function getEnvelope()
+    {
+        return $this->envelope;
     }
 
     /**
@@ -243,6 +270,10 @@ class Smtp implements TransportInterface
      */
     protected function prepareFromAddress(Message $message)
     {
+        if (isset($this->envelope->from)) {
+            return $this->envelope->from;
+        }
+        
         $sender = $message->getSender();
         if ($sender instanceof Address\AddressInterface) {
             return $sender->getEmail();
@@ -268,16 +299,20 @@ class Smtp implements TransportInterface
      * @return array
      */
     protected function prepareRecipients(Message $message)
-    {
-        $recipients = array();
-        foreach ($message->getTo() as $address) {
-            $recipients[] = $address->getEmail();
-        }
-        foreach ($message->getCc() as $address) {
-            $recipients[] = $address->getEmail();
-        }
-        foreach ($message->getBcc() as $address) {
-            $recipients[] = $address->getEmail();
+    {      
+        if (isset($this->envelope->to)) {
+            $recipients = (array) $this->envelope->to;
+        } else {
+            $recipients = array();
+            foreach ($message->getTo() as $address) {
+                $recipients[] = $address->getEmail();
+            }
+            foreach ($message->getCc() as $address) {
+                $recipients[] = $address->getEmail();
+            }
+            foreach ($message->getBcc() as $address) {
+                $recipients[] = $address->getEmail();
+            }
         }
         $recipients = array_unique($recipients);
         return $recipients;
