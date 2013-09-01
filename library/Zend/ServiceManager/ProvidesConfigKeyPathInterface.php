@@ -7,12 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Mvc\Service;
+namespace Zend\ServiceManager;
 
-use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-
-class HydratorManagerFactory extends AbstractPluginManagerFactory
+/**
+ * Interface ProvidesConfigKeyPath
+ */
+interface ProvidesConfigKeyPathInterface
 {
-    const PLUGIN_MANAGER_CLASS = 'Zend\Stdlib\Hydrator\HydratorPluginManager';
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath();
 }

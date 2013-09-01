@@ -110,4 +110,14 @@ class RoutePluginManager extends AbstractPluginManager
 
         return $invokable::factory($this->creationOptions);
     }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'router_plugins';
+    }
 }

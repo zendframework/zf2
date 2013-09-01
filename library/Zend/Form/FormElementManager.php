@@ -11,6 +11,7 @@ namespace Zend\Form;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ProvidesConfigKeyPathInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\InitializableInterface;
 
@@ -19,7 +20,7 @@ use Zend\Stdlib\InitializableInterface;
  *
  * Enforces that elements retrieved are instances of ElementInterface.
  */
-class FormElementManager extends AbstractPluginManager
+class FormElementManager extends AbstractPluginManager implements ProvidesConfigKeyPathInterface
 {
     /**
      * Default set of helpers
@@ -180,5 +181,15 @@ class FormElementManager extends AbstractPluginManager
         }
 
         return $instance;
+    }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'form_elements';
     }
 }

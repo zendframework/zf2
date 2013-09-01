@@ -10,8 +10,9 @@
 namespace Zend\Log;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ProvidesConfigKeyPathInterface;
 
-class WriterPluginManager extends AbstractPluginManager
+class WriterPluginManager extends AbstractPluginManager implements ProvidesConfigKeyPathInterface
 {
     /**
      * Default set of writers
@@ -59,5 +60,15 @@ class WriterPluginManager extends AbstractPluginManager
             (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
             __NAMESPACE__
         ));
+    }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'log_writers';
     }
 }

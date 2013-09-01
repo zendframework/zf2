@@ -11,8 +11,12 @@ namespace Zend\Validator;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ProvidesConfigKeyPathInterface;
 
-class ValidatorPluginManager extends AbstractPluginManager
+/**
+ * Class ValidatorPluginManager
+ */
+class ValidatorPluginManager extends AbstractPluginManager implements ProvidesConfigKeyPathInterface
 {
     /**
      * Default set of validators
@@ -178,5 +182,15 @@ class ValidatorPluginManager extends AbstractPluginManager
             (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
             __NAMESPACE__
         ));
+    }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'validators';
     }
 }

@@ -58,4 +58,14 @@ class AdapterPluginManager extends AbstractPluginManager
             __NAMESPACE__
         ));
     }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'serialize_adapters';
+    }
 }
