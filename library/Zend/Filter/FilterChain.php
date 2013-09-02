@@ -20,6 +20,13 @@ class FilterChain extends AbstractFilter implements Countable
     const DEFAULT_PRIORITY = 1;
 
     /**
+     * Filter plugin manager that is used to add filters by name
+     *
+     * @var FilterPluginManager
+     */
+    protected $filterPluginManager;
+
+    /**
      * Filter chain
      *
      * @var PriorityQueue|FilterInterface[]
@@ -29,9 +36,10 @@ class FilterChain extends AbstractFilter implements Countable
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(FilterPluginManager $filterPluginManager)
     {
-        $this->filters = new PriorityQueue();
+        $this->filterPluginManager = $filterPluginManager;
+        $this->filters             = new PriorityQueue();
     }
 
     /**
@@ -49,11 +57,23 @@ class FilterChain extends AbstractFilter implements Countable
      *
      * @param  FilterInterface|Callable $filter A Filter implementation or valid PHP callback
      * @param  int                      $priority Priority at which to enqueue filter; defaults to 1 (higher executes earlier)
-     * @throws Exception\InvalidArgumentException
      * @return void
      */
     public function attach(Callable $filter, $priority = self::DEFAULT_PRIORITY)
     {
+        $this->filters->insert($filter, $priority);
+    }
+
+    /**
+     * Attach a filter to the chain by its name (using the filter plugin manager)
+     *
+     * @param  string $name Valid name
+     * @param  int    $priority Priority at which to enqueue filter; defaults to 1 (higher executes earlier)
+     * @return void
+     */
+    public function attachByName($name, $priority = self::DEFAULT_PRIORITY)
+    {
+        $filter = $this->filterPluginManager->get($name);
         $this->filters->insert($filter, $priority);
     }
 

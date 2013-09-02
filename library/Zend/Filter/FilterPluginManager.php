@@ -75,6 +75,7 @@ class FilterPluginManager extends AbstractPluginManager
         'decompress'                => 'Zend\Filter\Factory\DecompressFilterFactory',
         'decrypt'                   => 'Zend\Filter\Factory\DecryptFilterFactory',
         'encrypt'                   => 'Zend\Filter\Factory\EncryptFilterFactory',
+        'filterchain'               => 'Zend\Filter\Factory\FilterChainFactory'
     );
 
     /**
