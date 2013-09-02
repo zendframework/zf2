@@ -102,7 +102,7 @@ class FilterChain extends AbstractFilter implements Countable
 
     /**
      * Returns $value filtered through each filter in the chain. Filters are run according to priority
-     * 
+     *
      * {@inheritDoc}
      */
     public function filter($value)
