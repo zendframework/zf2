@@ -28,7 +28,7 @@ class RegexFilterIterator extends FilterIterator implements FilterIteratorInterf
      */
     public function __construct(InputCollectionInterface $iterator, $regex)
     {
-        parent::__construct($iterator);
+        parent::__construct($iterator->getIterator());
         $this->regex = (string) $regex;
     }
 

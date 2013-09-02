@@ -22,7 +22,7 @@ class NoOpFilterIterator extends FilterIterator implements FilterIteratorInterfa
      */
     public function __construct(InputCollectionInterface $iterator)
     {
-        parent::__construct($iterator);
+        parent::__construct($iterator->getIterator());
     }
 
     /**

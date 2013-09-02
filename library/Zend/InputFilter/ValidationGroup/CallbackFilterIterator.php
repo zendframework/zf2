@@ -28,6 +28,6 @@ class CallbackFilterIterator extends BaseCallbackFilterIterator implements Filte
      */
     public function __construct(InputCollectionInterface $iterator, Callable $callback)
     {
-        parent::__construct($iterator, $callback);
+        parent::__construct($iterator->getIterator(), $callback);
     }
 }

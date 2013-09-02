@@ -9,6 +9,7 @@
 
 namespace Zend\InputFilter;
 
+use ArrayIterator;
 use IteratorIterator;
 use Zend\Filter\FilterChain;
 use Zend\InputFilter\Result\ValidationResult;
@@ -224,47 +225,15 @@ class InputCollection extends Input implements InputCollectionInterface
 
     /**
      * --------------------------------------------------------------------------------
-     * Implementation of Iterator interface
+     * Implementation of IteratorAggregate interface
      * --------------------------------------------------------------------------------
      */
 
     /**
      * {@inheritDoc}
      */
-    public function current()
+    public function getIterator()
     {
-        return current($this->children);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function next()
-    {
-        next($this->children);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function key()
-    {
-        return key($this->children);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function valid()
-    {
-        return current($this->children);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function rewind()
-    {
-        reset($this->children);
+        return new ArrayIterator($this->children);
     }
 }

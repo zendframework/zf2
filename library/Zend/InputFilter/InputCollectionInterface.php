@@ -9,13 +9,13 @@
 
 namespace Zend\InputFilter;
 
-use Iterator;
+use IteratorAggregate;
 use Zend\InputFilter\ValidationGroup\FilterIteratorInterface;
 
 /**
  * Input collection interface
  */
-interface InputCollectionInterface extends InputInterface, Iterator
+interface InputCollectionInterface extends InputInterface, IteratorAggregate
 {
     /**
      * Add an input or another input collection (if no name was set, it will extract the one set in
