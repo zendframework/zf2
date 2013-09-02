@@ -24,6 +24,10 @@ class InputCollectionFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new InputCollection(new Factory($serviceLocator));
+        return new InputCollection(
+            new \Zend\Filter\FilterChain(),
+            new \Zend\Validator\ValidatorChain(),
+            new Factory($serviceLocator)
+        );
     }
 }

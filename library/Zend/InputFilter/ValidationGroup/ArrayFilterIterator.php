@@ -26,9 +26,10 @@ class ArrayFilterIterator extends FilterIterator implements FilterIteratorInterf
      * @param InputCollectionInterface $iterator
      * @param array                    $validationGroup
      */
-    public function __construct(InputCollectionInterface $iterator, array $validationGroup = array())
+    public function __construct(InputCollectionInterface $iterator, array $validationGroup)
     {
         parent::__construct($iterator);
+        $this->validationGroup = $validationGroup;
     }
 
     /**

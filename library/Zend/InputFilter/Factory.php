@@ -74,9 +74,6 @@ class Factory
                 case 'allow_empty':
                     $input->setAllowEmpty(true);
                     break;
-                case 'fallback_value':
-                    $input->setFallbackValue($value);
-                    break;
                 case 'filters':
                     $this->populateFilters($input, $value);
                     break;

@@ -10,9 +10,11 @@
 namespace Zend\InputFilter;
 
 use IteratorIterator;
+use Zend\Filter\FilterChain;
 use Zend\InputFilter\Result\ValidationResult;
 use Zend\InputFilter\ValidationGroup\FilterIteratorInterface;
 use Zend\InputFilter\ValidationGroup\NoOpFilterIterator;
+use Zend\Validator\ValidatorChain;
 
 /**
  * Input collection class
@@ -35,10 +37,13 @@ class InputCollection extends Input implements InputCollectionInterface
     protected $validationGroupFilter;
 
     /**
-     * @param Factory $factory
+     * @param FilterChain    $filterChain
+     * @param ValidatorChain $validatorChain
+     * @param Factory        $factory
      */
-    public function __construct(Factory $factory)
+    public function __construct(FilterChain $filterChain, ValidatorChain $validatorChain, Factory $factory)
     {
+        parent::__construct($filterChain, $validatorChain);
         $this->factory = $factory;
     }
 
@@ -137,16 +142,23 @@ class InputCollection extends Input implements InputCollectionInterface
         $iteratorIterator = new IteratorIterator($iterator);
         $errorMessages    = array();
 
+        // As an input collection can have also validators and filters, we first apply the
+        // validation for itself
+        if (!$this->validatorChain->isValid($data, $context)) {
+            $errorMessages[$this->name] = $this->validatorChain->getMessages();
+        }
+
         /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
         foreach ($iteratorIterator as $inputOrInputCollection) {
-            $name = $inputOrInputCollection->getName();
+            $name  = $inputOrInputCollection->getName();
+            $value = isset($data[$name]) ? $data[$name] : null;
 
-            if ($inputOrInputCollection instanceof InputCollectionInterface && isset($data[$name])) {
+            if ($inputOrInputCollection instanceof InputCollectionInterface && null !== $value) {
                 // @TODO: in current ZF2 implementation, if an input inside a nested input filter
                 // @TODO  is configured to break on failure, it only break from the current input filter.
                 // @TODO  Should we throw an exception and allow to break all other inputs, even if not
                 // @TODO  at same nested level?
-                $validationResult = $inputOrInputCollection->validate($data[$name], $context);
+                $validationResult = $inputOrInputCollection->validate($value, $context);
 
                 if ($validationResult->isValid()) {
                     $errorMessages[$name] = $validationResult->getErrorMessages();
@@ -156,7 +168,6 @@ class InputCollection extends Input implements InputCollectionInterface
             }
 
             // Otherwise we have an input
-            $value            = isset($data[$name]) ? $data[$name] : null;
             $validationResult = $inputOrInputCollection->validate($value, $context);
 
             if (!$validationResult->isValid()) {
@@ -174,10 +185,9 @@ class InputCollection extends Input implements InputCollectionInterface
     /**
      * Build a validation result from the raw data and error messages
      *
-     * By default, this method assumes that if there are NO ERRORS (ie. all inputs have
-     * passed validation), then the user is likely to get filtered values, so all values
-     * are filtered. Otherwise, for saving cycles, if there are errors, values are
-     * not filtered at all, and only raw data are given to the validation result
+     * By default, this method assumes that if there are NO ERRORS in the given
+     * input collection (ie. all inputs have passed validation), then the data
+     * are filtered. Otherwise, they are not
      *
      * @param  array $rawData
      * @param  array $errorMessages
@@ -189,8 +199,24 @@ class InputCollection extends Input implements InputCollectionInterface
             return new ValidationResult($rawData, null, $errorMessages);
         }
 
-        // @TODO: filter data efficiently
-        return new ValidationResult($rawData, $rawData, $errorMessages);
+        // Otherwise, we filter data only for the given input collection
+        $iterator         = $this->getValidationGroupFilter();
+        $iteratorIterator = new IteratorIterator($iterator);
+        $filteredData     = array();
+
+        /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
+        foreach ($iteratorIterator as $inputOrInputCollection) {
+            $name = $inputOrInputCollection->getName();
+            $data = isset($rawData[$name]) ? $rawData[$name] : null;
+
+            $filteredData[$name] = $inputOrInputCollection->getFilterChain()->filter($data);
+        }
+
+        // As an input collection can also contain filters, we finally filter the data
+        // using the input collection filters
+        $this->filterChain->filter($filteredData);
+
+        return new ValidationResult($rawData, $filteredData, $errorMessages);
     }
 
     /**
