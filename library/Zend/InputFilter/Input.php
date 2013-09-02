@@ -50,17 +50,7 @@ class Input implements InputInterface
     /**
      * @var mixed
      */
-    protected $value;
-
-    /**
-     * @var mixed
-     */
     protected $fallbackValue;
-
-    /**
-     * @var array
-     */
-    protected $errorMessages;
 
     /**
      * @param FilterChain    $filterChain
@@ -86,30 +76,6 @@ class Input implements InputInterface
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getValue()
-    {
-        return $this->filterChain->filter($this->value);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRawValue()
-    {
-        return $this->value;
     }
 
     /**
@@ -181,25 +147,9 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
-    public function setFilterChain(FilterChain $filterChain)
-    {
-        $this->filterChain = $filterChain;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getFilterChain()
     {
         return $this->filterChain;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setValidatorChain(ValidatorChain $validatorChain)
-    {
-        $this->validatorChain = $validatorChain;
     }
 
     /**
@@ -213,31 +163,21 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
-    public function isValid($context = null)
+    public function validate(&$value, $context = null)
     {
-        if ($this->validatorChain->isValid($this->value, $context)) {
-            return true;
+        if ($this->validatorChain->isValid($value, $context)) {
+            return array();
         }
 
-        if (empty($this->value)) {
+        if (empty($value)) {
             if ($this->fallbackValue) {
-                $this->setValue($this->fallbackValue);
-                return true;
+                $value = $this->fallbackValue;
+                return array();
             } elseif ($this->allowEmpty) {
-                return true;
+                return array();
             }
         }
 
-        $this->errorMessages = $this->validatorChain->getMessages();
-
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getErrorMessages()
-    {
-        return $this->errorMessages;
+        return $this->validatorChain->getMessages();
     }
 }
