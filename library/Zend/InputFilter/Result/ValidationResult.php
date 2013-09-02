@@ -34,7 +34,7 @@ class ValidationResult implements ValidationResultInterface
      * @param array $values
      * @param array $errorMessages
      */
-    public function __construct(array $rawValues, array $values, array $errorMessages)
+    public function __construct($rawValues, $values, array $errorMessages = array())
     {
         $this->rawValues     = $rawValues;
         $this->values        = $values;

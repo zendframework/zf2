@@ -9,6 +9,7 @@
 
 namespace Zend\InputFilter;
 
+use Zend\InputFilter\Result\ValidationResult;
 use Zend\Validator\ValidatorChain;
 use Zend\Filter\FilterChain;
 
@@ -160,15 +161,14 @@ class Input implements InputInterface
      */
     public function validate($value, $context = null)
     {
-        if ($this->validatorChain->isValid($value, $context)) {
-            return array();
+        if (
+            $this->validatorChain->isValid($value, $context)
+            || (empty($value) && $this->allowEmpty)
+        ) {
+            // @TODO: should we filter here or elsewhere?...
+            return new ValidationResult($value, null, array());
         }
 
-        if (empty($value) && $this->allowEmpty) {
-            return array();
-        }
-
-        // @TODO: create a validation result
-        return $this->validatorChain->getMessages();
+        return new ValidationResult($value, null, $this->validatorChain->getMessages());
     }
 }

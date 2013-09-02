@@ -173,11 +173,11 @@ class InputCollection extends Input implements InputCollectionInterface
             }
 
             // Otherwise we have an input
-            $value       = isset($data[$name]) ? $data[$name] : null;
-            $inputErrors = $inputOrInputCollection->validate($value, $context);
+            $value            = isset($data[$name]) ? $data[$name] : null;
+            $validationResult = $inputOrInputCollection->validate($value, $context);
 
-            if (!empty($inputErrors)) {
-                $errorMessages[$name] = $inputErrors;
+            if (!$validationResult->isValid()) {
+                $errorMessages[$name] = $validationResult->getErrorMessages();
 
                 if ($inputOrInputCollection->breakOnFailure()) {
                     break;
