@@ -133,23 +133,6 @@ class InputCollection extends Input implements InputCollectionInterface
      */
     public function validate($data, $context = null)
     {
-        $errorMessages = $this->buildErrorMessages($data, $context);
-
-        return $this->buildValidationResult($data, $errorMessages);
-    }
-
-    /**
-     * Build error messages (without creating a validation result)
-     *
-     * This method should only be used internally by the "validate" method to recursively
-     * validating nested input collections
-     *
-     * @param  array      $data
-     * @param  mixed|null $context
-     * @return array
-     */
-    protected function buildErrorMessages(array $data, $context = null)
-    {
         $iterator         = $this->getValidationGroupFilter();
         $iteratorIterator = new IteratorIterator($iterator);
         $errorMessages    = array();
@@ -163,10 +146,10 @@ class InputCollection extends Input implements InputCollectionInterface
                 // @TODO  is configured to break on failure, it only break from the current input filter.
                 // @TODO  Should we throw an exception and allow to break all other inputs, even if not
                 // @TODO  at same nested level?
-                $inputCollectionErrors = $inputOrInputCollection->buildErrorMessages($data[$name]);
+                $validationResult = $inputOrInputCollection->validate($data[$name], $context);
 
-                if (!empty($inputCollectionErrors)) {
-                    $errorMessages[$name] = $inputCollectionErrors;
+                if ($validationResult->isValid()) {
+                    $errorMessages[$name] = $validationResult->getErrorMessages();
                 }
 
                 continue;
@@ -185,7 +168,7 @@ class InputCollection extends Input implements InputCollectionInterface
             }
         }
 
-        return $errorMessages;
+        return $this->buildValidationResult($data, $errorMessages);
     }
 
     /**
@@ -203,7 +186,7 @@ class InputCollection extends Input implements InputCollectionInterface
     protected function buildValidationResult(array $rawData, array $errorMessages)
     {
         if (!empty($errorMessages)) {
-            return new ValidationResult($rawData, array(), $errorMessages);
+            return new ValidationResult($rawData, null, $errorMessages);
         }
 
         // @TODO: filter data efficiently

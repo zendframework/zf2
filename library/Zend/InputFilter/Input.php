@@ -166,7 +166,7 @@ class Input implements InputInterface
             || (empty($value) && $this->allowEmpty)
         ) {
             // @TODO: should we filter here or elsewhere?...
-            return new ValidationResult($value, null, array());
+            return new ValidationResult($value);
         }
 
         return new ValidationResult($value, null, $this->validatorChain->getMessages());

@@ -25,18 +25,18 @@ interface ValidationResultInterface extends Serializable, JsonSerializable
     public function isValid();
 
     /**
-     * Get values
+     * Get the value (this can be a scalar or array depending of the context)
      *
-     * @return array
+     * @return mixed
      */
-    public function getValues();
+    public function getValue();
 
     /**
-     * Get the raw values
+     * Get the raw value (this can be a scalar or array depending of the context)
      *
-     * @return array
+     * @return mixed
      */
-    public function getRawValues();
+    public function getRawValue();
 
     /**
      * Get error messages

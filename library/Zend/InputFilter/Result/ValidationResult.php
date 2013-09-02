@@ -15,14 +15,14 @@ namespace Zend\InputFilter\Result;
 class ValidationResult implements ValidationResultInterface
 {
     /**
-     * @var array
+     * @var mixed
      */
-    protected $rawValues = array();
+    protected $rawValue;
 
     /**
-     * @var array
+     * @var mixed
      */
-    protected $values = array();
+    protected $value;
 
     /**
      * @var array
@@ -30,14 +30,14 @@ class ValidationResult implements ValidationResultInterface
     protected $errorMessages = array();
 
     /**
-     * @param array $rawValues
-     * @param array $values
+     * @param mixed $rawValue
+     * @param mixed $value
      * @param array $errorMessages
      */
-    public function __construct($rawValues, $values, array $errorMessages = array())
+    public function __construct($rawValue, $value = null, array $errorMessages = array())
     {
-        $this->rawValues     = $rawValues;
-        $this->values        = $values;
+        $this->rawValue      = $rawValue;
+        $this->value         = $value;
         $this->errorMessages = $errorMessages;
     }
 
@@ -52,17 +52,17 @@ class ValidationResult implements ValidationResultInterface
     /**
      * {@inheritDoc}
      */
-    public function getValues()
+    public function getValue()
     {
-        $this->values;
+        $this->value;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getRawValues()
+    public function getRawValue()
     {
-        $this->rawValues;
+        $this->rawValue;
     }
 
     /**
