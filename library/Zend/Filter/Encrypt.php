@@ -103,12 +103,12 @@ class Encrypt extends AbstractFilter
      */
     public function __call($method, $options)
     {
-        $part = substr($method, 0, 3);
-        if ((($part != 'get') && ($part != 'set')) || !method_exists($this->adapter, $method)) {
+        $adapter = $this->getAdapter();
+        if (!method_exists($adapter, $method)) {
             throw new Exception\BadMethodCallException("Unknown method '{$method}'");
         }
 
-        return call_user_func_array(array($this->adapter, $method), $options);
+        return $adapter->$method($options);
     }
 
     /**

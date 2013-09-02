@@ -73,6 +73,6 @@ class Callback extends AbstractFilter
         $params = $this->callbackParams;
         array_unshift($params, $value);
 
-        return call_user_func_array($this->callback, $params);
+        return $this->callback($params);
     }
 }

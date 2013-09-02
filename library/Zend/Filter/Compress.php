@@ -107,7 +107,7 @@ class Compress extends AbstractFilter
             throw new Exception\BadMethodCallException("Unknown method '{$method}'");
         }
 
-        return call_user_func_array(array($adapter, $method), $options);
+        return $adapter->$method($options);
     }
 
     /**

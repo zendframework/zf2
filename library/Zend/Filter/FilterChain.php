@@ -90,7 +90,7 @@ class FilterChain extends AbstractFilter implements Countable
 
         $valueFiltered = $value;
         foreach ($chain as $filter) {
-            $valueFiltered = call_user_func($filter, $valueFiltered);
+            $valueFiltered = $filter($valueFiltered);
         }
 
         return $valueFiltered;
