@@ -11,7 +11,7 @@ namespace Zend\InputFilter;
 
 use RecursiveFilterIterator;
 use Zend\InputFilter\Filter\AbstractValidationGroupFilter;
-use Zend\InputFilter\Result\ValidationResult;
+use Zend\InputFilter\Iterator\InputCollectionRecursiveIteratorIterator;
 
 /**
  * Input collection class
@@ -37,11 +37,6 @@ class InputCollection implements InputCollectionInterface
      * @var RecursiveFilterIterator
      */
     protected $validationGroupFilter;
-
-    /**
-     * @var array
-     */
-    protected $validationGroup = array();
 
     /**
      * @param Factory $factory
@@ -155,31 +150,18 @@ class InputCollection implements InputCollectionInterface
     public function validate(array $data = array(), $context = null)
     {
         $recursiveIterator         = $this->validationGroupFilter ?: $this;
-        $recursiveIteratorIterator = new \RecursiveIteratorIterator($recursiveIterator);
+        $recursiveIteratorIterator = new InputCollectionRecursiveIteratorIterator($recursiveIterator);
 
-        foreach ($recursiveIteratorIterator as $key) {
-            var_dump($key);
-        }
+        $recursiveIteratorIterator->prepareTraversal($data, $context);
+
+        do {
+            $recursiveIteratorIterator->next();
+        } while($recursiveIteratorIterator->valid());
+
+        return array();
     }
 
-    /**
-     * Build a new validation result
-     *
-     * @param  array $data
-     * @param  array $errorMessages
-     * @return ValidationResult
-     */
-    protected function buildValidationResult(array $data, array $errorMessages)
-    {
-        // By convention, we assume that if data is valid, user want the filter data,
-        // so we filter it automatically, otherwise, we don't filter anything
-        if (!empty($errorMessages)) {
-            // There are errors!
-            return new ValidationResult($data, array(), $errorMessages);
-        }
-
-        return new ValidationResult($data, $data, $errorMessages);
-    }
+    //protected function
 
     /**
      * --------------------------------------------------------------------------------

@@ -19,84 +19,54 @@ use RecursiveIteratorIterator;
 class InputCollectionRecursiveIteratorIterator extends RecursiveIteratorIterator
 {
     /**
-     * Data that is used for the traversal
-     *
      * @var array
      */
-    protected $data = array();
+    protected $data;
 
     /**
-     * Aggregated error messages
-     *
-     * @var array
+     * @var mixed|null
      */
-    protected $errorMessages = array();
+    protected $context;
 
     /**
-     * Error messages for the current iteration
+     * Must the recursion be stopped (for breaking failure for instance)?
      *
-     * @var array
+     * @var bool
      */
-    protected $currentErrorMessages = array();
+    protected $isStopped = false;
 
     /**
-     * Prepare the traversal by setting the data and error messages array
+     * Prepare the recursive iterator iterator for the traversal
      *
-     * @param array $data
-     * @param array $errorMessages
+     * @param array      $data
+     * @param mixed|null $context
      */
-    public function prepareTraversal(array &$data, array &$errorMessages)
+    public function prepareTraversal(array $data, $context = null)
     {
-        $this->data                 = &$data;
-        $this->currentErrorMessages = &$errorMessages;
+        $this->data    = $data;
+        $this->context = $context;
     }
 
-    /**
-     * Get the error messages
-     *
-     * @return array
-     */
-    public function getErrorMessages()
-    {
-        return $this->errorMessages;
-    }
-
-    /**
-     * @return void
-     */
-    public function endIteration()
-    {
-        //$this->currentErrorMessages = $this->errorMessages;
-    }
-
-    /**
-     * Start to traverse an input collection
-     *
-     * @return void
-     */
     public function beginChildren()
     {
-        $this->data = next($this->data);
-        /** @var \Zend\InputFilter\InputCollectionInterface $inputCollection */
-        //$inputCollection = $this->getSubIterator()->getInnerIterator();
-        //$this->currentErrorMessages[$inputCollection->getName()] = array();
-        //$this->currentErrorMessages = next($this->currentErrorMessages);
+        var_dump('BEGIN CHILDREN');
+        //$this->errorMessages[]
+    }
+
+    public function endChildren()
+    {
+        var_dump('END CHILDREN');
     }
 
     /**
-     * Finish to traverse an input collection
      *
-     * @return void
      */
-    public function endChildren()
+    public function nextElement()
     {
-        if (is_array($this->data)) {
-            $this->data = prev($this->data);
-        }
+        /** @var \Zend\InputFilter\InputInterface $input */
+        $input = $this->current();
+        $name  = $input->getName();
 
-        /** @var \Zend\InputFilter\InputCollectionInterface $inputCollection */
-        //$inputCollection = $this->getSubIterator()->getInnerIterator();
-        //$this->errorMessages[$inputCollection->getName()] = $this->currentErrorMessages;
-
+        //$this->errorMessages[$name] $input->validate($this->data[$input->getName()]);
     }
 }
