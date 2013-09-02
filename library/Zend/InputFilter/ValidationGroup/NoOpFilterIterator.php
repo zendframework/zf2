@@ -18,11 +18,11 @@ use Zend\InputFilter\InputCollectionInterface;
 class NoOpFilterIterator extends FilterIterator implements FilterIteratorInterface
 {
     /**
-     * @param InputCollectionInterface $iterator
+     * @param InputCollectionInterface $inputCollection
      */
-    public function __construct(InputCollectionInterface $iterator)
+    public function __construct(InputCollectionInterface $inputCollection)
     {
-        parent::__construct($iterator->getIterator());
+        parent::__construct($inputCollection->getIterator());
     }
 
     /**

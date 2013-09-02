@@ -23,12 +23,12 @@ class RegexFilterIterator extends FilterIterator implements FilterIteratorInterf
     protected $regex;
 
     /**
-     * @param InputCollectionInterface $iterator
+     * @param InputCollectionInterface $inputCollection
      * @param string                   $regex
      */
-    public function __construct(InputCollectionInterface $iterator, $regex)
+    public function __construct(InputCollectionInterface $inputCollection, $regex)
     {
-        parent::__construct($iterator->getIterator());
+        parent::__construct($inputCollection->getIterator());
         $this->regex = (string) $regex;
     }
 

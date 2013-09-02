@@ -23,11 +23,11 @@ use Zend\InputFilter\InputCollectionInterface;
 class CallbackFilterIterator extends BaseCallbackFilterIterator implements FilterIteratorInterface
 {
     /**
-     * @param InputCollectionInterface $iterator
+     * @param InputCollectionInterface $inputCollection
      * @param Callable                 $callback
      */
-    public function __construct(InputCollectionInterface $iterator, Callable $callback)
+    public function __construct(InputCollectionInterface $inputCollection, Callable $callback)
     {
-        parent::__construct($iterator->getIterator(), $callback);
+        parent::__construct($inputCollection->getIterator(), $callback);
     }
 }

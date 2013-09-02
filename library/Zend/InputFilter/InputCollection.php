@@ -164,7 +164,7 @@ class InputCollection extends Input implements InputCollectionInterface
                 // @TODO  at same nested level?
                 $validationResult = $inputOrInputCollection->validate($value, $context);
 
-                if ($validationResult->isValid()) {
+                if (!$validationResult->isValid()) {
                     $errorMessages[$name] = $validationResult->getErrorMessages();
                 }
 
