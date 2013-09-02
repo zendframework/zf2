@@ -59,4 +59,10 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("    {\n\n        return 'mixedValue';\n\n    }\n", $reflectionMethod->getContents(false));
     }
 
+    public function testGetContentsWithCoreClass()
+    {
+        $reflectionMethod = new MethodReflection('DateTime', 'format');
+        $this->assertEquals("???", $reflectionMethod->getContents(false));
+    }
+
 }
