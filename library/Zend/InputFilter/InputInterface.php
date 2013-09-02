@@ -99,11 +99,27 @@ interface InputInterface
     public function breakOnFailure();
 
     /**
+     * Set the filter chain
+     *
+     * @param  FilterChain $filterChain
+     * @return void
+     */
+    public function setFilterChain(FilterChain $filterChain);
+
+    /**
      * Get the filter chain
      *
      * @return FilterChain
      */
     public function getFilterChain();
+
+    /**
+     * Set the validator chain
+     *
+     * @param  ValidatorChain $validatorChain
+     * @return void
+     */
+    public function setValidatorChain(ValidatorChain $validatorChain);
 
     /**
      * Get the validator chain
@@ -115,7 +131,7 @@ interface InputInterface
     /**
      * Validate the value, and return the error messages (if any)
      *
-     * @param  mixed      &$value  Value to validate
+     * @param  mixed      &$value   Value to validate
      * @param  mixed|null $context An optional context used for validation
      * @return array
      */

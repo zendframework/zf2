@@ -9,8 +9,7 @@
 
 namespace Zend\InputFilter\Filter;
 
-use RecursiveFilterIterator;
-use RecursiveIterator;
+use Zend\InputFilter\InputCollectionInterface;
 
 /**
  * Validation group filter based on a callback. The validation group array that may be defined in
@@ -19,7 +18,7 @@ use RecursiveIterator;
  * The callback must accept three parameters: the first one is the current item's value (the input instance), the second
  * one is the current item's key (the input's name), and the third one is the Iterator instance that is being filtered
  */
-class ValidationGroupCallbackFilter extends RecursiveFilterIterator
+class ValidationGroupCallbackFilter extends AbstractValidationGroupFilter
 {
     /**
      * @var Callable
@@ -27,12 +26,12 @@ class ValidationGroupCallbackFilter extends RecursiveFilterIterator
     protected $callback;
 
     /**
-     * @param RecursiveIterator $iterator
-     * @param Callable          $callback
+     * @param InputCollectionInterface $recursiveIterator
+     * @param Callable                 $callback
      */
-    public function __construct(RecursiveIterator $iterator, Callable $callback)
+    public function __construct(InputCollectionInterface $recursiveIterator, Callable $callback)
     {
-        parent::__construct($iterator);
+        parent::__construct($recursiveIterator);
         $this->callback = $callback;
     }
 

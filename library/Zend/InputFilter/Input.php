@@ -147,9 +147,25 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
+    public function setFilterChain(FilterChain $filterChain)
+    {
+        $this->filterChain = $filterChain;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getFilterChain()
     {
         return $this->filterChain;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setValidatorChain(ValidatorChain $validatorChain)
+    {
+        $this->validatorChain = $validatorChain;
     }
 
     /**

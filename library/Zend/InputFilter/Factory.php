@@ -106,8 +106,8 @@ class Factory
         foreach ($specification as $key => $value) {
             switch($key) {
                 case 'children':
-                    foreach ($value as $name => $inputOrInputCollection) {
-                        $inputCollection->add($inputOrInputCollection, $name);
+                    foreach ($value as $child) {
+                        $inputCollection->add($child);
                     }
                     break;
                 default:

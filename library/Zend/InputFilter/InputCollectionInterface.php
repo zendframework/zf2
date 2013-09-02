@@ -10,12 +10,28 @@
 namespace Zend\InputFilter;
 
 use RecursiveIterator;
+use Zend\InputFilter\Filter\AbstractValidationGroupFilter;
 
 /**
  * Input collection interface
  */
 interface InputCollectionInterface extends RecursiveIterator
 {
+    /**
+     * Set the name of the input collection
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function setName($name);
+
+    /**
+     * Get the name of the input collection
+     *
+     * @return string
+     */
+    public function getName();
+
     /**
      * Add an input or another input collection (if no name was set, it will extract the one set in
      * the input or input collection)
@@ -51,109 +67,26 @@ interface InputCollectionInterface extends RecursiveIterator
     public function remove($name);
 
     /**
-     * Set the name of the input collection
+     * Set the validation group filter
      *
-     * @param  string $name
+     * @param  AbstractValidationGroupFilter $validationGroupFilter
      * @return void
      */
-    public function setName($name);
+    public function setValidationGroupFilter(AbstractValidationGroupFilter $validationGroupFilter);
 
     /**
-     * Get the name of the input collection
+     * Get the validation group filter
      *
-     * @return string
+     * @return AbstractValidationGroupFilter
      */
-    public function getName();
-
-    /**
-     * Set the data that need to be validated
-     *
-     * @param  array $data
-     * @return void
-     */
-    public function setData(array $data);
-
-    /**
-     * Get the filtered value
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    public function getValue($name);
-
-    /**
-     * Get the unfiltered value
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    public function getRawValue($name);
-
-    /**
-     * Get the filtered values
-     *
-     * @return array
-     */
-    public function getValues();
-
-    /**
-     * Get the unfiltered values
-     *
-     * @return array
-     */
-    public function getRawValues();
-
-    /**
-     * Get the valid inputs
-     *
-     * @return InputInterface[]
-     */
-    public function getValidInputs();
-
-    /**
-     * Get the invalid inputs
-     *
-     * @return InputInterface[]
-     */
-    public function getInvalidInputs();
-
-    /**
-     * Set the validation group
-     *
-     * @param  array $validationGroup
-     * @return void
-     */
-    public function setValidationGroup(array $validationGroup);
-
-    /**
-     * Get the validation group
-     *
-     * @return array
-     */
-    public function getValidationGroup();
-
-    /**
-     * Set error messages for a given input
-     *
-     * @param  string $name
-     * @param  array $errorMessages
-     * @return void
-     */
-    public function setErrorMessages($name, array $errorMessages);
-
-    /**
-     * Get the error messages that may have occurred during validation (if any)
-     *
-     * @return array
-     */
-    public function getErrorMessages();
+    public function getValidationGroupFilter();
 
     /**
      * Check if the input filter is valid
      *
      * @param  array      $data     Data to validate
      * @param  mixed|null $context  An optional context used for validation
-     * @return bool
+     * @return Result\ValidationResultInterface
      */
     public function validate(array $data, $context = null);
 }

@@ -9,13 +9,12 @@
 
 namespace Zend\InputFilter\Filter;
 
-use RecursiveFilterIterator;
-use RecursiveIterator;
+use Zend\InputFilter\InputCollectionInterface;
 
 /**
  * Validation group filter based on a simple array defined in the input collection
  */
-class ValidationGroupArrayFilter extends RecursiveFilterIterator
+class ValidationGroupArrayFilter extends AbstractValidationGroupFilter
 {
     /**
      * @var array
@@ -23,12 +22,12 @@ class ValidationGroupArrayFilter extends RecursiveFilterIterator
     protected $validationGroup;
 
     /**
-     * @param RecursiveIterator $iterator
-     * @param array             $validationGroup
+     * @param InputCollectionInterface $recursiveIterator
+     * @param array                    $validationGroup
      */
-    public function __construct(RecursiveIterator $iterator, array $validationGroup = array())
+    public function __construct(InputCollectionInterface $recursiveIterator, array $validationGroup = array())
     {
-        parent::__construct($iterator);
+        parent::__construct($recursiveIterator);
 
         // This is an optimization, this way we can check using isset, which is way faster than
         // in_array (especially with very large arrays)

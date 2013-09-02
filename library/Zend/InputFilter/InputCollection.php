@@ -10,8 +10,7 @@
 namespace Zend\InputFilter;
 
 use RecursiveFilterIterator;
-use RecursiveIteratorIterator;
-use Zend\InputFilter\Filter\ValidationGroupArrayFilter;
+use Zend\InputFilter\Filter\AbstractValidationGroupFilter;
 use Zend\InputFilter\Result\ValidationResult;
 
 /**
@@ -35,16 +34,6 @@ class InputCollection implements InputCollectionInterface
     protected $children = array();
 
     /**
-     * @var InputInterface[]
-     */
-    protected $validInputs = array();
-
-    /**
-     * @var InputInterface[]
-     */
-    protected $invalidInputs = array();
-
-    /**
      * @var RecursiveFilterIterator
      */
     protected $validationGroupFilter;
@@ -53,16 +42,6 @@ class InputCollection implements InputCollectionInterface
      * @var array
      */
     protected $validationGroup = array();
-
-    /**
-     * @var array
-     */
-    protected $data = array();
-
-    /**
-     * @var array
-     */
-    protected $errorMessages = array();
 
     /**
      * @param Factory $factory
@@ -80,6 +59,22 @@ class InputCollection implements InputCollectionInterface
     public function getFactory()
     {
         return $this->factory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -133,172 +128,25 @@ class InputCollection implements InputCollectionInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setData(array $data)
-    {
-        $this->data = $data;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getValue($name)
-    {
-        if (isset($this->children[$name]) && $this->children[$name] instanceof InputInterface) {
-            return $this->children[$name]->getValue();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRawValue($name)
-    {
-        if (isset($this->children[$name]) && $this->children[$name] instanceof InputInterface) {
-            return $this->children[$name]->getRawValue();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getValues()
-    {
-        $values = array();
-
-        foreach ($this->children as $name => $inputOrInputCollection) {
-            if ($inputOrInputCollection instanceof InputInterface) {
-                $values[$name] = $inputOrInputCollection->getValue();
-            } else {
-                $values[$name] = $inputOrInputCollection->getValues();
-            }
-        }
-
-        return $values;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRawValues()
-    {
-        $values = array();
-
-        foreach ($this->children as $name => $inputOrInputCollection) {
-            if ($inputOrInputCollection instanceof InputInterface) {
-                $values[$name] = $inputOrInputCollection->getRawValue();
-            } else {
-                $values[$name] = $inputOrInputCollection->getRawValues();
-            }
-        }
-
-        return $values;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getValidInputs()
-    {
-        return $this->validInputs;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getInvalidInputs()
-    {
-        return $this->invalidInputs;
-    }
-
-    /**
-     * @param  RecursiveFilterIterator $validationGroupFilter
+     * Set a validation group filter
+     *
+     * @param  AbstractValidationGroupFilter $validationGroupFilter
      * @throws Exception\RuntimeException
      * @return void
      */
-    public function setValidationGroupFilter(RecursiveFilterIterator $validationGroupFilter)
+    public function setValidationGroupFilter(AbstractValidationGroupFilter $validationGroupFilter)
     {
-        // The inner iterator must be an input collection interface, which is itself recursively iterable
-        if (!$validationGroupFilter->getInnerIterator() instanceof InputCollectionInterface) {
-            throw new Exception\RuntimeException(
-                'The validation group filter\'s inner recursive iterator must be an instance of Zend\InputFilter\InputCollectionInterface, "%s" given',
-                get_class($validationGroupFilter->getInnerIterator())
-            );
-        }
-
         $this->validationGroupFilter = $validationGroupFilter;
     }
 
     /**
-     * @return RecursiveFilterIterator
+     * Get the validation group filter
+     *
+     * @return AbstractValidationGroupFilter
      */
     public function getValidationGroupFilter()
     {
-        if (null === $this->validationGroupFilter) {
-            $this->validationGroupFilter = new ValidationGroupArrayFilter($this, $this->getValidationGroup());
-        }
-
         return $this->validationGroupFilter;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setValidationGroup(array $validationGroup)
-    {
-        $this->validationGroup = $validationGroup;
-
-        foreach ($this->children as $name => $inputOrInputCollection) {
-            if ($inputOrInputCollection instanceof InputCollectionInterface && isset($validationGroup[$name])) {
-                $inputOrInputCollection->setValidationGroup($validationGroup[$name]);
-            }
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getValidationGroup()
-    {
-        // If validation group is empty, we assume to validate everything
-        if (empty($this->validationGroup)) {
-            $this->validationGroup = array_keys($this->children);
-        }
-
-        return $this->validationGroup;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setErrorMessages($name, array $errorMessages)
-    {
-        $this->errorMessages[$name] = $errorMessages;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getErrorMessages()
-    {
-        return $this->errorMessages;
     }
 
     /**
@@ -306,89 +154,12 @@ class InputCollection implements InputCollectionInterface
      */
     public function validate(array $data = array(), $context = null)
     {
-        $validationGroupFilter = $this->getValidationGroupFilter();
+        $recursiveIterator         = $this->validationGroupFilter ?: $this;
+        $recursiveIteratorIterator = new \RecursiveIteratorIterator($recursiveIterator);
 
-        $dataForTraversal            = $data;
-        $errorMessages               = array();
-        $validationRecursiveIterator = new InputCollectionRecursiveIteratorIterator(
-            $validationGroupFilter, RecursiveIteratorIterator::LEAVES_ONLY
-        );
-
-        $validationRecursiveIterator->prepareTraversal($dataForTraversal, $errorMessages);
-
-        /** @var InputInterface $input */
-        foreach ($validationRecursiveIterator as $name => $input) {
-            $input->setValue(isset($dataForTraversal[$name]) ? $dataForTraversal[$name] : null);
-
-            if ($input->isValid($context)) {
-                continue;
-            }
-
-            $errorMessages[$name] = 'une erreur';//$input->getErrorMessages();
-
-
-            if ($input->breakOnFailure()) {
-                return $this->buildValidationResult($data, $errorMessages);
-            }
+        foreach ($recursiveIteratorIterator as $key) {
+            var_dump($key);
         }
-        //var_dump($errorMessages);
-
-        return $this->buildValidationResult($data, $errorMessages);
-
-
-
-            // If the input filter is valid, we likely want to filter raw data
-
-
-            // We now create the validation result
-            //$validationResult = new ValidationResult($rawValues, $values, $errorMessages);
-
-
-
-
-
-            // Reset valid inputs, invalid inputs and error messages to allow this method to be called with
-            // different set of data
-            /*$this->validInputs = $this->invalidInputs = $this->errorMessages = array();
-
-            $validationGroupFilter = $this->getValidationGroupFilter();
-
-            // The inner iterator must be an input collection interface, which is itself recursively iterable
-            if (!$validationGroupFilter->getInnerIterator() instanceof InputCollectionInterface) {
-                throw new Exception\RuntimeException(
-                    'The validation group filter\'s inner recursive iterator must be an instance of Zend\InputFilter\InputCollectionInterface, "%s" given',
-                    get_class($validationGroupFilter->getInnerIterator())
-                );
-            }
-
-            $recursiveIterator = new RecursiveIteratorIterator($validationGroupFilter, RecursiveIteratorIterator::LEAVES_ONLY);
-            $recursiveIterator->setMaxDepth($maxDepth);
-
-            $valid = true;*/
-
-        /** @var InputInterface $input */
-        //foreach ($recursiveIterator as $name => $input) {
-            /** @var InputCollection $inputCollection */
-        /*    $inputCollection = $recursiveIterator->getSubIterator()->getInnerIterator();
-
-            $input->setValue(isset($inputCollection->data[$name]) ? $inputCollection->data[$name] : null);
-
-            if ($input->isValid($context)) {
-                $inputCollection->validInputs[$name] = $input;
-                continue;
-            }
-
-            $inputCollection->invalidInputs[$name] = $input;
-            $valid = false;
-
-            $inputCollection->setErrorMessages($name, $input->getErrorMessages());
-
-            if ($input->breakOnFailure()) {
-                return false;
-            }
-        }
-
-        return $valid;*/
     }
 
     /**
