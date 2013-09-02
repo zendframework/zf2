@@ -205,7 +205,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             return $this;
         }
 
-        $dsn = $username = $password = $hostname = $database = null;
+        $dsn = $username = $password = $hostname = $database = $charset = null;
         $options = array();
         foreach ($this->connectionParameters as $key => $value) {
             switch (strtolower($key)) {
@@ -240,6 +240,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                 case 'dbname':
                     $database = (string) $value;
                     break;
+                case 'charset':
+                    $charset = (string) $value;
+                    break;
                 case 'driver_options':
                 case 'options':
                     $value = (array) $value;
@@ -266,6 +269,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                     }
                     if (isset($port)) {
                         $dsn[] = "port={$port}";
+                    }
+                    if (isset($charset)) {
+                        $dsn[] = "port={$charset}";
                     }
                     break;
             }
