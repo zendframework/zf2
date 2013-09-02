@@ -102,18 +102,19 @@ class FilterChain extends AbstractFilter implements Countable
 
     /**
      * Returns $value filtered through each filter in the chain. Filters are run according to priority
+     * 
      * {@inheritDoc}
      */
     public function filter($value)
     {
         $chain = clone $this->filters;
 
-        $valueFiltered = $value;
+        $filteredValue = $value;
         foreach ($chain as $filter) {
-            $valueFiltered = $filter($valueFiltered);
+            $filteredValue = $filter($filteredValue);
         }
 
-        return $valueFiltered;
+        return $filteredValue;
     }
 
     /**
