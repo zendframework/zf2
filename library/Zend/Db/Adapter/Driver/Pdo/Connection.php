@@ -271,7 +271,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                         $dsn[] = "port={$port}";
                     }
                     if (isset($charset)) {
-                        $dsn[] = "port={$charset}";
+                        $dsn[] = "charset={$charset}";
                     }
                     break;
             }
