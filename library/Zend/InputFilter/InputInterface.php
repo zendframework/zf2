@@ -38,28 +38,6 @@ interface InputInterface
     public function getName();
 
     /**
-     * Set the raw value of the input
-     *
-     * @param  $value
-     * @return void
-     */
-    public function setValue($value);
-
-    /**
-     * Get the filtered value
-     *
-     * @return mixed
-     */
-    public function getValue();
-
-    /**
-     * Get the unfiltered value
-     *
-     * @return mixed
-     */
-    public function getRawValue();
-
-    /**
      * Set the fallback value
      *
      * @param  mixed $fallbackValue
@@ -151,17 +129,11 @@ interface InputInterface
     public function getValidatorChain();
 
     /**
-     * Check if the input filter is valid
+     * Validate the value, and return the error messages (if any)
      *
+     * @param  mixed      $value   Value to validate
      * @param  mixed|null $context An optional context used for validation
-     * @return bool
-     */
-    public function isValid($context = null);
-
-    /**
-     * Get the error messages that may have occurred during validation (if any)
-     *
      * @return array
      */
-    public function getErrorMessages();
+    public function validate($value, $context = null);
 }
