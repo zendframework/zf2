@@ -37,14 +37,17 @@ class InputCollection extends Input implements InputCollectionInterface
     protected $validationGroupFilter;
 
     /**
-     * @param FilterChain    $filterChain
-     * @param ValidatorChain $validatorChain
-     * @param Factory        $factory
+     * @param FilterChain|null    $filterChain
+     * @param ValidatorChain|null $validatorChain
+     * @param Factory|null        $factory
      */
-    public function __construct(FilterChain $filterChain, ValidatorChain $validatorChain, Factory $factory)
-    {
+    public function __construct(
+        FilterChain $filterChain = null,
+        ValidatorChain $validatorChain = null,
+        Factory $factory = null
+    ) {
         parent::__construct($filterChain, $validatorChain);
-        $this->factory = $factory;
+        $this->factory = $factory ?: new Factory(new InputFilterPluginManager());
     }
 
     /**

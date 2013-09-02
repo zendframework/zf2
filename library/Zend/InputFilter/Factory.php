@@ -102,6 +102,15 @@ class Factory
     {
         foreach ($specification as $key => $value) {
             switch($key) {
+                case 'name':
+                    $inputCollection->setName($value);
+                    break;
+                case 'filters':
+                    $this->populateFilters($inputCollection, $value);
+                    break;
+                case 'validators':
+                    $this->populateValidators($inputCollection, $value);
+                    break;
                 case 'children':
                     foreach ($value as $child) {
                         $inputCollection->add($child);
