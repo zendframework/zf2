@@ -49,13 +49,13 @@ class Input implements InputInterface
     protected $validatorChain;
 
     /**
-     * @param FilterChain    $filterChain
-     * @param ValidatorChain $validatorChain
+     * @param FilterChain|null    $filterChain
+     * @param ValidatorChain|null $validatorChain
      */
-    public function __construct(FilterChain $filterChain, ValidatorChain $validatorChain)
+    public function __construct(FilterChain $filterChain = null, ValidatorChain $validatorChain = null)
     {
-        $this->filterChain    = $filterChain;
-        $this->validatorChain = $validatorChain;
+        $this->filterChain    = $filterChain ?: new FilterChain();
+        $this->validatorChain = $validatorChain ?: new ValidatorChain();
     }
 
     /**
@@ -80,7 +80,8 @@ class Input implements InputInterface
     public function setRequired($required)
     {
         if ($required) {
-            // @TODO: add validator with high priority
+            // @TODO: refactor validator to allow to set priority
+            $this->validatorChain->attachByName('NotEmpty');
         }
     }
 
@@ -127,25 +128,9 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
-    public function setFilterChain(FilterChain $filterChain)
-    {
-        $this->filterChain = $filterChain;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getFilterChain()
     {
         return $this->filterChain;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setValidatorChain(ValidatorChain $validatorChain)
-    {
-        $this->validatorChain = $validatorChain;
     }
 
     /**
@@ -165,7 +150,6 @@ class Input implements InputInterface
             $this->validatorChain->isValid($value, $context)
             || (empty($value) && $this->allowEmpty)
         ) {
-            // @TODO: should we filter here or elsewhere?...
             return new ValidationResult($value);
         }
 
