@@ -9,9 +9,10 @@
 
 namespace Zend\InputFilter;
 
-use RecursiveFilterIterator;
-use Zend\InputFilter\Filter\AbstractValidationGroupFilter;
-use Zend\InputFilter\Iterator\InputCollectionRecursiveIteratorIterator;
+use IteratorIterator;
+use Zend\InputFilter\Result\ValidationResult;
+use Zend\InputFilter\ValidationGroup\FilterIteratorInterface;
+use Zend\InputFilter\ValidationGroup\NoOpFilterIterator;
 
 /**
  * Input collection class
@@ -34,7 +35,7 @@ class InputCollection implements InputCollectionInterface
     protected $children = array();
 
     /**
-     * @var RecursiveFilterIterator
+     * @var FilterIteratorInterface
      */
     protected $validationGroupFilter;
 
@@ -125,11 +126,11 @@ class InputCollection implements InputCollectionInterface
     /**
      * Set a validation group filter
      *
-     * @param  AbstractValidationGroupFilter $validationGroupFilter
+     * @param  FilterIteratorInterface $validationGroupFilter
      * @throws Exception\RuntimeException
      * @return void
      */
-    public function setValidationGroupFilter(AbstractValidationGroupFilter $validationGroupFilter)
+    public function setValidationGroupFilter(FilterIteratorInterface $validationGroupFilter)
     {
         $this->validationGroupFilter = $validationGroupFilter;
     }
@@ -137,35 +138,102 @@ class InputCollection implements InputCollectionInterface
     /**
      * Get the validation group filter
      *
-     * @return AbstractValidationGroupFilter
+     * @return FilterIteratorInterface
      */
     public function getValidationGroupFilter()
     {
+        if (null === $this->validationGroupFilter) {
+            $this->validationGroupFilter = new NoOpFilterIterator($this);
+        }
+
         return $this->validationGroupFilter;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function validate(array $data = array(), $context = null)
+    public function validate(array $data, $context = null)
     {
-        $recursiveIterator         = $this->validationGroupFilter ?: $this;
-        $recursiveIteratorIterator = new InputCollectionRecursiveIteratorIterator($recursiveIterator);
+        $errorMessages = $this->buildErrorMessages($data, $context);
 
-        $recursiveIteratorIterator->prepareTraversal($data, $context);
-
-        do {
-            $recursiveIteratorIterator->next();
-        } while($recursiveIteratorIterator->valid());
-
-        return array();
+        return $this->buildValidationResult($data, $errorMessages);
     }
 
-    //protected function
+    /**
+     * Build error messages (without creating a validation result)
+     *
+     * This method should only be used internally by the "validate" method to recursively
+     * validating nested input collections
+     *
+     * @param  array      $data
+     * @param  mixed|null $context
+     * @return array
+     */
+    protected function buildErrorMessages(array $data, $context = null)
+    {
+        $iterator         = $this->getValidationGroupFilter();
+        $iteratorIterator = new IteratorIterator($iterator);
+        $errorMessages    = array();
+
+        /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
+        foreach ($iteratorIterator as $inputOrInputCollection) {
+            $name = $inputOrInputCollection->getName();
+
+            if ($inputOrInputCollection instanceof InputCollectionInterface && isset($data[$name])) {
+                // @TODO: in current ZF2 implementation, if an input inside a nested input filter
+                // @TODO  is configured to break on failure, it only break from the current input filter.
+                // @TODO  Should we throw an exception and allow to break all other inputs, even if not
+                // @TODO  at same nested level?
+                $inputCollectionErrors = $inputOrInputCollection->buildErrorMessages($data[$name]);
+
+                if (!empty($inputCollectionErrors)) {
+                    $errorMessages[$name] = $inputCollectionErrors;
+                }
+
+                continue;
+            }
+
+            // Otherwise we have an input
+            $value       = isset($data[$name]) ? $data[$name] : null;
+            $inputErrors = $inputOrInputCollection->validate($value, $context);
+
+            if (!empty($inputErrors)) {
+                $errorMessages[$name] = $inputErrors;
+
+                if ($inputOrInputCollection->breakOnFailure()) {
+                    break;
+                }
+            }
+        }
+
+        return $errorMessages;
+    }
+
+    /**
+     * Build a validation result from the raw data and error messages
+     *
+     * By default, this method assumes that if there are NO ERRORS (ie. all inputs have
+     * passed validation), then the user is likely to get filtered values, so all values
+     * are filtered. Otherwise, for saving cycles, if there are errors, values are
+     * not filtered at all, and only raw data are given to the validation result
+     *
+     * @param  array $rawData
+     * @param  array $errorMessages
+     * @return Result\ValidationResultInterface
+     */
+    protected function buildValidationResult(array $rawData, array $errorMessages)
+    {
+        if (!empty($errorMessages)) {
+            return new ValidationResult($rawData, array(), $errorMessages);
+        }
+
+        // @TODO: filter data efficiently
+        return new ValidationResult($rawData, $rawData, $errorMessages);
+    }
 
     /**
      * --------------------------------------------------------------------------------
-     * Implementation of RecursiveIterator interface
+     * Implementation of Iterator interface
      * --------------------------------------------------------------------------------
      */
 
@@ -207,21 +275,5 @@ class InputCollection implements InputCollectionInterface
     public function rewind()
     {
         reset($this->children);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function hasChildren()
-    {
-        return current($this->children) instanceof InputCollectionInterface;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getChildren()
-    {
-        return current($this->children);
     }
 }

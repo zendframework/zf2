@@ -7,14 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\InputFilter\Filter;
+namespace Zend\InputFilter\ValidationGroup;
 
+use FilterIterator;
 use Zend\InputFilter\InputCollectionInterface;
 
 /**
  * Validation group filter based on a simple array defined in the input collection
  */
-class ValidationGroupArrayFilter extends AbstractValidationGroupFilter
+class ArrayFilterIterator extends FilterIterator implements FilterIteratorInterface
 {
     /**
      * @var array
@@ -22,16 +23,12 @@ class ValidationGroupArrayFilter extends AbstractValidationGroupFilter
     protected $validationGroup;
 
     /**
-     * @param InputCollectionInterface $recursiveIterator
+     * @param InputCollectionInterface $iterator
      * @param array                    $validationGroup
      */
-    public function __construct(InputCollectionInterface $recursiveIterator, array $validationGroup = array())
+    public function __construct(InputCollectionInterface $iterator, array $validationGroup = array())
     {
-        parent::__construct($recursiveIterator);
-
-        // This is an optimization, this way we can check using isset, which is way faster than
-        // in_array (especially with very large arrays)
-        $this->validationGroup = array_flip($validationGroup);
+        parent::__construct($iterator);
     }
 
     /**
@@ -39,6 +36,6 @@ class ValidationGroupArrayFilter extends AbstractValidationGroupFilter
      */
     public function accept()
     {
-        return true; //isset($this->validationGroup[$this->key()]);
+        return in_array($this->key(), $this->validationGroup);
     }
 }

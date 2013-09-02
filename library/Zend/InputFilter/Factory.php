@@ -86,7 +86,7 @@ class Factory
                 default:
                     // Delegate any other option to a setter method, if any, so that custom
                     // input can have their own specific options
-                    $method = 'set' . ucfirst($key);
+                    $method = 'set' . str_replace('_', '', $key);
                     if (method_exists($input, $method)) {
                         $input->$method($value);
                     }
@@ -113,7 +113,7 @@ class Factory
                 default:
                     // Delegate any other option to a setter method, if any, so that custom
                     // input collection can have their own specific options
-                    $method = 'set' . ucfirst($key);
+                    $method = 'set' . str_replace('_', '', $key);
                     if (method_exists($inputCollection, $method)) {
                         $inputCollection->$method($value);
                     }

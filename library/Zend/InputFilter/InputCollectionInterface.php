@@ -9,13 +9,13 @@
 
 namespace Zend\InputFilter;
 
-use RecursiveIterator;
-use Zend\InputFilter\Filter\AbstractValidationGroupFilter;
+use Iterator;
+use Zend\InputFilter\ValidationGroup\FilterIteratorInterface;
 
 /**
  * Input collection interface
  */
-interface InputCollectionInterface extends RecursiveIterator
+interface InputCollectionInterface extends Iterator
 {
     /**
      * Set the name of the input collection
@@ -69,15 +69,15 @@ interface InputCollectionInterface extends RecursiveIterator
     /**
      * Set the validation group filter
      *
-     * @param  AbstractValidationGroupFilter $validationGroupFilter
+     * @param  FilterIteratorInterface $validationGroupFilter
      * @return void
      */
-    public function setValidationGroupFilter(AbstractValidationGroupFilter $validationGroupFilter);
+    public function setValidationGroupFilter(FilterIteratorInterface $validationGroupFilter);
 
     /**
      * Get the validation group filter
      *
-     * @return AbstractValidationGroupFilter
+     * @return FilterIteratorInterface
      */
     public function getValidationGroupFilter();
 

@@ -7,13 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\InputFilter\Filter;
+namespace Zend\InputFilter\ValidationGroup;
 
-use RecursiveFilterIterator;
+use Traversable;
 
 /**
- * Abstract validation group filter that each custom validation group must extend
+ * Interface for validation group filters
  */
-abstract class AbstractValidationGroupFilter extends RecursiveFilterIterator
+interface FilterIteratorInterface extends Traversable
 {
 }

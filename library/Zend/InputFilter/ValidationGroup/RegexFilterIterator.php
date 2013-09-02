@@ -7,15 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\InputFilter\Filter;
+namespace Zend\InputFilter\ValidationGroup;
 
+use FilterIterator;
 use Zend\InputFilter\InputCollectionInterface;
 
 /**
- * Validation group filter based on a Regex. The validation group array that may be defined in
- * the input collection is therefore silently ignored
+ * Validation group filter based on a regular expression
  */
-class ValidationGroupRegexFilter extends AbstractValidationGroupFilter
+class RegexFilterIterator extends FilterIterator implements FilterIteratorInterface
 {
     /**
      * @var string
@@ -23,12 +23,12 @@ class ValidationGroupRegexFilter extends AbstractValidationGroupFilter
     protected $regex;
 
     /**
-     * @param InputCollectionInterface $recursiveIterator
+     * @param InputCollectionInterface $iterator
      * @param string                   $regex
      */
-    public function __construct(InputCollectionInterface $recursiveIterator, $regex)
+    public function __construct(InputCollectionInterface $iterator, $regex)
     {
-        parent::__construct($recursiveIterator);
+        parent::__construct($iterator);
         $this->regex = (string) $regex;
     }
 
