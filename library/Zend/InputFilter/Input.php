@@ -48,11 +48,6 @@ class Input implements InputInterface
     protected $validatorChain;
 
     /**
-     * @var mixed
-     */
-    protected $fallbackValue;
-
-    /**
      * @param FilterChain    $filterChain
      * @param ValidatorChain $validatorChain
      */
@@ -76,22 +71,6 @@ class Input implements InputInterface
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setFallbackValue($fallbackValue)
-    {
-        $this->fallbackValue = $fallbackValue;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getFallbackValue()
-    {
-        return $this->fallbackValue;
     }
 
     /**
@@ -179,21 +158,17 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
-    public function validate(&$value, $context = null)
+    public function validate($value, $context = null)
     {
         if ($this->validatorChain->isValid($value, $context)) {
             return array();
         }
 
-        if (empty($value)) {
-            if ($this->fallbackValue) {
-                $value = $this->fallbackValue;
-                return array();
-            } elseif ($this->allowEmpty) {
-                return array();
-            }
+        if (empty($value) && $this->allowEmpty) {
+            return array();
         }
 
+        // @TODO: create a validation result
         return $this->validatorChain->getMessages();
     }
 }

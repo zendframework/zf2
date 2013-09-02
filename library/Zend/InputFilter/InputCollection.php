@@ -17,17 +17,12 @@ use Zend\InputFilter\ValidationGroup\NoOpFilterIterator;
 /**
  * Input collection class
  */
-class InputCollection implements InputCollectionInterface
+class InputCollection extends Input implements InputCollectionInterface
 {
     /**
      * @var Factory
      */
     protected $factory;
-
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
      * @var InputCollectionInterface[]|InputInterface[]
@@ -55,22 +50,6 @@ class InputCollection implements InputCollectionInterface
     public function getFactory()
     {
         return $this->factory;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -152,7 +131,7 @@ class InputCollection implements InputCollectionInterface
     /**
      * {@inheritDoc}
      */
-    public function validate(array $data, $context = null)
+    public function validate($data, $context = null)
     {
         $errorMessages = $this->buildErrorMessages($data, $context);
 

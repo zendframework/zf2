@@ -15,23 +15,8 @@ use Zend\InputFilter\ValidationGroup\FilterIteratorInterface;
 /**
  * Input collection interface
  */
-interface InputCollectionInterface extends Iterator
+interface InputCollectionInterface extends InputInterface, Iterator
 {
-    /**
-     * Set the name of the input collection
-     *
-     * @param  string $name
-     * @return void
-     */
-    public function setName($name);
-
-    /**
-     * Get the name of the input collection
-     *
-     * @return string
-     */
-    public function getName();
-
     /**
      * Add an input or another input collection (if no name was set, it will extract the one set in
      * the input or input collection)
@@ -80,13 +65,4 @@ interface InputCollectionInterface extends Iterator
      * @return FilterIteratorInterface
      */
     public function getValidationGroupFilter();
-
-    /**
-     * Check if the input filter is valid
-     *
-     * @param  array      $data     Data to validate
-     * @param  mixed|null $context  An optional context used for validation
-     * @return Result\ValidationResultInterface
-     */
-    public function validate(array $data, $context = null);
 }

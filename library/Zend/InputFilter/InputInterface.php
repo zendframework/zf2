@@ -23,7 +23,7 @@ interface InputInterface
     const REQUIRED_VALIDATOR_PRIORITY = 1000;
 
     /**
-     * Set the name of the input filter
+     * Set the name of the input
      *
      * @param  string $name
      * @return void
@@ -31,26 +31,11 @@ interface InputInterface
     public function setName($name);
 
     /**
-     * Get the name of the input filter
+     * Get the name of the input
      *
      * @return string
      */
     public function getName();
-
-    /**
-     * Set the fallback value
-     *
-     * @param  mixed $fallbackValue
-     * @return void
-     */
-    public function setFallbackValue($fallbackValue);
-
-    /**
-     * Get the fallback value
-     *
-     * @return mixed
-     */
-    public function getFallbackValue();
 
     /**
      * Set if the input is required. This is a shortcut of manually adding a NotEmpty validator with
@@ -129,11 +114,11 @@ interface InputInterface
     public function getValidatorChain();
 
     /**
-     * Validate the value, and return the error messages (if any)
+     * Validate the value or values and create a ValidationResultInterface
      *
-     * @param  mixed      &$value   Value to validate
+     * @param  mixed      &$value   Value(s) to validate
      * @param  mixed|null $context An optional context used for validation
-     * @return array
+     * @return Result\ValidationResultInterface
      */
-    public function validate(&$value, $context = null);
+    public function validate($value, $context = null);
 }
