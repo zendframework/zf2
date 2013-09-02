@@ -66,7 +66,7 @@ class InputCollection extends Input implements InputCollectionInterface
      */
     public function add($inputOrInputCollection, $name = null)
     {
-        // Note: you MUST NOT check against Traversable here, because InputCollection is a Traversable itself
+        // NOTE: you MUST NOT check against Traversable here, because InputCollection is a Traversable itself
         if (is_array($inputOrInputCollection)) {
             $inputOrInputCollection = $this->factory->createFromSpecification($inputOrInputCollection);
         }
@@ -85,9 +85,8 @@ class InputCollection extends Input implements InputCollectionInterface
     {
         if (!isset($this->children[$name])) {
             throw new Exception\RuntimeException(sprintf(
-                'No input or input collection named "%s" was found in input collection of type "%s" with the name "%s"',
+                'No input or input collection named "%s" was found in input collection "%s"',
                 $name,
-                __CLASS__,
                 $this->getName()
             ));
         }
@@ -157,21 +156,6 @@ class InputCollection extends Input implements InputCollectionInterface
             $name  = $inputOrInputCollection->getName();
             $value = isset($data[$name]) ? $data[$name] : null;
 
-            if ($inputOrInputCollection instanceof InputCollectionInterface && null !== $value) {
-                // @TODO: in current ZF2 implementation, if an input inside a nested input filter
-                // @TODO  is configured to break on failure, it only break from the current input filter.
-                // @TODO  Should we throw an exception and allow to break all other inputs, even if not
-                // @TODO  at same nested level?
-                $validationResult = $inputOrInputCollection->validate($value, $context);
-
-                if (!$validationResult->isValid()) {
-                    $errorMessages[$name] = $validationResult->getErrorMessages();
-                }
-
-                continue;
-            }
-
-            // Otherwise we have an input
             $validationResult = $inputOrInputCollection->validate($value, $context);
 
             if (!$validationResult->isValid()) {

@@ -49,11 +49,11 @@ class Factory
 
         unset($specification['type']);
 
-        if ($inputOrInputCollection instanceof InputInterface) {
-            return $this->createInputFromSpecification($inputOrInputCollection, $specification);
+        if ($inputOrInputCollection instanceof InputCollectionInterface) {
+            return $this->createInputCollectionFromSpecification($inputOrInputCollection, $specification);
         }
 
-        return $this->createInputCollectionFromSpecification($inputOrInputCollection, $specification);
+        return $this->createInputFromSpecification($inputOrInputCollection, $specification);
     }
 
     /**
