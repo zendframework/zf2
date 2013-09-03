@@ -43,7 +43,7 @@ class Connection extends ConnectionAbstract
      * Set driver
      *
      * @param  Sqlsrv $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(Sqlsrv $driver)
     {
@@ -72,7 +72,7 @@ class Connection extends ConnectionAbstract
      *
      * @param  resource $resource
      * @throws Exception\InvalidArgumentException
-     * @return Connection
+     * @return self
      */
     public function setResource($resource)
     {
@@ -87,7 +87,7 @@ class Connection extends ConnectionAbstract
      * Connect
      *
      * @throws Exception\RuntimeException
-     * @return Connection
+     * @return self
      */
     public function connect()
     {
@@ -159,7 +159,7 @@ class Connection extends ConnectionAbstract
     /**
      * Begin transaction
      *
-     * @return Connection
+     * @return self
      */
     public function beginTransaction()
     {
@@ -189,7 +189,7 @@ class Connection extends ConnectionAbstract
     /**
      * Commit
      *
-     * @return Connection
+     * @return self
      */
     public function commit()
     {
@@ -210,7 +210,7 @@ class Connection extends ConnectionAbstract
     /**
      * Rollback
      *
-     * @return Connection
+     * @return self
      */
     public function rollback()
     {

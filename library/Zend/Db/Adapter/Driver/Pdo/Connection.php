@@ -50,8 +50,13 @@ class Connection extends ConnectionAbstract
     /**
      * Set driver
      *
+<<<<<<< HEAD
      * @param  Pdo        $driver
      * @return Connection
+=======
+     * @param Pdo $driver
+     * @return self
+>>>>>>> @return Connection => @return self
      */
     public function setDriver(Pdo $driver)
     {
@@ -136,8 +141,13 @@ class Connection extends ConnectionAbstract
     /**
      * Set resource
      *
+<<<<<<< HEAD
      * @param  \PDO       $resource
      * @return Connection
+=======
+     * @param  \PDO $resource
+     * @return self
+>>>>>>> @return Connection => @return self
      */
     public function setResource(\PDO $resource)
     {
@@ -164,7 +174,7 @@ class Connection extends ConnectionAbstract
     /**
      * Connect
      *
-     * @return Connection
+     * @return self
      * @throws Exception\InvalidConnectionParametersException
      * @throws Exception\RuntimeException
      */
@@ -293,7 +303,7 @@ class Connection extends ConnectionAbstract
     /**
      * Begin transaction
      *
-     * @return Connection
+     * @return self
      */
     public function beginTransaction()
     {
@@ -320,7 +330,7 @@ class Connection extends ConnectionAbstract
     /**
      * Commit
      *
-     * @return Connection
+     * @return self
      */
     public function commit()
     {
@@ -337,7 +347,7 @@ class Connection extends ConnectionAbstract
     /**
      * Rollback
      *
-     * @return Connection
+     * @return self
      * @throws Exception\RuntimeException
      */
     public function rollback()
