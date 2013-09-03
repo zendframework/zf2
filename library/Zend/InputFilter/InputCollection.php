@@ -139,7 +139,7 @@ class InputCollection extends Input implements InputCollectionInterface
     /**
      * {@inheritDoc}
      */
-    public function validate($data, $context = null)
+    public function runAgainst($data, $context = null)
     {
         $filteredData  = array();
         $errorMessages = array();
@@ -164,7 +164,7 @@ class InputCollection extends Input implements InputCollectionInterface
             $name  = $inputOrInputCollection->getName();
             $value = isset($data[$name]) ? $data[$name] : null;
 
-            $validationResult = $inputOrInputCollection->validate($value, $context);
+            $validationResult = $inputOrInputCollection->runAgainst($value, $context);
 
             if (!$validationResult->isValid()) {
                 $errorMessages[$name] = $validationResult->getErrorMessages();

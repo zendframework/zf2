@@ -144,7 +144,7 @@ class Input implements InputInterface
     /**
      * {@inheritDoc}
      */
-    public function validate($value, $context = null)
+    public function runAgainst($value, $context = null)
     {
         $filteredValue = $this->filterChain->filter($value);
 
