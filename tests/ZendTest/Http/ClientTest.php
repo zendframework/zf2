@@ -349,4 +349,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($testAdapter, $client->getAdapter());
     }
+
+    public function testIfClientSetsMethodOnSetParameterPost()
+    {
+        $client = new Client();
+        $defaultMethod = $client->getMethod();
+
+        $this->assertEquals($defaultMethod, Request::METHOD_GET);
+
+        $client->setParameterPost(array('foo' => 'bar'));
+
+        $this->assertEquals($client->getMethod(), Request::METHOD_POST);
+    }
+
+    public function testClientDoesNotOverwiteMethodOnSetParameterPost()
+    {
+        $client = new Client();
+        $client->setMethod(Request::METHOD_PUT);
+
+        $this->assertEquals($client->getMethod(), Request::METHOD_PUT);
+
+        $client->setParameterPost(array('foo' => 'bar'));
+
+        $this->assertEquals($client->getMethod(), Request::METHOD_PUT);
+    }
 }

@@ -443,6 +443,14 @@ class Client implements Stdlib\DispatchableInterface
     public function setParameterPost(array $post)
     {
         $this->getRequest()->getPost()->fromArray($post);
+        if(!in_array($this->getMethod(), array(
+            Request::METHOD_POST,
+            Request::METHOD_PUT,
+            Request::METHOD_DELETE,
+            Request::METHOD_PATCH,
+        ))) {
+            $this->setMethod(Request::METHOD_POST);
+        }
         return $this;
     }
 
