@@ -141,9 +141,6 @@ class InputCollection extends Input implements InputCollectionInterface
      */
     public function validate($data, $context = null)
     {
-        $iterator         = $this->getValidationGroupFilter();
-        $iteratorIterator = new IteratorIterator($iterator);
-
         $filteredData  = array();
         $errorMessages = array();
 
@@ -153,9 +150,14 @@ class InputCollection extends Input implements InputCollectionInterface
             $errorMessages[$this->name] = $this->validatorChain->getMessages();
 
             if ($this->breakOnFailure()) {
-                return $this->buildValidationResult($data, array(), $errorMessages);
+                // We want to break if the input collection fails its own validators, so
+                // the filtered data does not exist, hence the empty array()
+                return $this->buildInputFilterResult($data, array(), $errorMessages);
             }
         }
+
+        $iterator         = $this->getValidationGroupFilter();
+        $iteratorIterator = new IteratorIterator($iterator);
 
         /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
         foreach ($iteratorIterator as $inputOrInputCollection) {
@@ -175,7 +177,7 @@ class InputCollection extends Input implements InputCollectionInterface
             }
         }
 
-        return $this->buildValidationResult($data, $filteredData, $errorMessages);
+        return $this->buildInputFilterResult($data, $filteredData, $errorMessages);
     }
 
     /**
@@ -186,7 +188,7 @@ class InputCollection extends Input implements InputCollectionInterface
      * @param  array $errorMessages
      * @return Result\InputFilterResultInterface
      */
-    protected function buildValidationResult(array $rawData, array $filteredData, array $errorMessages)
+    protected function buildInputFilterResult(array $rawData, array $filteredData, array $errorMessages)
     {
         // As the input collection can have filters attached to it, we run those
         // to the data (that was filtered by each input).

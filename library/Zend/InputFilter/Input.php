@@ -155,6 +155,8 @@ class Input implements InputInterface
             return new InputFilterResult($value, $filteredValue);
         }
 
-        return new InputFilterResult($value, $filteredValue, $this->validatorChain->getMessages());
+        // If it is not valid, we don't want to store the filtered value, as it's
+        // incorrect anyway...
+        return new InputFilterResult($value, null, $this->validatorChain->getMessages());
     }
 }
