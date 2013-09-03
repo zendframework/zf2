@@ -161,19 +161,19 @@ class InputCollection extends Input implements InputCollectionInterface
 
         /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
         foreach ($iteratorIterator as $inputOrInputCollection) {
-            $name  = $inputOrInputCollection->getName();
-            $value = isset($data[$name]) ? $data[$name] : null;
+            $name     = $inputOrInputCollection->getName();
+            $rawValue = isset($data[$name]) ? $data[$name] : null;
 
-            $validationResult = $inputOrInputCollection->runAgainst($value, $context);
+            $inputFilterResult = $inputOrInputCollection->runAgainst($rawValue, $context);
 
-            if (!$validationResult->isValid()) {
-                $errorMessages[$name] = $validationResult->getErrorMessages();
+            if (!$inputFilterResult->isValid()) {
+                $errorMessages[$name] = $inputFilterResult->getErrorMessages();
 
                 if ($inputOrInputCollection->breakOnFailure()) {
                     break;
                 }
             } else {
-                $filteredData[$name] = $validationResult->getData();
+                $filteredData[$name] = $inputFilterResult->getData();
             }
         }
 

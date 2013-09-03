@@ -56,7 +56,7 @@ class InputFilterResult implements InputFilterResultInterface
      */
     public function getRawData()
     {
-        $this->rawData;
+        return $this->rawData;
     }
 
     /**
@@ -64,7 +64,7 @@ class InputFilterResult implements InputFilterResultInterface
      */
     public function getData()
     {
-        $this->data;
+        return $this->data;
     }
 
     /**
