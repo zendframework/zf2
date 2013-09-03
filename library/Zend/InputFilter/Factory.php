@@ -69,10 +69,13 @@ class Factory
                     $input->setName($value);
                     break;
                 case 'required':
-                    $input->setRequired(true);
+                    $input->setRequired($value);
                     break;
                 case 'allow_empty':
-                    $input->setAllowEmpty(true);
+                    $input->setAllowEmpty($value);
+                    break;
+                case 'break_on_failure':
+                    $input->setBreakOnFailure($value);
                     break;
                 case 'filters':
                     $this->populateFilters($input, $value);
@@ -104,6 +107,9 @@ class Factory
             switch($key) {
                 case 'name':
                     $inputCollection->setName($value);
+                    break;
+                case 'break_on_failure':
+                    $inputCollection->setBreakOnFailure($value);
                     break;
                 case 'filters':
                     $this->populateFilters($inputCollection, $value);

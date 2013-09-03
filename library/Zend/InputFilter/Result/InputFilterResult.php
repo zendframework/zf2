@@ -10,19 +10,19 @@
 namespace Zend\InputFilter\Result;
 
 /**
- * Validation result class
+ * Simple class that only holds the raw data, data and error messages
  */
-class ValidationResult implements ValidationResultInterface
+class InputFilterResult implements InputFilterResultInterface
 {
     /**
      * @var mixed
      */
-    protected $rawValue;
+    protected $rawData;
 
     /**
      * @var mixed
      */
-    protected $value;
+    protected $data;
 
     /**
      * @var array
@@ -30,14 +30,16 @@ class ValidationResult implements ValidationResultInterface
     protected $errorMessages = array();
 
     /**
-     * @param mixed $rawValue
-     * @param mixed $value
+     * Constructor
+     *
+     * @param mixed $rawData
+     * @param mixed $data
      * @param array $errorMessages
      */
-    public function __construct($rawValue, $value = null, array $errorMessages = array())
+    public function __construct($rawData, $data, array $errorMessages = array())
     {
-        $this->rawValue      = $rawValue;
-        $this->value         = $value;
+        $this->rawData       = $rawData;
+        $this->data          = $data;
         $this->errorMessages = $errorMessages;
     }
 
@@ -52,17 +54,17 @@ class ValidationResult implements ValidationResultInterface
     /**
      * {@inheritDoc}
      */
-    public function getValue()
+    public function getRawData()
     {
-        $this->value;
+        $this->rawData;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getRawValue()
+    public function getData()
     {
-        $this->rawValue;
+        $this->data;
     }
 
     /**

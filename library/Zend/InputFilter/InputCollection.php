@@ -12,7 +12,7 @@ namespace Zend\InputFilter;
 use ArrayIterator;
 use IteratorIterator;
 use Zend\Filter\FilterChain;
-use Zend\InputFilter\Result\ValidationResult;
+use Zend\InputFilter\Result\InputFilterResult;
 use Zend\InputFilter\ValidationGroup\FilterIteratorInterface;
 use Zend\InputFilter\ValidationGroup\NoOpFilterIterator;
 use Zend\Validator\ValidatorChain;
@@ -143,12 +143,18 @@ class InputCollection extends Input implements InputCollectionInterface
     {
         $iterator         = $this->getValidationGroupFilter();
         $iteratorIterator = new IteratorIterator($iterator);
-        $errorMessages    = array();
+
+        $filteredData  = array();
+        $errorMessages = array();
 
         // As an input collection can have also validators and filters, we first apply the
-        // validation for itself
+        // filtering for itself
         if (!$this->validatorChain->isValid($data, $context)) {
             $errorMessages[$this->name] = $this->validatorChain->getMessages();
+
+            if ($this->breakOnFailure()) {
+                return $this->buildValidationResult($data, array(), $errorMessages);
+            }
         }
 
         /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
@@ -164,47 +170,29 @@ class InputCollection extends Input implements InputCollectionInterface
                 if ($inputOrInputCollection->breakOnFailure()) {
                     break;
                 }
+            } else {
+                $filteredData[$name] = $validationResult->getData();
             }
         }
 
-        return $this->buildValidationResult($data, $errorMessages);
+        return $this->buildValidationResult($data, $filteredData, $errorMessages);
     }
 
     /**
-     * Build a validation result from the raw data and error messages
-     *
-     * By default, this method assumes that if there are NO ERRORS in the given
-     * input collection (ie. all inputs have passed validation), then the data
-     * are filtered. Otherwise, they are not
+     * Build a validation result from the raw data, filtered data and error messages
      *
      * @param  array $rawData
+     * @param  array $filteredData
      * @param  array $errorMessages
-     * @return Result\ValidationResultInterface
+     * @return Result\InputFilterResultInterface
      */
-    protected function buildValidationResult(array $rawData, array $errorMessages)
+    protected function buildValidationResult(array $rawData, array $filteredData, array $errorMessages)
     {
-        if (!empty($errorMessages)) {
-            return new ValidationResult($rawData, null, $errorMessages);
-        }
+        // As the input collection can have filters attached to it, we run those
+        // to the data (that was filtered by each input).
+        $filteredData = $this->filterChain->filter($filteredData);
 
-        // Otherwise, we filter data only for the given input collection
-        $iterator         = $this->getValidationGroupFilter();
-        $iteratorIterator = new IteratorIterator($iterator);
-        $filteredData     = array();
-
-        /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
-        foreach ($iteratorIterator as $inputOrInputCollection) {
-            $name = $inputOrInputCollection->getName();
-            $data = isset($rawData[$name]) ? $rawData[$name] : null;
-
-            $filteredData[$name] = $inputOrInputCollection->getFilterChain()->filter($data);
-        }
-
-        // As an input collection can also contain filters, we finally filter the data
-        // using the input collection filters
-        $this->filterChain->filter($filteredData);
-
-        return new ValidationResult($rawData, $filteredData, $errorMessages);
+        return new InputFilterResult($rawData, $filteredData, $errorMessages);
     }
 
     /**

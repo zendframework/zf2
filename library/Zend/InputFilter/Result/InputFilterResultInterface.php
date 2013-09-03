@@ -13,9 +13,9 @@ use Serializable;
 use JsonSerializable;
 
 /**
- * The ValidationResultInterface allow to encapsulate the result of an input collection
+ * The InputFilterResultInterface allow to encapsulate the result of an input collection
  */
-interface ValidationResultInterface extends Serializable, JsonSerializable
+interface InputFilterResultInterface extends Serializable, JsonSerializable
 {
     /**
      * Is the validation result valid?
@@ -25,18 +25,18 @@ interface ValidationResultInterface extends Serializable, JsonSerializable
     public function isValid();
 
     /**
-     * Get the value (this can be a scalar or array depending of the context)
+     * Get the raw data (this can be a scalar or array depending of the context)
      *
      * @return mixed
      */
-    public function getValue();
+    public function getRawData();
 
     /**
-     * Get the raw value (this can be a scalar or array depending of the context)
+     * Get the data (this can be a scalar or array depending of the context)
      *
      * @return mixed
      */
-    public function getRawValue();
+    public function getData();
 
     /**
      * Get error messages

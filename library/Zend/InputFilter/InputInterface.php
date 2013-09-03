@@ -98,11 +98,11 @@ interface InputInterface
     public function getValidatorChain();
 
     /**
-     * Validate the value or values and create a ValidationResultInterface
+     * Validate the data and create an InputFilterResultInterface
      *
-     * @param  mixed      &$value   Value(s) to validate
+     * @param  mixed      $data    Data to validate
      * @param  mixed|null $context An optional context used for validation
-     * @return Result\ValidationResultInterface
+     * @return Result\InputFilterResultInterface
      */
-    public function validate($value, $context = null);
+    public function validate($data, $context = null);
 }
