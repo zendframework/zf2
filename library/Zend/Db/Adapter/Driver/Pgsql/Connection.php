@@ -39,7 +39,7 @@ class Connection extends ConnectionAbstract
      * Set driver
      *
      * @param  Pgsql $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(Pgsql $driver)
     {
@@ -68,7 +68,7 @@ class Connection extends ConnectionAbstract
     /**
      * Connect to the database
      *
-     * @return Connection
+     * @return self
      * @throws Exception\RuntimeException on failure
      */
     public function connect()
@@ -138,7 +138,7 @@ class Connection extends ConnectionAbstract
     /**
      * Begin transaction
      *
-     * @return Connection
+     * @return self
      */
     public function beginTransaction()
     {
@@ -159,7 +159,7 @@ class Connection extends ConnectionAbstract
     /**
      * Commit
      *
-     * @return Connection
+     * @return self
      */
     public function commit()
     {
@@ -180,7 +180,7 @@ class Connection extends ConnectionAbstract
     /**
      * Rollback
      *
-     * @return Connection
+     * @return self
      */
     public function rollback()
     {

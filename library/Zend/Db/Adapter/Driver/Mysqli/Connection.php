@@ -45,7 +45,7 @@ class Connection extends ConnectionAbstract
 
     /**
      * @param Mysqli $driver
-     * @return Connection
+     * @return self
      */
     public function setDriver(Mysqli $driver)
     {
@@ -74,7 +74,7 @@ class Connection extends ConnectionAbstract
      * Set resource
      *
      * @param  \mysqli $resource
-     * @return Connection
+     * @return self
      */
     public function setResource(\mysqli $resource)
     {
@@ -97,7 +97,7 @@ class Connection extends ConnectionAbstract
      * Connect
      *
      * @throws Exception\RuntimeException
-     * @return Connection
+     * @return self
      */
     public function connect()
     {
@@ -184,7 +184,7 @@ class Connection extends ConnectionAbstract
     /**
      * Begin transaction
      *
-     * @return Connection
+     * @return self
      */
     public function beginTransaction()
     {
@@ -201,7 +201,7 @@ class Connection extends ConnectionAbstract
     /**
      * Commit
      *
-     * @return Connection
+     * @return self
      */
     public function commit()
     {
@@ -220,7 +220,7 @@ class Connection extends ConnectionAbstract
      * Rollback
      *
      * @throws Exception\RuntimeException
-     * @return Connection
+     * @return self
      */
     public function rollback()
     {
