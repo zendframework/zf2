@@ -65,6 +65,26 @@ class FilterChain extends AbstractFilter implements Countable
     }
 
     /**
+     * Remove a filter from the chain
+     *
+     * Note that this method needs to iterate through all the filters, so it can be slow
+     *
+     * @param  FilterInterface|Callable $filter
+     * @return bool True if the filter was successfully removed, false otherwise
+     */
+    public function remove(Callable $filter)
+    {
+        foreach ($this->filters as $key => $value) {
+            if ($filter === $value) {
+                unset($this->filters[$key]);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Attach a filter to the chain by its name (using the filter plugin manager)
      *
      * @param  string $name Valid name
@@ -75,6 +95,33 @@ class FilterChain extends AbstractFilter implements Countable
     {
         $filter = $this->filterPluginManager->get($name);
         $this->filters->insert($filter, $priority);
+    }
+
+    /**
+     * Remove a filter from the chain by its name
+     *
+     * Note that this method needs to get the FQCN from the name and iterate through all filters. This
+     * can be really slow if filter chain contains a lot of filters
+     *
+     * @param  string $name
+     * @return bool True if the filter was successfully removed, false otherwise
+     */
+    public function removeByName($name)
+    {
+        $className = array_search($name, $this->filterPluginManager->getCanonicalNames());
+
+        if ($className === false) {
+            return false;
+        }
+
+        foreach ($this->filters as $key => $value) {
+            if ('\\' . $className instanceof $value) {
+                unset($this->filters[$key]);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -107,6 +154,7 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function filter($value)
     {
+        // @TODO: why do we need to clone?
         $chain = clone $this->filters;
 
         $filteredValue = $value;

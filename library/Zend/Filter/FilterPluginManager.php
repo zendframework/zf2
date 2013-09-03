@@ -12,7 +12,7 @@ namespace Zend\Filter;
 use Zend\ServiceManager\AbstractPluginManager;
 
 /**
- * Plugin manager implementation for the filter chain.
+ * Plugin manager implementation for the filters
  *
  * Enforces that filters retrieved are either callbacks or instances of
  * FilterInterface. Additionally, it registers a number of default filters
@@ -26,20 +26,78 @@ class FilterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
+        'Zend\I18n\Filter\Alnum'                 => 'Zend\I18n\Filter\Alnum',
+        'Zend\I18n\Filter\Alpha'                 => 'Zend\I18n\Filter\Alpha',
+        'Zend\Filter\BaseName'                   => 'Zend\Filter\BaseName',
+        'Zend\Filter\Boolean'                    => 'Zend\Filter\Boolean',
+        'Zend\Filter\Callback'                   => 'Zend\Filter\Callback',
+        'Zend\Filter\DateTimeFormatter'          => 'Zend\Filter\DateTimeFormatter',
+        'Zend\Filter\Digits'                     => 'Zend\Filter\Digits',
+        'Zend\Filter\Dir'                        => 'Zend\Filter\Dir',
+        'Zend\Filter\File\Decrypt'               => 'Zend\Filter\File\Decrypt',
+        'Zend\Filter\File\Encrypt'               => 'Zend\Filter\File\Encrypt',
+        'Zend\Filter\File\LowerCase'             => 'Zend\Filter\File\LowerCase',
+        'Zend\Filter\File\Rename'                => 'Zend\Filter\File\Rename',
+        'Zend\Filter\File\RenameUpload'          => 'Zend\Filter\File\RenameUpload',
+        'Zend\Filter\File\UpperCase'             => 'Zend\Filter\File\UpperCase',
+        'Zend\Filter\HtmlEntities'               => 'Zend\Filter\HtmlEntities',
+        'Zend\Filter\Inflector'                  => 'Zend\Filter\Inflector',
+        'Zend\Filter\Int'                        => 'Zend\Filter\Int',
+        'Zend\Filter\Null'                       => 'Zend\Filter\Null',
+        'Zend\I18n\Filter\NumberFormat'          => 'Zend\I18n\Filter\NumberFormat',
+        'Zend\Filter\PregReplace'                => 'Zend\Filter\PregReplace',
+        'Zend\Filter\RealPath'                   => 'Zend\Filter\RealPath',
+        'Zend\Filter\StringToLower'              => 'Zend\Filter\StringToLower',
+        'Zend\Filter\StringToUpper'              => 'Zend\Filter\StringToUpper',
+        'Zend\Filter\StringTrim'                 => 'Zend\Filter\StringTrim',
+        'Zend\Filter\StripNewlines'              => 'Zend\Filter\StripNewlines',
+        'Zend\Filter\StripTags'                  => 'Zend\Filter\StripTags',
+        'Zend\Filter\UriNormalize'               => 'Zend\Filter\UriNormalize',
+        'Zend\Filter\Word\CamelCaseToDash'       => 'Zend\Filter\Word\CamelCaseToDash',
+        'Zend\Filter\Word\CamelCaseToSeparator'  => 'Zend\Filter\Word\CamelCaseToSeparator',
+        'Zend\Filter\Word\CamelCaseToUnderscore' => 'Zend\Filter\Word\CamelCaseToUnderscore',
+        'Zend\Filter\Word\DashToCamelCase'       => 'Zend\Filter\Word\DashToCamelCase',
+        'Zend\Filter\Word\DashToSeparator'       => 'Zend\Filter\Word\DashToSeparator',
+        'Zend\Filter\Word\DashToUnderscore'      => 'Zend\Filter\Word\DashToUnderscore',
+        'Zend\Filter\Word\SeparatorToCamelCase'  => 'Zend\Filter\Word\SeparatorToCamelCase',
+        'Zend\Filter\Word\SeparatorToDash'       => 'Zend\Filter\Word\SeparatorToDash',
+        'Zend\Filter\Word\SeparatorToSeparator'  => 'Zend\Filter\Word\SeparatorToSeparator',
+        'Zend\Filter\Word\UnderscoreToCamelCase' => 'Zend\Filter\Word\UnderscoreToCamelCase',
+        'Zend\Filter\Word\UnderscoreToDash'      => 'Zend\Filter\Word\UnderscoreToDash',
+        'Zend\Filter\Word\UnderscoreToSeparator' => 'Zend\Filter\Word\UnderscoreToSeparator',
+    );
+
+    /**
+     * @var array
+     */
+    protected $factories = array(
+        'Zend\Filter\Factory\CompressFilterFactory'   => 'Zend\Filter\Factory\CompressFilterFactory',
+        'Zend\Filter\Factory\DecompressFilterFactory' => 'Zend\Filter\Factory\DecompressFilterFactory',
+        'Zend\Filter\Factory\DecryptFilterFactory'    => 'Zend\Filter\Factory\DecryptFilterFactory',
+        'Zend\Filter\Factory\EncryptFilterFactory'    => 'Zend\Filter\Factory\EncryptFilterFactory',
+        'Zend\Filter\Factory\FilterChainFactory'      => 'Zend\Filter\Factory\FilterChainFactory'
+    );
+
+    protected $aliases = array(
         'alnum'                     => 'Zend\I18n\Filter\Alnum',
         'alpha'                     => 'Zend\I18n\Filter\Alpha',
         'basename'                  => 'Zend\Filter\BaseName',
         'boolean'                   => 'Zend\Filter\Boolean',
         'callback'                  => 'Zend\Filter\Callback',
+        'compress'                  => 'Zend\Filter\Factory\CompressFilterFactory',
         'datetimeformatter'         => 'Zend\Filter\DateTimeFormatter',
+        'decompress'                => 'Zend\Filter\Factory\DecompressFilterFactory',
+        'decrypt'                   => 'Zend\Filter\Factory\DecryptFilterFactory',
         'digits'                    => 'Zend\Filter\Digits',
         'dir'                       => 'Zend\Filter\Dir',
+        'encrypt'                   => 'Zend\Filter\Factory\EncryptFilterFactory',
         'filedecrypt'               => 'Zend\Filter\File\Decrypt',
         'fileencrypt'               => 'Zend\Filter\File\Encrypt',
         'filelowercase'             => 'Zend\Filter\File\LowerCase',
         'filerename'                => 'Zend\Filter\File\Rename',
         'filerenameupload'          => 'Zend\Filter\File\RenameUpload',
         'fileuppercase'             => 'Zend\Filter\File\UpperCase',
+        'filterchain'               => 'Zend\Filter\Factory\FilterChainFactory',
         'htmlentities'              => 'Zend\Filter\HtmlEntities',
         'inflector'                 => 'Zend\Filter\Inflector',
         'int'                       => 'Zend\Filter\Int',
@@ -65,17 +123,6 @@ class FilterPluginManager extends AbstractPluginManager
         'wordunderscoretocamelcase' => 'Zend\Filter\Word\UnderscoreToCamelCase',
         'wordunderscoretodash'      => 'Zend\Filter\Word\UnderscoreToDash',
         'wordunderscoretoseparator' => 'Zend\Filter\Word\UnderscoreToSeparator',
-    );
-
-    /**
-     * @var array
-     */
-    protected $factories = array(
-        'compress'                  => 'Zend\Filter\Factory\CompressFilterFactory',
-        'decompress'                => 'Zend\Filter\Factory\DecompressFilterFactory',
-        'decrypt'                   => 'Zend\Filter\Factory\DecryptFilterFactory',
-        'encrypt'                   => 'Zend\Filter\Factory\EncryptFilterFactory',
-        'filterchain'               => 'Zend\Filter\Factory\FilterChainFactory'
     );
 
     /**
