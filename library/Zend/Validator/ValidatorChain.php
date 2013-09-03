@@ -10,29 +10,37 @@
 namespace Zend\Validator;
 
 use Countable;
+use Zend\Stdlib\PriorityQueue;
 
-class ValidatorChain implements
-    Countable,
-    ValidatorInterface
+class ValidatorChain extends AbstractValidator implements Countable
 {
     /**
+     * Default priority at which validators are added
+     */
+    const DEFAULT_PRIORITY = 1;
+
+    /**
+     * Validator plugin manager that is used to add validators by name
+     *
      * @var ValidatorPluginManager
      */
-    protected $plugins;
+    protected $validatorPluginManager;
 
     /**
-     * Validator chain
+     * validator chain
      *
-     * @var array
+     * @var PriorityQueue|ValidatorInterface[]
      */
-    protected $validators = array();
+    protected $validators;
 
     /**
-     * Array of validation failure messages
-     *
-     * @var array
+     * Constructor
      */
-    protected $messages = array();
+    public function __construct(ValidatorPluginManager $validatorPluginManager)
+    {
+        $this->validatorPluginManager = $validatorPluginManager;
+        $this->validators             = new PriorityQueue();
+    }
 
     /**
      * Return the count of attached validators
@@ -45,198 +53,94 @@ class ValidatorChain implements
     }
 
     /**
-     * Get plugin manager instance
+     * Attach a validator to the chain
      *
-     * @return ValidatorPluginManager
+     * @param  ValidatorInterface|Callable $validator A Validator implementation or valid PHP callback
+     * @param  int                         $priority Priority at which to enqueue validator; defaults to 1 (higher executes earlier)
+     * @return void
      */
-    public function getPluginManager()
+    public function attach(Callable $validator, $priority = self::DEFAULT_PRIORITY)
     {
-        if (!$this->plugins) {
-            $this->setPluginManager(new ValidatorPluginManager());
-        }
-        return $this->plugins;
+        $this->validators->insert($validator, $priority);
     }
 
     /**
-     * Set plugin manager instance
+     * Remove a validator from the chain
      *
-     * @param  ValidatorPluginManager $plugins Plugin manager
-     * @return ValidatorChain
+     * Note that this method needs to iterate through all the validators, so it can be slow
+     *
+     * @param  ValidatorInterface|Callable $validator
+     * @return bool True if the validator was successfully removed, false otherwise
      */
-    public function setPluginManager(ValidatorPluginManager $plugins)
+    public function remove(Callable $validator)
     {
-        $this->plugins = $plugins;
-        return $this;
-    }
-
-    /**
-     * Retrieve a validator by name
-     *
-     * @param  string     $name    Name of validator to return
-     * @param  null|array $options Options to pass to validator constructor (if not already instantiated)
-     * @return ValidatorInterface
-     */
-    public function plugin($name, array $options = null)
-    {
-        $plugins = $this->getPluginManager();
-        return $plugins->get($name, $options);
-    }
-
-    /**
-     * Attach a validator to the end of the chain
-     *
-     * If $breakChainOnFailure is true, then if the validator fails, the next validator in the chain,
-     * if one exists, will not be executed.
-     *
-     * @param  ValidatorInterface      $validator
-     * @param  bool                 $breakChainOnFailure
-     * @return ValidatorChain Provides a fluent interface
-     */
-    public function attach(ValidatorInterface $validator, $breakChainOnFailure = false)
-    {
-        $this->validators[] = array(
-            'instance'            => $validator,
-            'breakChainOnFailure' => (bool) $breakChainOnFailure,
-        );
-        return $this;
-    }
-
-    /**
-     * Proxy to attach() to keep BC
-     *
-     * @deprecated Please use attach()
-     * @param  ValidatorInterface      $validator
-     * @param  bool                 $breakChainOnFailure
-     * @return ValidatorChain Provides a fluent interface
-     */
-    public function addValidator(ValidatorInterface $validator, $breakChainOnFailure = false)
-    {
-        return $this->attach($validator, $breakChainOnFailure);
-    }
-
-    /**
-     * Adds a validator to the beginning of the chain
-     *
-     * If $breakChainOnFailure is true, then if the validator fails, the next validator in the chain,
-     * if one exists, will not be executed.
-     *
-     * @param  ValidatorInterface      $validator
-     * @param  bool                 $breakChainOnFailure
-     * @return ValidatorChain Provides a fluent interface
-     */
-    public function prependValidator(ValidatorInterface $validator, $breakChainOnFailure = false)
-    {
-        array_unshift(
-            $this->validators,
-            array(
-               'instance'            => $validator,
-               'breakChainOnFailure' => (bool) $breakChainOnFailure,
-            )
-        );
-        return $this;
-    }
-
-    /**
-     * Use the plugin manager to add a validator by name
-     *
-     * @param  string $name
-     * @param  array  $options
-     * @param  bool   $breakChainOnFailure
-     * @return ValidatorChain
-     */
-    public function attachByName($name, $options = array(), $breakChainOnFailure = false)
-    {
-        $validator = $this->plugin($name, $options);
-        $this->attach($validator, $breakChainOnFailure);
-        return $this;
-    }
-
-    /**
-     * Proxy to attachByName() to keep BC
-     *
-     * @deprecated Please use attachByName()
-     * @param  string $name
-     * @param  array  $options
-     * @param  bool   $breakChainOnFailure
-     * @return ValidatorChain
-     */
-    public function addByName($name, $options = array(), $breakChainOnFailure = false)
-    {
-        return $this->attachByName($name, $options, $breakChainOnFailure);
-    }
-
-    /**
-     * Use the plugin manager to prepend a validator by name
-     *
-     * @param  string $name
-     * @param  array  $options
-     * @param  bool   $breakChainOnFailure
-     * @return ValidatorChain
-     */
-    public function prependByName($name, $options = array(), $breakChainOnFailure = false)
-    {
-        $validator = $this->plugin($name, $options);
-        $this->prependValidator($validator, $breakChainOnFailure);
-        return $this;
-    }
-
-    /**
-     * Returns true if and only if $value passes all validations in the chain
-     *
-     * Validators are run in the order in which they were added to the chain (FIFO).
-     *
-     * @param  mixed $value
-     * @param  mixed $context Extra "context" to provide the validator
-     * @return bool
-     */
-    public function isValid($value, $context = null)
-    {
-        $this->messages = array();
-        $result         = true;
-        foreach ($this->validators as $element) {
-            $validator = $element['instance'];
-            if ($validator->isValid($value, $context)) {
-                continue;
-            }
-            $result         = false;
-            $messages       = $validator->getMessages();
-            $this->messages = array_replace_recursive($this->messages, $messages);
-            if ($element['breakChainOnFailure']) {
-                break;
+        foreach ($this->validators as $key => $value) {
+            if ($validator === $value) {
+                unset($this->validators[$key]);
+                return true;
             }
         }
-        return $result;
+
+        return false;
+    }
+
+    /**
+     * Attach a validator to the chain by its name (using the validator plugin manager)
+     *
+     * @param  string $name Valid name
+     * @param  int    $priority Priority at which to enqueue validator; defaults to 1 (higher executes earlier)
+     * @return void
+     */
+    public function attachByName($name, $priority = self::DEFAULT_PRIORITY)
+    {
+        $validator = $this->validatorPluginManager->get($name);
+        $this->validators->insert($validator, $priority);
+    }
+
+    /**
+     * Remove a validator from the chain by its name
+     *
+     * Note that this method needs to get the FQCN from the name and iterate through all validators. This
+     * can be really slow if validator chain contains a lot of validators
+     *
+     * @param  string $name
+     * @return bool True if the validator was successfully removed, false otherwise
+     */
+    public function removeByName($name)
+    {
+        $className = array_search($name, $this->validatorPluginManager->getCanonicalNames());
+
+        if ($className === false) {
+            return false;
+        }
+
+        foreach ($this->validators as $key => $value) {
+            if ('\\' . $className instanceof $value) {
+                unset($this->validators[$key]);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
      * Merge the validator chain with the one given in parameter
      *
-     * @param ValidatorChain $validatorChain
-     * @return ValidatorChain
+     * @param  ValidatorChain $validatorChain
+     * @return void
      */
     public function merge(ValidatorChain $validatorChain)
     {
-        foreach ($validatorChain->validators as $validator) {
-            $this->validators[] = $validator;
+        foreach ($validatorChain->validators->toArray(PriorityQueue::EXTR_BOTH) as $item) {
+            $this->attach($item['data'], $item['priority']);
         }
-
-        return $this;
-    }
-
-    /**
-     * Returns array of validation failure messages
-     *
-     * @return array
-     */
-    public function getMessages()
-    {
-        return $this->messages;
     }
 
     /**
      * Get all the validators
      *
-     * @return array
+     * @return PriorityQueue|ValidatorInterface[]
      */
     public function getValidators()
     {
@@ -244,28 +148,20 @@ class ValidatorChain implements
     }
 
     /**
-     * Invoke chain as command
+     * Validate the value against all validators. Validators are run according to priority
      *
-     * @param  mixed $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function __invoke($value)
+    public function validate($value)
     {
-        return $this->isValid($value);
+        // @TODO
     }
 
     /**
-     * Prepare validator chain for serialization
-     *
-     * Plugin manager (property 'plugins') cannot
-     * be serialized. On wakeup the property remains unset
-     * and next invokation to getPluginManager() sets
-     * the default plugin manager instance (ValidatorPluginManager).
-     *
-     * @return array
+     * Clone validators
      */
-    public function __sleep()
+    public function __clone()
     {
-        return array('validators', 'messages');
+        $this->validators = clone $this->validators;
     }
 }
