@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-inputfilter",
-    "description": " ",
+    "description": "Input filter component is used to validate and filter data",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
@@ -13,7 +13,7 @@
     },
     "target-dir": "Zend/InputFilter",
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.4",
         "zendframework/zend-filter": "self.version",
         "zendframework/zend-validator": "self.version",
         "zendframework/zend-stdlib": "self.version"

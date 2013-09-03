@@ -26,6 +26,8 @@ class InputFactory implements FactoryInterface
         $parentLocator = $serviceLocator->getServiceLocator();
 
         return new Input(
+            //$parentLocator->get('Zend\Filter\FilterPluginManager')->get('FilterChain'),
+            //$parentLocator->get('Zend\Validator\ValidatorPluginManager')->get('ValidatorChain')
             new \Zend\Filter\FilterChain(),
             new \Zend\Validator\ValidatorChain()
             //$parentLocator->get('Zend\Filter\FilterPluginManager')->get('FilterChain'),

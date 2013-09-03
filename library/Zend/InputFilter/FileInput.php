@@ -12,6 +12,8 @@ namespace Zend\InputFilter;
 use Zend\Validator\File\UploadFile as UploadValidator;
 
 /**
+ * @TODO: REFACTOR FOR ZF3 INPUT FILTER
+ *
  * FileInput is a special input type for handling uploaded files.
  *
  * It differs from Input in a few ways:
