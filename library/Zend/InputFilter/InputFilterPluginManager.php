@@ -38,26 +38,19 @@ class InputFilterPluginManager extends AbstractPluginManager
     );
 
     /**
-     * Whether or not to share by default
-     *
-     * @var bool
-     */
-    protected $shareByDefault = false;
-
-    /**
      * @param  mixed $plugin
      * @return InputInterface|InputCollectionInterface
      * @throws Exception\RuntimeException
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof InputInterface || $plugin instanceof InputCollectionInterface) {
+        if ($plugin instanceof InputInterface) {
             // we're okay
             return;
         }
 
         throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement Zend\InputFilter\InputInterface or Zend\InputFilter\InputCollectionInterface',
+            'Plugin of type %s is invalid; must implement Zend\InputFilter\InputInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
     }
