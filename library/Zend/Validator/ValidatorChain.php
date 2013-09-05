@@ -98,33 +98,6 @@ class ValidatorChain extends AbstractValidator implements Countable
     }
 
     /**
-     * Remove a validator from the chain by its name
-     *
-     * Note that this method needs to get the FQCN from the name and iterate through all validators. This
-     * can be really slow if validator chain contains a lot of validators
-     *
-     * @param  string $name
-     * @return bool True if the validator was successfully removed, false otherwise
-     */
-    public function removeByName($name)
-    {
-        $className = array_search($name, $this->validatorPluginManager->getCanonicalNames());
-
-        if ($className === false) {
-            return false;
-        }
-
-        foreach ($this->validators as $key => $value) {
-            if ('\\' . $className instanceof $value) {
-                unset($this->validators[$key]);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Merge the validator chain with the one given in parameter
      *
      * @param  ValidatorChain $validatorChain
