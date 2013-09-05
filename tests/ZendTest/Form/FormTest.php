@@ -1693,4 +1693,12 @@ class FormTest extends TestCase
         $chain = $fileInput->getFilterChain();
         $this->assertCount(1, $chain, var_export($chain, 1));
     }
+
+    public function testMissingFileInputFilterRaiseException()
+    {
+        $form = new TestAsset\MissingFileInputFilterProviderForm();
+
+        $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException');
+        $formInputFilter = $form->getInputFilter();
+    }
 }

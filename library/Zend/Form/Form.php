@@ -11,6 +11,7 @@ namespace Zend\Form;
 
 use Traversable;
 use Zend\Form\Element\Collection;
+use Zend\Form\Element\File as FileElement;
 use Zend\Form\Exception;
 use Zend\InputFilter\CollectionInputFilter;
 use Zend\InputFilter\InputFilter;
@@ -768,6 +769,19 @@ class Form extends Fieldset implements FormInterface
 
             if ($fieldset === $this && $fieldset instanceof InputFilterProviderInterface) {
                 foreach ($fieldset->getInputFilterSpecification() as $name => $spec) {
+                    if (
+                            $fieldset->has($name)
+                        &&  ($field = $fieldset->get($name))
+                        &&  $field instanceof FileElement
+                        &&  ! isset($spec['type'])
+                    ) {
+                        throw new Exception\InvalidArgumentException(sprintf(
+                            '%s elements like "%s" need a "type" InputFilter to be specified, none provided',
+                            get_class($field),
+                            $name
+                        ));
+                    }
+
                     $input = $inputFactory->createInput($spec);
                     $inputFilter->add($input, $name);
                 }
