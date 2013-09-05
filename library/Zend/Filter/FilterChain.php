@@ -88,12 +88,22 @@ class FilterChain extends AbstractFilter implements Countable
      * Attach a filter to the chain by its name (using the filter plugin manager)
      *
      * @param  string $name Valid name
+     * @param  array  $options Options to pass to the filter
      * @param  int    $priority Priority at which to enqueue filter; defaults to 1 (higher executes earlier)
      * @return void
      */
-    public function attachByName($name, $priority = self::DEFAULT_PRIORITY)
+    public function attachByName($name, array $options = array(), $priority = self::DEFAULT_PRIORITY)
     {
+        // @TODO: if we somewhat formalize the concept of options, we should be able to have a second
+        // parameter for each plugin manager, which would be option, and the plugin manager would
+        // automatically inject options for us
+
         $filter = $this->filterPluginManager->get($name);
+
+        if (method_exists($filter, 'setOptions')) {
+            $filter->setOptions($options);
+        }
+
         $this->filters->insert($filter, $priority);
     }
 
@@ -107,6 +117,28 @@ class FilterChain extends AbstractFilter implements Countable
     {
         foreach ($filterChain->filters->toArray(PriorityQueue::EXTR_BOTH) as $item) {
             $this->attach($item['data'], $item['priority']);
+        }
+    }
+
+    /**
+     * Set filters using concrete instances or specification
+     *
+     * @param array|FilterInterface[] $filters
+     */
+    public function setFilters(array $filters)
+    {
+        $this->filters = new PriorityQueue();
+
+        // @TODO: should specification be handled here or should we provide a factory?
+        foreach ($filters as $filter) {
+            if ($filter instanceof FilterInterface) {
+                $this->attach($filter);
+            } elseif (is_array($filter)) {
+                $options  = isset($filter['options']) ? $filter['options'] : array();
+                $priority = isset($filter['priority']) ? $filter['priority'] : self::DEFAULT_PRIORITY;
+
+                $this->attachByName($filter['name'], $options, $priority);
+            }
         }
     }
 
