@@ -14,9 +14,6 @@ use Zend\Stdlib\PriorityQueue;
 
 /**
  * A validator chain that allows to execute multiple validators one after the other
- *
- * Accepted options are:
- *      - validators
  */
 class ValidatorChain implements ValidatorInterface, Countable
 {
@@ -129,7 +126,7 @@ class ValidatorChain implements ValidatorInterface, Countable
     /**
      * Set validators using concrete instances or specification
      *
-     * @param array|ValidatorInterface[] $validators
+     * @param array[]|ValidatorInterface[] $validators
      */
     public function setValidators(array $validators)
     {
@@ -171,6 +168,14 @@ class ValidatorChain implements ValidatorInterface, Countable
         }
 
         return $validationResult;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __invoke($data, $context = null)
+    {
+        return $this->validate($data, $context);
     }
 
     /**

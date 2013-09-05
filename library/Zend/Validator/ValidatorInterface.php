@@ -19,4 +19,13 @@ interface ValidatorInterface
      * @return Result\ValidationResultInterface
      */
     public function validate($data, $context = null);
+
+    /**
+     * Proxy to validate method (this allows to make any validator Callable)
+     *
+     * @param  mixed $data
+     * @param  mixed|null $context
+     * @return Result\ValidationResultInterface
+     */
+    public function __invoke($data, $context = null);
 }

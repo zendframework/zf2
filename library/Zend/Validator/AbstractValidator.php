@@ -96,6 +96,14 @@ abstract class AbstractValidator implements ValidatorInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function __invoke($data, $context = null)
+    {
+        return $this->validate($data, $context);
+    }
+
+    /**
      * Build a validation result based on the error key
      *
      * @param  mixed        $data The data that failed validation
@@ -113,7 +121,7 @@ abstract class AbstractValidator implements ValidatorInterface
         foreach ($keys as $key) {
             if (!isset($this->messageTemplates[$key])) {
                 throw new Exception\InvalidArgumentException(sprintf(
-                    'No error message template was found with key "%s" in %s',
+                    'No error message template was found for key "%s" in %s',
                     $key,
                     __CLASS__
                 ));
