@@ -24,12 +24,16 @@ class Callback extends AbstractFilter
     /**
      * Sets a new callback for this filter
      *
-     * @param  callable $callback
+     * @param  Callable $callback
      * @throws Exception\InvalidArgumentException
      * @return void
      */
     public function setCallback(Callable $callback)
     {
+        if (is_string($callback) && strpos($callback, '::') !== false) {
+            $callback = explode('::', $callback);
+        }
+
         $this->callback = $callback;
     }
 
@@ -71,8 +75,12 @@ class Callback extends AbstractFilter
     public function filter($value)
     {
         $params = $this->callbackParams;
-        array_unshift($params, $value);
 
-        return $this->callback($params);
+        if (empty($params)) {
+            return $this->callback($params);
+        }
+
+        array_unshift($params, $value);
+        return call_user_func_array($this->callback, $params);
     }
 }
