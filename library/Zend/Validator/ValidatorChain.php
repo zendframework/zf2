@@ -11,7 +11,6 @@ namespace Zend\Validator;
 
 use Countable;
 use Zend\Stdlib\PriorityQueue;
-use Zend\Stdlib\SplPriorityQueue;
 
 /**
  * A validator chain that allows to execute multiple validators one after the other
@@ -134,7 +133,7 @@ class ValidatorChain implements ValidatorInterface, Countable
      */
     public function setValidators(array $validators)
     {
-        $this->validators = new SplPriorityQueue();
+        $this->validators = new PriorityQueue();
 
         // @TODO: should specification be handled here or should we provide a factory?
         foreach ($validators as $validator) {
