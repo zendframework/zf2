@@ -34,9 +34,16 @@ interface ValidationResultInterface extends Serializable, JsonSerializable
     public function getData();
 
     /**
-     * Get the (optionally translated) error messages associated with the validation result
+     * Get the error messages associated with the validation result
      *
      * @return array
      */
     public function getErrorMessages();
+
+    /**
+     * Get the optional message variables that get injected into error messages
+     *
+     * @return array
+     */
+    public function getMessageVariables();
 }

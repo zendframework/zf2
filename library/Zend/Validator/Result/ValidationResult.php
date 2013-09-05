@@ -25,15 +25,29 @@ class ValidationResult implements ValidationResultInterface
     protected $errorMessages = array();
 
     /**
+     * @var array
+     */
+    protected $messageVariables = array();
+
+    /**
+     * Specify if the error messages have already been built
+     *
+     * @var bool
+     */
+    protected $errorMessagesCreated = false;
+
+    /**
      * Constructor
      *
      * @param mixed $data
-     * @param array $errorMessages
+     * @param mixed $errorMessages
+     * @param array $messageVariables
      */
-    public function __construct($data, array $errorMessages = array())
+    public function __construct($data, $errorMessages = array(), array $messageVariables = array())
     {
-        $this->data          = $data;
-        $this->errorMessages = $errorMessages;
+        $this->data             = $data;
+        $this->errorMessages    = (array) $errorMessages;
+        $this->messageVariables = $messageVariables;
     }
 
     /**
@@ -57,7 +71,31 @@ class ValidationResult implements ValidationResultInterface
      */
     public function getErrorMessages()
     {
+        if ($this->errorMessagesCreated || empty($this->messageVariables)) {
+            return $this->errorMessages;
+        }
+
+        // We use simple regex here to inject variables into the error messages. Each variable
+        // is surrounded by percent sign (eg.: %min%)
+        $errorMessages = array();
+        $keys          = array_keys($this->messageVariables);
+        $values        = array_values($this->messageVariables);
+
+        foreach ($this->errorMessages as $errorMessage) {
+            $errorMessages[] = preg_replace($keys, $values, $errorMessage);
+        }
+
+        $this->errorMessages = $errorMessages;
+
         return $this->errorMessages;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMessageVariables()
+    {
+        return $this->messageVariables;
     }
 
     /**
