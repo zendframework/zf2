@@ -13,8 +13,21 @@ use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Validator\Result\ValidationResult;
 
+/**
+ * A validator that can validate if a scalar value is between min and max borders
+ *
+ * Accepted options are:
+ *      - message_templates
+ *      - message_variables
+ *      - min
+ *      - max
+ *      - inclusive
+ */
 class Between extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const NOT_BETWEEN        = 'notBetween';
     const NOT_BETWEEN_STRICT = 'notBetweenStrict';
 

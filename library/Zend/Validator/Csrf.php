@@ -18,12 +18,12 @@ class Csrf extends AbstractValidator
 {
     /**
      * Error codes
-     * @const string
      */
     const NOT_SAME = 'notSame';
 
     /**
-     * Error messages
+     * Validation error messages templates
+     *
      * @var array
      */
     protected $messageTemplates = array(
@@ -31,18 +31,18 @@ class Csrf extends AbstractValidator
     );
 
     /**
-     * Actual hash used.
-     *
-     * @var mixed
-     */
-    protected $hash;
-
-    /**
      * Static cache of the session names to generated hashes
      *
      * @var array
      */
     protected static $hashCache;
+
+    /**
+     * Actual hash used.
+     *
+     * @var mixed
+     */
+    protected $hash;
 
     /**
      * Name of CSRF element (used to create non-colliding hashes)

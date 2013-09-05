@@ -18,6 +18,11 @@ class Barcode extends AbstractValidator
     const INVALID_CHARS  = 'barcodeInvalidChars';
     const INVALID_LENGTH = 'barcodeInvalidLength';
 
+    /**
+     * Validation error messages templates
+     *
+     * @var array
+     */
     protected $messageTemplates = array(
         self::FAILED         => "The input failed checksum validation",
         self::INVALID_CHARS  => "The input contains invalid characters",
@@ -26,13 +31,11 @@ class Barcode extends AbstractValidator
     );
 
     /**
-     * Additional variables available for validation failure messages
+     * Variables that can get injected
      *
      * @var array
      */
-    protected $messageVariables = array(
-        'length' => array('options' => 'length'),
-    );
+    protected $messageVariables = array('length');
 
     protected $options = array(
         'adapter'     => null,  // Barcode adapter Zend\Validator\Barcode\AbstractAdapter

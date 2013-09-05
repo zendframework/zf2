@@ -98,23 +98,31 @@ abstract class AbstractValidator implements ValidatorInterface
     /**
      * Build a validation result based on the error key
      *
-     * @param  mixed  $data The data that failed validation
-     * @param  string $key  The key of the error message template
+     * @param  mixed        $data The data that failed validation
+     * @param  string|array $keys The keys of the error message template
      * @throws Exception\InvalidArgumentException
      * @return Result\ValidationResultInterface
      */
-    protected function buildErrorValidationResult($data, $key)
+    protected function buildErrorValidationResult($data, $keys)
     {
-        if (!isset($this->messageTemplates[$key])) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'No error message template was found with key "%s" in %s',
-                $key,
-                __CLASS__
-            ));
+        // We cast to array to keep the same logic, as some validator may throw
+        // two error messages
+        $keys          = (array) $keys;
+        $errorMessages = array();
+
+        foreach ($keys as $key) {
+            if (!isset($this->messageTemplates[$key])) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'No error message template was found with key "%s" in %s',
+                    $key,
+                    __CLASS__
+                ));
+            }
+
+            $errorMessages[] = $this->messageTemplates[$key];
         }
 
-        $errorMessage = $this->messageTemplates[$key];
-        $variables    = array();
+        $variables = array();
 
         foreach ($this->messageVariables as $messageVariable) {
             $property    = str_replace('_', '', $messageVariable);
@@ -123,6 +131,6 @@ abstract class AbstractValidator implements ValidatorInterface
             $variables[$variableKey] = $this->$property;
         }
 
-        return new ValidationResult($data, $errorMessage, $variables);
+        return new ValidationResult($data, $errorMessages, $variables);
     }
 }

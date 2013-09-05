@@ -9,61 +9,48 @@
 
 namespace Zend\Validator;
 
-use Zend\Filter\Digits as DigitsFilter;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * A validator that allows to check if a value is only made of digits (any number that
+ * contains commas or separator will be considered as invalid by this validator)
+ *
+ * Accepted options are:
+ *      - message_templates
+ *      - message_variables
+ */
 class Digits extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const NOT_DIGITS   = 'notDigits';
     const STRING_EMPTY = 'digitsStringEmpty';
     const INVALID      = 'digitsInvalid';
 
     /**
-     * Digits filter used for validation
-     *
-     * @var \Zend\Filter\Digits
-     */
-    protected static $filter = null;
-
-    /**
-     * Validation failure message template definitions
+     * Validation error messages templates
      *
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOT_DIGITS   => "The input must contain only digits",
-        self::STRING_EMPTY => "The input is an empty string",
-        self::INVALID      => "Invalid type given. String, integer or float expected",
+        self::NOT_DIGITS => "The input must contain only digits",
+        self::INVALID    => "Invalid type given. String, integer or float expected",
     );
 
     /**
-     * Returns true if and only if $value only contains digit characters
-     *
-     * @param  string $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value) && !is_int($value) && !is_float($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_numeric($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue((string) $value);
-
-        if ('' === $this->getValue()) {
-            $this->error(self::STRING_EMPTY);
-            return false;
+        if (!filter_var($data, FILTER_VALIDATE_INT)) {
+            return $this->buildErrorValidationResult($data, self::NOT_DIGITS);
         }
 
-        if (null === static::$filter) {
-            static::$filter = new DigitsFilter();
-        }
-
-        if ($this->getValue() !== static::$filter->filter($this->getValue())) {
-            $this->error(self::NOT_DIGITS);
-            return false;
-        }
-
-        return true;
+        return new ValidationResult($data);
     }
 }

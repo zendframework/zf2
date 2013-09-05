@@ -19,15 +19,11 @@ class StaticValidator
     /**
      * Set plugin manager to use for locating validators
      *
-     * @param  ValidatorPluginManager|null $plugins
+     * @param  ValidatorPluginManager $plugins
      * @return void
      */
-    public static function setPluginManager(ValidatorPluginManager $plugins = null)
+    public static function setPluginManager(ValidatorPluginManager $plugins)
     {
-        // Don't share by default to allow different arguments on subsequent calls
-        if ($plugins instanceof ValidatorPluginManager) {
-            $plugins->setShareByDefault(false);
-        }
         static::$plugins = $plugins;
     }
 
@@ -41,20 +37,23 @@ class StaticValidator
         if (null === static::$plugins) {
             static::setPluginManager(new ValidatorPluginManager());
         }
+
         return static::$plugins;
     }
 
     /**
-     * @param  mixed    $value
-     * @param  string   $classBaseName
-     * @param  array    $args          OPTIONAL
-     * @return bool
+     * Execute the validator
+     *
+     * @param  mixed    $data
+     * @param  string   $validatorName
+     * @param  array    $args
+     * @return Result\ValidationResultInterface
      */
-    public static function execute($value, $classBaseName, array $args = array())
+    public static function execute($data, $validatorName, array $args = array())
     {
-        $plugins = static::getPluginManager();
+        $plugins   = static::getPluginManager();
+        $validator = $plugins->get($validatorName, $args);
 
-        $validator = $plugins->get($classBaseName, $args);
-        return $validator->isValid($value);
+        return $validator->isValid($data);
     }
 }
