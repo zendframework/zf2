@@ -98,33 +98,6 @@ class FilterChain extends AbstractFilter implements Countable
     }
 
     /**
-     * Remove a filter from the chain by its name
-     *
-     * Note that this method needs to get the FQCN from the name and iterate through all filters. This
-     * can be really slow if filter chain contains a lot of filters
-     *
-     * @param  string $name
-     * @return bool True if the filter was successfully removed, false otherwise
-     */
-    public function removeByName($name)
-    {
-        $className = array_search($name, $this->filterPluginManager->getCanonicalNames());
-
-        if ($className === false) {
-            return false;
-        }
-
-        foreach ($this->filters as $key => $value) {
-            if ('\\' . $className instanceof $value) {
-                unset($this->filters[$key]);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Merge the filter chain with the one given in parameter
      *
      * @param  FilterChain $filterChain
