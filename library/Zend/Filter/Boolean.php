@@ -9,9 +9,6 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-use Zend\Stdlib\ArrayUtils;
-
 /**
  * Filter that converts a value to its boolean representation
  *
@@ -22,6 +19,7 @@ class Boolean extends AbstractFilter
 {
     /**
      * Returns a boolean representation of $value
+     * 
      * {@inheritDoc}
      */
     public function filter($value)
