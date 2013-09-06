@@ -9,6 +9,9 @@
 
 namespace Zend\Filter\Word;
 
+/**
+ * Filter that transforms dashed words to any separator (eg.: my-example to my:example)
+ */
 class DashToSeparator extends AbstractSeparator
 {
     /**

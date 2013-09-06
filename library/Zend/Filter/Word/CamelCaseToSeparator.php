@@ -11,13 +11,13 @@ namespace Zend\Filter\Word;
 
 use Zend\Stdlib\StringUtils;
 
+/**
+ * Filter that transforms camelCased words to custom separator (eg.: myExample to my:example)
+ */
 class CamelCaseToSeparator extends AbstractSeparator
 {
     /**
-     * Defined by Zend\Filter\Filter
-     *
-     * @param  string $value
-     * @return string
+     * {@inheritDoc}
      */
     public function filter($value)
     {

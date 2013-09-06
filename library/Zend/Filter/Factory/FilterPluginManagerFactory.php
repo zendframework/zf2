@@ -16,7 +16,7 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Create a filter plugin manager. Custom filters can be added through the "filters_manager"
+ * Create a filter plugin manager. Custom filters can be added through the "filter_manager"
  * key in the config
  */
 class FilterPluginManagerFactory implements FactoryInterface
@@ -27,7 +27,7 @@ class FilterPluginManagerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('Config');
-        $config = isset($config['filters_manager']) ? $config['filters_manager'] : array();
+        $config = isset($config['filter_manager']) ? $config['filter_manager'] : array();
 
         $filterPluginManager = new FilterPluginManager(new Config($config));
 

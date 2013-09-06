@@ -13,12 +13,21 @@ use Locale;
 use Zend\Filter\AbstractFilter;
 use Zend\I18n\Exception;
 
+/**
+ * Abstract class for all locale aware filters
+ */
 abstract class AbstractLocale extends AbstractFilter
 {
     /**
+     * @var string
+     */
+    protected $locale;
+
+    /**
+     * @param  array $options
      * @throws Exception\ExtensionNotLoadedException if ext/intl is not present
      */
-    public function __construct()
+    public function __construct(array $options = array())
     {
         if (!extension_loaded('intl')) {
             throw new Exception\ExtensionNotLoadedException(sprintf(
@@ -26,30 +35,32 @@ abstract class AbstractLocale extends AbstractFilter
                 __NAMESPACE__
             ));
         }
+
+        parent::__construct($options);
     }
 
     /**
-     * Sets the locale option
+     * Set the locale option
      *
-     * @param  string|null $locale
-     * @return AbstractLocale
+     * @param  string $locale
+     * @return void
      */
-    public function setLocale($locale = null)
+    public function setLocale($locale)
     {
-        $this->options['locale'] = $locale;
-        return $this;
+        $this->locale = (string) $locale;
     }
 
     /**
-     * Returns the locale option
+     * Get the locale option
      *
      * @return string
      */
     public function getLocale()
     {
-        if (!isset($this->options['locale'])) {
-            $this->options['locale'] = Locale::getDefault();
+        if (null == $this->locale) {
+            $this->locale = Locale::getDefault();
         }
-        return $this->options['locale'];
+
+        return $this->locale;
     }
 }

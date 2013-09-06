@@ -7,20 +7,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\Factory;
+namespace Zend\Crypt\Factory;
 
-use Zend\Filter\Encrypt\BlockCipher;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class BlockCipherAdapterFactory implements FactoryInterface
+class EncryptFilterFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $parentLocator = $serviceLocator->getServiceLocator();
-        return new BlockCipher($parentLocator->get('Zend\Filter\Compress\CompressionAdapterPluginManager'));
+        // TODO: Implement createService() method.
     }
 }

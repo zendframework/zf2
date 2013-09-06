@@ -12,6 +12,9 @@ namespace Zend\Filter\Word;
 use Zend\Filter\AbstractFilter;
 use Zend\Filter\Exception;
 
+/**
+ * Base class for all word filters
+ */
 abstract class AbstractSeparator extends AbstractFilter
 {
     /**
@@ -20,9 +23,9 @@ abstract class AbstractSeparator extends AbstractFilter
     protected $separator = ' ';
 
     /**
-     * Sets a new separator
+     * Set a new separator
      *
-     * @param  string            $separator
+     * @param  string $separator
      * @return void
      * @throws Exception\InvalidArgumentException
      */
@@ -36,7 +39,7 @@ abstract class AbstractSeparator extends AbstractFilter
     }
 
     /**
-     * Returns the actual set separator
+     * Get the actual set separator
      *
      * @return string
      */

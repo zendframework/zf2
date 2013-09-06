@@ -7,19 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\Encrypt;
+namespace Zend\Crypt\Filter\Adapter;
 
 use Traversable;
 use Zend\Filter\Compress;
-use Zend\Filter\Compress\CompressionAdapterPluginManager;
-use Zend\Filter\Decompress;
 use Zend\Filter\Exception;
-use Zend\Stdlib\ArrayUtils;
 
 /**
- * Encryption adapter for openssl
+ * Encryption adapter for OpenSSL
  */
-class Openssl implements EncryptionAdapterInterface
+class OpenSslAdapter implements EncryptionAdapterInterface
 {
     /**
      * Definitions for encryption

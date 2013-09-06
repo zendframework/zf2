@@ -31,23 +31,10 @@ abstract class AbstractFilter implements FilterInterface
     public function setOptions(array $options)
     {
         foreach ($options as $key => $value) {
-            $inflectedKey = str_replace('_', '', $key);
+            $setter = 'set' . str_replace('_', '', $key);
 
-            $setter = 'set' . $inflectedKey;
             if (method_exists($this, $setter)) {
                 $this->$setter($value);
-                continue;
-            }
-
-            $isser = 'is' . $inflectedKey;
-            if (method_exists($this, $isser)) {
-                $this->$isser($value);
-                continue;
-            }
-
-            $hasser = 'has' . $inflectedKey;
-            if (method_exists($this, $hasser)) {
-                $this->$hasser($value);
                 continue;
             }
         }

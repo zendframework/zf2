@@ -3,7 +3,7 @@
     "description": "provides a set of commonly needed data filters",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "zf3",
         "filter"
     ],
     "autoload": {
@@ -20,16 +20,16 @@
         "zendframework/zend-crypt": "self.version"
     },
     "suggest": {
-        "zendframework/zend-i18n": "Zend\\I18n component",
-        "zendframework/zend-uri": "Zend\\Uri component for UriNormalize filter",
+        "zendframework/zend-i18n": "Zend\\I18n component (for I18n filters)",
+        "zendframework/zend-crypt": "Zend\\Crypt component (for encrypt/decrypt filters)",
+        "zendframework/zend-uri": "Zend\\Uri component (for UriNormalize filter)",
         "zendframework/zend-validator": "Zend\\Validator component",
-        "zendframework/zend-crypt": "Zend\\Crypt component",
         "zendframework/zend-stdlib": "Zend\\Stdlib component"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.2-dev",
-            "dev-develop": "2.3-dev"
+            "dev-master": "3.0-dev",
+            "dev-develop": "3.0-dev"
         }
     }
 }

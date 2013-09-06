@@ -11,6 +11,9 @@ namespace Zend\Filter\Word;
 
 use Zend\Stdlib\StringUtils;
 
+/**
+ * Filter that transforms any separator to camel cased (eg.: my^example to myExample)
+ */
 class SeparatorToCamelCase extends AbstractSeparator
 {
     /**
@@ -67,6 +70,7 @@ class SeparatorToCamelCase extends AbstractSeparator
         foreach ($patterns as $index => $pattern) {
             $filtered = preg_replace_callback($pattern, $replacements[$index], $filtered);
         }
+
         return $filtered;
     }
 }

@@ -9,6 +9,9 @@
 
 namespace Zend\Filter\Word;
 
+/**
+ * Filter that underscore_separated words to dashed-separated words (eg.: my_example to my-example)
+ */
 class UnderscoreToDash extends SeparatorToSeparator
 {
     /**

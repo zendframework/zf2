@@ -12,11 +12,12 @@ namespace Zend\I18n\Filter;
 use Locale;
 use Zend\Stdlib\StringUtils;
 
+/**
+ * Filter a value so that only alphabetical characters are kept
+ */
 class Alpha extends Alnum
 {
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns the string $value, removing all but alphabetic characters
      *
      * @param  string $value
@@ -24,7 +25,7 @@ class Alpha extends Alnum
      */
     public function filter($value)
     {
-        $whiteSpace = $this->options['allow_white_space'] ? '\s' : '';
+        $whiteSpace = $this->allowWhiteSpace ? '\s' : '';
         $language   = Locale::getPrimaryLanguage($this->getLocale());
 
         if (!StringUtils::hasPcreUnicodeSupport()) {

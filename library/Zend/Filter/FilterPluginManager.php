@@ -26,8 +26,6 @@ class FilterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        'Zend\I18n\Filter\Alnum'                 => 'Zend\I18n\Filter\Alnum',
-        'Zend\I18n\Filter\Alpha'                 => 'Zend\I18n\Filter\Alpha',
         'Zend\Filter\BaseName'                   => 'Zend\Filter\BaseName',
         'Zend\Filter\Boolean'                    => 'Zend\Filter\Boolean',
         'Zend\Filter\Callback'                   => 'Zend\Filter\Callback',
@@ -43,7 +41,6 @@ class FilterPluginManager extends AbstractPluginManager
         'Zend\Filter\Inflector'                  => 'Zend\Filter\Inflector',
         'Zend\Filter\Int'                        => 'Zend\Filter\Int',
         'Zend\Filter\Null'                       => 'Zend\Filter\Null',
-        'Zend\I18n\Filter\NumberFormat'          => 'Zend\I18n\Filter\NumberFormat',
         'Zend\Filter\PregReplace'                => 'Zend\Filter\PregReplace',
         'Zend\Filter\RealPath'                   => 'Zend\Filter\RealPath',
         'Zend\Filter\StringToLower'              => 'Zend\Filter\StringToLower',
@@ -64,17 +61,20 @@ class FilterPluginManager extends AbstractPluginManager
         'Zend\Filter\Word\UnderscoreToCamelCase' => 'Zend\Filter\Word\UnderscoreToCamelCase',
         'Zend\Filter\Word\UnderscoreToDash'      => 'Zend\Filter\Word\UnderscoreToDash',
         'Zend\Filter\Word\UnderscoreToSeparator' => 'Zend\Filter\Word\UnderscoreToSeparator',
+        'Zend\I18n\Filter\Alnum'                 => 'Zend\I18n\Filter\Alnum',
+        'Zend\I18n\Filter\Alpha'                 => 'Zend\I18n\Filter\Alpha',
+        'Zend\I18n\Filter\NumberFormat'          => 'Zend\I18n\Filter\NumberFormat',
     );
 
     /**
      * @var array
      */
     protected $factories = array(
-        'Zend\Filter\Factory\CompressFilterFactory'   => 'Zend\Filter\Factory\CompressFilterFactory',
-        'Zend\Filter\Factory\DecompressFilterFactory' => 'Zend\Filter\Factory\DecompressFilterFactory',
-        'Zend\Filter\Factory\DecryptFilterFactory'    => 'Zend\Filter\Factory\DecryptFilterFactory',
-        'Zend\Filter\Factory\EncryptFilterFactory'    => 'Zend\Filter\Factory\EncryptFilterFactory',
-        'Zend\Filter\Factory\FilterChainFactory'      => 'Zend\Filter\Factory\FilterChainFactory'
+        'Zend\Crypt\Decrypt'      => 'Zend\Crypt\Factory\DecryptFilterFactory',
+        'Zend\Crypt\Encrypt'      => 'Zend\Crypt\Factory\EncryptFilterFactory',
+        'Zend\Filter\Compress'    => 'Zend\Filter\Factory\CompressFilterFactory',
+        'Zend\Filter\Decompress'  => 'Zend\Filter\Factory\DecompressFilterFactory',
+        'Zend\Filter\FilterChain' => 'Zend\Filter\Factory\FilterChainFactory'
     );
 
     protected $aliases = array(

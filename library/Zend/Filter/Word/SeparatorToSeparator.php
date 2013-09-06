@@ -12,6 +12,9 @@ namespace Zend\Filter\Word;
 use Zend\Filter\AbstractFilter;
 use Zend\Filter\Exception;
 
+/**
+ * Filter that transforms any separator words to other separator (eg.: my/example to my-example)
+ */
 class SeparatorToSeparator extends AbstractFilter
 {
     /**
@@ -25,7 +28,7 @@ class SeparatorToSeparator extends AbstractFilter
     protected $replacementSeparator = '-';
 
     /**
-     * Sets a new seperator to search for
+     * Set a new separator to search for
      *
      * @param  string $separator
      * @return void
@@ -68,10 +71,13 @@ class SeparatorToSeparator extends AbstractFilter
 
     /**
      * Returns the string $value, replacing the searched separators with the defined ones
+     *
      * {@inheritDoc}
      */
     public function filter($value)
     {
+        // @TODO: do we need to use a regex here? Can't we use str_replace?
+
         $pattern = '#' . preg_quote($this->searchSeparator, '#') . '#';
         return preg_replace($pattern, $this->replacementSeparator, $value);
     }

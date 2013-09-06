@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\Encrypt;
+namespace Zend\Crypt\Filter\Adapter;
 
 /**
  * Encryption interface
@@ -29,11 +29,4 @@ interface EncryptionAdapterInterface
      * @return string The decrypted data
      */
     public function decrypt($value);
-
-    /**
-     * Return the adapter name
-     *
-     * @return string
-     */
-    public function toString();
 }

@@ -9,19 +9,21 @@
 
 namespace Zend\Filter\Word;
 
+/**
+ * Filter that transforms any separator to dashed separator (eg.: my-example to myExample)
+ */
 class SeparatorToDash extends SeparatorToSeparator
 {
     /**
-     * @param array|\Traversable $options
+     * @param array $options
      */
     public function __construct(array $options = array())
     {
-        if (!isset($options['search_separator'])) {
-            $options['search_separator'] = ' ';
-        }
+        $searchSeparator = isset($options['search_separator']) ? $options['search_separator'] : ' ';
 
-        $options['replacement_operator'] = '-';
-
-        parent::__construct($options);
+        parent::__construct(array(
+            'search_separator'      => $searchSeparator,
+            'replacement_separator' => '-'
+        ));
     }
 }

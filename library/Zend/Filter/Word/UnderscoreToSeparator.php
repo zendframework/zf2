@@ -9,6 +9,9 @@
 
 namespace Zend\Filter\Word;
 
+/**
+ * Filter that transforms underscore_separated words to any separator (eg.: my_example to my:example)
+ */
 class UnderscoreToSeparator extends SeparatorToSeparator
 {
     /**
@@ -16,12 +19,11 @@ class UnderscoreToSeparator extends SeparatorToSeparator
      */
     public function __construct(array $options = array())
     {
-        if (!isset($options['replacement_separator'])) {
-            $options['replacement_separator'] = ' ';
-        }
+        $replacementSeparator = isset($options['replacement_separator']) ? $options['replacement_separator'] : ' ';
 
-        $options['search_operator'] = '_';
-
-        parent::__construct($options);
+        parent::__construct(array(
+            'search_separator'      => '_',
+            'replacement_separator' => $replacementSeparator
+        ));
     }
 }

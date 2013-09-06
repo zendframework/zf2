@@ -9,11 +9,13 @@
 
 namespace Zend\Filter\Word;
 
+/**
+ * Filter that transforms dashed words to camel cased (eg.: my-example to myExample)
+ */
 class DashToCamelCase extends SeparatorToCamelCase
 {
     /**
      * Constructor
-     *
      */
     public function __construct()
     {

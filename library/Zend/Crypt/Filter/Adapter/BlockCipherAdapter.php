@@ -7,13 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\Encrypt;
+namespace Zend\Crypt\Filter\Adapter;
 
 use Traversable;
-use Zend\Filter\Compress\CompressionAdapterPluginManager;
 use Zend\Filter\Exception;
 use Zend\Stdlib\AbstractOptions;
-use Zend\Crypt\BlockCipher as CryptBlockCipher;
+use Zend\Crypt\BlockCipher;
 use Zend\Crypt\Exception as CryptException;
 use Zend\Crypt\Symmetric\Exception as SymmetricException;
 
@@ -38,6 +37,8 @@ class BlockCipherAdapter implements EncryptionAdapterInterface
         'algorithm'           => 'aes',
         'hash'                => 'sha256',
     );
+
+
 
     /**
      * BlockCipher

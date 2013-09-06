@@ -9,6 +9,9 @@
 
 namespace Zend\Filter\Word;
 
+/**
+ * Filter that transforms camelCased words to dash (eg.: myExample to my-example)
+ */
 class CamelCaseToDash extends CamelCaseToSeparator
 {
     /**

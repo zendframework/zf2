@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\Encrypt;
+namespace Zend\Crypt\Filter\Adapter;
 
 use Zend\Filter\Exception;
 use Zend\ServiceManager\AbstractPluginManager;
@@ -17,9 +17,17 @@ class EncryptionAdapterPluginManager extends AbstractPluginManager
     /**
      * @var array
      */
-    protected $factories = array(
-        'blockcipher' => 'Zend\Filter\Factory\BlockCipherAdapterFactory',
-        'openssl'     => 'Zend\Filter\Factory\OpensslAdapterFactory',
+    protected $invokableClasses = array(
+        'Zend\Crypt\Filter\Adapter\BlockCipher' => 'Zend\Crypt\Filter\Adapter\BlockCipher',
+        'Zend\Crypt\Filter\Adapter\OpenSsl'     => 'Zend\Crypt\Filter\Adapter\OpenSsl',
+    );
+
+    /**
+     * @var array
+     */
+    protected $aliases = array(
+        'blockcipher' => 'Zend\Crypt\Filter\Adapter\BlockCipher',
+        'openssl'     => 'Zend\Crypt\Filter\Adapter\OpenSsl',
     );
 
     /**
@@ -39,7 +47,7 @@ class EncryptionAdapterPluginManager extends AbstractPluginManager
         }
 
         throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement Zend\Filter\Encrypt\EncryptionAdapterInterface',
+            'Plugin of type %s is invalid; must implement Zend\Crypt\Filter\Adapter\EncryptionAdapterInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
     }

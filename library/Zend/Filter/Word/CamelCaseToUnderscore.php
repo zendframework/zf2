@@ -9,6 +9,9 @@
 
 namespace Zend\Filter\Word;
 
+/**
+ * Filter that transforms camelCased words to underscore_separated (eg.: myExample to my_example)
+ */
 class CamelCaseToUnderscore extends CamelCaseToSeparator
 {
     /**

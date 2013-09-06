@@ -9,11 +9,13 @@
 
 namespace Zend\Filter\Word;
 
+/**
+ * Filter that transforms underscore_separated words to camel cased (eg.: my_example to myExample)
+ */
 class UnderscoreToCamelCase extends SeparatorToCamelCase
 {
     /**
      * Constructor
-     *
      */
     public function __construct()
     {

@@ -10,63 +10,40 @@
 namespace Zend\I18n\Filter;
 
 use Locale;
-use Traversable;
 use Zend\Stdlib\StringUtils;
 
+/**
+ * Filter a value so that non alphanumeric characters are removed
+ */
 class Alnum extends AbstractLocale
 {
     /**
-     * @var array
+     * @var bool
      */
-    protected $options = array(
-        'locale'            => null,
-        'allow_white_space' => false,
-    );
+    protected $allowWhiteSpace = false;
 
     /**
-     * Sets default option values for this instance
+     * Set if white space is allowed
      *
-     * @param array|Traversable|bool|null $allowWhiteSpaceOrOptions
-     * @param string|null $locale
+     * @param  bool $allowWhiteSpace
+     * @return void
      */
-    public function __construct($allowWhiteSpaceOrOptions = null, $locale = null)
+    public function setAllowWhiteSpace($allowWhiteSpace)
     {
-        parent::__construct();
-        if ($allowWhiteSpaceOrOptions !== null) {
-            if (static::isOptions($allowWhiteSpaceOrOptions)) {
-                $this->setOptions($allowWhiteSpaceOrOptions);
-            } else {
-                $this->setAllowWhiteSpace($allowWhiteSpaceOrOptions);
-                $this->setLocale($locale);
-            }
-        }
+        $this->allowWhiteSpace = (bool) $allowWhiteSpace;
     }
 
     /**
-     * Sets the allowWhiteSpace option
-     *
-     * @param  bool $flag
-     * @return Alnum Provides a fluent interface
-     */
-    public function setAllowWhiteSpace($flag = true)
-    {
-        $this->options['allow_white_space'] = (bool) $flag;
-        return $this;
-    }
-
-    /**
-     * Whether white space is allowed
+     * Get whether white space is allowed
      *
      * @return bool
      */
     public function getAllowWhiteSpace()
     {
-        return $this->options['allow_white_space'];
+        return $this->allowWhiteSpace;
     }
 
     /**
-     * Defined by Zend\Filter\FilterInterface
-     *
      * Returns $value as string with all non-alphanumeric characters removed
      *
      * @param  mixed $value
@@ -74,7 +51,7 @@ class Alnum extends AbstractLocale
      */
     public function filter($value)
     {
-        $whiteSpace = $this->options['allow_white_space'] ? '\s' : '';
+        $whiteSpace = $this->allowWhiteSpace ? '\s' : '';
         $language   = Locale::getPrimaryLanguage($this->getLocale());
 
         if (!StringUtils::hasPcreUnicodeSupport()) {
