@@ -44,7 +44,7 @@ class StripTags extends AbstractFilter
      * @param  array|string $allowedTags
      * @return void
      */
-    public function setTagsAllowed($allowedTags)
+    public function setAllowedTags($allowedTags)
     {
         $allowedTags = (array) $allowedTags;
 

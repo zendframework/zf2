@@ -89,7 +89,7 @@ class Gz extends AbstractCompressionAdapter
      * @return void
      * @throws Exception\InvalidArgumentException for invalid $mode value
      */
-    public function setMode($compressionMode)
+    public function setCompressionMode($compressionMode)
     {
         if (!in_array($compressionMode, array(self::COMPRESSION_MODE_COMPRESS, self::COMPRESSION_MODE_DEFLATE))) {
             throw new Exception\InvalidArgumentException('Given compression mode not supported');

@@ -26,7 +26,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      *
      * @var \Zend\Filter\HtmlEntities
      */
-    protected $_filter;
+    protected $filter;
 
     /**
      * Creates a new Zend\Filter\HtmlEntities object for each test method
@@ -35,7 +35,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->_filter = new HtmlEntitiesFilter();
+        $this->filter = new HtmlEntitiesFilter();
     }
 
     /**
@@ -53,7 +53,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
             '"'      => '&quot;',
             '&'      => '&amp;'
             );
-        $filter = $this->_filter;
+        $filter = $this->filter;
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
         }
@@ -66,7 +66,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetQuoteStyle()
     {
-        $this->assertEquals(ENT_QUOTES, $this->_filter->getQuoteStyle());
+        $this->assertEquals(ENT_QUOTES, $this->filter->getQuoteStyle());
     }
 
     /**
@@ -76,30 +76,30 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetQuoteStyle()
     {
-        $this->_filter->setQuoteStyle(ENT_QUOTES);
-        $this->assertEquals(ENT_QUOTES, $this->_filter->getQuoteStyle());
+        $this->filter->setQuoteStyle(ENT_QUOTES);
+        $this->assertEquals(ENT_QUOTES, $this->filter->getQuoteStyle());
     }
 
     /**
-     * Ensures that getCharSet() returns expected default value
+     * Ensures that getEncoding() returns expected default value
      *
      * @group ZF-8715
      * @return void
      */
-    public function testGetCharSet()
+    public function testGetEncoding()
     {
-        $this->assertEquals('UTF-8', $this->_filter->getCharSet());
+        $this->assertEquals('UTF-8', $this->filter->getEncoding());
     }
 
     /**
-     * Ensures that setCharSet() follows expected behavior
+     * Ensures that setEncoding() follows expected behavior
      *
      * @return void
      */
-    public function testSetCharSet()
+    public function testSetEncoding()
     {
-        $this->_filter->setCharSet('UTF-8');
-        $this->assertEquals('UTF-8', $this->_filter->getCharSet());
+        $this->filter->setEncoding('UTF-8');
+        $this->assertEquals('UTF-8', $this->filter->getEncoding());
     }
 
     /**
@@ -109,7 +109,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDoubleQuote()
     {
-        $this->assertEquals(true, $this->_filter->getDoubleQuote());
+        $this->assertEquals(true, $this->filter->getDoubleQuote());
     }
 
     /**
@@ -119,19 +119,8 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDoubleQuote()
     {
-        $this->_filter->setDoubleQuote(false);
-        $this->assertEquals(false, $this->_filter->getDoubleQuote());
-    }
-
-    /**
-     * Ensure that fluent interfaces are supported
-     *
-     * @group ZF-3172
-     */
-    public function testFluentInterface()
-    {
-        $instance = $this->_filter->setCharSet('UTF-8')->setQuoteStyle(ENT_QUOTES)->setDoubleQuote(false);
-        $this->assertTrue($instance instanceof HtmlEntitiesFilter);
+        $this->filter->setDoubleQuote(false);
+        $this->assertEquals(false, $this->filter->getDoubleQuote());
     }
 
     /**
@@ -161,8 +150,8 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         $input  = "A 'single' and " . '"double"';
         $result = 'A &#039;single&#039; and &quot;double&quot;';
 
-        $this->_filter->setQuoteStyle(ENT_QUOTES);
-        $this->assertEquals($result, $this->_filter->filter($input));
+        $this->filter->setQuoteStyle(ENT_QUOTES);
+        $this->assertEquals($result, $this->filter->filter($input));
     }
 
     /**
@@ -176,8 +165,8 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         $input  = "A 'single' and " . '"double"';
         $result = "A 'single' and &quot;double&quot;";
 
-        $this->_filter->setQuoteStyle(ENT_COMPAT);
-        $this->assertEquals($result, $this->_filter->filter($input));
+        $this->filter->setQuoteStyle(ENT_COMPAT);
+        $this->assertEquals($result, $this->filter->filter($input));
     }
 
     /**
@@ -191,8 +180,8 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         $input  = "A 'single' and " . '"double"';
         $result = "A 'single' and " . '"double"';
 
-        $this->_filter->setQuoteStyle(ENT_NOQUOTES);
-        $this->assertEquals($result, $this->_filter->filter($input));
+        $this->filter->setQuoteStyle(ENT_NOQUOTES);
+        $this->assertEquals($result, $this->filter->filter($input));
     }
 
     /**
@@ -209,7 +198,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         // restore_error_handler can emit an E_WARNING; let's ignore that, as
         // we want to test the returned value
         set_error_handler(array($this, 'errorHandler'), E_NOTICE | E_WARNING);
-        $result = $this->_filter->filter($string);
+        $result = $this->filter->filter($string);
         restore_error_handler();
 
         $this->assertTrue(strlen($result) > 0);
@@ -229,7 +218,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         // restore_error_handler can emit an E_WARNING; let's ignore that, as
         // we want to test the returned value
         set_error_handler(array($this, 'errorHandler'), E_NOTICE | E_WARNING);
-        $result = $this->_filter->filter($string);
+        $result = $this->filter->filter($string);
         restore_error_handler();
 
         $this->assertContains('&quot;&quot;', $result);
@@ -251,7 +240,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         // Also, explicit try, so that we don't mess up PHPUnit error handlers
         set_error_handler(array($this, 'errorHandler'), E_NOTICE | E_WARNING);
         try {
-            $result = $this->_filter->filter($string);
+            $result = $this->filter->filter($string);
             $this->fail('Expected exception from single non-utf-8 character');
         } catch (\Exception $e) {
             $this->assertTrue($e instanceof Exception\DomainException);

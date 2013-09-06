@@ -37,7 +37,6 @@ class FilterPluginManager extends AbstractPluginManager
         'Zend\Filter\File\Decrypt'               => 'Zend\Filter\File\Decrypt',
         'Zend\Filter\File\Encrypt'               => 'Zend\Filter\File\Encrypt',
         'Zend\Filter\File\LowerCase'             => 'Zend\Filter\File\LowerCase',
-        'Zend\Filter\File\Rename'                => 'Zend\Filter\File\Rename',
         'Zend\Filter\File\RenameUpload'          => 'Zend\Filter\File\RenameUpload',
         'Zend\Filter\File\UpperCase'             => 'Zend\Filter\File\UpperCase',
         'Zend\Filter\HtmlEntities'               => 'Zend\Filter\HtmlEntities',

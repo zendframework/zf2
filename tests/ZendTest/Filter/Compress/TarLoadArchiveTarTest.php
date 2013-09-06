@@ -18,8 +18,9 @@ use Zend\Filter\Exception\ExtensionNotLoadedException;
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
+ * @covers     Zend\Filter\Compress\Tar
  */
-class TarLoadArchveTarTest extends \PHPUnit_Framework_TestCase
+class TarLoadArchiveTarTest extends \PHPUnit_Framework_TestCase
 {
     public function testArchiveTarNotLoaded()
     {

@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\PregReplace as PregReplaceFilter;
+use Zend\Stdlib\StringUtils;
 
 /**
  * Test class for Zend_Filter_PregReplace.
@@ -35,7 +36,7 @@ class PregReplaceTest extends \PHPUnit_Framework_TestCase
     public function testDetectsPcreUnicodeSupport()
     {
         $enabled = (@preg_match('/\pL/u', 'a')) ? true : false;
-        $this->assertEquals($enabled, PregReplaceFilter::hasPcreUnicodeSupport());
+        $this->assertEquals($enabled, StringUtils::hasPcreUnicodeSupport());
     }
 
     public function testPassingPatternToConstructorSetsPattern()
@@ -81,8 +82,8 @@ class PregReplaceTest extends \PHPUnit_Framework_TestCase
     {
         $filter = $this->filter;
         $string = 'controller/action';
-        $filter->setPattern('#^controller/(?P<action>[a-z_-]+)#')
-               ->setReplacement('foo/bar');
+        $filter->setPattern('#^controller/(?P<action>[a-z_-]+)#');
+        $filter->setReplacement('foo/bar');
         $filtered = $filter($string);
         $this->assertNotEquals($string, $filtered);
         $this->assertEquals('foo/bar', $filtered);

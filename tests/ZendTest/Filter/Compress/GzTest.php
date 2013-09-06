@@ -17,6 +17,7 @@ use Zend\Filter\Compress\Gz as GzCompression;
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
+ * @covers     Zend\Filter\Compress\Gz
  */
 class GzTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,7 +46,7 @@ class GzTest extends \PHPUnit_Framework_TestCase
             $this->markTestIncomplete('Code to test is not compatible with PHP 5.4 ');
         }
 
-        $filter  = new GzCompression();
+        $filter = new GzCompression();
 
         $content = $filter->compress('compress me');
         $this->assertNotEquals('compress me', $content);
@@ -62,22 +63,17 @@ class GzTest extends \PHPUnit_Framework_TestCase
     public function testGzGetSetOptions()
     {
         $filter = new GzCompression();
-        $this->assertEquals(array('mode' => 'compress', 'level' => 9, 'archive' => null), $filter->getOptions());
 
-        $this->assertEquals(9, $filter->getOptions('level'));
+        $this->assertEquals(9, $filter->getLevel());
 
-        $this->assertNull($filter->getOptions('nooption'));
-        $filter->setOptions(array('nooption' => 'foo'));
-        $this->assertNull($filter->getOptions('nooption'));
+        $filter->setLevel(6);
+        $this->assertEquals(6, $filter->getLevel());
 
-        $filter->setOptions(array('level' => 6));
-        $this->assertEquals(6, $filter->getOptions('level'));
+        $filter->setCompressionMode('deflate');
+        $this->assertEquals('deflate', $filter->getCompressionMode());
 
-        $filter->setOptions(array('mode' => 'deflate'));
-        $this->assertEquals('deflate', $filter->getOptions('mode'));
-
-        $filter->setOptions(array('archive' => 'test.txt'));
-        $this->assertEquals('test.txt', $filter->getOptions('archive'));
+        $filter->setArchive('test.txt');
+        $this->assertEquals('test.txt', $filter->getArchive());
     }
 
     /**
@@ -87,8 +83,8 @@ class GzTest extends \PHPUnit_Framework_TestCase
      */
     public function testGzGetSetOptionsInConstructor()
     {
-        $filter2= new GzCompression(array('level' => 8));
-        $this->assertEquals(array('mode' => 'compress', 'level' => 8, 'archive' => null), $filter2->getOptions());
+        $filter = new GzCompression(array('level' => 8));
+        $this->assertEquals(8, $filter->getLevel());
     }
 
     /**
@@ -101,7 +97,7 @@ class GzTest extends \PHPUnit_Framework_TestCase
         $filter = new GzCompression();
         $this->assertEquals(9, $filter->getLevel());
         $filter->setLevel(6);
-        $this->assertEquals(6, $filter->getOptions('level'));
+        $this->assertEquals(6, $filter->getLevel());
 
         $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'must be between');
         $filter->setLevel(15);
@@ -115,12 +111,12 @@ class GzTest extends \PHPUnit_Framework_TestCase
     public function testGzGetSetMode()
     {
         $filter = new GzCompression();
-        $this->assertEquals('compress', $filter->getMode());
-        $filter->setMode('deflate');
-        $this->assertEquals('deflate', $filter->getOptions('mode'));
+        $this->assertEquals('compress', $filter->getCompressionMode());
+        $filter->setCompressionMode('deflate');
+        $this->assertEquals('deflate', $filter->getCompressionMode());
 
         $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'mode not supported');
-        $filter->setMode('unknown');
+        $filter->setCompressionMode('unknown');
     }
 
     /**
@@ -134,7 +130,6 @@ class GzTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $filter->getArchive());
         $filter->setArchive('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getArchive());
-        $this->assertEquals('Testfile.txt', $filter->getOptions('archive'));
     }
 
     /**

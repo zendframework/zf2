@@ -9,8 +9,6 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-
 class PregReplace extends AbstractFilter
 {
     /**

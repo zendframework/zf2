@@ -17,6 +17,7 @@ use Zend\Filter\Compress\Rar as RarCompression;
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
+ * @covers     Zend\Filter\Compress\Rar
  */
 class RarTest extends \PHPUnit_Framework_TestCase
 {
@@ -121,24 +122,11 @@ class RarTest extends \PHPUnit_Framework_TestCase
     public function testRarGetSetOptions()
     {
         $filter = new RarCompression();
-        $this->assertEquals(
-            array(
-                'archive'  => null,
-                'callback' => null,
-                'password' => null,
-                'target'   => '.',
-            ),
-            $filter->getOptions()
-        );
 
-        $this->assertEquals(null, $filter->getOptions('archive'));
+        $this->assertEquals(null, $filter->getArchive());
 
-        $this->assertNull($filter->getOptions('nooption'));
-        $filter->setOptions(array('nooption' => 'foo'));
-        $this->assertNull($filter->getOptions('nooption'));
-
-        $filter->setOptions(array('archive' => 'temp.txt'));
-        $this->assertEquals('temp.txt', $filter->getOptions('archive'));
+        $filter->setArchive('temp.txt');
+        $this->assertEquals('temp.txt', $filter->getArchive());
     }
 
     /**
@@ -152,7 +140,6 @@ class RarTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $filter->getArchive());
         $filter->setArchive('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getArchive());
-        $this->assertEquals('Testfile.txt', $filter->getOptions('archive'));
     }
 
     /**
@@ -163,13 +150,13 @@ class RarTest extends \PHPUnit_Framework_TestCase
     public function testRarGetSetPassword()
     {
         $filter = new RarCompression();
+
         $this->assertEquals(null, $filter->getPassword());
         $filter->setPassword('test');
         $this->assertEquals('test', $filter->getPassword());
-        $this->assertEquals('test', $filter->getOptions('password'));
-        $filter->setOptions(array('password' => 'test2'));
+
+        $filter->setPassword('test2');
         $this->assertEquals('test2', $filter->getPassword());
-        $this->assertEquals('test2', $filter->getOptions('password'));
     }
 
     /**
@@ -183,7 +170,6 @@ class RarTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('.', $filter->getTarget());
         $filter->setTarget('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getTarget());
-        $this->assertEquals('Testfile.txt', $filter->getOptions('target'));
 
         $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'does not exist');
         $filter->setTarget('/unknown/path/to/file.txt');
@@ -293,7 +279,7 @@ class RarTest extends \PHPUnit_Framework_TestCase
     /**
      * Test callback for compression
      *
-     * @return unknown
+     * @return bool
      */
     public static function rarCompress()
     {

@@ -10,6 +10,7 @@
 namespace Zend\I18n\Filter;
 
 use Locale;
+use Zend\Stdlib\StringUtils;
 
 class Alpha extends Alnum
 {
@@ -26,7 +27,7 @@ class Alpha extends Alnum
         $whiteSpace = $this->options['allow_white_space'] ? '\s' : '';
         $language   = Locale::getPrimaryLanguage($this->getLocale());
 
-        if (!static::hasPcreUnicodeSupport()) {
+        if (!StringUtils::hasPcreUnicodeSupport()) {
             // POSIX named classes are not supported, use alternative [a-zA-Z] match
             $pattern = '/[^a-zA-Z' . $whiteSpace . ']/';
         } elseif ($language == 'ja' || $language == 'ko' || $language == 'zh') {

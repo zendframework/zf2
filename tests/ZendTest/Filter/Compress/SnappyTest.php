@@ -17,6 +17,7 @@ use Zend\Filter\Compress\Snappy as SnappyCompression;
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
+ * @covers     Zend\Filter\Compress\Snappy
  */
 class SnappyTest extends \PHPUnit_Framework_TestCase
 {

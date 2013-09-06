@@ -12,208 +12,115 @@ namespace ZendTest\Filter;
 
 use Zend\Filter\FilterChain;
 use Zend\Filter\AbstractFilter;
+use Zend\Filter\FilterPluginManager;
 
 /**
  * @category   Zend
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
+ * @cover      Zend\Filter\FilterChain
  */
 class FilterChainTest extends \PHPUnit_Framework_TestCase
 {
-    public function testEmptyFilterChainReturnsOriginalValue()
-    {
-        $chain = new FilterChain();
-        $value = 'something';
-        $this->assertEquals($value, $chain->filter($value));
-    }
-
-    public function testFiltersAreExecutedInFifoOrder()
-    {
-        $chain = new FilterChain();
-        $chain->attach(new LowerCase())
-              ->attach(new StripUpperCase());
-        $value = 'AbC';
-        $valueExpected = 'abc';
-        $this->assertEquals($valueExpected, $chain->filter($value));
-    }
-
-    public function testFiltersAreExecutedAccordingToPriority()
-    {
-        $chain = new FilterChain();
-        $chain->attach(new StripUpperCase())
-              ->attach(new LowerCase, 100);
-        $value = 'AbC';
-        $valueExpected = 'b';
-        $this->assertEquals($valueExpected, $chain->filter($value));
-    }
-
-    public function testAllowsConnectingArbitraryCallbacks()
-    {
-        $chain = new FilterChain();
-        $chain->attach(function ($value) {
-            return strtolower($value);
-        });
-        $value = 'AbC';
-        $this->assertEquals('abc', $chain->filter($value));
-    }
-
-    public function testAllowsConnectingViaClassShortName()
-    {
-        if (!function_exists('mb_strtolower')) {
-            $this->markTestSkipped('mbstring required');
-        }
-
-        $chain = new FilterChain();
-        $chain->attachByName('string_trim', null, 100)
-              ->attachByName('strip_tags')
-              ->attachByName('string_to_lower', array('encoding' => 'utf-8'), 900);
-        $value = '<a name="foo"> ABC </a>';
-        $valueExpected = 'abc';
-        $this->assertEquals($valueExpected, $chain->filter($value));
-    }
-
-    public function testAllowsConfiguringFilters()
-    {
-        $config = $this->getChainConfig();
-        $chain  = new FilterChain();
-        $chain->setOptions($config);
-        $value = '<a name="foo"> abc </a><img id="bar" />';
-        $valueExpected = 'ABC <IMG ID="BAR" />';
-        $this->assertEquals($valueExpected, $chain->filter($value));
-    }
-
-    public function testAllowsConfiguringFiltersViaConstructor()
-    {
-        $config = $this->getChainConfig();
-        $chain  = new FilterChain($config);
-        $value = '<a name="foo"> abc </a>';
-        $valueExpected = 'ABC';
-        $this->assertEquals($valueExpected, $chain->filter($value));
-    }
-
-    public function testConfigurationAllowsTraversableObjects()
-    {
-        $config = $this->getChainConfig();
-        $config = new \ArrayIterator($config);
-        $chain  = new FilterChain($config);
-        $value = '<a name="foo"> abc </a>';
-        $valueExpected = 'ABC';
-        $this->assertEquals($valueExpected, $chain->filter($value));
-    }
-
-    public function testCanRetrieveFilterWithUndefinedConstructor()
-    {
-        $chain = new FilterChain(array(
-            'filters' => array(
-                array('name' => 'int'),
-            ),
-        ));
-        $filtered = $chain->filter('127.1');
-        $this->assertEquals(127, $filtered);
-    }
-
-    protected function getChainConfig()
-    {
-        return array(
-            'callbacks' => array(
-                array('callback' => __CLASS__ . '::staticUcaseFilter'),
-                array('priority' => 10000, 'callback' => function ($value) {
-                    return trim($value);
-                }),
-            ),
-            'filters' => array(
-                array('name' => 'strip_tags', 'options' => array('allowTags' => 'img', 'allowAttribs' => 'id'), 'priority' => 10100),
-            ),
-        );
-    }
-
-    public static function staticUcaseFilter($value)
-    {
-        return strtoupper($value);
-    }
-
     /**
-     * @group ZF-412
+     * @var FilterChain
      */
-    public function testCanAttachMultipleFiltersOfTheSameTypeAsDiscreteInstances()
+    protected $filterChain;
+
+    public function setUp()
     {
-        $chain = new FilterChain();
-        $chain->attachByName('PregReplace', array(
-            'pattern'     => '/Foo/',
-            'replacement' => 'Bar',
-        ));
-        $chain->attachByName('PregReplace', array(
-            'pattern'     => '/Bar/',
-            'replacement' => 'PARTY',
-        ));
-
-        $this->assertEquals(2, count($chain));
-        $filters = $chain->getFilters();
-        $compare = null;
-        foreach ($filters as $filter) {
-            $this->assertNotSame($compare, $filter);
-            $compare = $filter;
-        }
-
-        $this->assertEquals('Tu et PARTY', $chain->filter('Tu et Foo'));
+        $this->filterChain = new FilterChain(new FilterPluginManager());
     }
 
-    public function testClone()
+    public function testAssertDefaultPriority()
     {
-        $chain = new FilterChain();
-        $clone = clone $chain;
-
-        $chain->attachByName('strip_tags');
-
-        $this->assertCount(0, $clone);
+        $this->assertEquals(1, FilterChain::DEFAULT_PRIORITY);
     }
 
-    public function testCanSerializeFilterChain()
+    public function testCountableInterface()
     {
-        $chain = new FilterChain();
-        $chain->attach(new LowerCase())
-              ->attach(new StripUpperCase());
-        $serialized = serialize($chain);
+        $this->assertEquals(0, count($this->filterChain));
 
-        $unserialized = unserialize($serialized);
-        $this->assertInstanceOf('Zend\Filter\FilterChain', $unserialized);
-        $this->assertEquals(2, count($unserialized));
-        $value         = 'AbC';
-        $valueExpected = 'abc';
-        $this->assertEquals($valueExpected, $unserialized->filter($value));
+        $this->filterChain->attach(new StripUpperCase());
+        $this->assertEquals(1, count($this->filterChain));
     }
 
-    public function testMergingTwoFilterChainsKeepFiltersPriority()
+    public function testCanAttachAnyCallableOrFilter()
     {
-        $value         = 'AbC';
-        $valueExpected = 'abc';
+        $this->filterChain->attach(function($value) {return $value; });
+        $this->filterChain->attach(new StripUpperCase());
 
-        $chain = new FilterChain();
-        $chain->attach(new StripUpperCase())
-              ->attach(new LowerCase(), 1001);
-        $this->assertEquals($valueExpected, $chain->filter($value));
+        $this->assertEquals(2, count($this->filterChain));
+    }
 
-        $chain = new FilterChain();
-        $chain->attach(new LowerCase(), 1001)
-              ->attach(new StripUpperCase());
-        $this->assertEquals($valueExpected, $chain->filter($value));
+    public function testThrowExceptionIfInvalidFilter()
+    {
+        $this->setExpectedException('Exception');
+        $this->filterChain->attach(new \stdClass());
+    }
 
-        $chain = new FilterChain();
-        $chain->attach(new LowerCase(), 1001);
-        $chainToMerge = new FilterChain();
-        $chainToMerge->attach(new StripUpperCase());
-        $chain->merge($chainToMerge);
-        $this->assertEquals(2, $chain->count());
-        $this->assertEquals($valueExpected, $chain->filter($value));
+    public function testCanAttachByName()
+    {
+        $callback = function($value) {return $value;};
 
-        $chain = new FilterChain();
-        $chain->attach(new StripUpperCase());
-        $chainToMerge = new FilterChain();
-        $chainToMerge->attach(new LowerCase(), 1001);
-        $chain->merge($chainToMerge);
-        $this->assertEquals(2, $chain->count());
-        $this->assertEquals($valueExpected, $chain->filter($value));
+        $this->filterChain->attachByName('Callback', array('callback' => $callback));
+
+        $filter = $this->filterChain->getFilters()->top();
+
+        $this->assertInstanceOf('Zend\Filter\Callback', $filter);
+        $this->assertSame($callback, $filter->getCallback());
+    }
+
+    public function testCanMergeTwoFilterChains()
+    {
+        $this->filterChain->attach(new LowerCase());
+
+        $anotherFilterChain = new FilterChain(new FilterPluginManager());
+        $anotherFilterChain->attach(new StripUpperCase());
+
+        $this->filterChain->merge($anotherFilterChain);
+
+        $this->assertEquals(2, count($this->filterChain));
+    }
+
+    public function testCanSetFiltersUsingInstances()
+    {
+        $filter1 = new LowerCase();
+        $filter2 = function($value) {return $value;};
+
+        $this->filterChain->setFilters(array($filter1, $filter2));
+
+        $this->assertEquals(2, count($this->filterChain));
+        $this->assertSame($filter2, $this->filterChain->getFilters()->extract());
+        $this->assertSame($filter1, $this->filterChain->getFilters()->extract());
+    }
+
+    public function testCanSetFiltersUsingSpecification()
+    {
+        $specification = array(
+            array('name' => 'Callback', 'priority' => 10),
+            array('name' => 'Boolean', 'priority' => -10)
+        );
+
+        $this->filterChain->setFilters($specification);
+
+        $this->assertEquals(2, count($this->filterChain));
+
+        $filters = $this->filterChain->getFilters();
+        $this->assertInstanceOf('Zend\Filter\Callback', $filters->extract());
+        $this->assertInstanceOf('Zend\Filter\Boolean', $filters->extract());
+    }
+
+    public function testRespectPriorities()
+    {
+        $filter1 = function($value) { return str_replace('_', ' ', $value); };
+        $filter2 = function($value) { return ucwords($value); };
+
+        $this->filterChain->attach($filter1, 10);
+        $this->filterChain->attach($filter2, 0);
+
+        $this->assertEquals('Php Is Good', $this->filterChain->filter('php_is_good'));
     }
 }
 

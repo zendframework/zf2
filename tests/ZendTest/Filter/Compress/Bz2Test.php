@@ -17,6 +17,7 @@ use Zend\Filter\Compress\Bz2 as Bz2Compression;
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
+ * @covers     Zend\Filter\Compress\Bz2
  */
 class Bz2Test extends \PHPUnit_Framework_TestCase
 {
@@ -62,20 +63,15 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
     public function testBz2GetSetOptions()
     {
         $filter = new Bz2Compression();
-        $this->assertEquals(array('blocksize' => 4, 'archive' => null), $filter->getOptions());
 
-        $this->assertEquals(4, $filter->getOptions('blocksize'));
+        $this->assertEquals(4, $filter->getBlockSize());
+        $this->assertNull($filter->getArchive());
 
-        $this->assertNull($filter->getOptions('nooption'));
+        $filter->setBlockSize(6);
+        $this->assertEquals(6, $filter->getBlockSize());
 
-        $filter->setOptions(array('blocksize' => 6));
-        $this->assertEquals(6, $filter->getOptions('blocksize'));
-
-        $filter->setOptions(array('archive' => 'test.txt'));
-        $this->assertEquals('test.txt', $filter->getOptions('archive'));
-
-        $filter->setOptions(array('nooption' => 0));
-        $this->assertNull($filter->getOptions('nooption'));
+        $filter->setArchive('test.txt');
+        $this->assertEquals('test.txt', $filter->getArchive());
     }
 
     /**
@@ -85,8 +81,10 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
      */
     public function testBz2GetSetOptionsInConstructor()
     {
-        $filter2= new Bz2Compression(array('blocksize' => 8));
-        $this->assertEquals(array('blocksize' => 8, 'archive' => null), $filter2->getOptions());
+        $filter = new Bz2Compression(array('block_size' => 8, 'archive' => 'foo.txt'));
+
+        $this->assertEquals(8, $filter->getBlockSize());
+        $this->assertEquals('foo.txt', $filter->getArchive());
     }
 
     /**
@@ -94,12 +92,13 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testBz2GetSetBlocksize()
+    public function testBz2GetSetBlockSize()
     {
         $filter = new Bz2Compression();
-        $this->assertEquals(4, $filter->getBlocksize());
-        $filter->setBlocksize(6);
-        $this->assertEquals(6, $filter->getOptions('blocksize'));
+
+        $this->assertEquals(4, $filter->getBlockSize());
+        $filter->setBlockSize(6);
+        $this->assertEquals(6, $filter->getBlockSize());
 
         $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'must be between');
         $filter->setBlocksize(15);
@@ -113,10 +112,11 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
     public function testBz2GetSetArchive()
     {
         $filter = new Bz2Compression();
-        $this->assertEquals(null, $filter->getArchive());
+
+        $this->assertNull($filter->getArchive());
+
         $filter->setArchive('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getArchive());
-        $this->assertEquals('Testfile.txt', $filter->getOptions('archive'));
     }
 
     /**

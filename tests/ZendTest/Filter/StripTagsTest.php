@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\StripTags as StripTagsFilter;
+use Zend\Filter\StripTags;
 
 /**
  * @category   Zend
@@ -23,9 +24,9 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
     /**
      * Zend_Filter_StripTags object
      *
-     * @var Zend_Filter_StripTags
+     * @var StripTags
      */
-    protected $_filter;
+    protected $filter;
 
     /**
      * Creates a new Zend_Filter_StripTags object for each test method
@@ -34,28 +35,28 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->_filter = new StripTagsFilter();
+        $this->filter = new StripTagsFilter();
     }
 
     /**
-     * Ensures that getTagsAllowed() returns expected default value
+     * Ensures that getAllowedTags() returns expected default value
      *
      * @return void
      */
-    public function testGetTagsAllowed()
+    public function testGetAllowedTags()
     {
-        $this->assertEquals(array(), $this->_filter->getTagsAllowed());
+        $this->assertEquals(array(), $this->filter->getAllowedTags());
     }
 
     /**
-     * Ensures that setTagsAllowed() follows expected behavior when provided a single tag
+     * Ensures that setAllowedTags() follows expected behavior when provided a single tag
      *
      * @return void
      */
-    public function testSetTagsAllowedString()
+    public function testSetAllowedTagsString()
     {
-        $this->_filter->setTagsAllowed('b');
-        $this->assertEquals(array('b' => array()), $this->_filter->getTagsAllowed());
+        $this->filter->setAllowedTags('b');
+        $this->assertEquals(array('b' => array()), $this->filter->getAllowedTags());
     }
 
     /**
@@ -70,23 +71,23 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
             'a'   => 'href',
             'div' => array('id', 'class')
             );
-        $this->_filter->setTagsAllowed($tagsAllowed);
+        $this->filter->setAllowedTags($tagsAllowed);
         $tagsAllowedExpected = array(
             'b'   => array(),
             'a'   => array('href' => null),
             'div' => array('id' => null, 'class' => null)
             );
-        $this->assertEquals($tagsAllowedExpected, $this->_filter->getTagsAllowed());
+        $this->assertEquals($tagsAllowedExpected, $this->filter->getAllowedTags());
     }
 
     /**
-     * Ensures that getAttributesAllowed() returns expected default value
+     * Ensures that getAllowedAttributes() returns expected default value
      *
      * @return void
      */
     public function testGetAttributesAllowed()
     {
-        $this->assertEquals(array(), $this->_filter->getAttributesAllowed());
+        $this->assertEquals(array(), $this->filter->getAllowedAttributes());
     }
 
     /**
@@ -96,8 +97,8 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAttributesAllowedString()
     {
-        $this->_filter->setAttributesAllowed('class');
-        $this->assertEquals(array('class' => null), $this->_filter->getAttributesAllowed());
+        $this->filter->setAllowedAttributes('class');
+        $this->assertEquals(array('class' => null), $this->filter->getAllowedAttributes());
     }
 
     /**
@@ -113,13 +114,13 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
             'ok' => 'String',
             null
             );
-        $this->_filter->setAttributesAllowed($attributesAllowed);
+        $this->filter->setAllowedAttributes($attributesAllowed);
         $attributesAllowedExpected = array(
             'class'  => null,
             'int'    => null,
             'string' => null
             );
-        $this->assertEquals($attributesAllowedExpected, $this->_filter->getAttributesAllowed());
+        $this->assertEquals($attributesAllowedExpected, $this->filter->getAllowedAttributes());
     }
 
     /**
@@ -129,7 +130,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagUnclosed1()
     {
-        $filter   = $this->_filter;
+        $filter   = $this->filter;
         $input    = '<a href="http://example.com" Some Text';
         $expected = '';
         $this->assertEquals($expected, $filter($input));
@@ -142,7 +143,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTag1()
     {
-        $filter   = $this->_filter;
+        $filter   = $this->filter;
         $input    = '<a href="example.com">foo</a>';
         $expected = 'foo';
         $this->assertEquals($expected, $filter($input));
@@ -155,7 +156,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagNest1()
     {
-        $filter   = $this->_filter;
+        $filter   = $this->filter;
         $input    = '<a href="example.com"><b>foo</b></a>';
         $expected = 'foo';
         $this->assertEquals($expected, $filter($input));
@@ -168,7 +169,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTag2()
     {
-        $filter   = $this->_filter;
+        $filter   = $this->filter;
         $input    = '<a href="example.com">foo</a><b>bar</b>';
         $expected = 'foobar';
         $this->assertEquals($expected, $filter($input));
@@ -181,10 +182,10 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagAllowedBackwardCompatible()
     {
-        $filter   = $this->_filter;
+        $filter   = $this->filter;
         $input    = '<BR><Br><bR><br/><br  /><br / ></br></bR>';
         $expected = '<br><br><br><br /><br /><br></br></br>';
-        $this->_filter->setTagsAllowed('br');
+        $this->filter->setAllowedTags('br');
         $this->assertEquals($expected, $filter($input));
     }
 
@@ -195,7 +196,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagPrefixGt()
     {
-        $filter   = $this->_filter;
+        $filter   = $this->filter;
         $input    = '2 > 1 === true<br/>';
         $expected = '2  1 === true';
         $this->assertEquals($expected, $filter($input));
@@ -208,7 +209,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterGt()
     {
-        $filter   = $this->_filter;
+        $filter   = $this->filter;
         $input    = '2 > 1 === true ==> $object->property';
         $expected = '2  1 === true == $object-property';
         $this->assertEquals($expected, $filter($input));
@@ -221,7 +222,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagWrappedGt()
     {
-        $filter   = $this->_filter;
+        $filter   = $this->filter;
         $input    = '2 > 1 === true <==> $object->property';
         $expected = '2  1 === true  $object-property';
         $this->assertEquals($expected, $filter($input));
@@ -234,9 +235,9 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagAllowedAttribute()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = 'img';
-        $this->_filter->setTagsAllowed($tagsAllowed);
+        $this->filter->setAllowedTags($tagsAllowed);
         $input    = '<IMG alt="foo" />';
         $expected = '<img />';
         $this->assertEquals($expected, $filter($input));
@@ -249,11 +250,11 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagAllowedAttributeAllowed()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array(
             'img' => 'alt'
             );
-        $this->_filter->setTagsAllowed($tagsAllowed);
+        $this->filter->setAllowedTags($tagsAllowed);
         $input    = '<IMG ALT="FOO" />';
         $expected = '<img alt="FOO" />';
         $this->assertEquals($expected, $filter($input));
@@ -268,11 +269,11 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagAllowedAttributeAllowedGt()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array(
             'img' => 'alt'
             );
-        $this->_filter->setTagsAllowed($tagsAllowed);
+        $this->filter->setAllowedTags($tagsAllowed);
         $input    = '<img alt="$object->property" />';
         $expected = '<img>property" /';
         $this->assertEquals($expected, $filter($input));
@@ -285,11 +286,11 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagAllowedAttributeAllowedGtEscaped()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array(
             'img' => 'alt'
             );
-        $this->_filter->setTagsAllowed($tagsAllowed);
+        $this->filter->setAllowedTags($tagsAllowed);
         $input    = '<img alt="$object-&gt;property" />';
         $expected = '<img alt="$object-&gt;property" />';
         $this->assertEquals($expected, $filter($input));
@@ -303,11 +304,11 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagAllowedAttributeAllowedValueUnclosed()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array(
             'img' => array('alt', 'height', 'src', 'width')
             );
-        $this->_filter->setTagsAllowed($tagsAllowed);
+        $this->filter->setAllowedTags($tagsAllowed);
         $input    = '<img src="image.png" alt="square height="100" width="100" />';
         $expected = '<img src="image.png" alt="square height=" width="100" />';
         $this->assertEquals($expected, $filter($input));
@@ -320,11 +321,11 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterTagAllowedAttributeAllowedValueMissing()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array(
             'input' => array('checked', 'name', 'type')
             );
-        $this->_filter->setTagsAllowed($tagsAllowed);
+        $this->filter->setAllowedTags($tagsAllowed);
         $input    = '<input name="foo" type="checkbox" checked />';
         $expected = '<input name="foo" type="checkbox" />';
         $this->assertEquals($expected, $filter($input));
@@ -338,13 +339,13 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilter20070526()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array(
             'object' => array('width', 'height'),
             'param'  => array('name', 'value'),
             'embed'  => array('src', 'type', 'wmode', 'width', 'height'),
             );
-        $this->_filter->setTagsAllowed($tagsAllowed);
+        $this->filter->setAllowedTags($tagsAllowed);
         $input = '<object width="425" height="350"><param name="movie" value="http://www.example.com/path/to/movie">'
                . '</param><param name="wmode" value="transparent"></param><embed '
                . 'src="http://www.example.com/path/to/movie" type="application/x-shockwave-flash" '
@@ -363,7 +364,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterComment()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $input    = '<!-- a comment -->';
         $expected = '';
         $this->assertEquals($expected, $filter($input));
@@ -376,7 +377,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterCommentWrapped()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $input    = 'foo<!-- a comment -->bar';
         $expected = 'foobar';
         $this->assertEquals($expected, $filter($input));
@@ -390,11 +391,11 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testClosingAngleBracketInAllowedAttributeValue()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array(
             'a' => 'href'
             );
-        $filter->setTagsAllowed($tagsAllowed);
+        $filter->setAllowedTags($tagsAllowed);
         $input    = '<a href="Some &gt; Text">';
         $expected = '<a href="Some &gt; Text">';
         $this->assertEquals($expected, $filter($input));
@@ -408,11 +409,11 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllowedAttributeValueMayEndWithEquals()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array(
             'element' => 'attribute'
         );
-        $filter->setTagsAllowed($tagsAllowed);
+        $filter->setAllowedTags($tagsAllowed);
         $input = '<element attribute="a=">contents</element>';
         $this->assertEquals($input, $filter($input));
     }
@@ -422,9 +423,9 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testDisallowedAttributesSplitOverMultipleLinesShouldBeStripped()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $tagsAllowed = array('a' => 'href');
-        $filter->setTagsAllowed($tagsAllowed);
+        $filter->setAllowedTags($tagsAllowed);
         $input = '<a href="http://framework.zend.com/issues" onclick
 =
     "alert(&quot;Gotcha&quot;); return false;">http://framework.zend.com/issues</a>';
@@ -437,7 +438,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterIsoChars()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $input    = 'äöü<!-- a comment -->äöü';
         $expected = 'äöüäöü';
         $this->assertEquals($expected, $filter($input));
@@ -453,7 +454,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterIsoCharsInComment()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $input    = 'äöü<!--üßüßüß-->äöü';
         $expected = 'äöüäöü';
         $this->assertEquals($expected, $filter($input));
@@ -469,7 +470,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterSplitCommentTags()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $input    = 'äöü<!-->üßüßüß<-->äöü';
         $expected = 'äöüäöü';
         $this->assertEquals($expected, $filter($input));
@@ -480,7 +481,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testCommentWithTagInSameLine()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $input    = 'test <!-- testcomment --> test <div>div-content</div>';
         $expected = 'test  test div-content';
         $this->assertEquals($expected, $filter($input));
@@ -522,7 +523,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
     {
         $input    = 'text<!-- not closed comment at the end';
         $expected =  'text';
-        $this->assertEquals($expected, $this->_filter->filter($input));
+        $this->assertEquals($expected, $this->filter->filter($input));
     }
 
     /**
@@ -533,9 +534,9 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
         $input     = '<li data-disallowed="no!" data-name="Test User" data-id="11223"></li>';
         $expected  = '<li data-name="Test User" data-id="11223"></li>';
 
-        $this->_filter->setTagsAllowed('li');
-        $this->_filter->setAttributesAllowed(array('data-id','data-name'));
+        $this->filter->setAllowedTags('li');
+        $this->filter->setAllowedAttributes(array('data-id','data-name'));
 
-        $this->assertEquals($expected, $this->_filter->filter($input));
+        $this->assertEquals($expected, $this->filter->filter($input));
     }
 }

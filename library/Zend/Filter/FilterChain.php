@@ -65,26 +65,6 @@ class FilterChain extends AbstractFilter implements Countable
     }
 
     /**
-     * Remove a filter from the chain
-     *
-     * Note that this method needs to iterate through all the filters, so it can be slow
-     *
-     * @param  FilterInterface|Callable $filter
-     * @return bool True if the filter was successfully removed, false otherwise
-     */
-    public function remove(Callable $filter)
-    {
-        foreach ($this->filters as $key => $value) {
-            if ($filter === $value) {
-                unset($this->filters[$key]);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Attach a filter to the chain by its name (using the filter plugin manager)
      *
      * @param  string $name Valid name
@@ -131,7 +111,7 @@ class FilterChain extends AbstractFilter implements Countable
 
         // @TODO: should specification be handled here or should we provide a factory?
         foreach ($filters as $filter) {
-            if ($filter instanceof FilterInterface) {
+            if (is_callable($filter)) {
                 $this->attach($filter);
             } elseif (is_array($filter)) {
                 $options  = isset($filter['options']) ? $filter['options'] : array();
@@ -159,11 +139,9 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function filter($value)
     {
-        // @TODO: why do we need to clone?
-        $chain = clone $this->filters;
-
         $filteredValue = $value;
-        foreach ($chain as $filter) {
+
+        foreach ($this->filters as $filter) {
             $filteredValue = $filter($filteredValue);
         }
 

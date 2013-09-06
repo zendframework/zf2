@@ -17,9 +17,15 @@ use Zend\Filter\Compress\Zip as ZipCompression;
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
+ * @cover      Zend\Filter\Compress\Zip
  */
 class ZipTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string
+     */
+    protected $tmp;
+
     public function setUp()
     {
         if (!extension_loaded('zip')) {
@@ -130,16 +136,12 @@ class ZipTest extends \PHPUnit_Framework_TestCase
     public function testZipGetSetOptions()
     {
         $filter = new ZipCompression();
-        $this->assertEquals(array('archive' => null, 'target' => null), $filter->getOptions());
 
-        $this->assertEquals(null, $filter->getOptions('archive'));
+        $this->assertNull($filter->getArchive());
+        $this->assertNull($filter->getTarget());
 
-        $this->assertNull($filter->getOptions('nooption'));
-        $filter->setOptions(array('nooption' => 'foo'));
-        $this->assertNull($filter->getOptions('nooption'));
-
-        $filter->setOptions(array('archive' => 'temp.txt'));
-        $this->assertEquals('temp.txt', $filter->getOptions('archive'));
+        $filter->setArchive('temp.txt');
+        $this->assertEquals('temp.txt', $filter->getArchive());
     }
 
     /**
@@ -153,7 +155,6 @@ class ZipTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $filter->getArchive());
         $filter->setArchive('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getArchive());
-        $this->assertEquals('Testfile.txt', $filter->getOptions('archive'));
     }
 
     /**
@@ -167,7 +168,6 @@ class ZipTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($filter->getTarget());
         $filter->setTarget('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getTarget());
-        $this->assertEquals('Testfile.txt', $filter->getOptions('target'));
 
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'does not exist');
         $filter->setTarget('/unknown/path/to/file.txt');

@@ -17,6 +17,7 @@ use Zend\Filter\Compress\Lzf as LzfCompression;
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
+ * @covers     Zend\Filter\Compress\LzfTest
  */
 class LzfTest extends \PHPUnit_Framework_TestCase
 {
