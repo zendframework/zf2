@@ -184,6 +184,23 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.firsthost.org', $url->__invoke());
     }
 
+    public function testServerUrlHelperCanReturn()
+    {
+        $url = new Helper\ServerUrl();
+        $helper = $url(false);
+        $this->assertEquals($helper, $url);
+    }
+
+    public function testServerUrlWithProxyAsHelper()
+    {
+        $_SERVER['HTTP_HOST'] = 'proxyserver.com';
+        $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org';
+        $url = new Helper\ServerUrl();
+        $helper = $url(false);
+        $helper->setUseProxy(true);
+        $this->assertEquals('http://www.firsthost.org', $helper->__invoke());
+    }
+
     /**
      * @group ZF2-508
      */
