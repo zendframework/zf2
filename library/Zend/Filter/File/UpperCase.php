@@ -17,7 +17,7 @@ class UpperCase extends StringToUpper
     /**
      * Defined by Zend\Filter\FilterInterface
      *
-     * Does a lowercase on the content of the given file
+     * Does an upper-case on the content of the given file
      *
      * @param  string|array $value Full path of file to change or $_FILES data array
      * @return string|array The given $value

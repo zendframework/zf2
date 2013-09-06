@@ -20,7 +20,7 @@ use Zend\Crypt\Symmetric\Exception as SymmetricException;
 /**
  * Encryption adapter for Zend\Crypt\BlockCipher
  */
-class BlockCipher extends AbstractEncryptionAdapter
+class BlockCipherAdapter implements EncryptionAdapterInterface
 {
     /**
      * Definitions for encryption
@@ -49,11 +49,10 @@ class BlockCipher extends AbstractEncryptionAdapter
     /**
      * Class constructor
      *
-     * @param  CompressionAdapterPluginManager $compressionAdapterPluginManager
      * @param  string|array|Traversable $options Encryption Options
      * @throws Exception\RuntimeException
      */
-    public function __construct(CompressionAdapterPluginManager $compressionAdapterPluginManager, $options = null)
+    public function __construct($options = null)
     {
         try {
             $this->blockCipher = CryptBlockCipher::factory('mcrypt', $this->encryption);
@@ -61,7 +60,7 @@ class BlockCipher extends AbstractEncryptionAdapter
             throw new Exception\RuntimeException('The BlockCipher cannot be used without the Mcrypt extension');
         }
 
-        parent::__construct($compressionAdapterPluginManager, $options);
+        parent::__construct($options);
     }
 
     /**
@@ -232,11 +231,6 @@ class BlockCipher extends AbstractEncryptionAdapter
      */
     public function encrypt($value)
     {
-        // Compress prior to encryption
-        if (null !== $this->compression) {
-            $value = $this->compression->compress($value);
-        }
-
         try {
             $encrypted = $this->blockCipher->encrypt($value);
         } catch (CryptException\InvalidArgumentException $e) {
@@ -255,11 +249,6 @@ class BlockCipher extends AbstractEncryptionAdapter
             $decrypted = $this->blockCipher->decrypt($value);
         } catch (CryptException\InvalidArgumentException $e) {
             throw new Exception\InvalidArgumentException($e->getMessage());
-        }
-
-        // decompress after decryption
-        if (null !== $this->compression) {
-            $decrypted = $this->compression->decompress($decrypted);
         }
 
         return $decrypted;

@@ -19,7 +19,7 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Encryption adapter for openssl
  */
-class Openssl extends AbstractEncryptionAdapter
+class Openssl implements EncryptionAdapterInterface
 {
     /**
      * Definitions for encryption
@@ -56,20 +56,18 @@ class Openssl extends AbstractEncryptionAdapter
      *   'private'     => private key
      *   'envelope'    => envelope key
      *   'passphrase'  => passphrase
-     *   'compression' => compress value with this compression adapter
      *   'package'     => pack envelope keys into encrypted string, simplifies decryption
      *
-     * @param CompressionAdapterPluginManager $compressionAdapterPluginManager
      * @param string|array|Traversable        $options Options for this adapter
      * @throws Exception\ExtensionNotLoadedException
      */
-    public function __construct(CompressionAdapterPluginManager $compressionAdapterPluginManager, $options = array())
+    public function __construct($options = array())
     {
         if (!extension_loaded('openssl')) {
             throw new Exception\ExtensionNotLoadedException('This filter needs the openssl extension');
         }
 
-        parent::__construct($compressionAdapterPluginManager, $options);
+        parent::__construct($options);
     }
 
     /**
@@ -302,11 +300,6 @@ class Openssl extends AbstractEncryptionAdapter
             }
         }
 
-        // compress prior to encryption
-        if (null !== $this->compression) {
-            $value    = $this->compression->compress($value);
-        }
-
         $crypt  = openssl_seal($value, $encrypted, $encryptedkeys, $keys);
         foreach ($keys as $key) {
             openssl_free_key($key);
@@ -382,11 +375,6 @@ class Openssl extends AbstractEncryptionAdapter
 
         if ($crypt === false) {
             throw new Exception\RuntimeException('Openssl was not able to decrypt you content with the given options');
-        }
-
-        // decompress after decryption
-        if (null !== $this->compression) {
-            $decrypted  = $this->compression->decompress($decrypted);
         }
 
         return $decrypted;
