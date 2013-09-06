@@ -80,8 +80,7 @@ class Input implements InputInterface
     public function setRequired($required)
     {
         if ($required) {
-            // @TODO: refactor validator to allow to set priority
-            $this->validatorChain->attachByName('NotEmpty');
+            $this->validatorChain->attachByName('Zend\Validator\NotEmpty', 1000);
         }
     }
 

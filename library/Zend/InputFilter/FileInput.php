@@ -9,10 +9,11 @@
 
 namespace Zend\InputFilter;
 
+use Zend\InputFilter\Result\InputFilterResult;
 use Zend\Validator\File\UploadFile as UploadValidator;
 
 /**
- * @TODO: REFACTOR FOR ZF3 INPUT FILTER
+ * @TODO: Refactor for ZF3
  *
  * FileInput is a special input type for handling uploaded files.
  *
@@ -42,12 +43,12 @@ class FileInput extends Input
     /**
      * Enable/disable automatically prepending an Upload validator
      *
-     * @param  bool $value
+     * @param  bool $autoPrependUploadValidator
      * @return void
      */
-    public function setAutoPrependUploadValidator($value)
+    public function setAutoPrependUploadValidator($autoPrependUploadValidator)
     {
-        $this->autoPrependUploadValidator = (bool) $value;
+        $this->autoPrependUploadValidator = (bool) $autoPrependUploadValidator;
     }
 
     /**
@@ -61,23 +62,68 @@ class FileInput extends Input
     /**
      * {@inheritDoc}
      */
-    public function getValue()
+    public function runAgainst($value, $context = null)
     {
-        $value = $this->value;
+        $this->injectUploadValidator();
 
-        if ($this->isValid && is_array($value)) {
+        // Do not run the filters yet for file uploads
+
+        if (!is_array($value)) {
+            // This can happen in an AJAX POST, where the input comes across as a string
+            $value = array(
+                'tmp_name' => $value,
+                'name'     => $value,
+                'size'     => 0,
+                'type'     => '',
+                'error'    => UPLOAD_ERR_NO_FILE,
+            );
+        }
+
+        $isValid = true;
+
+        if (is_array($value) && isset($value['tmp_name'])) {
+            // Single file input
+            if (!$this->validatorChain->isValid($value, $context)) {
+                $isValid = false;
+            }
+        } elseif (is_array($value) && !empty($value) && isset($value[0]['tmp_name'])) {
+            // Multiple file input (multiple attribute set)
+            foreach ($value as $singleFile) {
+                if (!$this->validatorChain->isValid($singleFile, $context)) {
+                    $isValid = false;
+                    break; // No need to process the other
+                }
+            }
+        }
+
+        if (!$isValid) {
+            return new InputFilterResult($value, null, $this->validatorChain->getMessages());
+        }
+
+        return new InputFilterResult($value, $this->getFilteredValue($value));
+    }
+
+    /**
+     * Filter the value
+     *
+     * @param  mixed $value
+     * @return mixed
+     */
+    protected function getFilteredValue($value)
+    {
+        if (is_array($value)) {
             // Run filters after validation, so that is_uploaded_file() validation is not affected by filters.
-            $filter = $this->getFilterChain();
+            $filterChain = $this->getFilterChain();
 
             if (isset($value['tmp_name'])) {
                 // Single file input
-                $value = $filter->filter($value);
+                $value = $filterChain->filter($value);
             } else {
                 // Multi file input (multiple attribute set)
                 $newValue = array();
                 foreach ($value as $fileData) {
                     if (is_array($fileData) && isset($fileData['tmp_name'])) {
-                        $newValue[] = $filter->filter($fileData);
+                        $newValue[] = $filterChain->filter($fileData);
                     }
                 }
                 $value = $newValue;
@@ -85,45 +131,6 @@ class FileInput extends Input
         }
 
         return $value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isValid($context = null)
-    {
-        $this->injectUploadValidator();
-
-        // Do not run the filters yet for file uploads (see getValue())
-        $validator = $this->getValidatorChain();
-        $rawValue  = $this->getRawValue();
-
-        if (!is_array($rawValue)) {
-            // This can happen in an AJAX POST, where the input comes across as a string
-            $rawValue = array(
-                'tmp_name' => $rawValue,
-                'name'     => $rawValue,
-                'size'     => 0,
-                'type'     => '',
-                'error'    => UPLOAD_ERR_NO_FILE,
-            );
-        }
-
-        if (is_array($rawValue) && isset($rawValue['tmp_name'])) {
-            // Single file input
-            $this->isValid = $validator->isValid($rawValue, $context);
-        } elseif (is_array($rawValue) && !empty($rawValue) && isset($rawValue[0]['tmp_name'])) {
-            // Multi file input (multiple attribute set)
-            $this->isValid = true;
-            foreach ($rawValue as $value) {
-                if (!$validator->isValid($value, $context)) {
-                    $this->isValid = false;
-                    break; // Do not continue processing files if validation fails
-                }
-            }
-        }
-
-        return $this->isValid;
     }
 
     /**
@@ -146,7 +153,8 @@ class FileInput extends Input
             return;
         }
 
-        $chain->prependByName('fileuploadfile', array(), true);
+        // @TODO: once validator is refactored, change that with a high priority
+        $chain->prependByName('Zend\Validator\File\UploadFile', array(), true);
         $this->autoPrependUploadValidator = false;
     }
 }
