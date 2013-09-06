@@ -12,19 +12,36 @@ namespace Zend\Validator;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
-use Traversable;
-use Zend\Stdlib\ArrayUtils;
 use Zend\Validator\Exception;
+use Zend\Validator\Result\ValidationResult;
 
-class DateStep extends Date
+/**
+ * A validator that validate if a date value is in a given step
+ *
+ * Accepted options are:
+ *      - message_templates
+ *      - message_variables
+ *      - base_value
+ *      - step
+ *      - format
+ *      - timezone
+ */
+class DateStep extends AbstractValidator
 {
-    const NOT_STEP     = 'dateStepNotStep';
+    /**
+     * Error codes
+     */
+    const NOT_DATE = 'dateNotDate';
+    const NOT_STEP = 'dateStepNotStep';
 
     /**
+     * Validation error messages templates
+     *
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOT_STEP     => "The input is not a valid step"
+        self::NOT_DATE => "The input is not a valid date",
+        self::NOT_STEP => "The input is not a valid step"
     );
 
     /**
@@ -36,6 +53,7 @@ class DateStep extends Date
 
     /**
      * Date step interval (defaults to 1 day).
+     *
      * Uses the DateInterval specification.
      *
      * @var DateInterval
@@ -58,66 +76,20 @@ class DateStep extends Date
     protected $timezone;
 
     /**
-     * Set default options for this instance
-     *
-     * @param array $options
-     */
-    public function __construct($options = array())
-    {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        } elseif (!is_array($options)) {
-            $options = func_get_args();
-            $temp['baseValue'] = array_shift($options);
-            if (!empty($options)) {
-                $temp['step'] = array_shift($options);
-            }
-            if (!empty($options)) {
-                $temp['format'] = array_shift($options);
-            }
-            if (!empty($options)) {
-                $temp['timezone'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
-
-        if (isset($options['baseValue'])) {
-            $this->setBaseValue($options['baseValue']);
-        }
-        if (isset($options['step'])) {
-            $this->setStep($options['step']);
-        } else {
-            $this->setStep(new DateInterval('P1D'));
-        }
-        if (array_key_exists('format', $options)) {
-            $this->setFormat($options['format']);
-        }
-        if (isset($options['timezone'])) {
-            $this->setTimezone($options['timezone']);
-        } else {
-            $this->setTimezone(new DateTimeZone(date_default_timezone_get()));
-        }
-
-        parent::__construct($options);
-    }
-
-    /**
      * Sets the base value from which the step should be computed
      *
-     * @param  string|int|\DateTime $baseValue
-     * @return DateStep
+     * @param  string|int|DateTime $baseValue
+     * @return void
      */
     public function setBaseValue($baseValue)
     {
         $this->baseValue = $baseValue;
-        return $this;
     }
 
     /**
-     * Returns the base value from which the step should be computed
+     * Get the base value from which the step should be computed
      *
-     * @return string|int|\DateTime
+     * @return string|int|DateTime
      */
     public function getBaseValue()
     {
@@ -133,7 +105,6 @@ class DateStep extends Date
     public function setStep(DateInterval $step)
     {
         $this->step = $step;
-        return $this;
     }
 
     /**
@@ -143,7 +114,22 @@ class DateStep extends Date
      */
     public function getStep()
     {
+        if (null === $this->step) {
+            $this->step = new DateInterval('P1D');
+        }
+
         return $this->step;
+    }
+
+    /**
+     * Sets the timezone option
+     *
+     * @param  DateTimeZone $timezone
+     * @return void
+     */
+    public function setTimezone(DateTimeZone $timezone)
+    {
+        $this->timezone = $timezone;
     }
 
     /**
@@ -153,93 +139,45 @@ class DateStep extends Date
      */
     public function getTimezone()
     {
+        if (null === $this->timezone) {
+            $this->timezone = new DateTimeZone(date_default_timezone_get());
+        }
+
         return $this->timezone;
     }
 
     /**
-     * Sets the timezone option
-     *
-     * @param  DateTimeZone $timezone
-     * @return DateStep
+     * {@inheritDoc}
      */
-    public function setTimezone(DateTimeZone $timezone)
+    public function validate($data, $context = null)
     {
-        $this->timezone = $timezone;
-        return $this;
-    }
-
-    /**
-     * Converts an int or string to a DateTime object
-     *
-     * @param  string|int|\DateTime $param
-     * @return \DateTime
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function convertToDateTime($param)
-    {
-        $dateObj = $param;
-        if (is_int($param)) {
-            // Convert from timestamp
-            $dateObj = date_create("@$param");
-        } elseif (is_string($param)) {
-            // Custom week format support
-            if (strpos($this->getFormat(), 'Y-\WW') === 0
-                && preg_match('/^([0-9]{4})\-W([0-9]{2})/', $param, $matches)
-            ) {
-                $dateObj = new DateTime();
-                $dateObj->setISODate($matches[1], $matches[2]);
-            } else {
-                $dateObj = DateTime::createFromFormat(
-                    $this->getFormat(), $param, $this->getTimezone()
-                );
-            }
-        }
-        if (!($dateObj instanceof DateTime)) {
-            throw new Exception\InvalidArgumentException('Invalid date param given');
-        }
-
-        return $dateObj;
-    }
-
-    /**
-     * Returns true if a date is within a valid step
-     *
-     * @param  string|int|\DateTime $value
-     * @return bool
-     * @throws Exception\InvalidArgumentException
-     */
-    public function isValid($value)
-    {
-        parent::isValid($value);
-
-        $this->setValue($value);
-
         $baseDate = $this->convertToDateTime($this->getBaseValue());
         $step     = $this->getStep();
 
         // Parse the date
         try {
-            $valueDate = $this->convertToDateTime($value);
+            $valueDate = $this->convertToDateTime($data);
         } catch (Exception\InvalidArgumentException $ex) {
-            return false;
+            return $this->buildErrorValidationResult($data, self::NOT_DATE);
         }
 
         // Same date?
         if ($valueDate == $baseDate) {
-            return true;
+            return new ValidationResult($data);
         }
 
         // Optimization for simple intervals.
         // Handle intervals of just one date or time unit.
         $intervalParts = explode('|', $step->format('%y|%m|%d|%h|%i|%s'));
         $partCounts    = array_count_values($intervalParts);
+
         if (5 === $partCounts["0"]) {
             // Find the unit with the non-zero interval
-            $unitKeys = array('years', 'months', 'days', 'hours', 'minutes', 'seconds');
+            $unitKeys      = array('years', 'months', 'days', 'hours', 'minutes', 'seconds');
             $intervalParts = array_combine($unitKeys, $intervalParts);
+            $intervalUnit  = null;
+            $stepValue     = null;
 
-            $intervalUnit = null;
-            $stepValue    = null;
             foreach ($intervalParts as $key => $value) {
                 if (0 != $value) {
                     $intervalUnit = $key;
@@ -262,7 +200,7 @@ class DateStep extends Date
                             && 0 == $diffParts['seconds']
                         ) {
                             if (($diffParts['years'] % $stepValue) === 0) {
-                                return true;
+                                return new ValidationResult($data);
                             }
                         }
                         break;
@@ -272,7 +210,7 @@ class DateStep extends Date
                         ) {
                             $months = ($diffParts['years'] * 12) + $diffParts['months'];
                             if (($months % $stepValue) === 0) {
-                                return true;
+                                return new ValidationResult($data);
                             }
                         }
                         break;
@@ -282,28 +220,27 @@ class DateStep extends Date
                         ) {
                             $days = $timeDiff->format('%a'); // Total days
                             if (($days % $stepValue) === 0) {
-                                return true;
+                                return new ValidationResult($data);
                             }
                         }
                         break;
                 }
-                $this->error(self::NOT_STEP);
-                return false;
+
+                return $this->buildErrorValidationResult($data, self::NOT_STEP);
             }
 
             // Check time units
             if (in_array($intervalUnit, array('hours', 'minutes', 'seconds'))) {
-
                 // Simple test if $stepValue is 1.
                 if (1 == $stepValue) {
                     if ('hours' === $intervalUnit
                         && 0 == $diffParts['minutes'] && 0 == $diffParts['seconds']
                     ) {
-                        return true;
+                        return new ValidationResult($data);
                     } elseif ('minutes' === $intervalUnit && 0 == $diffParts['seconds']) {
-                        return true;
+                        return new ValidationResult($data);
                     } elseif ('seconds' === $intervalUnit) {
-                        return true;
+                        return new ValidationResult($data);
                     }
                 }
 
@@ -315,7 +252,7 @@ class DateStep extends Date
                         case 'hours':
                             if (0 == $diffParts['minutes'] && 0 == $diffParts['seconds']) {
                                 if (($diffParts['hours'] % $stepValue) === 0) {
-                                    return true;
+                                    return new ValidationResult($data);
                                 }
                             }
                             break;
@@ -323,7 +260,7 @@ class DateStep extends Date
                             if (0 == $diffParts['seconds']) {
                                 $minutes = ($diffParts['hours'] * 60) + $diffParts['minutes'];
                                 if (($minutes % $stepValue) === 0) {
-                                    return true;
+                                    return new ValidationResult($data);
                                 }
                             }
                             break;
@@ -332,12 +269,12 @@ class DateStep extends Date
                                        + ($diffParts['minutes'] * 60)
                                        + $diffParts['seconds'];
                             if (($seconds % $stepValue) === 0) {
-                                return true;
+                                return new ValidationResult($data);
                             }
                             break;
                     }
-                    $this->error(self::NOT_STEP);
-                    return false;
+
+                    return $this->buildErrorValidationResult($data, self::NOT_STEP);
                 }
             }
         }
@@ -349,19 +286,53 @@ class DateStep extends Date
             while ($baseDate < $valueDate) {
                 $baseDate->add($step);
                 if ($baseDate == $valueDate) {
-                    return true;
+                    return new ValidationResult($data);
                 }
             }
         } else {
             while ($baseDate > $valueDate) {
                 $baseDate->sub($step);
                 if ($baseDate == $valueDate) {
-                    return true;
+                    return new ValidationResult($data);
                 }
             }
         }
 
-        $this->error(self::NOT_STEP);
-        return false;
+        return $this->buildErrorValidationResult($data, self::NOT_STEP);
+    }
+
+    /**
+     * Converts an int or string to a DateTime object
+     *
+     * @param  string|int|DateTime $param
+     * @return DateTime
+     * @throws Exception\InvalidArgumentException
+     */
+    protected function convertToDateTime($param)
+    {
+        $dateObj = $param;
+
+        if (is_int($param)) {
+            // Convert from timestamp
+            $dateObj = date_create("@$param");
+        } elseif (is_string($param)) {
+            // Custom week format support
+            if (strpos($this->getFormat(), 'Y-\WW') === 0
+                && preg_match('/^([0-9]{4})\-W([0-9]{2})/', $param, $matches)
+            ) {
+                $dateObj = new DateTime();
+                $dateObj->setISODate($matches[1], $matches[2]);
+            } else {
+                $dateObj = DateTime::createFromFormat(
+                    $this->getFormat(), $param, $this->getTimezone()
+                );
+            }
+        }
+
+        if (!($dateObj instanceof DateTime)) {
+            throw new Exception\InvalidArgumentException('Invalid date param given');
+        }
+
+        return $dateObj;
     }
 }

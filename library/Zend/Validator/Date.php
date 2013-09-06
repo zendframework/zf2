@@ -11,64 +11,65 @@ namespace Zend\Validator;
 
 use DateTime;
 use Traversable;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * A validator that can validate if a date is valid (optionally according a given format)
+ *
+ * Accepted options are:
+ *      - message_templates
+ *      - message_variables
+ *      - format
+ */
 class Date extends AbstractValidator
 {
-    const INVALID        = 'dateInvalid';
-    const INVALID_DATE   = 'dateInvalidDate';
-    const FALSEFORMAT    = 'dateFalseFormat';
+    /**
+     * Error codes
+     */
+    const INVALID      = 'dateInvalid';
+    const INVALID_DATE = 'dateInvalidDate';
+    const FALSE_FORMAT = 'dateFalseFormat';
 
     /**
-     * Validation failure message template definitions
+     * Validation error messages templates
      *
      * @var array
      */
     protected $messageTemplates = array(
-        self::INVALID        => "Invalid type given. String, integer, array or DateTime expected",
-        self::INVALID_DATE   => "The input does not appear to be a valid date",
-        self::FALSEFORMAT    => "The input does not fit the date format '%format%'",
+        self::INVALID      => "Invalid type given. String, integer, array or DateTime expected",
+        self::INVALID_DATE => "The input does not appear to be a valid date",
+        self::FALSE_FORMAT => "The input does not fit the date format '%format%'",
     );
 
     /**
+     * Variables that can get injected
+     *
      * @var array
      */
-    protected $messageVariables = array(
-        'format'  => 'format'
-    );
+    protected $messageVariables = array('format');
 
     /**
-     * Optional format
+     * Date format to validate against
      *
-     * @var string|null
+     * @var string
      */
-    protected $format;
+    protected $format = 'Y-m-d';
 
     /**
-     * Sets validator options
+     * Set the format option
      *
-     * @param  string|array|Traversable $options OPTIONAL
+     * @param  string $format
+     * @return void
      */
-    public function __construct($options = array())
+    public function setFormat($format)
     {
-        if ($options instanceof Traversable) {
-            $options = iterator_to_array($options);
-        } elseif (!is_array($options)) {
-            $options = func_get_args();
-            $temp['format'] = array_shift($options);
-            $options = $temp;
-        }
-
-        if (array_key_exists('format', $options)) {
-            $this->setFormat($options['format']);
-        }
-
-        parent::__construct($options);
+        $this->format = (string) $format;
     }
 
     /**
-     * Returns the format option
+     * Get the format option
      *
-     * @return string|null
+     * @return string
      */
     public function getFormat()
     {
@@ -76,81 +77,46 @@ class Date extends AbstractValidator
     }
 
     /**
-     * Sets the format option
-     *
-     * @param  string $format
-     * @return Date provides a fluent interface
-     */
-    public function setFormat($format = null)
-    {
-        $this->format = $format;
-        return $this;
-    }
-
-    /**
      * Returns true if $value is a valid date of the format YYYY-MM-DD
-     * If optional $format is set the date format is checked
-     * according to DateTime
      *
-     * @param  string|array|int|DateTime $value
-     * @return bool
+     * If $format is set to something else, the date format is checked according to DateTime
+     *
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value)
-            && !is_array($value)
-            && !is_int($value)
-            && !($value instanceof DateTime)
+        if (!is_string($data)
+            && !is_array($data)
+            && !is_int($data)
+            && !($data instanceof DateTime)
         ) {
-            $this->error(self::INVALID);
-            return false;
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
-
-        $format = $this->getFormat();
-
-        if ($value instanceof DateTime) {
-            return true;
-        } elseif (is_int($value)
-            || (is_string($value) && null !== $format)
-        ) {
-            $date = (is_int($value))
-                    ? date_create("@$value") // from timestamp
-                    : DateTime::createFromFormat($format, $value);
-
-            // Invalid dates can show up as warnings (ie. "2007-02-99")
-            // and still return a DateTime object
-            $errors = DateTime::getLastErrors();
-
-            if ($errors['warning_count'] > 0) {
-                $this->error(self::INVALID_DATE);
-                return false;
-            }
-            if ($date === false) {
-                $this->error(self::INVALID_DATE);
-                return false;
-            }
-        } else {
-            if (is_array($value)) {
-                $value = implode('-', $value);
-            }
-
-            if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
-                $this->format = 'Y-m-d';
-                $this->error(self::FALSEFORMAT);
-                $this->format = null;
-                return false;
-            }
-
-            list($year, $month, $day) = sscanf($value, '%d-%d-%d');
-
-            if (!checkdate($month, $day, $year)) {
-                $this->error(self::INVALID_DATE);
-                return false;
-            }
+        if ($data instanceof DateTime) {
+            return new ValidationResult($data);
         }
 
-        return true;
+        if (is_array($data)) {
+            $data = implode('-', $data);
+        }
+
+        $date = is_int($data)
+            ? date_create("@$data") // from timestamp
+            : DateTime::createFromFormat($this->format, $data);
+
+        // Invalid dates can show up as warnings (ie. "2007-02-99") and still return
+        // a valid DateTime object.
+        $errors = DateTime::getLastErrors();
+
+        if ($errors['error_count'] > 0) {
+            return $this->buildErrorValidationResult($data, self::FALSE_FORMAT);
+        }
+
+        if ($errors['warning_count'] > 0 || $date === false) {
+            return $this->buildErrorValidationResult($data, self::INVALID_DATE);
+        }
+
+        return new ValidationResult($data);
     }
 }

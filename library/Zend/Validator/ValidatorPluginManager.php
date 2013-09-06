@@ -20,6 +20,105 @@ class ValidatorPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
+        'Zend\I18n\Validator\Alnum'                => 'Zend\I18n\Validator\Alnum',
+        'Zend\I18n\Validator\Alpha'                => 'Zend\I18n\Validator\Alpha',
+        'Zend\Validator\Barcode\Code25interleaved' => 'Zend\Validator\Barcode\Code25interleaved',
+        'Zend\Validator\Barcode\Code25'            => 'Zend\Validator\Barcode\Code25',
+        'Zend\Validator\Barcode\Code39ext'         => 'Zend\Validator\Barcode\Code39ext',
+        'Zend\Validator\Barcode\Code39'            => 'Zend\Validator\Barcode\Code39',
+        'Zend\Validator\Barcode\Code93ext'         => 'Zend\Validator\Barcode\Code93ext',
+        'Zend\Validator\Barcode\Code93'            => 'Zend\Validator\Barcode\Code93',
+        'Zend\Validator\Barcode\Ean12'             => 'Zend\Validator\Barcode\Ean12',
+        'Zend\Validator\Barcode\Ean13'             => 'Zend\Validator\Barcode\Ean13',
+        'Zend\Validator\Barcode\Ean14'             => 'Zend\Validator\Barcode\Ean14',
+        'Zend\Validator\Barcode\Ean18'             => 'Zend\Validator\Barcode\Ean18',
+        'Zend\Validator\Barcode\Ean2'              => 'Zend\Validator\Barcode\Ean2',
+        'Zend\Validator\Barcode\Ean5'              => 'Zend\Validator\Barcode\Ean5',
+        'Zend\Validator\Barcode\Ean8'              => 'Zend\Validator\Barcode\Ean8',
+        'Zend\Validator\Barcode\Gtin12'            => 'Zend\Validator\Barcode\Gtin12',
+        'Zend\Validator\Barcode\Gtin13'            => 'Zend\Validator\Barcode\Gtin13',
+        'Zend\Validator\Barcode\Gtin14'            => 'Zend\Validator\Barcode\Gtin14',
+        'Zend\Validator\Barcode\Identcode'         => 'Zend\Validator\Barcode\Identcode',
+        'Zend\Validator\Barcode\Intelligentmail'   => 'Zend\Validator\Barcode\Intelligentmail',
+        'Zend\Validator\Barcode\Issn'              => 'Zend\Validator\Barcode\Issn',
+        'Zend\Validator\Barcode\Itf14'             => 'Zend\Validator\Barcode\Itf14',
+        'Zend\Validator\Barcode\Leitcode'          => 'Zend\Validator\Barcode\Leitcode',
+        'Zend\Validator\Barcode\Planet'            => 'Zend\Validator\Barcode\Planet',
+        'Zend\Validator\Barcode\Postnet'           => 'Zend\Validator\Barcode\Postnet',
+        'Zend\Validator\Barcode\Royalmail'         => 'Zend\Validator\Barcode\Royalmail',
+        'Zend\Validator\Barcode\Sscc'              => 'Zend\Validator\Barcode\Sscc',
+        'Zend\Validator\Barcode\Upca'              => 'Zend\Validator\Barcode\Upca',
+        'Zend\Validator\Barcode\Upce'              => 'Zend\Validator\Barcode\Upce',
+        'Zend\Validator\Barcode'                   => 'Zend\Validator\Barcode',
+        'Zend\Validator\Between'                   => 'Zend\Validator\Between',
+        'Zend\Validator\Callback'                  => 'Zend\Validator\Callback',
+        'Zend\Validator\CreditCard'                => 'Zend\Validator\CreditCard',
+        'Zend\Validator\Csrf'                      => 'Zend\Validator\Csrf',
+        'Zend\Validator\Date'                      => 'Zend\Validator\Date',
+        'Zend\Validator\DateStep'                  => 'Zend\Validator\DateStep',
+        'Zend\I18n\Validator\DateTime'             => 'Zend\I18n\Validator\DateTime',
+        'Zend\Validator\Db\NoRecordExists'         => 'Zend\Validator\Db\NoRecordExists',
+        'Zend\Validator\Db\RecordExists'           => 'Zend\Validator\Db\RecordExists',
+        'Zend\Validator\Digits'                    => 'Zend\Validator\Digits',
+        'Zend\Validator\EmailAddress'              => 'Zend\Validator\EmailAddress',
+        'Zend\Validator\Explode'                   => 'Zend\Validator\Explode',
+        'Zend\Validator\File\Count'                => 'Zend\Validator\File\Count',
+        'Zend\Validator\File\Crc32'                => 'Zend\Validator\File\Crc32',
+        'Zend\Validator\File\ExcludeExtension'     => 'Zend\Validator\File\ExcludeExtension',
+        'Zend\Validator\File\ExcludeMimeType'      => 'Zend\Validator\File\ExcludeMimeType',
+        'Zend\Validator\File\Exists'               => 'Zend\Validator\File\Exists',
+        'Zend\Validator\File\Extension'            => 'Zend\Validator\File\Extension',
+        'Zend\Validator\File\FilesSize'            => 'Zend\Validator\File\FilesSize',
+        'Zend\Validator\File\Hash'                 => 'Zend\Validator\File\Hash',
+        'Zend\Validator\File\ImageSize'            => 'Zend\Validator\File\ImageSize',
+        'Zend\Validator\File\IsCompressed'         => 'Zend\Validator\File\IsCompressed',
+        'Zend\Validator\File\IsImage'              => 'Zend\Validator\File\IsImage',
+        'Zend\Validator\File\Md5'                  => 'Zend\Validator\File\Md5',
+        'Zend\Validator\File\MimeType'             => 'Zend\Validator\File\MimeType',
+        'Zend\Validator\File\NotExists'            => 'Zend\Validator\File\NotExists',
+        'Zend\Validator\File\Sha1'                 => 'Zend\Validator\File\Sha1',
+        'Zend\Validator\File\Size'                 => 'Zend\Validator\File\Size',
+        'Zend\Validator\File\Upload'               => 'Zend\Validator\File\Upload',
+        'Zend\Validator\File\UploadFile'           => 'Zend\Validator\File\UploadFile',
+        'Zend\Validator\File\WordCount'            => 'Zend\Validator\File\WordCount',
+        'Zend\I18n\Validator\Float'                => 'Zend\I18n\Validator\Float',
+        'Zend\Validator\GreaterThan'               => 'Zend\Validator\GreaterThan',
+        'Zend\Validator\Hex'                       => 'Zend\Validator\Hex',
+        'Zend\Validator\Hostname'                  => 'Zend\Validator\Hostname',
+        'Zend\Validator\Iban'                      => 'Zend\Validator\Iban',
+        'Zend\Validator\Identical'                 => 'Zend\Validator\Identical',
+        'Zend\Validator\InArray'                   => 'Zend\Validator\InArray',
+        'Zend\I18n\Validator\Int'                  => 'Zend\I18n\Validator\Int',
+        'Zend\Validator\Ip'                        => 'Zend\Validator\Ip',
+        'Zend\Validator\Isbn'                      => 'Zend\Validator\Isbn',
+        'Zend\Validator\IsInstanceOf'              => 'Zend\Validator\IsInstanceOf',
+        'Zend\Validator\LessThan'                  => 'Zend\Validator\LessThan',
+        'Zend\Validator\NotEmpty'                  => 'Zend\Validator\NotEmpty',
+        'Zend\I18n\Validator\PhoneNumber'          => 'Zend\I18n\Validator\PhoneNumber',
+        'Zend\I18n\Validator\PostCode'             => 'Zend\I18n\Validator\PostCode',
+        'Zend\Validator\Regex'                     => 'Zend\Validator\Regex',
+        'Zend\Validator\Sitemap\Changefreq'        => 'Zend\Validator\Sitemap\Changefreq',
+        'Zend\Validator\Sitemap\Lastmod'           => 'Zend\Validator\Sitemap\Lastmod',
+        'Zend\Validator\Sitemap\Loc'               => 'Zend\Validator\Sitemap\Loc',
+        'Zend\Validator\Sitemap\Priority'          => 'Zend\Validator\Sitemap\Priority',
+        'Zend\Validator\StringLength'              => 'Zend\Validator\StringLength',
+        'Zend\Validator\Step'                      => 'Zend\Validator\Step',
+        'Zend\Validator\Uri'                       => 'Zend\Validator\Uri',
+    );
+
+    /**
+     * @var array
+     */
+    protected $factories = array(
+        'Zend\Validator\ValidatorChain' => 'Zend\Validator\Factory\ValidatorChainFactory'
+    );
+
+    /**
+     * List of aliases
+     *
+     * @var array
+     */
+    protected $aliases = array(
         'alnum'                    => 'Zend\I18n\Validator\Alnum',
         'alpha'                    => 'Zend\I18n\Validator\Alpha',
         'barcodecode25interleaved' => 'Zend\Validator\Barcode\Code25interleaved',
@@ -114,50 +213,6 @@ class ValidatorPluginManager extends AbstractPluginManager
     protected $shareByDefault = false;
 
     /**
-     * Constructor
-     *
-     * After invoking parent constructor, add an initializer to inject the
-     * attached translator, if any, to the currently requested helper.
-     *
-     * @param  null|ConfigInterface $configuration
-     */
-    public function __construct(ConfigInterface $configuration = null)
-    {
-        parent::__construct($configuration);
-        $this->addInitializer(array($this, 'injectTranslator'));
-        $this->addInitializer(array($this, 'injectValidatorPluginManager'));
-    }
-
-    /**
-     * Inject a validator instance with the registered translator
-     *
-     * @param  ValidatorInterface $validator
-     * @return void
-     */
-    public function injectTranslator($validator)
-    {
-        if ($validator instanceof Translator\TranslatorAwareInterface) {
-            $locator = $this->getServiceLocator();
-            if ($locator && $locator->has('MvcTranslator')) {
-                $validator->setTranslator($locator->get('MvcTranslator'));
-            }
-        }
-    }
-
-    /**
-     * Inject a validator plugin manager
-     *
-     * @param $validator
-     * @return void
-     */
-    public function injectValidatorPluginManager($validator)
-    {
-        if ($validator instanceof ValidatorPluginManagerAwareInterface) {
-            $validator->setValidatorPluginManager($this);
-        }
-    }
-
-    /**
      * Validate the plugin
      *
      * Checks that the validator loaded is an instance of ValidatorInterface.
@@ -168,13 +223,13 @@ class ValidatorPluginManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof ValidatorInterface) {
+        if ($plugin instanceof ValidatorInterface || is_callable($plugin)) {
             // we're okay
             return;
         }
 
         throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\ValidatorInterface',
+            'Plugin of type %s is invalid; must implement %s\ValidatorInterface or be callable',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
             __NAMESPACE__
         ));
