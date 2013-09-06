@@ -38,8 +38,6 @@ class BlockCipherAdapter implements EncryptionAdapterInterface
         'hash'                => 'sha256',
     );
 
-
-
     /**
      * BlockCipher
      *
