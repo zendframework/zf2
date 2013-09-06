@@ -9,8 +9,14 @@
 
 namespace Zend\Filter;
 
+/**
+ * Filter that transforms any value to a null representation based on some criteria
+ */
 class Null extends AbstractFilter
 {
+    /**
+     * Type constants
+     */
     const TYPE_BOOLEAN      = 1;
     const TYPE_INTEGER      = 2;
     const TYPE_EMPTY_ARRAY  = 4;
@@ -27,7 +33,7 @@ class Null extends AbstractFilter
     /**
      * Set boolean types
      *
-     * @param  int|array $type
+     * @param  int $type
      * @throws Exception\InvalidArgumentException
      * @return void
      */
@@ -57,6 +63,7 @@ class Null extends AbstractFilter
     /**
      * Returns null representation of $value, if value is empty and matches
      * types that should be considered null.
+     *
      * {@inheritDoc}
      */
     public function filter($value)

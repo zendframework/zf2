@@ -9,6 +9,9 @@
 
 namespace Zend\Filter;
 
+/**
+ * Filter that uses preg_replace method to perform a replacement in a string
+ */
 class PregReplace extends AbstractFilter
 {
     /**
@@ -98,7 +101,7 @@ class PregReplace extends AbstractFilter
     {
         if (null === $this->pattern) {
             throw new Exception\RuntimeException(sprintf(
-                'Filter %s does not have a valid pattern set',
+                'Filter "%s" does not have a valid pattern set',
                 get_class($this)
             ));
         }
@@ -113,7 +116,7 @@ class PregReplace extends AbstractFilter
      * @return bool
      * @throws Exception\InvalidArgumentException
      */
-    private function validatePattern($pattern)
+    protected function validatePattern($pattern)
     {
         if (!preg_match('/(?<modifier>[imsxeADSUXJu]+)$/', $pattern, $matches)) {
             return true;

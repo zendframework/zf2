@@ -9,6 +9,9 @@
 
 namespace Zend\Filter;
 
+/**
+ * Filter that uses any valid callable with optional parameters
+ */
 class Callback extends AbstractFilter
 {
     /**

@@ -11,6 +11,9 @@ namespace Zend\Filter;
 
 use DateTime;
 
+/**
+ * Filter that formats a date (either string, int or DateTime) to a given format
+ */
 class DateTimeFormatter extends AbstractFilter
 {
     /**
@@ -28,7 +31,7 @@ class DateTimeFormatter extends AbstractFilter
      */
     public function setFormat($format)
     {
-        $this->format = $format;
+        $this->format = (string) $format;
     }
 
     /**

@@ -125,6 +125,8 @@ class FilterPluginManager extends AbstractPluginManager
     );
 
     /**
+     * @TODO: Any filter that does not have any option should be shared by default
+     *
      * Whether or not to share by default; default to false
      *
      * @var bool

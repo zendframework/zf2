@@ -9,6 +9,9 @@
 
 namespace Zend\Filter;
 
+/**
+ * Filter that removes all non-digit characters (even thousand separators and commas)
+ */
 class Digits extends AbstractFilter
 {
     /**

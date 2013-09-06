@@ -12,6 +12,12 @@ namespace Zend\Filter;
 use Countable;
 use Zend\Stdlib\PriorityQueue;
 
+/**
+ * A filter chain is a specific filter that allows to execute multiple filters one after the other
+ *
+ * All the filters are saved inside a priority queue, which allows them to be called in a
+ * specific ordered
+ */
 class FilterChain extends AbstractFilter implements Countable
 {
     /**
@@ -74,16 +80,9 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function attachByName($name, array $options = array(), $priority = self::DEFAULT_PRIORITY)
     {
-        // @TODO: if we somewhat formalize the concept of options, we should be able to have a second
-        // parameter for each plugin manager, which would be option, and the plugin manager would
-        // automatically inject options for us
+        // @TODO: this may not work yet because the SM does not support options
 
-        $filter = $this->filterPluginManager->get($name);
-
-        if (method_exists($filter, 'setOptions')) {
-            $filter->setOptions($options);
-        }
-
+        $filter = $this->filterPluginManager->get($name, $options);
         $this->filters->insert($filter, $priority);
     }
 
@@ -139,13 +138,11 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function filter($value)
     {
-        $filteredValue = $value;
-
         foreach ($this->filters as $filter) {
-            $filteredValue = $filter($filteredValue);
+            $value = $filter($value);
         }
 
-        return $filteredValue;
+        return $value;
     }
 
     /**

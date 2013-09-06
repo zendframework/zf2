@@ -9,10 +9,14 @@
 
 namespace Zend\Filter;
 
+/**
+ * Filter that returns the directory name of a path
+ */
 class Dir extends AbstractFilter
 {
     /**
-     * Returns dirname($value)
+     * Returns the directory name of a path
+     *
      * {@inheritDoc}
      */
     public function filter($value)

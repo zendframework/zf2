@@ -9,10 +9,14 @@
 
 namespace Zend\Filter;
 
+/**
+ * Filter that returns the file name component of a path
+ */
 class BaseName extends AbstractFilter
 {
     /**
-     * Returns the basename of the value
+     * Returns the base name of the value
+     *
      * {@inheritDoc}
      */
     public function filter($value)

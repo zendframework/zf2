@@ -55,7 +55,7 @@ class Compress extends AbstractFilter
     public function setAdapter($adapter)
     {
         if (is_string($adapter)) {
-            $adapter = $this->adapterPluginManager->get($adapter);
+            $adapter = $this->adapterPluginManager->get($adapter, $this->adapterOptions);
         }
 
         $this->adapter = $adapter;

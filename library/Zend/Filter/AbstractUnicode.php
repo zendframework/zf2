@@ -9,6 +9,9 @@
 
 namespace Zend\Filter;
 
+/**
+ * Base class for all filters that need unicode support
+ */
 abstract class AbstractUnicode extends AbstractFilter
 {
     /**
@@ -17,12 +20,10 @@ abstract class AbstractUnicode extends AbstractFilter
     protected $encoding;
 
     /**
-     * Class constructor
-     *
-     * @param  array|null $options
+     * @param  array $options
      * @throws Exception\ExtensionNotLoadedException
      */
-    public function __construct($options = null)
+    public function __construct(array $options = array())
     {
         if (!extension_loaded('mbstring')) {
             throw new Exception\ExtensionNotLoadedException(sprintf(

@@ -9,26 +9,25 @@
 
 namespace Zend\Filter;
 
+/**
+ * Allow to execute any filter statically
+ */
 class StaticFilter
 {
     /**
      * @var FilterPluginManager
      */
-    protected static $plugins;
+    protected static $filterPluginManager;
 
     /**
      * Set plugin manager for resolving filter classes
      *
-     * @param  FilterPluginManager $manager
+     * @param  FilterPluginManager $filterPluginManager
      * @return void
      */
-    public static function setPluginManager(FilterPluginManager $manager = null)
+    public static function setPluginManager(FilterPluginManager $filterPluginManager)
     {
-        // Don't share by default to allow different arguments on subsequent calls
-        if ($manager instanceof FilterPluginManager) {
-            $manager->setShareByDefault(false);
-        }
-        static::$plugins = $manager;
+        static::$filterPluginManager = $filterPluginManager;
     }
 
     /**
@@ -38,10 +37,11 @@ class StaticFilter
      */
     public static function getPluginManager()
     {
-        if (null === static::$plugins) {
+        if (null === static::$filterPluginManager) {
             static::setPluginManager(new FilterPluginManager());
         }
-        return static::$plugins;
+
+        return static::$filterPluginManager;
     }
 
     /**
@@ -54,17 +54,16 @@ class StaticFilter
      * creates an instance, and applies the filter() method to the data input. You can also pass
      * an array of constructor arguments, if they are needed for the filter class.
      *
-     * @param  mixed        $value
-     * @param  string       $classBaseName
-     * @param  array        $args          OPTIONAL
+     * @param  mixed  $value
+     * @param  string $name
+     * @param  array  $options          OPTIONAL
      * @return mixed
      * @throws Exception\ExceptionInterface
      */
-    public static function execute($value, $classBaseName, array $args = array())
+    public static function execute($value, $name, array $options = array())
     {
-        $plugins = static::getPluginManager();
+        $filter = static::getPluginManager()->get($name, $options);
 
-        $filter = $plugins->get($classBaseName, $args);
         return $filter->filter($value);
     }
 }

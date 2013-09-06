@@ -9,10 +9,14 @@
 
 namespace Zend\Filter;
 
+/**
+ * Filter that cast any value to an int
+ */
 class Int extends AbstractFilter
 {
     /**
      * Returns (int) $value
+     *
      * {@inheritDoc}
      */
     public function filter($value)

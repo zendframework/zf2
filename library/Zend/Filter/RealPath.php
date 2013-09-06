@@ -12,6 +12,9 @@ namespace Zend\Filter;
 use Traversable;
 use Zend\Stdlib\ErrorHandler;
 
+/**
+ * Filter that retrieves the real path (canonicalized absolute path name) of a value
+ */
 class RealPath extends AbstractFilter
 {
     /**
@@ -23,7 +26,7 @@ class RealPath extends AbstractFilter
      * Sets if the path has to exist (false when not existing paths can be given)
      *
      * @param  bool $exists True if path must exist, false otherwise
-     * @return RealPath
+     * @return void
      */
     public function setExists($exists)
     {
@@ -41,7 +44,8 @@ class RealPath extends AbstractFilter
     }
 
     /**
-     * Returns realpath($value)
+     * Return the canonicalized absolute path name of the value
+     *
      * {@inheritDoc}
      */
     public function filter($value)
@@ -61,6 +65,7 @@ class RealPath extends AbstractFilter
         }
 
         $drive = '';
+
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $path = preg_replace('/[\\\\\/]/', DIRECTORY_SEPARATOR, $path);
             if (preg_match('/([a-zA-Z]\:)(.*)/', $path, $matches)) {

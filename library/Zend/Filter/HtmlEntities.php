@@ -9,34 +9,37 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-use Zend\Stdlib\ArrayUtils;
-
+/**
+ * Filter that convert characters to their HTML representation
+ *
+ * NOTE: if you are using this to sanitize your values, you'd better use the Escaper
+ * component in your views, as it is more secure
+ */
 class HtmlEntities extends AbstractFilter
 {
     /**
-     * Corresponds to the second htmlentities() argument
+     * The quote style
      *
      * @var int
      */
     protected $quoteStyle = ENT_QUOTES;
 
     /**
-     * Corresponds to the third htmlentities() argument
+     * The encoding
      *
      * @var string
      */
     protected $encoding = 'UTF-8';
 
     /**
-     * Corresponds to the forth htmlentities() argument
+     * If set to false, PHP will not encode existing HTML entities
      *
      * @var bool
      */
-    protected $doubleQuote = true;
+    protected $doubleEncode = true;
 
     /**
-     * Sets the quote style option
+     * Set the quote style option
      *
      * @param  int $quoteStyle
      * @return void
@@ -47,7 +50,7 @@ class HtmlEntities extends AbstractFilter
     }
 
     /**
-     * Returns the quote style option
+     * Get the quote style option
      *
      * @return int
      */
@@ -78,14 +81,14 @@ class HtmlEntities extends AbstractFilter
     }
 
     /**
-     * Sets the double quote option
+     * Set the double encode option
      *
-     * @param  bool $doubleQuote
+     * @param  bool $doubleEncode
      * @return void
      */
-    public function setDoubleQuote($doubleQuote)
+    public function setDoubleEncode($doubleEncode)
     {
-        $this->doubleQuote = (bool) $doubleQuote;
+        $this->doubleEncode = (bool) $doubleEncode;
     }
 
     /**
@@ -93,19 +96,20 @@ class HtmlEntities extends AbstractFilter
      *
      * @return bool
      */
-    public function getDoubleQuote()
+    public function getDoubleEncode()
     {
-        return $this->doubleQuote;
+        return $this->doubleEncode;
     }
 
     /**
      * Returns the string $value, converting characters to their corresponding HTML entity
      * equivalents where they exist
+     *
      * {@inheritDoc}
      */
     public function filter($value)
     {
-        $filtered = htmlentities((string) $value, $this->quoteStyle, $this->encoding, $this->doubleQuote);
+        $filtered = htmlentities((string) $value, $this->quoteStyle, $this->encoding, $this->doubleEncode);
 
         if (strlen((string) $value) && !strlen($filtered)) {
             if (!function_exists('iconv')) {
@@ -114,7 +118,7 @@ class HtmlEntities extends AbstractFilter
 
             // Ignored characters that cannot be represented in the target encoding
             $value    = iconv('', $this->encoding . '//IGNORE', (string) $value);
-            $filtered = htmlentities($value, $this->quoteStyle, $this->encoding, $this->doubleQuote);
+            $filtered = htmlentities($value, $this->quoteStyle, $this->encoding, $this->doubleEncode);
 
             if (!strlen($filtered)) {
                 throw new Exception\DomainException('Encoding mismatch has resulted in htmlentities errors');
