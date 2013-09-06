@@ -9,6 +9,12 @@
 
 namespace Zend\Filter;
 
+/**
+ * Interface that all Zend Framework 3 filters implement
+ *
+ * NOTE: a filter implements the __invoke magic method, which implies that each filter
+ * is a callable and can be called this way: $filter($value)
+ */
 interface FilterInterface
 {
     /**

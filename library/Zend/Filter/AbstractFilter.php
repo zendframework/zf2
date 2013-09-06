@@ -9,10 +9,25 @@
 
 namespace Zend\Filter;
 
-use Zend\Stdlib\AbstractOptions;
-
-abstract class AbstractFilter extends AbstractOptions implements FilterInterface
+abstract class AbstractFilter implements FilterInterface
 {
+    /**
+     * @param array $options
+     */
+    public function __construct(array $options = array())
+    {
+        $this->setOptions($options);
+    }
+
+    /**
+     * Set options for the given filter
+     * 
+     * @param array $options
+     */
+    public function setOptions(array $options)
+    {
+    }
+
     /**
      * {@inheritDoc}
      */
