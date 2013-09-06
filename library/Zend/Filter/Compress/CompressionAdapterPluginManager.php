@@ -20,13 +20,28 @@ class CompressionAdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        'bz2'    => 'Zend\Filter\Compress\Bz2',
-        'gz'     => 'Zend\Filter\Compress\Gz',
-        'lzf'    => 'Zend\Filter\Compress\Lzf',
-        'rar'    => 'Zend\Filter\Compress\Rar',
-        'snappy' => 'Zend\Filter\Compress\Snappy',
-        'tar'    => 'Zend\Filter\Compress\Tar',
-        'zip'    => 'Zend\Filter\Compress\Zip',
+        'Zend\Filter\Compress\Bz2Adapter'    => 'Zend\Filter\Compress\Bz2Adapter',
+        'Zend\Filter\Compress\GzAdapter'     => 'Zend\Filter\Compress\GzAdapter',
+        'Zend\Filter\Compress\LzfAdapter'    => 'Zend\Filter\Compress\LzfAdapter',
+        'Zend\Filter\Compress\RarAdapter'    => 'Zend\Filter\Compress\RarAdapter',
+        'Zend\Filter\Compress\SnappyAdapter' => 'Zend\Filter\Compress\SnappyAdapter',
+        'Zend\Filter\Compress\TarAdapter'    => 'Zend\Filter\Compress\TarAdapter',
+        'Zend\Filter\Compress\ZipAdapter'    => 'Zend\Filter\Compress\ZipAdapter',
+    );
+
+    /**
+     * List of aliases
+     *
+     * @var array
+     */
+    protected $aliases = array(
+        'bz2'    => 'Zend\Filter\Compress\Bz2Adapter',
+        'gz'     => 'Zend\Filter\Compress\GzAdapter',
+        'lzf'    => 'Zend\Filter\Compress\LzfAdapter',
+        'rar'    => 'Zend\Filter\Compress\RarAdapter',
+        'snappy' => 'Zend\Filter\Compress\SnappyAdapter',
+        'tar'    => 'Zend\Filter\Compress\TarAdapter',
+        'zip'    => 'Zend\Filter\Compress\ZipAdapter',
     );
 
     /**

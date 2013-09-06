@@ -14,6 +14,6 @@ use Zend\Stdlib\AbstractOptions;
 /**
  * Abstract compression adapter
  */
-abstract class AbstractCompressionAdapter extends AbstractOptions implements CompressionAdapterInterface
+abstract class AbstractCompressionAdapter implements CompressionAdapterInterface
 {
 }

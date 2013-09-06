@@ -14,7 +14,7 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Lzf
  */
-class Lzf implements CompressionAdapterInterface
+class LzfAdapter implements CompressionAdapterInterface
 {
     /**
      * Class constructor

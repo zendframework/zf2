@@ -12,6 +12,9 @@ namespace Zend\Filter\File;
 use Zend\Filter\Exception;
 use Zend\Filter\StringToUpper;
 
+/**
+ * Filter that uppercase the content of a file
+ */
 class UpperCase extends StringToUpper
 {
     /**
@@ -21,13 +24,14 @@ class UpperCase extends StringToUpper
      *
      * @param  string|array $value Full path of file to change or $_FILES data array
      * @return string|array The given $value
-     * @throws Exception\RuntimeException
      * @throws Exception\InvalidArgumentException
+     * @throws Exception\RuntimeException
      */
     public function filter($value)
     {
         // An uploaded file? Retrieve the 'tmp_name'
         $isFileUpload = (is_array($value) && isset($value['tmp_name']));
+
         if ($isFileUpload) {
             $uploadData = $value;
             $value      = $value['tmp_name'];
@@ -38,7 +42,7 @@ class UpperCase extends StringToUpper
         }
 
         if (!is_writable($value)) {
-            throw new Exception\InvalidArgumentException("File '$value' is not writable");
+            throw new Exception\RuntimeException("File '$value' is not writable");
         }
 
         $content = file_get_contents($value);
@@ -56,6 +60,7 @@ class UpperCase extends StringToUpper
         if ($isFileUpload) {
             return $uploadData;
         }
+
         return $value;
     }
 }

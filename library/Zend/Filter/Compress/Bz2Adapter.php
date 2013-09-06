@@ -14,7 +14,7 @@ use Zend\Filter\Exception;
 /**
  * Compression adapter for Bz2
  */
-class Bz2 extends AbstractCompressionAdapter
+class Bz2Adapter extends AbstractCompressionAdapter
 {
     /**
      * @var int

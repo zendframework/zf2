@@ -12,6 +12,9 @@ namespace Zend\Filter\File;
 use Zend\Filter\Exception;
 use Zend\Filter\StringToLower;
 
+/**
+ * Filter that lowercase the content of a file
+ */
 class LowerCase extends StringToLower
 {
     /**
@@ -28,6 +31,7 @@ class LowerCase extends StringToLower
     {
         // An uploaded file? Retrieve the 'tmp_name'
         $isFileUpload = (is_array($value) && isset($value['tmp_name']));
+
         if ($isFileUpload) {
             $uploadData = $value;
             $value      = $value['tmp_name'];
@@ -56,6 +60,7 @@ class LowerCase extends StringToLower
         if ($isFileUpload) {
             return $uploadData;
         }
+
         return $value;
     }
 }

@@ -32,8 +32,6 @@ class FilterPluginManager extends AbstractPluginManager
         'Zend\Filter\DateTimeFormatter'          => 'Zend\Filter\DateTimeFormatter',
         'Zend\Filter\Digits'                     => 'Zend\Filter\Digits',
         'Zend\Filter\Dir'                        => 'Zend\Filter\Dir',
-        'Zend\Filter\File\Decrypt'               => 'Zend\Filter\File\Decrypt',
-        'Zend\Filter\File\Encrypt'               => 'Zend\Filter\File\Encrypt',
         'Zend\Filter\File\LowerCase'             => 'Zend\Filter\File\LowerCase',
         'Zend\Filter\File\RenameUpload'          => 'Zend\Filter\File\RenameUpload',
         'Zend\Filter\File\UpperCase'             => 'Zend\Filter\File\UpperCase',
@@ -70,11 +68,13 @@ class FilterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = array(
-        'Zend\Crypt\Decrypt'      => 'Zend\Crypt\Factory\DecryptFilterFactory',
-        'Zend\Crypt\Encrypt'      => 'Zend\Crypt\Factory\EncryptFilterFactory',
-        'Zend\Filter\Compress'    => 'Zend\Filter\Factory\CompressFilterFactory',
-        'Zend\Filter\Decompress'  => 'Zend\Filter\Factory\DecompressFilterFactory',
-        'Zend\Filter\FilterChain' => 'Zend\Filter\Factory\FilterChainFactory'
+        'Zend\Crypt\Filter\Decrypt'      => 'Zend\Crypt\Factory\DecryptFilterFactory',
+        'Zend\Crypt\Filter\Encrypt'      => 'Zend\Crypt\Factory\EncryptFilterFactory',
+        'Zend\Crypt\Filter\File\Decrypt' => 'Zend\Crypt\Factory\DecryptFileFilterFactory',
+        'Zend\Crypt\Filter\File\Encrypt' => 'Zend\Crypt\Factory\EncryptFileFilterFactory',
+        'Zend\Filter\Compress'           => 'Zend\Filter\Factory\CompressFilterFactory',
+        'Zend\Filter\Decompress'         => 'Zend\Filter\Factory\DecompressFilterFactory',
+        'Zend\Filter\FilterChain'        => 'Zend\Filter\Factory\FilterChainFactory'
     );
 
     protected $aliases = array(
@@ -86,12 +86,12 @@ class FilterPluginManager extends AbstractPluginManager
         'compress'                  => 'Zend\Filter\Factory\CompressFilterFactory',
         'datetimeformatter'         => 'Zend\Filter\DateTimeFormatter',
         'decompress'                => 'Zend\Filter\Factory\DecompressFilterFactory',
-        'decrypt'                   => 'Zend\Filter\Factory\DecryptFilterFactory',
+        'decrypt'                   => 'Zend\Crypt\Filter\Decrypt',
         'digits'                    => 'Zend\Filter\Digits',
         'dir'                       => 'Zend\Filter\Dir',
-        'encrypt'                   => 'Zend\Filter\Factory\EncryptFilterFactory',
-        'filedecrypt'               => 'Zend\Filter\File\Decrypt',
-        'fileencrypt'               => 'Zend\Filter\File\Encrypt',
+        'encrypt'                   => 'Zend\Crypt\Filter\Encrypt',
+        'filedecrypt'               => 'Zend\Crypt\Filter\File\Decrypt',
+        'fileencrypt'               => 'Zend\Crypt\Filter\File\Encrypt',
         'filelowercase'             => 'Zend\Filter\File\LowerCase',
         'filerename'                => 'Zend\Filter\File\Rename',
         'filerenameupload'          => 'Zend\Filter\File\RenameUpload',

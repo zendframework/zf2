@@ -13,6 +13,9 @@ use Zend\Filter\AbstractFilter;
 use Zend\Filter\Exception;
 use Zend\Stdlib\ErrorHandler;
 
+/**
+ * Filter that rename a file (and optionally move it to another location)
+ */
 class RenameUpload extends AbstractFilter
 {
     /**
@@ -246,6 +249,7 @@ class RenameUpload extends AbstractFilter
     {
         $source = $uploadData['tmp_name'];
         $target = $this->getTarget();
+
         if (!isset($target) || $target == '*') {
             $target = $source;
         }
