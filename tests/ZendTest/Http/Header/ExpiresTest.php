@@ -41,6 +41,13 @@ class ExpiresTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Expires: Sun, 06 Nov 1994 08:49:37 GMT', $expiresHeader->toString());
     }
 
+    public function testExpiresFromZeroCreatesValidExpiresHeader()
+    {
+        $expiresHeader = Expires::fromString('Expires: 0');
+        $this->assertInstanceOf('Zend\Http\Header\HeaderInterface', $expiresHeader);
+        $this->assertInstanceOf('Zend\Http\Header\Expires', $expiresHeader);
+    }
+
     /**
      * Implementation specific tests are covered by DateTest
      * @see ZendTest\Http\Header\DateTest

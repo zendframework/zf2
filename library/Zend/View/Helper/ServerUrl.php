@@ -57,6 +57,8 @@ class ServerUrl extends AbstractHelper
     {
         if ($requestUri === true) {
             $path = $_SERVER['REQUEST_URI'];
+        } elseif ($requestUri === false) {
+            return $this;
         } elseif (is_string($requestUri)) {
             $path = $requestUri;
         } else {
