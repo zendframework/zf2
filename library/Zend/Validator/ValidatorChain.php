@@ -97,16 +97,9 @@ class ValidatorChain implements ValidatorInterface, Countable
      */
     public function attachByName($name, array $options = array(), $priority = self::DEFAULT_PRIORITY)
     {
-        // @TODO: if we somewhat formalize the concept of options, we should be able to have a second
-        // parameter for each plugin manager, which would be option, and the plugin manager would
-        // automatically inject options for us
+        // @TODO: this does not work yet until SM supports options
 
-        $validator = $this->validatorPluginManager->get($name);
-
-        if (method_exists($validator, 'setOptions')) {
-            $validator->setOptions($options);
-        }
-
+        $validator = $this->validatorPluginManager->get($name, $options);
         $this->validators->insert($validator, $priority);
     }
 
@@ -124,15 +117,13 @@ class ValidatorChain implements ValidatorInterface, Countable
     }
 
     /**
-     * Set validators using concrete instances or specification
+     * Add validators to the validator chain
      *
-     * @param array[]|ValidatorInterface[] $validators
+     * @param array $validators
+     * @return void
      */
-    public function setValidators(array $validators)
+    public function addValidators(array $validators)
     {
-        $this->validators = new PriorityQueue();
-
-        // @TODO: should specification be handled here or should we provide a factory?
         foreach ($validators as $validator) {
             if ($validator instanceof ValidatorInterface) {
                 $this->attach($validator);
@@ -143,6 +134,18 @@ class ValidatorChain implements ValidatorInterface, Countable
                 $this->attachByName($validator['name'], $options, $priority);
             }
         }
+    }
+
+    /**
+     * Set validators using concrete instances or specification
+     *
+     * @param array[]|ValidatorInterface[] $validators
+     * @return void
+     */
+    public function setValidators(array $validators)
+    {
+        $this->validators = new PriorityQueue();
+        $this->addValidators($validators);
     }
 
     /**
