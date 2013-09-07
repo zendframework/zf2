@@ -100,15 +100,13 @@ class FilterChain extends AbstractFilter implements Countable
     }
 
     /**
-     * Set filters using concrete instances or specification
-     *
-     * @param array|FilterInterface[] $filters
+     * Add filters to the filter chain using concrete instances or specification
+     * 
+     * @param array $filters
+     * @return void
      */
-    public function setFilters(array $filters)
+    public function addFilters(array $filters)
     {
-        $this->filters = new PriorityQueue();
-
-        // @TODO: should specification be handled here or should we provide a factory?
         foreach ($filters as $filter) {
             if (is_callable($filter)) {
                 $this->attach($filter);
@@ -119,6 +117,18 @@ class FilterChain extends AbstractFilter implements Countable
                 $this->attachByName($filter['name'], $options, $priority);
             }
         }
+    }
+
+    /**
+     * Set filters using concrete instances or specification
+     *
+     * @param array|FilterInterface[] $filters
+     * @return void
+     */
+    public function setFilters(array $filters)
+    {
+        $this->filters = new PriorityQueue();
+        $this->addFilters($filters);
     }
 
     /**
