@@ -15,6 +15,23 @@ use Zend\Validator\ValidatorChain;
 
 /**
  * Input filter factory
+ *
+ * This is used to programatically create input or input collection using a simple array
+ * syntax. Some components like Zend\Form takes advantage of this feature.
+ *
+ * Each array specification can accept the following keys:
+ *      - type: (string) name used to fetch the input from the input filter plugin manager
+ *      - name: (string) name of the input
+ *      - required: (bool) automatically add a NotEmpty validator to the Input
+ *      - allow_empty: (bool) allow to validate an input even if empty
+ *      - break_on_failure: (bool) if set to true and validation fails, does not validate next inputs
+ *      - filters: (array) array of filters or array of filters specification
+ *      - overwrite_filters: (bool) if true, the filters in "filters" key overwrite the one that may
+ *                                  have been defined by default in the Input constructor
+ *      - validators: (array) array of validators or array of validators specification
+ *      - overwrite_validators: (bool) if true, the validators in "validators" key overwrite the one that may
+ *                                     have been defined by default in the Input constructor
+ *      - children: (array) allow to specify other specification for nested inputs
  */
 class Factory
 {
@@ -78,10 +95,12 @@ class Factory
                     $input->setBreakOnFailure($value);
                     break;
                 case 'filters':
-                    $this->populateFilters($input, $value);
+                    $overwriteFilters = isset($specification['overwrite_filters']) ? $specification['overwrite_filters'] : false;
+                    $this->populateFilters($input, $value, $overwriteFilters);
                     break;
                 case 'validators':
-                    $this->populateValidators($input, $value);
+                    $overwriteValidators = isset($specification['overwrite_validators']) ? $specification['overwrite_validators'] : false;
+                    $this->populateValidators($input, $value, $overwriteValidators);
                     break;
                 default:
                     // Delegate any other option to a setter method, if any, so that custom
@@ -112,10 +131,12 @@ class Factory
                     $inputCollection->setBreakOnFailure($value);
                     break;
                 case 'filters':
-                    $this->populateFilters($inputCollection, $value);
+                    $overwriteFilters = isset($specification['overwrite_filters']) ? $specification['overwrite_filters'] : false;
+                    $this->populateFilters($inputCollection, $value, $overwriteFilters);
                     break;
                 case 'validators':
-                    $this->populateValidators($inputCollection, $value);
+                    $overwriteValidators = isset($specification['overwrite_validators']) ? $specification['overwrite_validators'] : false;
+                    $this->populateValidators($inputCollection, $value, $overwriteValidators);
                     break;
                 case 'children':
                     foreach ($value as $child) {
@@ -136,58 +157,46 @@ class Factory
     }
 
     /**
-     * @param  InputInterface          $input
-     * @param  FilterChain|Traversable $filters
+     * @param  InputInterface    $input
+     * @param  array|Traversable $filters An array of FilterInterface or an array of filter specification
+     * @param  bool              $overwrite If true, this replace the already existing filters
      * @return void
      * @throws Exception\RuntimeException
      */
-    protected function populateFilters(InputInterface $input, $filters)
+    protected function populateFilters(InputInterface $input, $filters, $overwrite = false)
     {
-        if ($filters instanceof FilterChain) {
-            $input->setFilterChain($filters);
-            return;
-        }
-
-        if (!is_array($filters) && !$filters instanceof Traversable) {
-            throw new Exception\RuntimeException(sprintf(
-                '%s expects the value associated with "filters" to be an array/Traversable of filters or filters specifications, or a FilterChain; received "%s"',
-                __METHOD__,
-                (is_object($filters) ? get_class($filters) : gettype($filters))
-            ));
+        if ($filters instanceof Traversable) {
+            $filters = iterator_to_array($filters);
         }
 
         $filterChain = $input->getFilterChain();
 
-        foreach ($filters as $filterSpecification) {
-            // @TODO: delegate to a filter factory
+        if ($overwrite) {
+            $filterChain->setFilters($filters);
+        } else {
+            $filterChain->addFilters($filters);
         }
     }
 
     /**
-     * @param  InputInterface             $input
-     * @param  ValidatorChain|Traversable $validators
+     * @param  InputInterface    $input
+     * @param  array|Traversable $validators An array of ValidatorInterface or an array of validator specification
+     * @param  bool              $overwrite If true, this replace the already existing validators
      * @return void
      * @throws Exception\RuntimeException
      */
-    protected function populateValidators(InputInterface $input, $validators)
+    protected function populateValidators(InputInterface $input, $validators, $overwrite = false)
     {
-        if ($validators instanceof ValidatorChain) {
-            $input->setValidatorChain($validators);
-            return;
-        }
-
-        if (!is_array($validators) && !$validators instanceof Traversable) {
-            throw new Exception\RuntimeException(sprintf(
-                '%s expects the value associated with "validators" to be an array/Traversable of validators or validators specifications, or a ValidatorChain; received "%s"',
-                __METHOD__,
-                (is_object($validators) ? get_class($validators) : gettype($validators))
-            ));
+        if ($validators instanceof Traversable) {
+            $validators = iterator_to_array($validators);
         }
 
         $validatorChain = $input->getValidatorChain();
 
-        foreach ($validators as $validatorSpecification) {
-            // @TODO: delegate to a validator factory
+        if ($overwrite) {
+            $validatorChain->setValidators($validators);
+        } else {
+            $validatorChain->addValidators($validators);
         }
     }
 }
