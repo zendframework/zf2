@@ -19,7 +19,7 @@ class Boolean extends AbstractFilter
 {
     /**
      * Returns a boolean representation of $value
-     * 
+     *
      * {@inheritDoc}
      */
     public function filter($value)
