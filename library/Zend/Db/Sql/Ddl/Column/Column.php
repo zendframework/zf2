@@ -20,6 +20,11 @@ class Column implements ColumnInterface
      * @var bool
      */
     protected $isNullable = false;
+    
+    /**
+     * @var bool
+     */
+    protected $isUnsigned = false;
 
     /**
      * @var string
@@ -131,6 +136,16 @@ class Column implements ColumnInterface
     {
         return $this->options;
     }
+    
+    /**
+     * @param  bool $unsigned
+     * @return self
+     */
+    public function setUnsigned($unsigned)
+    {
+        $this->isUnsigned = (bool) $unsigned;
+        return $this;
+    }
 
     /**
      * @return array
@@ -145,6 +160,10 @@ class Column implements ColumnInterface
 
         $types = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
 
+        if (!$this->isUnsigned) {
+            $params[1] .= ' unsigned';
+        }
+        
         if (!$this->isNullable) {
             $params[1] .= ' NOT NULL';
         }
