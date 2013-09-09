@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\BaseName as BaseNameFilter;
+use Zend\Filter\FilterPluginManager;
 
 /**
  * @category   Zend
@@ -35,5 +36,14 @@ class BaseNameTest extends \PHPUnit_Framework_TestCase
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
         }
+    }
+
+    public function testAssertIsShared()
+    {
+        $filterPluginManager = new FilterPluginManager();
+        $instance1 = $filterPluginManager->get('Zend\Filter\BaseName');
+        $instance2 = $filterPluginManager->get('Zend\Filter\BaseName');
+
+        $this->assertEquals($instance1, $instance2);
     }
 }

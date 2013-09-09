@@ -10,6 +10,7 @@
 
 namespace ZendTest\Filter;
 
+use Zend\Filter\FilterPluginManager;
 use Zend\Filter\Int as IntFilter;
 
 /**
@@ -40,5 +41,14 @@ class IntTest extends \PHPUnit_Framework_TestCase
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
         }
+    }
+
+    public function testAssertIsShared()
+    {
+        $filterPluginManager = new FilterPluginManager();
+        $instance1 = $filterPluginManager->get('Zend\Filter\Int');
+        $instance2 = $filterPluginManager->get('Zend\Filter\Int');
+
+        $this->assertEquals($instance1, $instance2);
     }
 }

@@ -108,8 +108,8 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($this->filterChain));
 
         $filters = $this->filterChain->getFilters();
-        $this->assertInstanceOf('Zend\Filter\Callback', $filters->extract());
-        $this->assertInstanceOf('Zend\Filter\Boolean', $filters->extract());
+        $this->assertInstanceOf('Zend\Filter\FilterInterface', $filters->extract());
+        $this->assertInstanceOf('Zend\Filter\FilterInterface', $filters->extract());
     }
 
     public function testRespectPriorities()

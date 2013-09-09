@@ -9,12 +9,8 @@
 
 namespace Zend\Filter;
 
-use Traversable;
-
 /**
  * Filter chain for string inflection
- *
- * @TODO: this one needs some cleaning
  */
 class Inflector extends AbstractFilter
 {
@@ -47,9 +43,9 @@ class Inflector extends AbstractFilter
      * Constructor
      *
      * @param FilterPluginManager $filterPluginManager
-     * @param string|array|Traversable $options Options to set
+     * @param array               $options Options to set
      */
-    public function __construct(FilterPluginManager $filterPluginManager, $options = null)
+    public function __construct(FilterPluginManager $filterPluginManager, array $options = array())
     {
         $this->filterPluginManager = $filterPluginManager;
         parent::__construct($options);
@@ -66,7 +62,7 @@ class Inflector extends AbstractFilter
     }
 
     /**
-     * Set Whether or not the inflector should throw an exception when a replacement
+     * Set whether or not the inflector should throw an exception when a replacement
      * identifier is still found within an inflected target.
      *
      * @param bool $throwTargetExceptionsOn
@@ -132,12 +128,12 @@ class Inflector extends AbstractFilter
     /**
      * Set target Reference
      *
-     * @param mixed $target
+     * @param  mixed &$target
      * @return void
      */
     public function setTargetReference(&$target)
     {
-        $this->target =& $target;
+        $this->target = &$target;
     }
 
     /**
@@ -209,8 +205,8 @@ class Inflector extends AbstractFilter
     /**
      * getRule() returns a rule set by setFilterRule(), a numeric index must be provided
      *
-     * @param string $spec
-     * @param int $index
+     * @param  string $spec
+     * @param  int    $index
      * @return FilterInterface|null
      */
     public function getRule($spec, $index)
@@ -308,7 +304,7 @@ class Inflector extends AbstractFilter
     public function setStaticRuleReference($name, &$reference)
     {
         $name = $this->normalizeSpec($name);
-        $this->rules[$name] =& $reference;
+        $this->rules[$name] = &$reference;
     }
 
     /**
@@ -329,19 +325,21 @@ class Inflector extends AbstractFilter
         $processedParts = array();
 
         foreach ($this->rules as $ruleName => $ruleValue) {
+            $processedPartKey = '#' . $pregQuotedTargetReplacementIdentifier . $ruleName . '#';
+
             if (isset($source[$ruleName])) {
                 if (is_string($ruleValue)) {
                     // overriding the set rule
-                    $processedParts['#' . $pregQuotedTargetReplacementIdentifier . $ruleName . '#'] = str_replace('\\', '\\\\', $source[$ruleName]);
+                    $processedParts[$processedPartKey] = str_replace('\\', '\\\\', $source[$ruleName]);
                 } elseif (is_array($ruleValue)) {
                     $processedPart = $source[$ruleName];
                     foreach ($ruleValue as $ruleFilter) {
                         $processedPart = $ruleFilter($processedPart);
                     }
-                    $processedParts['#' . $pregQuotedTargetReplacementIdentifier . $ruleName . '#'] = str_replace('\\', '\\\\', $processedPart);
+                    $processedParts[$processedPartKey] = str_replace('\\', '\\\\', $processedPart);
                 }
             } elseif (is_string($ruleValue)) {
-                $processedParts['#' . $pregQuotedTargetReplacementIdentifier . $ruleName . '#'] = str_replace('\\', '\\\\', $ruleValue);
+                $processedParts[$processedPartKey] = str_replace('\\', '\\\\', $ruleValue);
             }
         }
 
@@ -349,7 +347,10 @@ class Inflector extends AbstractFilter
         $inflectedTarget = preg_replace(array_keys($processedParts), array_values($processedParts), $this->target);
 
         if ($this->throwTargetExceptionsOn && (preg_match('#(?=' . $pregQuotedTargetReplacementIdentifier.'[A-Za-z]{1})#', $inflectedTarget) == true)) {
-            throw new Exception\RuntimeException('A replacement identifier ' . $this->targetReplacementIdentifier . ' was found inside the inflected target, perhaps a rule was not satisfied with a target source?  Unsatisfied inflected target: ' . $inflectedTarget);
+            throw new Exception\RuntimeException(
+                'A replacement identifier ' . $this->targetReplacementIdentifier . ' was found inside the inflected
+                 target, perhaps a rule was not satisfied with a target source? Unsatisfied inflected target: ' . $inflectedTarget
+            );
         }
 
         return $inflectedTarget;
@@ -378,6 +379,6 @@ class Inflector extends AbstractFilter
             return $rule;
         }
 
-        return $this->filterPluginManager->get((string) $rule);
+        return $this->filterPluginManager->get($rule);
     }
 }

@@ -11,6 +11,7 @@
 namespace ZendTest\Filter;
 
 use Zend\Filter\Digits as DigitsFilter;
+use Zend\Filter\FilterPluginManager;
 
 /**
  * @category   Zend
@@ -84,5 +85,14 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
                 "Expected '$input' to filter to '$output', but received '$result' instead"
                 );
         }
+    }
+
+    public function testAssertIsShared()
+    {
+        $filterPluginManager = new FilterPluginManager();
+        $instance1 = $filterPluginManager->get('Zend\Filter\Digits');
+        $instance2 = $filterPluginManager->get('Zend\Filter\Digits');
+
+        $this->assertEquals($instance1, $instance2);
     }
 }

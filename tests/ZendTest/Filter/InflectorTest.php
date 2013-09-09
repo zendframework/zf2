@@ -31,7 +31,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     /**
      * @var FilterPluginManager
      */
-    protected $broker;
+    protected $filterPluginManager;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -41,24 +41,14 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->inflector = new InflectorFilter();
-        $this->broker    = $this->inflector->getPluginManager();
+        $this->filterPluginManager = new FilterPluginManager();
+        $this->inflector           = new InflectorFilter($this->filterPluginManager);
     }
 
     public function testGetPluginManagerReturnsFilterManagerByDefault()
     {
         $broker = $this->inflector->getPluginManager();
         $this->assertTrue($broker instanceof FilterPluginManager);
-    }
-
-    public function testSetPluginManagerAllowsSettingAlternatePluginManager()
-    {
-        $defaultManager = $this->inflector->getPluginManager();
-        $manager = new FilterPluginManager();
-        $this->inflector->setPluginManager($manager);
-        $receivedManager = $this->inflector->getPluginManager();
-        $this->assertNotSame($defaultManager, $receivedManager);
-        $this->assertSame($manager, $receivedManager);
     }
 
     public function testTargetAccessorsWork()
@@ -206,8 +196,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterTransformsStringAccordingToRules()
     {
-        $this->inflector->setTarget(':controller/:action.:suffix')
-             ->addRules(array(
+        $this->inflector->setTarget(':controller/:action.:suffix');
+        $this->inflector->addRules(array(
                  ':controller' => array('Word\\CamelCaseToDash'),
                  ':action'     => array('Word\\CamelCaseToDash'),
                  'suffix'      => 'phtml'

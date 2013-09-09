@@ -7,16 +7,19 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter;
+namespace Zend\Filter\Factory;
 
-class StripNewlines extends AbstractFilter
+use Zend\Filter\Inflector;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+
+class InflectorFactory implements FactoryInterface
 {
     /**
-     * Returns $value without newline control characters
      * {@inheritDoc}
      */
-    public function filter ($value)
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return str_replace(array("\n", "\r"), '', $value);
+        return new Inflector($serviceLocator);
     }
 }

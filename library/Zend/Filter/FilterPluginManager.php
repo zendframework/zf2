@@ -35,7 +35,6 @@ class FilterPluginManager extends AbstractPluginManager
         'Zend\Filter\File\RenameUpload'          => 'Zend\Filter\File\RenameUpload',
         'Zend\Filter\File\UpperCase'             => 'Zend\Filter\File\UpperCase',
         'Zend\Filter\HtmlEntities'               => 'Zend\Filter\HtmlEntities',
-        'Zend\Filter\Inflector'                  => 'Zend\Filter\Inflector',
         'Zend\Filter\Int'                        => 'Zend\Filter\Int',
         'Zend\Filter\Null'                       => 'Zend\Filter\Null',
         'Zend\Filter\PregReplace'                => 'Zend\Filter\PregReplace',
@@ -74,9 +73,13 @@ class FilterPluginManager extends AbstractPluginManager
         'Zend\Crypt\Filter\File\Encrypt' => 'Zend\Crypt\Factory\EncryptFileFilterFactory',
         'Zend\Filter\Compress'           => 'Zend\Filter\Factory\CompressFilterFactory',
         'Zend\Filter\Decompress'         => 'Zend\Filter\Factory\DecompressFilterFactory',
-        'Zend\Filter\FilterChain'        => 'Zend\Filter\Factory\FilterChainFactory'
+        'Zend\Filter\FilterChain'        => 'Zend\Filter\Factory\FilterChainFactory',
+        'Zend\Filter\Inflector'          => 'Zend\Filter\Factory\InflectorFactory',
     );
 
+    /**
+     * @var array
+     */
     protected $aliases = array(
         'alnum'                     => 'Zend\I18n\Filter\Alnum',
         'alpha'                     => 'Zend\I18n\Filter\Alpha',
@@ -93,7 +96,6 @@ class FilterPluginManager extends AbstractPluginManager
         'filedecrypt'               => 'Zend\Crypt\Filter\File\Decrypt',
         'fileencrypt'               => 'Zend\Crypt\Filter\File\Encrypt',
         'filelowercase'             => 'Zend\Filter\File\LowerCase',
-        'filerename'                => 'Zend\Filter\File\Rename',
         'filerenameupload'          => 'Zend\Filter\File\RenameUpload',
         'fileuppercase'             => 'Zend\Filter\File\UpperCase',
         'filterchain'               => 'Zend\Filter\Factory\FilterChainFactory',
@@ -125,13 +127,24 @@ class FilterPluginManager extends AbstractPluginManager
     );
 
     /**
-     * @TODO: Any filter that does not have any option should be shared by default
-     *
      * Whether or not to share by default; default to false
      *
      * @var bool
      */
     protected $shareByDefault = false;
+
+    /**
+     * Make sure filters that have no options are shared to save memory
+     *
+     * @var array
+     */
+    protected $shared = array(
+        'Zend\Filter\BaseName'      => true,
+        'Zend\Filter\Digits'        => true,
+        'Zend\Filter\Dir'           => true,
+        'Zend\Filter\Int'           => true,
+        'Zend\Filter\StripNewlines' => true
+    );
 
     /**
      * Validate the plugin

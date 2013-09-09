@@ -36,6 +36,14 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('objectCallbackWithParams-test-0', $filter('test'));
     }
 
+    public function testStaticCallbackWithDotNotation()
+    {
+        $filter = new CallbackFilter(
+            array('callback' => __CLASS__ . '::staticCallback')
+        );
+        $this->assertEquals('staticCallback-test', $filter('test'));
+    }
+
     public function testStaticCallback()
     {
         $filter = new CallbackFilter(
