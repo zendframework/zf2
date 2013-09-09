@@ -24,9 +24,7 @@ class StringTrim extends AbstractFilter
      */
     public function setCharlist($charlist)
     {
-        if (!empty($charList)) {
-            $this->charlist = $charlist;
-        }
+        $this->charlist = $charlist;
     }
 
     /**

@@ -42,14 +42,14 @@ class PregReplaceTest extends \PHPUnit_Framework_TestCase
     public function testPassingPatternToConstructorSetsPattern()
     {
         $pattern = '#^controller/(?P<action>[a-z_-]+)#';
-        $filter  = new PregReplaceFilter($pattern);
+        $filter  = new PregReplaceFilter(array('pattern' => $pattern));
         $this->assertEquals($pattern, $filter->getPattern());
     }
 
     public function testPassingReplacementToConstructorSetsReplacement()
     {
         $replace = 'foo/bar';
-        $filter  = new PregReplaceFilter(null, $replace);
+        $filter  = new PregReplaceFilter(array('replacement' => $replace));
         $this->assertEquals($replace, $filter->getReplacement());
     }
 

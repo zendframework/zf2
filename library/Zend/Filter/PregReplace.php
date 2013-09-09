@@ -43,10 +43,12 @@ class PregReplace extends AbstractFilter
             ));
         }
 
-        $pattern = (array) $pattern;
-
-        foreach ($pattern as $p) {
-            $this->validatePattern($p);
+        if (is_string($pattern)) {
+            $this->validatePattern($pattern);
+        } else {
+            foreach ($pattern as $p) {
+                $this->validatePattern($p);
+            }
         }
 
         $this->pattern = $pattern;

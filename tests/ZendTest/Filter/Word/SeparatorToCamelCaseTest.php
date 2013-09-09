@@ -35,7 +35,9 @@ class SeparatorToCamelCaseTest extends \PHPUnit_Framework_TestCase
     public function testFilterSeparatesCamelCasedWordsWithProvidedSeparator()
     {
         $string   = 'camel:-:cased:-:Words';
-        $filter   = new SeparatorToCamelCaseFilter(':-:');
+        $filter   = new SeparatorToCamelCaseFilter(array(
+            'separator' => ':-:'
+        ));
         $filtered = $filter($string);
 
         $this->assertNotEquals($string, $filtered);
@@ -52,7 +54,9 @@ class SeparatorToCamelCaseTest extends \PHPUnit_Framework_TestCase
         }
 
         $string   = 'camel:-:cased:-:Words';
-        $filter   = new SeparatorToCamelCaseFilter(':-:');
+        $filter   = new SeparatorToCamelCaseFilter(array(
+            'separator' => ':-:'
+        ));
         $filtered = $filter($string);
 
         $this->assertNotEquals($string, $filtered);
@@ -69,7 +73,9 @@ class SeparatorToCamelCaseTest extends \PHPUnit_Framework_TestCase
         }
 
         $string   = 'test šuma';
-        $filter   = new SeparatorToCamelCaseFilter(' ');
+        $filter   = new SeparatorToCamelCaseFilter(array(
+            'separator' => ' '
+        ));
         $filtered = $filter($string);
 
         $this->assertNotEquals($string, $filtered);

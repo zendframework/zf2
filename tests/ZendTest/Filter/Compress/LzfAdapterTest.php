@@ -10,7 +10,7 @@
 
 namespace ZendTest\Filter\Compress;
 
-use Zend\Filter\Compress\Lzf as LzfCompression;
+use Zend\Filter\Compress\LzfAdapter as LzfCompression;
 
 /**
  * @category   Zend

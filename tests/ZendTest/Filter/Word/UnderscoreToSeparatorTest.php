@@ -35,7 +35,9 @@ class UnderscoreToSeparatorTest extends \PHPUnit_Framework_TestCase
     public function testFilterSeparatesCamelCasedWordsProvidedSeparator()
     {
         $string   = 'underscore_separated_words';
-        $filter   = new UnderscoreToSeparatorFilter(':=:');
+        $filter   = new UnderscoreToSeparatorFilter(array(
+            'replacement_separator' => ':=:'
+        ));
         $filtered = $filter($string);
 
         $this->assertNotEquals($string, $filtered);

@@ -45,7 +45,7 @@ class CompressTest extends \PHPUnit_Framework_TestCase
             $this->markTestIncomplete('Code to test is not compatible with PHP 5.4 ');
         }
 
-        $filter  = new CompressFilter('bz2');
+        $filter  = new CompressFilter(array('adapter' => 'bz2'));
 
         $text     = 'compress me';
         $compressed = $filter($text);
@@ -87,7 +87,7 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetAdapterOptions()
     {
-        $filter = new CompressFilter('bz2');
+        $filter = new CompressFilter(array('adapter' => 'bz2'));
         $filter->setAdapterOptions(array(
             'blocksize' => 6,
             'archive'   => 'test.txt',
@@ -108,7 +108,7 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetBlocksize()
     {
-        $filter = new CompressFilter('bz2');
+        $filter = new CompressFilter(array('adapter' => 'bz2'));
         $this->assertEquals(4, $filter->getBlocksize());
         $filter->setBlocksize(6);
         $this->assertEquals(6, $filter->getOptions('blocksize'));
@@ -124,7 +124,7 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetArchive()
     {
-        $filter = new CompressFilter('bz2');
+        $filter = new CompressFilter(array('adapter' => 'bz2'));
         $this->assertEquals(null, $filter->getArchive());
         $filter->setArchive('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getArchive());
@@ -138,18 +138,18 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testCompressToFile()
     {
-        $filter   = new CompressFilter('bz2');
+        $filter   = new CompressFilter(array('adapter' => 'bz2'));
         $archive = __DIR__ . '/../_files/compressed.bz2';
         $filter->setArchive($archive);
 
         $content = $filter('compress me');
         $this->assertTrue($content);
 
-        $filter2  = new CompressFilter('bz2');
+        $filter2  = new CompressFilter(array('adapter' => 'bz2'));
         $content2 = $filter2->decompress($archive);
         $this->assertEquals('compress me', $content2);
 
-        $filter3 = new CompressFilter('bz2');
+        $filter3 = new CompressFilter(array('adapter' => 'bz2'));
         $filter3->setArchive($archive);
         $content3 = $filter3->decompress(null);
         $this->assertEquals('compress me', $content3);
@@ -162,7 +162,7 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testToString()
     {
-        $filter = new CompressFilter('bz2');
+        $filter = new CompressFilter(array('adapter' => 'bz2'));
         $this->assertEquals('Bz2', $filter->toString());
     }
 
@@ -173,7 +173,7 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAdapter()
     {
-        $filter = new CompressFilter('bz2');
+        $filter = new CompressFilter(array('adapter' => 'bz2'));
         $adapter = $filter->getAdapter();
         $this->assertTrue($adapter instanceof \Zend\Filter\Compress\CompressionAlgorithmInterface);
         $this->assertEquals('Bz2', $filter->getAdapterName());
@@ -207,14 +207,14 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecompressArchive()
     {
-        $filter   = new CompressFilter('bz2');
+        $filter   = new CompressFilter(array('adapter' => 'bz2'));
         $archive = __DIR__ . '/../_files/compressed.bz2';
         $filter->setArchive($archive);
 
         $content = $filter('compress me');
         $this->assertTrue($content);
 
-        $filter2  = new CompressFilter('bz2');
+        $filter2  = new CompressFilter(array('adapter' => 'bz2'));
         $content2 = $filter2->decompress($archive);
         $this->assertEquals('compress me', $content2);
     }
@@ -226,7 +226,7 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMethod()
     {
-        $filter = new CompressFilter();
+        $filter = new CompressFilter(new CompressFilter\CompressionAdapterPluginManager());
 
         $this->setExpectedException('\Zend\Filter\Exception\BadMethodCallException', 'Unknown method');
         $filter->invalidMethod();

@@ -92,8 +92,8 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
         $this->filterChain->setFilters(array($filter1, $filter2));
 
         $this->assertEquals(2, count($this->filterChain));
-        $this->assertSame($filter2, $this->filterChain->getFilters()->extract());
         $this->assertSame($filter1, $this->filterChain->getFilters()->extract());
+        $this->assertSame($filter2, $this->filterChain->getFilters()->extract());
     }
 
     public function testCanSetFiltersUsingSpecification()

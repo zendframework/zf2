@@ -10,26 +10,21 @@
 
 namespace ZendTest\Filter\Compress;
 
-use Zend\Filter\Compress\Tar as TarCompression;
-use Zend\Loader\StandardAutoloader;
+use Zend\Filter\Compress\RarAdapter as RarCompression;
 
 /**
  * @category   Zend
  * @package    Zend_Filter
  * @subpackage UnitTests
  * @group      Zend_Filter
- * @covers     Zend\Filter\Compress\Tar
+ * @covers     Zend\Filter\Compress\Rar
  */
-class TarTest extends \PHPUnit_Framework_TestCase
+class RarTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        if (!class_exists('Archive_Tar')) {
-            $autoloader = new StandardAutoloader();
-            $autoloader->setFallbackAutoloader(true);
-            if (!$autoloader->autoload('Archive_Tar')) {
-                $this->markTestSkipped('This filter needs PEARs Archive_Tar');
-            }
+        if (!extension_loaded('rar')) {
+            $this->markTestSkipped('This adapter needs the rar extension');
         }
 
         $files = array(
@@ -41,8 +36,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
             dirname(__DIR__) . '/_files/_compress/Compress/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress',
             dirname(__DIR__) . '/_files/_compress/zipextracted.txt',
-            dirname(__DIR__) . '/_files/_compress',
-            dirname(__DIR__) . '/_files/compressed.tar'
+            dirname(__DIR__) . '/_files/_compress'
         );
 
         foreach ($files as $file) {
@@ -74,8 +68,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
             dirname(__DIR__) . '/_files/_compress/Compress/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress',
             dirname(__DIR__) . '/_files/_compress/zipextracted.txt',
-            dirname(__DIR__) . '/_files/_compress',
-            dirname(__DIR__) . '/_files/compressed.tar'
+            dirname(__DIR__) . '/_files/_compress'
         );
 
         foreach ($files as $file) {
@@ -103,19 +96,20 @@ class TarTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasicUsage()
     {
-        $filter  = new TarCompression(
+        $filter  = new RarCompression(
             array(
-                'archive'  => dirname(__DIR__) . '/_files/compressed.tar',
-                'target'   => dirname(__DIR__) . '/_files/zipextracted.txt'
+                'archive'  => dirname(__DIR__) . '/_files/compressed.rar',
+                'target'   => dirname(__DIR__) . '/_files/zipextracted.txt',
+                'callback' => array(__CLASS__, 'rarCompress')
             )
         );
 
         $content = $filter->compress('compress me');
         $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files'
-                            . DIRECTORY_SEPARATOR . 'compressed.tar', $content);
+                            . DIRECTORY_SEPARATOR . 'compressed.rar', $content);
 
         $content = $filter->decompress($content);
-        $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR, $content);
+        $this->assertTrue($content);
         $content = file_get_contents(dirname(__DIR__) . '/_files/zipextracted.txt');
         $this->assertEquals('compress me', $content);
     }
@@ -125,13 +119,11 @@ class TarTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testTarGetSetOptions()
+    public function testRarGetSetOptions()
     {
-        $filter = new TarCompression();
+        $filter = new RarCompression();
 
-        $this->assertNull($filter->getArchive());
-        $this->assertNull($filter->getCompressionMode());
-        $this->assertEquals('.', $filter->getTarget());
+        $this->assertEquals(null, $filter->getArchive());
 
         $filter->setArchive('temp.txt');
         $this->assertEquals('temp.txt', $filter->getArchive());
@@ -142,12 +134,29 @@ class TarTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testTarGetSetArchive()
+    public function testRarGetSetArchive()
     {
-        $filter = new TarCompression();
+        $filter = new RarCompression();
         $this->assertEquals(null, $filter->getArchive());
         $filter->setArchive('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getArchive());
+    }
+
+    /**
+     * Setting Password
+     *
+     * @return void
+     */
+    public function testRarGetSetPassword()
+    {
+        $filter = new RarCompression();
+
+        $this->assertEquals(null, $filter->getPassword());
+        $filter->setPassword('test');
+        $this->assertEquals('test', $filter->getPassword());
+
+        $filter->setPassword('test2');
+        $this->assertEquals('test2', $filter->getPassword());
     }
 
     /**
@@ -155,38 +164,70 @@ class TarTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testTarGetSetTarget()
+    public function testRarGetSetTarget()
     {
-        $filter = new TarCompression();
+        $filter = new RarCompression();
         $this->assertEquals('.', $filter->getTarget());
         $filter->setTarget('Testfile.txt');
         $this->assertEquals('Testfile.txt', $filter->getTarget());
 
-        $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'does not exist');
+        $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'does not exist');
         $filter->setTarget('/unknown/path/to/file.txt');
     }
 
     /**
-     * Setting Archive
+     * Setting Callback
      *
      * @return void
      */
-    public function testTarCompressToFile()
+    public function testSettingCallback()
     {
-        $filter  = new TarCompression(
+        $filter = new RarCompression();
+
+        $callback = array(__CLASS__, 'rarCompress');
+        $filter->setCallback($callback);
+        $this->assertEquals($callback, $filter->getCallback());
+
+    }
+
+    public function testSettingCallbackThrowsExceptionOnMissingCallback()
+    {
+        $filter = new RarCompression();
+
+        $this->setExpectedException('Zend\Filter\Exception\RuntimeException', 'No compression callback available');
+        $filter->compress('test.txt');
+    }
+
+    public function testSettingCallbackThrowsExceptionOnInvalidCallback()
+    {
+        $filter = new RarCompression();
+
+        $this->setExpectedException('Zend\Filter\Exception\InvalidArgumentException', 'Invalid callback provided');
+        $filter->setCallback('invalidCallback');
+    }
+
+    /**
+     * Compress to Archive
+     *
+     * @return void
+     */
+    public function testRarCompressFile()
+    {
+        $filter  = new RarCompression(
             array(
-                'archive'  => dirname(__DIR__) . '/_files/compressed.tar',
-                'target'   => dirname(__DIR__) . '/_files/zipextracted.txt'
+                'archive'  => dirname(__DIR__) . '/_files/compressed.rar',
+                'target'   => dirname(__DIR__) . '/_files/zipextracted.txt',
+                'callback' => array(__CLASS__, 'rarCompress')
             )
         );
         file_put_contents(dirname(__DIR__) . '/_files/zipextracted.txt', 'compress me');
 
         $content = $filter->compress(dirname(__DIR__) . '/_files/zipextracted.txt');
         $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files'
-                            . DIRECTORY_SEPARATOR . 'compressed.tar', $content);
+                            . DIRECTORY_SEPARATOR . 'compressed.rar', $content);
 
         $content = $filter->decompress($content);
-        $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR, $content);
+        $this->assertTrue($content);
         $content = file_get_contents(dirname(__DIR__) . '/_files/zipextracted.txt');
         $this->assertEquals('compress me', $content);
     }
@@ -196,17 +237,32 @@ class TarTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testTarCompressDirectory()
+    public function testRarCompressDirectory()
     {
-        $filter  = new TarCompression(
+        $filter  = new RarCompression(
             array(
-                'archive'  => dirname(__DIR__) . '/_files/compressed.tar',
-                'target'   => dirname(__DIR__) . '/_files/_compress'
+                'archive'  => dirname(__DIR__) . '/_files/compressed.rar',
+                'target'   => dirname(__DIR__) . '/_files/_compress',
+                'callback' => array(__CLASS__, 'rarCompress')
             )
         );
         $content = $filter->compress(dirname(__DIR__) . '/_files/Compress');
         $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files'
-                            . DIRECTORY_SEPARATOR . 'compressed.tar', $content);
+                            . DIRECTORY_SEPARATOR . 'compressed.rar', $content);
+
+        mkdir(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . '_compress');
+        $content = $filter->decompress($content);
+        $this->assertTrue($content);
+
+        $base = dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files'
+              . DIRECTORY_SEPARATOR . '_compress' . DIRECTORY_SEPARATOR . 'Compress' . DIRECTORY_SEPARATOR;
+        $this->assertTrue(file_exists($base));
+        $this->assertTrue(file_exists($base . 'zipextracted.txt'));
+        $this->assertTrue(file_exists($base . 'First' . DIRECTORY_SEPARATOR . 'zipextracted.txt'));
+        $this->assertTrue(file_exists($base . 'First' . DIRECTORY_SEPARATOR .
+                          'Second' . DIRECTORY_SEPARATOR . 'zipextracted.txt'));
+        $content = file_get_contents(dirname(__DIR__) . '/_files/Compress/zipextracted.txt');
+        $this->assertEquals('compress me', $content);
     }
 
     /**
@@ -214,9 +270,19 @@ class TarTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testTarToString()
+    public function testRarToString()
     {
-        $filter = new TarCompression();
-        $this->assertEquals('Tar', $filter->toString());
+        $filter = new RarCompression();
+        $this->assertEquals('Rar', $filter->toString());
+    }
+
+    /**
+     * Test callback for compression
+     *
+     * @return bool
+     */
+    public static function rarCompress()
+    {
+        return true;
     }
 }

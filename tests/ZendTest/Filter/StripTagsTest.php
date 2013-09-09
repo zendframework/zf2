@@ -492,7 +492,10 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testMultiParamArray()
     {
-        $filter = new StripTagsFilter(array("a","b","hr"),array(),true);
+        $filter = new StripTagsFilter(array(
+            'allowed_tags'       => array("a","b","hr"),
+            'allowed_attributes' => array()
+        ));
 
         $input    = 'test <a /> test <div>div-content</div>';
         $expected = 'test <a /> test div-content';
@@ -506,8 +509,8 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new StripTagsFilter(
             array(
-                'allowTags' => 'img',
-                'allowAttribs' => array('width', 'height', 'src')
+                'allowed_tags'       => 'img',
+                'allowed_attributes' => array('width', 'height', 'src')
             )
         );
 

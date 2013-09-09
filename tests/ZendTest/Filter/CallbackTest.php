@@ -22,7 +22,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 {
     public function testObjectCallback()
     {
-        $filter = new CallbackFilter(array($this, 'objectCallback'));
+        $filter = new CallbackFilter(array('callback' => array($this, 'objectCallback')));
         $this->assertEquals('objectCallback-test', $filter('test'));
     }
 
@@ -39,21 +39,25 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testStaticCallback()
     {
         $filter = new CallbackFilter(
-            array(__CLASS__, 'staticCallback')
+            array('callback' => array(__CLASS__, 'staticCallback'))
         );
         $this->assertEquals('staticCallback-test', $filter('test'));
     }
 
     public function testSettingDefaultOptions()
     {
-        $filter = new CallbackFilter(array($this, 'objectCallback'), 'param');
+        $filter = new CallbackFilter(array(
+            'callback'        => array($this, 'objectCallback'),
+            'callback_params' => array('param')
+        ));
+
         $this->assertEquals(array('param'), $filter->getCallbackParams());
         $this->assertEquals('objectCallback-test', $filter('test'));
     }
 
     public function testSettingDefaultOptionsAfterwards()
     {
-        $filter = new CallbackFilter(array($this, 'objectCallback'));
+        $filter = new CallbackFilter(array('callback' => array($this, 'objectCallback')));
         $filter->setCallbackParams('param');
         $this->assertEquals(array('param'), $filter->getCallbackParams());
         $this->assertEquals('objectCallback-test', $filter('test'));
@@ -61,13 +65,15 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
     public function testCallbackWithStringParameter()
     {
-        $filter = new CallbackFilter('strrev');
+        $filter = new CallbackFilter(array(
+            'callback' => 'strrev')
+        );
         $this->assertEquals('!olleH', $filter('Hello!'));
     }
 
     public function testCallbackWithArrayParameters()
     {
-        $filter = new CallbackFilter('strrev');
+        $filter = new CallbackFilter(array('callback' => 'strrev'));
         $this->assertEquals('!olleH', $filter('Hello!'));
     }
 

@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter;
+namespace Zend\Crypt\Filter;
 
 use Zend\Stdlib\AbstractOptions;
 

@@ -8,9 +8,9 @@
  * @package   Zend_Filter
  */
 
-namespace ZendTest\Filter\Encrypt;
+namespace ZendTest\Crypt\Filter\Adapter;
 
-use Zend\Filter\Encrypt\Openssl as OpensslEncryption;
+use Zend\Crypt\Filter\Adapter\OpenSslAdapter as OpensslEncryption;
 
 /**
  * @category   Zend

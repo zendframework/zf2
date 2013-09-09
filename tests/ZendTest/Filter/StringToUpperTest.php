@@ -23,9 +23,9 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
     /**
      * Zend_Filter_StringToLower object
      *
-     * @var Zend_Filter_StringToLower
+     * @var StringToUpperFilter
      */
-    protected $_filter;
+    protected $filter;
 
     /**
      * Creates a new Zend_Filter_StringToUpper object for each test method
@@ -34,7 +34,7 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->_filter = new StringToUpperFilter();
+        $this->filter = new StringToUpperFilter();
     }
 
     /**
@@ -44,7 +44,7 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $valuesExpected = array(
             'STRING' => 'STRING',
             'ABC1@3' => 'ABC1@3',
@@ -64,7 +64,7 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithEncoding()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $valuesExpected = array(
             'ü'     => 'Ü',
             'ñ'     => 'Ñ',
@@ -91,7 +91,7 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'is not supported');
-        $this->_filter->setEncoding('aaaaa');
+        $this->filter->setEncoding('aaaaa');
     }
 
     /**
@@ -120,7 +120,7 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
      */
     public function testCaseInsensitiveEncoding()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $valuesExpected = array(
             'ü'     => 'Ü',
             'ñ'     => 'Ñ',
@@ -133,12 +133,12 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
                 $this->assertEquals($output, $filter($input));
             }
 
-            $this->_filter->setEncoding('utf-8');
+            $this->filter->setEncoding('utf-8');
             foreach ($valuesExpected as $input => $output) {
                 $this->assertEquals($output, $filter($input));
             }
 
-            $this->_filter->setEncoding('UtF-8');
+            $this->filter->setEncoding('UtF-8');
             foreach ($valuesExpected as $input => $output) {
                 $this->assertEquals($output, $filter($input));
             }
@@ -156,6 +156,6 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped("Function 'mb_internal_encoding' not available");
         }
 
-        $this->assertEquals(mb_internal_encoding(), $this->_filter->getEncoding());
+        $this->assertEquals(mb_internal_encoding(), $this->filter->getEncoding());
     }
 }

@@ -8,10 +8,10 @@
  * @package   Zend_Filter
  */
 
-namespace ZendTest\Filter\File;
+namespace ZendTest\Crypt\Filter\File;
 
-use Zend\Filter\File\Encrypt as FileEncrypt;
-use Zend\Filter\File\Decrypt as FileDecrypt;
+use Zend\Crypt\Filter\File\Decrypt as FileDecrypt;
+use Zend\Crypt\Filter\File\Encrypt as FileEncrypt;
 
 /**
  * @category   Zend
@@ -19,7 +19,7 @@ use Zend\Filter\File\Decrypt as FileDecrypt;
  * @subpackage UnitTests
  * @group      Zend_Filter
  */
-class EncryptTest extends \PHPUnit_Framework_TestCase
+class DecryptTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -30,12 +30,20 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
         if (file_exists(dirname(__DIR__).'/_files/newencryption.txt')) {
             unlink(dirname(__DIR__).'/_files/newencryption.txt');
         }
+
+        if (file_exists(dirname(__DIR__).'/_files/newencryption2.txt')) {
+            unlink(dirname(__DIR__).'/_files/newencryption2.txt');
+        }
     }
 
     public function tearDown()
     {
         if (file_exists(dirname(__DIR__).'/_files/newencryption.txt')) {
             unlink(dirname(__DIR__).'/_files/newencryption.txt');
+        }
+
+        if (file_exists(dirname(__DIR__).'/_files/newencryption2.txt')) {
+            unlink(dirname(__DIR__).'/_files/newencryption2.txt');
         }
     }
 
@@ -54,16 +62,22 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
             $filter->getFilename());
 
         $filter->setKey('1234567890123456');
-        $this->assertEquals(dirname(__DIR__).'/_files/newencryption.txt',
-            $filter->filter(dirname(__DIR__).'/_files/encryption.txt'));
+        $filter->filter(dirname(__DIR__).'/_files/encryption.txt');
 
-        $this->assertEquals(
-            'Encryption',
-            file_get_contents(dirname(__DIR__).'/_files/encryption.txt'));
+        $filter = new FileDecrypt();
 
         $this->assertNotEquals(
             'Encryption',
             file_get_contents(dirname(__DIR__).'/_files/newencryption.txt'));
+
+        $filter->setKey('1234567890123456');
+        $this->assertEquals(
+            dirname(__DIR__).'/_files/newencryption.txt',
+            $filter->filter(dirname(__DIR__).'/_files/newencryption.txt'));
+
+        $this->assertEquals(
+            'Encryption',
+            trim(file_get_contents(dirname(__DIR__).'/_files/newencryption.txt')));
     }
 
     public function testEncryptionWithDecryption()
@@ -79,13 +93,19 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
             file_get_contents(dirname(__DIR__).'/_files/newencryption.txt'));
 
         $filter = new FileDecrypt();
+        $filter->setFilename(dirname(__DIR__).'/_files/newencryption2.txt');
+
+        $this->assertEquals(
+            dirname(__DIR__).'/_files/newencryption2.txt',
+            $filter->getFilename());
+
         $filter->setKey('1234567890123456');
         $input = $filter->filter(dirname(__DIR__).'/_files/newencryption.txt');
-        $this->assertEquals(dirname(__DIR__).'/_files/newencryption.txt', $input);
+        $this->assertEquals(dirname(__DIR__).'/_files/newencryption2.txt', $input);
 
         $this->assertEquals(
             'Encryption',
-            trim(file_get_contents(dirname(__DIR__).'/_files/newencryption.txt')));
+            trim(file_get_contents(dirname(__DIR__).'/_files/newencryption2.txt')));
     }
 
     /**
@@ -93,26 +113,10 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
      */
     public function testNonExistingFile()
     {
-        $filter = new FileEncrypt();
-        $filter->setKey('1234567890123456');
+        $filter = new FileDecrypt();
+        $filter->setVector('1234567890123456');
 
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'not found');
-        echo $filter->filter(dirname(__DIR__).'/_files/nofile.txt');
-    }
-
-    /**
-     * @return void
-     */
-    public function testEncryptionInSameFile()
-    {
-        $filter = new FileEncrypt();
-        $filter->setKey('1234567890123456');
-
-        copy(dirname(__DIR__).'/_files/encryption.txt', dirname(__DIR__).'/_files/newencryption.txt');
-        $filter->filter(dirname(__DIR__).'/_files/newencryption.txt');
-
-        $this->assertNotEquals(
-            'Encryption',
-            trim(file_get_contents(dirname(__DIR__).'/_files/newencryption.txt')));
+        $filter->filter(dirname(__DIR__).'/_files/nofile.txt');
     }
 }

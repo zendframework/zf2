@@ -54,12 +54,12 @@ class BlockCipherAdapter implements EncryptionAdapterInterface
     public function __construct($options = null)
     {
         try {
-            $this->blockCipher = CryptBlockCipher::factory('mcrypt', $this->encryption);
+            $this->blockCipher = BlockCipher::factory('mcrypt', $this->encryption);
         } catch (SymmetricException\RuntimeException $e) {
             throw new Exception\RuntimeException('The BlockCipher cannot be used without the Mcrypt extension');
         }
 
-        parent::__construct($options);
+        //parent::__construct($options);
     }
 
     /**

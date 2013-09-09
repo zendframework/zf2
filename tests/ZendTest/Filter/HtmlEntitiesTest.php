@@ -109,7 +109,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDoubleQuote()
     {
-        $this->assertEquals(true, $this->filter->getDoubleQuote());
+        $this->assertEquals(true, $this->filter->getDoubleEncode());
     }
 
     /**
@@ -119,8 +119,8 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDoubleQuote()
     {
-        $this->filter->setDoubleQuote(false);
-        $this->assertEquals(false, $this->filter->getDoubleQuote());
+        $this->filter->setDoubleEncode(false);
+        $this->assertEquals(false, $this->filter->getDoubleEncode());
     }
 
     /**
@@ -128,11 +128,9 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigObject()
     {
-        $options = array('quotestyle' => 5, 'encoding' => 'ISO-8859-1');
-        $config  = new \Zend\Config\Config($options);
-
+        $options = array('quote_style' => 5, 'encoding' => 'ISO-8859-1');
         $filter = new HtmlEntitiesFilter(
-            $config
+            $options
         );
 
         $this->assertEquals('ISO-8859-1', $filter->getEncoding());

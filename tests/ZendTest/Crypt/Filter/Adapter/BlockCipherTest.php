@@ -8,9 +8,9 @@
  * @package   Zend_Filter
  */
 
-namespace ZendTest\Filter\Encrypt;
+namespace ZendTest\Crypt\Filter\Adapter;
 
-use Zend\Filter\Encrypt\BlockCipher as BlockCipherEncryption;
+use Zend\Crypt\Filter\Adapter\BlockCipherAdapter as BlockCipherEncryption;
 use Zend\Filter\Exception;
 
 /**

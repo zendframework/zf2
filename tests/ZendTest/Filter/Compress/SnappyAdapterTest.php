@@ -10,7 +10,7 @@
 
 namespace ZendTest\Filter\Compress;
 
-use Zend\Filter\Compress\Snappy as SnappyCompression;
+use Zend\Filter\Compress\SnappyAdapter as SnappyCompression;
 
 /**
  * @category   Zend

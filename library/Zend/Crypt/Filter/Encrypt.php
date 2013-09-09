@@ -7,13 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Crypt;
+namespace Zend\Crypt\Filter;
 
 use Traversable;
-use Zend\Filter\Encrypt\EncryptionAdapterInterface;
-use Zend\Filter\Encrypt\EncryptionAdapterPluginManager;
+use Zend\Crypt\Filter\Adapter\EncryptionAdapterInterface;
+use Zend\Crypt\Filter\Adapter\EncryptionAdapterPluginManager;
+use Zend\Filter\AbstractFilter;
 use Zend\Stdlib\AbstractOptions;
-use Zend\Stdlib\ArrayUtils;
 
 /**
  * Encrypts a given string

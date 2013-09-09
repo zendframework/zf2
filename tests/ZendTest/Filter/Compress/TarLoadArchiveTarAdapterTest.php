@@ -10,7 +10,7 @@
 
 namespace ZendTest\Filter\Compress;
 
-use Zend\Filter\Compress\Tar as TarCompression;
+use Zend\Filter\Compress\TarAdapter as TarCompression;
 use Zend\Filter\Exception\ExtensionNotLoadedException;
 
 /**

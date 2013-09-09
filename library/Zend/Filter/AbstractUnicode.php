@@ -66,7 +66,7 @@ abstract class AbstractUnicode extends AbstractFilter
     public function getEncoding()
     {
         if (null === $this->encoding) {
-            $this->encoding['encoding'] = mb_internal_encoding();
+            $this->encoding = mb_internal_encoding();
         }
 
         return $this->encoding;

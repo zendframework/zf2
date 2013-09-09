@@ -35,7 +35,9 @@ class DashToSeparatorTest extends \PHPUnit_Framework_TestCase
     public function testFilterSeparatesDashedWordsWithSomeString()
     {
         $string   = 'dash-separated-words';
-        $filter   = new DashToSeparatorFilter(':-:');
+        $filter   = new DashToSeparatorFilter(array(
+            'separator' => ':-:'
+        ));
         $filtered = $filter($string);
 
         $this->assertNotEquals($string, $filtered);

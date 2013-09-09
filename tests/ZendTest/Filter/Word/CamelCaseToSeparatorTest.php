@@ -35,7 +35,9 @@ class CamelCaseToSeparatorTest extends \PHPUnit_Framework_TestCase
     public function testFilterSeparatesCamelCasedWordsWithProvidedSeparator()
     {
         $string   = 'CamelCasedWords';
-        $filter   = new CamelCaseToSeparatorFilter(':-#');
+        $filter   = new CamelCaseToSeparatorFilter(array(
+            'separator' => ':-#')
+        );
         $filtered = $filter($string);
 
         $this->assertNotEquals($string, $filtered);

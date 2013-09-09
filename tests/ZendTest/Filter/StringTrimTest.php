@@ -24,7 +24,7 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
     /**
      * @var StringTrim
      */
-    protected $_filter;
+    protected $filter;
 
     /**
      * Creates a new Zend\Filter\StringTrim object for each test method
@@ -33,7 +33,7 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->_filter = new StringTrim();
+        $this->filter = new StringTrim();
     }
 
     /**
@@ -43,7 +43,7 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $valuesExpected = array(
             'string' => 'string',
             ' str '  => 'str',
@@ -64,7 +64,7 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
         if (version_compare(PHP_VERSION, '5.3.4', 'lt')) {
             $this->markTestSkipped('PCRE update in 5.3.4 fixes unicode whitespace checking issues; in 5.3.3, this test fails due to outdated PCRE version');
         }
-        $this->assertEquals('a', $this->_filter->filter(utf8_encode("\xa0a\xa0")));
+        $this->assertEquals('a', $this->filter->filter(utf8_encode("\xa0a\xa0")));
     }
 
     /**
@@ -72,9 +72,9 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testGetCharList()
+    public function testGetCharlist()
     {
-        $this->assertEquals(null, $this->_filter->getCharList());
+        $this->assertEquals(null, $this->filter->getCharlist());
     }
 
     /**
@@ -82,10 +82,10 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testSetCharList()
+    public function testSetCharlist()
     {
-        $this->_filter->setCharList('&');
-        $this->assertEquals('&', $this->_filter->getCharList());
+        $this->filter->setCharlist('&');
+        $this->assertEquals('&', $this->filter->getCharlist());
     }
 
     /**
@@ -93,10 +93,10 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testCharList()
+    public function testCharlist()
     {
-        $filter = $this->_filter;
-        $filter->setCharList('&');
+        $filter = $this->filter;
+        $filter->setCharlist('&');
         $this->assertEquals('a&b', $filter('&&a&b&&'));
     }
 
@@ -105,7 +105,7 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      */
     public function testZF7183()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $this->assertEquals('Зенд', $filter('Зенд'));
     }
 
@@ -114,7 +114,7 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      */
     public function testZF2170()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $this->assertEquals('Расчет', $filter('Расчет'));
     }
 
@@ -124,7 +124,7 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      */
     public function testZF7902()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $this->assertEquals('/', $filter('/'));
     }
 
@@ -133,13 +133,15 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      */
     public function testZF10891()
     {
-        $filter = $this->_filter;
+        $filter = $this->filter;
         $this->assertEquals('Зенд', $filter('   Зенд   '));
         $this->assertEquals('Зенд', $filter('Зенд   '));
         $this->assertEquals('Зенд', $filter('   Зенд'));
 
-        $trim_charlist = " \t\n\r\x0B・。";
-        $filter = new StringTrim($trim_charlist);
+        $trimCharlist = " \t\n\r\x0B・。";
+        $filter = new StringTrim(array(
+            'charlist' => $trimCharlist
+        ));
         $this->assertEquals('Зенд', $filter->filter('。  Зенд  。'));
     }
 
@@ -161,7 +163,7 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldNotFilterNonStringValues($value)
     {
-        $filtered = $this->_filter->filter($value);
+        $filtered = $this->filter->filter($value);
         $this->assertSame($value, $filtered);
     }
 }

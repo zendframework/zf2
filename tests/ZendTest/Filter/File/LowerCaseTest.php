@@ -108,7 +108,7 @@ class LowerCaseTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertContains('This is a File', file_get_contents($this->_newFile));
         try {
-            $filter = new FileLowerCase('ISO-8859-1');
+            $filter = new FileLowerCase(array('encoding' => 'ISO-8859-1'));
             $filter($this->_newFile);
             $this->assertContains('this is a file', file_get_contents($this->_newFile));
         } catch (\Zend\Filter\Exception\ExtensionNotLoadedException $e) {

@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter\File;
+namespace Zend\Crypt\Filter\File;
 
-use Zend\Filter;
+use Zend\Crypt\Filter;
 use Zend\Filter\Exception;
 
 /**

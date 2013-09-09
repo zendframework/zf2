@@ -10,7 +10,7 @@
 
 namespace ZendTest\Filter\Compress;
 
-use Zend\Filter\Compress\Bz2 as Bz2Compression;
+use Zend\Filter\Compress\Bz2Adapter as Bz2Compression;
 
 /**
  * @category   Zend

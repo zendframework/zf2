@@ -31,7 +31,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorParams()
     {
-        $filter = new NullFilter(NullFilter::TYPE_INTEGER);
+        $filter = new NullFilter(array('type' => NullFilter::TYPE_INTEGER));
 
         $this->assertEquals(NullFilter::TYPE_INTEGER, $filter->getType());
     }
@@ -54,7 +54,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
      */
     public function testTypes($type, $testData)
     {
-        $filter = new NullFilter($type);
+        $filter = new NullFilter(array('type' => $type));
         foreach ($testData as $data) {
             list($value, $expected) = $data;
             $message = sprintf(

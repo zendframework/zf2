@@ -22,7 +22,7 @@ class Callback extends AbstractFilter
     /**
      * @var array
      */
-    protected $callbackParams;
+    protected $callbackParams = array();
 
     /**
      * Sets a new callback for this filter
@@ -53,18 +53,18 @@ class Callback extends AbstractFilter
     /**
      * Sets parameters for the callback
      *
-     * @param  array $params
+     * @param  mixed $params
      * @return Callback
      */
-    public function setCallbackParams(array $params)
+    public function setCallbackParams($params)
     {
-        $this->callbackParams = $params;
+        $this->callbackParams = (array) $params;
     }
 
     /**
      * Get parameters for the callback
      *
-     * @return mixed
+     * @return array
      */
     public function getCallbackParams()
     {
@@ -77,13 +77,14 @@ class Callback extends AbstractFilter
      */
     public function filter($value)
     {
-        $params = $this->callbackParams;
+        $params   = $this->callbackParams;
+        $callback = $this->callback;
 
         if (empty($params)) {
-            return $this->callback($params);
+            return $callback($value);
         }
 
         array_unshift($params, $value);
-        return call_user_func_array($this->callback, $params);
+        return call_user_func_array($callback, $params);
     }
 }

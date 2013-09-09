@@ -8,9 +8,9 @@
  * @package   Zend_Filter
  */
 
-namespace ZendTest\Filter;
+namespace ZendTest\Crypt\Filter;
 
-use Zend\Filter\Decrypt as DecryptFilter;
+use Zend\Crypt\Filter\Decrypt as DecryptFilter;
 
 /**
  * @category   Zend

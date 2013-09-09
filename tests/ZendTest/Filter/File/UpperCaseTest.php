@@ -108,7 +108,7 @@ class UpperCaseTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertContains('This is a File', file_get_contents($this->_newFile));
         try {
-            $filter = new FileUpperCase('ISO-8859-1');
+            $filter = new FileUpperCase(array('encoding' => 'ISO-8859-1'));
             $filter($this->_newFile);
             $this->assertContains('THIS IS A FILE', file_get_contents($this->_newFile));
         } catch (\Zend\Filter\Exception\ExtensionNotLoadedException $e) {

@@ -27,7 +27,6 @@ class FilterPluginManager extends AbstractPluginManager
      */
     protected $invokableClasses = array(
         'Zend\Filter\BaseName'                   => 'Zend\Filter\BaseName',
-        'Zend\Filter\Boolean'                    => 'Zend\Filter\Boolean',
         'Zend\Filter\Callback'                   => 'Zend\Filter\Callback',
         'Zend\Filter\DateTimeFormatter'          => 'Zend\Filter\DateTimeFormatter',
         'Zend\Filter\Digits'                     => 'Zend\Filter\Digits',
@@ -61,6 +60,7 @@ class FilterPluginManager extends AbstractPluginManager
         'Zend\Filter\Word\UnderscoreToSeparator' => 'Zend\Filter\Word\UnderscoreToSeparator',
         'Zend\I18n\Filter\Alnum'                 => 'Zend\I18n\Filter\Alnum',
         'Zend\I18n\Filter\Alpha'                 => 'Zend\I18n\Filter\Alpha',
+        'Zend\I18n\Filter\Boolean'               => 'Zend\I18n\Filter\Boolean',
         'Zend\I18n\Filter\NumberFormat'          => 'Zend\I18n\Filter\NumberFormat',
     );
 
@@ -81,7 +81,7 @@ class FilterPluginManager extends AbstractPluginManager
         'alnum'                     => 'Zend\I18n\Filter\Alnum',
         'alpha'                     => 'Zend\I18n\Filter\Alpha',
         'basename'                  => 'Zend\Filter\BaseName',
-        'boolean'                   => 'Zend\Filter\Boolean',
+        'boolean'                   => 'Zend\I18n\Filter\Boolean',
         'callback'                  => 'Zend\Filter\Callback',
         'compress'                  => 'Zend\Filter\Factory\CompressFilterFactory',
         'datetimeformatter'         => 'Zend\Filter\DateTimeFormatter',

@@ -7,7 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Filter;
+namespace Zend\I18n\Filter;
+
+use Zend\Filter\AbstractFilter;
 
 /**
  * Filter that converts a value to its boolean representation
@@ -18,12 +20,44 @@ namespace Zend\Filter;
 class Boolean extends AbstractFilter
 {
     /**
+     * An array that map a word to a boolean
+     *
+     * @var array
+     */
+    protected $translations = array();
+
+    /**
+     * Set translations
+     *
+     * @param  array $translations
+     * @return void
+     */
+    public function setTranslations(array $translations)
+    {
+        $this->translations = $translations;
+    }
+
+    /**
+     * Get translations
+     *
+     * @return array
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    /**
      * Returns a boolean representation of $value
      *
      * {@inheritDoc}
      */
     public function filter($value)
     {
+        if (isset($this->translations[$value])) {
+            return (bool) $this->translations[$value];
+        }
+
         return filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
 }

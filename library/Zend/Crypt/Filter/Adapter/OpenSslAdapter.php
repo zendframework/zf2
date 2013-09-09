@@ -64,7 +64,7 @@ class OpenSslAdapter implements EncryptionAdapterInterface
             throw new Exception\ExtensionNotLoadedException('This filter needs the openssl extension');
         }
 
-        parent::__construct($options);
+        //parent::__construct($options);
     }
 
     /**
