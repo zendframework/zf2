@@ -5,12 +5,12 @@
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
  * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Db
  */
 
 namespace ZendTest\Db\Sql;
 
 use Zend\Db\Sql\Insert;
+use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\TableIdentifier;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
@@ -132,6 +132,16 @@ class InsertTest extends \PHPUnit_Framework_TestCase
             ->values(array('bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null));
 
         $this->assertEquals('INSERT INTO "sch"."foo" ("bar", "boo", "bam") VALUES (\'baz\', NOW(), NULL)', $this->insert->getSqlString(new TrustingSql92Platform()));
+
+        // with Select
+        $this->insert = new Insert;
+        $select = new Select();
+        $this->insert->into('foo')->select($select->from('bar'));
+        $this->assertEquals('INSERT INTO "foo"  SELECT "bar".* FROM "bar"', $this->insert->getSqlString(new TrustingSql92Platform()));
+
+        // with Select and columns
+        $this->insert->columns(array('col1', 'col2'));
+        $this->assertEquals('INSERT INTO "foo" ("col1", "col2") SELECT "bar".* FROM "bar"', $this->insert->getSqlString(new TrustingSql92Platform()));
     }
 
     /**
@@ -188,5 +198,4 @@ class InsertTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('INSERT INTO "foo" ("bar", "boo", "bam", "qux") VALUES (\'baz\', NOW(), NULL, \'100\')', $this->insert->getSqlString(new TrustingSql92Platform()));
 
     }
-
 }
