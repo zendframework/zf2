@@ -33,12 +33,22 @@ class Null extends AbstractFilter
     /**
      * Set boolean types
      *
-     * @param  int $type
+     * @param  int|int[] $type
      * @throws Exception\InvalidArgumentException
      * @return void
      */
     public function setType($type)
     {
+        if (is_array($type)) {
+            $result = 0;
+
+            foreach ($type as $value) {
+                $result += (int) $value;
+            }
+
+            $type = $result;
+        }
+
         if (!is_int($type) || ($type < 0) || ($type > self::TYPE_ALL)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Unknown type value "%s" (%s)',

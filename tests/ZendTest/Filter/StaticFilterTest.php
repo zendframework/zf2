@@ -21,16 +21,6 @@ use Zend\Filter\FilterPluginManager;
  */
 class StaticFilterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Resets the default namespaces
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        StaticFilter::setPluginManager(null);
-    }
-
     public function testUsesFilterPluginManagerByDefault()
     {
         $plugins = StaticFilter::getPluginManager();
@@ -42,17 +32,6 @@ class StaticFilterTest extends \PHPUnit_Framework_TestCase
         $plugins = new FilterPluginManager();
         StaticFilter::setPluginManager($plugins);
         $this->assertSame($plugins, StaticFilter::getPluginManager());
-    }
-
-    public function testCanResetPluginManagerByPassingNull()
-    {
-        $plugins = new FilterPluginManager();
-        StaticFilter::setPluginManager($plugins);
-        $this->assertSame($plugins, StaticFilter::getPluginManager());
-        StaticFilter::setPluginManager(null);
-        $registered = StaticFilter::getPluginManager();
-        $this->assertNotSame($plugins, $registered);
-        $this->assertInstanceOf('Zend\Filter\FilterPluginManager', $registered);
     }
 
     /**
@@ -99,7 +78,7 @@ class StaticFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesDifferentConfigurationOnEachRequest()
     {
-        /*$first = StaticFilter::execute('foo', 'callback', array(
+        $first = StaticFilter::execute('foo', 'callback', array(
             'callback' => function ($value) {
                 return 'FOO';
             },
@@ -111,6 +90,6 @@ class StaticFilterTest extends \PHPUnit_Framework_TestCase
         ));
         $this->assertNotSame($first, $second);
         $this->assertEquals('FOO', $first);
-        $this->assertEquals('BAR', $second);*/
+        $this->assertEquals('BAR', $second);
     }
 }

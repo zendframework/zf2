@@ -122,6 +122,22 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('Php Is Good', $this->filterChain->filter('php_is_good'));
     }
+
+    public function testSetFiltersRemoveOldFilters()
+    {
+        $this->filterChain->attachByName('Callback');
+        $this->filterChain->setFilters(array(array('name' => 'Digits')));
+
+        $this->assertEquals(1, count($this->filterChain));
+    }
+
+    public function addFiltersDoesNotRemoveOldFilters()
+    {
+        $this->filterChain->attachByName('Callback');
+        $this->filterChain->addFilters(array(array('name' => 'Digits')));
+
+        $this->assertEquals(2, count($this->filterChain));
+    }
 }
 
 

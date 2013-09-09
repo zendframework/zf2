@@ -27,14 +27,6 @@ class NumberFormatTest extends TestCase
         $this->assertEquals(NumberFormatter::DECIMAL, $filter->getStyle());
     }
 
-    public function testConstructWithParameters()
-    {
-        $filter = new NumberFormatFilter('en_US', NumberFormatter::DECIMAL);
-
-        $this->assertEquals('en_US', $filter->getLocale());
-        $this->assertEquals(NumberFormatter::DECIMAL, $filter->getStyle());
-    }
-
 
     /**
      * @param $locale
@@ -46,7 +38,12 @@ class NumberFormatTest extends TestCase
      */
     public function testNumberToFormatted($locale, $style, $type, $value, $expected)
     {
-        $filter = new NumberFormatFilter($locale, $style, $type);
+        $filter = new NumberFormatFilter(array(
+            'locale' => $locale,
+            'style'  => $style,
+            'type'   => $type
+        ));
+
         $this->assertEquals($expected, $filter->filter($value));
     }
 
@@ -60,7 +57,11 @@ class NumberFormatTest extends TestCase
      */
     public function testFormattedToNumber($locale, $style, $type, $value, $expected)
     {
-        $filter = new NumberFormatFilter($locale, $style, $type);
+        $filter = new NumberFormatFilter(array(
+            'locale' => $locale,
+            'style'  => $style,
+            'type'   => $type
+        ));
         $this->assertEquals($expected, $filter->filter($value));
     }
 

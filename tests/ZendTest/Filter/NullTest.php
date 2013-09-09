@@ -77,6 +77,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
     {
         foreach ($typeData as $type) {
             $filter = new NullFilter(array('type' => $type));
+
             foreach ($testData as $data) {
                 list($value, $expected) = $data;
                 $message = sprintf(
@@ -264,11 +265,6 @@ class NullTest extends \PHPUnit_Framework_TestCase
                         NullFilter::TYPE_ZERO_STRING,
                         NullFilter::TYPE_STRING,
                         NullFilter::TYPE_BOOLEAN,
-                    ),
-                    array(
-                        'zero',
-                        'string',
-                        'boolean',
                     ),
                     NullFilter::TYPE_ZERO_STRING | NullFilter::TYPE_STRING | NullFilter::TYPE_BOOLEAN,
                     NullFilter::TYPE_ZERO_STRING + NullFilter::TYPE_STRING + NullFilter::TYPE_BOOLEAN,
