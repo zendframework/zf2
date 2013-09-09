@@ -23,6 +23,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @const
      */
     const SPECIFICATION_INSERT = 'insert';
+    const SPECIFICATION_SELECT = 'select';
     const VALUES_MERGE = 'merge';
     const VALUES_SET   = 'set';
     /**#@-*/
@@ -31,7 +32,8 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @var array Specification array
      */
     protected $specifications = array(
-        self::SPECIFICATION_INSERT => 'INSERT INTO %1$s (%2$s) VALUES (%3$s)'
+        self::SPECIFICATION_INSERT => 'INSERT INTO %1$s (%2$s) VALUES (%3$s)',
+        self::SPECIFICATION_SELECT => 'INSERT INTO %1$s %2$s %3$s'
     );
 
     /**
@@ -46,6 +48,11 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $values           = array();
 
     /**
+     * @var Select
+     */
+    protected $select           = null;
+
+    /**
      * Constructor
      *
      * @param  null|string|TableIdentifier $table
@@ -58,14 +65,23 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     }
 
     /**
-     * Crete INTO clause
+     * Create INTO clause
      *
      * @param  string|TableIdentifier $table
      * @return Insert
      */
     public function into($table)
     {
-        $this->table = $table;
+        if ($table instanceof \Zend\Db\Sql\Ddl\CreateTable) {
+            $this->table = $table->getRawState($table::TABLE);
+            $columns = $table->getRawState($table::COLUMNS);
+            $this->columns = array();
+            foreach($columns as $column) {
+                $this->columns[] = $column->getName();
+            }
+        } else {
+            $this->table = $table;
+        }
         return $this;
     }
 
@@ -121,12 +137,30 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
         return $this;
     }
 
+    /**
+     * Create INTO SELECT clause
+     *
+     * @param Select $select
+     * @return Insert
+     */
+    public function select(Select $select) {
+        $this->select = $select;
+        return $this;
+    }
+
+    /**
+     * Get raw state
+     *
+     * @param string $key
+     * @return mixed
+     */
     public function getRawState($key = null)
     {
         $rawState = array(
             'table' => $this->table,
             'columns' => $this->columns,
-            'values' => $this->values
+            'values' => $this->values,
+            'select' => $this->select,
         );
         return (isset($key) && array_key_exists($key, $rawState)) ? $rawState[$key] : $rawState;
     }
@@ -218,21 +252,29 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
         $columns = array_map(array($adapterPlatform, 'quoteIdentifier'), $this->columns);
         $columns = implode(', ', $columns);
 
-        $values = array();
-        foreach ($this->values as $value) {
-            if ($value instanceof Expression) {
-                $exprData = $this->processExpression($value, $adapterPlatform);
-                $values[] = $exprData->getSql();
-            } elseif ($value === null) {
-                $values[] = 'NULL';
-            } else {
-                $values[] = $adapterPlatform->quoteValue($value);
+        if ($this->select == null) {
+            $values = array();
+            foreach ($this->values as $value) {
+                if ($value instanceof Expression) {
+                    $exprData = $this->processExpression($value, $adapterPlatform);
+                    $values[] = $exprData->getSql();
+                } elseif ($value === null) {
+                    $values[] = 'NULL';
+                } else {
+                    $values[] = $adapterPlatform->quoteValue($value);
+                }
             }
+
+            $values = implode(', ', $values);
+
+            return sprintf($this->specifications[self::SPECIFICATION_INSERT], $table, $columns, $values);
+        } else {
+            $selectString = $this->select->getSqlString($adapterPlatform);
+            if ($columns) {
+                $columns = "($columns)";
+            }
+            return sprintf($this->specifications[self::SPECIFICATION_SELECT], $table, $columns, $selectString);
         }
-
-        $values = implode(', ', $values);
-
-        return sprintf($this->specifications[self::SPECIFICATION_INSERT], $table, $columns, $values);
     }
 
     /**
