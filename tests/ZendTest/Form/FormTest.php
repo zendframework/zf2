@@ -1807,6 +1807,7 @@ class FormTest extends TestCase
                 ),
                 array(
                     'group_class' => 'biz',
+                    'items' => array(),
                 ),
             ),
         );
@@ -1814,7 +1815,7 @@ class FormTest extends TestCase
         $this->form->setData($data);
         
         $isValid = $this->form->isValid();
-        $this->assertSame($data, $this->form->getData());
+        $this->assertEquals($data, $this->form->getData());
     }
 
     /**
