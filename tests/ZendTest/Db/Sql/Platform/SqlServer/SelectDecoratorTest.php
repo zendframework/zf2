@@ -24,7 +24,7 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
      * @covers Zend\Db\Sql\Platform\SqlServer\SelectDecorator::processLimitOffset
      * @dataProvider dataProvider
      */
-    public function testPrepareStatement(Select $select, $expectedSql, $expectedParams)
+    public function testPrepareStatement(Select $select, $expectedSql)
     {
         // test
         $adapter = $this->getMock(
@@ -45,8 +45,6 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
         $selectDecorator = new SelectDecorator;
         $selectDecorator->setSubject($select);
         $selectDecorator->prepareStatement($adapter, $statement);
-
-        $this->assertEquals($expectedParams, $parameterContainer->getNamedArray());
     }
 
     /**
@@ -55,7 +53,7 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
      * @covers Zend\Db\Sql\Platform\SqlServer\SelectDecorator::processLimitOffset
      * @dataProvider dataProvider
      */
-    public function testGetSqlString(Select $select, $notUsed, $notUsed, $expectedSql)
+    public function testGetSqlString(Select $select, $expectedSql)
     {
         $parameterContainer = new ParameterContainer;
         $statement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
@@ -70,33 +68,26 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
     {
         $select0 = new Select;
         $select0->from('foo')->columns(array('bar', 'baz'))->order('bar')->limit(5)->offset(10);
-        $expectedPrepareSql0 = 'SELECT [bar], [baz] FROM ( SELECT [foo].[bar] AS [bar], [foo].[baz] AS [baz], ROW_NUMBER() OVER (ORDER BY [bar] ASC) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN ?+1 AND ?+?';
-        $expectedParams0 = array('offset' => 10, 'limit' => 5, 'offsetForSum' => 10);
-        $expectedSql0 = 'SELECT [bar], [baz] FROM ( SELECT [foo].[bar] AS [bar], [foo].[baz] AS [baz], ROW_NUMBER() OVER (ORDER BY [bar] ASC) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN 10+1 AND 5+10';
+        $expectedSql0 = 'SELECT [bar], [baz] FROM ( SELECT [foo].[bar] AS [bar], [foo].[baz] AS [baz], ROW_NUMBER() OVER (ORDER BY [bar] ASC) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN 11 AND 15';
 
         $select1 = new Select;
         $select1->from('foo')->columns(array('bar', 'bam' => 'baz'))->limit(5)->offset(10);
-        $expectedPrepareSql1 = 'SELECT [bar], [bam] FROM ( SELECT [foo].[bar] AS [bar], [foo].[baz] AS [bam], ROW_NUMBER() OVER (ORDER BY (SELECT 1)) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN ?+1 AND ?+?';
-        $expectedParams1 = array('offset' => 10, 'limit' => 5, 'offsetForSum' => 10);
-        $expectedSql1 = 'SELECT [bar], [bam] FROM ( SELECT [foo].[bar] AS [bar], [foo].[baz] AS [bam], ROW_NUMBER() OVER (ORDER BY (SELECT 1)) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN 10+1 AND 5+10';
+        $expectedSql1 = 'SELECT [bar], [bam] FROM ( SELECT [foo].[bar] AS [bar], [foo].[baz] AS [bam], ROW_NUMBER() OVER (ORDER BY (SELECT 1)) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN 11 AND 15';
 
         $select2 = new Select;
         $select2->from('foo')->order('bar')->limit(5)->offset(10);
-        $expectedPrepareSql2 = 'SELECT * FROM ( SELECT [foo].*, ROW_NUMBER() OVER (ORDER BY [bar] ASC) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN ?+1 AND ?+?';
-        $expectedParams2 = array('offset' => 10, 'limit' => 5, 'offsetForSum' => 10);
-        $expectedSql2 = 'SELECT * FROM ( SELECT [foo].*, ROW_NUMBER() OVER (ORDER BY [bar] ASC) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN 10+1 AND 5+10';
+        $expectedSql2 = 'SELECT * FROM ( SELECT [foo].*, ROW_NUMBER() OVER (ORDER BY [bar] ASC) AS [__ZEND_ROW_NUMBER] FROM [foo] ) AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN 11 AND 15';
 
         $select3 = new Select;
         $select3->from('foo');
-        $expectedPrepareSql3 = 'SELECT [foo].* FROM [foo]';
         $expectedParams3 = array();
         $expectedSql3 = 'SELECT [foo].* FROM [foo]';
 
         return array(
-            array($select0, $expectedPrepareSql0, $expectedParams0, $expectedSql0),
-            array($select1, $expectedPrepareSql1, $expectedParams1, $expectedSql1),
-            array($select2, $expectedPrepareSql2, $expectedParams2, $expectedSql2),
-            array($select3, $expectedPrepareSql3, $expectedParams3, $expectedSql3)
+            array($select0, $expectedSql0),
+            array($select1, $expectedSql1),
+            array($select2, $expectedSql2),
+            array($select3, $expectedSql3)
         );
     }
 

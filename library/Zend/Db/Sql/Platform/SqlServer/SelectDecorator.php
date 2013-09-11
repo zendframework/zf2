@@ -105,8 +105,8 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         ));
 
         array_push($sqls, ') AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN '
-            . (int) $this->offset . '+1 AND '
-            . (int) $this->limit . '+' . (int) $this->offset
+            . ((int) $this->offset + 1) . ' AND '
+            . ((int) $this->limit + (int) $this->offset)
         );
 
         if (isset($sqls[self::ORDER])) {
