@@ -47,7 +47,7 @@ abstract class AbstractTableGateway implements TableGatewayInterface
     /**
      * @var string
      */
-    protected $tableName = null;
+    protected $tableName;
 
     /**
      * @var array
