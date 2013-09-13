@@ -23,6 +23,7 @@ use Zend\I18n\View\Helper\DateFormat as DateFormatHelper;
  * @subpackage UnitTests
  * @group      Zend_View
  * @group      Zend_View_Helper
+ * @requires   extension intl
  */
 class DateFormatTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,6 +56,12 @@ class DateFormatTest extends \PHPUnit_Framework_TestCase
 
     public function dateTestsDataProvider()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped(
+                'The intl extension is not available.'
+            );
+        }
+    
         $date = new DateTime('2012-07-02T22:44:03Z');
 
         return array(
@@ -147,6 +154,12 @@ class DateFormatTest extends \PHPUnit_Framework_TestCase
 
     public function dateTestsDataProviderWithPattern()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped(
+                'The intl extension is not available.'
+            );
+        }
+    
         $date = new DateTime('2012-07-02T22:44:03Z');
 
         return array(
