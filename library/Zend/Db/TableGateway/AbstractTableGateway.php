@@ -151,6 +151,8 @@ abstract class AbstractTableGateway implements TableGatewayInterface
         } elseif ($this->table instanceof TableIdentifier) {
             return $this->table->getTable();
         }
+        
+        return null;
     }
 
     /**
