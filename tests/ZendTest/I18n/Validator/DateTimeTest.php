@@ -18,6 +18,7 @@ use Locale;
  * @package    Zend_Validator
  * @subpackage UnitTests
  * @group      Zend_Validator
+ * @requires   extension intl
  */
 class DateTimeTest extends \PHPUnit_Framework_TestCase
 {
@@ -65,6 +66,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function basicProvider()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped(
+                'The intl extension is not available.'
+            );
+        }
+
         return array(
             array('May 30, 2013',   true, array('locale'=>'en', 'dateType' => \IntlDateFormatter::MEDIUM, 'timeType' => \IntlDateFormatter::NONE)),
             array('30.Mai.2013',   true, array('locale'=>'de', 'dateType' => \IntlDateFormatter::MEDIUM, 'timeType' => \IntlDateFormatter::NONE)),

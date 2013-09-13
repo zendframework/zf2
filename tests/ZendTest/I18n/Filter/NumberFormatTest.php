@@ -13,6 +13,9 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\I18n\Filter\NumberFormat as NumberFormatFilter;
 use NumberFormatter;
 
+/**
+ * @requires extension intl
+ */
 class NumberFormatTest extends TestCase
 {
     public function testConstructWithOptions()
@@ -63,8 +66,14 @@ class NumberFormatTest extends TestCase
         $this->assertEquals($expected, $filter->filter($value));
     }
 
-    public static function numberToFormattedProvider()
+    public function numberToFormattedProvider()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped(
+                'The intl extension is not available.'
+            );
+        }
+
         return array(
             array(
                 'en_US',
@@ -90,8 +99,14 @@ class NumberFormatTest extends TestCase
         );
     }
 
-    public static function formattedToNumberProvider()
+    public function formattedToNumberProvider()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped(
+                'The intl extension is not available.'
+            );
+        }
+
         return array(
             array(
                 'en_US',

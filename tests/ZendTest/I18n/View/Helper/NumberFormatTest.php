@@ -22,6 +22,7 @@ use Zend\I18n\View\Helper\NumberFormat as NumberFormatHelper;
  * @subpackage UnitTests
  * @group      Zend_View
  * @group      Zend_View_Helper
+ * @requires   extension intl
  */
 class NumberFormatTest extends \PHPUnit_Framework_TestCase
 {
@@ -54,6 +55,12 @@ class NumberFormatTest extends \PHPUnit_Framework_TestCase
 
     public function currencyTestsDataProvider()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped(
+                'The intl extension is not available.'
+            );
+        }
+
         return array(
             array(
                 'de_DE',
