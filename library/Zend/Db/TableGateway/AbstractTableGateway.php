@@ -110,7 +110,7 @@ abstract class AbstractTableGateway implements TableGatewayInterface
             throw new Exception\RuntimeException('This table object does not have a valid table set.');
         }
         
-        if (is_array($table) && (!is_string(key($table)) || count($table) !== 1)) {
+        if (is_array($this->table) && (!is_string(key($this->table)) || count($this->table) !== 1)) {
             throw new Exception\InvalidArgumentException('from() expects $table as an array is a single element associative array');
         }        
 
