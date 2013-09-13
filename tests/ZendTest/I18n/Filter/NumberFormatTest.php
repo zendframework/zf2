@@ -73,7 +73,7 @@ class NumberFormatTest extends TestCase
                 'The intl extension is not available.'
             );
         }
-    
+
         return array(
             array(
                 'en_US',
@@ -106,7 +106,7 @@ class NumberFormatTest extends TestCase
                 'The intl extension is not available.'
             );
         }
-    
+
         return array(
             array(
                 'en_US',

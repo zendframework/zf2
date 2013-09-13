@@ -58,7 +58,7 @@ class NumberParseTest extends TestCase
                 'The intl extension is not available.'
             );
         }
-    
+
         return array(
             array(
                 'en_US',

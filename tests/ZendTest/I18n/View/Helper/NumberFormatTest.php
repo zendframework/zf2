@@ -60,7 +60,7 @@ class NumberFormatTest extends \PHPUnit_Framework_TestCase
                 'The intl extension is not available.'
             );
         }
-    
+
         return array(
             array(
                 'de_DE',

@@ -61,7 +61,7 @@ class DateFormatTest extends \PHPUnit_Framework_TestCase
                 'The intl extension is not available.'
             );
         }
-    
+
         $date = new DateTime('2012-07-02T22:44:03Z');
 
         return array(
@@ -159,7 +159,7 @@ class DateFormatTest extends \PHPUnit_Framework_TestCase
                 'The intl extension is not available.'
             );
         }
-    
+
         $date = new DateTime('2012-07-02T22:44:03Z');
 
         return array(
