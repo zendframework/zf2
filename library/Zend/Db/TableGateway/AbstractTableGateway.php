@@ -40,9 +40,14 @@ abstract class AbstractTableGateway implements TableGatewayInterface
     protected $adapter = null;
 
     /**
-     * @var string
+     * @var string|array|TableIdentifier
      */
     protected $table = null;
+
+    /**
+     * @var string
+     */
+    protected $tableName = null;
 
     /**
      * @var array
@@ -101,9 +106,13 @@ abstract class AbstractTableGateway implements TableGatewayInterface
             throw new Exception\RuntimeException('This table does not have an Adapter setup');
         }
 
-        if (!is_string($this->table) && !$this->table instanceof TableIdentifier) {
+        if (!is_string($this->table) && !is_array($this->table) && !$this->table instanceof TableIdentifier) {
             throw new Exception\RuntimeException('This table object does not have a valid table set.');
         }
+        
+        if (is_array($table) && (!is_string(key($table)) || count($table) !== 1)) {
+            throw new Exception\InvalidArgumentException('from() expects $table as an array is a single element associative array');
+        }        
 
         if (!$this->resultSetPrototype instanceof ResultSetInterface) {
             $this->resultSetPrototype = new ResultSet;
@@ -119,13 +128,29 @@ abstract class AbstractTableGateway implements TableGatewayInterface
     }
 
     /**
-     * Get table name
+     * Get table
      *
-     * @return string
+     * @return string|array|TableIdentifier
      */
     public function getTable()
     {
         return $this->table;
+    }
+
+    /**
+     * Get table name
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        if (is_string($this->table)) {
+            return $this->table;
+        } elseif (is_array($this->table)) {
+            return current($this->table);
+        } elseif ($this->table instanceof TableIdentifier) {
+            return $this->table->getTable();
+        }
     }
 
     /**
