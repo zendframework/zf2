@@ -109,7 +109,7 @@ abstract class AbstractTableGateway implements TableGatewayInterface
         if (!is_string($this->table) && !is_array($this->table) && !$this->table instanceof TableIdentifier) {
             throw new Exception\RuntimeException('This table object does not have a valid table set.');
         }
-        
+
         if (is_array($this->table) && (!is_string(key($this->table)) || count($this->table) !== 1)) {
             throw new Exception\InvalidArgumentException('from() expects $table as an array is a single element associative array');
         }
@@ -151,7 +151,7 @@ abstract class AbstractTableGateway implements TableGatewayInterface
         } elseif ($this->table instanceof TableIdentifier) {
             return $this->table->getTable();
         }
-        
+
         return null;
     }
 
