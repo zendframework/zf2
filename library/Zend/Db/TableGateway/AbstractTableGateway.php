@@ -112,7 +112,7 @@ abstract class AbstractTableGateway implements TableGatewayInterface
         
         if (is_array($this->table) && (!is_string(key($this->table)) || count($this->table) !== 1)) {
             throw new Exception\InvalidArgumentException('from() expects $table as an array is a single element associative array');
-        }        
+        }
 
         if (!$this->resultSetPrototype instanceof ResultSetInterface) {
             $this->resultSetPrototype = new ResultSet;
