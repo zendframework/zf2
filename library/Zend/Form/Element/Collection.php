@@ -240,8 +240,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
                 'There are more elements than specified in the collection (%s). Either set the allow_add option ' .
                 'to true, or re-submit the form.',
                 get_class($this)
-                )
-            );
+            ));
         }
 
         if (! $this->createNewObjects()) {
