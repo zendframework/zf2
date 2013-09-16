@@ -24,11 +24,6 @@ class Forward extends AbstractPlugin
     protected $controllers;
 
     /**
-     * @var MvcEvent
-     */
-    protected $event;
-
-    /**
      * @var int
      */
     protected $maxNestedForwards = 10;
@@ -218,10 +213,6 @@ class Forward extends AbstractPlugin
      */
     protected function getEvent()
     {
-        if ($this->event) {
-            return $this->event;
-        }
-
         $controller = $this->getController();
         if (!$controller instanceof InjectApplicationEventInterface) {
             throw new Exception\DomainException('Forward plugin requires a controller that implements InjectApplicationEventInterface');
@@ -236,8 +227,7 @@ class Forward extends AbstractPlugin
             $event  = new MvcEvent();
             $event->setParams($params);
         }
-        $this->event = $event;
 
-        return $this->event;
+        return $event;
     }
 }
