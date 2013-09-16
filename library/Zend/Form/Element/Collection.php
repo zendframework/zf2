@@ -193,8 +193,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
                     'There are fewer elements than specified in the collection (%s). Either set the allow_remove option ' .
                     'to true, or re-submit the form.',
                     get_class($this)
-                    )
-                );
+                ));
             }
 
             // If there are less data and that allowRemove is true, we remove elements that are not presents
