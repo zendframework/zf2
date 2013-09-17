@@ -23,18 +23,22 @@ class InputFilterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = array(
-        'Zend\InputFilter\FileInput'       => 'Zend\InputFilter\Factory\FileInputFactory',
-        'Zend\InputFilter\Input'           => 'Zend\InputFilter\Factory\InputFactory',
-        'Zend\InputFilter\InputCollection' => 'Zend\InputFilter\Factory\InputCollectionFactory'
+        'Zend\InputFilter\ArrayInput'           => 'Zend\InputFilter\Factory\InputFactory',
+        'Zend\InputFilter\ArrayInputCollection' => 'Zend\InputFilter\Factory\InputCollectionFactory',
+        'Zend\InputFilter\FileInput'            => 'Zend\InputFilter\Factory\FileInputFactory',
+        'Zend\InputFilter\Input'                => 'Zend\InputFilter\Factory\InputFactory',
+        'Zend\InputFilter\InputCollection'      => 'Zend\InputFilter\Factory\InputCollectionFactory'
     );
 
     /**
      * @var array
      */
     protected $aliases = array(
-        'fileinput'       => 'Zend\InputFilter\FileInput',
-        'input'           => 'Zend\InputFilter\Input',
-        'inputcollection' => 'Zend\InputFilter\InputCollection'
+        'arrayinput'           => 'Zend\InputFilter\ArrayInput',
+        'arrayinputcollection' => 'Zend\InputFilter\ArrayInputCollection',
+        'fileinput'            => 'Zend\InputFilter\FileInput',
+        'input'                => 'Zend\InputFilter\Input',
+        'inputcollection'      => 'Zend\InputFilter\InputCollection'
     );
 
     /**
