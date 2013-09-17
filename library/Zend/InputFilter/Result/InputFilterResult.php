@@ -93,13 +93,13 @@ class InputFilterResult implements InputFilterResultInterface
      */
     public function unserialize($serialized)
     {
-        return unserialize($serialized);
+        $this->errorMessages = unserialize($serialized);
     }
 
     /**
      * Return error messages that can be serialized by json_encode
      *
-     * @return mixed
+     * @return string
      */
     public function jsonSerialize()
     {

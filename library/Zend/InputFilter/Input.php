@@ -18,6 +18,8 @@ use Zend\Filter\FilterChain;
  */
 class Input implements InputInterface
 {
+    const NOT_EMPTY_VALIDATOR_PRIORITY = 1000;
+
     /**
      * @var string
      */
@@ -80,7 +82,11 @@ class Input implements InputInterface
     public function setRequired($required)
     {
         if ($required) {
-            $this->validatorChain->attachByName('Zend\Validator\NotEmpty', 1000);
+            $this->validatorChain->attachByName(
+                'Zend\Validator\NotEmpty',
+                array(),
+                self::NOT_EMPTY_VALIDATOR_PRIORITY
+            );
         }
     }
 

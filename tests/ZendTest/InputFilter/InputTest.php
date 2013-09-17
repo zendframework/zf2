@@ -11,9 +11,9 @@
 namespace ZendTest\InputFilter;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Filter\FilterChain;
 use Zend\InputFilter\Input;
-use Zend\Filter;
-use Zend\Validator;
+use Zend\Validator\ValidatorChain;
 
 class InputTest extends TestCase
 {
@@ -24,252 +24,172 @@ class InputTest extends TestCase
 
     public function setUp()
     {
-        $this->input = new Input('foo');
+        $this->input = new Input();
     }
 
-    public function testConstructorRequiresAName()
+    public function testAssertDefaultValues()
     {
-        $this->assertEquals('foo', $this->input->getName());
-    }
-
-    public function testInputHasEmptyFilterChainByDefault()
-    {
-        $filters = $this->input->getFilterChain();
-        $this->assertInstanceOf('Zend\Filter\FilterChain', $filters);
-        $this->assertEquals(0, count($filters));
-    }
-
-    public function testInputHasEmptyValidatorChainByDefault()
-    {
-        $validators = $this->input->getValidatorChain();
-        $this->assertInstanceOf('Zend\Validator\ValidatorChain', $validators);
-        $this->assertEquals(0, count($validators));
-    }
-
-    public function testCanInjectFilterChain()
-    {
-        $chain = new Filter\FilterChain();
-        $this->input->setFilterChain($chain);
-        $this->assertSame($chain, $this->input->getFilterChain());
-    }
-
-    public function testCanInjectValidatorChain()
-    {
-        $chain = new Validator\ValidatorChain();
-        $this->input->setValidatorChain($chain);
-        $this->assertSame($chain, $this->input->getValidatorChain());
-    }
-
-    public function testInputIsMarkedAsRequiredByDefault()
-    {
-        $this->assertTrue($this->input->isRequired());
-    }
-
-    public function testRequiredFlagIsMutable()
-    {
-        $this->input->setRequired(false);
+        $this->assertNull($this->input->getName());
         $this->assertFalse($this->input->isRequired());
-    }
-
-    public function testInputDoesNotAllowEmptyValuesByDefault()
-    {
         $this->assertFalse($this->input->allowEmpty());
-    }
-
-    public function testAllowEmptyFlagIsMutable()
-    {
-        $this->input->setAllowEmpty(true);
-        $this->assertTrue($this->input->allowEmpty());
-    }
-
-    public function testContinueIfEmptyFlagIsFalseByDefault()
-    {
-        $input = new Input('foo');
-        $this->assertFalse($input->continueIfEmpty());
-    }
-
-    public function testContinueIfEmptyFlagIsMutable()
-    {
-        $input = new Input('foo');
-        $input->setContinueIfEmpty(true);
-        $this->assertTrue($input->continueIfEmpty());
-    }
-
-    public function testNotEmptyValidatorNotInjectedIfContinueIfEmptyIsTrue()
-    {
-        $input = new Input('foo');
-        $input->setContinueIfEmpty(true);
-        $input->setValue('');
-        $input->isValid();
-        $validators = $input->getValidatorChain()
-                                ->getValidators();
-        $this->assertTrue(0 == count($validators));
-    }
-
-    public function testValueIsNullByDefault()
-    {
-        $this->assertNull($this->input->getValue());
-    }
-
-    public function testValueMayBeInjected()
-    {
-        $this->input->setValue('bar');
-        $this->assertEquals('bar', $this->input->getValue());
-    }
-
-    public function testRetrievingValueFiltersTheValue()
-    {
-        $this->input->setValue('bar');
-        $filter = new Filter\StringToUpper();
-        $this->input->getFilterChain()->attach($filter);
-        $this->assertEquals('BAR', $this->input->getValue());
-    }
-
-    public function testCanRetrieveRawValue()
-    {
-        $this->input->setValue('bar');
-        $filter = new Filter\StringToUpper();
-        $this->input->getFilterChain()->attach($filter);
-        $this->assertEquals('bar', $this->input->getRawValue());
-    }
-
-    public function testIsValidReturnsFalseIfValidationChainFails()
-    {
-        $this->input->setValue('bar');
-        $validator = new Validator\Digits();
-        $this->input->getValidatorChain()->attach($validator);
-        $this->assertFalse($this->input->isValid());
-    }
-
-    public function testIsValidReturnsTrueIfValidationChainSucceeds()
-    {
-        $this->input->setValue('123');
-        $validator = new Validator\Digits();
-        $this->input->getValidatorChain()->attach($validator);
-        $this->assertTrue($this->input->isValid());
-    }
-
-    public function testValidationOperatesOnFilteredValue()
-    {
-        $this->input->setValue(' 123 ');
-        $filter = new Filter\StringTrim();
-        $this->input->getFilterChain()->attach($filter);
-        $validator = new Validator\Digits();
-        $this->input->getValidatorChain()->attach($validator);
-        $this->assertTrue($this->input->isValid());
-    }
-
-    public function testGetMessagesReturnsValidationMessages()
-    {
-        $this->input->setValue('bar');
-        $validator = new Validator\Digits();
-        $this->input->getValidatorChain()->attach($validator);
-        $this->assertFalse($this->input->isValid());
-        $messages = $this->input->getMessages();
-        $this->assertArrayHasKey(Validator\Digits::NOT_DIGITS, $messages);
-    }
-
-    public function testSpecifyingMessagesToInputReturnsThoseOnFailedValidation()
-    {
-        $this->input->setValue('bar');
-        $validator = new Validator\Digits();
-        $this->input->getValidatorChain()->attach($validator);
-        $this->input->setErrorMessage('Please enter only digits');
-        $this->assertFalse($this->input->isValid());
-        $messages = $this->input->getMessages();
-        $this->assertArrayNotHasKey(Validator\Digits::NOT_DIGITS, $messages);
-        $this->assertContains('Please enter only digits', $messages);
-    }
-
-    public function testBreakOnFailureFlagIsOffByDefault()
-    {
         $this->assertFalse($this->input->breakOnFailure());
     }
 
-    public function testBreakOnFailureFlagIsMutable()
+    public function testInjectPluginManagersIfNoneAreProvided()
     {
-        $this->input->setBreakOnFailure(true);
-        $this->assertTrue($this->input->breakOnFailure());
+        $input = new Input();
+        $this->assertInstanceOf('Zend\Filter\FilterChain', $input->getFilterChain());
+        $this->assertInstanceOf('Zend\Validator\ValidatorChain', $input->getValidatorChain());
+
+        $filterChain    = new FilterChain();
+        $validatorChain = new ValidatorChain();
+        $input          = new Input($filterChain, $validatorChain);
+        $this->assertSame($filterChain, $input->getFilterChain());
+        $this->assertSame($validatorChain, $input->getValidatorChain());
     }
 
-    public function testNotEmptyValidatorAddedWhenIsValidIsCalled()
+    public function testAssertSetRequiredAddNotEmptyValidator()
     {
-        $this->assertTrue($this->input->isRequired());
-        $this->input->setValue('');
-        $validatorChain = $this->input->getValidatorChain();
-        $this->assertEquals(0, count($validatorChain->getValidators()));
-
-        $this->assertFalse($this->input->isValid());
-        $messages = $this->input->getMessages();
-        $this->assertArrayHasKey('isEmpty', $messages);
-        $this->assertEquals(1, count($validatorChain->getValidators()));
-
-        // Assert that NotEmpty validator wasn't added again
-        $this->assertFalse($this->input->isValid());
-        $this->assertEquals(1, count($validatorChain->getValidators()));
+        $this->markTestIncomplete('To do when Zend\Validator refactoring is merged');
     }
 
-    public function testRequiredNotEmptyValidatorNotAddedWhenOneExists()
+    public function simpleDataProvider()
     {
-        $this->assertTrue($this->input->isRequired());
-        $this->input->setValue('');
+        return array(
+            // Test simplest use case (no validators nor filters)
+            array(
+                'value'       => 'foo',
+                'required'    => false,
+                'allow_empty' => false,
+                'filters'     => array(),
+                'validators'  => array(),
+                'expected'    => true,
+                'filtered'    => 'foo'
+            ),
 
-        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', array('isValid'));
-        $notEmptyMock->expects($this->exactly(1))
-                     ->method('isValid')
-                     ->will($this->returnValue(false));
+            // Test with a simple filter
+            array(
+                'value'       => ' foo ',
+                'required'    => false,
+                'allow_empty' => false,
+                'filters'     => array(
+                    array('name' => 'StringTrim')
+                ),
+                'validators'  => array(),
+                'expected'    => true,
+                'filtered'    => 'foo'
+            ),
 
-        $validatorChain = $this->input->getValidatorChain();
-        $validatorChain->prependValidator($notEmptyMock);
-        $this->assertFalse($this->input->isValid());
+            // Test with a simple validator
+            array(
+                'value'       => 'foo',
+                'required'    => false,
+                'allow_empty' => false,
+                'filters'     => array(),
+                'validators'  => array(
+                    array('name' => 'Digits')
+                ),
+                'expected'    => false,
+                'filtered'    => null // This makes sure value is not saved if input is invalid
+            ),
 
-        $validators = $validatorChain->getValidators();
-        $this->assertEquals(1, count($validators));
-        $this->assertEquals($notEmptyMock, $validators[0]['instance']);
+            // Test that assert that filters are always run before validators
+            array(
+                'value'       => ' foo ',
+                'required'    => false,
+                'allow_empty' => false,
+                'filters'     => array(
+                    array('name' => 'StringTrim')
+                ),
+                'validators'  => array(
+                    array('name' => 'Alnum')
+                ),
+                'expected'    => true,
+                'filtered'    => 'foo'
+            ),
+
+            // Test required property
+            array(
+                'value'       => 'foo',
+                'required'    => true,
+                'allow_empty' => false,
+                'filters'     => array(),
+                'validators'  => array(),
+                'expected'    => true,
+                'filtered'    => 'foo'
+            ),
+
+            array(
+                'value'       => '',
+                'required'    => true,
+                'allow_empty' => false,
+                'filters'     => array(),
+                'validators'  => array(),
+                'expected'    => false,
+                'filtered'    => null // This makes sure value is not saved if input is invalid
+            ),
+
+            // Test allow empty works if required but empty
+            array(
+                'value'       => 'foo',
+                'required'    => true,
+                'allow_empty' => true,
+                'filters'     => array(),
+                'validators'  => array(),
+                'expected'    => true,
+                'filtered'    => 'foo'
+            ),
+        );
     }
 
-    public function testMerge()
-    {
-        $input = new Input('foo');
-        $input->setValue(' 123 ');
-        $filter = new Filter\StringTrim();
-        $input->getFilterChain()->attach($filter);
-        $validator = new Validator\Digits();
-        $input->getValidatorChain()->attach($validator);
+    /**
+     * @dataProvider simpleDataProvider
+     */
+    public function testRunAgainstData(
+        $value,
+        $required,
+        $allowEmpty,
+        $filters,
+        $validators,
+        $expected,
+        $filtered
+    ) {
+        $this->input->setRequired($required);
+        $this->input->setAllowEmpty($allowEmpty);
 
-        $input2 = new Input('bar');
-        $input2->merge($input);
-        $validatorChain = $input->getValidatorChain();
-        $filterChain    = $input->getFilterChain();
+        if (!empty($filters)) {
+            $filterChain = $this->input->getFilterChain();
 
-        $this->assertEquals(' 123 ', $input2->getRawValue());
-        $this->assertEquals(1, $validatorChain->count());
-        $this->assertEquals(1, $filterChain->count());
+            foreach ($filters as $filter) {
+                // @TODO Change this when filter refactor is merged
 
-        $validators = $validatorChain->getValidators();
-        $this->assertInstanceOf('Zend\Validator\Digits', $validators[0]['instance']);
+                $name     = $filter['name'];
+                $options  = isset($filter['options']) ? $filter['options'] : array();
+                $priority = isset($filter['priority']) ? $filter['priority'] : 1;
 
-        $filters = $filterChain->getFilters()->toArray();
-        $this->assertInstanceOf('Zend\Filter\StringTrim', $filters[0]);
-    }
+                $filterChain->attachByName($name, $options, $priority);
+            }
+        }
 
-    public function testDoNotInjectNotEmptyValidatorIfAnywhereInChain()
-    {
-        $this->assertTrue($this->input->isRequired());
-        $this->input->setValue('');
+        if (!empty($validators)) {
+            $validatorChain = $this->input->getValidatorChain();
 
-        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', array('isValid'));
-        $notEmptyMock->expects($this->exactly(1))
-                     ->method('isValid')
-                     ->will($this->returnValue(false));
+            foreach ($validators as $validator) {
+                // @TODO Change this when validator refactor is merged
 
-        $validatorChain = $this->input->getValidatorChain();
-        $validatorChain->attach(new Validator\Digits());
-        $validatorChain->attach($notEmptyMock);
-        $this->assertFalse($this->input->isValid());
+                $name     = $validator['name'];
+                $options  = isset($validator['options']) ? $validator['options'] : array();
+                $priority = isset($validator['priority']) ? $validator['priority'] : 1;
 
-        $validators = $validatorChain->getValidators();
-        $this->assertEquals(2, count($validators));
-        $this->assertEquals($notEmptyMock, $validators[1]['instance']);
+                $validatorChain->attachByName($name, $options);
+            }
+        }
+
+        $result = $this->input->runAgainst($value);
+
+        $this->assertInstanceOf('Zend\InputFilter\Result\InputFilterResultInterface', $result);
+        $this->assertEquals($expected, $result->isValid());
+        $this->assertEquals($filtered, $result->getData());
+        $this->assertEquals($value, $result->getRawData());
     }
 }
