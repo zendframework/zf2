@@ -156,8 +156,7 @@ class InputCollection extends Input implements InputCollectionInterface
             }
         }
 
-        $iterator         = $this->getValidationGroupFilter();
-        $iteratorIterator = new IteratorIterator($iterator);
+        $iteratorIterator = $this->getValidationGroupFilter();
 
         /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
         foreach ($iteratorIterator as $inputOrInputCollection) {

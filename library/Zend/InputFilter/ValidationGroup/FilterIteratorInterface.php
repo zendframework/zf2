@@ -9,11 +9,11 @@
 
 namespace Zend\InputFilter\ValidationGroup;
 
-use Traversable;
+use OuterIterator;
 
 /**
  * Interface for validation group filters
  */
-interface FilterIteratorInterface extends Traversable
+interface FilterIteratorInterface extends OuterIterator
 {
 }
