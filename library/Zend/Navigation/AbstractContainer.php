@@ -14,6 +14,7 @@ use RecursiveIterator;
 use RecursiveIteratorIterator;
 use Traversable;
 use Zend\Stdlib\ErrorHandler;
+use Zend\Stdlib\LinearTreeIteratorInterface;
 
 /**
  * Zend\Navigation\Container
@@ -148,6 +149,29 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
                 . 'instance of Traversable or an instance of '
                 . 'Zend\Navigation\AbstractContainer'
             );
+        }
+
+        if ($pages instanceof LinearTreeIteratorInterface) {
+            $parentPage = $this;
+            $prevLevel = null;
+            foreach($pages as $page) {
+                if ($prevLevel === null) {
+                    $prevLevel = $pages->getDepth();
+                }
+
+                if (!$parentPage instanceof Navigation) {
+                    $levelDiff    = $prevLevel - $pages->getDepth() + 1;
+                    for ($i = 0; $i < $levelDiff; $i++) {
+                        $parentPage = $parentPage->getParent(); 
+                    }
+                }
+
+                $page = Page\AbstractPage::factory($page);
+                $parentPage->addPage($page);
+                $parentPage = $page;
+                $prevLevel = $pages->getDepth();
+            }
+            return $this;
         }
 
         // Because adding a page to a container removes it from the original

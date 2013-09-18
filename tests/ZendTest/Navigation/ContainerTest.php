@@ -229,6 +229,40 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testLinearTreeIteration()
+    {
+        $treeRsultSet = new \Zend\Db\ResultSet\TreeResultSet();
+        $nav = new Navigation\Navigation($treeRsultSet->initialize(array(
+            array('label' => 'Page 1', 'uri' => '#', 'depth' => 0, ),
+            array('label' => 'Page 1.1','uri' => '#','depth' => 1,),
+            array('label' => 'Page 1.1.1','uri' => '#','depth' => 2,),
+            array('label' => 'Page 1.1.2','uri' => '#','depth' => 2,),
+            array('label' => 'Page 1.2','uri' => '#','depth' => 1,),
+            array('label' => 'Page 2','uri' => '#','depth' => 0,),
+            array('label' => 'Page 2.1','uri' => '#','depth' => 1,),
+            array('label' => 'Page 3','uri' => '#','depth' => 0,)
+        )));
+
+        $actual = array();
+        $expected = array(
+            'Page 1',
+            'Page 1.1',
+            'Page 1.1.1',
+            'Page 1.1.2',
+            'Page 1.2',
+            'Page 2',
+            'Page 2.1',
+            'Page 3'
+        );
+
+        $iterator = new \RecursiveIteratorIterator($nav,
+            \RecursiveIteratorIterator::SELF_FIRST);
+        foreach ($iterator as $page) {
+            $actual[] = $page->getLabel();
+        }
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testSettingPageOrderShouldUpdateContainerOrder()
     {
         $nav = new Navigation\Navigation(array(
