@@ -16,7 +16,7 @@ use SplStack;
 use stdClass;
 use Zend\Db\ResultSet\ResultSet;
 
-class ResultSetTest extends TestCase
+class ResultSetIntegrationTest extends TestCase
 {
     /**
      * @var ResultSet
@@ -29,7 +29,6 @@ class ResultSetTest extends TestCase
      */
     protected function setUp()
     {
-
         $this->resultSet = new ResultSet;
     }
 
@@ -41,14 +40,14 @@ class ResultSetTest extends TestCase
 
     public function testRowObjectPrototypeIsMutable()
     {
-        $row = new \ArrayObject();
+        $row = new ArrayObject();
         $this->resultSet->setArrayObjectPrototype($row);
         $this->assertSame($row, $this->resultSet->getArrayObjectPrototype());
     }
 
     public function testRowObjectPrototypeMayBePassedToConstructor()
     {
-        $row = new \ArrayObject();
+        $row = new ArrayObject();
         $resultSet = new ResultSet(ResultSet::TYPE_ARRAYOBJECT, $row);
         $this->assertSame($row, $resultSet->getArrayObjectPrototype());
     }
