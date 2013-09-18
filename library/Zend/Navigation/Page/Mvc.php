@@ -97,9 +97,9 @@ class Mvc extends AbstractPage
      *
      * @var RouteStackInterface
      */
-    protected static $defaultRouter= null;
+    protected static $defaultRouter = null;
 
-    protected static $defaultRoute= null;
+    protected static $defaultRoute = null;
 
     // Accessors:
 
@@ -507,12 +507,12 @@ class Mvc extends AbstractPage
         return static::$defaultRouter;
     }
 
-    public static function setDefaultRoute($route) 
+    public static function setDefaultRoute($route)
     {
         self::$defaultRoute = $route;
     }
 
-    public static function getDefaultRoute() 
+    public static function getDefaultRoute()
     {
         return self::$defaultRoute;
     }

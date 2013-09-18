@@ -252,7 +252,7 @@ abstract class AbstractPage extends AbstractContainer
         }
     }
 
-    public static function addFactory($callback) 
+    public static function addFactory($callback)
     {
         self::$factories[] = $callback;
     }

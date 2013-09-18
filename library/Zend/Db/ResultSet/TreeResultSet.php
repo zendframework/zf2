@@ -11,11 +11,11 @@ namespace Zend\Db\ResultSet;
 
 use Zend\Stdlib\LinearTreeIteratorInterface;
 
-class TreeResultSet extends ResultSet implements LinearTreeIteratorInterface 
-{    
-    protected $depthField  = 'depth';
+class TreeResultSet extends ResultSet implements LinearTreeIteratorInterface
+{
+    protected $depthField = 'depth';
 
-    public function getDepth() 
+    public function getDepth()
     {
         $current = $this->current();
         return (integer)$current[$this->depthField];
