@@ -5,7 +5,6 @@
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
  * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper\Navigation;
@@ -16,15 +15,10 @@ use Zend\Permissions\Acl\Role;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View;
 use Zend\View\Helper\Navigation;
+use Zend\View\Renderer\PhpRenderer;
 
 /**
  * Tests Zend_View_Helper_Navigation
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
  */
 class NavigationTest extends AbstractTest
 {
@@ -553,6 +547,18 @@ class NavigationTest extends AbstractTest
         $menu    = $helper()->menu();
         $expected = spl_object_hash($menu->getContainer());
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testSetPluginManagerAndView()
+    {
+        $pluginManager = new \Zend\View\Helper\Navigation\PluginManager();
+        $view = new PhpRenderer();
+
+        $helper = new $this->_helperName;
+        $helper->setPluginManager($pluginManager);
+        $helper->setView($view);
+
+        $this->assertEquals($view, $pluginManager->getRenderer());
     }
 
     /**

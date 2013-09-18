@@ -5,7 +5,6 @@
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
  * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
  */
 
 namespace ZendTest\Navigation;
@@ -16,11 +15,6 @@ use Zend\Config;
 
 /**
  * Tests the class Zend_Navigation_Container
- *
- * @category   Zend
- * @package    Zend_Navigation
- * @subpackage UnitTests
- * @group      Zend_Navigation
  */
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
@@ -208,6 +202,40 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
                 'uri' => '#'
             )
         ));
+
+        $actual = array();
+        $expected = array(
+            'Page 1',
+            'Page 1.1',
+            'Page 1.1.1',
+            'Page 1.1.2',
+            'Page 1.2',
+            'Page 2',
+            'Page 2.1',
+            'Page 3'
+        );
+
+        $iterator = new \RecursiveIteratorIterator($nav,
+            \RecursiveIteratorIterator::SELF_FIRST);
+        foreach ($iterator as $page) {
+            $actual[] = $page->getLabel();
+        }
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testLinearTreeIteration()
+    {
+        $treeRsultSet = new \Zend\Db\ResultSet\TreeResultSet();
+        $nav = new Navigation\Navigation($treeRsultSet->initialize(array(
+            array('label' => 'Page 1', 'uri' => '#', 'depth' => 0, ),
+            array('label' => 'Page 1.1','uri' => '#','depth' => 1,),
+            array('label' => 'Page 1.1.1','uri' => '#','depth' => 2,),
+            array('label' => 'Page 1.1.2','uri' => '#','depth' => 2,),
+            array('label' => 'Page 1.2','uri' => '#','depth' => 1,),
+            array('label' => 'Page 2','uri' => '#','depth' => 0,),
+            array('label' => 'Page 2.1','uri' => '#','depth' => 1,),
+            array('label' => 'Page 3','uri' => '#','depth' => 0,)
+        )));
 
         $actual = array();
         $expected = array(
