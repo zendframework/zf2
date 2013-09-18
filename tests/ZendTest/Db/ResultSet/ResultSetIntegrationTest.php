@@ -22,7 +22,7 @@ use Zend\Db\ResultSet\ResultSet;
  * @package    Zend_Db
  * @subpackage UnitTest
  */
-class ResultSetTest extends TestCase
+class ResultSetIntegrationTest extends TestCase
 {
     /**
      * @var ResultSet
@@ -35,7 +35,6 @@ class ResultSetTest extends TestCase
      */
     protected function setUp()
     {
-
         $this->resultSet = new ResultSet;
     }
 
