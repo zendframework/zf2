@@ -17,7 +17,8 @@ class TreeResultSet extends ResultSet implements LinearTreeIteratorInterface
 
     public function getDepth() 
     {
-        return (integer)$this->current()[$this->depthField];
+        $current = $this->current();
+        return (integer)$current[$this->depthField];
     }
 
     public function setDepthField($depthField)

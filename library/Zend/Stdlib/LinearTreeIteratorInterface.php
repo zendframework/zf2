@@ -15,7 +15,7 @@ namespace Zend\Stdlib;
 interface LinearTreeIteratorInterface extends \Iterator 
 {
     public function getDepth();
-    
+
     public function setDepthField($depthField);
 
 }

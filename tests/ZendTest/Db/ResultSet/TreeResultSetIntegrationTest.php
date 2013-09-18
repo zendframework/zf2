@@ -32,17 +32,21 @@ class TreeResultSetIntegrationTest extends ResultSetIntegrationTest
             array('testId' => 1, 'testDepth' => 1, 'name' => 'one'),
             array('testId' => 2, 'testDepth' => 0, 'name' => 'two'),
         ));
-        
+        $current = $this->resultSet->current();
         $this->assertEquals(0, $this->resultSet->key());
         $this->assertEquals(0, $this->resultSet->getDepth());
-        $this->assertEquals('zero', $this->resultSet->current()['name']);
-        
+        $this->assertEquals('zero', $current['name']);
+
         $this->resultSet->next();
+        $current = $this->resultSet->current();
         $this->assertEquals(1, $this->resultSet->key());
         $this->assertEquals(1, $this->resultSet->getDepth());
-        
+        $this->assertEquals('one', $current['name']);
+
         $this->resultSet->next();
+        $current = $this->resultSet->current();
         $this->assertEquals(2, $this->resultSet->key());
         $this->assertEquals(0, $this->resultSet->getDepth());
+        $this->assertEquals('two', $current['name']);
     }
 }
