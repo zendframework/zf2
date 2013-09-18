@@ -162,7 +162,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
                 if (!$parentPage instanceof Navigation) {
                     $levelDiff = $prevLevel - $pages->getDepth() + 1;
                     for ($i = 0; $i < $levelDiff; $i++) {
-                        $parentPage = $parentPage->getParent(); 
+                        $parentPage = $parentPage->getParent();
                     }
                 }
 
