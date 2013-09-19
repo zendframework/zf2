@@ -143,7 +143,8 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param Select $select
      * @return Insert
      */
-    public function select(Select $select) {
+    public function select(Select $select)
+    {
         $this->select = $select;
         return $this;
     }
