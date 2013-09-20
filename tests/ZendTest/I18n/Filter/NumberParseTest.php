@@ -74,4 +74,17 @@ class NumberParseTest extends TestCase
             ),
         );
     }
+
+
+    public function testParseDoNotChangeLocale()
+    {
+        $currentLocale = setlocale(LC_NUMERIC, 0); // get original locale
+
+        setlocale(LC_NUMERIC, 'fr_FR');
+        $filter = new NumberParseFilter('en_US', NumberFormatter::TYPE_DEFAULT);
+        $filter->filter('10.01');
+        $this->assertEquals('fr_FR', setlocale(LC_NUMERIC, 0));
+
+        setlocale(LC_NUMERIC, $currentLocale); // reset locale
+    }
 }
