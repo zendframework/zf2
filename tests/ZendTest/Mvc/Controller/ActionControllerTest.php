@@ -19,9 +19,11 @@ use Zend\Http\Response;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\ServiceManager;
 
 class ActionControllerTest extends TestCase
 {
+    public $serviceManager;
     public $controller;
     public $event;
     public $request;
@@ -35,8 +37,13 @@ class ActionControllerTest extends TestCase
         $this->response   = null;
         $this->routeMatch = new RouteMatch(array('controller' => 'controller-sample'));
         $this->event      = new MvcEvent();
+        $config           = new ServiceManager\Config(array(
+            'services' => array('foo' => array('bar' => 'baz'))
+        ));
+        $this->serviceManager   = new ServiceManager\ServiceManager($config);
         $this->event->setRouteMatch($this->routeMatch);
         $this->controller->setEvent($this->event);
+        $this->controller->setServiceLocator($this->serviceManager);
     }
 
     public function testDispatchInvokesNotFoundActionWhenNoActionPresentInRouteMatch()
@@ -213,5 +220,12 @@ class ActionControllerTest extends TestCase
         $this->assertTrue(isset($vars['result']));
         $this->assertContains('Page not found', $vars['result']);
         $this->assertEquals(1, $result->getErrorLevel());
+    }
+
+    public function testServiceManagerAlias()
+    {
+        $service = $this->controller->get('foo');
+        $this->assertTrue(is_array($service));
+        $this->assertEquals('baz', $service['bar']);
     }
 }
