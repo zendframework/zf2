@@ -197,12 +197,11 @@ class ClassMapAutoloader implements SplAutoloader
      */
     public static function realPharPath($path)
     {
-        $pharPrefix = 'phar://';
-        if (stripos($path, $pharPrefix) !== 0) {
+        if (strpos($path, 'phar:///') !== 0) {
             return;
         }
 
-        $parts = explode('/', str_replace(array('/', '\\'), '/', substr($path, strlen($pharPrefix))));
+        $parts = explode('/', str_replace(array('/', '\\'), '/', substr($path, 8)));
         $parts = array_values(array_filter($parts, function ($p) {
             return ($p !== '' && $p !== '.');
         }));
@@ -214,7 +213,7 @@ class ClassMapAutoloader implements SplAutoloader
             }
         });
 
-        if (file_exists($realPath = $pharPrefix . implode('/', $parts))) {
+        if (file_exists($realPath = 'phar:///' . implode('/', $parts))) {
             return $realPath;
         }
     }
