@@ -15,6 +15,7 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Http\Request as HttpRequest;
+use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
@@ -90,13 +91,12 @@ abstract class AbstractController implements
      */
     abstract public function onDispatch(MvcEvent $e);
 
-
     /**
      * Dispatch a request
      *
      * @events dispatch.pre, dispatch.post
-     * @param  Request $request
-     * @param  null|Response $response
+     * @param  Request        $request
+     * @param  null|Response  $response
      * @return Response|mixed
      */
     public function dispatch(Request $request, Response $response = null)
@@ -224,6 +224,23 @@ abstract class AbstractController implements
     }
 
     /**
+     * Get service from service locator
+     *
+     * @param  string                            $service
+     * @throws Exception\MissingLocatorException
+     * @return object|array
+     */
+    protected function getService($service)
+    {
+        $serviceLocator = $this->getServiceLocator();
+        if (!$serviceLocator) {
+            throw new Exception\MissingLocatorException('Service Locator not found');
+        }
+
+        return $serviceLocator->get($service);
+    }
+
+    /**
      * Set serviceManager instance
      *
      * @param  ServiceLocatorInterface $serviceLocator
@@ -256,13 +273,14 @@ abstract class AbstractController implements
         }
 
         $this->plugins->setController($this);
+
         return $this->plugins;
     }
 
     /**
      * Set plugin manager
      *
-     * @param  PluginManager $plugins
+     * @param  PluginManager      $plugins
      * @return AbstractController
      */
     public function setPluginManager(PluginManager $plugins)

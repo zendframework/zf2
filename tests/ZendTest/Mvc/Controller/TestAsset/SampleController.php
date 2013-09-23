@@ -19,6 +19,11 @@ class SampleController extends AbstractActionController
         return array('content' => 'test');
     }
 
+    public function testSMAliasAction()
+    {
+        return $this->getService('foo');
+    }
+
     public function testSomeStrangelySeparatedWordsAction()
     {
         return array('content' => 'Test Some Strangely Separated Words');
