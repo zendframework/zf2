@@ -230,7 +230,7 @@ abstract class AbstractController implements
      * @throws Exception\MissingLocatorException
      * @return object|array
      */
-    protected function get($service)
+    protected function getService($service)
     {
         $serviceLocator = $this->getServiceLocator();
         if (!$serviceLocator) {

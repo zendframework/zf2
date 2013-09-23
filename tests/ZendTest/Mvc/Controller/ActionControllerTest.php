@@ -224,8 +224,8 @@ class ActionControllerTest extends TestCase
 
     public function testServiceManagerAlias()
     {
-        $service = $this->controller->get('foo');
-        $this->assertTrue(is_array($service));
-        $this->assertEquals('baz', $service['bar']);
+        $this->routeMatch->setParam('action', 'testSMAlias');
+        $result = $this->controller->dispatch($this->request, $this->response);
+        $this->assertEquals('baz', $result['bar']);
     }
 }
