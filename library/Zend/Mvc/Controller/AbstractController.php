@@ -226,10 +226,11 @@ abstract class AbstractController implements
     /**
      * Get service from service locator
      *
-     * @param  type         $service
+     * @param  string                            $service
+     * @throws Exception\MissingLocatorException
      * @return object|array
      */
-    public function get($service)
+    protected function get($service)
     {
         $serviceLocator = $this->getServiceLocator();
         if (!$serviceLocator) {
