@@ -203,7 +203,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
         
         // create quoted table name to use in update processing
         if (is_array($table)) {
-            $table = current($this->table);
+            $table = current($table);
         } elseif ($table instanceof TableIdentifier) {
             list($table, $schema) = $table->getTableAndSchema();
         }
@@ -255,7 +255,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         // create quoted table name to use in update processing
         if (is_array($table)) {
-            $table = current($this->table);
+            $table = current($table);
         } elseif ($table instanceof TableIdentifier) {
             list($table, $schema) = $table->getTableAndSchema();
         }
