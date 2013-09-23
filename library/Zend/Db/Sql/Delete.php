@@ -170,7 +170,9 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
         $schema = null;
 
         // create quoted table name to use in delete processing
-        if ($table instanceof TableIdentifier) {
+        if (is_array($table)) {
+            $table = current($table);
+        } elseif ($table instanceof TableIdentifier) {
             list($table, $schema) = $table->getTableAndSchema();
         }
 
@@ -206,7 +208,9 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
         $schema = null;
 
         // create quoted table name to use in delete processing
-        if ($table instanceof TableIdentifier) {
+        if (is_array($table)) {
+            $table = current($table);
+        } elseif ($table instanceof TableIdentifier) {
             list($table, $schema) = $table->getTableAndSchema();
         }
 
