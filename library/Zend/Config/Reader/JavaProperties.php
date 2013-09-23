@@ -103,7 +103,7 @@ class JavaProperties implements ReaderInterface
     protected function parse($string)
     {
         $result = array();
-        $lines = explode("\n", $string);
+        $lines = explode(PHP_EOL, $string);
         $key = "";
         $isWaitingOtherLine = false;
         foreach ($lines as $i => $line) {

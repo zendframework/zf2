@@ -271,8 +271,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response_str = $this->readResponse('response_404');
         $response = Response::fromString($response_str);
 
-        $this->assertEquals(strtolower(str_replace("\n", "\r\n", $response_str)), strtolower($response->toString()), 'Response convertion to string does not match original string');
-        $this->assertEquals(strtolower(str_replace("\n", "\r\n", $response_str)), strtolower((string)$response), 'Response convertion to string does not match original string');
+        $this->assertEquals(strtolower(_normalizeEOL($response_str)), strtolower(_normalizeEOL($response->toString())), 'Response convertion to string does not match original string');
+        $this->assertEquals(strtolower(_normalizeEOL($response_str)), strtolower((string)_normalizeEOL($response)), 'Response convertion to string does not match original string');
     }
 
     public function testToStringGzip()

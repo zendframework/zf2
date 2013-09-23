@@ -100,7 +100,7 @@ class MimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncodeMailHeaderQuotedPrintable($str, $charset, $result)
     {
-        $this->assertEquals($result, Mime\Mime::encodeQuotedPrintableHeader($str, $charset));
+        $this->assertEquals(_normalizeEOL($result), _normalizeEOL(Mime\Mime::encodeQuotedPrintableHeader($str, $charset)));
     }
 
     public static function dataTestEncodeMailHeaderQuotedPrintable()
@@ -122,7 +122,7 @@ class MimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncodeMailHeaderBase64($str, $charset, $result)
     {
-        $this->assertEquals($result, Mime\Mime::encodeBase64Header($str, $charset));
+        $this->assertEquals(_normalizeEOL($result), _normalizeEOL(Mime\Mime::encodeBase64Header($str, $charset)));
     }
 
     public static function dataTestEncodeMailHeaderBase64()

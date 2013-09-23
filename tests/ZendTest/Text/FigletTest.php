@@ -234,6 +234,6 @@ class FigletTest extends \PHPUnit_Framework_TestCase
     {
         $compareString = file_get_contents(__DIR__ . '/Figlet/' . $file);
 
-        $this->assertEquals($compareString, $output);
+        $this->assertEquals(_normalizeEOL($compareString), _normalizeEOL($output));
     }
 }

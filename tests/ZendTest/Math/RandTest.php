@@ -132,11 +132,17 @@ class RandTest extends \PHPUnit_Framework_TestCase
 
     public function testHashTimingSourceStrengthIsVeryLow()
     {
+        if (!class_exists('RandomLib\Source')) {
+            $this->markTestSkipped('RandomLib\Source is not installed.');
+        }
         $this->assertEquals(1, (string) Math\Source\HashTiming::getStrength());
     }
 
     public function testHashTimingSourceStrengthIsRandomWithCorrectLength()
     {
+        if (!class_exists('RandomLib\Source')) {
+            $this->markTestSkipped('RandomLib is not installed.');
+        }
         $source = new Math\Source\HashTiming;
         $rand = $source->generate(32);
         $this->assertTrue(32 === strlen($rand));
@@ -146,6 +152,9 @@ class RandTest extends \PHPUnit_Framework_TestCase
 
     public function testAltGeneratorIsRandomWithCorrectLength()
     {
+        if (!class_exists('RandomLib\Factory')) {
+            $this->markTestSkipped('RandomLib is not installed.');
+        }
         $source = Math\Rand::getAlternativeGenerator();
         $rand = $source->generate(32);
         $this->assertTrue(32 === strlen($rand));

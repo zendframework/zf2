@@ -891,7 +891,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
  }
 }
 EOB;
-        $this->assertSame($expected, $pretty);
+        $this->assertSame(_normalizeEOL($expected), _normalizeEOL($pretty));
     }
 
     /**

@@ -1025,7 +1025,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
 
 EOT;
         $feed = str_replace('%version%', Version::VERSION, $feed);
-        $this->assertEquals($feed, $export);
+        $this->assertEquals(_normalizeEOL($feed), _normalizeEOL($export));
     }
 
     /**
@@ -1046,7 +1046,7 @@ EOT;
 
 EOT;
         $feed = str_replace('%version%', Version::VERSION, $feed);
-        $this->assertEquals($feed, $export);
+        $this->assertEquals(_normalizeEOL($feed), _normalizeEOL($export));
     }
 
     /**
