@@ -159,7 +159,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     protected function _getExpected($file)
     {
-        return file_get_contents($this->_files . '/expected/' . $file);
+        return _normalizeEOL(file_get_contents($this->_files . '/expected/' . $file));
     }
 
     /**

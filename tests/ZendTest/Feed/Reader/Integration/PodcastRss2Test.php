@@ -100,10 +100,10 @@ class PodcastRss2Test extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath)
         );
-        $this->assertEquals('All About Everything is a show about everything.
+        $this->assertEquals(_normalizeEOL('All About Everything is a show about everything.
             Each week we dive into any subject known to man and talk
             about it as much as we can. Look for our Podcast in the
-            iTunes Store', $feed->getDescription());
+            iTunes Store'), _normalizeEOL($feed->getDescription()));
     }
 
     public function testGetsLanguage()
@@ -209,8 +209,8 @@ class PodcastRss2Test extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals('A short primer on table spices
-            ', $entry->getSubtitle());
+        $this->assertEquals(_normalizeEOL('A short primer on table spices
+            '), _normalizeEOL($entry->getSubtitle()));
     }
 
     public function testGetsSummary()
@@ -219,10 +219,10 @@ class PodcastRss2Test extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals('This week we talk about salt and pepper
+        $this->assertEquals(_normalizeEOL('This week we talk about salt and pepper
                 shakers, comparing and contrasting pour rates,
                 construction materials, and overall aesthetics. Come and
-                join the party!', $entry->getSummary());
+                join the party!'), _normalizeEOL($entry->getSummary()));
     }
 
     public function testGetsDuration()
@@ -240,8 +240,8 @@ class PodcastRss2Test extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals('salt, pepper, shaker, exciting
-            ', $entry->getKeywords());
+        $this->assertEquals(_normalizeEOL('salt, pepper, shaker, exciting
+            '), _normalizeEOL($entry->getKeywords()));
     }
 
     public function testGetsEntryEncoding()

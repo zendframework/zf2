@@ -42,7 +42,7 @@ class XmlTest extends AbstractWriterTestCase
 
 ECS;
 
-        $this->assertEquals($expected, $configString);
+        $this->assertEquals(_normalizeEOL($expected), _normalizeEOL($configString));
     }
 
     public function testSectionsToString()
@@ -78,6 +78,6 @@ ECS;
 
 ECS;
 
-        $this->assertEquals($expected, $configString);
+        $this->assertEquals(_normalizeEOL($expected), _normalizeEOL($configString));
     }
 }

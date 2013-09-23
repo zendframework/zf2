@@ -581,14 +581,4 @@ class MenuTest extends AbstractTest
 
         $this->assertEquals(trim($expected), trim($actual));
     }
-
-    /**
-     * Returns the contens of the expected $file, normalizes newlines
-     * @param  string $file
-     * @return string
-     */
-    protected function _getExpected($file)
-    {
-        return str_replace("\n", PHP_EOL, parent::_getExpected($file));
-    }
 }

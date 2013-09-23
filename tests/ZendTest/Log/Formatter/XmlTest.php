@@ -195,6 +195,6 @@ class XmlTest extends \PHPUnit_Framework_TestCase
         );
         $expected = '<logEntry><timestamp>2001-01-01T12:00:00-06:00</timestamp><message>test</message><priority>1</priority><priorityName>CRIT</priorityName></logEntry>';
         $expected .= PHP_EOL . PHP_EOL;
-        $this->assertEquals($expected, $formatter->format($event));
+        $this->assertEquals(_normalizeEOL($expected), _normalizeEOL($formatter->format($event)));
     }
 }

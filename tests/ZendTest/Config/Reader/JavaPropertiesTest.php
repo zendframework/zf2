@@ -37,8 +37,8 @@ class JavaPropertiesTest extends AbstractReaderTestCase
         $arrayJavaProperties = $this->reader->fromFile($this->getTestAssetPath('include-target'));
 
         $this->assertNotEmpty($arrayJavaProperties);
-        $this->assertEquals($arrayJavaProperties['single.line'], 'test');
-        $this->assertEquals($arrayJavaProperties['multiple'], 'line test');
+        $this->assertEquals(trim($arrayJavaProperties['single.line']), 'test');
+        $this->assertEquals(trim($arrayJavaProperties['multiple']), 'line test');
     }
 
     public function testIncludeAsElement()
@@ -63,8 +63,8 @@ ASSET;
         $arrayJavaProperties = $this->reader->fromString($JavaProperties);
 
         $this->assertNotEmpty($arrayJavaProperties);
-        $this->assertEquals($arrayJavaProperties['single.line'], 'test');
-        $this->assertEquals($arrayJavaProperties['multiple'], 'line test');
+        $this->assertEquals(trim($arrayJavaProperties['single.line']), 'test');
+        $this->assertEquals(trim($arrayJavaProperties['multiple']), 'line test');
     }
 
     public function testInvalidIncludeInString()

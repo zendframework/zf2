@@ -35,7 +35,7 @@ class RenderToPlaceholderTest extends \PHPUnit_Framework_TestCase
     {
         $this->_view->plugin('renderToPlaceholder')->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
         $placeholder = $this->_view->plugin('placeholder');
-        $this->assertEquals("Foo Bar" . "\n", $placeholder->__invoke('fooPlaceholder')->getValue());
+        $this->assertEquals("Foo Bar" . PHP_EOL, $placeholder->__invoke('fooPlaceholder')->getValue());
     }
 
 }

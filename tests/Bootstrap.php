@@ -94,3 +94,19 @@ if (defined('TESTS_ZEND_OB_ENABLED') && constant('TESTS_ZEND_OB_ENABLED')) {
  * Unset global variables that are no longer needed.
  */
 unset($zfRoot, $zfCoreLibrary, $zfCoreTests, $path);
+
+function _normalizeEOL($content, $deleteEmpty = true)
+{
+    if (is_array($content)) {
+        foreach($content as &$string) {
+            $string = _normalizeEOL($string);
+        }
+        return $content;
+    }
+    if ($deleteEmpty) {
+        $content = preg_split("/(\r|\n){1,}/", $content, -1, PREG_SPLIT_NO_EMPTY);
+    } else {
+        $content = preg_split("/(\r|\n){1,}/", $content, -1);
+    }
+    return implode(PHP_EOL, $content);
+}

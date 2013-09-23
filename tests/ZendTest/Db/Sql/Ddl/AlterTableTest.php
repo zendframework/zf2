@@ -103,6 +103,6 @@ ADD CONSTRAINT "my_fk" FOREIGN KEY ("other_id") REFERENCES "other_table" ("id") 
 DROP CONSTRAINT "my_index"
 EOS;
 
-        $this->assertEquals($expected, $at->getSqlString());
+        $this->assertEquals(_normalizeEOL($expected), _normalizeEOL($at->getSqlString()));
     }
 }
