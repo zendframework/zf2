@@ -33,7 +33,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     protected $specifications = array(
         self::SPECIFICATION_INSERT => 'INSERT INTO %1$s (%2$s) VALUES (%3$s)',
-        self::SPECIFICATION_SELECT => 'INSERT INTO %1$s %2$s %3$s'
+        self::SPECIFICATION_SELECT => 'INSERT INTO %1$s %2$s %3$s',
     );
 
     /**
@@ -141,7 +141,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Create INTO SELECT clause
      *
      * @param Select $select
-     * @return Insert
+     * @return self
      */
     public function select(Select $select)
     {
@@ -268,13 +268,23 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
             $values = implode(', ', $values);
 
-            return sprintf($this->specifications[self::SPECIFICATION_INSERT], $table, $columns, $values);
+            return sprintf(
+                $this->specifications[self::SPECIFICATION_INSERT],
+                $table,
+                $columns,
+                $values
+            );
         } else {
             $selectString = $this->select->getSqlString($adapterPlatform);
             if ($columns) {
                 $columns = "($columns)";
             }
-            return sprintf($this->specifications[self::SPECIFICATION_SELECT], $table, $columns, $selectString);
+            return sprintf(
+                $this->specifications[self::SPECIFICATION_SELECT],
+                $table,
+                $columns,
+                $selectString
+            );
         }
     }
 
