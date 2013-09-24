@@ -200,7 +200,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         $table = $this->table;
         $schema = null;
-        
+
         // create quoted table name to use in update processing
         if (is_array($table)) {
             $table = current($table);
