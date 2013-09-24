@@ -72,7 +72,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Specify table for statement
      *
-     * @param  string|TableIdentifier $table
+     * @param  string|array|TableIdentifier $table
      * @return Update
      */
     public function table($table)
