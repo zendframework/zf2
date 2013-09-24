@@ -37,7 +37,7 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
     );
 
     /**
-     * @var string|TableIdentifier
+     * @var string|array|TableIdentifier
      */
     protected $table = '';
 
@@ -59,7 +59,7 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Constructor
      *
-     * @param  null|string|TableIdentifier $table
+     * @param  null|string|array|TableIdentifier $table
      */
     public function __construct($table = null)
     {
@@ -72,7 +72,7 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
     /**
      * Create from statement
      *
-     * @param  string|TableIdentifier $table
+     * @param  string|array|TableIdentifier $table
      * @return Delete
      */
     public function from($table)
