@@ -10,6 +10,7 @@
 namespace Zend\Filter;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ProvidesConfigKeyPathInterface;
 
 /**
  * Plugin manager implementation for the filter chain.
@@ -18,7 +19,7 @@ use Zend\ServiceManager\AbstractPluginManager;
  * FilterInterface. Additionally, it registers a number of default filters
  * available, as well as aliases for them.
  */
-class FilterPluginManager extends AbstractPluginManager
+class FilterPluginManager extends AbstractPluginManager implements ProvidesConfigKeyPathInterface
 {
     /**
      * Default set of filters
@@ -114,5 +115,15 @@ class FilterPluginManager extends AbstractPluginManager
             (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
             __NAMESPACE__
         ));
+    }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'filters';
     }
 }

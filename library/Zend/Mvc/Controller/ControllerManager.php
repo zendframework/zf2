@@ -14,6 +14,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Exception;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ProvidesConfigKeyPathInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\DispatchableInterface;
@@ -23,7 +24,7 @@ use Zend\Stdlib\DispatchableInterface;
  *
  * Does not define any controllers by default, but does add a validator.
  */
-class ControllerManager extends AbstractPluginManager
+class ControllerManager extends AbstractPluginManager implements ProvidesConfigKeyPathInterface
 {
     /**
      * We do not want arbitrary classes instantiated as controllers.
@@ -131,5 +132,15 @@ class ControllerManager extends AbstractPluginManager
     public function get($name, $options = array(), $usePeeringServiceManagers = false)
     {
         return parent::get($name, $options, $usePeeringServiceManagers);
+    }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'controllers';
     }
 }

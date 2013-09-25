@@ -42,7 +42,7 @@ class ServiceListenerFactory implements FactoryInterface
         'factories' => array(
             'Application'                    => 'Zend\Mvc\Service\ApplicationFactory',
             'Config'                         => 'Zend\Mvc\Service\ConfigFactory',
-            'ControllerLoader'               => 'Zend\Mvc\Service\ControllerLoaderFactory',
+            'ControllerManager'               => 'Zend\Mvc\Service\ControllerManagerFactory',
             'ControllerPluginManager'        => 'Zend\Mvc\Service\ControllerPluginManagerFactory',
             'ConsoleAdapter'                 => 'Zend\Mvc\Service\ConsoleAdapterFactory',
             'ConsoleRouter'                  => 'Zend\Mvc\Service\RouterFactory',

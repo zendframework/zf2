@@ -12,13 +12,14 @@ namespace Zend\InputFilter;
 use Zend\InputFilter\Exception;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ProvidesConfigKeyPathInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\InitializableInterface;
 
 /**
  * Plugin manager implementation for input filters.
  */
-class InputFilterPluginManager extends AbstractPluginManager
+class InputFilterPluginManager extends AbstractPluginManager implements ProvidesConfigKeyPathInterface
 {
     /**
      * Default set of plugins
@@ -85,5 +86,15 @@ class InputFilterPluginManager extends AbstractPluginManager
             'Plugin of type %s is invalid; must implement Zend\InputFilter\InputFilterInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
+    }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'input_filter_plugins';
     }
 }

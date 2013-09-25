@@ -153,4 +153,14 @@ class PluginManager extends AbstractPluginManager
             __NAMESPACE__
         ));
     }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'controller_plugins';
+    }
 }

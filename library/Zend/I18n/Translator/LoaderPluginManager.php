@@ -88,4 +88,14 @@ class LoaderPluginManager extends AbstractPluginManager
             __NAMESPACE__
         ));
     }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'translation_plugins';
+    }
 }

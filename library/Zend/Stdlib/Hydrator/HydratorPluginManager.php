@@ -10,6 +10,7 @@
 namespace Zend\Stdlib\Hydrator;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ProvidesConfigKeyPathInterface;
 use Zend\Stdlib\Exception;
 
 /**
@@ -17,7 +18,7 @@ use Zend\Stdlib\Exception;
  *
  * Enforces that adapters retrieved are instances of HydratorInterface
  */
-class HydratorPluginManager extends AbstractPluginManager
+class HydratorPluginManager extends AbstractPluginManager implements ProvidesConfigKeyPathInterface
 {
     /**
      * Whether or not to share by default
@@ -52,5 +53,15 @@ class HydratorPluginManager extends AbstractPluginManager
             'Plugin of type %s is invalid; must implement Zend\Stdlib\Hydrator\HydratorInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
+    }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'hydrators';
     }
 }

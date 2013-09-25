@@ -12,6 +12,7 @@ namespace Zend\View;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ProvidesConfigKeyPathInterface;
 
 /**
  * Plugin manager implementation for view helpers
@@ -20,7 +21,7 @@ use Zend\ServiceManager\ConfigInterface;
  * Helper\HelperInterface. Additionally, it registers a number of default
  * helpers.
  */
-class HelperPluginManager extends AbstractPluginManager
+class HelperPluginManager extends AbstractPluginManager implements ProvidesConfigKeyPathInterface
 {
     /**
      * Default set of helpers factories
@@ -28,8 +29,11 @@ class HelperPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = array(
-        'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
+        'url'            => 'Zend\View\HelperFactory\UrlFactory',
+        'doctype'        => 'Zend\View\HelperFactory\DoctypeFactory',
+        'basepath'       => 'Zend\View\HelperFactory\BasePathFactory',
         'identity'       => 'Zend\View\Helper\Service\IdentityFactory',
+        'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
     );
 
     /**
@@ -38,13 +42,6 @@ class HelperPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        // basepath, doctype, and url are set up as factories in the ViewHelperManagerFactory.
-        // basepath and url are not very useful without their factories, however the doctype
-        // helper works fine as an invokable. The factory for doctype simply checks for the
-        // config value from the merged config.
-        'doctype'             => 'Zend\View\Helper\Doctype', // overridden by a factory in ViewHelperManagerFactory
-        'basepath'            => 'Zend\View\Helper\BasePath',
-        'url'                 => 'Zend\View\Helper\Url',
         'cycle'               => 'Zend\View\Helper\Cycle',
         'declarevars'         => 'Zend\View\Helper\DeclareVars',
         'escapehtml'          => 'Zend\View\Helper\EscapeHtml',
@@ -174,5 +171,15 @@ class HelperPluginManager extends AbstractPluginManager
             (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
             __NAMESPACE__
         ));
+    }
+
+    /**
+     * Get the configuration key path
+     *
+     * @return string
+     */
+    public function getConfigKeyPath()
+    {
+        return 'view_helpers';
     }
 }

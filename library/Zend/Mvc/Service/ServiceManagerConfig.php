@@ -25,6 +25,12 @@ class ServiceManagerConfig implements ConfigInterface
      */
     protected $invokables = array(
         'SharedEventManager' => 'Zend\EventManager\SharedEventManager',
+        'DispatchListener'     => 'Zend\Mvc\DispatchListener',
+        'RouteListener'        => 'Zend\Mvc\RouteListener',
+        'SendResponseListener' => 'Zend\Mvc\SendResponseListener',
+
+        // View managers
+        'HttpViewManager' => 'Zend\Mvc\View\Http\ViewManager'
     );
 
     /**
@@ -33,8 +39,23 @@ class ServiceManagerConfig implements ConfigInterface
      * @var array
      */
     protected $factories = array(
-        'EventManager'  => 'Zend\Mvc\Service\EventManagerFactory',
+        'Config'        => 'Zend\Mvc\Service\ConfigFactory',
+        'Router'        => 'Zend\Mvc\Service\RouterFactory',
+        'Request'       => 'Zend\Mvc\Service\RequestFactory',
+        'Response'      => 'Zend\Mvc\Service\ResponseFactory',
+        'Application'   => 'Zend\Mvc\Service\ApplicationFactory',
         'ModuleManager' => 'Zend\Mvc\Service\ModuleManagerFactory',
+        'Zend\EventManager\EventManagerInterface' => 'Zend\Mvc\Service\EventManagerFactory',
+
+        // View related stuff
+        'ViewFeedRenderer' => 'Zend\Mvc\Service\ViewFeedRendererFactory',
+        'ViewFeedStrategy' => 'Zend\Mvc\Service\ViewFeedStrategyFactory',
+        'ViewJsonRenderer' => 'Zend\Mvc\Service\ViewJsonRendererFactory',
+        'ViewJsonStrategy' => 'Zend\Mvc\Service\ViewJsonStrategyFactory',
+        'ViewManager' => 'Zend\Mvc\Service\ViewManagerFactory',
+        'ViewResolver' => 'Zend\Mvc\Service\ViewResolverFactory',
+        'ViewTemplateMapResolver' => 'Zend\Mvc\Service\ViewTemplateMapResolverFactory',
+        'ViewTemplatePathStack' => 'Zend\Mvc\Service\ViewTemplatePathStackFactory',
     );
 
     /**
@@ -42,7 +63,9 @@ class ServiceManagerConfig implements ConfigInterface
      *
      * @var array
      */
-    protected $abstractFactories = array();
+    protected $abstractFactories = array(
+        'Zend\ServiceManager\PluginManagerFactory',
+    );
 
     /**
      * Aliases
@@ -50,7 +73,13 @@ class ServiceManagerConfig implements ConfigInterface
      * @var array
      */
     protected $aliases = array(
-        'Zend\EventManager\EventManagerInterface' => 'EventManager',
+        'ViewHelperManager'  => 'Zend\View\HelperPluginManager',
+        'RoutePluginManager' => 'Zend\Mvc\Router\RoutePluginManager',
+        'ControllerManager'  => 'Zend\Mvc\Controller\ControllerManager',
+        'ControllerPluginManager' => 'Zend\Mvc\Controller\PluginManager',
+        'OptionsManager' => 'Zend\Stdlib\OptionsManager',
+
+        'EventManager' => 'Zend\EventManager\EventManagerInterface'
     );
 
     /**
@@ -62,7 +91,7 @@ class ServiceManagerConfig implements ConfigInterface
      * @var array
      */
     protected $shared = array(
-        'EventManager' => false,
+        'Zend\EventManager\EventManagerInterface' => false,
     );
 
     /**
