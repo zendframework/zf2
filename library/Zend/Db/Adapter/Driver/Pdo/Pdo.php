@@ -156,6 +156,8 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
             $this->addFeature(null, new Feature\SqliteRowCounter);
         } elseif ($driverName == 'oci') {
             $this->addFeature(null, new Feature\OracleRowCounter);
+        } elseif ($driverName == 'dblib') {
+            $this->addFeature(null, new Feature\DblibRowCounter);
         }
         return $this;
     }
@@ -189,7 +191,6 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
                     return 'Postgresql';
                 case 'oci':
                     return 'Oracle';
-
                 default:
                     return ucfirst($name);
             }
@@ -272,6 +273,12 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
             $rowCount = $oracleRowCounter->getRowCountClosure($context);
         }
 
+        // special feature, dblib PDO counter
+        if ($this->connection->getDriverName() == 'dblib'
+                        && ($dblibRowCounter = $this->getFeature('DblibRowCounter'))
+                        && $resource->columnCount() > 0) {
+                $rowCount = $dblibRowCounter->getRowCountClosure($context);
+        }
 
         $result->initialize($resource, $this->connection->getLastGeneratedValue(), $rowCount);
         return $result;
