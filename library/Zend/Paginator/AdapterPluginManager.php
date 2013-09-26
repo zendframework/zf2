@@ -26,9 +26,9 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        'array'         => 'Zend\Paginator\Adapter\ArrayAdapter',
-        'iterator'      => 'Zend\Paginator\Adapter\Iterator',
-        'null'          => 'Zend\Paginator\Adapter\Null',
+        'array'    => 'Zend\Paginator\Adapter\ArrayAdapter',
+        'iterator' => 'Zend\Paginator\Adapter\Iterator',
+        'null'     => 'Zend\Paginator\Adapter\Null',
     );
 
     /**
@@ -37,7 +37,7 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = array(
-        'dbselect'         => 'Zend\Paginator\Adapter\Service\DbSelectFactory'
+        'dbselect' => 'Zend\Paginator\Adapter\Service\DbSelectFactory'
     );
 
     /**
