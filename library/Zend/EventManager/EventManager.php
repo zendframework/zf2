@@ -151,7 +151,6 @@ class EventManager implements EventManagerInterface
      *
      * @param  CallbackHandler $listener
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
-     * @throws Exception\InvalidArgumentException if invalid listener provided
      */
     public function detach(CallbackHandler $listener)
     {
@@ -193,7 +192,6 @@ class EventManager implements EventManagerInterface
      * @param  string|object     $target Object calling emit, or symbol describing target (such as static method name)
      * @param  array|ArrayAccess $argv Array of arguments; typically, should be associative
      * @return ResponseCollection All listener return values
-     * @throws Exception\InvalidCallbackException
      */
     public function trigger($event, $target = null, $argv = array())
     {
@@ -212,9 +210,8 @@ class EventManager implements EventManagerInterface
      * @param  array|ArrayAccess  $argv Array of arguments; typically, should be associative
      * @param  Callable           $callback
      * @return ResponseCollection
-     * @throws Exception\InvalidCallbackException if invalid callable provided
      */
-    public function triggerUntil($event, $target, $argv = null, Callable $callback = null)
+    public function triggerUntil($event, $target, $argv = array(), Callable $callback = null)
     {
         if ($event instanceof EventInterface) {
             $e        = $event;
@@ -400,8 +397,9 @@ class EventManager implements EventManagerInterface
             return array();
         }
 
-        $identifiers     = $this->getIdentifiers();
-        //Add wildcard id to the search, if not already added
+        $identifiers = $this->getIdentifiers();
+
+        // Add wildcard id to the search, if not already added
         if (!in_array('*', $identifiers)) {
             $identifiers[] = '*';
         }

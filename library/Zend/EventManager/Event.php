@@ -161,7 +161,7 @@ class Event implements EventInterface
      * If the parameter does not exist, the $default value will be returned.
      *
      * @param  string|int $name
-     * @param  mixed $default
+     * @param  mixed      $default
      * @return mixed
      */
     public function getParam($name, $default = null)

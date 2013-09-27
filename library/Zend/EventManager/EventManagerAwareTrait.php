@@ -19,9 +19,9 @@ trait EventManagerAwareTrait
     protected $eventManager;
 
     /**
-     * @var array|string|object
+     * @var array|string|object|null
      */
-    protected $eventIdentifier = array();
+    protected $eventIdentifier = null;
 
     /**
      * Set the event manager instance used by this context
