@@ -37,7 +37,7 @@ class DblibRowCounter extends AbstractFeature
         if ($sql == '' || stripos($sql, 'select') === false) {
             return null;
         }
-        $countSql = 'SELECT COUNT(*) as count FROM (' . $sql . ') queryResult';
+        $countSql = 'SELECT @@ROWCOUNT AS count';
         $countStmt->prepare($countSql);
         $result = $countStmt->execute();
         $countRow = $result->getResource()->fetch(\PDO::FETCH_ASSOC);
@@ -46,7 +46,7 @@ class DblibRowCounter extends AbstractFeature
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      * @return null|int
      */
     public function getCountForSql($sql)
@@ -54,7 +54,7 @@ class DblibRowCounter extends AbstractFeature
         if (!stripos($sql, 'select')) {
             return null;
         }
-        $countSql = 'SELECT COUNT(*) as count FROM (' . $sql . ') queryResult';
+        $countSql = 'SELECT @@ROWCOUNT AS count';
         /** @var $pdo \PDO */
         $pdo = $this->pdoDriver->getConnection()->getResource();
         $result = $pdo->query($countSql);
