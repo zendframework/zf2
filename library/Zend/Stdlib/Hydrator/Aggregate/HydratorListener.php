@@ -12,6 +12,8 @@ namespace Zend\Stdlib\Hydrator\Aggregate;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\ListenerAggregateInterface;
+use Zend\EventManager\ListenerAggregateTrait;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
 /**
@@ -19,8 +21,10 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
  * to {@see \Zend\Stdlib\Hydrator\Aggregate::EVENT_HYDRATE} and
  * {@see \Zend\Stdlib\Hydrator\Aggregate::EVENT_EXTRACT}
  */
-class HydratorListener extends AbstractListenerAggregate
+class HydratorListener implements ListenerAggregateInterface
 {
+    use ListenerAggregateTrait;
+
     /**
      * @var \Zend\Stdlib\Hydrator\HydratorInterface
      */
