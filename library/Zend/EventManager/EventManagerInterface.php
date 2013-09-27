@@ -18,6 +18,41 @@ use Zend\Stdlib\CallbackHandler;
 interface EventManagerInterface extends SharedEventManagerAwareInterface
 {
     /**
+     * Attach a listener to an event
+     *
+     * @param  string   $event
+     * @param  Callable $callback
+     * @param  int      $priority Priority at which to register listener
+     * @return CallbackHandler
+     */
+    public function attach($event, Callable $callback, $priority = 1);
+
+    /**
+     * Attach a listener aggregate
+     *
+     * @param  ListenerAggregateInterface $aggregate
+     * @param  int $priority If provided, a suggested priority for the aggregate to use
+     * @return mixed
+     */
+    public function attachAggregate(ListenerAggregateInterface $aggregate, $priority = 1);
+
+    /**
+     * Detach an event listener
+     *
+     * @param  CallbackHandler $listener
+     * @return bool
+     */
+    public function detach(CallbackHandler $listener);
+
+    /**
+     * Detach a listener aggregate
+     *
+     * @param  ListenerAggregateInterface $aggregate
+     * @return bool
+     */
+    public function detachAggregate(ListenerAggregateInterface $aggregate);
+
+    /**
      * Trigger an event
      *
      * Should allow handling the following scenarios:
@@ -26,15 +61,12 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * - Passing event name, target, and Event object
      * - Passing event name, target, and array|ArrayAccess of arguments
      *
-     * Can emulate triggerUntil() if the last argument provided is a callback.
-     *
-     * @param  string $event
+     * @param  string        $event
      * @param  object|string $target
-     * @param  array|object $argv
-     * @param  null|callable $callback
+     * @param  array|object  $argv
      * @return ResponseCollection
      */
-    public function trigger($event, $target = null, $argv = array(), $callback = null);
+    public function trigger($event, $target = null, $argv = array());
 
     /**
      * Trigger an event until the given callback returns a boolean false
@@ -45,31 +77,13 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * - Passing event name, target, Event object, and callback
      * - Passing event name, target, array|ArrayAccess of arguments, and callback
      *
-     * @param  string $event
+     * @param  string        $event
      * @param  object|string $target
-     * @param  array|object $argv
-     * @param  callable $callback
+     * @param  array|object  $argv
+     * @param  Callable      $callback
      * @return ResponseCollection
      */
-    public function triggerUntil($event, $target, $argv = null, $callback = null);
-
-    /**
-     * Attach a listener to an event
-     *
-     * @param  string $event
-     * @param  callable $callback
-     * @param  int $priority Priority at which to register listener
-     * @return CallbackHandler
-     */
-    public function attach($event, $callback = null, $priority = 1);
-
-    /**
-     * Detach an event listener
-     *
-     * @param  CallbackHandler|ListenerAggregateInterface $listener
-     * @return bool
-     */
-    public function detach($listener);
+    public function triggerUntil($event, $target, $argv = array(), Callable $callback = null);
 
     /**
      * Get a list of events for which this collection has listeners
@@ -98,9 +112,25 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Set the event class to utilize
      *
      * @param  string $class
-     * @return EventManagerInterface
+     * @return void
      */
     public function setEventClass($class);
+
+    /**
+     * Set the identifiers (overrides any currently set identifiers)
+     *
+     * @param  string|int|array|Traversable $identifiers
+     * @return void
+     */
+    public function setIdentifiers($identifiers);
+
+    /**
+     * Add some identifier(s) (appends to any currently set identifiers)
+     *
+     * @param  string|int|array|Traversable $identifiers
+     * @return void
+     */
+    public function addIdentifiers($identifiers);
 
     /**
      * Get the identifier(s) for this EventManager
@@ -108,37 +138,4 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * @return array
      */
     public function getIdentifiers();
-
-    /**
-     * Set the identifiers (overrides any currently set identifiers)
-     *
-     * @param string|int|array|Traversable $identifiers
-     * @return EventManagerInterface
-     */
-    public function setIdentifiers($identifiers);
-
-    /**
-     * Add some identifier(s) (appends to any currently set identifiers)
-     *
-     * @param string|int|array|Traversable $identifiers
-     * @return EventManagerInterface
-     */
-    public function addIdentifiers($identifiers);
-
-    /**
-     * Attach a listener aggregate
-     *
-     * @param  ListenerAggregateInterface $aggregate
-     * @param  int $priority If provided, a suggested priority for the aggregate to use
-     * @return mixed return value of {@link ListenerAggregateInterface::attach()}
-     */
-    public function attachAggregate(ListenerAggregateInterface $aggregate, $priority = 1);
-
-    /**
-     * Detach a listener aggregate
-     *
-     * @param  ListenerAggregateInterface $aggregate
-     * @return mixed return value of {@link ListenerAggregateInterface::detach()}
-     */
-    public function detachAggregate(ListenerAggregateInterface $aggregate);
 }

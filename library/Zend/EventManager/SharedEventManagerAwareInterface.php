@@ -15,12 +15,12 @@ namespace Zend\EventManager;
 interface SharedEventManagerAwareInterface
 {
     /**
-     * Inject a SharedEventManager instance
+     * Inject a SharedEventManager instance (or null to unset)
      *
-     * @param  SharedEventManagerInterface $sharedEventManager
+     * @param  SharedEventManagerInterface|null $sharedEventManager
      * @return SharedEventManagerAwareInterface
      */
-    public function setSharedManager(SharedEventManagerInterface $sharedEventManager);
+    public function setSharedManager(SharedEventManagerInterface $sharedEventManager = null);
 
     /**
      * Get shared collections container
@@ -28,11 +28,4 @@ interface SharedEventManagerAwareInterface
      * @return SharedEventManagerInterface
      */
     public function getSharedManager();
-
-    /**
-     * Remove any shared collections
-     *
-     * @return void
-     */
-    public function unsetSharedManager();
 }

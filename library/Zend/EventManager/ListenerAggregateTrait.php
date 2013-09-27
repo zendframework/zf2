@@ -25,10 +25,15 @@ trait ListenerAggregateTrait
      */
     public function detach(EventManagerInterface $events)
     {
+        $found = false;
+
         foreach ($this->listeners as $index => $callback) {
             if ($events->detach($callback)) {
                 unset($this->listeners[$index]);
+                $found = true;
             }
         }
+
+        return $found;
     }
 }

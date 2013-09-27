@@ -44,8 +44,8 @@ class Event implements EventInterface
      *
      * Accept a target and its parameters.
      *
-     * @param  string $name Event name
-     * @param  string|object $target
+     * @param  string            $name   Event name
+     * @param  string|object     $target
      * @param  array|ArrayAccess $params
      */
     public function __construct($name = null, $target = null, $params = null)
@@ -64,6 +64,17 @@ class Event implements EventInterface
     }
 
     /**
+     * Set the event name
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function setName($name)
+    {
+        $this->name = (string) $name;
+    }
+
+    /**
      * Get event name
      *
      * @return string
@@ -71,6 +82,17 @@ class Event implements EventInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set the event target/context
+     *
+     * @param  null|string|object $target
+     * @return void
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
     }
 
     /**
@@ -91,7 +113,7 @@ class Event implements EventInterface
      * Overwrites parameters
      *
      * @param  array|ArrayAccess|object $params
-     * @return Event
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function setParams($params)
@@ -103,7 +125,24 @@ class Event implements EventInterface
         }
 
         $this->params = $params;
-        return $this;
+    }
+
+    /**
+     * Set an individual parameter to a value
+     *
+     * @param  string|int $name
+     * @param  mixed      $value
+     * @return Event
+     */
+    public function setParam($name, $value)
+    {
+        if (is_array($this->params) || $this->params instanceof ArrayAccess) {
+            // Arrays or objects implementing array access
+            $this->params[$name] = $value;
+        } else {
+            // Objects
+            $this->params->{$name} = $value;
+        }
     }
 
     /**
@@ -140,50 +179,8 @@ class Event implements EventInterface
         if (!isset($this->params->{$name})) {
             return $default;
         }
+
         return $this->params->{$name};
-    }
-
-    /**
-     * Set the event name
-     *
-     * @param  string $name
-     * @return Event
-     */
-    public function setName($name)
-    {
-        $this->name = (string) $name;
-        return $this;
-    }
-
-    /**
-     * Set the event target/context
-     *
-     * @param  null|string|object $target
-     * @return Event
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
-        return $this;
-    }
-
-    /**
-     * Set an individual parameter to a value
-     *
-     * @param  string|int $name
-     * @param  mixed $value
-     * @return Event
-     */
-    public function setParam($name, $value)
-    {
-        if (is_array($this->params) || $this->params instanceof ArrayAccess) {
-            // Arrays or objects implementing array access
-            $this->params[$name] = $value;
-        } else {
-            // Objects
-            $this->params->{$name} = $value;
-        }
-        return $this;
     }
 
     /**
@@ -202,7 +199,7 @@ class Event implements EventInterface
      *
      * @return bool
      */
-    public function propagationIsStopped()
+    public function isPropagationStopped()
     {
         return $this->stopPropagation;
     }

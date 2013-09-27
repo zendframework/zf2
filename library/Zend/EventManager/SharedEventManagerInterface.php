@@ -18,24 +18,24 @@ use Zend\Stdlib\PriorityQueue;
 interface SharedEventManagerInterface
 {
     /**
-     * Retrieve all listeners for a given identifier and event
-     *
-     * @param  string|int $id
-     * @param  string|int $event
-     * @return false|PriorityQueue
-     */
-    public function getListeners($id, $event);
-
-    /**
      * Attach a listener to an event
      *
      * @param  string|array $id Identifier(s) for event emitting component(s)
-     * @param  string $event
-     * @param  callable $callback PHP Callback
-     * @param  int $priority Priority at which listener should execute
+     * @param  string       $event
+     * @param  Callable     $callback PHP Callback
+     * @param  int          $priority Priority at which listener should execute
      * @return void
      */
-    public function attach($id, $event, $callback, $priority = 1);
+    public function attach($id, $event, Callable $callback, $priority = 1);
+
+    /**
+     * Attach a listener aggregate
+     *
+     * @param  SharedListenerAggregateInterface $aggregate
+     * @param  int $priority If provided, a suggested priority for the aggregate to use
+     * @return mixed return value of {@link SharedListenerAggregateInterface::attachShared()}
+     */
+    public function attachAggregate(SharedListenerAggregateInterface $aggregate, $priority = 1);
 
     /**
      * Detach a listener from an event offered by a given resource
@@ -47,19 +47,36 @@ interface SharedEventManagerInterface
     public function detach($id, CallbackHandler $listener);
 
     /**
-     * Retrieve all registered events for a given resource
+     * Detach a listener aggregate
+     *
+     * @param  SharedListenerAggregateInterface $aggregate
+     * @return mixed return value of {@link SharedListenerAggregateInterface::detachShared()}
+     */
+    public function detachAggregate(SharedListenerAggregateInterface $aggregate);
+
+    /**
+     * Retrieve all listeners for a given identifier and event
      *
      * @param  string|int $id
-     * @return array
+     * @param  string|int $event
+     * @return false|PriorityQueue
      */
-    public function getEvents($id);
+    public function getListeners($id, $event);
 
     /**
      * Clear all listeners for a given identifier, optionally for a specific event
      *
      * @param  string|int $id
      * @param  null|string $event
-     * @return bool
+     * @return void
      */
     public function clearListeners($id, $event = null);
+
+    /**
+     * Retrieve all registered events for a given resource
+     *
+     * @param  string|int $id
+     * @return array
+     */
+    public function getEvents($id);
 }

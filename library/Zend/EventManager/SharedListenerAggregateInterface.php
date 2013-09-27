@@ -26,6 +26,7 @@ interface SharedListenerAggregateInterface
      * implementation will pass this to the aggregate.
      *
      * @param SharedEventManagerInterface $events
+     * @return void
      */
     public function attachShared(SharedEventManagerInterface $events);
 
@@ -33,6 +34,7 @@ interface SharedListenerAggregateInterface
      * Detach all previously attached listeners
      *
      * @param SharedEventManagerInterface $events
+     * @return void
      */
     public function detachShared(SharedEventManagerInterface $events);
 }

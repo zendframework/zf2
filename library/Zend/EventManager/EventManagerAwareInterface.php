@@ -10,9 +10,9 @@
 namespace Zend\EventManager;
 
 /**
- * Interface to automate setter injection for an EventManager instance
+ * Interface for objects that are aware of an event manager
  */
-interface EventManagerAwareInterface extends EventsCapableInterface
+interface EventManagerAwareInterface
 {
     /**
      * Inject an EventManager instance
@@ -21,4 +21,13 @@ interface EventManagerAwareInterface extends EventsCapableInterface
      * @return void
      */
     public function setEventManager(EventManagerInterface $eventManager);
+
+    /**
+     * Retrieve the event manager
+     *
+     * Lazy-loads an EventManager instance if none registered.
+     *
+     * @return EventManagerInterface
+     */
+    public function getEventManager();
 }

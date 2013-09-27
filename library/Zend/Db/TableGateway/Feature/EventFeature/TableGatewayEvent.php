@@ -133,7 +133,7 @@ class TableGatewayEvent implements EventInterface
      *
      * @return bool
      */
-    public function propagationIsStopped()
+    public function isPropagationStopped()
     {
         return false;
     }

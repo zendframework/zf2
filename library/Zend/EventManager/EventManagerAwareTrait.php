@@ -9,9 +9,59 @@
 
 namespace Zend\EventManager;
 
-use \Zend\EventManager\ProvidesEvents;
+use Traversable;
 
 trait EventManagerAwareTrait
 {
-    use ProvidesEvents;
+    /**
+     * @var EventManagerInterface
+     */
+    protected $eventManager;
+
+    /**
+     * @var array|string|object
+     */
+    protected $eventIdentifier = array();
+
+    /**
+     * Set the event manager instance used by this context
+     *
+     * @param  EventManagerInterface $eventManager
+     * @return void
+     */
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $identifiers = array(__CLASS__, get_class($this));
+
+        if ((is_string($this->eventIdentifier))
+            || is_array($this->eventIdentifier)
+            || ($this->eventIdentifier instanceof Traversable)
+        ) {
+            $identifiers = array_merge($identifiers, (array) $this->eventIdentifier);
+        } elseif (is_object($this->eventIdentifier)) {
+            $identifiers[] = $this->eventIdentifier;
+        }
+
+        // silently ignore invalid event identifiers types
+
+        $eventManager->setIdentifiers($identifiers);
+
+        $this->eventManager = $eventManager;
+    }
+
+    /**
+     * Retrieve the event manager
+     *
+     * Lazy-loads an EventManager instance if none registered.
+     *
+     * @return EventManagerInterface
+     */
+    public function getEventManager()
+    {
+        if (!$this->eventManager instanceof EventManagerInterface) {
+            $this->setEventManager(new EventManager());
+        }
+
+        return $this->eventManager;
+    }
 }

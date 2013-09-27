@@ -17,42 +17,19 @@ use ArrayAccess;
 interface EventInterface
 {
     /**
-     * Get event name
-     *
-     * @return string
-     */
-    public function getName();
-
-    /**
-     * Get target/context from which event was triggered
-     *
-     * @return null|string|object
-     */
-    public function getTarget();
-
-    /**
-     * Get parameters passed to the event
-     *
-     * @return array|ArrayAccess
-     */
-    public function getParams();
-
-    /**
-     * Get a single parameter by name
-     *
-     * @param  string $name
-     * @param  mixed $default Default value to return if parameter does not exist
-     * @return mixed
-     */
-    public function getParam($name, $default = null);
-
-    /**
      * Set the event name
      *
      * @param  string $name
      * @return void
      */
     public function setName($name);
+
+    /**
+     * Get event name
+     *
+     * @return string
+     */
+    public function getName();
 
     /**
      * Set the event target/context
@@ -63,9 +40,16 @@ interface EventInterface
     public function setTarget($target);
 
     /**
+     * Get target/context from which event was triggered
+     *
+     * @return null|string|object
+     */
+    public function getTarget();
+
+    /**
      * Set event parameters
      *
-     * @param  string $params
+     * @param  array|ArrayAccess|object $params
      * @return void
      */
     public function setParams($params);
@@ -80,6 +64,22 @@ interface EventInterface
     public function setParam($name, $value);
 
     /**
+     * Get parameters passed to the event
+     *
+     * @return array|ArrayAccess|object
+     */
+    public function getParams();
+
+    /**
+     * Get a single parameter by name
+     *
+     * @param  string $name
+     * @param  mixed $default Default value to return if parameter does not exist
+     * @return mixed
+     */
+    public function getParam($name, $default = null);
+
+    /**
      * Indicate whether or not the parent EventManagerInterface should stop propagating events
      *
      * @param  bool $flag
@@ -92,5 +92,5 @@ interface EventInterface
      *
      * @return bool
      */
-    public function propagationIsStopped();
+    public function isPropagationStopped();
 }
