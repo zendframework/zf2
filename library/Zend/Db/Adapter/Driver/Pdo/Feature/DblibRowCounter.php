@@ -63,7 +63,7 @@ class DblibRowCounter extends AbstractFeature
     }
 
     /**
-     * @param $context
+     * @param \Zend\Db\Adapter\Driver\Pdo\Statement|string $context
      * @return closure
      */
     public function getRowCountClosure($context)
