@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-eventmanager",
-    "description": "Event manager component for Zend Framework 3",
+    "description": " ",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
@@ -13,13 +13,13 @@
     },
     "target-dir": "Zend/EventManager",
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.3.3",
         "zendframework/zend-stdlib": "self.version"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0-dev",
-            "dev-develop": "3.1-dev"
+            "dev-master": "2.2-dev",
+            "dev-develop": "2.3-dev"
         }
     }
 }
