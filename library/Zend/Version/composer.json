@@ -23,7 +23,7 @@
         "zendframework/zend-json": "To check latest version hosted in GitHub",
     },
     "suggest": {
-        "zendframework/zend-json": "Zend\\Json component to support Zend\Version\Version::getLatest('GITHUB')",
+        "zendframework/zend-json": "Zend\\Json component to support Zend\\Version\\Version::getLatest('GITHUB')",
     },
     "extra": {
         "branch-alias": {
