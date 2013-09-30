@@ -20,7 +20,7 @@
         "zendframework/zend-http": "Allows use of Zend\\Http\\Client to check version information"
     },
     "suggest": {
-        "zendframework/zend-json": "Zend\\Json component to support Zend\Version\Version::getLatest('GITHUB')",
+        "zendframework/zend-json": "Zend\\Json component to support Zend\\Version\\Version::getLatest('GITHUB')",
     },
     "extra": {
         "branch-alias": {
