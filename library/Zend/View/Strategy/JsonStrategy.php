@@ -92,13 +92,18 @@ class JsonStrategy extends AbstractListenerAggregate
     {
         $model = $e->getModel();
 
-        if (!$model instanceof Model\JsonModel) {
-            // no JsonModel; do nothing
-            return;
+        if ($model instanceof Model\JsonModel) {
+			// JsonModel found
+			return $this->renderer;
         }
 
-        // JsonModel found
-        return $this->renderer;
+		if ($e->getRequest()->getHeaders()->get('Accept')->getPrioritized()[0]->getFormat() == 'json') {
+			// accept header asks for json
+			return $this->renderer;
+		}
+
+		// nothing indicating we should respond with json found
+		return;
     }
 
     /**
