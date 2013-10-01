@@ -51,22 +51,15 @@ class LazyServiceFactoryFactory implements FactoryInterface
             $factoryConfig->setGeneratorStrategy(new EvaluatingGeneratorStrategy());
         }
 
-        if (isset($lazyServices['auto_generate_proxies'])) {
-            $factoryConfig->setAutoGenerateProxies($lazyServices['auto_generate_proxies']);
-
-            // register the proxy autoloader if the proxies already exist
-            if (!$lazyServices['auto_generate_proxies']) {
-                spl_autoload_register($factoryConfig->getProxyAutoloader());
-
-                $factoryConfig->setGeneratorStrategy(new EvaluatingGeneratorStrategy());
-            }
-        }
-
-        //if (!isset($lazyServicesConfig['runtime_evaluate_proxies']))
+        /** bug fix https://github.com/Ocramius/ProxyManager/pull/90 */
+        $factoryConfig->setAutoGenerateProxies(true);
 
         if (isset($lazyServices['proxies_namespace'])) {
             $factoryConfig->setProxiesNamespace($lazyServices['proxies_namespace']);
         }
+        
+        // depend of the proxies namespace
+        spl_autoload_register($factoryConfig->getProxyAutoloader());
 
         return new LazyServiceFactory(new LazyLoadingValueHolderFactory($factoryConfig), $lazyServices['class_map']);
     }
