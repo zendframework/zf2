@@ -191,6 +191,7 @@ class Form extends Fieldset implements FormInterface
         }
 
         $this->getInputFilter();
+        $this->setRequiredAttrByInputFilter($this->filter, $this);
 
         // If the user wants to, elements names can be wrapped by the form's name
         if ($this->wrapElements()) {
@@ -859,5 +860,65 @@ class Form extends Fieldset implements FormInterface
         }
 
         return $values;
+    }
+    
+    /**
+     * Set "required" attribute to elements provided by the elements to the input filter
+     *
+     * @param  InputFilterInterface $inputFilter
+     * @param  FieldsetInterface $fieldset Fieldset to traverse when looking for default inputs
+     * @return void
+     */
+    protected function setRequiredAttrByInputFilter(InputFilterInterface $inputFilter, FieldsetInterface $fieldset)
+    {
+        $formFactory  = $this->getFormFactory();
+        $inputFactory = $formFactory->getInputFilterFactory();
+
+        if ($fieldset instanceof Element\Collection && $fieldset->getTargetElement() instanceof FieldsetInterface) {
+            $elements = $fieldset->getTargetElement()->getElements();
+        } else {
+            $elements = $fieldset->getElements();
+        }
+
+        if (!$fieldset instanceof Element\Collection || $inputFilter instanceof CollectionInputFilter) {
+            foreach ($elements as $element) {
+                $name = $element->getName();
+
+                if ($this->preferFormInputFilter && $inputFilter->has($name)) {
+                    /** @var \Zend\InputFilter\Input $filter */
+                    $filter = $inputFilter->get($name);
+                    if($filter->isRequired()) {
+                        $element->setAttribute('required', 'true');
+                    }
+                    continue;
+                }
+            }
+        }
+
+        foreach ($fieldset->getFieldsets() as $childFieldset) {
+            $name = $childFieldset->getName();
+
+            if (!$inputFilter->has($name)) {
+                continue;
+            }
+
+            if (!$childFieldset instanceof InputFilterProviderInterface) {
+                $fieldsetFilter = $inputFilter->get($name);
+                if (!$fieldsetFilter instanceof InputFilterInterface) {
+                    // Input attached for fieldset, not input filter; nothing more to do.
+                    continue;
+                }
+                // Traverse the elements of the fieldset, and attach any
+                // defaults to the fieldset's input filter
+                $this->setRequiredAttrByInputFilter($fieldsetFilter, $childFieldset);
+                continue;
+            }
+
+            // Create an input filter based on the specification returned from the fieldset
+            $spec   = $childFieldset->getInputFilterSpecification();
+            $filter = $inputFactory->createInputFilter($spec);
+            // Recursively attach sub filters
+            $this->setRequiredAttrByInputFilter($filter, $childFieldset);
+        }
     }
 }
