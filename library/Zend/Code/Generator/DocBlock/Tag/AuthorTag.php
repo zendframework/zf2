@@ -81,7 +81,7 @@ class AuthorTag extends Tag
      */
     public function generate()
     {
-        $output = '@param '
+        $output = '@param  '
             . (($this->datatype != null) ? $this->datatype : 'unknown')
             . (($this->paramName != null) ? ' $' . $this->paramName : '')
             . (($this->description != null) ? ' ' . $this->description : '');

@@ -54,7 +54,7 @@ class ParamTagTest extends \PHPUnit_Framework_TestCase
         $this->tag->setParamName('foo');
         $this->tag->setDatatype('string');
         $this->tag->setDescription('bar bar bar');
-        $this->assertEquals('@param string $foo bar bar bar', $this->tag->generate());
+        $this->assertEquals('@param  string $foo bar bar bar', $this->tag->generate());
     }
 
     public function testConstructorWithOptions()
