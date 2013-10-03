@@ -28,7 +28,7 @@ Framework using one of the following methods:
 
 To clone the git repository, use the following URL:
 
-git://git.zendframework.com/zf.git
+git://github.com/zendframework/zf2.git
 
 For more information about Git, please see the official website:
 
