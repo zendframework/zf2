@@ -10,6 +10,7 @@
 namespace Zend\Mvc\Controller\Plugin;
 
 use Zend\Http\Response;
+use Zend\Http\Request;
 use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
@@ -21,6 +22,7 @@ class Redirect extends AbstractPlugin
 {
     protected $event;
     protected $response;
+    protected $request;
 
     /**
      * Generates a URL based on a route
@@ -76,6 +78,18 @@ class Redirect extends AbstractPlugin
     }
 
     /**
+     * Redirects to the referer.
+     */
+    public function toReferer()
+    {
+        $referer = $this->getRequest()->getHeader('Referer', null);
+        if ($referer == null) {
+            throw new Exception\DomainException("No http referer header set on the request.");
+        }
+        return $this->toUrl($referer->getUri());
+    }
+
+    /**
      * Get the response
      *
      * @return Response
@@ -94,6 +108,27 @@ class Redirect extends AbstractPlugin
         }
         $this->response = $response;
         return $this->response;
+    }
+
+    /**
+     * Get the request
+     *
+     * @return Request
+     * @throws Exception\DomainException if unable to find request
+     */
+    protected function getRequest()
+    {
+        if ($this->request) {
+            return $this->request;
+        }
+
+        $event = $this->getEvent();
+        $request = $event->getRequest();
+        if (!$request instanceof Request) {
+            throw new Exception\DomainException('Redirect plugin requires event contains a request');
+        }
+        $this->request = $request;
+        return $this->request;
     }
 
     /**
