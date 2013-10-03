@@ -12,6 +12,7 @@ namespace Zend\Mvc\Service;
 use Zend\Console\Console;
 use Zend\Mvc\Exception;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\View\Helper\MatchedRoute;
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper as ViewHelper;
@@ -74,6 +75,15 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
                 $helper->setRouteMatch($match);
             }
 
+            return $helper;
+        });
+
+        // Configure matchedRoute view helper with router
+        $plugins->setFactory('matchedRoute', function ($sm) use ($serviceLocator) {
+            $helper = new MatchedRoute();
+            $router = Console::isConsole() ? 'HttpRouter' : 'Router';
+            $helper->setRouter($serviceLocator->get($router));
+            $helper->setRequest($serviceLocator->get('Request'));
             return $helper;
         });
 
