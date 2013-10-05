@@ -23,7 +23,7 @@ trait NullGuardTrait
      * @param  string $exceptionClass FQCN for the exception
      * @throws \Exception
      */
-    private function guardAgainstNull(
+    protected function guardAgainstNull(
         $data,
         $dataName = 'Argument',
         $exceptionClass = 'Zend\Stdlib\Exception\InvalidArgumentException'

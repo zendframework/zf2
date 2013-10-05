@@ -23,7 +23,7 @@ trait ArrayOrTraversableGuardTrait
      * @param  string $exceptionClass FQCN for the exception
      * @throws \Exception
      */
-    private function guardForArrayOrTraversable(
+    protected function guardForArrayOrTraversable(
         $data,
         $dataName = 'Argument',
         $exceptionClass = 'Zend\Stdlib\Exception\InvalidArgumentException'

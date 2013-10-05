@@ -23,7 +23,7 @@ trait EmptyGuardTrait
      * @param  string $exceptionClass FQCN for the exception
      * @throws \Exception
      */
-    private function guardAgainstEmpty(
+    protected function guardAgainstEmpty(
         $data,
         $dataName = 'Argument',
         $exceptionClass = 'Zend\Stdlib\Exception\InvalidArgumentException'
