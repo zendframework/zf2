@@ -19,7 +19,7 @@ namespace Zend\Stdlib;
 class CallbackHandler
 {
     /**
-     * @var Callable PHP callback to invoke
+     * @var callable PHP callback to invoke
      */
     protected $callback;
 
@@ -33,10 +33,10 @@ class CallbackHandler
     /**
      * Constructor
      *
-     * @param  Callable $callback PHP callback
+     * @param  callable $callback PHP callback
      * @param  array    $metadata Callback metadata
      */
-    public function __construct(Callable $callback, array $metadata = array())
+    public function __construct(callable $callback, array $metadata = array())
     {
         $this->metadata = $metadata;
 
@@ -50,7 +50,7 @@ class CallbackHandler
     /**
      * Retrieve registered callback
      *
-     * @return Callable
+     * @return callable
      */
     public function getCallback()
     {
