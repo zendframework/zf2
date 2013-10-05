@@ -9,14 +9,20 @@
 
 namespace Zend\Permissions\Rbac;
 
+use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
-abstract class AbstractRole extends AbstractIterator implements RoleInterface
+abstract class AbstractRole implements RoleInterface
 {
     /**
      * @var null|RoleInterface
      */
     protected $parent;
+
+    /**
+     * @var array|RoleInterface[]
+     */
+    protected $children = array();
 
     /**
      * @var string
@@ -41,14 +47,12 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
     /**
      * Add permission to the role.
      *
-     * @param $name
-     * @return RoleInterface
+     * @param  string $name
+     * @return void
      */
     public function addPermission($name)
     {
-        $this->permissions[$name] = true;
-
-        return $this;
+        $this->permissions[(string)$name] = true;
     }
 
     /**
@@ -63,8 +67,9 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
             return true;
         }
 
-        $it = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::CHILD_FIRST);
-        foreach ($it as $leaf) {
+        $iteratorIterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::CHILD_FIRST);
+
+        foreach ($iteratorIterator as $leaf) {
             /** @var RoleInterface $leaf */
             if ($leaf->hasPermission($name)) {
                 return true;
@@ -75,16 +80,39 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
     }
 
     /**
+     * Set parent role
+     *
+     * @param  RoleInterface $parent
+     * @return void
+     */
+    public function setParent(RoleInterface $parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * Get parent role
+     *
+     * @return null|RoleInterface
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
      * Add a child.
      *
      * @param  RoleInterface|string $child
-     * @return Role
+     * @return void
+     * @throws Exception\InvalidArgumentException
      */
     public function addChild($child)
     {
         if (is_string($child)) {
             $child = new Role($child);
         }
+
         if (!$child instanceof RoleInterface) {
             throw new Exception\InvalidArgumentException(
                 'Child must be a string or implement Zend\Permissions\Rbac\RoleInterface'
@@ -93,26 +121,25 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
 
         $child->setParent($this);
         $this->children[] = $child;
-
-        return $this;
     }
 
     /**
-     * @param  RoleInterface $parent
-     * @return RoleInterface
+     * Get children roles
+     *
+     * @return array|RoleInterface[]
      */
-    public function setParent($parent)
+    public function getChildren()
     {
-        $this->parent = $parent;
-
-        return $this;
+        return $this->children;
     }
 
     /**
-     * @return null|RoleInterface
+     * Implement the IteratorAggregate interface
+     *
+     * @return \Traversable
      */
-    public function getParent()
+    public function getIterator()
     {
-        return $this->parent;
+        return new RecursiveArrayIterator($this->children);
     }
 }

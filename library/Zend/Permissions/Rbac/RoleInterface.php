@@ -9,9 +9,9 @@
 
 namespace Zend\Permissions\Rbac;
 
-use RecursiveIterator;
+use IteratorAggregate;
 
-interface RoleInterface extends RecursiveIterator
+interface RoleInterface extends IteratorAggregate
 {
     /**
      * Get the name of the role.
@@ -23,7 +23,7 @@ interface RoleInterface extends RecursiveIterator
     /**
      * Add permission to the role.
      *
-     * @param $name
+     * @param  string $name
      * @return RoleInterface
      */
     public function addPermission($name);
@@ -37,21 +37,32 @@ interface RoleInterface extends RecursiveIterator
     public function hasPermission($name);
 
     /**
+     * Set parent role
+     *
+     * @param  RoleInterface $parent
+     * @return void
+     */
+    public function setParent(RoleInterface $parent);
+
+    /**
+     * Get parent role
+     *
+     * @return null|RoleInterface
+     */
+    public function getParent();
+
+    /**
      * Add a child.
      *
      * @param  RoleInterface|string $child
-     * @return Role
+     * @return void
      */
     public function addChild($child);
 
     /**
-     * @param  RoleInterface $parent
-     * @return RoleInterface
+     * Get children roles.
+     *
+     * @return array|RoleInterface[]
      */
-    public function setParent($parent);
-
-    /**
-     * @return null|RoleInterface
-     */
-    public function getParent();
+    public function getChildren();
 }
