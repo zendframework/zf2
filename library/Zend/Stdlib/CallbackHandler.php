@@ -12,19 +12,20 @@ namespace Zend\Stdlib;
 /**
  * CallbackHandler
  *
- * A handler for a event, event, filterchain, etc. Abstracts PHP callbacks,
+ * A handler for a event, event, filter chain, etc. Abstracts PHP callbacks,
  * primarily to allow for lazy-loading and ensuring availability of default
  * arguments (currying).
  */
 class CallbackHandler
 {
     /**
-     * @var string|array|callable PHP callback to invoke
+     * @var Callable PHP callback to invoke
      */
     protected $callback;
 
     /**
      * Callback metadata, if any
+     *
      * @var array
      */
     protected $metadata;
