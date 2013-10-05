@@ -52,8 +52,8 @@ class Rbac
     /**
      * Add a child
      *
-     * @param  string|RoleInterface       $child
-     * @param  array|RoleInterface[]|null $parents
+     * @param  string|RoleInterface                $child
+     * @param  array|string[]|RoleInterface[]|null $parents
      * @return void
      * @throws Exception\InvalidArgumentException
      */
@@ -96,10 +96,11 @@ class Rbac
     {
         try {
             $this->getRole($objectOrName);
-            return true;
         } catch (Exception\InvalidArgumentException $e) {
             return false;
         }
+
+        return true;
     }
 
     /**
@@ -154,7 +155,7 @@ class Rbac
                 }
             } else {
                 throw new Exception\InvalidArgumentException(
-                    'Assertions must be a Callable or an instance of Zend\Permissions\Rbac\AssertionInterface'
+                    'Assertions must be a callable or an instance of Zend\Permissions\Rbac\AssertionInterface'
                 );
             }
         }

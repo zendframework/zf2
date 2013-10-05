@@ -103,22 +103,12 @@ abstract class AbstractRole implements RoleInterface
     /**
      * Add a child.
      *
-     * @param  RoleInterface|string $child
+     * @param  RoleInterface $child
      * @return void
      * @throws Exception\InvalidArgumentException
      */
-    public function addChild($child)
+    public function addChild(RoleInterface $child)
     {
-        if (is_string($child)) {
-            $child = new Role($child);
-        }
-
-        if (!$child instanceof RoleInterface) {
-            throw new Exception\InvalidArgumentException(
-                'Child must be a string or implement Zend\Permissions\Rbac\RoleInterface'
-            );
-        }
-
         $child->setParent($this);
         $this->children[] = $child;
     }

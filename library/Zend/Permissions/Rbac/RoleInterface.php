@@ -24,7 +24,7 @@ interface RoleInterface extends IteratorAggregate
      * Add permission to the role.
      *
      * @param  string $name
-     * @return RoleInterface
+     * @return void
      */
     public function addPermission($name);
 
@@ -54,10 +54,10 @@ interface RoleInterface extends IteratorAggregate
     /**
      * Add a child.
      *
-     * @param  RoleInterface|string $child
+     * @param  RoleInterface $child
      * @return void
      */
-    public function addChild($child);
+    public function addChild(RoleInterface $child);
 
     /**
      * Get children roles.
