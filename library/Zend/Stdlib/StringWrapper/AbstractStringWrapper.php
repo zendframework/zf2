@@ -52,9 +52,10 @@ abstract class AbstractStringWrapper implements StringWrapperInterface
     /**
      * Set character encoding working with and convert to
      *
-     * @param string      $encoding         The character encoding to work with
+     * @param string $encoding         The character encoding to work with
      * @param string|null $convertEncoding  The character encoding to convert to
      * @return StringWrapperInterface
+     * @throws \Zend\Stdlib\Exception\InvalidArgumentException
      */
     public function setEncoding($encoding, $convertEncoding = null)
     {
@@ -109,9 +110,11 @@ abstract class AbstractStringWrapper implements StringWrapperInterface
     /**
      * Convert a string from defined character encoding to the defined convert encoding
      *
-     * @param string  $str
+     * @param string $str
      * @param bool $reverse
      * @return string|false
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Zend\Stdlib\Exception\RuntimeException
      */
     public function convert($str, $reverse = false)
     {
@@ -139,11 +142,12 @@ abstract class AbstractStringWrapper implements StringWrapperInterface
     /**
      * Wraps a string to a given number of characters
      *
-     * @param  string  $string
+     * @param  string $string
      * @param  int $width
-     * @param  string  $break
+     * @param  string $break
      * @param  bool $cut
      * @return string|false
+     * @throws \Zend\Stdlib\Exception\InvalidArgumentException
      */
     public function wordWrap($string, $width = 75, $break = "\n", $cut = false)
     {
@@ -245,8 +249,6 @@ abstract class AbstractStringWrapper implements StringWrapperInterface
         $repeatCount = floor($lengthOfPadding / $padStringLength);
 
         if ($padType === STR_PAD_BOTH) {
-            $lastStringLeft  = '';
-            $lastStringRight = '';
             $repeatCountLeft = $repeatCountRight = ($repeatCount - $repeatCount % 2) / 2;
 
             $lastStringLength       = $lengthOfPadding - 2 * $repeatCountLeft * $padStringLength;

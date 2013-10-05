@@ -12,17 +12,13 @@
         }
     },
     "target-dir": "Zend/Stdlib",
-    "suggest": {
-        "zendframework/zend-servicemanager": "To support hydrator plugin manager usage",
-        "zendframework/zend-eventmanager":   "To support aggregate hydrator usage"
-    },
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.4"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.2-dev",
-            "dev-develop": "2.3-dev"
+            "dev-master": "3.0-dev",
+            "dev-develop": "3.1-dev"
         }
     }
 }

@@ -9,6 +9,7 @@
  */
 
 namespace ZendTest\Stdlib\TestAsset;
+
 class ArrayObjectIterator implements \Iterator
 {
 

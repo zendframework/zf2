@@ -17,16 +17,16 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testMessageCanSetAndGetContent()
     {
         $message = new Message();
-        $ret = $message->setContent('I can set content');
-        $this->assertInstanceOf('Zend\Stdlib\Message', $ret);
+        $message->setContent('I can set content');
+        $this->assertInstanceOf('Zend\Stdlib\Message', $message);
         $this->assertEquals('I can set content', $message->getContent());
     }
 
     public function testMessageCanSetAndGetMetadataKeyAsString()
     {
         $message = new Message();
-        $ret = $message->setMetadata('foo', 'bar');
-        $this->assertInstanceOf('Zend\Stdlib\Message', $ret);
+        $message->setMetadata('foo', 'bar');
+        $this->assertInstanceOf('Zend\Stdlib\Message', $message);
         $this->assertEquals('bar', $message->getMetadata('foo'));
         $this->assertEquals(array('foo' => 'bar'), $message->getMetadata());
     }
@@ -34,8 +34,8 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testMessageCanSetAndGetMetadataKeyAsArray()
     {
         $message = new Message();
-        $ret = $message->setMetadata(array('foo' => 'bar'));
-        $this->assertInstanceOf('Zend\Stdlib\Message', $ret);
+        $message->setMetadata(array('foo' => 'bar'));
+        $this->assertInstanceOf('Zend\Stdlib\Message', $message);
         $this->assertEquals('bar', $message->getMetadata('foo'));
     }
 

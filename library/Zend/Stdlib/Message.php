@@ -32,7 +32,7 @@ class Message implements MessageInterface
      * @param  string|int|array|Traversable $spec
      * @param  mixed $value
      * @throws Exception\InvalidArgumentException
-     * @return Message
+     * @return void
      */
     public function setMetadata($spec, $value = null)
     {
@@ -40,16 +40,17 @@ class Message implements MessageInterface
             $this->metadata[$spec] = $value;
             return $this;
         }
+
         if (!is_array($spec) && !$spec instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Expected a string, array, or Traversable argument in first position; received "%s"',
                 (is_object($spec) ? get_class($spec) : gettype($spec))
             ));
         }
+
         foreach ($spec as $key => $value) {
             $this->metadata[$key] = $value;
         }
-        return $this;
     }
 
     /**
@@ -81,12 +82,11 @@ class Message implements MessageInterface
      * Set message content
      *
      * @param  mixed $value
-     * @return Message
+     * @return void
      */
     public function setContent($value)
     {
         $this->content = $value;
-        return $this;
     }
 
     /**
@@ -112,7 +112,9 @@ class Message implements MessageInterface
                 (string) $value
             );
         }
+
         $request .= "\r\n" . $this->getContent();
+
         return $request;
     }
 }

@@ -95,9 +95,10 @@ class MbString extends AbstractStringWrapper
     /**
      * Convert a string from defined encoding to the defined convert encoding
      *
-     * @param string  $str
+     * @param string $str
      * @param bool $reverse
      * @return string|false
+     * @throws \Zend\Stdlib\Exception\LogicException
      */
     public function convert($str, $reverse = false)
     {

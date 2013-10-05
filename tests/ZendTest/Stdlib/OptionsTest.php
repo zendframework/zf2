@@ -88,10 +88,11 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSetFromArrayAcceptsArray()
     {
-        $array = array('test_field' => 3);
+        $array   = array('test_field' => 3);
         $options = new TestOptions();
+        $options->setFromArray($array);
 
-        $this->assertSame($options, $options->setFromArray($array));
+        $this->assertSame($options, $options);
         $this->assertEquals(3, $options->test_field);
     }
 

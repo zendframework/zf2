@@ -38,7 +38,7 @@ abstract class AbstractOptions implements ParameterObjectInterface
      *
      * @param  array|Traversable|AbstractOptions $options
      * @throws Exception\InvalidArgumentException
-     * @return AbstractOptions Provides fluent interface
+     * @return void
      */
     public function setFromArray($options)
     {
@@ -56,8 +56,6 @@ abstract class AbstractOptions implements ParameterObjectInterface
         foreach ($options as $key => $value) {
             $this->__set($key, $value);
         }
-
-        return $this;
     }
 
     /**
@@ -67,16 +65,21 @@ abstract class AbstractOptions implements ParameterObjectInterface
      */
     public function toArray()
     {
-        $array = array();
+        $array     = array();
         $transform = function ($letters) {
             $letter = array_shift($letters);
             return '_' . strtolower($letter);
         };
+
         foreach ($this as $key => $value) {
-            if ($key === '__strictMode__') continue;
-            $normalizedKey = preg_replace_callback('/([A-Z])/', $transform, $key);
+            if ($key === '__strictMode__') {
+                continue;
+            }
+
+            $normalizedKey         = preg_replace_callback('/([A-Z])/', $transform, $key);
             $array[$normalizedKey] = $value;
         }
+
         return $array;
     }
 
@@ -91,16 +94,18 @@ abstract class AbstractOptions implements ParameterObjectInterface
      */
     public function __set($key, $value)
     {
-        $setter = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+        $setter = 'set' . str_replace('_', '', $key); // PHP is case insensitive for methods
+
         if ($this->__strictMode__ && !method_exists($this, $setter)) {
             throw new Exception\BadMethodCallException(
                 'The option "' . $key . '" does not '
-                . 'have a matching ' . $setter . ' setter method '
+                . 'have a matching ' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key))) . ' setter method '
                 . 'which must be defined'
             );
         } elseif (!$this->__strictMode__ && !method_exists($this, $setter)) {
             return;
         }
+
         $this->{$setter}($value);
     }
 
@@ -114,11 +119,12 @@ abstract class AbstractOptions implements ParameterObjectInterface
      */
     public function __get($key)
     {
-        $getter = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+        $getter = 'get' . str_replace('_', '', $key); // PHP is case insensitive for methods
+
         if (!method_exists($this, $getter)) {
             throw new Exception\BadMethodCallException(
                 'The option "' . $key . '" does not '
-                . 'have a matching ' . $getter . ' getter method '
+                . 'have a matching ' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key))) . ' getter method '
                 . 'which must be defined'
             );
         }
