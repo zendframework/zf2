@@ -52,7 +52,7 @@ abstract class AbstractRole implements RoleInterface
      */
     public function addPermission($name)
     {
-        $this->permissions[(string)$name] = true;
+        $this->permissions[(string) $name] = true;
     }
 
     /**
