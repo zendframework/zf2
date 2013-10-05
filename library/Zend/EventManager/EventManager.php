@@ -10,6 +10,7 @@
 namespace Zend\EventManager;
 
 use ArrayAccess;
+use ArrayObject;
 use Traversable;
 use Zend\Stdlib\CallbackHandler;
 use Zend\Stdlib\PriorityQueue;
@@ -220,7 +221,7 @@ class EventManager implements EventManagerInterface
         } elseif ($target instanceof EventInterface) {
             $e = $target;
             $e->setName($event);
-            $callback = $argv;
+            $callback = $argv ?: null;
         } elseif ($argv instanceof EventInterface) {
             $e = $argv;
             $e->setName($event);
@@ -309,9 +310,9 @@ class EventManager implements EventManagerInterface
     public function addIdentifiers($identifiers)
     {
         if (is_array($identifiers) || $identifiers instanceof Traversable) {
-            $this->identifiers = array_merge($this->identifiers, (array) $identifiers);
+            $this->identifiers = array_unique(array_merge($this->identifiers, (array) $identifiers));
         } elseif ($identifiers !== null) {
-            $this->identifiers = array_merge($this->identifiers, array($identifiers));
+            $this->identifiers = array_unique(array_merge($this->identifiers, array($identifiers)));
         }
     }
 
@@ -323,6 +324,21 @@ class EventManager implements EventManagerInterface
     public function getIdentifiers()
     {
         return $this->identifiers;
+    }
+
+    /**
+     * Prepare arguments
+     *
+     * Use this method if you want to be able to modify arguments from within a
+     * listener. It returns an ArrayObject of the arguments, which may then be
+     * passed to trigger() or triggerUntil().
+     *
+     * @param  array $args
+     * @return ArrayObject
+     */
+    public function prepareArgs(array $args)
+    {
+        return new ArrayObject($args);
     }
 
     /**

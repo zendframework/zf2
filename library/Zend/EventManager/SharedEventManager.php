@@ -71,7 +71,7 @@ class SharedEventManager implements SharedEventManagerInterface
             $listeners[] = $this->identifiers[$id]->attach($event, $callback, $priority);
         }
 
-        if (!empty($listeners)) {
+        if (count($listeners) > 1) {
             return $listeners;
         }
 
