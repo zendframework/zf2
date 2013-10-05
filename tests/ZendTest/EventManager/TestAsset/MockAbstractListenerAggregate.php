@@ -12,6 +12,7 @@ namespace ZendTest\EventManager\TestAsset;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\ListenerAggregateTrait;
 
 /**
  * @category   Zend
