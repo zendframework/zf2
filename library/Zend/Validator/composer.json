@@ -3,7 +3,7 @@
     "description": "provides a set of commonly needed validators",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "zf3",
         "validator"
     ],
     "autoload": {
@@ -13,7 +13,7 @@
     },
     "target-dir": "Zend/Validator",
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.4",
         "zendframework/zend-stdlib": "self.version"
     },
     "require-dev": {
@@ -32,8 +32,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.2-dev",
-            "dev-develop": "2.3-dev"
+            "dev-master": "3.0-dev",
+            "dev-develop": "3.1-dev"
         }
     }
 }
