@@ -13,7 +13,7 @@
     },
     "target-dir": "Zend/Filter",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.4",
         "zendframework/zend-stdlib": "self.version"
     },
     "require-dev": {
@@ -29,7 +29,7 @@
     "extra": {
         "branch-alias": {
             "dev-master": "3.0-dev",
-            "dev-develop": "3.0-dev"
+            "dev-develop": "3.1-dev"
         }
     }
 }
