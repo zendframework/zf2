@@ -36,7 +36,7 @@ class Callback extends AbstractValidator
     );
 
     /**
-     * @var Callable
+     * @var callable
      */
     protected $callback;
 
@@ -48,10 +48,10 @@ class Callback extends AbstractValidator
     /**
      * Sets a new callback for this filter
      *
-     * @param  Callable $callback
+     * @param  callable $callback
      * @return void
      */
-    public function setCallback(Callable $callback)
+    public function setCallback(callable $callback)
     {
         if (is_string($callback) && strpos($callback, '::') !== false) {
             $callback = explode('::', $callback);
@@ -63,7 +63,7 @@ class Callback extends AbstractValidator
     /**
      * Returns the set callback
      *
-     * @return Callable
+     * @return callable
      */
     public function getCallback()
     {
