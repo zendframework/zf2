@@ -34,6 +34,8 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase
     {
         $validationResult = new ValidationResult('data', 'An error message');
         $this->assertInternalType('array', $validationResult->getRawErrorMessages());
+        $this->assertCount(1, $validationResult->getRawErrorMessages());
+        $this->assertCount(1, $validationResult->getErrorMessages());
     }
 
     public function testCanMerge()
@@ -65,6 +67,22 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase
         $expectedInterpolate = array('Length must be 4');
 
         $this->assertEquals(['%min%' => 4], $validationResult->getMessageVariables());
+        $this->assertEquals($expectedInterpolate, $validationResult->getErrorMessages());
+        $this->assertEquals($expectedRaw, $validationResult->getRawErrorMessages());
+    }
+
+    public function testCanInterpolateComplex()
+    {
+        $validationResult = new ValidationResult(
+            'data',
+            array('Length must be %min%', 'Does not validate %pattern%'),
+            ['%min%' => 4, '%pattern%' => 'abc']
+        );
+
+        $expectedRaw         = array('Length must be %min%', 'Does not validate %pattern%');
+        $expectedInterpolate = array('Length must be 4', 'Does not validate abc');
+
+        $this->assertEquals(['%min%' => 4, '%pattern%' => 'abc'], $validationResult->getMessageVariables());
         $this->assertEquals($expectedInterpolate, $validationResult->getErrorMessages());
         $this->assertEquals($expectedRaw, $validationResult->getRawErrorMessages());
     }
