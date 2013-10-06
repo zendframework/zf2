@@ -59,11 +59,11 @@ class ValidatorChain implements ValidatorInterface, Countable
     /**
      * Attach a validator to the chain
      *
-     * @param  ValidatorInterface|Callable $validator A Validator implementation or valid PHP callback
+     * @param  ValidatorInterface|callable $validator A Validator implementation or valid PHP callback
      * @param  int                         $priority Priority at which to enqueue validator; defaults to 1 (higher executes earlier)
      * @return void
      */
-    public function attach(Callable $validator, $priority = self::DEFAULT_PRIORITY)
+    public function attach(callable $validator, $priority = self::DEFAULT_PRIORITY)
     {
         $this->validators->insert($validator, $priority);
     }
@@ -73,10 +73,10 @@ class ValidatorChain implements ValidatorInterface, Countable
      *
      * Note that this method needs to iterate through all the validators, so it can be slow
      *
-     * @param  ValidatorInterface|Callable $validator
+     * @param  ValidatorInterface|callable $validator
      * @return bool True if the validator was successfully removed, false otherwise
      */
-    public function remove(Callable $validator)
+    public function remove(callable $validator)
     {
         foreach ($this->validators as $key => $value) {
             if ($validator === $value) {
@@ -98,8 +98,6 @@ class ValidatorChain implements ValidatorInterface, Countable
      */
     public function attachByName($name, array $options = array(), $priority = self::DEFAULT_PRIORITY)
     {
-        // @TODO: this does not work yet until SM supports options
-
         $validator = $this->validatorPluginManager->get($name, $options);
         $this->validators->insert($validator, $priority);
     }
