@@ -11,9 +11,20 @@ namespace Zend\Validator;
 
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * Validator that assert a value is inferior than a specific value
+ *
+ * Accepted options are:
+ *      - max
+ *      - inclusive
+ */
 class LessThan extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const NOT_LESS           = 'notLessThan';
     const NOT_LESS_INCLUSIVE = 'notLessThanInclusive';
 
@@ -32,9 +43,7 @@ class LessThan extends AbstractValidator
      *
      * @var array
      */
-    protected $messageVariables = array(
-        'max' => 'max'
-    );
+    protected $messageVariables = array('max');
 
     /**
      * Maximum value
@@ -51,42 +60,17 @@ class LessThan extends AbstractValidator
      *
      * @var bool
      */
-    protected $inclusive;
+    protected $inclusive = false;
 
     /**
-     * Sets validator options
+     * Sets the max option
      *
-     * @param  array|Traversable $options
-     * @throws Exception\InvalidArgumentException
+     * @param  mixed $max
+     * @return void
      */
-    public function __construct($options = null)
+    public function setMax($max)
     {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-        if (!is_array($options)) {
-            $options = func_get_args();
-            $temp['max'] = array_shift($options);
-
-            if (!empty($options)) {
-                $temp['inclusive'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
-
-        if (!array_key_exists('max', $options)) {
-            throw new Exception\InvalidArgumentException("Missing option 'max'");
-        }
-
-        if (!array_key_exists('inclusive', $options)) {
-            $options['inclusive'] = false;
-        }
-
-        $this->setMax($options['max'])
-             ->setInclusive($options['inclusive']);
-
-        parent::__construct($options);
+        $this->max = $max;
     }
 
     /**
@@ -100,15 +84,14 @@ class LessThan extends AbstractValidator
     }
 
     /**
-     * Sets the max option
+     * Sets the inclusive option
      *
-     * @param  mixed $max
-     * @return LessThan Provides a fluent interface
+     * @param  bool $inclusive
+     * @return void
      */
-    public function setMax($max)
+    public function setInclusive($inclusive)
     {
-        $this->max = $max;
-        return $this;
+        $this->inclusive = (bool) $inclusive;
     }
 
     /**
@@ -122,40 +105,23 @@ class LessThan extends AbstractValidator
     }
 
     /**
-     * Sets the inclusive option
-     *
-     * @param  bool $inclusive
-     * @return LessThan Provides a fluent interface
-     */
-    public function setInclusive($inclusive)
-    {
-        $this->inclusive = $inclusive;
-        return $this;
-    }
-
-    /**
      * Returns true if and only if $value is less than max option, inclusively
      * when the inclusive option is true
      *
-     * @param  mixed $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        $this->setValue($value);
-
         if ($this->inclusive) {
-            if ($value > $this->max) {
-                $this->error(self::NOT_LESS_INCLUSIVE);
-                return false;
+            if ($data > $this->max) {
+                return $this->buildErrorValidationResult($data, self::NOT_LESS_INCLUSIVE);
             }
         } else {
-            if ($value >= $this->max) {
-                $this->error(self::NOT_LESS);
-                return false;
+            if ($data >= $this->max) {
+                return $this->buildErrorValidationResult($data, self::NOT_LESS);
             }
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

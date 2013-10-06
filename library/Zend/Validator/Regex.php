@@ -12,9 +12,19 @@ namespace Zend\Validator;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\ErrorHandler;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * Validate a string against a pattern
+ *
+ * Accepted options are:
+ *      - pattern
+ */
 class Regex extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const INVALID   = 'regexInvalid';
     const NOT_MATCH = 'regexNotMatch';
     const ERROROUS  = 'regexErrorous';
@@ -31,9 +41,7 @@ class Regex extends AbstractValidator
     /**
      * @var array
      */
-    protected $messageVariables = array(
-        'pattern' => 'pattern'
-    );
+    protected $messageVariables = array('pattern');
 
     /**
      * Regular expression pattern
@@ -43,34 +51,22 @@ class Regex extends AbstractValidator
     protected $pattern;
 
     /**
-     * Sets validator options
+     * Sets the pattern option
      *
-     * @param  string|Traversable $pattern
-     * @throws Exception\InvalidArgumentException On missing 'pattern' parameter
+     * @param  string $pattern
+     * @throws Exception\InvalidArgumentException if there is a fatal error in pattern matching
+     * @return void
      */
-    public function __construct($pattern)
+    public function setPattern($pattern)
     {
-        if (is_string($pattern)) {
-            $this->setPattern($pattern);
-            parent::__construct(array());
-            return;
-        }
+        ErrorHandler::start();
+        $this->pattern = (string) $pattern;
+        $status        = preg_match($this->pattern, "Test");
+        $error         = ErrorHandler::stop();
 
-        if ($pattern instanceof Traversable) {
-            $pattern = ArrayUtils::iteratorToArray($pattern);
+        if (false === $status) {
+            throw new Exception\InvalidArgumentException("Internal error parsing the pattern '{$this->pattern}'", 0, $error);
         }
-
-        if (!is_array($pattern)) {
-            throw new Exception\InvalidArgumentException('Invalid options provided to constructor');
-        }
-
-        if (!array_key_exists('pattern', $pattern)) {
-            throw new Exception\InvalidArgumentException("Missing option 'pattern'");
-        }
-
-        $this->setPattern($pattern['pattern']);
-        unset($pattern['pattern']);
-        parent::__construct($pattern);
     }
 
     /**
@@ -84,54 +80,33 @@ class Regex extends AbstractValidator
     }
 
     /**
-     * Sets the pattern option
-     *
-     * @param  string $pattern
-     * @throws Exception\InvalidArgumentException if there is a fatal error in pattern matching
-     * @return Regex Provides a fluent interface
-     */
-    public function setPattern($pattern)
-    {
-        ErrorHandler::start();
-        $this->pattern = (string) $pattern;
-        $status        = preg_match($this->pattern, "Test");
-        $error         = ErrorHandler::stop();
-
-        if (false === $status) {
-             throw new Exception\InvalidArgumentException("Internal error parsing the pattern '{$this->pattern}'", 0, $error);
-        }
-
-        return $this;
-    }
-
-    /**
      * Returns true if and only if $value matches against the pattern option
      *
-     * @param  string $value
-     * @return bool
+     * {@inheritDoc}
+     * @throws Exception\InvalidArgumentException
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value) && !is_int($value) && !is_float($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (null === $this->pattern) {
+            throw new Exception\InvalidArgumentException("Missing option 'pattern'");
         }
 
-        $this->setValue($value);
+        if (!is_string($data) && !is_int($data) && !is_float($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
+        }
 
         ErrorHandler::start();
-        $status = preg_match($this->pattern, $value);
+        $status = preg_match($this->pattern, $data);
         ErrorHandler::stop();
+
         if (false === $status) {
-            $this->error(self::ERROROUS);
-            return false;
+            return $this->buildErrorValidationResult($data, self::ERROROUS);
         }
 
         if (!$status) {
-            $this->error(self::NOT_MATCH);
-            return false;
+            return $this->buildErrorValidationResult($data, self::NOT_MATCH);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

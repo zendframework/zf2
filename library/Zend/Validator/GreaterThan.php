@@ -9,11 +9,20 @@
 
 namespace Zend\Validator;
 
-use Traversable;
-use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * Validator that assert a value is superior than a specific value
+ *
+ * Accepted options are:
+ *      - min
+ *      - inclusive
+ */
 class GreaterThan extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const NOT_GREATER           = 'notGreaterThan';
     const NOT_GREATER_INCLUSIVE = 'notGreaterThanInclusive';
 
@@ -23,16 +32,16 @@ class GreaterThan extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOT_GREATER => "The input is not greater than '%min%'",
+        self::NOT_GREATER           => "The input is not greater than '%min%'",
         self::NOT_GREATER_INCLUSIVE => "The input is not greater or equal than '%min%'"
     );
 
     /**
+     * Variables that can get injected
+     *
      * @var array
      */
-    protected $messageVariables = array(
-        'min' => 'min'
-    );
+    protected $messageVariables = array('min');
 
     /**
      * Minimum value
@@ -49,42 +58,17 @@ class GreaterThan extends AbstractValidator
      *
      * @var bool
      */
-    protected $inclusive;
+    protected $inclusive = false;
 
     /**
-     * Sets validator options
+     * Sets the min option
      *
-     * @param  array|Traversable $options
-     * @throws Exception\InvalidArgumentException
+     * @param  mixed $min
+     * @return void
      */
-    public function __construct($options = null)
+    public function setMin($min)
     {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-        if (!is_array($options)) {
-            $options = func_get_args();
-            $temp['min'] = array_shift($options);
-
-            if (!empty($options)) {
-                $temp['inclusive'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
-
-        if (!array_key_exists('min', $options)) {
-            throw new Exception\InvalidArgumentException("Missing option 'min'");
-        }
-
-        if (!array_key_exists('inclusive', $options)) {
-            $options['inclusive'] = false;
-        }
-
-        $this->setMin($options['min'])
-             ->setInclusive($options['inclusive']);
-
-        parent::__construct($options);
+        $this->min = $min;
     }
 
     /**
@@ -98,15 +82,14 @@ class GreaterThan extends AbstractValidator
     }
 
     /**
-     * Sets the min option
+     * Sets the inclusive option
      *
-     * @param  mixed $min
-     * @return GreaterThan Provides a fluent interface
+     * @param  bool $inclusive
+     * @return void
      */
-    public function setMin($min)
+    public function setInclusive($inclusive)
     {
-        $this->min = $min;
-        return $this;
+        $this->inclusive = (bool) $inclusive;
     }
 
     /**
@@ -120,39 +103,22 @@ class GreaterThan extends AbstractValidator
     }
 
     /**
-     * Sets the inclusive option
-     *
-     * @param  bool $inclusive
-     * @return GreaterThan Provides a fluent interface
-     */
-    public function setInclusive($inclusive)
-    {
-        $this->inclusive = $inclusive;
-        return $this;
-    }
-
-    /**
      * Returns true if and only if $value is greater than min option
      *
-     * @param  mixed $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        $this->setValue($value);
-
         if ($this->inclusive) {
-            if ($this->min > $value) {
-                $this->error(self::NOT_GREATER_INCLUSIVE);
-                return false;
+            if ($this->min > $data) {
+                return $this->buildErrorValidationResult($data, self::NOT_GREATER_INCLUSIVE);
             }
         } else {
-            if ($this->min >= $value) {
-                $this->error(self::NOT_GREATER);
-                return false;
+            if ($this->min >= $data) {
+                return $this->buildErrorValidationResult($data, self::NOT_GREATER);
             }
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

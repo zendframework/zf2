@@ -21,6 +21,9 @@ use Zend\Validator\Result\ValidationResult;
  */
 class Loc extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const NOT_VALID = 'sitemapLocNotValid';
     const INVALID   = 'sitemapLocInvalid';
 

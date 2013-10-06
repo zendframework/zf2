@@ -20,6 +20,9 @@ use Zend\Validator\Result\ValidationResult;
  */
 class Lastmod extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const NOT_VALID = 'sitemapLastmodNotValid';
     const INVALID   = 'sitemapLastmodInvalid';
 

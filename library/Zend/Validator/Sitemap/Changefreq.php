@@ -19,6 +19,9 @@ use Zend\Validator\Result\ValidationResult;
  */
 class Changefreq extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const NOT_VALID = 'sitemapChangefreqNotValid';
     const INVALID   = 'sitemapChangefreqInvalid';
 

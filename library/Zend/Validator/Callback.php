@@ -22,6 +22,9 @@ use Zend\Validator\Result\ValidationResult;
  */
 class Callback extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const INVALID_CALLBACK = 'callbackInvalid';
     const INVALID_VALUE = 'callbackValue';
 

@@ -13,6 +13,9 @@ use Traversable;
 
 class Barcode extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const INVALID        = 'barcodeInvalid';
     const FAILED         = 'barcodeFailed';
     const INVALID_CHARS  = 'barcodeInvalidChars';

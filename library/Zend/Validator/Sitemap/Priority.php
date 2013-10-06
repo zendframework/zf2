@@ -19,6 +19,9 @@ use Zend\Validator\Result\ValidationResult;
  */
 class Priority extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const NOT_VALID = 'sitemapPriorityNotValid';
     const INVALID   = 'sitemapPriorityInvalid';
 

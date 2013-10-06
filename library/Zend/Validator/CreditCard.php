@@ -11,9 +11,27 @@ namespace Zend\Validator;
 
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * Validate credit card information
+ *
+ * Accepted options are:
+ *      - service
+ *      - allowed_types
+ */
 class CreditCard extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
+    const CHECKSUM        = 'creditcardChecksum';
+    const CONTENT         = 'creditcardContent';
+    const INVALID         = 'creditcardInvalid';
+    const LENGTH          = 'creditcardLength';
+    const PREFIX          = 'creditcardPrefix';
+    const SERVICE         = 'creditcardService';
+
     /**
      * Detected CCI list
      *
@@ -32,16 +50,8 @@ class CreditCard extends AbstractValidator
     const SOLO             = 'Solo';
     const VISA             = 'Visa';
 
-    const CHECKSUM       = 'creditcardChecksum';
-    const CONTENT        = 'creditcardContent';
-    const INVALID        = 'creditcardInvalid';
-    const LENGTH         = 'creditcardLength';
-    const PREFIX         = 'creditcardPrefix';
-    const SERVICE        = 'creditcardService';
-    const SERVICEFAILURE = 'creditcardServiceFailure';
-
     /**
-     * Validation failure message template definitions
+     * Validation error message templates
      *
      * @var array
      */
@@ -53,25 +63,6 @@ class CreditCard extends AbstractValidator
         self::PREFIX         => "The input is not from an allowed institute",
         self::SERVICE        => "The input seems to be an invalid credit card number",
         self::SERVICEFAILURE => "An exception has been raised while validating the input",
-    );
-
-    /**
-     * List of CCV names
-     *
-     * @var array
-     */
-    protected $cardName = array(
-        0  => self::AMERICAN_EXPRESS,
-        1  => self::DINERS_CLUB,
-        2  => self::DINERS_CLUB_US,
-        3  => self::DISCOVER,
-        4  => self::JCB,
-        5  => self::LASER,
-        6  => self::MAESTRO,
-        7  => self::MASTERCARD,
-        8  => self::SOLO,
-        9  => self::UNIONPAY,
-        10 => self::VISA,
     );
 
     /**
@@ -122,47 +113,48 @@ class CreditCard extends AbstractValidator
     );
 
     /**
-     * Options for this validator
+     * Additional service callback for validation
+     *
+     * @var callable
+     */
+    protected $service;
+
+    /**
+     * CCIs which are accepted by validation
      *
      * @var array
      */
-    protected $options = array(
-        'service' => null,     // Service callback for additional validation
-        'type'    => array(),  // CCIs which are accepted by validation
-    );
+    protected $allowedTypes = array(self::ALL);
 
     /**
-     * Constructor
+     * Sets CCIs which are accepted by validation
      *
-     * @param string|array|Traversable $options OPTIONAL Type of CCI to allow
+     * @param  array $allowedTypes Types to allow for validation
+     * @return void
      */
-    public function __construct($options = array())
+    public function setAllowedTypes(array $allowedTypes)
     {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        } elseif (!is_array($options)) {
-            $options = func_get_args();
-            $temp['type'] = array_shift($options);
-            if (!empty($options)) {
-                $temp['service'] = array_shift($options);
-            }
+        $this->allowedTypes = array();
 
-            $options = $temp;
+        foreach ($allowedTypes as $allowedType) {
+            $this->addAllowedType($allowedType);
+        }
+    }
+
+    /**
+     * Adds a CCI to be accepted by validation
+     *
+     * @param  string $allowedType Type to allow for validation
+     * @return void
+     */
+    public function addAllowedType($allowedType)
+    {
+        if ($allowedType === self::ALL) {
+            $this->allowedTypes = array_keys($this->cardType);
+            return;
         }
 
-        if (!array_key_exists('type', $options)) {
-            $options['type'] = self::ALL;
-        }
-
-        $this->setType($options['type']);
-        unset($options['type']);
-
-        if (array_key_exists('service', $options)) {
-            $this->setService($options['service']);
-            unset($options['service']);
-        }
-
-        parent::__construct($options);
+        $this->allowedTypes[] = $allowedType;
     }
 
     /**
@@ -170,46 +162,20 @@ class CreditCard extends AbstractValidator
      *
      * @return array
      */
-    public function getType()
+    public function getAllowedTypes()
     {
-        return $this->options['type'];
+        return $this->allowedTypes;
     }
 
     /**
-     * Sets CCIs which are accepted by validation
+     * Sets a new callback for service validation
      *
-     * @param  string|array $type Type to allow for validation
-     * @return CreditCard Provides a fluid interface
+     * @param  callable $service
+     * @return void
      */
-    public function setType($type)
+    public function setService(callable $service)
     {
-        $this->options['type'] = array();
-        return $this->addType($type);
-    }
-
-    /**
-     * Adds a CCI to be accepted by validation
-     *
-     * @param  string|array $type Type to allow for validation
-     * @return CreditCard Provides a fluid interface
-     */
-    public function addType($type)
-    {
-        if (is_string($type)) {
-            $type = array($type);
-        }
-
-        foreach ($type as $typ) {
-            if (defined('self::' . strtoupper($typ)) && !in_array($typ, $this->options['type'])) {
-                $this->options['type'][] = $typ;
-            }
-
-            if (($typ == self::ALL)) {
-                $this->options['type'] = array_keys($this->cardLength);
-            }
-        }
-
-        return $this;
+        $this->service = $service;
     }
 
     /**
@@ -219,53 +185,31 @@ class CreditCard extends AbstractValidator
      */
     public function getService()
     {
-        return $this->options['service'];
-    }
-
-    /**
-     * Sets a new callback for service validation
-     *
-     * @param  callable $service
-     * @return CreditCard
-     * @throws Exception\InvalidArgumentException on invalid service callback
-     */
-    public function setService($service)
-    {
-        if (!is_callable($service)) {
-            throw new Exception\InvalidArgumentException('Invalid callback given');
-        }
-
-        $this->options['service'] = $service;
-        return $this;
+        return $this->service;
     }
 
     /**
      * Returns true if and only if $value follows the Luhn algorithm (mod-10 checksum)
-     *
-     * @param  string $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        $this->setValue($value);
-
-        if (!is_string($value)) {
-            $this->error(self::INVALID, $value);
-            return false;
+        if (!is_string($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        if (!ctype_digit($value)) {
-            $this->error(self::CONTENT, $value);
-            return false;
+        if (!ctype_digit($data)) {
+            return $this->buildErrorValidationResult($data, self::CONTENT);
         }
 
-        $length = strlen($value);
-        $types  = $this->getType();
+        $length = strlen($data);
+        $types  = $this->getAllowedTypes();
         $foundp = false;
         $foundl = false;
+
         foreach ($types as $type) {
             foreach ($this->cardType[$type] as $prefix) {
-                if (substr($value, 0, strlen($prefix)) == $prefix) {
+                if (substr($data, 0, strlen($prefix)) == $prefix) {
                     $foundp = true;
                     if (in_array($length, $this->cardLength[$type])) {
                         $foundl = true;
@@ -276,44 +220,32 @@ class CreditCard extends AbstractValidator
         }
 
         if ($foundp == false) {
-            $this->error(self::PREFIX, $value);
-            return false;
+            return $this->buildErrorValidationResult($data, self::PREFIX);
         }
 
         if ($foundl == false) {
-            $this->error(self::LENGTH, $value);
-            return false;
+            return $this->buildErrorValidationResult($data, self::LENGTH);
         }
 
         $sum    = 0;
         $weight = 2;
 
         for ($i = $length - 2; $i >= 0; $i--) {
-            $digit = $weight * $value[$i];
+            $digit = $weight * $data[$i];
             $sum += floor($digit / 10) + $digit % 10;
             $weight = $weight % 2 + 1;
         }
 
-        if ((10 - $sum % 10) % 10 != $value[$length - 1]) {
-            $this->error(self::CHECKSUM, $value);
-            return false;
+        if ((10 - $sum % 10) % 10 != $data[$length - 1]) {
+            return $this->buildErrorValidationResult($data, self::CHECKSUM);
         }
 
         $service = $this->getService();
-        if (!empty($service)) {
-            try {
-                $callback = new Callback($service);
-                $callback->setOptions($this->getType());
-                if (!$callback->isValid($value)) {
-                    $this->error(self::SERVICE, $value);
-                    return false;
-                }
-            } catch (\Exception $e) {
-                $this->error(self::SERVICEFAILURE, $value);
-                return false;
-            }
+
+        if ($service && !$service($data, $context)) {
+            return $this->buildErrorValidationResult($data, self::SERVICE);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

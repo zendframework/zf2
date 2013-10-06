@@ -8,10 +8,19 @@
  */
 namespace Zend\Validator;
 
-use Traversable;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * Validate that a class name is an instance of specific object
+ *
+ * Accepted options are:
+ *      - class_name
+ */
 class IsInstanceOf extends AbstractValidator
 {
+    /**
+     * Error code
+     */
     const NOT_INSTANCE_OF = 'notInstanceOf';
 
     /**
@@ -24,13 +33,11 @@ class IsInstanceOf extends AbstractValidator
     );
 
     /**
-     * Additional variables available for validation failure messages
+     * Variables that can get injected
      *
      * @var array
      */
-    protected $messageVariables = array(
-        'className' => 'className'
-    );
+    protected $messageVariables = array('className');
 
     /**
      * Class name
@@ -40,32 +47,14 @@ class IsInstanceOf extends AbstractValidator
     protected $className;
 
     /**
-     * Sets validator options
+     * Set class name
      *
-     * @param  array|Traversable $options
-     * @throws Exception\InvalidArgumentException
+     * @param  string $className
+     * @return void
      */
-    public function __construct($options = null)
+    public function setClassName($className)
     {
-        if ($options instanceof Traversable) {
-            $options = iterator_to_array($options);
-        }
-
-        // If argument is not an array, consider first argument as class name
-        if (!is_array($options)) {
-            $options = func_get_args();
-
-            $tmpOptions = array();
-            $tmpOptions['className'] = array_shift($options);
-
-            $options = $tmpOptions;
-        }
-
-        if (!array_key_exists('className', $options)) {
-            throw new Exception\InvalidArgumentException('Missing option "className"');
-        }
-
-        parent::__construct($options);
+        $this->className = (string) $className;
     }
 
     /**
@@ -79,29 +68,21 @@ class IsInstanceOf extends AbstractValidator
     }
 
     /**
-     * Set class name
-     *
-     * @param  string $className
-     * @return self
-     */
-    public function setClassName($className)
-    {
-        $this->className = $className;
-        return $this;
-    }
-
-    /**
      * Returns true if $value is instance of $this->className
      *
-     * @param  mixed $value
-     * @return bool
+     * {@inheritDoc}
+     * @throws Exception\InvalidArgumentException
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if ($value instanceof $this->className) {
-            return true;
+        if (null === $this->className) {
+            throw new Exception\InvalidArgumentException('Missing option "className"');
         }
-        $this->error(self::NOT_INSTANCE_OF);
-        return false;
+
+        if ($data instanceof $this->className) {
+            return new ValidationResult($data);
+        }
+
+        return $this->buildErrorValidationResult($data, self::NOT_INSTANCE_OF);
     }
 }

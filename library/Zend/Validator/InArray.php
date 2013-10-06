@@ -11,14 +11,27 @@ namespace Zend\Validator;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * Validate that a given value is contains within an array
+ *
+ * Accepted options are:
+ *      - haystack
+ *      - strict
+ *      - recursive
+ */
 class InArray extends AbstractValidator
 {
+    /**
+     * Error code
+     */
     const NOT_IN_ARRAY = 'notInArray';
 
     // Type of Strict check
+
     /**
-     * standard in_array strict checking value and type
+     * Standard in_array strict checking value and type
      */
     const COMPARE_STRICT = 1;
 
@@ -37,6 +50,8 @@ class InArray extends AbstractValidator
 
 
     /**
+     * Validation error messages templates
+     *
      * @var array
      */
     protected $messageTemplates = array(
@@ -68,6 +83,17 @@ class InArray extends AbstractValidator
     protected $recursive = false;
 
     /**
+     * Sets the haystack option
+     *
+     * @param  array $haystack
+     * @return void
+     */
+    public function setHaystack(array $haystack)
+    {
+        $this->haystack = $haystack;
+    }
+
+    /**
      * Returns the haystack option
      *
      * @return mixed
@@ -75,38 +101,7 @@ class InArray extends AbstractValidator
      */
     public function getHaystack()
     {
-        if ($this->haystack === null) {
-            throw new Exception\RuntimeException('haystack option is mandatory');
-        }
         return $this->haystack;
-    }
-
-    /**
-     * Sets the haystack option
-     *
-     * @param  mixed $haystack
-     * @return InArray Provides a fluent interface
-     */
-    public function setHaystack(array $haystack)
-    {
-        $this->haystack = $haystack;
-        return $this;
-    }
-
-    /**
-     * Returns the strict option
-     *
-     * @return bool|int
-     */
-    public function getStrict()
-    {
-        // To keep BC with new strict modes
-        if ($this->strict == self::COMPARE_NOT_STRICT_AND_PREVENT_STR_TO_INT_VULNERABILITY
-            || $this->strict == self::COMPARE_STRICT
-        ) {
-            return (bool) $this->strict;
-        }
-        return $this->strict;
     }
 
     /**
@@ -114,7 +109,7 @@ class InArray extends AbstractValidator
      * InArray::CHECK_STRICT | InArray::CHECK_NOT_STRICT_AND_PREVENT_STR_TO_INT_VULNERABILITY | InArray::CHECK_NOT_STRICT
      *
      * @param  int $strict
-     * @return InArray Provides a fluent interface
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function setStrict($strict)
@@ -131,7 +126,27 @@ class InArray extends AbstractValidator
         }
 
         $this->strict = $strict;
-        return $this;
+    }
+
+    /**
+     * Returns the strict option
+     *
+     * @return bool|int
+     */
+    public function getStrict()
+    {
+        return $this->strict;
+    }
+
+    /**
+     * Sets the recursive option
+     *
+     * @param  bool $recursive
+     * @return void
+     */
+    public function setRecursive($recursive)
+    {
+        $this->recursive = (bool) $recursive;
     }
 
     /**
@@ -145,66 +160,50 @@ class InArray extends AbstractValidator
     }
 
     /**
-     * Sets the recursive option
-     *
-     * @param  bool $recursive
-     * @return InArray Provides a fluent interface
-     */
-    public function setRecursive($recursive)
-    {
-        $this->recursive = (bool) $recursive;
-        return $this;
-    }
-
-    /**
      * Returns true if and only if $value is contained in the haystack option. If the strict
      * option is true, then the type of $value is also checked.
      *
-     * @param mixed $value
-     * See {@link http://php.net/manual/function.in-array.php#104501}
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
         // we create a copy of the haystack in case we need to modify it
         $haystack = $this->getHaystack();
 
+        if ($haystack === null) {
+            throw new Exception\RuntimeException('haystack option is mandatory');
+        }
+
         // if the input is a string or float, and vulnerability protection is on
         // we type cast the input to a string
         if (self::COMPARE_NOT_STRICT_AND_PREVENT_STR_TO_INT_VULNERABILITY == $this->strict
-            && (is_int($value) || is_float($value))) {
-            $value =(string) $value;
+            && (is_int($data) || is_float($data))) {
+            $data = (string) $data;
         }
-
-        $this->setValue($value);
 
         if ($this->getRecursive()) {
             $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($haystack));
+
             foreach ($iterator as $element) {
-                if (self::COMPARE_STRICT == $this->strict) {
-
-                    if ($element === $value) {
-                        return true;
+                if ($this->strict === self::COMPARE_STRICT) {
+                    if ($element === $data) {
+                        return new ValidationResult($data);
                     }
-
                 } else {
-
                     // add protection to prevent string to int vuln's
                     $el = $element;
                     if (self::COMPARE_NOT_STRICT_AND_PREVENT_STR_TO_INT_VULNERABILITY == $this->strict
-                        && is_string($value) && (is_int($el) || is_float($el))
+                        && is_string($data) && (is_int($el) || is_float($el))
                     ) {
                         $el = (string) $el;
                     }
 
-                    if ($el == $value) {
-                        return true;
+                    if ($el == $data) {
+                        return new ValidationResult($data);
                     }
-
                 }
             }
         } else {
-
             /**
              * If the check is not strict, then, to prevent "asdf" being converted to 0
              * and returning a false positive if 0 is in haystack, we type cast
@@ -214,7 +213,7 @@ class InArray extends AbstractValidator
              * This occurs only if the input is a string and a haystack member is an int
              */
             if (self::COMPARE_NOT_STRICT_AND_PREVENT_STR_TO_INT_VULNERABILITY == $this->strict
-                && is_string($value)
+                && is_string($data)
             ) {
                 foreach ($haystack as &$h) {
                     if (is_int($h) || is_float($h)) {
@@ -223,12 +222,11 @@ class InArray extends AbstractValidator
                 }
             }
 
-            if (in_array($value, $haystack, $this->strict == self::COMPARE_STRICT ? true : false)) {
-                return true;
+            if (in_array($data, $haystack, $this->strict == self::COMPARE_STRICT ? true : false)) {
+                return new ValidationResult($data);
             }
         }
 
-        $this->error(self::NOT_IN_ARRAY);
-        return false;
+        return $this->buildErrorValidationResult($data, self::NOT_IN_ARRAY);
     }
 }

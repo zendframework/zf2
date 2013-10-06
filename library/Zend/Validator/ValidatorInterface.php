@@ -21,7 +21,7 @@ interface ValidatorInterface
     public function validate($data, $context = null);
 
     /**
-     * Proxy to validate method (this allows to make any validator Callable)
+     * Proxy to validate method (this allows to make any validator callable)
      *
      * @param  mixed $data
      * @param  mixed|null $context
