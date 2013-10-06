@@ -51,6 +51,16 @@ class ValidationResult implements ValidationResultInterface
     /**
      * {@inheritDoc}
      */
+    public function merge(ValidationResultInterface $validationResult)
+    {
+        // We don't want to "merge" data because a validation holds data for a single validator
+        $this->rawErrorMessages = array_merge($this->rawErrorMessages, $validationResult->getRawErrorMessages());
+        $this->messageVariables = array_merge($this->messageVariables, $validationResult->getMessageVariables());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function isValid()
     {
         return empty($this->rawErrorMessages);
@@ -77,17 +87,19 @@ class ValidationResult implements ValidationResultInterface
      */
     public function getErrorMessages()
     {
-        if (empty($this->errorMessages) || empty($this->messageVariables)) {
-            return $this->errorMessages;
+        // If no message variables then this means no interpolation is needed, so we can return
+        // raw error messages immediately
+        if (empty($this->messageVariables)) {
+            return $this->rawErrorMessages;
         }
 
         // We use simple regex here to inject variables into the error messages. Each variable
         // is surrounded by percent sign (eg.: %min%)
-        $keys          = array_keys($this->messageVariables);
-        $values        = array_values($this->messageVariables);
+        $keys   = array_keys($this->messageVariables);
+        $values = array_values($this->messageVariables);
 
         foreach ($this->rawErrorMessages as $errorMessage) {
-            $this->errorMessages[] = preg_replace($keys, $values, $errorMessage);
+            $this->errorMessages[] = str_replace($keys, $values, $errorMessage);
         }
 
         return $this->errorMessages;
@@ -102,24 +114,32 @@ class ValidationResult implements ValidationResultInterface
     }
 
     /**
-     * Serialize the error messages
+     * Serialize the object
      *
      * @return string
      */
     public function serialize()
     {
-        return serialize($this->errorMessages);
+        return serialize(array(
+            'data'               => $this->getData(),
+            'raw_error_messages' => $this->getRawErrorMessages(),
+            'message_variables'  => $this->getMessageVariables()
+        ));
     }
 
     /**
-     * Unserialize the error messages
+     * Unserialize the object
      *
      * @param  string $serialized
-     * @return array
+     * @return void
      */
     public function unserialize($serialized)
     {
-        return unserialize($serialized);
+        $object = unserialize($serialized);
+
+        $this->data             = $object['data'];
+        $this->rawErrorMessages = $object['raw_error_messages'];
+        $this->messageVariables = $object['message_variables'];
     }
 
     /**
@@ -129,6 +149,6 @@ class ValidationResult implements ValidationResultInterface
      */
     public function jsonSerialize()
     {
-        return $this->errorMessages;
+        return $this->getErrorMessages();
     }
 }

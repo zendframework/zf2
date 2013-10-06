@@ -11,6 +11,7 @@ namespace Zend\Validator;
 
 use Countable;
 use Zend\Stdlib\PriorityQueue;
+use Zend\Validator\Result\ValidationResult;
 
 /**
  * A validator chain that allows to execute multiple validators one after the other
@@ -165,9 +166,14 @@ class ValidatorChain implements ValidatorInterface, Countable
      */
     public function validate($data, $context = null)
     {
-        // @TODO: fix this
+        $validationResult = new ValidationResult($data);
+
         foreach ($this->validators as $validator) {
-            $validationResult = $validator->validate($data);
+            $innerValidationResult = $validator->validate($data, $context);
+
+            if (!$innerValidationResult->isValid()) {
+                $validationResult->merge($innerValidationResult);
+            }
         }
 
         return $validationResult;

@@ -14,11 +14,19 @@ use Serializable;
 
 /**
  * A validation result is an object that holds the result of the validation against
- * a particular validator, and contains all the error messages that may have been
+ * a single validator, and contains all the error messages that may have been
  * generated.
  */
 interface ValidationResultInterface extends Serializable, JsonSerializable
 {
+    /**
+     * Merge one validation result with another
+     *
+     * @param  ValidationResultInterface $validationResult
+     * @return void
+     */
+    public function merge(ValidationResultInterface $validationResult);
+
     /**
      * Is the validation result valid?
      *
