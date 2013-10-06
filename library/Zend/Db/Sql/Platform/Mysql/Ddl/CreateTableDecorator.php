@@ -28,6 +28,11 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
         $this->createTable = $subject;
     }
 
+    public function hasSubject()
+    {
+        return $this->createTable !== null;
+    }
+
     /**
      * @param  null|PlatformInterface $platform
      * @return string

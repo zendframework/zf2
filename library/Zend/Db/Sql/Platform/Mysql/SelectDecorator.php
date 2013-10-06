@@ -32,6 +32,11 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         $this->select = $select;
     }
 
+    public function hasSubject()
+    {
+        return $this->select !== null;
+    }
+
     /**
      * @param AdapterInterface $adapter
      * @param StatementContainerInterface $statementContainer

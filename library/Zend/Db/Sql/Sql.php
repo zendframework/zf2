@@ -24,13 +24,13 @@ class Sql
     /** @var Platform\Platform */
     protected $sqlPlatform = null;
 
-    public function __construct(AdapterInterface $adapter, $table = null, Platform\AbstractPlatform $sqlPlatform = null)
+    public function __construct(AdapterInterface $adapter, $table = null)
     {
         $this->adapter = $adapter;
         if ($table) {
             $this->setTable($table);
         }
-        $this->sqlPlatform = ($sqlPlatform) ?: new Platform\Platform($adapter);
+        $this->sqlPlatform = new Platform\Platform();
     }
 
     /**
@@ -119,13 +119,10 @@ class Sql
     {
         $statement = ($statement) ?: $this->adapter->getDriver()->createStatement();
 
-        if ($this->sqlPlatform) {
-            $this->sqlPlatform->setSubject($sqlObject);
-            $this->sqlPlatform->prepareStatement($this->adapter, $statement);
-        } else {
-            $sqlObject->prepareStatement($this->adapter, $statement);
+        if ($this->sqlPlatform->prepareStatement($sqlObject, $this->adapter, $statement)) {
+            return $statement;
         }
-
+        $sqlObject->prepareStatement($this->adapter, $statement);
         return $statement;
     }
 
@@ -133,13 +130,9 @@ class Sql
     {
         $platform = ($platform) ?: $this->adapter->getPlatform();
 
-        if ($this->sqlPlatform) {
-            $this->sqlPlatform->setSubject($sqlObject);
-            $sqlString = $this->sqlPlatform->getSqlString($platform);
-        } else {
-            $sqlString = $sqlObject->getSqlString($platform);
+        if (($sqlString = $this->sqlPlatform->getSqlString($sqlObject, $platform))) {
+            return $sqlString;
         }
-
-        return $sqlString;
+        return $sqlObject->getSqlString($platform);
     }
 }

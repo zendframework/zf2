@@ -34,6 +34,11 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         $this->select = $select;
     }
 
+    public function hasSubject()
+    {
+        return $this->select !== null;
+    }
+
     /**
      * @see \Zend\Db\Sql\Select::renderTable
      */

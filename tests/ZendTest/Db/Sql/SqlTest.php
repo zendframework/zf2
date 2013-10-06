@@ -10,6 +10,8 @@
 namespace ZendTest\Db\Sql;
 
 use Zend\Db\Sql\Sql;
+use ZendTest\Db\TestAsset\TrustingMySqlPlatform;
+use ZendTest\Db\TestAsset\TrustingSql92Platform;
 
 class SqlTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +36,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $mockDriver->expects($this->any())->method('getConnection')->will($this->returnValue($mockConnection));
 
         // setup mock adapter
-        $this->mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $this->mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver, new TrustingSql92Platform));
 
         $this->sql = new Sql($this->mockAdapter, 'foo');
     }
@@ -123,5 +125,19 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $insert = $this->sql->insert()->columns(array('foo'));
         $stmt = $this->sql->prepareStatementForSqlObject($insert);
         $this->assertInstanceOf('Zend\Db\Adapter\Driver\StatementInterface', $stmt);
+    }
+
+    public function testGetSqlStringForSqlObject()
+    {
+        $select = $this->sql->select()->limit(1);
+
+        // For MySql platform LIMIT should be integer
+        $platform = new TrustingMySqlPlatform();
+        $sqlString = $this->sql->getSqlStringForSqlObject($select, $platform);
+        $this->assertEquals("SELECT `foo`.* FROM `foo` LIMIT 1", $sqlString);
+
+        // For Sql92 platform LIMIT should be string
+        $sqlString = $this->sql->getSqlStringForSqlObject($select);
+        $this->assertEquals('SELECT "foo".* FROM "foo" LIMIT \'1\'', $sqlString);
     }
 }
