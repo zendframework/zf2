@@ -27,24 +27,19 @@ class ValidationResult implements ValidationResultInterface
     /**
      * @var array
      */
-    protected $errorMessages = array();
-
-    /**
-     * @var array
-     */
     protected $messageVariables = array();
 
     /**
      * Constructor
      *
      * @param mixed $data
-     * @param mixed $errorMessages
+     * @param mixed $rawErrorMessages
      * @param array $messageVariables
      */
-    public function __construct($data, $errorMessages = array(), array $messageVariables = array())
+    public function __construct($data, $rawErrorMessages = array(), array $messageVariables = array())
     {
         $this->data             = $data;
-        $this->rawErrorMessages = (array) $errorMessages;
+        $this->rawErrorMessages = (array) $rawErrorMessages;
         $this->messageVariables = $messageVariables;
     }
 
@@ -95,14 +90,15 @@ class ValidationResult implements ValidationResultInterface
 
         // We use simple regex here to inject variables into the error messages. Each variable
         // is surrounded by percent sign (eg.: %min%)
-        $keys   = array_keys($this->messageVariables);
-        $values = array_values($this->messageVariables);
+        $keys          = array_keys($this->messageVariables);
+        $values        = array_values($this->messageVariables);
+        $errorMessages = array();
 
-        foreach ($this->rawErrorMessages as $errorMessage) {
-            $this->errorMessages[] = str_replace($keys, $values, $errorMessage);
+        foreach ($this->rawErrorMessages as $rawErrorMessage) {
+            $errorMessages[] = str_replace($keys, $values, $rawErrorMessage);
         }
 
-        return $this->errorMessages;
+        return $errorMessages;
     }
 
     /**
