@@ -17,7 +17,7 @@ use Zend\Filter\Exception;
 class RarAdapter extends AbstractCompressionAdapter
 {
     /**
-     * @var Callable
+     * @var callable
      */
     protected $callback;
 
@@ -54,10 +54,10 @@ class RarAdapter extends AbstractCompressionAdapter
     /**
      * Sets the callback to use
      *
-     * @param  Callable $callback
+     * @param  callable $callback
      * @return void
      */
-    public function setCallback(Callable $callback)
+    public function setCallback(callable $callback)
     {
         $this->callback = $callback;
     }
@@ -65,7 +65,7 @@ class RarAdapter extends AbstractCompressionAdapter
     /**
      * Returns the set callback for compression
      *
-     * @return Callable
+     * @return callable
      */
     public function getCallback()
     {

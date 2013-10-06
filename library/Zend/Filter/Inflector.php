@@ -11,6 +11,12 @@ namespace Zend\Filter;
 
 /**
  * Filter chain for string inflection
+ *
+ * Accepted options are:
+ *      - throw_target_exceptions_on
+ *      - target_replacement_identifier
+ *      - target
+ *      - rules
  */
 class Inflector extends AbstractFilter
 {
@@ -30,9 +36,9 @@ class Inflector extends AbstractFilter
     protected $targetReplacementIdentifier = ':';
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $target = '';
+    protected $target;
 
     /**
      * @var array
@@ -42,12 +48,12 @@ class Inflector extends AbstractFilter
     /**
      * Constructor
      *
-     * @param FilterPluginManager $filterPluginManager
-     * @param array               $options Options to set
+     * @param FilterPluginManager|null $filterPluginManager
+     * @param array                    $options Options to set
      */
-    public function __construct(FilterPluginManager $filterPluginManager, array $options = array())
+    public function __construct(FilterPluginManager $filterPluginManager = null, array $options = array())
     {
-        $this->filterPluginManager = $filterPluginManager;
+        $this->filterPluginManager = $filterPluginManager ?: new FilterPluginManager;
         parent::__construct($options);
     }
 

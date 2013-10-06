@@ -27,7 +27,7 @@ interface FilterInterface
     public function filter($value);
 
     /**
-     * Proxy to filter method (this allows to make any filters Callable)
+     * Proxy to filter method (this allows to make any filters callable)
      *
      * @param  mixed $value
      * @return mixed

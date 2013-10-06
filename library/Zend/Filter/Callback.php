@@ -15,7 +15,7 @@ namespace Zend\Filter;
 class Callback extends AbstractFilter
 {
     /**
-     * @var Callable
+     * @var callable
      */
     protected $callback;
 
@@ -27,11 +27,11 @@ class Callback extends AbstractFilter
     /**
      * Sets a new callback for this filter
      *
-     * @param  Callable $callback
+     * @param  callable $callback
      * @throws Exception\InvalidArgumentException
      * @return void
      */
-    public function setCallback(Callable $callback)
+    public function setCallback(callable $callback)
     {
         if (is_string($callback) && strpos($callback, '::') !== false) {
             $callback = explode('::', $callback);
@@ -43,7 +43,7 @@ class Callback extends AbstractFilter
     /**
      * Returns the set callback
      *
-     * @return Callable
+     * @return callable
      */
     public function getCallback()
     {

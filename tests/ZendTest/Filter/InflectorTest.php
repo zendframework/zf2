@@ -12,6 +12,7 @@ namespace ZendTest\Filter;
 
 use Zend\Filter\Inflector as InflectorFilter;
 use Zend\Filter\FilterPluginManager;
+use Zend\Filter\Inflector;
 
 /**
  * Test class for Zend_Filter_Inflector.
@@ -45,6 +46,12 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         $this->inflector           = new InflectorFilter($this->filterPluginManager);
     }
 
+    public function testCreatePluginManagerIfNoneDefined()
+    {
+        $inflector = new InflectorFilter();
+        $this->assertInstanceOf('Zend\Filter\FilterPluginManager', $inflector->getPluginManager());
+    }
+
     public function testGetPluginManagerReturnsFilterManagerByDefault()
     {
         $broker = $this->inflector->getPluginManager();
@@ -64,7 +71,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingTargetToConstructorSetsTarget()
     {
-        $inflector = new InflectorFilter('foo/:bar/:baz');
+        $inflector = new InflectorFilter($this->filterPluginManager, ['target' => 'foo/:bar/:baz']);
         $this->assertEquals('foo/:bar/:baz', $inflector->getTarget());
     }
 
@@ -191,7 +198,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     {
         $this->inflector->setFilterRule(':controller', array('Alpha', 'StringToLower'));
         $this->assertTrue($this->inflector->getRule('controller', 1) instanceof \Zend\Filter\StringToLower);
-        $this->assertFalse($this->inflector->getRule('controller', 2));
+        $this->assertNull($this->inflector->getRule('controller', 2));
     }
 
     public function testFilterTransformsStringAccordingToRules()
@@ -220,15 +227,18 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     public function testTargetReplacementIdentiferWorksWhenInflected()
     {
         $inflector = new InflectorFilter(
-            '?=##controller/?=##action.?=##suffix',
+            $this->filterPluginManager,
             array(
-                 ':controller' => array('Word\\CamelCaseToDash'),
-                 ':action'     => array('Word\\CamelCaseToDash'),
-                 'suffix'      => 'phtml'
-                 ),
-            null,
-            '?=##'
-            );
+                'target' => '?=##controller/?=##action.?=##suffix',
+                'rules'  => array(
+                    ':controller' => array('Word\\CamelCaseToDash'),
+                    ':action'     => array('Word\\CamelCaseToDash'),
+                    'suffix'      => 'phtml'
+                ),
+                'throw_target_exceptions_on' => null,
+                'target_replacement_identifier' => '?=##'
+            )
+        );
 
         $filtered = $inflector(array(
             'controller' => 'FooBar',
@@ -255,15 +265,18 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     public function testTargetExceptionThrownWhenTargetSourceNotSatisfied()
     {
         $inflector = new InflectorFilter(
-            '?=##controller/?=##action.?=##suffix',
+            $this->filterPluginManager,
             array(
-                 ':controller' => array('Word\\CamelCaseToDash'),
-                 ':action'     => array('Word\\CamelCaseToDash'),
-                 'suffix'      => 'phtml'
-                 ),
-            true,
-            '?=##'
-            );
+                'target' => '?=##controller/?=##action.?=##suffix',
+                'rules'  => array(
+                    ':controller' => array('Word\\CamelCaseToDash'),
+                    ':action'     => array('Word\\CamelCaseToDash'),
+                    'suffix'      => 'phtml'
+                ),
+                'throw_target_exceptions_on' => true,
+                'target_replacement_identifier' => '?=##'
+            )
+        );
 
         $this->setExpectedException('\Zend\Filter\Exception\RuntimeException', 'perhaps a rule was not satisfied');
         $filtered = $inflector(array('controller' => 'FooBar'));
@@ -272,15 +285,18 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     public function testTargetExceptionNotThrownOnIdentifierNotFollowedByCharacter()
     {
         $inflector = new InflectorFilter(
-            'e:\path\to\:controller\:action.:suffix',
+            $this->filterPluginManager,
             array(
-                 ':controller' => array('Word\\CamelCaseToDash', 'StringToLower'),
-                 ':action'     => array('Word\\CamelCaseToDash'),
-                 'suffix'      => 'phtml'
+                'target' => 'e:\path\to\:controller\:action.:suffix',
+                'rules'  => array(
+                    ':controller' => array('Word\\CamelCaseToDash', 'StringToLower'),
+                    ':action'     => array('Word\\CamelCaseToDash'),
+                    'suffix'      => 'phtml'
                 ),
-            true,
-            ':'
-            );
+                'target_replacement_identifier' => ':',
+                'throw_target_exceptions_on' => true
+            )
+        );
 
         $filtered = $inflector(array('controller' => 'FooBar', 'action' => 'MooToo'));
         $this->assertEquals($filtered, 'e:\path\to\foo-bar\Moo-Too.phtml');
@@ -290,8 +306,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     {
         $options = array(
             'target' => '$controller/$action.$suffix',
-            'throwTargetExceptionsOn' => true,
-            'targetReplacementIdentifier' => '$',
+            'throw_target_exceptions_on' => true,
+            'target_replacement_identifier' => '$',
             'rules' => array(
                 ':controller' => array(
                     'rule1' => 'Word\\CamelCaseToUnderscore',
@@ -307,13 +323,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
         return $options;
     }
 
-    public function getConfig()
-    {
-        $options = $this->getOptions();
-        return new \Zend\Config\Config($options);
-    }
-
-    protected function _testOptions($inflector)
+    protected function _testOptions(Inflector $inflector)
     {
         $options = $this->getOptions();
         $broker  = $inflector->getPluginManager();
@@ -321,7 +331,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Zend\Filter\FilterPluginManager', $broker);
         $this->assertTrue($inflector->isThrowTargetExceptionsOn());
-        $this->assertEquals($options['targetReplacementIdentifier'], $inflector->getTargetReplacementIdentifier());
+        $this->assertEquals($options['target_replacement_identifier'], $inflector->getTargetReplacementIdentifier());
 
         $rules = $inflector->getRules();
         foreach (array_values($options['rules'][':controller']) as $key => $rule) {
@@ -337,15 +347,15 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingConfigObjectToConstructorSetsStateAndRules()
     {
-        $config = $this->getConfig();
-        $inflector = new InflectorFilter($config);
+        $config = $this->getOptions();
+        $inflector = new InflectorFilter($this->filterPluginManager, $config);
         $this->_testOptions($inflector);
     }
 
     public function testSetConfigSetsStateAndRules()
     {
-        $config = $this->getConfig();
-        $inflector = new InflectorFilter();
+        $config = $this->getOptions();
+        $inflector = new InflectorFilter($this->filterPluginManager);
         $inflector->setOptions($config);
         $this->_testOptions($inflector);
     }
@@ -358,15 +368,18 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     public function testCheckInflectorWithPregBackreferenceLikeParts()
     {
         $inflector = new InflectorFilter(
-            ':moduleDir' . DIRECTORY_SEPARATOR . ':controller' . DIRECTORY_SEPARATOR . ':action.:suffix',
+            $this->filterPluginManager,
             array(
-                ':controller' => array('Word\\CamelCaseToDash', 'StringToLower'),
-                ':action'     => array('Word\\CamelCaseToDash'),
-                'suffix'      => 'phtml'
+                'target' => ':moduleDir' . DIRECTORY_SEPARATOR . ':controller' . DIRECTORY_SEPARATOR . ':action.:suffix',
+                'rules'  => array(
+                    ':controller' => array('Word\\CamelCaseToDash', 'StringToLower'),
+                    ':action'     => array('Word\\CamelCaseToDash'),
+                    'suffix'      => 'phtml'
                 ),
-            true,
-            ':'
-            );
+                'target_replacement_identifier' => ':',
+                'throw_target_exceptions_on'    => true
+            )
+        );
 
         $inflector->setStaticRule('moduleDir', 'C:\htdocs\public\cache\00\01\42\app\modules');
 
@@ -378,23 +391,11 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @issue ZF-2522
-     */
-    public function testTestForFalseInConstructorParams()
-    {
-        $inflector = new InflectorFilter('something', array(), false, false);
-        $this->assertFalse($inflector->isThrowTargetExceptionsOn());
-        $this->assertEquals($inflector->getTargetReplacementIdentifier(), ':');
-
-        $inflector = new InflectorFilter('something', array(), false, '#');
-    }
-
-    /**
      * @issue ZF-2964
      */
     public function testNoInflectableTarget()
     {
-        $inflector = new InflectorFilter('abc');
+        $inflector = new InflectorFilter($this->filterPluginManager, ['target' => 'abc']);
         $inflector->addRules(array(':foo' => array()));
         $this->assertEquals($inflector(array('fo' => 'bar')), 'abc');
     }
@@ -425,7 +426,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     public function testPassingArrayToConstructorSetsStateAndRules()
     {
         $options = $this->getOptions();
-        $inflector = new InflectorFilter($options);
+        $inflector = new InflectorFilter($this->filterPluginManager, $options);
     }
 
     /**
@@ -434,29 +435,8 @@ class InflectorTest extends \PHPUnit_Framework_TestCase
     public function testPassingArrayToSetConfigSetsStateAndRules()
     {
         $options = $this->getOptions();
-        $inflector = new InflectorFilter();
+        $inflector = new InflectorFilter($this->filterPluginManager);
         $inflector->setOptions($options);
-        $this->_testOptions($inflector);
-    }
-
-    /**
-     * @group ZF-8997
-     */
-    public function testPassingZendConfigObjectToConstructorSetsStateAndRules()
-    {
-        $config = $this->getConfig();
-        $inflector = new InflectorFilter($config);
-        $this->_testOptions($inflector);
-    }
-
-    /**
-     * @group ZF-8997
-     */
-    public function testPassingZendConfigObjectToSetConfigSetsStateAndRules()
-    {
-        $config = $this->getConfig();
-        $inflector = new InflectorFilter();
-        $inflector->setOptions($config);
         $this->_testOptions($inflector);
     }
 }
