@@ -465,12 +465,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function get($name, $usePeeringServiceManagers = true)
     {
-        // inlined code from ServiceManager::canonicalizeName for performance
-        if (isset($this->canonicalNames[$name])) {
-            $cName = $this->canonicalNames[$name];
-        } else {
-            $cName = $this->canonicalizeName($name);
-        }
+        $cName = $this->canonicalizeName($name);
 
         $isAlias = false;
 
@@ -545,13 +540,7 @@ class ServiceManager implements ServiceLocatorInterface
             list($cName, $rName) = $name;
         } else {
             $rName = $name;
-
-            // inlined code from ServiceManager::canonicalizeName for performance
-            if (isset($this->canonicalNames[$rName])) {
-                $cName = $this->canonicalNames[$name];
-            } else {
-                $cName = $this->canonicalizeName($name);
-            }
+            $cName = $this->canonicalizeName($name);
         }
 
         if (isset($this->delegators[$cName])) {
@@ -682,32 +671,13 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function has($name, $checkAbstractFactories = true, $usePeeringServiceManagers = true)
     {
-        if (is_array($name)) {
-            list($cName, $rName) = $name;
-        } else {
-            $rName = $name;
-
-            // inlined code from ServiceManager::canonicalizeName for performance
-            if (isset($this->canonicalNames[$rName])) {
-                $cName = $this->canonicalNames[$name];
-            } else {
-                $cName = $this->canonicalizeName($name);
-            }
-        }
-
-        if (
-            isset($this->invokableClasses[$cName])
-            || isset($this->factories[$cName])
-            || isset($this->aliases[$cName])
-            || isset($this->instances[$cName])
-            || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($cName, $name))
-        ) {
+        if ($this->canCreate($name, $checkAbstractFactories)) {
             return true;
         }
 
         if ($usePeeringServiceManagers) {
             foreach ($this->peeringServiceManagers as $peeringServiceManager) {
-                if ($peeringServiceManager->has($rName)) {
+                if ($peeringServiceManager->has($name)) {
                     return true;
                 }
             }
