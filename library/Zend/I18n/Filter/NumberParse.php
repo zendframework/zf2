@@ -146,10 +146,14 @@ class NumberParse extends AbstractLocale
         ) {
             ErrorHandler::start();
 
+            $currentLocale = setlocale(LC_NUMERIC, 0);
+
             $result = $this->getFormatter()->parse(
                 $value,
                 $this->getType()
             );
+
+            setlocale(LC_NUMERIC, $currentLocale);
 
             ErrorHandler::stop();
 
