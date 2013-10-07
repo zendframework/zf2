@@ -32,9 +32,9 @@ class ValidationResult implements ValidationResultInterface
     /**
      * Constructor
      *
-     * @param mixed $data
-     * @param mixed $rawErrorMessages
-     * @param array $messageVariables
+     * @param mixed        $data
+     * @param string|array $rawErrorMessages
+     * @param array        $messageVariables
      */
     public function __construct($data, $rawErrorMessages = array(), array $messageVariables = array())
     {
