@@ -22,7 +22,7 @@ class NullGuardTraitTest extends TestCase
 
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.4', '<')) {
+        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
             $this->markTestSkipped('Only valid for php >= 5.4');
         }
     }

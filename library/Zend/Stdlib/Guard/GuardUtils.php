@@ -23,11 +23,6 @@ abstract class GuardUtils
 
 
     /**
-     * Prevent instanciation
-     */
-    private final function __construct() {}
-
-    /**
      * Verifies that the data is an array or Traversable
      *
      * @param  mixed  $data           the data to verify

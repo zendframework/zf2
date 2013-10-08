@@ -23,7 +23,7 @@ class ArrayOrTraversableGuardTraitTest extends TestCase
 
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.4', '<')) {
+        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
             $this->markTestSkipped('Only valid for php >= 5.4');
         }
     }
@@ -41,7 +41,7 @@ class ArrayOrTraversableGuardTraitTest extends TestCase
     public function testGuardForArrayOrTraversableAllowsArray()
     {
         $object = new GuardedObject;
-        $this->assertNull($object->setArrayOrTraversable([]));
+        $this->assertNull($object->setArrayOrTraversable(array()));
     }
 
     public function testGuardForArrayOrTraversableAllowsTraversable()
