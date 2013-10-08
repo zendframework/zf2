@@ -20,6 +20,13 @@ use ZendTest\Stdlib\TestAsset\GuardedObject;
 class NullGuardTraitTest extends TestCase
 {
 
+    public function setUp()
+    {
+        if (version_compare(PHP_VERSION, '5.4', '<')) {
+            $this->markTestSkipped('Only valid for php >= 5.4');
+        }
+    }
+
     public function testGuardAgainstNullThrowsException()
     {
         $object = new GuardedObject;
@@ -30,7 +37,7 @@ class NullGuardTraitTest extends TestCase
         $object->setNotNull(null);
     }
 
-    public function testGuardAgainstNullReturnsVoid()
+    public function testGuardAgainstNullAllowsNonNull()
     {
         $object = new GuardedObject;
         $this->assertNull($object->setNotNull('foo'));

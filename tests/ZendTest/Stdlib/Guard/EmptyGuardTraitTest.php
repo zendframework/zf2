@@ -20,6 +20,13 @@ use ZendTest\Stdlib\TestAsset\GuardedObject;
 class EmptyGuardTraitTest extends TestCase
 {
 
+    public function setUp()
+    {
+        if (version_compare(PHP_VERSION, '5.4', '<')) {
+            $this->markTestSkipped('Only valid for php >= 5.4');
+        }
+    }
+
     public function testGuardAgainstEmptyThrowsException()
     {
         $object = new GuardedObject;
@@ -30,7 +37,7 @@ class EmptyGuardTraitTest extends TestCase
         $object->setNotEmpty('');
     }
 
-    public function testGuardAgainstEmptyReturnsVoid()
+    public function testGuardAgainstEmptyAllowsNonEmptyString()
     {
         $object = new GuardedObject;
         $this->assertNull($object->setNotEmpty('foo'));

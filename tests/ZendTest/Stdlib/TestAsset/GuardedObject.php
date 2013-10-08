@@ -7,9 +7,7 @@ use Zend\Stdlib\Guard;
 class GuardedObject
 {
 
-    use Guard\ArrayOrTraversableGuardTrait;
-    use Guard\NullGuardTrait;
-    use Guard\EmptyGuardTrait;
+    use Guard\AllGuardsTrait;
 
     public function setArrayOrTraversable($data)
     {
