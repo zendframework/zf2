@@ -20,10 +20,10 @@ class Etag implements HeaderInterface
     {
         $header = new static();
 
-        list($name, $value) = explode(': ', $headerLine, 2);
+        list($name, $value) = explode(':', $headerLine, 2);
 
         // check to ensure proper header type for this factory
-        if (strtolower($name) !== 'etag') {
+        if (strtolower(trim($name)) !== 'etag') {
             throw new Exception\InvalidArgumentException('Invalid header line for Etag string: "' . $name . '"');
         }
 
