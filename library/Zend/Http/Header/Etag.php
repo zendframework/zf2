@@ -15,6 +15,7 @@ namespace Zend\Http\Header;
  */
 class Etag implements HeaderInterface
 {
+    protected $value;
 
     public static function fromString($headerLine)
     {
