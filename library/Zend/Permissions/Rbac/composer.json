@@ -3,7 +3,7 @@
     "description": "provides a role-based access control management",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "zf3",
         "Rbac"
     ],
     "autoload": {
@@ -13,12 +13,12 @@
     },
     "target-dir": "Zend/Permissions/Rbac",
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.4"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.2-dev",
-            "dev-develop": "2.3-dev"
+            "dev-master": "3.0-dev",
+            "dev-develop": "3.1-dev"
         }
     }
 }

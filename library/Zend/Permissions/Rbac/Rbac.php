@@ -9,30 +9,39 @@
 
 namespace Zend\Permissions\Rbac;
 
+use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
-class Rbac extends AbstractIterator
+class Rbac
 {
     /**
-     * flag: whether or not to create roles automatically if
-     * they do not exist.
+     * List of roles
+     *
+     * @var array|RoleInterface[]
+     */
+    protected $roles = array();
+
+    /**
+     * flag: whether or not to create roles automatically if they do not exist.
      *
      * @var bool
      */
     protected $createMissingRoles = false;
 
     /**
-     * @param  bool                     $createMissingRoles
-     * @return \Zend\Permissions\Rbac\Rbac
+     * Set whether or not to create roles automatically if they do not exist
+     *
+     * @param  bool $createMissingRoles
+     * @return void
      */
     public function setCreateMissingRoles($createMissingRoles)
     {
-        $this->createMissingRoles = $createMissingRoles;
-
-        return $this;
+        $this->createMissingRoles = (bool) $createMissingRoles;
     }
 
     /**
+     * Get whether or not to create roles automatically if they do not exist
+     *
      * @return bool
      */
     public function getCreateMissingRoles()
@@ -41,11 +50,11 @@ class Rbac extends AbstractIterator
     }
 
     /**
-     * Add a child.
+     * Add a child
      *
-     * @param  string|RoleInterface               $child
-     * @param  array|RoleInterface|null           $parents
-     * @return self
+     * @param  string|RoleInterface                $child
+     * @param  array|string[]|RoleInterface[]|null $parents
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function addRole($child, $parents = null)
@@ -53,51 +62,46 @@ class Rbac extends AbstractIterator
         if (is_string($child)) {
             $child = new Role($child);
         }
+
         if (!$child instanceof RoleInterface) {
             throw new Exception\InvalidArgumentException(
                 'Child must be a string or implement Zend\Permissions\Rbac\RoleInterface'
             );
         }
 
-        if ($parents) {
+        if (null !== $parents) {
             if (!is_array($parents)) {
                 $parents = array($parents);
             }
+
             foreach ($parents as $parent) {
                 if ($this->createMissingRoles && !$this->hasRole($parent)) {
                     $this->addRole($parent);
                 }
+
                 $this->getRole($parent)->addChild($child);
             }
         }
 
-        $this->children[] = $child;
-
-        return $this;
+        $this->roles[] = $child;
     }
 
     /**
      * Is a child with $name registered?
      *
-     * @param  \Zend\Permissions\Rbac\RoleInterface|string $objectOrName
+     * @param  RoleInterface|string $objectOrName
      * @return bool
      */
     public function hasRole($objectOrName)
     {
-        try {
-            $this->getRole($objectOrName);
-
-            return true;
-        } catch (Exception\InvalidArgumentException $e) {
-            return false;
-        }
+        return $this->getRole($objectOrName) !== null;
     }
 
     /**
-     * Get a child.
+     * Get a child
      *
-     * @param  \Zend\Permissions\Rbac\RoleInterface|string $objectOrName
-     * @return RoleInterface
+     * @param  RoleInterface|string $objectOrName
+     * @return RoleInterface|null
      * @throws Exception\InvalidArgumentException
      */
     public function getRole($objectOrName)
@@ -108,17 +112,16 @@ class Rbac extends AbstractIterator
             );
         }
 
-        $it = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::CHILD_FIRST);
-        foreach ($it as $leaf) {
+        $iterator         = new RecursiveArrayIterator($this->roles);
+        $iteratorIterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST);
+
+        foreach ($iteratorIterator as $leaf) {
             if ((is_string($objectOrName) && $leaf->getName() == $objectOrName) || $leaf == $objectOrName) {
                 return $leaf;
             }
         }
 
-        throw new Exception\InvalidArgumentException(sprintf(
-            'No child with name "%s" could be found',
-            is_object($objectOrName) ? $objectOrName->getName() : $objectOrName
-        ));
+        return null;
     }
 
     /**
@@ -127,6 +130,7 @@ class Rbac extends AbstractIterator
      * @param  RoleInterface|string             $role
      * @param  string                           $permission
      * @param  AssertionInterface|Callable|null $assert
+     * @throws Exception\InvalidArgumentException
      * @return bool
      */
     public function isGranted($role, $permission, $assert = null)
@@ -142,15 +146,11 @@ class Rbac extends AbstractIterator
                 }
             } else {
                 throw new Exception\InvalidArgumentException(
-                    'Assertions must be a Callable or an instance of Zend\Permissions\Rbac\AssertionInterface'
+                    'Assertions must be a callable or an instance of Zend\Permissions\Rbac\AssertionInterface'
                 );
             }
         }
 
-        if ($this->getRole($role)->hasPermission($permission)) {
-            return true;
-        }
-
-        return false;
+        return $this->getRole($role)->hasPermission($permission);
     }
 }

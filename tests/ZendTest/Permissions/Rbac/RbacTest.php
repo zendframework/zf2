@@ -144,7 +144,8 @@ class RbacTest extends \PHPUnit_Framework_TestCase
     public function testAddCustomChildRole()
     {
         $role = $this->getMockForAbstractClass('Zend\Permissions\Rbac\RoleInterface');
-        $this->rbac->setCreateMissingRoles(true)->addRole($role, array('parent'));
+        $this->rbac->setCreateMissingRoles(true);
+        $this->rbac->addRole($role, array('parent'));
 
         $role->expects($this->any())
             ->method('getName')
