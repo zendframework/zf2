@@ -94,20 +94,14 @@ class Rbac
      */
     public function hasRole($objectOrName)
     {
-        try {
-            $this->getRole($objectOrName);
-        } catch (Exception\InvalidArgumentException $e) {
-            return false;
-        }
-
-        return true;
+        return $this->getRole($objectOrName) !== null;
     }
 
     /**
      * Get a child
      *
      * @param  RoleInterface|string $objectOrName
-     * @return RoleInterface
+     * @return RoleInterface|null
      * @throws Exception\InvalidArgumentException
      */
     public function getRole($objectOrName)
@@ -127,10 +121,7 @@ class Rbac
             }
         }
 
-        throw new Exception\InvalidArgumentException(sprintf(
-            'No child with name "%s" could be found',
-            is_object($objectOrName) ? $objectOrName->getName() : $objectOrName
-        ));
+        return null;
     }
 
     /**
