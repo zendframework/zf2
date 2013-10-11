@@ -190,7 +190,7 @@ class Request extends AbstractMessage implements RequestInterface
      */
     public function getUri()
     {
-        if ($this->uri === null || is_string($this->uri)) {
+        if (is_null($this->uri) || is_string($this->uri)) {
             $this->uri = new HttpUri($this->uri);
         }
         return $this->uri;
