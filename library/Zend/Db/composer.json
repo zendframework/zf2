@@ -16,7 +16,8 @@
         "php": ">=5.3.3"
     },
     "suggest": {
-        "zendframework/zend-stdlib": "self.version"
+        "zendframework/zend-stdlib": "self.version",
+        "zendframework/zend-servicemanager": "To support creating adapter services"
     },
     "extra": {
         "branch-alias": {
