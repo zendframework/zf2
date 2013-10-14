@@ -293,7 +293,7 @@ class FilePostRedirectGet extends AbstractPlugin
      * @return Response
      * @throws \Zend\Mvc\Exception\RuntimeException
      */
-    protected function redirect($redirect, $redirectToUrl, $statusCode = 303)
+    protected function redirect($redirect, $redirectToUrl)
     {
         $controller         = $this->getController();
         $params             = array();
@@ -324,11 +324,13 @@ class FilePostRedirectGet extends AbstractPlugin
         }
 
         if ($redirectToUrl === false) {
-            $response = $redirector->toRoute($redirect, $params, $options, $reuseMatchedParams, $statusCode);
+            $response = $redirector->toRoute($redirect, $params, $options, $reuseMatchedParams);
+            $response->setStatusCode(303);
             return $response;
         }
 
-        $response = $redirector->toUrl($redirect, $statusCode);
+        $response = $redirector->toUrl($redirect);
+        $response->setStatusCode(303);
 
         return $response;
     }
