@@ -91,7 +91,7 @@ class PostRedirectGet extends AbstractPlugin
      * @return \Zend\Http\Response
      * @throws \Zend\Mvc\Exception\RuntimeException
      */
-    protected function redirect($redirect, $redirectToUrl)
+    protected function redirect($redirect, $redirectToUrl, $statusCode = 303)
     {
         $controller         = $this->getController();
         $params             = array();
@@ -122,13 +122,11 @@ class PostRedirectGet extends AbstractPlugin
         }
 
         if ($redirectToUrl === false) {
-            $response = $redirector->toRoute($redirect, $params, $options, $reuseMatchedParams);
-            $response->setStatusCode(303);
+            $response = $redirector->toRoute($redirect, $params, $options, $reuseMatchedParams, $statusCode);
             return $response;
         }
 
-        $response = $redirector->toUrl($redirect);
-        $response->setStatusCode(303);
+        $response = $redirector->toUrl($redirect, $statusCode);
 
         return $response;
     }
