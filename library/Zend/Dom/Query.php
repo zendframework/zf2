@@ -251,7 +251,7 @@ class Query
             case self::DOC_HTML:
             case self::DOC_XHTML:
             default:
-                $success = $domDoc->loadHTML(mb_convert_encoding($document, 'HTML-ENTITIES', $encoding));
+                $success = $domDoc->loadHTML($document);
                 break;
         }
         $errors = libxml_get_errors();
