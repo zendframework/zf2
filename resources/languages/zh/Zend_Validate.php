@@ -11,6 +11,9 @@
  * ZH-Revision: 09.Nov.2012
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=1; plural=0;', ),
+
     // Zend_I18n_Validator_Alnum
     "Invalid type given. String, integer or float expected" => "请输入一个整数或小数",
     "The input contains characters which are non alphabetic and no digits" => "输入不能为字母数字以外的字符",

@@ -12,6 +12,9 @@
  * FR-Revision: 29.Sept.2013
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=2; plural=(n > 1);', ),
+
     // Zend\I18n\Validator\Alnum
     "Invalid type given. String, integer or float expected" => "Type invalide. Chaîne, entier ou flottant attendu",
     "The input contains characters which are non alphabetic and no digits" => "L'entrée contient des caractères non alphabétiques et non numériques",

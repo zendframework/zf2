@@ -11,6 +11,9 @@
  * ZH-Revision: 09.Nov.2012
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=1; plural=0;', ),
+
     // Zend_Captcha_ReCaptcha
     "Missing captcha fields" => "没有找到验证码区域",
     "Failed to validate captcha" => "验证码校验失败",
