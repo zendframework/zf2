@@ -12,7 +12,7 @@
  */
 return array(
     // Set plural form
-    '' => array('plural_forms' => 'nplurals=2; plural=(n != 1);', ),
+    '' => array('plural_forms' => 'nplurals=2; plural=(n != 1);'),
 
     // Zend_I18n_Validator_Alnum
     "Invalid type given. String, integer or float expected" => "Ogiltig typ given. Sträng, heltal eller flyttal förväntat",

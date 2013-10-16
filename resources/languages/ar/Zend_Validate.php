@@ -12,7 +12,7 @@
  */
 return array(
     // Set plural form
-    '' => array('plural_forms' => 'nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);', ),
+    '' => array('plural_forms' => 'nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);'),
 
     // Zend_Validate_Alnum
     "Invalid type given. String, integer or float expected" => "خطأ في المدخلة. يجب ادخال أرقام أو حروف فقط",

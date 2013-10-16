@@ -12,7 +12,7 @@
  */
 return array(
     // Set plural form
-    '' => array('plural_forms' => 'nplurals=1; plural=0;', ),
+    '' => array('plural_forms' => 'nplurals=1; plural=0;'),
 
     // Zend_Captcha_ReCaptcha
     "Missing captcha fields" => "請輸入驗證碼",

@@ -12,7 +12,7 @@
  */
 return array(
     // Set plural form
-    '' => array('plural_forms' => 'nplurals=2; plural=(n != 1);', ),
+    '' => array('plural_forms' => 'nplurals=2; plural=(n != 1);'),
 
     // Zend\Captcha\ReCaptcha
     "Missing captcha fields" => "Falten camps del captcha",

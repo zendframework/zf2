@@ -12,7 +12,7 @@
  */
 return array(
     // Set plural form
-    '' => array('plural_forms' => 'nplurals=1; plural=0;', ),
+    '' => array('plural_forms' => 'nplurals=1; plural=0;'),
 
     // Zend_I18n_Validator_Alnum
     "Invalid type given. String, integer or float expected" => "請輸入一個整數或小數",

@@ -12,7 +12,7 @@
  */
 return array(
     // Set plural form
-    '' => array('plural_forms' => 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);', ),
+    '' => array('plural_forms' => 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);'),
 
     // Zend\I18n\Validator\Alnum
     "Invalid type given. String, integer or float expected" => "Неправильний тип даних. Значення має бути рядком, цілим числом або числом з плаваючою комою",
