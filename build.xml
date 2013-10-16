@@ -34,7 +34,7 @@
 
     <target
         name="tests-parallel"
-        depends="prepare,composer-install,get-cs-fixer"
+        depends="prepare,composer-install"
         description="Run tests for the various components in parallel"
     >
         <parallel threadCount="8">
@@ -91,7 +91,6 @@
             <component-test component="Version"/>
             <component-test component="View"/>
             <component-test component="XmlRpc"/>
-            <check-cs/>
         </parallel>
     </target>
 
