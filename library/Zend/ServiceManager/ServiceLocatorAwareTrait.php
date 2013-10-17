@@ -9,14 +9,17 @@
 
 namespace Zend\ServiceManager;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-
 trait ServiceLocatorAwareTrait
 {
     /**
      * @var ServiceLocatorInterface
      */
     protected $serviceLocator = null;
+
+    /**
+     * @var bool
+     */
+    protected $useTopServiceLocator = false;
 
     /**
      * Set service locator
@@ -26,7 +29,9 @@ trait ServiceLocatorAwareTrait
      */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
-        $this->serviceLocator = $serviceLocator;
+        $this->serviceLocator = $this->useTopServiceLocator
+                ? $this->getTopServiceLocator($serviceLocator)
+                : $serviceLocator;
 
         return $this;
     }
@@ -39,5 +44,19 @@ trait ServiceLocatorAwareTrait
     public function getServiceLocator()
     {
         return $this->serviceLocator;
+    }
+
+    /**
+     * Get top service locator
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return ServiceLocatorInterface
+     */
+    protected function getTopServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        while ($serviceLocator instanceof ServiceLocatorAwareInterface && ($parentLocator = $serviceLocator->getServiceLocator()) != null) {
+            $serviceLocator = $parentLocator;
+        }
+        return $serviceLocator;
     }
 }
