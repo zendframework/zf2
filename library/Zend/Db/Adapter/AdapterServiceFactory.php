@@ -23,6 +23,11 @@ class AdapterServiceFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('Config');
+        if (isset($config['db']['type'])) {
+            $type = $config['db']['type'];
+            unset($config['db']['type']);
+            return new $type($config['db']);
+        }
         return new Adapter($config['db']);
     }
 }

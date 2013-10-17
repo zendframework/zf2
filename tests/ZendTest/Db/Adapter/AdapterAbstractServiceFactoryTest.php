@@ -39,6 +39,10 @@ class AdapterAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
                     'Zend\Db\Adapter\Reader' => array(
                         'driver' => 'mysqli',
                     ),
+                    'AdapterExtended' => array(
+                        'type' => 'ZendTest\Db\Adapter\AdapterExtended',
+                        'driver' => 'mysqli',
+                    ),
                 ),
             ),
         ));
@@ -84,4 +88,15 @@ class AdapterAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $actual = $this->serviceManager->get($service);
     }
+
+    public function testExtendedService()
+    {
+        $actual = $this->serviceManager->get('AdapterExtended');
+        $this->assertInstanceOf('ZendTest\Db\Adapter\AdapterExtended', $actual);
+    }
+}
+
+class AdapterExtended extends \Zend\Db\Adapter\Adapter
+{
+
 }
