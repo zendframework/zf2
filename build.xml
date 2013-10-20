@@ -87,7 +87,6 @@
             <component-test component="Version"/>
             <component-test component="View"/>
             <component-test component="XmlRpc"/>
-            <check-cs/>
         </parallel>
     </target>
 

@@ -5,12 +5,16 @@ php:
   - 5.3
   - 5.4
   - 5.5
+env:
+ - CS = true
+ - CS = false
 
 before_install:
  - cp tests/TestConfiguration.php.travis tests/TestConfiguration.php
 
 script:
- - ant travis -keep-going
+ - if [[ $CS == false ]]; then ant travis -keep-going; fi
+ - if [[ $TRAVIS_PHP_VERSION == '5.5' && $CS == true ]]; then ant travis check-cs; fi
 
 notifications:
   irc: "irc.freenode.org#zftalk.dev"
