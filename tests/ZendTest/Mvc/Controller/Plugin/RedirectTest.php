@@ -11,7 +11,8 @@ namespace ZendTest\Mvc\Controller\Plugin;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Http\Response;
-use Zend\Route\Request;
+use Zend\Http\Request;
+use Zend\Http\Headers;
 use Zend\Mvc\Controller\Plugin\Redirect as RedirectPlugin;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\Http\Literal as LiteralRoute;
@@ -87,6 +88,29 @@ class RedirectTest extends TestCase
     {
         $controller = new SampleController();
         $event      = new MvcEvent();
+        $controller->setEvent($event);
+        $plugin = $controller->plugin('redirect');
+        $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose');
+        $plugin->toRoute('home');
+    }
+
+    public function testPluginWithoutRequestInEventRaisesDomainException()
+    {
+        $controller = new SampleController();
+        $event      = new MvcEvent();
+        $controller->setEvent($event);
+        $plugin = $controller->plugin('redirect');
+        $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose');
+        $plugin->toRoute('home');
+    }
+
+    public function testPluginWithoutReferrerHeaderInRequestRaisesDomainException()
+    {
+        $controller = new SampleController();
+        $event      = new MvcEvent();
+        $request    = new Request();
+
+        $event->setRequest($request);
         $controller->setEvent($event);
         $plugin = $controller->plugin('redirect');
         $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose');
@@ -191,5 +215,24 @@ class RedirectTest extends TestCase
         $headers = $response->getHeaders();
         $location = $headers->get('Location');
         $this->assertEquals('/', $location->getFieldValue());
+    }
+
+    public function testPluginWithReferrerHeaderInRequest()
+    {
+        $controller     = new SampleController();
+        $event          = new MvcEvent();
+        $request        = new Request();
+        $response       = new Response();
+        $requestHeaders = Headers::fromString("Referer: http://framework.zend.com/");
+
+        $request->setHeaders($requestHeaders);
+        $event->setRequest($request);
+        $event->setResponse($response);
+        $controller->setEvent($event);
+        $plugin = $controller->plugin('redirect');
+        $pluginResponse = $plugin->toReferer();
+        $headers = $pluginResponse->getHeaders();
+        $location = $headers->get('Location');
+        $this->assertEquals('http://framework.zend.com/', $location->getFieldValue());
     }
 }
