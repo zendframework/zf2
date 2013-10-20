@@ -65,9 +65,14 @@ class Headers implements Countable, Iterator
                     $headers->headersKeys[] = static::createKey($current['name']);
                     $headers->headers[]     = $current;
                 }
+
+                // re-assemble header line to fix any spacing issues
+                list($name, $value) = explode(':', $line, 2);
+                $line = trim($name) .": ". trim($value);
+
                 $current = array(
                     'name' => $matches['name'],
-                    'line' => trim($line)
+                    'line' => $line
                 );
             } elseif (preg_match('/^\s+.*$/', $line, $matches)) {
                 // continuation: append to current line
