@@ -54,6 +54,8 @@ class FloatTest extends \PHPUnit_Framework_TestCase
             array(1.00,   true),
             array(0.01,   true),
             array(-0.1,   true),
+            array('-.5', true),
+            array('.5', true),
             array('10.1', true),
             array('5.00', true),
             array('10.0', true),
