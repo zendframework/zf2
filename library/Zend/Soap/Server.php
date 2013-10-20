@@ -609,7 +609,7 @@ class Server implements ZendServerServer
     /**
      * Attach an object to a server
      *
-     * Accepts an instantiated object to use when handling requests.
+     * Accepts an instantiated class to use when handling requests.
      *
      * @param  object $object
      * @return self
@@ -801,7 +801,7 @@ class Server implements ZendServerServer
      * Get SoapServer object
      *
      * Uses {@link $wsdl} and return value of {@link getOptions()} to instantiate
-     * SoapServer object, and then registers any functions or class with it, as
+     * SoapServer class, and then registers any functions or class with it, as
      * well as persistence.
      *
      * @return SoapServer

@@ -156,7 +156,7 @@ class Headers implements Countable, Iterator
     /**
      * Add a raw header line, either in name => value, or as a single string 'name: value'
      *
-     * This method allows for lazy-loading in that the parsing and instantiation of Header object
+     * This method allows for lazy-loading in that the parsing and instantiation of Header class
      * will be delayed until they are retrieved by either get() or current()
      *
      * @throws Exception\InvalidArgumentException

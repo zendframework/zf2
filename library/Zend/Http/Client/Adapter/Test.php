@@ -18,7 +18,7 @@ use Zend\Stdlib\ArrayUtils;
  *
  * Should be used to test all components that rely on Zend\Http\Client,
  * without actually performing an HTTP request. You should instantiate this
- * object manually, and then set it as the client's adapter. Then, you can
+ * class manually, and then set it as the client's adapter. Then, you can
  * set the expected response using the setResponse() method.
  */
 class Test implements AdapterInterface

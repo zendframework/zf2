@@ -46,7 +46,7 @@ class StaticFilter
 
     /**
      * Returns a value filtered through a specified filter class, without requiring separate
-     * instantiation of the filter object.
+     * instantiation of the filter class.
      *
      * The first argument of this method is a data input value, that you would have filtered.
      * The second argument is a string, which corresponds to the basename of the filter class,

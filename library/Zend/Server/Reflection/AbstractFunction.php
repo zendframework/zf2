@@ -429,7 +429,7 @@ abstract class AbstractFunction
      * Wakeup from serialization
      *
      * Reflection needs explicit instantiation to work correctly. Re-instantiate
-     * reflection object on wakeup.
+     * reflection class on wakeup.
      *
      * @return void
      */
