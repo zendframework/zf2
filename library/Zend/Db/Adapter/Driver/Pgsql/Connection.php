@@ -9,11 +9,10 @@
 
 namespace Zend\Db\Adapter\Driver\Pgsql;
 
-use Zend\Db\Adapter\Driver\ConnectionAbstract;
+use Zend\Db\Adapter\Driver\AbstractConnection;
 use Zend\Db\Adapter\Exception;
-use Zend\Db\Adapter\Profiler;
 
-class Connection extends ConnectionAbstract
+class Connection extends AbstractConnection
 {
     /**
      * @var Pgsql
@@ -37,13 +36,8 @@ class Connection extends ConnectionAbstract
     /**
      * Set driver
      *
-<<<<<<< HEAD
-     * @param  Pgsql      $driver
-     * @return Connection
-=======
      * @param  Pgsql $driver
      * @return self
->>>>>>> @return Connection => @return self
      */
     public function setDriver(Pgsql $driver)
     {

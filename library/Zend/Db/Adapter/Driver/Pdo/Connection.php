@@ -9,11 +9,10 @@
 
 namespace Zend\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\ConnectionAbstract;
+use Zend\Db\Adapter\Driver\AbstractConnection;
 use Zend\Db\Adapter\Exception;
-use Zend\Db\Adapter\Profiler;
 
-class Connection extends ConnectionAbstract
+class Connection extends AbstractConnection
 {
     /**
      * @var Pdo
@@ -50,13 +49,8 @@ class Connection extends ConnectionAbstract
     /**
      * Set driver
      *
-<<<<<<< HEAD
-     * @param  Pdo        $driver
-     * @return Connection
-=======
-     * @param Pdo $driver
+     * @param  Pdo  $driver
      * @return self
->>>>>>> @return Connection => @return self
      */
     public function setDriver(Pdo $driver)
     {
@@ -141,13 +135,8 @@ class Connection extends ConnectionAbstract
     /**
      * Set resource
      *
-<<<<<<< HEAD
-     * @param  \PDO       $resource
-     * @return Connection
-=======
      * @param  \PDO $resource
      * @return self
->>>>>>> @return Connection => @return self
      */
     public function setResource(\PDO $resource)
     {

@@ -9,11 +9,10 @@
 
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
-use Zend\Db\Adapter\Driver\ConnectionAbstract;
+use Zend\Db\Adapter\Driver\AbstractConnection;
 use Zend\Db\Adapter\Exception;
-use Zend\Db\Adapter\Profiler;
 
-class Connection extends ConnectionAbstract
+class Connection extends AbstractConnection
 {
     /**
      * @var Mysqli
@@ -43,13 +42,8 @@ class Connection extends ConnectionAbstract
     }
 
     /**
-<<<<<<< HEAD
-     * @param  Mysqli     $driver
-     * @return Connection
-=======
-     * @param Mysqli $driver
+     * @param  Mysqli $driver
      * @return self
->>>>>>> @return Connection => @return self
      */
     public function setDriver(Mysqli $driver)
     {
@@ -79,13 +73,8 @@ class Connection extends ConnectionAbstract
     /**
      * Set resource
      *
-<<<<<<< HEAD
-     * @param  \mysqli    $resource
-     * @return Connection
-=======
      * @param  \mysqli $resource
      * @return self
->>>>>>> @return Connection => @return self
      */
     public function setResource(\mysqli $resource)
     {
