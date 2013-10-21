@@ -74,7 +74,7 @@ class ReflectionMethod extends AbstractFunction
      * Wakeup from serialization
      *
      * Reflection needs explicit instantiation to work correctly. Re-instantiate
-     * reflection class on wakeup.
+     * reflection object on wakeup.
      *
      * @return void
      */

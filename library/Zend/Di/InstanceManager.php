@@ -10,7 +10,7 @@
 namespace Zend\Di;
 
 /**
- * Registry of instantiated classes, their names and the parameters used to build them
+ * Registry of instantiated objects, their names and the parameters used to build them
  */
 class InstanceManager /* implements InstanceManagerInterface */
 {
