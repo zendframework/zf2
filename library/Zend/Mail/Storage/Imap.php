@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -30,26 +31,32 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
     protected $currentFolder = '';
 
     /**
+     * IMAP folder delimiter character
+     * @var string
+     */
+    public $delimiter;
+
+    /**
      * IMAP flags to constants translation
      * @var array
      */
-    protected static $knownFlags = array('\Passed'   => Mail\Storage::FLAG_PASSED,
-                                          '\Answered' => Mail\Storage::FLAG_ANSWERED,
-                                          '\Seen'     => Mail\Storage::FLAG_SEEN,
-                                          '\Deleted'  => Mail\Storage::FLAG_DELETED,
-                                          '\Draft'    => Mail\Storage::FLAG_DRAFT,
-                                          '\Flagged'  => Mail\Storage::FLAG_FLAGGED);
+    protected static $knownFlags = array('\Passed' => Mail\Storage::FLAG_PASSED,
+        '\Answered' => Mail\Storage::FLAG_ANSWERED,
+        '\Seen' => Mail\Storage::FLAG_SEEN,
+        '\Deleted' => Mail\Storage::FLAG_DELETED,
+        '\Draft' => Mail\Storage::FLAG_DRAFT,
+        '\Flagged' => Mail\Storage::FLAG_FLAGGED);
 
     /**
      * IMAP flags to search criteria
      * @var array
      */
-    protected static $searchFlags = array('\Recent'   => 'RECENT',
-                                           '\Answered' => 'ANSWERED',
-                                           '\Seen'     => 'SEEN',
-                                           '\Deleted'  => 'DELETED',
-                                           '\Draft'    => 'DRAFT',
-                                           '\Flagged'  => 'FLAGGED');
+    protected static $searchFlags = array('\Recent' => 'RECENT',
+        '\Answered' => 'ANSWERED',
+        '\Seen' => 'SEEN',
+        '\Deleted' => 'DELETED',
+        '\Draft' => 'DRAFT',
+        '\Flagged' => 'FLAGGED');
 
     /**
      * Count messages all messages in current box
@@ -127,6 +134,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
      * @throws Exception\RuntimeException
      * @throws \Zend\Mail\Protocol\Exception\RuntimeException
      */
+
     public function getRawHeader($id, $part = null, $topLines = 0)
     {
         if ($part !== null) {
@@ -147,6 +155,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
      * @throws \Zend\Mail\Protocol\Exception\RuntimeException
      * @throws Exception\RuntimeException
      */
+
     public function getRawContent($id, $part = null)
     {
         if ($part !== null) {
@@ -155,6 +164,26 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
         }
 
         return $this->protocol->fetch('RFC822.TEXT', $id);
+    }
+
+    /*
+     * Get raw message
+     *
+     * @param  int               $id   number of message
+     * @param  null|array|string $part path to part or null for message content
+     * @return string raw content
+     * @throws \Zend\Mail\Protocol\Exception\RuntimeException
+     * @throws Exception\RuntimeException
+     */
+
+    public function getRawMessage($id, $part = null)
+    {
+        if ($part !== null) {
+            // TODO: implement
+            throw new Exception\RuntimeException('not implemented');
+        }
+
+        return $this->protocol->fetch('RFC822', $id);
     }
 
     /**
@@ -194,10 +223,10 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
             throw new Exception\InvalidArgumentException('need at least user in params');
         }
 
-        $host     = isset($params->host)     ? $params->host     : 'localhost';
+        $host = isset($params->host) ? $params->host : 'localhost';
         $password = isset($params->password) ? $params->password : '';
-        $port     = isset($params->port)     ? $params->port     : null;
-        $ssl      = isset($params->ssl)      ? $params->ssl      : false;
+        $port = isset($params->port) ? $params->port : null;
+        $ssl = isset($params->ssl) ? $params->ssl : false;
 
         $this->protocol = new Protocol\Imap();
         $this->protocol->connect($host, $port, $ssl);
@@ -289,7 +318,6 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
         throw new Exception\InvalidArgumentException('unique id not found');
     }
 
-
     /**
      * get root folder or given folder
      *
@@ -317,6 +345,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
             do {
                 if (!$parent || strpos($globalName, $parent) === 0) {
                     $pos = strrpos($globalName, $data['delim']);
+                    $this->delimiter = $data['delim'];
                     if ($pos === false) {
                         $localName = $globalName;
                     } else {
@@ -361,7 +390,6 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
             throw new Exception\RuntimeException('cannot change folder, maybe it does not exist');
         }
     }
-
 
     /**
      * get \Zend\Mail\Storage\Folder instance for current folder
@@ -444,7 +472,7 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
      * @param  null|array                            $flags   set flags for new message, else a default set is used
      * @throws Exception\RuntimeException
      */
-     // not yet * @param string|\Zend\Mail\Message|\Zend\Mime\Message $message message as string or instance of message class
+    // not yet * @param string|\Zend\Mail\Message|\Zend\Mime\Message $message message as string or instance of message class
     public function appendMessage($message, $folder = null, $flags = null)
     {
         if ($folder === null) {
@@ -505,4 +533,39 @@ class Imap extends AbstractStorage implements Folder\FolderInterface, Writable\W
             throw new Exception\RuntimeException('cannot set flags, have you tried to set the recent flag or special chars?');
         }
     }
+
+    public function subscribe($folder)
+    {
+        try {
+            $response = $this->protocol->requestAndResponse('SUBSCRIBE ', (array) $folder);
+        } catch (Exception $e) {
+            Zend\Debug::dump($e);
+            return false;
+        }
+        return true;
+    }
+
+    public function delimiter()
+    {
+        if (!isset($this->delimiter)) {
+            $this->$this->getFolders();
+        }
+        return $this->delimiter;
+    }
+
+    public function banner()
+    {
+        return $this->protocol->banner;
+    }
+
+    public function serverId()
+    {
+        $response = $this->protocol->requestAndResponse('ID', array('NIL'), true);
+
+        if (!$response)
+            return false;
+
+        return $response[0];
+    }
+
 }

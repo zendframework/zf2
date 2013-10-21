@@ -29,7 +29,13 @@ class Imap
      * @var int
      */
     protected $tagCount = 0;
-
+	
+    /**
+     * IMAP banner
+     * @var string
+     */
+    public $banner = null;
+	
     /**
      * Public constructor
      *
@@ -135,6 +141,8 @@ class Imap
     protected function _assumedNextLine($start)
     {
         $line = $this->_nextLine();
+		if (is_null($this->banner))
+            $this->banner = $line;
         return strpos($line, $start) === 0;
     }
 
