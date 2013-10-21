@@ -179,6 +179,7 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
             array('id' => 3, 'name' => 'three'),
         )));
         $this->assertNull($resultSet->rewind());
+        $this->assertEquals(array('id' => 1, 'name' => 'one'), $resultSet->current());
     }
 
     /**

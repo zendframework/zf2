@@ -14,17 +14,7 @@ use ArrayObject;
 class ResultSet extends AbstractResultSet
 {
     const TYPE_ARRAYOBJECT = 'arrayobject';
-    const TYPE_ARRAY  = 'array';
-
-    /**
-     * Allowed return types
-     *
-     * @var array
-     */
-    protected $allowedReturnTypes = array(
-        self::TYPE_ARRAYOBJECT,
-        self::TYPE_ARRAY,
-    );
+    const TYPE_ARRAY = 'array';
 
     /**
      * @var ArrayObject
@@ -38,17 +28,21 @@ class ResultSet extends AbstractResultSet
      */
     protected $returnType = self::TYPE_ARRAYOBJECT;
 
+    protected $defaultReturnType = self::TYPE_ARRAYOBJECT;
+
     /**
      * Constructor
      *
      * @param string           $returnType
-     * @param null|ArrayObject $arrayObjectPrototype
+     * @param null|ArrayObject $arrayObjectPrototype - this parameter id deprecated
      */
-    public function __construct($returnType = self::TYPE_ARRAYOBJECT, $arrayObjectPrototype = null)
+    public function __construct($returnType = self::TYPE_ARRAYOBJECT)
     {
-        $this->returnType = (in_array($returnType, array(self::TYPE_ARRAY, self::TYPE_ARRAYOBJECT))) ? $returnType : self::TYPE_ARRAYOBJECT;
-        if ($this->returnType === self::TYPE_ARRAYOBJECT) {
-            $this->setArrayObjectPrototype(($arrayObjectPrototype) ?: new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS));
+        if (func_num_args() == 2 && func_get_arg(1) != null) {
+            //backward compatibility
+            $this->setArrayObjectPrototype(func_get_arg(1));
+        } else {
+            $this->setArrayObjectPrototype($returnType);
         }
     }
 
@@ -61,13 +55,23 @@ class ResultSet extends AbstractResultSet
      */
     public function setArrayObjectPrototype($arrayObjectPrototype)
     {
-        if (!is_object($arrayObjectPrototype)
-            || (!$arrayObjectPrototype instanceof ArrayObject && !method_exists($arrayObjectPrototype, 'exchangeArray'))
-
-        ) {
-            throw new Exception\InvalidArgumentException('Object must be of type ArrayObject, or at least implement exchangeArray');
+        if (in_array($arrayObjectPrototype, array(null, self::TYPE_ARRAY, self::TYPE_ARRAYOBJECT), true)) {
+            $this->returnType = $arrayObjectPrototype ?:$this->defaultReturnType;
+            if ($this->returnType == self::TYPE_ARRAYOBJECT) {
+                $this->arrayObjectPrototype = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
+            } else {
+                $this->arrayObjectPrototype = null;
+            }
+        } elseif (is_object($arrayObjectPrototype) && method_exists($arrayObjectPrototype, 'exchangeArray')) {
+            $this->returnType = self::TYPE_ARRAYOBJECT;
+            $this->arrayObjectPrototype = $arrayObjectPrototype;
+        } else {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Object must be of type ArrayObject, or at least implement exchangeArray, or must be %s or $s',
+                self::TYPE_ARRAYOBJECT,
+                self::TYPE_ARRAY
+            ));
         }
-        $this->arrayObjectPrototype = $arrayObjectPrototype;
         return $this;
     }
 
@@ -91,22 +95,14 @@ class ResultSet extends AbstractResultSet
         return $this->returnType;
     }
 
-    /**
-     * @return array|\ArrayObject|null
-     */
-    public function current()
+    protected function hydrateCurrent()
     {
-        $data = parent::current();
-
-        if ($this->returnType === self::TYPE_ARRAYOBJECT && is_array($data)) {
-            /** @var $ao ArrayObject */
+        $current = parent::hydrateCurrent();
+        if (is_object($this->arrayObjectPrototype) && is_array($current)) {
             $ao = clone $this->arrayObjectPrototype;
-            if ($ao instanceof ArrayObject || method_exists($ao, 'exchangeArray')) {
-                $ao->exchangeArray($data);
-            }
+            $ao->exchangeArray($current);
             return $ao;
         }
-
-        return $data;
+        return $current;
     }
 }
