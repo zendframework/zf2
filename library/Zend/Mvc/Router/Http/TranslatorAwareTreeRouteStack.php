@@ -47,7 +47,7 @@ class TranslatorAwareTreeRouteStack extends TreeRouteStack implements Translator
      *
      * @see    \Zend\Mvc\Router\RouteInterface::factory()
      * @param  array|Traversable $options
-     * @return TranslatorAwareTreeRouteStack
+     * @return self 
      * @throws Exception\InvalidArgumentException
      */
     public static function factory($options = array())
@@ -61,7 +61,7 @@ class TranslatorAwareTreeRouteStack extends TreeRouteStack implements Translator
         $instance = parent::factory($options);
 
         if (isset($options['router_translator'])) {
-        	$translator = Translator::factory($options['router_translator']);
+            $translator = Translator::factory($options['router_translator']);
             $instance->setTranslator($translator);
         }
 
