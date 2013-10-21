@@ -9,12 +9,12 @@
 
 namespace Zend\Db\Adapter\Driver\Pgsql;
 
-use Zend\Db\Adapter\Driver\ConnectionAbstract;
+use Zend\Db\Adapter\Driver\AbstractConnection;
 use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
-class Connection extends ConnectionAbstract
+class Connection extends AbstractConnection
 {
     /**
      * @var Pgsql

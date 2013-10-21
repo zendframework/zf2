@@ -11,7 +11,7 @@ namespace Zend\Db\Adapter\Driver;
 
 use Zend\Db\Adapter\Profiler;
 
-abstract class ConnectionAbstract implements ConnectionInterface, Profiler\ProfilerAwareInterface
+abstract class AbstractConnection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 {
     /**
      * @var array
