@@ -148,8 +148,8 @@ class Application implements
         $this->event = $event  = new MvcEvent();
         $event->setTarget($this);
         $event->setApplication($this)
-              ->setRequest($this->getRequest())
-              ->setResponse($this->getResponse())
+              ->setRequest($this->request)
+              ->setResponse($this->response)
               ->setRouter($serviceManager->get('Router'));
 
         // Trigger bootstrap events
@@ -272,8 +272,8 @@ class Application implements
      */
     public function run()
     {
-        $events = $this->getEventManager();
-        $event  = $this->getMvcEvent();
+        $events = $this->events;
+        $event  = $this->event;
 
         // Define callback used to determine whether or not to short-circuit
         $shortCircuit = function ($r) use ($event) {
@@ -317,7 +317,7 @@ class Application implements
             return $response;
         }
 
-        $response = $this->getResponse();
+        $response = $this->response;
         $event->setResponse($response);
         $this->completeRequest($event);
 
@@ -342,7 +342,7 @@ class Application implements
      */
     protected function completeRequest(MvcEvent $event)
     {
-        $events = $this->getEventManager();
+        $events = $this->events;
         $event->setTarget($this);
         $events->trigger(MvcEvent::EVENT_RENDER, $event);
         $events->trigger(MvcEvent::EVENT_FINISH, $event);
