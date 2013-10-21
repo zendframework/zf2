@@ -81,6 +81,11 @@ class Url extends AbstractHelper
             }
             $params = iterator_to_array($params);
         }
+        
+        //Scan each parameters and clean them if string for a better URL
+        foreach($params as $param => $value) {
+            $params[$param] = $this->cleanString($value);
+        }
 
         if ($reuseMatchedParams && $this->routeMatch !== null) {
             $routeMatchParams = $this->routeMatch->getParams();
@@ -124,5 +129,21 @@ class Url extends AbstractHelper
     {
         $this->routeMatch = $routeMatch;
         return $this;
+    }
+    
+    /**
+     * Clean a string for a URL, removing spaces, special characters and replacing accented characters with a non-accented one
+     * 
+     * @param String $string string to clean
+     * @return String  a clean string
+     */
+    public function cleanString($string) {
+        $string = str_replace(array('[\', \']'), '', $string);
+        $string = preg_replace('/\[.*\]/U', '', $string);
+        $string = preg_replace('/&(amp;)?#?[a-z0-9]+;/i', '-', $string);
+        $string = htmlentities($string, ENT_COMPAT, 'utf-8');
+        $string = preg_replace('/&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i', '\\1', $string );
+        $string = preg_replace(array('/[^a-z0-9]/i', '/[-]+/') , '-', $string);
+        return strtolower(trim($string, '-'));
     }
 }
