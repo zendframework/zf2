@@ -94,6 +94,7 @@ class TreeRouteStack extends SimpleRouteStack
                 'wildcard' => __NAMESPACE__ . '\Wildcard',
             ) as $name => $class
         ) {
+            if ($routes->has($name, false)) continue;
             $routes->setInvokableClass($name, $class);
         };
     }
