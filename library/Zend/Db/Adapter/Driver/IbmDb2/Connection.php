@@ -34,6 +34,13 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     protected $profiler = null;
 
     /**
+     * In transaction
+     *
+     * @var bool
+     */
+    protected $inTransaction = false;
+
+    /**
      * Constructor
      *
      * @param array|resource|null $connectionParameters (ibm_db2 connection resource)
@@ -211,21 +218,32 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Begin transaction
      *
-     * @return ConnectionInterface
+     * @return void
      */
     public function beginTransaction()
     {
-        // TODO: Implement beginTransaction() method.
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
+        db2_autocommit($this->resource, DB2_AUTOCOMMIT_OFF);
+        $this->inTransaction = true;
     }
 
     /**
      * Commit
      *
-     * @return ConnectionInterface
+     * @return void
      */
     public function commit()
     {
-        // TODO: Implement commit() method.
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
+        db2_commit($this->resource);
+        $this->inTransaction = false;
+        db2_autocommit($this->resource, DB2_AUTOCOMMIT_ON);
     }
 
     /**
@@ -235,7 +253,17 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      */
     public function rollback()
     {
-        // TODO: Implement rollback() method.
+        if (!$this->resource) {
+            throw new Exception\RuntimeException('Must be connected before you can rollback.');
+        }
+
+        if (!$this->inTransaction) {
+            throw new Exception\RuntimeException('Must call commit() before you can rollback.');
+        }
+
+        db2_rollback($this->resource);
+        db2_autocommit($this->resource, DB2_AUTOCOMMIT_ON);
+        return $this;
     }
 
     /**
