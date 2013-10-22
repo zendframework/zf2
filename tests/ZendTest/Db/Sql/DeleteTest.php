@@ -211,7 +211,6 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
 class DeleteIgnore extends Delete
 {
-    const SPECIFICATION_DELETE = 'deleteIgnore';
 
     protected $specifications = array(
         self::SPECIFICATION_DELETE => 'DELETE IGNORE FROM %1$s',

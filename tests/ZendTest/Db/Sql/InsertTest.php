@@ -255,7 +255,6 @@ class InsertTest extends \PHPUnit_Framework_TestCase
 
 class Replace extends Insert
 {
-    const SPECIFICATION_INSERT = 'replace';
 
     protected $specifications = array(
         self::SPECIFICATION_INSERT => 'REPLACE INTO %1$s (%2$s) VALUES (%3$s)'

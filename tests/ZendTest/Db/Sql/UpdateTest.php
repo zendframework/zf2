@@ -303,7 +303,6 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
 
 class UpdateIgnore extends Update
 {
-    const SPECIFICATION_UPDATE = 'updateIgnore';
 
     protected $specifications = array(
         self::SPECIFICATION_UPDATE => 'UPDATE IGNORE %1$s SET %2$s',
