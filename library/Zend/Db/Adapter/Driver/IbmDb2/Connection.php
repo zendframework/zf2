@@ -39,7 +39,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * @var bool
      */
     protected $inTransaction = false;
-    
+
     /**
      * Constructor
      *
