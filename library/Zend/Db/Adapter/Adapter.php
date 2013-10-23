@@ -80,7 +80,7 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
             $driver = $this->createDriver($parameters);
         } elseif (!$driver instanceof Driver\DriverInterface) {
             throw new Exception\InvalidArgumentException(
-                'The supplied or instantiated driver object does not implement Zend\Db\Adapter\Driver\DriverInterface'
+                'The supplied or instantiated driver class does not implement Zend\Db\Adapter\Driver\DriverInterface'
             );
         }
 
