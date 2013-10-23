@@ -43,4 +43,25 @@ class ServiceLocatorAwareTraitTest extends TestCase
 
         $this->assertEquals($serviceLocator, $object->getServiceLocator());
     }
+
+    public function testSetPluginsServiceLocator()
+    {
+        $object = $this->getObjectForTrait('\Zend\ServiceManager\ServiceLocatorAwareTrait');
+
+        $property = new \ReflectionProperty($object, 'useTopServiceLocator');
+        $property->setAccessible(true);
+        $property->setValue($object, true);
+
+        $this->assertAttributeEquals(null, 'serviceLocator', $object);
+
+        $serviceLocator = new ServiceManager;
+        $pluginManager = $this->getMockForAbstractClass('Zend\ServiceManager\AbstractPluginManager');
+        $pluginManager->setServiceLocator($serviceLocator);
+
+        $object->setServiceLocator($pluginManager);
+        $this->assertAttributeEquals($serviceLocator, 'serviceLocator', $object);
+
+        $object->setServiceLocator($serviceLocator);
+        $this->assertAttributeEquals($serviceLocator, 'serviceLocator', $object);
+    }
 }
