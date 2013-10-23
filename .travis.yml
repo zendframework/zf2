@@ -15,3 +15,8 @@ script:
 notifications:
   irc: "irc.freenode.org#zftalk.dev"
   email: false
+
+branches:
+  only:
+    - master
+    - develop
