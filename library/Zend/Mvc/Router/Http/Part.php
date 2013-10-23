@@ -11,6 +11,8 @@ namespace Zend\Mvc\Router\Http;
 
 use ArrayObject;
 use Traversable;
+use Zend\EventManager\EventManager;
+use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\PriorityList;
 use Zend\Mvc\Router\RoutePluginManager;
@@ -42,6 +44,11 @@ class Part extends TreeRouteStack implements RouteInterface
      * @var mixed
      */
     protected $childRoutes;
+
+    /**
+     * @var EventManagerInterface
+     */
+    protected $events;
 
     /**
      * Create a new part route.
@@ -138,6 +145,9 @@ class Part extends TreeRouteStack implements RouteInterface
 
         $match = $this->route->match($request, $pathOffset, $options);
 
+        $params = array('match' => $match, 'route' => $this->route);
+        $this->getEventManager()->trigger(__FUNCTION__, $this, $params);
+
         if ($match !== null && method_exists($request, 'getUri')) {
             if ($this->childRoutes !== null) {
                 $this->addRoutes($this->childRoutes);
@@ -230,5 +240,40 @@ class Part extends TreeRouteStack implements RouteInterface
             }
         }
         return false;
+    }
+
+
+
+    /**
+     * Inject an EventManager instance
+     *
+     * @param  EventManagerInterface $eventManager
+     * @return void
+     */
+    public function setEventManager(EventManagerInterface $events)
+    {
+        $events->setIdentifiers(
+            array(
+                __CLASS__,
+                get_called_class(),
+            )
+        );
+        $this->events = $events;
+        return $this;
+    }
+
+    /**
+     * Retrieve the event manager
+     *
+     * Lazy-loads an EventManager instance if none registered.
+     *
+     * @return EventManagerInterface
+     */
+    public function getEventManager()
+    {
+        if (!$this->events instanceof EventManagerInterface) {
+            $this->setEventManager(new EventManager());
+        }
+        return $this->events;
     }
 }
