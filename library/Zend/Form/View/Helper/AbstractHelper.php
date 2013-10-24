@@ -151,6 +151,11 @@ abstract class AbstractHelper extends BaseAbstractHelper
     );
 
     /**
+     * Invoke helper as function
+     */
+    abstract public function __invoke();
+
+    /**
      * Set value for doctype
      *
      * @param  string $doctype
