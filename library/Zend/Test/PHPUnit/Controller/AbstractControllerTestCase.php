@@ -13,7 +13,6 @@ use PHPUnit_Framework_ExpectationFailedException;
 use Zend\Console\Console;
 use Zend\EventManager\StaticEventManager;
 use Zend\Http\Request as HttpRequest;
-use Zend\Json\Json;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\Exception\LogicException;
@@ -221,7 +220,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         } elseif ($method == HttpRequest::METHOD_PUT) {
             if (count($params) != 0) {
                 $request->getHeaders()->addHeaderLine('content-type', 'application/json');
-                $request->setContent(Json::encode($params));
+                $request->setContent(json_encode($params));
             }
         } elseif ($params) {
             trigger_error(
