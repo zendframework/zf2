@@ -487,7 +487,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests', 'PUT', array('num_post' => 5, 'foo' => 'bar'));
         $request = $this->getRequest();
         $this->assertEquals($request->getMethod(), 'PUT');
-        $this->assertEquals('num_post=5&foo=bar', $request->getContent());
+        $this->assertEquals('{"num_post":5,"foo":"bar"}', $request->getContent());
     }
     /*
     public function testAssertUriWithHostname()

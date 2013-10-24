@@ -284,7 +284,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
     public function testPutRequestParams()
     {
         $this->dispatch('/tests', 'PUT', array('a' => 1));
-        $this->assertEquals('a=1', $this->getRequest()->getContent());
+        $this->assertEquals('{"a":1}', $this->getRequest()->getContent());
     }
 
     public function testPreserveContentOfPutRequest()
@@ -299,6 +299,6 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
     {
         $this->getRequest()->setContent('my content');
         $this->dispatch('/tests', 'PUT', array('a' => 1));
-        $this->assertEquals('a=1', $this->getRequest()->getContent());
+        $this->assertEquals('{"a":1}', $this->getRequest()->getContent());
     }
 }
