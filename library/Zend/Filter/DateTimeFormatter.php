@@ -74,11 +74,13 @@ class DateTimeFormatter extends AbstractFilter
         if ($value === '' || $value === null) {
             return $value;
         } elseif (is_int($value)) {
-            $value = new DateTime('@' . $value);
+            $datetimeFromInt = new DateTime('@' . $value);
+            $value = $datetimeFromInt->format($this->format);
         } elseif (!$value instanceof DateTime) {
-            $value = new DateTime($value);
+            $datetime = new DateTime();
+            $value = $datetime->createFromFormat($this->format, $value);
         }
 
-        return $value->format($this->format);
+        return $value;
     }
 }
