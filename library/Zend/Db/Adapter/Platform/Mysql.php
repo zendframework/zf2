@@ -110,6 +110,9 @@ class Mysql implements PlatformInterface
      */
     public function quoteValue($value)
     {
+        if(is_int($value)){
+            return $value;
+        }
         if ($this->resource instanceof DriverInterface) {
             $this->resource = $this->resource->getConnection()->getResource();
         }
@@ -136,6 +139,9 @@ class Mysql implements PlatformInterface
      */
     public function quoteTrustedValue($value)
     {
+        if(is_int($value)){
+            return $value;
+        }
         if ($this->resource instanceof DriverInterface) {
             $this->resource = $this->resource->getConnection()->getResource();
         }
