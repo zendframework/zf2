@@ -191,6 +191,34 @@ class ArrayUtilsTest extends TestCase
                     'bar' => 'bat'
                 )
             ),
+            'merge-iterators' => array(
+                array(
+                    'foo' => array(
+                        'bar'
+                    ),
+                    'bat' => new Config(array(
+                        'man'
+                    ))
+                ),
+                array(
+                    'foo' => new Config(array(
+                        'baz'
+                    )),
+                    'bat' => new Config(array(
+                        'girl'
+                    ))
+                ),
+                array(
+                    'foo' => array(
+                        0 => 'bar',
+                        1 => 'baz'
+                    ),
+                    'bat' => array(
+                        0 => 'man',
+                        1 => 'girl'
+                    ),
+                )
+            ),
         );
     }
 
