@@ -2,7 +2,7 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @link      https://github.com/zendframework/zf2 for the canonical source repository
  * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
@@ -169,7 +169,7 @@ class RedisOptions extends AdapterOptions
     *
     * @param array $libOptions
     * @return RedisOptions
-    * @link http://github.com/nicolasff/phpredis#setoption
+    * @link https://github.com/nicolasff/phpredis#setoption
     */
     public function setLibOptions(array $libOptions)
     {
@@ -182,7 +182,7 @@ class RedisOptions extends AdapterOptions
      * Get redis options
      *
      * @return array
-     * @link http://github.com/nicolasff/phpredis#setoption
+     * @link https://github.com/nicolasff/phpredis#setoption
      */
     public function getLibOptions()
     {

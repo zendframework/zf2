@@ -3,7 +3,7 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @link      https://github.com/zendframework/zf2 for the canonical source repository
  * @category   Zend
  * @package    Zend_Loader
  * @subpackage Exception
