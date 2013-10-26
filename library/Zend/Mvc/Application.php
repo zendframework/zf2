@@ -148,8 +148,8 @@ class Application implements
         $this->event = $event  = new MvcEvent();
         $event->setTarget($this);
         $event->setApplication($this)
-              ->setRequest($this->getRequest())
-              ->setResponse($this->getResponse())
+              ->setRequest($this->request)
+              ->setResponse($this->response)
               ->setRouter($serviceManager->get('Router'));
 
         // Trigger bootstrap events
@@ -268,12 +268,12 @@ class Application implements
      *           discovered controller, and controller class (if known).
      *           Typically, a handler should return a populated Response object
      *           that can be returned immediately.
-     * @return ResponseInterface
+     * @return self
      */
     public function run()
     {
-        $events = $this->getEventManager();
-        $event  = $this->getMvcEvent();
+        $events = $this->events;
+        $event  = $this->event;
 
         // Define callback used to determine whether or not to short-circuit
         $shortCircuit = function ($r) use ($event) {
@@ -294,12 +294,13 @@ class Application implements
                 $event->setTarget($this);
                 $event->setResponse($response);
                 $events->trigger(MvcEvent::EVENT_FINISH, $event);
-                return $response;
+                $this->response = $response;
+                return $this;
             }
             if ($event->getError()) {
                 return $this->completeRequest($event);
             }
-            return $event->getResponse();
+            return $this;
         }
         if ($event->getError()) {
             return $this->completeRequest($event);
@@ -314,10 +315,11 @@ class Application implements
             $event->setTarget($this);
             $event->setResponse($response);
             $events->trigger(MvcEvent::EVENT_FINISH, $event);
-            return $response;
+            $this->response = $response;
+            return $this;
         }
 
-        $response = $this->getResponse();
+        $response = $this->response;
         $event->setResponse($response);
         $this->completeRequest($event);
 
@@ -342,7 +344,7 @@ class Application implements
      */
     protected function completeRequest(MvcEvent $event)
     {
-        $events = $this->getEventManager();
+        $events = $this->events;
         $event->setTarget($this);
         $events->trigger(MvcEvent::EVENT_RENDER, $event);
         $events->trigger(MvcEvent::EVENT_FINISH, $event);

@@ -1,17 +1,55 @@
-### Welcome to the *Zend Framework 2.2* Release!
+### Welcome to the *Zend Framework 2.3* Release!
 
-Master: [![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?branch=master)](http://travis-ci.org/zendframework/zf2)
-Develop: [![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?branch=develop)](http://travis-ci.org/zendframework/zf2)
+Master:
+[![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?branch=master)](http://travis-ci.org/zendframework/zf2)
+[![Coverage Status](https://coveralls.io/repos/zendframework/zf2/badge.png?branch=master)](https://coveralls.io/r/zendframework/zf2)
+Develop:
+[![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?branch=develop)](http://travis-ci.org/zendframework/zf2)
+[![Coverage Status](https://coveralls.io/repos/zendframework/zf2/badge.png?branch=develop)](https://coveralls.io/r/zendframework/zf2)
 
 ## RELEASE INFORMATION
 
-*Zend Framework 2.2.5dev*
+*Zend Framework 2.3.0dev*
 
-This is the fifth maintenance release for the 2.2 series.
+This is the third minor (feature) release for the version 2 series.
 
-DD MMM YYYY
+DD MMM YYY
 
-### UPDATES IN 2.2.5
+### UPDATES IN 2.3.0
+
+- [#5043](https://github.com/zendframework/zf2/pull/5043) introduced changes in
+  how DocBlock tag instances are returned via the `Zend\Code\Reflection`
+  component. These instances are rarely created manually; however, if you are
+  doing so, please note the following API changes:
+  - `Zend\Code\Generator\DocBlock\Tag\AuthorTag`: removed `set/getDatatype()` and
+    `set/getParamName()`
+  - `Zend\Code\Generator\DocBlock\Tag\AuthorTag`: `__construct` changed from
+    `($options = array())` to `($authorName = null, $authorEmail = null)`
+  - `Zend\Code\Generator\DocBlock\Tag\LicenseTag`: `__construct` changed from
+    `($options = array())` to `($url = null, $licenseName = null)`
+  - `Zend\Code\Generator\DocBlock\Tag\ReturnTag`: `__construct` changed from
+    `($options = array())` to `($types = array(), $description = null)`
+  - `Zend\Code\Generator\DocBlock\Tag\ParamTag`: `__construct` changed from
+    `($options = array())` to `($variableName = null, $types = array(),
+    $description = null)`
+  - Using `DocBlockGenerator::fromReflection()` and afterwards `getTags()` is now
+    returning the new `Tag` classes (`ReturnTag`, `AuthorTag`, `ParamTag`, ...)
+    where applicable and otherwise `GenericTag`. The deprecated class `Tag` will
+    not be returned anymore.
+- [#5101](https://github.com/zendframework/zf2/pull/5101) introduces a behavior
+  change in the FormLabel view helper: it now escapes the label content by
+  default. If you wish to disable escaping, you need to either pass the label
+  option `disable_html_escape` to the form element, or call the
+  `setEscapeHtmlHelper(false)` method on the `formLabel()` view helper.
+- [#4962](https://github.com/zendframework/zf2/pull/4962) adds a service alias
+  from "ControllerManager" to "ControllerLoader", and updates code to reference
+  that alias ("ControllerManager"). This makes the service name match the class
+  name, and begins future-proofing the component.
+- [#5283](https://github.com/zendframework/zf2/pull/5283) deprecates the trait
+  `Zend\EventManager\ProvidesEvents` in favor of
+  `Zend\EventManager\EventManagerAwareTrait`, and now raises an
+  `E_USER_DEPRECATED` when loaded. Please update your code to use the newer
+  trait.
 
 - [#5343](https://github.com/zendframework/zf2/pull/5343) removed the
   DateTimeFormatter filter from DateTime form elements. This was done

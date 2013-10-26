@@ -15,7 +15,6 @@ use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
 
 /**
- *
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
