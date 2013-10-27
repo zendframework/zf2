@@ -20,7 +20,6 @@
         "zendframework/zend-http": "self.version",
         "zendframework/zend-mvc": "self.version",
         "zendframework/zend-servicemanager": "self.version",
-        "zendframework/zend-stdlib": "self.version",
         "zendframework/zend-uri": "self.version",
         "zendframework/zend-view": "self.version"
     },
