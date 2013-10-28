@@ -257,7 +257,15 @@ abstract class ArrayUtils
     public static function merge(array $a, array $b)
     {
         foreach ($b as $key => $value) {
+            if ($value instanceof Traversable) {
+                $value = static::iteratorToArray($value);
+            }
+
             if (array_key_exists($key, $a)) {
+                if ($a[$key] instanceof Traversable) {
+                    $a[$key] = static::iteratorToArray($a[$key]);
+                }
+
                 if (is_int($key)) {
                     $a[] = $value;
                 } elseif (is_array($value) && is_array($a[$key])) {
