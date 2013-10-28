@@ -14,8 +14,7 @@
     "target-dir": "Zend/ModuleManager",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zend-eventmanager": "self.version",
-        "zendframework/zend-stdlib": "self.version"
+        "zendframework/zend-eventmanager": "self.version"
     },
     "suggest": {
         "zendframework/zend-config": "Zend\\Config component",

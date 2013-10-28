@@ -15,8 +15,7 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zend-eventmanager": "self.version",
-        "zendframework/zend-servicemanager": "self.version",
-        "zendframework/zend-stdlib": "self.version"
+        "zendframework/zend-servicemanager": "self.version"
     },
     "suggest": {
         "zendframework/zend-authentication": "Zend\\Authentication component for Identity plugin",
