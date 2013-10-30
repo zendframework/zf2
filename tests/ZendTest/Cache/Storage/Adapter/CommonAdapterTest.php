@@ -612,6 +612,33 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->_storage->getItem('key'));
     }
 
+    public function testSetAndGetExpiredItemOverlappingTtl()
+    {
+        $capabilities = $this->_storage->getCapabilities();
+
+        if ($capabilities->getMinTtl() === 0) {
+            $this->markTestSkipped("Adapter doesn't support item expiration");
+        }
+
+        $ttl = $capabilities->getTtlPrecision();
+        $this->_storage->setItem('key1', 'value1', $ttl);
+        $this->_storage->setItem('key2', 'value2', $ttl*2);
+
+        // wait until expired
+        $wait = $ttl + $capabilities->getTtlPrecision();
+        usleep($wait * 2000000);
+
+        if ($capabilities->getUseRequestTime()) {
+            // Can't test much more if the request time will be used
+            $this->assertEquals('value1', $this->_storage->getItem('key1'));
+            $this->assertEquals('value2', $this->_storage->getItem('key2'));
+            return;
+        }
+
+        $this->assertNull($this->_storage->getItem('key1'));
+        $this->assertEquals('value2', $this->_storage->getItem('key2'));
+    }
+
     public function testSetAndGetExpiredItems()
     {
         $capabilities = $this->_storage->getCapabilities();
