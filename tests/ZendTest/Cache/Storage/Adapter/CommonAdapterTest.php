@@ -622,7 +622,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
         $ttl = $capabilities->getTtlPrecision();
         $this->_storage->setItem('key1', 'value1', $ttl);
-        $this->_storage->setItem('key2', 'value2', $ttl*3);
+        $this->_storage->setItem('key2', 'value2', $ttl * 100);
 
         // wait until the first item expired
         usleep($ttl * 2000000);
@@ -631,6 +631,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             // Can't test much more if the request time will be used
             $this->assertEquals('value1', $this->_storage->getItem('key1'));
             $this->assertEquals('value2', $this->_storage->getItem('key2'));
+
             return;
         }
 
