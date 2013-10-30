@@ -150,11 +150,6 @@ class Memory extends AbstractAdapter implements
      */
     public function clearExpired()
     {
-        $ttl = $this->getOptions()->getTtl();
-        if ($ttl <= 0) {
-            return true;
-        }
-
         $ns = $this->getOptions()->getNamespace();
         if (!isset($this->data[$ns])) {
             return true;
@@ -162,7 +157,7 @@ class Memory extends AbstractAdapter implements
 
         $data = & $this->data[$ns];
         foreach ($data as $key => & $item) {
-            if (microtime(true) >= $data[$key][1] + $ttl) {
+            if (microtime(true) >= $data[$key][1] + $data[$key][2]) {
                 unset($data[$key]);
             }
         }
@@ -310,7 +305,7 @@ class Memory extends AbstractAdapter implements
         $success = isset($this->data[$ns][$normalizedKey]);
         if ($success) {
             $data = & $this->data[$ns][$normalizedKey];
-            $ttl  = $options->getTtl();
+            $ttl  = $data[2];
             if ($ttl && microtime(true) >= ($data[1] + $ttl)) {
                 $success = false;
             }
@@ -340,12 +335,12 @@ class Memory extends AbstractAdapter implements
         }
 
         $data = & $this->data[$ns];
-        $ttl  = $options->getTtl();
         $now  = microtime(true);
 
         $result = array();
         foreach ($normalizedKeys as $normalizedKey) {
             if (isset($data[$normalizedKey])) {
+                $ttl = $data[$normalizedKey][2];
                 if (!$ttl || $now < ($data[$normalizedKey][1] + $ttl)) {
                     $result[$normalizedKey] = $data[$normalizedKey][0];
                 }
@@ -370,7 +365,7 @@ class Memory extends AbstractAdapter implements
         }
 
         // check if expired
-        $ttl = $options->getTtl();
+        $ttl = $this->data[$ns][$normalizedKey][2];
         if ($ttl && microtime(true) >= ($this->data[$ns][$normalizedKey][1] + $ttl)) {
             return false;
         }
@@ -436,12 +431,13 @@ class Memory extends AbstractAdapter implements
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options = $this->getOptions();
 
@@ -452,8 +448,12 @@ class Memory extends AbstractAdapter implements
             );
         }
 
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
+
         $ns = $options->getNamespace();
-        $this->data[$ns][$normalizedKey] = array($value, microtime(true));
+        $this->data[$ns][$normalizedKey] = array($value, microtime(true), $ttl);
 
         return true;
     }
@@ -462,10 +462,11 @@ class Memory extends AbstractAdapter implements
      * Internal method to store multiple items.
      *
      * @param  array $normalizedKeyValuePairs
+     * @param  int|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $options = $this->getOptions();
 
@@ -481,10 +482,14 @@ class Memory extends AbstractAdapter implements
             $this->data[$ns] = array();
         }
 
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
+
         $data = & $this->data[$ns];
         $now  = microtime(true);
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
-            $data[$normalizedKey] = array($value, $now);
+            $data[$normalizedKey] = array($value, $now, $ttl);
         }
 
         return array();
@@ -495,10 +500,11 @@ class Memory extends AbstractAdapter implements
      *
      * @param  string $normalizedKey
      * @param  mixed  $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItem(& $normalizedKey, & $value)
+    protected function internalAddItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options = $this->getOptions();
 
@@ -514,18 +520,23 @@ class Memory extends AbstractAdapter implements
             return false;
         }
 
-        $this->data[$ns][$normalizedKey] = array($value, microtime(true));
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
+
+        $this->data[$ns][$normalizedKey] = array($value, microtime(true), $ttl);
         return true;
     }
 
     /**
      * Internal method to add multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
+     * @param  array    $normalizedKeyValuePairs
+     * @param  int|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItems(array & $normalizedKeyValuePairs)
+    protected function internalAddItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $options = $this->getOptions();
 
@@ -541,6 +552,10 @@ class Memory extends AbstractAdapter implements
             $this->data[$ns] = array();
         }
 
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
+
         $result = array();
         $data   = & $this->data[$ns];
         $now    = microtime(true);
@@ -548,7 +563,7 @@ class Memory extends AbstractAdapter implements
             if (isset($data[$normalizedKey])) {
                 $result[] = $normalizedKey;
             } else {
-                $data[$normalizedKey] = array($value, $now);
+                $data[$normalizedKey] = array($value, $now, $ttl);
             }
         }
 
@@ -558,18 +573,24 @@ class Memory extends AbstractAdapter implements
     /**
      * Internal method to replace an existing item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalReplaceItem(& $normalizedKey, & $value)
+    protected function internalReplaceItem(& $normalizedKey, & $value, $ttl = null)
     {
         $ns = $this->getOptions()->getNamespace();
         if (!isset($this->data[$ns][$normalizedKey])) {
             return false;
         }
-        $this->data[$ns][$normalizedKey] = array($value, microtime(true));
+
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
+
+        $this->data[$ns][$normalizedKey] = array($value, microtime(true), $ttl);
 
         return true;
     }
@@ -577,15 +598,20 @@ class Memory extends AbstractAdapter implements
     /**
      * Internal method to replace multiple existing items.
      *
-     * @param  array $normalizedKeyValuePairs
+     * @param  array    $normalizedKeyValuePairs
+     * @param  int|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalReplaceItems(array & $normalizedKeyValuePairs)
+    protected function internalReplaceItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $ns = $this->getOptions()->getNamespace();
         if (!isset($this->data[$ns])) {
             return array_keys($normalizedKeyValuePairs);
+        }
+
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
         }
 
         $result = array();
@@ -594,7 +620,7 @@ class Memory extends AbstractAdapter implements
             if (!isset($data[$normalizedKey])) {
                 $result[] = $normalizedKey;
             } else {
-                $data[$normalizedKey] = array($value, microtime(true));
+                $data[$normalizedKey] = array($value, microtime(true), $ttl);
             }
         }
 
@@ -604,11 +630,12 @@ class Memory extends AbstractAdapter implements
     /**
      * Internal method to reset lifetime of an item
      *
-     * @param  string $normalizedKey
+     * @param  string   $normalizedKey
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalTouchItem(& $normalizedKey)
+    protected function internalTouchItem(& $normalizedKey, $ttl = null)
     {
         $ns = $this->getOptions()->getNamespace();
 
@@ -617,6 +644,11 @@ class Memory extends AbstractAdapter implements
         }
 
         $this->data[$ns][$normalizedKey][1] = microtime(true);
+
+        if($ttl !== null){
+            $this->data[$ns][$normalizedKey][2] = $ttl;
+        }
+
         return true;
     }
 
@@ -649,10 +681,11 @@ class Memory extends AbstractAdapter implements
      *
      * @param  string $normalizedKey
      * @param  int    $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $ns   = $this->getOptions()->getNamespace();
         $data = & $this->data[$ns];
@@ -660,10 +693,19 @@ class Memory extends AbstractAdapter implements
             $data[$normalizedKey][0]+= $value;
             $data[$normalizedKey][1] = microtime(true);
             $newValue = $data[$normalizedKey][0];
+
+            if($ttl !== null){
+                $data[$normalizedKey][2] = $ttl;
+            }
         } else {
             // initial value
             $newValue             = $value;
-            $data[$normalizedKey] = array($newValue, microtime(true));
+
+            if($ttl === null){
+                $ttl = $this->getOptions()->getTtl();
+            }
+
+            $data[$normalizedKey] = array($newValue, microtime(true), $ttl);
         }
 
         return $newValue;
@@ -672,12 +714,13 @@ class Memory extends AbstractAdapter implements
     /**
      * Internal method to decrement an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $ns   = $this->getOptions()->getNamespace();
         $data = & $this->data[$ns];
@@ -685,10 +728,19 @@ class Memory extends AbstractAdapter implements
             $data[$normalizedKey][0]-= $value;
             $data[$normalizedKey][1] = microtime(true);
             $newValue = $data[$normalizedKey][0];
+
+            if($ttl !== null){
+                $data[$normalizedKey][2] = $ttl;
+            }
         } else {
             // initial value
             $newValue             = -$value;
-            $data[$normalizedKey] = array($newValue, microtime(true));
+
+            if($ttl === null){
+                $ttl = $this->getOptions()->getTtl();
+            }
+
+            $data[$normalizedKey] = array($newValue, microtime(true), $ttl);
         }
 
         return $newValue;
@@ -724,7 +776,7 @@ class Memory extends AbstractAdapter implements
                     'maxTtl'             => PHP_INT_MAX,
                     'staticTtl'          => false,
                     'ttlPrecision'       => 0.05,
-                    'expiredRead'        => true,
+                    'expiredRead'        => false,
                     'maxKeyLength'       => 0,
                     'namespaceIsPrefix'  => false,
                     'namespaceSeparator' => '',

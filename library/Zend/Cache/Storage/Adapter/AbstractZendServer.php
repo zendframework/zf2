@@ -163,17 +163,23 @@ abstract class AbstractZendServer extends AbstractAdapter
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string  $normalizedKey
+     * @param  mixed   $value
+     * @param int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
+
+        if($ttl === null){
+            $ttl = $options->getTtl();
+        }
+
         $prefix    = ($namespace === '') ? '' : $namespace . self::NAMESPACE_SEPARATOR;
-        $this->zdcStore($prefix . $normalizedKey, $value, $options->getTtl());
+        $this->zdcStore($prefix . $normalizedKey, $value, $ttl);
         return true;
     }
 

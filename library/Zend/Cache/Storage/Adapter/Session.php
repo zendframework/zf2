@@ -56,6 +56,7 @@ class Session extends AbstractAdapter implements
     /**
      * Get the session container
      *
+     * @throws Exception\RuntimeException
      * @return SessionContainer
      */
     protected function getSessionContainer()
@@ -107,6 +108,7 @@ class Session extends AbstractAdapter implements
      * Remove items matching given prefix
      *
      * @param string $prefix
+     * @throws Exception\InvalidArgumentException
      * @return bool
      */
     public function clearByPrefix($prefix)
@@ -261,10 +263,11 @@ class Session extends AbstractAdapter implements
      *
      * @param  string $normalizedKey
      * @param  mixed  $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = null)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();
@@ -277,11 +280,12 @@ class Session extends AbstractAdapter implements
     /**
      * Internal method to store multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
+     * @param  array    $normalizedKeyValuePairs
+     * @param  int|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();
@@ -299,12 +303,13 @@ class Session extends AbstractAdapter implements
     /**
      * Add an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItem(& $normalizedKey, & $value)
+    protected function internalAddItem(& $normalizedKey, & $value, $ttl = null)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();
@@ -328,11 +333,12 @@ class Session extends AbstractAdapter implements
     /**
      * Internal method to add multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
+     * @param  array    $normalizedKeyValuePairs
+     * @param  int|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItems(array & $normalizedKeyValuePairs)
+    protected function internalAddItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();
@@ -359,12 +365,13 @@ class Session extends AbstractAdapter implements
     /**
      * Internal method to replace an existing item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalReplaceItem(& $normalizedKey, & $value)
+    protected function internalReplaceItem(& $normalizedKey, & $value, $ttl = null)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();
@@ -386,11 +393,12 @@ class Session extends AbstractAdapter implements
     /**
      * Internal method to replace multiple existing items.
      *
-     * @param  array $normalizedKeyValuePairs
+     * @param  array    $normalizedKeyValuePairs
+     * @param  int|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalReplaceItems(array & $normalizedKeyValuePairs)
+    protected function internalReplaceItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();
@@ -447,12 +455,13 @@ class Session extends AbstractAdapter implements
     /**
      * Internal method to increment an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();
@@ -479,12 +488,13 @@ class Session extends AbstractAdapter implements
     /**
      * Internal method to decrement an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();
