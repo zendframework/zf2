@@ -192,4 +192,25 @@ class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($fooDelegator, array_shift($barDelegator->instances));
 
     }
+
+    public function testGetTopLocator()
+    {
+        $pluginManager = $this->getMockForAbstractClass('Zend\ServiceManager\AbstractPluginManager');
+        // no locator
+        $this->assertNull($pluginManager->getTopLocator());
+        // one level locator
+        $pluginManager->setServiceLocator($this->serviceManager);
+        $this->assertSame($this->serviceManager, $pluginManager->getTopLocator());
+        // set another locator
+        $serviceManager = new ServiceManager;
+        $pluginManager->setServiceLocator($serviceManager);
+        $this->assertSame($serviceManager, $pluginManager->getTopLocator());
+        // set tree of locators
+        $pluginManager2 = $this->getMockForAbstractClass('Zend\ServiceManager\AbstractPluginManager');
+        $pluginManager2->setServiceLocator($serviceManager);
+        $pluginManager3 = $this->getMockForAbstractClass('Zend\ServiceManager\AbstractPluginManager');
+        $pluginManager3->setServiceLocator($pluginManager2);
+        $pluginManager->setServiceLocator($pluginManager3);
+        $this->assertSame($serviceManager, $pluginManager->getTopLocator());
+    }
 }

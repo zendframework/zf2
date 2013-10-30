@@ -50,6 +50,12 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     protected $serviceLocator;
 
     /**
+     * The top service locator
+     *
+     * @var ServiceLocatorInterface
+     */
+    protected $topLocator = null;
+    /**
      * Constructor
      *
      * Add a default initializer to ensure the plugin is valid after instance
@@ -136,6 +142,7 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
+        $this->topLocator = null;
         return $this;
     }
 
@@ -147,6 +154,22 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     public function getServiceLocator()
     {
         return $this->serviceLocator;
+    }
+
+    /**
+     * Get top service locator
+     *
+     * @return self|ServiceLocatorInterface
+     */
+    public function getTopLocator()
+    {
+        if (!$this->topLocator && $this->serviceLocator) {
+            $this->topLocator = $this->serviceLocator;
+            while ($this->topLocator instanceof ServiceLocatorAwareInterface && ($parentLocator = $this->topLocator->getServiceLocator()) != null) {
+                $this->topLocator = $parentLocator;
+            }
+        }
+        return $this->topLocator;
     }
 
     /**
