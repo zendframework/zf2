@@ -80,10 +80,6 @@ class EventManager implements EventManagerInterface
      */
     public function getSharedManager()
     {
-        if (null === $this->sharedManager) {
-            $this->sharedManager = new SharedEventManager();
-        }
-
         return $this->sharedManager;
     }
 
