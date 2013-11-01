@@ -432,18 +432,12 @@ class EventManager implements EventManagerInterface
      * @param  PriorityQueue $listeners
      * @return void
      */
-    protected function insertListeners($masterListeners, $listeners)
+    protected function insertListeners(PriorityQueue $masterListeners, PriorityQueue $listeners)
     {
+        $listeners = $listeners->toArray(PriorityQueue::EXTR_BOTH);
+
         foreach ($listeners as $listener) {
-            $priority = $listener->getMetadatum('priority');
-            if (null === $priority) {
-                $priority = 1;
-            } elseif (is_array($priority)) {
-                // If we have an array, likely using PriorityQueue. Grab first
-                // element of the array, as that's the actual priority.
-                $priority = array_shift($priority);
-            }
-            $masterListeners->insert($listener, $priority);
+            $masterListeners->insert($listener['data'], $listener['priority']);
         }
     }
 }
