@@ -4,7 +4,8 @@
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
-        "eventmanager"
+        "eventmanager",
+        "events"
     ],
     "autoload": {
         "psr-0": {
