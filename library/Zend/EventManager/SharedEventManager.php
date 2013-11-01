@@ -134,7 +134,7 @@ class SharedEventManager implements SharedEventManagerInterface
     public function getListeners($id, $event)
     {
         if (!isset($this->identifiers[$id])) {
-            return new PriorityQueue;
+            return new PriorityQueue();
         }
 
         return $this->identifiers[$id]->getListeners($event);
