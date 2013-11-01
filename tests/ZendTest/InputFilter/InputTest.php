@@ -15,6 +15,9 @@ use Zend\Filter\FilterChain;
 use Zend\InputFilter\Input;
 use Zend\Validator\ValidatorChain;
 
+/**
+ * @covers \Zend\InputFilter\Input
+ */
 class InputTest extends TestCase
 {
     /**

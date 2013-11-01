@@ -82,6 +82,8 @@ class Input implements InputInterface
     public function setRequired($required)
     {
         if ($required) {
+            $this->required = true;
+
             $this->validatorChain->attachByName(
                 'Zend\Validator\NotEmpty',
                 array(),
