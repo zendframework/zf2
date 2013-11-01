@@ -47,7 +47,7 @@ interface EventInterface
     public function getTarget();
 
     /**
-     * Set event parameters
+     * Set event parameters (overwrite parameters)
      *
      * @param  array|ArrayAccess|object $params
      * @return void

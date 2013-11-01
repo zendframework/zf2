@@ -240,9 +240,7 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Retrieve all registered events
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function getEvents()
     {
@@ -250,10 +248,7 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Retrieve all listeners for a given event
-     *
-     * @param  string $event
-     * @return PriorityQueue
+     * {@inheritDoc}
      */
     public function getListeners($event)
     {
@@ -265,10 +260,7 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Clear all listeners for a given event
-     *
-     * @param  string $event
-     * @return void
+     * {@inheritDoc}
      */
     public function clearListeners($event)
     {
@@ -276,10 +268,7 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Set the event class to utilize
-     *
-     * @param  string $class
-     * @return void
+     * {@inheritDoc}
      */
     public function setEventClass($class)
     {
@@ -287,10 +276,7 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Set the identifiers (overrides any currently set identifiers)
-     *
-     * @param  string|int|array|Traversable $identifiers
-     * @return void
+     * {@inheritDoc}
      */
     public function setIdentifiers($identifiers)
     {
@@ -302,10 +288,7 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Add some identifier(s) (appends to any currently set identifiers)
-     *
-     * @param  string|int|array|Traversable $identifiers
-     * @return void
+     * {@inheritDoc}
      */
     public function addIdentifiers($identifiers)
     {
@@ -317,9 +300,7 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Get the identifier(s) for this EventManager
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function getIdentifiers()
     {

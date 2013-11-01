@@ -64,10 +64,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Set the event name
-     *
-     * @param  string $name
-     * @return void
+     * {@inheritDoc}
      */
     public function setName($name)
     {
@@ -75,9 +72,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Get event name
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getName()
     {
@@ -85,10 +80,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Set the event target/context
-     *
-     * @param  null|string|object $target
-     * @return void
+     * {@inheritDoc}
      */
     public function setTarget($target)
     {
@@ -96,11 +88,9 @@ class Event implements EventInterface
     }
 
     /**
-     * Get the event target
+     * {@inheritDoc}
      *
      * This may be either an object, or the name of a static method.
-     *
-     * @return string|object
      */
     public function getTarget()
     {
@@ -108,12 +98,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Set parameters
-     *
-     * Overwrites parameters
-     *
-     * @param  array|ArrayAccess|object $params
-     * @return void
+     * {@inheritDoc}
      * @throws Exception\InvalidArgumentException
      */
     public function setParams($params)
@@ -128,11 +113,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Set an individual parameter to a value
-     *
-     * @param  string|int $name
-     * @param  mixed      $value
-     * @return Event
+     * {@inheritDoc}
      */
     public function setParam($name, $value)
     {
@@ -146,9 +127,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Get all parameters
-     *
-     * @return array|object|ArrayAccess
+     * {@inheritDoc}
      */
     public function getParams()
     {
@@ -156,13 +135,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Get an individual parameter
-     *
-     * If the parameter does not exist, the $default value will be returned.
-     *
-     * @param  string|int $name
-     * @param  mixed      $default
-     * @return mixed
+     * {@inheritDoc}
      */
     public function getParam($name, $default = null)
     {
@@ -184,10 +157,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Stop further event propagation
-     *
-     * @param  bool $flag
-     * @return void
+     * {@inheritDoc}
      */
     public function stopPropagation($flag = true)
     {
@@ -195,9 +165,7 @@ class Event implements EventInterface
     }
 
     /**
-     * Is propagation stopped?
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isPropagationStopped()
     {
