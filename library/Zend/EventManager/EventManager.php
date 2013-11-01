@@ -80,6 +80,10 @@ class EventManager implements EventManagerInterface
      */
     public function getSharedManager()
     {
+        if (null === $this->sharedManager) {
+            $this->sharedManager = new SharedEventManager();
+        }
+
         return $this->sharedManager;
     }
 
@@ -401,22 +405,17 @@ class EventManager implements EventManagerInterface
             $identifiers[] = '*';
         }
 
-        $sharedListeners = array();
+        $sharedListeners = new PriorityQueue();
 
         foreach ($identifiers as $id) {
             if (!$listeners = $sharedManager->getListeners($id, $event)) {
                 continue;
             }
 
-            if (!is_array($listeners) && !($listeners instanceof Traversable)) {
-                continue;
-            }
+            $listeners = $listeners->toArray(PriorityQueue::EXTR_BOTH);
 
             foreach ($listeners as $listener) {
-                if (!$listener instanceof CallbackHandler) {
-                    continue;
-                }
-                $sharedListeners[] = $listener;
+                $sharedListeners->insert($listener['data'], $listener['priority']);
             }
         }
 
