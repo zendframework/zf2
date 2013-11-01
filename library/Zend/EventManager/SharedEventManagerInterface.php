@@ -59,7 +59,7 @@ interface SharedEventManagerInterface
      *
      * @param  string|int $id
      * @param  string|int $event
-     * @return false|PriorityQueue
+     * @return PriorityQueue
      */
     public function getListeners($id, $event);
 

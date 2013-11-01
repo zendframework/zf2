@@ -96,7 +96,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Retrieve a list of listeners registered to a given event
      *
      * @param  string $event
-     * @return array|object
+     * @return \Zend\Stdlib\PriorityQueue
      */
     public function getListeners($event);
 

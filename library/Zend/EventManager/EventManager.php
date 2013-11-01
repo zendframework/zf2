@@ -386,12 +386,12 @@ class EventManager implements EventManagerInterface
      * identifiers registered by this instance
      *
      * @param  string $event
-     * @return array
+     * @return PriorityQueue
      */
     protected function getSharedListeners($event)
     {
         if (!$sharedManager = $this->getSharedManager()) {
-            return array();
+            return new PriorityQueue();
         }
 
         $identifiers = $this->getIdentifiers();
