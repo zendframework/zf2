@@ -54,11 +54,11 @@ class SharedEventManager implements SharedEventManagerInterface
      *
      * @param  string|array $id Identifier(s) for event emitting component(s)
      * @param  string       $event
-     * @param  Callable     $callback PHP Callback
+     * @param  callable     $callback PHP Callback
      * @param  int          $priority Priority at which listener should execute
      * @return CallbackHandler|array Either CallbackHandler or array of CallbackHandlers
      */
-    public function attach($id, $event, Callable $callback, $priority = 1)
+    public function attach($id, $event, callable $callback, $priority = 1)
     {
         $ids       = (array) $id;
         $listeners = array();

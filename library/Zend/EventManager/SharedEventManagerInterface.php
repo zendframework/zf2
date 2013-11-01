@@ -22,11 +22,11 @@ interface SharedEventManagerInterface
      *
      * @param  string|array $id Identifier(s) for event emitting component(s)
      * @param  string       $event
-     * @param  Callable     $callback PHP Callback
+     * @param  callable     $callback PHP Callback
      * @param  int          $priority Priority at which listener should execute
      * @return void
      */
-    public function attach($id, $event, Callable $callback, $priority = 1);
+    public function attach($id, $event, callable $callback, $priority = 1);
 
     /**
      * Attach a listener aggregate

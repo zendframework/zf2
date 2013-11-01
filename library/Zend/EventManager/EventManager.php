@@ -99,12 +99,12 @@ class EventManager implements EventManagerInterface
      *
      * @param  string|array|ListenerAggregateInterface $event An event or array of event names. If a ListenerAggregateInterface,
      *                                                        proxies to {@link attachAggregate()}.
-     * @param  Callable                                $callback
+     * @param  callable                                $callback
      * @param  int                                     $priority If provided, the priority at which to register the callable
      * @return CallbackHandler|mixed CallbackHandler if attaching callable (to allow later unsubscribe); mixed if attaching aggregate
      * @throws Exception\InvalidArgumentException
      */
-    public function attach($event, Callable $callback, $priority = 1)
+    public function attach($event, callable $callback, $priority = 1)
     {
         // Array of events should be registered individually, and return an array of all listeners
         if (is_array($event)) {
@@ -209,10 +209,10 @@ class EventManager implements EventManagerInterface
      * @param  string $event
      * @param  string|object      $target Object calling emit, or symbol describing target (such as static method name)
      * @param  array|ArrayAccess  $argv Array of arguments; typically, should be associative
-     * @param  Callable           $callback
+     * @param  callable           $callback
      * @return ResponseCollection
      */
-    public function triggerUntil($event, $target, $argv = array(), Callable $callback = null)
+    public function triggerUntil($event, $target, $argv = array(), callable $callback = null)
     {
         if ($event instanceof EventInterface) {
             $e        = $event;
@@ -349,10 +349,10 @@ class EventManager implements EventManagerInterface
      *
      * @param  string           $event Event name
      * @param  EventInterface   $e
-     * @param  Callable|null    $callback
+     * @param  callable|null    $callback
      * @return ResponseCollection
      */
-    protected function triggerListeners($event, EventInterface $e, Callable $callback = null)
+    protected function triggerListeners($event, EventInterface $e, callable $callback = null)
     {
         $responses = new ResponseCollection;
         $listeners = $this->getListeners($event);

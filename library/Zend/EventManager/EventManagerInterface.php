@@ -21,11 +21,11 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Attach a listener to an event
      *
      * @param  string   $event
-     * @param  Callable $callback
+     * @param  callable $callback
      * @param  int      $priority Priority at which to register listener
      * @return CallbackHandler
      */
-    public function attach($event, Callable $callback, $priority = 1);
+    public function attach($event, callable $callback, $priority = 1);
 
     /**
      * Attach a listener aggregate
@@ -80,10 +80,10 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * @param  string        $event
      * @param  object|string $target
      * @param  array|object  $argv
-     * @param  Callable      $callback
+     * @param  callable      $callback
      * @return ResponseCollection
      */
-    public function triggerUntil($event, $target, $argv = array(), Callable $callback = null);
+    public function triggerUntil($event, $target, $argv = array(), callable $callback = null);
 
     /**
      * Get a list of events for which this collection has listeners
