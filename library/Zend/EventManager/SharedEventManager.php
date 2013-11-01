@@ -87,7 +87,7 @@ class SharedEventManager implements SharedEventManagerInterface
      *
      * @param  SharedListenerAggregateInterface $aggregate
      * @param  int $priority If provided, a suggested priority for the aggregate to use
-     * @return mixed return value of {@link ListenerAggregateInterface::attachShared()}
+     * @return mixed return value of {@link SharedListenerAggregateInterface::attachShared()}
      */
     public function attachAggregate(SharedListenerAggregateInterface $aggregate, $priority = 1)
     {
