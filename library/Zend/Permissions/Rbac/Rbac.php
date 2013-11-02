@@ -22,6 +22,13 @@ class Rbac extends AbstractIterator
     protected $createMissingRoles = false;
 
     /**
+     * A list of assertions
+     *
+     * @var array|AssertionInterface[]
+     */
+    protected $assertions = array();
+
+    /**
      * @param  bool                     $createMissingRoles
      * @return \Zend\Permissions\Rbac\Rbac
      */
@@ -38,6 +45,38 @@ class Rbac extends AbstractIterator
     public function getCreateMissingRoles()
     {
         return $this->createMissingRoles;
+    }
+
+    /**
+     * Register an assertion for a given permission
+     *
+     * If an assertion already exists for this permission, it overrides it
+     *
+     * @param  string                      $permission
+     * @param  callable|AssertionInterface $assertion
+     * @throws Exception\InvalidArgumentException
+     * @return void
+     */
+    public function registerAssertion($permission, $assertion)
+    {
+        if (!is_callable($assertion) && !$assertion instanceof AssertionInterface) {
+            throw new Exception\InvalidArgumentException(
+                'Assertions must be a Callable or an instance of Zend\Permissions\Rbac\AssertionInterface'
+            );
+        }
+
+        $this->assertions[$permission] = $assertion;
+    }
+
+    /**
+     * Does the container already contains an assertion for this permission?
+     *
+     * @param  string $permission
+     * @return bool
+     */
+    public function hasAssertion($permission)
+    {
+        return isset($this->assertions[$permission]);
     }
 
     /**
@@ -124,20 +163,32 @@ class Rbac extends AbstractIterator
     /**
      * Determines if access is granted by checking the role and child roles for permission.
      *
+     * If an assertion is already registered for the given permission, and if one is specified as a third
+     * argument, it will use this one instead
+     *
      * @param  RoleInterface|string             $role
      * @param  string                           $permission
-     * @param  AssertionInterface|Callable|null $assert
+     * @param  AssertionInterface|callable|null $assert
+     * @throws Exception\InvalidArgumentException
      * @return bool
      */
     public function isGranted($role, $permission, $assert = null)
     {
-        if ($assert) {
-            if ($assert instanceof AssertionInterface) {
-                if (!$assert->assert($this)) {
+        $assertion = null;
+
+        if ($this->hasAssertion($permission)) {
+            $assertion = $this->assertions[$permission];
+        }
+
+        $assertion = $assert ?: $assertion;
+
+        if (null !== $assertion) {
+            if ($assertion instanceof AssertionInterface) {
+                if (!$assertion->assert($this)) {
                     return false;
                 }
-            } elseif (is_callable($assert)) {
-                if (!$assert($this)) {
+            } elseif (is_callable($assertion)) {
+                if (!$assertion($this)) {
                     return false;
                 }
             } else {
