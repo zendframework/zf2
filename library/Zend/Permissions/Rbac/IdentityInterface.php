@@ -13,7 +13,7 @@ interface IdentityInterface
 {
     /**
      * Get the list of roles of this identity
-     * 
+     *
      * @return string|RoleInterface|RoleInterface[]
      */
     public function getRoles();
