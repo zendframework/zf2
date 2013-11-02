@@ -14,6 +14,7 @@ use ErrorException;
 use Zend\Log\Logger;
 use Zend\Log\Processor\Backtrace;
 use Zend\Log\Writer\Mock as MockWriter;
+use Zend\Log\Writer\Stream as StreamWriter;
 use Zend\Log\Filter\Mock as MockFilter;
 use Zend\Stdlib\SplPriorityQueue;
 use Zend\Validator\Digits as DigitsFilter;
@@ -365,5 +366,27 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($expectedEvent['message'], $event['message'], 'Unexpected message');
             $this->assertEquals($expectedEvent['file'], $event['extra']['file'], 'Unexpected file');
         }
+    }
+
+    public function testErrorHandlerWithStreamWriter()
+    {
+        $options = array(
+            'errorhandler' => true,
+        );
+        $logger = new Logger($options);
+        $stream = fopen('php://memory', 'w+');
+        $streamWriter = new StreamWriter($stream);
+        // error handler does not like this feature so turn it off
+        $streamWriter->setConvertWriteErrorsToExceptions(false);
+        $logger->addWriter($streamWriter);
+
+        // we raise two notices - both should be logged
+        echo $test;
+        echo $second;
+
+        rewind($stream);
+        $contents = stream_get_contents($stream);
+        $this->assertContains('test', $contents);
+        $this->assertContains('second', $contents);
     }
 }
