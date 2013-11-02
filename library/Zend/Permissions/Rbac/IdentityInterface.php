@@ -17,4 +17,4 @@ interface IdentityInterface
      * @return string|RoleInterface|RoleInterface[]
      */
     public function getRoles();
-} 
+}
