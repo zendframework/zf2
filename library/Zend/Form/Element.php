@@ -172,6 +172,30 @@ class Element implements
     }
 
     /**
+     * Add a single element attribute
+     *
+     * @param  string $key
+     * @param  mixed  $value
+     * @return Element|ElementInterface
+     */
+    public function addAttribute($key, $value)
+    {
+        if ($this->hasAttribute($key)) {
+            $attribute = $this->getAttribute($key);
+            $array = explode(' ', $attribute);
+            if(!in_array($value, $array)) {
+                array_push($array, $value);
+            }
+            $attribute = implode(' ', $array);
+        } else {
+            $attribute = $value;
+        }
+        $this->setAttribute($key, $attribute);
+
+        return $this;
+    }
+
+    /**
      * Retrieve a single element attribute
      *
      * @param  $key
