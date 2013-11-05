@@ -7,14 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Permissions\Rbac;
+namespace Zend\Permissions;
 
+/**
+ * Common identity interface for RBAC and ACL models
+ */
 interface IdentityInterface 
 {
     /**
      * Get the list of roles of this identity
      *
-     * @return string|RoleInterface|RoleInterface[]
+     * @return mixed
      */
     public function getRoles();
 }
