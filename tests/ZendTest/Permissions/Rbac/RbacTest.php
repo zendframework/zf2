@@ -157,4 +157,14 @@ class RbacTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->rbac->isGranted('parent', 'test'));
     }
+
+    public function testAddPermissionInstanceToRole()
+    {
+        $permission = new TestAsset\SimplePermission();
+
+        $role = new Rbac\Role('role');
+        $role->addPermission($permission);
+
+        $this->assertTrue($role->hasPermission($permission->getName()));
+    }
 }
