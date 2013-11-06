@@ -14,8 +14,11 @@ use Zend\EventManager\Event;
 use Zend\EventManager\EventManager;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\View\Console\DefaultRenderingStrategy;
+use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\Response;
 use Zend\View\Model;
+use ZendTest\Console\TestAssets\ConsoleAdapter;
+use ZendTest\ModuleManager\TestAsset\MockApplication;
 
 class DefaultRenderingStrategyTest extends TestCase
 {
@@ -59,7 +62,16 @@ class DefaultRenderingStrategyTest extends TestCase
 
     public function testIgnoresNonConsoleModelNotContainingResultKeyWhenObtainingResult()
     {
+        //Register console service
+        $sm = new ServiceManager();
+        $sm->setService('console', new ConsoleAdapter());
+
+        $mockApplication = new MockApplication;
+        $mockApplication->setServiceManager($sm);
+
         $event    = new MvcEvent();
+        $event->setApplication($mockApplication);
+
         $model    = new Model\ViewModel(array('content' => 'Page not found'));
         $response = new Response();
         $event->setResult($model);
