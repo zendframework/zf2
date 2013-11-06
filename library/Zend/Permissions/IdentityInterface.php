@@ -17,7 +17,7 @@ interface IdentityInterface
     /**
      * Get the list of roles of this identity
      *
-     * @return mixed
+     * @return string|array|\Zend\Permissions\Acl\Role\RoleInterface|\Zend\Permissions\Rbac\RoleInterface
      */
     public function getRoles();
 }
