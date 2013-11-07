@@ -125,6 +125,7 @@ class FormTextareaTest extends CommonTestCase
             array('optgroup', 'assertNotContains'),
             array('arbitrary', 'assertNotContains'),
             array('meta', 'assertNotContains'),
+            array('role', 'assertContains'),
         );
     }
 
@@ -220,6 +221,7 @@ class FormTextareaTest extends CommonTestCase
             'optgroup'           => 'value',
             'arbitrary'          => 'value',
             'meta'               => 'value',
+            'role'               => 'value',
         ));
         return $element;
     }

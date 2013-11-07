@@ -340,6 +340,18 @@ class ServiceManagerTest extends TestCase
         $this->assertEquals('bar', $obj->foo);
     }
 
+    public function testHasReturnsFalseOnNonStringsAndArrays()
+    {
+        $obj = new \stdClass();
+        $this->assertFalse($this->serviceManager->has($obj));
+    }
+
+    public function testHasAcceptsArrays()
+    {
+        $this->serviceManager->setInvokableClass('foobar', 'foo');
+        $this->assertTrue($this->serviceManager->has(array('foobar', 'foo_bar')));
+    }
+
     /**
      * @covers Zend\ServiceManager\ServiceManager::has
      */
@@ -569,6 +581,82 @@ class ServiceManagerTest extends TestCase
         $this->assertSame(false, $abstractFactory->inexistingServiceCheckResult);
 
         $this->assertInstanceOf('stdClass', $service);
+    }
+
+    public function testMultipleAbstractFactoriesWithOneLookingForANonExistingServiceDuringCanCreate()
+    {
+        $abstractFactory = new TestAsset\TrollAbstractFactory;
+        $anotherAbstractFactory = $this->getMock('Zend\ServiceManager\AbstractFactoryInterface');
+        $anotherAbstractFactory
+            ->expects($this->exactly(2))
+            ->method('canCreateServiceWithName')
+            ->with(
+                $this->serviceManager,
+                $this->logicalOr('somethingthatcanbecreated', 'nonexistingservice'),
+                $this->logicalOr('SomethingThatCanBeCreated', 'NonExistingService')
+            )
+            ->will($this->returnValue(false));
+
+        $this->serviceManager->addAbstractFactory($abstractFactory);
+        $this->serviceManager->addAbstractFactory($anotherAbstractFactory);
+
+        $this->assertTrue($this->serviceManager->has('SomethingThatCanBeCreated'));
+        $this->assertFalse($abstractFactory->inexistingServiceCheckResult);
+    }
+
+    public function testWaitingAbstractFactory()
+    {
+        $abstractFactory = new TestAsset\WaitingAbstractFactory;
+        $this->serviceManager->addAbstractFactory($abstractFactory);
+
+        $abstractFactory->waitingService = null;
+        $abstractFactory->canCreateCallCount = 0;
+        $this->assertFalse($this->serviceManager->has('SomethingThatCanBeCreated'));
+        $this->assertEquals(1, $abstractFactory->canCreateCallCount);
+
+        $abstractFactory->waitingService = 'SomethingThatCanBeCreated';
+        $abstractFactory->canCreateCallCount = 0;
+        $this->assertTrue($this->serviceManager->has('SomethingThatCanBeCreated'));
+        $this->assertEquals(1, $abstractFactory->canCreateCallCount);
+
+        $abstractFactory->canCreateCallCount = 0;
+        $this->assertInstanceOf('stdClass', $this->serviceManager->get('SomethingThatCanBeCreated'));
+        $this->assertEquals(1, $abstractFactory->canCreateCallCount);
+    }
+
+    public function testWaitingAbstractFactoryNestedContextCounterWhenThrowException()
+    {
+        $abstractFactory = new TestAsset\WaitingAbstractFactory;
+        $this->serviceManager->addAbstractFactory($abstractFactory);
+
+        $contextCounter = new \ReflectionProperty($this->serviceManager, 'nestedContextCounter');
+        $contextCounter->setAccessible(true);
+        $contextCounter->getValue($this->serviceManager);
+
+        $abstractFactory->waitName = 'SomethingThatCanBeCreated';
+        $abstractFactory->createNullService = true;
+        $this->assertEquals(-1, $contextCounter->getValue($this->serviceManager));
+        try {
+            $this->serviceManager->get('SomethingThatCanBeCreated');
+            $this->fail('serviceManager shoud throw Zend\ServiceManager\Exception\ServiceNotFoundException');
+        } catch(\Exception $e) {
+            if (stripos(get_class($e), 'PHPUnit') !== false) {
+                throw $e;
+            }
+            $this->assertEquals(-1, $contextCounter->getValue($this->serviceManager));
+        }
+
+        $abstractFactory->createNullService = false;
+        $abstractFactory->throwExceptionWhenCreate = true;
+        try {
+            $this->serviceManager->get('SomethingThatCanBeCreated');
+            $this->fail('serviceManager shoud throw Zend\ServiceManager\Exception\ServiceNotCreatedException');
+        } catch(\Exception $e) {
+            if (stripos(get_class($e), 'PHPUnit') !== false) {
+                throw $e;
+            }
+            $this->assertEquals(-1, $contextCounter->getValue($this->serviceManager));
+        }
     }
 
     public function testShouldAllowAddingInitializersAsClassNames()
