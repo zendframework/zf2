@@ -40,6 +40,12 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('xxx', $acceptHeader->getFieldValue());
     }
 
+    public function testAcceptGetFieldValueReturnsProperValueWithAHeaderWithoutSpaces()
+    {
+        $acceptHeader = Accept::fromString('Accept:xxx');
+        $this->assertEquals('xxx', $acceptHeader->getFieldValue());
+    }
+
     public function testAcceptToStringReturnsHeaderFormattedString()
     {
         $acceptHeader = new Accept();
@@ -281,7 +287,7 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group 3739
-     * @covers Accept::matchAcceptParams()
+     * @covers Zend\Http\Header\AbstractAccept::matchAcceptParams()
      */
     public function testParamRangesWithDecimals()
     {
@@ -292,8 +298,8 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
     /**
      * @group 3740
      * @dataProvider provideParamRanges
-     * @covers Accept::matchAcceptParams()
-     * @covers Accept::getParametersFromFieldValuePart()
+     * @covers Zend\Http\Header\AbstractAccept::matchAcceptParams()
+     * @covers Zend\Http\Header\AbstractAccept::getParametersFromFieldValuePart()
      */
     public function testParamRangesSupportDevStage($range, $input, $success)
     {
