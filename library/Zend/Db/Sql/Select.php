@@ -464,15 +464,12 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param string $name
      * @param string|array $columns
      * @param bool $reset Reset columns
-     * @throws \Zend\Db\Sql\Exception\InvalidArgumentException
-     * @return \Zend\Db\Sql\Select
+     * @throws Exception\InvalidArgumentException
+     * @return Select
      */
-    public function addJoinColumns($name, $columns = self::SQL_STAR, $reset = false) 
-    {
+    public function addJoinColumns($name, $columns = self::SQL_STAR, $reset = false) {
         if (!is_string($name)) {
-            throw new \Zend\Db\Sql\Exception\InvalidArgumentException(
-                "addJoinColumns() expects 'name' as an string"
-            );
+            throw new Exception\InvalidArgumentException("addJoinColumns() expects 'name' as an string");
         }
         if (!is_array($columns)) {
             $columns = array($columns);
@@ -485,11 +482,11 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 $joinName = $item['name'];
             }
 
-            if ($joinName == $name) {
-                if ($reset == true) {
-                    $item['columns'] = $columns;
-                } else {
+            if ($joinName === $name) {
+                if (isset($item['columns']) && is_array($item['columns']) && $reset === false) {
                     $item['columns'] = array_merge($item['columns'], $columns);
+                } else {
+                    $item['columns'] = $columns;
                 }
                 break;
             }
@@ -503,15 +500,14 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param int $page Limit results to this page number.
      * @param int $rowCount Use this many rows per page.
-     * @return \Zend\Db\Sql\Select
+     * @return Select
      */
-    public function limitPage($page = 0, $rowCount = 10) 
-    {
+    public function limitPage($page = 0, $rowCount = 10) {
         $page = ($page > 0) ? $page : 1;
         $rowCount = ($rowCount > 0) ? $rowCount : 1;
 
         $this->limit((int) $rowCount)
-             ->offset((int) ($rowCount * ($page - 1)));
+                ->offset((int) ($rowCount * ($page - 1)));
 
         return $this;
     }
