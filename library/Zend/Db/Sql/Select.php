@@ -471,6 +471,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
         if (!is_string($name)) {
             throw new Exception\InvalidArgumentException("addJoinColumns() expects 'name' as an string");
         }
+        
         if (!is_array($columns)) {
             $columns = array($columns);
         }
@@ -491,7 +492,6 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 break;
             }
         }
-
         return $this;
     }
 
@@ -505,10 +505,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     public function limitPage($page = 0, $rowCount = 10) {
         $page = ($page > 0) ? $page : 1;
         $rowCount = ($rowCount > 0) ? $rowCount : 1;
-
-        $this->limit((int) $rowCount)
-                ->offset((int) ($rowCount * ($page - 1)));
-
+        $this->limit($rowCount)->offset(($rowCount * ($page - 1)));
         return $this;
     }
 
