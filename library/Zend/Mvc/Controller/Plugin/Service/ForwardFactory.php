@@ -32,13 +32,6 @@ class ForwardFactory implements FactoryInterface
             ));
         }
 
-        if (!$services->has('ControllerManager')) {
-            throw new ServiceNotCreatedException(sprintf(
-                '%s requires that the application service manager contains a "%s" service; none found',
-                __CLASS__,
-                'ControllerManager'
-            ));
-        }
         $controllers = $services->get('ControllerManager');
 
         return new Forward($controllers);
