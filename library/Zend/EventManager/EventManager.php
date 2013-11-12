@@ -35,13 +35,6 @@ class EventManager implements EventManagerInterface
     protected $identifiers = array();
 
     /**
-     * Keep an array of hash => listeners
-     *
-     * @var array
-     */
-    protected $listeners = array();
-
-    /**
      * Shared event manager
      *
      * @var null|SharedEventManagerInterface
@@ -103,10 +96,7 @@ class EventManager implements EventManagerInterface
      */
     public function attach($event, callable $listener, $priority = 1)
     {
-        //$hash = spl_object_hash($listener);
-
         $this->events[(string) $event][(int) $priority][] = $listener;
-        //$this->listeners[$hash]               = $listener;
 
         return $listener;
     }
@@ -130,23 +120,36 @@ class EventManager implements EventManagerInterface
     /**
      * Unsubscribe a listener from an event
      *
-     * This method is quite inefficient as it needs to traverse each queue, so use with care!
+     * This method is quite inefficient as it needs to traverse each queue, so use with care! If you are that
+     * worried about performance, you should always filter by the event name so that less work is done
      *
      * @param  callable $listener
+     * @param  string   $eventName
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
      */
-    public function detach(callable $listener)
+    public function detach(callable $listener, $eventName = '')
     {
-        //$hash = spl_object_hash($listener);
-
-        /*foreach ($this->events as &$event) {
-            if (isset($event[$hash])) {
-                unset($event[$hash]);
-                unset($this->listeners[$hash]);
-
-                return true;
+        if (!empty($eventName)) {
+            foreach ($this->events[$eventName] as $priority => $listeners) {
+                foreach ($listeners as $key => $listenerToTest) {
+                    if ($listener === $listenerToTest) {
+                        unset($this->events[$eventName][$priority][$key]);
+                        return true;
+                    }
+                }
             }
-        }*/
+        }
+
+        foreach ($this->events as &$event) {
+            foreach ($event as $priority => $listeners) {
+                foreach ($listeners as $key => $listenerToTest) {
+                    if ($listener === $listenerToTest) {
+                        unset($event[$priority][$key]);
+                        return true;
+                    }
+                }
+            }
+        }
 
         return false;
     }

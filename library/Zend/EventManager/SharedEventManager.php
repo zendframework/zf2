@@ -21,7 +21,7 @@ class SharedEventManager implements SharedEventManagerInterface
     /**
      * Identifiers that are mapped to listeners
      *
-     * @var array|EventManagerInterface[]
+     * @var array
      */
     protected $identifiers = array();
 
@@ -113,40 +113,40 @@ class SharedEventManager implements SharedEventManagerInterface
     /**
      * Clear all listeners for a given identifier, optionally for a specific event
      *
-     * @param  string|int $id
-     * @param  null|string $event
+     * @param  string|int  $identifier
+     * @param  null|string $eventName
      * @return void
      */
-    public function clearListeners($id, $event = null)
+    public function clearListeners($identifier, $eventName = null)
     {
-        if (!isset($this->identifiers[$id])) {
+        if (!isset($this->identifiers[$identifier])) {
             return;
         }
 
-        if (null === $event) {
-            unset($this->identifiers[$id]);
+        if (null === $eventName) {
+            unset($this->identifiers[$identifier]);
         }
 
-        $this->identifiers[$id]->clearListeners($event);
+        $this->identifiers[$identifier]->clearListeners($eventName);
     }
 
     /**
      * Retrieve all registered events for a given resource
      *
-     * @param  string|int $id
+     * @param  string|int $identifier
      * @return array
      */
-    public function getEvents($id)
+    public function getEvents($identifier)
     {
-        if (!isset($this->identifiers[$id])) {
+        if (!isset($this->identifiers[$identifier])) {
             // Check if there are any id wildcards listeners
-            if ('*' !== $id && isset($this->identifiers['*'])) {
-                return $this->identifiers['*']->getEvents();
+            if ('*' !== $identifier && isset($this->identifiers['*'])) {
+                return array_keys($this->identifiers['*']);
             }
 
             return false;
         }
 
-        return $this->identifiers[$id]->getEvents();
+        return array_keys($this->identifiers[$identifier]);
     }
 }

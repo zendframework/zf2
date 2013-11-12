@@ -39,9 +39,10 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Detach an event listener
      *
      * @param  callable $listener
+     * @param  string   $eventName optional to speed up process
      * @return bool
      */
-    public function detach(callable $listener);
+    public function detach(callable $listener, $eventName = '');
 
     /**
      * Detach a listener aggregate

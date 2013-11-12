@@ -63,17 +63,17 @@ interface SharedEventManagerInterface
     /**
      * Clear all listeners for a given identifier, optionally for a specific event
      *
-     * @param  string|int $id
-     * @param  null|string $event
+     * @param  string|int  $identifier
+     * @param  null|string $eventName
      * @return void
      */
-    public function clearListeners($id, $event = null);
+    public function clearListeners($identifier, $eventName = null);
 
     /**
      * Retrieve all registered events for a given resource
      *
-     * @param  string|int $id
+     * @param  string|int $identifier
      * @return array
      */
-    public function getEvents($id);
+    public function getEvents($identifier);
 }
