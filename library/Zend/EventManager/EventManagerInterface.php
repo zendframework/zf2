@@ -95,14 +95,6 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     public function clearListeners($event);
 
     /**
-     * Set the event class to utilize
-     *
-     * @param  string $class
-     * @return void
-     */
-    public function setEventClass($class);
-
-    /**
      * Set the identifiers (overrides any currently set identifiers)
      *
      * @param  string|int|array|Traversable $identifiers
