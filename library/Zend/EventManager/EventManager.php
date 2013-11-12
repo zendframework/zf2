@@ -35,6 +35,13 @@ class EventManager implements EventManagerInterface
     protected $identifiers = array();
 
     /**
+     * Keep an array of hash => listeners
+     *
+     * @var array
+     */
+    protected $listeners = array();
+
+    /**
      * Shared event manager
      *
      * @var null|SharedEventManagerInterface
@@ -57,10 +64,10 @@ class EventManager implements EventManagerInterface
     /**
      * Set shared event manager
      *
-     * @param  SharedEventManagerInterface|null $sharedEventManager
+     * @param  SharedEventManagerInterface $sharedEventManager
      * @return void
      */
-    public function setSharedManager(SharedEventManagerInterface $sharedEventManager = null)
+    public function setSharedManager(SharedEventManagerInterface $sharedEventManager)
     {
         $this->sharedManager = $sharedEventManager;
     }
@@ -79,8 +86,7 @@ class EventManager implements EventManagerInterface
      * Attach a listener to an event
      *
      * The first argument is the event, and the next argument describes a
-     * callback that will respond to that event. A CallbackHandler instance
-     * describing the event listener combination will be returned.
+     * callback that will respond to that event.
      *
      * The last argument indicates a priority at which the event should be
      * executed. By default, this value is 1; however, you may set it for any
@@ -97,8 +103,10 @@ class EventManager implements EventManagerInterface
      */
     public function attach($event, callable $listener, $priority = 1)
     {
-        $event = (string) $event;
-        $this->events[$event][spl_object_hash($listener)] = $priority;
+        $hash = spl_object_hash($listener);
+
+        $this->events[(string) $event][$hash] = $priority;
+        $this->listeners[$hash]               = $listener;
 
         return $listener;
     }
@@ -122,23 +130,25 @@ class EventManager implements EventManagerInterface
     /**
      * Unsubscribe a listener from an event
      *
-     * This method is quite inefficient as it needs to traverse each priority queue
+     * This method is quite inefficient as it needs to traverse each queue, so use with care!
      *
-     * @param  string   $eventName
      * @param  callable $listener
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
      */
-    public function detach($eventName, callable $listener)
+    public function detach(callable $listener)
     {
         $hash = spl_object_hash($listener);
 
-        if (!isset($this->events[$eventName]) && !isset($this->events[$eventName][$hash])) {
-            return false;
+        foreach ($this->events as &$event) {
+            if (isset($event[$hash])) {
+                unset($event[$hash]);
+                unset($this->listeners[$hash]);
+
+                return true;
+            }
         }
 
-        unset($this->events[$eventName][$hash]);
-
-        return true;
+        return false;
     }
 
     /**
@@ -275,6 +285,8 @@ class EventManager implements EventManagerInterface
     protected function triggerListeners($eventName, EventInterface $event, callable $callback = null)
     {
         $responses = new ResponseCollection();
+
+        // + operator is faster than array_merge and in this case there are no drawbacks using it
         $listeners = $this->getListeners($eventName)
             + $this->getListeners('*')
             + $this->getSharedListeners($eventName)
@@ -282,15 +294,14 @@ class EventManager implements EventManagerInterface
 
         asort($listeners);
 
-        foreach ($listeners as $listener => $priority) {
+        foreach ($listeners as $listenerHash => $priority) {
+            $listener = $this->listeners[$listenerHash];
+
             $responses->push($listener($event));
 
-            if ($event->isPropagationStopped()) {
-                $responses->setStopped(true);
-                return $responses;
-            }
-
-            if ($callback && $callback($responses->last())) {
+            if ($event->isPropagationStopped()
+                || ($callback && $callback($responses->last()))
+            ) {
                 $responses->setStopped(true);
                 return $responses;
             }

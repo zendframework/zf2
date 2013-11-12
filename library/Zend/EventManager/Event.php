@@ -44,9 +44,7 @@ class Event implements EventInterface
      */
     public function __construct($target = null, $params = null)
     {
-        if (null !== $target) {
-            $this->setTarget($target);
-        }
+        $this->setTarget($target);
 
         if (null !== $params) {
             $this->setParams($params);

@@ -30,7 +30,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Attach a listener aggregate
      *
      * @param  ListenerAggregateInterface $aggregate
-     * @param  int $priority If provided, a suggested priority for the aggregate to use
+     * @param  int                        $priority If provided, a suggested priority for the aggregate to use
      * @return mixed
      */
     public function attachAggregate(ListenerAggregateInterface $aggregate, $priority = 1);
@@ -38,11 +38,10 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     /**
      * Detach an event listener
      *
-     * @param  string   $eventName
      * @param  callable $listener
      * @return bool
      */
-    public function detach($eventName, callable $listener);
+    public function detach(callable $listener);
 
     /**
      * Detach a listener aggregate

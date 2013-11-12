@@ -16,7 +16,7 @@ namespace Zend\EventManager;
 trait ListenerAggregateTrait
 {
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var callable[]
      */
     protected $listeners = array();
 
@@ -27,8 +27,8 @@ trait ListenerAggregateTrait
     {
         $found = false;
 
-        foreach ($this->listeners as $index => $callback) {
-            if ($events->detach($callback)) {
+        foreach ($this->listeners as $index => $listener) {
+            if ($events->detach($listener)) {
                 unset($this->listeners[$index]);
                 $found = true;
             }

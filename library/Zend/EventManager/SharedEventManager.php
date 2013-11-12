@@ -40,9 +40,10 @@ class SharedEventManager implements SharedEventManagerInterface
     public function attach($identifiers, $eventName, callable $listener, $priority = 1)
     {
         $identifiers = (array) $identifiers;
+        $hash        = spl_object_hash($listener);
 
         foreach ($identifiers as $identifier) {
-            $this->identifiers[$identifier][$eventName][spl_object_hash($listener)] = $priority;
+            $this->identifiers[$identifier][$eventName][$hash] = $priority;
         }
 
         return $listener;
