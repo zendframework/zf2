@@ -103,10 +103,10 @@ class EventManager implements EventManagerInterface
      */
     public function attach($event, callable $listener, $priority = 1)
     {
-        $hash = spl_object_hash($listener);
+        //$hash = spl_object_hash($listener);
 
-        $this->events[(string) $event][$hash] = $priority;
-        $this->listeners[$hash]               = $listener;
+        $this->events[(string) $event][(int) $priority][] = $listener;
+        //$this->listeners[$hash]               = $listener;
 
         return $listener;
     }
@@ -137,16 +137,16 @@ class EventManager implements EventManagerInterface
      */
     public function detach(callable $listener)
     {
-        $hash = spl_object_hash($listener);
+        //$hash = spl_object_hash($listener);
 
-        foreach ($this->events as &$event) {
+        /*foreach ($this->events as &$event) {
             if (isset($event[$hash])) {
                 unset($event[$hash]);
                 unset($this->listeners[$hash]);
 
                 return true;
             }
-        }
+        }*/
 
         return false;
     }
@@ -294,11 +294,11 @@ class EventManager implements EventManagerInterface
             + $this->getSharedListeners($eventName)
             + $this->getSharedListeners('*');
 
-        arsort($listeners);
+        krsort($listeners);
 
-        foreach ($listeners as $listenerHash => $priority) {
-            $listener = $this->listeners[$listenerHash];
-
+        foreach ($listeners as $value) {
+            /* @var callable $listener */
+            $listener = reset($value);
             $responses->push($listener($event));
 
             if ($event->isPropagationStopped()
