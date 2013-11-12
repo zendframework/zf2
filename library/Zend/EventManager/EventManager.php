@@ -9,7 +9,6 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
 use ArrayObject;
 use Traversable;
 use Zend\Stdlib\CallbackHandler;
@@ -29,11 +28,6 @@ class EventManager implements EventManagerInterface
      * @var array|PriorityQueue[] Array of PriorityQueue objects
      */
     protected $events = array();
-
-    /**
-     * @var string Class representing the event being emitted
-     */
-    protected $eventClass = 'Zend\EventManager\Event';
 
     /**
      * Identifiers, used to pull shared signals from SharedEventManagerInterface instance
@@ -247,14 +241,6 @@ class EventManager implements EventManagerInterface
     public function clearListeners($event)
     {
         unset($this->events[$event]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setEventClass($class)
-    {
-        $this->eventClass = (string) $class;
     }
 
     /**
