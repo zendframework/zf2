@@ -168,13 +168,14 @@ class EventManager implements EventManagerInterface
     /**
      * Trigger all listeners for a given event
      *
-     * @param  string         $eventName
-     * @param  EventInterface $event
+     * @param  string              $eventName
+     * @param  EventInterface|null $event
      * @return ResponseCollection All listener return values
      */
-    public function trigger($eventName, EventInterface $event)
+    public function trigger($eventName, EventInterface $event = null)
     {
         // Initial value of stop propagation flag should be false
+        $event = $event ?: new Event();
         $event->stopPropagation(false);
 
         return $this->triggerListeners($eventName, $event);
@@ -187,14 +188,15 @@ class EventManager implements EventManagerInterface
      * Triggers listeners until the provided callback evaluates the return
      * value of one as true, or until all listeners have been executed.
      *
-     * @param  string          $eventName
-     * @param  EventInterface  $event
-     * @param  callable|null   $callback
+     * @param  string              $eventName
+     * @param  EventInterface|null $event
+     * @param  callable|null       $callback
      * @return ResponseCollection
      */
-    public function triggerUntil($eventName, EventInterface $event, callable $callback = null)
+    public function triggerUntil($eventName, EventInterface $event = null, callable $callback = null)
     {
         // Initial value of stop propagation flag should be false
+        $event = $event ?: new Event();
         $event->stopPropagation(false);
 
         return $this->triggerListeners($eventName, $event, $callback);
@@ -292,7 +294,7 @@ class EventManager implements EventManagerInterface
             + $this->getSharedListeners($eventName)
             + $this->getSharedListeners('*');
 
-        asort($listeners);
+        arsort($listeners);
 
         foreach ($listeners as $listenerHash => $priority) {
             $listener = $this->listeners[$listenerHash];

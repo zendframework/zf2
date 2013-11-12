@@ -54,21 +54,21 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     /**
      * Trigger an event
      *
-     * @param  string         $eventName
-     * @param  EventInterface $event
+     * @param  string              $eventName
+     * @param  EventInterface|null $event
      * @return ResponseCollection
      */
-    public function trigger($eventName, EventInterface $event);
+    public function trigger($eventName, EventInterface $event = null);
 
     /**
      * Trigger an event until the given callback returns a boolean false
      *
-     * @param  string         $eventName
-     * @param  EventInterface $event
-     * @param  callable|null  $callback
+     * @param  string              $eventName
+     * @param  EventInterface|null $event
+     * @param  callable|null       $callback
      * @return ResponseCollection
      */
-    public function triggerUntil($event, EventInterface $event, callable $callback = null);
+    public function triggerUntil($event, EventInterface $event = null, callable $callback = null);
 
     /**
      * Get a list of events for which this collection has listeners
