@@ -14,8 +14,7 @@
     },
     "target-dir": "Zend/EventManager",
     "require": {
-        "php": ">=5.4",
-        "zendframework/zend-stdlib": "self.version"
+        "php": ">=5.4"
     },
     "extra": {
         "branch-alias": {
