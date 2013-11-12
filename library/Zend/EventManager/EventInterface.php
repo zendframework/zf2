@@ -17,21 +17,6 @@ use ArrayAccess;
 interface EventInterface
 {
     /**
-     * Set the event name
-     *
-     * @param  string $name
-     * @return void
-     */
-    public function setName($name);
-
-    /**
-     * Get event name
-     *
-     * @return string
-     */
-    public function getName();
-
-    /**
      * Set the event target/context
      *
      * @param  null|string|object $target

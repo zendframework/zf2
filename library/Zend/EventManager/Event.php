@@ -20,11 +20,6 @@ use ArrayAccess;
 class Event implements EventInterface
 {
     /**
-     * @var string Event name
-     */
-    protected $name;
-
-    /**
      * @var string|object The event target
      */
     protected $target;
@@ -44,16 +39,11 @@ class Event implements EventInterface
      *
      * Accept a target and its parameters.
      *
-     * @param  string            $name   Event name
      * @param  string|object     $target
      * @param  array|ArrayAccess $params
      */
-    public function __construct($name = null, $target = null, $params = null)
+    public function __construct($target = null, $params = null)
     {
-        if (null !== $name) {
-            $this->setName($name);
-        }
-
         if (null !== $target) {
             $this->setTarget($target);
         }
@@ -61,22 +51,6 @@ class Event implements EventInterface
         if (null !== $params) {
             $this->setParams($params);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setName($name)
-    {
-        $this->name = (string) $name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**

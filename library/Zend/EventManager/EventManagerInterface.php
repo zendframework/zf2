@@ -55,35 +55,21 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     /**
      * Trigger an event
      *
-     * Should allow handling the following scenarios:
-     * - Passing Event object only
-     * - Passing event name and Event object only
-     * - Passing event name, target, and Event object
-     * - Passing event name, target, and array|ArrayAccess of arguments
-     *
-     * @param  string        $event
-     * @param  object|string $target
-     * @param  array|object  $argv
+     * @param  string         $eventName
+     * @param  EventInterface $event
      * @return ResponseCollection
      */
-    public function trigger($event, $target = null, $argv = array());
+    public function trigger($eventName, EventInterface $event);
 
     /**
      * Trigger an event until the given callback returns a boolean false
      *
-     * Should allow handling the following scenarios:
-     * - Passing Event object and callback only
-     * - Passing event name, Event object, and callback only
-     * - Passing event name, target, Event object, and callback
-     * - Passing event name, target, array|ArrayAccess of arguments, and callback
-     *
-     * @param  string        $event
-     * @param  object|string $target
-     * @param  array|object  $argv
-     * @param  callable      $callback
+     * @param  string         $eventName
+     * @param  EventInterface $event
+     * @param  callable|null  $callback
      * @return ResponseCollection
      */
-    public function triggerUntil($event, $target, $argv = array(), callable $callback = null);
+    public function triggerUntil($event, EventInterface $event, callable $callback = null);
 
     /**
      * Get a list of events for which this collection has listeners

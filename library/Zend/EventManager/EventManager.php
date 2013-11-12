@@ -189,14 +189,16 @@ class EventManager implements EventManagerInterface
     /**
      * Trigger all listeners for a given event
      *
-     * @param  string            $event
-     * @param  string|object     $target Object calling emit, or symbol describing target (such as static method name)
-     * @param  array|ArrayAccess $argv Array of arguments; typically, should be associative
+     * @param  string         $eventName
+     * @param  EventInterface $event
      * @return ResponseCollection All listener return values
      */
-    public function trigger($event, $target = null, $argv = array())
+    public function trigger($eventName, EventInterface $event)
     {
-        return $this->triggerUntil($event, $target, $argv);
+        // Initial value of stop propagation flag should be false
+        $event->stopPropagation(false);
+
+        return $this->triggerListeners($eventName, $event);
     }
 
     /**
@@ -206,37 +208,17 @@ class EventManager implements EventManagerInterface
      * Triggers listeners until the provided callback evaluates the return
      * value of one as true, or until all listeners have been executed.
      *
-     * @param  string $event
-     * @param  string|object      $target Object calling emit, or symbol describing target (such as static method name)
-     * @param  array|ArrayAccess  $argv Array of arguments; typically, should be associative
-     * @param  callable           $callback
+     * @param  string          $eventName
+     * @param  EventInterface  $event
+     * @param  callable|null   $callback
      * @return ResponseCollection
      */
-    public function triggerUntil($event, $target, $argv = array(), callable $callback = null)
+    public function triggerUntil($eventName, EventInterface $event, callable $callback = null)
     {
-        if ($event instanceof EventInterface) {
-            $e        = $event;
-            $event    = $e->getName();
-            $callback = $target;
-        } elseif ($target instanceof EventInterface) {
-            $e = $target;
-            $e->setName($event);
-            $callback = $argv ?: null;
-        } elseif ($argv instanceof EventInterface) {
-            $e = $argv;
-            $e->setName($event);
-            $e->setTarget($target);
-        } else {
-            $e = new $this->eventClass();
-            $e->setName($event);
-            $e->setTarget($target);
-            $e->setParams($argv);
-        }
-
         // Initial value of stop propagation flag should be false
-        $e->stopPropagation(false);
+        $event->stopPropagation(false);
 
-        return $this->triggerListeners($event, $e, $callback);
+        return $this->triggerListeners($eventName, $event, $callback);
     }
 
     /**
