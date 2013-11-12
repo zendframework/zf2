@@ -10,7 +10,6 @@
 namespace Zend\EventManager;
 
 use Traversable;
-use Zend\Stdlib\CallbackHandler;
 
 /**
  * Interface for messengers
@@ -21,11 +20,11 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * Attach a listener to an event
      *
      * @param  string   $event
-     * @param  callable $callback
+     * @param  callable $listener
      * @param  int      $priority Priority at which to register listener
-     * @return CallbackHandler
+     * @return callable
      */
-    public function attach($event, callable $callback, $priority = 1);
+    public function attach($event, callable $listener, $priority = 1);
 
     /**
      * Attach a listener aggregate
@@ -39,10 +38,11 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     /**
      * Detach an event listener
      *
-     * @param  CallbackHandler $listener
+     * @param  string   $eventName
+     * @param  callable $listener
      * @return bool
      */
-    public function detach(CallbackHandler $listener);
+    public function detach($eventName, callable $listener);
 
     /**
      * Detach a listener aggregate
@@ -81,18 +81,18 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     /**
      * Retrieve a list of listeners registered to a given event
      *
-     * @param  string $event
-     * @return \Zend\Stdlib\PriorityQueue
+     * @param  string $eventName
+     * @return array
      */
-    public function getListeners($event);
+    public function getListeners($eventName);
 
     /**
      * Clear all listeners for a given event
      *
-     * @param  string $event
+     * @param  string $eventName
      * @return void
      */
-    public function clearListeners($event);
+    public function clearListeners($eventName);
 
     /**
      * Set the identifiers (overrides any currently set identifiers)

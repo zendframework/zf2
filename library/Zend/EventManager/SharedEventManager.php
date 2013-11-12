@@ -9,9 +9,6 @@
 
 namespace Zend\EventManager;
 
-use Zend\Stdlib\CallbackHandler;
-use Zend\Stdlib\PriorityQueue;
-
 /**
  * Shared/contextual EventManager
  *
@@ -22,7 +19,7 @@ use Zend\Stdlib\PriorityQueue;
 class SharedEventManager implements SharedEventManagerInterface
 {
     /**
-     * Identifiers with event connections
+     * Identifiers that are mapped to listeners
      *
      * @var array|EventManagerInterface[]
      */
@@ -32,50 +29,23 @@ class SharedEventManager implements SharedEventManagerInterface
      * Attach a listener to an event
      *
      * Allows attaching a callback to an event offered by one or more
-     * identifying components. As an example, the following connects to the
-     * "getAll" event of both an AbstractResource and EntityResource:
+     * identifying components
      *
-     * <code>
-     * $sharedEventManager = new SharedEventManager();
-     * $sharedEventManager->attach(
-     *     array('My\Resource\AbstractResource', 'My\Resource\EntityResource'),
-     *     'getAll',
-     *     function ($e) use ($cache) {
-     *         if (!$id = $e->getParam('id', false)) {
-     *             return;
-     *         }
-     *         if (!$data = $cache->load(get_class($resource) . '::getOne::' . $id )) {
-     *             return;
-     *         }
-     *         return $data;
-     *     }
-     * );
-     * </code>
-     *
-     * @param  string|array $id Identifier(s) for event emitting component(s)
-     * @param  string       $event
-     * @param  callable     $callback PHP Callback
+     * @param  string|array $identifiers Identifier(s) for event emitting component(s)
+     * @param  string       $eventName
+     * @param  callable     $listener PHP Callback
      * @param  int          $priority Priority at which listener should execute
-     * @return CallbackHandler|array Either CallbackHandler or array of CallbackHandlers
+     * @return callable
      */
-    public function attach($id, $event, callable $callback, $priority = 1)
+    public function attach($identifiers, $eventName, callable $listener, $priority = 1)
     {
-        $ids       = (array) $id;
-        $listeners = array();
+        $identifiers = (array) $identifiers;
 
-        foreach ($ids as $id) {
-            if (!isset($this->identifiers[$id])) {
-                $this->identifiers[$id] = new EventManager($id);
-            }
-
-            $listeners[] = $this->identifiers[$id]->attach($event, $callback, $priority);
+        foreach ($identifiers as $identifier) {
+            $this->identifiers[$identifier][$eventName][spl_object_hash($listener)] = $priority;
         }
 
-        if (count($listeners) > 1) {
-            return $listeners;
-        }
-
-        return $listeners[0];
+        return $listener;
     }
 
     /**
@@ -98,10 +68,10 @@ class SharedEventManager implements SharedEventManagerInterface
      * Detach a listener from an event offered by a given resource
      *
      * @param  string|int $id
-     * @param  CallbackHandler $listener
+     * @param  callable   $listener
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
      */
-    public function detach($id, CallbackHandler $listener)
+    public function detach($id, callable $listener)
     {
         if (!isset($this->identifiers[$id])) {
             return false;
@@ -127,17 +97,17 @@ class SharedEventManager implements SharedEventManagerInterface
     /**
      * Retrieve all listeners for a given identifier and event
      *
-     * @param  string|int $id
-     * @param  string|int $event
-     * @return PriorityQueue
+     * @param  string|int $identifier
+     * @param  string|int $eventName
+     * @return array
      */
-    public function getListeners($id, $event)
+    public function getListeners($identifier, $eventName)
     {
-        if (!isset($this->identifiers[$id])) {
-            return new PriorityQueue();
+        if (isset($this->identifiers[$identifier]) && isset($this->identifiers[$identifier][$eventName])) {
+            return $this->identifiers[$identifier][$eventName];
         }
 
-        return $this->identifiers[$id]->getListeners($event);
+        return array();
     }
 
     /**
