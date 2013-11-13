@@ -202,10 +202,12 @@ class EventManager implements EventManagerInterface
                     $responses->setStopped(true);
                     return $responses;
                 }
+
+                $listener($event);
             }
         }
 
-        return $responses;
+        return new ResponseCollection($responses);
     }
 
     /**
