@@ -9,14 +9,31 @@
 
 namespace Zend\EventManager;
 
-use SplStack;
-
 /**
  * Collection of signal handler return values
+ *
+ * We used to use a SplStack in Zend Framework 2, but using an array allows us some interesting
+ * optimizations
  */
-class ResponseCollection extends SplStack
+class ResponseCollection
 {
+    /**
+     * @var array
+     */
+    protected $responses = array();
+
+    /**
+     * @var bool
+     */
     protected $stopped = false;
+
+    /**
+     * @param array $responses
+     */
+    public function __construct(array $responses = array())
+    {
+        $this->responses = $responses;
+    }
 
     /**
      * Did the last response provided trigger a short circuit of the stack?
@@ -46,7 +63,8 @@ class ResponseCollection extends SplStack
      */
     public function first()
     {
-        return parent::bottom();
+        reset($this->responses);
+        return current($this->responses);
     }
 
     /**
@@ -59,11 +77,11 @@ class ResponseCollection extends SplStack
      */
     public function last()
     {
-        if ($this->isEmpty()) {
+        if (empty($this->responses)) {
             return null;
         }
 
-        return parent::top();
+        return end($this->responses);
     }
 
     /**
@@ -74,7 +92,7 @@ class ResponseCollection extends SplStack
      */
     public function contains($value)
     {
-        foreach ($this as $response) {
+        foreach ($this->responses as $response) {
             if ($response === $value) {
                 return true;
             }

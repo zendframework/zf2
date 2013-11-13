@@ -180,7 +180,7 @@ class EventManager implements EventManagerInterface
         $event = $event ?: new Event();
         $event->stopPropagation(false);
 
-        $responses = new ResponseCollection();
+        $responses = array();
 
         // We cannot use union (+) operator as it merges numeric indexed keys
         $listeners = array_merge_recursive(
@@ -194,16 +194,17 @@ class EventManager implements EventManagerInterface
 
         foreach ($listeners as $listenersByPriority) {
             foreach ($listenersByPriority as $listener) {
-                $responses->push($listener($event));
+                $lastResponse = $listener($event);
+                $responses[]  = $lastResponse;
 
                 if ($event->isPropagationStopped()
-                    || ($callback && $callback($responses->last()))
+                    || ($callback && $callback($lastResponse))
                 ) {
-                    $responses->setStopped(true);
-                    return $responses;
-                }
+                    $responseCollection = new ResponseCollection($responses);
+                    $responseCollection->setStopped(true);
 
-                $listener($event);
+                    return $responseCollection;
+                }
             }
         }
 
