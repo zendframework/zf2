@@ -192,16 +192,16 @@ class EventManager implements EventManagerInterface
 
         krsort($listeners);
 
-        foreach ($listeners as $listener) {
-            // Using direct de-referencing instead of using "reset" provides a 10% speedup
-            // on performance
-            $responses->push($listener[0]($event));
+        foreach ($listeners as $listenersByPriority) {
+            foreach ($listenersByPriority as $listener) {
+                $responses->push($listener($event));
 
-            if ($event->isPropagationStopped()
-                || ($callback && $callback($responses->last()))
-            ) {
-                $responses->setStopped(true);
-                return $responses;
+                if ($event->isPropagationStopped()
+                    || ($callback && $callback($responses->last()))
+                ) {
+                    $responses->setStopped(true);
+                    return $responses;
+                }
             }
         }
 
