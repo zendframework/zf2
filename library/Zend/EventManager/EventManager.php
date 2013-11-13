@@ -291,11 +291,13 @@ class EventManager implements EventManagerInterface
     {
         $responses = new ResponseCollection();
 
-        // + operator is faster than array_merge and in this case there are no drawbacks using it
-        $listeners = $this->getListeners($eventName)
-            + $this->getListeners('*')
-            + $this->getSharedListeners($eventName)
-            + $this->getSharedListeners('*');
+        // We cannot use union (+) operator as it merges numeric indexed keys
+        $listeners = array_merge(
+            $this->getListeners($eventName),
+            $this->getListeners('*'),
+            $this->getSharedListeners($eventName),
+            $this->getSharedListeners('*')
+        );
 
         krsort($listeners);
 
@@ -337,7 +339,7 @@ class EventManager implements EventManagerInterface
         }
 
         foreach ($identifiers as $identifier) {
-            $listeners = $listeners + $this->sharedManager->getListeners($identifier, $eventName);
+            $listeners = array_merge($listeners, $this->sharedManager->getListeners($identifier, $eventName));
         }
 
         return $listeners;

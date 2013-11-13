@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$nb_occur=1;
+$nb_occur=1000;
 
 $time_start = microtime(true);
 
@@ -10,8 +10,13 @@ $eventManager  = new \Zend\EventManager\EventManager(array('myid'));
 $sharedManager = new \Zend\EventManager\SharedEventManager();
 
 $eventManager->setSharedManager($sharedManager);
+//$eventManager->attach('event', function() { echo 'hello'; });
+//$sharedManager->attach('myid', 'event', function() { echo 'world'; });
 
-for ($i = 0 ; $i != 5 ; ++$i) {
+//$eventManager->trigger('event');
+
+
+for ($i = 0 ; $i != 50 ; ++$i) {
     $eventManager->attach('event', function() {}, $i);
     $sharedManager->attach('myid', 'event', function() {});
 }
