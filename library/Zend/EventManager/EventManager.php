@@ -129,24 +129,22 @@ class EventManager implements EventManagerInterface
      */
     public function detach(callable $listener, $eventName = '')
     {
-        if (!empty($eventName)) {
-            foreach ($this->events[$eventName] as $priority => $listeners) {
-                foreach ($listeners as $key => $listenerToTest) {
-                    if ($listener === $listenerToTest) {
-                        unset($this->events[$eventName][$priority][$key]);
-                        return true;
-                    }
+        if (!empty($eventName) && isset($this->events[$eventName])) {
+            foreach ($this->events[$eventName] as &$listeners) {
+                if (($key = array_search($listener, $listeners, true)) !== false) {
+                    unset($listeners[$key]);
+                    return true;
                 }
             }
+
+            return false;
         }
 
         foreach ($this->events as &$event) {
-            foreach ($event as $priority => $listeners) {
-                foreach ($listeners as $key => $listenerToTest) {
-                    if ($listener === $listenerToTest) {
-                        unset($event[$priority][$key]);
-                        return true;
-                    }
+            foreach ($event as &$listeners) {
+                if (($key = array_search($listener, $listeners, true)) !== false) {
+                    unset($listeners[$key]);
+                    return true;
                 }
             }
         }
@@ -169,126 +167,19 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Trigger all listeners for a given event
-     *
-     * @param  string              $eventName
-     * @param  EventInterface|null $event
-     * @return ResponseCollection All listener return values
-     */
-    public function trigger($eventName, EventInterface $event = null)
-    {
-        // Initial value of stop propagation flag should be false
-        $event = $event ?: new Event();
-        $event->stopPropagation(false);
-
-        return $this->triggerListeners($eventName, $event);
-    }
-
-    /**
-     * Trigger listeners until return value of one causes a callback to
-     * evaluate to true
-     *
-     * Triggers listeners until the provided callback evaluates the return
-     * value of one as true, or until all listeners have been executed.
+     * Trigger all listeners for a given event (optionally until a callback evaluates to true)
      *
      * @param  string              $eventName
      * @param  EventInterface|null $event
      * @param  callable|null       $callback
-     * @return ResponseCollection
+     * @return ResponseCollection All listener return values
      */
-    public function triggerUntil($eventName, EventInterface $event = null, callable $callback = null)
+    public function trigger($eventName, EventInterface $event = null, callable $callback = null)
     {
         // Initial value of stop propagation flag should be false
         $event = $event ?: new Event();
         $event->stopPropagation(false);
 
-        return $this->triggerListeners($eventName, $event, $callback);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getEvents()
-    {
-        return array_keys($this->events);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getListeners($eventName)
-    {
-        return isset($this->events[$eventName]) ? $this->events[$eventName] : array();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function clearListeners($eventName)
-    {
-        unset($this->events[$eventName]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setIdentifiers($identifiers)
-    {
-        if (is_array($identifiers) || $identifiers instanceof Traversable) {
-            $this->identifiers = array_unique((array) $identifiers);
-        } elseif ($identifiers !== null) {
-            $this->identifiers = array($identifiers);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function addIdentifiers($identifiers)
-    {
-        if (is_array($identifiers) || $identifiers instanceof Traversable) {
-            $this->identifiers = array_unique(array_merge($this->identifiers, (array) $identifiers));
-        } elseif ($identifiers !== null) {
-            $this->identifiers = array_unique(array_merge($this->identifiers, array($identifiers)));
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getIdentifiers()
-    {
-        return $this->identifiers;
-    }
-
-    /**
-     * Prepare arguments
-     *
-     * Use this method if you want to be able to modify arguments from within a
-     * listener. It returns an ArrayObject of the arguments, which may then be
-     * passed to trigger() or triggerUntil().
-     *
-     * @param  array $args
-     * @return ArrayObject
-     */
-    public function prepareArgs(array $args)
-    {
-        return new ArrayObject($args);
-    }
-
-    /**
-     * Trigger listeners
-     *
-     * Actual functionality for triggering listeners, to which both trigger() and triggerUntil()
-     * delegate.
-     *
-     * @param  string           $eventName Event name
-     * @param  EventInterface   $event
-     * @param  callable|null    $callback
-     * @return ResponseCollection
-     */
-    protected function triggerListeners($eventName, EventInterface $event, callable $callback = null)
-    {
         $responses = new ResponseCollection();
 
         // We cannot use union (+) operator as it merges numeric indexed keys
@@ -318,6 +209,77 @@ class EventManager implements EventManagerInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function getEventNames()
+    {
+        return array_keys($this->events);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getListeners($eventName)
+    {
+        return isset($this->events[$eventName]) ? $this->events[$eventName] : array();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function clearListeners($eventName)
+    {
+        unset($this->events[$eventName]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIdentifiers($identifiers)
+    {
+        if ($identifiers instanceof Traversable) {
+            $identifiers = iterator_to_array($identifiers);
+        }
+
+        $this->identifiers = (array) $identifiers;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addIdentifiers($identifiers)
+    {
+        if ($identifiers instanceof Traversable) {
+            $identifiers = iterator_to_array($identifiers);
+        }
+
+        $this->identifiers = array_unique(array_merge($this->identifiers, $identifiers));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIdentifiers()
+    {
+        return $this->identifiers;
+    }
+
+    /**
+     * Prepare arguments
+     *
+     * Use this method if you want to be able to modify arguments from within a
+     * listener. It returns an ArrayObject of the arguments, which may then be
+     * passed to trigger() or triggerUntil().
+     *
+     * @param  array $args
+     * @return ArrayObject
+     */
+    public function prepareArgs(array $args)
+    {
+        return new ArrayObject($args);
+    }
+
+    /**
      * Get list of all listeners attached to the shared event manager for
      * identifiers registered by this instance
      *
@@ -330,18 +292,13 @@ class EventManager implements EventManagerInterface
             return array();
         }
 
-        $identifiers = $this->getIdentifiers();
-        $listeners   = array();
+        $identifiers = $this->identifiers;
 
         // Add wildcard id to the search, if not already added
-        if (!in_array('*', $identifiers)) {
+        if (!in_array('*', $identifiers, true)) {
             $identifiers[] = '*';
         }
 
-        foreach ($identifiers as $identifier) {
-            $listeners = array_merge($listeners, $this->sharedManager->getListeners($identifier, $eventName));
-        }
-
-        return $listeners;
+        return $this->sharedManager->getListeners($identifiers, $eventName);
     }
 }

@@ -53,30 +53,21 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     public function detachAggregate(ListenerAggregateInterface $aggregate);
 
     /**
-     * Trigger an event
-     *
-     * @param  string              $eventName
-     * @param  EventInterface|null $event
-     * @return ResponseCollection
-     */
-    public function trigger($eventName, EventInterface $event = null);
-
-    /**
-     * Trigger an event until the given callback returns a boolean false
+     * Trigger an event (optionally until using a callback returns a boolean true)
      *
      * @param  string              $eventName
      * @param  EventInterface|null $event
      * @param  callable|null       $callback
      * @return ResponseCollection
      */
-    public function triggerUntil($event, EventInterface $event = null, callable $callback = null);
+    public function trigger($eventName, EventInterface $event = null, callable $callback = null);
 
     /**
-     * Get a list of events for which this collection has listeners
+     * Get a list of event names for which this collection has listeners
      *
      * @return array
      */
-    public function getEvents();
+    public function getEventNames();
 
     /**
      * Retrieve a list of listeners registered to a given event
@@ -97,7 +88,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     /**
      * Set the identifiers (overrides any currently set identifiers)
      *
-     * @param  string|int|array|Traversable $identifiers
+     * @param  array|Traversable $identifiers
      * @return void
      */
     public function setIdentifiers($identifiers);
@@ -105,7 +96,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
     /**
      * Add some identifier(s) (appends to any currently set identifiers)
      *
-     * @param  string|int|array|Traversable $identifiers
+     * @param  array|Traversable $identifiers
      * @return void
      */
     public function addIdentifiers($identifiers);

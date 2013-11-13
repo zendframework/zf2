@@ -97,17 +97,22 @@ class SharedEventManager implements SharedEventManagerInterface
     /**
      * Retrieve all listeners for a given identifier and event
      *
-     * @param  string|int $identifier
-     * @param  string|int $eventName
+     * @param  string|string[] $identifiers
+     * @param  string|int      $eventName
      * @return array
      */
-    public function getListeners($identifier, $eventName)
+    public function getListeners($identifiers, $eventName)
     {
-        if (isset($this->identifiers[$identifier]) && isset($this->identifiers[$identifier][$eventName])) {
-            return $this->identifiers[$identifier][$eventName];
+        $identifiers = (array) $identifiers;
+        $listeners   = array();
+
+        foreach ($identifiers as $identifier) {
+            if (isset($this->identifiers[$identifier]) && isset($this->identifiers[$identifier][$eventName])) {
+                $listeners = array_merge($listeners, $this->identifiers[$identifier][$eventName]);
+            }
         }
 
-        return array();
+        return $listeners;
     }
 
     /**

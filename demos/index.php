@@ -10,13 +10,16 @@ $eventManager  = new \Zend\EventManager\EventManager(array('myid'));
 $sharedManager = new \Zend\EventManager\SharedEventManager();
 
 $eventManager->setSharedManager($sharedManager);
-//$eventManager->attach('event', function() { echo 'hello'; });
+$listener  = $eventManager->attach('event', function() { echo 'hello'; });
 //$sharedManager->attach('myid', 'event', function() { echo 'world'; }, -1);
 
 //$eventManager->trigger('event');
 
+$eventManager->detach($listener);
 
-for ($i = 0 ; $i != 50 ; ++$i) {
+var_dump($eventManager);
+
+/*for ($i = 0 ; $i != 50 ; ++$i) {
     $eventManager->attach('event', function() {}, $i);
     $sharedManager->attach('myid', 'event', function() {});
 }
@@ -24,7 +27,7 @@ for ($i = 0 ; $i != 50 ; ++$i) {
 for ($i=0 ; $i<$nb_occur; $i++)
 {
     $eventManager->trigger('event');
-}
+}*/
 
 $time_end = microtime(true);
 $time = $time_end - $time_start;

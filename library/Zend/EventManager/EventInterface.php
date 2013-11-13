@@ -9,7 +9,7 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
+use Traversable;
 
 /**
  * Representation of an event
@@ -34,7 +34,7 @@ interface EventInterface
     /**
      * Set event parameters (overwrite parameters)
      *
-     * @param  array|ArrayAccess|object $params
+     * @param  array|Traversable $params
      * @return void
      */
     public function setParams($params);
@@ -43,7 +43,7 @@ interface EventInterface
      * Set a single parameter by key
      *
      * @param  string $name
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return void
      */
     public function setParam($name, $value);
@@ -51,7 +51,7 @@ interface EventInterface
     /**
      * Get parameters passed to the event
      *
-     * @return array|ArrayAccess|object
+     * @return array
      */
     public function getParams();
 
@@ -59,7 +59,7 @@ interface EventInterface
      * Get a single parameter by name
      *
      * @param  string $name
-     * @param  mixed $default Default value to return if parameter does not exist
+     * @param  mixed  $default Default value to return if parameter does not exist
      * @return mixed
      */
     public function getParam($name, $default = null);

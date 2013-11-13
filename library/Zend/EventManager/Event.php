@@ -9,7 +9,7 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
+use Traversable;
 
 /**
  * Representation of an event
@@ -40,7 +40,7 @@ class Event implements EventInterface
      * Accept a target and its parameters.
      *
      * @param  string|object     $target
-     * @param  array|ArrayAccess $params
+     * @param  array|Traversable $params
      */
     public function __construct($target = null, $params = null)
     {
@@ -71,14 +71,11 @@ class Event implements EventInterface
 
     /**
      * {@inheritDoc}
-     * @throws Exception\InvalidArgumentException
      */
     public function setParams($params)
     {
-        if (!is_array($params) && !is_object($params)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Event parameters must be an array or object; received "%s"', gettype($params)
-            ));
+        if ($params instanceof Traversable) {
+            $params = iterator_to_array($params);
         }
 
         $this->params = $params;
@@ -89,13 +86,7 @@ class Event implements EventInterface
      */
     public function setParam($name, $value)
     {
-        if (is_array($this->params) || $this->params instanceof ArrayAccess) {
-            // Arrays or objects implementing array access
-            $this->params[$name] = $value;
-        } else {
-            // Objects
-            $this->params->{$name} = $value;
-        }
+        $this->params[$name] = $value;
     }
 
     /**
@@ -111,21 +102,11 @@ class Event implements EventInterface
      */
     public function getParam($name, $default = null)
     {
-        // Check in params that are arrays or implement array access
-        if (is_array($this->params) || $this->params instanceof ArrayAccess) {
-            if (!isset($this->params[$name])) {
-                return $default;
-            }
-
-            return $this->params[$name];
-        }
-
-        // Check in normal objects
-        if (!isset($this->params->{$name})) {
+        if (!isset($this->params[$name])) {
             return $default;
         }
 
-        return $this->params->{$name};
+        return $this->params[$name];
     }
 
     /**
