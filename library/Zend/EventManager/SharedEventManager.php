@@ -42,7 +42,7 @@ class SharedEventManager implements SharedEventManagerInterface
         $identifiers = (array) $identifiers;
 
         foreach ($identifiers as $identifier) {
-            $this->identifiers[$identifier][$eventName][(int) $priority][] = $listener;
+            $this->identifiers[$identifier][$eventName][(int) $priority . '.0'][] = $listener;
         }
 
         return $listener;

@@ -96,7 +96,7 @@ class EventManager implements EventManagerInterface
      */
     public function attach($event, callable $listener, $priority = 1)
     {
-        $this->events[(string) $event][(int) $priority][] = $listener;
+        $this->events[(string) $event][(int) $priority . '.0'][] = $listener;
 
         return $listener;
     }
@@ -292,7 +292,7 @@ class EventManager implements EventManagerInterface
         $responses = new ResponseCollection();
 
         // We cannot use union (+) operator as it merges numeric indexed keys
-        $listeners = array_merge(
+        $listeners = array_merge_recursive(
             $this->getListeners($eventName),
             $this->getListeners('*'),
             $this->getSharedListeners($eventName),

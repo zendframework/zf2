@@ -11,7 +11,7 @@ $sharedManager = new \Zend\EventManager\SharedEventManager();
 
 $eventManager->setSharedManager($sharedManager);
 //$eventManager->attach('event', function() { echo 'hello'; });
-//$sharedManager->attach('myid', 'event', function() { echo 'world'; });
+//$sharedManager->attach('myid', 'event', function() { echo 'world'; }, -1);
 
 //$eventManager->trigger('event');
 
