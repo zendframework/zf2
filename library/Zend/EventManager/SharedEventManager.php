@@ -39,9 +39,7 @@ class SharedEventManager implements SharedEventManagerInterface
      */
     public function attach($identifiers, $eventName, callable $listener, $priority = 1)
     {
-        $identifiers = (array) $identifiers;
-
-        foreach ($identifiers as $identifier) {
+        foreach ((array) $identifiers as $identifier) {
             $this->identifiers[$identifier][$eventName][(int) $priority . '.0'][] = $listener;
         }
 
@@ -103,10 +101,9 @@ class SharedEventManager implements SharedEventManagerInterface
      */
     public function getListeners($identifiers, $eventName)
     {
-        $identifiers = (array) $identifiers;
-        $listeners   = array();
+        $listeners = array();
 
-        foreach ($identifiers as $identifier) {
+        foreach ((array) $identifiers as $identifier) {
             if (isset($this->identifiers[$identifier]) && isset($this->identifiers[$identifier][$eventName])) {
                 $listeners = array_merge($listeners, $this->identifiers[$identifier][$eventName]);
             }
