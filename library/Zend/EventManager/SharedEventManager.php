@@ -104,7 +104,7 @@ class SharedEventManager implements SharedEventManagerInterface
         $listeners = array();
 
         foreach ((array) $identifiers as $identifier) {
-            if (isset($this->identifiers[$identifier]) && isset($this->identifiers[$identifier][$eventName])) {
+            if (isset($this->identifiers[$identifier][$eventName])) {
                 $listeners = array_merge($listeners, $this->identifiers[$identifier][$eventName]);
             }
         }

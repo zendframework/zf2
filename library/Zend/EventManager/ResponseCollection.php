@@ -92,12 +92,6 @@ class ResponseCollection
      */
     public function contains($value)
     {
-        foreach ($this->responses as $response) {
-            if ($response === $value) {
-                return true;
-            }
-        }
-
-        return false;
+        return in_array($value, $this->responses, true);
     }
 }
