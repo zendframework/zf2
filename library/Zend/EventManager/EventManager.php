@@ -25,14 +25,14 @@ class EventManager implements EventManagerInterface
      *
      * @var array
      */
-    protected $events = array();
+    protected $events = [];
 
     /**
      * Identifiers, used to pull shared signals from SharedEventManagerInterface instance
      *
      * @var array
      */
-    protected $identifiers = array();
+    protected $identifiers = [];
 
     /**
      * Shared event manager
@@ -224,7 +224,7 @@ class EventManager implements EventManagerInterface
      */
     public function getListeners($eventName)
     {
-        return isset($this->events[$eventName]) ? $this->events[$eventName] : array();
+        return isset($this->events[$eventName]) ? $this->events[$eventName] : [];
     }
 
     /**

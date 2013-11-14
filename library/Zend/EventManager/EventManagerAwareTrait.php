@@ -30,7 +30,7 @@ trait EventManagerAwareTrait
     public function setEventManager(EventManagerInterface $eventManager)
     {
         $eventManager->setIdentifiers(
-            array_unique(array_merge(array(__CLASS__, get_class($this)), $this->eventIdentifiers)
+            array_unique(array_merge([__CLASS__, get_class($this)], $this->eventIdentifiers)
         ));
 
         $this->eventManager = $eventManager;

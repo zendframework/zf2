@@ -23,7 +23,7 @@ class SharedEventManager implements SharedEventManagerInterface
      *
      * @var array
      */
-    protected $identifiers = array();
+    protected $identifiers = [];
 
     /**
      * Attach a listener to an event
@@ -101,7 +101,7 @@ class SharedEventManager implements SharedEventManagerInterface
      */
     public function getListeners($identifiers, $eventName)
     {
-        $listeners = array();
+        $listeners = [];
 
         foreach ((array) $identifiers as $identifier) {
             if (isset($this->identifiers[$identifier][$eventName])) {
@@ -129,7 +129,7 @@ class SharedEventManager implements SharedEventManagerInterface
             unset($this->identifiers[$identifier]);
         }
 
-        $this->identifiers[$identifier]->clearListeners($eventName);
+        unset($this->identifiers[$identifier][$eventName]);
     }
 
     /**

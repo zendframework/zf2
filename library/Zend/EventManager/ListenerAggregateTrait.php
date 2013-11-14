@@ -18,7 +18,7 @@ trait ListenerAggregateTrait
     /**
      * @var callable[]
      */
-    protected $listeners = array();
+    protected $listeners = [];
 
     /**
      * {@inheritDoc}

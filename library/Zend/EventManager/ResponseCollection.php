@@ -20,7 +20,7 @@ class ResponseCollection
     /**
      * @var array
      */
-    protected $responses = array();
+    protected $responses = [];
 
     /**
      * @var bool
@@ -30,7 +30,7 @@ class ResponseCollection
     /**
      * @param array $responses
      */
-    public function __construct(array $responses = array())
+    public function __construct(array $responses = [])
     {
         $this->responses = $responses;
     }
