@@ -17,13 +17,13 @@ interface SharedEventManagerInterface
     /**
      * Attach a listener to an event
      *
-     * @param  string|array $id Identifier(s) for event emitting component(s)
-     * @param  string       $event
-     * @param  callable     $listener PHP Callback
-     * @param  int          $priority Priority at which listener should execute
+     * @param  array    $identifiers Identifier(s) for event emitting component(s)
+     * @param  string   $eventName
+     * @param  callable $listener PHP Callback
+     * @param  int      $priority Priority at which listener should execute
      * @return void
      */
-    public function attach($id, $event, callable $listener, $priority = 1);
+    public function attach($identifiers, $eventName, callable $listener, $priority = 1);
 
     /**
      * Attach a listener aggregate
@@ -37,11 +37,11 @@ interface SharedEventManagerInterface
     /**
      * Detach a listener from an event offered by a given resource
      *
-     * @param  string|int $id
+     * @param  string|int $identifier
      * @param  callable   $listener
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
      */
-    public function detach($id, callable $listener);
+    public function detach($identifier, callable $listener);
 
     /**
      * Detach a listener aggregate

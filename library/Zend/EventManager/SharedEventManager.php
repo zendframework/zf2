@@ -65,17 +65,26 @@ class SharedEventManager implements SharedEventManagerInterface
     /**
      * Detach a listener from an event offered by a given resource
      *
-     * @param  string|int $id
+     * @param  string|int $identifier
      * @param  callable   $listener
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
      */
-    public function detach($id, callable $listener)
+    public function detach($identifier, callable $listener)
     {
-        if (!isset($this->identifiers[$id])) {
+        if (!isset($this->identifiers[$identifier])) {
             return false;
         }
 
-        return $this->identifiers[$id]->detach($listener);
+        foreach ($this->identifiers[$identifier] as &$event) {
+            foreach ($event as &$listeners) {
+                if (($key = array_search($listener, $listeners, true)) !== false) {
+                    unset($listeners[$key]);
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
