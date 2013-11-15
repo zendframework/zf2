@@ -190,7 +190,7 @@ class EventManager implements EventManagerInterface
             $this->getSharedListeners('*')
         );
 
-        krsort($listeners);
+        krsort($listeners, SORT_NUMERIC);
 
         foreach ($listeners as $listenersByPriority) {
             foreach ($listenersByPriority as $listener) {
