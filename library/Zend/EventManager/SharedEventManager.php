@@ -26,13 +26,6 @@ class SharedEventManager implements SharedEventManagerInterface
     protected $identifiers = [];
 
     /**
-     * Are listeners ordered?
-     *
-     * @var array
-     */
-    protected $identifiersOrdered = [];
-
-    /**
      * Attach a listener to an event
      *
      * Allows attaching a callback to an event offered by one or more
@@ -78,15 +71,13 @@ class SharedEventManager implements SharedEventManagerInterface
      */
     public function detach($identifier, callable $listener)
     {
-        if (!isset($this->identifiers[$identifier])) {
-            return false;
-        }
-
-        foreach ($this->identifiers[$identifier] as &$event) {
-            foreach ($event as &$listeners) {
-                if (($key = array_search($listener, $listeners, true)) !== false) {
-                    unset($listeners[$key]);
-                    return true;
+        if (isset($this->identifiers[$identifier])) {
+            foreach ($this->identifiers[$identifier] as &$event) {
+                foreach ($event as &$listeners) {
+                    if (($key = array_search($listener, $listeners, true)) !== false) {
+                        unset($listeners[$key]);
+                        return true;
+                    }
                 }
             }
         }
@@ -129,12 +120,14 @@ class SharedEventManager implements SharedEventManagerInterface
             }
         }
 
-        if (isset($this->identifiers['*'][$eventName]) && !in_array('*', $identifiers, true)) {
-            $listeners = array_merge($listeners, $this->identifiers['*'][$eventName]);
-        }
+        if (isset($this->identifiers['*']) && !in_array('*', $identifiers, true)) {
+            if (isset($this->identifiers['*'][$eventName])) {
+                $listeners = array_merge($listeners, $this->identifiers['*'][$eventName]);
+            }
 
-        if ($eventName !== '*' && isset($this->identifiers['*']['*'])) {
-            $listeners = array_merge($listeners, $this->identifiers['*']['*']);
+            if (isset($this->identifiers['*']['*'])) {
+                $listeners = array_merge($listeners, $this->identifiers['*']['*']);
+            }
         }
 
         return $listeners;
