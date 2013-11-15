@@ -106,7 +106,7 @@ class EventManager implements EventManagerInterface
     public function attach($eventName, callable $listener, $priority = 1)
     {
         $this->events[$eventName][(int) $priority . '.0'][] = $listener;
-        $this->orderedByPriority = false;
+        $this->orderedByPriority                            = false;
 
         return $listener;
     }
@@ -190,7 +190,7 @@ class EventManager implements EventManagerInterface
         $event = $event ?: new Event();
         $event->stopPropagation(false);
 
-        $responses = array();
+        $responses = [];
         $listeners = $this->getListeners($eventName);
 
         foreach ($listeners as $listenersByPriority) {
@@ -223,14 +223,15 @@ class EventManager implements EventManagerInterface
      */
     public function getListeners($eventName)
     {
-        $listeners  = $wildcardListeners = $sharedListeners = array();
+        $listeners  = $wildcardListeners = $sharedListeners = [];
         $mergeCount = 0;
 
         // pre-order all listeners by priority
         if (!$this->orderedByPriority) {
-            foreach ($this->events as & $listenersByPriority) {
-                krsort($listenersByPriority, \SORT_NUMERIC);
+            foreach ($this->events as &$listenersByPriority) {
+                krsort($listenersByPriority, SORT_NUMERIC);
             }
+
             $this->orderedByPriority = true;
         }
 
@@ -243,14 +244,16 @@ class EventManager implements EventManagerInterface
             ++$mergeCount;
         }
 
-        if (null !== $this->sharedManager && ($sharedListeners = $this->sharedManager->getListeners($this->identifiers, $eventName))) {
+        if (null !== $this->sharedManager
+            && ($sharedListeners = $this->sharedManager->getListeners($this->identifiers, $eventName))
+        ) {
             ++$mergeCount;
         }
 
         // merge
         if ($mergeCount > 1) {
             $listeners = array_merge_recursive($listeners, $wildcardListeners, $sharedListeners);
-            krsort($listeners, \SORT_NUMERIC);
+            krsort($listeners, SORT_NUMERIC);
         } else {
            $listeners = $listeners ?: $wildcardListeners ?: $sharedListeners;
         }
