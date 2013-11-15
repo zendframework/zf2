@@ -96,7 +96,8 @@ class EventManager implements EventManagerInterface
      */
     public function attach($event, callable $listener, $priority = 1)
     {
-        $this->events[(string) $event][(int) $priority . '.0'][] = $listener;
+        $this->events[$event][(int) $priority . '.0'][] = $listener;
+        krsort($this->events[$event], SORT_NUMERIC);
 
         return $listener;
     }
@@ -181,25 +182,13 @@ class EventManager implements EventManagerInterface
         $event->stopPropagation(false);
 
         $responses = array();
-
-        // We cannot use union (+) operator as it merges numeric indexed keys
-        $listeners = array_merge_recursive(
-            $this->getListeners($eventName),
-            $this->getListeners('*'),
-            $this->getSharedListeners($eventName),
-            $this->getSharedListeners('*')
-        );
-
-        krsort($listeners);
-
+        $listeners = $this->getListeners($eventName);
         foreach ($listeners as $listenersByPriority) {
             foreach ($listenersByPriority as $listener) {
                 $lastResponse = $listener($event);
                 $responses[]  = $lastResponse;
 
-                if ($event->isPropagationStopped()
-                    || ($callback && $callback($lastResponse))
-                ) {
+                if ($event->isPropagationStopped() || ($callback && $callback($lastResponse))) {
                     $responseCollection = new ResponseCollection($responses);
                     $responseCollection->setStopped(true);
 
@@ -224,7 +213,30 @@ class EventManager implements EventManagerInterface
      */
     public function getListeners($eventName)
     {
-        return isset($this->events[$eventName]) ? $this->events[$eventName] : [];
+        $listeners  = $wildcardListeners = $sharedListeners = array();
+        $mergeCount = 0;
+
+        if (isset($this->events[$eventName]) && ($listeners = $this->events[$eventName])) {
+           ++$mergeCount;
+        }
+
+        if (isset($this->events['*']) && ($wildcardListeners = $this->events['*'])) {
+            ++$mergeCount;
+        }
+
+        if (null !== $this->sharedManager && ($sharedListeners = $this->sharedManager->getListeners($this->identifiers, $eventName))) {
+            ++$mergeCount;
+        }
+
+        // merge
+        if ($mergeCount > 1) {
+            $listeners = array_merge_recursive($listeners, $wildcardListeners, $sharedListeners);
+            krsort($listeners, SORT_NUMERIC);
+        } else {
+           $listeners = $listeners ?: $wildcardListeners ?: $sharedListeners;
+        }
+
+        return $listeners;
     }
 
     /**
@@ -280,28 +292,5 @@ class EventManager implements EventManagerInterface
     public function prepareArgs(array $args)
     {
         return new ArrayObject($args);
-    }
-
-    /**
-     * Get list of all listeners attached to the shared event manager for
-     * identifiers registered by this instance
-     *
-     * @param  string $eventName
-     * @return array
-     */
-    protected function getSharedListeners($eventName)
-    {
-        if (null === $this->sharedManager) {
-            return array();
-        }
-
-        $identifiers = $this->identifiers;
-
-        // Add wildcard id to the search, if not already added
-        if (!in_array('*', $identifiers, true)) {
-            $identifiers[] = '*';
-        }
-
-        return $this->sharedManager->getListeners($identifiers, $eventName);
     }
 }

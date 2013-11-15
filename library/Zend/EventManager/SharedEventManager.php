@@ -26,6 +26,13 @@ class SharedEventManager implements SharedEventManagerInterface
     protected $identifiers = [];
 
     /**
+     * Are listeners ordered?
+     *
+     * @var array
+     */
+    protected $identifiersOrdered = [];
+
+    /**
      * Attach a listener to an event
      *
      * Allows attaching a callback to an event offered by one or more
@@ -116,6 +123,18 @@ class SharedEventManager implements SharedEventManagerInterface
             if (isset($this->identifiers[$identifier][$eventName])) {
                 $listeners = array_merge($listeners, $this->identifiers[$identifier][$eventName]);
             }
+
+            if (isset($this->identifiers[$identifier]['*'])) {
+                $listeners = array_merge($listeners, $this->identifiers[$identifier]['*']);
+            }
+        }
+
+        if (isset($this->identifiers['*'][$eventName]) && !in_array('*', $identifiers, true)) {
+            $listeners = array_merge($listeners, $this->identifiers['*'][$eventName]);
+        }
+
+        if ($eventName !== '*' && isset($this->identifiers['*']['*'])) {
+            $listeners = array_merge($listeners, $this->identifiers['*']['*']);
         }
 
         return $listeners;
