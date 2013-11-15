@@ -71,15 +71,13 @@ class SharedEventManager implements SharedEventManagerInterface
      */
     public function detach($identifier, callable $listener)
     {
-        if (!isset($this->identifiers[$identifier])) {
-            return false;
-        }
-
-        foreach ($this->identifiers[$identifier] as &$event) {
-            foreach ($event as &$listeners) {
-                if (($key = array_search($listener, $listeners, true)) !== false) {
-                    unset($listeners[$key]);
-                    return true;
+        if (isset($this->identifiers[$identifier])) {
+            foreach ($this->identifiers[$identifier] as &$event) {
+                foreach ($event as &$listeners) {
+                    if (($key = array_search($listener, $listeners, true)) !== false) {
+                        unset($listeners[$key]);
+                        return true;
+                    }
                 }
             }
         }
@@ -115,6 +113,20 @@ class SharedEventManager implements SharedEventManagerInterface
         foreach ((array) $identifiers as $identifier) {
             if (isset($this->identifiers[$identifier][$eventName])) {
                 $listeners = array_merge($listeners, $this->identifiers[$identifier][$eventName]);
+            }
+
+            if (isset($this->identifiers[$identifier]['*'])) {
+                $listeners = array_merge($listeners, $this->identifiers[$identifier]['*']);
+            }
+        }
+
+        if (isset($this->identifiers['*']) && !in_array('*', $identifiers, true)) {
+            if (isset($this->identifiers['*'][$eventName])) {
+                $listeners = array_merge($listeners, $this->identifiers['*'][$eventName]);
+            }
+
+            if (isset($this->identifiers['*']['*'])) {
+                $listeners = array_merge($listeners, $this->identifiers['*']['*']);
             }
         }
 

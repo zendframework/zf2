@@ -42,6 +42,13 @@ class EventManager implements EventManagerInterface
     protected $sharedManager = null;
 
     /**
+     * Are listeners already ordered by priority?
+     *
+     * @var bool
+     */
+    protected $orderedByPriority = true;
+
+    /**
      * Constructor
      *
      * Allows optionally specifying identifier(s) to use to pull signals from a
@@ -51,7 +58,9 @@ class EventManager implements EventManagerInterface
      */
     public function __construct($identifiers = null)
     {
-        $this->setIdentifiers($identifiers);
+        if ($identifiers) {
+            $this->setIdentifiers($identifiers);
+        }
     }
 
     /**
@@ -88,15 +97,16 @@ class EventManager implements EventManagerInterface
      * You can specify "*" for the event name. In such cases, the listener will
      * be triggered for every event.
      *
-     * @param  string   $event An event or array of event names
+     * @param  string   $eventName An event or array of event names
      * @param  callable $listener
      * @param  int      $priority If provided, the priority at which to register the callable
      * @return callable if attaching callable (to allow later unsubscribe)
      * @throws Exception\InvalidArgumentException
      */
-    public function attach($event, callable $listener, $priority = 1)
+    public function attach($eventName, callable $listener, $priority = 1)
     {
-        $this->events[(string) $event][(int) $priority . '.0'][] = $listener;
+        $this->events[$eventName][(int) $priority . '.0'][] = $listener;
+        $this->orderedByPriority = false;
 
         return $listener;
     }
@@ -123,13 +133,13 @@ class EventManager implements EventManagerInterface
      * This method is quite inefficient as it needs to traverse each queue, so use with care! If you are that
      * worried about performance, you should always filter by the event name so that less work is done
      *
-     * @param  callable $listener
-     * @param  string   $eventName
+     * @param  callable    $listener
+     * @param  null|string $eventName
      * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
      */
-    public function detach(callable $listener, $eventName = '')
+    public function detach(callable $listener, $eventName = null)
     {
-        if (!empty($eventName) && isset($this->events[$eventName])) {
+        if ($eventName !== null && isset($this->events[$eventName])) {
             foreach ($this->events[$eventName] as &$listeners) {
                 if (($key = array_search($listener, $listeners, true)) !== false) {
                     unset($listeners[$key]);
@@ -181,25 +191,14 @@ class EventManager implements EventManagerInterface
         $event->stopPropagation(false);
 
         $responses = array();
-
-        // We cannot use union (+) operator as it merges numeric indexed keys
-        $listeners = array_merge_recursive(
-            $this->getListeners($eventName),
-            $this->getListeners('*'),
-            $this->getSharedListeners($eventName),
-            $this->getSharedListeners('*')
-        );
-
-        krsort($listeners, SORT_NUMERIC);
+        $listeners = $this->getListeners($eventName);
 
         foreach ($listeners as $listenersByPriority) {
             foreach ($listenersByPriority as $listener) {
                 $lastResponse = $listener($event);
                 $responses[]  = $lastResponse;
 
-                if ($event->isPropagationStopped()
-                    || ($callback && $callback($lastResponse))
-                ) {
+                if ($event->isPropagationStopped() || ($callback && $callback($lastResponse))) {
                     $responseCollection = new ResponseCollection($responses);
                     $responseCollection->setStopped(true);
 
@@ -224,7 +223,39 @@ class EventManager implements EventManagerInterface
      */
     public function getListeners($eventName)
     {
-        return isset($this->events[$eventName]) ? $this->events[$eventName] : [];
+        $listeners  = $wildcardListeners = $sharedListeners = array();
+        $mergeCount = 0;
+
+        // pre-order all listeners by priority
+        if (!$this->orderedByPriority) {
+            foreach ($this->events as & $listenersByPriority) {
+                krsort($listenersByPriority, \SORT_NUMERIC);
+            }
+            $this->orderedByPriority = true;
+        }
+
+        // retrieve listeners
+        if (isset($this->events[$eventName]) && ($listeners = $this->events[$eventName])) {
+           ++$mergeCount;
+        }
+
+        if (isset($this->events['*']) && ($wildcardListeners = $this->events['*'])) {
+            ++$mergeCount;
+        }
+
+        if (null !== $this->sharedManager && ($sharedListeners = $this->sharedManager->getListeners($this->identifiers, $eventName))) {
+            ++$mergeCount;
+        }
+
+        // merge
+        if ($mergeCount > 1) {
+            $listeners = array_merge_recursive($listeners, $wildcardListeners, $sharedListeners);
+            krsort($listeners, \SORT_NUMERIC);
+        } else {
+           $listeners = $listeners ?: $wildcardListeners ?: $sharedListeners;
+        }
+
+        return $listeners;
     }
 
     /**
@@ -280,28 +311,5 @@ class EventManager implements EventManagerInterface
     public function prepareArgs(array $args)
     {
         return new ArrayObject($args);
-    }
-
-    /**
-     * Get list of all listeners attached to the shared event manager for
-     * identifiers registered by this instance
-     *
-     * @param  string $eventName
-     * @return array
-     */
-    protected function getSharedListeners($eventName)
-    {
-        if (null === $this->sharedManager) {
-            return array();
-        }
-
-        $identifiers = $this->identifiers;
-
-        // Add wildcard id to the search, if not already added
-        if (!in_array('*', $identifiers, true)) {
-            $identifiers[] = '*';
-        }
-
-        return $this->sharedManager->getListeners($identifiers, $eventName);
     }
 }
