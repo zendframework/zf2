@@ -191,21 +191,7 @@ class EventManager implements EventManagerInterface
         $event->stopPropagation(false);
 
         $responses = array();
-<<<<<<< HEAD
         $listeners = $this->getListeners($eventName);
-=======
-
-        // We cannot use union (+) operator as it merges numeric indexed keys
-        $listeners = array_merge_recursive(
-            $this->getListeners($eventName),
-            $this->getListeners('*'),
-            $this->getSharedListeners($eventName),
-            $this->getSharedListeners('*')
-        );
-
-        krsort($listeners, SORT_NUMERIC);
-
->>>>>>> 88ee872... Sort numerically
         foreach ($listeners as $listenersByPriority) {
             foreach ($listenersByPriority as $listener) {
                 $lastResponse = $listener($event);
