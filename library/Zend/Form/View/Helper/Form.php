@@ -64,9 +64,9 @@ class Form extends AbstractHelper
 
         foreach ($form as $element) {
             if ($element instanceof FieldsetInterface) {
-                $formContent.= $this->getView()->formCollection($element);
+                $formContent.= $this->getView()->formCollection()->setTranslatorTextDomain($this->translatorTextDomain)->render($element);
             } else {
-                $formContent.= $this->getView()->formRow($element);
+                $formContent.= $this->getView()->formRow()->setTranslatorTextDomain($this->translatorTextDomain)->render($element);
             }
         }
 
