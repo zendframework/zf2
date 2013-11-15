@@ -9,6 +9,8 @@
 
 namespace Zend\Http;
 
+use ArrayIterator;
+use Traversable;
 use Zend\Stdlib\DispatchableInterface;
 use Zend\Uri\Http;
 
@@ -338,18 +340,6 @@ interface ClientInterface extends DispatchableInterface
      * @return bool
      */
     public function removeFileUpload($filename);
-
-    /**
-     * Encode data to a multipart/form-data part suitable for a POST request.
-     *
-     * @param string $boundary
-     * @param string $name
-     * @param mixed $value
-     * @param string $filename
-     * @param array $headers Associative array of optional headers @example ("Content-Transfer-Encoding" => "binary")
-     * @return string
-     */
-    public function encodeFormData($boundary, $name, $value, $filename = null, $headers = array());
 
     /**
      * Create a HTTP authentication "Authorization:" header according to the
