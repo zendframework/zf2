@@ -201,15 +201,13 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
             return $this->current;
         }
         $this->checkBuffered();
-        $this->current = $this->hydrateCurrent();
-
-        if($this->current === false) {
-            $this->current = null;
-        } elseif (is_array($this->buffer)) {
-            $this->buffer[$this->position] = $this->current;
+        if (is_array($this->buffer)) {
+            if (!isset($this->buffer[$this->position])) {
+                return $this->current = $this->buffer[$this->position] = $this->hydrateCurrent();
+            }
+            return $this->current = $this->buffer[$this->position];
         }
-
-        return $this->current;
+        return $this->current = $this->hydrateCurrent();
     }
 
     protected function hydrateCurrent()
@@ -258,18 +256,15 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     public function rewind()
     {
-        $this->position = 0;
-        $this->current = null;
         if (!is_array($this->buffer)) {
             if ($this->dataSource instanceof Iterator) {
                 $this->dataSource->rewind();
             } else {
                 reset($this->dataSource);
             }
-            $this->current = null;
-        } elseif(isset($this->buffer[$this->position])) {
-            $this->current = $this->buffer[$this->position];
         }
+        $this->position = 0;
+        $this->current = null;
     }
 
     /**

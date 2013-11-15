@@ -67,6 +67,44 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
         $resultSet->buffer();
     }
 
+    public function testBuffer_ForEachTwice_WithArray()
+    {
+        $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
+        $resultSet->initialize(array(
+                array('id' => 1, 'name' => 'one'),
+                array('id' => 2, 'name' => 'two'),
+                array('id' => 3, 'name' => 'three'),
+        ));
+        $resultSet->buffer();
+
+        foreach($resultSet as $key=>$value) {
+            $this->assertEquals($value['id'], $key + 1);
+        }
+
+        foreach($resultSet as $key=>$value) {
+            $this->assertEquals($value['id'], $key + 1);
+        }
+    }
+
+    public function testBuffer_ForEachTwice_WithArrayIterator()
+    {
+        $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
+        $resultSet->initialize(new \ArrayIterator(array(
+                array('id' => 1, 'name' => 'one'),
+                array('id' => 2, 'name' => 'two'),
+                array('id' => 3, 'name' => 'three'),
+        )));
+        $resultSet->buffer();
+
+        foreach($resultSet as $key=>$value) {
+            $this->assertEquals($value['id'], $key + 1);
+        }
+
+        foreach($resultSet as $key=>$value) {
+            $this->assertEquals($value['id'], $key + 1);
+        }
+    }
+
     /**
      * @covers Zend\Db\ResultSet\AbstractResultSet::isBuffered
      */
