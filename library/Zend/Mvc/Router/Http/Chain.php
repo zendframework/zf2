@@ -12,7 +12,7 @@ namespace Zend\Mvc\Router\Http;
 use ArrayObject;
 use Traversable;
 use Zend\Mvc\Router\Exception;
-use Zend\Mvc\Router\PriorityList;
+use Zend\Stdlib\PriorityList;
 use Zend\Mvc\Router\RoutePluginManager;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\RequestInterface as Request;

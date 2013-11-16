@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Mvc\Router;
+namespace ZendTest\Stdlib;
 
-use Zend\Mvc\Router\PriorityList;
+use Zend\Stdlib\PriorityList;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -29,7 +29,7 @@ class PriorityListTest extends TestCase
 
     public function testInsert()
     {
-        $this->list->insert('foo', new TestAsset\DummyRoute(), 0);
+        $this->list->insert('foo', new \stdClass(), 0);
 
         $this->assertEquals(1, count($this->list));
 
@@ -40,8 +40,8 @@ class PriorityListTest extends TestCase
 
     public function testRemove()
     {
-        $this->list->insert('foo', new TestAsset\DummyRoute(), 0);
-        $this->list->insert('bar', new TestAsset\DummyRoute(), 0);
+        $this->list->insert('foo', new \stdClass(), 0);
+        $this->list->insert('bar', new \stdClass(), 0);
 
         $this->assertEquals(2, count($this->list));
 
@@ -57,8 +57,8 @@ class PriorityListTest extends TestCase
 
     public function testClear()
     {
-        $this->list->insert('foo', new TestAsset\DummyRoute(), 0);
-        $this->list->insert('bar', new TestAsset\DummyRoute(), 0);
+        $this->list->insert('foo', new \stdClass(), 0);
+        $this->list->insert('bar', new \stdClass(), 0);
 
         $this->assertEquals(2, count($this->list));
 
@@ -70,7 +70,7 @@ class PriorityListTest extends TestCase
 
     public function testGet()
     {
-        $route = new TestAsset\DummyRoute();
+        $route = new \stdClass();
 
         $this->list->insert('foo', $route, 0);
 
@@ -80,9 +80,9 @@ class PriorityListTest extends TestCase
 
     public function testLIFOOnly()
     {
-        $this->list->insert('foo', new TestAsset\DummyRoute(), 0);
-        $this->list->insert('bar', new TestAsset\DummyRoute(), 0);
-        $this->list->insert('baz', new TestAsset\DummyRoute(), 0);
+        $this->list->insert('foo', new \stdClass(), 0);
+        $this->list->insert('bar', new \stdClass(), 0);
+        $this->list->insert('baz', new \stdClass(), 0);
 
         $order = array();
 
@@ -95,9 +95,9 @@ class PriorityListTest extends TestCase
 
     public function testPriorityOnly()
     {
-        $this->list->insert('foo', new TestAsset\DummyRoute(), 1);
-        $this->list->insert('bar', new TestAsset\DummyRoute(), 0);
-        $this->list->insert('baz', new TestAsset\DummyRoute(), 2);
+        $this->list->insert('foo', new \stdClass(), 1);
+        $this->list->insert('bar', new \stdClass(), 0);
+        $this->list->insert('baz', new \stdClass(), 2);
 
         $order = array();
 
@@ -110,11 +110,11 @@ class PriorityListTest extends TestCase
 
     public function testLIFOWithPriority()
     {
-        $this->list->insert('foo', new TestAsset\DummyRoute(), 0);
-        $this->list->insert('bar', new TestAsset\DummyRoute(), 0);
-        $this->list->insert('baz', new TestAsset\DummyRoute(), 1);
+        $this->list->insert('foo', new \stdClass(), 0);
+        $this->list->insert('bar', new \stdClass(), 0);
+        $this->list->insert('baz', new \stdClass(), 1);
 
-        $order = array();
+        $orders = array();
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
@@ -123,11 +123,27 @@ class PriorityListTest extends TestCase
         $this->assertEquals(array('baz', 'bar', 'foo'), $orders);
     }
 
+    public function testFIFOWithPriority()
+    {
+        $this->list->isLIFO(false);
+        $this->list->insert('foo', new \stdClass(), 0);
+        $this->list->insert('bar', new \stdClass(), 0);
+        $this->list->insert('baz', new \stdClass(), 1);
+
+        $order = array();
+
+        foreach ($this->list as $key => $value) {
+            $orders[] = $key;
+        }
+
+        $this->assertEquals(array('baz', 'foo', 'bar'), $orders);
+    }
+
     public function testPriorityWithNegativesAndNull()
     {
-        $this->list->insert('foo', new TestAsset\DummyRoute(), null);
-        $this->list->insert('bar', new TestAsset\DummyRoute(), 1);
-        $this->list->insert('baz', new TestAsset\DummyRoute(), -1);
+        $this->list->insert('foo', new \stdClass(), null);
+        $this->list->insert('bar', new \stdClass(), 1);
+        $this->list->insert('baz', new \stdClass(), -1);
 
         $order = array();
 
@@ -136,5 +152,30 @@ class PriorityListTest extends TestCase
         }
 
         $this->assertEquals(array('bar', 'foo', 'baz'), $orders);
+    }
+
+    public function testToArray()
+    {
+        $this->list->insert('foo', 'foo_value', null);
+        $this->list->insert('bar', 'bar_value', 1);
+        $this->list->insert('baz', 'baz_value', -1);
+
+        $this->assertEquals(
+            array(
+                'bar' => 'bar_value',
+                'foo' => 'foo_value',
+                'baz' => 'baz_value'
+            ),
+            $this->list->toArray()
+        );
+
+        $this->assertEquals(
+            array(
+                'bar' => array('value' => 'bar_value', 'priority' =>  1, 'serial' => 1),
+                'foo' => array('value' => 'foo_value', 'priority' =>  0, 'serial' => 0),
+                'baz' => array('value' => 'baz_value', 'priority' => -1, 'serial' => 2),
+            ),
+            $this->list->toArray(true)
+        );
     }
 }
