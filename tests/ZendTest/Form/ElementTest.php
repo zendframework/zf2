@@ -154,11 +154,30 @@ class ElementTest extends TestCase
     {
         $element = new Element('foo');
         $element->setOptions(array(
-                                  'label' => 'foo',
-                                  'label_attributes' => array('bar' => 'baz')
-                             ));
+            'label' => 'foo',
+            'label_attributes' => array('bar' => 'baz')
+        ));
         $option = $element->getOption('label_attributes');
         $this->assertEquals(array('bar' => 'baz'), $option);
+    }
+
+    public function testLabelOptionsAccessors()
+    {
+        $element = new Element('foo');
+        $element->setOptions(array(
+            'label_options' => array('moar' => 'foo')
+        ));
+
+        $labelOptions = $element->getLabelOptions();
+        $this->assertEquals(array('moar' => 'foo'), $labelOptions);
+    }
+
+    public function testCanSetSingleOptionForLabel()
+    {
+        $element = new Element('foo');
+        $element->setOption('label', 'foo');
+        $option = $element->getOption('label');
+        $this->assertEquals('foo', $option);
     }
 
     public function testSetOptionsWrongInputRaisesException()

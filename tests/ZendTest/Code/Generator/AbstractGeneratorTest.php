@@ -10,7 +10,6 @@
 namespace ZendTest\Code\Generator;
 
 /**
- *
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
