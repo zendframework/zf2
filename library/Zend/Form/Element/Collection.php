@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -19,8 +20,8 @@ use Zend\Form\FieldsetPrepareAwareInterface;
 use Zend\Form\FormInterface;
 use Zend\Stdlib\ArrayUtils;
 
-class Collection extends Fieldset implements FieldsetPrepareAwareInterface
-{
+class Collection extends Fieldset implements FieldsetPrepareAwareInterface {
+
     /**
      * Default template placeholder
      */
@@ -94,8 +95,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param array|Traversable $options
      * @return Collection
      */
-    public function setOptions($options)
-    {
+    public function setOptions($options) {
         parent::setOptions($options);
 
         if (isset($options['target_element'])) {
@@ -135,8 +135,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param object $object
      * @return bool
      */
-    public function allowObjectBinding($object)
-    {
+    public function allowObjectBinding($object) {
         return true;
     }
 
@@ -148,18 +147,15 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @return Fieldset|FieldsetInterface
      * @throws Exception\InvalidArgumentException
      */
-    public function setObject($object)
-    {
+    public function setObject($object) {
         if (!is_array($object) && !$object instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects an array or Traversable object argument; received "%s"',
-                __METHOD__,
-                (is_object($object) ? get_class($object) : gettype($object))
+                    '%s expects an array or Traversable object argument; received "%s"', __METHOD__, (is_object($object) ? get_class($object) : gettype($object))
             ));
         }
 
         $this->object = $object;
-        $this->count  = count($object);
+        $this->count = count($object);
 
         return $this;
     }
@@ -172,13 +168,10 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @throws \Zend\Form\Exception\DomainException
      * @return void
      */
-    public function populateValues($data)
-    {
+    public function populateValues($data) {
         if (!is_array($data) && !$data instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects an array or Traversable set of data; received "%s"',
-                __METHOD__,
-                (is_object($data) ? get_class($data) : gettype($data))
+                    '%s expects an array or Traversable set of data; received "%s"', __METHOD__, (is_object($data) ? get_class($data) : gettype($data))
             ));
         }
 
@@ -190,10 +183,9 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
         if (count($data) < $this->getCount()) {
             if (!$this->allowRemove) {
                 throw new Exception\DomainException(sprintf(
-                    'There are fewer elements than specified in the collection (%s). Either set the allow_remove option ' .
-                    'to true, or re-submit the form.',
-                    get_class($this)
-                    )
+                        'There are fewer elements than specified in the collection (%s). Either set the allow_remove option ' .
+                        'to true, or re-submit the form.', get_class($this)
+                )
                 );
             }
 
@@ -238,14 +230,13 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
             }
         } elseif (!empty($data) && !$this->allowAdd) {
             throw new Exception\DomainException(sprintf(
-                'There are more elements than specified in the collection (%s). Either set the allow_add option ' .
-                'to true, or re-submit the form.',
-                get_class($this)
-                )
+                    'There are more elements than specified in the collection (%s). Either set the allow_add option ' .
+                    'to true, or re-submit the form.', get_class($this)
+            )
             );
         }
 
-        if (! $this->createNewObjects()) {
+        if (!$this->createNewObjects()) {
             $this->replaceTemplateObjects();
         }
     }
@@ -255,8 +246,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return bool
      */
-    public function allowValueBinding()
-    {
+    public function allowValueBinding() {
         return true;
     }
 
@@ -266,8 +256,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param array $values
      * @return array|mixed|void
      */
-    public function bindValues(array $values = array())
-    {
+    public function bindValues(array $values = array()) {
         $collection = array();
         foreach ($values as $name => $value) {
             $element = $this->get($name);
@@ -288,8 +277,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param $count
      * @return Collection
      */
-    public function setCount($count)
-    {
+    public function setCount($count) {
         $this->count = $count > 0 ? $count : 0;
         return $this;
     }
@@ -299,8 +287,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return int
      */
-    public function getCount()
-    {
+    public function getCount() {
         return $this->count;
     }
 
@@ -311,10 +298,8 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @return Collection
      * @throws \Zend\Form\Exception\InvalidArgumentException
      */
-    public function setTargetElement($elementOrFieldset)
-    {
-        if (is_array($elementOrFieldset)
-            || ($elementOrFieldset instanceof Traversable && !$elementOrFieldset instanceof ElementInterface)
+    public function setTargetElement($elementOrFieldset) {
+        if (is_array($elementOrFieldset) || ($elementOrFieldset instanceof Traversable && !$elementOrFieldset instanceof ElementInterface)
         ) {
             $factory = $this->getFormFactory();
             $elementOrFieldset = $factory->create($elementOrFieldset);
@@ -322,10 +307,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
 
         if (!$elementOrFieldset instanceof ElementInterface) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s requires that $elementOrFieldset be an object implementing %s; received "%s"',
-                __METHOD__,
-                __NAMESPACE__ . '\ElementInterface',
-                (is_object($elementOrFieldset) ? get_class($elementOrFieldset) : gettype($elementOrFieldset))
+                    '%s requires that $elementOrFieldset be an object implementing %s; received "%s"', __METHOD__, __NAMESPACE__ . '\ElementInterface', (is_object($elementOrFieldset) ? get_class($elementOrFieldset) : gettype($elementOrFieldset))
             ));
         }
 
@@ -339,8 +321,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return ElementInterface|null
      */
-    public function getTargetElement()
-    {
+    public function getTargetElement() {
         return $this->targetElement;
     }
 
@@ -350,8 +331,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param bool $allowAdd
      * @return Collection
      */
-    public function setAllowAdd($allowAdd)
-    {
+    public function setAllowAdd($allowAdd) {
         $this->allowAdd = (bool) $allowAdd;
         return $this;
     }
@@ -361,8 +341,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return bool
      */
-    public function allowAdd()
-    {
+    public function allowAdd() {
         return $this->allowAdd;
     }
 
@@ -370,8 +349,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param bool $allowRemove
      * @return Collection
      */
-    public function setAllowRemove($allowRemove)
-    {
+    public function setAllowRemove($allowRemove) {
         $this->allowRemove = (bool) $allowRemove;
         return $this;
     }
@@ -379,8 +357,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
     /**
      * @return bool
      */
-    public function allowRemove()
-    {
+    public function allowRemove() {
         return $this->allowRemove;
     }
 
@@ -390,8 +367,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param bool $shouldCreateTemplate
      * @return Collection
      */
-    public function setShouldCreateTemplate($shouldCreateTemplate)
-    {
+    public function setShouldCreateTemplate($shouldCreateTemplate) {
         $this->shouldCreateTemplate = (bool) $shouldCreateTemplate;
 
         return $this;
@@ -402,8 +378,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return bool
      */
-    public function shouldCreateTemplate()
-    {
+    public function shouldCreateTemplate() {
         return $this->shouldCreateTemplate;
     }
 
@@ -413,8 +388,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param string $templatePlaceholder
      * @return Collection
      */
-    public function setTemplatePlaceholder($templatePlaceholder)
-    {
+    public function setTemplatePlaceholder($templatePlaceholder) {
         if (is_string($templatePlaceholder)) {
             $this->templatePlaceholder = $templatePlaceholder;
         }
@@ -427,8 +401,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return string
      */
-    public function getTemplatePlaceholder()
-    {
+    public function getTemplatePlaceholder() {
         return $this->templatePlaceholder;
     }
 
@@ -436,8 +409,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param bool $createNewObjects
      * @return Collection
      */
-    public function setCreateNewObjects($createNewObjects)
-    {
+    public function setCreateNewObjects($createNewObjects) {
         $this->createNewObjects = (bool) $createNewObjects;
         return $this;
     }
@@ -445,8 +417,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
     /**
      * @return bool
      */
-    public function createNewObjects()
-    {
+    public function createNewObjects() {
         return $this->createNewObjects;
     }
 
@@ -455,8 +426,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return null|ElementInterface|FieldsetInterface
      */
-    public function getTemplateElement()
-    {
+    public function getTemplateElement() {
         if ($this->templateElement === null) {
             $this->templateElement = $this->createTemplateElement();
         }
@@ -470,8 +440,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      * @param  FormInterface $form
      * @return mixed|void
      */
-    public function prepareElement(FormInterface $form)
-    {
+    public function prepareElement(FormInterface $form) {
         // Create a template that will also be prepared
         if ($this->shouldCreateTemplate) {
             $templateElement = $this->getTemplateElement();
@@ -489,8 +458,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
     /**
      * @return array
      */
-    public function extract()
-    {
+    public function extract() {
 
         if ($this->object instanceof Traversable) {
             $this->object = ArrayUtils::iteratorToArray($this->object, false);
@@ -502,7 +470,6 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
 
         $values = array();
 
-        
         // Recursively extract and populate values for nested fieldsets
         foreach ($this->fieldsets as $fieldset) {
             $name = $fieldset->getName();
@@ -526,7 +493,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
                 }
             }
         }
-        
+
         foreach ($this->object as $key => $value) {
             if ($this->hydrator) {
                 $values[$key] = $this->hydrator->extract($value);
@@ -535,7 +502,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
                 $targetElement = clone $this->targetElement;
                 $targetElement->object = $value;
                 $values[$key] = $targetElement->extract();
-                if (! $this->createNewObjects() && $this->has($key)) {
+                if (!$this->createNewObjects() && $this->has($key)) {
                     $fieldset = $this->get($key);
                     if ($fieldset instanceof Fieldset && $fieldset->allowObjectBinding($value)) {
                         $fieldset->setObject($value);
@@ -543,8 +510,6 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
                 }
             }
         }
-
-        
 
         return $values;
     }
@@ -554,8 +519,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return void
      */
-    public function prepareFieldset()
-    {
+    public function prepareFieldset() {
         if ($this->targetElement !== null) {
             for ($i = 0; $i != $this->count; ++$i) {
                 $elementOrFieldset = $this->createNewTargetElementInstance();
@@ -571,8 +535,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return ElementInterface
      */
-    protected function createNewTargetElementInstance()
-    {
+    protected function createNewTargetElementInstance() {
         return clone $this->targetElement;
     }
 
@@ -581,8 +544,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return null|ElementInterface|FieldsetInterface
      */
-    protected function createTemplateElement()
-    {
+    protected function createTemplateElement() {
         if (!$this->shouldCreateTemplate) {
             return null;
         }
@@ -603,8 +565,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      *
      * @return void
      */
-    protected function replaceTemplateObjects()
-    {
+    protected function replaceTemplateObjects() {
         $fieldsets = $this->getFieldsets();
 
         if (!count($fieldsets) || !$this->object) {
@@ -618,4 +579,5 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
             }
         }
     }
+
 }
