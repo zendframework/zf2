@@ -20,7 +20,8 @@ use Zend\Form\FieldsetPrepareAwareInterface;
 use Zend\Form\FormInterface;
 use Zend\Stdlib\ArrayUtils;
 
-class Collection extends Fieldset implements FieldsetPrepareAwareInterface {
+class Collection extends Fieldset implements FieldsetPrepareAwareInterface
+{
 
     /**
      * Default template placeholder
