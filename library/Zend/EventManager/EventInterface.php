@@ -17,34 +17,18 @@ use ArrayAccess;
 interface EventInterface
 {
     /**
+     * Callable used to determine if event propagation should stop
+     *
+     * @param $callback
+     */
+    public function setCallback($callback);
+
+    /**
      * Get event name
      *
      * @return string
      */
     public function getName();
-
-    /**
-     * Get target/context from which event was triggered
-     *
-     * @return null|string|object
-     */
-    public function getTarget();
-
-    /**
-     * Get parameters passed to the event
-     *
-     * @return array|ArrayAccess
-     */
-    public function getParams();
-
-    /**
-     * Get a single parameter by name
-     *
-     * @param  string $name
-     * @param  mixed $default Default value to return if parameter does not exist
-     * @return mixed
-     */
-    public function getParam($name, $default = null);
 
     /**
      * Set the event name
@@ -55,29 +39,34 @@ interface EventInterface
     public function setName($name);
 
     /**
+     * Get listeners
+     *
+     * @return null|string|object
+     */
+    public function getListeners();
+
+    /**
+     * Set listeners
+     *
+     * @param  null|string|object $target
+     * @return void
+     */
+    public function setListeners($listeners);
+
+    /**
+     * Get target/context from which event was triggered
+     *
+     * @return null|string|object
+     */
+    public function getTarget();
+
+    /**
      * Set the event target/context
      *
      * @param  null|string|object $target
      * @return void
      */
     public function setTarget($target);
-
-    /**
-     * Set event parameters
-     *
-     * @param  string $params
-     * @return void
-     */
-    public function setParams($params);
-
-    /**
-     * Set a single parameter by key
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return void
-     */
-    public function setParam($name, $value);
 
     /**
      * Indicate whether or not the parent EventManagerInterface should stop propagating events
@@ -93,4 +82,12 @@ interface EventInterface
      * @return bool
      */
     public function propagationIsStopped();
+
+    /**
+     * Invokes listener
+     *
+     * @param $listener
+     * @return mixed
+     */
+    public function __invoke($listener);
 }

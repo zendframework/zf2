@@ -9,13 +9,18 @@
 
 namespace Zend\EventManager;
 
+use ArrayAccess;
+
 /**
- * Interface for messengers
+ * Representation of an listener
  */
-interface EventManagerInterface
+interface CallbackListenerInterface extends ListenerInterface
 {
     /**
-     * @param $listener
+     * Callback used for this listener
+     *
+     * @param $callback
+     * @return void
      */
-    public function attach($listener);
+    public function setCallback($callback);
 }
