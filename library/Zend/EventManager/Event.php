@@ -203,7 +203,7 @@ class Event implements EventInterface
         }
 
         if ($this->callback) {
-            return (bool) ${$this->callback}($this, $listener, $response);
+            return (bool) call_user_func($this->callback, $this, $listener, $response);
         }
 
         return false;
