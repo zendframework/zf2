@@ -94,18 +94,7 @@ class EventManager extends Listener implements EventManagerInterface
 
         foreach($this->shared as $shared) {
             foreach($shared->getEventListeners($event) as $listener) {
-                foreach($listener->getTargets() as $lt) {
-                    if (Listener::WILDCARD === $lt) {
-                        $listeners->insert($listener, $listener->getPriority());
-                        continue;
-                    }
-                    foreach($targets as $t) {
-                        if ($t === $lt || $lt instanceof $t) {
-                            $listeners->insert($listener, $listener->getPriority());
-                            continue 2;
-                        }
-                    }
-                }
+                $listeners->insert($listener, $listener->getPriority());
             }
         }
 
