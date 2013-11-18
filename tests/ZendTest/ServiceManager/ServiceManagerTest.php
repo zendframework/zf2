@@ -415,7 +415,7 @@ class ServiceManagerTest extends TestCase
      */
     public function testGetServiceThrowsExceptionOnAliasWithNoSetService()
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotFoundException');
+        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException');
         $this->serviceManager->setAlias('foo', 'bar');
         $this->serviceManager->get('foo');
     }
@@ -425,7 +425,7 @@ class ServiceManagerTest extends TestCase
      */
     public function testGetServiceThrowsExceptionOnMultipleAliasesWithNoSetService()
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotFoundException');
+        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException');
         $this->serviceManager->setAlias('foo', 'bar');
         $this->serviceManager->setAlias('baz', 'foo');
         $this->serviceManager->get('foo');
@@ -544,9 +544,9 @@ class ServiceManagerTest extends TestCase
     public function testAssignAliasWithExistingServiceName()
     {
         $this->serviceManager->setFactory('foo', 'ZendTest\ServiceManager\TestAsset\FooFactory');
-        $this->serviceManager->setFactory('bar', function ($sm) {
-                return new Bar(array('a'));
-            });
+        $this->serviceManager->setFactory('bar', function () {
+            return new Bar(array('a'));
+        });
         $this->serviceManager->setAllowOverride(false);
         // should throw an exception because 'foo' already exists in the service manager
         $this->serviceManager->setAlias('foo', 'bar');
@@ -916,30 +916,6 @@ class ServiceManagerTest extends TestCase
 
         // This will now cause a cyclic reference and should throw an exception
         $this->serviceManager->setAlias('foo-alias', 'bar-alias');
-    }
-
-    /**
-     * @covers Zend\ServiceManager\ServiceManager::checkForCircularAliasReference
-     */
-    public function testResolveCircularAliasReferenceThrowsException()
-    {
-        $this->setExpectedException('Zend\ServiceManager\Exception\CircularReferenceException');
-
-        // simulate an inconsistent state of $servicemanager->aliases as it could be
-        // caused by derived classes
-        $cyclicAliases = array(
-            'fooalias' => 'bazalias',
-            'baralias' => 'fooalias',
-            'bazalias' => 'baralias'
-        );
-
-        $reflection = new \ReflectionObject($this->serviceManager);
-        $propertyReflection = $reflection->getProperty('aliases');
-        $propertyReflection->setAccessible(true);
-        $propertyReflection->setValue($this->serviceManager, $cyclicAliases);
-
-        // This should throw the exception
-        $this->serviceManager->get('baz-alias');
     }
 
     /**

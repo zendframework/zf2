@@ -45,7 +45,7 @@ class AliasResolverAbstractFactory implements AbstractFactoryInterface
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        return $this->hasAlias($name);
+        return $this->hasAlias($requestedName);
     }
 
     /**
@@ -53,7 +53,13 @@ class AliasResolverAbstractFactory implements AbstractFactoryInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        // TODO: Implement createServiceWithName() method.
+        if (! $this->hasAlias($requestedName)) {
+            throw new Exception\ServiceNotFoundException(sprintf(
+                'Could not find service "%s" in the configured aliases'
+            ));
+        }
+
+        return $serviceLocator->get($this->aliases[$requestedName]);
     }
 
     /**
@@ -75,12 +81,19 @@ class AliasResolverAbstractFactory implements AbstractFactoryInterface
             throw new Exception\InvalidServiceNameException('Invalid service name alias');
         }
 
-        if ((! $this->serviceManager->getAllowOverride()) && $this->serviceManager->has($nameOrAlias, false)) {
+        if ((! $this->serviceManager->getAllowOverride()) &&  $this->hasAlias($alias)) {
             throw new Exception\InvalidServiceNameException(sprintf(
                 'An alias by the name "%s" already exists',
                 $alias
             ));
         }
+
+        /*if ((! $this->serviceManager->getAllowOverride()) && $this->serviceManager->has($alias, false)) {
+            throw new Exception\InvalidServiceNameException(sprintf(
+                'An alias by the name "%s" already exists',
+                $alias
+            ));
+        }*/
 
         if ($this->serviceManager->hasAlias($alias)) {
             $this->checkForCircularAliasReference($alias, $nameOrAlias);

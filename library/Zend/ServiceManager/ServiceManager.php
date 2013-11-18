@@ -719,7 +719,16 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function setAlias($alias, $nameOrAlias)
     {
+        if ($this->has($alias, false)) {
+            throw new Exception\InvalidServiceNameException(sprintf(
+                'Service "%s" is already defined, and an alias for it cannot be set',
+                $alias
+            ));
+        }
+
         $this->getAliasResolver()->setAlias($alias, $nameOrAlias);
+
+        return $this;
     }
 
     /**
