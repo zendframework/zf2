@@ -30,7 +30,7 @@ class Listener implements ListenerInterface
      *
      * @var mixed
      */
-    protected $target = self::WILDCARD_NAME;
+    protected $target = self::WILDCARD;
 
     /**
      * @param $event
@@ -54,10 +54,13 @@ class Listener implements ListenerInterface
 
     /**
      * @param $name string|array
+     * @return Listener
      */
     public function setEventName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -82,10 +85,13 @@ class Listener implements ListenerInterface
 
     /**
      * @param $priority
+     * @return Listener
      */
     public function setPriority($priority)
     {
         $this->priority = $priority;
+
+        return $this;
     }
 
     /**
@@ -98,11 +104,13 @@ class Listener implements ListenerInterface
 
     /**
      * @param $target
-     * @return mixed
+     * @return Listener
      */
     public function setTarget($target)
     {
         $this->target = $target;
+
+        return $this;
     }
 
     /**

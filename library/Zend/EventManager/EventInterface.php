@@ -9,8 +9,6 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
-
 /**
  * Representation of an event
  */
@@ -19,12 +17,13 @@ interface EventInterface
     /**
      * Name of wildcard event name
      */
-    const WILDCARD_NAME = '*';
+    const WILDCARD = '*';
 
     /**
      * Callable used to determine if event propagation should stop
      *
      * @param $callback
+     * @return Event
      */
     public function setCallback($callback);
 
@@ -39,14 +38,14 @@ interface EventInterface
      * Set the event name
      *
      * @param  string $name
-     * @return void
+     * @return Event
      */
     public function setName($name);
 
     /**
      * Get listeners
      *
-     * @return null|string|object
+     * @return array|Traversable
      */
     public function getListeners();
 
@@ -54,7 +53,7 @@ interface EventInterface
      * Set listeners
      *
      * @param  null|string|object $target
-     * @return void
+     * @return Event
      */
     public function setListeners($listeners);
 
@@ -69,7 +68,7 @@ interface EventInterface
      * Set the event target/context
      *
      * @param  null|string|object $target
-     * @return void
+     * @return Event
      */
     public function setTarget($target);
 
@@ -84,7 +83,7 @@ interface EventInterface
      * Indicate whether or not the parent EventManagerInterface should stop propagating events
      *
      * @param  bool $flag
-     * @return void
+     * @return Event
      */
     public function stopPropagation($flag = true);
 

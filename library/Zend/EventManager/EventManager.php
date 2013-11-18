@@ -92,7 +92,7 @@ class EventManager extends Listener implements EventManagerInterface
         foreach($this->shared as $shared) {
             foreach($shared->getEventListeners($event) as $listener) {
                 foreach($listener->getTargets() as $lt) {
-                    if ('*' === $lt) {
+                    if (Listener::WILDCARD === $lt) {
                         $listeners->insert($listener, $listener->getPriority());
                         continue;
                     }
@@ -106,7 +106,7 @@ class EventManager extends Listener implements EventManagerInterface
             }
         }
 
-        $names = '*' == $name ? [$name] : ['*', $name];
+        $names = Event::WILDCARD == $name ? [$name] : [Event::WILDCARD, $name];
 
         foreach($names as $name) {
             if (!isset($this->listeners[$name])) {
@@ -115,7 +115,7 @@ class EventManager extends Listener implements EventManagerInterface
 
             foreach($this->listeners[$name] as $listener) {
                 foreach($listener->getTargets() as $lt) {
-                    if ('*' === $lt) {
+                    if (Listener::WILDCARD === $lt) {
                         $listeners->insert($listener, $listener->getPriority());
                         continue;
                     }
@@ -141,7 +141,7 @@ class EventManager extends Listener implements EventManagerInterface
      */
     public function trigger($event)
     {
-        $event->setTarget($this->getTarget());
+        $event->setTarget($this->target);
 
         // Initial value of stop propagation flag should be false
         $event->stopPropagation(false);

@@ -9,8 +9,6 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
-
 /**
  * Representation of an listener
  */
@@ -19,7 +17,7 @@ interface ListenerInterface
     /**
      *
      */
-    const WILDCARD_NAME = '*';
+    const WILDCARD = '*';
 
     /**
      *
@@ -36,7 +34,7 @@ interface ListenerInterface
     /**
      * Name(s) of event to listener for
      *
-     * @return mixed
+     * @return Listener
      */
     public function setEventName($name);
 
@@ -57,7 +55,7 @@ interface ListenerInterface
     /**
      * Priority of listener
      *
-     * @return mixed
+     * @return Listener
      */
     public function setPriority($priority);
 
@@ -71,7 +69,7 @@ interface ListenerInterface
     /**
      * Target (identifiers) to listener for
      *
-     * @return mixed
+     * @return Listener
      */
     public function setTarget($target);
 

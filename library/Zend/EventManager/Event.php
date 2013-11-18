@@ -9,8 +9,6 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
-
 /**
  * Representation of an event
  *
@@ -22,7 +20,7 @@ class Event implements EventInterface
     /**
      * @var string Event name
      */
-    protected $name = self::WILDCARD_NAME;
+    protected $name = self::WILDCARD;
 
     /**
      * @var array
@@ -32,7 +30,7 @@ class Event implements EventInterface
     /**
      * @var string|object The event target
      */
-    protected $target = self::WILDCARD_NAME;
+    protected $target = self::WILDCARD;
 
     /**
      * @var bool Whether or not to stop propagation
@@ -59,17 +57,32 @@ class Event implements EventInterface
             $this->setTarget($target);
         }
 
-        if (null !== $callback) {
-            $this->setCallback($callback);
+        if (null === $callback) {
+            $callback = $this->getDefaultCallback();
         }
+
+        $this->setCallback($callback);
     }
 
     /**
-     * @param Callable $callback
+     * @param $callback
+     * @return $this
      */
     public function setCallback($callback)
     {
         $this->callback = $callback;
+
+        return $this;
+    }
+
+    /**
+     * @return callable
+     */
+    public function getDefaultCallback()
+    {
+        return function($event, $listener, $response) {
+            return $event->propagationIsStopped();
+        };
     }
 
     /**
@@ -91,6 +104,7 @@ class Event implements EventInterface
     public function setName($name)
     {
         $this->name = (string) $name;
+
         return $this;
     }
 
@@ -104,10 +118,13 @@ class Event implements EventInterface
 
     /**
      * @param array $listeners
+     * @return Event
      */
     public function setListeners($listeners)
     {
        $this->listeners = $listeners;
+
+       return $this;
     }
 
     /**
@@ -119,6 +136,7 @@ class Event implements EventInterface
     public function setTarget($target)
     {
         $this->target = $target;
+
         return $this;
     }
 
@@ -150,11 +168,13 @@ class Event implements EventInterface
      * Stop further event propagation
      *
      * @param  bool $flag
-     * @return void
+     * @return Event
      */
     public function stopPropagation($flag = true)
     {
         $this->stopPropagation = (bool) $flag;
+
+        return $this;
     }
 
     /**
@@ -171,10 +191,13 @@ class Event implements EventInterface
      * Determines whether this event should stop propagating (does not set $stopPropagation)
      *
      * @param $callback
+     * @return Event
      */
     public function setPropagtionCallback($callback)
     {
         $this->callback = $callback;
+
+        return $this;
     }
 
     /**
@@ -183,7 +206,6 @@ class Event implements EventInterface
     public function getEventResponses()
     {
         return $this->eventResponses;
-
     }
 
     /**
@@ -201,14 +223,6 @@ class Event implements EventInterface
 
         //$this->eventResponses[] = $response;
 
-        if ($this->stopPropagation) {
-            return true;
-        }
-
-        if ($this->callback) {
-            return (bool) call_user_func($this->callback, $this, $listener, $response);
-        }
-
-        return false;
+        return (bool) call_user_func($this->callback, $this, $listener, $response);
     }
 }
