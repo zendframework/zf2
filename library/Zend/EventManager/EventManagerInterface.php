@@ -15,7 +15,23 @@ namespace Zend\EventManager;
 interface EventManagerInterface
 {
     /**
-     * @param $listener
+     * @param ListenerInterface $listener
      */
     public function attach($listener);
+
+    /**
+     * @param ListenerInterface $listener
+     */
+    public function detach($listener);
+
+    /**
+     * @param EventInterface $event
+     * @return array|Traversable
+     */
+    public function getEventListeners($event);
+
+    /**
+     * @param EventInterface $event
+     */
+    public function __invoke($event);
 }
