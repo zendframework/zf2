@@ -118,6 +118,17 @@ class AliasResolverAbstractFactory implements AbstractFactoryInterface
     }
 
     /**
+     * Retrieves a map of all the currently set aliases, with keys being the
+     * alias name, and values being the real name of the service
+     *
+     * @return array
+     */
+    public function getAliases()
+    {
+        return $this->aliases;
+    }
+
+    /**
      * Ensure the alias definition will not result in a circular reference
      *
      * @param  string $alias

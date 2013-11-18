@@ -901,7 +901,7 @@ class ServiceManagerTest extends TestCase
     }
 
     /**
-     * @covers Zend\ServiceManager\ServiceManager::resolveAlias
+     * @covers Zend\ServiceManager\ServiceManager
      */
     public function testSetCircularAliasReferenceThrowsException()
     {

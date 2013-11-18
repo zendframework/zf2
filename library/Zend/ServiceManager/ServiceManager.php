@@ -10,6 +10,7 @@
 namespace Zend\ServiceManager;
 
 use ReflectionClass;
+use Zend\ServiceManager\Zf2Compat\AliasResolverAbstractFactory;
 
 class ServiceManager implements ServiceLocatorInterface
 {
@@ -83,17 +84,17 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @var array
      */
-    protected $aliases = array();
-
-    /**
-     * @var array
-     */
     protected $initializers = array();
 
     /**
      * @var ServiceManager[]
      */
     protected $peeringServiceManagers = array();
+
+    /**
+     * @var AliasResolverAbstractFactory|null
+     */
+    private $aliasResolver;
 
     /**
      * Whether or not to share by default
@@ -430,32 +431,6 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
-     * Resolve the alias for the given canonical name
-     *
-     * @param  string $cName The canonical name to resolve
-     * @return string The resolved canonical name
-     */
-    protected function resolveAlias($cName)
-    {
-        $stack = array();
-
-        while ($this->hasAlias($cName)) {
-            if (isset($stack[$cName])) {
-                throw new Exception\CircularReferenceException(sprintf(
-                    'Circular alias reference: %s -> %s',
-                    implode(' -> ', $stack),
-                    $cName
-                ));
-            }
-
-            $stack[$cName] = $cName;
-            $cName = $this->aliases[$cName];
-        }
-
-        return $cName;
-    }
-
-    /**
      * Retrieve a registered instance
      *
      * @param  string  $name
@@ -473,11 +448,6 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         $isAlias = false;
-
-        if ($this->hasAlias($cName)) {
-            $isAlias = true;
-            $cName = $this->resolveAlias($cName);
-        }
 
         $instance = null;
 
@@ -498,7 +468,6 @@ class ServiceManager implements ServiceLocatorInterface
             if (
                 isset($this->invokableClasses[$cName])
                 || isset($this->factories[$cName])
-                || isset($this->aliases[$cName])
                 || $this->canCreateFromAbstractFactory($cName, $name)
             ) {
                 $instance = $this->create(array($cName, $name));
@@ -681,7 +650,6 @@ class ServiceManager implements ServiceLocatorInterface
 
         if (isset($this->invokableClasses[$cName])
             || isset($this->factories[$cName])
-            || isset($this->aliases[$cName])
             || isset($this->instances[$cName])
             || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($cName, $rName))
         ) {
@@ -737,71 +705,21 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
-     * Ensure the alias definition will not result in a circular reference
+     * @param  string $alias
+     * @param  string $nameOrAlias
      *
-     * @param  string $alias
-     * @param  string $nameOrAlias
-     * @throws Exception\CircularReferenceException
-     * @return self
-     */
-    protected function checkForCircularAliasReference($alias, $nameOrAlias)
-    {
-        $aliases = $this->aliases;
-        $aliases[$alias] = $nameOrAlias;
-        $stack = array();
-
-        while (isset($aliases[$alias])) {
-            if (isset($stack[$alias])) {
-                throw new Exception\CircularReferenceException(sprintf(
-                    'The alias definition "%s" : "%s" results in a circular reference: "%s" -> "%s"',
-                    $alias,
-                    $nameOrAlias,
-                    implode('" -> "', $stack),
-                    $alias
-                ));
-            }
-
-            $stack[$alias] = $alias;
-            $alias = $aliases[$alias];
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param  string $alias
-     * @param  string $nameOrAlias
      * @return ServiceManager
+     *
      * @throws Exception\ServiceNotFoundException
      * @throws Exception\InvalidServiceNameException
+     *
+     * @deprecated please don't use aliases, or Ocramius will curse you
+     * @deprecated seriously, don't
+     * @deprecated I said don't.
      */
     public function setAlias($alias, $nameOrAlias)
     {
-        if (!is_string($alias) || !is_string($nameOrAlias)) {
-            throw new Exception\InvalidServiceNameException('Service or alias names must be strings.');
-        }
-
-        $cAlias = $this->canonicalizeName($alias);
-        $nameOrAlias = $this->canonicalizeName($nameOrAlias);
-
-        if ($alias == '' || $nameOrAlias == '') {
-            throw new Exception\InvalidServiceNameException('Invalid service name alias');
-        }
-
-        if ($this->allowOverride === false && $this->has(array($cAlias, $alias), false)) {
-            throw new Exception\InvalidServiceNameException(sprintf(
-                'An alias by the name "%s" or "%s" already exists',
-                $cAlias,
-                $alias
-            ));
-        }
-
-        if ($this->hasAlias($alias)) {
-            $this->checkForCircularAliasReference($cAlias, $nameOrAlias);
-        }
-
-        $this->aliases[$cAlias] = $nameOrAlias;
-        return $this;
+        $this->getAliasResolver()->setAlias($alias, $nameOrAlias);
     }
 
     /**
@@ -812,7 +730,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function hasAlias($alias)
     {
-        return isset($this->aliases[$this->canonicalizeName($alias)]);
+        return $this->getAliasResolver()->hasAlias($alias);
     }
 
     /**
@@ -920,7 +838,7 @@ class ServiceManager implements ServiceLocatorInterface
         return array(
             'invokableClasses' => array_keys($this->invokableClasses),
             'factories' => array_keys($this->factories),
-            'aliases' => array_keys($this->aliases),
+            'aliases'   => $this->aliasResolver ? array_keys($this->aliasResolver->getAliases()) : [],
             'instances' => array_keys($this->instances),
         );
     }
@@ -964,12 +882,6 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         $name = $this->canonicalizeName($name);
-
-        if ($this->hasAlias($name)) {
-            do {
-                $name = $this->aliases[$name];
-            } while ($this->hasAlias($name));
-        }
 
         foreach ($this->peeringServiceManagers as $peeringServiceManager) {
             if ($peeringServiceManager->has($name)) {
@@ -1189,12 +1101,16 @@ class ServiceManager implements ServiceLocatorInterface
      */
     protected function unregisterService($canonical)
     {
-        $types = array('invokableClasses', 'factories', 'aliases');
+        $types = array('invokableClasses', 'factories');
         foreach ($types as $type) {
             if (isset($this->{$type}[$canonical])) {
                 unset($this->{$type}[$canonical]);
                 break;
             }
+        }
+
+        if ($this->aliasResolver) {
+            $this->getAliasResolver()->removeAlias($canonical);
         }
 
         if (isset($this->instances[$canonical])) {
@@ -1204,5 +1120,21 @@ class ServiceManager implements ServiceLocatorInterface
         if (isset($this->shared[$canonical])) {
             unset($this->shared[$canonical]);
         }
+    }
+
+    /**
+     * @return AliasResolverAbstractFactory
+     */
+    private function getAliasResolver()
+    {
+        if (isset($this->aliasResolver)) {
+            return $this->aliasResolver;
+        }
+
+        $this->aliasResolver = new AliasResolverAbstractFactory($this);
+
+        $this->addAbstractFactory($this->aliasResolver, false);
+
+        return $this->aliasResolver;
     }
 }
