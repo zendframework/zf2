@@ -603,7 +603,6 @@ class CollectionTest extends TestCase
         //test for object binding
         foreach ($form->get('main')->getFieldsets() as $_fieldset) {
             foreach($_fieldset->getFieldsets() as $_nestedfieldset) {
-                var_dump($_nestedfieldset->get('products'));
                 $this->assertInstanceOf('ZendTest\Form\TestAsset\Entity\Product', $_nestedfieldset->get('products')->getObject());
             }
         };
