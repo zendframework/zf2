@@ -26,17 +26,7 @@ class CallbackListener extends Listener implements CallbackListenerInterface
     {
         $this->setCallback($callback);
 
-        if (null !== $event) {
-            $this->setEventName($event);
-        }
-
-        if (null !== $target) {
-            $this->setTarget($target);
-        }
-
-        if (null !== $priority) {
-            $this->setPriority($priority);
-        }
+        parent::__construct($event, $target, $priority);
     }
 
     /**
