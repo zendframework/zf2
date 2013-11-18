@@ -13,12 +13,12 @@ use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Alias abstract factory - allows usage of aliases in {@see \Zend\ServiceManager\ServiceManager} even
- * though they are no more a first-class citizens of the component.
+ * Alias abstract factory - allows usage of normalized service names in {@see \Zend\ServiceManager\ServiceManager}
+ * even though they are no more a first-class citizens of the component.
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class AliasResolverAbstractFactory implements AbstractFactoryInterface
+class ServiceNameNormalizerAbstractFactory implements AbstractFactoryInterface
 {
     /**
      * {@inheritDoc}
