@@ -100,33 +100,37 @@ class SharedEventManager implements SharedEventManagerInterface
     }
 
     /**
-     * Retrieve all listeners for a given identifier and event
+     * Retrieve all listeners for the given identifiers and for a specific event
      *
-     * @param  string|string[] $identifiers
-     * @param  string|int      $eventName
+     * @param  string[] $identifiers
+     * @param  string   $eventName
      * @return array
      */
-    public function getListeners($identifiers, $eventName)
+    public function getListeners(array $identifiers, $eventName)
     {
         $listeners = [];
 
-        foreach ((array) $identifiers as $identifier) {
-            if (isset($this->identifiers[$identifier][$eventName])) {
-                $listeners = array_merge($listeners, $this->identifiers[$identifier][$eventName]);
-            }
+        foreach ($identifiers as $identifier) {
+            // listeners attached to wildcard identifiers will be merged below
+            if ($identifier !== '*') {
+                if (isset($this->identifiers[$identifier][$eventName]) && $eventName !== '*') {
+                    $listeners = array_merge_recursive($listeners, $this->identifiers[$identifier][$eventName]);
+                }
 
-            if (isset($this->identifiers[$identifier]['*'])) {
-                $listeners = array_merge($listeners, $this->identifiers[$identifier]['*']);
+                if (isset($this->identifiers[$identifier]['*'])) {
+                    $listeners = array_merge_recursive($listeners, $this->identifiers[$identifier]['*']);
+                }
             }
         }
 
-        if (isset($this->identifiers['*']) && !in_array('*', $identifiers, true)) {
-            if (isset($this->identifiers['*'][$eventName])) {
-                $listeners = array_merge($listeners, $this->identifiers['*'][$eventName]);
+        // merge listeners attached to wildcard identifiers
+        if (isset($this->identifiers['*'])) {
+            if (isset($this->identifiers['*'][$eventName]) && $eventName !== '*') {
+                $listeners = array_merge_recursive($listeners, $this->identifiers['*'][$eventName]);
             }
 
             if (isset($this->identifiers['*']['*'])) {
-                $listeners = array_merge($listeners, $this->identifiers['*']['*']);
+                $listeners = array_merge_recursive($listeners, $this->identifiers['*']['*']);
             }
         }
 
@@ -134,23 +138,21 @@ class SharedEventManager implements SharedEventManagerInterface
     }
 
     /**
-     * Clear all listeners for a given identifier, optionally for a specific event
+     * Clear all listeners for the given identifiers and optionally for a specific event
      *
-     * @param  string|int  $identifier
+     * @param  string[]    $identifiers
      * @param  null|string $eventName
      * @return void
      */
-    public function clearListeners($identifier, $eventName = null)
+    public function clearListeners(array $identifiers, $eventName = null)
     {
-        if (!isset($this->identifiers[$identifier])) {
-            return;
+        foreach ($identifiers as $identifier) {
+            if (null === $eventName) {
+                unset($this->identifiers[$identifier]);
+            } else {
+                unset($this->identifiers[$identifier][$eventName]);
+            }
         }
-
-        if (null === $eventName) {
-            unset($this->identifiers[$identifier]);
-        }
-
-        unset($this->identifiers[$identifier][$eventName]);
     }
 
     /**

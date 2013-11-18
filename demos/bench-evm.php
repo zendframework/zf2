@@ -9,13 +9,13 @@ $numberOfTriggers  = 1000;
 $totalTimeStart    = microtime(true);;
 
 
-$eventManager  = new \Zend\EventManager\EventManager(array('myid'));
+$eventManager  = new \Zend\EventManager\EventManager(array('myid1', 'myid2'));
 
 echo "Attach {$numberOfListeners} listeners:        ";
 $memStart  = memory_get_usage();
 $timeStart = microtime(true);
 for ($i = 0; $i < $numberOfListeners; ++$i) {
-    $eventManager->attach('event', 'emptyFunc', $i);
+    $eventManager->attach('event', 'emptyFunc', $i % 10);
 }
 $timeEnd = microtime(true);
 $memEnd  = memory_get_usage(true);
@@ -40,7 +40,7 @@ echo "Attach {$numberOfListeners} shared listeners: ";
 $memStart  = memory_get_usage();
 $timeStart = microtime(true);
 for ($i = 0; $i < $numberOfListeners; ++$i) {
-    $sharedManager->attach('myid', 'event', 'emptyFunc', $i);
+    $sharedManager->attach('myid1', 'event', 'emptyFunc', $i % 10);
 }
 $timeEnd = microtime(true);
 $memEnd  = memory_get_usage(true);
