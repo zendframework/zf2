@@ -144,6 +144,18 @@ class Event implements EventInterface
     }
 
     /**
+     * @return array
+     */
+    public function getTargets()
+    {
+        if (is_array($this->target)) {
+            return $this->target;
+        }
+
+        return [$this->target];
+    }
+
+    /**
      * Stop further event propagation
      *
      * @param  bool $flag

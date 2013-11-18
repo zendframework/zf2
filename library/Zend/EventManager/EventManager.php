@@ -9,11 +9,8 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
-use ArrayObject;
 use Traversable;
-use Zend\Stdlib\CallbackHandler;
-use Zend\Stdlib\PriorityQueue;
+use SplPriorityQueue;
 
 /**
  * Event manager: notification system
@@ -68,7 +65,10 @@ class EventManager extends Listener implements EventManagerInterface
         }
 
         foreach($event as $name) {
-            $this->listeners[$name][$priority][] = $listener;
+            if (!isset($this->listeners[$name])) {
+                $this->listeners[$name] = new SplPriorityQueue();
+            }
+            $this->listeners[$name]->insert($listener, $priority);
         }
     }
 
@@ -77,51 +77,7 @@ class EventManager extends Listener implements EventManagerInterface
      */
     public function detach($listener)
     {
-        $event    = $listener->getEventName();
-        $priority = $listener->getPriority();
-
-        if (!is_array($event)) {
-            $event = [$event];
-        }
-
-        foreach($event as $name) {
-            if (isset($this->listeners[$name][$priority])) {
-                $listeners = [];
-
-                foreach($this->listeners[$name][$priority] as $l) {
-                    if ($l !== $listener) {
-                        $listeners[] = $l;
-                    }
-                }
-
-                if (!$listeners) {
-                    unset($this->listeners[$name][$priority]);
-                    continue;
-                }
-
-                $this->listeners[$name][$priority] = $listeners;
-            }
-        }
-    }
-
-    /**
-     * @return array
-     */
-    public function getListeners()
-    {
-        $listeners = $this->listeners;
-
-        foreach($this->shared_listeners as $shared_listener) {
-            foreach($shared_listener->getListeners() as $event => $priority_listeners) {
-                foreach($priority_listeners as $priority => $l) {
-                    foreach($l as $listener) {
-                        $listeners[$event][$priority][] = $listener;
-                    }
-                }
-            }
-        }
-
-        return $listeners;
+        //..
     }
 
     /**
@@ -130,77 +86,48 @@ class EventManager extends Listener implements EventManagerInterface
      */
     public function getEventListeners($event)
     {
-        $prioritized = [];
+        $listeners = new SplPriorityQueue();
 
-        $event_listeners = $this->getListeners();
+        $name    = $event->getName();
+        $targets = $event->getTargets();
 
-        $target = $event->getTarget();
-
-        if ($target && !is_array($target)) {
-            $target = [$target];
-        }
-
-        if (isset($event_listeners[Event::WILDCARD_NAME])) {
-            foreach($target as $t) {
-                foreach($event_listeners[Event::WILDCARD_NAME] as $priority => $p) {
-                    foreach($p as $listener) {
-
-                        $lt = $listener->getTarget();
-
-                        if (!is_array($lt)) {
-                           $lt = [$lt];
-                        }
-
-                        foreach($lt as $pt) {
-                            if ('*' === $pt || $t === $pt || $pt instanceof $t) {
-                                $prioritized[$priority][] = $listener;
-                            }
+        foreach($this->shared_listeners as $shared) {
+            foreach($shared->getEventListeners($event) as $listener) {
+                foreach($listener->getTargets() as $lt) {
+                    if ('*' === $lt) {
+                        $listeners->insert($listener, $listener->getPriority());
+                        continue;
+                    }
+                    foreach($targets as $t) {
+                        if ($t === $lt || $lt instanceof $t) {
+                            $listeners->insert($listener, $listener->getPriority());
+                            continue 2;
                         }
                     }
                 }
             }
-
-            unset($event_listeners[Event::WILDCARD_NAME]);
         }
 
-        $name = is_string($event) ? $event : (is_array($event) ? $event : $event->getName());
+        $names = '*' == $name ? [$name] : ['*', $name];
 
-        if (!is_array($name)) {
-            $name = [$name];
-        }
-
-        foreach($name as $n) {
-            if (!isset($event_listeners[$n])) {
+        foreach($names as $name) {
+            if (!isset($this->listeners[$name])) {
                 continue;
             }
 
-            foreach($event_listeners[$n] as $priority => $p) {
-                foreach($target as $t) {
-                    foreach($p as $listener) {
-
-                        $lt = $listener->getTarget();
-
-                        if (!is_array($lt)) {
-                            $lt = [$lt];
-                        }
-
-                        foreach($lt as $pt) {
-                            if ('*' === $pt || $t === $pt || $pt instanceof $t) {
-                                $prioritized[$priority][] = $listener;
-                            }
+            foreach($this->listeners[$name] as $listener) {
+                foreach($listener->getTargets() as $lt) {
+                    if ('*' === $lt) {
+                        $listeners->insert($listener, $listener->getPriority());
+                        continue;
+                    }
+                    foreach($targets as $t) {
+                        if ($t === $lt || $lt instanceof $t) {
+                            $listeners->insert($listener, $listener->getPriority());
+                            continue 2;
                         }
                     }
                 }
-            }
-        }
-
-        krsort($prioritized, SORT_NUMERIC);
-
-        $listeners = [];
-
-        foreach($prioritized as $priority => $prioritized_listeners) {
-            foreach($prioritized_listeners as $priority_listener) {
-                $listeners[] = $priority_listener;
             }
         }
 

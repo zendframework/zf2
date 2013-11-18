@@ -49,6 +49,7 @@ class Listener implements ListenerInterface
      */
     public function __construct($event = null, $target = null, $priority = null)
     {
+        var_dump($event, $target, $priority);
         if (null !== $event) {
             $this->setEventName($event);
         }
@@ -76,6 +77,18 @@ class Listener implements ListenerInterface
     public function getEventName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string|array
+     */
+    public function getEventNames()
+    {
+        if (is_array($this->name)) {
+            return $this->name;
+        }
+
+        return [$this->name];
     }
 
     /**
@@ -109,6 +122,18 @@ class Listener implements ListenerInterface
     public function getTarget()
     {
         return $this->target;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTargets()
+    {
+        if (is_array($this->target)) {
+            return $this->target;
+        }
+
+        return [$this->target];
     }
 
     /**
