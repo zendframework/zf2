@@ -17,6 +17,11 @@ use ArrayAccess;
 interface EventInterface
 {
     /**
+     * Name of wildcard event name
+     */
+    const WILDCARD_NAME = '*';
+
+    /**
      * Callable used to determine if event propagation should stop
      *
      * @param $callback
@@ -67,6 +72,13 @@ interface EventInterface
      * @return void
      */
     public function setTarget($target);
+
+    /**
+     * Array of target/context from which event was triggered
+     *
+     * @return array
+     */
+    public function getTargets();
 
     /**
      * Indicate whether or not the parent EventManagerInterface should stop propagating events

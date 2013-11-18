@@ -10,7 +10,7 @@
 namespace Zend\EventManager;
 
 use Traversable;
-use SplPriorityQueue;
+use SplPriorityQueue as PriorityQueue;
 
 /**
  * Event manager: notification system
@@ -35,7 +35,9 @@ class EventManager extends Listener implements EventManagerInterface
      */
     public function __construct($target = null)
     {
-        $this->setTarget($target);
+        if (null !== $target) {
+            $this->setTarget($target);
+        }
     }
 
     /**
@@ -57,16 +59,12 @@ class EventManager extends Listener implements EventManagerInterface
             return;
         }
 
-        $event    = $listener->getEventName();
+        $event    = $listener->getEventNames();
         $priority = $listener->getPriority();
-
-        if (!is_array($event)) {
-            $event = [$event];
-        }
 
         foreach($event as $name) {
             if (!isset($this->listeners[$name])) {
-                $this->listeners[$name] = new SplPriorityQueue();
+                $this->listeners[$name] = new PriorityQueue();
             }
             $this->listeners[$name]->insert($listener, $priority);
         }
@@ -86,7 +84,7 @@ class EventManager extends Listener implements EventManagerInterface
      */
     public function getEventListeners($event)
     {
-        $listeners = new SplPriorityQueue();
+        $listeners = new PriorityQueue();
 
         $name    = $event->getName();
         $targets = $event->getTargets();

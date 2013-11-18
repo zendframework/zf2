@@ -12,16 +12,6 @@ namespace Zend\EventManager;
 class Listener implements ListenerInterface
 {
     /**
-     *
-     */
-    const WILDCARD_TARGET_NAME = '*';
-
-    /**
-     *
-     */
-    const DEFAULT_PRIORITY = 1;
-
-    /**
      * Name(s) of events to listener for
      *
      * @var string|array
@@ -40,7 +30,7 @@ class Listener implements ListenerInterface
      *
      * @var mixed
      */
-    protected $target = self::WILDCARD_TARGET_NAME;
+    protected $target = self::WILDCARD_NAME;
 
     /**
      * @param $event

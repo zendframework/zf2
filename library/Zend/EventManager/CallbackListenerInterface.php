@@ -9,10 +9,8 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
-
 /**
- * Representation of an listener
+ * Representation of a callback listener
  */
 interface CallbackListenerInterface extends ListenerInterface
 {

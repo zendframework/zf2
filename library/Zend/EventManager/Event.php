@@ -20,11 +20,6 @@ use ArrayAccess;
 class Event implements EventInterface
 {
     /**
-     * Name of wildcard event name
-     */
-    const WILDCARD_NAME = '*';
-
-    /**
      * @var string Event name
      */
     protected $name = self::WILDCARD_NAME;
@@ -37,7 +32,7 @@ class Event implements EventInterface
     /**
      * @var string|object The event target
      */
-    protected $target = Listener::WILDCARD_TARGET_NAME;
+    protected $target = self::WILDCARD_NAME;
 
     /**
      * @var bool Whether or not to stop propagation
@@ -45,18 +40,14 @@ class Event implements EventInterface
     protected $stopPropagation = false;
 
     /**
-     * @var callable Is called when the event's propogation has not been stopped by the listener
+     * @var callable called when the event's propogation has not been stopped by the listener
      */
     protected $callback;
 
     /**
-     * Constructor
-     *
-     * Accept a target and its parameters.
-     *
-     * @param  string $name Event name
-     * @param  string|object $target
-     * @param  array|ArrayAccess $params
+     * @param string $name
+     * @param mixed $target
+     * @param callback $callback
      */
     public function __construct($name = null, $target = null, $callback = null)
     {
@@ -197,9 +188,9 @@ class Event implements EventInterface
 
     /**
      * Invokes listener with this event passed as its only argument.
-     * Returns true if this event's propagation has been stopped by the invoked listener.
+     * The invoke method returns true if this event's propagation has been stopped by the invoked listener.
      * Otherwise, if it exists, returns true if the callback wants to stop this event's propagation.
-     * Otherwise, return false.
+     * Otherwise, it will not stop the event's propagation and returns false.
      *
      * @param $listener
      * @return bool

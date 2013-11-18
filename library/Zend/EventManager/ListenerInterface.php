@@ -16,6 +16,15 @@ use ArrayAccess;
  */
 interface ListenerInterface
 {
+    /**
+     *
+     */
+    const WILDCARD_NAME = '*';
+
+    /**
+     *
+     */
+    const DEFAULT_PRIORITY = 1;
 
     /**
      * Name(s) of event to listener for
@@ -30,6 +39,13 @@ interface ListenerInterface
      * @return mixed
      */
     public function setEventName($name);
+
+    /**
+     * Array of name(s) of event to listener for
+     *
+     * @return array
+     */
+    public function getEventNames();
 
     /**
      * Priority of listener
@@ -58,6 +74,13 @@ interface ListenerInterface
      * @return mixed
      */
     public function setTarget($target);
+
+    /**
+     * Array of target (identifiers) to listener for
+     *
+     * @return array
+     */
+    public function getTargets();
 
     /**
      * Invokes listener with the event
