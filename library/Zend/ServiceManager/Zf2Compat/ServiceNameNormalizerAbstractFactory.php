@@ -21,11 +21,23 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ServiceNameNormalizerAbstractFactory implements AbstractFactoryInterface
 {
     /**
+     * Lookup for canonicalized names.
+     *
+     * @var array
+     */
+    protected $canonicalNames = array();
+
+    /**
+     * @var array map of characters to be replaced through strtr
+     */
+    protected $canonicalNamesReplacements = array('-' => '', '_' => '', ' ' => '', '\\' => '', '/' => '');
+
+    /**
      * {@inheritDoc}
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        // TODO: Implement canCreateServiceWithName() method.
+        return $serviceLocator->has($this->canonicalizeName($requestedName));
     }
 
     /**
@@ -33,6 +45,22 @@ class ServiceNameNormalizerAbstractFactory implements AbstractFactoryInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        // TODO: Implement createServiceWithName() method.
+        return $serviceLocator->get($this->canonicalizeName($requestedName));
+    }
+
+    /**
+     * Canonicalize name
+     *
+     * @param  string $name
+     * @return string
+     */
+    protected function canonicalizeName($name)
+    {
+        if (isset($this->canonicalNames[$name])) {
+            return $this->canonicalNames[$name];
+        }
+
+        // this is just for performance instead of using str_replace
+        return $this->canonicalNames[$name] = strtolower(strtr($name, $this->canonicalNamesReplacements));
     }
 }
