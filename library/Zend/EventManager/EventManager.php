@@ -26,9 +26,9 @@ class EventManager extends Listener implements EventManagerInterface
     protected $listeners = [];
 
     /**
-     * @var array
+     * @var array EventManager
      */
-    protected $shared_listeners = [];
+    protected $shared = [];
 
     /**
      * @param  mixed $target
@@ -46,7 +46,7 @@ class EventManager extends Listener implements EventManagerInterface
     public function attach($listener)
     {
         if ($listener instanceof EventManagerInterface) {
-            $this->shared_listeners[] = $listener;
+            $this->shared[] = $listener;
             return;
         }
 
@@ -91,7 +91,7 @@ class EventManager extends Listener implements EventManagerInterface
         $name    = $event->getName();
         $targets = $event->getTargets();
 
-        foreach($this->shared_listeners as $shared) {
+        foreach($this->shared as $shared) {
             foreach($shared->getEventListeners($event) as $listener) {
                 foreach($listener->getTargets() as $lt) {
                     if ('*' === $lt) {
@@ -143,9 +143,7 @@ class EventManager extends Listener implements EventManagerInterface
      */
     public function trigger($event)
     {
-        if ($this->target) {
-            $event->setTarget($this->getTarget());
-        }
+        $event->setTarget($this->getTarget());
 
         // Initial value of stop propagation flag should be false
         $event->stopPropagation(false);
