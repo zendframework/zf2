@@ -549,6 +549,66 @@ class CollectionTest extends TestCase
             $this->assertEquals($_price, $form->get('collection')->get($_k)->get('product')->get('price')->getValue());
         }
     }
+    
+    public function testCanBindObjectMultipleNestedFieldsets()
+    {
+
+        $productFieldset = new \ZendTest\Form\TestAsset\ProductFieldset();
+        $productFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        
+        $nestedFieldset = new Fieldset('nested');
+        $nestedFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $nestedFieldset->add(array(
+            'name' => 'products',
+            'type' => 'Collection',
+            'options' => array(
+                'target_element' => $productFieldset,
+                'count' => 2
+            ),
+        ));
+
+        $mainFieldset = new Fieldset('main');
+        $mainFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $mainFieldset->add(array(
+            'name' => 'main',
+            'type' => 'Collection',
+            'options' => array(
+                'target_element' => $nestedFieldset,
+                'count' => 2
+            ),
+        ));
+
+        $form = new Form();
+        $form->setHydrator(new ObjectPropertyHydrator());
+        $form->add($mainFieldset);
+
+        $market = new stdClass();
+
+        $prices = array(100, 200);
+        
+        $products[0] = new Product();
+        $products[0]->setPrice($prices[0]);
+        $products[1] = new Product();
+        $products[1]->setPrice($prices[1]);
+
+        $shop[0] = new stdClass();
+        $shop[0]->products = $products;
+
+        $shop[1] = new stdClass();
+        $shop[1]->products = $products;
+
+        $market->collection = $shop;
+        $form->bind($market);
+
+        //test for object binding
+        foreach ($form->get('main')->getFieldsets() as $_fieldset) {
+            foreach($_fieldset->getFieldsets() as $_nestedfieldset) {
+                var_dump($_nestedfieldset->get('products'));
+                $this->assertInstanceOf('ZendTest\Form\TestAsset\Entity\Product', $_nestedfieldset->get('products')->getObject());
+            }
+        };
+
+    }
 
     public function testExtractFromTraversableImplementingToArrayThroughCollectionHydrator()
     {
