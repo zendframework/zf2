@@ -44,6 +44,7 @@ class EventManager extends Listener implements EventManagerInterface
      * Attach listener(s)
      *
      * @param array|Traversable $listener
+     * @return EventManager
      */
     public function attach($listener)
     {
@@ -68,6 +69,8 @@ class EventManager extends Listener implements EventManagerInterface
             }
             $this->listeners[$name]->insert($listener, $priority);
         }
+
+        return $this;
     }
 
     /**
@@ -79,8 +82,8 @@ class EventManager extends Listener implements EventManagerInterface
     }
 
     /**
-     * @param string|array|Event $event
-     * @return array
+     * @param $event Event
+     * @return PriorityQueue
      */
     public function getEventListeners($event)
     {
@@ -113,7 +116,7 @@ class EventManager extends Listener implements EventManagerInterface
                 continue;
             }
 
-            foreach($this->listeners[$name] as $listener) {
+            foreach(clone $this->listeners[$name] as $listener) {
                 foreach($listener->getTargets() as $lt) {
                     if (Listener::WILDCARD === $lt) {
                         $listeners->insert($listener, $listener->getPriority());
@@ -135,31 +138,32 @@ class EventManager extends Listener implements EventManagerInterface
     /**
      * Event object contains its name, target(s) and listeners
      *
-     * If this EventManager has targets, these will be set as the target(s) of the event
+     * The EventManager's target(s) will be set as the target(s) of the event
+     *
+     * Returns true if event propagation was stopped, otherwise it returns false
      *
      * @param Event $event
+     * @return bool
      */
     public function trigger($event)
     {
-        $event->setTarget($this->target);
-
-        // Initial value of stop propagation flag should be false
-        $event->stopPropagation(false);
+        $event->setTarget($this->target)
+              ->stopPropagation(false); // Initial value of stop propagation flag should be false
 
         $listeners = $event->getListeners() ?: $this->getEventListeners($event);
 
         foreach($listeners as $listener) {
             if ($event($listener)) {
-                break;
+                return true;
             }
         }
 
-        //return $event->getEventResponses();
+        return false;
     }
 
     /**
      * @param $event
-     * @return mixed
+     * @return bool
      */
     public function __invoke($event)
     {

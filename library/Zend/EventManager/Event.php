@@ -188,19 +188,6 @@ class Event implements EventInterface
     }
 
     /**
-     * Determines whether this event should stop propagating (does not set $stopPropagation)
-     *
-     * @param $callback
-     * @return Event
-     */
-    public function setPropagtionCallback($callback)
-    {
-        $this->callback = $callback;
-
-        return $this;
-    }
-
-    /**
      * @return array The responses of each listener
      */
     public function getEventResponses()
@@ -210,9 +197,6 @@ class Event implements EventInterface
 
     /**
      * Invokes listener with this event passed as its only argument.
-     * The invoke method returns true if this event's propagation has been stopped by the invoked listener.
-     * Otherwise, if it exists, returns true if the callback wants to stop this event's propagation.
-     * Otherwise, it will not stop the event's propagation and returns false.
      *
      * @param $listener
      * @return bool
@@ -223,6 +207,10 @@ class Event implements EventInterface
 
         //$this->eventResponses[] = $response;
 
-        return (bool) call_user_func($this->callback, $this, $listener, $response);
+        if (!$this->callback) {
+            return false;
+        }
+
+        return call_user_func($this->callback, $this, $listener, $response);
     }
 }
