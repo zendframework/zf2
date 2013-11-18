@@ -49,7 +49,6 @@ class Listener implements ListenerInterface
      */
     public function __construct($event = null, $target = null, $priority = null)
     {
-        var_dump($event, $target, $priority);
         if (null !== $event) {
             $this->setEventName($event);
         }
