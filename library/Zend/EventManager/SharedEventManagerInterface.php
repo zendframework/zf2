@@ -52,22 +52,22 @@ interface SharedEventManagerInterface
     public function detachAggregate(SharedListenerAggregateInterface $aggregate);
 
     /**
-     * Retrieve all listeners for a given identifier (or multiple identifiers) and event
+     * Retrieve all listeners for the given identifiers and event for a specific event
      *
-     * @param  string|string[] $identifiers
-     * @param  string|int      $eventName
+     * @param  string[] $identifiers
+     * @param  string   $eventName
      * @return array
      */
-    public function getListeners($identifiers, $eventName);
+    public function getListeners(array $identifiers, $eventName);
 
     /**
-     * Clear all listeners for a given identifier, optionally for a specific event
+     * Clear all listeners for the given identifiers and optionally for a specific event
      *
-     * @param  string|int  $identifier
+     * @param  string[]    $identifiers
      * @param  null|string $eventName
      * @return void
      */
-    public function clearListeners($identifier, $eventName = null);
+    public function clearListeners(array $identifiers, $eventName = null);
 
     /**
      * Retrieve all registered events for a given resource
