@@ -250,6 +250,7 @@ class EventManager implements EventManagerInterface
             ++$mergeCount;
         }
 
+
         // merge
         if ($mergeCount > 1) {
             $listeners = array_merge_recursive($listeners, $wildcardListeners, $sharedListeners);

@@ -9,13 +9,17 @@
 
 namespace Zend\EventManager;
 
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
+
 /**
  * Collection of signal handler return values
  *
  * We used to use a SplStack in Zend Framework 2, but using an array allows us some interesting
  * optimizations
  */
-class ResponseCollection
+class ResponseCollection implements Countable, IteratorAggregate
 {
     /**
      * @var array
@@ -93,5 +97,21 @@ class ResponseCollection
     public function contains($value)
     {
         return in_array($value, $this->responses, true);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function count()
+    {
+        return count($this->responses);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->responses);
     }
 }

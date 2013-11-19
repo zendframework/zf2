@@ -159,7 +159,7 @@ class SharedEventManager implements SharedEventManagerInterface
      * @param  string|int $identifier
      * @return array
      */
-    public function getEvents($identifier)
+    public function getEventNames($identifier)
     {
         if (!isset($this->identifiers[$identifier])) {
             // Check if there are any id wildcards listeners

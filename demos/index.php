@@ -1,38 +1,61 @@
 <?php
 
+function emptyFunc() {}
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$nb_occur=5000;
+$numberOfListeners = 100;
+$numberOfTriggers  = 1000;
+$totalTimeStart    = microtime(true);
 
-$time_start = microtime(true);
 
 $eventManager  = new \Zend\EventManager\EventManager(array('myid'));
-$sharedManager = new \Zend\EventManager\SharedEventManager();
 
-$eventManager->setSharedManager($sharedManager);
-//$eventManager->attach('event', function() { echo 'hello'; }, 5);
-//$eventManager->attach('event', function() { echo 'world'; }, 50);
-//$sharedManager->attach('myid', 'event', function() { echo 'world'; });
-//$eventManager->attach('event', function() { echo 'hello'; }, 3);
-
-//$eventManager->trigger('event');
-
-
-for ($i = 0 ; $i != 50 ; ++$i) {
-    $eventManager->attach('event', function() {}, $i);
-    $sharedManager->attach('myid', 'event', function() {}, $i);
+echo "Attach {$numberOfListeners} listeners:        ";
+$memStart  = memory_get_usage();
+$timeStart = microtime(true);
+for ($i = 0; $i < $numberOfListeners; ++$i) {
+    $eventManager->attach('event', 'emptyFunc', $i);
 }
+$timeEnd = microtime(true);
+$memEnd  = memory_get_usage(true);
+printf("time=%f, mem=%d<br>", $timeEnd - $timeStart, $memEnd - $memStart);
 
-//$eventManager->attach('event', function() {}, 2);
 
-//$eventManager->attach('event', function(){}, 1);
-for ($i=0 ; $i<$nb_occur; $i++)
-{
+echo "Triggers {$numberOfTriggers} events:        ";
+$memStart  = memory_get_usage();
+$timeStart = microtime(true);
+for ($i = 0; $i < $numberOfListeners; ++$i) {
     $eventManager->trigger('event');
 }
+$timeEnd = microtime(true);
+$memEnd  = memory_get_usage(true);
+printf("time=%f, mem=%d<br>", $timeEnd - $timeStart, $memEnd - $memStart);
 
-$time_end = microtime(true);
-$time = $time_end - $time_start;
 
-echo 'Durée : '.$time.' secondes<br/>';
-echo 'Memoire' . memory_get_peak_usage();
+$sharedManager = new \Zend\EventManager\SharedEventManager();
+$eventManager->setSharedManager($sharedManager);
+
+echo "Attach {$numberOfListeners} shared listeners: ";
+$memStart  = memory_get_usage();
+$timeStart = microtime(true);
+for ($i = 0; $i < $numberOfListeners; ++$i) {
+    $sharedManager->attach('myid', 'event', 'emptyFunc', $i);
+}
+$timeEnd = microtime(true);
+$memEnd  = memory_get_usage(true);
+printf("time=%f, mem=%d<br>", $timeEnd - $timeStart, $memEnd - $memStart);
+
+
+echo "Triggers {$numberOfTriggers} events:        ";
+$memStart  = memory_get_usage();
+$timeStart = microtime(true);
+for ($i = 0; $i < $numberOfListeners; ++$i) {
+    $eventManager->trigger('event');
+}
+$timeEnd = microtime(true);
+$memEnd  = memory_get_usage(true);
+printf("time=%f, mem=%d<br>", $timeEnd - $timeStart, $memEnd - $memStart);
+
+
+printf("<br>Total: time=%f, mem=%d\n", microtime(true) - $totalTimeStart, memory_get_peak_usage(true));

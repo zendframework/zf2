@@ -75,5 +75,5 @@ interface SharedEventManagerInterface
      * @param  string|int $identifier
      * @return array
      */
-    public function getEvents($identifier);
+    public function getEventNames($identifier);
 }
