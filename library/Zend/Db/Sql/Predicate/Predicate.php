@@ -322,6 +322,27 @@ class Predicate extends PredicateSet
 
         return $this;
     }
+    
+    /**
+     * Create "notIn" predicate
+     *
+     * Utilizes In predicate
+     *
+     * @param  string $identifier
+     * @param  array|\Zend\Db\Sql\Select $valueSet
+     * @return Predicate
+     */
+    public function notIn($identifier, $valueSet = null)
+    {
+        $this->addPredicate(
+            new NotIn($identifier, $valueSet),
+            ($this->nextPredicateCombineOperator) ?: $this->defaultCombination
+        );
+        $this->nextPredicateCombineOperator = null;
+
+        return $this;
+    }    
+    
 
     /**
      * Create "between" predicate
