@@ -235,6 +235,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
                 }
 
                 $this->add($elementOrFieldset);
+                $this->count++;
             }
         } elseif (!empty($data) && !$this->allowAdd) {
             throw new Exception\DomainException(sprintf(
