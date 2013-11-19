@@ -9,19 +9,18 @@
 
 namespace ZendTest\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\Pdo\Connection;
-use ZendTest\Db\TestAsset\PdoStubDriver;
+use ZendTest\Db\TestAsset\StubConnection;
 
 class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Wrapper
+     * @var stubConnection
      */
-    protected $wrapper = null;
+    protected $stubConnection = null;
 
     protected function setUp()
     {
-        $this->wrapper = new Wrapper();
+        $this->stubConnection = new StubConnection();
     }
 
     /**
@@ -29,7 +28,7 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testBeginTransactionReturnsInstanceOfConnection()
     {
-        $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->wrapper->beginTransaction());
+        $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->stubConnection->beginTransaction());
     }
 
     /**
@@ -38,8 +37,8 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testBeginTransactionSetsInTransactionAtTrue()
     {
-        $this->wrapper->beginTransaction();
-        $this->assertTrue($this->wrapper->inTransaction());
+        $this->stubConnection->beginTransaction();
+        $this->assertTrue($this->stubConnection->inTransaction());
     }
 
     /**
@@ -47,8 +46,8 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testCommitReturnsInstanceOfConnection()
     {
-        $this->wrapper->beginTransaction();
-        $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->wrapper->commit());
+        $this->stubConnection->beginTransaction();
+        $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->stubConnection->commit());
     }
 
     /**
@@ -57,9 +56,9 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testCommitSetsInTransactionAtFalse()
     {
-        $this->wrapper->beginTransaction();
-        $this->wrapper->commit();
-        $this->assertFalse($this->wrapper->inTransaction());
+        $this->stubConnection->beginTransaction();
+        $this->stubConnection->commit();
+        $this->assertFalse($this->stubConnection->inTransaction());
     }
 
     /**
@@ -69,7 +68,7 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testCommitWithoutBeginReturnsInstanceOfConnection()
     {
-        $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->wrapper->commit());
+        $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->stubConnection->commit());
     }
 
     /**
@@ -79,8 +78,8 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testRollbackDisconnectedThrowsException()
     {
-        $this->wrapper->disconnect();
-        $this->wrapper->rollback();
+        $this->stubConnection->disconnect();
+        $this->stubConnection->rollback();
     }
 
     /**
@@ -88,8 +87,8 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testRollbackReturnsInstanceOfConnection()
     {
-        $this->wrapper->beginTransaction();
-        $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->wrapper->rollback());
+        $this->stubConnection->beginTransaction();
+        $this->assertInstanceOf('\Zend\Db\Adapter\Driver\Pdo\Connection', $this->stubConnection->rollback());
     }
 
     /**
@@ -98,9 +97,9 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testRollbackSetsInTransactionAtFalse()
     {
-        $this->wrapper->beginTransaction();
-        $this->wrapper->rollback();
-        $this->assertFalse($this->wrapper->inTransaction());
+        $this->stubConnection->beginTransaction();
+        $this->stubConnection->rollback();
+        $this->assertFalse($this->stubConnection->inTransaction());
     }
 
     /**
@@ -110,14 +109,6 @@ class ConnectionTransactionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testRollbackWithoutBeginThrowsException()
     {
-        $this->wrapper->rollback();
-    }
-}
-
-class Wrapper extends Connection
-{
-    public function __construct()
-    {
-        $this->resource = new PdoStubDriver('foo', 'bar', 'baz');
+        $this->stubConnection->rollback();
     }
 }
