@@ -18,8 +18,6 @@ use Zend\Filter\FilterChain;
  */
 class Input implements InputInterface
 {
-    const NOT_EMPTY_VALIDATOR_PRIORITY = 1000;
-
     /**
      * @var string
      */
@@ -65,7 +63,7 @@ class Input implements InputInterface
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = (string) $name;
     }
 
     /**
@@ -87,7 +85,7 @@ class Input implements InputInterface
             $this->validatorChain->attachByName(
                 'Zend\Validator\NotEmpty',
                 array(),
-                self::NOT_EMPTY_VALIDATOR_PRIORITY
+                self::REQUIRED_VALIDATOR_PRIORITY
             );
         }
     }

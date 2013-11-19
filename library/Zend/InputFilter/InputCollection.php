@@ -145,7 +145,7 @@ class InputCollection extends Input implements InputCollectionInterface
         $errorMessages = array();
 
         // As an input collection can have also validators and filters, we first apply the
-        // filtering for itself
+        // validation for itself
         if (!$this->validatorChain->isValid($data, $context)) {
             $errorMessages[$this->name] = $this->validatorChain->getMessages();
 

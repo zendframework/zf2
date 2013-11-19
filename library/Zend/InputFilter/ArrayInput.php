@@ -18,16 +18,16 @@ class ArrayInput extends Input
     /**
      * {@inheritDoc}
      */
-    public function runAgainst($values, $context = null)
+    public function runAgainst($data, $context = null)
     {
-        if (is_array($values)) {
+        if (is_array($data)) {
             throw new Exception\RuntimeException(sprintf(
                 'Value provided must be an array, "%s" given',
-                gettype($values)
+                gettype($data)
             ));
         }
 
-        foreach ($values as $key => $value) {
+        foreach ($data as $key => $value) {
             // @TODO: handle a merging of validation results
             $validationResult = parent::runAgainst($value, $context);
         }
