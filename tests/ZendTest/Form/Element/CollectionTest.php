@@ -574,7 +574,7 @@ class CollectionTest extends TestCase
         $mainFieldset = new Fieldset('main');
         $mainFieldset->setHydrator(new ClassMethods());
         $mainFieldset->add(array(
-            'name' => 'main',
+            'name' => 'nested',
             'type' => 'Collection',
             'options' => array(
                 'target_element' => $nestedFieldset,
@@ -601,7 +601,7 @@ class CollectionTest extends TestCase
         $shop[1] = new stdClass();
         $shop[1]->products = $products;
 
-        $market->collection = $shop;
+        $market->main = $shop;
         $form->bind($market);
 
         //test for object binding
