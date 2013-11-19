@@ -10,7 +10,10 @@
 
 namespace ZendTest\EventManager;
 
+use Zend\EventManager\Event;
+use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManager;
+use Zend\EventManager\SharedEventManager;
 
 class EventManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -149,5 +152,103 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('ArrayObject', $args);
         $this->assertCount(1, $args);
+    }
+
+    public function testCanTriggerListenersByPriority()
+    {
+        $eventManager = new EventManager();
+
+        // When using listeners with same priority, assert first one is executed first
+        $chain = '';
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '1'; });
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '2'; });
+        $eventManager->trigger('event');
+
+        $this->assertEquals('12', $chain);
+
+        // Assert priority is respected
+        $chain = '';
+        $eventManager->clearListeners('event');
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '1'; }, 50);
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '3'; }, -50);
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '2'; }, 0);
+        $eventManager->trigger('event');
+
+        $this->assertEquals('123', $chain);
+
+        // Assert wildcard is always executed, and respect priority
+        $chain = '';
+        $eventManager->clearListeners('event');
+        $eventManager->attach('*', function() use (&$chain) { $chain .= '2'; }, -500);
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '1'; }, -50);
+        $eventManager->trigger('event');
+
+        $this->assertEquals('12', $chain);
+    }
+
+    public function testCanTriggerListenersWithSharedManager()
+    {
+        $eventManager       = new EventManager(['identifier']);
+        $sharedEventManager = new SharedEventManager();
+
+        $eventManager->setSharedManager($sharedEventManager);
+
+        //
+    }
+
+    /**
+     * This test assert that if an event manager contains listeners with same priority for event name,
+     * wildcard and shared manager, those listeners are executed in an expected order (first event, then
+     * wildcard, then shared manager)
+     */
+    public function testAssertOrder()
+    {
+        $eventManager       = new EventManager(['identifier']);
+        $sharedEventManager = new SharedEventManager();
+        $chain              = '';
+
+        $eventManager->setSharedManager($sharedEventManager);
+
+        $eventManager->attach('*', function() use (&$chain) { $chain .= '2'; });
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '1'; });
+        $sharedEventManager->attach('identifier', 'event', function() use (&$chain) { $chain .= '3'; });
+
+        $eventManager->trigger('event');
+
+        $this->assertEquals('123', $chain);
+    }
+
+    public function testCanStopPropagationUsingEventObject()
+    {
+        $event        = new Event();
+        $eventManager = new EventManager();
+        $chain        = '';
+
+        $eventManager->attach('event', function(EventInterface $event) use (&$chain) {
+            $chain .= '1';
+            $event->stopPropagation(true);
+        }, 50);
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '2'; });
+
+        $response = $eventManager->trigger('event', $event);
+
+        $this->assertTrue($event->isPropagationStopped());
+        $this->assertTrue($response->stopped());
+        $this->assertEquals('1', $chain);
+    }
+
+    public function testCanStopPropagationUsingCallback()
+    {
+        $event        = new Event();
+        $eventManager = new EventManager();
+        $chain        = '';
+
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '1'; });
+        $eventManager->attach('event', function() use (&$chain) { $chain .= '2'; });
+
+        $response = $eventManager->trigger('event', $event, function() { return true; });
+
+        $this->assertTrue($response->stopped());
+        $this->assertEquals('1', $chain);
     }
 }
