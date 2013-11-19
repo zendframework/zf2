@@ -29,6 +29,11 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
     protected $connection = null;
 
     /**
+     * @var string
+     */
+    protected $driverName = null;
+
+    /**
      * @var Statement
      */
     protected $statementPrototype = null;
@@ -45,9 +50,9 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
 
     /**
      * @param array|Connection|\PDO $connection
-     * @param null|Statement $statementPrototype
-     * @param null|Result $resultPrototype
-     * @param string $features
+     * @param null|Statement        $statementPrototype
+     * @param null|Result           $resultPrototype
+     * @param string                $features
      */
     public function __construct($connection, Statement $statementPrototype = null, Result $resultPrototype = null, $features = self::FEATURES_DEFAULT)
     {
@@ -70,7 +75,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
     }
 
     /**
-     * @param Profiler\ProfilerInterface $profiler
+     * @param  Profiler\ProfilerInterface $profiler
      * @return Pdo
      */
     public function setProfiler(Profiler\ProfilerInterface $profiler)
@@ -82,6 +87,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
         if ($this->statementPrototype instanceof Profiler\ProfilerAwareInterface) {
             $this->statementPrototype->setProfiler($profiler);
         }
+
         return $this;
     }
 
@@ -103,6 +109,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
     {
         $this->connection = $connection;
         $this->connection->setDriver($this);
+
         return $this;
     }
 
@@ -130,8 +137,8 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
     /**
      * Add feature
      *
-     * @param string $name
-     * @param AbstractFeature $feature
+     * @param  string          $name
+     * @param  AbstractFeature $feature
      * @return Pdo
      */
     public function addFeature($name, $feature)
@@ -141,6 +148,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
             $feature->setDriver($this);
         }
         $this->features[$name] = $feature;
+
         return $this;
     }
 
@@ -157,6 +165,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
         } elseif ($driverName == 'oci') {
             $this->addFeature(null, new Feature\OracleRowCounter);
         }
+
         return $this;
     }
 
@@ -171,6 +180,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
         if (isset($this->features[$name])) {
             return $this->features[$name];
         }
+
         return false;
     }
 
@@ -228,7 +238,7 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
     }
 
     /**
-     * @param string|PDOStatement $sqlOrResource
+     * @param  string|PDOStatement $sqlOrResource
      * @return Statement
      */
     public function createStatement($sqlOrResource = null)
@@ -245,12 +255,13 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
             }
             $statement->initialize($this->connection->getResource());
         }
+
         return $statement;
     }
 
     /**
-     * @param resource $resource
-     * @param mixed $context
+     * @param  resource $resource
+     * @param  mixed    $context
      * @return Result
      */
     public function createResult($resource, $context = null)
@@ -272,8 +283,8 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
             $rowCount = $oracleRowCounter->getRowCountClosure($context);
         }
 
-
         $result->initialize($resource, $this->connection->getLastGeneratedValue(), $rowCount);
+
         return $result;
     }
 
@@ -286,8 +297,8 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
     }
 
     /**
-     * @param string $name
-     * @param string|null $type
+     * @param  string      $name
+     * @param  string|null $type
      * @return string
      */
     public function formatParameterName($name, $type = null)

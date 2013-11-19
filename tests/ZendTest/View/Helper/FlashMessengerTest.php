@@ -42,6 +42,7 @@ class FlashMessengerTest extends TestCase
         $helper->addMessage('bar');
         $helper->addInfoMessage('bar-info');
         $helper->addSuccessMessage('bar-success');
+        $helper->addWarningMessage('bar-warning');
         $helper->addErrorMessage('bar-error');
         unset($helper);
     }
@@ -69,6 +70,7 @@ class FlashMessengerTest extends TestCase
         $this->assertFalse($helper()->hasMessages());
         $this->assertFalse($helper()->hasInfoMessages());
         $this->assertFalse($helper()->hasSuccessMessages());
+        $this->assertFalse($helper()->hasWarningMessages());
         $this->assertFalse($helper()->hasErrorMessages());
 
         $this->seedMessages();
@@ -76,11 +78,13 @@ class FlashMessengerTest extends TestCase
         $this->assertTrue(count($helper('default')) > 0);
         $this->assertTrue(count($helper('info')) > 0);
         $this->assertTrue(count($helper('success')) > 0);
+        $this->assertTrue(count($helper('warning')) > 0);
         $this->assertTrue(count($helper('error')) > 0);
 
         $this->assertTrue($this->plugin->hasMessages());
         $this->assertTrue($this->plugin->hasInfoMessages());
         $this->assertTrue($this->plugin->hasSuccessMessages());
+        $this->assertTrue($this->plugin->hasWarningMessages());
         $this->assertTrue($this->plugin->hasErrorMessages());
     }
 
@@ -89,6 +93,7 @@ class FlashMessengerTest extends TestCase
         $this->assertFalse($this->helper->hasMessages());
         $this->assertFalse($this->helper->hasInfoMessages());
         $this->assertFalse($this->helper->hasSuccessMessages());
+        $this->assertFalse($this->helper->hasWarningMessages());
         $this->assertFalse($this->helper->hasErrorMessages());
 
         $this->seedMessages();
@@ -96,6 +101,7 @@ class FlashMessengerTest extends TestCase
         $this->assertTrue($this->helper->hasMessages());
         $this->assertTrue($this->helper->hasInfoMessages());
         $this->assertTrue($this->helper->hasSuccessMessages());
+        $this->assertTrue($this->helper->hasWarningMessages());
         $this->assertTrue($this->helper->hasErrorMessages());
     }
 
