@@ -19,11 +19,6 @@ abstract class AbstractConnection implements ConnectionInterface, Profiler\Profi
     protected $connectionParameters = array();
 
     /**
-     * @var string
-     */
-    protected $driverName = null;
-
-    /**
      * @var boolean
      */
     protected $inTransaction = false;
