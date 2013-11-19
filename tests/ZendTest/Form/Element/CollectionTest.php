@@ -559,9 +559,11 @@ class CollectionTest extends TestCase
 
         $productFieldset = new ProductFieldset();
         $productFieldset->setHydrator(new ClassMethods());
+        $productFieldset->setObject(new Product())
         
         $nestedFieldset = new Fieldset('nested');
         $nestedFieldset->setHydrator(new ClassMethods());
+        $nestedFieldset->setObject(new stdClass());
         $nestedFieldset->add(array(
             'name' => 'products',
             'type' => 'Collection',
@@ -574,6 +576,7 @@ class CollectionTest extends TestCase
         $mainFieldset = new Fieldset('main');
         $mainFieldset->setUseAsBaseFieldset(true);
         $mainFieldset->setHydrator(new ClassMethods());
+        $mainFieldset->setObject(new stdClass());
         $mainFieldset->add(array(
             'name' => 'nested',
             'type' => 'Collection',
