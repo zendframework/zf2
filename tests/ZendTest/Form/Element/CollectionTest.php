@@ -572,6 +572,7 @@ class CollectionTest extends TestCase
         ));
 
         $mainFieldset = new Fieldset('main');
+        $mainFieldset->setUseAsBaseFieldset(true);
         $mainFieldset->setHydrator(new ClassMethods());
         $mainFieldset->add(array(
             'name' => 'nested',
