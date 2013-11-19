@@ -419,11 +419,10 @@ class ServiceManager implements ServiceLocatorInterface
      * Retrieve a registered instance
      *
      * @param  string  $name
-     * @param  bool    $usePeeringServiceManagers
      * @throws Exception\ServiceNotFoundException
      * @return object|array
      */
-    public function get($name, $usePeeringServiceManagers = true)
+    public function get($name)
     {
         $isAlias = false;
 
@@ -588,10 +587,9 @@ class ServiceManager implements ServiceLocatorInterface
      * @param  string|array  $name  An array argument accepts exactly two values.
      *                              Example: array('canonicalName', 'requestName')
      * @param  bool          $checkAbstractFactories
-     * @param  bool          $usePeeringServiceManagers
      * @return bool
      */
-    public function has($name, $checkAbstractFactories = true, $usePeeringServiceManagers = true)
+    public function has($name, $checkAbstractFactories = true)
     {
         if (is_array($name)) {
             list($name) = $name;
