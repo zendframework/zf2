@@ -10,7 +10,6 @@
 namespace Zend\Db\Adapter\Driver\Pgsql;
 
 use Zend\Db\Adapter\Driver\AbstractConnection;
-use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
@@ -44,6 +43,7 @@ class Connection extends AbstractConnection
     public function setDriver(Pgsql $driver)
     {
         $this->driver = $driver;
+
         return $this;
     }
 
@@ -62,6 +62,7 @@ class Connection extends AbstractConnection
         if ($result == false) {
             return null;
         }
+
         return pg_fetch_result($result, 0, 'currentschema');
     }
 
@@ -87,6 +88,7 @@ class Connection extends AbstractConnection
                     return $p[$name];
                 }
             }
+
             return null;
         };
 
@@ -199,7 +201,7 @@ class Connection extends AbstractConnection
     }
 
     /**
-     * @param  string $sql
+     * @param  string                                         $sql
      * @throws Exception\InvalidQueryException
      * @return resource|\Zend\Db\ResultSet\ResultSetInterface
      */
@@ -227,11 +229,12 @@ class Connection extends AbstractConnection
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
         return $resultPrototype;
     }
 
     /**
-     * @param  null $name Ignored
+     * @param  null   $name Ignored
      * @return string
      */
     public function getLastGeneratedValue($name = null)
@@ -240,6 +243,7 @@ class Connection extends AbstractConnection
             return null;
         }
         $result = pg_query($this->resource, 'SELECT CURRVAL(\'' . str_replace('\'', '\\\'', $name) . '\') as "currval"');
+
         return pg_fetch_result($result, 0, 'currval');
     }
 }

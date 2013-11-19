@@ -10,7 +10,6 @@
 namespace Zend\Db\Adapter\Driver\Pdo;
 
 use Zend\Db\Adapter\Driver\AbstractConnection;
-use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
@@ -29,7 +28,7 @@ class Connection extends AbstractConnection
     /**
      * Constructor
      *
-     * @param array|\PDO|null $connectionParameters
+     * @param  array|\PDO|null                    $connectionParameters
      * @throws Exception\InvalidArgumentException
      */
     public function __construct($connectionParameters = null)
@@ -46,19 +45,20 @@ class Connection extends AbstractConnection
     /**
      * Set driver
      *
-     * @param Pdo $driver
+     * @param  Pdo  $driver
      * @return self
      */
     public function setDriver(Pdo $driver)
     {
         $this->driver = $driver;
+
         return $this;
     }
 
     /**
      * Set connection parameters
      *
-     * @param array $connectionParameters
+     * @param  array $connectionParameters
      * @return void
      */
     public function setConnectionParameters(array $connectionParameters)
@@ -106,6 +106,7 @@ class Connection extends AbstractConnection
         if ($result instanceof \PDOStatement) {
             return $result->fetchColumn();
         }
+
         return false;
     }
 
@@ -119,6 +120,7 @@ class Connection extends AbstractConnection
     {
         $this->resource = $resource;
         $this->driverName = strtolower($this->resource->getAttribute(\PDO::ATTR_DRIVER_NAME));
+
         return $this;
     }
 
@@ -337,6 +339,7 @@ class Connection extends AbstractConnection
         }
 
         $result = $this->driver->createResult($resultResource, $sql);
+
         return $result;
 
     }
@@ -344,7 +347,7 @@ class Connection extends AbstractConnection
     /**
      * Prepare
      *
-     * @param string $sql
+     * @param  string    $sql
      * @return Statement
      */
     public function prepare($sql)
@@ -354,13 +357,14 @@ class Connection extends AbstractConnection
         }
 
         $statement = $this->driver->createStatement($sql);
+
         return $statement;
     }
 
     /**
      * Get last generated id
      *
-     * @param string $name
+     * @param  string         $name
      * @return int|null|false
      */
     public function getLastGeneratedValue($name = null)
@@ -374,6 +378,7 @@ class Connection extends AbstractConnection
         } catch (\Exception $e) {
             // do nothing
         }
+
         return false;
     }
 }

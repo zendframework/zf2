@@ -10,7 +10,6 @@
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
 use Zend\Db\Adapter\Driver\AbstractConnection;
-use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
 use Zend\Db\Adapter\Profiler;
 
@@ -29,7 +28,7 @@ class Connection extends AbstractConnection
     /**
      * Constructor
      *
-     * @param array|mysqli|null $connectionInfo
+     * @param  array|mysqli|null                                   $connectionInfo
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
      */
     public function __construct($connectionInfo = null)
@@ -44,12 +43,13 @@ class Connection extends AbstractConnection
     }
 
     /**
-     * @param Mysqli $driver
+     * @param  Mysqli $driver
      * @return self
      */
     public function setDriver(Mysqli $driver)
     {
         $this->driver = $driver;
+
         return $this;
     }
 
@@ -67,6 +67,7 @@ class Connection extends AbstractConnection
         /** @var $result \mysqli_result */
         $result = $this->resource->query('SELECT DATABASE()');
         $r = $result->fetch_row();
+
         return $r[0];
     }
 
@@ -79,6 +80,7 @@ class Connection extends AbstractConnection
     public function setResource(\mysqli $resource)
     {
         $this->resource = $resource;
+
         return $this;
     }
 
@@ -90,6 +92,7 @@ class Connection extends AbstractConnection
     public function getResource()
     {
         $this->connect();
+
         return $this->resource;
     }
 
@@ -115,6 +118,7 @@ class Connection extends AbstractConnection
                     return $p[$name];
                 }
             }
+
             return;
         };
 
@@ -242,7 +246,7 @@ class Connection extends AbstractConnection
     /**
      * Execute
      *
-     * @param  string $sql
+     * @param  string                          $sql
      * @throws Exception\InvalidQueryException
      * @return Result
      */
@@ -268,6 +272,7 @@ class Connection extends AbstractConnection
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
         return $resultPrototype;
     }
 

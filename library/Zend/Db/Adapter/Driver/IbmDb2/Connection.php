@@ -24,7 +24,7 @@ class Connection extends AbstractConnection
     /**
      * Constructor
      *
-     * @param array|resource|null $connectionParameters (ibm_db2 connection resource)
+     * @param  array|resource|null                $connectionParameters (ibm_db2 connection resource)
      * @throws Exception\InvalidArgumentException
      */
     public function __construct($connectionParameters = null)
@@ -43,12 +43,13 @@ class Connection extends AbstractConnection
     /**
      * Set driver
      *
-     * @param IbmDb2 $driver
+     * @param  IbmDb2 $driver
      * @return self
      */
     public function setDriver(IbmDb2 $driver)
     {
         $this->driver = $driver;
+
         return $this;
     }
 
@@ -62,6 +63,7 @@ class Connection extends AbstractConnection
             throw new Exception\InvalidArgumentException('The resource provided must be of type "DB2 Connection"');
         }
         $this->resource = $resource;
+
         return $this;
     }
 
@@ -77,6 +79,7 @@ class Connection extends AbstractConnection
         }
 
         $info = db2_server_info($this->resource);
+
         return (isset($info->DB_NAME) ? $info->DB_NAME : '');
     }
 
@@ -101,6 +104,7 @@ class Connection extends AbstractConnection
                     return $p[$name];
                 }
             }
+
             return null;
         };
 
@@ -123,6 +127,7 @@ class Connection extends AbstractConnection
                 __METHOD__
             ));
         }
+
         return $this;
     }
 
@@ -147,6 +152,7 @@ class Connection extends AbstractConnection
             db2_close($this->resource);
             $this->resource = null;
         }
+
         return $this;
     }
 
@@ -158,7 +164,6 @@ class Connection extends AbstractConnection
     public function beginTransaction()
     {
         // TODO: Implement beginTransaction() method.
-
         return $this;
     }
 
@@ -170,7 +175,6 @@ class Connection extends AbstractConnection
     public function commit()
     {
         // TODO: Implement commit() method.
-
         return $this;
     }
 
@@ -182,7 +186,6 @@ class Connection extends AbstractConnection
     public function rollback()
     {
         // TODO: Implement rollback() method.
-
         return $this;
     }
 
@@ -216,6 +219,7 @@ class Connection extends AbstractConnection
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
         return $resultPrototype;
     }
 
