@@ -214,4 +214,29 @@ class ResultSetIntegrationTest extends TestCase
         $this->resultSet->buffer();
     }
 
+    public function testSameCurrentForIteratorData()
+    {
+        $this->resultSet->initialize(new \ArrayIterator(array(
+            array('q1'),
+        )));
+        $this->resultSet->rewind();
+        $this->assertSame(
+            $this->resultSet->current(),
+            $this->resultSet->current()
+        );
+    }
+
+    public function testSameCurrentForIteratorDataAndBuffering()
+    {
+        $this->resultSet->initialize(new \ArrayIterator(array(
+            array('q1'),
+        )));
+        $this->resultSet->rewind();
+        $this->resultSet->buffer();
+        $this->assertSame(
+            $this->resultSet->current(),
+            $this->resultSet->current()
+        );
+    }
+
 }
