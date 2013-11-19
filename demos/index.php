@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$nb_occur=1000;
+$nb_occur=5000;
 
 $time_start = microtime(true);
 
@@ -15,7 +15,7 @@ $eventManager->setSharedManager($sharedManager);
 //$sharedManager->attach('myid', 'event', function() { echo 'world'; });
 //$eventManager->attach('event', function() { echo 'hello'; }, 3);
 
-$eventManager->trigger('event');
+//$eventManager->trigger('event');
 
 
 for ($i = 0 ; $i != 50 ; ++$i) {
