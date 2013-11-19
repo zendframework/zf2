@@ -122,9 +122,6 @@ class ServiceManager implements ServiceLocatorInterface
         if ($config) {
             $config->configureServiceManager($this);
         }
-
-        // @todo this should be opt-in, as it registers the canonicalizer by default
-        $this->getCanonicalizer();
     }
 
     /**
@@ -220,6 +217,14 @@ class ServiceManager implements ServiceLocatorInterface
     public function retrieveFromPeeringManagerFirst()
     {
         return $this->retrieveFromPeeringManagerFirst;
+    }
+
+    /**
+     * Enables retrieval of services through canonical names
+     */
+    public function useCanonicalNames()
+    {
+        $this->getCanonicalizer();
     }
 
     /**

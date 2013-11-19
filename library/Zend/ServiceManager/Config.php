@@ -118,6 +118,16 @@ class Config implements ConfigInterface
     }
 
     /**
+     * Retrieves whether canonical names should be used within the given service manager
+     *
+     * @return bool
+     */
+    public function useCanonicalNames()
+    {
+        return isset($this->config['use_canonical_names']) ? (bool) $this->config['use_canonical_names'] : false;
+    }
+
+    /**
      * Configure service manager
      *
      * @param ServiceManager $serviceManager
@@ -161,6 +171,10 @@ class Config implements ConfigInterface
             foreach ($delegators as $delegator) {
                 $serviceManager->addDelegator($originalServiceName, $delegator);
             }
+        }
+
+        if ($this->useCanonicalNames()) {
+            $serviceManager->useCanonicalNames();
         }
     }
 }

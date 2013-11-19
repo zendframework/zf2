@@ -34,7 +34,7 @@ class ServiceManagerTest extends TestCase
 
     public function setup()
     {
-        $this->serviceManager = new ServiceManager;
+        $this->serviceManager = new ServiceManager(new Config(['use_canonical_names' => true]));
     }
 
     /**
