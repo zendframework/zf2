@@ -97,7 +97,7 @@ class RoutePluginManager extends AbstractPluginManager
             ));
         }
 
-        if (!static::isSubclassOf($invokable, __NAMESPACE__ . '\RouteInterface')) {
+        if (!is_subclass_of($invokable, __NAMESPACE__ . '\RouteInterface')) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: failed retrieving "%s%s" via invokable class "%s"; class does not implement %s\RouteInterface',
                 __METHOD__,

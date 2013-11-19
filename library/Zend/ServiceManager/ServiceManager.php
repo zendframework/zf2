@@ -9,8 +9,8 @@
 
 namespace Zend\ServiceManager;
 
-use ReflectionClass;
 use Zend\ServiceManager\Zf2Compat\AliasResolverAbstractFactory;
+use Zend\ServiceManager\Zf2Compat\PeeringServiceLocatorAbstractFactory;
 use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 class ServiceManager implements ServiceLocatorInterface
@@ -81,11 +81,6 @@ class ServiceManager implements ServiceLocatorInterface
     protected $initializers = array();
 
     /**
-     * @var ServiceManager[]
-     */
-    protected $peeringServiceManagers = array();
-
-    /**
      * @var AliasResolverAbstractFactory|null
      */
     private $aliasResolver;
@@ -96,11 +91,6 @@ class ServiceManager implements ServiceLocatorInterface
      * @var bool
      */
     protected $shareByDefault = true;
-
-    /**
-     * @var bool
-     */
-    protected $retrieveFromPeeringManagerFirst = false;
 
     /**
      * @var bool Track whether not to throw exceptions during create()
@@ -200,12 +190,12 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * Set flag indicating whether to pull from peering manager before attempting creation
      *
-     * @param  bool $retrieveFromPeeringManagerFirst
-     * @return ServiceManager
+     * @return self
+     *
+     * @deprecated Peering is not really useful, trust me.
      */
-    public function setRetrieveFromPeeringManagerFirst($retrieveFromPeeringManagerFirst = true)
+    public function setRetrieveFromPeeringManagerFirst()
     {
-        $this->retrieveFromPeeringManagerFirst = (bool) $retrieveFromPeeringManagerFirst;
         return $this;
     }
 
@@ -213,10 +203,12 @@ class ServiceManager implements ServiceLocatorInterface
      * Should we retrieve from the peering manager prior to attempting to create a service?
      *
      * @return bool
+     *
+     * @deprecated Peering is not really useful, trust me.
      */
     public function retrieveFromPeeringManagerFirst()
     {
-        return $this->retrieveFromPeeringManagerFirst;
+        return true;
     }
 
     /**
@@ -437,14 +429,6 @@ class ServiceManager implements ServiceLocatorInterface
 
         $instance = null;
 
-        if ($usePeeringServiceManagers && $this->retrieveFromPeeringManagerFirst) {
-            $instance = $this->retrieveFromPeeringManager($name);
-
-            if (null !== $instance) {
-                return $instance;
-            }
-        }
-
         if (isset($this->instances[$name])) {
             return $this->instances[$name];
         }
@@ -457,9 +441,8 @@ class ServiceManager implements ServiceLocatorInterface
                 || $this->canCreateFromAbstractFactory($name, $name)
             ) {
                 $instance = $this->create($name);
-            } elseif ($usePeeringServiceManagers && !$this->retrieveFromPeeringManagerFirst) {
-                $instance = $this->retrieveFromPeeringManager($name);
             }
+
             $this->checkNestedContextStop();
         }
 
@@ -614,23 +597,12 @@ class ServiceManager implements ServiceLocatorInterface
             list($name) = $name;
         }
 
-        if (isset($this->invokableClasses[$name])
+        return (
+            isset($this->invokableClasses[$name])
             || isset($this->factories[$name])
             || isset($this->instances[$name])
             || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($name, $name))
-        ) {
-            return true;
-        }
-
-        if ($usePeeringServiceManagers) {
-            foreach ($this->peeringServiceManagers as $peeringServiceManager) {
-                if ($peeringServiceManager->has($name)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        );
     }
 
     /**
@@ -718,14 +690,17 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function createScopedServiceManager($peering = self::SCOPE_PARENT)
     {
-        $scopedServiceManager = new ServiceManager();
+        $manager = new ServiceManager();
+
         if ($peering == self::SCOPE_PARENT) {
-            $scopedServiceManager->peeringServiceManagers[] = $this;
+            $manager->addAbstractFactory(new PeeringServiceLocatorAbstractFactory($this));
         }
+
         if ($peering == self::SCOPE_CHILD) {
-            $this->peeringServiceManagers[] = $scopedServiceManager;
+            $this->addAbstractFactory(new PeeringServiceLocatorAbstractFactory($manager));
         }
-        return $scopedServiceManager;
+
+        return $manager;
     }
 
     /**
@@ -738,11 +713,13 @@ class ServiceManager implements ServiceLocatorInterface
     public function addPeeringServiceManager(ServiceManager $manager, $peering = self::SCOPE_PARENT)
     {
         if ($peering == self::SCOPE_PARENT) {
-            $this->peeringServiceManagers[] = $manager;
+            $this->addAbstractFactory(new PeeringServiceLocatorAbstractFactory($manager));
         }
+
         if ($peering == self::SCOPE_CHILD) {
-            $manager->peeringServiceManagers[] = $this;
+            $manager->addAbstractFactory(new PeeringServiceLocatorAbstractFactory($this));
         }
+
         return $this;
     }
 
@@ -826,23 +803,6 @@ class ServiceManager implements ServiceLocatorInterface
         $this->getCanonicalizer()->setCanonicalNames($canonicalNames);
 
         return $this;
-    }
-
-    /**
-     * Attempt to retrieve an instance via a peering manager
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    protected function retrieveFromPeeringManager($name)
-    {
-        foreach ($this->peeringServiceManagers as $peeringServiceManager) {
-            if ($peeringServiceManager->has($name)) {
-                return $peeringServiceManager->get($name);
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -1013,33 +973,6 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         return $creationCallback($serviceManager, $canonicalName, $requestedName, $creationCallback);
-    }
-
-    /**
-     * Checks if the object has this class as one of its parents
-     *
-     * @see https://bugs.php.net/bug.php?id=53727
-     * @see https://github.com/zendframework/zf2/pull/1807
-     *
-     * @param string $className
-     * @param string $type
-     * @return bool
-     *
-     * @deprecated this method is being deprecated as of zendframework 2.2, and may be removed in future major versions
-     */
-    protected static function isSubclassOf($className, $type)
-    {
-        if (is_subclass_of($className, $type)) {
-            return true;
-        }
-        if (PHP_VERSION_ID >= 50307) {
-            return false;
-        }
-        if (!interface_exists($type)) {
-            return false;
-        }
-        $r = new ReflectionClass($className);
-        return $r->implementsInterface($type);
     }
 
     /**
