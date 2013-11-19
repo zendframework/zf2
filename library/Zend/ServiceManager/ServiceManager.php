@@ -11,6 +11,7 @@ namespace Zend\ServiceManager;
 
 use ReflectionClass;
 use Zend\ServiceManager\Zf2Compat\AliasResolverAbstractFactory;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 class ServiceManager implements ServiceLocatorInterface
 {
@@ -21,13 +22,6 @@ class ServiceManager implements ServiceLocatorInterface
     const SCOPE_PARENT = 'parent';
     const SCOPE_CHILD = 'child';
     /**@#-*/
-
-    /**
-     * Lookup for canonicalized names.
-     *
-     * @var array
-     */
-    protected $canonicalNames = array();
 
     /**
      * @var bool
@@ -114,9 +108,9 @@ class ServiceManager implements ServiceLocatorInterface
     protected $throwExceptionInCreate = true;
 
     /**
-     * @var array map of characters to be replaced through strtr
+     * @var ServiceNameNormalizerAbstractFactory|null
      */
-    protected $canonicalNamesReplacements = array('-' => '', '_' => '', ' ' => '', '\\' => '', '/' => '');
+    private $canonicalizer;
 
     /**
      * Constructor
@@ -128,6 +122,9 @@ class ServiceManager implements ServiceLocatorInterface
         if ($config) {
             $config->configureServiceManager($this);
         }
+
+        // @todo this should be opt-in, as it registers the canonicalizer by default
+        $this->getCanonicalizer();
     }
 
     /**
@@ -236,24 +233,22 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function setInvokableClass($name, $invokableClass, $shared = null)
     {
-        $cName = $this->canonicalizeName($name);
-
-        if ($this->has(array($cName, $name), false)) {
+        if ($this->has($name, false)) {
             if ($this->allowOverride === false) {
                 throw new Exception\InvalidServiceNameException(sprintf(
                     'A service by the name or alias "%s" already exists and cannot be overridden; please use an alternate name',
                     $name
                 ));
             }
-            $this->unregisterService($cName);
+            $this->unregisterService($name);
         }
 
         if ($shared === null) {
             $shared = $this->shareByDefault;
         }
 
-        $this->invokableClasses[$cName] = $invokableClass;
-        $this->shared[$cName]           = (bool) $shared;
+        $this->invokableClasses[$name] = $invokableClass;
+        $this->shared[$name]           = (bool) $shared;
 
         return $this;
     }
@@ -270,30 +265,28 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function setFactory($name, $factory, $shared = null)
     {
-        $cName = $this->canonicalizeName($name);
-
         if (!($factory instanceof FactoryInterface || is_string($factory) || is_callable($factory))) {
             throw new Exception\InvalidArgumentException(
                 'Provided abstract factory must be the class name of an abstract factory or an instance of an AbstractFactoryInterface.'
             );
         }
 
-        if ($this->has(array($cName, $name), false)) {
+        if ($this->has($name, false)) {
             if ($this->allowOverride === false) {
                 throw new Exception\InvalidServiceNameException(sprintf(
                     'A service by the name or alias "%s" already exists and cannot be overridden, please use an alternate name',
                     $name
                 ));
             }
-            $this->unregisterService($cName);
+            $this->unregisterService($name);
         }
 
         if ($shared === null) {
             $shared = $this->shareByDefault;
         }
 
-        $this->factories[$cName] = $factory;
-        $this->shared[$cName]    = (bool) $shared;
+        $this->factories[$name] = $factory;
+        $this->shared[$name]    = (bool) $shared;
 
         return $this;
     }
@@ -324,6 +317,7 @@ class ServiceManager implements ServiceLocatorInterface
         } else {
             array_push($this->abstractFactories, $factory);
         }
+
         return $this;
     }
 
@@ -337,13 +331,11 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function addDelegator($serviceName, $delegatorFactoryName)
     {
-        $cName = $this->canonicalizeName($serviceName);
-
-        if (!isset($this->delegators[$cName])) {
-            $this->delegators[$cName] = array();
+        if (!isset($this->delegators[$serviceName])) {
+            $this->delegators[$serviceName] = array();
         }
 
-        $this->delegators[$cName][] = $delegatorFactoryName;
+        $this->delegators[$serviceName][] = $delegatorFactoryName;
 
         return $this;
     }
@@ -386,9 +378,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function setService($name, $service)
     {
-        $cName = $this->canonicalizeName($name);
-
-        if ($this->has($cName, false)) {
+        if ($this->has($name, false)) {
             if ($this->allowOverride === false) {
                 throw new Exception\InvalidServiceNameException(sprintf(
                     '%s: A service by the name "%s" or alias already exists and cannot be overridden, please use an alternate name.',
@@ -396,10 +386,10 @@ class ServiceManager implements ServiceLocatorInterface
                     $name
                 ));
             }
-            $this->unregisterService($cName);
+            $this->unregisterService($name);
         }
 
-        $this->instances[$cName] = $service;
+        $this->instances[$name] = $service;
 
         return $this;
     }
@@ -412,12 +402,10 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function setShared($name, $isShared)
     {
-        $cName = $this->canonicalizeName($name);
-
         if (
-            !isset($this->invokableClasses[$cName])
-            && !isset($this->factories[$cName])
-            && !$this->canCreateFromAbstractFactory($cName, $name)
+            !isset($this->invokableClasses[$name])
+            && !isset($this->factories[$name])
+            && !$this->canCreateFromAbstractFactory($name, $name)
         ) {
             throw new Exception\ServiceNotFoundException(sprintf(
                 '%s: A service by the name "%s" was not found and could not be marked as shared',
@@ -426,7 +414,7 @@ class ServiceManager implements ServiceLocatorInterface
             ));
         }
 
-        $this->shared[$cName] = (bool) $isShared;
+        $this->shared[$name] = (bool) $isShared;
         return $this;
     }
 
@@ -440,13 +428,6 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function get($name, $usePeeringServiceManagers = true)
     {
-        // inlined code from ServiceManager::canonicalizeName for performance
-        if (isset($this->canonicalNames[$name])) {
-            $cName = $this->canonicalNames[$name];
-        } else {
-            $cName = $this->canonicalizeName($name);
-        }
-
         $isAlias = false;
 
         $instance = null;
@@ -459,18 +440,18 @@ class ServiceManager implements ServiceLocatorInterface
             }
         }
 
-        if (isset($this->instances[$cName])) {
-            return $this->instances[$cName];
+        if (isset($this->instances[$name])) {
+            return $this->instances[$name];
         }
 
         if (!$instance) {
-            $this->checkNestedContextStart($cName);
+            $this->checkNestedContextStart($name);
             if (
-                isset($this->invokableClasses[$cName])
-                || isset($this->factories[$cName])
-                || $this->canCreateFromAbstractFactory($cName, $name)
+                isset($this->invokableClasses[$name])
+                || isset($this->factories[$name])
+                || $this->canCreateFromAbstractFactory($name, $name)
             ) {
-                $instance = $this->create(array($cName, $name));
+                $instance = $this->create($name);
             } elseif ($usePeeringServiceManagers && !$this->retrieveFromPeeringManagerFirst) {
                 $instance = $this->retrieveFromPeeringManager($name);
             }
@@ -495,10 +476,10 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         if (
-            ($this->shareByDefault && !isset($this->shared[$cName]))
-            || (isset($this->shared[$cName]) && $this->shared[$cName] === true)
+            ($this->shareByDefault && !isset($this->shared[$name]))
+            || (isset($this->shared[$name]) && $this->shared[$name] === true)
         ) {
-            $this->instances[$cName] = $instance;
+            $this->instances[$name] = $instance;
         }
 
         return $instance;
@@ -514,23 +495,14 @@ class ServiceManager implements ServiceLocatorInterface
     public function create($name)
     {
         if (is_array($name)) {
-            list($cName, $rName) = $name;
-        } else {
-            $rName = $name;
-
-            // inlined code from ServiceManager::canonicalizeName for performance
-            if (isset($this->canonicalNames[$rName])) {
-                $cName = $this->canonicalNames[$name];
-            } else {
-                $cName = $this->canonicalizeName($name);
-            }
+            list($name) = $name;
         }
 
-        if (isset($this->delegators[$cName])) {
-            return $this->createDelegatorFromFactory($cName, $rName);
+        if (isset($this->delegators[$name])) {
+            return $this->createDelegatorFromFactory($name, $name);
         }
 
-        return $this->doCreate($rName, $cName);
+        return $this->doCreate($name, $name);
     }
 
     /**
@@ -633,25 +605,14 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function has($name, $checkAbstractFactories = true, $usePeeringServiceManagers = true)
     {
-        if (is_string($name)) {
-            $rName = $name;
-
-            // inlined code from ServiceManager::canonicalizeName for performance
-            if (isset($this->canonicalNames[$rName])) {
-                $cName = $this->canonicalNames[$rName];
-            } else {
-                $cName = $this->canonicalizeName($name);
-            }
-        } elseif (is_array($name) && count($name) >= 2) {
-            list($cName, $rName) = $name;
-        } else {
-            return false;
+        if (is_array($name)) {
+            list($name) = $name;
         }
 
-        if (isset($this->invokableClasses[$cName])
-            || isset($this->factories[$cName])
-            || isset($this->instances[$cName])
-            || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($cName, $rName))
+        if (isset($this->invokableClasses[$name])
+            || isset($this->factories[$name])
+            || isset($this->instances[$name])
+            || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($name, $name))
         ) {
             return true;
         }
@@ -698,6 +659,8 @@ class ServiceManager implements ServiceLocatorInterface
             if ($abstractFactory->canCreateServiceWithName($this, $cName, $rName)) {
                 $this->nestedContext[$cName] = $abstractFactory;
                 $result = true;
+
+                break;
             }
         }
         $this->checkNestedContextStop();
@@ -779,22 +742,6 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
-     * Canonicalize name
-     *
-     * @param  string $name
-     * @return string
-     */
-    protected function canonicalizeName($name)
-    {
-        if (isset($this->canonicalNames[$name])) {
-            return $this->canonicalNames[$name];
-        }
-
-        // this is just for performance instead of using str_replace
-        return $this->canonicalNames[$name] = strtolower(strtr($name, $this->canonicalNamesReplacements));
-    }
-
-    /**
      * Create service via callback
      *
      * @param  callable $callable
@@ -859,7 +806,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function getCanonicalNames()
     {
-        return $this->canonicalNames;
+        return $this->getCanonicalizer()->getCanonicalNames();
     }
 
     /**
@@ -871,7 +818,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function setCanonicalNames($canonicalNames)
     {
-        $this->canonicalNames = $canonicalNames;
+        $this->getCanonicalizer()->setCanonicalNames($canonicalNames);
 
         return $this;
     }
@@ -884,14 +831,6 @@ class ServiceManager implements ServiceLocatorInterface
      */
     protected function retrieveFromPeeringManager($name)
     {
-        foreach ($this->peeringServiceManagers as $peeringServiceManager) {
-            if ($peeringServiceManager->has($name)) {
-                return $peeringServiceManager->get($name);
-            }
-        }
-
-        $name = $this->canonicalizeName($name);
-
         foreach ($this->peeringServiceManagers as $peeringServiceManager) {
             if ($peeringServiceManager->has($name)) {
                 return $peeringServiceManager->get($name);
@@ -1145,5 +1084,21 @@ class ServiceManager implements ServiceLocatorInterface
         $this->addAbstractFactory($this->aliasResolver, false);
 
         return $this->aliasResolver;
+    }
+
+    /**
+     * @return ServiceNameNormalizerAbstractFactory
+     */
+    private function getCanonicalizer()
+    {
+        if (isset($this->canonicalizer)) {
+            return $this->canonicalizer;
+        }
+
+        $this->canonicalizer = new ServiceNameNormalizerAbstractFactory($this);
+
+        $this->addAbstractFactory($this->canonicalizer, false);
+
+        return $this->canonicalizer;
     }
 }

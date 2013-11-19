@@ -54,19 +54,19 @@ class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
         $reflProperty->setAccessible(true);
 
         $value = $reflProperty->getValue($pluginManager);
-        $this->assertInternalType('string', $value['foo']);
+        $this->assertInternalType('string', $value['Foo']);
 
         $pluginManager->get('Foo', array('key1' => 'value1'));
 
         $value = $reflProperty->getValue($pluginManager);
-        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\FooFactory', $value['foo']);
-        $this->assertEquals(array('key1' => 'value1'), $value['foo']->getCreationOptions());
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\FooFactory', $value['Foo']);
+        $this->assertEquals(array('key1' => 'value1'), $value['Foo']->getCreationOptions());
 
         $pluginManager->get('Foo', array('key2' => 'value2'));
 
         $value = $reflProperty->getValue($pluginManager);
-        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\FooFactory', $value['foo']);
-        $this->assertEquals(array('key2' => 'value2'), $value['foo']->getCreationOptions());
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\FooFactory', $value['Foo']);
+        $this->assertEquals(array('key2' => 'value2'), $value['Foo']->getCreationOptions());
     }
 
     public function testAbstractFactoryWithMutableCreationOptions()
@@ -144,7 +144,7 @@ class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
             ->method('createDelegatorWithName')
             ->with(
                 $pluginManager,
-                'fooservice',
+                'foo-service',
                 'foo-service',
                 $this->callback(function ($callback) use ($realService) {
                     if (!is_callable($callback)) {
