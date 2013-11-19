@@ -68,7 +68,7 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
 
         // constructor expects exception
         $this->setExpectedException('Zend\Db\TableGateway\Exception\InvalidArgumentException',
-            'Table name must be a string or an instance of Zend\Db\Sql\TableIdentifier');
+            'Table name must be a string, an array or an instance of Zend\Db\Sql\TableIdentifier');
         new TableGateway(
             null,
             $this->mockAdapter

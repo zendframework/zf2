@@ -61,6 +61,19 @@ class Sql
         return $this->table;
     }
 
+    public function getTableName()
+    {
+        if (is_string($this->table)) {
+            return $this->table;
+        } elseif (is_array($this->table)) {
+            return current($this->table);
+        } elseif ($this->table instanceof TableIdentifier) {
+            return $this->table->getTable();
+        }
+
+        return null;
+    }
+
     public function getSqlPlatform()
     {
         return $this->sqlPlatform;
@@ -71,7 +84,7 @@ class Sql
         if ($this->table !== null && $table !== null) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'This Sql object is intended to work with only the table "%s" provided at construction time.',
-                $this->table
+                $this->getTableName()
             ));
         }
         return new Select(($table) ?: $this->table);
@@ -82,7 +95,7 @@ class Sql
         if ($this->table !== null && $table !== null) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'This Sql object is intended to work with only the table "%s" provided at construction time.',
-                $this->table
+                $this->getTableName()
             ));
         }
         return new Insert(($table) ?: $this->table);
@@ -93,7 +106,7 @@ class Sql
         if ($this->table !== null && $table !== null) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'This Sql object is intended to work with only the table "%s" provided at construction time.',
-                $this->table
+                $this->getTableName()
             ));
         }
         return new Update(($table) ?: $this->table);
@@ -104,7 +117,7 @@ class Sql
         if ($this->table !== null && $table !== null) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'This Sql object is intended to work with only the table "%s" provided at construction time.',
-                $this->table
+                $this->getTableName()
             ));
         }
         return new Delete(($table) ?: $this->table);
