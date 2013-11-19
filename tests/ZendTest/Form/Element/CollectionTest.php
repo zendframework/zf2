@@ -21,6 +21,10 @@ use ZendTest\Form\TestAsset\Entity\Product;
 use Zend\Stdlib\Hydrator\ArraySerializable;
 use ZendTest\Form\TestAsset\CustomCollection;
 use ZendTest\Form\TestAsset\ArrayModel;
+use ZendTest\Form\TestAsset\FormCollection;
+use ZendTest\Form\TestAsset\ProductFieldset;
+use Zend\Stdlib\Hydrator\ClassMethods;
+use ZendTest\Form\TestAsset\Entity\Category;
 
 class CollectionTest extends TestCase
 {
@@ -29,8 +33,8 @@ class CollectionTest extends TestCase
 
     public function setUp()
     {
-        $this->form = new \ZendTest\Form\TestAsset\FormCollection();
-        $this->productFieldset = new \ZendTest\Form\TestAsset\ProductFieldset();
+        $this->form = new FormCollection();
+        $this->productFieldset = new ProductFieldset();
 
         parent::setUp();
     }
@@ -252,7 +256,7 @@ class CollectionTest extends TestCase
     public function testExtractFromObjectDoesntTouchOriginalObject()
     {
         $form = new \Zend\Form\Form();
-        $form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $form->setHydrator(new ClassMethods());
         $this->productFieldset->setUseAsBaseFieldset(true);
         $form->add($this->productFieldset);
 
@@ -261,9 +265,9 @@ class CollectionTest extends TestCase
         $product = new Product();
         $product->setName("foo");
         $product->setPrice(42);
-        $cat1 = new \ZendTest\Form\TestAsset\Entity\Category();
+        $cat1 = new Category();
         $cat1->setName("bar");
-        $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
+        $cat2 = new Category();
         $cat2->setName("bar2");
 
         $product->setCategories(array($cat1,$cat2));
@@ -296,16 +300,16 @@ class CollectionTest extends TestCase
         }
 
         $form = new \Zend\Form\Form();
-        $form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $form->setHydrator(new ClassMethods());
         $this->productFieldset->setUseAsBaseFieldset(true);
         $form->add($this->productFieldset);
 
         $product = new Product();
         $product->setName("foo");
         $product->setPrice(42);
-        $cat1 = new \ZendTest\Form\TestAsset\Entity\Category();
+        $cat1 = new Category();
         $cat1->setName("bar");
-        $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
+        $cat2 = new Category();
         $cat2->setName("bar2");
 
         $product->setCategories(array($cat1,$cat2));
@@ -345,15 +349,15 @@ class CollectionTest extends TestCase
         ));
 
         $form = new \Zend\Form\Form();
-        $form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $form->setHydrator(new ClassMethods());
         $form->add($this->productFieldset);
 
         $product = new Product();
         $product->setName("foo");
         $product->setPrice(42);
-        $cat1 = new \ZendTest\Form\TestAsset\Entity\Category();
+        $cat1 = new Category();
         $cat1->setName("bar");
-        $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
+        $cat2 = new Category();
         $cat2->setName("bar2");
 
         $product->setCategories(array($cat1,$cat2));
@@ -505,11 +509,11 @@ class CollectionTest extends TestCase
     public function testCanBindObjectAndPopulateAndExtractNestedFieldsets()
     {
 
-        $productFieldset = new \ZendTest\Form\TestAsset\ProductFieldset();
-        $productFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $productFieldset = new ProductFieldset();
+        $productFieldset->setHydrator(new ClassMethods());
 
         $mainFieldset = new Fieldset('shop');
-        $mainFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $mainFieldset->setHydrator(new ClassMethods());
         $mainFieldset->add($productFieldset);
 
         $form = new Form();
@@ -553,11 +557,11 @@ class CollectionTest extends TestCase
     public function testCanBindObjectMultipleNestedFieldsets()
     {
 
-        $productFieldset = new \ZendTest\Form\TestAsset\ProductFieldset();
-        $productFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $productFieldset = new ProductFieldset();
+        $productFieldset->setHydrator(new ClassMethods());
         
         $nestedFieldset = new Fieldset('nested');
-        $nestedFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $nestedFieldset->setHydrator(new ClassMethods());
         $nestedFieldset->add(array(
             'name' => 'products',
             'type' => 'Collection',
@@ -568,7 +572,7 @@ class CollectionTest extends TestCase
         ));
 
         $mainFieldset = new Fieldset('main');
-        $mainFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $mainFieldset->setHydrator(new ClassMethods());
         $mainFieldset->add(array(
             'name' => 'main',
             'type' => 'Collection',
