@@ -38,8 +38,8 @@ class Factory
      */
     public function __construct(InputFilterPluginManager $inputFilterManager = null)
     {
-	    $this->defaultFilterChain    = new FilterChain();
-	    $this->defaultValidatorChain = new ValidatorChain();
+        $this->defaultFilterChain    = new FilterChain();
+        $this->defaultValidatorChain = new ValidatorChain();
 
         if ($inputFilterManager) {
             $this->setInputFilterManager($inputFilterManager);
