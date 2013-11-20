@@ -340,17 +340,4 @@ interface ClientInterface extends DispatchableInterface
      * @return bool
      */
     public function removeFileUpload($filename);
-
-    /**
-     * Create a HTTP authentication "Authorization:" header according to the
-     * specified user, password and authentication method.
-     *
-     * @see http://www.faqs.org/rfcs/rfc2617.html
-     * @param string $user
-     * @param string $password
-     * @param string $type
-     * @return string
-     * @throws Client\Exception\InvalidArgumentException
-     */
-    public static function encodeAuthHeader($user, $password, $type = 'basic');
 }
