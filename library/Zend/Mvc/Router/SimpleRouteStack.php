@@ -12,6 +12,7 @@ namespace Zend\Mvc\Router;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\RequestInterface as Request;
+use Zend\Stdlib\PriorityList;
 
 /**
  * Simple route stack implementation.

@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Mvc\Router;
+namespace Zend\Stdlib;
 
 use Countable;
 use Iterator;
@@ -18,19 +18,41 @@ use Iterator;
 class PriorityList implements Iterator, Countable
 {
     /**
-     * Internal list of all routes.
+     * Internal list of all items.
      *
      * @var array
      */
-    protected $routes = array();
+    protected $items = array();
 
     /**
-     * Serial assigned to routes to preserve LIFO.
+     * Serial assigned to items to preserve LIFO.
      *
      * @var int
      */
     protected $serial = 0;
 
+    /**
+     * Serial order mode
+     * @var bool
+     */
+    protected $isLIFO = true;
+
+    /**
+     * Get/Set serial order mode
+     *
+     * @param bool $flag
+     * @return bool
+     */
+    public function isLIFO($flag = null)
+    {
+        if ($flag !== null) {
+            if ($this->isLIFO != $flag) {
+                $this->isLIFO = (bool)$flag;
+                $this->sorted = false;
+            }
+        }
+        return $this->isLIFO;
+    }
     /**
      * Internal counter to avoid usage of count().
      *
@@ -46,95 +68,96 @@ class PriorityList implements Iterator, Countable
     protected $sorted = false;
 
     /**
-     * Insert a new route.
+     * Insert a new item.
      *
      * @param  string  $name
-     * @param  RouteInterface   $route
+     * @param  mixed $value
      * @param  int $priority
      * @return void
      */
-    public function insert($name, RouteInterface $route, $priority)
+    public function insert($name, $value, $priority)
     {
         $this->sorted = false;
         $this->count++;
 
-        $this->routes[$name] = array(
-            'route'    => $route,
+        $this->items[$name] = array(
+            'value'    => $value,
             'priority' => (int) $priority,
             'serial'   => $this->serial++,
         );
     }
 
     /**
-     * Remove a route.
+     * Remove a item.
      *
      * @param  string $name
      * @return void
      */
     public function remove($name)
     {
-        if (!isset($this->routes[$name])) {
+        if (!isset($this->items[$name])) {
             return;
         }
 
         $this->count--;
 
-        unset($this->routes[$name]);
+        unset($this->items[$name]);
     }
 
     /**
-     * Remove all routes.
+     * Remove all items.
      *
      * @return void
      */
     public function clear()
     {
-        $this->routes = array();
+        $this->items = array();
         $this->serial = 0;
         $this->count  = 0;
         $this->sorted = false;
     }
 
     /**
-     * Get a route.
+     * Get a item.
      *
      * @param  string $name
-     * @return RouteInterface
+     * @return mixed
      */
     public function get($name)
     {
-        if (!isset($this->routes[$name])) {
+        if (!isset($this->items[$name])) {
             return null;
         }
 
-        return $this->routes[$name]['route'];
+        return $this->items[$name]['value'];
     }
 
     /**
-     * Sort all routes.
+     * Sort all items.
      *
      * @return void
      */
     protected function sort()
     {
-        uasort($this->routes, array($this, 'compare'));
-        $this->sorted = true;
+        if (!$this->sorted) {
+            uasort($this->items, array($this, 'compare'));
+            $this->sorted = true;
+        }
     }
 
     /**
-     * Compare the priority of two routes.
+     * Compare the priority of two items.
      *
-     * @param  array $route1,
-     * @param  array $route2
+     * @param  array $item1,
+     * @param  array $item2
      * @return int
      */
-    protected function compare(array $route1, array $route2)
+    protected function compare(array $item1, array $item2)
     {
-        if ($route1['priority'] === $route2['priority']) {
-            return ($route1['serial'] > $route2['serial'] ? -1 : 1);
+        if ($item1['priority'] === $item2['priority']) {
+            return ($this->isLIFO && $item1['serial'] > $item2['serial']) ? -1 : 1;
         }
-
-        return ($route1['priority'] > $route2['priority'] ? -1 : 1);
+        return ($item1['priority'] > $item2['priority'] ? -1 : 1);
     }
 
     /**
@@ -145,23 +168,20 @@ class PriorityList implements Iterator, Countable
      */
     public function rewind()
     {
-        if (!$this->sorted) {
-            $this->sort();
-        }
-
-        reset($this->routes);
+        $this->sort();
+        reset($this->items);
     }
 
     /**
      * current(): defined by Iterator interface.
      *
      * @see    Iterator::current()
-     * @return RouteInterface
+     * @return mixed
      */
     public function current()
     {
-        $node = current($this->routes);
-        return ($node !== false ? $node['route'] : false);
+        $node = current($this->items);
+        return ($node !== false ? $node['value'] : false);
     }
 
     /**
@@ -172,19 +192,19 @@ class PriorityList implements Iterator, Countable
      */
     public function key()
     {
-        return key($this->routes);
+        return key($this->items);
     }
 
     /**
      * next(): defined by Iterator interface.
      *
      * @see    Iterator::next()
-     * @return RouteInterface
+     * @return mixed
      */
     public function next()
     {
-        $node = next($this->routes);
-        return ($node !== false ? $node['route'] : false);
+        $node = next($this->items);
+        return ($node !== false ? $node['value'] : false);
     }
 
     /**
@@ -207,5 +227,20 @@ class PriorityList implements Iterator, Countable
     public function count()
     {
         return $this->count;
+    }
+
+    /**
+     * Return list as array
+     *
+     * @param bool $raw
+     * @return array
+     */
+    public function toArray($raw = false)
+    {
+        $array = array();
+        foreach($this as $k=>$v) {
+            $array[$k] = $raw ? $this->items[$k] : $v;
+        }
+        return $array;
     }
 }
