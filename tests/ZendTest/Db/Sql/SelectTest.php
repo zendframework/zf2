@@ -389,6 +389,17 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      * @testdox: unit test: test limit() throws execption when invalid parameter passed
      * @covers Zend\Db\Sql\Select::limit
      */
+    public function testLimitNullValueIsValidParameter()
+    {
+        $select = new Select;
+        $select->limit(null);
+        $this->assertNull($select->getRawState($select::LIMIT));
+    }
+
+    /**
+     * @testdox: unit test: test limit() throws execption when invalid parameter passed
+     * @covers Zend\Db\Sql\Select::limit
+     */
     public function testLimitExceptionOnInvalidParameter()
     {
         $select = new Select;
@@ -415,6 +426,17 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     public function testGetRawStateViaOffset(Select $select)
     {
         $this->assertEquals(10, $select->getRawState($select::OFFSET));
+    }
+
+    /**
+     * @testdox: unit test: test limit() throws execption when invalid parameter passed
+     * @covers Zend\Db\Sql\Select::limit
+     */
+    public function testOffsetNullValueIsValidParameter()
+    {
+        $select = new Select;
+        $select->offset(null);
+        $this->assertNull($select->getRawState($select::OFFSET));
     }
 
     /**

@@ -408,9 +408,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function limit($limit)
     {
-        if (!is_numeric($limit)) {
+        if (!is_numeric($limit) && !is_null($limit)) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects parameter to be numeric, "%s" given',
+                '%s expects parameter to be numeric or null, "%s" given',
                 __METHOD__,
                 (is_object($limit) ? get_class($limit) : gettype($limit))
             ));
@@ -426,9 +426,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function offset($offset)
     {
-        if (!is_numeric($offset)) {
+        if (!is_numeric($offset) && !is_null($offset)) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects parameter to be numeric, "%s" given',
+                '%s expects parameter to be numeric or null, "%s" given',
                 __METHOD__,
                 (is_object($offset) ? get_class($offset) : gettype($offset))
             ));
