@@ -15,19 +15,23 @@ interface AbstractFactoryInterface
      * Determine if we can create a service with name
      *
      * @param ServiceLocatorInterface $serviceLocator
-     * @param $name
+     * @param $serviceRequest string|ServiceRequestInterface
+     *
      * @internal param $requestedName
+     *
      * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name);
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest);
 
     /**
      * Create service with name
      *
      * @param ServiceLocatorInterface $serviceLocator
-     * @param $name
+     * @param $serviceRequest string|ServiceRequestInterface
+     *
      * @internal param $requestedName
+     * 
      * @return mixed
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name);
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest);
 }

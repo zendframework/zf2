@@ -664,6 +664,7 @@ class ServiceManager implements ServiceLocatorInterface
     protected function createServiceViaCallback(callable $callable, $serviceRequest)
     {
         static $circularDependencyResolver = array();
+
         $name   = (string) $serviceRequest;
         $depKey = spl_object_hash($this) . '-' . $name;
 
@@ -757,6 +758,17 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         if ($factory instanceof FactoryInterface) {
+            return $this->createServiceViaCallback(array($factory, 'createService'), $serviceRequest);
+        }
+
+        if ($factory instanceof ConfigurableFactoryInterface) {
+            if (! $serviceRequest instanceof ServiceRequestInterface) {
+                throw new Exception\ServiceNotCreatedException(sprintf(
+                    'A ConfigurableFactoryInterface was used to instantiate %s, but no service request was provided.',
+                    $name
+                ));
+            }
+
             return $this->createServiceViaCallback(array($factory, 'createService'), $serviceRequest);
         }
 
