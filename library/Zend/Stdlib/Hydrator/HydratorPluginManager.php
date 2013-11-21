@@ -11,7 +11,7 @@ namespace Zend\Stdlib\Hydrator;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
-use Zend\Session\Config\ConfigInterface;
+use Zend\ServiceManager\ConfigInterface;
 use Zend\Stdlib\Exception;
 
 /**
