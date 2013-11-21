@@ -42,24 +42,31 @@ class AliasResolverAbstractFactory implements AbstractFactoryInterface
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        return $this->hasAlias($requestedName);
+        return $this->hasAlias($name);
     }
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @return array|mixed|object
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        if (! $this->hasAlias($requestedName)) {
+        if (! $this->hasAlias($name)) {
             throw new Exception\ServiceNotFoundException(sprintf(
                 'Could not find service "%s" in the configured aliases'
             ));
         }
 
-        return $serviceLocator->get($this->aliases[$requestedName]);
+        return $serviceLocator->get($this->aliases[$name]);
     }
 
     /**

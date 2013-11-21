@@ -23,7 +23,7 @@ class CallableWithMutableCreationOptions implements MutableCreationOptionsInterf
         $this->options = $options;
     }
 
-    public function __invoke(ServiceLocatorInterface $serviceLocator, $cName, $rName)
+    public function __invoke(ServiceLocatorInterface $serviceLocator, $name)
     {
         return new stdClass;
     }

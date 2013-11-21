@@ -35,26 +35,29 @@ class DiAbstractServiceFactory extends DiServiceFactory implements AbstractFacto
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return mixed|object
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceName, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         $this->serviceLocator = $serviceLocator;
-        if ($requestedName) {
-            return $this->get($requestedName, array());
-        }
 
-        return $this->get($serviceName, array());
+        return $this->get($name, array());
     }
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        return $this->instanceManager->hasSharedInstance($requestedName)
-            || $this->instanceManager->hasAlias($requestedName)
-            || $this->instanceManager->hasConfig($requestedName)
-            || $this->instanceManager->hasTypePreferences($requestedName)
-            || $this->definitions->hasClass($requestedName);
+        return $this->instanceManager->hasSharedInstance($name)
+            || $this->instanceManager->hasAlias($name)
+            || $this->instanceManager->hasConfig($name)
+            || $this->instanceManager->hasTypePreferences($name)
+            || $this->definitions->hasClass($name);
     }
 }

@@ -600,12 +600,6 @@ class ServiceManagerTest extends TestCase
                     'somethingthatcanbecreated',
                     'NonExistingService',
                     'nonexistingservice'
-                ),
-                $this->logicalOr(
-                    'SomethingThatCanBeCreated',
-                    'somethingthatcanbecreated',
-                    'NonExistingService',
-                    'nonexistingservice'
                 )
             )
             ->will($this->returnValue(false));
@@ -742,7 +736,7 @@ class ServiceManagerTest extends TestCase
     }
 
     /**
-     * @covers Zend\ServiceManager\ServiceManager::canonicalizeName
+     * @covers Zend\ServiceManager\ServiceManager
      */
     public function testCanonicalizeName()
     {
@@ -823,8 +817,6 @@ class ServiceManagerTest extends TestCase
     /**
      * @covers Zend\ServiceManager\ServiceManager::setService
      * @covers Zend\ServiceManager\ServiceManager::get
-     * @covers Zend\ServiceManager\ServiceManager::retrieveFromPeeringManagerFirst
-     * @covers Zend\ServiceManager\ServiceManager::setRetrieveFromPeeringManagerFirst
      * @covers Zend\ServiceManager\ServiceManager::addPeeringServiceManager
      */
     public function testRetrieveServiceFromPeeringServiceManagerIfretrieveFromPeeringManagerFirstSetToTrueAndServiceNamesAreSame()
@@ -872,7 +864,6 @@ class ServiceManagerTest extends TestCase
             ->method('createDelegatorWithName')
             ->with(
                 $this->serviceManager,
-                'foo-service',
                 'foo-service',
                 $this->callback(function ($callback) {
                     if (!is_callable($callback)) {
@@ -946,7 +937,6 @@ class ServiceManagerTest extends TestCase
             ->method('createDelegatorWithName')
             ->with(
                 $this->serviceManager,
-                'foo-service',
                 'foo-service',
                 $this->callback(function ($callback) {
                     if (!is_callable($callback)) {
@@ -1043,13 +1033,13 @@ class ServiceManagerTest extends TestCase
         $abstractFactory
             ->expects($this->any())
             ->method('canCreateServiceWithName')
-            ->with($this->serviceManager, 'something', 'something')
+            ->with($this->serviceManager, 'something')
             ->will($this->returnValue(true));
 
         $abstractFactory
             ->expects($this->any())
             ->method('createServiceWithName')
-            ->with($this->serviceManager, 'something', 'something')
+            ->with($this->serviceManager, 'something')
             ->will($this->returnValue($service));
 
         $this->serviceManager->addAbstractFactory($abstractFactory);

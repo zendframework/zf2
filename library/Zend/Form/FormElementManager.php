@@ -150,14 +150,13 @@ class FormElementManager extends AbstractPluginManager
      * Overrides parent implementation by passing $creationOptions to the
      * constructor, if non-null.
      *
-     * @param  string $canonicalName
-     * @param  string $requestedName
+     * @param  string $name
      * @return null|\stdClass
      * @throws Exception\ServiceNotCreatedException If resolved class does not exist
      */
-    protected function createFromInvokable($canonicalName, $requestedName)
+    protected function createFromInvokable($name)
     {
-        $invokable = $this->invokableClasses[$canonicalName];
+        $invokable = $this->invokableClasses[$name];
 
         if (null === $this->creationOptions
             || (is_array($this->creationOptions) && empty($this->creationOptions))
@@ -166,8 +165,6 @@ class FormElementManager extends AbstractPluginManager
         } else {
             if (isset($this->creationOptions['name'])) {
                 $name = $this->creationOptions['name'];
-            } else {
-                $name = $requestedName;
             }
 
             if (isset($this->creationOptions['options'])) {

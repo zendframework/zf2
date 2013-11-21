@@ -32,8 +32,11 @@ class FooCounterAbstractFactory implements AbstractFactoryInterface
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         if ($name == 'foo') {
             return true;
@@ -42,8 +45,11 @@ class FooCounterAbstractFactory implements AbstractFactoryInterface
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return mixed|\ZendTest\ServiceManager\TestAsset\Foo
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return new Foo;
     }

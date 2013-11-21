@@ -16,18 +16,18 @@ interface AbstractFactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @param $name
-     * @param $requestedName
+     * @internal param $requestedName
      * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName);
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name);
 
     /**
      * Create service with name
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @param $name
-     * @param $requestedName
+     * @internal param $requestedName
      * @return mixed
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName);
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name);
 }

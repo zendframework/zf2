@@ -55,16 +55,22 @@ class ServiceNameNormalizerAbstractFactory implements AbstractFactoryInterface
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return $serviceLocator->has($this->getCanonicalNameMatch($name), true, false);
     }
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return array|mixed|object
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return $serviceLocator->get($this->getCanonicalNameMatch($name), true, false);
     }

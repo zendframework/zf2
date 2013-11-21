@@ -17,19 +17,19 @@ class TrollAbstractFactory implements AbstractFactoryInterface
 {
     public $inexistingServiceCheckResult = null;
 
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         // Check if a non-existing service exists
         $this->inexistingServiceCheckResult = $serviceLocator->has('NonExistingService');
 
-        if ($requestedName === 'SomethingThatCanBeCreated') {
+        if ($name === 'SomethingThatCanBeCreated') {
             return true;
         }
 
         return false;
     }
 
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return new stdClass;
     }

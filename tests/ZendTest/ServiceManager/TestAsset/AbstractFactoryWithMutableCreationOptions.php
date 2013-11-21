@@ -21,12 +21,12 @@ class AbstractFactoryWithMutableCreationOptions implements
     AbstractFactoryInterface,
     MutableCreationOptionsInterface
 {
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return true;
     }
 
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return new stdClass;
     }

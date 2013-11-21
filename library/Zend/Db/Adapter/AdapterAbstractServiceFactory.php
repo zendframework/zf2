@@ -27,14 +27,14 @@ class AdapterAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Can we create an adapter by the requested name?
      *
-     * @param  ServiceLocatorInterface $services
+     * @param  ServiceLocatorInterface $serviceLocator
      * @param  string $name
-     * @param  string $requestedName
+     * @internal param string $requestedName
      * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $config = $this->getConfig($services);
+        $config = $this->getConfig($serviceLocator);
         if (empty($config)) {
             return false;
         }
@@ -49,14 +49,14 @@ class AdapterAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Create a DB adapter
      *
-     * @param  ServiceLocatorInterface $services
+     * @param  ServiceLocatorInterface $serviceLocator
      * @param  string $name
-     * @param  string $requestedName
+     * @internal param string $requestedName
      * @return Adapter
      */
-    public function createServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $config = $this->getConfig($services);
+        $config = $this->getConfig($serviceLocator);
         return new Adapter($config[$requestedName]);
     }
 

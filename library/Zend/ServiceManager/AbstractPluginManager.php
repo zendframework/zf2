@@ -155,14 +155,13 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * Overrides parent implementation by passing $creationOptions to the
      * constructor, if non-null.
      *
-     * @param  string $canonicalName
-     * @param  string $requestedName
+     * @param  string $name
      * @return null|\stdClass
      * @throws Exception\ServiceNotCreatedException If resolved class does not exist
      */
-    protected function createFromInvokable($canonicalName, $requestedName)
+    protected function createFromInvokable($name)
     {
-        $invokable = $this->invokableClasses[$canonicalName];
+        $invokable = $this->invokableClasses[$name];
 
         if (null === $this->creationOptions
             || (is_array($this->creationOptions) && empty($this->creationOptions))
@@ -181,14 +180,13 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * Overrides parent implementation by passing $creationOptions to the
      * constructor, if non-null.
      *
-     * @param  string $canonicalName
-     * @param  string $requestedName
+     * @param  string $name
      * @return mixed
      * @throws Exception\ServiceNotCreatedException If factory is not callable
      */
-    protected function createFromFactory($canonicalName, $requestedName)
+    protected function createFromFactory($name)
     {
-        $factory            = $this->factories[$canonicalName];
+        $factory            = $this->factories[$name];
         $hasCreationOptions = !(null === $this->creationOptions || (is_array($this->creationOptions) && empty($this->creationOptions)));
 
         if (is_string($factory) && class_exists($factory, true)) {
@@ -198,16 +196,17 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
                 $factory = new $factory($this->creationOptions);
             }
 
-            $this->factories[$canonicalName] = $factory;
+            $this->factories[$name] = $factory;
         }
 
         if ($factory instanceof FactoryInterface) {
-            $instance = $this->createServiceViaCallback(array($factory, 'createService'), $canonicalName, $requestedName);
+            $instance = $this->createServiceViaCallback(array($factory, 'createService'), $name);
         } elseif (is_callable($factory)) {
-            $instance = $this->createServiceViaCallback($factory, $canonicalName, $requestedName);
+            $instance = $this->createServiceViaCallback($factory, $name);
         } else {
             throw new Exception\ServiceNotCreatedException(sprintf(
-                'While attempting to create %s%s an invalid factory was registered for this instance type.', $canonicalName, ($requestedName ? '(alias: ' . $requestedName . ')' : '')
+                'While attempting to create %s an invalid factory was registered for this instance type.',
+                $name
             ));
         }
 
@@ -218,14 +217,13 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * Create service via callback
      *
      * @param  callable $callable
-     * @param  string   $cName
-     * @param  string   $rName
+     * @param  string   $name
      * @throws Exception\ServiceNotCreatedException
      * @throws Exception\ServiceNotFoundException
      * @throws Exception\CircularDependencyFoundException
      * @return object
      */
-    protected function createServiceViaCallback($callable, $cName, $rName)
+    protected function createServiceViaCallback($callable, $name)
     {
         if (is_object($callable)) {
             $factory = $callable;
@@ -242,6 +240,6 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
             $factory->setCreationOptions($this->creationOptions);
         }
 
-        return parent::createServiceViaCallback($callable, $cName, $rName);
+        return parent::createServiceViaCallback($callable, $name);
     }
 }

@@ -23,13 +23,14 @@ class WaitingAbstractFactory implements AbstractFactoryInterface
 
     public $throwExceptionWhenCreate = false;
 
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         $this->canCreateCallCount++;
-        return $requestedName === $this->waitingService;
+
+        return $name === $this->waitingService;
     }
 
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         if ($this->throwExceptionWhenCreate) {
             throw new FooException('E');

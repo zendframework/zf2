@@ -123,6 +123,7 @@ class ServiceManager implements ServiceLocatorInterface
     public function setAllowOverride($allowOverride)
     {
         $this->allowOverride = (bool) $allowOverride;
+
         return $this;
     }
 
@@ -151,7 +152,9 @@ class ServiceManager implements ServiceLocatorInterface
                 get_class($this) . '::' . __FUNCTION__
             ));
         }
+
         $this->shareByDefault = (bool) $shareByDefault;
+
         return $this;
     }
 
@@ -174,6 +177,7 @@ class ServiceManager implements ServiceLocatorInterface
     public function setThrowExceptionInCreate($throwExceptionInCreate)
     {
         $this->throwExceptionInCreate = $throwExceptionInCreate;
+
         return $this;
     }
 
@@ -185,30 +189,6 @@ class ServiceManager implements ServiceLocatorInterface
     public function getThrowExceptionInCreate()
     {
         return $this->throwExceptionInCreate;
-    }
-
-    /**
-     * Set flag indicating whether to pull from peering manager before attempting creation
-     *
-     * @return self
-     *
-     * @deprecated Peering is not really useful, trust me.
-     */
-    public function setRetrieveFromPeeringManagerFirst()
-    {
-        return $this;
-    }
-
-    /**
-     * Should we retrieve from the peering manager prior to attempting to create a service?
-     *
-     * @return bool
-     *
-     * @deprecated Peering is not really useful, trust me.
-     */
-    public function retrieveFromPeeringManagerFirst()
-    {
-        return true;
     }
 
     /**
@@ -275,6 +255,7 @@ class ServiceManager implements ServiceLocatorInterface
                     $name
                 ));
             }
+
             $this->unregisterService($name);
         }
 
@@ -349,7 +330,7 @@ class ServiceManager implements ServiceLocatorInterface
     {
         if (!($initializer instanceof InitializerInterface || is_callable($initializer))) {
             if (is_string($initializer)) {
-                $initializer = new $initializer;
+                $initializer = new $initializer();
             }
 
             if (!($initializer instanceof InitializerInterface || is_callable($initializer))) {
@@ -362,6 +343,7 @@ class ServiceManager implements ServiceLocatorInterface
         } else {
             array_push($this->initializers, $initializer);
         }
+
         return $this;
     }
 
@@ -383,6 +365,7 @@ class ServiceManager implements ServiceLocatorInterface
                     $name
                 ));
             }
+
             $this->unregisterService($name);
         }
 
@@ -412,6 +395,7 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         $this->shared[$name] = (bool) $isShared;
+
         return $this;
     }
 
@@ -426,28 +410,28 @@ class ServiceManager implements ServiceLocatorInterface
     {
         $isAlias = false;
 
-        $instance = null;
-
         if (isset($this->instances[$name])) {
             return $this->instances[$name];
         }
 
-        if (!$instance) {
-            $this->checkNestedContextStart($name);
-            if (
-                isset($this->invokableClasses[$name])
-                || isset($this->factories[$name])
-                || $this->canCreateFromAbstractFactory($name, $name)
-            ) {
-                $instance = $this->create($name);
-            }
+        $instance = null;
 
-            $this->checkNestedContextStop();
+        $this->checkNestedContextStart($name);
+
+        if (
+            isset($this->invokableClasses[$name])
+            || isset($this->factories[$name])
+            || $this->canCreateFromAbstractFactory($name, $name)
+        ) {
+            $instance = $this->create($name);
         }
+
+        $this->checkNestedContextStop();
 
         // Still no instance? raise an exception
         if ($instance === null) {
             $this->checkNestedContextStop(true);
+
             if ($isAlias) {
                 throw new Exception\ServiceNotFoundException(sprintf(
                     'An alias "%s" was requested but no service could be found.',
@@ -475,78 +459,72 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * Create an instance of the requested service
      *
-     * @param  string|array $name
+     * @param  string $name
      *
      * @return bool|object
      */
     public function create($name)
     {
-        if (is_array($name)) {
-            list($name) = $name;
-        }
-
         if (isset($this->delegators[$name])) {
-            return $this->createDelegatorFromFactory($name, $name);
+            return $this->createDelegatorFromFactory($name);
         }
 
-        return $this->doCreate($name, $name);
+        return $this->doCreate($name);
     }
 
     /**
      * Creates a callback that uses a delegator to create a service
      *
      * @param DelegatorFactoryInterface|callable $delegatorFactory the delegator factory
-     * @param string                             $rName            requested service name
-     * @param string                             $cName            canonical service name
+     * @param string                             $name             requested service name
      * @param callable                           $creationCallback callback for instantiating the real service
      *
      * @return callable
      */
-    private function createDelegatorCallback($delegatorFactory, $rName, $cName, $creationCallback)
+    private function createDelegatorCallback($delegatorFactory, $name, callable $creationCallback)
     {
         $serviceManager  = $this;
 
-        return function () use ($serviceManager, $delegatorFactory, $rName, $cName, $creationCallback) {
+        return function () use ($serviceManager, $delegatorFactory, $name, $creationCallback) {
             return $delegatorFactory instanceof DelegatorFactoryInterface
-                ? $delegatorFactory->createDelegatorWithName($serviceManager, $cName, $rName, $creationCallback)
-                : $delegatorFactory($serviceManager, $cName, $rName, $creationCallback);
+                ? $delegatorFactory->createDelegatorWithName($serviceManager, $name, $creationCallback)
+                : $delegatorFactory($serviceManager, $name, $name, $creationCallback);
         };
     }
 
     /**
      * Actually creates the service
      *
-     * @param string $rName real service name
-     * @param string $cName canonicalized service name
+     * @param string $name real service name
      *
      * @return bool|mixed|null|object
      * @throws Exception\ServiceNotFoundException
      *
      * @internal this method is internal because of PHP 5.3 compatibility - do not explicitly use it
      */
-    public function doCreate($rName, $cName)
+    public function doCreate($name)
     {
         $instance = null;
 
-        if (isset($this->factories[$cName])) {
-            $instance = $this->createFromFactory($cName, $rName);
+        if (isset($this->factories[$name])) {
+            $instance = $this->createFromFactory($name);
         }
 
-        if ($instance === null && isset($this->invokableClasses[$cName])) {
-            $instance = $this->createFromInvokable($cName, $rName);
+        if ($instance === null && isset($this->invokableClasses[$name])) {
+            $instance = $this->createFromInvokable($name);
         }
-        $this->checkNestedContextStart($cName);
-        if ($instance === null && $this->canCreateFromAbstractFactory($cName, $rName)) {
-            $instance = $this->createFromAbstractFactory($cName, $rName);
+        $this->checkNestedContextStart($name);
+        if ($instance === null && $this->canCreateFromAbstractFactory($name)) {
+            $instance = $this->createFromAbstractFactory($name);
         }
         $this->checkNestedContextStop();
 
         if ($instance === null && $this->throwExceptionInCreate) {
             $this->checkNestedContextStop(true);
+
             throw new Exception\ServiceNotFoundException(sprintf(
-                'No valid instance was found for %s%s',
-                $cName,
-                ($rName ? '(alias: ' . $rName . ')' : '')
+                'No valid instance was found for %s',
+                $name
             ));
         }
 
@@ -606,39 +584,43 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * Determine if we can create an instance from an abstract factory.
      *
-     * @param  string $cName
-     * @param  string $rName
+     * @param  string $name
      * @return bool
      */
-    public function canCreateFromAbstractFactory($cName, $rName)
+    public function canCreateFromAbstractFactory($name)
     {
-        if (array_key_exists($cName, $this->nestedContext)) {
-            $context = $this->nestedContext[$cName];
+        if (array_key_exists($name, $this->nestedContext)) {
+            $context = $this->nestedContext[$name];
+
             if ($context === false) {
                 return false;
             } elseif (is_object($context)) {
-                return !isset($this->pendingAbstractFactoryRequests[get_class($context).$cName]);
+                return !isset($this->pendingAbstractFactoryRequests[get_class($context) . $name]);
             }
         }
-        $this->checkNestedContextStart($cName);
+
+        $this->checkNestedContextStart($name);
         // check abstract factories
         $result = false;
-        $this->nestedContext[$cName] = false;
+        $this->nestedContext[$name] = false;
+
         foreach ($this->abstractFactories as $abstractFactory) {
-            $pendingKey = get_class($abstractFactory).$cName;
+            $pendingKey = get_class($abstractFactory) . $name;
             if (isset($this->pendingAbstractFactoryRequests[$pendingKey])) {
                 $result = false;
                 break;
             }
 
-            if ($abstractFactory->canCreateServiceWithName($this, $cName, $rName)) {
-                $this->nestedContext[$cName] = $abstractFactory;
+            if ($abstractFactory->canCreateServiceWithName($this, $name)) {
+                $this->nestedContext[$name] = $abstractFactory;
                 $result = true;
 
                 break;
             }
         }
+
         $this->checkNestedContextStop();
+
         return $result;
     }
 
@@ -725,26 +707,27 @@ class ServiceManager implements ServiceLocatorInterface
      * Create service via callback
      *
      * @param  callable $callable
-     * @param  string   $cName
-     * @param  string   $rName
+     * @param  string   $name
      * @throws Exception\ServiceNotCreatedException
      * @throws Exception\ServiceNotFoundException
      * @throws Exception\CircularDependencyFoundException
      * @return object
      */
-    protected function createServiceViaCallback($callable, $cName, $rName)
+    protected function createServiceViaCallback($callable, $name)
     {
         static $circularDependencyResolver = array();
-        $depKey = spl_object_hash($this) . '-' . $cName;
+        $depKey = spl_object_hash($this) . '-' . $name;
 
         if (isset($circularDependencyResolver[$depKey])) {
             $circularDependencyResolver = array();
-            throw new Exception\CircularDependencyFoundException('Circular dependency for LazyServiceLoader was found for instance ' . $rName);
+            throw new Exception\CircularDependencyFoundException(
+                'Circular dependency for LazyServiceLoader was found for instance ' . $name
+            );
         }
 
         try {
             $circularDependencyResolver[$depKey] = true;
-            $instance = call_user_func($callable, $this, $cName, $rName);
+            $instance = call_user_func($callable, $this, $name);
             unset($circularDependencyResolver[$depKey]);
         } catch (Exception\ServiceNotFoundException $e) {
             unset($circularDependencyResolver[$depKey]);
@@ -752,7 +735,7 @@ class ServiceManager implements ServiceLocatorInterface
         } catch (\Exception $e) {
             unset($circularDependencyResolver[$depKey]);
             throw new Exception\ServiceNotCreatedException(
-                sprintf('An exception was raised while creating "%s"; no instance returned', $rName),
+                sprintf('An exception was raised while creating "%s"; no instance returned', $name),
                 $e->getCode(),
                 $e
             );
@@ -780,118 +763,95 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
-     * Retrieve a keyed list of all canonical names. Handy for debugging!
-     *
-     * @return array
-     */
-    public function getCanonicalNames()
-    {
-        return $this->getCanonicalizer()->getCanonicalNames();
-    }
-
-    /**
-     * Allows to override the canonical names lookup map with predefined
-     * values.
-     *
-     * @param array $canonicalNames
-     * @return ServiceManager
-     */
-    public function setCanonicalNames($canonicalNames)
-    {
-        $this->getCanonicalizer()->setCanonicalNames($canonicalNames);
-
-        return $this;
-    }
-
-    /**
      * Attempt to create an instance via an invokable class
      *
-     * @param  string $canonicalName
-     * @param  string $requestedName
+     * @param  string $name
      * @return null|\stdClass
      * @throws Exception\ServiceNotFoundException If resolved class does not exist
      */
-    protected function createFromInvokable($canonicalName, $requestedName)
+    protected function createFromInvokable($name)
     {
-        $invokable = $this->invokableClasses[$canonicalName];
+        $invokable = $this->invokableClasses[$name];
+
         if (!class_exists($invokable)) {
             throw new Exception\ServiceNotFoundException(sprintf(
-                '%s: failed retrieving "%s%s" via invokable class "%s"; class does not exist',
+                '%s: failed retrieving "%s" via invokable class "%s"; class does not exist',
                 get_class($this) . '::' . __FUNCTION__,
-                $canonicalName,
-                ($requestedName ? '(alias: ' . $requestedName . ')' : ''),
+                $name,
                 $invokable
             ));
         }
-        $instance = new $invokable;
-        return $instance;
+
+        return $instance = new $invokable;
     }
 
     /**
      * Attempt to create an instance via a factory
      *
-     * @param  string $canonicalName
-     * @param  string $requestedName
+     * @param  string $name
      * @return mixed
      * @throws Exception\ServiceNotCreatedException If factory is not callable
      */
-    protected function createFromFactory($canonicalName, $requestedName)
+    protected function createFromFactory($name)
     {
-        $factory = $this->factories[$canonicalName];
+        $factory = $this->factories[$name];
+
         if (is_string($factory) && class_exists($factory, true)) {
             $factory = new $factory;
-            $this->factories[$canonicalName] = $factory;
+            $this->factories[$name] = $factory;
         }
+
         if ($factory instanceof FactoryInterface) {
-            $instance = $this->createServiceViaCallback(array($factory, 'createService'), $canonicalName, $requestedName);
-        } elseif (is_callable($factory)) {
-            $instance = $this->createServiceViaCallback($factory, $canonicalName, $requestedName);
-        } else {
-            throw new Exception\ServiceNotCreatedException(sprintf(
-                'While attempting to create %s%s an invalid factory was registered for this instance type.',
-                $canonicalName,
-                ($requestedName ? '(alias: ' . $requestedName . ')' : '')
-            ));
+            return $this->createServiceViaCallback(array($factory, 'createService'), $name);
         }
-        return $instance;
+
+        if (is_callable($factory)) {
+            return $this->createServiceViaCallback($factory, $name);
+        }
+
+        throw new Exception\ServiceNotCreatedException(sprintf(
+            'While attempting to create %s an invalid factory was registered for this instance type.',
+            $name
+        ));
     }
 
     /**
      * Attempt to create an instance via an abstract factory
      *
-     * @param  string $canonicalName
-     * @param  string $requestedName
+     * @param  string $name
      * @return object|null
      * @throws Exception\ServiceNotCreatedException If abstract factory is not callable
      */
-    protected function createFromAbstractFactory($canonicalName, $requestedName)
+    protected function createFromAbstractFactory($name)
     {
-        if (isset($this->nestedContext[$canonicalName])) {
-            $abstractFactory = $this->nestedContext[$canonicalName];
-            $pendingKey = get_class($abstractFactory).$canonicalName;
+        if (isset($this->nestedContext[$name])) {
+            $abstractFactory = $this->nestedContext[$name];
+            $pendingKey = get_class($abstractFactory) . $name;
             try {
                 $this->pendingAbstractFactoryRequests[$pendingKey] = true;
+
                 $instance = $this->createServiceViaCallback(
                     array($abstractFactory, 'createServiceWithName'),
-                    $canonicalName,
-                    $requestedName
+                    $name
                 );
                 unset($this->pendingAbstractFactoryRequests[$pendingKey]);
+
                 return $instance;
             } catch (\Exception $e) {
                 unset($this->pendingAbstractFactoryRequests[$pendingKey]);
                 $this->checkNestedContextStop(true);
+
                 throw new Exception\ServiceNotCreatedException(
                     sprintf(
-                        'An abstract factory could not create an instance of %s%s.',
-                        $canonicalName,
-                        ($requestedName ? '(alias: ' . $requestedName . ')' : '')
+                        'An abstract factory could not create an instance of %s.',
+                        $name
                     ),
                     $e->getCode(),
                     $e
                 );
             }
         }
+
         return null;
     }
 
@@ -930,47 +890,44 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
-     * @param $canonicalName
-     * @param $requestedName
+     * @param  string $name
      * @return mixed
      * @throws Exception\ServiceNotCreatedException
      */
-    protected function createDelegatorFromFactory($canonicalName, $requestedName)
+    protected function createDelegatorFromFactory($name)
     {
         $serviceManager     = $this;
-        $delegatorsCount    = count($this->delegators[$canonicalName]);
-        $creationCallback   = function () use ($serviceManager, $requestedName, $canonicalName) {
-            return $serviceManager->doCreate($requestedName, $canonicalName);
+        $delegatorsCount    = count($this->delegators[$name]);
+        $creationCallback   = function () use ($serviceManager, $name) {
+            return $serviceManager->doCreate($name);
         };
 
         for ($i = 0; $i < $delegatorsCount; $i += 1) {
 
-            $delegatorFactory = $this->delegators[$canonicalName][$i];
+            $delegatorFactory = $this->delegators[$name][$i];
 
             if (is_string($delegatorFactory)) {
                 $delegatorFactory = !$this->has($delegatorFactory) && class_exists($delegatorFactory, true) ?
                     new $delegatorFactory
                     : $this->get($delegatorFactory);
-                $this->delegators[$canonicalName][$i] = $delegatorFactory;
+                $this->delegators[$name][$i] = $delegatorFactory;
             }
 
             if (!$delegatorFactory instanceof DelegatorFactoryInterface && !is_callable($delegatorFactory)) {
                 throw new Exception\ServiceNotCreatedException(sprintf(
-                    'While attempting to create %s%s an invalid factory was registered for this instance type.',
-                    $canonicalName,
-                    ($requestedName ? '(alias: ' . $requestedName . ')' : '')
+                    'While attempting to create %s an invalid factory was registered for this instance type.',
+                    $name
                 ));
             }
 
             $creationCallback = $this->createDelegatorCallback(
                 $delegatorFactory,
-                $requestedName,
-                $canonicalName,
+                $name,
                 $creationCallback
             );
         }
 
-        return $creationCallback($serviceManager, $canonicalName, $requestedName, $creationCallback);
+        return $creationCallback($serviceManager, $name, $creationCallback);
     }
 
     /**

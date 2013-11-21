@@ -87,14 +87,15 @@ class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $mock = 'ZendTest\ServiceManager\TestAsset\CallableWithMutableCreationOptions';
         $callable = $this->getMock($mock, array('setCreationOptions'));
-        $callable->expects($this->never())
+        $callable
+            ->expects($this->never())
             ->method('setCreationOptions');
 
         $ref = new ReflectionObject($this->pluginManager);
 
         $method = $ref->getMethod('createServiceViaCallback');
         $method->setAccessible(true);
-        $method->invoke($this->pluginManager, $callable, 'foo', 'bar');
+        $method->invoke($this->pluginManager, $callable, 'bar');
     }
 
     public function testCallableObjectWithMutableCreationOptions()
@@ -114,7 +115,7 @@ class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
 
         $method = $ref->getMethod('createServiceViaCallback');
         $method->setAccessible(true);
-        $method->invoke($this->pluginManager, $callable, 'foo', 'bar');
+        $method->invoke($this->pluginManager, $callable, 'bar');
     }
 
     public function testValidatePluginIsCalledWithDelegatorFactoryIfItsAService()
@@ -144,7 +145,6 @@ class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
             ->method('createDelegatorWithName')
             ->with(
                 $pluginManager,
-                'foo-service',
                 'foo-service',
                 $this->callback(function ($callback) use ($realService) {
                     if (!is_callable($callback)) {

@@ -14,12 +14,12 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class UnlocatableControllerLoaderAbstractFactory implements AbstractFactoryInterface
 {
-    public function canCreateServiceWithName(ServiceLocatorInterface $sl, $cName, $rName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return false;
     }
 
-    public function createServiceWithName(ServiceLocatorInterface $sl, $cName, $rName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
     }
 }
