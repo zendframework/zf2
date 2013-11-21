@@ -60,6 +60,13 @@ class ServiceNameNormalizerAbstractFactory implements AbstractFactoryInterface
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
+        if ($serviceRequest instanceof ServiceRequestInterface) {
+            return $serviceLocator->has(new ServiceRequest(
+                $this->getCanonicalNameMatch((string) $serviceRequest),
+                $serviceRequest->getOptions()
+            ));
+        }
+
         return $serviceLocator->has($this->getCanonicalNameMatch((string) $serviceRequest), true, false);
     }
 
@@ -102,8 +109,8 @@ class ServiceNameNormalizerAbstractFactory implements AbstractFactoryInterface
                 $serviceCanonicalName = $this->canonicalizeName($realServiceName);
 
                 if ($serviceCanonicalName === $canonicalName) {
-                    $this->canonicalNames[$canonicalName] = $realServiceName;
-                    $this->canonicalNames[$name]          = $realServiceName;
+                    $this->realServiceNames[$canonicalName] = $realServiceName;
+                    $this->realServiceNames[$name]          = $realServiceName;
 
                     return $realServiceName;
                 }
