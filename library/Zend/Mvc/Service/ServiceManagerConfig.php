@@ -66,6 +66,13 @@ class ServiceManagerConfig implements ConfigInterface
     );
 
     /**
+     * Whether to use or not canonical service names when resolving service names
+     *
+     * @var bool
+     */
+    protected $useCanonicalNames = false;
+
+    /**
      * Constructor
      *
      * Merges internal arrays with those passed via configuration
@@ -94,6 +101,9 @@ class ServiceManagerConfig implements ConfigInterface
             $this->shared = array_merge($this->shared, $configuration['shared']);
         }
 
+        if (isset($configuration['use_canonical_names'])) {
+            $this->useCanonicalNames = (bool) $configuration['use_canonical_names'];
+        }
     }
 
     /**
@@ -127,6 +137,10 @@ class ServiceManagerConfig implements ConfigInterface
 
         foreach ($this->shared as $name => $value) {
             $serviceManager->setShared($name, $value);
+        }
+
+        if ($this->useCanonicalNames) {
+            $serviceManager->useCanonicalNames();
         }
 
         $serviceManager->addInitializer(function ($instance) use ($serviceManager) {
