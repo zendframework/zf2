@@ -20,14 +20,13 @@ class ControllerLoaderAbstractFactory implements AbstractFactoryInterface
 
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $classname = $this->classmap[$name];
-        return class_exists($classname);
+        return class_exists($this->classmap[$name]);
     }
 
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $classname = $this->classmap[$name];
-        $controller = new $classname;
-        return $controller;
+        $classname  = $this->classmap[$name];
+
+        return new $classname;
     }
 }

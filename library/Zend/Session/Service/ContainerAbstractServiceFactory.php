@@ -68,8 +68,7 @@ class ContainerAbstractServiceFactory implements AbstractFactoryInterface
             return false;
         }
 
-        $containerName = $this->normalizeContainerName($requestedName);
-        return array_key_exists($containerName, $config);
+        return array_key_exists($this->normalizeContainerName($name), $config);
     }
 
     /**
@@ -81,7 +80,7 @@ class ContainerAbstractServiceFactory implements AbstractFactoryInterface
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         $manager = $this->getSessionManager($serviceLocator);
-        return new Container($requestedName, $manager);
+        return new Container($name, $manager);
     }
 
     /**

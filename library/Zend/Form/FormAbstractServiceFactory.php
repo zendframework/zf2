@@ -45,7 +45,7 @@ class FormAbstractServiceFactory implements AbstractFactoryInterface
             return false;
         }
 
-        return (isset($config[$rName]) && is_array($config[$rName]) && !empty($config[$rName]));
+        return (isset($config[$name]) && is_array($config[$name]) && !empty($config[$name]));
     }
 
     /**
@@ -59,7 +59,7 @@ class FormAbstractServiceFactory implements AbstractFactoryInterface
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         $config  = $this->getConfig($serviceLocator);
-        $config  = $config[$rName];
+        $config  = $config[$name];
         $factory = $this->getFormFactory($serviceLocator);
 
         $this->marshalInputFilter($config, $serviceLocator, $factory);

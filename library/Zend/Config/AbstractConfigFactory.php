@@ -45,7 +45,7 @@ class AbstractConfigFactory implements ServiceManager\AbstractFactoryInterface
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        if (isset($this->configs[$requestedName])) {
+        if (isset($this->configs[$name])) {
             return true;
         }
 
@@ -53,12 +53,14 @@ class AbstractConfigFactory implements ServiceManager\AbstractFactoryInterface
             return false;
         }
 
-        $key = $this->match($requestedName);
+        $key = $this->match($name);
+
         if (null === $key) {
             return false;
         }
 
         $config = $serviceLocator->get('Config');
+
         return isset($config[$key]);
     }
 

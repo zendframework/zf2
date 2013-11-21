@@ -39,11 +39,12 @@ class StorageCacheAbstractServiceFactory implements AbstractFactoryInterface
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         $config = $this->getConfig($serviceLocator);
+
         if (empty($config)) {
             return false;
         }
 
-        return (isset($config[$requestedName]) && is_array($config[$requestedName]));
+        return (isset($config[$name]) && is_array($config[$name]));
     }
 
     /**
@@ -55,7 +56,7 @@ class StorageCacheAbstractServiceFactory implements AbstractFactoryInterface
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         $config = $this->getConfig($serviceLocator);
-        $config = $config[$requestedName];
+        $config = $config[$name];
         return StorageFactory::factory($config);
     }
 

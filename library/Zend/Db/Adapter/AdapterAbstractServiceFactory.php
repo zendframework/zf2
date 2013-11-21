@@ -35,14 +35,15 @@ class AdapterAbstractServiceFactory implements AbstractFactoryInterface
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         $config = $this->getConfig($serviceLocator);
+
         if (empty($config)) {
             return false;
         }
 
         return (
-            isset($config[$requestedName])
-            && is_array($config[$requestedName])
-            && !empty($config[$requestedName])
+            isset($config[$name])
+            && is_array($config[$name])
+            && !empty($config[$name])
         );
     }
 
