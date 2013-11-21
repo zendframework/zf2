@@ -224,7 +224,7 @@ class ServiceManager implements ServiceLocatorInterface
             $shared = $this->shareByDefault;
         }
 
-        $this->invokableClasses[$name] = $invokableClass;
+        $this->invokableClasses[$name] = (string) $invokableClass;
         $this->shared[$name]           = (bool) $shared;
 
         return $this;
