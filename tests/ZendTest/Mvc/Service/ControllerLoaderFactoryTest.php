@@ -70,6 +70,7 @@ class ControllerLoaderFactoryTest extends TestCase
 
     public function testCannotLoadControllerFromPeer()
     {
+        $this->markTestSkipped('peer SLs are removed');
         $this->loader = $this->services->get('ControllerLoader');
         $this->services->setService('foo', $this);
 

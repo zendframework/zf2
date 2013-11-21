@@ -12,21 +12,10 @@ namespace Zend\Mvc\Service;
 use Zend\Form\FormElementManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * @method \Zend\Form\ElementInterface get($name)
+ */
 class FormElementManagerFactory extends AbstractPluginManagerFactory
 {
     const PLUGIN_MANAGER_CLASS = 'Zend\Form\FormElementManager';
-
-    /**
-     * Create and return the MVC controller plugin manager
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return FormElementManager
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $plugins = parent::createService($serviceLocator);
-        $plugins->addPeeringServiceManager($serviceLocator);
-        $plugins->setRetrieveFromPeeringManagerFirst(true);
-        return $plugins;
-    }
 }

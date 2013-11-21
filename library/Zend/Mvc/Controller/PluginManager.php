@@ -11,6 +11,7 @@ namespace Zend\Mvc\Controller;
 
 use Zend\Mvc\Exception;
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ConfigInterface;
 use Zend\Stdlib\DispatchableInterface;
 
 /**
@@ -22,45 +23,14 @@ use Zend\Stdlib\DispatchableInterface;
 class PluginManager extends AbstractPluginManager
 {
     /**
-     * Default set of plugins factories
-     *
-     * @var array
-     */
-    protected $factories = array(
-        'forward'  => 'Zend\Mvc\Controller\Plugin\Service\ForwardFactory',
-        'identity' => 'Zend\Mvc\Controller\Plugin\Service\IdentityFactory',
-    );
-
-    /**
-     * Default set of plugins
-     *
-     * @var array
-     */
-    protected $invokableClasses = array(
-        'acceptableviewmodelselector' => 'Zend\Mvc\Controller\Plugin\AcceptableViewModelSelector',
-        'filepostredirectget'         => 'Zend\Mvc\Controller\Plugin\FilePostRedirectGet',
-        'flashmessenger'              => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-        'layout'                      => 'Zend\Mvc\Controller\Plugin\Layout',
-        'params'                      => 'Zend\Mvc\Controller\Plugin\Params',
-        'postredirectget'             => 'Zend\Mvc\Controller\Plugin\PostRedirectGet',
-        'redirect'                    => 'Zend\Mvc\Controller\Plugin\Redirect',
-        'url'                         => 'Zend\Mvc\Controller\Plugin\Url',
-    );
-
-    /**
-     * Default set of plugin aliases
-     *
-     * @var array
-     */
-    protected $aliases = array(
-        'prg'     => 'postredirectget',
-        'fileprg' => 'filepostredirectget',
-    );
-
-    /**
      * @var DispatchableInterface
      */
     protected $controller;
+
+    public function __construct(ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration ?: new PluginManagerConfig());
+    }
 
     /**
      * Retrieve a registered instance

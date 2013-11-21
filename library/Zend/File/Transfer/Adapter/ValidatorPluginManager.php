@@ -9,28 +9,16 @@
 
 namespace Zend\File\Transfer\Adapter;
 
+use Zend\ServiceManager\ConfigInterface;
 use Zend\Validator\ValidatorPluginManager as BaseManager;
 
 class ValidatorPluginManager extends BaseManager
 {
-    protected $aliases = array(
-        'count'            => 'filecount',
-        'crc32'            => 'filecrc32',
-        'excludeextension' => 'fileexcludeextension',
-        'excludemimetype'  => 'fileexcludemimetype',
-        'exists'           => 'fileexists',
-        'extension'        => 'fileextension',
-        'filessize'        => 'filefilessize',
-        'hash'             => 'filehash',
-        'imagesize'        => 'fileimagesize',
-        'iscompressed'     => 'fileiscompressed',
-        'isimage'          => 'fileisimage',
-        'md5'              => 'filemd5',
-        'mimetype'         => 'filemimetype',
-        'notexists'        => 'filenotexists',
-        'sha1'             => 'filesha1',
-        'size'             => 'filesize',
-        'upload'           => 'fileupload',
-        'wordcount'        => 'filewordcount',
-    );
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct(ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration ?: new ValidatorPluginManagerConfig());
+    }
 }

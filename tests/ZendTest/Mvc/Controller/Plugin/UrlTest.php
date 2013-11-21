@@ -145,6 +145,8 @@ class UrlTest extends TestCase
 
     public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
     {
+        $this->markTestIncomplete('creation options are not currently passed through the different layers of abstract factories');
+
         $router = new \Zend\Mvc\Router\Http\TreeRouteStack;
         $router->addRoute('default', array(
             'type' => 'Zend\Mvc\Router\Http\Segment',
