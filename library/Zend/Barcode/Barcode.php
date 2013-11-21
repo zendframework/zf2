@@ -10,6 +10,7 @@
 namespace Zend\Barcode;
 
 use Traversable;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 
 /**
@@ -190,7 +191,7 @@ abstract class Barcode
             );
         }
 
-        return static::getObjectPluginManager()->get($barcode, $barcodeConfig);
+        return static::getObjectPluginManager()->get(new ServiceRequest($barcode, $barcodeConfig));
     }
 
     /**
@@ -242,7 +243,7 @@ abstract class Barcode
             );
         }
 
-        return static::getRendererPluginManager()->get($renderer, $rendererConfig);
+        return static::getRendererPluginManager()->get(new ServiceRequest($renderer, $rendererConfig));
     }
 
     /**

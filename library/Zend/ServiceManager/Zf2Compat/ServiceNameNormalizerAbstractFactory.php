@@ -12,6 +12,8 @@ namespace Zend\ServiceManager\Zf2Compat;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceRequest;
+use Zend\ServiceManager\ServiceRequestInterface;
 
 /**
  * Alias abstract factory - allows usage of normalized service names in {@see \Zend\ServiceManager\ServiceManager}
@@ -55,24 +57,25 @@ class ServiceNameNormalizerAbstractFactory implements AbstractFactoryInterface
 
     /**
      * {@inheritDoc}
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @param $name
-     * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
-        return $serviceLocator->has($this->getCanonicalNameMatch($name), true, false);
+        return $serviceLocator->has($this->getCanonicalNameMatch((string) $serviceRequest), true, false);
     }
 
     /**
      * {@inheritDoc}
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @param $name
-     * @return array|mixed|object
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
-        return $serviceLocator->get($this->getCanonicalNameMatch($name), true, false);
+        if ($serviceRequest instanceof ServiceRequestInterface) {
+            return $serviceLocator->get(new ServiceRequest(
+                $this->getCanonicalNameMatch((string) $serviceRequest),
+                $serviceRequest->getOptions()
+            ));
+        }
+
+        return $serviceLocator->get($this->getCanonicalNameMatch($serviceRequest), true, false);
     }
 
     /**

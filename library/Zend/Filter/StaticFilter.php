@@ -9,6 +9,8 @@
 
 namespace Zend\Filter;
 
+use Zend\ServiceManager\ServiceRequest;
+
 class StaticFilter
 {
     /**
@@ -62,9 +64,8 @@ class StaticFilter
      */
     public static function execute($value, $classBaseName, array $args = array())
     {
-        $plugins = static::getPluginManager();
-
-        $filter = $plugins->get($classBaseName, $args);
-        return $filter->filter($value);
+        return static::getPluginManager()
+            ->get(new ServiceRequest($classBaseName, $args))
+            ->filter($value);
     }
 }

@@ -10,6 +10,7 @@
 namespace Zend\Tag;
 
 use Traversable;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 
 class Cloud
@@ -188,7 +189,7 @@ class Cloud
         }
 
         if (is_string($decorator)) {
-            $decorator = $this->getDecoratorPluginManager()->get($decorator, $options);
+            $decorator = $this->getDecoratorPluginManager()->get(new ServiceRequest($decorator, $options));
         }
 
         if (!($decorator instanceof Cloud\Decorator\AbstractCloud)) {
@@ -235,7 +236,7 @@ class Cloud
         }
 
         if (is_string($decorator)) {
-            $decorator = $this->getDecoratorPluginManager()->get($decorator, $options);
+            $decorator = $this->getDecoratorPluginManager()->get(new ServiceRequest($decorator, $options));
         }
 
         if (!($decorator instanceof Cloud\Decorator\AbstractTag)) {

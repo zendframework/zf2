@@ -13,6 +13,7 @@ use Zend\Di\Di;
 use Zend\Mvc\Router\RoutePluginManager;
 use Zend\ServiceManager\Di\DiAbstractServiceFactory;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\ServiceManager\ServiceRequest;
 
 /**
  * @group      Zend_Router
@@ -69,7 +70,7 @@ class RoutePluginManagerTest extends TestCase
         $this->assertTrue($routes->has($routeName));
 
         try {
-            $route = $routes->get($routeName, $options);
+            $route = $routes->get(new ServiceRequest($routeName, $options));
             $this->assertInstanceOf($routeName, $route);
         } catch (\Exception $e) {
             $messages = array();
@@ -102,7 +103,7 @@ class RoutePluginManagerTest extends TestCase
         $this->assertTrue($routes->has($shortName));
 
         try {
-            $route = $routes->get($shortName, $options);
+            $route = $routes->get(new ServiceRequest($shortName, $options));
             $this->assertInstanceOf($routeName, $route);
         } catch (\Exception $e) {
             $messages = array();

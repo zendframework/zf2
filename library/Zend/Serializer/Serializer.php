@@ -10,6 +10,7 @@
 namespace Zend\Serializer;
 
 use Zend\Serializer\Adapter\AdapterInterface as Adapter;
+use Zend\ServiceManager\ServiceRequest;
 
 abstract class Serializer
 {
@@ -40,7 +41,7 @@ abstract class Serializer
             return $adapterName; // $adapterName is already an adapter object
         }
 
-        return static::getAdapterPluginManager()->get($adapterName, $adapterOptions);
+        return static::getAdapterPluginManager()->get(new ServiceRequest($adapterName, $adapterOptions));
     }
 
     /**

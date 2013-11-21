@@ -9,6 +9,7 @@
 namespace Zend\Log\Writer;
 
 use Traversable;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Log\Exception;
 use Zend\Log\Filter\FilterInterface;
@@ -171,7 +172,7 @@ class FingersCrossed extends AbstractWriter
      */
     public function writerPlugin($name, array $options = null)
     {
-        return $this->getWriterPluginManager()->get($name, $options);
+        return $this->getWriterPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**

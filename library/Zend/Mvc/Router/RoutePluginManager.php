@@ -109,6 +109,8 @@ class RoutePluginManager extends AbstractPluginManager
             ));
         }
 
-        return $invokable::factory($this->creationOptions);
+        return $invokable::factory(
+            $serviceRequest instanceof ServiceRequestInterface ? (array) $serviceRequest->getOptions() : []
+        );
     }
 }

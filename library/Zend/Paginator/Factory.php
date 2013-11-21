@@ -11,6 +11,7 @@ namespace Zend\Paginator;
 
 use Traversable;
 use Zend\Paginator\Adapter\AdapterInterface;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 
 abstract class Factory
@@ -63,7 +64,7 @@ abstract class Factory
         if ($adapter instanceof AdapterInterface || $adapter instanceof AdapterAggregateInterface) {
             return new Paginator($adapter);
         }
-        $adapter = static::getAdapterPluginManager()->get($adapter, $items);
+        $adapter = static::getAdapterPluginManager()->get(new ServiceRequest($adapter, $items));
         return new Paginator($adapter);
     }
 

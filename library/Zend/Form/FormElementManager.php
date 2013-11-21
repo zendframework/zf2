@@ -12,6 +12,8 @@ namespace Zend\Form;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceRequest;
+use Zend\ServiceManager\ServiceRequestInterface;
 use Zend\Stdlib\InitializableInterface;
 
 /**
@@ -141,41 +143,32 @@ class FormElementManager extends AbstractPluginManager
         if (is_string($options)) {
             $options = array('name' => $options);
         }
-        return parent::get($name, $options, $usePeeringServiceManagers);
+
+        return parent::get(new ServiceRequest($name, $options));
     }
 
     /**
-     * Attempt to create an instance via an invokable class
-     *
-     * Overrides parent implementation by passing $creationOptions to the
-     * constructor, if non-null.
-     *
-     * @param  string $name
-     * @return null|\stdClass
-     * @throws Exception\ServiceNotCreatedException If resolved class does not exist
+     * {@inheritDoc}
      */
-    protected function createFromInvokable($name)
+    protected function createFromInvokable($serviceRequest)
     {
+        $name      = (string) $serviceRequest;
         $invokable = $this->invokableClasses[$name];
 
-        if (null === $this->creationOptions
-            || (is_array($this->creationOptions) && empty($this->creationOptions))
-        ) {
-            $instance = new $invokable();
-        } else {
-            if (isset($this->creationOptions['name'])) {
-                $name = $this->creationOptions['name'];
+        if ($serviceRequest instanceof ServiceRequestInterface) {
+            $options  = $serviceRequest->getOptions();
+
+            if (isset($options['name'])) {
+                $name = $options['name'];
             }
 
-            if (isset($this->creationOptions['options'])) {
-                $options = $this->creationOptions['options'];
-            } else {
-                $options = $this->creationOptions;
+            if (isset($options['options'])) {
+                $options = $options['options'];
             }
 
-            $instance = new $invokable($name, $options);
+            return new $invokable($name, $options);
         }
 
-        return $instance;
+        return new $invokable();
     }
 }

@@ -16,6 +16,7 @@ use Zend\Filter;
 use Zend\Filter\Exception as FilterException;
 use Zend\I18n\Translator\Translator;
 use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ErrorHandler;
 use Zend\Validator;
 
@@ -284,7 +285,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
     public function addValidator($validator, $breakChainOnFailure = false, $options = null, $files = null)
     {
         if (is_string($validator)) {
-            $validator = $this->getValidatorManager()->get($validator, $options);
+            $validator = $this->getValidatorManager()->get(new ServiceRequest($validator, $options));
             if (is_array($options) && isset($options['messages'])) {
                 if (is_array($options['messages'])) {
                     $validator->setMessages($options['messages']);
@@ -706,7 +707,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
     public function addFilter($filter, $options = null, $files = null)
     {
         if (is_string($filter)) {
-            $filter = $this->getFilterManager()->get($filter, $options);
+            $filter = $this->getFilterManager()->get(new ServiceRequest($filter, $options));
         }
 
         if (!$filter instanceof Filter\FilterInterface) {

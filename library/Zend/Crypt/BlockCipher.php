@@ -14,6 +14,7 @@ use Zend\Crypt\Key\Derivation\Pbkdf2;
 use Zend\Crypt\Symmetric\SymmetricInterface;
 use Zend\Crypt\Utils;
 use Zend\Math\Rand;
+use Zend\ServiceManager\ServiceRequest;
 
 /**
  * Encrypt using a symmetric cipher then authenticate using HMAC (SHA-256)
@@ -96,7 +97,7 @@ class BlockCipher
     public static function factory($adapter, $options = array())
     {
         $plugins = static::getSymmetricPluginManager();
-        $adapter = $plugins->get($adapter, (array) $options);
+        $adapter = $plugins->get(new ServiceRequest($adapter, (array) $options));
 
         return new static($adapter);
     }
