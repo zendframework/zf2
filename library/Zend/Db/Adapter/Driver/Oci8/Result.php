@@ -22,9 +22,9 @@ class Result implements Iterator, ResultInterface
     protected $resource = null;
 
     /**
-     * @var bool
+     * @var array Result options
      */
-    protected $isBuffered = null;
+    protected $options = array();
 
     /**
      * Cursor position
@@ -59,18 +59,28 @@ class Result implements Iterator, ResultInterface
      * @var mixed
      */
     protected $generatedValue = null;
+    
+    /**
+     * @var null
+     */
+    protected $rowCount = null;
 
     /**
      * Initialize
-     * @param resource $resource
+     * @param resource      $resource
+     * @param array         $option
+     * @param               $generatedValue
+     * @param int           $rowCount
      * @return Result
      */
-    public function initialize($resource /*, $generatedValue, $isBuffered = null*/)
+    public function initialize($resource, $generatedValue, $rowCount = null, $option)
     {
         if (!is_resource($resource) && get_resource_type($resource) !== 'oci8 statement') {
             throw new Exception\InvalidArgumentException('Invalid resource provided.');
         }
+        $this->options = $option; 
         $this->resource = $resource;
+        $this->rowCount = $rowCount;
         return $this;
     }
 
@@ -134,8 +144,14 @@ class Result implements Iterator, ResultInterface
             if ($this->loadData() === false) {
                 return false;
             }
-        }
-
+        }        
+        if (isset($this->options['change_result_key_case'])
+            && ($this->options['change_result_key_case'] == CASE_LOWER
+            || $this->options['change_result_key_case'] == CASE_UPPER)
+        ) { 
+            return array_change_key_case($this->currentData, $this->options['change_result_key_case']);
+        };        
+        
         return $this->currentData;
     }
 
@@ -202,7 +218,13 @@ class Result implements Iterator, ResultInterface
      */
     public function count()
     {
-        // @todo OCI8 row count in Driver Result
+        if (is_int($this->rowCount)) {
+            return $this->rowCount;
+        }
+        if ($this->rowCount instanceof \Closure) {
+            $this->rowCount = (int) call_user_func($this->rowCount);
+            return $this->rowCount;
+        }
         return null;
     }
 

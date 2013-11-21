@@ -327,7 +327,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             throw new Exception\InvalidQueryException($e['message'], $e['code']);
         }
 
-        $resultPrototype = $this->driver->createResult($ociStmt);
+        $resultPrototype = $this->driver->createResult($ociStmt, $sql);
         return $resultPrototype;
     }
 
