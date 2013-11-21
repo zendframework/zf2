@@ -820,20 +820,21 @@ class Paginator implements Countable, IteratorAggregate
     {
         $pageCount         = $this->count();
         $currentPageNumber = $this->getCurrentPageNumber();
+        $itemCountPerPage  = $this->getItemCountPerPage();
 
         $pages = new \stdClass();
         $pages->pageCount        = $pageCount;
-        $pages->itemCountPerPage = $this->getItemCountPerPage();
+        $pages->itemCountPerPage = $itemCountPerPage;
         $pages->first            = 1;
         $pages->current          = $currentPageNumber;
         $pages->last             = $pageCount;
 
         // Previous and next
-        if ($currentPageNumber - 1 > 0) {
+        if ($currentPageNumber > 1) {
             $pages->previous = $currentPageNumber - 1;
         }
 
-        if ($currentPageNumber + 1 <= $pageCount) {
+        if ($currentPageNumber < $pageCount) {
             $pages->next = $currentPageNumber + 1;
         }
 
@@ -846,9 +847,9 @@ class Paginator implements Countable, IteratorAggregate
         // Item numbers
         if ($this->getCurrentItems() !== null) {
             $pages->currentItemCount = $this->getCurrentItemCount();
-            $pages->itemCountPerPage = $this->getItemCountPerPage();
+            $pages->itemCountPerPage = $itemCountPerPage;
             $pages->totalItemCount   = $this->getTotalItemCount();
-            $pages->firstItemNumber  = (($currentPageNumber - 1) * $this->getItemCountPerPage()) + 1;
+            $pages->firstItemNumber  = (($currentPageNumber - 1) * $itemCountPerPage) + 1;
             $pages->lastItemNumber   = $pages->firstItemNumber + $pages->currentItemCount - 1;
         }
 
