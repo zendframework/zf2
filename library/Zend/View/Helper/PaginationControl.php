@@ -45,7 +45,7 @@ class PaginationControl extends AbstractHelper
     public function __invoke(Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
     {
         if ($paginator === null) {
-            if (isset($this->view->paginator) and $this->view->paginator !== null and $this->view->paginator instanceof Paginator) {
+            if (isset($this->view->paginator) && $this->view->paginator !== null && $this->view->paginator instanceof Paginator) {
                 $paginator = $this->view->paginator;
             } else {
                 throw new Exception\RuntimeException('No paginator instance provided or incorrect type');
