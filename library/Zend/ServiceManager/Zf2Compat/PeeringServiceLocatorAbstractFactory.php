@@ -15,7 +15,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Peering service locator abstract factory - allows peering between service locators even though it's
- * not a first class citizien of the framework anymore
+ * not a first class citizen of the framework anymore
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
