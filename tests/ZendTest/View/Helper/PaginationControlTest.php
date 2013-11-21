@@ -135,22 +135,6 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-4233
-     */
-    public function testAcceptsViewPartialInOtherModule()
-    {
-        try {
-            $this->_viewHelper->__invoke($this->_paginator, null, array('partial.phtml', 'test'));
-        } catch (\Exception $e) {
-            /* We don't care whether or not the module exists--we just want to
-             * make sure it gets to Zend_View_Helper_Partial and it's recognized
-             * as a module. */
-            $this->assertInstanceOf('Zend\View\Exception\RuntimeException', $e);
-            $this->assertContains('could not resolve', $e->getMessage());
-        }
-    }
-
-    /**
      * @group ZF-4328
      */
     public function testUsesPaginatorFromViewOnlyIfNoneSupplied()
