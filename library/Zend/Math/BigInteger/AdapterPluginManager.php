@@ -10,6 +10,8 @@
 namespace Zend\Math\BigInteger;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 /**
  * Plugin manager implementation for BigInteger adapters.
@@ -29,6 +31,16 @@ class AdapterPluginManager extends AbstractPluginManager
         'bcmath' => 'Zend\Math\BigInteger\Adapter\Bcmath',
         'gmp'    => 'Zend\Math\BigInteger\Adapter\Gmp',
     );
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct(ConfigInterface $config = null)
+    {
+        parent::__construct($config);
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this));
+    }
 
     /**
      * Validate the plugin
