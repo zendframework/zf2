@@ -104,7 +104,6 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->paginator->setItemCountPerPage(10);
         $this->paginator->setCurrentPageNumber(1);
         $this->paginator->setPageRange(10);
-        $this->paginator->setView();
 
         Paginator\Paginator::setDefaultScrollingStyle();
         Helper\PaginationControl::setDefaultViewPartial(null);
@@ -193,26 +192,6 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $actual = $this->paginator->getPages();
 
         $this->assertEquals($expected, $actual);
-    }
-
-    public function testRendersWithoutPartial()
-    {
-        $this->paginator->setView(new View\Renderer\PhpRenderer());
-        $string = @$this->paginator->__toString();
-        $this->assertEquals('', $string);
-    }
-
-    public function testRendersWithPartial()
-    {
-        $view = new View\Renderer\PhpRenderer();
-        $view->resolver()->addPath(__DIR__ . '/_files/scripts');
-
-        Helper\PaginationControl::setDefaultViewPartial('partial.phtml');
-
-        $this->paginator->setView($view);
-
-        $string = $this->paginator->__toString();
-        $this->assertEquals('partial rendered successfully', $string);
     }
 
     public function testGetsPageCount()
@@ -429,23 +408,6 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         $limitIterator = new \LimitIterator(new \ArrayIterator(range(1, 101)));
         $this->assertEquals(101, $this->paginator->getItemCount($limitIterator));
-    }
-
-    public function testGeneratesViewIfNonexistent()
-    {
-        $this->assertInstanceOf('Zend\\View\\Renderer\\RendererInterface', $this->paginator->getView());
-    }
-
-    public function testGetsAndSetsView()
-    {
-        $this->paginator->setView(new View\Renderer\PhpRenderer());
-        $this->assertInstanceOf('Zend\\View\\Renderer\\RendererInterface', $this->paginator->getView());
-    }
-
-    public function testRenders()
-    {
-        $this->setExpectedException('Zend\\View\\Exception\\ExceptionInterface', 'view partial');
-        $this->paginator->render(new View\Renderer\PhpRenderer());
     }
 
     public function testGetsAndSetsPageRange()
