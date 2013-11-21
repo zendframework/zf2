@@ -90,12 +90,12 @@ class AliasResolverAbstractFactory implements AbstractFactoryInterface
             throw new Exception\InvalidServiceNameException('Invalid service name alias');
         }
 
-        if ((! $this->serviceManager->getAllowOverride()) &&  $this->hasAlias($alias)) {
+        /*if ((! $this->serviceManager->getAllowOverride()) &&  $this->hasAlias($alias)) {
             throw new Exception\InvalidServiceNameException(sprintf(
                 'An alias by the name "%s" already exists',
                 $alias
             ));
-        }
+        }*/
 
         if ($this->serviceManager->hasAlias($alias)) {
             $this->checkForCircularAliasReference($alias, $nameOrAlias);
