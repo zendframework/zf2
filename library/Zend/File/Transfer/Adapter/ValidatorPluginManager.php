@@ -10,6 +10,7 @@
 namespace Zend\File\Transfer\Adapter;
 
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 use Zend\Validator\ValidatorPluginManager as BaseManager;
 
 class ValidatorPluginManager extends BaseManager
@@ -20,5 +21,7 @@ class ValidatorPluginManager extends BaseManager
     public function __construct(ConfigInterface $configuration = null)
     {
         parent::__construct($configuration ?: new ValidatorPluginManagerConfig());
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
     }
 }

@@ -13,6 +13,8 @@ use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Exception;
+use Zend\ServiceManager\ServiceRequest;
+use Zend\ServiceManager\ServiceRequestInterface;
 
 /**
  * Alias abstract factory - allows usage of aliases in {@see \Zend\ServiceManager\ServiceManager} even
@@ -43,23 +45,30 @@ class AliasResolverAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
-        return $this->hasAlias((string) $name);
+        return $this->hasAlias((string) $serviceRequest);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
-        if (! $this->hasAlias((string) $name)) {
+        if (! $this->hasAlias((string) $serviceRequest)) {
             throw new Exception\ServiceNotFoundException(sprintf(
                 'Could not find service "%s" in the configured aliases'
             ));
         }
 
-        return $serviceLocator->get($this->aliases[(string) $name]);
+        if ($serviceRequest instanceof ServiceRequestInterface) {
+            return $serviceLocator->get(new ServiceRequest(
+                $this->aliases[(string) $serviceRequest],
+                $serviceRequest->getOptions()
+            ));
+        }
+
+        return $serviceLocator->get($this->aliases[(string) $serviceRequest]);
     }
 
     /**
@@ -87,13 +96,6 @@ class AliasResolverAbstractFactory implements AbstractFactoryInterface
                 $alias
             ));
         }
-
-        /*if ((! $this->serviceManager->getAllowOverride()) && $this->serviceManager->has($alias, false)) {
-            throw new Exception\InvalidServiceNameException(sprintf(
-                'An alias by the name "%s" already exists',
-                $alias
-            ));
-        }*/
 
         if ($this->serviceManager->hasAlias($alias)) {
             $this->checkForCircularAliasReference($alias, $nameOrAlias);
