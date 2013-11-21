@@ -562,17 +562,12 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * Determine if an instance exists.
      *
-     * @param  string|array  $name  An array argument accepts exactly two values.
-     *                              Example: array('canonicalName', 'requestName')
-     * @param  bool          $checkAbstractFactories
+     * @param  string  $name
+     * @param  bool    $checkAbstractFactories
      * @return bool
      */
     public function has($name, $checkAbstractFactories = true)
     {
-        if (is_array($name)) {
-            list($name) = $name;
-        }
-
         return (
             isset($this->invokableClasses[$name])
             || isset($this->factories[$name])
