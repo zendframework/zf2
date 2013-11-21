@@ -10,6 +10,8 @@
 namespace Zend\Stdlib\Hydrator;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
+use Zend\Session\Config\ConfigInterface;
 use Zend\Stdlib\Exception;
 
 /**
@@ -37,6 +39,16 @@ class HydratorPluginManager extends AbstractPluginManager
         'objectproperty'    => 'Zend\Stdlib\Hydrator\ObjectProperty',
         'reflection'        => 'Zend\Stdlib\Hydrator\Reflection'
     );
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct(ConfigInterface $config = null)
+    {
+        parent::__construct($config);
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
+    }
 
     /**
      * {@inheritDoc}

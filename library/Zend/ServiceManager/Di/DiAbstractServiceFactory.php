@@ -24,6 +24,7 @@ class DiAbstractServiceFactory extends DiServiceFactory implements AbstractFacto
     public function __construct(Di $di, $useServiceLocator = self::USE_SL_NONE)
     {
         $this->di = $di;
+
         if (in_array($useServiceLocator, array(self::USE_SL_BEFORE_DI, self::USE_SL_AFTER_DI, self::USE_SL_NONE))) {
             $this->useServiceLocator = $useServiceLocator;
         }
@@ -35,25 +36,21 @@ class DiAbstractServiceFactory extends DiServiceFactory implements AbstractFacto
 
     /**
      * {@inheritDoc}
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @param $name
-     * @return mixed|object
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
         $this->serviceLocator = $serviceLocator;
 
-        return $this->get($name, array());
+        return $this->get((string) $serviceRequest, array());
     }
 
     /**
      * {@inheritDoc}
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @param $name
-     * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
+        $name = (string) $serviceRequest;
+
         return $this->instanceManager->hasSharedInstance($name)
             || $this->instanceManager->hasAlias($name)
             || $this->instanceManager->hasConfig($name)

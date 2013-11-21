@@ -14,6 +14,7 @@ use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceRequest;
 use Zend\ServiceManager\ServiceRequestInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 use Zend\Stdlib\InitializableInterface;
 
 /**
@@ -78,6 +79,7 @@ class FormElementManager extends AbstractPluginManager
         parent::__construct($configuration);
 
         $this->addInitializer(array($this, 'injectFactory'));
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
     }
 
     /**
@@ -127,24 +129,19 @@ class FormElementManager extends AbstractPluginManager
     }
 
     /**
-     * Retrieve a service from the manager by name
-     *
-     * Allows passing an array of options to use when creating the instance.
-     * createFromInvokable() will use these and pass them to the instance
-     * constructor if not null and a non-empty array.
-     *
-     * @param  string $name
-     * @param  string|array $options
-     * @param  bool $usePeeringServiceManagers
-     * @return object
+     * {@inheritDoc}
      */
-    public function get($name, $options = array(), $usePeeringServiceManagers = true)
+    public function get($serviceRequest)
     {
-        if (is_string($options)) {
-            $options = array('name' => $options);
+        if ($serviceRequest instanceof ServiceRequest) {
+            $options = $serviceRequest->getOptions();
+
+            if (is_string($options)) {
+                $serviceRequest->setOptions(['name' => $options]);
+            }
         }
 
-        return parent::get(new ServiceRequest($name, $options));
+        return parent::get($serviceRequest);
     }
 
     /**

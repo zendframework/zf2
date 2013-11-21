@@ -1715,7 +1715,7 @@ class FormTest extends TestCase
         $this->assertInstanceOf('Zend\InputFilter\FileInput', $fileInput);
 
         $chain = $fileInput->getFilterChain();
-        $this->assertCount(1, $chain, var_export($chain, 1));
+        $this->assertCount(1, $chain);
     }
 
     public function testInputFilterNotAddedTwiceWhenUsingFieldsets()
