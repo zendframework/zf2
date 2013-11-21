@@ -11,6 +11,8 @@ namespace Zend\I18n\Translator;
 
 use Zend\I18n\Exception;
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 /**
  * Plugin manager implementation for translation loaders.
@@ -64,6 +66,16 @@ class LoaderPluginManager extends AbstractPluginManager
         'ini'      => 'Zend\I18n\Translator\Loader\Ini',
         'phparray' => 'Zend\I18n\Translator\Loader\PhpArray',
     );
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct(ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration);
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
+    }
 
     /**
      * Validate the plugin.
