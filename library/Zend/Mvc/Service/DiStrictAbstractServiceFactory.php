@@ -87,8 +87,8 @@ class DiStrictAbstractServiceFactory extends Di implements AbstractFactoryInterf
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        if (!isset($this->allowedServiceNames[$requestedName])) {
-            throw new Exception\InvalidServiceNameException('Service "' . $requestedName . '" is not whitelisted');
+        if (!isset($this->allowedServiceNames[$name])) {
+            throw new Exception\InvalidServiceNameException('Service "' . $name . '" is not whitelisted');
         }
 
 
@@ -99,7 +99,7 @@ class DiStrictAbstractServiceFactory extends Di implements AbstractFactoryInterf
             $this->serviceLocator = $serviceLocator;
         }
 
-        return parent::get($requestedName);
+        return parent::get($name);
     }
 
     /**
@@ -145,6 +145,6 @@ class DiStrictAbstractServiceFactory extends Di implements AbstractFactoryInterf
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         // won't check if the service exists, we are trusting the user's whitelist
-        return isset($this->allowedServiceNames[$requestedName]);
+        return isset($this->allowedServiceNames[$name]);
     }
 }

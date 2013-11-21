@@ -390,7 +390,7 @@ class ServiceManager implements ServiceLocatorInterface
             || isset($this->factories[$name])
             || $this->canCreateFromAbstractFactory($serviceRequest)
         ) {
-            $instance = $this->create($name);
+            $instance = $this->create($serviceRequest);
         }
 
         $this->checkNestedContextStop();
@@ -558,7 +558,7 @@ class ServiceManager implements ServiceLocatorInterface
                 break;
             }
 
-            if ($abstractFactory->canCreateServiceWithName($this, $name)) {
+            if ($abstractFactory->canCreateServiceWithName($this, $serviceRequest)) {
                 $this->nestedContext[$name] = $abstractFactory;
                 $result                     = true;
 
@@ -655,9 +655,10 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  callable $callable
      * @param  string|ServiceRequestInterface $serviceRequest
-     * @throws Exception\ServiceNotCreatedException
+     * @throws \Exception
      * @throws Exception\ServiceNotFoundException
      * @throws Exception\CircularDependencyFoundException
+     * @throws Exception\ServiceNotCreatedException
      * @return object
      */
     protected function createServiceViaCallback(callable $callable, $serviceRequest)

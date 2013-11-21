@@ -217,10 +217,7 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * Create service via callback
      *
      * @param  callable $callable
-     * @param  string   $name
-     * @throws Exception\ServiceNotCreatedException
-     * @throws Exception\ServiceNotFoundException
-     * @throws Exception\CircularDependencyFoundException
+     * @param  string $name
      * @return object
      */
     protected function createServiceViaCallback(callable $callable, $name)

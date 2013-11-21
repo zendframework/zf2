@@ -27,7 +27,6 @@ use ZendTest\ServiceManager\TestAsset\MockSelfReturningDelegatorFactory;
  */
 class ServiceManagerTest extends TestCase
 {
-
     /**
      * @var ServiceManager
      */
@@ -1110,6 +1109,32 @@ class ServiceManagerTest extends TestCase
         $foo = new \stdClass();
         $this->serviceManager->setService('foo', $foo);
         $this->assertSame($foo, $this->serviceManager->get(new ServiceRequest('foo')));
+    }
+
+    /**
+     * @covers \Zend\ServiceManager\ServiceManager::get
+     */
+    public function testServiceManagerPassesServiceRequestObjectsToAbstractFactories()
+    {
+        $serviceRequest  = $this->getMock('Zend\ServiceManager\ServiceRequestInterface');
+        $abstractFactory = $this->getMock('Zend\ServiceManager\AbstractFactoryInterface');
+        $service         = new \stdClass();
+
+
+        $serviceRequest->expects($this->any())->method('__toString')->will($this->returnValue('foo'));
+        $abstractFactory
+            ->expects($this->once())
+            ->method('canCreateServiceWithName')
+            ->with($this->serviceManager, $serviceRequest)
+            ->will($this->returnValue(true));
+        $abstractFactory
+            ->expects($this->once())
+            ->method('createServiceWithName')
+            ->with($this->serviceManager, $serviceRequest)
+            ->will($this->returnValue($service));
+
+        $this->serviceManager->addAbstractFactory($abstractFactory);
+        $this->assertSame($service, $this->serviceManager->get($serviceRequest));
     }
 
     public function getServiceOfVariousTypes()
