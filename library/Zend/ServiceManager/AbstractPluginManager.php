@@ -223,7 +223,7 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * @throws Exception\CircularDependencyFoundException
      * @return object
      */
-    protected function createServiceViaCallback($callable, $name)
+    protected function createServiceViaCallback(callable $callable, $name)
     {
         if (is_object($callable)) {
             $factory = $callable;

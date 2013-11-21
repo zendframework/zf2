@@ -15,7 +15,6 @@ use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 class ServiceManager implements ServiceLocatorInterface
 {
-
     /**@#+
      * Constants
      */
@@ -93,11 +92,6 @@ class ServiceManager implements ServiceLocatorInterface
     protected $shareByDefault = true;
 
     /**
-     * @var bool Track whether not to throw exceptions during create()
-     */
-    protected $throwExceptionInCreate = true;
-
-    /**
      * @var ServiceNameNormalizerAbstractFactory|null
      */
     private $canonicalizer;
@@ -166,29 +160,6 @@ class ServiceManager implements ServiceLocatorInterface
     public function shareByDefault()
     {
         return $this->shareByDefault;
-    }
-
-    /**
-     * Set throw exceptions in create
-     *
-     * @param  bool $throwExceptionInCreate
-     * @return ServiceManager
-     */
-    public function setThrowExceptionInCreate($throwExceptionInCreate)
-    {
-        $this->throwExceptionInCreate = $throwExceptionInCreate;
-
-        return $this;
-    }
-
-    /**
-     * Get throw exceptions in create
-     *
-     * @return bool
-     */
-    public function getThrowExceptionInCreate()
-    {
-        return $this->throwExceptionInCreate;
     }
 
     /**
@@ -400,15 +371,11 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
-     * Retrieve a registered instance
-     *
-     * @param  string  $name
-     * @throws Exception\ServiceNotFoundException
-     * @return object|array
+     * {@inheritDoc}
      */
-    public function get($name)
+    public function get($serviceRequest)
     {
-        $isAlias = false;
+        $name = (string) $serviceRequest;
 
         if (isset($this->instances[$name])) {
             return $this->instances[$name];
@@ -421,7 +388,7 @@ class ServiceManager implements ServiceLocatorInterface
         if (
             isset($this->invokableClasses[$name])
             || isset($this->factories[$name])
-            || $this->canCreateFromAbstractFactory($name, $name)
+            || $this->canCreateFromAbstractFactory($serviceRequest)
         ) {
             $instance = $this->create($name);
         }
@@ -431,13 +398,6 @@ class ServiceManager implements ServiceLocatorInterface
         // Still no instance? raise an exception
         if ($instance === null) {
             $this->checkNestedContextStop(true);
-
-            if ($isAlias) {
-                throw new Exception\ServiceNotFoundException(sprintf(
-                    'An alias "%s" was requested but no service could be found.',
-                    $name
-                ));
-            }
 
             throw new Exception\ServiceNotFoundException(sprintf(
                 '%s was unable to fetch or create an instance for %s',
@@ -459,67 +419,71 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * Create an instance of the requested service
      *
-     * @param  string $name
+     * @param  string|ServiceRequestInterface $serviceRequest
      *
      * @return bool|object
      */
-    public function create($name)
+    public function create($serviceRequest)
     {
-        if (isset($this->delegators[$name])) {
-            return $this->createDelegatorFromFactory($name);
+        if (isset($this->delegators[(string) $serviceRequest])) {
+            return $this->createDelegatorFromFactory($serviceRequest);
         }
 
-        return $this->doCreate($name);
+        return $this->doCreate($serviceRequest);
     }
 
     /**
      * Creates a callback that uses a delegator to create a service
      *
      * @param DelegatorFactoryInterface|callable $delegatorFactory the delegator factory
-     * @param string                             $name             requested service name
+     * @param string|ServiceRequestInterface     $serviceRequest
      * @param callable                           $creationCallback callback for instantiating the real service
      *
      * @return callable
      */
-    private function createDelegatorCallback($delegatorFactory, $name, callable $creationCallback)
+    private function createDelegatorCallback($delegatorFactory, $serviceRequest, callable $creationCallback)
     {
-        $serviceManager  = $this;
+        $serviceManager = $this;
 
-        return function () use ($serviceManager, $delegatorFactory, $name, $creationCallback) {
+        return function () use ($serviceManager, $delegatorFactory, $serviceRequest, $creationCallback) {
             return $delegatorFactory instanceof DelegatorFactoryInterface
-                ? $delegatorFactory->createDelegatorWithName($serviceManager, $name, $creationCallback)
-                : $delegatorFactory($serviceManager, $name, $name, $creationCallback);
+                ? $delegatorFactory->createDelegatorWithName($serviceManager, $serviceRequest, $creationCallback)
+                : $delegatorFactory($serviceManager, $serviceRequest, $creationCallback);
         };
     }
 
     /**
      * Actually creates the service
      *
-     * @param string $name real service name
+     * @param string|ServiceRequestInterface $serviceRequest real service name
      *
      * @return bool|mixed|null|object
      * @throws Exception\ServiceNotFoundException
      *
      * @internal this method is internal because of PHP 5.3 compatibility - do not explicitly use it
      */
-    public function doCreate($name)
+    public function doCreate($serviceRequest)
     {
+        $name     = (string) $serviceRequest;
         $instance = null;
 
         if (isset($this->factories[$name])) {
-            $instance = $this->createFromFactory($name);
+            $instance = $this->createFromFactory($serviceRequest);
         }
 
         if ($instance === null && isset($this->invokableClasses[$name])) {
-            $instance = $this->createFromInvokable($name);
+            $instance = $this->createFromInvokable($serviceRequest);
         }
+
         $this->checkNestedContextStart($name);
-        if ($instance === null && $this->canCreateFromAbstractFactory($name)) {
-            $instance = $this->createFromAbstractFactory($name);
+
+        if ($instance === null && $this->canCreateFromAbstractFactory($serviceRequest)) {
+            $instance = $this->createFromAbstractFactory($serviceRequest);
         }
+
         $this->checkNestedContextStop();
 
-        if ($instance === null && $this->throwExceptionInCreate) {
+        if ($instance === null) {
             $this->checkNestedContextStop(true);
 
             throw new Exception\ServiceNotFoundException(sprintf(
@@ -545,70 +509,58 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
-     * Determine if we can create an instance.
-     * Proxies to has()
-     *
-     * @param  string|array $name
-     * @param  bool         $checkAbstractFactories
-     * @return bool
-     * @deprecated this method is being deprecated as of zendframework 2.3, and may be removed in future major versions
+     * {@inheritDoc}
      */
-    public function canCreate($name, $checkAbstractFactories = true)
+    public function has($serviceRequest, $checkAbstractFactories = true)
     {
-        trigger_error(sprintf('%s is deprecated; please use %s::has', __METHOD__, __CLASS__), E_USER_DEPRECATED);
-        return $this->has($name, $checkAbstractFactories, false);
-    }
+        $name = (string) $serviceRequest;
 
-    /**
-     * Determine if an instance exists.
-     *
-     * @param  string  $name
-     * @param  bool    $checkAbstractFactories
-     * @return bool
-     */
-    public function has($name, $checkAbstractFactories = true)
-    {
         return (
             isset($this->invokableClasses[$name])
             || isset($this->factories[$name])
             || isset($this->instances[$name])
-            || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($name, $name))
+            || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($serviceRequest))
         );
     }
 
     /**
      * Determine if we can create an instance from an abstract factory.
      *
-     * @param  string $name
+     * @param  string|ServiceRequestInterface $serviceRequest
      * @return bool
      */
-    public function canCreateFromAbstractFactory($name)
+    public function canCreateFromAbstractFactory($serviceRequest)
     {
+        $name = (string) $serviceRequest;
+
         if (array_key_exists($name, $this->nestedContext)) {
             $context = $this->nestedContext[$name];
 
             if ($context === false) {
                 return false;
             } elseif (is_object($context)) {
-                return !isset($this->pendingAbstractFactoryRequests[get_class($context) . $name]);
+                return ! isset($this->pendingAbstractFactoryRequests[get_class($context) . $name]);
             }
         }
 
         $this->checkNestedContextStart($name);
+
         // check abstract factories
-        $result = false;
+        $result                     = false;
         $this->nestedContext[$name] = false;
 
         foreach ($this->abstractFactories as $abstractFactory) {
             $pendingKey = get_class($abstractFactory) . $name;
+
             if (isset($this->pendingAbstractFactoryRequests[$pendingKey])) {
                 $result = false;
+
                 break;
             }
 
             if ($abstractFactory->canCreateServiceWithName($this, $name)) {
                 $this->nestedContext[$name] = $abstractFactory;
-                $result = true;
+                $result                     = true;
 
                 break;
             }
@@ -702,19 +654,21 @@ class ServiceManager implements ServiceLocatorInterface
      * Create service via callback
      *
      * @param  callable $callable
-     * @param  string   $name
+     * @param  string|ServiceRequestInterface $serviceRequest
      * @throws Exception\ServiceNotCreatedException
      * @throws Exception\ServiceNotFoundException
      * @throws Exception\CircularDependencyFoundException
      * @return object
      */
-    protected function createServiceViaCallback($callable, $name)
+    protected function createServiceViaCallback(callable $callable, $serviceRequest)
     {
         static $circularDependencyResolver = array();
+        $name   = (string) $serviceRequest;
         $depKey = spl_object_hash($this) . '-' . $name;
 
         if (isset($circularDependencyResolver[$depKey])) {
             $circularDependencyResolver = array();
+
             throw new Exception\CircularDependencyFoundException(
                 'Circular dependency for LazyServiceLoader was found for instance ' . $name
             );
@@ -722,19 +676,23 @@ class ServiceManager implements ServiceLocatorInterface
 
         try {
             $circularDependencyResolver[$depKey] = true;
-            $instance = call_user_func($callable, $this, $name);
+            $instance                            = $callable($this, $serviceRequest);
+
             unset($circularDependencyResolver[$depKey]);
         } catch (Exception\ServiceNotFoundException $e) {
             unset($circularDependencyResolver[$depKey]);
+
             throw $e;
         } catch (\Exception $e) {
             unset($circularDependencyResolver[$depKey]);
+
             throw new Exception\ServiceNotCreatedException(
                 sprintf('An exception was raised while creating "%s"; no instance returned', $name),
                 $e->getCode(),
                 $e
             );
         }
+
         if ($instance === null) {
             throw new Exception\ServiceNotCreatedException('The factory was called but did not return an instance.');
         }
@@ -751,24 +709,25 @@ class ServiceManager implements ServiceLocatorInterface
     {
         return array(
             'invokableClasses' => array_keys($this->invokableClasses),
-            'factories' => array_keys($this->factories),
-            'aliases'   => $this->aliasResolver ? array_keys($this->aliasResolver->getAliases()) : [],
-            'instances' => array_keys($this->instances),
+            'factories'        => array_keys($this->factories),
+            'aliases'          => $this->aliasResolver ? array_keys($this->aliasResolver->getAliases()) : [],
+            'instances'        => array_keys($this->instances),
         );
     }
 
     /**
      * Attempt to create an instance via an invokable class
      *
-     * @param  string $name
+     * @param  string|ServiceRequestInterface $serviceRequest
      * @return null|\stdClass
      * @throws Exception\ServiceNotFoundException If resolved class does not exist
      */
-    protected function createFromInvokable($name)
+    protected function createFromInvokable($serviceRequest)
     {
+        $name      = (string) $serviceRequest;
         $invokable = $this->invokableClasses[$name];
 
-        if (!class_exists($invokable)) {
+        if (! class_exists($invokable)) {
             throw new Exception\ServiceNotFoundException(sprintf(
                 '%s: failed retrieving "%s" via invokable class "%s"; class does not exist',
                 get_class($this) . '::' . __FUNCTION__,
@@ -783,25 +742,25 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * Attempt to create an instance via a factory
      *
-     * @param  string $name
+     * @param  string|ServiceRequestInterface $serviceRequest
      * @return mixed
      * @throws Exception\ServiceNotCreatedException If factory is not callable
      */
-    protected function createFromFactory($name)
+    protected function createFromFactory($serviceRequest)
     {
+        $name    = (string) $serviceRequest;
         $factory = $this->factories[$name];
 
         if (is_string($factory) && class_exists($factory, true)) {
-            $factory = new $factory;
-            $this->factories[$name] = $factory;
+            $this->factories[$name] = $factory = new $factory();
         }
 
         if ($factory instanceof FactoryInterface) {
-            return $this->createServiceViaCallback(array($factory, 'createService'), $name);
+            return $this->createServiceViaCallback(array($factory, 'createService'), $serviceRequest);
         }
 
         if (is_callable($factory)) {
-            return $this->createServiceViaCallback($factory, $name);
+            return $this->createServiceViaCallback($factory, $serviceRequest);
         }
 
         throw new Exception\ServiceNotCreatedException(sprintf(
@@ -813,22 +772,26 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * Attempt to create an instance via an abstract factory
      *
-     * @param  string $name
+     * @param  string|ServiceRequestInterface $serviceRequest
      * @return object|null
      * @throws Exception\ServiceNotCreatedException If abstract factory is not callable
      */
-    protected function createFromAbstractFactory($name)
+    protected function createFromAbstractFactory($serviceRequest)
     {
+        $name = (string) $serviceRequest;
+
         if (isset($this->nestedContext[$name])) {
             $abstractFactory = $this->nestedContext[$name];
-            $pendingKey = get_class($abstractFactory) . $name;
+            $pendingKey      = get_class($abstractFactory) . $name;
+
             try {
                 $this->pendingAbstractFactoryRequests[$pendingKey] = true;
 
                 $instance = $this->createServiceViaCallback(
                     array($abstractFactory, 'createServiceWithName'),
-                    $name
+                    $serviceRequest
                 );
+
                 unset($this->pendingAbstractFactoryRequests[$pendingKey]);
 
                 return $instance;
@@ -851,50 +814,57 @@ class ServiceManager implements ServiceLocatorInterface
     }
 
     /**
+     * @param string $name
      *
-     * @param string $cName
      * @return self
      */
-    protected function checkNestedContextStart($cName)
+    protected function checkNestedContextStart($name)
     {
-        if ($this->nestedContextCounter === -1 || !isset($this->nestedContext[$cName])) {
-            $this->nestedContext[$cName] = null;
+        if ($this->nestedContextCounter === -1 || !isset($this->nestedContext[$name])) {
+            $this->nestedContext[$name] = null;
         }
+
         $this->nestedContextCounter++;
+
         return $this;
     }
 
     /**
      *
      * @param bool $force
+     *
      * @return self
      */
     protected function checkNestedContextStop($force = false)
     {
         if ($force) {
             $this->nestedContextCounter = -1;
-            $this->nestedContext = array();
+            $this->nestedContext        = array();
+
             return $this;
         }
 
         $this->nestedContextCounter--;
+
         if ($this->nestedContextCounter === -1) {
             $this->nestedContext = array();
         }
+
         return $this;
     }
 
     /**
-     * @param  string $name
+     * @param  string|ServiceRequestInterface $serviceRequest
      * @return mixed
      * @throws Exception\ServiceNotCreatedException
      */
-    protected function createDelegatorFromFactory($name)
+    protected function createDelegatorFromFactory($serviceRequest)
     {
-        $serviceManager     = $this;
-        $delegatorsCount    = count($this->delegators[$name]);
-        $creationCallback   = function () use ($serviceManager, $name) {
-            return $serviceManager->doCreate($name);
+        $name             = $serviceRequest;
+        $serviceManager   = $this;
+        $delegatorsCount  = count($this->delegators[$name]);
+        $creationCallback = function () use ($serviceManager, $serviceRequest) {
+            return $serviceManager->doCreate($serviceRequest);
         };
 
         for ($i = 0; $i < $delegatorsCount; $i += 1) {
@@ -917,12 +887,12 @@ class ServiceManager implements ServiceLocatorInterface
 
             $creationCallback = $this->createDelegatorCallback(
                 $delegatorFactory,
-                $name,
+                $serviceRequest,
                 $creationCallback
             );
         }
 
-        return $creationCallback($serviceManager, $name, $creationCallback);
+        return $creationCallback($serviceManager, $serviceRequest, $creationCallback);
     }
 
     /**
