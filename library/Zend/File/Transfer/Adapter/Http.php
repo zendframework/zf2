@@ -410,9 +410,9 @@ class Http extends AbstractAdapter
      *
      * @return Http
      */
-    protected function prepareFiles()
+    protected function prepareFiles($files = array())
     {
-        $this->files = array();
+        $this->files = $files;
         foreach ($_FILES as $form => $content) {
             if (is_array($content['name'])) {
                 foreach ($content as $param => $file) {
