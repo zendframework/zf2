@@ -882,12 +882,13 @@ class ServiceManager implements ServiceLocatorInterface
      * @param  callable $callable
      * @param  string   $cName
      * @param  string   $rName
+     * @param  string   $oName
      * @throws Exception\ServiceNotCreatedException
      * @throws Exception\ServiceNotFoundException
      * @throws Exception\CircularDependencyFoundException
      * @return object
      */
-    protected function createServiceViaCallback($callable, $cName, $rName)
+    protected function createServiceViaCallback($callable, $cName, $rName, $oName = null)
     {
         static $circularDependencyResolver = array();
         $depKey = spl_object_hash($this) . '-' . $cName;
@@ -899,7 +900,7 @@ class ServiceManager implements ServiceLocatorInterface
 
         try {
             $circularDependencyResolver[$depKey] = true;
-            $instance = call_user_func($callable, $this, $cName, $rName);
+            $instance = call_user_func($callable, $this, $cName, $rName, $oName);
             unset($circularDependencyResolver[$depKey]);
         } catch (Exception\ServiceNotFoundException $e) {
             unset($circularDependencyResolver[$depKey]);

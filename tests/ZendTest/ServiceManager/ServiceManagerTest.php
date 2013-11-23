@@ -729,8 +729,8 @@ class ServiceManagerTest extends TestCase
         $this->serviceManager->setShareByDefault(true);
         $this->serviceManager->addAbstractFactory('ZendTest\ServiceManager\TestAsset\FooAliasedAbstractFactory');
         $this->serviceManager->setAlias('some\alias','app\foo');
-        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $this->serviceManager->get('app\foo'));
         $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $this->serviceManager->get('some\alias'));
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $this->serviceManager->get('app\foo'));
         $this->assertSame($this->serviceManager->get('app\foo'), $this->serviceManager->get('some\alias'));
     }
 
