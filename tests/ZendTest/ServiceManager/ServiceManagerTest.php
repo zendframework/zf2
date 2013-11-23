@@ -721,6 +721,21 @@ class ServiceManagerTest extends TestCase
     }
 
     /**
+     * @covers Zend\ServiceManager\ServiceManager::get
+     */
+    public function testAbstractFactoryWithServiceAlias()
+    {
+        $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setShareByDefault(true);
+        $this->serviceManager->addAbstractFactory('ZendTest\ServiceManager\TestAsset\FooAliasedAbstractFactory');
+        $this->serviceManager->setAlias('some\alias','app\foo');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $this->serviceManager->get('app\foo'));
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $this->serviceManager->get('some\alias'));
+        $this->assertSame($this->serviceManager->get('app\foo'), $this->serviceManager->get('some\alias'));
+    }
+
+
+    /**
      * @covers Zend\ServiceManager\ServiceManager::setService
      * @covers Zend\ServiceManager\ServiceManager::get
      * @covers Zend\ServiceManager\ServiceManager::retrieveFromPeeringManagerFirst
@@ -840,9 +855,9 @@ class ServiceManagerTest extends TestCase
         // simulate an inconsistent state of $servicemanager->aliases as it could be
         // caused by derived classes
         $cyclicAliases = array(
-            'fooalias' => 'bazalias',
-            'baralias' => 'fooalias',
-            'bazalias' => 'baralias'
+            'fooalias' => array('bazalias', null),
+            'baralias' => array('fooalias', null),
+            'bazalias' => array('baralias', null)
         );
 
         $reflection = new \ReflectionObject($this->serviceManager);

@@ -433,7 +433,8 @@ class ServiceManager implements ServiceLocatorInterface
      * Resolve the alias for the given canonical name
      *
      * @param  string $cName The canonical name to resolve
-     * @return string The resolved canonical name
+     * @return array  The resolved canonical name and original (pre-alias) name
+     * @throws Exception\CircularReferenceException
      */
     protected function resolveAlias($cName)
     {
@@ -449,10 +450,10 @@ class ServiceManager implements ServiceLocatorInterface
             }
 
             $stack[$cName] = $cName;
-            $cName = $this->aliases[$cName];
+            list($cName, $oName) = $this->aliases[$cName];
         }
 
-        return $cName;
+        return [$cName, $oName];
     }
 
     /**
@@ -473,10 +474,11 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         $isAlias = false;
+        $oName   = null;
 
         if ($this->hasAlias($cName)) {
             $isAlias = true;
-            $cName = $this->resolveAlias($cName);
+            list($cName, $oName) = $this->resolveAlias($cName);
         }
 
         $instance = null;
@@ -498,9 +500,9 @@ class ServiceManager implements ServiceLocatorInterface
                 isset($this->invokableClasses[$cName])
                 || isset($this->factories[$cName])
                 || isset($this->aliases[$cName])
-                || $this->canCreateFromAbstractFactory($cName, $name)
+                || $this->canCreateFromAbstractFactory($cName, $name, $oName)
             ) {
-                $instance = $this->create(array($cName, $name));
+                $instance = $this->create(array($cName, $name, $oName));
             } elseif ($usePeeringServiceManagers && !$this->retrieveFromPeeringManagerFirst) {
                 $instance = $this->retrieveFromPeeringManager($name);
             }
@@ -542,8 +544,9 @@ class ServiceManager implements ServiceLocatorInterface
     public function create($name)
     {
         if (is_array($name)) {
-            list($cName, $rName) = $name;
+            list($cName, $rName, $oName) = $name;
         } else {
+            $oName = null;
             $rName = $name;
 
             // inlined code from ServiceManager::canonicalizeName for performance
@@ -555,10 +558,10 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         if (isset($this->delegators[$cName])) {
-            return $this->createDelegatorFromFactory($cName, $rName);
+            return $this->createDelegatorFromFactory($cName, $rName, $oName);
         }
 
-        return $this->doCreate($rName, $cName);
+        return $this->doCreate($rName, $cName, $oName);
     }
 
     /**
@@ -587,13 +590,14 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param string $rName real service name
      * @param string $cName canonicalized service name
+     * @param string $oName real original service name (if using alias)
      *
      * @return bool|mixed|null|object
      * @throws Exception\ServiceNotFoundException
      *
      * @internal this method is internal because of PHP 5.3 compatibility - do not explicitly use it
      */
-    public function doCreate($rName, $cName)
+    public function doCreate($rName, $cName, $oName = null)
     {
         $instance = null;
 
@@ -605,8 +609,8 @@ class ServiceManager implements ServiceLocatorInterface
             $instance = $this->createFromInvokable($cName, $rName);
         }
 
-        if ($instance === null && $this->canCreateFromAbstractFactory($cName, $rName)) {
-            $instance = $this->createFromAbstractFactory($cName, $rName);
+        if ($instance === null && $this->canCreateFromAbstractFactory($cName, $rName, $oName)) {
+            $instance = $this->createFromAbstractFactory($cName, $rName, $oName);
         }
 
         if ($instance === null && $this->throwExceptionInCreate) {
@@ -707,9 +711,10 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  string $cName
      * @param  string $rName
+     * @param  string $oName
      * @return bool
      */
-    public function canCreateFromAbstractFactory($cName, $rName)
+    public function canCreateFromAbstractFactory($cName, $rName, $oName = null)
     {
         // check abstract factories
         foreach ($this->abstractFactories as $abstractFactory) {
@@ -732,7 +737,7 @@ class ServiceManager implements ServiceLocatorInterface
             $this->lastAbstractFactoryUsed = $objectHash;
             $this->lastCanonicalNameUsed   = $cName;
 
-            if ($abstractFactory->canCreateServiceWithName($this, $cName, $rName)) {
+            if ($abstractFactory->canCreateServiceWithName($this, $cName, $rName, $oName)) {
                 $this->lastAbstractFactoryUsed = $this->lastCanonicalNameUsed = null;
                 return true;
             }
@@ -751,7 +756,7 @@ class ServiceManager implements ServiceLocatorInterface
     protected function checkForCircularAliasReference($alias, $nameOrAlias)
     {
         $aliases = $this->aliases;
-        $aliases[$alias] = $nameOrAlias;
+        $aliases[$alias] = array($nameOrAlias, null);
         $stack = array();
 
         while (isset($aliases[$alias])) {
@@ -766,7 +771,7 @@ class ServiceManager implements ServiceLocatorInterface
             }
 
             $stack[$alias] = $alias;
-            $alias = $aliases[$alias];
+            $alias = $aliases[$alias][0];
         }
 
         return $this;
@@ -786,9 +791,9 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         $cAlias = $this->canonicalizeName($alias);
-        $nameOrAlias = $this->canonicalizeName($nameOrAlias);
+        $nameOrAliasCanonical = $this->canonicalizeName($nameOrAlias);
 
-        if ($alias == '' || $nameOrAlias == '') {
+        if ($alias == '' || $nameOrAliasCanonical == '') {
             throw new Exception\InvalidServiceNameException('Invalid service name alias');
         }
 
@@ -801,10 +806,10 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         if ($this->hasAlias($alias)) {
-            $this->checkForCircularAliasReference($cAlias, $nameOrAlias);
+            $this->checkForCircularAliasReference($cAlias, $nameOrAliasCanonical);
         }
 
-        $this->aliases[$cAlias] = $nameOrAlias;
+        $this->aliases[$cAlias] = array($nameOrAliasCanonical, $nameOrAlias);
         return $this;
     }
 
@@ -971,7 +976,7 @@ class ServiceManager implements ServiceLocatorInterface
 
         if ($this->hasAlias($name)) {
             do {
-                $name = $this->aliases[$name];
+                $name = $this->aliases[$name][0];
             } while ($this->hasAlias($name));
         }
 
@@ -1042,10 +1047,11 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  string $canonicalName
      * @param  string $requestedName
+     * @param  string $originalName
      * @return object|null
      * @throws Exception\ServiceNotCreatedException If abstract factory is not callable
      */
-    protected function createFromAbstractFactory($canonicalName, $requestedName)
+    protected function createFromAbstractFactory($canonicalName, $requestedName, $originalName)
     {
         foreach ($this->abstractFactories as $index => $abstractFactory) {
             // support factories as strings
@@ -1059,12 +1065,13 @@ class ServiceManager implements ServiceLocatorInterface
                 ));
             }
             try {
-                if ($abstractFactory->canCreateServiceWithName($this, $canonicalName, $requestedName)) {
+                if ($abstractFactory->canCreateServiceWithName($this, $canonicalName, $requestedName, $originalName)) {
                     $this->pendingAbstractFactoryRequests[get_class($abstractFactory)] = $requestedName;
                     $instance = $this->createServiceViaCallback(
                         array($abstractFactory, 'createServiceWithName'),
                         $canonicalName,
-                        $requestedName
+                        $requestedName,
+                        $originalName
                     );
                     unset($this->pendingAbstractFactoryRequests[get_class($abstractFactory)]);
                 } else {
