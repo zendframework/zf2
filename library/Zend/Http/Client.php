@@ -163,6 +163,11 @@ class Client implements Stdlib\DispatchableInterface
         // Pass configuration options to the adapter if it exists
         if ($this->adapter instanceof Client\Adapter\AdapterInterface) {
             $this->adapter->setOptions($options);
+        } elseif (isset($this->config['adapter'])) {
+            // If the adapter is not an instance of Client\Adapter\AdapterInterface
+            // check the configuration options for a specific HTTP client instance to use and set it.
+            // The ->setAdapter() method also calls ->setOptions()
+            $this->setAdapter($this->config['adapter']);
         }
 
         return $this;
