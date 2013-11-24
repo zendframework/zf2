@@ -63,7 +63,14 @@ class CreateTable extends AbstractSql implements SqlInterface
      */
     public function __construct($table = '', $isTemporary = false)
     {
-        $this->table = $table;
+        if (is_array($table)) {
+            $this->table = $table[0];
+            foreach($table['columns'] as $column) {
+                $this->addColumn($column);
+            }
+        } else {
+            $this->table = $table;
+        }
         $this->setTemporary($isTemporary);
     }
 
