@@ -220,12 +220,13 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
      * @param  callable $callable
      * @param  string   $cName
      * @param  string   $rName
+     * @param  string   $oName
      * @throws Exception\ServiceNotCreatedException
      * @throws Exception\ServiceNotFoundException
      * @throws Exception\CircularDependencyFoundException
      * @return object
      */
-    protected function createServiceViaCallback($callable, $cName, $rName)
+    protected function createServiceViaCallback($callable, $cName, $rName, $oName = null)
     {
         if (is_object($callable)) {
             $factory = $callable;
@@ -242,6 +243,6 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
             $factory->setCreationOptions($this->creationOptions);
         }
 
-        return parent::createServiceViaCallback($callable, $cName, $rName);
+        return parent::createServiceViaCallback($callable, $cName, $rName, $oName);
     }
 }
