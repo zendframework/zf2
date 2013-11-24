@@ -453,7 +453,7 @@ class ServiceManager implements ServiceLocatorInterface
             list($cName, $oName) = $this->aliases[$cName];
         }
 
-        return [$cName, $oName];
+        return array($cName, $oName);
     }
 
     /**
