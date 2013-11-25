@@ -88,6 +88,11 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @var array
      */
+    protected $oAliasName = array();
+
+    /**
+     * @var array
+     */
     protected $initializers = array();
 
     /**
@@ -237,7 +242,7 @@ class ServiceManager implements ServiceLocatorInterface
     {
         $cName = $this->canonicalizeName($name);
 
-        if ($this->has(array($cName, $name), false)) {
+        if ($this->has(array($cName, $name, null), false)) {
             if ($this->allowOverride === false) {
                 throw new Exception\InvalidServiceNameException(sprintf(
                     'A service by the name or alias "%s" already exists and cannot be overridden; please use an alternate name',
@@ -450,7 +455,8 @@ class ServiceManager implements ServiceLocatorInterface
             }
 
             $stack[$cName] = $cName;
-            list($cName, $oName) = $this->aliases[$cName];
+            $oName = isset($this->oAliasName[$cName]) ? $this->oAliasName[$cName] : null;
+            $cName = $this->aliases[$cName];
         }
 
         return array($cName, $oName);
@@ -690,7 +696,7 @@ class ServiceManager implements ServiceLocatorInterface
             || isset($this->factories[$cName])
             || isset($this->aliases[$cName])
             || isset($this->instances[$cName])
-            || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($cName, $name))
+            || ($checkAbstractFactories && $this->canCreateFromAbstractFactory($cName, $name, null))
         ) {
             return true;
         }
@@ -756,7 +762,7 @@ class ServiceManager implements ServiceLocatorInterface
     protected function checkForCircularAliasReference($alias, $nameOrAlias)
     {
         $aliases = $this->aliases;
-        $aliases[$alias] = array($nameOrAlias, null);
+        $aliases[$alias] = $nameOrAlias;
         $stack = array();
 
         while (isset($aliases[$alias])) {
@@ -771,7 +777,7 @@ class ServiceManager implements ServiceLocatorInterface
             }
 
             $stack[$alias] = $alias;
-            $alias = $aliases[$alias][0];
+            $alias = $aliases[$alias];
         }
 
         return $this;
@@ -809,7 +815,9 @@ class ServiceManager implements ServiceLocatorInterface
             $this->checkForCircularAliasReference($cAlias, $nameOrAliasCanonical);
         }
 
-        $this->aliases[$cAlias] = array($nameOrAliasCanonical, $nameOrAlias);
+        $this->aliases[$cAlias] = $nameOrAliasCanonical;
+        $this->oAliasName[$cAlias] = $nameOrAlias;
+
         return $this;
     }
 
@@ -977,7 +985,7 @@ class ServiceManager implements ServiceLocatorInterface
 
         if ($this->hasAlias($name)) {
             do {
-                $name = $this->aliases[$name][0];
+                $name = $this->aliases[$name];
             } while ($this->hasAlias($name));
         }
 

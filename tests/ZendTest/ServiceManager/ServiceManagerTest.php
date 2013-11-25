@@ -855,9 +855,9 @@ class ServiceManagerTest extends TestCase
         // simulate an inconsistent state of $servicemanager->aliases as it could be
         // caused by derived classes
         $cyclicAliases = array(
-            'fooalias' => array('bazalias', null),
-            'baralias' => array('fooalias', null),
-            'bazalias' => array('baralias', null)
+            'fooalias' => 'bazalias',
+            'baralias' => 'fooalias',
+            'bazalias' => 'baralias',
         );
 
         $reflection = new \ReflectionObject($this->serviceManager);
