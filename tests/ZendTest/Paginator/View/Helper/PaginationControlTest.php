@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace ZendTest\Paginator\View\Helper;
 
 use Zend\Paginator;
-use Zend\View\Helper;
+use Zend\Paginator\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Resolver;
 

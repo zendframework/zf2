@@ -19,8 +19,7 @@ use Zend\Filter;
 use Zend\Paginator;
 use Zend\Paginator\Adapter;
 use Zend\Paginator\Exception;
-use Zend\View;
-use Zend\View\Helper;
+use Zend\Paginator\View\Helper;
 use ZendTest\Paginator\TestAsset\TestArrayAggregate;
 
 /**

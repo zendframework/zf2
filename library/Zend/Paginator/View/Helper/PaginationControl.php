@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Zend\Paginator\View\Helper;
 
 use Zend\Paginator\Paginator;
-use Zend\View;
+use Zend\View\Helper\AbstractHelper;
 use Zend\View\Exception;
 
 class PaginationControl extends AbstractHelper
