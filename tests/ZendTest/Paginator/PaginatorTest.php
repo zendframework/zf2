@@ -105,7 +105,6 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->paginator->setPageRange(10);
 
         Paginator\Paginator::setDefaultScrollingStyle();
-        Helper\PaginationControl::setDefaultViewPartial(null);
 
         Paginator\Paginator::setGlobalConfig($this->config->default);
 

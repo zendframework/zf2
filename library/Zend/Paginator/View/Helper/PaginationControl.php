@@ -20,14 +20,14 @@ class PaginationControl extends AbstractHelper
      *
      * @var string
      */
-    protected static $defaultScrollingStyle = 'sliding';
+    protected $defaultScrollingStyle = 'sliding';
 
     /**
      * Default view partial
      *
      * @var string|array
      */
-    protected static $defaultViewPartial = null;
+    protected $defaultViewPartial = null;
 
     /**
      * Render the provided pages.  This checks if $view->paginator is set and,
@@ -45,15 +45,15 @@ class PaginationControl extends AbstractHelper
     public function __invoke(Paginator $paginator, $scrollingStyle = null, $partial = null, $params = null)
     {
         if ($partial === null) {
-            if (static::$defaultViewPartial === null) {
+            if ($this->defaultViewPartial === null) {
                 throw new Exception\RuntimeException('No view partial provided and no default set');
             }
 
-            $partial = static::$defaultViewPartial;
+            $partial = $this->defaultViewPartial;
         }
 
         if ($scrollingStyle === null) {
-            $scrollingStyle = static::$defaultScrollingStyle;
+            $scrollingStyle = $this->defaultScrollingStyle;
         }
 
         $pages = get_object_vars($paginator->getPages($scrollingStyle));
@@ -70,10 +70,13 @@ class PaginationControl extends AbstractHelper
      * Sets the default Scrolling Style
      *
      * @param string $style string 'all' | 'elastic' | 'sliding' | 'jumping'
+     * @return self
      */
-    public static function setDefaultScrollingStyle($style)
+    public function setDefaultScrollingStyle($style)
     {
-        static::$defaultScrollingStyle = $style;
+        $this->defaultScrollingStyle = $style;
+
+        return $this;
     }
 
     /**
@@ -81,19 +84,22 @@ class PaginationControl extends AbstractHelper
      *
      * @return string
      */
-    public static function getDefaultScrollingStyle()
+    public function getDefaultScrollingStyle()
     {
-        return static::$defaultScrollingStyle;
+        return $this->defaultScrollingStyle;
     }
 
     /**
      * Sets the default view partial.
      *
      * @param string|array $partial View partial
+     * @return self
      */
-    public static function setDefaultViewPartial($partial)
+    public function setDefaultViewPartial($partial)
     {
-        static::$defaultViewPartial = $partial;
+        $this->defaultViewPartial = $partial;
+
+        return $this;
     }
 
     /**
@@ -101,8 +107,8 @@ class PaginationControl extends AbstractHelper
      *
      * @return string|array
      */
-    public static function getDefaultViewPartial()
+    public function getDefaultViewPartial()
     {
-        return static::$defaultViewPartial;
+        return $this->defaultViewPartial;
     }
 }
