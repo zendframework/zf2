@@ -37,7 +37,7 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = array(
-        'dbselect'         => 'Zend\Paginator\Adapter\Service\DbSelectFactory'
+        'dbselect' => 'Zend\Paginator\Adapter\Factory\DbSelectFactory'
     );
 
     /**
