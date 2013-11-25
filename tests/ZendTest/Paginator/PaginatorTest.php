@@ -710,7 +710,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         $adapter = new TestAsset\TestAdapter;
         $paginator = new Paginator\Paginator($adapter);
-        $reflection = new ReflectionMethod($paginator, '_loadScrollingStyle');
+        $reflection = new ReflectionMethod($paginator, 'loadScrollingStyle');
         $reflection->setAccessible(true);
 
         $this->setExpectedException(
@@ -726,7 +726,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         $adapter = new TestAsset\TestAdapter;
         $paginator = new Paginator\Paginator($adapter);
-        $reflection = new ReflectionMethod($paginator, '_loadScrollingStyle');
+        $reflection = new ReflectionMethod($paginator, 'loadScrollingStyle');
         $reflection->setAccessible(true);
 
         $this->setExpectedException(
@@ -741,11 +741,11 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         $adapter = new TestAsset\TestAdapter;
         $paginator = new Paginator\Paginator($adapter);
-        $reflectionGetCacheId = new ReflectionMethod($paginator, '_getCacheId');
+        $reflectionGetCacheId = new ReflectionMethod($paginator, 'getCacheId');
         $reflectionGetCacheId->setAccessible(true);
         $outputGetCacheId = $reflectionGetCacheId->invoke($paginator, null);
 
-        $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
+        $reflectionGetCacheInternalId = new ReflectionMethod($paginator, 'getCacheInternalId');
         $reflectionGetCacheInternalId->setAccessible(true);
         $outputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
 
