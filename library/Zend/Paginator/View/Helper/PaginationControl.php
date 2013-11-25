@@ -30,8 +30,7 @@ class PaginationControl extends AbstractHelper
     protected $defaultViewPartial = null;
 
     /**
-     * Render the provided pages.  This checks if $view->paginator is set and,
-     * if so, uses that.  Also, if no scrolling style or partial are specified,
+     * Render the provided pages. If no scrolling style or partial are specified,
      * the defaults will be used (if set).
      *
      * @param  Paginator           $paginator
@@ -44,6 +43,37 @@ class PaginationControl extends AbstractHelper
      */
     public function __invoke(Paginator $paginator, $scrollingStyle = null, $partial = null, $params = null)
     {
+        $partial        = $this->getPartial($partial);
+        $scrollingStyle = $this->getScrollingStyle($scrollingStyle);
+        $pages          = $this->getPages($paginator, $scrollingStyle, $params);
+        $partialHelper  = $this->view->plugin('partial');
+
+        return $partialHelper($partial, $pages);
+    }
+
+    /**
+     * @param Paginator $paginator
+     * @param string $scrollingStyle
+     * @param array $params
+     * @return array
+     */
+    private function getPages(Paginator $paginator, $scrollingStyle, $params = null)
+    {
+        $pages = get_object_vars($paginator->getPages($scrollingStyle));
+
+        if ($params !== null) {
+            $pages = array_merge($pages, (array) $params);
+        }
+        return $pages;
+    }
+
+    /**
+     * @param string $partial
+     * @return string
+     * @throws Exception\RuntimeException if no paginator or no view partial provided
+     */
+    private function getPartial($partial = null)
+    {
         if ($partial === null) {
             if ($this->defaultViewPartial === null) {
                 throw new Exception\RuntimeException('No view partial provided and no default set');
@@ -51,19 +81,19 @@ class PaginationControl extends AbstractHelper
 
             $partial = $this->defaultViewPartial;
         }
+        return $partial;
+    }
 
+    /**
+     * @param string $scrollingStyle
+     * @return string
+     */
+    private function getScrollingStyle($scrollingStyle = null)
+    {
         if ($scrollingStyle === null) {
             $scrollingStyle = $this->defaultScrollingStyle;
         }
-
-        $pages = get_object_vars($paginator->getPages($scrollingStyle));
-
-        if ($params !== null) {
-            $pages = array_merge($pages, (array) $params);
-        }
-
-        $partialHelper = $this->view->plugin('partial');
-        return $partialHelper($partial, $pages);
+        return $scrollingStyle;
     }
 
     /**
