@@ -710,8 +710,10 @@ class Paginator implements Countable, IteratorAggregate
             $itemNumber = 1;
         }
 
-        if ($itemNumber > $this->getItemCountPerPage()) {
-            $itemNumber = $this->getItemCountPerPage();
+        $itemCountPerPage = $this->getItemCountPerPage();
+
+        if ($itemNumber > $itemCountPerPage) {
+            $itemNumber = $itemCountPerPage;
         }
 
         return $itemNumber;
