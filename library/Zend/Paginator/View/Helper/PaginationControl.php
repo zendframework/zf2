@@ -34,7 +34,7 @@ class PaginationControl extends AbstractHelper
      * if so, uses that.  Also, if no scrolling style or partial are specified,
      * the defaults will be used (if set).
      *
-     * @param  Paginator           $paginator      (Optional)
+     * @param  Paginator           $paginator
      * @param  string              $scrollingStyle (Optional) Scrolling style
      * @param  string              $partial        (Optional) View partial
      * @param  array|string        $params         (Optional) params to pass to the partial
@@ -42,16 +42,8 @@ class PaginationControl extends AbstractHelper
      * @throws Exception\InvalidArgumentException if partial is invalid array
      * @return string
      */
-    public function __invoke(Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
+    public function __invoke(Paginator $paginator, $scrollingStyle = null, $partial = null, $params = null)
     {
-        if ($paginator === null) {
-            if (isset($this->view->paginator) && $this->view->paginator !== null && $this->view->paginator instanceof Paginator) {
-                $paginator = $this->view->paginator;
-            } else {
-                throw new Exception\RuntimeException('No paginator instance provided or incorrect type');
-            }
-        }
-
         if ($partial === null) {
             if (static::$defaultViewPartial === null) {
                 throw new Exception\RuntimeException('No view partial provided and no default set');
