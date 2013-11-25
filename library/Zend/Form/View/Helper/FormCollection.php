@@ -14,6 +14,7 @@ use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\Collection as CollectionElement;
 use Zend\Form\FieldsetInterface;
+use Zend\Form\LabelOptionsAwareInterface;
 use Zend\View\Helper\AbstractHelper as BaseAbstractHelper;
 
 class FormCollection extends AbstractHelper
@@ -82,7 +83,6 @@ class FormCollection extends AbstractHelper
 
         $markup           = '';
         $templateMarkup   = '';
-        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
         $elementHelper    = $this->getElementHelper();
         $fieldsetHelper   = $this->getFieldsetHelper();
 
@@ -121,7 +121,16 @@ class FormCollection extends AbstractHelper
                     );
                 }
 
-                $label = $escapeHtmlHelper($label);
+                $labelOptions = array();
+
+                if ($element instanceof LabelOptionsAwareInterface) {
+                    $labelOptions = $element->getLabelOptions();
+                }
+
+                if (empty($labelOptions) || $labelOptions['disable_html_escape'] == false) {
+                    $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+                    $label = $escapeHtmlHelper($label);
+                }
 
                 $labelMarkup = sprintf('<legend>%s</legend>', $label);
             } else {
