@@ -21,7 +21,7 @@ interface PermissionInterface
     /**
      * Get roles associated with the permission
      *
-     * @return string|string[]|RoleInterface|RoleInterface[]
+     * @return string[]|RoleInterface[]
      */
     public function getRoles();
 }
