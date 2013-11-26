@@ -92,6 +92,11 @@ abstract class AbstractOptions implements ParameterObjectInterface
     public function __set($key, $value)
     {
         $setter = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+        
+        if ($key === 'stdlib_options_strictmode') {
+            $this->__strictMode__ = $value;
+        }
+        
         if ($this->__strictMode__ && !method_exists($this, $setter)) {
             throw new Exception\BadMethodCallException(
                 'The option "' . $key . '" does not '

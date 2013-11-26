@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -14,8 +15,10 @@ use ZendTest\Stdlib\TestAsset\TestOptions;
 use ZendTest\Stdlib\TestAsset\TestOptionsNoStrict;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 
-class OptionsTest extends \PHPUnit_Framework_TestCase
+class OptionsTest
+    extends \PHPUnit_Framework_TestCase
 {
+
     public function testConstructionWithArray()
     {
         $options = new TestOptions(array('test_field' => 1));
@@ -99,5 +102,20 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException');
         $options = new TestOptions;
         $options->setFromArray('asd');
+    }
+
+    public function testDisableStrictMode()
+    {
+        $options = array(
+            'test_field' => 1,
+            'stdlib_options_strictmode' => false,
+            'foo' => 'bar'
+        );
+
+        try {
+            $options = new TestOptions($options);
+        } catch (Exception $ex) {
+            $this->fail('Strict mode should be disabled and not throw an exception');
+        }
     }
 }
