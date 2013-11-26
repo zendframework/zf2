@@ -95,6 +95,7 @@ abstract class AbstractOptions implements ParameterObjectInterface
         
         if ($key === 'stdlib_options_strictmode') {
             $this->__strictMode__ = $value;
+            return;
         }
         
         if ($this->__strictMode__ && !method_exists($this, $setter)) {
