@@ -15,8 +15,7 @@ use ZendTest\Stdlib\TestAsset\TestOptions;
 use ZendTest\Stdlib\TestAsset\TestOptionsNoStrict;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 
-class OptionsTest
-    extends \PHPUnit_Framework_TestCase
+class OptionsTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructionWithArray()
