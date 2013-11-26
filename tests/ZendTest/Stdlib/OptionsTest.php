@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -17,7 +16,6 @@ use Zend\Stdlib\Exception\InvalidArgumentException;
 
 class OptionsTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testConstructionWithArray()
     {
         $options = new TestOptions(array('test_field' => 1));
