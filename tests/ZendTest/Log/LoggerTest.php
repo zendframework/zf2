@@ -9,12 +9,14 @@
 
 namespace ZendTest\Log;
 
-use Exception;
 use ErrorException;
+use Exception;
+use Psr\Log\LogLevel;
+use Zend\Log\Filter\Mock as MockFilter;
 use Zend\Log\Logger;
 use Zend\Log\Processor\Backtrace;
+use Zend\Log\Processor\Mock as MockPlugin;
 use Zend\Log\Writer\Mock as MockWriter;
-use Zend\Log\Filter\Mock as MockFilter;
 use Zend\Stdlib\SplPriorityQueue;
 use Zend\Validator\Digits as DigitsFilter;
 
@@ -99,6 +101,17 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($writer instanceof \Zend\Log\Writer\Null);
         $writer = $writers->extract();
         $this->assertTrue($writer instanceof \Zend\Log\Writer\Mock);
+    }
+    
+    public function testSetWritersThrowsException()
+    {
+        $writer = new \stdClass();
+        $writers = new SplPriorityQueue();
+        $writers->insert($writer, 1);
+        
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException');
+        
+        $this->logger->setWriters($writers);
     }
 
     public function testAddWriterWithPriority()
@@ -206,7 +219,6 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         return array(
             array(array()),
             array(array('user' => 'foo', 'ip' => '127.0.0.1')),
-            array(new \ArrayObject(array('id' => 42))),
         );
     }
 
@@ -220,8 +232,8 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $this->logger->log(Logger::ERR, 'tottakai', $extra);
 
         $this->assertEquals(count($writer->events), 1);
-        $this->assertInternalType('array', $writer->events[0]['extra']);
-        $this->assertEquals(count($writer->events[0]['extra']), count($extra));
+        $this->assertInternalType('array', $writer->events[0]['context']);
+        $this->assertEquals(count($writer->events[0]['context']), count($extra));
     }
 
     public static function provideInvalidArguments()
@@ -234,15 +246,6 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
             array('valid', 'invalid'),
             array('valid', new \stdClass()),
         );
-    }
-
-    /**
-     * @dataProvider provideInvalidArguments
-     */
-    public function testPassingInvalidArgumentToLogRaisesException($message, $extra)
-    {
-        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException');
-        $this->logger->log(Logger::ERR, $message, $extra);
     }
 
     public function testRegisterErrorHandler()
@@ -363,7 +366,182 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
             $this->assertEquals($expectedEvent['priority'], $event['priority'], 'Unexpected priority');
             $this->assertEquals($expectedEvent['message'], $event['message'], 'Unexpected message');
-            $this->assertEquals($expectedEvent['file'], $event['extra']['file'], 'Unexpected file');
+            $this->assertEquals($expectedEvent['file'], $event['context']['file'], 'Unexpected file');
         }
+    }
+    
+    public function testLoggerImplementsPSR3()
+    {
+        $this->assertInstanceOf('\Psr\Log\LoggerInterface', $this->logger);
+        $this->assertInstanceOf('\Zend\Log\LoggerInterface', $this->logger);
+    }
+    
+    public function testLogThrowsExceptionInvalidPriority()
+    {
+        $priority = new \stdClass();
+        $message = 'Foo Bar Baz';
+        
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException');
+        
+        $this->logger->log($priority, $message);
+    }
+    
+    public function testLogPsrLogLevels()
+    {
+        $writer = new MockWriter;
+        
+        $this->logger->addWriter($writer);
+        
+        $priorities = array(
+            LogLevel::ALERT => Logger::ALERT,
+            LogLevel::CRITICAL => Logger::CRIT,
+            LogLevel::DEBUG => Logger::DEBUG,
+            LogLevel::EMERGENCY => Logger::EMERG,
+            LogLevel::ERROR => Logger::ERR,
+            LogLevel::INFO => Logger::INFO,
+            LogLevel::NOTICE => Logger::NOTICE,
+            LogLevel::WARNING => Logger::WARN,
+        );
+        
+        $message = 'Foo Bar Baz';
+        
+        $i = 0;
+        foreach ($priorities as $psrPriority => $priority) {
+            $this->logger->log($psrPriority, $message);
+            $this->assertEquals($writer->events[$i]['priority'], $priority);
+            $this->assertEquals($writer->events[$i]['message'], $message);
+            $i++;
+        }
+    }
+
+    public function testLogInvalidStringPriority()
+    {
+        $writer = new MockWriter;
+        
+        $this->logger->addWriter($writer);
+        
+        $priority = 'Foo';
+        $message = 'Baz';
+        
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException');
+        
+        $this->logger->log($priority, $message);
+    }
+    
+    public function testLogMessageNoToString()
+    {
+        $writer = new MockWriter;
+        
+        $this->logger->addWriter($writer);
+        
+        $priority = Logger::ALERT;
+        $message = new \stdClass();
+        
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException');
+        
+        $this->logger->log($priority, $message);
+    }
+    
+    public function testLogFunctions()
+    {
+        $functions = array(
+            'alert',
+            'debug',
+            'emerg',
+            'emergency',
+            'crit',
+            'critical',
+            'err',
+            'error',
+            'info',
+            'notice',
+            'warn',
+            'warning',
+        );
+        
+        foreach ($functions as $function) {
+            $this->logTest($function);
+        }
+        
+        
+    }
+    
+
+    protected function logTest($function)
+    {
+        $writer = new MockWriter;
+        
+        $message = 'Foo Bar Baz';
+        $context = array('foo' => 'bar', 'baz');
+        
+        switch ($function) {
+            case 'alert':
+                $priority = Logger::ALERT;
+                break;
+            case 'emerg':
+            case 'emergency':
+                $priority = Logger::EMERG;
+                break;
+            case 'crit':
+            case 'critical':
+                $priority = Logger::CRIT;
+                break;
+            case 'debug':
+                $priority = Logger::DEBUG;
+                break;
+            case 'err':
+            case 'error':
+                $priority = Logger::ERR;
+                break;
+            case 'info':
+                $priority = Logger::INFO;
+                break;
+            case 'notice':
+                $priority = Logger::NOTICE;
+                break;
+            case 'warn':
+            case 'warning':
+                $priority = Logger::WARN;
+                break;
+        }
+        
+        $this->logger->addWriter($writer);
+        
+        if (method_exists($this->logger, $function)) {
+            $this->logger->$function($message, $context);
+            $this->assertEquals($writer->events[0]['priority'], $priority);
+            $this->assertEquals($writer->events[0]['message'], $message);
+            $this->assertEquals($writer->events[0]['context'], $context);
+            return;
+        }
+        
+        $this->fail("Log method {$function} does not exist");
+    }
+    
+    public function testSetProcessorPluginManager()
+    {
+        $plugins = new \Zend\Log\ProcessorPluginManager();
+        
+        $this->logger->setProcessorPluginManager($plugins);
+        
+        $this->assertAttributeSame($plugins, 'processorPlugins', $this->logger);
+    }
+    
+    public function testSetProcessorPluginManagerString()
+    {
+        $plugins = '\Zend\Log\ProcessorPluginManager';
+        
+        $this->logger->setProcessorPluginManager($plugins);
+        
+        $this->assertAttributeInstanceOf('\Zend\Log\ProcessorPluginManager', 'processorPlugins', $this->logger);
+    }
+    
+    public function testSetProcessorPluginManagerThrowsException()
+    {
+        $plugins = new \stdClass();
+        
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException');
+        
+        $this->logger->setProcessorPluginManager($plugins);
     }
 }

@@ -11,6 +11,7 @@ namespace Zend\Log;
 
 use DateTime;
 use ErrorException;
+use Psr\Log\LogLevel;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\SplPriorityQueue;
@@ -81,6 +82,22 @@ class Logger implements LoggerInterface
         self::NOTICE => 'NOTICE',
         self::INFO   => 'INFO',
         self::DEBUG  => 'DEBUG',
+    );
+    
+    /**
+     * Map PSR Log Levels to priority
+     *
+     * @var array
+     */
+    protected $psrLogLevels = array(
+        LogLevel::ALERT => self::ALERT,
+        LogLevel::CRITICAL => self::CRIT,
+        LogLevel::DEBUG => self::DEBUG,
+        LogLevel::EMERGENCY => self::EMERG,
+        LogLevel::ERROR => self::ERR,
+        LogLevel::INFO => self::INFO,
+        LogLevel::NOTICE => self::NOTICE,
+        LogLevel::WARNING => self::WARN,
     );
 
     /**
@@ -365,14 +382,18 @@ class Logger implements LoggerInterface
      *
      * @param  int $priority
      * @param  mixed $message
-     * @param  array|Traversable $extra
+     * @param  array $context
      * @return Logger
      * @throws Exception\InvalidArgumentException if message can't be cast to string
-     * @throws Exception\InvalidArgumentException if extra can't be iterated over
+     * @throws Exception\InvalidArgumentException if context can't be iterated over
      * @throws Exception\RuntimeException if no log writer specified
      */
-    public function log($priority, $message, $extra = array())
+    public function log($priority, $message, array $context = array())
     {
+        if (is_string($priority) && array_key_exists($priority, $this->psrLogLevels)) {
+            $priority = $this->psrLogLevels[$priority];
+        }
+        
         if (!is_int($priority) || ($priority<0) || ($priority>=count($this->priorities))) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$priority must be an integer > 0 and < %d; received %s',
@@ -385,13 +406,13 @@ class Logger implements LoggerInterface
                 '$message must implement magic __toString() method'
             );
         }
-
-        if (!is_array($extra) && !$extra instanceof Traversable) {
+        
+        if (!is_array($context) && !$context instanceof Traversable) {
             throw new Exception\InvalidArgumentException(
                 '$extra must be an array or implement Traversable'
             );
-        } elseif ($extra instanceof Traversable) {
-            $extra = ArrayUtils::iteratorToArray($extra);
+        } elseif ($context instanceof Traversable) {
+            $context = ArrayUtils::iteratorToArray($context);
         }
 
         if ($this->writers->count() === 0) {
@@ -409,7 +430,7 @@ class Logger implements LoggerInterface
             'priority'     => (int) $priority,
             'priorityName' => $this->priorities[$priority],
             'message'      => (string) $message,
-            'extra'        => $extra
+            'context'        => $context
         );
 
         foreach ($this->processors->toArray() as $processor) {
@@ -425,82 +446,82 @@ class Logger implements LoggerInterface
 
     /**
      * @param string $message
-     * @param array|Traversable $extra
+     * @param array $context
      * @return Logger
      */
-    public function emerg($message, $extra = array())
+    public function emerg($message, array $context = array())
     {
-        return $this->log(self::EMERG, $message, $extra);
+        return $this->log(self::EMERG, $message, $context);
     }
 
     /**
      * @param string $message
-     * @param array|Traversable $extra
+     * @param array $context
      * @return Logger
      */
-    public function alert($message, $extra = array())
+    public function alert($message, array $context = array())
     {
-        return $this->log(self::ALERT, $message, $extra);
+        return $this->log(self::ALERT, $message, $context);
     }
 
     /**
      * @param string $message
-     * @param array|Traversable $extra
+     * @param array $context
      * @return Logger
      */
-    public function crit($message, $extra = array())
+    public function crit($message, array $context = array())
     {
-        return $this->log(self::CRIT, $message, $extra);
+        return $this->log(self::CRIT, $message, $context);
     }
 
     /**
      * @param string $message
-     * @param array|Traversable $extra
+     * @param array $context
      * @return Logger
      */
-    public function err($message, $extra = array())
+    public function err($message, array $context = array())
     {
-        return $this->log(self::ERR, $message, $extra);
+        return $this->log(self::ERR, $message, $context);
     }
 
     /**
      * @param string $message
-     * @param array|Traversable $extra
+     * @param array $context
      * @return Logger
      */
-    public function warn($message, $extra = array())
+    public function warn($message, array $context = array())
     {
-        return $this->log(self::WARN, $message, $extra);
+        return $this->log(self::WARN, $message, $context);
     }
 
     /**
      * @param string $message
-     * @param array|Traversable $extra
+     * @param array $context
      * @return Logger
      */
-    public function notice($message, $extra = array())
+    public function notice($message, array $context = array())
     {
-        return $this->log(self::NOTICE, $message, $extra);
+        return $this->log(self::NOTICE, $message, $context);
     }
 
     /**
      * @param string $message
-     * @param array|Traversable $extra
+     * @param array $context
      * @return Logger
      */
-    public function info($message, $extra = array())
+    public function info($message, array $context = array())
     {
-        return $this->log(self::INFO, $message, $extra);
+        return $this->log(self::INFO, $message, $context);
     }
 
     /**
      * @param string $message
-     * @param array|Traversable $extra
+     * @param array $context
      * @return Logger
      */
-    public function debug($message, $extra = array())
+    public function debug($message, array $context = array())
     {
-        return $this->log(self::DEBUG, $message, $extra);
+        return $this->log(self::DEBUG, $message, $context);
     }
 
     /**
@@ -584,25 +605,25 @@ class Logger implements LoggerInterface
                     $priority = $errorPriorityMap[$exception->getSeverity()];
                 }
 
-                $extra = array(
+                $context = array(
                     'file'  => $exception->getFile(),
                     'line'  => $exception->getLine(),
                     'trace' => $exception->getTrace(),
                 );
                 if (isset($exception->xdebug_message)) {
-                    $extra['xdebug'] = $exception->xdebug_message;
+                    $context['xdebug'] = $exception->xdebug_message;
                 }
 
                 $logMessages[] = array(
                     'priority' => $priority,
                     'message'  => $exception->getMessage(),
-                    'extra'    => $extra,
+                    'context'    => $context,
                 );
                 $exception = $exception->getPrevious();
             } while ($exception);
 
             foreach (array_reverse($logMessages) as $logMessage) {
-                $logger->log($logMessage['priority'], $logMessage['message'], $logMessage['extra']);
+                $logger->log($logMessage['priority'], $logMessage['message'], $logMessage['context']);
             }
         });
 
@@ -617,5 +638,53 @@ class Logger implements LoggerInterface
     {
         restore_exception_handler();
         static::$registeredExceptionHandler = false;
+    }
+
+    /**
+     * critical
+     * PSR-3 wrapper for crit
+     * 
+     * @param string $message
+     * @param array $context
+     * @return Logger
+     */
+    public function critical($message, array $context = array()) {
+        return $this->crit($message, $context);
+    }
+
+    /**
+     * emergency
+     * PSR-3 wrapper for emerg
+     * 
+     * @param string $message
+     * @param array $context
+     * @return Logger
+     */
+    public function emergency($message, array $context = array()) {
+        return $this->emerg($message, $context);
+    }
+
+    /**
+     * error
+     * PSR-3 wrapper for err
+     * 
+     * @param string $message
+     * @param array $context
+     * @return Logger
+     */
+    public function error($message, array $context = array()) {
+        return $this->err($message, $context);
+    }
+
+    /**
+     * warning
+     * PSR-3 wrapper for warn
+     * 
+     * @param string $message
+     * @param array $context
+     * @return Logger
+     */
+    public function warning($message, array $context = array()) {
+        return $this->warn($message, $context);
     }
 }

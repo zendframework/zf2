@@ -9,10 +9,12 @@
 
 namespace Zend\Log\Exception;
 
+use Psr\Log\InvalidArgumentException as PsrException;
+
 /**
  * Invalid argument exception
  */
 class InvalidArgumentException
-    extends \InvalidArgumentException
+    extends PsrException
     implements ExceptionInterface
 {}
