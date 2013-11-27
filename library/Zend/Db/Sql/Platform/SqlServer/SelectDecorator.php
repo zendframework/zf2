@@ -104,18 +104,10 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
             $selectParameters
         ));
 
-        if ($parameterContainer) {
-            // create bottom part of query, with offset and limit using row_number
-            array_push($sqls, ') AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN ?+1 AND ?+?');
-            $parameterContainer->offsetSet('offset', $this->offset);
-            $parameterContainer->offsetSet('limit', $this->limit);
-            $parameterContainer->offsetSetReference('offsetForSum', 'offset');
-        } else {
-            array_push($sqls, ') AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN '
-                . (int) $this->offset . '+1 AND '
-                . (int) $this->limit . '+' . (int) $this->offset
-            );
-        }
+        array_push($sqls, ') AS [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION] WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN '
+            . ((int) $this->offset + 1) . ' AND '
+            . ((int) $this->limit + (int) $this->offset)
+        );
 
         if (isset($sqls[self::ORDER])) {
             $orderBy = $sqls[self::ORDER];
