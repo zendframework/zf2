@@ -1120,10 +1120,6 @@ class ServiceManagerTest extends TestCase
         }
     }
 
-    /**
-     * @group reg1
-     * @return \stdClass
-     */
     public function testGetRegisteredServicesReturnsTypeContent()
     {
         $this->serviceManager->setService('service101', new \stdClass());
@@ -1135,10 +1131,6 @@ class ServiceManagerTest extends TestCase
         $this->assertContains('service101', $instances);
     }
 
-    /**
-     * @group reg1
-     * @return \stdClass
-     */
     public function testGetRegisteredServicesReturnsAll()
     {
         $this->serviceManager->setService('service1', new \stdClass());
