@@ -199,4 +199,23 @@ class FormCollectionTest extends TestCase
         $markup = $this->helper->render($collection);
         $this->assertContains(' id="some-identifier"', $markup);
     }
+
+    public function testLabelIsEscapedByDefault()
+    {
+        $form = $this->getForm();
+        $collection = $form->get('colors');
+        $collection->setLabel('<strong>Some label</strong>');
+        $markup = $this->helper->render($collection);
+        $this->assertRegexp('#<fieldset(.*?)><legend>&lt;strong&gt;Some label&lt;/strong&gt;<\/legend>(.*?)<\/fieldset>#', $markup);
+    }
+
+    public function testCanDisableLabelHtmlEscape()
+    {
+        $form = $this->getForm();
+        $collection = $form->get('colors');
+        $collection->setLabel('<strong>Some label</strong>');
+        $collection->setLabelOptions(array('disable_html_escape' => true));
+        $markup = $this->helper->render($collection);
+        $this->assertRegexp('#<fieldset(.*?)><legend><strong>Some label</strong><\/legend>(.*?)<\/fieldset>#', $markup);
+    }
 }
