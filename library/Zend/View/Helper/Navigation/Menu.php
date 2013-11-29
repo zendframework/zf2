@@ -63,6 +63,13 @@ class Menu extends AbstractHelper
     protected $ulClass = 'navigation';
 
     /**
+     * Params send to the partial
+     *
+     * @var array
+     */
+    protected $params = array();
+
+    /**
      * View helper entry point:
      * Retrieves helper and optionally sets container to operate on
      *
@@ -390,16 +397,17 @@ class Menu extends AbstractHelper
             );
         }
 
-        $model = array(
+        $model = array_merge($this->params,
+        array(
             'container' => $container
-        );
+        ));
 
         if (is_array($partial)) {
             if (count($partial) != 2) {
                 throw new Exception\InvalidArgumentException(
                     'Unable to render menu: A view partial supplied as '
-                        .  'an array must contain two values: partial view '
-                        .  'script and module where script can be found'
+                    .  'an array must contain two values: partial view '
+                    .  'script and module where script can be found'
                 );
             }
 
@@ -718,5 +726,28 @@ class Menu extends AbstractHelper
     public function getUlClass()
     {
         return $this->ulClass;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return $this
+     */
+    public function addParam($key, $value)
+    {
+        $this->params[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function addParams(array $params)
+    {
+        foreach($params as $key => $value) {
+            $this->addParam($key, $value);
+        }
+        return $this;
     }
 }
