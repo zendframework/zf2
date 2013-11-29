@@ -1124,7 +1124,7 @@ class ServiceManagerTest extends TestCase
     {
         $this->serviceManager->setService('service101', new \stdClass());
         $this->serviceManager->setFactory('factory202', function ($sm) {
-        	return new \stdClass();
+            return new \stdClass();
         });
 
         $instances = $this->serviceManager->getRegisteredServices('instances');
