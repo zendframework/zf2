@@ -63,11 +63,11 @@ class Menu extends AbstractHelper
     protected $ulClass = 'navigation';
 
     /**
-     * Params send to the partial
+     * Variables send to the partial
      *
      * @var array
      */
-    protected $params = array();
+    protected $variables = array();
 
     /**
      * View helper entry point:
@@ -397,10 +397,7 @@ class Menu extends AbstractHelper
             );
         }
 
-        $model = array_merge($this->params,
-        array(
-            'container' => $container
-        ));
+        $this->addVariable('container', $container);
 
         if (is_array($partial)) {
             if (count($partial) != 2) {
@@ -416,7 +413,7 @@ class Menu extends AbstractHelper
         }
 
         $partialHelper = $this->view->plugin('partial');
-        return $partialHelper($partial, $model);
+        return $partialHelper($partial, $this->variables);
     }
 
     /**
@@ -729,25 +726,51 @@ class Menu extends AbstractHelper
     }
 
     /**
-     * @param string $key
-     * @param mixed $value
-     * @return $this
+     * Set view variable
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @return self
      */
-    public function addParam($key, $value)
+    public function setVariable($name, $value)
     {
-        $this->params[$key] = $value;
+        $this->variables[(string) $name] = $value;
         return $this;
     }
 
     /**
-     * @param array $params
-     * @return $this
+     * Set view variables en masse
+     *
+     * Can be an array or a Traversable + ArrayAccess object.
+     *
+     * @param  array|ArrayAccess|Traversable $variables
+     * @param  bool $overwrite Whether or not to overwrite the internal container with $variables
+     * @throws Exception\InvalidArgumentException
+     * @return self
      */
-    public function addParams(array $params)
+    public function setVariables($variables, $overwrite = false)
     {
-        foreach($params as $key => $value) {
-            $this->addParam($key, $value);
+        if (!is_array($variables) && !$variables instanceof Traversable) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '%s: expects an array, or Traversable argument; received "%s"',
+                __METHOD__,
+                (is_object($variables) ? get_class($variables) : gettype($variables))
+            ));
         }
+
+        if ($overwrite) {
+            if (is_object($variables) && !$variables instanceof ArrayAccess) {
+                $variables = ArrayUtils::iteratorToArray($variables);
+            }
+
+            $this->variables = $variables;
+            return $this;
+        }
+
+        foreach ($variables as $key => $value) {
+            $this->setVariable($key, $value);
+        }
+
         return $this;
     }
 }
