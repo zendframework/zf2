@@ -397,7 +397,7 @@ class Menu extends AbstractHelper
             );
         }
 
-        $this->addVariable('container', $container);
+        $this->setVariable('container', $container);
 
         if (is_array($partial)) {
             if (count($partial) != 2) {
