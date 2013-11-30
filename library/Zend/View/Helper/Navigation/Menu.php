@@ -63,13 +63,6 @@ class Menu extends AbstractHelper
     protected $ulClass = 'navigation';
 
     /**
-     * Variables send to the partial
-     *
-     * @var array
-     */
-    protected $variables = array();
-
-    /**
      * View helper entry point:
      * Retrieves helper and optionally sets container to operate on
      *
@@ -376,11 +369,13 @@ class Menu extends AbstractHelper
      *                                  values; the partial view script to use,
      *                                  and the module where the script can be
      *                                  found.
+     * $param  array|
+     *
      * @return string
      * @throws Exception\RuntimeException if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      */
-    public function renderPartial($container = null, $partial = null)
+    public function renderPartial($container = null, $partial = null, $variables = null)
     {
         $this->parseContainer($container);
         if (null === $container) {
@@ -397,7 +392,21 @@ class Menu extends AbstractHelper
             );
         }
 
-        $this->setVariable('container', $container);
+
+        $model = array();
+        if ($variables != null) {
+            if (!is_array($variables) && !$variables instanceof Traversable) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    '%s: expects an array, or Traversable argument; received "%s"',
+                    __METHOD__,
+                    (is_object($variables) ? get_class($variables) : gettype($variables))
+                ));
+            }
+            foreach($variables as $key => $value) {
+                $model[(string) $key] = $value;
+            }
+        }
+        $model['container'] = $container;
 
         if (is_array($partial)) {
             if (count($partial) != 2) {
@@ -413,7 +422,7 @@ class Menu extends AbstractHelper
         }
 
         $partialHelper = $this->view->plugin('partial');
-        return $partialHelper($partial, $this->variables);
+        return $partialHelper($partial, $model);
     }
 
     /**
@@ -723,54 +732,5 @@ class Menu extends AbstractHelper
     public function getUlClass()
     {
         return $this->ulClass;
-    }
-
-    /**
-     * Set view variable
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return self
-     */
-    public function setVariable($name, $value)
-    {
-        $this->variables[(string) $name] = $value;
-        return $this;
-    }
-
-    /**
-     * Set view variables en masse
-     *
-     * Can be an array or a Traversable + ArrayAccess object.
-     *
-     * @param  array|ArrayAccess|Traversable $variables
-     * @param  bool $overwrite Whether or not to overwrite the internal container with $variables
-     * @throws Exception\InvalidArgumentException
-     * @return self
-     */
-    public function setVariables($variables, $overwrite = false)
-    {
-        if (!is_array($variables) && !$variables instanceof Traversable) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s: expects an array, or Traversable argument; received "%s"',
-                __METHOD__,
-                (is_object($variables) ? get_class($variables) : gettype($variables))
-            ));
-        }
-
-        if ($overwrite) {
-            if (is_object($variables) && !$variables instanceof ArrayAccess) {
-                $variables = ArrayUtils::iteratorToArray($variables);
-            }
-
-            $this->variables = $variables;
-            return $this;
-        }
-
-        foreach ($variables as $key => $value) {
-            $this->setVariable($key, $value);
-        }
-
-        return $this;
     }
 }
