@@ -1,0 +1,7 @@
+<?php
+$isContainer = $this->vars('container') instanceof \Zend\Navigation\AbstractContainer
+             ? 'yes'
+             : 'no';
+?>
+Is a container: <?php echo $isContainer . PHP_EOL; ?>
+Values: <?php echo $this->var1 ?>, <?php echo $this->var2 ?>

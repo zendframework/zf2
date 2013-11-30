@@ -240,6 +240,81 @@ class BreadcrumbsTest extends AbstractTest
         }
     }
 
+    /**
+     * @group GH-5566
+     */
+    public function testRenderingPartialWithValuesAsArray()
+    {
+        $this->_helper->setPartial('bc_partial_with_values.phtml');
+
+        $values = array(
+            'var1' => 'foo',
+            'var2' => 'bar',
+        );
+
+        $this->assertEquals(
+            "Pages: 4\nValues: foo, bar",
+            $this->_helper->renderPartial(null, null, $values)
+        );
+    }
+
+    /**
+     * @group GH-5566
+     */
+    public function testRenderingPartialWithValuesAsViewModel()
+    {
+        $this->_helper->setPartial('bc_partial_with_values.phtml');
+
+        $model = new \Zend\View\Model\ViewModel(
+            array(
+                 'var1' => 'foo',
+                 'var2' => 'bar',
+            )
+        );
+
+        $this->assertEquals(
+            "Pages: 4\nValues: foo, bar",
+            $this->_helper->renderPartial(null, null, $model)
+        );
+    }
+
+    /**
+     * @group GH-5566
+     */
+    public function testRenderingPartialWithValuesAsObject()
+    {
+        $this->_helper->setPartial('bc_partial_with_values.phtml');
+
+        $object = new \stdClass();
+        $object->var1 = 'foo';
+        $object->var2 = 'bar';
+
+        $this->assertEquals(
+            "Pages: 4\nValues: foo, bar",
+            $this->_helper->renderPartial(null, null, $object)
+        );
+    }
+
+    /**
+     * @group GH-5566
+     */
+    public function testRenderingPartialWithValuesAsObjectWithToArrayMethod()
+    {
+        $this->_helper->setPartial('bc_partial_with_values.phtml');
+
+        $config = new \Zend\Config\Config(
+            array(
+                 'var1' => 'foo',
+                 'var2' => 'bar',
+            )
+        );
+
+        $this->assertEquals(
+            "Pages: 4\nValues: foo, bar",
+            $this->_helper->renderPartial(null, null, $config)
+        );
+    }
+
     public function testLastBreadcrumbShouldBeEscaped()
     {
         $container = new Navigation(array(

@@ -14,6 +14,7 @@ use Zend\Navigation\AbstractContainer;
 use Zend\Navigation\Page\AbstractPage;
 use Zend\View;
 use Zend\View\Exception;
+use Zend\View\Model\ModelInterface;
 
 /**
  * Helper for rendering menus from navigation containers
@@ -359,7 +360,7 @@ class Menu extends AbstractHelper
      * as-is, and will be available in the partial script as 'container', e.g.
      * <code>echo 'Number of pages: ', count($this->container);</code>.
      *
-     * @param  AbstractContainer     $container [optional] container to pass to view
+     * @param  AbstractContainer        $container [optional] container to pass to view
      *                                  script. Default is to use the container
      *                                  registered in the helper.
      * @param  string|array  $partial   [optional] partial view script to use.
@@ -369,11 +370,13 @@ class Menu extends AbstractHelper
      *                                  values; the partial view script to use,
      *                                  and the module where the script can be
      *                                  found.
+     * @param  array|ModelInterface|object $values [optional] Variables to populate
+     *                                             in the partial view script
      * @return string
      * @throws Exception\RuntimeException if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      */
-    public function renderPartial($container = null, $partial = null)
+    public function renderPartial($container = null, $partial = null, $values = null)
     {
         $this->parseContainer($container);
         if (null === $container) {
@@ -390,9 +393,20 @@ class Menu extends AbstractHelper
             );
         }
 
-        $model = array(
-            'container' => $container
-        );
+        if (is_scalar($values)) {
+            $values = array();
+        } elseif ($values instanceof ModelInterface) {
+            $values = $values->getVariables();
+        } elseif (is_object($values)) {
+            if (method_exists($values, 'toArray')) {
+                $values = $values->toArray();
+            } else {
+                $values = get_object_vars($values);
+            }
+        }
+
+        // Add container to values
+        $values['container'] = $container;
 
         /** @var \Zend\View\Helper\Partial $partialHelper */
         $partialHelper = $this->view->plugin('partial');
@@ -406,10 +420,10 @@ class Menu extends AbstractHelper
                 );
             }
 
-            return $partialHelper($partial[0], $model);
+            return $partialHelper($partial[0], $values);
         }
 
-        return $partialHelper($partial, $model);
+        return $partialHelper($partial, $values);
     }
 
     /**

@@ -13,6 +13,7 @@ use Zend\Navigation\AbstractContainer;
 use Zend\Navigation\Page\AbstractPage;
 use Zend\View;
 use Zend\View\Exception;
+use Zend\View\Model\ModelInterface;
 
 /**
  * Helper for printing breadcrumbs
@@ -149,11 +150,13 @@ class Breadcrumbs extends AbstractHelper
      *                               is expected to contain two values; the
      *                               partial view script to use, and the module
      *                               where the script can be found.
+     * @param  array|ModelInterface|object $values [optional] Variables to populate
+     *                                             in the partial view script
      * @throws Exception\RuntimeException if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      * @return string               helper output
      */
-    public function renderPartial($container = null, $partial = null)
+    public function renderPartial($container = null, $partial = null, $values = null)
     {
         $this->parseContainer($container);
         if (null === $container) {
@@ -170,18 +173,29 @@ class Breadcrumbs extends AbstractHelper
             );
         }
 
-        // put breadcrumb pages in model
-        $model = array(
-            'pages' => array(),
-            'separator' => $this->getSeparator()
-        );
+        if (is_scalar($values)) {
+            $values = array();
+        } elseif ($values instanceof ModelInterface) {
+            $values = $values->getVariables();
+        } elseif (is_object($values)) {
+            if (method_exists($values, 'toArray')) {
+                $values = $values->toArray();
+            } else {
+                $values = get_object_vars($values);
+            }
+        }
+
+        // Add breadcrumb pages and separator in values
+        $values['pages']     = array();
+        $values['separator'] = $this->getSeparator();
+
         $active = $this->findActive($container);
         if ($active) {
             $active = $active['page'];
-            $model['pages'][] = $active;
+            $values['pages'][] = $active;
             while ($parent = $active->getParent()) {
                 if ($parent instanceof AbstractPage) {
-                    $model['pages'][] = $parent;
+                    $values['pages'][] = $parent;
                 } else {
                     break;
                 }
@@ -193,7 +207,7 @@ class Breadcrumbs extends AbstractHelper
 
                 $active = $parent;
             }
-            $model['pages'] = array_reverse($model['pages']);
+            $values['pages'] = array_reverse($values['pages']);
         }
 
         /** @var \Zend\View\Helper\Partial $partialHelper */
@@ -208,10 +222,10 @@ class Breadcrumbs extends AbstractHelper
                 );
             }
 
-            return $partialHelper($partial[0], $model);
+            return $partialHelper($partial[0], $values);
         }
 
-        return $partialHelper($partial, $model);
+        return $partialHelper($partial, $values);
     }
 
     /**
