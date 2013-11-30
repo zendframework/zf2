@@ -369,11 +369,13 @@ class Menu extends AbstractHelper
      *                                  values; the partial view script to use,
      *                                  and the module where the script can be
      *                                  found.
+     * $param  array|
+     *
      * @return string
      * @throws Exception\RuntimeException if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      */
-    public function renderPartial($container = null, $partial = null)
+    public function renderPartial($container = null, $partial = null, $variables = null)
     {
         $this->parseContainer($container);
         if (null === $container) {
@@ -390,16 +392,28 @@ class Menu extends AbstractHelper
             );
         }
 
-        $model = array(
-            'container' => $container
-        );
+
+        $model = array();
+        if ($variables != null) {
+            if (!is_array($variables) && !$variables instanceof Traversable) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    '%s: expects an array, or Traversable argument; received "%s"',
+                    __METHOD__,
+                    (is_object($variables) ? get_class($variables) : gettype($variables))
+                ));
+            }
+            foreach($variables as $key => $value) {
+                $model[(string) $key] = $value;
+            }
+        }
+        $model['container'] = $container;
 
         if (is_array($partial)) {
             if (count($partial) != 2) {
                 throw new Exception\InvalidArgumentException(
                     'Unable to render menu: A view partial supplied as '
-                        .  'an array must contain two values: partial view '
-                        .  'script and module where script can be found'
+                    .  'an array must contain two values: partial view '
+                    .  'script and module where script can be found'
                 );
             }
 
