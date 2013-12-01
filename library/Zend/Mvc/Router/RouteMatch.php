@@ -42,7 +42,7 @@ class RouteMatch
      * Set name of matched route.
      *
      * @param  string $name
-     * @return RouteMatch
+     * @return self
      */
     public function setMatchedRouteName($name)
     {
@@ -65,7 +65,7 @@ class RouteMatch
      *
      * @param  string $name
      * @param  mixed  $value
-     * @return RouteMatch
+     * @return self
      */
     public function setParam($name, $value)
     {

@@ -90,7 +90,7 @@ class TranslatorAwareTreeRouteStack extends TreeRouteStack implements Translator
      * @see    TranslatorAwareInterface::setTranslator()
      * @param  Translator $translator
      * @param  string     $textDomain
-     * @return TreeRouteStack
+     * @return self
      */
     public function setTranslator(Translator $translator = null, $textDomain = null)
     {
@@ -130,7 +130,7 @@ class TranslatorAwareTreeRouteStack extends TreeRouteStack implements Translator
      *
      * @see    TranslatorAwareInterface::setTranslatorEnabled()
      * @param  bool $enabled
-     * @return TreeRouteStack
+     * @return self
      */
     public function setTranslatorEnabled($enabled = true)
     {
@@ -154,12 +154,11 @@ class TranslatorAwareTreeRouteStack extends TreeRouteStack implements Translator
      *
      * @see    TranslatorAwareInterface::setTranslatorTextDomain()
      * @param  string $textDomain
-     * @return mixed
+     * @return self
      */
     public function setTranslatorTextDomain($textDomain = 'default')
     {
         $this->translatorTextDomain = $textDomain;
-
         return $this;
     }
 

@@ -215,7 +215,7 @@ class Segment implements RouteInterface
      *
      * @param  array   $parts
      * @param  array   $constraints
-     * @param  int $groupIndex
+     * @param  int     $groupIndex
      * @return string
      */
     protected function buildRegex(array $parts, array $constraints, &$groupIndex = 1)

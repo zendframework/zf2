@@ -160,7 +160,7 @@ class Hostname implements RouteInterface
      *
      * @param  array   $parts
      * @param  array   $constraints
-     * @param  int $groupIndex
+     * @param  int     $groupIndex
      * @return string
      * @throws Exception\RuntimeException
      */
@@ -318,7 +318,7 @@ class Hostname implements RouteInterface
     /**
      * getAssembledParams(): defined by RouteInterface interface.
      *
-     * @see    RouteInterface::getAssembledParams
+     * @see    RouteInterface::getAssembledParams()
      * @return array
      */
     public function getAssembledParams()

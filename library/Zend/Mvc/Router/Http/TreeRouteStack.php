@@ -74,7 +74,7 @@ class TreeRouteStack extends SimpleRouteStack
     /**
      * init(): defined by SimpleRouteStack.
      *
-     * @see    SimpleRouteStack::init()
+     * @see SimpleRouteStack::init()
      */
     protected function init()
     {
@@ -104,8 +104,8 @@ class TreeRouteStack extends SimpleRouteStack
      * @see    RouteStackInterface::addRoute()
      * @param  string  $name
      * @param  mixed   $route
-     * @param  int $priority
-     * @return TreeRouteStack
+     * @param  int     $priority
+     * @return self
      */
     public function addRoute($name, $route, $priority = null)
     {
@@ -185,7 +185,7 @@ class TreeRouteStack extends SimpleRouteStack
      * Add multiple prototypes at once.
      *
      * @param  Traversable $routes
-     * @return TreeRouteStack
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function addPrototypes($routes)
@@ -206,7 +206,7 @@ class TreeRouteStack extends SimpleRouteStack
      *
      * @param  string $name
      * @param  mixed  $route
-     * @return TreeRouteStack
+     * @return self
      */
     public function addPrototype($name, $route)
     {
@@ -401,7 +401,7 @@ class TreeRouteStack extends SimpleRouteStack
      * Set the request URI.
      *
      * @param  HttpUri $uri
-     * @return TreeRouteStack
+     * @return self
      */
     public function setRequestUri(HttpUri $uri)
     {
