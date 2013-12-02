@@ -59,12 +59,12 @@ class Simple implements RouteInterface
     protected $assembledParams = array();
 
     /**
-     * @var \Zend\Validator\ValidatorChain
+     * @var ValidatorChain
      */
     protected $validators;
 
     /**
-     * @var \Zend\Filter\FilterChain
+     * @var FilterChain
      */
     protected $filters;
 
@@ -78,7 +78,7 @@ class Simple implements RouteInterface
      * @param  null|array|Traversable|FilterChain       $filters
      * @param  null|array|Traversable|ValidatorChain    $validators
      * @throws \Zend\Mvc\Exception\InvalidArgumentException
-     * @return \Zend\Mvc\Router\Console\Simple
+     * @return Simple
      */
     public function __construct(
         $route,
@@ -527,10 +527,10 @@ class Simple implements RouteInterface
     /**
      * match(): defined by Route interface.
      *
-     * @see     Route::match()
-     * @param   Request             $request
-     * @param   null|int            $pathOffset
-     * @return  RouteMatch
+     * @see    Route::match()
+     * @param  Request             $request
+     * @param  null|int            $pathOffset
+     * @return RouteMatch
      */
     public function match(Request $request, $pathOffset = null)
     {

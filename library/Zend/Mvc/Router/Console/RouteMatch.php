@@ -32,7 +32,7 @@ class RouteMatch extends BaseRouteMatch
     /**
      * Create a part RouteMatch with given parameters and length.
      *
-     * @param  array   $params
+     * @param  array $params
      * @param  int $length
      */
     public function __construct(array $params, $length = 0)
@@ -64,7 +64,7 @@ class RouteMatch extends BaseRouteMatch
      * Merge parameters from another match.
      *
      * @param  RouteMatch $match
-     * @return RouteMatch
+     * @return self
      */
     public function merge(RouteMatch $match)
     {

@@ -178,7 +178,7 @@ class Chain extends TreeRouteStack implements RouteInterface
     /**
      * getAssembledParams(): defined by RouteInterface interface.
      *
-     * @see    RouteInterface::getAssembledParams
+     * @see    RouteInterface::getAssembledParams()
      * @return array
      */
     public function getAssembledParams()

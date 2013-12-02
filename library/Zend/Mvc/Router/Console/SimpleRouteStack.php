@@ -22,7 +22,7 @@ class SimpleRouteStack extends BaseSimpleRouteStack
     /**
      * init(): defined by SimpleRouteStack.
      *
-     * @see    BaseSimpleRouteStack::init()
+     * @see BaseSimpleRouteStack::init()
      */
     protected function init()
     {
@@ -42,8 +42,8 @@ class SimpleRouteStack extends BaseSimpleRouteStack
      * @see    RouteStackInterface::addRoute()
      * @param  string  $name
      * @param  mixed   $route
-     * @param  int $priority
-     * @return SimpleRouteStack
+     * @param  int     $priority
+     * @return self
      */
     public function addRoute($name, $route, $priority = null)
     {
