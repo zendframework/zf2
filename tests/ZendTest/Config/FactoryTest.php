@@ -17,6 +17,7 @@ use Zend\Config\Factory;
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $tmpFiles = array();
+    protected $originalIncludePath;
 
     protected function getTestAssetFileName($ext)
     {
@@ -26,8 +27,16 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         return $this->tmpfiles[$ext];
     }
 
+    public function setUp()
+    {
+        $this->originalIncludePath = get_include_path();
+        set_include_path(__DIR__ . '/TestAssets');
+    }
+
     public function tearDown()
     {
+        set_include_path($this->originalIncludePath);
+
         foreach ($this->tmpFiles as $file) {
             if (file_exists($file)) {
                 if (!is_writable($file)) {
@@ -96,6 +105,20 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/TestAssets/Php/include-base3.php',
         );
         $config = Factory::fromFiles($files);
+
+        $this->assertEquals('bar', $config['base']['foo']);
+        $this->assertEquals('baz', $config['test']['bar']);
+        $this->assertEquals('baz', $config['last']['bar']);
+    }
+
+    public function testFromIniAndXmlAndPhpFilesFromIncludePath()
+    {
+        $files = array (
+            'Ini/include-base.ini',
+            'Xml/include-base2.xml',
+            'Php/include-base3.php',
+        );
+        $config = Factory::fromFiles($files, false, true);
 
         $this->assertEquals('bar', $config['base']['foo']);
         $this->assertEquals('baz', $config['test']['bar']);
@@ -177,13 +200,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         // build string line by line as we are trailing-whitespace sensitive.
         $expected = "<?php\n";
-        $expected .= "return array (\n";
-        $expected .= "  'test' => 'foo',\n";
-        $expected .= "  'bar' => \n";
-        $expected .= "  array (\n";
-        $expected .= "    0 => 'baz',\n";
-        $expected .= "    1 => 'foo',\n";
-        $expected .= "  ),\n";
+        $expected .= "return array(\n";
+        $expected .= "    'test' => 'foo',\n";
+        $expected .= "    'bar' => array(\n";
+        $expected .= "        0 => 'baz',\n";
+        $expected .= "        1 => 'foo',\n";
+        $expected .= "    ),\n";
         $expected .= ");\n";
 
         $this->assertEquals(true, $result);
