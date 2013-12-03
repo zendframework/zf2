@@ -9,13 +9,25 @@
 
 namespace Zend\Validator;
 
+use Zend\Validator\Result\ValidationResult;
+
+/**
+ * A validator that allows to check if a value is an hexadecimal number
+ *
+ * Accepted options are:
+ *      - message_templates
+ *      - message_variables
+ */
 class Hex extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const INVALID = 'hexInvalid';
     const NOT_HEX = 'notHex';
 
     /**
-     * Validation failure message template definitions
+     * Validation error messages templates
      *
      * @var array
      */
@@ -25,24 +37,18 @@ class Hex extends AbstractValidator
     );
 
     /**
-     * Returns true if and only if $value contains only hexadecimal digit characters
-     *
-     * @param  string $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value) && !is_int($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_string($data) && !is_int($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
-        if (!ctype_xdigit((string) $value)) {
-            $this->error(self::NOT_HEX);
-            return false;
+        if (!ctype_xdigit((string) $data)) {
+            return $this->buildErrorValidationResult($data, self::NOT_HEX);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

@@ -11,14 +11,30 @@ namespace Zend\Validator;
 
 use Zend\Stdlib\StringUtils;
 use Zend\Stdlib\StringWrapper\StringWrapperInterface as StringWrapper;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * A validator that can validate if a string length is inside bounds
+ *
+ * Accepted options are:
+ *      - message_templates
+ *      - message_variables
+ *      - min
+ *      - max
+ *      - encoding
+ */
 class StringLength extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const INVALID   = 'stringLengthInvalid';
     const TOO_SHORT = 'stringLengthTooShort';
     const TOO_LONG  = 'stringLengthTooLong';
 
     /**
+     * Validation error messages templates
+     *
      * @var array
      */
     protected $messageTemplates = array(
@@ -28,71 +44,68 @@ class StringLength extends AbstractValidator
     );
 
     /**
+     * Variables that can get injected
+     *
      * @var array
      */
-    protected $messageVariables = array(
-        'min' => array('options' => 'min'),
-        'max' => array('options' => 'max'),
-    );
+    protected $messageVariables = array('min', 'max');
 
-    protected $options = array(
-        'min'      => 0,       // Minimum length
-        'max'      => null,    // Maximum length, null if there is no length limitation
-        'encoding' => 'UTF-8', // Encoding to use
-    );
+    /**
+     * Minimum length
+     *
+     * @var int
+     */
+    protected $min = 0;
 
+    /**
+     * Maximum length (null if no upper limit)
+     *
+     * @var int|null
+     */
+    protected $max = null;
+
+    /**
+     * Encoding to use
+     *
+     * @var string
+     */
+    protected $encoding = 'UTF-8';
+
+    /**
+     * @var StringWrapper
+     */
     protected $stringWrapper;
 
     /**
-     * Sets validator options
+     * Set the min length
      *
-     * @param  int|array|\Traversable $options
+     * @param  int $min
+     * @return void
      */
-    public function __construct($options = array())
+    public function setMin($min)
     {
-        if (!is_array($options)) {
-            $options     = func_get_args();
-            $temp['min'] = array_shift($options);
-            if (!empty($options)) {
-                $temp['max'] = array_shift($options);
-            }
-
-            if (!empty($options)) {
-                $temp['encoding'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
-
-        parent::__construct($options);
+        $this->min = max(0, (int) $min);
     }
 
     /**
-     * Returns the min option
+     * Returns the min length
      *
      * @return int
      */
     public function getMin()
     {
-        return $this->options['min'];
+        return $this->min;
     }
 
     /**
-     * Sets the min option
+     * Set the max option
      *
-     * @param  int $min
-     * @throws Exception\InvalidArgumentException
-     * @return StringLength Provides a fluent interface
+     * @param  int|null $max
+     * @return void
      */
-    public function setMin($min)
+    public function setMax($max)
     {
-        if (null !== $this->getMax() && $min > $this->getMax()) {
-            throw new Exception\InvalidArgumentException("The minimum must be less than or equal to the maximum length, but $min >"
-                                            . " " . $this->getMax());
-        }
-
-        $this->options['min'] = max(0, (int) $min);
-        return $this;
+        $this->max = $max;
     }
 
     /**
@@ -102,28 +115,7 @@ class StringLength extends AbstractValidator
      */
     public function getMax()
     {
-        return $this->options['max'];
-    }
-
-    /**
-     * Sets the max option
-     *
-     * @param  int|null $max
-     * @throws Exception\InvalidArgumentException
-     * @return StringLength Provides a fluent interface
-     */
-    public function setMax($max)
-    {
-        if (null === $max) {
-            $this->options['max'] = null;
-        } elseif ($max < $this->getMin()) {
-            throw new Exception\InvalidArgumentException("The maximum must be greater than or equal to the minimum length, but "
-                                            . "$max < " . $this->getMin());
-        } else {
-            $this->options['max'] = (int) $max;
-        }
-
-        return $this;
+        return $this->max;
     }
 
     /**
@@ -136,6 +128,7 @@ class StringLength extends AbstractValidator
         if (!$this->stringWrapper) {
             $this->stringWrapper = StringUtils::getWrapper($this->getEncoding());
         }
+
         return $this->stringWrapper;
     }
 
@@ -152,58 +145,55 @@ class StringLength extends AbstractValidator
     }
 
     /**
-     * Returns the actual encoding
+     * Set a new encoding to use
+     *
+     * @param  string $encoding
+     * @return void
+     */
+    public function setEncoding($encoding)
+    {
+        $this->stringWrapper = StringUtils::getWrapper($encoding);
+        $this->encoding      = $encoding;
+    }
+
+    /**
+     * Get the actual encoding
      *
      * @return string
      */
     public function getEncoding()
     {
-        return $this->options['encoding'];
+        return $this->encoding;
     }
 
     /**
-     * Sets a new encoding to use
-     *
-     * @param string $encoding
-     * @return StringLength
-     * @throws Exception\InvalidArgumentException
+     * {@inheritDoc}
      */
-    public function setEncoding($encoding)
+    public function validate($data, $context = null)
     {
-        $this->stringWrapper = StringUtils::getWrapper($encoding);
-        $this->options['encoding'] = $encoding;
-        return $this;
-    }
-
-    /**
-     * Returns true if and only if the string length of $value is at least the min option and
-     * no greater than the max option (when the max option is not null).
-     *
-     * @param  string $value
-     * @return bool
-     */
-    public function isValid($value)
-    {
-        if (!is_string($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_string($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
+        if ($this->max !== null && $this->min > $this->max) {
+            throw new Exception\InvalidArgumentException('Min value cannot be higher than max value');
+        }
 
-        $length = $this->getStringWrapper()->strlen($value);
-        if ($length < $this->getMin()) {
-            $this->error(self::TOO_SHORT);
+        $length     = $this->getStringWrapper()->strlen($data);
+        $errorCodes = array();
+
+        if ($length < $this->min) {
+            $errorCodes[] = self::TOO_SHORT;
         }
 
         if (null !== $this->getMax() && $this->getMax() < $length) {
-            $this->error(self::TOO_LONG);
+            $errorCodes[] = self::TOO_LONG;
         }
 
-        if (count($this->getMessages())) {
-            return false;
+        if (!empty($errorCodes)) {
+            return $this->buildErrorValidationResult($data, $errorCodes);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

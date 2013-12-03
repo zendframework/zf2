@@ -11,25 +11,24 @@ namespace Zend\Validator\Sitemap;
 
 use Zend\Uri;
 use Zend\Validator\AbstractValidator;
+use Zend\Validator\Result\ValidationResult;
 
 /**
  * Validates whether a given value is valid as a sitemap <loc> value
  *
  * @link       http://www.sitemaps.org/protocol.php Sitemaps XML format
- *
  * @see        Zend\Uri\Uri
  */
 class Loc extends AbstractValidator
 {
     /**
-     * Validation key for not valid
-     *
+     * Error codes
      */
     const NOT_VALID = 'sitemapLocNotValid';
     const INVALID   = 'sitemapLocInvalid';
 
     /**
-     * Validation failure message template definitions
+     * Validation error messages templates
      *
      * @var array
      */
@@ -42,24 +41,19 @@ class Loc extends AbstractValidator
      * Validates if a string is valid as a sitemap location
      *
      * @link http://www.sitemaps.org/protocol.php#locdef <loc>
-     *
-     * @param  string  $value  value to validate
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_string($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
-        $uri = Uri\UriFactory::factory($value);
+        $uri = Uri\UriFactory::factory($data);
         if (!$uri->isValid()) {
-            $this->error(self::NOT_VALID);
-            return false;
+            return $this->buildErrorValidationResult($data, self::NOT_VALID);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

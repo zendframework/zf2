@@ -11,6 +11,7 @@ namespace Zend\Validator\Sitemap;
 
 use Zend\Stdlib\ErrorHandler;
 use Zend\Validator\AbstractValidator;
+use Zend\Validator\Result\ValidationResult;
 
 /**
  * Validates whether a given value is valid as a sitemap <lastmod> value
@@ -20,20 +21,18 @@ use Zend\Validator\AbstractValidator;
 class Lastmod extends AbstractValidator
 {
     /**
-     * Regular expression to use when validating
-     *
-     */
-    const LASTMOD_REGEX = '/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])(T([0-1][0-9]|2[0-3])(:[0-5][0-9])(:[0-5][0-9])?(\\+|-)([0-1][0-9]|2[0-3]):[0-5][0-9])?$/';
-
-    /**
-     * Validation key for not valid
-     *
+     * Error codes
      */
     const NOT_VALID = 'sitemapLastmodNotValid';
     const INVALID   = 'sitemapLastmodInvalid';
 
     /**
-     * Validation failure message template definitions
+     * Regular expression to use when validating
+     */
+    const LASTMOD_REGEX = '/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])(T([0-1][0-9]|2[0-3])(:[0-5][0-9])(:[0-5][0-9])?(\\+|-)([0-1][0-9]|2[0-3]):[0-5][0-9])?$/';
+
+    /**
+     * Validation error messages templates
      *
      * @var array
      */
@@ -46,26 +45,22 @@ class Lastmod extends AbstractValidator
      * Validates if a string is valid as a sitemap lastmod
      *
      * @link http://www.sitemaps.org/protocol.php#lastmoddef <lastmod>
-     *
-     * @param  string  $value  value to validate
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_string($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
         ErrorHandler::start();
-        $result = preg_match(self::LASTMOD_REGEX, $value);
+        $result = preg_match(self::LASTMOD_REGEX, $data);
         ErrorHandler::stop();
+
         if ($result != 1) {
-            $this->error(self::NOT_VALID);
-            return false;
+            return $this->buildErrorValidationResult($data, self::NOT_VALID);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

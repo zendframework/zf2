@@ -11,18 +11,19 @@ namespace Zend\Validator;
 
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\Result\ValidationResult;
 
 class Identical extends AbstractValidator
 {
     /**
      * Error codes
-     * @const string
      */
     const NOT_SAME      = 'notSame';
     const MISSING_TOKEN = 'missingToken';
 
     /**
-     * Error messages
+     * Validation failure message template definitions
+     *
      * @var array
      */
     protected $messageTemplates = array(
@@ -31,47 +32,44 @@ class Identical extends AbstractValidator
     );
 
     /**
-     * @var array
-     */
-    protected $messageVariables = array(
-        'token' => 'tokenString'
-    );
-
-    /**
      * Original token against which to validate
+     *
      * @var string
      */
     protected $tokenString;
+
+    /**
+     * Token with which the input will be validated against
+     *
+     * @var
+     */
     protected $token;
+
+    /**
+     * Define if the validation should be done strict
+     *
+     * @var bool
+     */
     protected $strict  = true;
+
+    /**
+     * If set to TRUE, the validation will skip the lookup for elements in the form context, and
+     * validate the token just the way it was provided
+     *
+     * @var bool
+     */
     protected $literal = false;
 
     /**
-     * Sets validator options
+     * Set token against which to compare
      *
      * @param  mixed $token
+     * @return void
      */
-    public function __construct($token = null)
+    public function setToken($token)
     {
-        if ($token instanceof Traversable) {
-            $token = ArrayUtils::iteratorToArray($token);
-        }
-
-        if (is_array($token) && array_key_exists('token', $token)) {
-            if (array_key_exists('strict', $token)) {
-                $this->setStrict($token['strict']);
-            }
-
-            if (array_key_exists('literal', $token)) {
-                $this->setLiteral($token['literal']);
-            }
-
-            $this->setToken($token['token']);
-        } elseif (null !== $token) {
-            $this->setToken($token);
-        }
-
-        parent::__construct(is_array($token) ? $token : null);
+        $this->tokenString = (is_array($token) ? var_export($token, true) : (string) $token);
+        $this->token       = $token;
     }
 
     /**
@@ -85,16 +83,14 @@ class Identical extends AbstractValidator
     }
 
     /**
-     * Set token against which to compare
+     * Sets the strict parameter
      *
-     * @param  mixed $token
-     * @return Identical
+     * @param  bool $strict
+     * @return void
      */
-    public function setToken($token)
+    public function setStrict($strict)
     {
-        $this->tokenString = (is_array($token) ? var_export($token, true) : (string) $token);
-        $this->token       = $token;
-        return $this;
+        $this->strict = (bool) $strict;
     }
 
     /**
@@ -108,15 +104,14 @@ class Identical extends AbstractValidator
     }
 
     /**
-     * Sets the strict parameter
+     * Sets the literal parameter
      *
-     * @param  bool $strict
-     * @return Identical
+     * @param  bool $literal
+     * @return void
      */
-    public function setStrict($strict)
+    public function setLiteral($literal)
     {
-        $this->strict = (bool) $strict;
-        return $this;
+        $this->literal = (bool) $literal;
     }
 
     /**
@@ -130,30 +125,14 @@ class Identical extends AbstractValidator
     }
 
     /**
-     * Sets the literal parameter
-     *
-     * @param  bool $literal
-     * @return Identical
-     */
-    public function setLiteral($literal)
-    {
-        $this->literal = (bool) $literal;
-        return $this;
-    }
-
-    /**
      * Returns true if and only if a token has been set and the provided value
      * matches that token.
      *
-     * @param  mixed $value
-     * @param  array $context
-     * @return bool
+     * {@inheritDoc}
      * @throws Exception\RuntimeException if the token doesn't exist in the context array
      */
-    public function isValid($value, array $context = null)
+    public function validate($data, $context = null)
     {
-        $this->setValue($value);
-
         $token = $this->getToken();
 
         if (!$this->getLiteral() && $context !== null) {
@@ -177,17 +156,16 @@ class Identical extends AbstractValidator
             }
         }
 
-        if ($token === null) {
-            $this->error(self::MISSING_TOKEN);
-            return false;
+        if (null === $token) {
+            return $this->buildErrorValidationResult($data, self::MISSING_TOKEN);
         }
 
         $strict = $this->getStrict();
-        if (($strict && ($value !== $token)) || (!$strict && ($value != $token))) {
-            $this->error(self::NOT_SAME);
-            return false;
+
+        if (($strict && ($data !== $token)) || (!$strict && ($data != $token))) {
+            return $this->buildErrorValidationResult($data, self::NOT_SAME);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

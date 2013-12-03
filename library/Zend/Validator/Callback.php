@@ -9,20 +9,27 @@
 
 namespace Zend\Validator;
 
+use Zend\Validator\Result\ValidationResult;
+
+/**
+ * A validator that uses a Callable to validate the data
+ *
+ * Accepted options are:
+ *      - message_templates
+ *      - message_variables
+ *      - callback
+ *      - callback_params
+ */
 class Callback extends AbstractValidator
 {
     /**
-     * Invalid callback
+     * Error codes
      */
     const INVALID_CALLBACK = 'callbackInvalid';
-
-    /**
-     * Invalid value
-     */
     const INVALID_VALUE = 'callbackValue';
 
     /**
-     * Validation failure message template definitions
+     * Validation error messages templates
      *
      * @var array
      */
@@ -32,119 +39,94 @@ class Callback extends AbstractValidator
     );
 
     /**
-     * Default options to set for the validator
-     *
-     * @var mixed
+     * @var callable
      */
-    protected $options = array(
-        'callback'         => null,     // Callback in a call_user_func format, string || array
-        'callbackOptions'  => array(),  // Options for the callback
-    );
+    protected $callback;
 
     /**
-     * Constructor
-     *
-     * @param array|callable $options
+     * @var array
      */
-    public function __construct($options = null)
+    protected $callbackParams = array();
+
+    /**
+     * Sets a new callback for this filter
+     *
+     * @param  callable $callback
+     * @return void
+     */
+    public function setCallback(callable $callback)
     {
-        if (is_callable($options)) {
-            $options = array('callback' => $options);
+        if (is_string($callback) && strpos($callback, '::') !== false) {
+            $callback = explode('::', $callback);
         }
 
-        parent::__construct($options);
+        $this->callback = $callback;
     }
 
     /**
      * Returns the set callback
      *
-     * @return mixed
+     * @return callable
      */
     public function getCallback()
     {
-        return $this->options['callback'];
+        return $this->callback;
     }
 
     /**
-     * Sets the callback
+     * Sets parameters for the callback
      *
-     * @param  string|array|callable $callback
-     * @return Callback Provides a fluent interface
-     * @throws Exception\InvalidArgumentException
+     * @param  array $params
+     * @return Callback
      */
-    public function setCallback($callback)
+    public function setCallbackParams(array $params)
     {
-        if (!is_callable($callback)) {
-            throw new Exception\InvalidArgumentException('Invalid callback given');
-        }
-
-        $this->options['callback'] = $callback;
-        return $this;
+        $this->callbackParams = $params;
     }
 
     /**
-     * Returns the set options for the callback
+     * Get parameters for the callback
      *
      * @return mixed
      */
-    public function getCallbackOptions()
+    public function getCallbackParams()
     {
-        return $this->options['callbackOptions'];
+        return $this->callbackParams;
     }
 
     /**
-     * Sets options for the callback
-     *
-     * @param  mixed $options
-     * @return Callback Provides a fluent interface
+     * {@inheritDoc}
      */
-    public function setCallbackOptions($options)
+    public function validate($data, $context = null)
     {
-        $this->options['callbackOptions'] = (array) $options;
-        return $this;
-    }
-
-    /**
-     * Returns true if and only if the set callback returns
-     * for the provided $value
-     *
-     * @param  mixed $value
-     * @param  mixed $context Additional context to provide to the callback
-     * @return bool
-     * @throws Exception\InvalidArgumentException
-     */
-    public function isValid($value, $context = null)
-    {
-        $this->setValue($value);
-
-        $options  = $this->getCallbackOptions();
-        $callback = $this->getCallback();
-        if (empty($callback)) {
+        if (empty($this->callback)) {
             throw new Exception\InvalidArgumentException('No callback given');
         }
 
-        $args = array($value);
-        if (empty($options) && !empty($context)) {
+        $params = $this->callbackParams;
+        $args   = array($data);
+
+        if (empty($params) && !empty($context)) {
             $args[] = $context;
         }
-        if (!empty($options) && empty($context)) {
-            $args = array_merge($args, $options);
+
+        if (!empty($params) && empty($context)) {
+            $args = array_merge($args, $params);
         }
-        if (!empty($options) && !empty($context)) {
+
+        if (!empty($params) && !empty($context)) {
             $args[] = $context;
-            $args   = array_merge($args, $options);
+            $args   = array_merge($args, $params);
         }
 
         try {
-            if (!call_user_func_array($callback, $args)) {
-                $this->error(self::INVALID_VALUE);
-                return false;
+            if (!call_user_func_array($this->callback, $args)) {
+                return $this->buildErrorValidationResult($data, self::INVALID_VALUE);
             }
         } catch (\Exception $e) {
-            $this->error(self::INVALID_CALLBACK);
-            return false;
+            return $this->buildErrorValidationResult($data, self::INVALID_CALLBACK);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

@@ -14,21 +14,17 @@ class StaticValidator
     /**
      * @var ValidatorPluginManager
      */
-    protected static $plugins;
+    protected static $validatorPluginManager;
 
     /**
      * Set plugin manager to use for locating validators
      *
-     * @param  ValidatorPluginManager|null $plugins
+     * @param  ValidatorPluginManager $validatorPluginManager
      * @return void
      */
-    public static function setPluginManager(ValidatorPluginManager $plugins = null)
+    public static function setPluginManager(ValidatorPluginManager $validatorPluginManager)
     {
-        // Don't share by default to allow different arguments on subsequent calls
-        if ($plugins instanceof ValidatorPluginManager) {
-            $plugins->setShareByDefault(false);
-        }
-        static::$plugins = $plugins;
+        static::$validatorPluginManager = $validatorPluginManager;
     }
 
     /**
@@ -38,23 +34,25 @@ class StaticValidator
      */
     public static function getPluginManager()
     {
-        if (null === static::$plugins) {
+        if (null === static::$validatorPluginManager) {
             static::setPluginManager(new ValidatorPluginManager());
         }
-        return static::$plugins;
+
+        return static::$validatorPluginManager;
     }
 
     /**
-     * @param  mixed    $value
-     * @param  string   $classBaseName
-     * @param  array    $args          OPTIONAL
-     * @return bool
+     * Execute the validator
+     *
+     * @param  mixed    $data
+     * @param  string   $validatorName
+     * @param  array    $options
+     * @return Result\ValidationResultInterface
      */
-    public static function execute($value, $classBaseName, array $args = array())
+    public static function execute($data, $validatorName, array $options = array())
     {
-        $plugins = static::getPluginManager();
+        $validator = static::getPluginManager()->get($validatorName, $options);
 
-        $validator = $plugins->get($classBaseName, $args);
-        return $validator->isValid($value);
+        return $validator->validate($data);
     }
 }

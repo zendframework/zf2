@@ -9,14 +9,28 @@
 
 namespace Zend\Validator;
 
-use Traversable;
+use Zend\Validator\Result\ValidationResult;
 
+/**
+ * A validator that validate if a scalar value is in a given step
+ *
+ * Accepted options are:
+ *      - message_templates
+ *      - message_variables
+ *      - base_value
+ *      - step
+ */
 class Step extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const INVALID = 'typeInvalid';
     const NOT_STEP = 'stepInvalid';
 
     /**
+     * Validation error messages templates
+     *
      * @var array
      */
     protected $messageTemplates = array(
@@ -25,60 +39,30 @@ class Step extends AbstractValidator
     );
 
     /**
-     * @var mixed
+     * @var float
      */
-    protected $baseValue = 0;
+    protected $baseValue = 0.0;
 
     /**
-     * @var mixed
+     * @var float
      */
-    protected $step = 1;
-
-    /**
-     * Set default options for this instance
-     *
-     * @param array $options
-     */
-    public function __construct($options = array())
-    {
-        if ($options instanceof Traversable) {
-            $options = iterator_to_array($options);
-        } elseif (!is_array($options)) {
-            $options = func_get_args();
-            $temp['baseValue'] = array_shift($options);
-            if (!empty($options)) {
-                $temp['step'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
-
-        if (isset($options['baseValue'])) {
-            $this->setBaseValue($options['baseValue']);
-        }
-        if (isset($options['step'])) {
-            $this->setStep($options['step']);
-        }
-
-        parent::__construct($options);
-    }
+    protected $step = 1.0;
 
     /**
      * Sets the base value from which the step should be computed
      *
-     * @param mixed $baseValue
-     * @return Step
+     * @param  mixed $baseValue
+     * @return void
      */
     public function setBaseValue($baseValue)
     {
-        $this->baseValue = $baseValue;
-        return $this;
+        $this->baseValue = (float) $baseValue;
     }
 
     /**
      * Returns the base value from which the step should be computed
      *
-     * @return string
+     * @return float
      */
     public function getBaseValue()
     {
@@ -88,19 +72,18 @@ class Step extends AbstractValidator
     /**
      * Sets the step value
      *
-     * @param mixed $step
-     * @return Step
+     * @param  mixed $step
+     * @return void
      */
     public function setStep($step)
     {
         $this->step = (float) $step;
-        return $this;
     }
 
     /**
      * Returns the step value
      *
-     * @return string
+     * @return float
      */
     public function getStep()
     {
@@ -108,35 +91,28 @@ class Step extends AbstractValidator
     }
 
     /**
-     * Returns true if $value is a scalar and a valid step value
-     *
-     * @param mixed $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_numeric($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_numeric($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
-
-        $fmod = $this->fmod($value - $this->baseValue, $this->step);
+        $fmod = $this->fmod($data - $this->baseValue, $this->step);
 
         if ($fmod !== 0.0 && $fmod !== $this->step) {
-            $this->error(self::NOT_STEP);
-            return false;
+            return $this->buildErrorValidationResult($data, self::NOT_STEP);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 
     /**
-     * replaces the internal fmod function which give wrong results on many cases
+     * Replaces the internal fmod function which give wrong results on many cases
      *
-     * @param float $x
-     * @param float $y
+     * @param  float $x
+     * @param  float $y
      * @return float
      */
     protected function fmod($x, $y)
@@ -145,8 +121,8 @@ class Step extends AbstractValidator
             return 1.0;
         }
 
-        //find the maximum precision from both input params to give accurate results
-        $precision = strlen(substr($x, strpos($x, '.')+1)) + strlen(substr($y, strpos($y, '.')+1));
+        // Find the maximum precision from both input params to give accurate results
+        $precision = strlen(substr($x, strpos($x, '.') + 1)) + strlen(substr($y, strpos($y, '.') + 1));
 
         return round($x - $y * floor($x / $y), $precision);
     }

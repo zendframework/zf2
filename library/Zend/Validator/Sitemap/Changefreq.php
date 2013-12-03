@@ -10,6 +10,7 @@
 namespace Zend\Validator\Sitemap;
 
 use Zend\Validator\AbstractValidator;
+use Zend\Validator\Result\ValidationResult;
 
 /**
  * Validates whether a given value is valid as a sitemap <changefreq> value
@@ -19,14 +20,13 @@ use Zend\Validator\AbstractValidator;
 class Changefreq extends AbstractValidator
 {
     /**
-     * Validation key for not valid
-     *
+     * Error codes
      */
     const NOT_VALID = 'sitemapChangefreqNotValid';
     const INVALID   = 'sitemapChangefreqInvalid';
 
     /**
-     * Validation failure message template definitions
+     * Validation error messages templates
      *
      * @var array
      */
@@ -49,27 +49,18 @@ class Changefreq extends AbstractValidator
      * Validates if a string is valid as a sitemap changefreq
      *
      * @link http://www.sitemaps.org/protocol.php#changefreqdef <changefreq>
-     *
-     * @param  string  $value  value to validate
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_string($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
-        if (!is_string($value)) {
-            return false;
+        if (!in_array($data, $this->changeFreqs, true)) {
+            return $this->buildErrorValidationResult($data, self::NOT_VALID);
         }
 
-        if (!in_array($value, $this->changeFreqs, true)) {
-            $this->error(self::NOT_VALID);
-            return false;
-        }
-
-        return true;
+        return new ValidationResult($data);
     }
 }

@@ -12,15 +12,32 @@ namespace Zend\Validator\Barcode;
 abstract class AbstractAdapter implements AdapterInterface
 {
     /**
-     * Allowed options for this adapter
-     * @var array
+     * Allowed barcode lengths
+     *
+     * @var int
      */
-    protected $options = array(
-        'length'     => null,   // Allowed barcode lengths, integer, array, string
-        'characters' => null,   // Allowed barcode characters
-        'checksum'   => null,   // Callback to checksum function
-        'useChecksum' => true,  // Is a checksum value included?, boolean
-    );
+    protected $length;
+
+    /**
+     * Allowed barcode characters
+     *
+     * @var int|string|array
+     */
+    protected $characters;
+
+    /**
+     * Callback to checksum function
+     *
+     * @var callable
+     */
+    protected $checksum;
+
+    /**
+     * Is a checksum value included?
+     *
+     * @var bool
+     */
+    protected $useChecksum = true;
 
     /**
      * Checks the length of a barcode
@@ -102,13 +119,23 @@ abstract class AbstractAdapter implements AdapterInterface
     public function hasValidChecksum($value)
     {
         $checksum = $this->getChecksum();
+
         if (!empty($checksum)) {
-            if (method_exists($this, $checksum)) {
-                return $this->$checksum($value);
-            }
+            return $this->$checksum($value);
         }
 
         return false;
+    }
+
+    /**
+     * Sets the length of this barcode
+     *
+     * @param int|array $length
+     * @return void
+     */
+    protected function setLength($length)
+    {
+        $this->length = $length;
     }
 
     /**
@@ -118,7 +145,18 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getLength()
     {
-        return $this->options['length'];
+        return $this->length;
+    }
+
+    /**
+     * Sets the allowed characters of this barcode
+     *
+     * @param int $characters
+     * @return void
+     */
+    protected function setCharacters($characters)
+    {
+        $this->characters = $characters;
     }
 
     /**
@@ -128,68 +166,43 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getCharacters()
     {
-        return $this->options['characters'];
+        return $this->characters;
     }
 
     /**
-     * Returns the checksum function name
+     * Returns the checksum callable
      *
+     * @return callable
      */
     public function getChecksum()
     {
-        return $this->options['checksum'];
+        return $this->checksum;
     }
 
     /**
      * Sets the checksum validation method
      *
-     * @param callable $checksum Checksum method to call
-     * @return AbstractAdapter
+     * @param  callable $checksum Checksum method to call
+     * @return void
      */
-    protected function setChecksum($checksum)
+    protected function setChecksum(callable $checksum)
     {
-        $this->options['checksum'] = $checksum;
-        return $this;
+        $this->checksum = $checksum;
     }
 
     /**
      * Sets the checksum validation, if no value is given, the actual setting is returned
      *
-     * @param  bool $check
-     * @return AbstractAdapter|bool
+     * @param  bool $useChecksum
+     * @return bool
      */
-    public function useChecksum($check = null)
+    public function useChecksum($useChecksum = null)
     {
-        if ($check === null) {
-            return $this->options['useChecksum'];
+        if (null !== $useChecksum) {
+            $this->useChecksum = $useChecksum;
         }
 
-        $this->options['useChecksum'] = (bool) $check;
-        return $this;
-    }
-
-    /**
-     * Sets the length of this barcode
-     *
-     * @param int|array $length
-     * @return AbstractAdapter
-     */
-    protected function setLength($length)
-    {
-        $this->options['length'] = $length;
-        return $this;
-    }
-
-    /**
-     * Sets the allowed characters of this barcode
-     *
-     * @param int $characters
-     * @return AbstractAdapter
-     */
-    protected function setCharacters($characters)
-    {
-        $this->options['characters'] = $characters;
-        return $this;
+        return $this->useChecksum;
     }
 
     /**

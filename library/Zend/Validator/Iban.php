@@ -13,16 +13,24 @@ use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception;
+use Zend\Validator\Result\ValidationResult;
 
 /**
  * Validates IBAN Numbers (International Bank Account Numbers)
+ *
+ * Accepted options are:
+ *      - country_code
+ *      - allow_non_sepa
  */
 class Iban extends AbstractValidator
 {
-    const NOTSUPPORTED     = 'ibanNotSupported';
-    const SEPANOTSUPPORTED = 'ibanSepaNotSupported';
-    const FALSEFORMAT      = 'ibanFalseFormat';
-    const CHECKFAILED      = 'ibanCheckFailed';
+    /**
+     * Error codes
+     */
+    const NOT_SUPPORTED      = 'ibanNotSupported';
+    const SEPA_NOT_SUPPORTED = 'ibanSepaNotSupported';
+    const FALSE_FORMAT       = 'ibanFalseFormat';
+    const CHECK_FAILED       = 'ibanCheckFailed';
 
     /**
      * Validation failure message template definitions
@@ -30,10 +38,10 @@ class Iban extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOTSUPPORTED     => "Unknown country within the IBAN",
-        self::SEPANOTSUPPORTED => "Countries outside the Single Euro Payments Area (SEPA) are not supported",
-        self::FALSEFORMAT      => "The input has a false IBAN format",
-        self::CHECKFAILED      => "The input has failed the IBAN check",
+        self::NOT_SUPPORTED      => "Unknown country within the IBAN",
+        self::SEPA_NOT_SUPPORTED => "Countries outside the Single Euro Payments Area (SEPA) are not supported",
+        self::FALSE_FORMAT       => "The input has a false IBAN format",
+        self::CHECK_FAILED       => "The input has failed the IBAN check",
     );
 
     /**
@@ -134,42 +142,10 @@ class Iban extends AbstractValidator
     );
 
     /**
-     * Sets validator options
-     *
-     * @param  array|Traversable $options OPTIONAL
-     */
-    public function __construct($options = array())
-    {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-
-        if (array_key_exists('country_code', $options)) {
-            $this->setCountryCode($options['country_code']);
-        }
-
-        if (array_key_exists('allow_non_sepa', $options)) {
-            $this->setAllowNonSepa($options['allow_non_sepa']);
-        }
-
-        parent::__construct($options);
-    }
-
-    /**
-     * Returns the optional country code by ISO 3166-1
-     *
-     * @return string|null
-     */
-    public function getCountryCode()
-    {
-        return $this->countryCode;
-    }
-
-    /**
      * Sets an optional country code by ISO 3166-1
      *
      * @param  string|null $countryCode
-     * @return Iban provides a fluent interface
+     * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function setCountryCode($countryCode = null)
@@ -185,7 +161,27 @@ class Iban extends AbstractValidator
         }
 
         $this->countryCode = $countryCode;
-        return $this;
+    }
+
+    /**
+     * Returns the optional country code by ISO 3166-1
+     *
+     * @return string|null
+     */
+    public function getCountryCode()
+    {
+        return $this->countryCode;
+    }
+
+    /**
+     * Sets the optional allow non-sepa countries setting
+     *
+     * @param  bool $allowNonSepa
+     * @return void
+     */
+    public function setAllowNonSepa($allowNonSepa)
+    {
+        $this->allowNonSepa = (bool) $allowNonSepa;
     }
 
     /**
@@ -199,56 +195,37 @@ class Iban extends AbstractValidator
     }
 
     /**
-     * Sets the optional allow non-sepa countries setting
-     *
-     * @param  bool $allowNonSepa
-     * @return Iban provides a fluent interface
-     */
-    public function setAllowNonSepa($allowNonSepa)
-    {
-        $this->allowNonSepa = (bool) $allowNonSepa;
-        return $this;
-    }
-
-    /**
      * Returns true if $value is a valid IBAN
      *
-     * @param  string $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value)) {
-            $this->error(self::FALSEFORMAT);
-            return false;
+        if (!is_string($data)) {
+            return $this->buildErrorValidationResult($data, self::FALSE_FORMAT);
         }
 
-        $value = str_replace(' ', '', strtoupper($value));
-        $this->setValue($value);
+        $data = str_replace(' ', '', strtoupper($data));
 
         $countryCode = $this->getCountryCode();
+
         if ($countryCode === null) {
-            $countryCode = substr($value, 0, 2);
+            $countryCode = substr($data, 0, 2);
         }
 
         if (!array_key_exists($countryCode, static::$ibanRegex)) {
-            $this->setValue($countryCode);
-            $this->error(self::NOTSUPPORTED);
-            return false;
+            return $this->buildErrorValidationResult($data, self::NOT_SUPPORTED);
         }
 
         if (!$this->allowNonSepa && !in_array($countryCode, static::$sepaCountries)) {
-            $this->setValue($countryCode);
-            $this->error(self::SEPANOTSUPPORTED);
-            return false;
+            return $this->buildErrorValidationResult($data, self::SEPA_NOT_SUPPORTED);
         }
 
-        if (!preg_match('/^' . static::$ibanRegex[$countryCode] . '$/', $value)) {
-            $this->error(self::FALSEFORMAT);
-            return false;
+        if (!preg_match('/^' . static::$ibanRegex[$countryCode] . '$/', $data)) {
+            return $this->buildErrorValidationResult($data, self::FALSE_FORMAT);
         }
 
-        $format = substr($value, 4) . substr($value, 0, 4);
+        $format = substr($data, 4) . substr($data, 0, 4);
         $format = str_replace(
             array('A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'I',  'J',  'K',  'L',  'M',
                   'N',  'O',  'P',  'Q',  'R',  'S',  'T',  'U',  'V',  'W',  'X',  'Y',  'Z'),
@@ -266,10 +243,9 @@ class Iban extends AbstractValidator
         }
 
         if ($temp != 1) {
-            $this->error(self::CHECKFAILED);
-            return false;
+            return $this->buildErrorValidationResult($data, self::CHECK_FAILED);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

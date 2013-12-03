@@ -10,6 +10,7 @@
 namespace Zend\Validator\Sitemap;
 
 use Zend\Validator\AbstractValidator;
+use Zend\Validator\Result\ValidationResult;
 
 /**
  * Validates whether a given value is valid as a sitemap <priority> value
@@ -19,14 +20,13 @@ use Zend\Validator\AbstractValidator;
 class Priority extends AbstractValidator
 {
     /**
-     * Validation key for not valid
-     *
+     * Error codes
      */
     const NOT_VALID = 'sitemapPriorityNotValid';
     const INVALID   = 'sitemapPriorityInvalid';
 
     /**
-     * Validation failure message template definitions
+     * Validation error messages templates
      *
      * @var array
      */
@@ -39,24 +39,19 @@ class Priority extends AbstractValidator
      * Validates if a string is valid as a sitemap priority
      *
      * @link http://www.sitemaps.org/protocol.php#prioritydef <priority>
-     *
-     * @param  string  $value  value to validate
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_numeric($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_numeric($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
-        $value = (float) $value;
-        if ($value < 0 || $value > 1) {
-            $this->error(self::NOT_VALID);
-            return false;
+        $data = (float) $data;
+        if ($data < 0 || $data > 1) {
+            return $this->buildErrorValidationResult($data, self::NOT_VALID);
         }
 
-        return true;
+        return new ValidationResult($data);
     }
 }

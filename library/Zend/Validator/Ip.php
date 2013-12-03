@@ -10,13 +10,19 @@
 namespace Zend\Validator;
 
 use Traversable;
+use Zend\Validator\Result\ValidationResult;
 
 class Ip extends AbstractValidator
 {
+    /**
+     * Error codes
+     */
     const INVALID        = 'ipInvalid';
     const NOT_IP_ADDRESS = 'notIpAddress';
 
     /**
+     * Validation error messages templates
+     *
      * @var array
      */
     protected $messageTemplates = array(
@@ -25,68 +31,132 @@ class Ip extends AbstractValidator
     );
 
     /**
-     * Internal options
+     * Enable IPv4 validation
      *
-     * @var array
+     * @var bool
      */
-    protected $options = array(
-        'allowipv4'      => true, // Enable IPv4 Validation
-        'allowipv6'      => true, // Enable IPv6 Validation
-        'allowipvfuture' => false, // Enable IPvFuture Validation
-        'allowliteral'   => true, // Enable IPs in literal format (only IPv6 and IPvFuture)
-    );
+    protected $allowIPv4 = true;
 
     /**
-     * Sets the options for this validator
+     * Enable IPv6 validation
      *
-     * @param array|Traversable $options
-     * @throws Exception\InvalidArgumentException If there is any kind of IP allowed or $options is not an array or Traversable.
-     * @return AbstractValidator
+     * @var bool
      */
-    public function setOptions($options = array())
+    protected $allowIPv6 = true;
+
+    /**
+     * Enable IPvFuture validation
+     *
+     * @var bool
+     */
+    protected $allowIPvFuture = false;
+
+    /**
+     * Enable IPs in literal format (only IPv6 and IPvFuture)
+     *
+     * @var bool
+     */
+    protected $allowLiteral = true;
+
+    /**
+     * @param  boolean $allowIPv4
+     * @return void
+     */
+    public function setAllowIPv4($allowIPv4)
     {
-        parent::setOptions($options);
-
-        if (!$this->options['allowipv4'] && !$this->options['allowipv6'] && !$this->options['allowipvfuture']) {
-            throw new Exception\InvalidArgumentException('Nothing to validate. Check your options');
-        }
-
-        return $this;
+        $this->allowIPv4 = (bool) $allowIPv4;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getAllowIPv4()
+    {
+        return $this->allowIPv4;
+    }
+
+    /**
+     * @param boolean $allowIPv6
+     * @return void
+     */
+    public function setAllowIPv6($allowIPv6)
+    {
+        $this->allowIPv6 = (bool) $allowIPv6;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getAllowIPv6()
+    {
+        return $this->allowIPv6;
+    }
+
+    /**
+     * @param boolean $allowIPvFuture
+     * @return void
+     */
+    public function setAllowIPvFuture($allowIPvFuture)
+    {
+        $this->allowIPvFuture = (bool) $allowIPvFuture;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getAllowIPvFuture()
+    {
+        return $this->allowIPvFuture;
+    }
+
+    /**
+     * @param boolean $allowLiteral
+     * @return void
+     */
+    public function setAllowLiteral($allowLiteral)
+    {
+        $this->allowLiteral = (bool) $allowLiteral;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getAllowLiteral()
+    {
+        return $this->allowLiteral;
+    }
+
 
     /**
      * Returns true if and only if $value is a valid IP address
      *
-     * @param  mixed $value
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isValid($value)
+    public function validate($data, $context = null)
     {
-        if (!is_string($value)) {
-            $this->error(self::INVALID);
-            return false;
+        if (!is_string($data)) {
+            return $this->buildErrorValidationResult($data, self::INVALID);
         }
 
-        $this->setValue($value);
-
-        if ($this->options['allowipv4'] && $this->validateIPv4($value)) {
-            return true;
+        if ($this->allowIPv4 && $this->validateIPv4($data)) {
+            return new ValidationResult($data);
         } else {
-            if ((bool) $this->options['allowliteral']) {
+            if ($this->allowLiteral) {
                 static $regex = '/^\[(.*)\]$/';
-                if ((bool) preg_match($regex, $value, $matches)) {
+
+                if ((bool) preg_match($regex, $data, $matches)) {
                     $value = $matches[1];
                 }
             }
 
-            if (($this->options['allowipv6'] && $this->validateIPv6($value)) ||
-                ($this->options['allowipvfuture'] && $this->validateIPvFuture($value))
+            if ($this->allowIPv6 && $this->validateIPv6($data)
+                || $this->allowIPvFuture && $this->validateIPvFuture($data)
             ) {
-                return true;
+                return new ValidationResult($data);
             }
         }
-        $this->error(self::NOT_IP_ADDRESS);
-        return false;
+
+        return $this->buildErrorValidationResult($data, self::NOT_IP_ADDRESS);
     }
 
     /**
@@ -112,6 +182,7 @@ class Ip extends AbstractValidator
         }
 
         $ip2long = ip2long($value);
+
         if ($ip2long === false) {
             return false;
         }
