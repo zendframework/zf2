@@ -319,6 +319,45 @@ class Redis extends AbstractAdapter implements
     }
 
     /**
+     * Internal method to remove multiple items.
+     *
+     * @param  array $normalizedKeys
+     * @return array Array of not removed keys
+     * @throws Exception\ExceptionInterface
+     */
+    protected function internalRemoveItems(array & $normalizedKeys)
+    {
+        // add namespace prefix
+        if ($this->namespacePrefix !== '') {
+            foreach ($normalizedKeys as & $normalizedKey) {
+                $normalizedKey = $this->namespacePrefix . $normalizedKey;
+            }
+        }
+
+        $redis = $this->getRedisResource();
+        $nrOfKeysRemoved = $redis->delete($normalizedKeys);
+
+        $failedKeys = array();
+        if ($nrOfKeysRemoved != count($normalizedKeys)) {
+            foreach ($normalizedKeys as $normalizedKey) {
+                if ($redis->exists($normalizedKey)) {
+                    $failedKeys[] = $normalizedKey;
+                }
+            }
+        }
+
+        // remove namespace prefix
+        if ($failedKeys && $this->namespacePrefix !== '') {
+            $nsPrefixLength = strlen($this->namespacePrefix);
+            foreach ($failedKeys as & $failedKey) {
+                $failedKey = substr($failedKey, $nsPrefixLength);
+            }
+        }
+
+        return $failedKeys;
+    }
+
+    /**
      * Internal method to increment an item.
      *
      * @param  string $normalizedKey
