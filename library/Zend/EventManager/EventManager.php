@@ -42,7 +42,7 @@ class EventManager implements EventManagerInterface
 
     /**
      * Shared event manager
-     * @var false|null|SharedEventManagerInterface
+     * @var bool|null|SharedEventManagerInterface
      */
     protected $sharedManager = null;
 
@@ -103,7 +103,7 @@ class EventManager implements EventManagerInterface
      * If none is available in the StaticEventManager, a boolean false is
      * returned.
      *
-     * @return false|SharedEventManagerInterface
+     * @return bool|SharedEventManagerInterface
      */
     public function getSharedManager()
     {
