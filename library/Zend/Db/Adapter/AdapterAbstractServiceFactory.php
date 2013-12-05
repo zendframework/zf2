@@ -57,6 +57,11 @@ class AdapterAbstractServiceFactory implements AbstractFactoryInterface
     public function createServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
     {
         $config = $this->getConfig($services);
+        if (isset($config[$requestedName]['type'])) {
+            $type = $config[$requestedName]['type'];
+            unset($config[$requestedName]['type']);
+            return new $type($config[$requestedName]);
+        }
         return new Adapter($config[$requestedName]);
     }
 
