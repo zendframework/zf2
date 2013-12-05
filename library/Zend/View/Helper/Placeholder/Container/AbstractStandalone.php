@@ -171,10 +171,10 @@ abstract class AbstractStandalone extends AbstractHelper implements
         ) {
             $enc     = $this->getView()->getEncoding();
             $escaper = $this->getView()->plugin('escapeHtml');
-            return $escaper((string) $string);
+            return ( ($this->autoEscape) ? $escaper((string) $string) : $string);
         }
 
-        return $this->getEscaper()->escapeHtml((string) $string);
+        return ( ($this->autoEscape) ? $this->getEscaper()->escapeHtml((string) $string) : $string);
     }
 
     /**
