@@ -457,6 +457,57 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
         );
         return $this;
     }
+    
+    /**
+     * Add join columns
+     * 
+     * @param string $name
+     * @param string|array $columns
+     * @param bool $reset Reset columns
+     * @throws Exception\InvalidArgumentException
+     * @return Select
+     */
+    public function addJoinColumns($name, $columns = self::SQL_STAR, $reset = false) {
+        if (!is_string($name)) {
+            throw new Exception\InvalidArgumentException('addJoinColumns() expects "name" as an string');
+        }
+        
+        if (!is_array($columns)) {
+            $columns = array($columns);
+        }
+
+        foreach ($this->joins as &$item) {
+            if (is_array($item['name'])) {
+                $joinName = key($item['name']);
+            } else {
+                $joinName = $item['name'];
+            }
+
+            if ($joinName === $name) {
+                if (isset($item['columns']) && is_array($item['columns']) && $reset === false) {
+                    $item['columns'] = array_merge($item['columns'], $columns);
+                } else {
+                    $item['columns'] = $columns;
+                }
+                break;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Sets the limit and count by page number.
+     *
+     * @param int $page Limit results to this page number.
+     * @param int $rowCount Use this many rows per page.
+     * @return Select
+     */
+    public function limitPage($page = 0, $rowCount = 10) {
+        $page = ($page > 0) ? $page : 1;
+        $rowCount = ($rowCount > 0) ? $rowCount : 1;
+        $this->limit($rowCount)->offset($rowCount * ($page - 1));
+        return $this;
+    }
 
     /**
      * @param string $part
