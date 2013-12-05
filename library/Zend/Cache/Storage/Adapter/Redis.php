@@ -335,9 +335,16 @@ class Redis extends AbstractAdapter implements
         }
 
         $redis = $this->getRedisResource();
-        $nrOfKeysRemoved = $redis->delete($normalizedKeys);
 
         $failedKeys = array();
+        foreach ($normalizedKeys as $index => & $normalizedKey) {
+            if (!$redis->exists($normalizedKey)) {
+                unset($normalizedKeys[$index]);
+                $failedKeys[] = $normalizedKey;
+            }
+        }
+
+        $nrOfKeysRemoved = $redis->delete($normalizedKeys);
         if ($nrOfKeysRemoved != count($normalizedKeys)) {
             foreach ($normalizedKeys as $normalizedKey) {
                 if ($redis->exists($normalizedKey)) {
