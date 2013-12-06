@@ -10,9 +10,9 @@
 namespace Zend\View;
 
 use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
-
+use Zend\Framework\ServiceManager\AbstractPluginManager;
+use Zend\Framework\ServiceManager\ConfigInterface;
+use Zend\Framework\ServiceManager\ServiceRequest;
 /**
  * Plugin manager implementation for view helpers
  *
@@ -93,8 +93,8 @@ class HelperPluginManager extends AbstractPluginManager
     {
         parent::__construct($configuration);
 
-        $this->addInitializer(array($this, 'injectRenderer'))
-             ->addInitializer(array($this, 'injectTranslator'));
+        //$this->addInitializer(array($this, 'injectRenderer'))
+             //->addInitializer(array($this, 'injectTranslator'));
     }
 
     /**

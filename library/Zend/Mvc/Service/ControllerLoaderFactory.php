@@ -11,8 +11,10 @@ namespace Zend\Mvc\Service;
 
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\Service\DiStrictAbstractServiceFactory;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
+use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
 
 class ControllerLoaderFactory implements FactoryInterface
 {
@@ -32,18 +34,23 @@ class ControllerLoaderFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ControllerManager
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $serviceLocator)
     {
-        $controllerLoader = new ControllerManager();
+        $config = $serviceLocator->get(new ServiceRequest('ApplicationConfig'));
+
+        $controllerLoader = new ControllerManager(new ServiceManagerConfig($config['controllers']));
         $controllerLoader->setServiceLocator($serviceLocator);
-        $controllerLoader->addPeeringServiceManager($serviceLocator);
+        //$controllerLoader->addPeeringServiceManager($serviceLocator);
 
-        $config = $serviceLocator->get('Config');
-
-        if (isset($config['di']) && isset($config['di']['allowed_controllers']) && $serviceLocator->has('Di')) {
-            $controllerLoader->addAbstractFactory($serviceLocator->get('DiStrictAbstractServiceFactory'));
-        }
+        //if (isset($config['di']) && isset($config['di']['allowed_controllers']) && $serviceLocator->has('Di')) {
+            //$controllerLoader->addAbstractFactory($serviceLocator->get('DiStrictAbstractServiceFactory'));
+        //}
 
         return $controllerLoader;
+    }
+
+    public function __invoke(ServiceManager $sm)
+    {
+        return $this->createService($sm);
     }
 }

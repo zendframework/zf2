@@ -9,8 +9,9 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\View\Resolver as ViewResolver;
 
 class ViewResolverFactory implements FactoryInterface
@@ -24,11 +25,16 @@ class ViewResolverFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ViewResolver\AggregateResolver
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $serviceLocator)
     {
         $resolver = new ViewResolver\AggregateResolver();
-        $resolver->attach($serviceLocator->get('ViewTemplateMapResolver'));
-        $resolver->attach($serviceLocator->get('ViewTemplatePathStack'));
+        $resolver->attach($serviceLocator->get(new ServiceRequest('ViewTemplateMapResolver')));
+        $resolver->attach($serviceLocator->get(new ServiceRequest('ViewTemplatePathStack')));
         return $resolver;
+    }
+
+    public function __invoke(ServiceManager $serviceLocator)
+    {
+        return $this->createService($serviceLocator);
     }
 }

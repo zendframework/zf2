@@ -12,6 +12,7 @@ namespace Zend\Cache\Service;
 use Zend\Cache\StorageFactory;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceRequest;
 
 /**
  * Storage cache factory for multiple caches.
@@ -71,12 +72,12 @@ class StorageCacheAbstractServiceFactory implements AbstractFactoryInterface
             return $this->config;
         }
 
-        if (!$services->has('Config')) {
+        if (!$services->has(new ServiceRequest('ApplicationConfig'))) {
             $this->config = array();
             return $this->config;
         }
 
-        $config = $services->get('Config');
+        $config = $services->get(new ServiceRequest('ApplicationConfig'));
         if (!isset($config[$this->configKey])) {
             $this->config = array();
             return $this->config;

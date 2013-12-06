@@ -23,7 +23,7 @@ abstract class AbstractListenerAggregate implements ListenerAggregateInterface
     /**
      * {@inheritDoc}
      */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $events)
     {
         foreach ($this->listeners as $index => $callback) {
             if ($events->detach($callback)) {

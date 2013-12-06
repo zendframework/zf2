@@ -9,16 +9,17 @@
 
 namespace Zend\Mvc\Controller;
 
-use Zend\EventManager\EventInterface as Event;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\EventManagerAwareInterface;
+use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\CallbackListener;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Http\Request as HttpRequest;
 use Zend\Mvc\InjectApplicationEventInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\MvcEvent;
+use Zend\Framework\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\Framework\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -108,13 +109,16 @@ abstract class AbstractController implements
         $this->response = $response;
 
         $e = $this->getEvent();
-        $e->setRequest($request)
-          ->setResponse($response)
-          ->setTarget($this);
 
-        $result = $this->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH, $e, function ($test) {
+        $e->setName(MvcEvent::EVENT_CONTROLLER_DISPATCH)
+          ->setRequest($request)
+          ->setResponse($response)
+          ->setTarget($this)
+          ->setCallback(function ($test) {
             return ($test instanceof Response);
-        });
+          });
+
+        $result = $this->getEventManager()->trigger($e);
 
         if ($result->stopped()) {
             return $result->last();
@@ -159,13 +163,14 @@ abstract class AbstractController implements
      */
     public function setEventManager(EventManagerInterface $events)
     {
-        $events->setIdentifiers(array(
+        /*$events->setIdentifiers(array(
             'Zend\Stdlib\DispatchableInterface',
             __CLASS__,
             get_class($this),
             $this->eventIdentifier,
             substr(get_class($this), 0, strpos(get_class($this), '\\'))
-        ));
+        ));*/
+        $events->setTarget($this);
         $this->events = $events;
         $this->attachDefaultListeners();
 
@@ -313,7 +318,7 @@ abstract class AbstractController implements
     protected function attachDefaultListeners()
     {
         $events = $this->getEventManager();
-        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'));
+        $events->attach(new CallbackListener(array($this, 'onDispatch'), MvcEvent::EVENT_CONTROLLER_DISPATCH));
     }
 
     /**

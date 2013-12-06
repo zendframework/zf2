@@ -10,18 +10,19 @@
 namespace Zend\ModuleManager\Listener;
 
 use Zend\ModuleManager\Feature\InitProviderInterface;
-use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\ModuleEventListener as EventListener;
+use Zend\Framework\EventManager\EventInterface;
 
 /**
  * Init trigger
  */
-class InitTrigger extends AbstractListener
+class InitTrigger extends EventListener
 {
     /**
-     * @param ModuleEvent $e
+     * @param EventInterface $event
      * @return void
      */
-    public function __invoke(ModuleEvent $e)
+    public function __invoke(EventInterface $event)
     {
         $module = $e->getModule();
         if (!$module instanceof InitProviderInterface

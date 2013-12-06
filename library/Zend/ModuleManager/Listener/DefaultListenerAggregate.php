@@ -9,8 +9,8 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
 use Zend\ModuleManager\ModuleEvent;
 use Zend\Stdlib\CallbackHandler;
 

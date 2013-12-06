@@ -10,17 +10,17 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Response;
-use Zend\Mvc\ResponseSender\SendResponseEvent;
+use Zend\EventManager\EventInterface;
 
 class HttpResponseSender extends AbstractResponseSender
 {
     /**
      * Send content
      *
-     * @param  SendResponseEvent $event
+     * @param  EventInterface $event
      * @return HttpResponseSender
      */
-    public function sendContent(SendResponseEvent $event)
+    public function sendContent(EventInterface $event)
     {
         if ($event->contentSent()) {
             return $this;
@@ -34,10 +34,10 @@ class HttpResponseSender extends AbstractResponseSender
     /**
      * Send HTTP response
      *
-     * @param  SendResponseEvent $event
+     * @param  EventInterface $event
      * @return HttpResponseSender
      */
-    public function __invoke(SendResponseEvent $event)
+    public function __invoke(EventInterface $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Response) {

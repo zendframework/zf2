@@ -9,9 +9,10 @@
 
 namespace Zend\Mvc\View\Http;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface as Events;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\EventManager\AbstractListenerAggregate;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\MvcEvent;
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\View\Model\ClearableModelInterface;
 use Zend\View\Model\ModelInterface as ViewModel;
 
@@ -27,11 +28,11 @@ class InjectViewModelListener extends AbstractListenerAggregate
     /**
      * {@inheritDoc}
      */
-    public function attach(Events $events)
+    public function attach(EventManager $em)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'injectViewModel'), -100);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'injectViewModel'), -100);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'injectViewModel'), -100);
+        $this->listeners[] = $em->attach(MvcEvent::EVENT_CONTROLLER_DISPATCH, array($this, 'injectViewModel'), -100);
+        $this->listeners[] = $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'injectViewModel'), -100);
+        $this->listeners[] = $em->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'injectViewModel'), -100);
     }
 
     /**
@@ -44,7 +45,7 @@ class InjectViewModelListener extends AbstractListenerAggregate
      * @param  MvcEvent $e
      * @return void
      */
-    public function injectViewModel(MvcEvent $e)
+    public function injectViewModel(Event $e)
     {
         $result = $e->getResult();
         if (!$result instanceof ViewModel) {

@@ -12,8 +12,9 @@ namespace Zend\Mvc\Service;
 use Zend\Console\Console;
 use Zend\Mvc\Router\Console\SimpleRouteStack as ConsoleRouter;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 class RouterFactory implements FactoryInterface
 {
@@ -29,9 +30,9 @@ class RouterFactory implements FactoryInterface
      * @param  string|null                     $rName
      * @return \Zend\Mvc\Router\RouteStackInterface
      */
-    public function createService(ServiceLocatorInterface $serviceLocator, $cName = null, $rName = null)
+    public function createService(ServiceManager $serviceLocator, $cName = null, $rName = null)
     {
-        $config             = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
+        $config = $serviceLocator->get(new ServiceRequest('ApplicationConfig'));
 
         // Defaults
         $routerClass        = 'Zend\Mvc\Router\Http\TreeRouteStack';
@@ -53,12 +54,17 @@ class RouterFactory implements FactoryInterface
 
         // Inject the route plugins
         if (!isset($routerConfig['route_plugins'])) {
-            $routePluginManager = $serviceLocator->get('RoutePluginManager');
+            $routePluginManager = $serviceLocator->get(new ServiceRequest('RoutePluginManager'));
             $routerConfig['route_plugins'] = $routePluginManager;
         }
 
         // Obtain an instance
         $factory = sprintf('%s::factory', $routerClass);
         return call_user_func($factory, $routerConfig);
+    }
+
+    public function __invoke(ServiceManager $sm)
+    {
+        return $this->createService($sm);
     }
 }

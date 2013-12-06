@@ -9,8 +9,9 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\View\Resolver as ViewResolver;
 
 class ViewTemplatePathStackFactory implements FactoryInterface
@@ -25,9 +26,9 @@ class ViewTemplatePathStackFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ViewResolver\TemplatePathStack
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $sm)
     {
-        $config = $serviceLocator->get('Config');
+        $config = $sm->get(new ServiceRequest('ApplicationConfig'));
 
         $templatePathStack = new ViewResolver\TemplatePathStack();
 

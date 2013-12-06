@@ -9,14 +9,14 @@
 
 namespace Zend\Mvc\View\Http;
 
-use ArrayAccess;
 use Traversable;
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\View\SendResponseListener;
-use Zend\ServiceManager\ServiceManager;
+use Zend\Framework\EventManager\AbstractListenerAggregate;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\CallbackListener;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\MvcEvent;
+use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\View\HelperPluginManager as ViewHelperManager;
 use Zend\View\Renderer\PhpRenderer as ViewPhpRenderer;
 use Zend\View\Resolver as ViewResolver;
@@ -47,51 +47,12 @@ use Zend\View\View;
  */
 class ViewManager extends AbstractListenerAggregate
 {
-    /**
-     * @var object application configuration service
-     */
-    protected $config;
-
-    /**
-     * @var MvcEvent
-     */
-    protected $event;
-
-    /**
-     * @var ServiceManager
-     */
-    protected $services;
-
-    /**@+
-     * Various properties representing strategies and objects instantiated and
-     * configured by the view manager
-     */
-    protected $exceptionStrategy;
-    protected $helperManager;
-    protected $mvcRenderingStrategy;
-    protected $renderer;
-    protected $rendererStrategy;
-    protected $resolver;
-    protected $routeNotFoundStrategy;
-    protected $view;
-    protected $viewModel;
-    /**@-*/
-
-    /**
-     * {@inheritDoc}
-     */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $em)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), 10000);
+        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'onBootstrap'), MvcEvent::EVENT_BOOTSTRAP, null, 10000));
     }
 
-    /**
-     * Detach aggregate listeners from the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $events)
     {
         foreach ($this->listeners as $index => $listener) {
             if ($events->detach($listener)) {
@@ -100,287 +61,152 @@ class ViewManager extends AbstractListenerAggregate
         }
     }
 
-    /**
-     * Prepares the view layer
-     *
-     * @param  $event
-     * @return void
-     */
     public function onBootstrap($event)
     {
-        $application  = $event->getApplication();
+        $application = $event->getApplication();
+
         $services     = $application->getServiceManager();
-        $config       = $services->get('Config');
-        $events       = $application->getEventManager();
-        $sharedEvents = $events->getSharedManager();
 
-        $this->config   = isset($config['view_manager']) && (is_array($config['view_manager']) || $config['view_manager'] instanceof ArrayAccess)
-                        ? $config['view_manager']
-                        : array();
-        $this->services = $services;
-        $this->event    = $event;
+        $config       = $application->getConfig()['view_manager'];
 
-        $routeNotFoundStrategy   = $this->getRouteNotFoundStrategy();
-        $exceptionStrategy       = $this->getExceptionStrategy();
-        $mvcRenderingStrategy    = $this->getMvcRenderingStrategy();
+        $em = $application->getEventManager();
+
+        $routeNotFoundStrategy = $this->getRouteNotFoundStrategy($config, $services);
+
+        $exceptionStrategy = $this->getExceptionStrategy($config, $services);
+
+        $layoutTemplate = $this->getLayoutTemplate($config);
+
+        $resolver = $services->get(new ServiceRequest('ViewResolver'));
+        $viewHelperManager = $services->get(new ServiceRequest('ViewHelperManager'));
+        $viewModel = $event->getViewModel();
+
+        $viewModel->setTemplate($layoutTemplate);
+
+        $rendererStrategy = new PhpRendererStrategy($this->getRenderer($viewModel, $resolver, $viewHelperManager));
+
+        $view = $this->getView($em, $rendererStrategy, $services);
+
+        $mvcRenderingStrategy    = $this->getMvcRenderingStrategy($view, $layoutTemplate, $services);
+
         $createViewModelListener = new CreateViewModelListener();
         $injectTemplateListener  = new InjectTemplateListener();
         $injectViewModelListener = new InjectViewModelListener();
 
-        $this->registerMvcRenderingStrategies($events);
-        $this->registerViewStrategies();
+        $this->registerMvcRenderingStrategies($config, $em, $services);
+        $this->registerViewStrategies($config, $view, $services);
 
-        $events->attach($routeNotFoundStrategy);
-        $events->attach($exceptionStrategy);
-        $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($injectViewModelListener, 'injectViewModel'), -100);
-        $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($injectViewModelListener, 'injectViewModel'), -100);
-        $events->attach($mvcRenderingStrategy);
+        $em->attach($routeNotFoundStrategy);
+        $em->attach($exceptionStrategy);
 
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($createViewModelListener, 'createViewModelFromArray'), -80);
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($routeNotFoundStrategy, 'prepareNotFoundViewModel'), -90);
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($createViewModelListener, 'createViewModelFromNull'), -80);
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($injectTemplateListener, 'injectTemplate'), -90);
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($injectViewModelListener, 'injectViewModel'), -100);
+        $em->attach(new CallbackListener(array($injectViewModelListener, 'injectViewModel'), MvcEvent::EVENT_DISPATCH_ERROR, null, -100));
+        $em->attach(new CallbackListener(array($injectViewModelListener, 'injectViewModel'), MvcEvent::EVENT_RENDER_ERROR, null, -100));
+
+        $em->attach($mvcRenderingStrategy);
+
+        $em->attach(new CallbackListener(array($createViewModelListener, 'createViewModelFromArray'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -80));
+        $em->attach(new CallbackListener(array($routeNotFoundStrategy, 'prepareNotFoundViewModel'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -90));
+        $em->attach(new CallbackListener(array($createViewModelListener, 'createViewModelFromNull'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -80));
+        $em->attach(new CallbackListener(array($injectTemplateListener, 'injectTemplate'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -90));
+        $em->attach(new CallbackListener(array($injectViewModelListener, 'injectViewModel'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -100));
     }
 
-    /**
-     * Instantiates and configures the renderer's helper manager
-     *
-     * @return \Zend\View\HelperPluginManager
-     */
-    public function getHelperManager()
+    public function getView($em, $rendererStrategy, $services)
     {
-        if ($this->helperManager) {
-            return $this->helperManager;
-        }
+        $view = new View();
 
-        return $this->helperManager = $this->services->get('ViewHelperManager');
+        $view->setEventManager($em);
+
+        $em->attach($rendererStrategy);
+
+        $services->add('View', $view);
+
+        return $view;
     }
 
-    /**
-     * Instantiates and configures the renderer's resolver
-     *
-     * @return ViewResolver\ResolverInterface
-     */
-    public function getResolver()
+    public function getRenderer($viewModel, $resolver, $viewHelperManager)
     {
-        if (null === $this->resolver) {
-            $this->resolver = $this->services->get('ViewResolver');
-        }
+        $renderer = new ViewPhpRenderer;
+        $renderer->setHelperPluginManager($viewHelperManager);
+        $renderer->setResolver($resolver);
 
-        return $this->resolver;
+        $modelHelper = $renderer->plugin('viewmodel');
+        $modelHelper->setRoot($viewModel);
+
+        return $renderer;
     }
 
-    /**
-     * Instantiates and configures the renderer
-     *
-     * @return ViewPhpRenderer
-     */
-    public function getRenderer()
-    {
-        if ($this->renderer) {
-            return $this->renderer;
-        }
-
-        $this->renderer = new ViewPhpRenderer;
-        $this->renderer->setHelperPluginManager($this->getHelperManager());
-        $this->renderer->setResolver($this->getResolver());
-
-        $model       = $this->getViewModel();
-        $modelHelper = $this->renderer->plugin('view_model');
-        $modelHelper->setRoot($model);
-
-        $this->services->setService('ViewRenderer', $this->renderer);
-        $this->services->setAlias('Zend\View\Renderer\PhpRenderer', 'ViewRenderer');
-        $this->services->setAlias('Zend\View\Renderer\RendererInterface', 'ViewRenderer');
-
-        return $this->renderer;
-    }
-
-    /**
-     * Instantiates and configures the renderer strategy for the view
-     *
-     * @return PhpRendererStrategy
-     */
-    public function getRendererStrategy()
-    {
-        if ($this->rendererStrategy) {
-            return $this->rendererStrategy;
-        }
-
-        $this->rendererStrategy = new PhpRendererStrategy(
-            $this->getRenderer()
-        );
-
-        $this->services->setService('ViewPhpRendererStrategy', $this->rendererStrategy);
-        $this->services->setAlias('Zend\View\Strategy\PhpRendererStrategy', 'ViewPhpRendererStrategy');
-
-        return $this->rendererStrategy;
-    }
-
-    /**
-     * Instantiates and configures the view
-     *
-     * @return View
-     */
-    public function getView()
-    {
-        if ($this->view) {
-            return $this->view;
-        }
-
-        $this->view = new View();
-        $this->view->setEventManager($this->services->get('EventManager'));
-        $this->view->getEventManager()->attach($this->getRendererStrategy());
-
-        $this->services->setService('View', $this->view);
-        $this->services->setAlias('Zend\View\View', 'View');
-
-        return $this->view;
-    }
-
-    /**
-     * Retrieves the layout template name from the configuration
-     *
-     * @return string
-     */
-    public function getLayoutTemplate()
+    public function getLayoutTemplate($config)
     {
         $layout = 'layout/layout';
-        if (isset($this->config['layout'])) {
-            $layout = $this->config['layout'];
+
+        if (isset($config['layout'])) {
+            $layout = $config['layout'];
         }
+
         return $layout;
     }
 
-    /**
-     * Instantiates and configures the default MVC rendering strategy
-     *
-     * @return DefaultRenderingStrategy
-     */
-    public function getMvcRenderingStrategy()
+    public function getMvcRenderingStrategy($view, $layoutTemplate, $services)
     {
-        if ($this->mvcRenderingStrategy) {
-            return $this->mvcRenderingStrategy;
-        }
+        $mvcRenderingStrategy = new DefaultRenderingStrategy($view);
+        $mvcRenderingStrategy->setLayoutTemplate($layoutTemplate);
 
-        $this->mvcRenderingStrategy = new DefaultRenderingStrategy($this->getView());
-        $this->mvcRenderingStrategy->setLayoutTemplate($this->getLayoutTemplate());
+        //$services->setService('View\DefaultRenderingStrategy', $mvcRenderingStrategy);
 
-        $this->services->setService('DefaultRenderingStrategy', $this->mvcRenderingStrategy);
-        $this->services->setAlias('Zend\Mvc\View\DefaultRenderingStrategy', 'DefaultRenderingStrategy');
-        $this->services->setAlias('Zend\Mvc\View\Http\DefaultRenderingStrategy', 'DefaultRenderingStrategy');
-
-        return $this->mvcRenderingStrategy;
+        return $mvcRenderingStrategy;
     }
 
-    /**
-     * Instantiates and configures the exception strategy
-     *
-     * @return ExceptionStrategy
-     */
-    public function getExceptionStrategy()
+    public function getExceptionStrategy($config, $services)
     {
-        if ($this->exceptionStrategy) {
-            return $this->exceptionStrategy;
+        $exceptionStrategy = new ExceptionStrategy();
+
+        if (isset($config['display_exceptions'])) {
+            $exceptionStrategy->setDisplayExceptions($config['display_exceptions']);
         }
 
-        $this->exceptionStrategy = new ExceptionStrategy();
-
-        $displayExceptions = false;
-        $exceptionTemplate = 'error';
-
-        if (isset($this->config['display_exceptions'])) {
-            $displayExceptions = $this->config['display_exceptions'];
-        }
-        if (isset($this->config['exception_template'])) {
-            $exceptionTemplate = $this->config['exception_template'];
+        if (isset($config['exception_template'])) {
+            $exceptionStrategy->setExceptionTemplate($config['exception_template']);
         }
 
-        $this->exceptionStrategy->setDisplayExceptions($displayExceptions);
-        $this->exceptionStrategy->setExceptionTemplate($exceptionTemplate);
+        //$services->add('View\ExceptionStrategy', $exceptionStrategy);
 
-        $this->services->setService('ExceptionStrategy', $this->exceptionStrategy);
-        $this->services->setAlias('Zend\Mvc\View\ExceptionStrategy', 'ExceptionStrategy');
-        $this->services->setAlias('Zend\Mvc\View\Http\ExceptionStrategy', 'ExceptionStrategy');
-
-        return $this->exceptionStrategy;
+        return $exceptionStrategy;
     }
 
-    /**
-     * Instantiates and configures the "route not found", or 404, strategy
-     *
-     * @return RouteNotFoundStrategy
-     */
-    public function getRouteNotFoundStrategy()
+    public function getRouteNotFoundStrategy($config, $services)
     {
-        if ($this->routeNotFoundStrategy) {
-            return $this->routeNotFoundStrategy;
+        $routeNotFoundStrategy = new RouteNotFoundStrategy();
+
+        if (isset($config['display_exceptions'])) {
+            $routeNotFoundStrategy->setDisplayExceptions($config['display_exceptions']);
         }
 
-        $this->routeNotFoundStrategy = new RouteNotFoundStrategy();
-
-        $displayExceptions     = false;
-        $displayNotFoundReason = false;
-        $notFoundTemplate      = '404';
-
-        if (isset($this->config['display_exceptions'])) {
-            $displayExceptions = $this->config['display_exceptions'];
-        }
-        if (isset($this->config['display_not_found_reason'])) {
-            $displayNotFoundReason = $this->config['display_not_found_reason'];
-        }
-        if (isset($this->config['not_found_template'])) {
-            $notFoundTemplate = $this->config['not_found_template'];
+        if (isset($config['display_not_found_reason'])) {
+            $routeNotFoundStrategy->setDisplayNotFoundReason($config['display_not_found_reason']);
         }
 
-        $this->routeNotFoundStrategy->setDisplayExceptions($displayExceptions);
-        $this->routeNotFoundStrategy->setDisplayNotFoundReason($displayNotFoundReason);
-        $this->routeNotFoundStrategy->setNotFoundTemplate($notFoundTemplate);
+        if (isset($config['not_found_template'])) {
+            $routeNotFoundStrategy->setNotFoundTemplate($config['not_found_template']);
+        }
 
-        $this->services->setService('RouteNotFoundStrategy', $this->routeNotFoundStrategy);
-        $this->services->setAlias('Zend\Mvc\View\RouteNotFoundStrategy', 'RouteNotFoundStrategy');
-        $this->services->setAlias('Zend\Mvc\View\Http\RouteNotFoundStrategy', 'RouteNotFoundStrategy');
-        $this->services->setAlias('404Strategy', 'RouteNotFoundStrategy');
+        //$services->add('RouteNotFoundStrategy', $routeNotFoundStrategy);
 
-        return $this->routeNotFoundStrategy;
+        return $routeNotFoundStrategy;
     }
 
-    /**
-     * Configures the MvcEvent view model to ensure it has the template injected
-     *
-     * @return \Zend\View\Model\ModelInterface
-     */
-    public function getViewModel()
+    protected function registerMvcRenderingStrategies($config, EventManager $events, $services)
     {
-        if ($this->viewModel) {
-            return $this->viewModel;
-        }
-
-        $this->viewModel = $model = $this->event->getViewModel();
-        $model->setTemplate($this->getLayoutTemplate());
-
-        return $this->viewModel;
-    }
-
-    /**
-     * Register additional mvc rendering strategies
-     *
-     * If there is a "mvc_strategies" key of the view manager configuration, loop
-     * through it. Pull each as a service from the service manager, and, if it
-     * is a ListenerAggregate, attach it to the view, at priority 100. This
-     * latter allows each to trigger before the default mvc rendering strategy,
-     * and for them to trigger in the order they are registered.
-     */
-    protected function registerMvcRenderingStrategies(EventManagerInterface $events)
-    {
-        if (!isset($this->config['mvc_strategies'])) {
+        if (!isset($config['mvc_strategies'])) {
             return;
         }
-        $mvcStrategies = $this->config['mvc_strategies'];
+
+        $mvcStrategies = $config['mvc_strategies'];
+
         if (is_string($mvcStrategies)) {
             $mvcStrategies = array($mvcStrategies);
         }
+
         if (!is_array($mvcStrategies) && !$mvcStrategies instanceof Traversable) {
             return;
         }
@@ -390,47 +216,37 @@ class ViewManager extends AbstractListenerAggregate
                 continue;
             }
 
-            $listener = $this->services->get($mvcStrategy);
+            $listener = $services->get(new ServiceRequest($mvcStrategy));
             if ($listener instanceof ListenerAggregateInterface) {
-                $events->attach($listener, 100);
+                $events->attach($listener);
             }
         }
     }
 
-    /**
-     * Register additional view strategies
-     *
-     * If there is a "strategies" key of the view manager configuration, loop
-     * through it. Pull each as a service from the service manager, and, if it
-     * is a ListenerAggregate, attach it to the view, at priority 100. This
-     * latter allows each to trigger before the default strategy, and for them
-     * to trigger in the order they are registered.
-     *
-     * @return void
-     */
-    protected function registerViewStrategies()
+    protected function registerViewStrategies($config, $view, $services)
     {
-        if (!isset($this->config['strategies'])) {
-            return;
-        }
-        $strategies = $this->config['strategies'];
-        if (is_string($strategies)) {
-            $strategies = array($strategies);
-        }
-        if (!is_array($strategies) && !$strategies instanceof Traversable) {
+        if (!isset($config['strategies'])) {
             return;
         }
 
-        $view = $this->getView();
+        $strategies = $config['strategies'];
+
+        if (is_string($strategies)) {
+            $strategies = array($strategies);
+        }
+
+        if (!is_array($strategies) && !$strategies instanceof Traversable) {
+            return;
+        }
 
         foreach ($strategies as $strategy) {
             if (!is_string($strategy)) {
                 continue;
             }
 
-            $listener = $this->services->get($strategy);
+            $listener = $services->get(new ServiceRequest($strategy));
             if ($listener instanceof ListenerAggregateInterface) {
-                $view->getEventManager()->attach($listener, 100);
+                $view->getEventManager()->attach($listener);
             }
         }
     }

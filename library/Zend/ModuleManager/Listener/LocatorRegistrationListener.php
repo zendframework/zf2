@@ -9,17 +9,18 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use Zend\EventManager\Event;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\Event;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\CallbackListener;
 use Zend\ModuleManager\Feature\LocatorRegisteredInterface;
 use Zend\ModuleManager\ModuleEvent;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\MvcEvent;
 
 /**
  * Locator registration listener
  */
-class LocatorRegistrationListener extends AbstractListener implements
+class LocatorRegistrationListener implements
     ListenerAggregateInterface
 {
     /**
@@ -60,30 +61,39 @@ class LocatorRegistrationListener extends AbstractListener implements
     public function onLoadModules(Event $e)
     {
         $moduleManager = $e->getTarget();
-        $events        = $moduleManager->getEventManager()->getSharedManager();
+        $em        = $moduleManager->getSharedEventManager();
 
-        if (!$events) {
+        if (!$em) {
             return;
         }
 
         // Shared instance for module manager
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_BOOTSTRAP, function ($e) use ($moduleManager) {
-            $moduleClassName = get_class($moduleManager);
-            $moduleClassNameArray = explode('\\', $moduleClassName);
-            $moduleClassNameAlias = end($moduleClassNameArray);
-            $application     = $e->getApplication();
-            $services        = $application->getServiceManager();
-            if (!$services->has($moduleClassName)) {
-                $services->setAlias($moduleClassName, $moduleClassNameAlias);
-            }
-        }, 1000);
+        $em->attach(new CallbackListener(
+            'Zend\Mvc\Application',
+            MvcEvent::EVENT_BOOTSTRAP,
+            function ($e) use ($moduleManager) {
+                $moduleClassName = get_class($moduleManager);
+
+                $moduleClassNameArray = explode('\\', $moduleClassName);
+
+                $moduleClassNameAlias = end($moduleClassNameArray);
+
+                $application = $e->getApplication();
+                $services    = $application->getServiceManager();
+
+                if (!$services->has($moduleClassName)) {
+                    $services->setAlias($moduleClassName, $moduleClassNameAlias);
+                }
+            },
+            1000
+        ));
 
         if (0 === count($this->modules)) {
             return;
         }
 
         // Attach to the bootstrap event if there are modules we need to process
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), 1000);
+        $events->attach(new CallbackListener(array($this, 'onBootstrap'), MvcEvent::EVENT_BOOTSTRAP, 'Zend\Mvc\Application', 1000));
     }
 
     /**
@@ -113,20 +123,20 @@ class LocatorRegistrationListener extends AbstractListener implements
     /**
      * {@inheritDoc}
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $em)
     {
-        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($this, 'onLoadModule'));
-        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($this, 'onLoadModules'), -1000);
+        $this->callbacks[] = $em->attach(new CallbackListener(array($this, 'onLoadModule'), ModuleEvent::EVENT_LOAD_MODULE));
+        $this->callbacks[] = $em->attach(new CallbackListener(array($this, 'onLoadModules'), ModuleEvent::EVENT_LOAD_MODULES, null, -1000));
         return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $em)
     {
         foreach ($this->callbacks as $index => $callback) {
-            if ($events->detach($callback)) {
+            if ($em->detach($callback)) {
                 unset($this->callbacks[$index]);
             }
         }

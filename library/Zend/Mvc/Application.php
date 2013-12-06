@@ -14,6 +14,11 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ResponseInterface;
 
+use Zend\ModuleManager;
+use Zend\ServiceManager\Config as ServiceManagerConfig;
+use Zend\ServiceManager\ServiceRequest;
+
+
 /**
  * Main application class for invoking applications
  *
@@ -107,10 +112,10 @@ class Application implements
         $this->configuration  = $configuration;
         $this->serviceManager = $serviceManager;
 
-        $this->setEventManager($serviceManager->get('EventManager'));
+        $this->setEventManager($serviceManager->get(new ServiceRequest('EventManager')));
 
-        $this->request        = $serviceManager->get('Request');
-        $this->response       = $serviceManager->get('Response');
+        $this->request        = $serviceManager->get(new ServiceRequest('Request'));
+        $this->response       = $serviceManager->get(new ServiceRequest('Response'));
     }
 
     /**
@@ -141,19 +146,19 @@ class Application implements
         $listeners = array_unique(array_merge($this->defaultListeners, $listeners));
 
         foreach ($listeners as $listener) {
-            $events->attach($serviceManager->get($listener));
+            $event = $serviceManager->get(new ServiceRequest($listener));
+            $events->attach($event);
         }
 
         // Setup MVC Event
-        $this->event = $event  = new MvcEvent();
-        $event->setTarget($this);
+        $this->event = $event  = new MvcEvent(MvcEvent::EVENT_BOOTSTRAP, $this);
         $event->setApplication($this)
               ->setRequest($this->getRequest())
               ->setResponse($this->getResponse())
-              ->setRouter($serviceManager->get('Router'));
+              ->setRouter($serviceManager->get(new ServiceRequest('Router')));
 
         // Trigger bootstrap events
-        $events->trigger(MvcEvent::EVENT_BOOTSTRAP, $event);
+        $events->trigger($event);
         return $this;
     }
 
@@ -205,10 +210,11 @@ class Application implements
      */
     public function setEventManager(EventManagerInterface $eventManager)
     {
-        $eventManager->setIdentifiers(array(
+        /*$eventManager->setIdentifiers(array(
             __CLASS__,
             get_class($this),
-        ));
+        ));*/
+        $eventManager->setTarget($eventManager);
         $this->events = $eventManager;
         return $this;
     }
@@ -248,10 +254,14 @@ class Application implements
     {
         $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
         $listeners = isset($configuration['listeners']) ? $configuration['listeners'] : array();
-        $serviceManager = new ServiceManager(new Service\ServiceManagerConfig($smConfig));
-        $serviceManager->setService('ApplicationConfig', $configuration);
-        $serviceManager->get('ModuleManager')->loadModules();
-        return $serviceManager->get('Application')->bootstrap($listeners);
+        $serviceLocator = new ServiceManager(new ServiceManagerConfig($smConfig));
+
+        $serviceLocator->add('ApplicationConfig', $configuration);
+
+        $mm = $serviceLocator->get(new ServiceRequest('ModuleManager'));
+        $mm->loadModules();
+
+        return $serviceLocator->get(new ServiceRequest('Application'))->bootstrap($listeners);
     }
 
     /**
@@ -287,13 +297,22 @@ class Application implements
         };
 
         // Trigger route event
-        $result = $events->trigger(MvcEvent::EVENT_ROUTE, $event, $shortCircuit);
-        if ($result->stopped()) {
-            $response = $result->last();
+        $event->setName(MvcEvent::EVENT_ROUTE)
+              ->setCallback($shortCircuit);
+        $events->trigger($event);
+        $result = $event->getEventResponses();
+
+        if ($event->propagationIsStopped()) {
+
+            $response = end($result);
+
             if ($response instanceof ResponseInterface) {
-                $event->setTarget($this);
-                $event->setResponse($response);
-                $events->trigger(MvcEvent::EVENT_FINISH, $event);
+
+                $event->setName(MvcEvent::EVENT_FINISH)
+                      ->setTarget($this)
+                      ->setResponse($response)
+                      ->trigger($event);
+
                 return $response;
             }
             if ($event->getError()) {

@@ -10,16 +10,19 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Header\MultipleHeaderInterface;
+use Zend\EventManager\EventInterface;
+use Zend\EventManager\Listener as EventListener;
 
-abstract class AbstractResponseSender implements ResponseSenderInterface
+abstract class AbstractResponseSender
+    extends EventListener
 {
     /**
      * Send HTTP headers
      *
-     * @param  SendResponseEvent $event
+     * @param  EventInterface $event
      * @return PhpEnvironmentResponseSender
      */
-    public function sendHeaders(SendResponseEvent $event)
+    public function sendHeaders(EventInterface $event)
     {
         if (headers_sent() || $event->headersSent()) {
             return $this;

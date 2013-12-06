@@ -9,7 +9,8 @@
 
 namespace Zend\Mvc\Router;
 
-use Zend\ServiceManager\AbstractPluginManager;
+use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 /**
  * Plugin manager implementation for routes
@@ -19,95 +20,36 @@ use Zend\ServiceManager\AbstractPluginManager;
  * instance. The manager is marked to not share by default, in order to allow
  * multiple route instances of the same type.
  */
-class RoutePluginManager extends AbstractPluginManager
+class RoutePluginManager
 {
     /**
-     * Do not share instances.
-     *
-     * @var bool
+     * @var ServiceManager
      */
-    protected $shareByDefault = false;
+    protected $sm;
 
     /**
-     * Override setInvokableClass().
-     *
-     * Performs normal operation, but also auto-aliases the class name to the
-     * service name. This ensures that providing the FQCN does not trigger an
-     * abstract factory later.
-     *
-     * @param  string       $name
-     * @param  string       $invokableClass
-     * @param  null|bool    $shared
-     * @return RoutePluginManager
+     * @param ServiceManager $sm
      */
-    public function setInvokableClass($name, $invokableClass, $shared = null)
+    public function setServiceLocator(ServiceManager $sm)
     {
-        parent::setInvokableClass($name, $invokableClass, $shared);
-        if ($name != $invokableClass) {
-            $this->setAlias($invokableClass, $name);
-        }
-        return $this;
+        $this->sm = $sm;
     }
 
     /**
-     * Validate the plugin.
-     *
-     * Checks that the filter loaded is either a valid callback or an instance
-     * of FilterInterface.
-     *
-     * @param  mixed $plugin
-     * @return void
-     * @throws Exception\RuntimeException if invalid
+     * @param $name
+     * @param $class
      */
-    public function validatePlugin($plugin)
+    public function setInvokableClass($name, $class)
     {
-        if ($plugin instanceof RouteInterface) {
-            // we're okay
-            return;
-        }
-
-        throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\RouteInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
+        $this->sm->addInvokableClass($name, $class);
     }
 
     /**
-     * Attempt to create an instance via an invokable class.
-     *
-     * Overrides parent implementation by invoking the route factory,
-     * passing $creationOptions as the argument.
-     *
-     * @param  string $canonicalName
-     * @param  string $requestedName
-     * @return null|\stdClass
-     * @throws Exception\RuntimeException If resolved class does not exist, or does not implement RouteInterface
+     * @param ServiceRequest $name
+     * @return mixed
      */
-    protected function createFromInvokable($canonicalName, $requestedName)
+    public function get(ServiceRequest $service)
     {
-        $invokable = $this->invokableClasses[$canonicalName];
-        if (!class_exists($invokable)) {
-            throw new Exception\RuntimeException(sprintf(
-                '%s: failed retrieving "%s%s" via invokable class "%s"; class does not exist',
-                __METHOD__,
-                $canonicalName,
-                ($requestedName ? '(alias: ' . $requestedName . ')' : ''),
-                $invokable
-            ));
-        }
-
-        if (!static::isSubclassOf($invokable, __NAMESPACE__ . '\RouteInterface')) {
-            throw new Exception\RuntimeException(sprintf(
-                '%s: failed retrieving "%s%s" via invokable class "%s"; class does not implement %s\RouteInterface',
-                __METHOD__,
-                $canonicalName,
-                ($requestedName ? '(alias: ' . $requestedName . ')' : ''),
-                $invokable,
-                __NAMESPACE__
-            ));
-        }
-
-        return $invokable::factory($this->creationOptions);
+        return $this->sm->get($service);
     }
 }

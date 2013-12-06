@@ -9,17 +9,19 @@
 
 namespace Zend\Mvc;
 
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\EventManagerAwareInterface;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\MvcEvent;
 use Zend\Mvc\ResponseSender\ConsoleResponseSender;
 use Zend\Mvc\ResponseSender\HttpResponseSender;
 use Zend\Mvc\ResponseSender\PhpEnvironmentResponseSender;
 use Zend\Mvc\ResponseSender\SendResponseEvent;
 use Zend\Mvc\ResponseSender\SimpleStreamResponseSender;
 use Zend\Stdlib\ResponseInterface as Response;
+use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\EventManager\CallbackListener;
 
 class SendResponseListener implements
     EventManagerAwareInterface,
@@ -49,10 +51,11 @@ class SendResponseListener implements
      */
     public function setEventManager(EventManagerInterface $eventManager)
     {
-        $eventManager->setIdentifiers(array(
+        /*$eventManager->setIdentifiers(array(
             __CLASS__,
             get_class($this),
-        ));
+        ));*/
+        $eventManager->setTarget($this);
         $this->eventManager = $eventManager;
         $this->attachDefaultListeners();
         return $this;
@@ -80,9 +83,9 @@ class SendResponseListener implements
      * @param  EventManagerInterface $events
      * @return void
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_FINISH, array($this, 'sendResponse'), -10000);
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'sendResponse'), MvcEvent::EVENT_FINISH, null, -10000));
     }
 
     /**
@@ -91,7 +94,7 @@ class SendResponseListener implements
      * @param  EventManagerInterface $events
      * @return void
      */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $events)
     {
         foreach ($this->listeners as $index => $listener) {
             if ($events->detach($listener)) {
@@ -158,9 +161,14 @@ class SendResponseListener implements
     protected function attachDefaultListeners()
     {
         $events = $this->getEventManager();
-        $events->attach(SendResponseEvent::EVENT_SEND_RESPONSE, new PhpEnvironmentResponseSender(), -1000);
-        $events->attach(SendResponseEvent::EVENT_SEND_RESPONSE, new ConsoleResponseSender(), -2000);
-        $events->attach(SendResponseEvent::EVENT_SEND_RESPONSE, new SimpleStreamResponseSender(), -3000);
-        $events->attach(SendResponseEvent::EVENT_SEND_RESPONSE, new HttpResponseSender(), -4000);
+        $events->attach(new PhpEnvironmentResponseSender(SendResponseEvent::EVENT_SEND_RESPONSE, null, -1000));
+        $events->attach(new ConsoleResponseSender(SendResponseEvent::EVENT_SEND_RESPONSE, null, -2000));
+        $events->attach(new SimpleStreamResponseSender(SendResponseEvent::EVENT_SEND_RESPONSE, null, -3000));
+        $events->attach(new HttpResponseSender(SendResponseEvent::EVENT_SEND_RESPONSE, null, -4000));
+    }
+
+    public function __invoke(ServiceManager $serviceLocator)
+    {
+        return $this;
     }
 }

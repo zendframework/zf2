@@ -9,15 +9,16 @@
 
 namespace Zend\Mvc\ResponseSender;
 
-use Zend\Mvc\ResponseSender\SendResponseEvent;
+use Zend\EventManager\EventInterface;
+use Zend\EventManager\ListenerInterface;
 
-interface ResponseSenderInterface
+interface ResponseSenderInterface extends ListenerInterface
 {
     /**
      * Send the response
      *
-     * @param SendResponseEvent $event
+     * @param EventInterface $event
      * @return void
      */
-    public function __invoke(SendResponseEvent $event);
+    //public function __invoke(EventInterface $event);
 }

@@ -25,18 +25,18 @@ interface ListenerAggregateInterface
      * Implementors may add an optional $priority argument; the EventManager
      * implementation will pass this to the aggregate.
      *
-     * @param EventManagerInterface $events
+     * @param EventManager $em
      *
      * @return void
      */
-    public function attach(EventManagerInterface $events);
+    public function attach(EventManager $em);
 
     /**
      * Detach all previously attached listeners
      *
-     * @param EventManagerInterface $events
+     * @param EventManager $em
      *
      * @return void
      */
-    public function detach(EventManagerInterface $events);
+    public function detach(EventManager $em);
 }

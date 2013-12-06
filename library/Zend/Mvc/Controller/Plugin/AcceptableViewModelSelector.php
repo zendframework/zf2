@@ -13,7 +13,7 @@ use Zend\Http\Header\Accept\FieldValuePart\AbstractFieldValuePart;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mvc\InjectApplicationEventInterface;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\MvcEvent;
 use Zend\Mvc\Exception\DomainException;
 use Zend\Mvc\Exception\InvalidArgumentException;
 use Zend\View\Model\ModelInterface;

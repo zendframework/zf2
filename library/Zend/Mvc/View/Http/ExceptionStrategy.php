@@ -9,11 +9,13 @@
 
 namespace Zend\Mvc\View\Http;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\CallbackListener;
+use Zend\Framework\EventManager\AbstractListenerAggregate;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\ServiceRequest;
 use Zend\Http\Response as HttpResponse;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\Application;
+use Zend\Framework\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
 
@@ -34,10 +36,10 @@ class ExceptionStrategy extends AbstractListenerAggregate
     /**
      * {@inheritDoc}
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'prepareExceptionViewModel'));
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'prepareExceptionViewModel'));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'prepareExceptionViewModel'), MvcEvent::EVENT_DISPATCH_ERROR));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'prepareExceptionViewModel'), MvcEvent::EVENT_RENDER_ERROR));
     }
 
     /**

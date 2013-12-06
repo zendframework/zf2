@@ -16,6 +16,7 @@ use Zend\Mvc\Router\SimpleRouteStack;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Uri\Http as HttpUri;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 /**
  * Tree search implementation.
@@ -167,14 +168,14 @@ class TreeRouteStack extends SimpleRouteStack
             $options = array(
                 'route'         => $route,
                 'may_terminate' => (isset($specs['may_terminate']) && $specs['may_terminate']),
-                'child_routes'  => $specs['child_routes'],
                 'route_plugins' => $this->routePluginManager,
+                'child_routes'  => $specs['child_routes'],
                 'prototypes'    => $this->prototypes,
             );
 
             $priority = (isset($route->priority) ? $route->priority : null);
 
-            $route = $this->routePluginManager->get('part', $options);
+            $route = $this->routePluginManager->get(new ServiceRequest('part', $options));
             $route->priority = $priority;
         }
 

@@ -9,7 +9,7 @@
 
 namespace Zend\ModuleManager;
 
-use Zend\EventManager\EventManagerAwareInterface;
+use Zend\Framework\EventManager\EventManagerAwareInterface;
 
 /**
  * Module manager interface
@@ -29,7 +29,7 @@ interface ModuleManagerInterface extends EventManagerAwareInterface
      * @param  string $moduleName
      * @return mixed Module's Module class
      */
-    public function loadModule($moduleName);
+    public function loadModule($moduleName, $event);
 
     /**
      * Get an array of the loaded modules.

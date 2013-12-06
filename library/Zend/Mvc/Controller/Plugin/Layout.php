@@ -11,7 +11,7 @@ namespace Zend\Mvc\Controller\Plugin;
 
 use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\MvcEvent;
 use Zend\View\Model\ModelInterface as Model;
 
 class Layout extends AbstractPlugin

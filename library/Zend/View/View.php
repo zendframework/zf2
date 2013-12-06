@@ -9,9 +9,9 @@
 
 namespace Zend\View;
 
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\EventManagerAwareInterface;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as Model;
@@ -87,10 +87,11 @@ class View implements EventManagerAwareInterface
      */
     public function setEventManager(EventManagerInterface $events)
     {
-        $events->setIdentifiers(array(
+        /*$events->setIdentifiers(array(
             __CLASS__,
             get_class($this),
-        ));
+        ));*/
+        //$events->setTarget($events);
         $this->events = $events;
         return $this;
     }
@@ -168,12 +169,23 @@ class View implements EventManagerAwareInterface
     public function render(Model $model)
     {
         $event   = $this->getEvent();
+
         $event->setModel($model);
         $events  = $this->getEventManager();
-        $results = $events->trigger(ViewEvent::EVENT_RENDERER, $event, function ($result) {
-            return ($result instanceof Renderer);
+
+
+        $event->setName(ViewEvent::EVENT_RENDERER);
+        $event->setCallback(function ($event, $listener, $response) {
+            if ($response instanceof Renderer) {
+                $event->stopPropagation();
+            }
         });
-        $renderer = $results->last();
+
+        $events->trigger($event);
+
+        $results = $event->getEventResponses();
+
+        $renderer = end($results);
         if (!$renderer instanceof Renderer) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: no renderer selected!',
@@ -182,7 +194,8 @@ class View implements EventManagerAwareInterface
         }
 
         $event->setRenderer($renderer);
-        $results = $events->trigger(ViewEvent::EVENT_RENDERER_POST, $event);
+        $event->setName(ViewEvent::EVENT_RENDERER_POST);
+        $results = $events->trigger($event);
 
         // If EVENT_RENDERER or EVENT_RENDERER_POST changed the model, make sure
         // we use this new model instead of the current $model
@@ -213,7 +226,8 @@ class View implements EventManagerAwareInterface
 
         $event->setResult($rendered);
 
-        $events->trigger(ViewEvent::EVENT_RESPONSE, $event);
+        $event->setName(ViewEvent::EVENT_RESPONSE);
+        $events->trigger($event);
     }
 
     /**

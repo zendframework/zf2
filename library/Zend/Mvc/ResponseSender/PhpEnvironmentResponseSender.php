@@ -10,17 +10,17 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\ResponseSender\SendResponseEvent;
+use Zend\EventManager\EventInterface;
 
 class PhpEnvironmentResponseSender extends HttpResponseSender
 {
     /**
      * Send php environment response
      *
-     * @param  SendResponseEvent $event
+     * @param  EventInterface $event
      * @return PhpEnvironmentResponseSender
      */
-    public function __invoke(SendResponseEvent $event)
+    public function __invoke(EventInterface $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Response) {

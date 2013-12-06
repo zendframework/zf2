@@ -10,10 +10,12 @@
 namespace Zend\ModuleManager\Listener;
 
 use Traversable;
-use Zend\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\CallbackListener;
 use Zend\ModuleManager\ModuleEvent;
-use Zend\ServiceManager\Config as ServiceConfig;
-use Zend\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager\Config as ServiceConfig;
+use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 
 class ServiceListener implements ServiceListenerInterface
@@ -101,21 +103,21 @@ class ServiceListener implements ServiceListenerInterface
     }
 
     /**
-     * @param  EventManagerInterface $events
+     * @param  EventManager $em
      * @return ServiceListener
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $em)
     {
-        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($this, 'onLoadModule'));
-        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES_POST, array($this, 'onLoadModulesPost'));
+        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'onLoadModule'), ModuleEvent::EVENT_LOAD_MODULE));
+        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'onLoadModulesPost'), ModuleEvent::EVENT_LOAD_MODULES_POST));
         return $this;
     }
 
     /**
-     * @param  EventManagerInterface $events
+     * @param  EventManager $em
      * @return void
      */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $em)
     {
         foreach ($this->listeners as $key => $listener) {
             if ($events->detach($listener)) {
@@ -210,7 +212,7 @@ class ServiceListener implements ServiceListenerInterface
             }
 
             if (!$sm['service_manager'] instanceof ServiceManager) {
-                $instance = $this->defaultServiceManager->get($sm['service_manager']);
+                $instance = $this->defaultServiceManager->get(new ServiceRequest($sm['service_manager']));
                 if (!$instance instanceof ServiceManager) {
                     throw new Exception\RuntimeException(sprintf(
                         'Could not find a valid ServiceManager for %s',
@@ -220,7 +222,7 @@ class ServiceListener implements ServiceListenerInterface
                 $sm['service_manager'] = $instance;
             }
             $serviceConfig = new ServiceConfig($smConfig);
-            $serviceConfig->configureServiceManager($sm['service_manager']);
+            $serviceConfig($sm['service_manager']);
         }
     }
 

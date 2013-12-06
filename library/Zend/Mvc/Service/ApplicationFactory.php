@@ -11,7 +11,7 @@ namespace Zend\Mvc\Service;
 
 use Zend\Mvc\Application;
 use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceManager;
 
 class ApplicationFactory implements FactoryInterface
 {
@@ -24,8 +24,13 @@ class ApplicationFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return Application
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $serviceLocator)
     {
-        return new Application($serviceLocator->get('Config'), $serviceLocator);
+        return new Application($serviceLocator->get('ApplicationConfig'), $serviceLocator);
+    }
+
+    public function __invoke(ServiceManager $serviceLocator)
+    {
+        return $this->createService($serviceLocator);
     }
 }

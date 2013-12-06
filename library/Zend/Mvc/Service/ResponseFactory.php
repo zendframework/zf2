@@ -12,8 +12,8 @@ namespace Zend\Mvc\Service;
 use Zend\Console\Console;
 use Zend\Console\Response as ConsoleResponse;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 class ResponseFactory implements FactoryInterface
 {
@@ -23,12 +23,17 @@ class ResponseFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return \Zend\Stdlib\Message
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $serviceLocator)
     {
         if (Console::isConsole()) {
             return new ConsoleResponse();
         }
 
         return new HttpResponse();
+    }
+
+    public function __invoke(ServiceManager $serviceLocator)
+    {
+        return $this->createService($serviceLocator);
     }
 }

@@ -11,16 +11,17 @@ namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Header\MultipleHeaderInterface;
 use Zend\Http\Response\Stream;
+use Zend\EventManager\EventInterface;
 
 class SimpleStreamResponseSender extends AbstractResponseSender
 {
     /**
      * Send the stream
      *
-     * @param  SendResponseEvent $event
+     * @param  EventInterface $event
      * @return SimpleStreamResponseSender
      */
-    public function sendStream(SendResponseEvent $event)
+    public function sendStream(EventInterface $event)
     {
         if ($event->contentSent()) {
             return $this;
@@ -34,10 +35,10 @@ class SimpleStreamResponseSender extends AbstractResponseSender
     /**
      * Send stream response
      *
-     * @param  SendResponseEvent $event
+     * @param  EventInterface $event
      * @return SimpleStreamResponseSender
      */
-    public function __invoke(SendResponseEvent $event)
+    public function __invoke(EventInterface $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Stream) {

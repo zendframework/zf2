@@ -12,8 +12,9 @@ namespace Zend\ModuleManager\Listener;
 use Traversable;
 use Zend\Config\Config;
 use Zend\Config\Factory as ConfigFactory;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\CallbackListener;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\ModuleEvent;
 use Zend\Stdlib\ArrayUtils;
@@ -79,17 +80,17 @@ class ConfigListener extends AbstractListener implements
     /**
      * {@inheritDoc}
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $em)
     {
-        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($this, 'onloadModulesPre'), 1000);
+        $this->callbacks[] = $em->attach(new CallbackListener(array($this, 'onloadModulesPre'), ModuleEvent::EVENT_LOAD_MODULES, null, 1000));
 
         if ($this->skipConfig) {
             // We already have the config from cache, no need to collect or merge.
             return $this;
         }
 
-        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($this, 'onLoadModule'));
-        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($this, 'onLoadModulesPost'), -1000);
+        $this->callbacks[] = $em->attach(new CallbackListener(array($this, 'onLoadModule'), ModuleEvent::EVENT_LOAD_MODULE));
+        $this->callbacks[] = $em->attach(new CallbackListener(array($this, 'onLoadModulesPost'), ModuleEvent::EVENT_LOAD_MODULES, null, -1000));
 
         return $this;
     }
@@ -165,10 +166,10 @@ class ConfigListener extends AbstractListener implements
     /**
      * {@inheritDoc}
      */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $em)
     {
         foreach ($this->callbacks as $index => $callback) {
-            if ($events->detach($callback)) {
+            if ($em->detach($callback)) {
                 unset($this->callbacks[$index]);
             }
         }

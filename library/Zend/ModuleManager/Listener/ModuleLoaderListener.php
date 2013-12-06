@@ -9,15 +9,20 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\CallbackListener;
+
 use Zend\Loader\ModuleAutoloader;
 use Zend\ModuleManager\ModuleEvent;
+
+use Traversable;
 
 /**
  * Module loader listener
  */
-class ModuleLoaderListener extends AbstractListener implements ListenerAggregateInterface
+class ModuleLoaderListener extends EventListener implements ListenerAggregateInterface
 {
     /**
      * @var array
@@ -32,7 +37,12 @@ class ModuleLoaderListener extends AbstractListener implements ListenerAggregate
     /**
      * @var array
      */
-    protected $callbacks = array();
+    protected $callbacks = [];
+
+    /**
+     * @var array|ListenerOptions
+     */
+    protected $options = [];
 
     /**
      * Constructor.
@@ -42,9 +52,11 @@ class ModuleLoaderListener extends AbstractListener implements ListenerAggregate
      *
      * @param  ListenerOptions $options
      */
-    public function __construct(ListenerOptions $options = null)
+    public function __construct(ListenerOptions $options = null, $event = null, $target = null, $priority = null)
     {
-        parent::__construct($options);
+        parent::__construct($event, $target, $priority);
+
+        $this->options = $options;
 
         $this->generateCache = $this->options->getModuleMapCacheEnabled();
         $this->moduleLoader  = new ModuleAutoloader($this->options->getModulePaths());
@@ -58,18 +70,15 @@ class ModuleLoaderListener extends AbstractListener implements ListenerAggregate
     /**
      * {@inheritDoc}
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $em)
     {
-        $this->callbacks[] = $events->attach(
-            ModuleEvent::EVENT_LOAD_MODULES,
-            array($this->moduleLoader, 'register'),
-            9000
+        $this->callbacks[] = $em->attach(
+            new CallbackListener(array($this->moduleLoader, 'register'), ModuleEvent::EVENT_LOAD_MODULES, null, 100000)
         );
 
         if ($this->generateCache) {
-            $this->callbacks[] = $events->attach(
-                ModuleEvent::EVENT_LOAD_MODULES_POST,
-                array($this, 'onLoadModulesPost')
+            $this->callbacks[] = $em->attach(
+                new CallbackListener(array($this, 'onLoadModulesPost'), ModuleEvent::EVENT_LOAD_MODULES_POST)
             );
         }
     }
@@ -77,10 +86,10 @@ class ModuleLoaderListener extends AbstractListener implements ListenerAggregate
     /**
      * {@inheritDoc}
      */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $em)
     {
         foreach ($this->callbacks as $index => $callback) {
-            if ($events->detach($callback)) {
+            if ($em->detach($callback)) {
                 unset($this->callbacks[$index]);
             }
         }

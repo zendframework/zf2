@@ -9,8 +9,9 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\View\Resolver as ViewResolver;
 
 class ViewTemplateMapResolverFactory implements FactoryInterface
@@ -24,9 +25,9 @@ class ViewTemplateMapResolverFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ViewResolver\TemplateMapResolver
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $sm)
     {
-        $config = $serviceLocator->get('Config');
+        $config = $sm->get(new ServiceRequest('ApplicationConfig'));
         $map = array();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];

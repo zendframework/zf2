@@ -9,11 +9,13 @@
 
 namespace Zend\Mvc\View\Http;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\AbstractListenerAggregate;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\CallbackListener;
 use Zend\Http\Response as HttpResponse;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\Application;
+use Zend\Framework\MvcEvent;
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
 
@@ -38,7 +40,7 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
      *
      * @var string
      */
-    protected $notFoundTemplate = 'error';
+    protected $notFoundTemplate = '404';
 
     /**
      * The reason for a not-found condition
@@ -50,11 +52,11 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
     /**
      * {@inheritDoc}
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'prepareNotFoundViewModel'), -90);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'detectNotFoundError'));
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'prepareNotFoundViewModel'));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'prepareNotFoundViewModel'), MvcEvent::EVENT_CONTROLLER_DISPATCH, null, -90));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'detectNotFoundError'), MvcEvent::EVENT_DISPATCH_ERROR));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'prepareNotFoundViewModel'), MvcEvent::EVENT_DISPATCH_ERROR));
     }
 
     /**
@@ -132,7 +134,7 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
      * @param  MvcEvent $e
      * @return void
      */
-    public function detectNotFoundError(MvcEvent $e)
+    public function detectNotFoundError(Event $e)
     {
         $error = $e->getError();
         if (empty($error)) {
@@ -162,7 +164,7 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
      * @param  MvcEvent $e
      * @return void
      */
-    public function prepareNotFoundViewModel(MvcEvent $e)
+    public function prepareNotFoundViewModel(Event $e)
     {
         $vars = $e->getResult();
         if ($vars instanceof Response) {
@@ -176,15 +178,15 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
             return;
         }
 
-        if (!$vars instanceof ViewModel) {
+        if (!$response instanceof ViewModel) {
             $model = new ViewModel();
-            if (is_string($vars)) {
-                $model->setVariable('message', $vars);
+            if (is_string($response)) {
+                $model->setVariable('message', $response);
             } else {
                 $model->setVariable('message', 'Page not found.');
             }
         } else {
-            $model = $vars;
+            $model = $response;
             if ($model->getVariable('message') === null) {
                 $model->setVariable('message', 'Page not found.');
             }
@@ -201,7 +203,7 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
         // Inject controller if we're displaying either the reason or the exception
         $this->injectController($model, $e);
 
-        $e->setResult($model);
+        $e->setResponse($model);
     }
 
     /**
@@ -249,12 +251,11 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
 
         $model->setVariable('display_exceptions', true);
 
-        $exception = $e->getParam('exception', false);
-        if (!$exception instanceof \Exception) {
+        if (!$e instanceof \Exception) {
             return;
         }
 
-        $model->setVariable('exception', $exception);
+        $model->setVariable('exception', $e);
     }
 
     /**

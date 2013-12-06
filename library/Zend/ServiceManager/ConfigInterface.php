@@ -17,5 +17,5 @@ interface ConfigInterface
      * @param ServiceManager $serviceManager
      * @return void
      */
-    public function configureServiceManager(ServiceManager $serviceManager);
+    public function __invoke(ServiceManager $serviceManager);
 }

@@ -9,8 +9,9 @@
 
 namespace Zend\Mvc;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\MvcEvent;
 
 class ModuleRouteListener implements ListenerAggregateInterface
 {

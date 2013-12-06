@@ -9,8 +9,6 @@
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
-
 /**
  * Representation of an event
  *
@@ -22,17 +20,17 @@ class Event implements EventInterface
     /**
      * @var string Event name
      */
-    protected $name;
+    protected $name = self::WILDCARD;
+
+    /**
+     * @var array
+     */
+    protected $listeners = [];
 
     /**
      * @var string|object The event target
      */
-    protected $target;
-
-    /**
-     * @var array|ArrayAccess|object The event parameters
-     */
-    protected $params = array();
+    protected $target = self::WILDCARD;
 
     /**
      * @var bool Whether or not to stop propagation
@@ -40,15 +38,21 @@ class Event implements EventInterface
     protected $stopPropagation = false;
 
     /**
-     * Constructor
-     *
-     * Accept a target and its parameters.
-     *
-     * @param  string $name Event name
-     * @param  string|object $target
-     * @param  array|ArrayAccess $params
+     * @var callable called when the event's propogation has not been stopped by the listener
      */
-    public function __construct($name = null, $target = null, $params = null)
+    protected $callback;
+
+    /**
+     * @var array
+     */
+    protected $eventResponses = [];
+
+    /**
+     * @param string $name
+     * @param mixed $target
+     * @param callback $callback
+     */
+    public function __construct($name = null, $target = null, $callback = null)
     {
         if (null !== $name) {
             $this->setName($name);
@@ -58,9 +62,32 @@ class Event implements EventInterface
             $this->setTarget($target);
         }
 
-        if (null !== $params) {
-            $this->setParams($params);
+        if (null === $callback) {
+            $callback = $this->getDefaultCallback();
         }
+
+        $this->setCallback($callback);
+    }
+
+    /**
+     * @param $callback
+     * @return $this
+     */
+    public function setCallback($callback)
+    {
+        $this->callback = $callback;
+
+        return $this;
+    }
+
+    /**
+     * @return callable
+     */
+    public function getDefaultCallback()
+    {
+        return function($event, $listener, $response) {
+            return $event->propagationIsStopped();
+        };
     }
 
     /**
@@ -71,6 +98,51 @@ class Event implements EventInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set the event name
+     *
+     * @param  string $name
+     * @return Event
+     */
+    public function setName($name)
+    {
+        $this->name = (string) $name;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getListeners()
+    {
+        return $this->listeners;
+    }
+
+    /**
+     * @param array $listeners
+     * @return Event
+     */
+    public function setListeners($listeners)
+    {
+        $this->listeners = $listeners;
+
+        return $this;
+    }
+
+    /**
+     * Set the event target/context
+     *
+     * @param  null|string|object $target
+     * @return Event
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+
+        return $this;
     }
 
     /**
@@ -86,115 +158,28 @@ class Event implements EventInterface
     }
 
     /**
-     * Set parameters
-     *
-     * Overwrites parameters
-     *
-     * @param  array|ArrayAccess|object $params
-     * @return Event
-     * @throws Exception\InvalidArgumentException
+     * @return array
      */
-    public function setParams($params)
+    public function getTargets()
     {
-        if (!is_array($params) && !is_object($params)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Event parameters must be an array or object; received "%s"', gettype($params)
-            ));
+        if (is_array($this->target)) {
+            return $this->target;
         }
 
-        $this->params = $params;
-        return $this;
-    }
-
-    /**
-     * Get all parameters
-     *
-     * @return array|object|ArrayAccess
-     */
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    /**
-     * Get an individual parameter
-     *
-     * If the parameter does not exist, the $default value will be returned.
-     *
-     * @param  string|int $name
-     * @param  mixed $default
-     * @return mixed
-     */
-    public function getParam($name, $default = null)
-    {
-        // Check in params that are arrays or implement array access
-        if (is_array($this->params) || $this->params instanceof ArrayAccess) {
-            if (!isset($this->params[$name])) {
-                return $default;
-            }
-
-            return $this->params[$name];
-        }
-
-        // Check in normal objects
-        if (!isset($this->params->{$name})) {
-            return $default;
-        }
-        return $this->params->{$name};
-    }
-
-    /**
-     * Set the event name
-     *
-     * @param  string $name
-     * @return Event
-     */
-    public function setName($name)
-    {
-        $this->name = (string) $name;
-        return $this;
-    }
-
-    /**
-     * Set the event target/context
-     *
-     * @param  null|string|object $target
-     * @return Event
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
-        return $this;
-    }
-
-    /**
-     * Set an individual parameter to a value
-     *
-     * @param  string|int $name
-     * @param  mixed $value
-     * @return Event
-     */
-    public function setParam($name, $value)
-    {
-        if (is_array($this->params) || $this->params instanceof ArrayAccess) {
-            // Arrays or objects implementing array access
-            $this->params[$name] = $value;
-        } else {
-            // Objects
-            $this->params->{$name} = $value;
-        }
-        return $this;
+        return [$this->target];
     }
 
     /**
      * Stop further event propagation
      *
      * @param  bool $flag
-     * @return void
+     * @return Event
      */
     public function stopPropagation($flag = true)
     {
         $this->stopPropagation = (bool) $flag;
+
+        return $this;
     }
 
     /**
@@ -205,5 +190,32 @@ class Event implements EventInterface
     public function propagationIsStopped()
     {
         return $this->stopPropagation;
+    }
+
+    /**
+     * @return array The responses of each listener
+     */
+    public function getEventResponses()
+    {
+        return $this->eventResponses;
+    }
+
+    /**
+     * Invokes listener with this event passed as its only argument.
+     *
+     * @param $listener
+     * @return bool
+     */
+    public function __invoke($listener)
+    {
+        $response = $listener($this);
+
+        $this->eventResponses[] = $response;
+
+        if (!$this->callback) {
+            return false;
+        }
+
+        return call_user_func($this->callback, $this, $listener, $response);
     }
 }

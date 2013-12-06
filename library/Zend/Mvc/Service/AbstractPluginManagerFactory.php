@@ -9,10 +9,12 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\ServiceManager\AbstractPluginManager;
+use Zend\Framework\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Di\DiAbstractServiceFactory;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 abstract class AbstractPluginManagerFactory implements FactoryInterface
 {
@@ -26,18 +28,26 @@ abstract class AbstractPluginManagerFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return \Zend\ServiceManager\AbstractPluginManager
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $serviceLocator)
     {
+        $configuration = $serviceLocator->get(new ServiceRequest('ApplicationConfig'));
+
         $pluginManagerClass = static::PLUGIN_MANAGER_CLASS;
+
         /* @var $plugins \Zend\ServiceManager\AbstractPluginManager */
-        $plugins = new $pluginManagerClass;
+        $plugins = new $pluginManagerClass(new ServiceManagerConfig($configuration['plugins']));
         $plugins->setServiceLocator($serviceLocator);
-        $configuration = $serviceLocator->get('Config');
+
 
         if (isset($configuration['di']) && $serviceLocator->has('Di')) {
             $plugins->addAbstractFactory($serviceLocator->get('DiAbstractServiceFactory'));
         }
 
         return $plugins;
+    }
+
+    public function __invoke(ServiceManager $serviceLocator)
+    {
+        return $this->createService($serviceLocator);
     }
 }

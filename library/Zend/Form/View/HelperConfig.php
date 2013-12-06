@@ -9,8 +9,8 @@
 
 namespace Zend\Form\View;
 
-use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager\ConfigInterface;
+use Zend\Framework\ServiceManager\ServiceManager;
 
 /**
  * Service manager configuration for form view helpers
@@ -84,10 +84,10 @@ class HelperConfig implements ConfigInterface
      * @param  ServiceManager $serviceManager
      * @return void
      */
-    public function configureServiceManager(ServiceManager $serviceManager)
+    public function __invoke(ServiceManager $serviceManager)
     {
         foreach ($this->invokables as $name => $service) {
-            $serviceManager->setInvokableClass($name, $service);
+            $serviceManager->add($name, $service);
         }
     }
 }

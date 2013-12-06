@@ -11,7 +11,7 @@ namespace Zend\Mvc\Controller;
 use Zend\Http\Request as HttpRequest;
 use Zend\Json\Json;
 use Zend\Mvc\Exception;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\MvcEvent;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 

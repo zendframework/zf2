@@ -12,11 +12,13 @@ namespace Zend\ModuleManager\Listener;
 use Zend\ModuleManager\Exception;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\ModuleManager\ModuleEvent;
+use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\Listener as EventListener;
 
 /**
  * Module resolver listener
  */
-class ModuleDependencyCheckerListener
+class ModuleDependencyCheckerListener extends EventListener
 {
     /**
      * @var array of already loaded modules, indexed by module name
@@ -24,11 +26,11 @@ class ModuleDependencyCheckerListener
     protected $loaded = array();
 
     /**
-     * @param \Zend\ModuleManager\ModuleEvent $e
+     * @param EventInterface $event
      *
      * @throws Exception\MissingDependencyModuleException
      */
-    public function __invoke(ModuleEvent $e)
+    public function __invoke(EventInterface $event)
     {
         $module = $e->getModule();
 

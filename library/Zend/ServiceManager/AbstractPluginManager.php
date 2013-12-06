@@ -95,8 +95,8 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     public function get($name, $options = array(), $usePeeringServiceManagers = true)
     {
         // Allow specifying a class name directly; registers as an invokable class
-        if (!$this->has($name) && $this->autoAddInvokableClass && class_exists($name)) {
-            $this->setInvokableClass($name, $name);
+        if (!$this->has((string) $name) && $this->autoAddInvokableClass && class_exists((string) $name)) {
+            $this->setInvokableClass((string) $name, (string) $name);
         }
 
         $this->creationOptions = $options;

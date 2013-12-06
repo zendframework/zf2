@@ -12,7 +12,7 @@ namespace Zend\Mvc\View\Console;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface as Events;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\MvcEvent;
 
 class InjectNamedConsoleParamsListener extends AbstractListenerAggregate
 {
@@ -21,7 +21,7 @@ class InjectNamedConsoleParamsListener extends AbstractListenerAggregate
      */
     public function attach(Events $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'injectNamedParams'), -80);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_CONTROLLER_DISPATCH, array($this, 'injectNamedParams'), -80);
     }
 
     /**

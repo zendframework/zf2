@@ -54,18 +54,4 @@ abstract class AbstractListener
         $this->options = $options;
         return $this;
     }
-
-    /**
-     * Write a simple array of scalars to a file
-     *
-     * @param  string $filePath
-     * @param  array $array
-     * @return AbstractListener
-     */
-    protected function writeArrayToFile($filePath, $array)
-    {
-        $content = "<?php\nreturn " . var_export($array, 1) . ';';
-        file_put_contents($filePath, $content);
-        return $this;
-    }
 }

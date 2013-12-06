@@ -11,7 +11,7 @@ namespace Zend\Mvc\Controller;
 
 use Zend\Http\Response as HttpResponse;
 use Zend\Mvc\Exception;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\MvcEvent;
 use Zend\View\Model\ConsoleModel;
 use Zend\View\Model\ViewModel;
 

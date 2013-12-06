@@ -20,6 +20,7 @@ use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 /**
  * Abstract class for Zend_View to help enforce private constructs.
@@ -373,9 +374,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
      * @return AbstractHelper
      */
-    public function plugin($name, array $options = null)
+    public function plugin($name, array $options = array())
     {
-        return $this->getHelperPluginManager()->get($name, $options);
+        return $this->getHelperPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**
@@ -466,7 +467,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
             unset($options);
 
             // Give view model awareness via ViewModel helper
-            $helper = $this->plugin('view_model');
+            $helper = $this->plugin('viewmodel');
             $helper->setCurrent($model);
 
             $values = $model->getVariables();

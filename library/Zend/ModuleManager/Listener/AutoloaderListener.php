@@ -11,21 +11,21 @@ namespace Zend\ModuleManager\Listener;
 
 use Zend\Loader\AutoloaderFactory;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\ModuleManager\ModuleEvent;
+use Zend\Framework\EventManager\EventInterface;
 
 /**
  * Autoloader listener
  */
-class AutoloaderListener extends AbstractListener
+class AutoloaderListener extends Listener
 {
 
     /**
-     * @param  ModuleEvent $e
+     * @param  EventInterface $event
      * @return void
      */
-    public function __invoke(ModuleEvent $e)
+    public function __invoke(EventInterface $event)
     {
-        $module = $e->getModule();
+        $module = $event->getModule();
         if (!$module instanceof AutoloaderProviderInterface
             && !method_exists($module, 'getAutoloaderConfig')
         ) {

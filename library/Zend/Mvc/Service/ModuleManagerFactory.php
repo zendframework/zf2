@@ -13,10 +13,11 @@ use Zend\ModuleManager\Listener\DefaultListenerAggregate;
 use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\ModuleManager\ModuleEvent;
 use Zend\ModuleManager\ModuleManager;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceListenerInterface;
+use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceRequest;
 
-class ModuleManagerFactory implements FactoryInterface
+class ModuleManagerFactory implements ServiceListenerInterface
 {
     /**
      * Creates and returns the module manager
@@ -29,97 +30,24 @@ class ModuleManagerFactory implements FactoryInterface
      * the default listener aggregate is attached. The ModuleEvent is also created
      * and attached to the module manager.
      *
-     * @param  ServiceLocatorInterface $serviceLocator
+     * @param  ServiceManager $sm
      * @return ModuleManager
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ServiceManager $sm)
     {
-        if (!$serviceLocator->has('ServiceListener')) {
-            $serviceLocator->setFactory('ServiceListener', 'Zend\Mvc\Service\ServiceListenerFactory');
-        }
+        $modules = $sm->get(new ServiceRequest('ApplicationConfig'))['modules'];
 
-        $configuration    = $serviceLocator->get('ApplicationConfig');
-        $listenerOptions  = new ListenerOptions($configuration['module_listener_options']);
-        $defaultListeners = new DefaultListenerAggregate($listenerOptions);
-        $serviceListener  = $serviceLocator->get('ServiceListener');
+        $em = $sm->get(new ServiceRequest('EventManager', [], false));
 
-        $serviceListener->addServiceManager(
-            $serviceLocator,
-            'service_manager',
-            'Zend\ModuleManager\Feature\ServiceProviderInterface',
-            'getServiceConfig'
-        );
-        $serviceListener->addServiceManager(
-            'ControllerLoader',
-            'controllers',
-            'Zend\ModuleManager\Feature\ControllerProviderInterface',
-            'getControllerConfig'
-        );
-        $serviceListener->addServiceManager(
-            'ControllerPluginManager',
-            'controller_plugins',
-            'Zend\ModuleManager\Feature\ControllerPluginProviderInterface',
-            'getControllerPluginConfig'
-        );
-        $serviceListener->addServiceManager(
-            'ViewHelperManager',
-            'view_helpers',
-            'Zend\ModuleManager\Feature\ViewHelperProviderInterface',
-            'getViewHelperConfig'
-        );
-        $serviceListener->addServiceManager(
-            'ValidatorManager',
-            'validators',
-            'Zend\ModuleManager\Feature\ValidatorProviderInterface',
-            'getValidatorConfig'
-        );
-        $serviceListener->addServiceManager(
-            'FilterManager',
-            'filters',
-            'Zend\ModuleManager\Feature\FilterProviderInterface',
-            'getFilterConfig'
-        );
-        $serviceListener->addServiceManager(
-            'FormElementManager',
-            'form_elements',
-            'Zend\ModuleManager\Feature\FormElementProviderInterface',
-            'getFormElementConfig'
-        );
-        $serviceListener->addServiceManager(
-            'RoutePluginManager',
-            'route_manager',
-            'Zend\ModuleManager\Feature\RouteProviderInterface',
-            'getRouteConfig'
-        );
-        $serviceListener->addServiceManager(
-            'SerializerAdapterManager',
-            'serializers',
-            'Zend\ModuleManager\Feature\SerializerProviderInterface',
-            'getSerializerConfig'
-        );
-        $serviceListener->addServiceManager(
-            'HydratorManager',
-            'hydrators',
-            'Zend\ModuleManager\Feature\HydratorProviderInterface',
-            'getHydratorConfig'
-        );
-        $serviceListener->addServiceManager(
-            'InputFilterManager',
-            'input_filters',
-            'Zend\ModuleManager\Feature\InputFilterProviderInterface',
-            'getInputFilterConfig'
-        );
+        $em->attach($sm->get(new ServiceRequest('ModuleManager\DefaultListeners')));
+        $em->attach($sm->get(new ServiceRequest('ServiceListener')));
 
-        $events = $serviceLocator->get('EventManager');
-        $events->attach($defaultListeners);
-        $events->attach($serviceListener);
+        $mm = new ModuleManager($modules);
 
-        $moduleEvent = new ModuleEvent;
-        $moduleEvent->setParam('ServiceManager', $serviceLocator);
+        $mm->setEventManager($em);
 
-        $moduleManager = new ModuleManager($configuration['modules'], $events);
-        $moduleManager->setEvent($moduleEvent);
+        $mm->setSharedEventManager($sm->get(new ServiceRequest('SharedEventManager')));
 
-        return $moduleManager;
+        return $mm;
     }
 }

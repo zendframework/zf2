@@ -10,7 +10,7 @@
 namespace Zend\View;
 
 use ArrayAccess;
-use Zend\EventManager\Event;
+use Zend\Framework\EventManager\Event;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as Model;

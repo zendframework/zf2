@@ -10,16 +10,18 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Console\Response;
+use Zend\EventManager\Listener as EventListener;
+use Zend\EventManager\EventInterface;
 
-class ConsoleResponseSender implements ResponseSenderInterface
+class ConsoleResponseSender extends EventListener
 {
     /**
      * Send content
      *
-     * @param  SendResponseEvent $event
+     * @param  EventInterface $event
      * @return ConsoleResponseSender
      */
-    public function sendContent(SendResponseEvent $event)
+    public function sendContent(EventInterface $event)
     {
         if ($event->contentSent()) {
             return $this;
@@ -33,9 +35,9 @@ class ConsoleResponseSender implements ResponseSenderInterface
     /**
      * Send the response
      *
-     * @param  SendResponseEvent $event
+     * @param  EventInterface $event
      */
-    public function __invoke(SendResponseEvent $event)
+    public function __invoke(EventInterface $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Response) {

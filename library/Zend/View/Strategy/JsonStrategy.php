@@ -9,8 +9,10 @@
 
 namespace Zend\View\Strategy;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\AbstractListenerAggregate;
+use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\CallbackListener;
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Http\Request as HttpRequest;
 use Zend\View\Model;
 use Zend\View\Renderer\JsonRenderer;
@@ -55,8 +57,8 @@ class JsonStrategy extends AbstractListenerAggregate
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'selectRenderer'), ViewEvent::EVENT_RENDERER, null, $priority));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'injectResponse'), ViewEvent::EVENT_RESPONSE, null, $priority));
     }
 
     /**
@@ -107,7 +109,7 @@ class JsonStrategy extends AbstractListenerAggregate
      * @param  ViewEvent $e
      * @return void
      */
-    public function injectResponse(ViewEvent $e)
+    public function injectResponse(Event $e)
     {
         $renderer = $e->getRenderer();
         if ($renderer !== $this->renderer) {

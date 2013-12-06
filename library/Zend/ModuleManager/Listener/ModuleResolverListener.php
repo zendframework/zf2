@@ -10,19 +10,21 @@
 namespace Zend\ModuleManager\Listener;
 
 use Zend\ModuleManager\ModuleEvent;
+use Zend\Framework\EventManager\Listener;
+use Zend\Framework\EventManager\EventInterface;
 
 /**
  * Module resolver listener
  */
-class ModuleResolverListener extends AbstractListener
+class ModuleResolverListener extends Listener
 {
     /**
-     * @param  ModuleEvent $e
+     * @param  EventInterface $event
      * @return object|false False if module class does not exist
      */
-    public function __invoke(ModuleEvent $e)
+    public function __invoke(EventInterface $event)
     {
-        $moduleName = $e->getModuleName();
+        $moduleName = $event->getModuleName();
         $class      = $moduleName . '\Module';
 
         if (!class_exists($class)) {

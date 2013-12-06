@@ -10,7 +10,7 @@
 namespace Zend\Mvc\Service;
 
 use Zend\Form\FormElementManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceManager;
 
 class FormElementManagerFactory extends AbstractPluginManagerFactory
 {
@@ -22,7 +22,7 @@ class FormElementManagerFactory extends AbstractPluginManagerFactory
      * @param  ServiceLocatorInterface $serviceLocator
      * @return FormElementManager
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $serviceLocator)
     {
         $plugins = parent::createService($serviceLocator);
         $plugins->addPeeringServiceManager($serviceLocator);

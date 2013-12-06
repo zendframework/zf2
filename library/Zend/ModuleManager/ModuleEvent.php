@@ -9,7 +9,7 @@
 
 namespace Zend\ModuleManager;
 
-use Zend\EventManager\Event;
+use Zend\Framework\EventManager\Event;
 
 /**
  * Custom event for use with module manager
@@ -121,7 +121,7 @@ class ModuleEvent extends Event
      */
     public function setConfigListener(Listener\ConfigMergerInterface $configListener)
     {
-        $this->setParam('configListener', $configListener);
+        //$this->setParam('configListener', $configListener);
         $this->configListener = $configListener;
 
         return $this;

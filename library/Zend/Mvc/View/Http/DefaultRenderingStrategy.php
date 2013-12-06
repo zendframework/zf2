@@ -9,10 +9,12 @@
 
 namespace Zend\Mvc\View\Http;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\EventManager\AbstractListenerAggregate;
+use Zend\Framework\EventManager\CallbackListener;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Application;
+use Zend\Framework\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
 use Zend\View\View;
@@ -45,10 +47,10 @@ class DefaultRenderingStrategy extends AbstractListenerAggregate
     /**
      * {@inheritDoc}
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER, array($this, 'render'), -10000);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'render'), -10000);
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'render'), MvcEvent::EVENT_RENDER, null, -10000));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'render'), MvcEvent::EVENT_RENDER_ERROR, null, -10000));
     }
 
     /**
@@ -79,7 +81,7 @@ class DefaultRenderingStrategy extends AbstractListenerAggregate
      * @param  MvcEvent $e
      * @return Response
      */
-    public function render(MvcEvent $e)
+    public function render(Event $e)
     {
         $result = $e->getResult();
         if ($result instanceof Response) {
@@ -101,6 +103,7 @@ class DefaultRenderingStrategy extends AbstractListenerAggregate
         try {
             $view->render($viewModel);
         } catch (\Exception $ex) {
+            var_dump($ex);
             if ($e->getName() === MvcEvent::EVENT_RENDER_ERROR) {
                 throw $ex;
             }

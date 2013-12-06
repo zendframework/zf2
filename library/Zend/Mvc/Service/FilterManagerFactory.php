@@ -10,7 +10,7 @@
 namespace Zend\Mvc\Service;
 
 use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceManager;
 
 class FilterManagerFactory extends AbstractPluginManagerFactory
 {
@@ -22,7 +22,7 @@ class FilterManagerFactory extends AbstractPluginManagerFactory
      * @param  ServiceLocatorInterface $serviceLocator
      * @return \Zend\Filter\FilterPluginManager
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $serviceLocator)
     {
         $plugins = parent::createService($serviceLocator);
         return $plugins;

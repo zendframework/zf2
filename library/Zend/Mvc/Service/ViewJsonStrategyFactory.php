@@ -9,8 +9,9 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\View\Strategy\JsonStrategy;
 
 class ViewJsonStrategyFactory implements FactoryInterface
@@ -26,9 +27,9 @@ class ViewJsonStrategyFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return JsonStrategy
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $serviceLocator)
     {
-        $jsonRenderer = $serviceLocator->get('ViewJsonRenderer');
+        $jsonRenderer = $serviceLocator->get(new ServiceRequest('ViewJsonRenderer'));
         $jsonStrategy = new JsonStrategy($jsonRenderer);
         return $jsonStrategy;
     }

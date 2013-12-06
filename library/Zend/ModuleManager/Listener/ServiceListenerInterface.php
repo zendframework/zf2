@@ -9,8 +9,8 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\ServiceManager\ServiceManager;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\ServiceManager\ServiceManager;
 
 interface ServiceListenerInterface extends ListenerAggregateInterface
 {

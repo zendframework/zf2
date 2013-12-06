@@ -9,9 +9,9 @@
 
 namespace Zend\Mvc\View\Http;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface as Events;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\EventManager\AbstractListenerAggregate;
+use Zend\Framework\EventManager\EventManagerInterface as Events;
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Model\ViewModel;
 
@@ -32,7 +32,7 @@ class CreateViewModelListener extends AbstractListenerAggregate
      * @param  MvcEvent $e
      * @return void
      */
-    public function createViewModelFromArray(MvcEvent $e)
+    public function createViewModelFromArray(Event $e)
     {
         $result = $e->getResult();
         if (!ArrayUtils::hasStringKeys($result, true)) {
@@ -49,7 +49,7 @@ class CreateViewModelListener extends AbstractListenerAggregate
      * @param MvcEvent $e
      * @return void
     */
-    public function createViewModelFromNull(MvcEvent $e)
+    public function createViewModelFromNull(Event $e)
     {
         $result = $e->getResult();
         if (null !== $result) {

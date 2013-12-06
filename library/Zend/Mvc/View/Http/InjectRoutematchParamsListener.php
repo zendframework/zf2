@@ -13,7 +13,7 @@ use Zend\Console\Request as ConsoleRequest;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Http\Request as HttpRequest;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\MvcEvent;
 
 class InjectRoutematchParamsListener extends AbstractListenerAggregate
 {

@@ -11,7 +11,7 @@ namespace Zend\Mvc\View\Console;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface as Events;
-use Zend\Mvc\MvcEvent;
+use Zend\Framework\MvcEvent;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Model\ConsoleModel;
 
@@ -22,9 +22,9 @@ class CreateViewModelListener extends AbstractListenerAggregate
      */
     public function attach(Events $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'createViewModelFromString'), -80);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'createViewModelFromArray'),  -80);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'createViewModelFromNull'),   -80);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_CONTROLLER_DISPATCH, array($this, 'createViewModelFromString'), -80);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_CONTROLLER_DISPATCH, array($this, 'createViewModelFromArray'),  -80);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_CONTROLLER_DISPATCH, array($this, 'createViewModelFromNull'),   -80);
     }
 
     /**

@@ -14,8 +14,8 @@ interface FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param ServiceManager $sm
      * @return mixed
      */
-    public function createService(ServiceLocatorInterface $serviceLocator);
+    public function createService(ServiceManager $sm);
 }

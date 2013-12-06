@@ -9,9 +9,11 @@
 
 namespace Zend\Mvc;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\Application;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\EventManager\CallbackListener;
+use Zend\Framework\MvcEvent;
 
 class RouteListener implements ListenerAggregateInterface
 {
@@ -26,9 +28,9 @@ class RouteListener implements ListenerAggregateInterface
      * @param  EventManagerInterface $events
      * @return void
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_ROUTE, array($this, 'onRoute'));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'onRoute'), MvcEvent::EVENT_ROUTE));
     }
 
     /**
@@ -37,7 +39,7 @@ class RouteListener implements ListenerAggregateInterface
      * @param  EventManagerInterface $events
      * @return void
      */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $events)
     {
         foreach ($this->listeners as $index => $listener) {
             if ($events->detach($listener)) {
@@ -59,24 +61,20 @@ class RouteListener implements ListenerAggregateInterface
      */
     public function onRoute($e)
     {
-        $target     = $e->getTarget();
+        $target     = $e->getApplication(); //$e->getTarget();
         $request    = $e->getRequest();
         $router     = $e->getRouter();
         $routeMatch = $router->match($request);
 
-        if (!$routeMatch instanceof Router\RouteMatch) {
-            $e->setError(Application::ERROR_ROUTER_NO_MATCH);
-
-            $results = $target->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
-            if (count($results)) {
-                $return  = $results->last();
-            } else {
-                $return = $e->getParams();
-            }
-            return $return;
+        if ($routeMatch instanceof Router\RouteMatch) {
+            $e->setRouteMatch($routeMatch);
         }
 
-        $e->setRouteMatch($routeMatch);
         return $routeMatch;
+    }
+
+    public function __invoke(ServiceManager $sm)
+    {
+        return $this;
     }
 }

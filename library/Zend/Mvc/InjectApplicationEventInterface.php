@@ -9,7 +9,7 @@
 
 namespace Zend\Mvc;
 
-use Zend\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface as Event;
 
 interface InjectApplicationEventInterface
 {

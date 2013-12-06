@@ -10,11 +10,13 @@
 namespace Zend\Mvc;
 
 use ArrayObject;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\CallbackListener;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\ServiceManager\ServiceManager;
 use Zend\Mvc\Exception\InvalidControllerException;
 use Zend\Stdlib\ArrayUtils;
-
+use Zend\Framework\MvcEvent;
 
 /**
  * Default dispatch listener
@@ -51,11 +53,11 @@ class DispatchListener implements ListenerAggregateInterface
      * @param  EventManagerInterface $events
      * @return void
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManager $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'));
+        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'onDispatch'), MvcEvent::EVENT_DISPATCH));
         if (function_exists('zend_monitor_custom_event_ex')) {
-            $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'reportMonitorEvent'));
+            $this->listeners[] = $events->attach(new CallbackListener(array($this, 'reportMonitorEvent'), MvcEvent::EVENT_DISPATCH_ERROR));
         }
     }
 
@@ -65,7 +67,7 @@ class DispatchListener implements ListenerAggregateInterface
      * @param  EventManagerInterface $events
      * @return void
      */
-    public function detach(EventManagerInterface $events)
+    public function detach(EventManager $events)
     {
         foreach ($this->listeners as $index => $listener) {
             if ($events->detach($listener)) {
@@ -217,5 +219,10 @@ class DispatchListener implements ListenerAggregateInterface
         }
 
         return $return;
+    }
+
+    public function __invoke(ServiceManager $sm)
+    {
+        return $this;
     }
 }
