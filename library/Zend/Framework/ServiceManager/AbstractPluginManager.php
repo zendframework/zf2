@@ -31,10 +31,9 @@ abstract class AbstractPluginManager
         return $this->config->get(strtolower($name));
     }
 
-    public function get(ServiceRequest $request)
+    public function get($name, $options)
     {
-        $request->setName($this->getAlias($request->getName()));
-        return $this->sm->get($request);
+        return $this->sm->get(new ServiceRequest($this->getAlias($name), $options));
     }
 
     public function add($name, $service)

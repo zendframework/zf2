@@ -377,7 +377,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      */
     public function plugin($name, array $options = array())
     {
-        return $this->getHelperPluginManager()->get(new ServiceRequest($name, $options));
+        return $this->getHelperPluginManager()->get($name, $options);
     }
 
     /**
