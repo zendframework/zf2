@@ -96,7 +96,7 @@ class Listener implements ListenerAggregateInterface
 
         $em->attach($controller);
 
-        $viewModel = new ViewModel();
+        $viewModel = $event->getViewModel();
 
         try {
 

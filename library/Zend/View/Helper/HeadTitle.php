@@ -13,6 +13,9 @@ use Zend\I18n\Translator\Translator;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\View\Exception;
 
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
+
 /**
  * Helper for setting and retrieving title element for HTML head
  */
@@ -53,6 +56,13 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      * @var bool
      */
     protected $translatorEnabled = true;
+
+    public function createService(ServiceManager $sm)
+    {
+        $service = new static();
+        $service->setTranslator($sm->get(new ServiceRequest('Translator')));
+        return $service;
+    }
 
     /**
      * Retrieve placeholder for title element and optionally set state

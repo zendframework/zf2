@@ -11,8 +11,10 @@ namespace Zend\View\Helper;
 
 use Zend\View\Helper\HelperInterface;
 use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\FactoryInterface;
 
-abstract class AbstractHelper implements HelperInterface
+abstract class AbstractHelper implements HelperInterface, FactoryInterface
 {
     /**
      * View object instance
@@ -41,5 +43,10 @@ abstract class AbstractHelper implements HelperInterface
     public function getView()
     {
         return $this->view;
+    }
+
+    public function createService(ServiceManager $sm)
+    {
+        return new static();
     }
 }

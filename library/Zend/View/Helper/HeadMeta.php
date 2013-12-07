@@ -12,6 +12,10 @@ namespace Zend\View\Helper;
 use stdClass;
 use Zend\View;
 use Zend\View\Exception;
+use Zend\View\Renderer\RendererInterface as Renderer;
+
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 /**
  * Zend\View\Helper\HeadMeta
@@ -71,8 +75,14 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     public function __construct()
     {
         parent::__construct();
-
         $this->setSeparator(PHP_EOL);
+    }
+
+    public function createService(ServiceManager $sm)
+    {
+        $service = new static();
+        $service->setView($sm->get(new ServiceRequest('View\Renderer')));
+        return $service;
     }
 
     /**

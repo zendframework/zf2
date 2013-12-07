@@ -48,11 +48,13 @@ class InjectViewModelListener extends AbstractListenerAggregate
     public function injectViewModel(Event $e)
     {
         $result = $e->getResult();
+
         if (!$result instanceof ViewModel) {
             return;
         }
 
         $model = $e->getViewModel();
+
 
         if ($result->terminate()) {
             $e->setViewModel($result);

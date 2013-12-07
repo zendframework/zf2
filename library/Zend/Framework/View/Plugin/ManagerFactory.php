@@ -7,44 +7,45 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Mvc\Service;
+namespace Zend\Framework\View\Plugin;
 
 use Zend\Console\Console;
 use Zend\Mvc\Exception;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Framework\ServiceManager\ConfigInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\View\Helper as ViewHelper;
 use Zend\View\Helper\HelperInterface as ViewHelperInterface;
 use Zend\View\Helper\ViewModel;
 
-class ViewHelperManagerFactory extends AbstractPluginManagerFactory
-{
-    const PLUGIN_MANAGER_CLASS = 'Zend\View\HelperPluginManager';
+use Zend\Framework\Service\AbstractPluginManagerFactory;
+use Zend\Framework\ServiceManager\ServiceRequest;
+use Zend\Framework\ServiceManager\Config as ServiceConfig;
+use Zend\Framework\View\Plugin\Manager as PluginManager;
 
-    /**
-     * An array of helper configuration classes to ensure are on the helper_map stack.
-     *
-     * @var array
-     */
+class ManagerFactory implements FactoryInterface
+{
+
     protected $defaultHelperMapClasses = array(
         'Zend\Form\View\HelperConfig',
         'Zend\I18n\View\HelperConfig',
         'Zend\Navigation\View\HelperConfig'
     );
 
-    /**
-     * Create and return the view helper manager
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return ViewHelperInterface
-     * @throws Exception\RuntimeException
-     */
     public function createService(ServiceManager $serviceLocator)
     {
-        $plugins = parent::createService($serviceLocator);
+        $configuration = $serviceLocator->get(new ServiceRequest('ApplicationConfig'));
 
-        foreach ($this->defaultHelperMapClasses as $configClass) {
+        $config = $serviceLocator->get(new ServiceRequest('ViewManager'))->getViewHelpersConfig();
+
+        $plugins = new PluginManager($serviceLocator, new ServiceConfig($config));
+
+        if (isset($configuration['di']) && $serviceLocator->has('Di')) {
+            $plugins->addAbstractFactory($serviceLocator->get('DiAbstractServiceFactory'));
+        }
+
+        /*foreach ($this->defaultHelperMapClasses as $configClass) {
             if (is_string($configClass) && class_exists($configClass)) {
                 $config = new $configClass;
 
@@ -58,7 +59,7 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
 
                 $config($plugins);
             }
-        }
+        }*/
 
         // Configure URL view helper with router
         $plugins->addInvokableClass('url', function ($sm) use ($serviceLocator) {
@@ -109,7 +110,7 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
             return $doctypeHelper;
         });
 
-        $plugins->add('View\Helper\Viewmodel', new ViewModel);
+        $plugins->add('viewmodel', new ViewModel);
 
         return $plugins;
     }

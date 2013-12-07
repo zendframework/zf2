@@ -21,6 +21,8 @@ use Zend\View\Resolver\ResolverInterface as Resolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
 use Zend\Framework\ServiceManager\ServiceRequest;
+use Zend\Framework\View\Plugin\Request as PluginRequest;
+use Zend\Framework\View\Plugin\ManagerInterface as PluginManager;
 
 /**
  * Abstract class for Zend_View to help enforce private constructs.
@@ -342,13 +344,13 @@ class PhpRenderer implements Renderer, TreeRendererInterface
             }
             $helpers = new $helpers();
         }
-        if (!$helpers instanceof HelperPluginManager) {
+        if (!$helpers instanceof PluginManager) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Helper helpers must extend Zend\View\HelperPluginManager; got type "%s" instead',
                 (is_object($helpers) ? get_class($helpers) : gettype($helpers))
             ));
         }
-        $helpers->setRenderer($this);
+        //$helpers->setRenderer($this);
         $this->__helpers = $helpers;
 
         return $this;
@@ -376,7 +378,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      */
     public function plugin($name, array $options = array())
     {
-        return $this->getHelperPluginManager()->get(new ServiceRequest($name, $options));
+        return $this->getHelperPluginManager()->get(new PluginRequest($name, $options));
     }
 
     /**

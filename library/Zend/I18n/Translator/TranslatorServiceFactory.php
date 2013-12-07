@@ -9,18 +9,19 @@
 
 namespace Zend\I18n\Translator;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 /**
  * Translator.
  */
 class TranslatorServiceFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceManager $sm)
     {
         // Configure the translator
-        $config = $serviceLocator->get('Config');
+        $config = $sm->get(new ServiceRequest('ApplicationConfig'));
         $trConfig = isset($config['translator']) ? $config['translator'] : array();
         $translator = Translator::factory($trConfig);
         return $translator;

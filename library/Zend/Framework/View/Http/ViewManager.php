@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Mvc\View\Http;
+namespace Zend\Framework\View\Http;
 
 use Traversable;
 use Zend\Framework\EventManager\AbstractListenerAggregate;
@@ -22,6 +22,15 @@ use Zend\View\Renderer\PhpRenderer as ViewPhpRenderer;
 use Zend\View\Resolver as ViewResolver;
 use Zend\View\Strategy\PhpRendererStrategy;
 use Zend\View\View;
+use Zend\Mvc\View\Http\RouteNotFoundStrategy;
+use Zend\Mvc\View\Http\ExceptionStrategy;
+use Zend\Mvc\View\Http\DefaultRenderingStrategy;
+use Zend\Mvc\View\Http\CreateViewModelListener;
+use Zend\Mvc\View\Http\InjectTemplateListener;
+use Zend\Mvc\View\Http\InjectViewModelListener;
+use Zend\Framework\View\ViewManagerInterface;
+
+use Zend\Framework\ServiceManager\ConfigInterface as Config;
 
 /**
  * Prepares the view layer
@@ -45,11 +54,18 @@ use Zend\View\View;
  * - RouteNotFoundStrategy (also aliased to Zend\Mvc\View\Http\RouteNotFoundStrategy and 404Strategy)
  * - ViewModel
  */
-class ViewManager extends AbstractListenerAggregate
+class ViewManager extends AbstractListenerAggregate implements ViewManagerInterface
 {
+    protected $config;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
+
     public function getViewHelpersConfig()
     {
-
+        return $this->config->get('view_helpers');
     }
 
     public function attach(EventManager $em)
@@ -88,7 +104,10 @@ class ViewManager extends AbstractListenerAggregate
 
         $viewModel->setTemplate($layoutTemplate);
 
-        $rendererStrategy = new PhpRendererStrategy($this->getRenderer($viewModel, $resolver, $viewHelperManager));
+        $renderer = $this->getRenderer($viewModel, $resolver, $viewHelperManager);
+        $services->add('View\Renderer', $renderer);
+
+        $rendererStrategy = new PhpRendererStrategy($renderer);
 
         $view = $this->getView($em, $rendererStrategy, $services);
 
@@ -129,10 +148,10 @@ class ViewManager extends AbstractListenerAggregate
         return $view;
     }
 
-    public function getRenderer($viewModel, $resolver, $viewHelperManager)
+    public function getRenderer($viewModel, $resolver, $pluginManager)
     {
         $renderer = new ViewPhpRenderer;
-        $renderer->setHelperPluginManager($viewHelperManager);
+        $renderer->setHelperPluginManager($pluginManager);
         $renderer->setResolver($resolver);
 
         $modelHelper = $renderer->plugin('viewmodel');

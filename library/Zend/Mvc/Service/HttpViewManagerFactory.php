@@ -11,7 +11,9 @@ namespace Zend\Mvc\Service;
 
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Mvc\View\Http\ViewManager as HttpViewManager;
+use Zend\Framework\View\Http\ViewManager as HttpViewManager;
+use Zend\Framework\ServiceManager\Config as ServiceConfig;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 class HttpViewManagerFactory implements FactoryInterface
 {
@@ -23,7 +25,8 @@ class HttpViewManagerFactory implements FactoryInterface
      */
     public function createService(ServiceManager $serviceLocator)
     {
-        return new HttpViewManager();
+        $config = $serviceLocator->get(new ServiceRequest('ApplicationConfig'))['view_manager'];
+        return new HttpViewManager(new ServiceConfig($config));
     }
 
     public function __invoke(ServiceManager $serviceLocator)

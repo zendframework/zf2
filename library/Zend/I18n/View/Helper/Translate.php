@@ -11,11 +11,23 @@ namespace Zend\I18n\View\Helper;
 
 use Zend\I18n\Exception;
 
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
+
+
 /**
  * View helper for translating messages.
  */
 class Translate extends AbstractTranslatorHelper
 {
+
+    public function createService(ServiceManager $sm)
+    {
+        $service = new static();
+        $service->setTranslator($sm->get(new ServiceRequest('Translator')));
+        return $service;
+    }
+
     /**
      * Translate a message
      *

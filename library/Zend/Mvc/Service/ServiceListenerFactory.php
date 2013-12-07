@@ -169,7 +169,8 @@ class ServiceListenerFactory implements ServiceManagerListenerInterface
         'rendertoplaceholder' => 'Zend\View\Helper\RenderToPlaceholder',
         'serverurl'           => 'Zend\View\Helper\ServerUrl',
         'url'                 => 'Zend\View\Helper\Url',
-        'viewmodel'           => 'Zend\View\Helper\ViewModel',
+        //'viewmodel'           => 'Zend\View\Helper\ViewModel',
+        'View\Helper\ViewModel'           => 'Zend\View\Helper\ViewModel'
 
     );
 
