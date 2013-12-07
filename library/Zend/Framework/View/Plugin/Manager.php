@@ -13,10 +13,7 @@ use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Framework\ServiceManager\AbstractPluginManager;
 use Zend\Framework\ServiceManager\ConfigInterface;
 use Zend\Framework\ServiceManager\ServiceRequest;
-use Zend\Framework\View\Plugin\Request as PluginRequest;
-
 use Zend\View\Renderer\RendererInterface as Renderer;
-
 use Zend\Framework\View\Plugin\ManagerInterface;
 
 /**

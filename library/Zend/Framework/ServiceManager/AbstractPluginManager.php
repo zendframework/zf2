@@ -10,7 +10,6 @@
 namespace Zend\Framework\ServiceManager;
 
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\View\Plugin\Request as PluginRequest;
 
 use Zend\I18n\Translator\TranslatorAwareInterface as Translator;
 use Zend\Framework\ServiceManager\ConfigInterface as Config;
@@ -32,9 +31,10 @@ abstract class AbstractPluginManager
         return $this->config->get(strtolower($name));
     }
 
-    public function get(PluginRequest $request)
+    public function get(ServiceRequest $request)
     {
-        return $this->sm->get(new ServiceRequest($this->getAlias($request->getName())));
+        $request->setName($this->getAlias($request->getName()));
+        return $this->sm->get($request);
     }
 
     public function add($name, $service)

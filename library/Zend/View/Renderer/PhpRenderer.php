@@ -21,7 +21,6 @@ use Zend\View\Resolver\ResolverInterface as Resolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
 use Zend\Framework\ServiceManager\ServiceRequest;
-use Zend\Framework\View\Plugin\Request as PluginRequest;
 use Zend\Framework\View\Plugin\ManagerInterface as PluginManager;
 
 /**
@@ -378,7 +377,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      */
     public function plugin($name, array $options = array())
     {
-        return $this->getHelperPluginManager()->get(new PluginRequest($name, $options));
+        return $this->getHelperPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**

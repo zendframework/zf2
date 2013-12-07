@@ -110,8 +110,6 @@ class ManagerFactory implements FactoryInterface
             return $doctypeHelper;
         });
 
-        $plugins->add('viewmodel', new ViewModel);
-
         return $plugins;
     }
 }
