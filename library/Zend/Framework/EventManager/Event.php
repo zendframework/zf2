@@ -65,7 +65,7 @@ class Event implements EventInterface
             $this->setTarget($target);
         }
 
-        if (null === $callback) {
+        if (null == $callback) {
             $callback = $this->getDefaultCallback();
         }
 
@@ -88,9 +88,7 @@ class Event implements EventInterface
      */
     public function getDefaultCallback()
     {
-        return function($event, $listener, $response) {
-            return $event->propagationIsStopped();
-        };
+        return null;
     }
 
     /**
