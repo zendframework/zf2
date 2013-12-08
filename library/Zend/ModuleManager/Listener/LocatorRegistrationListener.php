@@ -10,7 +10,7 @@
 namespace Zend\ModuleManager\Listener;
 
 use Zend\Framework\EventManager\Event;
-use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
 use Zend\Framework\EventManager\ListenerAggregateInterface;
 use Zend\Framework\EventManager\CallbackListener;
 use Zend\ModuleManager\Feature\LocatorRegisteredInterface;

@@ -90,8 +90,9 @@ class ServiceManager implements ServiceLocatorInterface
                 $instance = $service($listener);
                 if ($instance) {
                     if ($service->isShared()) {
-                        $this->listeners[$name] = $listener;
                         $this->shared[$name] = $instance;
+                    } else {
+                        $this->listeners[$name] = $listener;
                     }
                     break;
                 }

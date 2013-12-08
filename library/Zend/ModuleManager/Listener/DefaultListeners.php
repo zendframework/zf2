@@ -11,7 +11,7 @@ namespace Zend\ModuleManager\Listener;
 
 use Zend\ModuleManager\Listener\ListenerOptions;
 
-use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
 use Zend\Framework\EventManager\ListenerAggregateInterface;
 use Zend\ModuleManager\ModuleEvent;
 use Zend\Stdlib\CallbackHandler;

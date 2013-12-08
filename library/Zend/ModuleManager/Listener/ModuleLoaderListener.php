@@ -9,7 +9,7 @@
 
 namespace Zend\ModuleManager\Listener;
 
-use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\EventManager\ListenerAggregateInterface;
 use Zend\Framework\EventManager\CallbackListener;

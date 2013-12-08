@@ -12,7 +12,7 @@ namespace Zend\ModuleManager\Listener;
 use Traversable;
 use Zend\Config\Config;
 use Zend\Config\Factory as ConfigFactory;
-use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
 use Zend\Framework\EventManager\CallbackListener;
 use Zend\Framework\EventManager\ListenerAggregateInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;

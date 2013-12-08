@@ -10,7 +10,7 @@
 namespace Zend\ModuleManager\Listener;
 
 use Traversable;
-use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
 use Zend\Framework\EventManager\CallbackListener;
 use Zend\ModuleManager\ModuleEvent;
 use Zend\Framework\ServiceManager\Config as ServiceConfig;

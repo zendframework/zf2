@@ -27,9 +27,7 @@ class EventManagerFactory implements FactoryInterface
      */
     public function createService(ServiceManager $sm)
     {
-        $em = new EventManager();
-        $em->attach($sm->get(new ServiceRequest('SharedEventManager')));
-        return $em;
+        return new EventManager();
     }
 
     public function __invoke($sm)
