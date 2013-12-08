@@ -212,7 +212,11 @@ class Application implements
 
             $em->trigger($dispatchEvent);
 
-        } catch (DispatchException $exception) {var_dump(__LINE__.' '.__FILE__);exit;
+            $request   = $dispatchEvent->getRequest();
+            $response  = $dispatchEvent->getResponse();
+            $viewModel = $dispatchEvent->getViewModel();
+
+        } catch (DispatchException $exception) {
             $errorEvent = new DispatchErrorEvent();
 
             $errorEvent->setTarget($this)
@@ -221,10 +225,11 @@ class Application implements
                        ->setControllerClass($exception->getControllerClass());
 
             $em->trigger($errorEvent);
-        }
 
-        $request = isset($errorEvent) ? $errorEvent->getRequest() : $dispatchEvent->getRequest();
-        $response = isset($errorEvent) ? $errorEvent->getResponse() : $dispatchEvent->getResponse();
+            $request   = $errorEvent->getRequest();
+            $response  = $errorEvent->getResponse();
+            $viewModel = $errorEvent->getViewModel();
+        }
 
         $renderEvent = new RenderEvent();
 
@@ -232,7 +237,7 @@ class Application implements
                     ->setApplication($this)
                     ->setRequest($request)
                     ->setResponse($response)
-                    ->setViewModel($bootstrapEvent->getViewModel());
+                    ->setViewModel($viewModel);
 
         $em->trigger($renderEvent);
 
@@ -245,7 +250,7 @@ class Application implements
         $responseEvent = new ResponseEvent();
 
         $responseEvent->setTarget($this)
-            ->setResponse($response);
+                      ->setResponse($response);
 
         $em->trigger($responseEvent);
 
