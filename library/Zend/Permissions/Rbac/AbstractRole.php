@@ -58,11 +58,13 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
     /**
      * Checks if a permission exists for this role or any child roles.
      *
-     * @param  string $name
+     * @param  string|PermissionInterface $nameOrPermission
      * @return bool
      */
-    public function hasPermission($name)
+    public function hasPermission($nameOrPermission)
     {
+        $name = $nameOrPermission instanceof PermissionInterface ? $nameOrPermission->getName() : $name;
+        
         if (isset($this->permissions[$name])) {
             return true;
         }
