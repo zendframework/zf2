@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\ServiceManager;
 
+use Zend\Framework\ServiceManager\ServiceManagerInterface;
 use Zend\Framework\ServiceManager\ConfigInterface;
 
 class Config implements ConfigInterface
@@ -47,7 +48,7 @@ class Config implements ConfigInterface
      * @param ServiceManager $serviceManager
      * @return void
      */
-    public function __invoke(ServiceManager $serviceManager)
+    public function __invoke(ServiceManagerInterface $serviceManager)
     {
         $serviceManager->setConfig($this);
     }

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager\ServiceManagerInterface;
 
 interface ConfigInterface
 {
@@ -19,5 +19,5 @@ interface ConfigInterface
      * @param ServiceManager $serviceManager
      * @return void
      */
-    public function __invoke(ServiceManager $serviceManager);
+    public function __invoke(ServiceManagerInterface $serviceManager);
 }

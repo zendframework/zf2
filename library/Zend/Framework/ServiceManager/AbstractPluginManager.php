@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceManagerInterface;
 
 use Zend\I18n\Translator\TranslatorAwareInterface as Translator;
-use Zend\Framework\ServiceManager\ConfigInterface as Config;
+use Zend\Framework\ServiceManager\ConfigInterface;
 
 abstract class AbstractPluginManager
 {
@@ -20,7 +20,7 @@ abstract class AbstractPluginManager
 
     protected $sm;
 
-    public function __construct(ServiceManager $sm, Config $config)
+    public function __construct(ServiceManagerInterface $sm, ConfigInterface $config)
     {
         $this->sm = $sm;
         $this->config = $config;
@@ -48,6 +48,6 @@ abstract class AbstractPluginManager
      */
     public function addInvokableClass($name, $class)
     {
-        $this->sm->addInvokableClass($name, $class);
+        $this->sm->addInvokableClass($this->getAlias($name), $class);
     }
 }

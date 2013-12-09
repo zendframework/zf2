@@ -62,15 +62,14 @@ class ManagerFactory implements FactoryInterface
         }*/
 
         // Configure URL view helper with router
-        $plugins->addInvokableClass('url', function ($sm) use ($serviceLocator) {
+        $plugins->addInvokableClass('urlx', function ($sm) use ($serviceLocator) {
             $helper = new ViewHelper\Url;
             $router = Console::isConsole() ? 'HttpRouter' : 'Router';
-            $helper->setRouter($serviceLocator->get($router));
+            $helper->setRouter($serviceLocator->get(new ServiceRequest($router)));
 
-            $match = $serviceLocator->get('application')
-                ->getMvcEvent()
-                ->getRouteMatch()
-            ;
+            $match = $serviceLocator->get(new ServiceRequest('Application'))
+                                    ->getMvcEvent()
+                                    ->getRouteMatch();
 
             if ($match instanceof RouteMatch) {
                 $helper->setRouteMatch($match);
@@ -80,7 +79,7 @@ class ManagerFactory implements FactoryInterface
         });
 
         $plugins->addInvokableClass('basepath', function ($sm) use ($serviceLocator) {
-            $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
+            $config = $serviceLocator->get(new ServiceRequest('ApplicationConfig'));
             $basePathHelper = new ViewHelper\BasePath;
             if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
                 $basePathHelper->setBasePath($config['view_manager']['base_path']);
@@ -101,7 +100,7 @@ class ManagerFactory implements FactoryInterface
          * based on. This is why it must be set early instead of later in the layout phtml.
          */
         $plugins->addInvokableClass('doctype', function ($sm) use ($serviceLocator) {
-            $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
+            $config = $serviceLocator->get(new ServiceRequest('ApplicationConfig'));
             $config = isset($config['view_manager']) ? $config['view_manager'] : array();
             $doctypeHelper = new ViewHelper\Doctype;
             if (isset($config['doctype']) && $config['doctype']) {
