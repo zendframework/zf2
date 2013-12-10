@@ -11,6 +11,8 @@ namespace Zend\Framework\Route;
 
 use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\Event as EventManagerEvent;
+
+use Zend\Mvc\Router\RouteMatch;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class Event extends EventManagerEvent
@@ -25,7 +27,7 @@ class Event extends EventManagerEvent
 
     protected $routeMatch;
 
-    public function getError()
+    /*public function getError()
     {
         return $this->error;
     }
@@ -33,7 +35,7 @@ class Event extends EventManagerEvent
     public function setError($error)
     {
         $this->error = $error;
-    }
+    }*/
 
     public function getRequest()
     {
@@ -73,9 +75,17 @@ class Event extends EventManagerEvent
     public function getDefaultCallback()
     {
         return function($event, $listener, $response) {
-            if ($response instanceof Response || $event->getError()) {
+            /*$request    = $event->getRequest();
+            $router     = $event->getRouter();
+            $routeMatch = $router->match($request);
+
+            if ($routeMatch instanceof RouteMatch) {
+                $event->setRouteMatch($routeMatch);
+            }*/
+
+            /*if ($response instanceof Response || $event->getError()) {
                 $event->stopPropagation();
-            }
+            }*/
         };
     }
 }

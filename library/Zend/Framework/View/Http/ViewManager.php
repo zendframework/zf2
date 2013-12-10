@@ -25,9 +25,9 @@ use Zend\View\View;
 use Zend\Mvc\View\Http\RouteNotFoundStrategy;
 use Zend\Mvc\View\Http\ExceptionStrategy;
 use Zend\Mvc\View\Http\DefaultRenderingStrategy;
-use Zend\Mvc\View\Http\CreateViewModelListener;
-use Zend\Mvc\View\Http\InjectTemplateListener;
-use Zend\Mvc\View\Http\InjectViewModelListener;
+use Zend\Framework\View\Model\CreateViewModelListener;
+use Zend\Framework\View\Template\Listener as TemplateListener;
+use Zend\Framework\View\Model\Listener as ViewModelListener;
 use Zend\Framework\View\ViewManagerInterface;
 
 use Zend\Framework\ServiceManager\ConfigInterface as Config;
@@ -86,53 +86,37 @@ class ViewManager extends AbstractListenerAggregate implements ViewManagerInterf
     {
         $application = $event->getApplication();
 
-        $services     = $application->getServiceManager();
+        $services = $application->getServiceManager();
 
-        $config       = $application->getConfig()['view_manager'];
+        $config = $application->getConfig()['view_manager'];
 
         $em = $application->getEventManager();
-
-        $routeNotFoundStrategy = $this->getRouteNotFoundStrategy($config, $services);
-
-        $exceptionStrategy = $this->getExceptionStrategy($config, $services);
 
         $layoutTemplate = $this->getLayoutTemplate($config);
 
         $resolver = $services->get(new ServiceRequest('ViewResolver'));
-        $viewHelperManager = $services->get(new ServiceRequest('ViewHelperManager'));
-        $viewModel = $event->getViewModel();
 
+        $viewHelperManager = $services->get(new ServiceRequest('ViewHelperManager'));
+
+        $viewModel = $event->getViewModel();
         $viewModel->setTemplate($layoutTemplate);
 
         $renderer = $this->getRenderer($viewModel, $resolver, $viewHelperManager);
         $services->add('View\Renderer', $renderer);
 
-        $rendererStrategy = new PhpRendererStrategy($renderer);
-
-        $view = $this->getView($em, $rendererStrategy, $services);
-
-        $mvcRenderingStrategy    = $this->getMvcRenderingStrategy($view, $layoutTemplate, $services);
-
-        $createViewModelListener = new CreateViewModelListener();
-        $injectTemplateListener  = new InjectTemplateListener();
-        $injectViewModelListener = new InjectViewModelListener();
+        $view = $this->getView($em, new PhpRendererStrategy($renderer), $services);
 
         $this->registerMvcRenderingStrategies($config, $em, $services);
         $this->registerViewStrategies($config, $view, $services);
 
-        $em->attach($routeNotFoundStrategy);
-        $em->attach($exceptionStrategy);
+        $em->attach($this->getRouteNotFoundStrategy($config, $services));
+        $em->attach($this->getExceptionStrategy($config, $services));
 
-        $em->attach(new CallbackListener(array($injectViewModelListener, 'injectViewModel'), MvcEvent::EVENT_DISPATCH_ERROR, null, -100));
-        $em->attach(new CallbackListener(array($injectViewModelListener, 'injectViewModel'), MvcEvent::EVENT_RENDER_ERROR, null, -100));
+        $em->attach(new ViewModelListener); //-100
+        $em->attach(new TemplateListener); //-90
+        $em->attach(new CreateViewModelListener); //-80
 
-        $em->attach($mvcRenderingStrategy);
-
-        $em->attach(new CallbackListener(array($createViewModelListener, 'createViewModelFromArray'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -80));
-        $em->attach(new CallbackListener(array($routeNotFoundStrategy, 'prepareNotFoundViewModel'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -90));
-        $em->attach(new CallbackListener(array($createViewModelListener, 'createViewModelFromNull'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -80));
-        $em->attach(new CallbackListener(array($injectTemplateListener, 'injectTemplate'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -90));
-        $em->attach(new CallbackListener(array($injectViewModelListener, 'injectViewModel'), MvcEvent::EVENT_CONTROLLER_DISPATCH, 'Zend\Stdlib\DispatchableInterface', -100));
+        $em->attach($this->getMvcRenderingStrategy($view, $layoutTemplate, $services));
     }
 
     public function getView($em, $rendererStrategy, $services)
