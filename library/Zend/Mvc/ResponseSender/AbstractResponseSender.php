@@ -10,8 +10,8 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Header\MultipleHeaderInterface;
-use Zend\EventManager\EventInterface;
-use Zend\EventManager\Listener as EventListener;
+use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\Listener as EventListener;
 
 abstract class AbstractResponseSender
     extends EventListener

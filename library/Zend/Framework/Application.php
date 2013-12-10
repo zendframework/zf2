@@ -53,14 +53,6 @@ class Application implements
 
     protected $config;
 
-    protected $defaultListeners = array(
-        'RouteListener',
-        'ModuleRouteListener',
-        'DispatchListener',
-        'ViewManager',
-        'ResponseListener',
-    );
-
     protected $event;
 
     protected $em;
@@ -77,6 +69,8 @@ class Application implements
 
     protected $bootstrapEvent;
 
+    protected $viewModel;
+
     public function __construct(ServiceManager $sm)
     {
         $this->sm               = $sm;
@@ -86,39 +80,12 @@ class Application implements
         $this->response         = $sm->get(new ServiceRequest('Response'));
         $this->router           = $sm->get(new ServiceRequest('Router'));
         $this->controllerLoader = $sm->get(new ServiceRequest('ControllerLoader'));
+        $this->viewModel        = new ViewModel;
     }
 
     public function getConfig()
     {
         return $this->config;
-    }
-
-    public function bootstrap()
-    {
-        $sm = $this->sm;
-        $em = $this->em;
-
-        $listeners = $this->defaultListeners;
-
-        foreach($listeners as $listener) {
-            $em->attach($sm->get(new ServiceRequest($listener)));
-        }
-
-        $event = new BootstrapEvent();
-
-        $event->setTarget($this)
-              ->setApplication($this)
-              ->setRequest($this->request)
-              ->setResponse($this->response)
-              ->setRouter($this->router)
-              ->setControllerLoader($this->controllerLoader)
-              ->setViewModel(new ViewModel);
-
-        $em->trigger($event);
-
-        $this->bootstrapEvent = $event;
-
-        return $this;
     }
 
     public function getServiceManager()
@@ -155,6 +122,14 @@ class Application implements
     }
 
     /**
+     * @return ViewModel
+     */
+    public function getViewModel()
+    {
+        return $this->viewModel;
+    }
+
+    /**
      * @param array $config
      * @return mixed
      */
@@ -171,7 +146,15 @@ class Application implements
 
         $sm->add('Application', $application);
 
-        return $application->bootstrap();
+        $em = $application->getEventManager();
+
+        $listeners = $config['mvc_listeners'];
+
+        foreach($listeners as $l) {
+            $em->attach($sm->get(new ServiceRequest($l)));
+        }
+
+        return $application;
     }
 
     /**
@@ -179,9 +162,20 @@ class Application implements
      */
     public function run()
     {
-        $em = $this->getEventManager();
+        $em = $this->em;
 
-        $bootstrapEvent = $this->bootstrapEvent;
+        $bootstrapEvent = new BootstrapEvent();
+
+        $bootstrapEvent->setTarget($this)
+                       ->setApplication($this)
+                       ->setServiceManager($this->sm)
+                       ->setRequest($this->request)
+                       ->setResponse($this->response)
+                       ->setRouter($this->router)
+                       ->setControllerLoader($this->controllerLoader)
+                       ->setViewModel($this->viewModel);
+
+        $em->trigger($bootstrapEvent);
 
         $request          = $bootstrapEvent->getRequest();
         $router           = $bootstrapEvent->getRouter();

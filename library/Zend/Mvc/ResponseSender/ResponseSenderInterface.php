@@ -9,8 +9,8 @@
 
 namespace Zend\Mvc\ResponseSender;
 
-use Zend\EventManager\EventInterface;
-use Zend\EventManager\ListenerInterface;
+use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\ListenerInterface;
 
 interface ResponseSenderInterface extends ListenerInterface
 {

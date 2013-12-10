@@ -9,6 +9,8 @@
 
 namespace Zend\EventManager;
 
+use Zend\Framework\EventManager\ListenerInterface;
+
 /**
  * Representation of an event
  */
@@ -95,10 +97,16 @@ interface EventInterface
     public function propagationIsStopped();
 
     /**
-     * Invokes listener
-     *
-     * @param $listener
+     * @param callable $trigger
      * @return mixed
      */
-    public function __invoke($listener);
+    public function setTrigger(callable $trigger);
+
+    /**
+     * Invokes listener
+     *
+     * @param ListenerInterface $listener
+     * @return mixed
+     */
+    public function __invoke(ListenerInterface $listener);
 }

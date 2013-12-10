@@ -9,7 +9,7 @@
 
 namespace Zend\Mvc\ResponseSender;
 
-use Zend\EventManager\Event;
+use Zend\Framework\EventManager\Event;
 use Zend\Stdlib\ResponseInterface;
 
 class SendResponseEvent extends Event

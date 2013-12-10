@@ -98,10 +98,10 @@ class ServiceListenerFactory implements ServiceManagerListenerInterface
         'SharedEventManager'             => 'Zend\Mvc\Service\SharedEventManagerFactory',
         'ModuleManager\DefaultListeners' => 'Zend\ModuleManager\Listener\DefaultListenersFactory',
 
-        'DispatchListener'    => 'Zend\Framework\Dispatch\Listener',
-        'RouteListener'       => 'Zend\Framework\Route\Listener',
-        'ModuleRouteListener' => 'Zend\Framework\Module\RouteListener',
-        'ResponseListener'    => 'Zend\Framework\Response\Listener',
+        'Dispatch\Listener'    => 'Zend\Framework\Dispatch\Listener',
+        'Route\Listener'       => 'Zend\Framework\Route\Listener',
+        'Module\Route\Listener' => 'Zend\Framework\Module\RouteListener',
+        'Response\Listener'    => 'Zend\Framework\Response\Listener',
 
         'Application'                    => 'Zend\Framework\ApplicationFactory',
         'Config'                         => 'Zend\Mvc\Service\ConfigFactory',

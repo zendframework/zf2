@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Module;
+namespace Zend\Framework\Module\Route;
 
 use Zend\Framework\EventManager\EventManagerInterface as EventManager;
 use Zend\Framework\EventManager\Event;
@@ -17,7 +17,7 @@ use Zend\Framework\EventManager\CallbackListener;
 use Zend\Framework\ServiceManager\ServiceManager;
 use Zend\Mvc\Router\Http\RouteMatch;
 
-class RouteListener implements ListenerAggregateInterface
+class Listener implements ListenerAggregateInterface
 {
     const MODULE_NAMESPACE    = '__NAMESPACE__';
     const ORIGINAL_CONTROLLER = '__CONTROLLER__';

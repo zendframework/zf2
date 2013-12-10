@@ -10,7 +10,7 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Response;
-use Zend\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface;
 
 class HttpResponseSender extends AbstractResponseSender
 {

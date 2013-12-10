@@ -9,6 +9,8 @@
 
 namespace Zend\EventManager;
 
+use Zend\Framework\EventManager\ListenerInterface;
+
 /**
  * Representation of an event
  *
@@ -38,9 +40,14 @@ class Event implements EventInterface
     protected $stopPropagation = false;
 
     /**
-     * @var callable called when the event's propogation has not been stopped by the listener
+     * @var callable called when the event's propagation has not been stopped by the listener
      */
     protected $callback;
+
+    /**
+     * @var callable
+     */
+    protected $trigger;
 
     /**
      * @var array
@@ -88,6 +95,16 @@ class Event implements EventInterface
         return function($event, $listener, $response) {
             return $event->propagationIsStopped();
         };
+    }
+
+    /**
+     * @param callable $trigger
+     * @return $this
+     */
+    public function setTrigger(callable $trigger)
+    {
+        $this->trigger = $trigger;
+        return $this;
     }
 
     /**
@@ -203,19 +220,30 @@ class Event implements EventInterface
     /**
      * Invokes listener with this event passed as its only argument.
      *
-     * @param $listener
+     * @param ListenerInterface $listener
      * @return bool
      */
-    public function __invoke($listener)
+    public function __invoke(ListenerInterface $listener)
+    {
+        if ($this->trigger) {
+            return $this->trigger($this, $listener);
+        }
+
+        return $this->triggerListener($listener);
+    }
+
+    /**
+     * @param ListenerInterface $listener
+     * @return bool|mixed
+     */
+    protected function defaultTrigger(ListenerInterface $listener)
     {
         $response = $listener($this);
 
         $this->eventResponses[] = $response;
 
-        if (!$this->callback) {
-            return false;
+        if ($this->callback) {
+            return call_user_func($this->callback, $this, $listener, $response);
         }
-
-        return call_user_func($this->callback, $this, $listener, $response);
     }
 }

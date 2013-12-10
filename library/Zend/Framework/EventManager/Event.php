@@ -46,6 +46,11 @@ class Event implements EventInterface
     protected $callback;
 
     /**
+     * @var callable
+     */
+    protected $trigger;
+
+    /**
      * @var array
      */
     protected $eventResponses = [];
@@ -89,6 +94,16 @@ class Event implements EventInterface
     public function getDefaultCallback()
     {
         return null;
+    }
+
+    /**
+     * @param callable $trigger
+     * @return $this
+     */
+    public function setTrigger(callable $trigger)
+    {
+        $this->trigger = $trigger;
+        return $this;
     }
 
     /**
@@ -201,20 +216,34 @@ class Event implements EventInterface
         return $this->eventResponses;
     }
 
+
     /**
      * Invokes listener with this event passed as its only argument.
      *
-     * @param EventListener $listener
+     * @param ListenerInterface $listener
      * @return bool
      */
-    public function __invoke(EventListener $listener)
+    public function __invoke(ListenerInterface $listener)
+    {
+        if ($this->trigger) {
+            return call_user_func($this->trigger, $this, $listener);
+        }
+
+        return $this->defaultTrigger($listener);
+    }
+
+    /**
+     * @param ListenerInterface $listener
+     * @return bool|mixed
+     */
+    protected function defaultTrigger(ListenerInterface $listener)
     {
         $response = $listener($this);
 
         $this->eventResponses[] = $response;
 
         if ($this->callback) {
-            call_user_func($this->callback, $this, $listener, $response);
+            return call_user_func($this->callback, $this, $listener, $response);
         }
     }
 }

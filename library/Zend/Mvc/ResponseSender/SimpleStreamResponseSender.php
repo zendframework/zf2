@@ -11,7 +11,7 @@ namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Header\MultipleHeaderInterface;
 use Zend\Http\Response\Stream;
-use Zend\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface;
 
 class SimpleStreamResponseSender extends AbstractResponseSender
 {

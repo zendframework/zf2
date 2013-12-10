@@ -99,6 +99,12 @@ interface EventInterface
     public function propagationIsStopped();
 
     /**
+     * @param callable $trigger
+     * @return mixed
+     */
+    public function setTrigger(callable $trigger);
+
+    /**
      * Invokes listener
      *
      * @param EventListener $listener

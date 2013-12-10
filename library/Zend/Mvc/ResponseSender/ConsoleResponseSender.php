@@ -10,8 +10,8 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Console\Response;
-use Zend\EventManager\Listener as EventListener;
-use Zend\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\Listener as EventListener;
 
 class ConsoleResponseSender extends EventListener
 {

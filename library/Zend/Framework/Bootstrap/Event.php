@@ -10,6 +10,7 @@
 namespace Zend\Framework\Bootstrap;
 
 use Zend\Framework\EventManager\Event as EventManagerEvent;
+use Zend\Framework\ServiceManager\ServiceManagerInterface;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as Model;
@@ -81,6 +82,8 @@ class Event extends EventManagerEvent
      * @var
      */
     protected $controllerLoader;
+
+    protected $sm;
 
     /**
      * Set application instance
@@ -320,6 +323,17 @@ class Event extends EventManagerEvent
     public function setControllerLoader($controllerLoader)
     {
         $this->controllerLoader = $controllerLoader;
+        return $this;
+    }
+
+    public function getServiceManager()
+    {
+        return $this->sm;
+    }
+
+    public function setServiceManager(ServiceManagerInterface $sm)
+    {
+        $this->sm = $sm;
         return $this;
     }
 }
