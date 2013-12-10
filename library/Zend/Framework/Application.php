@@ -158,7 +158,8 @@ class Application implements
     {
         $em = $this->em;
 
-        $bootstrapEvent = new BootstrapEvent();
+        //boostrap
+        $bootstrapEvent = new BootstrapEvent;
 
         $bootstrapEvent->setTarget($this)
                        ->setApplication($this)
@@ -177,7 +178,8 @@ class Application implements
         $controllerLoader = $bootstrapEvent->getControllerLoader();
         $viewModel        = $bootstrapEvent->getViewModel();
 
-        $routeEvent = new RouteEvent();
+        //route
+        $routeEvent = new RouteEvent;
 
         $routeEvent->setTarget($this)
                    ->setRequest($request)
@@ -187,7 +189,9 @@ class Application implements
 
         $routeMatch = $routeEvent->getRouteMatch();
 
-        $dispatchEvent = new DispatchEvent();
+        //dispatch
+        $dispatchEvent = new DispatchEvent;
+
         $dispatchEvent->setTarget($this)
                       ->setRouteMatch($routeMatch)
                       ->setEventManager($em)
@@ -200,27 +204,24 @@ class Application implements
 
             $em->trigger($dispatchEvent);
 
-            $request   = $dispatchEvent->getRequest();
-            $response  = $dispatchEvent->getResponse();
-            $viewModel = $dispatchEvent->getViewModel();
-
         } catch (DispatchException $exception) {
 
-            $errorEvent = new DispatchErrorEvent();
+            $dispatchEvent = new DispatchErrorEvent;
 
-            $errorEvent->setTarget($this)
-                       ->setException($exception->getException())
-                       ->setController($exception->getControllerName())
-                       ->setControllerClass($exception->getControllerClass());
+            $dispatchEvent->setTarget($this)
+                          ->setException($exception->getException())
+                          ->setController($exception->getControllerName())
+                          ->setControllerClass($exception->getControllerClass());
 
-            $em->trigger($errorEvent);
-
-            $request   = $errorEvent->getRequest();
-            $response  = $errorEvent->getResponse();
-            $viewModel = $errorEvent->getViewModel();
+            $em->trigger($dispatchEvent);
         }
 
-        $renderEvent = new RenderEvent();
+        $request   = $dispatchEvent->getRequest();
+        $response  = $dispatchEvent->getResponse();
+        $viewModel = $dispatchEvent->getViewModel();
+
+        //render
+        $renderEvent = new RenderEvent;
 
         $renderEvent->setTarget($this)
                     ->setApplication($this)
@@ -230,7 +231,8 @@ class Application implements
 
         $em->trigger($renderEvent);
 
-        $responseEvent = new ResponseEvent();
+        //response
+        $responseEvent = new ResponseEvent;
 
         $responseEvent->setTarget($this)
                       ->setResponse($renderEvent->getResponse());
