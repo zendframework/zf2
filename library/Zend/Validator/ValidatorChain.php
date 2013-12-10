@@ -10,6 +10,7 @@
 namespace Zend\Validator;
 
 use Countable;
+use Zend\ServiceManager\ServiceRequest;
 
 class ValidatorChain implements
     Countable,
@@ -78,8 +79,7 @@ class ValidatorChain implements
      */
     public function plugin($name, array $options = null)
     {
-        $plugins = $this->getPluginManager();
-        return $plugins->get($name, $options);
+        return $this->getPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**

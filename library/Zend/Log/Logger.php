@@ -12,6 +12,7 @@ namespace Zend\Log;
 use DateTime;
 use ErrorException;
 use Traversable;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\SplPriorityQueue;
 
@@ -221,7 +222,7 @@ class Logger implements LoggerInterface
      */
     public function writerPlugin($name, array $options = null)
     {
-        return $this->getWriterPluginManager()->get($name, $options);
+        return $this->getWriterPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**
@@ -323,7 +324,7 @@ class Logger implements LoggerInterface
      */
     public function processorPlugin($name, array $options = null)
     {
-        return $this->getProcessorPluginManager()->get($name, $options);
+        return $this->getProcessorPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**

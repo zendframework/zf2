@@ -10,6 +10,8 @@
 namespace Zend\Filter;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 /**
  * Plugin manager implementation for the filter chain.
@@ -87,6 +89,16 @@ class FilterPluginManager extends AbstractPluginManager
      * @var bool
      */
     protected $shareByDefault = false;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct(ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration);
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
+    }
 
     /**
      * Validate the plugin

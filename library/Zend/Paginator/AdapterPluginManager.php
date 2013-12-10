@@ -10,6 +10,9 @@
 namespace Zend\Paginator;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ServiceRequestInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 /**
  * Plugin manager implementation for paginator adapters.
@@ -41,21 +44,34 @@ class AdapterPluginManager extends AbstractPluginManager
     );
 
     /**
-     * Attempt to create an instance via a factory
-     *
-     * @param  string $canonicalName
-     * @param  string $requestedName
-     * @return mixed
-     * @throws \Zend\ServiceManager\Exception\ServiceNotCreatedException If factory is not callable
+     * @param ConfigInterface $configuration
      */
-    protected function createFromFactory($canonicalName, $requestedName)
+    public function __construct(ConfigInterface $configuration = null)
     {
-        $factory = $this->factories[$canonicalName];
+        parent::__construct($configuration);
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function createFromFactory($serviceRequest)
+    {
+        $name    = (string) $serviceRequest;
+        $factory = $this->factories[$name];
+
         if (is_string($factory) && class_exists($factory, true)) {
-            $factory = new $factory($this->creationOptions);
-            $this->factories[$canonicalName] = $factory;
+            if ($serviceRequest instanceof ServiceRequestInterface) {
+                $factory = new $factory($serviceRequest->getOptions());
+            } else {
+                $factory = new $factory();
+            }
+
+            $this->factories[$name] = $factory;
         }
-        return parent::createFromFactory($canonicalName, $requestedName);
+
+        return parent::createFromFactory($serviceRequest);
     }
 
     /**

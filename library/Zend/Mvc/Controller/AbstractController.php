@@ -19,6 +19,7 @@ use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -282,7 +283,7 @@ abstract class AbstractController implements
      */
     public function plugin($name, array $options = null)
     {
-        return $this->getPluginManager()->get($name, $options);
+        return $this->getPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**

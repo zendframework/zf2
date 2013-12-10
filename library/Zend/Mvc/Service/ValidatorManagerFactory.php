@@ -9,21 +9,10 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-
+/**
+ * @method \Zend\Validator\ValidatorPluginManager get($name)
+ */
 class ValidatorManagerFactory extends AbstractPluginManagerFactory
 {
     const PLUGIN_MANAGER_CLASS = 'Zend\Validator\ValidatorPluginManager';
-
-    /**
-     * Create and return the validator plugin manager
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return \Zend\Validator\ValidatorPluginManager
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
-    }
 }

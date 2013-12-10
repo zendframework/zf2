@@ -34,12 +34,12 @@ class DiStrictAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $im->addSharedInstance(new \stdClass(), 'a-whitelisted-service-name');
         $locator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
 
-        $this->assertTrue($instance->canCreateServiceWithName($locator, 'a-whitelisted-service-name', 'a-whitelisted-service-name'));
-        $this->assertInstanceOf('stdClass', $instance->createServiceWithName($locator, 'a-whitelisted-service-name', 'a-whitelisted-service-name'));
+        $this->assertTrue($instance->canCreateServiceWithName($locator, 'a-whitelisted-service-name'));
+        $this->assertInstanceOf('stdClass', $instance->createServiceWithName($locator, 'a-whitelisted-service-name'));
 
-        $this->assertFalse($instance->canCreateServiceWithName($locator, 'not-whitelisted', 'not-whitelisted'));
+        $this->assertFalse($instance->canCreateServiceWithName($locator, 'not-whitelisted'));
         $this->setExpectedException('Zend\ServiceManager\Exception\InvalidServiceNameException');
-        $instance->createServiceWithName($locator, 'not-whitelisted', 'not-whitelisted');
+        $instance->createServiceWithName($locator, 'not-whitelisted');
     }
 
     public function testWillFetchDependenciesFromServiceManagerBeforeDi()
@@ -58,7 +58,7 @@ class DiStrictAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $config->configure($di);
         $instance = new DiStrictAbstractServiceFactory($di, DiStrictAbstractServiceFactory::USE_SL_BEFORE_DI);
         $instance->setAllowedServiceNames(array($controllerName));
-        $service = $instance->createServiceWithName($locator, $controllerName, $controllerName);
+        $service = $instance->createServiceWithName($locator, $controllerName);
         $this->assertSame($testService, $service->injectedValue);
     }
 }

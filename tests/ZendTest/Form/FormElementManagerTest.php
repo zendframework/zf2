@@ -12,6 +12,7 @@ namespace ZendTest\Form;
 use Zend\Form\Factory;
 use Zend\Form\Form;
 use Zend\Form\FormElementManager;
+use Zend\ServiceManager\ServiceRequest;
 
 /**
  * @group      Zend_Form
@@ -66,7 +67,7 @@ class FormElementManagerTest extends \PHPUnit_Framework_TestCase
     public function testStringCreationOptions()
     {
         $args = 'foo';
-        $element = $this->manager->get('element', $args);
+        $element = $this->manager->get(new ServiceRequest('element', $args));
         $this->assertEquals('foo', $element->getName(), 'The argument is string');
     }
 
@@ -78,7 +79,7 @@ class FormElementManagerTest extends \PHPUnit_Framework_TestCase
                 'label' => 'bar'
             ),
         );
-        $element = $this->manager->get('element', $args);
+        $element = $this->manager->get(new ServiceRequest('element', $args));
         $this->assertEquals('foo', $element->getName(), 'Specified name in array[name]');
         $this->assertEquals('bar', $element->getLabel(), 'Specified options in array[options]');
     }
@@ -88,7 +89,7 @@ class FormElementManagerTest extends \PHPUnit_Framework_TestCase
         $args = array(
             'label' => 'bar'
         );
-        $element = $this->manager->get('element', $args);
+        $element = $this->manager->get(new ServiceRequest('element', $args));
         $this->assertEquals('element', $element->getName(), 'Invokable CNAME');
         $this->assertEquals('bar', $element->getLabel(), 'Specified options in array');
     }
@@ -100,7 +101,7 @@ class FormElementManagerTest extends \PHPUnit_Framework_TestCase
                 'label' => 'bar'
             ),
         );
-        $element = $this->manager->get('element', $args);
+        $element = $this->manager->get(new ServiceRequest('element', $args));
         $this->assertEquals('element', $element->getName(), 'Invokable CNAME');
         $this->assertEquals('bar', $element->getLabel(), 'Specified options in array[options]');
     }

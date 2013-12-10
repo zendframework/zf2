@@ -109,8 +109,8 @@ class AbstractFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new AbstractConfigFactory();
         $serviceLocator = $this->serviceManager;
 
-        $this->assertFalse($factory->canCreateServiceWithName($serviceLocator, 'mymodulefail', 'MyModule\Fail'));
-        $this->assertTrue($factory->canCreateServiceWithName($serviceLocator, 'mymoduleconfig', 'MyModule\Config'));
+        $this->assertFalse($factory->canCreateServiceWithName($serviceLocator, 'mymodulefail'));
+        $this->assertTrue($factory->canCreateServiceWithName($serviceLocator, 'mymoduleconfig'));
     }
 
     /**

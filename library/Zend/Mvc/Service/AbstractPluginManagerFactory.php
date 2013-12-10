@@ -17,6 +17,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 abstract class AbstractPluginManagerFactory implements FactoryInterface
 {
     const PLUGIN_MANAGER_CLASS = 'AbstractPluginManager';
+    const PLUGIN_CONFIG_CLASS = 'Zend\ServiceManager\Config';
 
     /**
      * Create and return a plugin manager.
@@ -29,8 +30,9 @@ abstract class AbstractPluginManagerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $pluginManagerClass = static::PLUGIN_MANAGER_CLASS;
+        $pluginConfigClass = static::PLUGIN_CONFIG_CLASS;
         /* @var $plugins \Zend\ServiceManager\AbstractPluginManager */
-        $plugins = new $pluginManagerClass;
+        $plugins = new $pluginManagerClass(new $pluginConfigClass());
         $plugins->setServiceLocator($serviceLocator);
         $configuration = $serviceLocator->get('Config');
 

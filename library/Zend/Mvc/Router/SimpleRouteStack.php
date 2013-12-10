@@ -10,6 +10,7 @@
 namespace Zend\Mvc\Router;
 
 use Traversable;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\RequestInterface as Request;
 
@@ -271,7 +272,7 @@ class SimpleRouteStack implements RouteStackInterface
             $specs['options'] = array();
         }
 
-        $route = $this->getRoutePluginManager()->get($specs['type'], $specs['options']);
+        $route = $this->getRoutePluginManager()->get(new ServiceRequest($specs['type'], $specs['options']));
 
         if (isset($specs['priority'])) {
             $route->priority = $specs['priority'];

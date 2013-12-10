@@ -94,7 +94,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $translator = new Translator();
         $services   = new ServiceManager();
-        $services->setService('Translator', $translator);
+        $services->setService('translator', $translator);
         $this->helpers->setServiceLocator($services);
 
         $helper = $this->helpers->get('HeadTitle');

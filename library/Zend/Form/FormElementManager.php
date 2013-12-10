@@ -12,6 +12,9 @@ namespace Zend\Form;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceRequest;
+use Zend\ServiceManager\ServiceRequestInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 use Zend\Stdlib\InitializableInterface;
 
 /**
@@ -76,6 +79,7 @@ class FormElementManager extends AbstractPluginManager
         parent::__construct($configuration);
 
         $this->addInitializer(array($this, 'injectFactory'));
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
     }
 
     /**
@@ -125,60 +129,43 @@ class FormElementManager extends AbstractPluginManager
     }
 
     /**
-     * Retrieve a service from the manager by name
-     *
-     * Allows passing an array of options to use when creating the instance.
-     * createFromInvokable() will use these and pass them to the instance
-     * constructor if not null and a non-empty array.
-     *
-     * @param  string $name
-     * @param  string|array $options
-     * @param  bool $usePeeringServiceManagers
-     * @return object
+     * {@inheritDoc}
      */
-    public function get($name, $options = array(), $usePeeringServiceManagers = true)
+    public function get($serviceRequest)
     {
-        if (is_string($options)) {
-            $options = array('name' => $options);
+        if ($serviceRequest instanceof ServiceRequest) {
+            $options = $serviceRequest->getOptions();
+
+            if (is_string($options)) {
+                $serviceRequest->setOptions(['name' => $options]);
+            }
         }
-        return parent::get($name, $options, $usePeeringServiceManagers);
+
+        return parent::get($serviceRequest);
     }
 
     /**
-     * Attempt to create an instance via an invokable class
-     *
-     * Overrides parent implementation by passing $creationOptions to the
-     * constructor, if non-null.
-     *
-     * @param  string $canonicalName
-     * @param  string $requestedName
-     * @return null|\stdClass
-     * @throws Exception\ServiceNotCreatedException If resolved class does not exist
+     * {@inheritDoc}
      */
-    protected function createFromInvokable($canonicalName, $requestedName)
+    protected function createFromInvokable($serviceRequest)
     {
-        $invokable = $this->invokableClasses[$canonicalName];
+        $name      = (string) $serviceRequest;
+        $invokable = $this->invokableClasses[$name];
 
-        if (null === $this->creationOptions
-            || (is_array($this->creationOptions) && empty($this->creationOptions))
-        ) {
-            $instance = new $invokable();
-        } else {
-            if (isset($this->creationOptions['name'])) {
-                $name = $this->creationOptions['name'];
-            } else {
-                $name = $requestedName;
+        if ($serviceRequest instanceof ServiceRequestInterface) {
+            $options  = $serviceRequest->getOptions();
+
+            if (isset($options['name'])) {
+                $name = $options['name'];
             }
 
-            if (isset($this->creationOptions['options'])) {
-                $options = $this->creationOptions['options'];
-            } else {
-                $options = $this->creationOptions;
+            if (isset($options['options'])) {
+                $options = $options['options'];
             }
 
-            $instance = new $invokable($name, $options);
+            return new $invokable($name, $options);
         }
 
-        return $instance;
+        return new $invokable();
     }
 }

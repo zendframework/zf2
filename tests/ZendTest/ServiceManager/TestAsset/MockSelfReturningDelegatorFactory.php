@@ -24,8 +24,12 @@ class MockSelfReturningDelegatorFactory implements DelegatorFactoryInterface
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param string $name
+     * @param callable $callback
+     * @return $this|mixed
      */
-    public function createDelegatorWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName, $callback)
+    public function createDelegatorWithName(ServiceLocatorInterface $serviceLocator, $name, $callback)
     {
         $this->instances[] = call_user_func($callback);
 

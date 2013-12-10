@@ -10,6 +10,8 @@
 namespace Zend\Tag\Cloud;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 use Zend\Tag\Exception;
 
 /**
@@ -31,6 +33,16 @@ class DecoratorPluginManager extends AbstractPluginManager
         'htmltag'   => 'Zend\Tag\Cloud\Decorator\HtmlTag',
         'tag'       => 'Zend\Tag\Cloud\Decorator\HtmlTag',
    );
+
+    /**
+     * @param ConfigInterface $configuration
+     */
+    public function __construct(ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration);
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
+    }
 
     /**
      * Validate the plugin

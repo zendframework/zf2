@@ -10,6 +10,7 @@
 namespace Zend\Filter;
 
 use Countable;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\PriorityQueue;
 
 class FilterChain extends AbstractFilter implements Countable
@@ -133,8 +134,7 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function plugin($name, array $options = array())
     {
-        $plugins = $this->getPluginManager();
-        return $plugins->get($name, $options);
+        return $this->getPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**
@@ -178,7 +178,7 @@ class FilterChain extends AbstractFilter implements Countable
         } elseif (empty($options)) {
             $options = null;
         }
-        $filter = $this->getPluginManager()->get($name, $options);
+        $filter = $this->getPluginManager()->get(new ServiceRequest($name, $options));
         return $this->attach($filter, $priority);
     }
 

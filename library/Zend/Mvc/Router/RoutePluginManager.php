@@ -10,6 +10,9 @@
 namespace Zend\Mvc\Router;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ServiceRequestInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 /**
  * Plugin manager implementation for routes
@@ -27,6 +30,16 @@ class RoutePluginManager extends AbstractPluginManager
      * @var bool
      */
     protected $shareByDefault = false;
+
+    /**
+     * @param ConfigInterface $configuration
+     */
+    public function __construct(ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration);
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
+    }
 
     /**
      * Override setInvokableClass().
@@ -79,35 +92,37 @@ class RoutePluginManager extends AbstractPluginManager
      * Overrides parent implementation by invoking the route factory,
      * passing $creationOptions as the argument.
      *
-     * @param  string $canonicalName
-     * @param  string $requestedName
+     * @param  string|ServiceRequestInterface $serviceRequest
+     *
      * @return null|\stdClass
+     *
      * @throws Exception\RuntimeException If resolved class does not exist, or does not implement RouteInterface
      */
-    protected function createFromInvokable($canonicalName, $requestedName)
+    protected function createFromInvokable($serviceRequest)
     {
-        $invokable = $this->invokableClasses[$canonicalName];
+        $name      = (string) $serviceRequest;
+        $invokable = $this->invokableClasses[$name];
         if (!class_exists($invokable)) {
             throw new Exception\RuntimeException(sprintf(
-                '%s: failed retrieving "%s%s" via invokable class "%s"; class does not exist',
+                '%s: failed retrieving "%s" via invokable class "%s"; class does not exist',
                 __METHOD__,
-                $canonicalName,
-                ($requestedName ? '(alias: ' . $requestedName . ')' : ''),
+                $name,
                 $invokable
             ));
         }
 
-        if (!static::isSubclassOf($invokable, __NAMESPACE__ . '\RouteInterface')) {
+        if (!is_subclass_of($invokable, __NAMESPACE__ . '\RouteInterface')) {
             throw new Exception\RuntimeException(sprintf(
-                '%s: failed retrieving "%s%s" via invokable class "%s"; class does not implement %s\RouteInterface',
+                '%s: failed retrieving "%s" via invokable class "%s"; class does not implement %s\RouteInterface',
                 __METHOD__,
-                $canonicalName,
-                ($requestedName ? '(alias: ' . $requestedName . ')' : ''),
+                $name,
                 $invokable,
                 __NAMESPACE__
             ));
         }
 
-        return $invokable::factory($this->creationOptions);
+        return $invokable::factory(
+            $serviceRequest instanceof ServiceRequestInterface ? (array) $serviceRequest->getOptions() : []
+        );
     }
 }

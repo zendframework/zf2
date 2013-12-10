@@ -32,32 +32,33 @@ class LoggerAbstractServiceFactory implements AbstractFactoryInterface
     protected $configKey = 'log';
 
     /**
-     * @param  ServiceLocatorInterface $services
-     * @param  string                  $name
-     * @param  string                  $requestedName
+     * @param  ServiceLocatorInterface $serviceLocator
+     * @param  string $name
+     * @internal param string $requestedName
      * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $config = $this->getConfig($services);
+        $config = $this->getConfig($serviceLocator);
+
         if (empty($config)) {
             return false;
         }
 
-        return isset($config[$requestedName]);
+        return isset($config[$name]);
     }
 
     /**
-     * @param  ServiceLocatorInterface $services
-     * @param  string                  $name
-     * @param  string                  $requestedName
+     * @param  ServiceLocatorInterface $serviceLocator
+     * @param  string $name
+     * @internal param string $requestedName
      * @return Logger
      */
-    public function createServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $config  = $this->getConfig($services);
-        $config  = $config[$requestedName];
-        $this->processConfig($config, $services);
+        $config  = $this->getConfig($serviceLocator);
+        $config  = $config[$name];
+        $this->processConfig($config, $serviceLocator);
         return new Logger($config);
     }
 

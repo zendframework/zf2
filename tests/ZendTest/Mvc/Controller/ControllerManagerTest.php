@@ -33,7 +33,6 @@ class ControllerManagerTest extends TestCase
 
         $this->controllers = new ControllerManager();
         $this->controllers->setServiceLocator($this->services);
-        $this->controllers->addPeeringServiceManager($this->services);
     }
 
     public function testInjectControllerDependenciesInjectsExpectedDependencies()

@@ -18,16 +18,15 @@ class ControllerLoaderAbstractFactory implements AbstractFactoryInterface
         'path' => 'ZendTest\Mvc\TestAsset\PathController',
     );
 
-    public function canCreateServiceWithName(ServiceLocatorInterface $sl, $cName, $rName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $classname = $this->classmap[$cName];
-        return class_exists($classname);
+        return class_exists($this->classmap[$name]);
     }
 
-    public function createServiceWithName(ServiceLocatorInterface $sl, $cName, $rName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $classname = $this->classmap[$cName];
-        $controller = new $classname;
-        return $controller;
+        $classname  = $this->classmap[$name];
+
+        return new $classname;
     }
 }

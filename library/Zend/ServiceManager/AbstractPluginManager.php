@@ -36,13 +36,6 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     protected $autoAddInvokableClass = true;
 
     /**
-     * Options to use when creating an instance
-     *
-     * @var mixed
-     */
-    protected $creationOptions = null;
-
-    /**
      * The main service locator
      *
      * @var ServiceLocatorInterface
@@ -81,28 +74,21 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     abstract public function validatePlugin($plugin);
 
     /**
-     * Retrieve a service from the manager by name
-     *
-     * Allows passing an array of options to use when creating the instance.
-     * createFromInvokable() will use these and pass them to the instance
-     * constructor if not null and a non-empty array.
-     *
-     * @param  string $name
-     * @param  array $options
-     * @param  bool $usePeeringServiceManagers
-     * @return object
+     * {@inheritDoc}
      */
-    public function get($name, $options = array(), $usePeeringServiceManagers = true)
+    public function get($serviceRequest, $options = array(), $usePeeringServiceManagers = true)
     {
+        $name = (string) $serviceRequest;
+
         // Allow specifying a class name directly; registers as an invokable class
         if (!$this->has($name) && $this->autoAddInvokableClass && class_exists($name)) {
             $this->setInvokableClass($name, $name);
         }
 
-        $this->creationOptions = $options;
-        $instance = parent::get($name, $usePeeringServiceManagers);
-        $this->creationOptions = null;
+        $instance = parent::get($serviceRequest, $usePeeringServiceManagers);
+
         $this->validatePlugin($instance);
+
         return $instance;
     }
 
@@ -150,98 +136,49 @@ abstract class AbstractPluginManager extends ServiceManager implements ServiceLo
     }
 
     /**
-     * Attempt to create an instance via an invokable class
-     *
-     * Overrides parent implementation by passing $creationOptions to the
-     * constructor, if non-null.
-     *
-     * @param  string $canonicalName
-     * @param  string $requestedName
-     * @return null|\stdClass
-     * @throws Exception\ServiceNotCreatedException If resolved class does not exist
+     * {@inheritDoc}
      */
-    protected function createFromInvokable($canonicalName, $requestedName)
+    protected function createFromInvokable($serviceRequest)
     {
-        $invokable = $this->invokableClasses[$canonicalName];
+        $name      = (string) $serviceRequest;
+        $invokable = $this->invokableClasses[$name];
 
-        if (null === $this->creationOptions
-            || (is_array($this->creationOptions) && empty($this->creationOptions))
-        ) {
-            $instance = new $invokable();
-        } else {
-            $instance = new $invokable($this->creationOptions);
+        if ($serviceRequest instanceof ServiceRequestInterface) {
+            return new $invokable($serviceRequest->getOptions());
         }
 
-        return $instance;
+        return new $invokable();
     }
 
     /**
-     * Attempt to create an instance via a factory class
-     *
-     * Overrides parent implementation by passing $creationOptions to the
-     * constructor, if non-null.
-     *
-     * @param  string $canonicalName
-     * @param  string $requestedName
-     * @return mixed
-     * @throws Exception\ServiceNotCreatedException If factory is not callable
+     * {@inheritDoc}
      */
-    protected function createFromFactory($canonicalName, $requestedName)
+    protected function createFromFactory($serviceRequest)
     {
-        $factory            = $this->factories[$canonicalName];
-        $hasCreationOptions = !(null === $this->creationOptions || (is_array($this->creationOptions) && empty($this->creationOptions)));
+        $name    = (string) $serviceRequest;
+        $factory = $this->factories[$name];
 
         if (is_string($factory) && class_exists($factory, true)) {
-            if (!$hasCreationOptions) {
-                $factory = new $factory();
+            if ($serviceRequest instanceof ServiceRequestInterface) {
+                $factory = new $factory($serviceRequest->getOptions());
             } else {
-                $factory = new $factory($this->creationOptions);
+                $factory = new $factory();
             }
 
-            $this->factories[$canonicalName] = $factory;
+            $this->factories[$name] = $factory;
         }
 
         if ($factory instanceof FactoryInterface) {
-            $instance = $this->createServiceViaCallback(array($factory, 'createService'), $canonicalName, $requestedName);
+            $instance = $this->createServiceViaCallback(array($factory, 'createService'), $name);
         } elseif (is_callable($factory)) {
-            $instance = $this->createServiceViaCallback($factory, $canonicalName, $requestedName);
+            $instance = $this->createServiceViaCallback($factory, $name);
         } else {
             throw new Exception\ServiceNotCreatedException(sprintf(
-                'While attempting to create %s%s an invalid factory was registered for this instance type.', $canonicalName, ($requestedName ? '(alias: ' . $requestedName . ')' : '')
+                'While attempting to create %s an invalid factory was registered for this instance type.',
+                $name
             ));
         }
 
         return $instance;
-    }
-
-    /**
-     * Create service via callback
-     *
-     * @param  callable $callable
-     * @param  string   $cName
-     * @param  string   $rName
-     * @throws Exception\ServiceNotCreatedException
-     * @throws Exception\ServiceNotFoundException
-     * @throws Exception\CircularDependencyFoundException
-     * @return object
-     */
-    protected function createServiceViaCallback($callable, $cName, $rName)
-    {
-        if (is_object($callable)) {
-            $factory = $callable;
-        } elseif (is_array($callable)) {
-            // reset both rewinds and returns the value of the first array element
-            $factory = reset($callable);
-        }
-
-        if (isset($factory)
-            && ($factory instanceof MutableCreationOptionsInterface)
-            && is_array($this->creationOptions)
-            && !empty($this->creationOptions)
-        ) {
-            $factory->setCreationOptions($this->creationOptions);
-        }
-
-        return parent::createServiceViaCallback($callable, $cName, $rName);
     }
 }

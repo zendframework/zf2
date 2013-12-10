@@ -38,14 +38,14 @@ class AbstractConfigFactory implements ServiceManager\AbstractFactoryInterface
     /**
      * Determine if we can create a service with name
      *
-     * @param ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param \Zend\Config\ServiceLocatorInterface|\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @param string $name
-     * @param string $requestedName
+     * @internal param string $requestedName
      * @return bool
      */
-    public function canCreateServiceWithName(ServiceManager\ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        if (isset($this->configs[$requestedName])) {
+        if (isset($this->configs[$name])) {
             return true;
         }
 
@@ -53,24 +53,26 @@ class AbstractConfigFactory implements ServiceManager\AbstractFactoryInterface
             return false;
         }
 
-        $key = $this->match($requestedName);
+        $key = $this->match($name);
+
         if (null === $key) {
             return false;
         }
 
         $config = $serviceLocator->get('Config');
+
         return isset($config[$key]);
     }
 
     /**
      * Create service with name
      *
-     * @param ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param \Zend\Config\ServiceLocatorInterface|\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @param string $name
-     * @param string $requestedName
+     * @internal param string $requestedName
      * @return string|mixed|array
      */
-    public function createServiceWithName(ServiceManager\ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         if (isset($this->configs[$requestedName])) {
             return $this->configs[$requestedName];

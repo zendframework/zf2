@@ -12,6 +12,7 @@ namespace ZendTest\Paginator;
 use Zend\Paginator\AdapterPluginManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\ServiceManager\ServiceRequest;
 
 /**
  * @group      Zend_Paginator
@@ -47,13 +48,13 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCanRetrieveAdapterPlugin()
     {
-        $plugin = $this->adapaterPluginManager->get('array', array(1, 2, 3));
+        $plugin = $this->adapaterPluginManager->get(new ServiceRequest('array', array(1, 2, 3)));
         $this->assertInstanceOf('Zend\Paginator\Adapter\ArrayAdapter', $plugin);
-        $plugin = $this->adapaterPluginManager->get('iterator', new \ArrayIterator(range(1, 101)));
+        $plugin = $this->adapaterPluginManager->get(new ServiceRequest('iterator', new \ArrayIterator(range(1, 101))));
         $this->assertInstanceOf('Zend\Paginator\Adapter\Iterator', $plugin);
-        $plugin = $this->adapaterPluginManager->get('dbselect', array($this->mockSelect, $this->mockAdapter));
+        $plugin = $this->adapaterPluginManager->get(new ServiceRequest('dbselect', array($this->mockSelect, $this->mockAdapter)));
         $this->assertInstanceOf('Zend\Paginator\Adapter\DbSelect', $plugin);
-        $plugin = $this->adapaterPluginManager->get('null', 101);
+        $plugin = $this->adapaterPluginManager->get(new ServiceRequest('null', 101));
         $this->assertInstanceOf('Zend\Paginator\Adapter\Null', $plugin);
     }
 

@@ -27,37 +27,38 @@ class AdapterAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Can we create an adapter by the requested name?
      *
-     * @param  ServiceLocatorInterface $services
+     * @param  ServiceLocatorInterface $serviceLocator
      * @param  string $name
-     * @param  string $requestedName
+     * @internal param string $requestedName
      * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $config = $this->getConfig($services);
+        $config = $this->getConfig($serviceLocator);
+
         if (empty($config)) {
             return false;
         }
 
         return (
-            isset($config[$requestedName])
-            && is_array($config[$requestedName])
-            && !empty($config[$requestedName])
+            isset($config[$name])
+            && is_array($config[$name])
+            && !empty($config[$name])
         );
     }
 
     /**
      * Create a DB adapter
      *
-     * @param  ServiceLocatorInterface $services
+     * @param  ServiceLocatorInterface $serviceLocator
      * @param  string $name
-     * @param  string $requestedName
+     * @internal param string $requestedName
      * @return Adapter
      */
-    public function createServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $config = $this->getConfig($services);
-        return new Adapter($config[$requestedName]);
+        $config = $this->getConfig($serviceLocator);
+        return new Adapter($config[(string) $name]);
     }
 
     /**

@@ -10,6 +10,7 @@
 namespace ZendTest\Mvc\Controller;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\ServiceManager\ServiceRequest;
 use ZendTest\Mvc\Controller\TestAsset\SampleController;
 use ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePlugin;
 use ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructor;
@@ -68,7 +69,7 @@ class PluginManagerTest extends TestCase
     {
         $pluginManager = new PluginManager;
         $pluginManager->setInvokableClass('samplePlugin', 'ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructor');
-        $plugin = $pluginManager->get('samplePlugin', 'foo');
+        $plugin = $pluginManager->get(new ServiceRequest('samplePlugin', 'foo'));
         $this->assertEquals($plugin->getBar(), 'foo');
     }
 
@@ -101,7 +102,7 @@ class PluginManagerTest extends TestCase
     {
         $pluginManager = new PluginManager;
         $pluginManager->setFactory('samplePlugin', 'ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructorFactory');
-        $plugin = $pluginManager->get('samplePlugin', 'foo');
+        $plugin = $pluginManager->get(new ServiceRequest('samplePlugin', 'foo'));
         $this->assertInstanceOf('\ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructor', $plugin);
         $this->assertEquals($plugin->getBar(), 'foo');
     }

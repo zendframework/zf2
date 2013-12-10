@@ -7,27 +7,31 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\ServiceManager\TestAsset;
+namespace Zend\ServiceManager\Zf2Compat;
 
 use Zend\ServiceManager\AbstractFactoryInterface;
+use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Abstract factory that keeps track of the number of times it is instantiated
+ * Peering service locator abstract factory - allows peering between service locators even though it's
+ * not a first class citizen of the framework anymore
+ *
+ * @author Marco Pivetta <ocramius@gmail.com>
  */
-class FooCounterAbstractFactory implements AbstractFactoryInterface
+class PeeringServiceLocatorAbstractFactory implements AbstractFactoryInterface
 {
     /**
-     * @var int
+     * @var ServiceLocatorInterface
      */
-    public static $instantiationCount = 0;
+    private $peerLocator;
 
     /**
-     * Increments instantiation count
+     * @param ServiceLocatorInterface $peerLocator
      */
-    public function __construct()
+    public function __construct(ServiceLocatorInterface $peerLocator)
     {
-        static::$instantiationCount += 1;
+        $this->peerLocator = $peerLocator;
     }
 
     /**
@@ -38,19 +42,17 @@ class FooCounterAbstractFactory implements AbstractFactoryInterface
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        if ($name == 'foo') {
-            return true;
-        }
+        return $this->peerLocator->has($name);
     }
 
     /**
      * {@inheritDoc}
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @param $name
-     * @return mixed|\ZendTest\ServiceManager\TestAsset\Foo
+     * @return array|mixed|object
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        return new Foo;
+        return $this->peerLocator->get($name);
     }
 }

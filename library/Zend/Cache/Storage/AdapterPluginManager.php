@@ -11,6 +11,8 @@ namespace Zend\Cache\Storage;
 
 use Zend\Cache\Exception;
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 /**
  * Plugin manager implementation for cache storage adapters
@@ -47,6 +49,16 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $shareByDefault = false;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct(ConfigInterface $config = null)
+    {
+        parent::__construct($config);
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this));
+    }
 
     /**
      * Validate the plugin

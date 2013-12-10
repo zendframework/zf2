@@ -21,16 +21,22 @@ class CircularDependencyAbstractFactory implements AbstractFactoryInterface
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return true;
     }
 
     /**
      * {@inheritDoc}
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param $name
+     * @return array|mixed|object|string
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         if ($serviceLocator->has($name)) {
             return $serviceLocator->get($name);

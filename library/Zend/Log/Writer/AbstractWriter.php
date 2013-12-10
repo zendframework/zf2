@@ -13,6 +13,7 @@ use Traversable;
 use Zend\Log\Exception;
 use Zend\Log\Filter;
 use Zend\Log\Formatter;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ErrorHandler;
 
 abstract class AbstractWriter implements WriterInterface
@@ -187,7 +188,7 @@ abstract class AbstractWriter implements WriterInterface
      */
     public function filterPlugin($name, array $options = null)
     {
-        return $this->getFilterPluginManager()->get($name, $options);
+        return $this->getFilterPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**
@@ -237,7 +238,7 @@ abstract class AbstractWriter implements WriterInterface
      */
     public function formatterPlugin($name, array $options = null)
     {
-        return $this->getFormatterPluginManager()->get($name, $options);
+        return $this->getFormatterPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**

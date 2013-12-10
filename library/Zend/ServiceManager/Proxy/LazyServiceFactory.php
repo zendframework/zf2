@@ -48,9 +48,13 @@ class LazyServiceFactory implements DelegatorFactoryInterface
     /**
      * {@inheritDoc}
      *
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @param string $name
+     * @param callable $callback
+     * @throws \Zend\ServiceManager\Exception\InvalidServiceNameException
      * @return object|\ProxyManager\Proxy\LazyLoadingInterface|\ProxyManager\Proxy\ValueHolderInterface
      */
-    public function createDelegatorWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName, $callback)
+    public function createDelegatorWithName(ServiceLocatorInterface $serviceLocator, $name, $callback)
     {
         $initializer = function (& $wrappedInstance, LazyLoadingInterface $proxy) use ($callback) {
             $proxy->setProxyInitializer(null);
@@ -60,14 +64,12 @@ class LazyServiceFactory implements DelegatorFactoryInterface
             return true;
         };
 
-        if (isset($this->servicesMap[$requestedName])) {
-            return $this->proxyFactory->createProxy($this->servicesMap[$requestedName], $initializer);
-        } elseif (isset($this->servicesMap[$name])) {
+        if (isset($this->servicesMap[$name])) {
             return $this->proxyFactory->createProxy($this->servicesMap[$name], $initializer);
         }
 
         throw new Exception\InvalidServiceNameException(
-            sprintf('The requested service "%s" was not found in the provided services map', $requestedName)
+            sprintf('The requested service "%s" was not found in the provided services map', $name)
         );
     }
 }

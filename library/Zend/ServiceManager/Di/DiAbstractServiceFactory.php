@@ -24,6 +24,7 @@ class DiAbstractServiceFactory extends DiServiceFactory implements AbstractFacto
     public function __construct(Di $di, $useServiceLocator = self::USE_SL_NONE)
     {
         $this->di = $di;
+
         if (in_array($useServiceLocator, array(self::USE_SL_BEFORE_DI, self::USE_SL_AFTER_DI, self::USE_SL_NONE))) {
             $this->useServiceLocator = $useServiceLocator;
         }
@@ -36,25 +37,24 @@ class DiAbstractServiceFactory extends DiServiceFactory implements AbstractFacto
     /**
      * {@inheritDoc}
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceName, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
         $this->serviceLocator = $serviceLocator;
-        if ($requestedName) {
-            return $this->get($requestedName, array());
-        }
 
-        return $this->get($serviceName, array());
+        return $this->get((string) $serviceRequest, array());
     }
 
     /**
      * {@inheritDoc}
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $serviceRequest)
     {
-        return $this->instanceManager->hasSharedInstance($requestedName)
-            || $this->instanceManager->hasAlias($requestedName)
-            || $this->instanceManager->hasConfig($requestedName)
-            || $this->instanceManager->hasTypePreferences($requestedName)
-            || $this->definitions->hasClass($requestedName);
+        $name = (string) $serviceRequest;
+
+        return $this->instanceManager->hasSharedInstance($name)
+            || $this->instanceManager->hasAlias($name)
+            || $this->instanceManager->hasConfig($name)
+            || $this->instanceManager->hasTypePreferences($name)
+            || $this->definitions->hasClass($name);
     }
 }

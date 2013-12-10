@@ -12,6 +12,7 @@ namespace Zend\View\Renderer;
 use ArrayAccess;
 use Traversable;
 use Zend\Filter\FilterChain;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\View\Exception;
 use Zend\View\HelperPluginManager;
 use Zend\View\Helper\AbstractHelper;
@@ -374,7 +375,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      */
     public function plugin($name, array $options = null)
     {
-        return $this->getHelperPluginManager()->get($name, $options);
+        return $this->getHelperPluginManager()->get(new ServiceRequest($name, $options));
     }
 
     /**

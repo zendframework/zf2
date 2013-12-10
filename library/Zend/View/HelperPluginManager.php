@@ -12,6 +12,7 @@ namespace Zend\View;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 /**
  * Plugin manager implementation for view helpers
@@ -95,6 +96,8 @@ class HelperPluginManager extends AbstractPluginManager
 
         $this->addInitializer(array($this, 'injectRenderer'))
              ->addInitializer(array($this, 'injectTranslator'));
+
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
     }
 
     /**
@@ -145,6 +148,7 @@ class HelperPluginManager extends AbstractPluginManager
     {
         if ($helper instanceof TranslatorAwareInterface) {
             $locator = $this->getServiceLocator();
+
             if ($locator && $locator->has('MvcTranslator')) {
                 $helper->setTranslator($locator->get('MvcTranslator'));
             } elseif ($locator && $locator->has('translator')) {

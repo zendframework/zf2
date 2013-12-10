@@ -14,7 +14,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class BarAbstractFactory implements AbstractFactoryInterface
 {
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         if ($name != 'bar') {
             return false;
@@ -22,7 +22,7 @@ class BarAbstractFactory implements AbstractFactoryInterface
         return true;
     }
 
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
         return new Bar(array());
     }

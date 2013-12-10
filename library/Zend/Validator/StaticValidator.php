@@ -9,6 +9,8 @@
 
 namespace Zend\Validator;
 
+use Zend\ServiceManager\ServiceRequest;
+
 class StaticValidator
 {
     /**
@@ -54,7 +56,7 @@ class StaticValidator
     {
         $plugins = static::getPluginManager();
 
-        $validator = $plugins->get($classBaseName, $args);
+        $validator = $plugins->get(new ServiceRequest($classBaseName, $args));
         return $validator->isValid($value);
     }
 }

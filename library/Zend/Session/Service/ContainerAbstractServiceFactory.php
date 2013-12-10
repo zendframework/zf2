@@ -56,32 +56,31 @@ class ContainerAbstractServiceFactory implements AbstractFactoryInterface
     protected $sessionManager;
 
     /**
-     * @param  ServiceLocatorInterface $services
-     * @param  string                  $name
-     * @param  string                  $requestedName
+     * @param  ServiceLocatorInterface $serviceLocator
+     * @param  string $name
+     * @internal param string $requestedName
      * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $config = $this->getConfig($services);
+        $config = $this->getConfig($serviceLocator);
         if (empty($config)) {
             return false;
         }
 
-        $containerName = $this->normalizeContainerName($requestedName);
-        return array_key_exists($containerName, $config);
+        return array_key_exists($this->normalizeContainerName($name), $config);
     }
 
     /**
-     * @param  ServiceLocatorInterface $services
-     * @param  string                  $name
-     * @param  string                  $requestedName
+     * @param  ServiceLocatorInterface $serviceLocator
+     * @param  string $name
+     * @internal param string $requestedName
      * @return Container
      */
-    public function createServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name)
     {
-        $manager = $this->getSessionManager($services);
-        return new Container($requestedName, $manager);
+        $manager = $this->getSessionManager($serviceLocator);
+        return new Container($name, $manager);
     }
 
     /**

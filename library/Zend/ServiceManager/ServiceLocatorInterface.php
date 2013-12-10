@@ -17,17 +17,20 @@ interface ServiceLocatorInterface
     /**
      * Retrieve a registered instance
      *
-     * @param  string  $name
-     * @throws Exception\ServiceNotFoundException
+     * @param  string|ServiceRequestInterface $serviceRequest
+     *
      * @return object|array
+     *
+     * @throws Exception\ServiceNotFoundException
      */
-    public function get($name);
+    public function get($serviceRequest);
 
     /**
      * Check for a registered instance
      *
-     * @param  string|array  $name
+     * @param  string|ServiceRequestInterface $serviceRequest
+     *
      * @return bool
      */
-    public function has($name);
+    public function has($serviceRequest);
 }

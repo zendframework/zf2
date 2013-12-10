@@ -10,6 +10,7 @@
 namespace Zend\File\Transfer\Adapter;
 
 use Zend\Filter\FilterPluginManager as BaseManager;
+use Zend\ServiceManager\ConfigInterface;
 
 /**
  * Plugin manager implementation for the filter chain.
@@ -21,15 +22,10 @@ use Zend\Filter\FilterPluginManager as BaseManager;
 class FilterPluginManager extends BaseManager
 {
     /**
-     * Default set of filters
-     *
-     * @var array
+     * {@inheritDoc}
      */
-    protected $aliases = array(
-        'decrypt'   => 'filedecrypt',
-        'encrypt'   => 'fileencrypt',
-        'lowercase' => 'filelowercase',
-        'rename'    => 'filerename',
-        'uppercase' => 'fileuppercase',
-    );
+    public function __construct(ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration ?: new FilterPluginManagerConfig());
+    }
 }

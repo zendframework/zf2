@@ -10,6 +10,7 @@
 namespace Zend\Validator;
 
 use Traversable;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 
 class Explode extends AbstractValidator implements ValidatorPluginManagerAwareInterface
@@ -108,7 +109,7 @@ class Explode extends AbstractValidator implements ValidatorPluginManagerAwareIn
             }
             $name = $validator['name'];
             $options = isset($validator['options']) ? $validator['options'] : array();
-            $validator = $this->getValidatorPluginManager()->get($name, $options);
+            $validator = $this->getValidatorPluginManager()->get(new ServiceRequest($name, $options));
         }
 
         if (!$validator instanceof ValidatorInterface) {

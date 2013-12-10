@@ -13,6 +13,7 @@ use ArrayObject;
 use Traversable;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\SimpleRouteStack;
+use Zend\ServiceManager\ServiceRequest;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Uri\Http as HttpUri;
@@ -154,7 +155,7 @@ class TreeRouteStack extends SimpleRouteStack
                 'prototypes'    => $this->prototypes,
             );
 
-            $route = $this->routePluginManager->get('chain', $options);
+            $route = $this->routePluginManager->get(new ServiceRequest('chain', $options));
         } else {
             $route = parent::routeFromArray($specs);
         }
@@ -174,7 +175,7 @@ class TreeRouteStack extends SimpleRouteStack
 
             $priority = (isset($route->priority) ? $route->priority : null);
 
-            $route = $this->routePluginManager->get('part', $options);
+            $route = $this->routePluginManager->get(new ServiceRequest('part', $options));
             $route->priority = $priority;
         }
 

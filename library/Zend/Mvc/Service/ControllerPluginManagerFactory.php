@@ -9,22 +9,11 @@
 
 namespace Zend\Mvc\Service;
 
-use Zend\Mvc\Controller\PluginManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
-
+/**
+ * @method \Zend\Mvc\Controller\PluginManager get($name)
+ */
 class ControllerPluginManagerFactory extends AbstractPluginManagerFactory
 {
     const PLUGIN_MANAGER_CLASS = 'Zend\Mvc\Controller\PluginManager';
-
-    /**
-     * Create and return the MVC controller plugin manager
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return PluginManager
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $plugins = parent::createService($serviceLocator);
-        return $plugins;
-    }
+    const PLUGIN_CONFIG_CLASS = 'Zend\Mvc\Controller\PluginManagerConfig';
 }

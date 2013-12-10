@@ -11,6 +11,7 @@ namespace Zend\Validator;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Zf2Compat\ServiceNameNormalizerAbstractFactory;
 
 class ValidatorPluginManager extends AbstractPluginManager
 {
@@ -126,6 +127,7 @@ class ValidatorPluginManager extends AbstractPluginManager
         parent::__construct($configuration);
         $this->addInitializer(array($this, 'injectTranslator'));
         $this->addInitializer(array($this, 'injectValidatorPluginManager'));
+        $this->addAbstractFactory(new ServiceNameNormalizerAbstractFactory($this), false);
     }
 
     /**
