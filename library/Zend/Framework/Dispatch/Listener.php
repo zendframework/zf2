@@ -102,6 +102,7 @@ class Listener implements ListenerAggregateInterface
 
             $dispatchEvent = new ControllerDispatchEvent();
             $dispatchEvent->setTarget($controller)
+                          ->setRouteMatch($event->getRouteMatch())
                           ->setController($controller)
                           ->setResponse($response)
                           ->setViewModel($viewModel);

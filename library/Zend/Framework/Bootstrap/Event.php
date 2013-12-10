@@ -17,7 +17,7 @@ use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Model\ViewModel;
 
 use Zend\Framework\ApplicationInterface;
-use Zend\Framework\Application;
+use Zend\Framework\MvcEvent;
 use Zend\Mvc\Router\RouteStackInterface;
 
 class Event extends EventManagerEvent
@@ -26,7 +26,7 @@ class Event extends EventManagerEvent
     /**
      * @var string
      */
-    protected $name = Application::EVENT_BOOTSTRAP;
+    protected $name = MvcEvent::EVENT_BOOTSTRAP;
 
     /**
      * @var

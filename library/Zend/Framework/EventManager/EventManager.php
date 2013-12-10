@@ -119,7 +119,7 @@ class EventManager extends Listener implements EventManagerInterface
                         continue;
                     }
                     foreach($targets as $t) {
-                        if ($t === $lt || is_subclass_of($t, $lt) || $lt instanceof $t) {
+                        if ($t === $lt || is_subclass_of($t, $lt)) {
                             $listeners->insert($listener, $listener->getPriority());
                             continue 2;
                         }
@@ -143,8 +143,7 @@ class EventManager extends Listener implements EventManagerInterface
      */
     public function trigger($event)
     {
-        $event->setTarget($event->getTarget())
-              ->stopPropagation(false); // Initial value of stop propagation flag should be false
+        $event->stopPropagation(false);
 
         $listeners = $event->getListeners() ?: $this->getEventListeners($event);
 

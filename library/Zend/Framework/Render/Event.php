@@ -9,12 +9,13 @@
 
 namespace Zend\Framework\Render;
 
+use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\View\Model\ViewModel;
 
 class Event extends EventManagerEvent
 {
-    protected $name = 'render';
+    protected $name = MvcEvent::EVENT_RENDER;
 
     protected $application;
 

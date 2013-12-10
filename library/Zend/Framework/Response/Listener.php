@@ -24,7 +24,6 @@ use Zend\Framework\ServiceManager\ServiceManager;
 use Zend\Framework\EventManager\CallbackListener;
 
 class Listener implements
-    EventManagerAwareInterface,
     ListenerAggregateInterface
 {
 
@@ -34,50 +33,6 @@ class Listener implements
     protected $listeners = array();
 
     /**
-     * @var SendResponseEvent
-     */
-    protected $event;
-
-    /**
-     * @var EventManagerInterface
-     */
-    protected $eventManager;
-
-    /**
-     * Inject an EventManager instance
-     *
-     * @param  EventManagerInterface $eventManager
-     * @return SendResponseListener
-     */
-    public function setEventManager(EventManagerInterface $eventManager)
-    {
-        /*$eventManager->setIdentifiers(array(
-            __CLASS__,
-            get_class($this),
-        ));*/
-        //$eventManager->setTarget($this);
-        $this->eventManager = $eventManager;
-        $this->attachDefaultListeners();
-        return $this;
-    }
-
-    /**
-     * Retrieve the event manager
-     *
-     * Lazy-loads an EventManager instance if none registered.
-     *
-     * @return EventManagerInterface
-     */
-    public function getEventManager()
-    {
-        if (!$this->eventManager instanceof EventManagerInterface) {
-            $this->setEventManager(new EventManager());
-        }
-        return $this->eventManager;
-    }
-
-
-    /**
      * Attach the aggregate to the specified event manager
      *
      * @param  EventManagerInterface $events
@@ -85,7 +40,10 @@ class Listener implements
      */
     public function attach(EventManagerInterface $em)
     {
-        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'sendResponse'), MvcEvent::EVENT_FINISH, null, -10000));
+        $this->listeners[] = $em->attach(new PhpEnvironmentResponseSender(MvcEvent::EVENT_RESPONSE, null, -10000));
+        $this->listeners[] = $em->attach(new ConsoleResponseSender(MvcEvent::EVENT_RESPONSE, null, -20000));
+        $this->listeners[] = $em->attach(new SimpleStreamResponseSender(MvcEvent::EVENT_RESPONSE, null, -30000));
+        $this->listeners[] = $em->attach(new HttpResponseSender(MvcEvent::EVENT_RESPONSE, null, -40000));
     }
 
     /**
@@ -101,71 +59,6 @@ class Listener implements
                 unset($this->listeners[$index]);
             }
         }
-    }
-
-    /**
-     * Send the response
-     *
-     * @param  MvcEvent $e
-     * @return void
-     */
-    public function sendResponse($e)
-    {
-        $response = $e->getResponse();
-        if (!$response instanceof Response) {
-            return; // there is no response to send
-        }
-
-        $event = $this->getEvent();
-        $event->setResponse($response);
-        $event->setTarget($this);
-        $this->getEventManager()->trigger($event);
-    }
-
-    /**
-     * Get the send response event
-     *
-     * @return SendResponseEvent
-     */
-    public function getEvent()
-    {
-        if (!$this->event instanceof SendResponseEvent) {
-            $this->setEvent(new SendResponseEvent());
-        }
-        return $this->event;
-    }
-
-    /**
-     * Set the send response event
-     *
-     * @param SendResponseEvent $e
-     * @return SendResponseEvent
-     */
-    public function setEvent($e)
-    {
-        $this->event = $e;
-        return $this;
-    }
-
-    /**
-     * Register the default event listeners
-     *
-     * The order in which the response sender are listed here, is by their usage:
-     * PhpEnvironmentResponseSender has highest priority, because it's used most often.
-     * ConsoleResponseSender and SimpleStreamResponseSender are not used that often, yo they have a lower priority.
-     * You can attach your response sender before or after every default response sender implementation.
-     * All default response sender implementation have negative priority.
-     * You are able to attach listeners without giving a priority and your response sender would be first to try.
-     *
-     * @return SendResponseListener
-     */
-    protected function attachDefaultListeners()
-    {
-        $events = $this->getEventManager();
-        $events->attach(new PhpEnvironmentResponseSender(SendResponseEvent::EVENT_SEND_RESPONSE, null, -1000));
-        $events->attach(new ConsoleResponseSender(SendResponseEvent::EVENT_SEND_RESPONSE, null, -2000));
-        $events->attach(new SimpleStreamResponseSender(SendResponseEvent::EVENT_SEND_RESPONSE, null, -3000));
-        $events->attach(new HttpResponseSender(SendResponseEvent::EVENT_SEND_RESPONSE, null, -4000));
     }
 
     public function __invoke(ServiceManager $serviceLocator)

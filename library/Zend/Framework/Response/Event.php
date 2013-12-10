@@ -11,10 +11,12 @@ namespace Zend\Framework\Response;
 
 use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
+use Zend\Framework\MvcEvent;
+
 
 class Event extends EventManagerEvent
 {
-    protected $name = 'sendResponse';
+    protected $name = MvcEvent::EVENT_RESPONSE;
 
     protected $response;
 
@@ -28,6 +30,53 @@ class Event extends EventManagerEvent
         $this->response = $response;
     }
 
+    /**
+     * Set content sent for current response
+     *
+     * @return SendResponseEvent
+     */
+    public function setContentSent()
+    {
+        $response = $this->getResponse();
+        $this->contentSent[spl_object_hash($response)] = true;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function contentSent()
+    {
+        $response = $this->getResponse();
+        if (isset($this->contentSent[spl_object_hash($response)])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Set headers sent for current response object
+     *
+     * @return SendResponseEvent
+     */
+    public function setHeadersSent()
+    {
+        $response = $this->getResponse();
+        $this->headersSent[spl_object_hash($response)] = true;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function headersSent()
+    {
+        $response = $this->getResponse();
+        if (isset($this->headersSent[spl_object_hash($response)])) {
+            return true;
+        }
+        return false;
+    }
 
     public function __invoke(EventListener $listener)
     {

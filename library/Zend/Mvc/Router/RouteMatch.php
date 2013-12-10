@@ -33,7 +33,7 @@ class RouteMatch
      *
      * @param array $params
      */
-    public function __construct(array $params)
+    public function __construct(array $params = [])
     {
         $this->params = $params;
     }

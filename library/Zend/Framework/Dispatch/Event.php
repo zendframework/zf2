@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Application;
+use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
 use Zend\Mvc\Router\RouteMatch;
@@ -20,7 +20,7 @@ class Event extends EventManagerEvent
     /**
      * @var string
      */
-    protected $name = Application::EVENT_DISPATCH;
+    protected $name = MvcEvent::EVENT_DISPATCH;
 
     protected $em;
 

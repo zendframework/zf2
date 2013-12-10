@@ -25,14 +25,14 @@ class MvcEvent extends Event implements FactoryInterface
     /**
      *
      */
-    const EVENT_BOOTSTRAP           = 'bootstrap';
-    const EVENT_DISPATCH            = 'dispatch';
-    const EVENT_CONTROLLER_DISPATCH = 'controller.dispatch';
-    const EVENT_DISPATCH_ERROR      = 'dispatch.error';
-    const EVENT_FINISH              = 'finish';
-    const EVENT_RENDER              = 'render';
-    const EVENT_RENDER_ERROR        = 'render.error';
-    const EVENT_ROUTE               = 'route';
+    const EVENT_BOOTSTRAP           = 'mvc.bootstrap';
+    const EVENT_DISPATCH            = 'mvc.dispatch';
+    const EVENT_CONTROLLER_DISPATCH = 'mvc.controller.dispatch';
+    const EVENT_DISPATCH_ERROR      = 'mvc.dispatch.error';
+    const EVENT_RESPONSE            = 'mvc.response';
+    const EVENT_RENDER              = 'mvc.render';
+    const EVENT_RENDER_ERROR        = 'mvc.render.error';
+    const EVENT_ROUTE               = 'mvc.route';
 
     /**
      * @var string

@@ -9,12 +9,13 @@
 
 namespace Zend\Framework\Route;
 
+use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class Event extends EventManagerEvent
 {
-    protected $name = 'route';
+    protected $name = MvcEvent::EVENT_ROUTE;
 
     protected $request;
 

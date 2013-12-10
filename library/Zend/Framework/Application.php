@@ -30,6 +30,7 @@ use Zend\Framework\Finish\Event as FinishEvent;
 
 use Zend\Framework\Dispatch\Exception as DispatchException;
 use Zend\View\Model\ViewModel;
+use Zend\Mvc\Router\RouteMatch;
 
 use Exception;
 
@@ -42,14 +43,6 @@ class Application implements
     const ERROR_CONTROLLER_INVALID         = 'error-controller-invalid';
     const ERROR_EXCEPTION                  = 'error-exception';
     const ERROR_ROUTER_NO_MATCH            = 'error-router-no-match';
-
-    const EVENT_BOOTSTRAP      = 'bootstrap';
-    const EVENT_DISPATCH       = 'dispatch';
-    const EVENT_DISPATCH_ERROR = 'dispatch.error';
-    const EVENT_FINISH         = 'finish';
-    const EVENT_RENDER         = 'render';
-    const EVENT_RENDER_ERROR   = 'render.error';
-    const EVENT_ROUTE          = 'route';
 
     protected $config;
 
@@ -81,6 +74,7 @@ class Application implements
         $this->router           = $sm->get(new ServiceRequest('Router'));
         $this->controllerLoader = $sm->get(new ServiceRequest('ControllerLoader'));
         $this->viewModel        = new ViewModel;
+        $this->routeMatch       = new RouteMatch;
     }
 
     public function getConfig()
@@ -211,6 +205,7 @@ class Application implements
             $viewModel = $dispatchEvent->getViewModel();
 
         } catch (DispatchException $exception) {
+
             $errorEvent = new DispatchErrorEvent();
 
             $errorEvent->setTarget($this)
@@ -235,16 +230,10 @@ class Application implements
 
         $em->trigger($renderEvent);
 
-        $finishEvent = new FinishEvent();
-        $finishEvent->setTarget($this)
-                    ->setResponse($renderEvent->getResponse());
-
-        $em->trigger($finishEvent);
-
         $responseEvent = new ResponseEvent();
 
         $responseEvent->setTarget($this)
-                      ->setResponse($response);
+                      ->setResponse($renderEvent->getResponse());
 
         $em->trigger($responseEvent);
 
