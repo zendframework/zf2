@@ -9,7 +9,6 @@
 
 namespace Zend\Permissions\Rbac;
 
-use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
 /**
@@ -33,20 +32,22 @@ class Rbac
      */
     public function addRole($role)
     {
+        $roleName = (string) $role;
+
         // If the role is already registered we throw an exception, as it could be a potential security issue
         // to have two roles with same name
-        if ($this->hasRole($role)) {
+        if (isset($this->roles[$roleName])) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'A role with name "%s" already exists in the container',
-                (string) $role
+                $roleName
             ));
         }
 
         if (is_string($role)) {
-            $role = new Role($role);
+            $role = new Role($roleName);
         }
 
-        $this->roles[$role->getName()] = $role;
+        $this->roles[$roleName] = $role;
     }
 
     /**
@@ -74,18 +75,19 @@ class Rbac
         }
 
         // Otherwise, we trigger a recursion on all the stored roles
-        $iterator         = new RecursiveArrayIterator($this->roles);
-        $iteratorIterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+        foreach ($this->roles as $role) {
+            $iteratorIterator = new RecursiveIteratorIterator($role, RecursiveIteratorIterator::SELF_FIRST);
 
-        /* @var RoleInterface $role */
-        foreach ($iteratorIterator as $role) {
-            $roleName = $role->getName();
+            /* @var RoleInterface $role */
+            foreach ($iteratorIterator as $child) {
+                $roleName = $child->getName();
 
-            // We add it to the loaded roles, for faster retrieval in the future
-            $this->roles[$roleName] = $role;
+                // We add it to the loaded roles, for faster retrieval in the future
+                $this->roles[$roleName] = $child;
 
-            if ($roleName === $name) {
-                return $role;
+                if ($roleName === $name) {
+                    return $child;
+                }
             }
         }
 

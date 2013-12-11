@@ -56,6 +56,20 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $this->rbac->addRole('foo');
     }
 
+    public function testCanRetrieveChildRoleEvenIfNotExplicitelyAdded()
+    {
+        $role     = new Rbac\Role('foo');
+        $child    = new Rbac\Role('bar');
+        $subChild = new Rbac\Role('baz');
+
+        $role->addChild($child);
+        $child->addChild($subChild);
+        $this->rbac->addRole($role);
+
+        $this->assertTrue($this->rbac->hasRole('baz'));
+        $this->assertTrue($this->rbac->hasRole('bar'));
+    }
+
     public function testCanGrantAccessWithHierarchyOfRoles()
     {
         $role       = new Rbac\Role('foo');
