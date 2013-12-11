@@ -9,8 +9,7 @@
 
 namespace Zend\Permissions\Rbac;
 
-use RecursiveArrayIterator;
-use RecursiveIteratorIterator;
+use RecursiveIterator;
 
 class Role implements RoleInterface
 {
@@ -28,6 +27,11 @@ class Role implements RoleInterface
      * @var array|PermissionInterface
      */
     protected $permissions = [];
+
+    /**
+     * @var int
+     */
+    protected $index = 0;
 
     /**
      * Constructor
@@ -68,22 +72,15 @@ class Role implements RoleInterface
      */
     public function hasPermission($permission)
     {
-        $name = (string) $permission;
+        return isset($this->permissions[(string) $permission]);
+    }
 
-        if (isset($this->permissions[$name])) {
-            return true;
-        }
-
-        $iteratorIterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::CHILD_FIRST);
-
-        foreach ($iteratorIterator as $child) {
-            /** @var RoleInterface $child */
-            if ($child->hasPermission($name)) {
-                return true;
-            }
-        }
-
-        return false;
+    /**
+     * {@inheritDoc}
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
     }
 
     /**
@@ -91,7 +88,7 @@ class Role implements RoleInterface
      */
     public function addChild(RoleInterface $child)
     {
-        $this->children[$child->getName()] = $child;
+        $this->children[] = $child;
     }
 
     /**
@@ -99,15 +96,13 @@ class Role implements RoleInterface
      */
     public function removeChild(RoleInterface $child)
     {
-        unset($this->children[$child->getName()]);
-    }
+        foreach ($this->children as $key => $value) {
+            if ($child === $value) {
+                unset($this->children[$key]);
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getChildren()
-    {
-        return $this->children;
+                return;
+            }
+        }
     }
 
     /**
@@ -118,13 +113,64 @@ class Role implements RoleInterface
         return $this->name;
     }
 
-    /**
-     * Implement the IteratorAggregate interface
-     *
-     * @return \Traversable
+    /*
+     * --------------------------------------------------------------------------------
+     * RecursiveIterator implementation
+     * --------------------------------------------------------------------------------
      */
-    public function getIterator()
+    /**
+     * {@inheritDoc}
+     */
+    public function current()
     {
-        return new RecursiveArrayIterator($this->children);
+        return $this->children[$this->index];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function next()
+    {
+        $this->index++;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function key()
+    {
+        return $this->index;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function valid()
+    {
+        return isset($this->children[$this->index]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function rewind()
+    {
+        $this->index = 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getChildren()
+    {
+        return $this->children[$this->index];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasChildren()
+    {
+        return $this->valid() && $this->current() instanceof RecursiveIterator;
     }
 }

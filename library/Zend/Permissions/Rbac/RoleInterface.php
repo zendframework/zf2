@@ -9,21 +9,14 @@
 
 namespace Zend\Permissions\Rbac;
 
-use IteratorAggregate;
+use RecursiveIterator;
 
 /**
  * Interface that all roles should implement
  *
- * The role embeds all the information needed to evaluate if a given role has a given permission. Here is
- * a recap of some properties of a role:
- *
- *      - A role MUST have a name
- *      - A role MAY have one parent, one or more children and/or one or more permissions
- *      - A role has a permission if and only this role OR one of its children (at any level of deep) have this
- *        permission
- *      - Analogously, a role does not have a permission if its parent has it
+ * The role embeds all the information needed to evaluate if a given role has a given permission
  */
-interface RoleInterface extends IteratorAggregate
+interface RoleInterface extends RecursiveIterator
 {
     /**
      * Get the name of the role.
@@ -49,12 +42,19 @@ interface RoleInterface extends IteratorAggregate
     public function removePermission($permission);
 
     /**
-     * Checks if a permission exists for this role or any child roles.
+     * Checks if a permission exists for this role (it does not check child roles)
      *
      * @param  PermissionInterface|string $permission
      * @return bool
      */
     public function hasPermission($permission);
+
+    /**
+     * Get all the permissions of the role (it does not get child role permissions)
+     *
+     * @return string[]|PermissionInterface[]
+     */
+    public function getPermissions();
 
     /**
      * Add a child

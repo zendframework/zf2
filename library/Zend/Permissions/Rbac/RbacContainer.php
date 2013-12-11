@@ -9,6 +9,9 @@
 
 namespace Zend\Permissions\Rbac;
 
+use RecursiveIteratorIterator;
+use Traversable;
+
 /**
  * A RBAC container is just here to store roles and avoid any duplicate
  */
@@ -76,7 +79,7 @@ class RbacContainer
      * Determines if access is granted by checking the role and child roles for permission.
      *
      * @param  RoleInterface|string             $role
-     * @param  string                           $permission
+     * @param  PermissionInterface|string       $permission
      * @param  AssertionInterface|Callable|null $assert
      * @throws Exception\InvalidArgumentException
      * @return bool
@@ -103,6 +106,23 @@ class RbacContainer
             }
         }
 
-        return $role->hasPermission($permission);
+        $permission = (string) $permission;
+
+        // First check directly the role
+        if ($role->hasPermission($permission)) {
+            return true;
+        }
+
+        // Otherwise, we recursively check each children
+        $iteratorIterator = new RecursiveIteratorIterator($role->getChildren(), RecursiveIteratorIterator::CHILD_FIRST);
+
+        foreach ($iteratorIterator as $child) {
+            /** @var RoleInterface $child */
+            if ($child->hasPermission($permission)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
