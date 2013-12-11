@@ -9,13 +9,144 @@
 
 namespace Zend\Permissions\Rbac;
 
-class Role extends AbstractRole
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
+
+class Role implements RoleInterface
 {
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var null|RoleInterface
+     */
+    protected $parent;
+
+    /**
+     * @var array|RoleInterface[]
+     */
+    protected $children = [];
+
+    /**
+     * @var array|PermissionInterface
+     */
+    protected $permissions = [];
+
+    /**
+     * Constructor
+     *
      * @param string $name
      */
     public function __construct($name)
     {
-        $this->name = $name;
+        $this->name = (string) $name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addPermission($permission)
+    {
+        $this->permissions[(string) $permission] = true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removePermission($permission)
+    {
+        unset($this->permissions[(string) $permission]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasPermission($permission)
+    {
+        $name = (string) $permission;
+
+        if (isset($this->permissions[$name])) {
+            return true;
+        }
+
+        $iteratorIterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::CHILD_FIRST);
+
+        foreach ($iteratorIterator as $child) {
+            /** @var RoleInterface $child */
+            if ($child->hasPermission($name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setParent(RoleInterface $parent = null)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addChild(RoleInterface $child)
+    {
+        $child->setParent($this);
+        $this->children[$child->getName()] = $child;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeChild(RoleInterface $child)
+    {
+        unset($this->children[$child->getName()]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Implement the IteratorAggregate interface
+     *
+     * @return \Traversable
+     */
+    public function getIterator()
+    {
+        return new RecursiveArrayIterator($this->children);
     }
 }

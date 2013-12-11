@@ -11,6 +11,11 @@ namespace Zend\Permissions\Rbac;
 
 use IteratorAggregate;
 
+/**
+ * Interface that all roles should implement
+ *
+ * The role embeds all the information needed to evaluate if a given role has a given permission
+ */
 interface RoleInterface extends IteratorAggregate
 {
     /**
@@ -23,26 +28,34 @@ interface RoleInterface extends IteratorAggregate
     /**
      * Add permission to the role.
      *
-     * @param  string $name
+     * @param  PermissionInterface|string $permission
      * @return void
      */
-    public function addPermission($name);
+    public function addPermission($permission);
+
+    /**
+     * Remove a permission from the role
+     *
+     * @param  PermissionInterface|string $permission
+     * @return void
+     */
+    public function removePermission($permission);
 
     /**
      * Checks if a permission exists for this role or any child roles.
      *
-     * @param  string $name
+     * @param  PermissionInterface|string $permission
      * @return bool
      */
-    public function hasPermission($name);
+    public function hasPermission($permission);
 
     /**
      * Set parent role
      *
-     * @param  RoleInterface $parent
+     * @param  RoleInterface|null $parent
      * @return void
      */
-    public function setParent(RoleInterface $parent);
+    public function setParent(RoleInterface $parent = null);
 
     /**
      * Get parent role
@@ -52,7 +65,7 @@ interface RoleInterface extends IteratorAggregate
     public function getParent();
 
     /**
-     * Add a child.
+     * Add a child
      *
      * @param  RoleInterface $child
      * @return void
@@ -60,9 +73,24 @@ interface RoleInterface extends IteratorAggregate
     public function addChild(RoleInterface $child);
 
     /**
-     * Get children roles.
+     * Remove a child
+     *
+     * @param  RoleInterface $child
+     * @return void
+     */
+    public function removeChild(RoleInterface $child);
+
+    /**
+     * Get children roles
      *
      * @return array|RoleInterface[]
      */
     public function getChildren();
+
+    /**
+     * Cast the role to a string (should return the role name)
+     *
+     * @return string
+     */
+    public function __toString();
 }
