@@ -113,7 +113,7 @@ class Rbac
         }
 
         // Otherwise, we recursively check each children
-        $iteratorIterator = new RecursiveIteratorIterator($role->getChildren(), RecursiveIteratorIterator::CHILD_FIRST);
+        $iteratorIterator = new RecursiveIteratorIterator($role, RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iteratorIterator as $child) {
             /** @var RoleInterface $child */

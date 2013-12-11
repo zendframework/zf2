@@ -96,12 +96,8 @@ class Role implements RoleInterface
      */
     public function removeChild(RoleInterface $child)
     {
-        foreach ($this->children as $key => $value) {
-            if ($child === $value) {
-                unset($this->children[$key]);
-
-                return;
-            }
+        if (($search = array_search($child, $this->children, true)) !== false) {
+            unset($this->children[$search]);
         }
     }
 

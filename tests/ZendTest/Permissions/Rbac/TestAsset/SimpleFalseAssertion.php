@@ -11,7 +11,7 @@
 namespace ZendTest\Permissions\Rbac\TestAsset;
 
 use Zend\Permissions\Rbac\AssertionInterface;
-use Zend\Permissions\Rbac\RbacContainer;
+use Zend\Permissions\Rbac\Rbac;
 
 /**
  * @category   Zend
@@ -24,10 +24,10 @@ class SimpleFalseAssertion implements AssertionInterface
     /**
      * Assertion method - must return a boolean.
      *
-     * @param  RbacContainer $rbac
+     * @param  Rbac $rbac
      * @return bool
      */
-    public function assert(RbacContainer $rbac)
+    public function assert(Rbac $rbac)
     {
         return false;
     }
