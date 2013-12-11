@@ -88,7 +88,7 @@ interface RoleInterface extends IteratorAggregate
     public function getChildren();
 
     /**
-     * Cast the role to a string (should return the role name)
+     * Cast the role to a string (must return the role name)
      *
      * @return string
      */

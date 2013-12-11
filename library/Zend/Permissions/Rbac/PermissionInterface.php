@@ -26,7 +26,7 @@ interface PermissionInterface
     public function getRoles();
 
     /**
-     * Cast the permission to a string (should return the permission name)
+     * Cast the permission to a string (must return the permission name)
      *
      * @return string
      */
