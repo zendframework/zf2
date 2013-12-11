@@ -157,4 +157,48 @@ class RbacTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->rbac->isGranted('parent', 'test'));
     }
+
+    public function testCanRegisterAssociation()
+    {
+        $this->assertFalse($this->rbac->hasAssertion('foo'));
+
+        $this->rbac->registerAssertion('perm', function() {});
+        $this->assertTrue($this->rbac->hasAssertion('perm'));
+
+        $assertion = $this->getMock('Zend\Permissions\Rbac\AssertionInterface');
+        $this->rbac->registerAssertion('perm2', $assertion);
+        $this->assertTrue($this->rbac->hasAssertion('perm2'));
+    }
+
+    public function testThrowExceptionForInvalidAssertion()
+    {
+        $this->setExpectedException('Zend\Permissions\Rbac\Exception\InvalidArgumentException');
+        $this->rbac->registerAssertion('perm', new \stdClass());
+    }
+
+    public function testCanUseRegisteredAssertion()
+    {
+        $assertion = $this->getMock('Zend\Permissions\Rbac\AssertionInterface');
+
+        $assertion->expects($this->once())
+                  ->method('assert')
+                  ->with($this->rbac)
+                  ->will($this->returnValue(false));
+
+        $this->rbac->registerAssertion('perm', $assertion);
+
+        $this->assertFalse($this->rbac->isGranted('role', 'perm'));
+    }
+
+    public function testFavourGivenAssertionOverRegisteredOne()
+    {
+        $assertion = $this->getMock('Zend\Permissions\Rbac\AssertionInterface');
+
+        $assertion->expects($this->never())
+                  ->method('assert');
+
+        $this->rbac->registerAssertion('perm', $assertion);
+
+        $this->assertFalse($this->rbac->isGranted('role', 'perm', function($rbac) { return false; }));
+    }
 }
