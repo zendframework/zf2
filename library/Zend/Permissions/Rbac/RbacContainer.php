@@ -24,22 +24,26 @@ class RbacContainer
     /**
      * Add a role to the container
      *
-     * @param  RoleInterface $role
+     * @param  RoleInterface|string $role
      * @return void
      * @throws Exception\InvalidArgumentException
      */
-    public function addRole(RoleInterface $role)
+    public function addRole($role)
     {
         // If the role is already registered we throw an exception, as it could be a potential security issue
         // to have two roles with same name
         if ($this->hasRole($role)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'A role with name "%s" already exists in the container',
-                $role->getName()
+                (string) $role
             ));
         }
 
-        $this->roles[(string) $role] = $role;
+        if (is_string($role)) {
+            $role = new Role($role);
+        }
+
+        $this->roles[$role->getName()] = $role;
     }
 
     /**
