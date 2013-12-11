@@ -9,6 +9,7 @@
 
 namespace Zend\Permissions\Rbac;
 
+use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
 /**
@@ -56,7 +57,7 @@ class Rbac
      */
     public function hasRole($role)
     {
-        return isset($this->roles[(string) $role]);
+        return $this->getRole((string) $role) !== null;
     }
 
     /**
@@ -67,8 +68,25 @@ class Rbac
      */
     public function getRole($name)
     {
+        // First check the stored roles, as it's faster
         if (isset($this->roles[$name])) {
             return $this->roles[$name];
+        }
+
+        // Otherwise, we trigger a recursion on all the stored roles
+        $iterator         = new RecursiveArrayIterator($this->roles);
+        $iteratorIterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+
+        /* @var RoleInterface $role */
+        foreach ($iteratorIterator as $role) {
+            $roleName = $role->getName();
+
+            // We add it to the loaded roles, for faster retrieval in the future
+            $this->roles[$roleName] = $role;
+
+            if ($roleName === $name) {
+                return $role;
+            }
         }
 
         return null;
