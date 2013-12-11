@@ -57,7 +57,7 @@ class Role implements RoleInterface
      */
     public function addPermission($permission)
     {
-        $this->permissions[(string) $permission] = true;
+        $this->permissions[(string) $permission] = $permission;
     }
 
     /**
@@ -121,6 +121,7 @@ class Role implements RoleInterface
      */
     public function removeChild(RoleInterface $child)
     {
+        $child->setParent(null);
         unset($this->children[$child->getName()]);
     }
 
