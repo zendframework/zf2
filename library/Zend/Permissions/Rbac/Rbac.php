@@ -10,12 +10,11 @@
 namespace Zend\Permissions\Rbac;
 
 use RecursiveIteratorIterator;
-use Traversable;
 
 /**
  * A RBAC container is just here to store roles and avoid any duplicate
  */
-class RbacContainer
+class Rbac
 {
     /**
      * List of roles

@@ -118,6 +118,7 @@ class Role implements RoleInterface
      * RecursiveIterator implementation
      * --------------------------------------------------------------------------------
      */
+
     /**
      * {@inheritDoc}
      */

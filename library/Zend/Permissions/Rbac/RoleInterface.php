@@ -73,13 +73,6 @@ interface RoleInterface extends RecursiveIterator
     public function removeChild(RoleInterface $child);
 
     /**
-     * Get children roles
-     *
-     * @return array|RoleInterface[]
-     */
-    public function getChildren();
-
-    /**
      * Cast the role to a string (must return the role name)
      *
      * @return string
