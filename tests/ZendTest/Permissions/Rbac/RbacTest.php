@@ -31,45 +31,6 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $this->rbac = new Rbac\Rbac();
     }
 
-    public function testCanAddRoleFromName()
-    {
-        $this->rbac->addRole('foo');
-        $this->assertTrue($this->rbac->hasRole('foo'));
-        $this->assertFalse($this->rbac->hasRole('baz'));
-    }
-
-    public function testCanAddRoleFromObject()
-    {
-        $role = new Rbac\Role('foo');
-        $this->rbac->addRole($role);
-
-        $this->assertTrue($this->rbac->hasRole($role));
-        $this->assertTrue($this->rbac->hasRole('foo'));
-        $this->assertFalse($this->rbac->hasRole('baz'));
-    }
-
-    public function testCannotAddRoleWithSameName()
-    {
-        $this->setExpectedException('Zend\Permissions\Rbac\Exception\InvalidArgumentException');
-
-        $this->rbac->addRole('foo');
-        $this->rbac->addRole('foo');
-    }
-
-    public function testCanRetrieveChildRoleEvenIfNotExplicitelyAdded()
-    {
-        $role     = new Rbac\Role('foo');
-        $child    = new Rbac\Role('bar');
-        $subChild = new Rbac\Role('baz');
-
-        $role->addChild($child);
-        $child->addChild($subChild);
-        $this->rbac->addRole($role);
-
-        $this->assertTrue($this->rbac->hasRole('baz'));
-        $this->assertTrue($this->rbac->hasRole('bar'));
-    }
-
     public function testCanGrantAccessWithHierarchyOfRoles()
     {
         $role       = new Rbac\Role('foo');
@@ -81,10 +42,6 @@ class RbacTest extends \PHPUnit_Framework_TestCase
 
         $subRole->addPermission('debug');
 
-        $this->rbac->addRole($role);
-        $this->rbac->addRole($subRole);
-        $this->rbac->addRole($subSubRole);
-
         $this->assertTrue($this->rbac->isGranted($role, 'debug'), 'Inherit permission from its children');
         $this->assertTrue($this->rbac->isGranted($subRole, 'debug'), 'Have its own permission');
         $this->assertFalse($this->rbac->isGranted($subSubRole, 'debug'), 'Does not have permission from its parent');
@@ -93,7 +50,6 @@ class RbacTest extends \PHPUnit_Framework_TestCase
     public function testAssertions()
     {
         $role = new Rbac\Role('foo');
-        $this->rbac->addRole($role);
         $role->addPermission('debug');
 
         $this->assertFalse($this->rbac->isGranted($role, 'debug', new TestAsset\SimpleFalseAssertion()));
