@@ -20,11 +20,6 @@ class Role implements RoleInterface
     protected $name;
 
     /**
-     * @var null|RoleInterface
-     */
-    protected $parent;
-
-    /**
      * @var array|RoleInterface[]
      */
     protected $children = [];
@@ -94,25 +89,8 @@ class Role implements RoleInterface
     /**
      * {@inheritDoc}
      */
-    public function setParent(RoleInterface $parent = null)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function addChild(RoleInterface $child)
     {
-        $child->setParent($this);
         $this->children[$child->getName()] = $child;
     }
 
@@ -121,7 +99,6 @@ class Role implements RoleInterface
      */
     public function removeChild(RoleInterface $child)
     {
-        $child->setParent(null);
         unset($this->children[$child->getName()]);
     }
 

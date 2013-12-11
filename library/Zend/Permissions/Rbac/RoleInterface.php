@@ -57,21 +57,6 @@ interface RoleInterface extends IteratorAggregate
     public function hasPermission($permission);
 
     /**
-     * Set parent role
-     *
-     * @param  RoleInterface|null $parent
-     * @return void
-     */
-    public function setParent(RoleInterface $parent = null);
-
-    /**
-     * Get parent role
-     *
-     * @return null|RoleInterface
-     */
-    public function getParent();
-
-    /**
      * Add a child
      *
      * @param  RoleInterface $child
