@@ -19,16 +19,16 @@ use ZendTest\Permissions\Rbac\TestAsset;
  * @subpackage UnitTests
  * @group      Zend_Rbac
  */
-class RbacTest extends \PHPUnit_Framework_TestCase
+class RbacContainerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Zend\Permissions\Rbac\Rbac
+     * @var \Zend\Permissions\Rbac\RbacContainer
      */
     protected $rbac;
 
     public function setUp()
     {
-        $this->rbac = new Rbac\Rbac();
+        $this->rbac = new Rbac\RbacContainer();
     }
 
     public function testIsGrantedAssertion()
@@ -73,11 +73,13 @@ class RbacTest extends \PHPUnit_Framework_TestCase
         $foo = new Rbac\Role('foo');
         $bar = new Rbac\Role('bar');
 
+        $foo->addChild($bar);
+
         $foo->addPermission('can.foo');
         $bar->addPermission('can.bar');
 
         $this->rbac->addRole($foo);
-        $this->rbac->addRole($bar, $foo);
+        $this->rbac->addRole($bar);
 
         $this->assertEquals(true, $this->rbac->isGranted('foo', 'can.bar'));
         $this->assertEquals(true, $this->rbac->isGranted('foo', 'can.foo'));
@@ -116,50 +118,5 @@ class RbacTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($foo, $foo2);
         $this->assertInstanceOf('Zend\Permissions\Rbac\Role', $foo2);
-    }
-
-    public function testAddRoleWithParentsUsingRbac()
-    {
-        $foo = new Rbac\Role('foo');
-        $bar = new Rbac\Role('bar');
-
-        $this->rbac->addRole($foo);
-        $this->rbac->addRole($bar, $foo);
-
-        $this->assertEquals($bar->getParent(), $foo);
-        $this->assertEquals(1, count($foo->getChildren()));
-    }
-
-    public function testAddRoleWithAutomaticParentsUsingRbac()
-    {
-        $foo = new Rbac\Role('foo');
-        $bar = new Rbac\Role('bar');
-
-        $this->rbac->setCreateMissingRoles(true);
-        $this->rbac->addRole($bar, $foo);
-
-        $this->assertEquals($bar->getParent(), $foo);
-        $this->assertEquals(1, count($foo->getChildren()));
-    }
-
-    /**
-     * @tesdox Test adding custom child roles works
-     */
-    public function testAddCustomChildRole()
-    {
-        $role = $this->getMockForAbstractClass('Zend\Permissions\Rbac\RoleInterface');
-        $this->rbac->setCreateMissingRoles(true);
-        $this->rbac->addRole($role, array('parent'));
-
-        $role->expects($this->any())
-            ->method('getName')
-            ->will($this->returnValue('customchild'));
-
-        $role->expects($this->once())
-            ->method('hasPermission')
-            ->with('test')
-            ->will($this->returnValue(true));
-
-        $this->assertTrue($this->rbac->isGranted('parent', 'test'));
     }
 }

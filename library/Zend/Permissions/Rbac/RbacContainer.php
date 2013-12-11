@@ -75,14 +75,18 @@ class RbacContainer
     /**
      * Determines if access is granted by checking the role and child roles for permission.
      *
-     * @param  RoleInterface                    $role
+     * @param  RoleInterface|string             $role
      * @param  string                           $permission
      * @param  AssertionInterface|Callable|null $assert
      * @throws Exception\InvalidArgumentException
      * @return bool
      */
-    public function isGranted(RoleInterface $role, $permission, $assert = null)
+    public function isGranted($role, $permission, $assert = null)
     {
+        if (!$role instanceof RoleInterface) {
+            $role = $this->getRole($role);
+        }
+
         if ($assert) {
             if ($assert instanceof AssertionInterface) {
                 if (!$assert->assert($this)) {

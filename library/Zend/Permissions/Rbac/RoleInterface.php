@@ -14,7 +14,14 @@ use IteratorAggregate;
 /**
  * Interface that all roles should implement
  *
- * The role embeds all the information needed to evaluate if a given role has a given permission
+ * The role embeds all the information needed to evaluate if a given role has a given permission. Here is
+ * a recap of some properties of a role:
+ *
+ *      - A role MUST have a name
+ *      - A role MAY have one parent, one or more children and/or one or more permissions
+ *      - A role has a permission if and only this role OR one of its children (at any level of deep) have this
+ *        permission
+ *      - Analogously, a role does not have a permission if its parent has it
  */
 interface RoleInterface extends IteratorAggregate
 {

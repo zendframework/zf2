@@ -26,6 +26,12 @@ class RoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('phpIsHell', $role->getName());
     }
 
+    public function testCanCastToString()
+    {
+        $role = new Role('php');
+        $this->assertEquals('php', (string) $role);
+    }
+
     public function testCanSetParentRole()
     {
         $role   = new Role('children');
@@ -33,6 +39,16 @@ class RoleTest extends \PHPUnit_Framework_TestCase
         $role->setParent($parent);
 
         $this->assertSame($parent, $role->getParent());
+    }
+
+    public function testCanRemoveParent()
+    {
+        $role   = new Role('children');
+        $parent = new Role('parent');
+        $role->setParent($parent);
+        $role->setParent(null);
+
+        $this->assertNull($role->getParent());
     }
 
     public function testCanSetChildren()
@@ -46,6 +62,18 @@ class RoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($role->getChildren()));
     }
 
+    public function testCanRemoveChild()
+    {
+        $role  = new Role('php');
+        $child = new Role('ror');
+
+        $role->addChild($child);
+        $role->removeChild($child);
+
+        $this->assertNull($child->getParent());
+        $this->assertEmpty($role->getChildren());
+    }
+
     public function testCanReadPermission()
     {
         $role = new Role('php');
@@ -54,16 +82,28 @@ class RoleTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($role->hasPermission('debug'));
     }
 
+    public function testCanRemovePermission()
+    {
+        $role = new Role('php');
+        $role->addPermission('debug');
+        $role->removePermission('debug');
+
+        $this->assertFalse($role->hasPermission('debug'));
+    }
+
     public function testCanReadChildrenPermissions()
     {
-        $role  = new Role('php');
-        $child = new Role('ror');
+        $role     = new Role('php');
+        $child    = new Role('ror');
+        $subChild = new Role('python');
+        $child->addChild($subChild);
         $role->addChild($child);
 
-        $child->addPermission('debug');
+        $subChild->addPermission('debug');
 
         $this->assertTrue($role->hasPermission('debug'));
         $this->assertTrue($child->hasPermission('debug'));
+        $this->assertTrue($subChild->hasPermission('debug'));
     }
 
     public function testCannotReadParentPermission()
