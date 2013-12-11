@@ -37,7 +37,7 @@ class ManagerFactory implements FactoryInterface
     {
         $configuration = $serviceLocator->get(new ServiceRequest('ApplicationConfig'));
 
-        $config = $serviceLocator->get(new ServiceRequest('ViewManager'))->getViewHelpersConfig();
+        $config = $serviceLocator->get(new ServiceRequest('ViewManager'))->getViewHelpers();
 
         $plugins = new PluginManager($serviceLocator, new ServiceConfig($config));
 

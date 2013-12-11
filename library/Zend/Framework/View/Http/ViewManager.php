@@ -70,7 +70,7 @@ class ViewManager extends AbstractListenerAggregate implements ViewManagerInterf
 
     public function attach(EventManager $em)
     {
-        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'onBootstrap'), MvcEvent::EVENT_BOOTSTRAP, null, 10000));
+        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'onBootstrap'), MvcEvent::EVENT_DISPATCH, null, 10000));
     }
 
     public function detach(EventManager $events)
@@ -88,11 +88,11 @@ class ViewManager extends AbstractListenerAggregate implements ViewManagerInterf
 
         $services = $application->getServiceManager();
 
-        $config = $application->getConfig()['view_manager'];
+        $config = $this->config;
 
         $em = $application->getEventManager();
 
-        $layoutTemplate = $this->getLayoutTemplate($config);
+        $layoutTemplate = $this->config->get('layout_template');
 
         $resolver = $services->get(new ServiceRequest('ViewResolver'));
 
@@ -104,30 +104,32 @@ class ViewManager extends AbstractListenerAggregate implements ViewManagerInterf
         $renderer = $this->getRenderer($viewModel, $resolver, $viewHelperManager);
         $services->add('View\Renderer', $renderer);
 
-        $view = $this->getView($em, new PhpRendererStrategy($renderer), $services);
+        $view = $this->getView($em, $services);
 
-        $this->registerMvcRenderingStrategies($config, $em, $services);
-        $this->registerViewStrategies($config, $view, $services);
-
+        $em->attach(new PhpRendererStrategy($renderer));
         $em->attach($this->getRouteNotFoundStrategy($config, $services));
         $em->attach($this->getExceptionStrategy($config, $services));
-
         $em->attach(new ViewModelListener); //-100
         $em->attach(new TemplateListener); //-90
         $em->attach(new CreateViewModelListener); //-80
+        $em->attach(new DefaultRenderingStrategy($view)); //Mvc::EVENT_RENDER -10000
 
-        $em->attach($this->getMvcRenderingStrategy($view, $layoutTemplate, $services));
+        if ($config->get('mvc_strategies')) {
+            $this->registerMvcRenderingStrategies($config->get('mvc_strategies'), $em, $services);
+        }
+
+        if ($config->get('strategies')) {
+            $this->registerViewStrategies($config->get('strategies'), $view, $services);
+        }
     }
 
-    public function getView($em, $rendererStrategy, $services)
+    public function getView($em, $services)
     {
-        $view = new View();
+        $view = new View;
 
         $view->setEventManager($em);
 
-        $em->attach($rendererStrategy);
-
-        $services->add('View', $view);
+        //$services->add('View', $view);
 
         return $view;
     }
@@ -144,38 +146,13 @@ class ViewManager extends AbstractListenerAggregate implements ViewManagerInterf
         return $renderer;
     }
 
-    public function getLayoutTemplate($config)
-    {
-        $layout = 'layout/layout';
-
-        if (isset($config['layout'])) {
-            $layout = $config['layout'];
-        }
-
-        return $layout;
-    }
-
-    public function getMvcRenderingStrategy($view, $layoutTemplate, $services)
-    {
-        $mvcRenderingStrategy = new DefaultRenderingStrategy($view);
-        $mvcRenderingStrategy->setLayoutTemplate($layoutTemplate);
-
-        //$services->setService('View\DefaultRenderingStrategy', $mvcRenderingStrategy);
-
-        return $mvcRenderingStrategy;
-    }
-
     public function getExceptionStrategy($config, $services)
     {
         $exceptionStrategy = new ExceptionStrategy();
 
-        if (isset($config['display_exceptions'])) {
-            $exceptionStrategy->setDisplayExceptions($config['display_exceptions']);
-        }
+        $exceptionStrategy->setDisplayExceptions($config->get('display_exceptions'));
 
-        if (isset($config['exception_template'])) {
-            $exceptionStrategy->setExceptionTemplate($config['exception_template']);
-        }
+        $exceptionStrategy->setExceptionTemplate($config->get('exception_template'));
 
         //$services->add('View\ExceptionStrategy', $exceptionStrategy);
 
@@ -186,31 +163,17 @@ class ViewManager extends AbstractListenerAggregate implements ViewManagerInterf
     {
         $routeNotFoundStrategy = new RouteNotFoundStrategy();
 
-        if (isset($config['display_exceptions'])) {
-            $routeNotFoundStrategy->setDisplayExceptions($config['display_exceptions']);
-        }
-
-        if (isset($config['display_not_found_reason'])) {
-            $routeNotFoundStrategy->setDisplayNotFoundReason($config['display_not_found_reason']);
-        }
-
-        if (isset($config['not_found_template'])) {
-            $routeNotFoundStrategy->setNotFoundTemplate($config['not_found_template']);
-        }
+        $routeNotFoundStrategy->setDisplayExceptions($config->get('display_exceptions'));
+        $routeNotFoundStrategy->setDisplayNotFoundReason($config->get('display_not_found_reason'));
+        $routeNotFoundStrategy->setNotFoundTemplate($config->get('not_found_template'));
 
         //$services->add('RouteNotFoundStrategy', $routeNotFoundStrategy);
 
         return $routeNotFoundStrategy;
     }
 
-    protected function registerMvcRenderingStrategies($config, EventManager $events, $services)
+    protected function registerMvcRenderingStrategies($mvcStrategies, EventManager $events, $services)
     {
-        if (!isset($config['mvc_strategies'])) {
-            return;
-        }
-
-        $mvcStrategies = $config['mvc_strategies'];
-
         if (is_string($mvcStrategies)) {
             $mvcStrategies = array($mvcStrategies);
         }
@@ -231,14 +194,8 @@ class ViewManager extends AbstractListenerAggregate implements ViewManagerInterf
         }
     }
 
-    protected function registerViewStrategies($config, $view, $services)
+    protected function registerViewStrategies($strategies, $view, $services)
     {
-        if (!isset($config['strategies'])) {
-            return;
-        }
-
-        $strategies = $config['strategies'];
-
         if (is_string($strategies)) {
             $strategies = array($strategies);
         }

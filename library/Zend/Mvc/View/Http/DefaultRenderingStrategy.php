@@ -59,21 +59,21 @@ class DefaultRenderingStrategy extends AbstractListenerAggregate
      * @param  string $layoutTemplate
      * @return DefaultRenderingStrategy
      */
-    public function setLayoutTemplate($layoutTemplate)
+    /*public function setLayoutTemplate($layoutTemplate)
     {
         $this->layoutTemplate = (string) $layoutTemplate;
         return $this;
-    }
+    }*/
 
     /**
      * Get layout template value
      *
      * @return string
      */
-    public function getLayoutTemplate()
+    /*public function getLayoutTemplate()
     {
         return $this->layoutTemplate;
-    }
+    }*/
 
     /**
      * Render the view

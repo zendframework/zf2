@@ -13,7 +13,11 @@ use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
 use Zend\Mvc\Router\RouteMatch;
-use Zend\View\Model\ViewModel;
+use Zend\Framework\View\ManagerInterface as ViewManager;
+use Zend\Framework\ApplicationInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface;
+use Zend\Framework\View\Model\ViewModel as ViewModel;
+
 
 class Event extends EventManagerEvent
 {
@@ -23,6 +27,10 @@ class Event extends EventManagerEvent
     protected $name = MvcEvent::EVENT_DISPATCH;
 
     protected $em;
+
+    protected $sm;
+
+    protected $vm;
 
     protected $controllerLoader;
 
@@ -34,7 +42,73 @@ class Event extends EventManagerEvent
 
     protected $routeMatch;
 
+    protected $application;
+
     protected $viewModel;
+
+    protected $view;
+    protected $pm;
+    protected $resolver;
+    protected $viewConfig;
+
+    public function setViewModel(ViewModel $viewModel)
+    {
+        $this->viewModel = $viewModel;
+        return $this;
+    }
+
+    public function getViewModel()
+    {
+        return $this->viewModel;
+    }
+
+    public function setViewManager($vm)
+    {
+        $this->vm = $vm;
+        return $this;
+    }
+
+    /**
+     * @return ViewManager
+     */
+    public function getViewManager()
+    {
+        return $this->vm;
+    }
+
+
+    /**
+     * Set application instance
+     *
+     * @param  ApplicationInterface $application
+     * @return MvcEvent
+     */
+    public function setApplication(ApplicationInterface $application)
+    {
+        $this->application = $application;
+        return $this;
+    }
+
+    /**
+     * Get application instance
+     *
+     * @return ApplicationInterface
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
+
+    public function getServiceManager()
+    {
+        return $this->sm;
+    }
+
+    public function setServiceManager(ServiceManagerInterface $sm)
+    {
+        $this->sm = $sm;
+        return $this;
+    }
 
     public function setEventManager($em)
     {
@@ -102,15 +176,48 @@ class Event extends EventManagerEvent
         return $this->routeMatch;
     }
 
-    public function setViewModel(ViewModel $viewModel)
+    public function getViewResolver()
     {
-        $this->viewModel = $viewModel;
+        return $this->resolver;
+    }
+
+    public function setViewResolver($resolver)
+    {
+        $this->resolver = $resolver;
         return $this;
     }
 
-    public function getViewModel()
+    public function getViewPluginManager()
     {
-        return $this->viewModel;
+        return $this->pm;
+    }
+
+    public function setViewPluginManager($pm)
+    {
+        $this->pm = $pm;
+        return $this;
+    }
+
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function setView($view)
+    {
+        $this->view = $view;
+        return $this;
+    }
+
+    public function getViewConfig()
+    {
+        return $this->viewConfig;
+    }
+
+    public function setViewConfig($viewConfig)
+    {
+        $this->viewConfig = $viewConfig;
+        return $this;
     }
 
     public function __invoke(EventListener $listener)

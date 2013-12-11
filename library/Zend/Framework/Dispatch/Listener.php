@@ -9,24 +9,13 @@
 
 namespace Zend\Framework\Dispatch;
 
-use ArrayObject;
-use Zend\Framework\EventManager\EventManagerInterface as EventManager;
-use Zend\Framework\EventManager\CallbackListener;
-use Zend\Framework\EventManager\ListenerAggregateInterface;
-use Zend\Framework\ServiceManager\ServiceManager;
 use Zend\Framework\ServiceManager\ServiceRequest;
-use Zend\Mvc\Exception\InvalidControllerException;
-use Zend\Stdlib\ArrayUtils;
 use Zend\Framework\MvcEvent;
 
 use Zend\Framework\Controller\DispatchEvent as ControllerDispatchEvent;
-use Zend\Framework\Dispatch\Event as DispatchEvent;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\Dispatch\Exception as DispatchException;
-use Zend\Framework\Dispatch\ErrorEvent as DispatchErrorEvent;
-
-
-use Zend\View\Model\ViewModel;
-use Zend\Framework\Application;
 
 use Exception;
 
@@ -52,28 +41,11 @@ use Exception;
  * The return value of dispatching the controller is placed into the result
  * property of the MvcEvent, and returned.
  */
-class Listener implements ListenerAggregateInterface
+class Listener extends EventListener
 {
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = array();
+    protected $name = MvcEvent::EVENT_DISPATCH;
 
-    public function attach(EventManager $em)
-    {
-        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'onDispatch'), MvcEvent::EVENT_DISPATCH));
-    }
-
-    public function detach(EventManager $em)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($em->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
-    }
-
-    public function onDispatch(DispatchEvent $event)
+    public function __invoke(Event $event)
     {
         $em = $event->getEventManager();
 
@@ -96,7 +68,7 @@ class Listener implements ListenerAggregateInterface
 
         $em->attach($controller);
 
-        $viewModel = $event->getViewModel();
+        $vm = $event->getViewManager();
 
         try {
 
@@ -105,13 +77,14 @@ class Listener implements ListenerAggregateInterface
                           ->setRouteMatch($event->getRouteMatch())
                           ->setController($controller)
                           ->setResponse($response)
-                          ->setViewModel($viewModel);
+                          //->setViewManager($vm)
+                          ->setViewModel($event->getViewModel());
 
             $em->trigger($dispatchEvent);
 
             $event->setResponse($dispatchEvent->getResponse())
                   ->setResult($dispatchEvent->getResult())
-                  ->setViewModel($dispatchEvent->getViewModel());
+                  ->setViewManager($dispatchEvent->getViewManager());
 
         } catch (Exception $exception) {
 
@@ -123,10 +96,5 @@ class Listener implements ListenerAggregateInterface
 
             throw $dispatchException;
         }
-    }
-
-    public function __invoke(ServiceManager $sm)
-    {
-        return $this;
     }
 }

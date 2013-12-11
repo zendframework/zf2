@@ -36,7 +36,6 @@ class Listener extends EventListener
 
         $model = $event->getViewModel();
 
-
         if ($result->terminate()) {
             $event->setViewModel($result);
             return;

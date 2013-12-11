@@ -14,7 +14,8 @@ use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
 use Zend\Framework\Controller\AbstractActionController as ActionController;
 use Zend\Mvc\Router\RouteMatch;
-use Zend\View\Model\ViewModel;
+use Zend\Framework\View\ManagerInterface as ViewManager;
+use Zend\Framework\View\Model\ViewModel as ViewModel;
 
 class DispatchEvent extends EventManagerEvent
 {
@@ -39,7 +40,11 @@ class DispatchEvent extends EventManagerEvent
 
     protected $routeMatch;
 
+    protected $vm;
+
     protected $viewModel;
+
+    protected $viewConfig;
 
     public function setError($error)
     {
@@ -143,6 +148,17 @@ class DispatchEvent extends EventManagerEvent
     public function getViewModel()
     {
         return $this->viewModel;
+    }
+
+    public function setViewManager(ViewManager $vm)
+    {
+        $this->vm = $vm;
+        return $this;
+    }
+
+    public function getViewManager()
+    {
+        return $this->vm;
     }
 
     /**

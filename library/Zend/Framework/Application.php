@@ -12,7 +12,7 @@ namespace Zend\Framework;
 use Zend\Framework\EventManager\EventManagerAwareInterface;
 use Zend\Framework\EventManager\EventManagerInterface;
 use Zend\Framework\MvcEvent;
-use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager;
 use Zend\Stdlib\ResponseInterface as Response;
 
 use Zend\ModuleManager;
@@ -29,7 +29,7 @@ use Zend\Framework\Render\Event as RenderEvent;
 use Zend\Framework\Finish\Event as FinishEvent;
 
 use Zend\Framework\Dispatch\Exception as DispatchException;
-use Zend\View\Model\ViewModel;
+use Zend\Framework\View\Model\ViewModel;
 use Zend\Mvc\Router\RouteMatch;
 
 use Exception;
@@ -60,6 +60,8 @@ class Application implements
 
     protected $sm;
 
+    protected $vm;
+
     protected $bootstrapEvent;
 
     protected $viewModel;
@@ -73,6 +75,7 @@ class Application implements
         $this->response         = $sm->get(new ServiceRequest('Response'));
         $this->router           = $sm->get(new ServiceRequest('Router'));
         $this->controllerLoader = $sm->get(new ServiceRequest('ControllerLoader'));
+        $this->vm               = $sm->get(new ServiceRequest('ViewManager'));
         $this->viewModel        = new ViewModel;
         $this->routeMatch       = new RouteMatch;
     }
@@ -144,8 +147,9 @@ class Application implements
 
         $listeners = $config['mvc_listeners'];
 
-        foreach($listeners as $l) {
-            $em->attach($sm->get(new ServiceRequest($l)));
+        foreach($listeners as $listener) {
+            $listenerClass = $sm->getConfig($listener);
+            $em->attach(new $listenerClass);
         }
 
         return $application;
@@ -193,12 +197,20 @@ class Application implements
         $dispatchEvent = new DispatchEvent;
 
         $dispatchEvent->setTarget($this)
+                      ->setApplication($this)
+                      ->setServiceManager($this->sm)
                       ->setRouteMatch($routeMatch)
                       ->setEventManager($em)
                       ->setRequest($request)
                       ->setResponse($response)
                       ->setControllerLoader($controllerLoader)
-                      ->setViewModel($viewModel);
+                      ->setViewConfig($this->vm->getViewConfig())
+                      ->setViewManager($this->vm)
+                      ->setViewModel($viewModel)
+                      ->setViewResolver($this->sm->get(new ServiceRequest('ViewResolver')))
+                      ->setViewPluginManager($this->sm->get(new ServiceRequest('ViewPluginManager')))
+                      ->setView($this->sm->get(new ServiceRequest('View')));
+
 
         try {
 
@@ -227,7 +239,7 @@ class Application implements
                     ->setApplication($this)
                     ->setRequest($request)
                     ->setResponse($response)
-                    ->setViewModel($viewModel);
+                    ->setViewModel($bootstrapEvent->getViewModel());
 
         $em->trigger($renderEvent);
 

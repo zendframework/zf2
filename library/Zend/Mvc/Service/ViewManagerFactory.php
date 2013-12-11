@@ -32,9 +32,4 @@ class ViewManagerFactory implements FactoryInterface
 
         return $serviceLocator->get(new ServiceRequest('HttpViewManager'));
     }
-
-    public function __invoke(ServiceManager $serviceLocator)
-    {
-        return $this->createService($serviceLocator);
-    }
 }

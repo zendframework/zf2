@@ -9,71 +9,24 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\EventManager\EventManagerInterface as EventManager;
-use Zend\Framework\EventManager\ListenerAggregateInterface;
-use Zend\Framework\ServiceManager\ServiceManager;
-use Zend\Framework\EventManager\CallbackListener;
-
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 
-class Listener implements ListenerAggregateInterface
+class Listener extends EventListener
 {
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = array();
+    protected $name = MvcEvent::EVENT_ROUTE;
 
-    /**
-     * Attach to an event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function attach(EventManager $events)
-    {
-        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'onRoute'), MvcEvent::EVENT_ROUTE));
-    }
 
-    /**
-     * Detach all our listeners from the event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManager $events)
+    public function __invoke(Event $event)
     {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
-    }
-
-    /**
-     * Listen to the "route" event and attempt to route the request
-     *
-     * If no matches are returned, triggers "dispatch.error" in order to
-     * create a 404 response.
-     *
-     * Seeds the event with the route match on completion.
-     *
-     * @param  MvcEvent $e
-     * @return null|Router\RouteMatch
-     */
-    public function onRoute($e)
-    {
-        $request    = $e->getRequest();
-        $router     = $e->getRouter();
+        $request    = $event->getRequest();
+        $router     = $event->getRouter();
         $routeMatch = $router->match($request);
 
         if ($routeMatch instanceof RouteMatch) {
-            $e->setRouteMatch($routeMatch);
+            $event->setRouteMatch($routeMatch);
         }
-    }
-
-    public function __invoke(ServiceManager $sm)
-    {
-        return $this;
     }
 }

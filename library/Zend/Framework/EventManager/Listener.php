@@ -10,9 +10,9 @@
 namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerInterface;
+use Zend\Framework\EventManager\ListenerInterface as EventListener;
 
-class Listener implements ListenerInterface
+class Listener implements EventListener
 {
     /**
      * Name(s) of events to listener for

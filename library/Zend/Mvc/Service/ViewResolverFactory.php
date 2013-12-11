@@ -32,9 +32,4 @@ class ViewResolverFactory implements FactoryInterface
         $resolver->attach($serviceLocator->get(new ServiceRequest('ViewTemplatePathStack')));
         return $resolver;
     }
-
-    public function __invoke(ServiceManager $serviceLocator)
-    {
-        return $this->createService($serviceLocator);
-    }
 }

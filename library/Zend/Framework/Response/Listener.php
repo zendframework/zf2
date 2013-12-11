@@ -60,9 +60,4 @@ class Listener implements
             }
         }
     }
-
-    public function __invoke(ServiceManager $serviceLocator)
-    {
-        return $this;
-    }
 }

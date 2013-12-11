@@ -9,10 +9,9 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-
-interface ViewManagerInterface
+interface ManagerInterface
 {
 
-    public function getViewHelpersConfig();
+    //public function getViewConfig();
+    //public function getViewHelperConfig();
 }
