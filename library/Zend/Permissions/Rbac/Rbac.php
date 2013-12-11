@@ -12,7 +12,7 @@ namespace Zend\Permissions\Rbac;
 use RecursiveIteratorIterator;
 
 /**
- * A RBAC container is just here to store roles and avoid any duplicate
+ * Rbac object. It is used to check a permission against a role
  */
 class Rbac
 {
