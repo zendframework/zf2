@@ -101,14 +101,6 @@ class Role implements RoleInterface
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     /*
      * --------------------------------------------------------------------------------
      * RecursiveIterator implementation
