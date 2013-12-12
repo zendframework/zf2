@@ -67,12 +67,8 @@ class ServiceManager implements ServiceLocatorInterface
             return $this->shared[$name];
         }
 
-        if (isset($this->pending[$name]) && $this->pending[$name]) {
+        if (!empty($this->pending[$name])) {
             throw new Exception('Circular dependency');
-        }
-
-        if (!is_object($service)) {
-            throw new Exception(__FILE__);
         }
 
         $this->pending[$name] = true;
@@ -88,14 +84,17 @@ class ServiceManager implements ServiceLocatorInterface
 
             foreach($service->getListeners() as $listener) {
                 $instance = $service($listener);
-                if ($instance) {
-                    if ($service->isShared()) {
-                        $this->shared[$name] = $instance;
-                    } else {
-                        $this->listeners[$name] = $listener;
-                    }
+                if (!$instance) {
+                    continue;
+                }
+
+                if ($service->isShared()) {
+                    $this->shared[$name] = $instance;
                     break;
                 }
+
+                $this->listeners[$name] = $listener;
+                break;
             }
 
         }

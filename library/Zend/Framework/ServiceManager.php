@@ -58,6 +58,11 @@ class ServiceManager extends ServiceManager\ServiceManager
         return $this->getService('ViewManager');
     }
 
+    public function getViewConfig()
+    {
+        return $this->getViewManager()->getViewConfig();
+    }
+
     public function getViewResolver()
     {
         return $this->getService('ViewResolver');
@@ -66,5 +71,40 @@ class ServiceManager extends ServiceManager\ServiceManager
     public function setViewResolver($resolver)
     {
         return $this->add('ViewResolver', $resolver);
+    }
+
+    public function getRequest()
+    {
+        return $this->getService('Request');
+    }
+
+    public function getResponse()
+    {
+        return $this->getService('Response');
+    }
+
+    public function getRouter()
+    {
+        return $this->getService('Router');
+    }
+
+    public function getControllerLoader()
+    {
+        return $this->getService('ControllerLoader');
+    }
+
+    public function getViewModel()
+    {
+        return $this->getService('ViewModel');
+    }
+
+    public function getViewPluginManager()
+    {
+        return $this->getService('ViewPluginManager');
+    }
+
+    public function getView()
+    {
+        return $this->getService('View');
     }
 }

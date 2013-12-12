@@ -9,55 +9,29 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\EventManager\EventManager;
-use Zend\Framework\EventManager\EventManagerInterface;
-use Zend\Framework\EventManager\EventManagerAwareInterface;
-use Zend\Framework\EventManager\ListenerAggregateInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
 use Zend\Mvc\ResponseSender\ConsoleResponseSender;
 use Zend\Mvc\ResponseSender\HttpResponseSender;
 use Zend\Mvc\ResponseSender\PhpEnvironmentResponseSender;
-use Zend\Mvc\ResponseSender\SendResponseEvent;
 use Zend\Mvc\ResponseSender\SimpleStreamResponseSender;
-use Zend\Stdlib\ResponseInterface as Response;
-use Zend\Framework\ServiceManager\ServiceManager;
-use Zend\Framework\EventManager\CallbackListener;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\FactoryInterface;
 
-class Listener implements
-    ListenerAggregateInterface
+class Listener
+    extends EventListener
+    implements FactoryInterface
 {
+    protected $name = 'mvc.response';
 
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = array();
-
-    /**
-     * Attach the aggregate to the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function attach(EventManagerInterface $em)
+    public function createService(ServiceManager $sm)
     {
-        $this->listeners[] = $em->attach(new PhpEnvironmentResponseSender(MvcEvent::EVENT_RESPONSE, null, -10000));
-        $this->listeners[] = $em->attach(new ConsoleResponseSender(MvcEvent::EVENT_RESPONSE, null, -20000));
-        $this->listeners[] = $em->attach(new SimpleStreamResponseSender(MvcEvent::EVENT_RESPONSE, null, -30000));
-        $this->listeners[] = $em->attach(new HttpResponseSender(MvcEvent::EVENT_RESPONSE, null, -40000));
+        return new self();
     }
 
-    /**
-     * Detach aggregate listeners from the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManagerInterface $em)
+    public function __invoke(Event $event)
     {
-        foreach ($this->listeners as $index => $listener) {
-            if ($em->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
+        var_dump('>> '.__FILE__);
     }
 }

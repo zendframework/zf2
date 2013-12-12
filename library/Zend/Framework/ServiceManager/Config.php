@@ -22,13 +22,13 @@ class Config implements ConfigInterface
         $this->config = $config;
     }
 
-    public function get($name)
+    public function get($name, $default = null)
     {
         if (isset($this->config[$name])) {
             return $this->config[$name];
         }
 
-        return null;
+        return $default;
     }
 
     /**

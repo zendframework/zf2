@@ -9,19 +9,17 @@
 
 namespace Zend\Framework\Route;
 
+use Zend\Framework\Route\Event as RouteEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class Listener
+class MvcListener
     extends EventListener
     implements FactoryInterface
 {
-    protected $name = MvcEvent::EVENT_ROUTE;
+    protected $name = 'mvc.application';
 
     public function createService(ServiceManager $sm)
     {
@@ -31,12 +29,17 @@ class Listener
     public function __invoke(Event $event)
     {
         var_dump(__FILE__);
-        $request    = $event->getRequest();
-        $router     = $event->getRouter();
-        $routeMatch = $router->match($request);
 
-        if ($routeMatch instanceof RouteMatch) {
-            $event->setRouteMatch($routeMatch);
-        }
+        $em = $event->getEventManager();
+
+        $route = new RouteEvent;
+
+        $route->setTarget($event->getTarget())
+              ->setRequest($event->getRequest())
+              ->setRouter($event->getRouter());
+
+        $em->trigger($route);
+
+        $event->setRouteMatch($route->getRouteMatch());
     }
 }

@@ -9,18 +9,19 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\ApplicationInterface as ApplicationInterface;
+use Zend\Framework\ApplicationInterface as Application;
 use Zend\Framework\EventManager\Event;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
-use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
 use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Mvc\Router\RouteInterface;
+use Zend\Mvc\Router\RouteMatch;
 
-use Zend\View\Model\ViewModel;
+use Zend\Framework\View\Model\ViewModel;
 
-class MvcEvent extends Event implements FactoryInterface
+class MvcEvent
+        extends Event
 {
     /**
      *
@@ -62,7 +63,75 @@ class MvcEvent extends Event implements FactoryInterface
 
     protected $viewModel;
 
-    public function setApplication(ApplicationInterface $application)
+    protected $viewConfig;
+
+    protected $vm;
+
+    protected $pm;
+
+    protected $resolver;
+
+    protected $view;
+
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function setView($view)
+    {
+        $this->view = $view;
+        return $this;
+    }
+
+    public function getViewPluginManager()
+    {
+        return $this->pm;
+    }
+
+    public function setViewPluginManager($pm)
+    {
+        $this->pm = $pm;
+        return $this;
+    }
+
+    public function getViewResolver()
+    {
+        return $this->resolver;
+    }
+
+    public function setViewResolver($resolver)
+    {
+        $this->resolver = $resolver;
+        return $this;
+    }
+
+    public function setViewManager($vm)
+    {
+        $this->vm = $vm;
+        return $this;
+    }
+
+    /**
+     * @return ViewManager
+     */
+    public function getViewManager()
+    {
+        return $this->vm;
+    }
+
+    public function getViewConfig()
+    {
+        return $this->viewConfig;
+    }
+
+    public function setViewConfig($viewConfig)
+    {
+        $this->viewConfig = $viewConfig;
+        return $this;
+    }
+
+    public function setApplication(Application $application)
     {
         $this->application = $application;
         return $this;
@@ -150,7 +219,7 @@ class MvcEvent extends Event implements FactoryInterface
         return $this->routeMatch;
     }
 
-    public function setServiceManager(ServiceManagerInterface $sm)
+    public function setServiceManager(ServiceManager $sm)
     {
         $this->sm = $sm;
         return $this;
@@ -170,35 +239,5 @@ class MvcEvent extends Event implements FactoryInterface
     public function getViewModel()
     {
         return $this->viewModel;
-    }
-
-    public function __invoke(EventListener $listener)
-    {
-        return parent::__invoke($listener);
-    }
-
-    public function createService(ServiceManagerInterface $sm)
-    {
-        $event = new MvcEvent;
-
-        $app = $sm->get(new ServiceRequest('Application'));
-        $em = $app->getEventManager();
-
-        $config = $app->getConfig();
-
-        foreach($config['default_listeners'] as $l) {
-            $em->attach($sm->get(new ServiceRequest($l)));
-        }
-
-        $event->setApplication($app)
-              ->setEventManager($app->getEventManager())
-              ->setServiceManager($app->getServiceManager())
-              ->setRequest($app->getRequest())
-              ->setResponse($app->getResponse())
-              ->setRouter($app->getRouter())
-              ->setControllerLoader($app->getControllerLoader())
-              ->setViewModel($app->getViewModel());
-
-        return $event;
     }
 }

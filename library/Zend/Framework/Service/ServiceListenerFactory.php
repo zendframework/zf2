@@ -140,7 +140,7 @@ class ServiceListenerFactory implements ServiceManagerListenerInterface
     );
 
     public function __invoke(ServiceManager $sm)
-    {
+    {var_dump(__FILE__);
         $configuration   = $sm->get(new ServiceRequest('ApplicationConfig'));
 
         if ($sm->has('ServiceListenerInterface')) {

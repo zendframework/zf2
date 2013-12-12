@@ -16,21 +16,21 @@ interface ApplicationInterface
      *
      * @return \Zend\ServiceManager\ServiceLocatorInterface
      */
-    public function getServiceManager();
+    //public function getServiceManager();
 
     /**
      * Get the request object
      *
      * @return \Zend\Stdlib\RequestInterface
      */
-    public function getRequest();
+    //public function getRequest();
 
     /**
      * Get the response object
      *
      * @return \Zend\Stdlib\ResponseInterface
      */
-    public function getResponse();
+    //public function getResponse();
 
     /**
      * Run the application

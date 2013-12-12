@@ -9,13 +9,16 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\ServiceManager\ServiceRequest;
-use Zend\Framework\MvcEvent;
-
 use Zend\Framework\Controller\DispatchEvent as ControllerDispatchEvent;
+use Zend\Framework\Dispatch\Exception as DispatchException;
+
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\Dispatch\Exception as DispatchException;
+use Zend\Framework\MvcEvent;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 use Exception;
 
@@ -41,12 +44,20 @@ use Exception;
  * The return value of dispatching the controller is placed into the result
  * property of the MvcEvent, and returned.
  */
-class Listener extends EventListener
+class Listener
+    extends EventListener
+    implements FactoryInterface
 {
     protected $name = MvcEvent::EVENT_DISPATCH;
 
+    public function createService(ServiceManager $sm)
+    {
+        return new self();
+    }
+
     public function __invoke(Event $event)
     {
+        var_dump(__FILE__);
         $em = $event->getEventManager();
 
         $routeMatch = $event->getRouteMatch();

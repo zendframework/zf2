@@ -12,6 +12,7 @@ namespace Zend\Framework\Render;
 use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\Framework\View\Model\ViewModel;
+use Zend\Mvc\Router\RouteMatch;
 
 class Event extends EventManagerEvent
 {
@@ -24,6 +25,32 @@ class Event extends EventManagerEvent
     protected $request;
 
     protected $result;
+
+    protected $router;
+
+    protected $routeMatch;
+
+    public function setRouteMatch(RouteMatch $routeMatch)
+    {
+        $this->routeMatch = $routeMatch;
+        return $this;
+    }
+
+    public function getRouteMatch()
+    {
+        return $this->routeMatch;
+    }
+
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
+    public function setRouter($router)
+    {
+        $this->router = $router;
+        return $this;
+    }
 
     public function getApplication()
     {

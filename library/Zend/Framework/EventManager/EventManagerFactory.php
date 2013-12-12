@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service;
+namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventManager;
 use Zend\Framework\ServiceManager\FactoryInterface;
@@ -27,11 +27,19 @@ class EventManagerFactory implements FactoryInterface
      */
     public function createService(ServiceManager $sm)
     {
-        return new EventManager();
-    }
+        $config = $sm->get(new ServiceRequest('ApplicationConfig'));
 
-    public function __invoke($sm)
-    {
-        return $this->createService($sm);
+        $em = new EventManager();
+
+        foreach($config['events'] as $event) {
+            foreach($event as $listener) {
+                if (is_string($listener)) {
+                    $listener = $sm->get(new ServiceRequest($listener));
+                }
+                $em->attach(new $listener);
+            }
+        }
+
+        return $em;
     }
 }

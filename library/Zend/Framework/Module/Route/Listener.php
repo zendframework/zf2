@@ -13,13 +13,23 @@ use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Mvc\Router\Http\RouteMatch;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
+use Zend\Framework\ServiceManager\FactoryInterface;
 
-class Listener extends EventListener
+class Listener
+    extends EventListener
+    implements FactoryInterface
 {
     const MODULE_NAMESPACE    = '__NAMESPACE__';
     const ORIGINAL_CONTROLLER = '__CONTROLLER__';
 
     protected $name = MvcEvent::EVENT_ROUTE;
+
+    public function createService(ServiceManager $sm)
+    {
+        return new self();
+    }
 
     public function __invoke(Event $e)
     {

@@ -7,14 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Bootstrap;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Listener

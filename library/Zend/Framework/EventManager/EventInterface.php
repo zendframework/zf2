@@ -56,10 +56,18 @@ interface EventInterface
     /**
      * Set listeners
      *
-     * @param  null|string|object $target
+     * @param  null|string|object $listeners
      * @return Event
      */
     public function setListeners($listeners);
+
+    /**
+     * Add listener
+     *
+     * @param  object $listener
+     * @return Event
+     */
+    public function addListener($listener);
 
     /**
      * Get target/context from which event was triggered

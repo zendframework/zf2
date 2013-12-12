@@ -133,6 +133,12 @@ class Event implements EventInterface
         return $this;
     }
 
+    public function addListener($listener)
+    {
+        $this->listeners[] = $listener;
+        return $this;
+    }
+
     /**
      * Set the event target/context
      *
@@ -201,12 +207,9 @@ class Event implements EventInterface
         return $this->eventResponses;
     }
 
-
     /**
-     * Invokes listener with this event passed as its only argument.
-     *
      * @param ListenerInterface $listener
-     * @return bool
+     * @return void
      */
     public function __invoke(ListenerInterface $listener)
     {
@@ -214,8 +217,10 @@ class Event implements EventInterface
 
         $this->eventResponses[] = $response;
 
-        if ($this->callback) {
-            return call_user_func($this->callback, $this, $listener, $response);
+        if (!$this->callback) {
+            return null;
         }
+
+        call_user_func($this->callback, $this, $listener, $response);
     }
 }

@@ -85,6 +85,87 @@ class Event extends EventManagerEvent
 
     protected $sm;
 
+    protected $em;
+
+    protected $viewConfig;
+
+    protected $resolver;
+
+    protected $pm;
+
+    protected $view;
+
+    protected $vm;
+
+    public function setViewManager($vm)
+    {
+        $this->vm = $vm;
+        return $this;
+    }
+
+    /**
+     * @return ViewManager
+     */
+    public function getViewManager()
+    {
+        return $this->vm;
+    }
+
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function setView($view)
+    {
+        $this->view = $view;
+        return $this;
+    }
+
+    public function getViewPluginManager()
+    {
+        return $this->pm;
+    }
+
+    public function setViewPluginManager($pm)
+    {
+        $this->pm = $pm;
+        return $this;
+    }
+
+    public function getViewResolver()
+    {
+        return $this->resolver;
+    }
+
+    public function setViewResolver($resolver)
+    {
+        $this->resolver = $resolver;
+        return $this;
+    }
+
+    public function setEventManager($em)
+    {
+        $this->em = $em;
+        return $this;
+    }
+
+    public function getEventManager()
+    {
+        return $this->em;
+    }
+
+    public function getViewConfig()
+    {
+        return $this->viewConfig;
+    }
+
+    public function setViewConfig($viewConfig)
+    {
+        $this->viewConfig = $viewConfig;
+        return $this;
+    }
+
     /**
      * Set application instance
      *

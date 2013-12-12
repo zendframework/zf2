@@ -9,30 +9,11 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\EventManager\EventManagerAwareInterface;
-use Zend\Framework\EventManager\EventManagerInterface;
-use Zend\Framework\MvcEvent;
-use Zend\Framework\ServiceManager;
-use Zend\Stdlib\ResponseInterface as Response;
-
-use Zend\ModuleManager;
-use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
-use Zend\Framework\ServiceManager\ServiceRequest;
-
 use Zend\Framework\ApplicationInterface;
-use Zend\Framework\Bootstrap\Event as BootstrapEvent;
-use Zend\Framework\Route\Event as RouteEvent;
-use Zend\Framework\Dispatch\Event as DispatchEvent;
-use Zend\Framework\Dispatch\ErrorEvent as DispatchErrorEvent;
-use Zend\Framework\Response\Event as ResponseEvent;
-use Zend\Framework\Render\Event as RenderEvent;
-use Zend\Framework\Finish\Event as FinishEvent;
-
-use Zend\Framework\Dispatch\Exception as DispatchException;
+use Zend\Framework\ServiceManager;
+use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
+use Zend\ModuleManager;
 use Zend\Framework\View\Model\ViewModel;
-use Zend\Mvc\Router\RouteMatch;
-
-use Exception;
 
 class Application implements
     ApplicationInterface
@@ -44,45 +25,11 @@ class Application implements
     const ERROR_EXCEPTION                  = 'error-exception';
     const ERROR_ROUTER_NO_MATCH            = 'error-router-no-match';
 
-    protected $config;
-
-    protected $event;
-
-    protected $em;
-
-    protected $request;
-
-    protected $response;
-
-    protected $router;
-
-    protected $controllerLoader;
-
     protected $sm;
-
-    protected $vm;
-
-    protected $bootstrapEvent;
-
-    protected $viewModel;
 
     public function __construct(ServiceManager $sm)
     {
-        $this->sm               = $sm;
-        $this->config           = $sm->get(new ServiceRequest('ApplicationConfig'));
-        $this->em               = $sm->get(new ServiceRequest('EventManager'));
-        $this->request          = $sm->get(new ServiceRequest('Request'));
-        $this->response         = $sm->get(new ServiceRequest('Response'));
-        $this->router           = $sm->get(new ServiceRequest('Router'));
-        $this->controllerLoader = $sm->get(new ServiceRequest('ControllerLoader'));
-        $this->vm               = $sm->get(new ServiceRequest('ViewManager'));
-        $this->viewModel        = new ViewModel;
-        $this->routeMatch       = new RouteMatch;
-    }
-
-    public function getConfig()
-    {
-        return $this->config;
+        $this->sm = $sm;
     }
 
     public function getServiceManager()
@@ -90,40 +37,9 @@ class Application implements
         return $this->sm;
     }
 
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    public function getRouter()
-    {
-        return $this->router;
-    }
-
-    public function getControllerLoader()
-    {
-        return $this->controllerLoader;
-    }
-
-    /**
-     * @return EventManagerInterface
-     */
     public function getEventManager()
     {
-        return $this->em;
-    }
-
-    /**
-     * @return ViewModel
-     */
-    public function getViewModel()
-    {
-        return $this->viewModel;
+        return $this->sm->getEventManager();
     }
 
     /**
@@ -132,124 +48,49 @@ class Application implements
      */
     public static function init($config = array())
     {
+        //$config = new ApplicationConfig($config);
+
         $sm = new ServiceManager(new ServiceManagerConfig($config['service_manager']));
 
         $sm->add('ApplicationConfig', $config);
 
+        $sm->add('ViewModel', new ViewModel);
+
         //$mm = $sm->get(new ServiceRequest('ModuleManager'));
         //$mm->loadModules();
 
-        $application = new static($sm);
+        $application = new self($sm);
 
         $sm->add('Application', $application);
-
-        $em = $application->getEventManager();
-
-        $listeners = $config['mvc_listeners'];
-
-        foreach($listeners as $listener) {
-            $listenerClass = $sm->getConfig($listener);
-            $em->attach(new $listenerClass);
-        }
 
         return $application;
     }
 
     /**
-     * @return $this|mixed|Application|Response|ResponseInterface
+     * @return $this|Response
      */
     public function run()
     {
-        $em = $this->em;
+        $sm = $this->getServiceManager();
+        $em = $this->getEventManager();
 
-        //boostrap
-        $bootstrapEvent = new BootstrapEvent;
+        $event = new MvcEvent;
 
-        $bootstrapEvent->setTarget($this)
-                       ->setApplication($this)
-                       ->setServiceManager($this->sm)
-                       ->setRequest($this->request)
-                       ->setResponse($this->response)
-                       ->setRouter($this->router)
-                       ->setControllerLoader($this->controllerLoader)
-                       ->setViewModel($this->viewModel);
+        $event->setTarget($this)
+              ->setApplication($this)
+              ->setServiceManager($sm)
+              ->setEventManager($em)
+              ->setRequest($sm->getRequest())
+              ->setResponse($sm->getResponse())
+              ->setRouter($sm->getRouter())
+              ->setControllerLoader($sm->getControllerLoader())
+              ->setViewModel($sm->getViewModel());
 
-        $em->trigger($bootstrapEvent);
+        $event->setCallback(function($event, $listener, $response) {
 
-        $request          = $bootstrapEvent->getRequest();
-        $router           = $bootstrapEvent->getRouter();
-        $response         = $bootstrapEvent->getResponse();
-        $controllerLoader = $bootstrapEvent->getControllerLoader();
-        $viewModel        = $bootstrapEvent->getViewModel();
+        });
 
-        //route
-        $routeEvent = new RouteEvent;
-
-        $routeEvent->setTarget($this)
-                   ->setRequest($request)
-                   ->setRouter($router);
-
-        $em->trigger($routeEvent);
-
-        $routeMatch = $routeEvent->getRouteMatch();
-
-        //dispatch
-        $dispatchEvent = new DispatchEvent;
-
-        $dispatchEvent->setTarget($this)
-                      ->setApplication($this)
-                      ->setServiceManager($this->sm)
-                      ->setRouteMatch($routeMatch)
-                      ->setEventManager($em)
-                      ->setRequest($request)
-                      ->setResponse($response)
-                      ->setControllerLoader($controllerLoader)
-                      ->setViewConfig($this->vm->getViewConfig())
-                      ->setViewManager($this->vm)
-                      ->setViewModel($viewModel)
-                      ->setViewResolver($this->sm->get(new ServiceRequest('ViewResolver')))
-                      ->setViewPluginManager($this->sm->get(new ServiceRequest('ViewPluginManager')))
-                      ->setView($this->sm->get(new ServiceRequest('View')));
-
-
-        try {
-
-            $em->trigger($dispatchEvent);
-
-        } catch (DispatchException $exception) {
-
-            $dispatchEvent = new DispatchErrorEvent;
-
-            $dispatchEvent->setTarget($this)
-                          ->setException($exception->getException())
-                          ->setController($exception->getControllerName())
-                          ->setControllerClass($exception->getControllerClass());
-
-            $em->trigger($dispatchEvent);
-        }
-
-        $request   = $dispatchEvent->getRequest();
-        $response  = $dispatchEvent->getResponse();
-        $viewModel = $dispatchEvent->getViewModel();
-
-        //render
-        $renderEvent = new RenderEvent;
-
-        $renderEvent->setTarget($this)
-                    ->setApplication($this)
-                    ->setRequest($request)
-                    ->setResponse($response)
-                    ->setViewModel($bootstrapEvent->getViewModel());
-
-        $em->trigger($renderEvent);
-
-        //response
-        $responseEvent = new ResponseEvent;
-
-        $responseEvent->setTarget($this)
-                      ->setResponse($renderEvent->getResponse());
-
-        $em->trigger($responseEvent);
+        $em->trigger($event);
 
         return $this;
     }

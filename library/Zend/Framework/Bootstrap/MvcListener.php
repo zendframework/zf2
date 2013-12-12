@@ -10,37 +10,46 @@
 namespace Zend\Framework\Bootstrap;
 
 use Zend\Framework\Bootstrap\Event as BootstrapEvent;
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class MvcListener extends EventListener implements FactoryInterface
+class MvcListener
+    extends EventListener
+    implements FactoryInterface
 {
+    const EVENT_NAME = 'BootstrapEvent';
 
     protected $name = 'mvc.application';
 
-    public function createService(ServiceManagerInterface $sm)
+    public function createService(ServiceManager $sm)
     {
-        return new static();
+        return new self();
     }
 
-    public function __invoke(EventInterface $event)
+    public function __invoke(Event $event)
     {
+        var_dump(__FILE__);
         $em = $event->getEventManager();
+        $sm = $event->getServiceManager();
 
-        $bootstrapEvent = new BootstrapEvent();
+        $bootstrap = new BootstrapEvent;
 
-        $bootstrapEvent->setTarget($event->getTarget())
-                       ->setApplication($event->getApplication())
-                       ->setServiceManager($event->getServiceManager())
-                       ->setRequest($event->getRequest())
-                       ->setResponse($event->getResponse())
-                       ->setRouter($event->getRouter())
-                       ->setControllerLoader($event->getControllerLoader())
-                       ->setViewModel($event->getViewModel());
+        $bootstrap->setApplication($sm->getApplication())
+                  ->setEventManager($sm->getEventManager())
+                  ->setServiceManager($sm)
+                  ->setRequest($sm->getRequest())
+                  ->setResponse($sm->getResponse())
+                  ->setRouter($sm->getRouter())
+                  ->setControllerLoader($sm->getControllerLoader())
+                  ->setViewModel($sm->getViewModel())
+                  ->setViewConfig($sm->getViewConfig())
+                  ->setViewManager($sm->getViewManager())
+                  ->setViewResolver($sm->getViewResolver())
+                  ->setViewPluginManager($sm->getViewPluginManager())
+                  ->setView($sm->getView());
 
-        $em->trigger($bootstrapEvent);
-
+        $em->trigger($bootstrap);
     }
 }

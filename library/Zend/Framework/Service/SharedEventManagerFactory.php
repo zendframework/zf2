@@ -26,12 +26,7 @@ class SharedEventManagerFactory implements FactoryInterface
      * @return EventManager
      */
     public function createService(ServiceManager $sm)
-    {
+    {throw new \Exception(__FILE__);
         return new EventManager();
-    }
-
-    public function __invoke(ServiceManager $sm)
-    {
-        return $this->createService($sm);
     }
 }
