@@ -348,7 +348,9 @@ class Segment implements RouteInterface
         }
 
         $uri  = $request->getUri();
-        $path = $uri->getPath();
+
+        $rawPath = $uri->getPath();
+        $path = $this->decode($rawPath);
 
         $regex = $this->regex;
 
