@@ -176,7 +176,7 @@ class Fieldset extends Element implements FieldsetInterface
             $order = $flags['priority'];
         }
 
-        $this->iterator->insert($elementOrFieldset, $order);
+        $this->getIterator()->insert($elementOrFieldset, $order);
         $this->byName[$name] = $elementOrFieldset;
 
         if ($elementOrFieldset instanceof FieldsetInterface) {
@@ -235,7 +235,7 @@ class Fieldset extends Element implements FieldsetInterface
         $entry = $this->byName[$elementOrFieldset];
         unset($this->byName[$elementOrFieldset]);
 
-        $this->iterator->remove($entry);
+        $this->getIterator()->remove($entry);
 
         if ($entry instanceof FieldsetInterface) {
             unset($this->fieldsets[$elementOrFieldset]);
@@ -413,7 +413,7 @@ class Fieldset extends Element implements FieldsetInterface
      */
     public function count()
     {
-        return $this->iterator->count();
+        return $this->getIterator()->count();
     }
 
     /**
@@ -423,6 +423,9 @@ class Fieldset extends Element implements FieldsetInterface
      */
     public function getIterator()
     {
+        if (null === $this->iterator) {
+            $this->iterator = new PriorityQueue();
+        }
         return $this->iterator;
     }
 
@@ -613,7 +616,8 @@ class Fieldset extends Element implements FieldsetInterface
      */
     public function __clone()
     {
-        $items = $this->iterator->toArray(PriorityQueue::EXTR_BOTH);
+        $iterator  = $this->getIterator();
+        $items     = $iterator->toArray(PriorityQueue::EXTR_BOTH);
 
         $this->byName    = array();
         $this->elements  = array();
@@ -624,7 +628,7 @@ class Fieldset extends Element implements FieldsetInterface
             $elementOrFieldset = clone $item['data'];
             $name = $elementOrFieldset->getName();
 
-            $this->iterator->insert($elementOrFieldset, $item['priority']);
+            $iterator->insert($elementOrFieldset, $item['priority']);
             $this->byName[$name] = $elementOrFieldset;
 
             if ($elementOrFieldset instanceof FieldsetInterface) {

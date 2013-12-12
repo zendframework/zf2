@@ -38,8 +38,6 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function __construct($options = null)
     {
-        $this->filters = new PriorityQueue();
-
         if (null !== $options) {
             $this->setOptions($options);
         }
@@ -96,7 +94,7 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function count()
     {
-        return count($this->filters);
+        return count($this->getFilters());
     }
 
     /**
@@ -156,7 +154,7 @@ class FilterChain extends AbstractFilter implements Countable
             }
             $callback = array($callback, 'filter');
         }
-        $this->filters->insert($callback, $priority);
+        $this->getFilters()->insert($callback, $priority);
         return $this;
     }
 
@@ -190,7 +188,7 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function merge(FilterChain $filterChain)
     {
-        foreach ($filterChain->filters->toArray(PriorityQueue::EXTR_BOTH) as $item) {
+        foreach ($filterChain->getFilters()->toArray(PriorityQueue::EXTR_BOTH) as $item) {
             $this->attach($item['data'], $item['priority']);
         }
 
@@ -204,6 +202,9 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function getFilters()
     {
+        if (null === $this->filters) {
+            $this->filters = new PriorityQueue();
+        }
         return $this->filters;
     }
 
@@ -217,7 +218,7 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function filter($value)
     {
-        $chain = clone $this->filters;
+        $chain = clone $this->getFilters();
 
         $valueFiltered = $value;
         foreach ($chain as $filter) {
@@ -232,7 +233,7 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function __clone()
     {
-        $this->filters = clone $this->filters;
+        $this->filters = clone $this->getFilters();
     }
 
     /**
