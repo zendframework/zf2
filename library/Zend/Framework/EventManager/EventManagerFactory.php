@@ -28,12 +28,15 @@ class EventManagerFactory
 
         $em = new EventManager();
 
-        foreach($config['events'] as $event) {
-            foreach($event as $listener) {
+        foreach($config['events'] as $event => $listeners) {
+            foreach($listeners as $listener) {
                 if (is_string($listener)) {
                     $listener = $sm->get(new ServiceRequest($listener));
                 }
-                $em->attach(new $listener);
+                if (!$listener->getEventName()) {
+                    $listener->setEventName($event);
+                }
+                $em->attach($listener);
             }
         }
 

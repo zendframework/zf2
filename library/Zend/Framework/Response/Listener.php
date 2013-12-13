@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Response;
 
+use Zend\Framework\Render\Event as RenderEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\Listener as EventListener;
@@ -39,6 +40,19 @@ class Listener
      */
     public function __invoke(Event $event)
     {
-        var_dump('>> '.__FILE__);
+        $sm = $event->getServiceManager();
+        $em = $event->getEventManager();
+
+        $render = new RenderEvent;
+
+        $render->setTarget($event->getTarget())
+               ->setServiceManager($sm)
+               ->setResult($event->getResult())
+               ->setRequest($event->getRequest())
+               ->setRouter($event->getRouter())
+               ->setResponse($event->getResponse())
+               ->setViewModel($sm->getViewModel()); //root view model
+
+        $em->trigger($render);
     }
 }

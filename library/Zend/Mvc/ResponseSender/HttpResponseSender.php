@@ -10,17 +10,31 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Response;
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class HttpResponseSender extends AbstractResponseSender
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class HttpResponseSender
+    extends AbstractResponseSender
+    implements FactoryInterface
 {
+    /**
+     * @param ServiceManager $sm
+     * @return Listener
+     */
+    public function createService(ServiceManager $sm)
+    {
+        return new self();
+    }
+
     /**
      * Send content
      *
-     * @param  EventInterface $event
+     * @param  Event $event
      * @return HttpResponseSender
      */
-    public function sendContent(EventInterface $event)
+    public function sendContent(Event $event)
     {
         if ($event->contentSent()) {
             return $this;
@@ -34,10 +48,10 @@ class HttpResponseSender extends AbstractResponseSender
     /**
      * Send HTTP response
      *
-     * @param  EventInterface $event
+     * @param  Event $event
      * @return HttpResponseSender
      */
-    public function __invoke(EventInterface $event)
+    public function __invoke(Event $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Response) {

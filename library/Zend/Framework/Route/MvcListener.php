@@ -11,6 +11,7 @@ namespace Zend\Framework\Route;
 
 use Zend\Framework\Route\Event as RouteEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\MvcEvent;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 use Zend\Framework\EventManager\Listener as EventListener;
@@ -23,7 +24,7 @@ class MvcListener
     /**
      * @var string
      */
-    protected $name = 'mvc.application';
+    protected $name = MvcEvent::EVENT_NAME;
 
     /**
      * @param ServiceManager $sm
@@ -40,8 +41,6 @@ class MvcListener
      */
     public function __invoke(Event $event)
     {
-        var_dump(__FILE__);
-
         $em = $event->getEventManager();
 
         $route = new RouteEvent;

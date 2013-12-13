@@ -92,6 +92,15 @@ class EventManager
         //..
     }
 
+    public function getListeners($name)
+    {
+        if (isset($this->listeners[$name])) {
+            return $this->listeners[$name];
+        }
+
+        return new PriorityQueue();
+    }
+
     /**
      * @param $event Event
      * @return PriorityQueue

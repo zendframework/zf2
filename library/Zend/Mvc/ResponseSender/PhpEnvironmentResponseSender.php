@@ -10,17 +10,32 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\PhpEnvironment\Response;
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class PhpEnvironmentResponseSender extends HttpResponseSender
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class PhpEnvironmentResponseSender
+    extends HttpResponseSender
+    implements FactoryInterface
 {
+
+    /**
+     * @param ServiceManager $sm
+     * @return Listener
+     */
+    public function createService(ServiceManager $sm)
+    {
+        return new self();
+    }
+
     /**
      * Send php environment response
      *
      * @param  EventInterface $event
      * @return PhpEnvironmentResponseSender
      */
-    public function __invoke(EventInterface $event)
+    public function __invoke(Event $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Response) {

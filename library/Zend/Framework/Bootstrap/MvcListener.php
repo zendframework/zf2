@@ -12,6 +12,7 @@ namespace Zend\Framework\Bootstrap;
 use Zend\Framework\Bootstrap\Event as BootstrapEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\MvcEvent;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
@@ -20,14 +21,9 @@ class MvcListener
     implements FactoryInterface
 {
     /**
-     *
-     */
-    const EVENT_NAME = 'BootstrapEvent';
-
-    /**
      * @var string
      */
-    protected $name = 'mvc.application';
+    protected $name = MvcEvent::EVENT_NAME;
 
     /**
      * @param ServiceManager $sm
@@ -44,7 +40,6 @@ class MvcListener
      */
     public function __invoke(Event $event)
     {
-        var_dump(__FILE__);
         $em = $event->getEventManager();
         $sm = $event->getServiceManager();
 

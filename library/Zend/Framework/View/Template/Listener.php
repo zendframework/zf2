@@ -11,14 +11,17 @@ namespace Zend\Framework\View\Template;
 
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 use Zend\Framework\MvcEvent;
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Listener
     extends EventListener
+    implements FactoryInterface
 {
     /**
      * @var string
@@ -37,9 +40,22 @@ class Listener
      */
     protected $inflector;
 
-    public function __invoke(EventInterface $e)
+    /**
+     * @param ServiceManager $sm
+     * @return Listener
+     */
+    public function createService(ServiceManager $sm)
     {
-        $model = $e->getResult();
+        return new self();
+    }
+
+    /**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event)
+    {
+        $model = $event->getResult();
         if (!$model instanceof ViewModel) {
             return;
         }
@@ -50,8 +66,8 @@ class Listener
             return;
         }
 
-        $routeMatch = $e->getRouteMatch();
-        $controller = $e->getTarget();
+        $routeMatch = $event->getRouteMatch();
+        $controller = $event->getTarget();
         if (is_object($controller)) {
             $controller = get_class($controller);
         }
@@ -59,7 +75,7 @@ class Listener
             $controller = $routeMatch->getParam('controller', '');
         }
 
-        $module     = $this->deriveModuleNamespace($controller);
+        $module = $this->deriveModuleNamespace($controller);
 
         if ($namespace = $routeMatch->getParam(ModuleRouteListener::MODULE_NAMESPACE)) {
             $controllerSubNs = $this->deriveControllerSubNamespace($namespace);

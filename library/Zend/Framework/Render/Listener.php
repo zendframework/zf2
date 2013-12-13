@@ -40,13 +40,6 @@ class Listener
      */
     public function __invoke(Event $event)
     {
-        var_dump(__FILE__);
-        $request    = $event->getRequest();
-        $router     = $event->getRouter();
-        $routeMatch = $router->match($request);
-
-        if ($routeMatch instanceof RouteMatch) {
-            $event->setRouteMatch($routeMatch);
-        }
+        //var_dump(__FILE__. ' >> ' . get_class($event));
     }
 }

@@ -57,7 +57,7 @@ abstract class AbstractController extends EventListener implements
     FactoryInterface
 {
 
-    protected $name = 'controller.dispatch';
+    protected $name = MvcEvent::EVENT_CONTROLLER_DISPATCH;
 
 
     /**
@@ -329,10 +329,5 @@ abstract class AbstractController extends EventListener implements
     public function createService(ServiceManagerInterface $sm)
     {
         return new static();
-    }
-
-    public function __invoke(Event $event)
-    {
-        var_dump(__FUNCTION__. ' ' . __FILE__);
     }
 }

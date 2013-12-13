@@ -23,7 +23,7 @@ class Listener
     /**
      * @var string
      */
-    protected $name = MvcEvent::EVENT_ROUTE;
+    protected $name = MvcEvent::EVENT_BOOTSTRAP;
 
     /**
      * @param ServiceManager $sm
@@ -40,7 +40,6 @@ class Listener
      */
     public function __invoke(Event $event)
     {
-        var_dump(__FILE__);
         $request    = $event->getRequest();
         $router     = $event->getRouter();
         $routeMatch = $router->match($request);

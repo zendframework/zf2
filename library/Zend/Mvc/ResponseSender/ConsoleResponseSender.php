@@ -12,16 +12,31 @@ namespace Zend\Mvc\ResponseSender;
 use Zend\Console\Response;
 use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class ConsoleResponseSender extends EventListener
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class ConsoleResponseSender
+    extends EventListener
+    implements FactoryInterface
 {
+
+    /**
+     * @param ServiceManager $sm
+     * @return Listener
+     */
+    public function createService(ServiceManager $sm)
+    {
+        return new self();
+    }
+
     /**
      * Send content
      *
-     * @param  EventInterface $event
+     * @param  Event $event
      * @return ConsoleResponseSender
      */
-    public function sendContent(EventInterface $event)
+    public function sendContent(Event $event)
     {
         if ($event->contentSent()) {
             return $this;

@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\Render\Event as RenderEvent;
 use Zend\Framework\Response\Event as ResponseEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\MvcEvent;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
@@ -23,7 +23,7 @@ class MvcListener
     /**
      * @var string
      */
-    protected $name = 'mvc.application';
+    protected $name = MvcEvent::EVENT_NAME;
 
     /**
      * @param ServiceManager $sm
@@ -40,26 +40,13 @@ class MvcListener
      */
     public function __invoke(Event $event)
     {
-        var_dump(__FILE__);
         $em = $event->getEventManager();
-
-        $render = new RenderEvent;
-
-        $render->setTarget($event->getTarget())
-               ->setServiceManager($event->getServiceManager())
-               ->setApplication($event->getApplication())
-               ->setRequest($event->getRequest())
-               ->setRouter($event->getRouter())
-               ->setResponse($event->getResponse())
-               ->setViewModel($event->getViewModel());
-
-        $em->trigger($render);
 
         $response = new ResponseEvent;
 
         $response->setTarget($event->getTarget())
                  ->setServiceManager($event->getServiceManager())
-                 ->setResponse($render->getResponse());
+                 ->setResponse($event->getResponse());
 
         $em->trigger($response);
     }

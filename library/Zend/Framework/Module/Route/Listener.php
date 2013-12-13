@@ -49,9 +49,9 @@ class Listener
      * @param Event $e
      * @return void
      */
-    public function __invoke(Event $e)
-    {var_dump(__FILE__);
-        $matches = $e->getRouteMatch();
+    public function __invoke(Event $event)
+    {
+        $matches = $event->getRouteMatch();
         if (!$matches instanceof RouteMatch) {
             // Can't do anything without a route match
             return;

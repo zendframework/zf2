@@ -48,6 +48,29 @@ class MvcEvent
     protected $sm;
 
     /**
+     * @var mixed
+     */
+    protected $result;
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param $result
+     * @return $this
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+        return $this;
+    }
+
+    /**
      * @param ServiceManager $sm
      * @return $this
      */

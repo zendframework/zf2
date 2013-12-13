@@ -11,17 +11,31 @@ namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Header\MultipleHeaderInterface;
 use Zend\Http\Response\Stream;
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class SimpleStreamResponseSender extends AbstractResponseSender
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class SimpleStreamResponseSender
+    extends AbstractResponseSender
+    implements FactoryInterface
 {
+    /**
+     * @param ServiceManager $sm
+     * @return Listener
+     */
+    public function createService(ServiceManager $sm)
+    {
+        return new self();
+    }
+
     /**
      * Send the stream
      *
-     * @param  EventInterface $event
+     * @param  Event $event
      * @return SimpleStreamResponseSender
      */
-    public function sendStream(EventInterface $event)
+    public function sendStream(Event $event)
     {
         if ($event->contentSent()) {
             return $this;
@@ -35,10 +49,10 @@ class SimpleStreamResponseSender extends AbstractResponseSender
     /**
      * Send stream response
      *
-     * @param  EventInterface $event
+     * @param  Event $event
      * @return SimpleStreamResponseSender
      */
-    public function __invoke(EventInterface $event)
+    public function __invoke(Event $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Stream) {

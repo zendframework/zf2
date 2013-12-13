@@ -22,29 +22,6 @@ class Event
     protected $name = MvcEvent::EVENT_DISPATCH;
 
     /**
-     * @var mixed
-     */
-    protected $result;
-
-    /**
-     * @return mixed
-     */
-    public function getResult()
-    {
-        return $this->result;
-    }
-
-    /**
-     * @param $result
-     * @return $this
-     */
-    public function setResult($result)
-    {
-        $this->result = $result;
-        return $this;
-    }
-
-    /**
      * @param EventListener $listener
      */
     public function __invoke(EventListener $listener)
