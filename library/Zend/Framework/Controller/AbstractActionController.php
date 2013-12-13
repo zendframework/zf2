@@ -20,7 +20,8 @@ use Zend\Framework\Controller\AbstractController;
 /**
  * Basic action controller
  */
-abstract class AbstractActionController extends AbstractController
+abstract class AbstractActionController
+    extends AbstractController
 {
     /**
      * Default action if none provided

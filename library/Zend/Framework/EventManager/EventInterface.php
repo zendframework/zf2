@@ -9,9 +9,9 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\ListenerInterface as EventListener;
-
 use Traversable;
+
+use Zend\Framework\EventManager\ListenerInterface as EventListener;
 
 /**
  * Representation of an event

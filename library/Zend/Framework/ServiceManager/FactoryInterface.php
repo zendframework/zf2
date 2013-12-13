@@ -9,15 +9,15 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 interface FactoryInterface
 {
     /**
      * Create service
      *
-     * @param ServiceManagerInterface $sm
+     * @param ServiceManager $sm
      * @return mixed
      */
-    public function createService(ServiceManagerInterface $sm);
+    public function createService(ServiceManager $sm);
 }

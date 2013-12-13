@@ -9,14 +9,19 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Framework\ServiceManager\Request;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\View\View;
 
-class Factory implements FactoryInterface
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class Factory
+    implements FactoryInterface
 {
+    /**
+     * @param ServiceManager $sm
+     * @return View
+     */
     public function createService(ServiceManager $sm)
     {
         $view = new View;

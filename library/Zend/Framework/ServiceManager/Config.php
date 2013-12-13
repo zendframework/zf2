@@ -9,19 +9,29 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
 use Zend\Framework\ServiceManager\ConfigInterface;
 
-class Config implements ConfigInterface
+class Config
+    implements ConfigInterface
 {
-
+    /**
+     * @var array
+     */
     protected $config = [];
 
-    public function __construct($config)
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config)
     {
         $this->config = $config;
     }
 
+    /**
+     * @param string $name
+     * @param null $default
+     * @return mixed
+     */
     public function get($name, $default = null)
     {
         if (isset($this->config[$name])) {
@@ -40,16 +50,5 @@ class Config implements ConfigInterface
     {
         $this->config[$name] = $config;
         return $this;
-    }
-
-    /**
-     * Configure service manager
-     *
-     * @param ServiceManager $serviceManager
-     * @return void
-     */
-    public function __invoke(ServiceManagerInterface $serviceManager)
-    {
-        $serviceManager->setConfig($this);
     }
 }

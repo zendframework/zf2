@@ -11,17 +11,22 @@ namespace Zend\Framework\View;
 
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceRequest;
-use Zend\Framework\View\Config;
+use Zend\Framework\View\Config as ViewConfig;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\Manager as ViewManager;
 
-class ManagerFactory implements FactoryInterface
+class ManagerFactory
+    implements FactoryInterface
 {
+    /**
+     * @param ServiceManager $sm
+     * @return Manager
+     */
     public function createService(ServiceManager $sm)
     {
         $config = $sm->get(new ServiceRequest('ApplicationConfig'))['view_manager'];
 
-        $vm = new ViewManager(new Config($config));
+        $vm = new ViewManager(new ViewConfig($config));
 
         $vm->setServiceManager($sm);
 

@@ -12,6 +12,7 @@ namespace Zend\Framework\View\Model;
 use ArrayAccess;
 use ArrayIterator;
 use Traversable;
+
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Exception;
 use Zend\View\Model;
@@ -20,7 +21,8 @@ use Zend\View\Variables as ViewVariables;
 use Zend\View\Model\ModelInterface;
 use Zend\View\Model\ClearableModelInterface;
 
-class ViewModel implements ModelInterface, ClearableModelInterface
+class ViewModel
+    implements ModelInterface, ClearableModelInterface
 {
     /**
      * What variable a parent model should capture this model to

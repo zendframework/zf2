@@ -19,14 +19,24 @@ class MvcListener
     extends EventListener
     implements FactoryInterface
 {
-
+    /**
+     * @var string
+     */
     protected $name = 'mvc.application';
 
+    /**
+     * @param ServiceManager $sm
+     * @return MvcListener
+     */
     public function createService(ServiceManager $sm)
     {
         return new self();
     }
 
+    /**
+     * @param Event $event
+     * @return void
+     */
     public function __invoke(Event $event)
     {
         var_dump(__FILE__);
@@ -35,19 +45,7 @@ class MvcListener
         $dispatch = new DispatchEvent;
 
         $dispatch->setTarget($event->getTarget())
-                 ->setApplication($event->getApplication())
-                 ->setServiceManager($event->getServiceManager())
-                 ->setRouteMatch($event->getRouteMatch())
-                 ->setEventManager($event->getEventManager())
-                 ->setRequest($event->getRequest())
-                 ->setResponse($event->getResponse())
-                 ->setControllerLoader($event->getControllerLoader())
-                 ->setViewConfig($event->getViewConfig())
-                 ->setViewManager($event->getViewManager())
-                 ->setViewModel($event->getViewModel())
-                 ->setViewResolver($event->getViewResolver())
-                 ->setViewPluginManager($event->getViewPluginManager())
-                 ->setView($event->getView());
+                 ->setServiceManager($event->getServiceManager());
 
         try {
 

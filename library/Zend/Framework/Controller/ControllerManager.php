@@ -9,22 +9,29 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 class ControllerManager
 {
-
     /**
      * @var ServiceManager
      */
     protected $sm;
 
+    /**
+     * @param ServiceManager $sm
+     * @return $this
+     */
     public function setServiceLocator(ServiceManager $sm)
     {
         $this->sm = $sm;
         return $this;
     }
 
+    /**
+     * @param $name
+     * @return bool
+     */
     public function has($name)
     {
         return $this->sm->has($name);

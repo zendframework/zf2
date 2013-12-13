@@ -10,100 +10,12 @@
 namespace Zend\Framework\Render;
 
 use Zend\Framework\MvcEvent;
-use Zend\Framework\EventManager\Event as EventManagerEvent;
-use Zend\Framework\View\Model\ViewModel;
-use Zend\Mvc\Router\RouteMatch;
 
-class Event extends EventManagerEvent
+class Event
+    extends MvcEvent
 {
+    /**
+     * @var string
+     */
     protected $name = MvcEvent::EVENT_RENDER;
-
-    protected $application;
-
-    protected $response;
-
-    protected $request;
-
-    protected $result;
-
-    protected $router;
-
-    protected $routeMatch;
-
-    public function setRouteMatch(RouteMatch $routeMatch)
-    {
-        $this->routeMatch = $routeMatch;
-        return $this;
-    }
-
-    public function getRouteMatch()
-    {
-        return $this->routeMatch;
-    }
-
-    public function getRouter()
-    {
-        return $this->router;
-    }
-
-    public function setRouter($router)
-    {
-        $this->router = $router;
-        return $this;
-    }
-
-    public function getApplication()
-    {
-        return $this->application;
-    }
-
-    public function setApplication($application)
-    {
-        $this->application = $application;
-        return $this;
-    }
-
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    public function setRequest($request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    public function setResponse($response)
-    {
-        $this->response = $response;
-        return $this;
-    }
-
-    public function getResult()
-    {
-        return $this->result;
-    }
-
-    public function setResult($result)
-    {
-        $this->result = $result;
-        return $this;
-    }
-
-    public function setViewModel(ViewModel $viewModel)
-    {
-        $this->viewModel = $viewModel;
-        return $this;
-    }
-
-    public function getViewModel()
-    {
-        return $this->viewModel;
-    }
 }

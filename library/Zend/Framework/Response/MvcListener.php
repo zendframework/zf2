@@ -46,6 +46,7 @@ class MvcListener
         $render = new RenderEvent;
 
         $render->setTarget($event->getTarget())
+               ->setServiceManager($event->getServiceManager())
                ->setApplication($event->getApplication())
                ->setRequest($event->getRequest())
                ->setRouter($event->getRouter())
@@ -57,6 +58,7 @@ class MvcListener
         $response = new ResponseEvent;
 
         $response->setTarget($event->getTarget())
+                 ->setServiceManager($event->getServiceManager())
                  ->setResponse($render->getResponse());
 
         $em->trigger($response);

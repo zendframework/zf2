@@ -11,30 +11,47 @@ namespace Zend\Framework\View;
 
 use Zend\Framework\ServiceManager\Config as ServiceConfig;
 
-class Config extends ServiceConfig
+class Config
+    extends ServiceConfig
 {
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getConfig($name)
     {
         return $this->get($name);
     }
 
+    /**
+     * @return array
+     */
     public function getViewHelpers()
     {
         return (array) $this->get('view_helpers');
     }
 
+    /**
+     * @return array
+     */
     public function getMvcStrategies()
     {
         return (array) $this->get('mvc_strategies');
     }
 
+    /**
+     * @return array
+     */
     public function getStrategies()
     {
         return (array) $this->get('strategies');
     }
 
+    /**
+     * @return string
+     */
     public function getLayoutTemplate()
     {
-        return $this->get('layout_template');
+        return (string) $this->get('layout_template');
     }
 }

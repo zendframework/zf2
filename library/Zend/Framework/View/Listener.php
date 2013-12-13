@@ -19,13 +19,24 @@ class Listener
     extends EventListener
     implements FactoryInterface
 {
+    /**
+     * @var string
+     */
     protected $name = MvcEvent::EVENT_BOOTSTRAP;
 
+    /**
+     * @param ServiceManager $sm
+     * @return Listener
+     */
     public function createService(ServiceManager $sm)
     {
         return new self();
     }
 
+    /**
+     * @param Event $event
+     * @return void
+     */
     public function __invoke(Event $event)
     {
         var_dump(__FILE__);

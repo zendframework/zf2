@@ -9,102 +9,29 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\ServiceManager\ServiceRequest;
+use Zend\Framework\ServiceManager\ConfigInterface as Config;
 
-use Zend\Framework\ApplicationInterface as Application;
-use Zend\Framework\ManagerInterface as ViewManager;
-use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\ApplictionServiceTrait;
 
-class ServiceManager extends ServiceManager\ServiceManager
+class ServiceManager
+    extends ServiceManager\ServiceManager
 {
     /**
-     * @param $name
-     * @return bool|object
+     *
      */
-    public function getService($name)
-    {
-        return $this->get(new ServiceRequest($name));
-    }
+    use ApplicationServiceTrait;
 
     /**
-     * @return array
+     * @var $this
      */
-    public function getApplicationConfig()
-    {
-        return $this->getService('ApplicationConfig');
-    }
+    protected $sm;
 
     /**
-     * @return Application
+     * @param Config $config
      */
-    public function getApplication()
+    public function __construct(Config $config)
     {
-        return $this->getService('Application');
-    }
-
-    /**
-     * @return EventManager
-     */
-    public function getEventManager()
-    {
-        return $this->getService('EventManager');
-    }
-
-    /**
-     * @return ViewManager
-     */
-    public function getViewManager()
-    {
-        return $this->getService('ViewManager');
-    }
-
-    public function getViewConfig()
-    {
-        return $this->getViewManager()->getViewConfig();
-    }
-
-    public function getViewResolver()
-    {
-        return $this->getService('ViewResolver');
-    }
-
-    public function setViewResolver($resolver)
-    {
-        return $this->add('ViewResolver', $resolver);
-    }
-
-    public function getRequest()
-    {
-        return $this->getService('Request');
-    }
-
-    public function getResponse()
-    {
-        return $this->getService('Response');
-    }
-
-    public function getRouter()
-    {
-        return $this->getService('Router');
-    }
-
-    public function getControllerLoader()
-    {
-        return $this->getService('ControllerLoader');
-    }
-
-    public function getViewModel()
-    {
-        return $this->getService('ViewModel');
-    }
-
-    public function getViewPluginManager()
-    {
-        return $this->getService('ViewPluginManager');
-    }
-
-    public function getView()
-    {
-        return $this->getService('View');
+        $this->config = $config;
+        $this->sm = $this;
     }
 }

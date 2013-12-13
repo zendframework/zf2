@@ -10,24 +10,21 @@
 namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventManager;
-use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\ServiceRequest;
 
-class EventManagerFactory implements FactoryInterface
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class EventManagerFactory
+    implements FactoryInterface
 {
     /**
-     * Create an EventManager instance
-     *
-     * Creates a new EventManager instance, seeding it with a shared instance
-     * of SharedEventManager.
-     *
-     * @param  ServiceManager $sm
+     * @param ServiceManager $sm
      * @return EventManager
      */
     public function createService(ServiceManager $sm)
     {
-        $config = $sm->get(new ServiceRequest('ApplicationConfig'));
+        $config = $sm->getApplicationConfig();
 
         $em = new EventManager();
 

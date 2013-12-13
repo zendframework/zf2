@@ -9,15 +9,22 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceListener;
+use Zend\Framework\ServiceManager\ServiceRequestInterface as ServiceRequest;
 
-class ServiceAbstractFactoryListener implements ServiceListenerInterface
+use Zend\Framework\ServiceManager\ServiceListenerInterface as ServiceListener;
+
+class ServiceAbstractFactoryListener
+    implements ServiceListener
 {
-    public function __invoke($event)
+    /**
+     * @param ServiceRequest $service
+     * @return bool
+     */
+    public function __invoke(ServiceRequest $service)
     {
-        //$sm = $event->getTarget();
+        //$sm = $service->getTarget();
 
-        $name = $event->getName();
+        $name = $service->getName();
 
         if (!isset($this->factory[$name])) {
             return false;
@@ -25,6 +32,6 @@ class ServiceAbstractFactoryListener implements ServiceListenerInterface
 
         $factory = $this->factory[$name];
 
-        return $factory($event);
+        return $factory($service);
     }
 }

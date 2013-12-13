@@ -9,59 +9,105 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\EventManager\Event as EventManagerEvent;
+use Exception;
 
-class ErrorEvent extends EventManagerEvent
+use Zend\Framework\MvcEvent;
+
+class ErrorEvent
+    extends MvcEvent
 {
-    protected $name = 'dispatch.error';
+    /**
+     * @var string
+     */
+    protected $name = MvcEvent::EVENT_DISPATCH_ERROR;
 
+    /**
+     * @var string
+     */
     protected $controller;
 
+    /**
+     * @var string
+     */
     protected $controllerClass;
 
+    /**
+     * @var string
+     */
     protected $error = 'error-exception';
 
+    /**
+     * @var Exception
+     */
     protected $exception;
 
+    /**
+     * @param $controller
+     * @return $this
+     */
     public function setController($controller)
     {
         $this->controller = $controller;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getController()
     {
         return $this->controller;
     }
 
+    /**
+     * @param $controllerClass
+     * @return $this
+     */
     public function setControllerClass($controllerClass)
     {
         $this->controllerClass = $controllerClass;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getControllerClass()
     {
         return $this->controllerClass;
     }
 
+    /**
+     * @param $error
+     * @return $this
+     */
     public function setError($error)
     {
         $this->error = $error;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getError()
     {
         return $this->error;
     }
 
+    /**
+     * @param $exception
+     * @return $this
+     */
     public function setException($exception)
     {
         $this->exception = $exception;
         return $this;
     }
 
+    /**
+     * @return Exception
+     */
     public function getException()
     {
         return $this->exception;

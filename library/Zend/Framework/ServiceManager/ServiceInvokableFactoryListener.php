@@ -9,14 +9,21 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceListener;
-use Zend\Framework\ServiceManager\FactoryInterface;
-
 use ReflectionClass;
 
-class ServiceInvokableFactoryListener implements ServiceListenerInterface
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceRequestInterface as ServiceRequest;
+
+use Zend\Framework\ServiceManager\ServiceListenerInterface as ServiceListener;
+
+class ServiceInvokableFactoryListener
+    implements ServiceListener
 {
-    public function __invoke($service)
+    /**
+     * @param ServiceRequest $service
+     * @return bool|mixed|object
+     */
+    public function __invoke(ServiceRequest $service)
     {
         $sm = $service->getTarget();
 
@@ -42,9 +49,10 @@ class ServiceInvokableFactoryListener implements ServiceListenerInterface
 
             } else {
 
-                $factory = new $factory();
+                $factory = new $factory;
 
             }
+
         }
 
         if ($factory instanceof FactoryInterface) {

@@ -15,12 +15,13 @@ use Zend\Framework\EventManager\ListenerAggregateInterface;
 /**
  * Abstract aggregate listener
  */
-abstract class AbstractListenerAggregate implements ListenerAggregateInterface
+abstract class AbstractListenerAggregate
+    implements ListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
      */
-    protected $listeners = array();
+    protected $listeners = [];
 
     /**
      * {@inheritDoc}

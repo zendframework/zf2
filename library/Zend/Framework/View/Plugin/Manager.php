@@ -9,12 +9,7 @@
 
 namespace Zend\Framework\View\Plugin;
 
-use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Framework\ServiceManager\AbstractPluginManager;
-use Zend\Framework\ServiceManager\ConfigInterface;
-use Zend\Framework\ServiceManager\ServiceRequest;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\Framework\View\Plugin\ManagerInterface;
 
 /**
  * Plugin manager implementation for view helpers
@@ -23,28 +18,8 @@ use Zend\Framework\View\Plugin\ManagerInterface;
  * Helper\HelperInterface. Additionally, it registers a number of default
  * helpers.
  */
-class Manager extends AbstractPluginManager implements ManagerInterface
+class Manager
+    extends AbstractPluginManager
+    implements ManagerInterface
 {
-    /**
-     * Validate the plugin
-     *
-     * Checks that the helper loaded is an instance of Helper\HelperInterface.
-     *
-     * @param  mixed                            $plugin
-     * @return void
-     * @throws Exception\InvalidHelperException if invalid
-     */
-    public function validatePlugin($plugin)
-    {
-        if ($plugin instanceof Helper\HelperInterface) {
-            // we're okay
-            return;
-        }
-
-        throw new Exception\InvalidHelperException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\Helper\HelperInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
-    }
 }

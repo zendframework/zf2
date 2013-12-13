@@ -33,7 +33,7 @@ interface EventManagerInterface
      * @param Event $event
      * @return array|Traversable
      */
-    public function getEventListeners($event);
+    public function getEventListeners(Event $event);
 
     /**
      * @param Event $event

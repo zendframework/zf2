@@ -10,24 +10,35 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
+use Zend\Mvc\Router\RouteMatch;
+
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Listener
     extends EventListener
     implements FactoryInterface
 {
+    /**
+     * @var string
+     */
     protected $name = MvcEvent::EVENT_ROUTE;
 
+    /**
+     * @param ServiceManager $sm
+     * @return Listener
+     */
     public function createService(ServiceManager $sm)
     {
         return new self();
     }
 
+    /**
+     * @param Event $event
+     * @return void
+     */
     public function __invoke(Event $event)
     {
         var_dump(__FILE__);

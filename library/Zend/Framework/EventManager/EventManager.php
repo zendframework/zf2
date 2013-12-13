@@ -9,12 +9,14 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener;
-use Zend\Framework\EventManager\ListenerAggregateInterface;
-
 use Traversable;
 use SplPriorityQueue as PriorityQueue;
+
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\ListenerAggregateInterface;
+
+use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\EventManager\EventManagerInterface;
 
 /**
  * Event manager: notification system
@@ -22,7 +24,9 @@ use SplPriorityQueue as PriorityQueue;
  * Use the EventManager when you want to create a per-instance notification
  * system for your objects.
  */
-class EventManager extends Listener implements EventManagerInterface
+class EventManager
+    extends EventListener
+    implements EventManagerInterface
 {
     /**
      * @var array
@@ -92,7 +96,7 @@ class EventManager extends Listener implements EventManagerInterface
      * @param $event Event
      * @return PriorityQueue
      */
-    public function getEventListeners($event)
+    public function getEventListeners(Event $event)
     {
         $listeners = new PriorityQueue();
 
@@ -119,7 +123,7 @@ class EventManager extends Listener implements EventManagerInterface
                         continue;
                     }
                     foreach($targets as $t) {
-                        if ($t === $lt || is_subclass_of($t, $lt)) {
+                        if ($t === $lt || \is_subclass_of($t, $lt)) {
                             $listeners->insert($listener, $listener->getPriority());
                             continue 2;
                         }
@@ -132,16 +136,9 @@ class EventManager extends Listener implements EventManagerInterface
     }
 
     /**
-     * Event object contains its name, target(s) and listeners
-     *
-     * The EventManager's target(s) will be set as the target(s) of the event
-     *
-     * Returns true if event propagation was stopped, otherwise it returns false
-     *
      * @param Event $event
-     * @return bool
      */
-    public function trigger($event)
+    public function trigger(Event $event)
     {
         $event->stopPropagation(false);
 
@@ -157,11 +154,11 @@ class EventManager extends Listener implements EventManagerInterface
     }
 
     /**
-     * @param Event $event
-     * @return bool
+     * @param EventInterface $event
+     * @return void
      */
     public function __invoke(Event $event)
     {
-        return $this->trigger($event);
+        $this->trigger($event);
     }
 }

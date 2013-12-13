@@ -29,13 +29,14 @@ interface ListenerInterface
     /**
      * Name(s) of event to listener for
      *
-     * @return mixed
+     * @return string|array
      */
     public function getEventName();
 
     /**
      * Name(s) of event to listener for
      *
+     * @param $name
      * @return Listener
      */
     public function setEventName($name);
@@ -50,13 +51,14 @@ interface ListenerInterface
     /**
      * Priority of listener
      *
-     * @return mixed
+     * @return int
      */
     public function getPriority();
 
     /**
      * Priority of listener
      *
+     * @param $priority
      * @return Listener
      */
     public function setPriority($priority);
@@ -64,13 +66,14 @@ interface ListenerInterface
     /**
      * Target (identifiers) to listener for
      *
-     * @return mixed
+     * @return string|array
      */
     public function getTarget();
 
     /**
      * Target (identifiers) to listener for
      *
+     * @param $target
      * @return Listener
      */
     public function setTarget($target);

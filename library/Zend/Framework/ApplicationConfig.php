@@ -11,16 +11,7 @@ namespace Zend\Framework;
 
 use Zend\Framework\ServiceManager\Config as ServiceConfig;
 
-class ApplicationConfig extends ServiceConfig
+class ApplicationConfig
+    extends ServiceConfig
 {
-
-    public function getMvcEvents()
-    {
-        return $this->get('mvc_events');
-    }
-
-    public function getMvcBootstrapListeners()
-    {
-        return $this->getMvcEvents()['MvcBootstrapEvent'];
-    }
 }

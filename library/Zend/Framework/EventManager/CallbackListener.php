@@ -9,12 +9,14 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
+
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\EventManager\CallbackListenerInterface;
-use Zend\Framework\EventManager\ListenerInterface;
 
-class CallbackListener extends EventListener implements CallbackListenerInterface
+class CallbackListener
+    extends EventListener
+    implements CallbackListenerInterface
 {
     /**
      * @var callback
@@ -51,10 +53,10 @@ class CallbackListener extends EventListener implements CallbackListenerInterfac
     }
 
     /**
-     * @param EventInterface $event
+     * @param Event $event
      * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function __invoke(Event $event)
     {
         return call_user_func($this->callback, $event);
     }

@@ -9,17 +9,25 @@
 
 namespace Zend\Framework\View\Template;
 
-use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 
-class Listener extends EventListener
+use Zend\Framework\EventManager\Listener as EventListener;
+
+class Listener
+    extends EventListener
 {
+    /**
+     * @var string
+     */
     protected $name = MvcEvent::EVENT_CONTROLLER_DISPATCH;
 
+    /**
+     * @var int
+     */
     protected $priority = -90;
 
     /**

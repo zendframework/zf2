@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
 
 /**
  * Interface for self-registering event listeners.
@@ -22,23 +22,14 @@ use Zend\Framework\EventManager\EventManagerInterface;
 interface ListenerAggregateInterface
 {
     /**
-     * Attach one or more listeners
-     *
-     * Implementors may add an optional $priority argument; the EventManager
-     * implementation will pass this to the aggregate.
-     *
-     * @param EventManagerInterface $em
-     *
-     * @return void
+     * @param EventManager $em
+     * @return mixed
      */
-    public function attach(EventManagerInterface $em);
+    public function attach(EventManager $em);
 
     /**
-     * Detach all previously attached listeners
-     *
-     * @param EventManagerInterface $em
-     *
-     * @return void
+     * @param EventManager $em
+     * @return mixed
      */
-    public function detach(EventManagerInterface $em);
+    public function detach(EventManager $em);
 }

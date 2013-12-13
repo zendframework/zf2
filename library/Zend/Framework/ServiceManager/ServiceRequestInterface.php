@@ -9,13 +9,45 @@
 
 namespace Zend\Framework\ServiceManager;
 
+use Zend\Framework\ServiceManager\ServiceListenerInterface as ServiceListener;
+
 interface ServiceRequestInterface
 {
+    /**
+     * @return string
+     */
     public function getName();
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
     public function setName($name);
+
+    /**
+     * @return bool
+     */
     public function isShared();
+
+    /**
+     * @return string|array
+     */
     public function getTarget();
+
+    /**
+     * @param string|array $target
+     * @return mixed
+     */
     public function setTarget($target);
+
+    /**
+     * @return array
+     */
     public function getListeners();
-    public function __invoke($listener);
+
+    /**
+     * @param ServiceListener $listener
+     * @return mixed
+     */
+    public function __invoke(ServiceListener $listener);
 }

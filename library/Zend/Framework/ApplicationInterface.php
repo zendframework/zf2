@@ -9,33 +9,25 @@
 
 namespace Zend\Framework;
 
+use Zend\Framework\ServiceManager\ServiceLocatorInterface as ServiceManager;
+use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+
 interface ApplicationInterface
 {
     /**
-     * Get the locator object
-     *
-     * @return \Zend\ServiceManager\ServiceLocatorInterface
+     * @return ServiceManager
      */
-    //public function getServiceManager();
+    public function getServiceManager();
 
     /**
-     * Get the request object
-     *
-     * @return \Zend\Stdlib\RequestInterface
+     * @return EventManager
      */
-    //public function getRequest();
-
-    /**
-     * Get the response object
-     *
-     * @return \Zend\Stdlib\ResponseInterface
-     */
-    //public function getResponse();
+    public function getEventManager();
 
     /**
      * Run the application
      *
-     * @return Response
+     * @return void
      */
     public function run();
 }

@@ -10,12 +10,8 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
-use Zend\Mvc\ResponseSender\ConsoleResponseSender;
-use Zend\Mvc\ResponseSender\HttpResponseSender;
-use Zend\Mvc\ResponseSender\PhpEnvironmentResponseSender;
-use Zend\Mvc\ResponseSender\SimpleStreamResponseSender;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\FactoryInterface;
 
@@ -23,13 +19,24 @@ class Listener
     extends EventListener
     implements FactoryInterface
 {
-    protected $name = 'mvc.response';
+    /**
+     * @var string
+     */
+    protected $name = MvcEvent::EVENT_RESPONSE;
 
+    /**
+     * @param ServiceManager $sm
+     * @return mixed|Listener
+     */
     public function createService(ServiceManager $sm)
     {
         return new self();
     }
 
+    /**
+     * @param Event $event
+     * @return mixed|void
+     */
     public function __invoke(Event $event)
     {
         var_dump('>> '.__FILE__);

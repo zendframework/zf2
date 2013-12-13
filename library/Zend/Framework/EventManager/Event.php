@@ -9,8 +9,9 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
+
+use Zend\Framework\EventManager\EventInterface;
 
 /**
  * Representation of an event
@@ -18,7 +19,8 @@ use Zend\Framework\EventManager\ListenerInterface as EventListener;
  * Encapsulates the target context and parameters passed, and provides some
  * behavior for interacting with the event manager.
  */
-class Event implements EventInterface
+class Event
+    implements EventInterface
 {
     /**
      * @var string Event name
@@ -208,10 +210,10 @@ class Event implements EventInterface
     }
 
     /**
-     * @param ListenerInterface $listener
+     * @param EventListener $listener
      * @return void
      */
-    public function __invoke(ListenerInterface $listener)
+    public function __invoke(EventListener $listener)
     {
         $response = $listener($this);
 

@@ -9,27 +9,20 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
+use Zend\Framework\Application;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class ApplicationFactory implements FactoryInterface
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class ApplicationFactory
+    implements FactoryInterface
 {
     /**
-     * Create the Application service
-     *
-     * Creates a Zend\Mvc\Application service, passing it the configuration
-     * service and the service manager instance.
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
+     * @param ServiceManager $sm
      * @return Application
      */
-    public function createService(ServiceManagerInterface $sm)
+    public function createService(ServiceManager $sm)
     {
         return new Application($sm);
-    }
-
-    public function __invoke(ServiceManagerInterface $sm)
-    {
-        return $this->createService($sm);
     }
 }

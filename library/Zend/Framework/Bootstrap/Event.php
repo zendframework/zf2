@@ -9,59 +9,16 @@
 
 namespace Zend\Framework\Bootstrap;
 
-use Zend\Framework\EventManager\Event as EventManagerEvent;
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Stdlib\ResponseInterface as Response;
-use Zend\View\Model\ModelInterface as Model;
-use Zend\View\Model\ViewModel;
-
-use Zend\Framework\ApplicationInterface;
+use Zend\Framework\ApplicationServiceTrait;
 use Zend\Framework\MvcEvent;
-use Zend\Mvc\Router\RouteStackInterface;
 
-class Event extends EventManagerEvent
+class Event
+    extends MvcEvent
 {
-
     /**
      * @var string
      */
     protected $name = MvcEvent::EVENT_BOOTSTRAP;
-
-    /**
-     * @var
-     */
-    protected $application;
-
-    /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * @var Response
-     */
-    protected $response;
-
-    /**
-     * @var mixed
-     */
-    protected $result;
-
-    /**
-     * @var Router\RouteStackInterface
-     */
-    protected $router;
-
-    /**
-     * @var Router\RouteMatch
-     */
-    protected $routeMatch;
-
-    /**
-     * @var Model
-     */
-    protected $viewModel;
 
     /**
      * @var string
@@ -71,264 +28,12 @@ class Event extends EventManagerEvent
     /**
      * @var string
      */
-    protected $contoller;
+    protected $controller;
 
     /**
      * @var string
      */
     protected $controllerClass;
-
-    /**
-     * @var
-     */
-    protected $controllerLoader;
-
-    protected $sm;
-
-    protected $em;
-
-    protected $viewConfig;
-
-    protected $resolver;
-
-    protected $pm;
-
-    protected $view;
-
-    protected $vm;
-
-    public function setViewManager($vm)
-    {
-        $this->vm = $vm;
-        return $this;
-    }
-
-    /**
-     * @return ViewManager
-     */
-    public function getViewManager()
-    {
-        return $this->vm;
-    }
-
-    public function getView()
-    {
-        return $this->view;
-    }
-
-    public function setView($view)
-    {
-        $this->view = $view;
-        return $this;
-    }
-
-    public function getViewPluginManager()
-    {
-        return $this->pm;
-    }
-
-    public function setViewPluginManager($pm)
-    {
-        $this->pm = $pm;
-        return $this;
-    }
-
-    public function getViewResolver()
-    {
-        return $this->resolver;
-    }
-
-    public function setViewResolver($resolver)
-    {
-        $this->resolver = $resolver;
-        return $this;
-    }
-
-    public function setEventManager($em)
-    {
-        $this->em = $em;
-        return $this;
-    }
-
-    public function getEventManager()
-    {
-        return $this->em;
-    }
-
-    public function getViewConfig()
-    {
-        return $this->viewConfig;
-    }
-
-    public function setViewConfig($viewConfig)
-    {
-        $this->viewConfig = $viewConfig;
-        return $this;
-    }
-
-    /**
-     * Set application instance
-     *
-     * @param  ApplicationInterface $application
-     * @return MvcEvent
-     */
-    public function setApplication(ApplicationInterface $application)
-    {
-        $this->application = $application;
-        return $this;
-    }
-
-    /**
-     * Get application instance
-     *
-     * @return ApplicationInterface
-     */
-    public function getApplication()
-    {
-        return $this->application;
-    }
-
-    /**
-     * Get router
-     *
-     * @return Router\RouteStackInterface
-     */
-    public function getRouter()
-    {
-        return $this->router;
-    }
-
-    /**
-     * Set router
-     *
-     * @param Router\RouteStackInterface $router
-     * @return MvcEvent
-     */
-    public function setRouter(RouteStackInterface $router)
-    {
-        $this->router = $router;
-        return $this;
-    }
-
-    /**
-     * Get route match
-     *
-     * @return Router\RouteMatch
-     */
-    public function getRouteMatch()
-    {
-        return $this->routeMatch;
-    }
-
-    /**
-     * Set route match
-     *
-     * @param Router\RouteMatch $matches
-     * @return MvcEvent
-     */
-    public function setRouteMatch(Router\RouteMatch $matches)
-    {
-        $this->routeMatch = $matches;
-        return $this;
-    }
-
-    /**
-     * Get request
-     *
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * Set request
-     *
-     * @param Request $request
-     * @return MvcEvent
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-    /**
-     * Get response
-     *
-     * @return Response
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    /**
-     * Set response
-     *
-     * @param Response $response
-     * @return MvcEvent
-     */
-    public function setResponse(Response $response)
-    {
-        $this->response = $response;
-        return $this;
-    }
-
-    /**
-     * Set the view model
-     *
-     * @param  Model $viewModel
-     * @return MvcEvent
-     */
-    public function setViewModel(Model $viewModel)
-    {
-        $this->viewModel = $viewModel;
-        return $this;
-    }
-
-    /**
-     * Get the view model
-     *
-     * @return Model
-     */
-    public function getViewModel()
-    {
-        return $this->viewModel;
-    }
-
-    /**
-     * Get result
-     *
-     * @return mixed
-     */
-    public function getResult()
-    {
-        return $this->result;
-    }
-
-    /**
-     * Set result
-     *
-     * @param mixed $result
-     * @return MvcEvent
-     */
-    public function setResult($result)
-    {
-        $this->result = $result;
-        return $this;
-    }
-
-    /**
-     * Does the event represent an error response?
-     *
-     * @return bool
-     */
-    public function isError()
-    {
-        return (bool) $this->getParam('error', false);
-    }
 
     /**
      * Set the error message (indicating error in handling request)
@@ -393,28 +98,6 @@ class Event extends EventManagerEvent
     public function setControllerClass($class)
     {
         $this->controllerClass = $class;
-        return $this;
-    }
-
-    public function getControllerLoader()
-    {
-        return $this->controllerLoader;
-    }
-
-    public function setControllerLoader($controllerLoader)
-    {
-        $this->controllerLoader = $controllerLoader;
-        return $this;
-    }
-
-    public function getServiceManager()
-    {
-        return $this->sm;
-    }
-
-    public function setServiceManager(ServiceManagerInterface $sm)
-    {
-        $this->sm = $sm;
         return $this;
     }
 }

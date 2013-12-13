@@ -9,24 +9,35 @@
 
 namespace Zend\Framework\View\Model;
 
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\MvcEvent;
-use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\EventManager\EventInterface;
-use Zend\View\Model\ClearableModelInterface;
+use Zend\View\Model\ClearableModelInterface as ClearableModel;
 use Zend\View\Model\ModelInterface as ViewModel;
 
-class Listener extends EventListener
-{
+use Zend\Framework\EventManager\Listener as EventListener;
 
+class Listener
+    extends EventListener
+{
+    /**
+     * @var array
+     */
     protected $name = [
         MvcEvent::EVENT_CONTROLLER_DISPATCH,
         MvcEvent::EVENT_DISPATCH_ERROR,
         MvcEvent::EVENT_RENDER_ERROR
     ];
 
+    /**
+     * @var int
+     */
     protected $priority = -100;
 
-    public function __invoke(EventInterface $event)
+    /**
+     * @param Event $event
+     * @return mixed|void
+     */
+    public function __invoke(Event $event)
     {
         $result = $event->getResult();
 
@@ -41,7 +52,7 @@ class Listener extends EventListener
             return;
         }
 
-        if ($event->getError() && $model instanceof ClearableModelInterface) {
+        if ($event->getError() && $model instanceof ClearableModel) {
             $model->clearChildren();
         }
 

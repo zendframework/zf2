@@ -9,26 +9,37 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Model\ViewModel;
 
-class CreateViewModelListener extends EventListener
-{
+use Zend\Framework\EventManager\Listener as EventListener;
 
+class CreateViewModelListener
+    extends EventListener
+{
+    /**
+     * @var string
+     */
     protected $name = MvcEvent::EVENT_CONTROLLER_DISPATCH;
 
+    /**
+     * @var int
+     */
     protected $priority = -80;
 
-    public function __invoke(EventInterface $e)
+    /**
+     * @param Event $event
+     * @return void
+     */
+    public function __invoke(Event $event)
     {
-        $result = $e->getResult();
+        $result = $event->getResult();
 
         //create from null
         if (null === $result) {
-            $e->setResult(new ViewModel);
+            $event->setResult(new ViewModel);
             return;
         }
 
@@ -37,6 +48,6 @@ class CreateViewModelListener extends EventListener
             return;
         }
 
-        $e->setResult(new ViewModel($result));
+        $event->setResult(new ViewModel($result));
     }
 }

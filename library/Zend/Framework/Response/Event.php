@@ -9,26 +9,27 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
+
 use Zend\Framework\MvcEvent;
 
-
-class Event extends EventManagerEvent
+class Event
+    extends MvcEvent
 {
+    /**
+     * @var string
+     */
     protected $name = MvcEvent::EVENT_RESPONSE;
 
-    protected $response;
+    /**
+     * @var array
+     */
+    protected $contentSent = [];
 
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    public function setResponse($response)
-    {
-        $this->response = $response;
-    }
+    /**
+     * @var array
+     */
+    protected $headersSent = [];
 
     /**
      * Set content sent for current response
@@ -78,6 +79,9 @@ class Event extends EventManagerEvent
         return false;
     }
 
+    /**
+     * @param EventListener $listener
+     */
     public function __invoke(EventListener $listener)
     {
         $response = $listener($this);

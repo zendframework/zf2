@@ -15,49 +15,37 @@ use Zend\Framework\Dispatch\Exception as DispatchException;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceRequest;
 
 use Exception;
 
-/**
- * Default dispatch listener
- *
- * Pulls controllers from the service manager's "ControllerLoader" service.
- *
- * If the controller cannot be found a "404" result is set up. Otherwise it
- * will continue to try to load the controller.
- *
- * If the controller is not dispatchable it sets up a "404" result. In case
- * of any other exceptions it trigger the "dispatch.error" event in an attempt
- * to return a 500 status.
- *
- * If the controller subscribes to InjectApplicationEventInterface, it injects
- * the current MvcEvent into the controller.
- *
- * It then calls the controller's "dispatch" method, passing it the request and
- * response. If an exception occurs, it triggers the "dispatch.error" event,
- * in an attempt to return a 500 status.
- *
- * The return value of dispatching the controller is placed into the result
- * property of the MvcEvent, and returned.
- */
 class Listener
     extends EventListener
     implements FactoryInterface
 {
+    /**
+     * @var string
+     */
     protected $name = MvcEvent::EVENT_DISPATCH;
 
+    /**
+     * @param ServiceManager $sm
+     * @return Listener
+     */
     public function createService(ServiceManager $sm)
     {
         return new self();
     }
 
+    /**
+     * @param Event $event
+     * @return void
+     * @throws DispatchException
+     */
     public function __invoke(Event $event)
     {
-        var_dump(__FILE__);
         $em = $event->getEventManager();
 
         $routeMatch = $event->getRouteMatch();
@@ -83,8 +71,10 @@ class Listener
 
         try {
 
-            $dispatchEvent = new ControllerDispatchEvent();
+            $dispatchEvent = new ControllerDispatchEvent;
+
             $dispatchEvent->setTarget($controller)
+                          ->setServiceManager($event->getServiceManager())
                           ->setRouteMatch($event->getRouteMatch())
                           ->setController($controller)
                           ->setResponse($response)

@@ -10,162 +10,120 @@
 namespace Zend\Framework\Controller;
 
 use Zend\Framework\MvcEvent;
-use Zend\Framework\EventManager\Event as EventManagerEvent;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
 use Zend\Framework\Controller\AbstractActionController as ActionController;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Framework\View\ManagerInterface as ViewManager;
 use Zend\Framework\View\Model\ViewModel as ViewModel;
 
-class DispatchEvent extends EventManagerEvent
+class DispatchEvent
+    extends MvcEvent
 {
     /**
      * @var string
      */
     protected $name = MvcEvent::EVENT_CONTROLLER_DISPATCH;
 
-    protected $em;
-
+    /**
+     * @var string
+     */
     protected $error;
 
+    /**
+     * @var object
+     */
     protected $controller;
 
-    protected $controllerLoader;
-
-    protected $request;
-
-    protected $response;
-
+    /**
+     * @var mixed
+     */
     protected $result;
 
-    protected $routeMatch;
-
-    protected $vm;
-
+    /**
+     * @var ViewModel
+     */
     protected $viewModel;
 
-    protected $viewConfig;
-
+    /**
+     * @param $error
+     * @return $this
+     */
     public function setError($error)
     {
         $this->error = $error;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getError()
     {
         return $this->error;
     }
 
-    public function setEventManager($em)
-    {
-        $this->em = $em;
-        return $this;
-    }
-
-    public function getEventManager()
-    {
-        return $this->em;
-    }
-
+    /**
+     * @param $controller
+     * @return $this
+     */
     public function setController($controller)
     {
         $this->controller = $controller;
         return $this;
     }
 
+    /**
+     * @return object
+     */
     public function getController()
     {
         return $this->controller;
     }
 
+    /**
+     * @return string
+     */
     public function getControllerClass()
     {
         return get_class($this->controller);
     }
 
-    public function setControllerLoader($controllerLoader)
-    {
-        $this->controllerLoader = $controllerLoader;
-        return $this;
-    }
-
-    public function getControllerLoader()
-    {
-        return $this->controllerLoader;
-    }
-
-    public function setRequest($request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    public function setResponse($response)
-    {
-        $this->response = $response;
-        return $this;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
+    /**
+     * @param $result
+     * @return $this
+     */
     public function setResult($result)
     {
         $this->result = $result;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getResult()
     {
         return $this->result;
     }
 
-    public function setRouteMatch(RouteMatch $routeMatch)
-    {
-        $this->routeMatch = $routeMatch;
-        return $this;
-    }
-
-    public function getRouteMatch()
-    {
-        return $this->routeMatch;
-    }
-
+    /**
+     * @param ViewModel $viewModel
+     * @return $this
+     */
     public function setViewModel(ViewModel $viewModel)
     {
         $this->viewModel = $viewModel;
         return $this;
     }
 
+    /**
+     * @return ViewModel
+     */
     public function getViewModel()
     {
         return $this->viewModel;
     }
 
-    public function setViewManager(ViewManager $vm)
-    {
-        $this->vm = $vm;
-        return $this;
-    }
-
-    public function getViewManager()
-    {
-        return $this->vm;
-    }
-
     /**
-     * Invokes listener with this event passed as its only argument.
-     *
-     * @param $listener
-     * @return bool
+     * @param EventListener $listener
      */
     public function __invoke(EventListener $listener)
     {

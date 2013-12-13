@@ -14,7 +14,8 @@ use Zend\Framework\EventManager\ListenerInterface;
 /**
  * Representation of a callback listener
  */
-interface CallbackListenerInterface extends ListenerInterface
+interface CallbackListenerInterface
+    extends ListenerInterface
 {
     /**
      * Callback used for this listener

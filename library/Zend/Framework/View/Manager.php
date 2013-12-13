@@ -14,58 +14,98 @@ use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\ManagerInterface as ViewManager;
 
-class Manager implements ViewManager
+class Manager
+    implements ViewManager
 {
+    /**
+     * @var Config
+     */
     protected $config;
-    protected $resolver;
+
+    /**
+     * @var ServiceManager
+     */
     protected $sm;
 
+    /**
+     * @param Config $config
+     */
     public function __construct(Config $config)
     {
         $this->config = $config;
     }
 
+    /**
+     * @param ServiceManager $sm
+     * @return $this
+     */
     public function setServiceManager(ServiceManager $sm)
     {
         $this->sm = $sm;
         return $this;
     }
 
+    /**
+     * @return Config
+     */
     public function getViewConfig()
     {
         return $this->config;
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getConfig($name)
     {
         return $this->config->get($name);
     }
 
+    /**
+     * @return array
+     */
     public function getViewHelpers()
     {
-        return (array) $this->getConfig('view_helpers');
+        return $this->config->getViewHelpers();
     }
 
+    /**
+     * @return array
+     */
     public function getMvcStrategies()
     {
-        return (array) $this->getConfig('mvc_strategies');
+        return $this->config->getMvcStrategies();
     }
 
+    /**
+     * @return array
+     */
     public function getStrategies()
     {
-        return (array) $this->getConfig('strategies');
+        return $this->config->getStrategies();
     }
 
+    /**
+     * @return string
+     */
     public function getLayoutTemplate()
     {
-        return $this->getConfig('layout_template');
+        return $this->config->getLayoutTemplate();
     }
 
+    /**
+     * @return mixed
+     */
     public function getViewResolver()
     {
         return $this->sm->getViewResolver();
     }
 
+    /**
+     * @param $resolver
+     * @return $this
+     */
     public function setViewResolver($resolver)
     {
         $this->sm->setViewResolver($resolver);

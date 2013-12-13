@@ -12,7 +12,8 @@ namespace Zend\Framework\EventManager;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerInterface as EventListener;
 
-class Listener implements EventListener
+class Listener
+    implements EventListener
 {
     /**
      * Name(s) of events to listener for
@@ -137,7 +138,7 @@ class Listener implements EventListener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return mixed
      */
     public function __invoke(Event $event)

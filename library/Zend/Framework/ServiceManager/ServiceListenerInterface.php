@@ -9,10 +9,13 @@
 
 namespace Zend\Framework\ServiceManager;
 
-/**
- * Service interface interface
- */
+use Zend\Framework\ServiceManager\ServiceRequestInterface as ServiceRequest;
+
 interface ServiceListenerInterface
 {
-
+    /**
+     * @param ServiceRequest $service
+     * @return mixed
+     */
+    public function __invoke(ServiceRequest $service);
 }

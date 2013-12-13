@@ -9,34 +9,50 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\ApplicationInterface;
 use Zend\Framework\ServiceManager;
 use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
-use Zend\ModuleManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Framework\View\Model\ViewModel;
+use Zend\ModuleManager;
 
-class Application implements
-    ApplicationInterface
+use Zend\Framework\ApplicationInterface;
+
+class Application
+    implements ApplicationInterface
 {
-
+    /**
+     *
+     */
     const ERROR_CONTROLLER_CANNOT_DISPATCH = 'error-controller-cannot-dispatch';
     const ERROR_CONTROLLER_NOT_FOUND       = 'error-controller-not-found';
     const ERROR_CONTROLLER_INVALID         = 'error-controller-invalid';
     const ERROR_EXCEPTION                  = 'error-exception';
     const ERROR_ROUTER_NO_MATCH            = 'error-router-no-match';
 
+    /**
+     * @var ServiceManager
+     */
     protected $sm;
 
+    /**
+     * @param ServiceManager $sm
+     */
     public function __construct(ServiceManager $sm)
     {
         $this->sm = $sm;
     }
 
+    /**
+     * @return ServiceManager
+     */
     public function getServiceManager()
     {
         return $this->sm;
     }
 
+    /**
+     * @return EventManager
+     */
     public function getEventManager()
     {
         return $this->sm->getEventManager();
@@ -44,30 +60,29 @@ class Application implements
 
     /**
      * @param array $config
-     * @return mixed
+     * @return Application
      */
-    public static function init($config = array())
+    public static function init(array $config = [])
     {
         //$config = new ApplicationConfig($config);
 
         $sm = new ServiceManager(new ServiceManagerConfig($config['service_manager']));
 
-        $sm->add('ApplicationConfig', $config);
-
-        $sm->add('ViewModel', new ViewModel);
+        $sm->setApplicationConfig($config)
+           ->setViewModel(new ViewModel);
 
         //$mm = $sm->get(new ServiceRequest('ModuleManager'));
         //$mm->loadModules();
 
         $application = new self($sm);
 
-        $sm->add('Application', $application);
+        $sm->setApplication($application);
 
         return $application;
     }
 
     /**
-     * @return $this|Response
+     * @return $this
      */
     public function run()
     {
@@ -77,18 +92,14 @@ class Application implements
         $event = new MvcEvent;
 
         $event->setTarget($this)
-              ->setApplication($this)
               ->setServiceManager($sm)
+              ->setApplication($this)
               ->setEventManager($em)
               ->setRequest($sm->getRequest())
               ->setResponse($sm->getResponse())
               ->setRouter($sm->getRouter())
               ->setControllerLoader($sm->getControllerLoader())
               ->setViewModel($sm->getViewModel());
-
-        $event->setCallback(function($event, $listener, $response) {
-
-        });
 
         $em->trigger($event);
 

@@ -10,82 +10,12 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\MvcEvent;
-use Zend\Framework\EventManager\Event as EventManagerEvent;
 
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Stdlib\ResponseInterface as Response;
-
-class Event extends EventManagerEvent
+class Event
+    extends MvcEvent
 {
-    protected $name = MvcEvent::EVENT_ROUTE;
-
-    protected $request;
-
-    protected $router;
-
-    protected $error;
-
-    protected $routeMatch;
-
-    /*public function getError()
-    {
-        return $this->error;
-    }
-
-    public function setError($error)
-    {
-        $this->error = $error;
-    }*/
-
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    public function setRequest($request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-    public function getRouter()
-    {
-        return $this->router;
-    }
-
-    public function setRouter($router)
-    {
-        $this->router = $router;
-        return $this;
-    }
-
-    public function getRouteMatch()
-    {
-        return $this->routeMatch;
-    }
-
-    public function setRouteMatch($routeMatch)
-    {
-        $this->routeMatch = $routeMatch;
-    }
-
     /**
-     * @return callable
+     * @var string
      */
-    public function getDefaultCallback()
-    {
-        return function($event, $listener, $response) {
-            /*$request    = $event->getRequest();
-            $router     = $event->getRouter();
-            $routeMatch = $router->match($request);
-
-            if ($routeMatch instanceof RouteMatch) {
-                $event->setRouteMatch($routeMatch);
-            }*/
-
-            /*if ($response instanceof Response || $event->getError()) {
-                $event->stopPropagation();
-            }*/
-        };
-    }
+    protected $name = MvcEvent::EVENT_ROUTE;
 }

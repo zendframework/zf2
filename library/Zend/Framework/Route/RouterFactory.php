@@ -16,7 +16,8 @@ use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\ServiceRequest;
 
-class RouterFactory implements FactoryInterface
+class RouterFactory
+    implements FactoryInterface
 {
     /**
      * Create and return the router

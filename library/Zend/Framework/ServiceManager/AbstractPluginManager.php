@@ -9,33 +9,55 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
-
-use Zend\I18n\Translator\TranslatorAwareInterface as Translator;
-use Zend\Framework\ServiceManager\ConfigInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ConfigInterface as Config;
 
 abstract class AbstractPluginManager
 {
+    /**
+     * @var Config
+     */
     protected $config;
 
+    /**
+     * @var ServiceManager
+     */
     protected $sm;
 
-    public function __construct(ServiceManagerInterface $sm, ConfigInterface $config)
+    /**
+     * @param ServiceManager $sm
+     * @param Config $config
+     */
+    public function __construct(ServiceManager $sm, Config $config)
     {
         $this->sm = $sm;
         $this->config = $config;
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
     public function getAlias($name)
     {
         return $this->config->get(strtolower($name));
     }
 
+    /**
+     * @param $name
+     * @param $options
+     * @return mixed
+     */
     public function get($name, $options)
     {
         return $this->sm->get(new ServiceRequest($this->getAlias($name), $options));
     }
 
+    /**
+     * @param $name
+     * @param $service
+     * @return $this
+     */
     public function add($name, $service)
     {
         $this->sm->add($this->getAlias($name), $service);

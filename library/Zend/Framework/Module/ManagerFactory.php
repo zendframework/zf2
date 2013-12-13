@@ -7,24 +7,36 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\ModuleManager\Listener;
+namespace Zend\Framework\Module;
 
-use Zend\ModuleManager\Listener\DefaultListeners;
-use Zend\ModuleManager\Listener\ListenerOptions;
+use Zend\ModuleManager\ModuleManager;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\ServiceRequest;
 
 use Zend\Framework\ServiceManager\FactoryInterface;
 
-class DefaultListenersFactory
+class ManagerFactory
     implements FactoryInterface
 {
     /**
      * @param ServiceManager $sm
-     * @return DefaultListeners
+     * @return mixed|ModuleManager
      */
     public function createService(ServiceManager $sm)
     {
-        return new DefaultListeners(new ListenerOptions($sm->get(new ServiceRequest('ApplicationConfig'))['module_listener_options']));
+        $modules = $sm->get(new ServiceRequest('ApplicationConfig'))['modules'];
+
+        $em = $sm->get(new ServiceRequest('EventManager', [], false));
+
+        $em->attach($sm->get(new ServiceRequest('ModuleManager\DefaultListeners')));
+        //$em->attach($sm->get(new ServiceRequest('ServiceListener')));
+
+        $mm = new ModuleManager($modules);
+
+        $mm->setEventManager($em);
+
+        $mm->setSharedEventManager($em);
+
+        return $mm;
     }
 }

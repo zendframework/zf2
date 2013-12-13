@@ -9,12 +9,14 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequestInterface;
 use Zend\Framework\ServiceManager\ServiceInvokableFactoryListener;
 use Zend\Framework\ServiceManager\ServiceAbstractFactoryListener;
+use Zend\Framework\ServiceManager\ServiceListenerInterface as ServiceListener;
 
-class ServiceRequest implements ServiceRequestInterface
+use Zend\Framework\ServiceManager\ServiceRequestInterface;
+
+class ServiceRequest
+    implements ServiceRequestInterface
 {
     /**
      * @var string
@@ -116,10 +118,10 @@ class ServiceRequest implements ServiceRequestInterface
     }
 
     /**
-     * @param $listener
+     * @param ServiceListener $listener
      * @return mixed
      */
-    public function  __invoke($listener)
+    public function  __invoke(ServiceListener $listener)
     {
         return $listener($this);
     }
