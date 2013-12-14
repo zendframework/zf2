@@ -40,6 +40,5 @@ class Listener
      */
     public function __invoke(Event $event)
     {
-        //var_dump(__FILE__. ' >> ' . get_class($event));
     }
 }

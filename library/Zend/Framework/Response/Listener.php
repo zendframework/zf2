@@ -46,12 +46,10 @@ class Listener
         $render = new RenderEvent;
 
         $render->setTarget($event->getTarget())
-               ->setServiceManager($sm)
-               ->setResult($event->getResult())
-               ->setRequest($event->getRequest())
-               ->setRouter($event->getRouter())
-               ->setResponse($event->getResponse())
-               ->setViewModel($sm->getViewModel()); //root view model
+               ->setServiceManager($sm);
+
+        //set root view model
+        //$render->setViewModel($sm->getViewModel());
 
         $em->trigger($render);
     }

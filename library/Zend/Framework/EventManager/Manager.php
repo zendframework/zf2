@@ -16,7 +16,7 @@ use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerAggregateInterface;
 
 use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\ManagerInterface as EventManagerInterface;
 
 /**
  * Event manager: notification system
@@ -24,7 +24,7 @@ use Zend\Framework\EventManager\EventManagerInterface;
  * Use the EventManager when you want to create a per-instance notification
  * system for your objects.
  */
-class EventManager
+class Manager
     extends EventListener
     implements EventManagerInterface
 {

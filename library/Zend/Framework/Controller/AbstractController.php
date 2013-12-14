@@ -12,7 +12,7 @@ namespace Zend\Framework\Controller;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\EventManager;
 use Zend\Framework\EventManager\EventManagerAwareInterface;
-use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\EventManager\CallbackListener;
 use Zend\Framework\EventManager\Listener as EventListener;
 

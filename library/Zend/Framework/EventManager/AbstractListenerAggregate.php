@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\EventManager\ListenerAggregateInterface;
 
 /**
@@ -26,7 +26,7 @@ abstract class AbstractListenerAggregate
     /**
      * {@inheritDoc}
      */
-    public function detach(EventManagerInterface $em)
+    public function detach(EventManager $em)
     {
         foreach ($this->listeners as $index => $callback) {
             if ($em->detach($callback)) {

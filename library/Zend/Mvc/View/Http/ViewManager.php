@@ -11,7 +11,7 @@ namespace Zend\Mvc\View\Http;
 
 use Traversable;
 use Zend\Framework\EventManager\AbstractListenerAggregate;
-use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\EventManager\CallbackListener;
 use Zend\Framework\EventManager\ListenerAggregateInterface;
 use Zend\Framework\MvcEvent;

@@ -11,11 +11,8 @@ namespace Zend\Framework;
 
 use Zend\Framework\ServiceManager;
 use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\ModuleManager;
-
-use Zend\Framework\ApplicationInterface;
 
 class Application
     implements ApplicationInterface
@@ -93,13 +90,7 @@ class Application
 
         $event->setTarget($this)
               ->setServiceManager($sm)
-              ->setApplication($this)
-              ->setEventManager($em)
-              ->setRequest($sm->getRequest())
-              ->setResponse($sm->getResponse())
-              ->setRouter($sm->getRouter())
-              ->setControllerLoader($sm->getControllerLoader())
-              ->setViewModel($sm->getViewModel());
+              ->setEventManager($em);
 
         $em->trigger($event);
 

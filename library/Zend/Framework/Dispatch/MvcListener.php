@@ -41,11 +41,12 @@ class MvcListener
     public function __invoke(Event $event)
     {
         $em = $event->getEventManager();
+        $sm = $event->getServiceManager();
 
         $dispatch = new DispatchEvent;
 
         $dispatch->setTarget($event->getTarget())
-                 ->setServiceManager($event->getServiceManager());
+                 ->setServiceManager($sm);
 
         try {
 

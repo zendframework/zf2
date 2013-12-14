@@ -11,6 +11,7 @@ namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\Header\MultipleHeaderInterface;
 use Zend\Http\Response\Stream;
+use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
@@ -20,6 +21,11 @@ class SimpleStreamResponseSender
     extends AbstractResponseSender
     implements FactoryInterface
 {
+    /**
+     * @var string
+     */
+    protected $name = MvcEvent::EVENT_RESPONSE;
+
     /**
      * @param ServiceManager $sm
      * @return Listener

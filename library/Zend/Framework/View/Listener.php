@@ -57,19 +57,19 @@ class Listener
 
         $em = $event->getEventManager();
 
-        $layoutTemplate = $config->get('layout_template');
+        $layoutTemplate = $config->getLayoutTemplate();
 
-        $resolver = $sm->get(new ServiceRequest('ViewResolver'));
+        $resolver = $sm->getViewResolver();
 
-        $viewHelperManager = $sm->get(new ServiceRequest('ViewPluginManager'));
+        $viewHelperManager = $sm->getViewPluginManager();
 
         $viewModel = $event->getViewModel();
         $viewModel->setTemplate($layoutTemplate);
 
         $renderer = $this->getRenderer($viewModel, $resolver, $viewHelperManager);
-        $sm->add('View\Renderer', $renderer);
+        $sm->setViewRenderer($renderer);
 
-        $view = $this->getView($em, $sm);
+        $view = $sm->getView();
 
         $em->attach(new PhpRendererStrategy($renderer));
         $em->attach($this->getRouteNotFoundStrategy($config, $sm));
@@ -79,24 +79,15 @@ class Listener
         $em->attach(new CreateViewModelListener); //-80
         $em->attach(new DefaultRenderingStrategy($view)); //Mvc::EVENT_RENDER -10000
 
-        if ($config->get('mvc_strategies')) {
-            $this->registerMvcRenderingStrategies($config->get('mvc_strategies'), $em, $sm);
+        $strategies = $config->getMvcStrategies();
+        if ($strategies) {
+            $this->registerMvcRenderingStrategies($strategies, $em, $sm);
         }
 
-        if ($config->get('strategies')) {
-            $this->registerViewStrategies($config->get('strategies'), $em, $sm);
+        $strategies = $config->getStrategies();
+        if ($strategies) {
+            $this->registerViewStrategies($strategies, $em, $sm);
         }
-    }
-
-    public function getView($em, $sm)
-    {
-        $view = new View;
-
-        $view->setEventManager($em);
-
-        //$sm->add('View', $view);
-
-        return $view;
     }
 
     public function getRenderer($viewModel, $resolver, $pluginManager)
@@ -139,14 +130,6 @@ class Listener
 
     protected function registerMvcRenderingStrategies($mvcStrategies, EventManager $em, $sm)
     {
-        if (is_string($mvcStrategies)) {
-            $mvcStrategies = array($mvcStrategies);
-        }
-
-        if (!is_array($mvcStrategies) && !$mvcStrategies instanceof Traversable) {
-            return;
-        }
-
         foreach ($mvcStrategies as $mvcStrategy) {
             if (!is_string($mvcStrategy)) {
                 continue;
@@ -161,14 +144,6 @@ class Listener
 
     protected function registerViewStrategies($strategies, $em, $sm)
     {
-        if (is_string($strategies)) {
-            $strategies = array($strategies);
-        }
-
-        if (!is_array($strategies) && !$strategies instanceof Traversable) {
-            return;
-        }
-
         foreach ($strategies as $strategy) {
             if (!is_string($strategy)) {
                 continue;

@@ -30,6 +30,8 @@ class Listener
      */
     protected $name = MvcEvent::EVENT_DISPATCH;
 
+    protected $dispatch;
+
     /**
      * @param ServiceManager $sm
      * @return Listener
@@ -47,49 +49,37 @@ class Listener
     public function __invoke(Event $event)
     {
         $em = $event->getEventManager();
+        $cm = $event->getControllerLoader();
+        $rm = $event->getRouteMatch();
+        $sm = $event->getServiceManager();
+        $vm = $event->getViewModel();
 
-        $routeMatch = $event->getRouteMatch();
+        $controllerName = $rm->getParam('controller', 'not-found');
 
-        $controllerName = $routeMatch->getParam('controller', 'not-found');
-
-        $controllerLoader = $event->getControllerLoader();
-
-        $controller = $controllerLoader->get(new ServiceRequest($controllerName));
-
-        $request  = $event->getRequest();
-        $response = $event->getResponse();
-
-        if ($controller instanceof InjectApplicationEventInterface) {
-            $controller->setEvent($event);
-        }
+        $controller = $cm->getController( $controllerName );
 
         $controller->setTarget($controller);
 
         $em->attach($controller);
 
-        $vm = $event->getViewManager();
+        $dispatch = new ControllerDispatchEvent;
+
+        $dispatch->setTarget($controller)
+                 ->setServiceManager($sm)
+                 ->setController($controller)
+                 ->setViewModel($vm);
 
         try {
 
-            $dispatchEvent = new ControllerDispatchEvent;
+            $em->trigger($dispatch);
 
-            $dispatchEvent->setTarget($controller)
-                          ->setServiceManager($event->getServiceManager())
-                          ->setRouteMatch($event->getRouteMatch())
-                          ->setController($controller)
-                          ->setResponse($response)
-                          //->setViewManager($vm)
-                          ->setViewModel($event->getViewModel());
-
-            $em->trigger($dispatchEvent);
-
-            $event->setResponse($dispatchEvent->getResponse())
-                  ->setResult($dispatchEvent->getResult())
-                  ->setViewManager($dispatchEvent->getViewManager());
+            $event->setResponse($dispatch->getResponse())
+                  ->setResult($dispatch->getResult())
+                  ->setViewManager($dispatch->getViewManager());
 
         } catch (Exception $exception) {
 
-            $dispatchException = new DispatchException();
+            $dispatchException = new DispatchException;
 
             $dispatchException->setControllerName($controllerName)
                               ->setControllerClass(get_class($controller))

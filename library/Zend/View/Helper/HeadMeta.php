@@ -81,7 +81,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     public function createService(ServiceManager $sm)
     {
         $service = new static();
-        $service->setView($sm->get(new ServiceRequest('View\Renderer')));
+        $service->setView($sm->get(new ServiceRequest('ViewRenderer')));
         return $service;
     }
 

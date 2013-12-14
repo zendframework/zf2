@@ -40,12 +40,5 @@ class Listener
      */
     public function __invoke(Event $event)
     {
-        $request    = $event->getRequest();
-        $router     = $event->getRouter();
-        $routeMatch = $router->match($request);
-
-        if ($routeMatch instanceof RouteMatch) {
-            $event->setRouteMatch($routeMatch);
-        }
     }
 }

@@ -10,12 +10,28 @@
 namespace Zend\Framework;
 
 use Zend\Framework\ApplicationInterface as Application;
-use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
+//use Zend\Framework\ServiceManager\ServiceManagerInterface;
 use Zend\Framework\View\Manager as ViewManager;
 use Zend\Framework\View\Model\ViewModel;
-//use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 use Zend\Framework\ServiceManager\ServiceRequest;
+use Zend\View\Renderer\PhpRenderer as ViewRenderer;
+
+//use Zend\Console\Request as Request;
+use Zend\Http\PhpEnvironment\Request as Request;
+
+//use Zend\Console\Response as Response;
+use Zend\Http\PhpEnvironment\Response as Response;
+
+use Zend\Mvc\Router\RouteStackInterface as Router;
+
+use Zend\Mvc\Controller\ControllerManager as ControllerLoader;
+
+use Zend\Mvc\Router\Http\RouteMatch as RouteMatch;
+
+
 
 trait ApplicationServiceTrait
 {
@@ -82,10 +98,10 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @param $config
+     * @param array $config
      * @return $this
      */
-    public function setApplicationConfig($config)
+    public function setApplicationConfig(array $config)
     {
         return $this->addService('ApplicationConfig', $config);
     }
@@ -133,7 +149,7 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @return bool|object
+     * @return bool|ViewResolver
      */
     public function getViewResolver()
     {
@@ -141,16 +157,33 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @param $resolver
+     * @param ViewRenderer $renderer
      * @return $this
      */
-    public function setViewResolver($resolver)
+    public function setViewRenderer(ViewRenderer $renderer)
+    {
+        return $this->addService('ViewRenderer', $renderer);
+    }
+
+    /**
+     * @return bool|ViewRenderer
+     */
+    public function getViewRenderer()
+    {
+        return $this->getService('ViewRenderer');
+    }
+
+    /**
+     * @param ViewResolver $resolver
+     * @return $this
+     */
+    public function setViewResolver(ViewResolver $resolver)
     {
         return $this->addService('ViewResolver', $resolver);
     }
 
     /**
-     * @return bool|object
+     * @return bool|Request
      */
     public function getRequest()
     {
@@ -158,10 +191,10 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @param $request
+     * @param Request $request
      * @return $this
      */
-    public function setRequest($request)
+    public function setRequest(Request $request)
     {
         return $this->addService('Request', $request);
     }
@@ -175,16 +208,16 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @param $response
+     * @param Response $response
      * @return $this
      */
-    public function setResponse($response)
+    public function setResponse(Response $response)
     {
         return $this->addService('Response', $response);
     }
 
     /**
-     * @return bool|object
+     * @return bool|Router
      */
     public function getRouter()
     {
@@ -192,16 +225,16 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @param $router
+     * @param Router $router
      * @return $this
      */
-    public function setRouter($router)
+    public function setRouter(Router $router)
     {
         return $this->addService('Router', $router);
     }
 
     /**
-     * @return bool|object
+     * @return bool|RouteMatch
      */
     public function getRouteMatch()
     {
@@ -209,16 +242,16 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @param $routeMatch
+     * @param RouteMatch $routeMatch
      * @return $this
      */
-    public function setRouteMatch($routeMatch)
+    public function setRouteMatch(RouteMatch $routeMatch)
     {
         return $this->addService('RouteMatch', $routeMatch);
     }
 
     /**
-     * @return bool|object
+     * @return bool|ControllerLoader
      */
     public function getControllerLoader()
     {
@@ -226,16 +259,16 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @param $controllerLoader
+     * @param ControllerLoader $controllerLoader
      * @return $this
      */
-    public function setControllerLoader($controllerLoader)
+    public function setControllerLoader(ControllerLoader $controllerLoader)
     {
         return $this->addService('ControllerLoader', $controllerLoader);
     }
 
     /**
-     * @return bool|object
+     * @return bool|ViewModel
      */
     public function getViewModel()
     {
@@ -252,7 +285,7 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @return bool|object
+     * @return bool|ViewPluginManager
      */
     public function getViewPluginManager()
     {
@@ -260,7 +293,7 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @return bool|object
+     * @return bool|View
      */
     public function getView()
     {

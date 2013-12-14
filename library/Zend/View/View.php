@@ -9,8 +9,8 @@
 
 namespace Zend\View;
 
-use Zend\Framework\EventManager\EventManagerInterface;
-use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\ManagerInterface as EventManagerInterface;
+use Zend\Framework\EventManager\Manager as EventManager;
 use Zend\Framework\EventManager\EventManagerAwareInterface;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;

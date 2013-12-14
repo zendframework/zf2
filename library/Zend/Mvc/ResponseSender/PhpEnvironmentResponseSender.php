@@ -10,6 +10,7 @@
 namespace Zend\Mvc\ResponseSender;
 
 use Zend\Http\PhpEnvironment\Response;
+use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
@@ -19,6 +20,10 @@ class PhpEnvironmentResponseSender
     extends HttpResponseSender
     implements FactoryInterface
 {
+    /**
+     * @var string
+     */
+    protected $name = MvcEvent::EVENT_RESPONSE;
 
     /**
      * @param ServiceManager $sm

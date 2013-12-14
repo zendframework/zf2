@@ -10,7 +10,7 @@
 namespace Zend\View\Strategy;
 
 use Zend\Framework\EventManager\AbstractListenerAggregate;
-use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\EventManager\CallbackListener;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\View\Renderer\PhpRenderer;

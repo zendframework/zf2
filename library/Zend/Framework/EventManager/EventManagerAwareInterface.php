@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventManagerInterface;
+use Zend\Framework\EventManager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\EventManager\EventsCapableInterface;
 
 /**

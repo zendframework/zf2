@@ -10,7 +10,7 @@
 namespace Zend\Mvc\View\Http;
 
 use Zend\Framework\EventManager\AbstractListenerAggregate;
-use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;

@@ -9,13 +9,13 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventManager;
+use Zend\Framework\EventManager\Manager as EventManager;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\ServiceRequest;
 
 use Zend\Framework\ServiceManager\FactoryInterface;
 
-class EventManagerFactory
+class ManagerFactory
     implements FactoryInterface
 {
     /**
@@ -24,20 +24,21 @@ class EventManagerFactory
      */
     public function createService(ServiceManager $sm)
     {
-        $config = $sm->getApplicationConfig();
+        $listeners = $sm->getApplicationConfig()['event_manager']['listeners'];
 
         $em = new EventManager();
 
-        foreach($config['events'] as $event => $listeners) {
-            foreach($listeners as $listener) {
+        foreach($listeners as $event => $eventListeners) {
+
+            foreach($eventListeners as $listener) {
+
                 if (is_string($listener)) {
                     $listener = $sm->get(new ServiceRequest($listener));
                 }
-                if (!$listener->getEventName()) {
-                    $listener->setEventName($event);
-                }
+
                 $em->attach($listener);
             }
+
         }
 
         return $em;

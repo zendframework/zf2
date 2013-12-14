@@ -17,7 +17,7 @@ use Traversable;
 /**
  * Interface for messengers
  */
-interface EventManagerInterface
+interface ManagerInterface
 {
     /**
      * @param EventListener $listener

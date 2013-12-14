@@ -10,8 +10,9 @@
 namespace Zend\Framework\Controller;
 
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
-class ControllerManager
+class Manager
 {
     /**
      * @var ServiceManager
@@ -35,5 +36,10 @@ class ControllerManager
     public function has($name)
     {
         return $this->sm->has($name);
+    }
+
+    public function getController($name)
+    {
+        return $this->sm->get(new ServiceRequest($name));
     }
 }

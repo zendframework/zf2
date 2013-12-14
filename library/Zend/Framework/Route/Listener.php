@@ -43,6 +43,7 @@ class Listener
     {
         $request    = $event->getRequest();
         $router     = $event->getRouter();
+
         $routeMatch = $router->match($request);
 
         if ($routeMatch instanceof RouteMatch) {
