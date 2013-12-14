@@ -20,22 +20,4 @@ class Event
      * @var string
      */
     protected $name = MvcEvent::EVENT_DISPATCH;
-
-    /**
-     * @param EventListener $listener
-     */
-    public function __invoke(EventListener $listener)
-    {
-        $response = $listener($this);
-
-        if ($response) {
-            $this->setResponse($response);
-        }
-
-        $this->eventResponses[] = $response;
-
-        if ($this->callback) {
-            call_user_func($this->callback, $this, $listener, $response);
-        }
-    }
 }

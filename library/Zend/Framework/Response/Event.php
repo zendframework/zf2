@@ -78,18 +78,4 @@ class Event
         }
         return false;
     }
-
-    /**
-     * @param EventListener $listener
-     */
-    public function __invoke(EventListener $listener)
-    {
-        $response = $listener($this);
-
-        $this->eventResponses[] = $response;
-
-        if ($this->callback) {
-            call_user_func($this->callback, $this, $listener, $response);
-        }
-    }
 }

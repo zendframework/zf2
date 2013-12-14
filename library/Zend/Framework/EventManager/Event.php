@@ -43,11 +43,6 @@ class Event
     protected $stopPropagation = false;
 
     /**
-     * @var callable called when the event's propogation has not been stopped by the listener
-     */
-    protected $callback;
-
-    /**
      * @var array
      */
     protected $eventResponses = [];
@@ -55,9 +50,8 @@ class Event
     /**
      * @param string $name
      * @param mixed $target
-     * @param callback $callback
      */
-    public function __construct($name = null, $target = null, $callback = null)
+    public function __construct($name = null, $target = null)
     {
         if (null !== $name) {
             $this->setName($name);
@@ -66,31 +60,6 @@ class Event
         if (null !== $target) {
             $this->setTarget($target);
         }
-
-        if (null == $callback) {
-            $callback = $this->getDefaultCallback();
-        }
-
-        $this->setCallback($callback);
-    }
-
-    /**
-     * @param $callback
-     * @return $this
-     */
-    public function setCallback($callback)
-    {
-        $this->callback = $callback;
-
-        return $this;
-    }
-
-    /**
-     * @return callable
-     */
-    public function getDefaultCallback()
-    {
-        return null;
     }
 
     /**
@@ -202,27 +171,11 @@ class Event
     }
 
     /**
-     * @return array The responses of each listener
-     */
-    public function getEventResponses()
-    {
-        return $this->eventResponses;
-    }
-
-    /**
      * @param EventListener $listener
      * @return void
      */
     public function __invoke(EventListener $listener)
     {
-        $response = $listener($this);
-
-        $this->eventResponses[] = $response;
-
-        if (!$this->callback) {
-            return null;
-        }
-
-        call_user_func($this->callback, $this, $listener, $response);
+        $listener($this);
     }
 }

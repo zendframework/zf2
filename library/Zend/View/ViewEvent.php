@@ -15,6 +15,7 @@ use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\Framework\EventManager\ListenerInterface as EventListener;
 
 class ViewEvent extends Event
 {
@@ -254,5 +255,18 @@ class ViewEvent extends Event
                 break;
         }
         return $this;
+    }
+
+    /**
+     * @param EventListener $listener
+     * @return void
+     */
+    public function __invoke(EventListener $listener)
+    {
+        $response = $listener($this);
+
+        if ($response instanceof Renderer) {
+            $this->setRenderer($response);
+        }
     }
 }

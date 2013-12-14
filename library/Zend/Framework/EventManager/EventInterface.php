@@ -24,14 +24,6 @@ interface EventInterface
     const WILDCARD = '*';
 
     /**
-     * Callable used to determine if event propagation should stop
-     *
-     * @param $callback
-     * @return Event
-     */
-    public function setCallback($callback);
-
-    /**
      * Get event name
      *
      * @return string

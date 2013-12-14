@@ -132,11 +132,5 @@ class DispatchEvent
         if ($listener instanceof ActionController) {
             $this->setResult($response);
         }
-
-        $this->eventResponses[] = $response;
-
-        if ($this->callback) {
-            call_user_func($this->callback, $this, $listener, $response);
-        }
     }
 }

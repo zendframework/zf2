@@ -175,17 +175,15 @@ class View implements EventManagerAwareInterface
 
 
         $event->setName(ViewEvent::EVENT_RENDERER);
-        $event->setCallback(function ($event, $listener, $response) {
+        /*$event->setCallback(function ($event, $listener, $response) {
             if ($response instanceof Renderer) {
                 $event->stopPropagation();
             }
-        });
+        });*/
 
         $events->trigger($event);
 
-        $results = $event->getEventResponses();
-
-        $renderer = end($results);
+        $renderer = $event->getRenderer();
         if (!$renderer instanceof Renderer) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: no renderer selected!',
@@ -195,7 +193,7 @@ class View implements EventManagerAwareInterface
 
         $event->setRenderer($renderer);
         $event->setName(ViewEvent::EVENT_RENDERER_POST);
-        $results = $events->trigger($event);
+        $events->trigger($event);
 
         // If EVENT_RENDERER or EVENT_RENDERER_POST changed the model, make sure
         // we use this new model instead of the current $model
