@@ -72,13 +72,11 @@ class RouteNotFoundStrategy
     {
         $config = $sm->getViewManager()->getViewConfig();
 
-        $strategy = new RouteNotFoundStrategy();
+        $this->setDisplayExceptions($config->get('display_exceptions'));
+        $this->setDisplayNotFoundReason($config->get('display_not_found_reason'));
+        $this->setNotFoundTemplate($config->get('not_found_template'));
 
-        $strategy->setDisplayExceptions($config->get('display_exceptions'));
-        $strategy->setDisplayNotFoundReason($config->get('display_not_found_reason'));
-        $strategy->setNotFoundTemplate($config->get('not_found_template'));
-
-        return $strategy;
+        return $this;
     }
 
     /**

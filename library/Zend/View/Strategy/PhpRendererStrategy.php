@@ -50,11 +50,9 @@ class PhpRendererStrategy
      */
     public function createService(ServiceManager $sm)
     {
-        $listener = new self();
+        $this->setRenderer($sm->getViewRenderer());
 
-        $listener->setRenderer($sm->getViewRenderer());
-
-        return $listener;
+        return $this;
 
     }
 

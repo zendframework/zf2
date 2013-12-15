@@ -32,12 +32,10 @@ abstract class AbstractPluginManager
      */
     public function createService(ServiceManager $sm)
     {
-        $service = new static();
+        $this->setServiceManager($sm)
+             ->setConfig(new Config($sm->getApplicationConfig()['plugins']));
 
-        $service->setServiceManager($sm)
-                ->setConfig(new Config($sm->getApplicationConfig()['plugins']));
-
-        return $service;
+        return $this;
     }
 
     /**

@@ -54,13 +54,11 @@ class ExceptionStrategy
     {
         $config = $sm->getViewManager()->getViewConfig();
 
-        $listener = new self();
+        $this->setDisplayExceptions($config->get('display_exceptions'));
 
-        $listener->setDisplayExceptions($config->get('display_exceptions'));
+        $this->setExceptionTemplate($config->get('exception_template'));
 
-        $listener->setExceptionTemplate($config->get('exception_template'));
-
-        return $listener;
+        return $this;
     }
 
     /**

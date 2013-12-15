@@ -58,11 +58,9 @@ class DefaultRenderingStrategy
      */
     public function createService(ServiceManager $sm)
     {
-        $listener = new self();
+        $this->setView($sm->getView());
 
-        $listener->setView($sm->getView());
-
-        return $listener;
+        return $this;
     }
 
     /**

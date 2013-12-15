@@ -32,7 +32,7 @@ class MvcListener
      */
     public function createService(ServiceManager $sm)
     {
-        return new self();
+        return $this;
     }
 
     /**

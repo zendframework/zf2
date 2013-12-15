@@ -46,7 +46,7 @@ class Listener
      */
     public function createService(ServiceManager $sm)
     {
-        return new self();
+        return $this;
     }
 
     /**

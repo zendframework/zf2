@@ -32,7 +32,7 @@ class ConsoleResponseSender
      */
     public function createService(ServiceManager $sm)
     {
-        return new self();
+        return $this;
     }
 
     /**

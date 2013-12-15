@@ -47,6 +47,6 @@ abstract class AbstractHelper implements HelperInterface, FactoryInterface
 
     public function createService(ServiceManager $sm)
     {
-        return new static();
+        return $this;
     }
 }
