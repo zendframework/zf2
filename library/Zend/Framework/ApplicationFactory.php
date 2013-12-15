@@ -12,10 +12,7 @@ namespace Zend\Framework;
 use Zend\Framework\Application;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
-
 class ApplicationFactory
-    implements FactoryInterface
 {
     /**
      * @param ServiceManager $sm

@@ -13,12 +13,10 @@ use Zend\Framework\Dispatch\Event as DispatchEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
 
 class MvcListener
     extends EventListener
-    implements FactoryInterface
 {
     /**
      * @var string
@@ -26,13 +24,9 @@ class MvcListener
     protected $name = MvcEvent::EVENT_NAME;
 
     /**
-     * @param ServiceManager $sm
-     * @return MvcListener
+     *
      */
-    public function createService(ServiceManager $sm)
-    {
-        return new self();
-    }
+    use CreateService;
 
     /**
      * @param Event $event
@@ -59,7 +53,7 @@ class MvcListener
             $dispatch = new DispatchErrorEvent;
 
             $dispatch->setTarget($event->getApplication())
-                     ->setException($exception->getException())
+                     ->setException($exception->getPrevious())
                      ->setController($exception->getControllerName())
                      ->setControllerClass($exception->getControllerClass());
 

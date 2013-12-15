@@ -27,7 +27,6 @@ class ManagerFactory
         $config = $sm->get(new ServiceRequest('ApplicationConfig'))['view_manager'];
 
         $vm = new ViewManager(new ViewConfig($config));
-
         $vm->setServiceManager($sm);
 
         return $vm;

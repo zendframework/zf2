@@ -11,14 +11,17 @@ namespace Zend\Framework\ServiceManager;
 
 use ReflectionClass;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceRequestInterface as ServiceRequest;
-
 use Zend\Framework\ServiceManager\ServiceListenerInterface as ServiceListener;
 
 class ServiceInvokableFactoryListener
     implements ServiceListener
 {
+    /**
+     *
+     */
+    const FACTORY_INTERFACE = 'Zend\Framework\ServiceManager\FactoryInterface';
+
     /**
      * @param ServiceRequest $service
      * @return bool|mixed|object
@@ -35,30 +38,24 @@ class ServiceInvokableFactoryListener
             return false;
         }
 
+        $options = $service->getOptions();
+
         if (is_string($factory)) {
+            $class = new ReflectionClass($factory);
 
-            $options = $service->getOptions();
+            $factory = $class->newInstanceArgs($options);
 
-            if ($options) {
-
-                $class = new ReflectionClass($factory);
-
-                $instance = $class->newInstanceArgs($options);
-
-                return $instance;
-
-            } else {
-
-                $factory = new $factory;
-
+            if ($class->implementsInterface(self::FACTORY_INTERFACE)) {
+                    return $factory->createService($sm);
             }
 
+            return $factory;
         }
 
-        if ($factory instanceof FactoryInterface) {
-            return $factory->createService($sm);
+        if (is_callable($factory)) {
+            return call_user_func_array($factory, [$sm, $options]);
         }
 
-        return $factory($sm);
+        return $factory->createService($sm, $options);
     }
 }

@@ -13,11 +13,14 @@ use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Model\ViewModel;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\ServiceManager\FactoryInterface;
 
 class CreateViewModelListener
     extends EventListener
+    implements FactoryInterface
 {
     /**
      * @var string
@@ -28,6 +31,11 @@ class CreateViewModelListener
      * @var int
      */
     protected $priority = -80;
+
+    public function createService(ServiceManager $sm)
+    {
+        return new self();
+    }
 
     /**
      * @param Event $event

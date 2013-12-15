@@ -10,7 +10,8 @@
 namespace Zend\Mvc\View\Http;
 
 use Zend\EventManager\CallbackListener;
-use Zend\Framework\EventManager\AbstractListenerAggregate;
+use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\EventManager\ServiceRequest;
 use Zend\Http\Response as HttpResponse;
@@ -18,9 +19,21 @@ use Zend\Framework\Application;
 use Zend\Framework\MvcEvent;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class ExceptionStrategy extends AbstractListenerAggregate
+class ExceptionStrategy
+    extends EventListener
+    implements FactoryInterface
 {
+    /**
+     * @var array
+     */
+    protected $name = [
+        MvcEvent::EVENT_DISPATCH_ERROR,
+        MvcEvent::EVENT_RENDER_ERROR
+    ];
+
     /**
      * Display exceptions?
      * @var bool
@@ -34,12 +47,20 @@ class ExceptionStrategy extends AbstractListenerAggregate
     protected $exceptionTemplate = 'error';
 
     /**
-     * {@inheritDoc}
+     * @param ServiceManager $sm
+     * @return ExceptionStrategy
      */
-    public function attach(EventManager $events)
+    public function createService(ServiceManager $sm)
     {
-        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'prepareExceptionViewModel'), MvcEvent::EVENT_DISPATCH_ERROR));
-        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'prepareExceptionViewModel'), MvcEvent::EVENT_RENDER_ERROR));
+        $config = $sm->getViewManager()->getViewConfig();
+
+        $listener = new self();
+
+        $listener->setDisplayExceptions($config->get('display_exceptions'));
+
+        $listener->setExceptionTemplate($config->get('exception_template'));
+
+        return $listener;
     }
 
     /**
@@ -94,10 +115,10 @@ class ExceptionStrategy extends AbstractListenerAggregate
      *         priority dispatch.error event (or goto a render event) to ensure
      *         rendering occurs, and that munging of view models occurs when
      *         expected.
-     * @param  MvcEvent $e
+     * @param  Event $e
      * @return void
      */
-    public function prepareExceptionViewModel(MvcEvent $e)
+    public function __invoke(Event $e)
     {
         // Do nothing if no error in the event
         $error = $e->getError();

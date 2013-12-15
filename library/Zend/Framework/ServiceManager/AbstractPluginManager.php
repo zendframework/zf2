@@ -9,10 +9,12 @@
 
 namespace Zend\Framework\ServiceManager;
 
+use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ConfigInterface as Config;
+use Zend\Framework\ServiceManager\Config as Config;
 
 abstract class AbstractPluginManager
+    implements FactoryInterface
 {
     /**
      * @var Config
@@ -26,12 +28,36 @@ abstract class AbstractPluginManager
 
     /**
      * @param ServiceManager $sm
-     * @param Config $config
+     * @return mixed|AbstractPluginManager
      */
-    public function __construct(ServiceManager $sm, Config $config)
+    public function createService(ServiceManager $sm)
+    {
+        $service = new static();
+
+        $service->setServiceManager($sm)
+                ->setConfig(new Config($sm->getApplicationConfig()['plugins']));
+
+        return $service;
+    }
+
+    /**
+     * @param Config $config
+     * @return $this
+     */
+    public function setConfig(Config $config)
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * @param ServiceManagerInterface $sm
+     * @return $this
+     */
+    public function setServiceManager(ServiceManager $sm)
     {
         $this->sm = $sm;
-        $this->config = $config;
+        return $this;
     }
 
     /**

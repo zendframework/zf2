@@ -23,7 +23,7 @@ class Manager
      * @param ServiceManager $sm
      * @return $this
      */
-    public function setServiceLocator(ServiceManager $sm)
+    public function setServiceManager(ServiceManager $sm)
     {
         $this->sm = $sm;
         return $this;
@@ -38,6 +38,10 @@ class Manager
         return $this->sm->has($name);
     }
 
+    /**
+     * @param $name
+     * @return array|object
+     */
     public function getController($name)
     {
         return $this->sm->get(new ServiceRequest($name));

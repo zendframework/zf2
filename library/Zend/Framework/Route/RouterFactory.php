@@ -33,7 +33,7 @@ class RouterFactory
      */
     public function createService(ServiceManager $sm, $cName = null, $rName = null)
     {
-        $config = $sm->get(new ServiceRequest('ApplicationConfig'));
+        $config = $sm->getApplicationConfig();
 
         // Defaults
         $routerClass        = 'Zend\Mvc\Router\Http\TreeRouteStack';
@@ -55,8 +55,7 @@ class RouterFactory
 
         // Inject the route plugins
         if (!isset($routerConfig['route_plugins'])) {
-            $routePluginManager = $sm->get(new ServiceRequest('RoutePluginManager'));
-            $routerConfig['route_plugins'] = $routePluginManager;
+            $routerConfig['route_plugins'] = $sm->getRoutePluginManager();
         }
 
         // Obtain an instance

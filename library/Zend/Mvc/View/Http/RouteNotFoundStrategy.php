@@ -11,6 +11,7 @@ namespace Zend\Mvc\View\Http;
 
 use Zend\Framework\EventManager\AbstractListenerAggregate;
 use Zend\Framework\EventManager\ManagerInterface as EventManager;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\EventManager\CallbackListener;
 use Zend\Http\Response as HttpResponse;
 use Zend\Framework\Application;
@@ -18,9 +19,27 @@ use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class RouteNotFoundStrategy extends AbstractListenerAggregate
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class RouteNotFoundStrategy
+    extends EventListener
+    implements FactoryInterface
 {
+    /**
+     * @var array
+     */
+    protected $name = [
+        //MvcEvent::EVENT_CONTROLLER_DISPATCH,
+        MvcEvent::EVENT_DISPATCH_ERROR
+    ];
+
+    /**
+     * @var int
+     */
+    protected $priority = -90;
+
     /**
      * Whether or not to display exceptions related to the 404 condition
      *
@@ -49,14 +68,17 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
      */
     protected $reason = false;
 
-    /**
-     * {@inheritDoc}
-     */
-    public function attach(EventManager $events)
+    public function createService(ServiceManager $sm)
     {
-        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'prepareNotFoundViewModel'), MvcEvent::EVENT_CONTROLLER_DISPATCH, null, -90));
-        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'detectNotFoundError'), MvcEvent::EVENT_DISPATCH_ERROR));
-        $this->listeners[] = $events->attach(new CallbackListener(array($this, 'prepareNotFoundViewModel'), MvcEvent::EVENT_DISPATCH_ERROR));
+        $config = $sm->getViewManager()->getViewConfig();
+
+        $strategy = new RouteNotFoundStrategy();
+
+        $strategy->setDisplayExceptions($config->get('display_exceptions'));
+        $strategy->setDisplayNotFoundReason($config->get('display_not_found_reason'));
+        $strategy->setNotFoundTemplate($config->get('not_found_template'));
+
+        return $strategy;
     }
 
     /**
@@ -164,8 +186,12 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
      * @param  MvcEvent $e
      * @return void
      */
-    public function prepareNotFoundViewModel(Event $e)
+    public function __invoke(Event $e)
     {
+        if (MvcEvent::EVENT_DISPATCH_ERROR == $e->getName()) {
+            $this->detectNotFoundError($e);
+        }
+
         $vars = $e->getResult();
         if ($vars instanceof Response) {
             // Already have a response as the result

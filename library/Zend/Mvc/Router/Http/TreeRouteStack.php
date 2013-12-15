@@ -95,7 +95,7 @@ class TreeRouteStack extends SimpleRouteStack
                 'wildcard' => __NAMESPACE__ . '\Wildcard',
             ) as $name => $class
         ) {
-            $routes->setInvokableClass($name, $class);
+            $routes->addInvokableClass($name, $class);
         };
     }
 
@@ -157,6 +157,7 @@ class TreeRouteStack extends SimpleRouteStack
 
             $route = $this->routePluginManager->get('chain', $options);
         } else {
+
             $route = parent::routeFromArray($specs);
         }
 
@@ -175,7 +176,7 @@ class TreeRouteStack extends SimpleRouteStack
 
             $priority = (isset($route->priority) ? $route->priority : null);
 
-            $route = $this->routePluginManager->get(new ServiceRequest('part', $options));
+            $route = $this->routePluginManager->get('part', $options);
             $route->priority = $priority;
         }
 

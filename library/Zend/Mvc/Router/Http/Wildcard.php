@@ -116,6 +116,7 @@ class Wildcard implements RouteInterface
         if ($pathOffset !== null) {
             $path = substr($path, $pathOffset);
         }
+        var_dump($this);
 
         $matches = array();
         $params  = explode($this->paramDelimiter, $path);

@@ -11,10 +11,9 @@ namespace Zend\Framework\Controller;
 
 use Zend\Framework\Controller\Manager as ControllerManager;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Framework\ServiceManager\Config as Config;
-
-use Zend\Framework\ServiceManager\FactoryInterface;
 
 class ManagerFactory
     implements FactoryInterface
@@ -28,7 +27,7 @@ class ManagerFactory
         $config = $sm->get(new ServiceRequest('ApplicationConfig'));
 
         $cm = new ControllerManager(new Config($config['controllers']));
-        $cm->setServiceLocator($sm);
+        $cm->setServiceManager($sm);
 
         //if (isset($config['di']) && isset($config['di']['allowed_controllers']) && $serviceLocator->has('Di')) {
         //$controllerLoader->addAbstractFactory($serviceLocator->get('DiStrictAbstractServiceFactory'));

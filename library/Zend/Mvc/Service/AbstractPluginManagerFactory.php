@@ -33,10 +33,9 @@ abstract class AbstractPluginManagerFactory implements FactoryInterface
         $configuration = $serviceLocator->get(new ServiceRequest('ApplicationConfig'));
 
         $pluginManagerClass = static::PLUGIN_MANAGER_CLASS;
-
+var_dump(__FILE__, $pluginManagerClass);
         /* @var $plugins \Zend\ServiceManager\AbstractPluginManager */
-        $plugins = new $pluginManagerClass(new ServiceManagerConfig($configuration['plugins']));
-        $plugins->setServiceLocator($serviceLocator);
+        $plugins = new $pluginManagerClass($serviceLocator, new ServiceManagerConfig($configuration['plugins']));
 
 
         if (isset($configuration['di']) && $serviceLocator->has('Di')) {
@@ -44,10 +43,5 @@ abstract class AbstractPluginManagerFactory implements FactoryInterface
         }
 
         return $plugins;
-    }
-
-    public function __invoke(ServiceManager $serviceLocator)
-    {
-        return $this->createService($serviceLocator);
     }
 }

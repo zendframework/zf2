@@ -31,7 +31,7 @@ class Listener
     /**
      * @var int
      */
-    protected $priority = -90;
+    protected $priority = -70;
 
     /**
      * FilterInterface/inflector used to normalize names for use as template identifiers

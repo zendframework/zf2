@@ -10,10 +10,10 @@
 namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\Manager as EventManager;
+use Zend\Framework\EventManager\ListenerInterface as EventListener;
+use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\ServiceRequest;
-
-use Zend\Framework\ServiceManager\FactoryInterface;
 
 class ManagerFactory
     implements FactoryInterface
@@ -33,7 +33,10 @@ class ManagerFactory
             foreach($eventListeners as $listener) {
 
                 if (is_string($listener)) {
-                    $listener = $sm->get(new ServiceRequest($listener));
+                    $listener = clone $sm->get(new ServiceRequest($listener));
+                    if ($listener instanceof EventListener) {
+                        $listener->setEventName($event);
+                    }
                 }
 
                 $em->attach($listener);

@@ -13,13 +13,27 @@ use Zend\Framework\EventManager\AbstractListenerAggregate;
 use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\EventManager\CallbackListener;
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Http\Request as HttpRequest;
 use Zend\View\Model;
 use Zend\View\Renderer\JsonRenderer;
 use Zend\View\ViewEvent;
 
-class JsonStrategy extends AbstractListenerAggregate
+use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class JsonStrategy
+    extends EventListener
+    implements FactoryInterface
 {
+    /**
+     * @var array
+     */
+    protected $name = [
+        ViewEvent::EVENT_RENDERER,
+        ViewEvent::EVENT_RESPONSE
+    ];
+
     /**
      * Character set for associated content-type
      *
@@ -53,12 +67,12 @@ class JsonStrategy extends AbstractListenerAggregate
     }
 
     /**
-     * {@inheritDoc}
+     * @param ServiceManager $sm
+     * @return JsonStrategy
      */
-    public function attach(EventManager $em, $priority = 1)
+    public function createService(ServiceManager $sm)
     {
-        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'selectRenderer'), ViewEvent::EVENT_RENDERER, null, $priority));
-        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'injectResponse'), ViewEvent::EVENT_RESPONSE, null, $priority));
+        return new self($sm->getViewRenderer());
     }
 
     /**
@@ -139,6 +153,23 @@ class JsonStrategy extends AbstractListenerAggregate
 
         if (in_array(strtoupper($this->charset), $this->multibyteCharsets)) {
             $headers->addHeaderLine('content-transfer-encoding', 'BINARY');
+        }
+    }
+
+    /**
+     * @param Event $event
+     * @return mixed|void
+     */
+    public function __invoke(Event $event)
+    {
+        switch($event->getName())
+        {
+            case ViewEvent::EVENT_RENDERER:
+                $this->selectRenderer($event);
+                break;
+            case ViewEvent::EVENT_RESPONSE:
+                $this->injectResponse($event);
+                break;
         }
     }
 }

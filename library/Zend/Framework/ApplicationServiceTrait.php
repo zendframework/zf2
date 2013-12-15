@@ -31,6 +31,9 @@ use Zend\Mvc\Controller\ControllerManager as ControllerLoader;
 
 use Zend\Mvc\Router\Http\RouteMatch as RouteMatch;
 
+use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
+
+use Zend\Mvc\Router\RoutePluginManager as RoutePluginManager;
 
 
 trait ApplicationServiceTrait
@@ -298,5 +301,21 @@ trait ApplicationServiceTrait
     public function getView()
     {
         return $this->getService('View');
+    }
+
+    /**
+     * @return bool|ControllerPluginManager
+     */
+    public function getControllerPluginManager()
+    {
+        return $this->getService('ControllerPluginManager');
+    }
+
+    /**
+     * @return bool|RoutePluginManager
+     */
+    public function getRoutePluginManager()
+    {
+        return $this->getService('RoutePluginManager');
     }
 }

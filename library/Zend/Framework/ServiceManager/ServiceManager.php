@@ -68,7 +68,7 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         if (!empty($this->pending[$name])) {
-            throw new Exception('Circular dependency');
+            throw new Exception('Circular dependency: '.$name);
         }
 
         $this->pending[$name] = true;

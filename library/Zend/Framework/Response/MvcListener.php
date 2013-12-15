@@ -15,6 +15,7 @@ use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\ServiceRequest;
 
 class MvcListener
     extends EventListener
@@ -45,8 +46,10 @@ class MvcListener
         $response = new ResponseEvent;
 
         $response->setTarget($event->getTarget())
-                 ->setServiceManager($event->getServiceManager())
-                 ->setResponse($event->getResponse());
+                 ->setServiceManager($event->getServiceManager());
+
+        //delayed due circular dependency in the application initialization
+        $em->attach($event->getServiceManager()->get(new ServiceRequest('DefaultRenderingStrategy')));
 
         $em->trigger($response);
     }

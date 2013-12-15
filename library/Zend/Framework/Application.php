@@ -65,8 +65,12 @@ class Application
 
         $sm = new ServiceManager(new ServiceManagerConfig($config['service_manager']));
 
-        $sm->setApplicationConfig($config)
-           ->setViewModel(new ViewModel);
+        $sm->setApplicationConfig($config);
+
+        $vm = new ViewModel;
+        $vm->setTemplate($sm->getViewConfig()->getLayoutTemplate());
+
+        $sm->setViewModel($vm);
 
         //$mm = $sm->get(new ServiceRequest('ModuleManager'));
         //$mm->loadModules();

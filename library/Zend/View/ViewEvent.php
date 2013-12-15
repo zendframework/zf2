@@ -267,6 +267,7 @@ class ViewEvent extends Event
 
         if ($response instanceof Renderer) {
             $this->setRenderer($response);
+            $this->stopPropagation();
         }
     }
 }

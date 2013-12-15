@@ -29,11 +29,13 @@ class ManagerFactory
      */
     public function createService(ServiceManager $sm)
     {
-        $configuration = $sm->get(new ServiceRequest('ApplicationConfig'));
+        $configuration = $sm->getApplicationConfig();
 
-        $config = $sm->get(new ServiceRequest('ViewManager'))->getViewHelpers();
+        $config = $sm->getViewManager()->getViewHelpers();
 
-        $plugins = new PluginManager($sm, new ServiceConfig($config));
+        $plugins = new PluginManager;
+        $plugins->setServiceManager($sm)
+                ->setConfig(new ServiceConfig($config));
 
         if (isset($configuration['di']) && $sm->has('Di')) {
             $plugins->addAbstractFactory($sm->get('DiAbstractServiceFactory'));

@@ -7,16 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager;
+namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\EventManager\ListenerInterface as EventListener;
-use Zend\Framework\EventManager\ListenerTrait;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class Listener
-    implements EventListener
+
+trait CreateServiceTrait
 {
-    /**
-     *
-     */
-    use ListenerTrait;
+    public function createService(ServiceManager $sm)
+    {var_dump(__FILE__);
+        return new self();
+    }
 }

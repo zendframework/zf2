@@ -10,7 +10,7 @@
 namespace Zend\Mvc\Controller;
 
 use Zend\Mvc\Exception;
-use Zend\ServiceManager\AbstractPluginManager;
+use Zend\Framework\ServiceManager\AbstractPluginManager;
 use Zend\Stdlib\DispatchableInterface;
 
 /**
@@ -63,24 +63,14 @@ class PluginManager extends AbstractPluginManager
     protected $controller;
 
     /**
-     * Retrieve a registered instance
-     *
-     * After the plugin is retrieved from the service locator, inject the
-     * controller in the plugin every time it is requested. This is required
-     * because a controller can use a plugin and another controller can be
-     * dispatched afterwards. If this second controller uses the same plugin
-     * as the first controller, the reference to the controller inside the
-     * plugin is lost.
-     *
-     * @param  string $name
-     * @param  mixed  $options
-     * @param  bool   $usePeeringServiceManagers
+     * @param $name
+     * @param array $options
      * @return mixed
      */
-    public function get($name, $options = array(), $usePeeringServiceManagers = true)
+    public function get($name, $options = [])
     {
-        $plugin = parent::get($name, $options, $usePeeringServiceManagers);
-        $this->injectController($plugin);
+        $plugin = parent::get($name, $options);
+        $plugin->setController($this->controller);
 
         return $plugin;
     }
@@ -106,51 +96,5 @@ class PluginManager extends AbstractPluginManager
     public function getController()
     {
         return $this->controller;
-    }
-
-    /**
-     * Inject a helper instance with the registered controller
-     *
-     * @param  object $plugin
-     * @return void
-     */
-    public function injectController($plugin)
-    {
-        if (!is_object($plugin)) {
-            return;
-        }
-        if (!method_exists($plugin, 'setController')) {
-            return;
-        }
-
-        $controller = $this->getController();
-        if (!$controller instanceof DispatchableInterface) {
-            return;
-        }
-
-        $plugin->setController($controller);
-    }
-
-    /**
-     * Validate the plugin
-     *
-     * Any plugin is considered valid in this context.
-     *
-     * @param  mixed                            $plugin
-     * @return void
-     * @throws Exception\InvalidPluginException
-     */
-    public function validatePlugin($plugin)
-    {
-        if ($plugin instanceof Plugin\PluginInterface) {
-            // we're okay
-            return;
-        }
-
-        throw new Exception\InvalidPluginException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\Plugin\PluginInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
     }
 }

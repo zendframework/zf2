@@ -51,6 +51,18 @@ class Listener
         //set root view model
         //$render->setViewModel($sm->getViewModel());
 
-        $em->trigger($render);
+        try {
+
+            $em->trigger($render);
+
+        } catch(Exception $exception) {
+
+            $error = new RenderErrorEvent;
+
+            $error->setTarget($event->getTarget())
+                  ->setException($exception->getPrevious());
+
+            $em->trigger($error);
+        }
     }
 }

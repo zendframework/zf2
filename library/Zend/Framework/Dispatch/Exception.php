@@ -12,7 +12,6 @@ namespace Zend\Framework\Dispatch;
 class Exception
     extends \Exception
 {
-
     /**
      * @var string
      */
@@ -22,11 +21,6 @@ class Exception
      * @var string
      */
     protected $controllerClass;
-
-    /**
-     * @var \Exception
-     */
-    protected $exception;
 
     /**
      * @param $controller
@@ -45,16 +39,6 @@ class Exception
     public function setControllerClass($controllerClass)
     {
         $this->controllerClass = $controllerClass;
-        return $this;
-    }
-
-    /**
-     * @param $exception
-     * @return $this
-     */
-    public function setException($exception)
-    {
-        $this->exception = $exception;
         return $this;
     }
 }

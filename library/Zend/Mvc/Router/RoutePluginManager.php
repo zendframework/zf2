@@ -9,8 +9,10 @@
 
 namespace Zend\Mvc\Router;
 
-use Zend\Framework\ServiceManager\ServiceManager;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\Config as Config;
 use Zend\Framework\ServiceManager\ServiceRequest;
+use Zend\Framework\ServiceManager\AbstractPluginManager;
 
 /**
  * Plugin manager implementation for routes
@@ -21,35 +23,39 @@ use Zend\Framework\ServiceManager\ServiceRequest;
  * multiple route instances of the same type.
  */
 class RoutePluginManager
+    extends AbstractPluginManager
 {
-    /**
-     * @var ServiceManager
-     */
-    protected $sm;
 
     /**
      * @param ServiceManager $sm
+     * @return mixed|AbstractPluginManager
      */
-    public function setServiceLocator(ServiceManager $sm)
+    public function createService(ServiceManager $sm)
     {
-        $this->sm = $sm;
+        $service = new static();
+
+        $service->setServiceManager($sm)
+                ->setConfig(new Config($sm->getApplicationConfig()['router']));
+
+        return $service;
     }
 
     /**
      * @param $name
-     * @param $class
+     * @param $options
+     * @return mixed
      */
-    public function setInvokableClass($name, $class)
+    public function get($name, $options)
     {
-        $this->sm->addInvokableClass($name, $class);
+        return $this->sm->get(new ServiceRequest($name, $options));
     }
 
     /**
-     * @param ServiceRequest $name
-     * @return mixed
+     * @param string $name
+     * @param string $class
      */
-    public function get(ServiceRequest $service)
+    public function addInvokableClass($name, $class)
     {
-        return $this->sm->get($service);
+        $this->sm->addInvokableClass($name, $class);
     }
 }

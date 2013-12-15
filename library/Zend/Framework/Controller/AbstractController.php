@@ -24,8 +24,8 @@ use Zend\Framework\MvcEvent;
 
 use Zend\Framework\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Framework\ServiceManager\ServiceLocatorInterface;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
 
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 use Zend\Stdlib\RequestInterface as Request;
@@ -49,16 +49,12 @@ use Zend\Stdlib\ResponseInterface as Response;
  * @method \Zend\Mvc\Controller\Plugin\Redirect redirect()
  * @method \Zend\Mvc\Controller\Plugin\Url url()
  */
-abstract class AbstractController extends EventListener implements
-    Dispatchable,
-    EventManagerAwareInterface,
-    InjectApplicationEventInterface,
-    ServiceLocatorAwareInterface,
-    FactoryInterface
+abstract class AbstractController extends EventListener
 {
-
+    /**
+     * @var string
+     */
     protected $name = MvcEvent::EVENT_CONTROLLER_DISPATCH;
-
 
     /**
      * @var PluginManager
@@ -76,165 +72,16 @@ abstract class AbstractController extends EventListener implements
     protected $response;
 
     /**
-     * @var Event
+     * @param ServiceManager $sm
+     * @return mixed|static
      */
-    protected $event;
-
-    /**
-     * @var EventManagerInterface
-     */
-    protected $em;
-
-    /**
-     * @var ServiceLocatorInterface
-     */
-    protected $serviceLocator;
-
-    /**
-     * Execute the request
-     *
-     * @param  MvcEvent $e
-     * @return mixed
-     */
-    abstract public function onDispatch(MvcEvent $e);
-
-
-    /**
-     * Dispatch a request
-     *
-     * @events dispatch.pre, dispatch.post
-     * @param  Request $request
-     * @param  null|Response $response
-     * @return Response|mixed
-     */
-    public function dispatch(Request $request, Response $response = null)
+    public function createService(ServiceManager $sm)
     {
-        $this->request = $request;
-        if (!$response) {
-            $response = new HttpResponse();
-        }
-        $this->response = $response;
+        $listener = new static();
 
-        $event = $this->getEvent();
+        $listener->setPluginManager($sm->getControllerPluginManager());
 
-        $event->setName(MvcEvent::EVENT_CONTROLLER_DISPATCH)
-              ->setRequest($request)
-              ->setResponse($response)
-              ->setTarget($this)
-              ->setCallback(function ($test) {
-                return ($test instanceof Response);
-              });
-
-        $result = $this->getEventManager()->trigger($event);
-
-        if ($result->stopped()) {
-            return $result->last();
-        }
-
-        return $event->getResult();
-    }
-
-    /**
-     * Get request object
-     *
-     * @return Request
-     */
-    public function getRequest()
-    {
-        if (!$this->request) {
-            $this->request = new HttpRequest();
-        }
-
-        return $this->request;
-    }
-
-    /**
-     * Get response object
-     *
-     * @return Response
-     */
-    public function getResponse()
-    {
-        if (!$this->response) {
-            $this->response = new HttpResponse();
-        }
-
-        return $this->response;
-    }
-
-    /**
-     * Set the event manager instance used by this context
-     *
-     * @param  EventManagerInterface $events
-     * @return AbstractController
-     */
-    public function setEventManager(EventManagerInterface $em)
-    {
-        $this->em = $em;
-        $this->attachDefaultListeners();
-        return $this;
-    }
-
-    /**
-     * Retrieve the event manager
-     *
-     * Lazy-loads an EventManager instance if none registered.
-     *
-     * @return EventManagerInterface
-     */
-    public function getEventManager()
-    {
-        if (!$this->em) {
-            $this->setEventManager(new EventManager());
-        }
-
-        return $this->em;
-    }
-
-    /**
-     * Set an event to use during dispatch
-     *
-     * By default, will re-cast to MvcEvent if another event type is provided.
-     *
-     * @param  Event $e
-     * @return void
-     */
-    public function setEvent(Event $event)
-    {
-        $this->event = $event;
-    }
-
-    /**
-     * Get the attached event
-     *
-     * Will create a new MvcEvent if none provided.
-     *
-     * @return MvcEvent
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
-    /**
-     * Set serviceManager instance
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return void
-     */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->serviceLocator = $serviceLocator;
-    }
-
-    /**
-     * Retrieve serviceManager instance
-     *
-     * @return ServiceLocatorInterface
-     */
-    public function getServiceLocator()
-    {
-        return $this->serviceLocator;
+        return $listener;
     }
 
     /**
@@ -244,11 +91,6 @@ abstract class AbstractController extends EventListener implements
      */
     public function getPluginManager()
     {
-        if (!$this->plugins) {
-            $this->setPluginManager(new PluginManager());
-        }
-
-        $this->plugins->setController($this);
         return $this->plugins;
     }
 
@@ -299,17 +141,6 @@ abstract class AbstractController extends EventListener implements
     }
 
     /**
-     * Register the default events for this controller
-     *
-     * @return void
-     */
-    protected function attachDefaultListeners()
-    {
-        $em = $this->getEventManager();
-        $em->attach(new CallbackListener(array($this, 'onDispatch'), MvcEvent::EVENT_CONTROLLER_DISPATCH));
-    }
-
-    /**
      * Transform an "action" token into a method name
      *
      * @param  string $action
@@ -324,10 +155,5 @@ abstract class AbstractController extends EventListener implements
         $method .= 'Action';
 
         return $method;
-    }
-
-    public function createService(ServiceManagerInterface $sm)
-    {
-        return new static();
     }
 }

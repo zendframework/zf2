@@ -12,13 +12,10 @@ namespace Zend\Framework\Bootstrap;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
 
 class Listener
     extends EventListener
-    implements FactoryInterface
 {
     /**
      * @var string
@@ -26,13 +23,9 @@ class Listener
     protected $name = MvcEvent::EVENT_BOOTSTRAP;
 
     /**
-     * @param ServiceManager $sm
-     * @return Listener
+     *
      */
-    public function createService(ServiceManager $sm)
-    {
-        return new self();
-    }
+    use CreateService;
 
     /**
      * @param Event $event

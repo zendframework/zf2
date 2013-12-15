@@ -13,11 +13,14 @@ use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\MvcEvent;
 use Zend\View\Model\ClearableModelInterface as ClearableModel;
 use Zend\View\Model\ModelInterface as ViewModel;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Listener
     extends EventListener
+    implements FactoryInterface
 {
     /**
      * @var array
@@ -31,7 +34,13 @@ class Listener
     /**
      * @var int
      */
-    protected $priority = -100;
+    //protected $priority = -100;
+    protected $priority = -80;
+
+    public function createService(ServiceManager $sm)
+    {
+        return new self();
+    }
 
     /**
      * @param Event $event

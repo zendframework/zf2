@@ -78,6 +78,7 @@ class Manager
             if (!isset($this->listeners[$name])) {
                 $this->listeners[$name] = new PriorityQueue();
             }
+
             $this->listeners[$name]->insert($listener, $priority);
         }
 
@@ -95,7 +96,7 @@ class Manager
     public function getListeners($name)
     {
         if (isset($this->listeners[$name])) {
-            return $this->listeners[$name];
+            return clone $this->listeners[$name];
         }
 
         return new PriorityQueue();
@@ -154,6 +155,7 @@ class Manager
         $listeners = $event->getListeners() ?: $this->getEventListeners($event);
 
         foreach($listeners as $listener) {
+            //var_dump(get_class($event) . ' :: ' .$event->getName() . ' :: ' . get_class($listener));
             $event($listener);
 
             if ($event->propagationIsStopped()) {

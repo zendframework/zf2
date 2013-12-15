@@ -11,13 +11,27 @@ namespace Zend\View\Strategy;
 
 use Zend\Framework\EventManager\AbstractListenerAggregate;
 use Zend\Framework\EventManager\ManagerInterface as EventManager;
-use Zend\Framework\EventManager\CallbackListener;
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\EventManager\CallbackListener;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 
-class PhpRendererStrategy extends AbstractListenerAggregate
+use Zend\Framework\ServiceManager\FactoryInterface;
+
+class PhpRendererStrategy
+    extends EventListener
+    implements FactoryInterface
 {
+    /**
+     * @var array
+     */
+    protected $name = [
+        ViewEvent::EVENT_RENDERER,
+        ViewEvent::EVENT_RESPONSE
+    ];
+
     /**
      * Placeholders that may hold content
      *
@@ -31,13 +45,17 @@ class PhpRendererStrategy extends AbstractListenerAggregate
     protected $renderer;
 
     /**
-     * Constructor
-     *
-     * @param  PhpRenderer $renderer
+     * @param ServiceManager $sm
+     * @return mixed|PhpRendererStrategy
      */
-    public function __construct(PhpRenderer $renderer)
+    public function createService(ServiceManager $sm)
     {
-        $this->renderer = $renderer;
+        $listener = new self();
+
+        $listener->setRenderer($sm->getViewRenderer());
+
+        return $listener;
+
     }
 
     /**
@@ -48,6 +66,16 @@ class PhpRendererStrategy extends AbstractListenerAggregate
     public function getRenderer()
     {
         return $this->renderer;
+    }
+
+    /**
+     * @param PhpRenderer $renderer
+     * @return $this
+     */
+    public function setRenderer(PhpRenderer $renderer)
+    {
+        $this->renderer = $renderer;
+        return $this;
     }
 
     /**
@@ -73,22 +101,13 @@ class PhpRendererStrategy extends AbstractListenerAggregate
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function attach(EventManager $em, $priority = 1)
-    {
-        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'selectRenderer'), ViewEvent::EVENT_RENDERER, null, $priority));
-        $this->listeners[] = $em->attach(new CallbackListener(array($this, 'injectResponse'), ViewEvent::EVENT_RESPONSE, null, $priority));
-    }
-
-    /**
      * Select the PhpRenderer; typically, this will be registered last or at
      * low priority.
      *
-     * @param  ViewEvent $e
+     * @param  Event $e
      * @return PhpRenderer
      */
-    public function selectRenderer(ViewEvent $e)
+    public function selectRenderer(Event $e)
     {
         return $this->renderer;
     }
@@ -99,7 +118,7 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      * Populates the content of the response object from the view rendering
      * results.
      *
-     * @param ViewEvent $e
+     * @param Event $e
      * @return void
      */
     public function injectResponse(Event $e)
@@ -125,5 +144,22 @@ class PhpRendererStrategy extends AbstractListenerAggregate
             }
         }
         $response->setContent($result);
+    }
+
+    /**
+     * @param Event $event
+     * @return mixed|void
+     */
+    public function __invoke(Event $event)
+    {
+        switch($event->getName())
+        {
+            case ViewEvent::EVENT_RENDERER:
+                return $this->selectRenderer($event);
+                break;
+            case ViewEvent::EVENT_RESPONSE:
+                $this->injectResponse($event);
+                break;
+        }
     }
 }
