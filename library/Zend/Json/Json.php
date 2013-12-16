@@ -9,6 +9,7 @@
 
 namespace Zend\Json;
 
+use JsonSerializable;
 use SimpleXMLElement;
 use Zend\Json\Exception\RecursionException;
 use Zend\Json\Exception\RuntimeException;
@@ -102,6 +103,8 @@ class Json
                 return $valueToEncode->toJson();
             } elseif (method_exists($valueToEncode, 'toArray')) {
                 return static::encode($valueToEncode->toArray(), $cycleCheck, $options);
+            } elseif ($valueToEncode instanceof JsonSerializable) {
+                return static::encode($valueToEncode->jsonSerialize(), $cycleCheck, $options);
             }
         }
 
