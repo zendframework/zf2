@@ -89,6 +89,9 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
             array('01:01:01',   true, array('locale'=>'nl', 'dateType' => \IntlDateFormatter::NONE, 'timeType' => \IntlDateFormatter::MEDIUM)),
             array('01:01:01 +2',   true, array('locale'=>'nl', 'dateType' => \IntlDateFormatter::NONE, 'timeType' => \IntlDateFormatter::LONG)),
             array('03:30:42 am +2',   true, array('locale'=>'en', 'dateType' => \IntlDateFormatter::NONE, 'timeType' => \IntlDateFormatter::LONG)),
+
+            array('März', true, array('locale'=>'de', 'dateType' => \IntlDateFormatter::MEDIUM, 'timeType' => \IntlDateFormatter::NONE, 'pattern' => 'MMMM')),
+            array('Марта', true, array('locale'=>'ru', 'dateType' => \IntlDateFormatter::MEDIUM, 'timeType' => \IntlDateFormatter::NONE, 'pattern' => 'MMMM')),
         );
     }
 

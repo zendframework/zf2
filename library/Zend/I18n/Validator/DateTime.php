@@ -280,7 +280,7 @@ class DateTime extends AbstractValidator
             return false;
         }
 
-        if ($position != strlen($value)) {
+        if ($position != iconv_strlen($value, 'utf-8')) {
             $this->error(self::INVALID_DATETIME);
 
             return false;
