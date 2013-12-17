@@ -332,4 +332,25 @@ abstract class AbstractController implements
 
         return $method;
     }
+    
+    /**
+     * @param $controller
+     * @param string $action
+     * @param string $renderer
+     * @return mixed
+     * @throws \Zend\Mvc\Exception\InvalidControllerException
+     */
+    public function addChildModule($controller, $action = 'indexAction', $renderer = 'Zend\View\Renderer\PhpRenderer') {
+
+        if(false === class_exists($controller)){
+             throw new InvalidControllerException('Unable to locate controller '. $controller);
+        }
+
+        if(false === method_exists($controller, $action)){
+            throw new InvalidControllerException('Invalid action '. $action . ' for '. $controller . ' controller');
+        }
+
+        $class = new $controller();
+        return $this->getServiceLocator()->get($renderer)->render($class->$action());
+    }
 }
