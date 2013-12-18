@@ -262,6 +262,18 @@ class MenuTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
+    public function testRenderingPartialWithOptions()
+    {
+        $this->_helper->setMinDepth(1)->setMaxDepth(1)
+		      ->setUlClass('My_Nav')
+		      ->setPartial('menu_options.phtml');
+
+        $expected = $this->_getExpected('menu/partial_with_options.html');
+        $actual = $this->_helper->render();
+
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testRenderingPartialBySpecifyingAnArrayAsPartial()
     {
         $this->_helper->setPartial(array('menu.phtml', 'application'));

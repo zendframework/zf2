@@ -391,7 +391,8 @@ class Menu extends AbstractHelper
         }
 
         $model = array(
-            'container' => $container
+            'container' => $container,
+	    'options' => $this->normalizeOptions()
         );
 
         /** @var \Zend\View\Helper\Partial $partialHelper */

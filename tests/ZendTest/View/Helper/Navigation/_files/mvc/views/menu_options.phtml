@@ -1,0 +1,17 @@
+<?php $options=$this->vars('options'); ?>
+<ul class="<?php echo $options['ulClass'] ?>">
+<?php
+$iterator=new \RecursiveIteratorIterator($this->vars('container'), 
+	RecursiveIteratorIterator::SELF_FIRST
+);
+$iterator->setMaxDepth($options['maxDepth']);
+foreach($iterator as $key=>$page){
+	if ($iterator->getDepth()<$options['minDepth']){
+		continue;
+	}
+?>
+	<li>
+		<a href="<?php echo $page->getHref() ?>"><?php echo $page->getLabel() ?></a>
+	</li>
+<?php } ?>
+</ul>
