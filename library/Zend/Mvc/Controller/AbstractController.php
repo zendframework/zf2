@@ -339,7 +339,6 @@ abstract class AbstractController implements
      * @param string $renderer
      * @return mixed
      * @throws \Zend\Mvc\Exception\InvalidControllerException
-     * @throws \Doctrine\Common\Proxy\Exception\InvalidArgumentException
      */
     public function getChildModule($controller, $action = 'indexAction', $renderer = 'Zend\View\Renderer\PhpRenderer') {
 
@@ -352,7 +351,7 @@ abstract class AbstractController implements
         }
 
         if (false === method_exists($controller, $action)) {
-            throw new InvalidArgumentException(sprintf(
+            throw new InvalidControllerException(sprintf(
                 '%s expects valid action argument; received "%s"',
                 __METHOD__,
                 (is_object($action) ? get_class($action) : gettype($action))
