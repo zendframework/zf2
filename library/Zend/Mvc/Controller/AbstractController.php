@@ -339,15 +339,24 @@ abstract class AbstractController implements
      * @param string $renderer
      * @return mixed
      * @throws \Zend\Mvc\Exception\InvalidControllerException
+     * @throws \Doctrine\Common\Proxy\Exception\InvalidArgumentException
      */
-    public function addChildModule($controller, $action = 'indexAction', $renderer = 'Zend\View\Renderer\PhpRenderer') {
+    public function getChildModule($controller, $action = 'indexAction', $renderer = 'Zend\View\Renderer\PhpRenderer') {
 
-        if(false === class_exists($controller)){
-             throw new InvalidControllerException('Unable to locate controller '. $controller);
+        if (false === class_exists($controller)) {
+            throw new InvalidControllerException(sprintf(
+                '%s expects a valid controller argument; received "%s"',
+                __METHOD__,
+                (is_object($controller) ? get_class($controller) : gettype($controller))
+            ));
         }
 
-        if(false === method_exists($controller, $action)){
-            throw new InvalidControllerException('Invalid action '. $action . ' for '. $controller . ' controller');
+        if (false === method_exists($controller, $action)) {
+            throw new InvalidArgumentException(sprintf(
+                '%s expects valid action argument; received "%s"',
+                __METHOD__,
+                (is_object($action) ? get_class($action) : gettype($action))
+            ));
         }
 
         $class = new $controller();
