@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.3.3
   - 5.3
   - 5.4
   - 5.5
@@ -11,6 +10,9 @@ before_install:
 
 script:
  - ant travis -keep-going
+
+after_script:
+  - php vendor/bin/coveralls
 
 notifications:
   irc: "irc.freenode.org#zftalk.dev"

@@ -22,8 +22,12 @@ class Bcrypt implements PasswordInterface
 
     /**
      * @var string
+     *
+     * Changed from 14 to 10 to prevent possibile DOS attacks
+     * due to the high computational time
+     * @see http://timoh6.github.io/2013/11/26/Aggressive-password-stretching.html
      */
-    protected $cost = '14';
+    protected $cost = '10';
 
     /**
      * @var string
@@ -83,7 +87,7 @@ class Bcrypt implements PasswordInterface
          * Check for security flaw in the bcrypt implementation used by crypt()
          * @see http://php.net/security/crypt_blowfish.php
          */
-        if ((version_compare(PHP_VERSION, '5.3.7') >= 0) && !$this->backwardCompatibility) {
+        if ((PHP_VERSION_ID >= 50307) && !$this->backwardCompatibility) {
             $prefix = '$2y$';
         } else {
             $prefix = '$2a$';

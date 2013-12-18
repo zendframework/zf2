@@ -219,6 +219,16 @@ class MenuTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
+    public function testTranslationUsingZendTranslateWithTextDomain()
+    {
+        $translator = $this->_getTranslatorWithTextDomain();
+        $this->_helper->setTranslator($translator);
+
+        $expected = $this->_getExpected('menu/textdomain.html');
+        $test     = $this->_helper->render($this->_nav3);
+        $this->assertEquals(trim($expected), trim($test));
+    }
+
     public function testTranslationUsingZendTranslateAdapter()
     {
         if (!extension_loaded('intl')) {
@@ -247,6 +257,18 @@ class MenuTest extends AbstractTest
         $this->_helper->setPartial('menu.phtml');
 
         $expected = $this->_getExpected('menu/partial.html');
+        $actual = $this->_helper->render();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testRenderingPartialWithOptions()
+    {
+        $this->_helper->setMinDepth(1)->setMaxDepth(1)
+		      ->setUlClass('My_Nav')
+		      ->setPartial('menu_options.phtml');
+
+        $expected = $this->_getExpected('menu/partial_with_options.html');
         $actual = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
