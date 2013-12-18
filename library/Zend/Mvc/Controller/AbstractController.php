@@ -340,7 +340,8 @@ abstract class AbstractController implements
      * @return mixed
      * @throws \Zend\Mvc\Exception\InvalidControllerException
      */
-    public function getChildModule($controller, $action = 'indexAction', $renderer = 'Zend\View\Renderer\PhpRenderer') {
+    public function getChildModule($controller, $action = 'indexAction', $renderer = 'Zend\View\Renderer\PhpRenderer') 
+    {
 
         if (false === class_exists($controller)) {
             throw new InvalidControllerException(sprintf(
