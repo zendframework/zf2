@@ -684,9 +684,10 @@ class Client implements Stdlib\DispatchableInterface
         ErrorHandler::start();
         $fp    = fopen($this->streamName, "w+b");
         $error = ErrorHandler::stop();
+        $adapter = $this->getAdapter();
         if (false === $fp) {
-            if ($this->adapter instanceof Client\Adapter\AdapterInterface) {
-                $this->adapter->close();
+            if ($adapter instanceof Client\Adapter\AdapterInterface) {
+                $adapter->close();
             }
             throw new Exception\RuntimeException("Could not open temp file {$this->streamName}", 0, $error);
         }
@@ -1354,22 +1355,23 @@ class Client implements Stdlib\DispatchableInterface
      */
     protected function doRequest(Http $uri, $method, $secure = false, $headers = array(), $body = '')
     {
+        $adapter = $this->getAdapter();
         // Open the connection, send the request and read the response
-        $this->adapter->connect($uri->getHost(), $uri->getPort(), $secure);
+        $adapter->connect($uri->getHost(), $uri->getPort(), $secure);
 
         if ($this->config['outputstream']) {
-            if ($this->adapter instanceof Client\Adapter\StreamInterface) {
+            if ($adapter instanceof Client\Adapter\StreamInterface) {
                 $stream = $this->openTempStream();
-                $this->adapter->setOutputStream($stream);
+                $adapter->setOutputStream($stream);
             } else {
                 throw new Exception\RuntimeException('Adapter does not support streaming');
             }
         }
         // HTTP connection
-        $this->lastRawRequest = $this->adapter->write($method,
+        $this->lastRawRequest = $adapter->write($method,
             $uri, $this->config['httpversion'], $headers, $body);
 
-        return $this->adapter->read();
+        return $adapter->read();
     }
 
     /**
