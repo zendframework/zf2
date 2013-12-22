@@ -9,9 +9,6 @@
 
 namespace Zend\Framework\EventManager;
 
-/**
- * Representation of a callback listener
- */
 interface CallbackListenerInterface
     extends ListenerInterface
 {

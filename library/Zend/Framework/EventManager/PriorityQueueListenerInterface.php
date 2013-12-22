@@ -14,6 +14,7 @@ use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
 interface PriorityQueueListenerInterface
+    extends Listener
 {
     /**
      * @param Listener $listener
@@ -30,9 +31,4 @@ interface PriorityQueueListenerInterface
      * @return PriorityQueue
      */
     public function getEventListeners(Event $event);
-
-    /**
-     * @param Event $event
-     */
-    public function __invoke(Event $event);
 }

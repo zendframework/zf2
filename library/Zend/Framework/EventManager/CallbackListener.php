@@ -11,11 +11,16 @@ namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\EventManager\ListenerTrait;
 
 class CallbackListener
-    extends EventListener
     implements CallbackListenerInterface
 {
+    /**
+     *
+     */
+    use ListenerTrait;
+
     /**
      * @var callback
      */

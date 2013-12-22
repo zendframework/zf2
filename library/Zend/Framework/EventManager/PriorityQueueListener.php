@@ -10,21 +10,25 @@
 namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
 class PriorityQueueListener
-    extends EventListener
     implements PriorityQueueListenerInterface
 {
     /**
-     * @var array
+     *
+     */
+    use ListenerTrait;
+
+    /**
+     * @var array Listener
      */
     protected $listeners = [];
 
     /**
-     * @var array EventManager
+     * @var array PriorityQueueListener
      */
     protected $shared = [];
 
@@ -69,7 +73,7 @@ class PriorityQueueListener
     {
         $listeners = new PriorityQueue;
 
-        $name    = $event->getEventName();
+        $name   = $event->getEventName();
         $target = $event->getEventTarget();
 
         foreach($this->shared as $shared) {

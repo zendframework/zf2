@@ -11,9 +11,6 @@ namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 
-/**
- * Representation of an listener
- */
 interface ListenerInterface
 {
     /**

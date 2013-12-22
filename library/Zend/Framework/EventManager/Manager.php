@@ -18,11 +18,11 @@ class Manager
     implements EventManagerInterface
 {
     /**
-     * @param Event $event
-     * @return bool
+     * @param EventInterface $event
+     * @return void
      */
     public function trigger(Event $event)
     {
-        return $this->__invoke($event);
+        $this->__invoke($event);
     }
 }

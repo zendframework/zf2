@@ -12,12 +12,6 @@ namespace Zend\Framework\EventManager;
 use Zend\Framework\EventManager\EventTrait;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
-/**
- * Representation of an event
- *
- * Encapsulates the target context and parameters passed, and provides some
- * behavior for interacting with the event manager.
- */
 class Event
     implements EventInterface
 {
