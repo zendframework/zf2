@@ -9,20 +9,19 @@
 
 namespace Zend\Framework\Controller;
 
+use Zend\Framework\Controller\DispatchEventInterface as ControllerDispatchInterface;
 use Zend\Framework\EventManager\Listener as EventListener;
-
-use Zend\Framework\MvcEvent;
-
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
 
 abstract class AbstractController
     extends EventListener
+    implements ControllerDispatchInterface
 {
     /**
      * @var string
      */
-    protected $eventName = MvcEvent::EVENT_CONTROLLER_DISPATCH;
+    protected $eventName = self::EVENT_CONTROLLER_DISPATCH;
 
     /**
      * @param ServiceManager $sm

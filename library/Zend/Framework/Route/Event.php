@@ -11,10 +11,11 @@ namespace Zend\Framework\Route;
 
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\MvcEvent;
+use Zend\Framework\Route\EventInterface as RouteInterface;
 
 class Event
     extends EventClass
+    implements RouteInterface
 {
     /**
      *
@@ -24,5 +25,5 @@ class Event
     /**
      * @var string
      */
-    protected $eventName = MvcEvent::EVENT_ROUTE;
+    protected $eventName = self::EVENT_ROUTE;
 }

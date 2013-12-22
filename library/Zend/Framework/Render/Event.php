@@ -11,14 +11,14 @@ namespace Zend\Framework\Render;
 
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\EventManager\Event as EventClass;
+use Zend\Framework\Render\EventInterface as RenderInterface;
 use Zend\Framework\View\View;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\Renderer\Renderer;
 
-use Zend\Framework\MvcEvent;
-
 class Event
     extends EventClass
+    implements RenderInterface
 {
     /**
      *
@@ -28,7 +28,7 @@ class Event
     /**
      * @var string
      */
-    protected $eventName = MvcEvent::EVENT_RENDER;
+    protected $eventName = self::EVENT_RENDER;
 
     /**
      * @var ViewModel

@@ -10,11 +10,12 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
+use Zend\Framework\Dispatch\EventInterface as DispatchInterface;
 use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\MvcEvent;
 
 class Event
     extends EventClass
+    implements DispatchInterface
 {
     /**
      *
@@ -24,7 +25,7 @@ class Event
     /**
      * @var string
      */
-    protected $eventName = MvcEvent::EVENT_DISPATCH;
+    protected $eventName = self::EVENT_DISPATCH;
 
     /**
      * @var mixed

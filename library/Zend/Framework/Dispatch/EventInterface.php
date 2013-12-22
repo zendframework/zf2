@@ -7,21 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Bootstrap;
+namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\EventManager\Event as EventClass;
-
-class Event
-    extends EventClass
+interface EventInterface
 {
     /**
      *
      */
-    use ServiceTrait;
-
-    /**
-     * @var string
-     */
-    protected $eventName = 'mvc.bootstrap';
+    const EVENT_DISPATCH = 'mvc.dispatch';
 }

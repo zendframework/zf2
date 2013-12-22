@@ -11,10 +11,11 @@ namespace Zend\Framework\Response;
 
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\MvcEvent;
+use Zend\Framework\Response\EventInterface as ResponseInterface;
 
 class Event
     extends EventClass
+    implements ResponseInterface
 {
     /**
      *
@@ -24,7 +25,7 @@ class Event
     /**
      * @var string
      */
-    protected $eventName = MvcEvent::EVENT_RESPONSE;
+    protected $eventName = self::EVENT_RESPONSE;
 
     /**
      * @var array

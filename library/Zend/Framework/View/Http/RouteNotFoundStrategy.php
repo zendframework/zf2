@@ -12,7 +12,7 @@ namespace Zend\Framework\View\Http;
 use Zend\Framework\Application;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Framework\MvcEvent;
+use Zend\Framework\Dispatch\EventInterface as DispatchEvent;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Http\Response as HttpResponse;
@@ -135,7 +135,7 @@ class RouteNotFoundStrategy
      * If a "controller not found" or "invalid controller" error type is
      * encountered, sets the response status code to 404.
      *
-     * @param  MvcEvent $e
+     * @param  Event $e
      * @return void
      */
     public function detectNotFoundError(Event $e)
@@ -165,12 +165,12 @@ class RouteNotFoundStrategy
     /**
      * Create and return a 404 view model
      *
-     * @param  MvcEvent $e
+     * @param  Event $e
      * @return void
      */
     public function __invoke(Event $e)
     {
-        if (MvcEvent::EVENT_DISPATCH_ERROR == $e->getEventName()) {
+        if (DispatchEvent::EVENT_DISPATCH_ERROR == $e->getEventName()) {
             $this->detectNotFoundError($e);
         }
 
@@ -248,7 +248,7 @@ class RouteNotFoundStrategy
      * event, inject it into the model.
      *
      * @param  ViewModel $model
-     * @param  MvcEvent $e
+     * @param  Event $e
      * @return void
      */
     protected function injectException($model, $e)
@@ -276,7 +276,7 @@ class RouteNotFoundStrategy
      * the model.
      *
      * @param  ViewModel $model
-     * @param  MvcEvent $e
+     * @param  Event $e
      * @return void
      */
     protected function injectController($model, $e)

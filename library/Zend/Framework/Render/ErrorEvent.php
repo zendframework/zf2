@@ -12,20 +12,21 @@ namespace Zend\Framework\Render;
 use Exception;
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\MvcEvent;
+use Zend\Framework\Render\EventInterface as RenderInterface;
 
 class ErrorEvent
     extends EventClass
+    implements RenderInterface
 {
     /**
      *
      */
     use ServiceTrait;
-    
+
     /**
      * @var string
      */
-    protected $eventName = MvcEvent::EVENT_RENDER_ERROR;
+    protected $eventName = self::EVENT_RENDER_ERROR;
 
     /**
      * @var string

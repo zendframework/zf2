@@ -40,8 +40,6 @@ class MvcListener
 
             $em->trigger($dispatch);
 
-            $event->setResult($dispatch->getResult());
-
         } catch (DispatchException $exception) {
 
             $dispatch = new DispatchErrorEvent;

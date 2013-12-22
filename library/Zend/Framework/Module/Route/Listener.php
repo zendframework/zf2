@@ -9,17 +9,17 @@
 
 namespace Zend\Framework\Module\Route;
 
-use Zend\Framework\EventManager\Listener as ParentListener;
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\Listener as ParentListener;
+use Zend\Framework\Route\EventInterface as RouteInterface;
+use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Mvc\Router\Http\RouteMatch;
 
-use Zend\Framework\MvcEvent;
-use Zend\Framework\ServiceManager\FactoryInterface;
-
 class Listener
     extends ParentListener
-    implements FactoryInterface
+    implements FactoryInterface,
+               RouteInterface
 {
     /**
      *
@@ -34,7 +34,7 @@ class Listener
     /**
      * @var string
      */
-    protected $eventName = MvcEvent::EVENT_ROUTE;
+    protected $eventName = self::EVENT_ROUTE;
 
     /**
      * @param ServiceManager $sm
