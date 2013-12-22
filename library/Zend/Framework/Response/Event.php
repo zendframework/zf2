@@ -9,11 +9,18 @@
 
 namespace Zend\Framework\Response;
 
+use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
+use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Framework\MvcEvent;
 
 class Event
-    extends MvcEvent
+    extends EventClass
 {
+    /**
+     *
+     */
+    use ServiceTrait;
+
     /**
      * @var string
      */

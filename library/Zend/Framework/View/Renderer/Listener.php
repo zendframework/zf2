@@ -10,25 +10,16 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Framework\View\Renderer\Renderer;
-use Zend\Framework\View\Event as ViewEvent;
-
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\View\Event as ViewEvent;
+use Zend\Framework\View\Renderer\Renderer;
 
 class Listener
-    extends ParentListener
+    extends EventListener
     implements FactoryInterface
 {
-    /**
-     * @var array
-     */
-    protected $eventName = [
-        ViewEvent::EVENT_RENDERER,
-        ViewEvent::EVENT_RESPONSE
-    ];
-
     /**
      * Placeholders that may hold content
      *

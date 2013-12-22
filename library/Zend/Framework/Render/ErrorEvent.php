@@ -10,12 +10,18 @@
 namespace Zend\Framework\Render;
 
 use Exception;
-
+use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
+use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Framework\MvcEvent;
 
 class ErrorEvent
-    extends MvcEvent
+    extends EventClass
 {
+    /**
+     *
+     */
+    use ServiceTrait;
+    
     /**
      * @var string
      */

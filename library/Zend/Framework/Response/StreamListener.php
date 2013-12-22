@@ -9,23 +9,15 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Http\Response\Stream;
-use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-
-use Zend\Framework\Response\AbstractListener;
 use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Http\Response\Stream;
 
 class StreamListener
     extends AbstractListener
     implements FactoryInterface
 {
-    /**
-     * @var string
-     */
-    protected $eventName = MvcEvent::EVENT_RESPONSE;
-
     /**
      * @param ServiceManager $sm
      * @return Listener

@@ -10,24 +10,17 @@
 namespace Zend\Framework\View\Template;
 
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
-use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 
-use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Framework\ServiceManager\FactoryInterface;
-
 class Listener
-    extends ParentListener
+    extends EventListener
     implements FactoryInterface
 {
-    /**
-     * @var string
-     */
-    protected $eventName = MvcEvent::EVENT_CONTROLLER_DISPATCH;
-
     /**
      * @var int
      */

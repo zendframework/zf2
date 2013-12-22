@@ -9,13 +9,43 @@
 
 namespace Zend\Framework\Dispatch;
 
+use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
+use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Framework\MvcEvent;
 
 class Event
-    extends MvcEvent
+    extends EventClass
 {
+    /**
+     *
+     */
+    use ServiceTrait;
+
     /**
      * @var string
      */
     protected $eventName = MvcEvent::EVENT_DISPATCH;
+
+    /**
+     * @var mixed
+     */
+    protected $result;
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param $result
+     * @return $this
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+        return $this;
+    }
 }

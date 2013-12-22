@@ -11,7 +11,7 @@ namespace Zend\Framework;
 
 use Zend\Framework\ServiceManager;
 use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
-use Zend\Framework\View\Model\ViewModel;
+use Zend\Framework\ServiceManager\ServiceManagerInterface;
 use Zend\ModuleManager;
 
 class Application
@@ -32,9 +32,9 @@ class Application
     protected $sm;
 
     /**
-     * @param ServiceManager $sm
+     * @param ServiceManagerInterface $sm
      */
-    public function __construct(ServiceManager $sm)
+    public function __construct(ServiceManagerInterface $sm)
     {
         $this->sm = $sm;
     }
@@ -65,19 +65,10 @@ class Application
 
         $sm->setApplicationConfig($config);
 
-        $vm = new ViewModel;
-        $vm->setTemplate($sm->getViewConfig()->getLayoutTemplate());
-
-        $sm->setViewModel($vm);
-
         //$mm = $sm->get(new ServiceRequest('ModuleManager'));
         //$mm->loadModules();
 
-        $application = new self($sm);
-
-        $sm->setApplication($application);
-
-        return $application;
+        return $sm->getApplication();
     }
 
     /**

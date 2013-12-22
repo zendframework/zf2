@@ -11,18 +11,11 @@ namespace Zend\Framework\Bootstrap;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\MvcEvent;
 use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
 
 class Listener
     extends EventListener
 {
-
-    /**
-     * @var string
-     */
-    protected $eventName = MvcEvent::EVENT_BOOTSTRAP;
-
     /**
      *
      */

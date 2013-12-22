@@ -10,7 +10,6 @@
 namespace Zend\Framework\Response;
 
 use Zend\Console\Response;
-use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as ParentListener;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
@@ -21,11 +20,6 @@ class ConsoleListener
     extends ParentListener
     implements FactoryInterface
 {
-    /**
-     * @var string
-     */
-    protected $name = MvcEvent::EVENT_RESPONSE;
-
     /**
      * @param ServiceManager $sm
      * @return Listener

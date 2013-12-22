@@ -28,11 +28,6 @@ class PriorityQueueListener
     protected $listeners = [];
 
     /**
-     * @var array PriorityQueueListener
-     */
-    protected $shared = [];
-
-    /**
      * Attach listener
      *
      * @param Listener $listener
@@ -40,11 +35,6 @@ class PriorityQueueListener
      */
     public function attach(Listener $listener)
     {
-        if ($listener instanceof $this) {
-            $this->shared[] = $listener;
-            return;
-        }
-
         $event    = $listener->getEventNames();
         $priority = $listener->getEventPriority();
 
@@ -66,23 +56,18 @@ class PriorityQueueListener
     }
 
     /**
-     * @param $event Event
+     * @param Event$event
+     * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function getEventListeners(Event $event)
+    public function getEventListeners(Event $event, PriorityQueue $queue = null)
     {
-        $listeners = new PriorityQueue;
+        if (null === $queue) {
+            $queue = new PriorityQueue;
+        }
 
         $name   = $event->getEventName();
         $target = $event->getEventTarget();
-
-        foreach($this->shared as $shared) {
-            foreach($shared->listeners[$name] as $priority => $shared) {
-                foreach($shared as $listener) {
-                    $listeners->insert($listener, $priority);
-                }
-            }
-        }
 
         $names = Event::WILDCARD == $name ? [$name] : [Event::WILDCARD, $name];
 
@@ -91,18 +76,18 @@ class PriorityQueueListener
                 continue;
             }
 
-            foreach($this->listeners[$name] as $priority => $prioritized) {
-                foreach($prioritized as $listener) {
+            foreach($this->listeners[$name] as $priority => $listeners) {
+                foreach($listeners as $listener) {
                     foreach($listener->getEventTargets() as $t) {
                         if (Listener::WILDCARD === $t || $target === $t || \is_subclass_of($target, $t)) {
-                            $listeners->insert($listener, $priority);
+                            $queue->insert($listener, $priority);
                         }
                     }
                 }
             }
         }
 
-        return $listeners;
+        return $queue;
     }
 
     /**

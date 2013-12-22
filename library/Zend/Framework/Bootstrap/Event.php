@@ -9,12 +9,18 @@
 
 namespace Zend\Framework\Bootstrap;
 
-use Zend\Framework\ApplicationServiceTrait;
+use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
+use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Framework\MvcEvent;
 
 class Event
-    extends MvcEvent
+    extends EventClass
 {
+    /**
+     *
+     */
+    use ServiceTrait;
+
     /**
      * @var string
      */

@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Render;
 
+use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
+use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Framework\View\View;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\Renderer\Renderer;
@@ -16,8 +18,13 @@ use Zend\Framework\View\Renderer\Renderer;
 use Zend\Framework\MvcEvent;
 
 class Event
-    extends MvcEvent
+    extends EventClass
 {
+    /**
+     *
+     */
+    use ServiceTrait;
+
     /**
      * @var string
      */
@@ -37,6 +44,29 @@ class Event
      * @var View
      */
     protected $view;
+
+    /**
+     * @var mixed
+     */
+    protected $result;
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param $result
+     * @return $this
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+        return $this;
+    }
 
     /**
      * @return bool|View

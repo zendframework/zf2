@@ -9,14 +9,21 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\MvcEvent;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\Controller\AbstractActionController as ActionController;
+use Zend\Framework\EventManager\Event as EventClass;
+use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\MvcEvent;
 use Zend\Framework\View\Model\ViewModel as ViewModel;
 
 class DispatchEvent
-    extends MvcEvent
+    extends EventClass
 {
+    /**
+     *
+     */
+    use ServiceTrait;
+
     /**
      * @var string
      */

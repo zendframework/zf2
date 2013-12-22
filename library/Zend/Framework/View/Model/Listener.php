@@ -10,31 +10,19 @@
 namespace Zend\Framework\View\Model;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\MvcEvent;
+use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\View\Model\ClearableModelInterface as ClearableModel;
 use Zend\View\Model\ModelInterface as ViewModel;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-
-use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Listener
-    extends ParentListener
+    extends EventListener
     implements FactoryInterface
 {
     /**
-     * @var array
-     */
-    protected $eventName = [
-        MvcEvent::EVENT_CONTROLLER_DISPATCH,
-        MvcEvent::EVENT_DISPATCH_ERROR,
-        MvcEvent::EVENT_RENDER_ERROR
-    ];
-
-    /**
      * @var int
      */
-    //protected $eventPriority = -100;
     protected $eventPriority = -80;
 
     /**

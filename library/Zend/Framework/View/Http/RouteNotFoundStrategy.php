@@ -9,34 +9,21 @@
 
 namespace Zend\Framework\View\Http;
 
-use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Http\Response as HttpResponse;
 use Zend\Framework\Application;
-use Zend\Framework\MvcEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\Listener as ParentListener;
+use Zend\Framework\MvcEvent;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Http\Response as HttpResponse;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
 
 class RouteNotFoundStrategy
     extends ParentListener
     implements FactoryInterface
 {
-    /**
-     * @var array
-     */
-    protected $eventName = [
-        //MvcEvent::EVENT_CONTROLLER_DISPATCH,
-        MvcEvent::EVENT_DISPATCH_ERROR
-    ];
-
-    /**
-     * @var int
-     */
-    protected $eventPriority = -90;
-
     /**
      * Whether or not to display exceptions related to the 404 condition
      *

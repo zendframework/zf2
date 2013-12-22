@@ -14,7 +14,6 @@ use Zend\Framework\Dispatch\Exception as DispatchException;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\MvcEvent;
 
 use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
 
@@ -23,11 +22,6 @@ use Exception;
 class Listener
     extends EventListener
 {
-    /**
-     * @var string
-     */
-    protected $eventName = MvcEvent::EVENT_DISPATCH;
-
     /**
      * @var
      */

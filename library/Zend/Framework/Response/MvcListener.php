@@ -12,20 +12,13 @@ namespace Zend\Framework\Response;
 use Zend\Framework\Response\Event as ResponseEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\MvcEvent;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
 
 class MvcListener
     extends EventListener
     implements FactoryInterface
 {
-    /**
-     * @var string
-     */
-    protected $eventName = MvcEvent::EVENT_NAME;
-
     /**
      * @param ServiceManager $sm
      * @return mixed|MvcListener

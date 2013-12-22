@@ -9,15 +9,12 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-
 use Zend\Framework\ApplicationServiceTrait;
+use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Framework\ServiceManager as ApplicationServiceManager;
 
-use Zend\Framework\EventManager\Event;
-
 class MvcEvent
-    extends Event
+    extends EventClass
 {
     /**
      *
@@ -43,16 +40,13 @@ class MvcEvent
     protected $eventName = self::EVENT_NAME;
 
     /**
-     * @var ApplicationServiceManager
-     */
-    protected $sm;
-
-    /**
      * @var mixed
      */
     protected $result;
 
     /**
+     * Currently only used by the Mvc Dispatch Listener, stores the results of the mvc.dispatch event
+     *
      * @return mixed
      */
     public function getResult()
@@ -68,23 +62,5 @@ class MvcEvent
     {
         $this->result = $result;
         return $this;
-    }
-
-    /**
-     * @param ServiceManager $sm
-     * @return $this
-     */
-    public function setServiceManager(ServiceManager $sm)
-    {
-        $this->sm = $sm;
-        return $this;
-    }
-
-    /**
-     * @return ApplicationServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->sm;
     }
 }

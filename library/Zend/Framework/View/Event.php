@@ -10,14 +10,15 @@
 namespace Zend\Framework\View;
 
 use ArrayAccess;
-use Zend\Framework\EventManager\Event as BaseEvent;
+use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
-class Event extends BaseEvent
+class Event
+    extends EventClass
 {
     /**#@+
      * View events triggered by eventmanager

@@ -11,7 +11,6 @@ namespace Zend\Framework\Route;
 
 use Zend\Framework\Route\Event as RouteEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\MvcEvent;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 use Zend\Framework\EventManager\Listener as ParentListener;
@@ -21,11 +20,6 @@ class MvcListener
     extends ParentListener
     implements FactoryInterface
 {
-    /**
-     * @var string
-     */
-    protected $eventName = MvcEvent::EVENT_NAME;
-
     /**
      * @param ServiceManager $sm
      * @return MvcListener

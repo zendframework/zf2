@@ -12,7 +12,6 @@ namespace Zend\Framework\EventManager;
 use Zend\Framework\EventManager\EventInterface as Event;
 
 interface ManagerInterface
-    extends PriorityQueueListenerInterface
 {
     /**
      * @param Event $event

@@ -39,6 +39,11 @@ use Zend\Mvc\Router\RoutePluginManager as RoutePluginManager;
 trait ApplicationServiceTrait
 {
     /**
+     * @var ApplicationServiceManager
+     */
+    protected $sm;
+
+    /**
      * @param $name
      * @return bool|object
      */
@@ -72,7 +77,7 @@ trait ApplicationServiceTrait
      */
     public function setServiceManager(ServiceManager $sm)
     {
-        return $this->addService('ServiceManager', $sm);
+        return $this->addService('ServiceManager', $this->sm = $sm);
     }
 
     /**

@@ -12,17 +12,11 @@ namespace Zend\Framework\Dispatch;
 use Zend\Framework\Dispatch\Event as DispatchEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\MvcEvent;
 use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
 
 class MvcListener
     extends EventListener
 {
-    /**
-     * @var string
-     */
-    protected $eventName = MvcEvent::EVENT_NAME;
-
     /**
      *
      */

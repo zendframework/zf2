@@ -10,29 +10,20 @@
 namespace Zend\Framework\View\Http;
 
 use Zend\EventManager\CallbackListener;
-use Zend\Framework\EventManager\Listener as ParentListener;
+use Zend\Framework\Application;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ServiceRequest;
-use Zend\Http\Response as HttpResponse;
-use Zend\Framework\Application;
-use Zend\Framework\MvcEvent;
-use Zend\Stdlib\ResponseInterface as Response;
-use Zend\View\Model\ViewModel;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Http\Response as HttpResponse;
+use Zend\Stdlib\ResponseInterface as Response;
+use Zend\View\Model\ViewModel;
 
 class ExceptionStrategy
-    extends ParentListener
+    extends EventListener
     implements FactoryInterface
 {
-    /**
-     * @var array
-     */
-    protected $eventName = [
-        MvcEvent::EVENT_DISPATCH_ERROR,
-        MvcEvent::EVENT_RENDER_ERROR
-    ];
-
     /**
      * Display exceptions?
      * @var bool

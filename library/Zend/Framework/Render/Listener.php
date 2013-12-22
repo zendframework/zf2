@@ -16,26 +16,13 @@ use Zend\Framework\View\View;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
 
-use Zend\Framework\EventManager\Listener as ParentListener;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Listener
-    extends ParentListener
+    extends EventListener
     implements FactoryInterface
 {
-    /**
-     * @var array
-     */
-    //protected $eventName = [
-        //MvcEvent::EVENT_RENDER,
-        //MvcEvent::EVENT_RENDER_ERROR
-    //];
-
-    /**
-     * @var int
-     */
-    //protected $eventPriority = -10000;
-
     /**
      * Layout template - template used in root ViewModel of MVC event.
      *

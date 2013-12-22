@@ -9,24 +9,19 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\ServiceManager\ConfigInterface as Config;
+use Zend\Framework\Application;
+use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-use Zend\Framework\ApplictionServiceTrait;
-
-class ServiceManager
-    extends ServiceManager\ServiceManager
+class ApplicationFactory
+    implements FactoryInterface
 {
     /**
-     *
+     * @param ServiceManager $sm
+     * @return EventManager
      */
-    use ApplicationServiceTrait;
-
-    /**
-     * @param Config $config
-     */
-    public function __construct(Config $config)
+    public function createService(ServiceManager $sm)
     {
-        $this->config = $config;
-        $this->sm = $this;
+        return new Application($sm);
     }
 }
