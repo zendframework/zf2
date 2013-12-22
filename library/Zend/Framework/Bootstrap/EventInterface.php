@@ -9,21 +9,10 @@
 
 namespace Zend\Framework\Bootstrap;
 
-use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\Bootstrap\EventInterface as BootstrapInterface;
-use Zend\Framework\EventManager\Event as EventClass;
-
-class Event
-    extends EventClass
-    implements BootstrapInterface
+interface EventInterface
 {
     /**
      *
      */
-    use ServiceTrait;
-
-    /**
-     * @var string
-     */
-    protected $eventName = self::EVENT_BOOTSTRAP;
+    const EVENT_BOOTSTRAP = 'mvc.bootstrap';
 }

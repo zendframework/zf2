@@ -10,7 +10,6 @@
 namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\EventManager\ListenerTrait;
 
 class CallbackListener
@@ -22,7 +21,7 @@ class CallbackListener
     use ListenerTrait;
 
     /**
-     * @var callback
+     * @var callable
      */
     protected $callback;
 

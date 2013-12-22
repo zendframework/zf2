@@ -10,9 +10,22 @@
 namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 interface ManagerInterface
 {
+    /**
+     * @param ListenerInterface $listener
+     * @return mixed
+     */
+    public function attach(Listener $listener);
+
+    /**
+     * @param ListenerInterface $listener
+     * @return mixed
+     */
+    public function detach(Listener $listener);
+
     /**
      * @param Event $event
      * @return mixed
