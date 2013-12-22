@@ -1,0 +1,23 @@
+<?php
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
+
+namespace Zend\Framework\View\Response;
+
+use Zend\Framework\EventManager\Event as EventClass;
+use Zend\Framework\View\Response\EventInterface as ViewResponseEvent;
+
+class Event
+    extends EventClass
+    implements ViewResponseEvent
+{
+    /**
+     * @var
+     */
+    protected $eventName = self::EVENT_RESPONSE;
+}

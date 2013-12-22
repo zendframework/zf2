@@ -11,6 +11,7 @@ namespace Zend\Framework\View;
 
 use ArrayAccess;
 use Zend\Framework\EventManager\Event as EventClass;
+use Zend\Framework\View\EventInterface as ViewEvent;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as Model;
@@ -19,15 +20,8 @@ use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 class Event
     extends EventClass
+    implements ViewEvent
 {
-    /**#@+
-     * View events triggered by eventmanager
-     */
-    const EVENT_RENDERER = 'view.renderer';
-    const EVENT_RENDERER_POST = 'view.renderer.post';
-    const EVENT_RESPONSE = 'view.response';
-    /**#@-*/
-
     /**
      * @var null|Model
      */

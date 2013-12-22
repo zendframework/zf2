@@ -28,7 +28,7 @@ interface ManagerInterface
 
     /**
      * @param Event $event
-     * @return mixed
+     * @return bool event propagation was stopped
      */
     public function trigger(Event $event);
 }

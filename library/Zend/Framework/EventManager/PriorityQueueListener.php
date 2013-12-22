@@ -28,7 +28,7 @@ class PriorityQueueListener
     protected $listeners = [];
 
     /**
-     * Attach listener
+     * Add listener
      *
      * @param Listener $listener
      * @return $this
@@ -46,13 +46,14 @@ class PriorityQueueListener
     }
 
     /**
-     * Detach listener
+     * Remove listener
      *
-     * @param Listener $listener
+     * @param ListenerInterface $listener
+     * @return $this
      */
     public function removeListener(Listener $listener)
     {
-        //...
+        return $this;
     }
 
     /**
@@ -91,15 +92,17 @@ class PriorityQueueListener
     }
 
     /**
-     * @param Event $event
-     * @return void
+     * @param EventInterface $event
+     * @return bool event propagation was stopped
      */
     public function __invoke(Event $event)
     {
         foreach($this->getEventListeners($event) as $listener) {
             if ($event($listener)) {
-                break;
+                return true;
             }
         }
+
+        return false; //propagation was not stopped
     }
 }

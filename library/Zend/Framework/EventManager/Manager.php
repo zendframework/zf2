@@ -20,7 +20,7 @@ class Manager
 {
 
     /**
-     * @var array PriorityQueueListener
+     * @var array self
      */
     protected $shared = [];
 
@@ -41,9 +41,8 @@ class Manager
     }
 
     /**
-     * Detach listener
-     *
      * @param Listener $listener
+     * @return $this
      */
     public function detach(Listener $listener)
     {
@@ -77,10 +76,10 @@ class Manager
 
     /**
      * @param Event $event
-     * @return void
+     * @return bool event propagation was stopped
      */
     public function trigger(Event $event)
     {
-        $this->__invoke($event);
+        return $this->__invoke($event);
     }
 }

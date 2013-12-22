@@ -13,8 +13,9 @@ use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\View\Event as ViewEvent;
 use Zend\Framework\View\Renderer\Renderer;
+use Zend\Framework\View\Renderer\EventInterface as ViewRendererEvent;
+use Zend\Framework\View\Response\EventInterface as ViewResponseEvent;
 
 class Listener
     extends EventListener
@@ -129,10 +130,10 @@ class Listener
     {
         switch($event->getEventName())
         {
-            case ViewEvent::EVENT_RENDERER:
+            case ViewRendererEvent::EVENT_RENDERER:
                 $this->selectRenderer($event);
                 break;
-            case ViewEvent::EVENT_RESPONSE:
+            case ViewResponseEvent::EVENT_RESPONSE:
                 $this->injectResponse($event);
                 break;
         }

@@ -31,4 +31,12 @@ interface PriorityQueueListenerInterface
      * @return PriorityQueue
      */
     public function getEventListeners(Event $event);
+
+    /**
+     * Invokes listener with the event
+     *
+     * @param Event $event
+     * @return bool event propagation was stopped
+     */
+    public function __invoke(Event $event);
 }
