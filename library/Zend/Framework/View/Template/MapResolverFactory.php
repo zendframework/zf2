@@ -11,7 +11,6 @@ namespace Zend\Framework\View\Template;
 
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\View\Resolver as ViewResolver;
 
 class MapResolverFactory implements FactoryInterface
@@ -27,7 +26,7 @@ class MapResolverFactory implements FactoryInterface
      */
     public function createService(ServiceManager $sm)
     {
-        $config = $sm->get(new ServiceRequest('ApplicationConfig'));
+        $config = $sm->getApplicationConfig();
         $map = array();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];

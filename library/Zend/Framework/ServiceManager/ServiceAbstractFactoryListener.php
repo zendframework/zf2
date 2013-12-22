@@ -10,7 +10,6 @@
 namespace Zend\Framework\ServiceManager;
 
 use Zend\Framework\ServiceManager\ServiceRequestInterface as ServiceRequest;
-
 use Zend\Framework\ServiceManager\ServiceListenerInterface as ServiceListener;
 
 class ServiceAbstractFactoryListener

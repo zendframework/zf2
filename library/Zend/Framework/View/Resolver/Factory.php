@@ -11,7 +11,6 @@ namespace Zend\Framework\View\Resolver;
 
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\View\Resolver as ViewResolver;
 
 class Factory implements FactoryInterface
@@ -23,8 +22,8 @@ class Factory implements FactoryInterface
     public function createService(ServiceManager $serviceLocator)
     {
         $resolver = new ViewResolver\AggregateResolver();
-        $resolver->attach($serviceLocator->get(new ServiceRequest('View\Template\MapResolver')));
-        $resolver->attach($serviceLocator->get(new ServiceRequest('View\Template\PathStack')));
+        $resolver->attach($serviceLocator->getService('View\Template\MapResolver'));
+        $resolver->attach($serviceLocator->getService('View\Template\PathStack'));
         return $resolver;
     }
 }

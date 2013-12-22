@@ -13,8 +13,6 @@ use Zend\Framework\ServiceManager\ServiceInvokableFactoryListener;
 use Zend\Framework\ServiceManager\ServiceAbstractFactoryListener;
 use Zend\Framework\ServiceManager\ServiceListenerInterface as ServiceListener;
 
-use Zend\Framework\ServiceManager\ServiceRequestInterface;
-
 class ServiceRequest
     implements ServiceRequestInterface
 {

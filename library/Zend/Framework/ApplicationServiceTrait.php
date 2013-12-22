@@ -11,12 +11,11 @@ namespace Zend\Framework;
 
 use Zend\Framework\ApplicationInterface as Application;
 use Zend\Framework\EventManager\ManagerInterface as EventManager;
-//use Zend\Framework\ServiceManager\ServiceManagerInterface;
+use Zend\Framework\ServiceManager as ApplicationServiceManager;
 use Zend\Framework\View\Manager as ViewManager;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\View\Renderer\Renderer as ViewRenderer;
 
 //use Zend\Console\Request as Request;
@@ -49,7 +48,7 @@ trait ApplicationServiceTrait
      */
     public function getService($name)
     {
-        return $this->sm->get(new ServiceRequest($name));
+        return $this->sm->getService($name);
     }
 
     /**

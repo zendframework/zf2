@@ -10,11 +10,8 @@
 namespace Zend\Framework\Route;
 
 use Zend\Console\Console;
-use Zend\Mvc\Router\Console\SimpleRouteStack as ConsoleRouter;
-use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
 
 class RouterFactory
     implements FactoryInterface

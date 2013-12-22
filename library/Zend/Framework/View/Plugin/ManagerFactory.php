@@ -12,7 +12,6 @@ namespace Zend\Framework\View\Plugin;
 use Zend\Console\Console;
 use Zend\Framework\ServiceManager\Config as ServiceConfig;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Framework\View\Plugin\Manager as PluginManager;
 use Zend\Mvc\Exception;
 use Zend\Mvc\Router\RouteMatch;
@@ -45,11 +44,11 @@ class ManagerFactory
         /*$plugins->addInvokableClass('url', function ($sm) use ($sm) {
             $helper = new ViewHelper\Url;
             $router = Console::isConsole() ? 'HttpRouter' : 'Router';
-            $helper->setRouter($sm->get(new ServiceRequest($router)));
+            $helper->setRouter($sm->getService($router));
 
-            $match = $sm->get(new ServiceRequest('Application'))
-                                    ->getMvcEvent()
-                                    ->getRouteMatch();
+            $match = $sm->getApplication()
+                        ->getMvcEvent()
+                        ->getRouteMatch();
 
             if ($match instanceof RouteMatch) {
                 $helper->setRouteMatch($match);
@@ -59,7 +58,7 @@ class ManagerFactory
         });*/
 
         $plugins->addInvokableClass('basepath', function ($sm) use ($sm) {
-            $config = $sm->get(new ServiceRequest('ApplicationConfig'));
+            $config = $sm->getApplicationConfig();
             $basePathHelper = new ViewHelper\BasePath;
             if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
                 $basePathHelper->setBasePath($config['view_manager']['base_path']);
@@ -80,7 +79,7 @@ class ManagerFactory
          * based on. This is why it must be set early instead of later in the layout phtml.
          */
         $plugins->addInvokableClass('doctype', function ($sm) use ($sm) {
-            $config = $sm->get(new ServiceRequest('ApplicationConfig'));
+            $config = $sm->getApplicationConfig();
             $config = isset($config['view_manager']) ? $config['view_manager'] : array();
             $doctypeHelper = new ViewHelper\Doctype;
             if (isset($config['doctype']) && $config['doctype']) {

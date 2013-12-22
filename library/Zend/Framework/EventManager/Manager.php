@@ -34,10 +34,10 @@ class Manager
     {
         if ($listener instanceof self) {
             $this->shared[] = $listener;
-            return;
+            return $this;
         }
 
-        return parent::attach($listener);
+        return parent::addListener($listener);
     }
 
     /**
@@ -51,11 +51,11 @@ class Manager
             //fixme!
         //}
 
-        return parent::detach($listener);
+        return parent::removeListener($listener);
     }
 
     /**
-     * @param EventInterface $event
+     * @param Event $event
      * @return PriorityQueue
      */
     public function getEventListeners(Event $event)
@@ -76,7 +76,7 @@ class Manager
     }
 
     /**
-     * @param EventInterface $event
+     * @param Event $event
      * @return void
      */
     public function trigger(Event $event)

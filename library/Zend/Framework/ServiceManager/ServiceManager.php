@@ -9,11 +9,8 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceLocatorInterface;
-use Zend\Framework\ServiceManager\ConfigInterface as Config;
-use Zend\Framework\ServiceManager\ServiceRequest;
-
 use Exception;
+use Zend\Framework\ServiceManager\ConfigInterface as Config;
 
 class ServiceManager implements ServiceLocatorInterface
 {
@@ -52,6 +49,15 @@ class ServiceManager implements ServiceLocatorInterface
     public function addInvokableClass($name, $class)
     {
         $this->config->add($name, $class);
+    }
+
+    /**
+     * @param $name
+     * @return object
+     */
+    public function getService($name)
+    {
+        return $this->get(new ServiceRequest($name));
     }
 
     /**

@@ -12,7 +12,6 @@ namespace Zend\Framework\Controller;
 use Zend\Framework\Controller\Manager as ControllerManager;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceRequest;
 use Zend\Framework\ServiceManager\Config as Config;
 
 class ManagerFactory
@@ -24,7 +23,7 @@ class ManagerFactory
      */
     public function createService(ServiceManager $sm)
     {
-        $config = $sm->get(new ServiceRequest('ApplicationConfig'));
+        $config = $sm->getApplicationConfig();
 
         $cm = new ControllerManager(new Config($config['controllers']));
         $cm->setServiceManager($sm);

@@ -9,9 +9,8 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\ServiceManager\ConfigInterface as Config;
-
 use Zend\Framework\ApplictionServiceTrait;
+use Zend\Framework\ServiceManager\ConfigInterface as Config;
 
 class ServiceManager
     extends ServiceManager\ServiceManager
@@ -28,5 +27,14 @@ class ServiceManager
     {
         $this->config = $config;
         $this->sm = $this;
+    }
+
+    /**
+     * @param $name
+     * @return object
+     */
+    public function getService($name)
+    {
+        return parent::getService($name);
     }
 }

@@ -33,7 +33,7 @@ class PriorityQueueListener
      * @param Listener $listener
      * @return $this
      */
-    public function attach(Listener $listener)
+    public function addListener(Listener $listener)
     {
         $event    = $listener->getEventNames();
         $priority = $listener->getEventPriority();
@@ -50,7 +50,7 @@ class PriorityQueueListener
      *
      * @param Listener $listener
      */
-    public function detach(Listener $listener)
+    public function removeListener(Listener $listener)
     {
         //...
     }

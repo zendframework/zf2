@@ -65,7 +65,7 @@ class Application
 
         $sm->setApplicationConfig($config);
 
-        //$mm = $sm->get(new ServiceRequest('ModuleManager'));
+        //$mm = $sm->getService('ModuleManager');
         //$mm->loadModules();
 
         return $sm->getApplication();

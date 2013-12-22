@@ -74,7 +74,7 @@ abstract class AbstractPluginManager
      */
     public function get($name, $options)
     {
-        return $this->sm->get(new ServiceRequest($this->getAlias($name), $options));
+        return $this->sm->getService($this->getAlias($name), $options);
     }
 
     /**

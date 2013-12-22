@@ -19,12 +19,12 @@ interface PriorityQueueListenerInterface
     /**
      * @param Listener $listener
      */
-    public function attach(Listener $listener);
+    public function addListener(Listener $listener);
 
     /**
      * @param Listener $listener
      */
-    public function detach(Listener $listener);
+    public function removeListener(Listener $listener);
 
     /**
      * @param Event $event

@@ -13,7 +13,6 @@ use Zend\EventManager\CallbackListener;
 use Zend\Framework\Application;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ServiceRequest;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Http\Response as HttpResponse;

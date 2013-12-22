@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceRequest;
-
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 
 /**

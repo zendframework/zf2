@@ -9,11 +9,9 @@
 
 namespace Zend\Framework\Module;
 
-use Zend\ModuleManager\ModuleManager;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
-
 use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\ModuleManager\ModuleManager;
 
 class ManagerFactory
     implements FactoryInterface
@@ -28,7 +26,7 @@ class ManagerFactory
 
         $em = $sm->getEventManager();
 
-        $em->attach($sm->get(new ServiceRequest('ModuleManager\DefaultListeners')));
+        $em->attach($sm->getService('ModuleManager\DefaultListeners'));
 
         $mm = new ModuleManager($modules);
 

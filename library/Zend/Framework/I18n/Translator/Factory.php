@@ -9,11 +9,9 @@
 
 namespace Zend\Framework\I18n\Translator;
 
-use Zend\Mvc\I18n\Translator;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
-
 use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Mvc\I18n\Translator;
 
 /**
  * Overrides the translator factory from the i18n component in order to
@@ -29,7 +27,7 @@ class Factory
     public function createService(ServiceManager $sm)
     {
         // Configure the translator
-        $config     = $sm->get(new ServiceRequest('ApplicationConfig'));
+        $config     = $sm->getApplicationConfig();
         $trConfig   = isset($config['translator']) ? $config['translator'] : array();
         $translator = Translator::factory($trConfig);
         return $translator;

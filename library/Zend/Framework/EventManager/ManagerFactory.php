@@ -13,7 +13,6 @@ use Zend\Framework\EventManager\Manager as EventManager;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\ServiceRequest;
 
 class ManagerFactory
     implements FactoryInterface
@@ -31,7 +30,7 @@ class ManagerFactory
         foreach($listeners as $event => $eventListeners) {
             foreach($eventListeners as $listener) {
                 if (is_string($listener)) {
-                    $listener = $sm->get(new ServiceRequest($listener));
+                    $listener = $sm->getService($listener);
                     if ($listener instanceof Listener) {
                         $listener->setEventName($event);
                     }
