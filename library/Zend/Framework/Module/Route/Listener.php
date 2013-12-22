@@ -11,7 +11,7 @@ namespace Zend\Framework\Module\Route;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Framework\Route\EventInterface as RouteInterface;
+use Zend\Framework\Module\Route\EventInterface as ModuleRouteEvent;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Mvc\Router\Http\RouteMatch;
@@ -19,7 +19,7 @@ use Zend\Mvc\Router\Http\RouteMatch;
 class Listener
     extends ParentListener
     implements FactoryInterface,
-               RouteInterface
+               ModuleRouteEvent
 {
     /**
      *

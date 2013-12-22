@@ -11,14 +11,14 @@ namespace Zend\Framework\Controller;
 
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\Controller\AbstractActionController as ActionController;
-use Zend\Framework\Controller\DispatchEventInterface as DispatchInterface;
+use Zend\Framework\Controller\DispatchEventInterface as ControllerDispatchEvent;
 use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\View\Model\ViewModel as ViewModel;
 
 class DispatchEvent
     extends EventClass
-    implements DispatchInterface
+    implements ControllerDispatchEvent
 {
     /**
      *

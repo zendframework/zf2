@@ -11,12 +11,12 @@ namespace Zend\Framework\Dispatch;
 
 use Exception;
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\Dispatch\EventInterface as DispatchInterface;
+use Zend\Framework\Dispatch\EventInterface as DispatchEvent;
 use Zend\Framework\EventManager\Event as EventClass;
 
 class ErrorEvent
     extends EventClass
-    implements DispatchInterface
+    implements DispatchEvent
 {
     /**
      *

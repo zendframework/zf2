@@ -11,11 +11,11 @@ namespace Zend\Framework\Response;
 
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\Response\EventInterface as ResponseInterface;
+use Zend\Framework\Response\EventInterface as ResponseEvent;
 
 class Event
     extends EventClass
-    implements ResponseInterface
+    implements ResponseEvent
 {
     /**
      *
