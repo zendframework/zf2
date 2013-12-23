@@ -10,6 +10,7 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Controller\DispatchEvent as ControllerDispatchEvent;
+use Zend\Framework\Dispatch\EventInterface as DispatchEvent;
 use Zend\Framework\Dispatch\Exception as DispatchException;
 
 use Zend\Framework\EventManager\EventInterface as Event;
@@ -33,14 +34,14 @@ class Listener
     use CreateService;
 
     /**
-     * @param Event $event
+     * @param DispatchEvent $event
      * @return void
      * @throws DispatchException
      */
     public function __invoke(Event $event)
     {
         $em = $event->getEventManager();
-        $cm = $event->getControllerLoader();
+        $cm = $event->getControllerManager();
         $rm = $event->getRouteMatch();
         $sm = $event->getServiceManager();
         $vm = $event->getViewModel();

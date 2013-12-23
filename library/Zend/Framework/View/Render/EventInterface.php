@@ -7,17 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Renderer;
+namespace Zend\Framework\View\Render;
 
 interface EventInterface
 {
     /**
      *
      */
-    const EVENT_RENDERER = 'view.renderer';
+    const EVENT_RENDER = 'view.render';
 
     /**
      *
      */
-    const EVENT_RENDERER_POST = 'view.renderer.post';
+    const EVENT_RENDER_POST = 'view.render.post';
 }

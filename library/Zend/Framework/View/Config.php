@@ -62,4 +62,12 @@ class Config
     {
         return (string) $this->get('not_found_template');
     }
+
+    /**
+     * @return string
+     */
+    public function exceptionTemplate()
+    {
+        return (string) $this->get('exception_template');
+    }
 }

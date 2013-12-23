@@ -11,11 +11,11 @@ namespace Zend\Framework\Render;
 
 use Zend\Framework\Render\Event as RenderEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as ParentListener;
+use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
 
 class MvcListener
-    extends ParentListener
+    extends EventListener
 {
     /**
      *

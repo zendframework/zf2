@@ -7,12 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Http;
+namespace Zend\Framework\Route;
 
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Http\Response as HttpResponse;
 use Zend\Framework\Application;
-use Zend\Framework\Dispatch\DispatchEventInterface as DispatchEvent;
+use Zend\Framework\Dispatch\EventInterface as DispatchEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
@@ -20,7 +20,7 @@ use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 use Zend\Framework\ServiceManager\FactoryInterface;
 
-class RouteNotFoundStrategy
+class NotFoundListener
     extends EventListener
     implements FactoryInterface
 {
@@ -165,22 +165,22 @@ class RouteNotFoundStrategy
     /**
      * Create and return a 404 view model
      *
-     * @param  Event $e
+     * @param  Event $event
      * @return void
      */
-    public function __invoke(Event $e)
+    public function __invoke(Event $event)
     {
-        if (DispatchEvent::EVENT_DISPATCH_ERROR == $e->getEventName()) {
-            $this->detectNotFoundError($e);
+        if (DispatchEvent::EVENT_DISPATCH_ERROR == $event->getEventName()) {
+            $this->detectNotFoundError($event);
         }
 
-        $vars = $e->getResult();
+        $vars = $event->getResult();
         if ($vars instanceof Response) {
             // Already have a response as the result
             return;
         }
 
-        $response = $e->getResponse();
+        $response = $event->getResponse();
         if ($response->getStatusCode() != 404) {
             // Only handle 404 responses
             return;
@@ -206,12 +206,12 @@ class RouteNotFoundStrategy
         $this->injectNotFoundReason($model);
 
         // If displaying exceptions, inject
-        $this->injectException($model, $e);
+        $this->injectException($model, $event);
 
         // Inject controller if we're displaying either the reason or the exception
-        $this->injectController($model, $e);
+        $this->injectController($model, $event);
 
-        $e->setResponse($model);
+        $event->setResponse($model);
     }
 
     /**

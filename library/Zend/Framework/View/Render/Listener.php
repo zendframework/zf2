@@ -7,14 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Renderer;
+namespace Zend\Framework\View\Render;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Listener as EventListener;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\Renderer\Renderer;
-use Zend\Framework\View\Renderer\EventInterface as ViewRendererEvent;
+use Zend\Framework\View\Render\EventInterface as ViewRenderEvent;
 use Zend\Framework\View\Response\EventInterface as ViewResponseEvent;
 
 class Listener
@@ -130,7 +130,7 @@ class Listener
     {
         switch($event->getEventName())
         {
-            case ViewRendererEvent::EVENT_RENDERER:
+            case ViewRenderEvent::EVENT_RENDER:
                 $this->selectRenderer($event);
                 break;
             case ViewResponseEvent::EVENT_RESPONSE:

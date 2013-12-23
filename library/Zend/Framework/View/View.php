@@ -12,7 +12,7 @@ namespace Zend\Framework\View;
 use Zend\Framework\EventManager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\EventManager\Manager as EventManager;
 use Zend\Framework\View\Event as ViewEvent;
-use Zend\Framework\View\Renderer\EventInterface as ViewRendererEvent;
+use Zend\Framework\View\Render\EventInterface as ViewRenderEvent;
 use Zend\Framework\View\Response\EventInterface as ViewResponseEvent;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -129,7 +129,7 @@ class View
      */
     public function addRenderingStrategy($callable, $priority = 1)
     {
-        $this->getEventManager()->attach(ViewRendererEvent::EVENT_RENDERER, $callable, $priority);
+        $this->getEventManager()->attach(ViewRenderEvent::EVENT_RENDER, $callable, $priority);
         return $this;
     }
 
@@ -177,7 +177,7 @@ class View
         $events  = $this->getEventManager();
 
 
-        $event->setEventName(ViewRendererEvent::EVENT_RENDERER);
+        $event->setEventName(ViewRenderEvent::EVENT_RENDER);
         /*$event->setCallback(function ($event, $listener, $response) {
             if ($response instanceof Renderer) {
                 $event->stopEventPropagation();
@@ -195,10 +195,10 @@ class View
         }
 
         $event->setRenderer($renderer);
-        $event->setEventName(ViewRendererEvent::EVENT_RENDERER_POST);
+        $event->setEventName(ViewRenderEvent::EVENT_RENDER_POST);
         $events->trigger($event);
 
-        // If EVENT_RENDERER or EVENT_RENDERER_POST changed the model, make sure
+        // If EVENT_RENDER or EVENT_RENDER_POST changed the model, make sure
         // we use this new model instead of the current $model
         $model   = $event->getModel();
 

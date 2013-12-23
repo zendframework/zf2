@@ -97,6 +97,14 @@ class Manager
     /**
      * @return string
      */
+    public function exceptionTemplate()
+    {
+        return $this->config->exceptionTemplate();
+    }
+
+    /**
+     * @return string
+     */
     public function notFoundTemplate()
     {
         return $this->config->notFoundTemplate();

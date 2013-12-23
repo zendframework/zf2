@@ -11,13 +11,12 @@ namespace Zend\Framework\Route;
 
 use Zend\Framework\Route\Event as RouteEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Framework\ServiceManager\FactoryInterface;
-
 class MvcListener
-    extends ParentListener
+    extends EventListener
     implements FactoryInterface
 {
     /**

@@ -7,17 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Renderer;
+namespace Zend\Framework\View\Render;
 
 use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\View\Renderer\EventInterface as ViewRendererEvent;
+use Zend\Framework\View\Render\EventInterface as ViewRenderEvent;
 
 class Event
     extends EventClass
-    implements ViewRendererEvent
+    implements ViewRenderEvent
 {
     /**
      * @var
      */
-    protected $eventName = self::EVENT_RENDERER;
+    protected $eventName = self::EVENT_RENDER;
 }

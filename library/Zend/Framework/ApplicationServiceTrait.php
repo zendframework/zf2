@@ -26,7 +26,7 @@ use Zend\Http\PhpEnvironment\Response as Response;
 
 use Zend\Mvc\Router\RouteStackInterface as Router;
 
-use Zend\Mvc\Controller\ControllerManager as ControllerLoader;
+use Zend\Mvc\Controller\ControllerManager as ControllerManager;
 
 use Zend\Mvc\Router\Http\RouteMatch as RouteMatch;
 
@@ -258,20 +258,20 @@ trait ApplicationServiceTrait
     }
 
     /**
-     * @return bool|ControllerLoader
+     * @return bool|ControllerManager
      */
-    public function getControllerLoader()
+    public function getControllerManager()
     {
-        return $this->getService('ControllerLoader');
+        return $this->getService('Controller\Manager');
     }
 
     /**
-     * @param ControllerLoader $controllerLoader
+     * @param ControllerManager $cm
      * @return $this
      */
-    public function setControllerLoader(ControllerLoader $controllerLoader)
+    public function setControllerManager(ControllerManager $cm)
     {
-        return $this->addService('ControllerLoader', $controllerLoader);
+        return $this->addService('Controller\Manager', $cm);
     }
 
     /**
@@ -312,7 +312,7 @@ trait ApplicationServiceTrait
      */
     public function getControllerPluginManager()
     {
-        return $this->getService('ControllerPluginManager');
+        return $this->getService('Controller\Plugin\Manager');
     }
 
     /**

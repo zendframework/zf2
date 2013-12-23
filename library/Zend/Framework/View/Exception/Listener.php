@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Http;
+namespace Zend\Framework\View\Exception;
 
 use Zend\EventManager\CallbackListener;
 use Zend\Framework\Application;
@@ -19,7 +19,7 @@ use Zend\Http\Response as HttpResponse;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ViewModel;
 
-class ExceptionStrategy
+class Listener
     extends EventListener
     implements FactoryInterface
 {
@@ -37,15 +37,15 @@ class ExceptionStrategy
 
     /**
      * @param ServiceManager $sm
-     * @return ExceptionStrategy
+     * @return $this
      */
     public function createService(ServiceManager $sm)
     {
-        $config = $sm->getViewManager()->getViewConfig();
+        $vm = $sm->getViewManager();
 
-        $this->setDisplayExceptions($config->get('display_exceptions'));
+        $this->setDisplayExceptions($vm->displayExceptions());
 
-        $this->setExceptionTemplate($config->get('exception_template'));
+        $this->setExceptionTemplate($vm->exceptionTemplate());
 
         return $this;
     }
@@ -54,7 +54,7 @@ class ExceptionStrategy
      * Flag: display exceptions in error pages?
      *
      * @param  bool $displayExceptions
-     * @return ExceptionStrategy
+     * @return $this
      */
     public function setDisplayExceptions($displayExceptions)
     {
@@ -76,7 +76,7 @@ class ExceptionStrategy
      * Set the exception template
      *
      * @param  string $exceptionTemplate
-     * @return ExceptionStrategy
+     * @return $this
      */
     public function setExceptionTemplate($exceptionTemplate)
     {
@@ -102,19 +102,19 @@ class ExceptionStrategy
      *         priority dispatch.error event (or goto a render event) to ensure
      *         rendering occurs, and that munging of view models occurs when
      *         expected.
-     * @param  Event $e
+     * @param  Event $event
      * @return void
      */
-    public function __invoke(Event $e)
+    public function __invoke(Event $event)
     {
         // Do nothing if no error in the event
-        $error = $e->getError();
+        $error = $event->getError();
         if (empty($error)) {
             return;
         }
 
         // Do nothing if the result is a response object
-        $result = $e->getResult();
+        $result = $event->getResult();
         if ($result instanceof Response) {
             return;
         }
@@ -130,17 +130,17 @@ class ExceptionStrategy
             default:
                 $model = new ViewModel(array(
                     'message'            => 'An error occurred during execution; please try again later.',
-                    'exception'          => $e->getParam('exception'),
+                    'exception'          => $event->getParam('exception'),
                     'display_exceptions' => $this->displayExceptions(),
                 ));
                 $model->setTemplate($this->getExceptionTemplate());
-                $e->setResult($model);
+                $event->setResult($model);
 
-                $response = $e->getResponse();
+                $response = $event->getResponse();
                 if (!$response) {
                     $response = new HttpResponse();
                     $response->setStatusCode(500);
-                    $e->setResponse($response);
+                    $event->setResponse($response);
                 } else {
                     $statusCode = $response->getStatusCode();
                     if ($statusCode === 200) {
