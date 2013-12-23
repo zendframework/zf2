@@ -27,7 +27,7 @@ class InputFilterResult implements InputFilterResultInterface
     /**
      * @var array
      */
-    protected $errorMessages = array();
+    protected $errorMessages = [];
 
     /**
      * Constructor
@@ -36,7 +36,7 @@ class InputFilterResult implements InputFilterResultInterface
      * @param mixed $data
      * @param array $errorMessages
      */
-    public function __construct($rawData, $data, array $errorMessages = array())
+    public function __construct($rawData, $data, array $errorMessages = [])
     {
         $this->rawData       = $rawData;
         $this->data          = $data;

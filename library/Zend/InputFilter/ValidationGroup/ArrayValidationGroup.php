@@ -9,13 +9,13 @@
 
 namespace Zend\InputFilter\ValidationGroup;
 
-use FilterIterator;
+use CallbackFilterIterator;
 use Zend\InputFilter\InputCollectionInterface;
 
 /**
  * Validation group filter based on a simple array defined in the input collection
  */
-class ArrayFilterIterator extends FilterIterator implements FilterIteratorInterface
+class ArrayFilterIterator implements ValidationGroupInterface
 {
     /**
      * @var array
@@ -23,20 +23,22 @@ class ArrayFilterIterator extends FilterIterator implements FilterIteratorInterf
     protected $validationGroup;
 
     /**
-     * @param InputCollectionInterface $inputCollection
-     * @param array                    $validationGroup
+     * @param array $validationGroup
      */
-    public function __construct(InputCollectionInterface $inputCollection, array $validationGroup)
+    public function __construct(array $validationGroup)
     {
-        parent::__construct($inputCollection->getIterator());
         $this->validationGroup = $validationGroup;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function accept()
+    public function createFilterIterator(InputCollectionInterface $inputCollection)
     {
-        return in_array($this->key(), $this->validationGroup);
+        $callback = function($value, $key) {
+            return in_array($key, $this->validationGroup);
+        };
+
+        return new CallbackFilterIterator($inputCollection->getIterator(), $callback);
     }
 }

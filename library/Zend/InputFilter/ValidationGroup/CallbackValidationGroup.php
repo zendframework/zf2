@@ -9,7 +9,7 @@
 
 namespace Zend\InputFilter\ValidationGroup;
 
-use CallbackFilterIterator as BaseCallbackFilterIterator;
+use CallbackFilterIterator;
 use Zend\InputFilter\InputCollectionInterface;
 
 /**
@@ -20,14 +20,26 @@ use Zend\InputFilter\InputCollectionInterface;
  * instance), the second one is the current item's key (the input's name), and the third one is
  * the Iterator instance that is being filtered
  */
-class CallbackFilterIterator extends BaseCallbackFilterIterator implements FilterIteratorInterface
+class CallbackValidationGroup implements ValidationGroupInterface
 {
     /**
-     * @param InputCollectionInterface $inputCollection
-     * @param Callable                 $callback
+     * @var callable
      */
-    public function __construct(InputCollectionInterface $inputCollection, Callable $callback)
+    protected $callback;
+
+    /**
+     * @param callable $callback
+     */
+    public function __construct(callable $callback)
     {
-        parent::__construct($inputCollection->getIterator(), $callback);
+        $this->callback = $callback;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function createFilterIterator(InputCollectionInterface $inputCollection)
+    {
+        return new CallbackFilterIterator($inputCollection->getIterator(), $this->callback);
     }
 }

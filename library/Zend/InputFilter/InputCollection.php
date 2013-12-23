@@ -13,8 +13,7 @@ use ArrayIterator;
 use IteratorIterator;
 use Zend\Filter\FilterChain;
 use Zend\InputFilter\Result\InputFilterResult;
-use Zend\InputFilter\ValidationGroup\FilterIteratorInterface;
-use Zend\InputFilter\ValidationGroup\NoOpFilterIterator;
+use Zend\InputFilter\ValidationGroup\ValidationGroupInterface;
 use Zend\Validator\ValidatorChain;
 
 /**
@@ -30,12 +29,12 @@ class InputCollection extends Input implements InputCollectionInterface
     /**
      * @var InputCollectionInterface[]|InputInterface[]
      */
-    protected $children = array();
+    protected $children = [];
 
     /**
-     * @var FilterIteratorInterface
+     * @var ValidationGroupInterface[]
      */
-    protected $validationGroupFilter;
+    protected $validationGroups = [];
 
     /**
      * @param FilterChain|null    $filterChain
@@ -111,38 +110,20 @@ class InputCollection extends Input implements InputCollectionInterface
     }
 
     /**
-     * Set a validation group filter
-     *
-     * @param  FilterIteratorInterface $validationGroupFilter
-     * @throws Exception\RuntimeException
-     * @return void
+     * {@inheritDoc}
      */
-    public function setValidationGroupFilter(FilterIteratorInterface $validationGroupFilter)
+    public function registerValidationGroup(ValidationGroupInterface $validationGroup, $name = 'default')
     {
-        $this->validationGroupFilter = $validationGroupFilter;
-    }
-
-    /**
-     * Get the validation group filter
-     *
-     * @return FilterIteratorInterface
-     */
-    public function getValidationGroupFilter()
-    {
-        if (null === $this->validationGroupFilter) {
-            $this->validationGroupFilter = new NoOpFilterIterator($this);
-        }
-
-        return $this->validationGroupFilter;
+        $this->validationGroups[$name] = $validationGroup;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function runAgainst($data, $context = null)
+    public function runAgainst($data, $context = null, $validationGroupName = null)
     {
-        $filteredData  = array();
-        $errorMessages = array();
+        $filteredData  = [];
+        $errorMessages = [];
 
         // As an input collection can have also validators and filters, we first apply the
         // validation for itself
@@ -152,14 +133,18 @@ class InputCollection extends Input implements InputCollectionInterface
             if ($this->breakOnFailure()) {
                 // We want to break if the input collection fails its own validators, so
                 // the filtered data does not exist, hence the empty array()
-                return $this->buildInputFilterResult($data, array(), $errorMessages);
+                return $this->buildInputFilterResult($data, [], $errorMessages);
             }
         }
 
-        $iteratorIterator = $this->getValidationGroupFilter();
+        if (null === $validationGroupName) {
+            $iterator = $this;
+        } else {
+            $iterator = $this->getFilterIterator($validationGroupName);
+        }
 
         /** @var InputInterface|InputCollectionInterface $inputOrInputCollection */
-        foreach ($iteratorIterator as $inputOrInputCollection) {
+        foreach ($iterator as $inputOrInputCollection) {
             $name     = $inputOrInputCollection->getName();
             $rawValue = isset($data[$name]) ? $data[$name] : null;
 
@@ -194,6 +179,23 @@ class InputCollection extends Input implements InputCollectionInterface
         $filteredData = $this->filterChain->filter($filteredData);
 
         return new InputFilterResult($rawData, $filteredData, $errorMessages);
+    }
+
+    /**
+     * Get a filter iterator from the validation group name
+     *
+     * @param  string $validationGroupName
+     * @return \FilterIterator
+     */
+    protected function getFilterIterator($validationGroupName)
+    {
+        if (!isset($this->validationGroups[$validationGroupName])) {
+            // @TODO: throw exception?
+        }
+
+        $validationGroup = $this->validationGroups[$validationGroupName];
+        
+        return $validationGroup->createFilterIterator($this);
     }
 
     /**

@@ -84,7 +84,7 @@ class Input implements InputInterface
 
             $this->validatorChain->attachByName(
                 'Zend\Validator\NotEmpty',
-                array(),
+                [],
                 self::REQUIRED_VALIDATOR_PRIORITY
             );
         }

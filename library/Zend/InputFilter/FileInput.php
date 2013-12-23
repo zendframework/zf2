@@ -70,13 +70,13 @@ class FileInput extends Input
 
         if (!is_array($value)) {
             // This can happen in an AJAX POST, where the input comes across as a string
-            $value = array(
+            $value = [
                 'tmp_name' => $value,
                 'name'     => $value,
                 'size'     => 0,
                 'type'     => '',
                 'error'    => UPLOAD_ERR_NO_FILE,
-            );
+            ];
         }
 
         $isValid = true;
@@ -120,7 +120,7 @@ class FileInput extends Input
                 $value = $filterChain->filter($value);
             } else {
                 // Multi file input (multiple attribute set)
-                $newValue = array();
+                $newValue = [];
                 foreach ($value as $fileData) {
                     if (is_array($fileData) && isset($fileData['tmp_name'])) {
                         $newValue[] = $filterChain->filter($fileData);
@@ -154,7 +154,7 @@ class FileInput extends Input
         }
 
         // @TODO: once validator is refactored, change that with a high priority
-        $chain->prependByName('Zend\Validator\File\UploadFile', array(), true);
+        $chain->prependByName('Zend\Validator\File\UploadFile', [], true);
         $this->autoPrependUploadValidator = false;
     }
 }

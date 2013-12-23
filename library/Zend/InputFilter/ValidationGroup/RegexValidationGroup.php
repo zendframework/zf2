@@ -9,13 +9,13 @@
 
 namespace Zend\InputFilter\ValidationGroup;
 
-use FilterIterator;
+use RegexIterator;
 use Zend\InputFilter\InputCollectionInterface;
 
 /**
  * Validation group filter based on a regular expression
  */
-class RegexFilterIterator extends FilterIterator implements FilterIteratorInterface
+class RegexFilterIterator implements ValidationGroupInterface
 {
     /**
      * @var string
@@ -23,20 +23,23 @@ class RegexFilterIterator extends FilterIterator implements FilterIteratorInterf
     protected $regex;
 
     /**
-     * @param InputCollectionInterface $inputCollection
-     * @param string                   $regex
+     * @param string $regex
      */
-    public function __construct(InputCollectionInterface $inputCollection, $regex)
+    public function __construct($regex)
     {
-        parent::__construct($inputCollection->getIterator());
         $this->regex = (string) $regex;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function accept()
+    public function createFilterIterator(InputCollectionInterface $inputCollection)
     {
-        return (bool) preg_match($this->regex, $this->key());
+        return new RegexFilterIterator(
+            $inputCollection->getIterator(),
+            $this->regex,
+            RegexIterator::MATCH,
+            RegexIterator::USE_KEY
+        );
     }
 }

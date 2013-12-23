@@ -10,7 +10,7 @@
 namespace Zend\InputFilter;
 
 use IteratorAggregate;
-use Zend\InputFilter\ValidationGroup\FilterIteratorInterface;
+use Zend\InputFilter\ValidationGroup\ValidationGroupInterface;
 
 /**
  * Input collection interface
@@ -52,17 +52,11 @@ interface InputCollectionInterface extends InputInterface, IteratorAggregate
     public function remove($name);
 
     /**
-     * Set the validation group filter
+     * Register a validation group, optionally with a name
      *
-     * @param  FilterIteratorInterface $validationGroupFilter
+     * @param  ValidationGroupInterface $validationGroup
+     * @param  string                   $name
      * @return void
      */
-    public function setValidationGroupFilter(FilterIteratorInterface $validationGroupFilter);
-
-    /**
-     * Get the validation group filter
-     *
-     * @return FilterIteratorInterface
-     */
-    public function getValidationGroupFilter();
+    public function registerValidationGroup(ValidationGroupInterface $validationGroup, $name = 'default');
 }
