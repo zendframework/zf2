@@ -23,10 +23,18 @@ class Exception
     protected $controllerClass;
 
     /**
+     * @return string
+     */
+    public function getControllerName()
+    {
+        return $this->controller;
+    }
+
+    /**
      * @param $controller
      * @return $this
      */
-    public function setController($controller)
+    public function setControllerName($controller)
     {
         $this->controller = $controller;
         return $this;

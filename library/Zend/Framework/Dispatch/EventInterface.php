@@ -10,6 +10,7 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 interface EventInterface
     extends Event
@@ -23,4 +24,10 @@ interface EventInterface
      *
      */
     const EVENT_DISPATCH_ERROR = 'mvc.dispatch.error';
+
+    /**
+     * @param ServiceManager $sm
+     * @return mixed
+     */
+    public function setServiceManager(ServiceManager $sm);
 }

@@ -10,6 +10,10 @@
 namespace Zend\Framework\Render;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\View\Model\ViewModel;
+use Zend\Framework\View\Renderer\Renderer;
+use Zend\Framework\View\View;
 
 interface EventInterface
     extends Event
@@ -22,4 +26,53 @@ interface EventInterface
      *
      */
     const EVENT_RENDER_ERROR = 'mvc.render.error';
+
+    /**
+     * @return Renderer
+     */
+    public function getRenderer();
+
+    /**
+     * @param Renderer $renderer
+     * @return $this
+     */
+    public function setRenderer(Renderer $renderer);
+
+    /**
+     * @return mixed
+     */
+    public function getResult();
+
+    /**
+     * @param mixed $result
+     * @return $this
+     */
+    public function setResult($result);
+
+    /**
+     * @param ServiceManager $sm
+     * @return $this
+     */
+    public function setServiceManager(ServiceManager $sm);
+
+    /**
+     * @return View
+     */
+    public function getView();
+
+    /**
+     * @param View $view
+     * @return $this
+     */
+    public function setView(View $view);
+
+    /**
+     * @return ViewModel
+     */
+    public function getViewModel();
+    /**
+     * @param ViewModel $viewModel
+     * @return $this
+     */
+    public function setViewModel(ViewModel $viewModel);
 }

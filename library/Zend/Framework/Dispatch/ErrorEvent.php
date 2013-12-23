@@ -14,7 +14,7 @@ use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\EventManager\EventTrait as EventTrait;
 
 class ErrorEvent
-    implements EventInterface
+    implements ErrorEventInterface
 {
     /**
      *
@@ -62,7 +62,7 @@ class ErrorEvent
      * @param $controller
      * @return $this
      */
-    public function setController($controller)
+    public function setControllerName($controller)
     {
         $this->controller = $controller;
         return $this;
@@ -71,7 +71,7 @@ class ErrorEvent
     /**
      * @return string
      */
-    public function getController()
+    public function getControllerName()
     {
         return $this->controller;
     }

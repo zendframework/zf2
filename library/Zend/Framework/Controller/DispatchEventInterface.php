@@ -9,7 +9,10 @@
 
 namespace Zend\Framework\Controller;
 
+use Zend\Framework\Controller\DispatchListenerInterface as Controller;
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\View\Model\ViewModel;
 
 interface DispatchEventInterface
     extends Event
@@ -18,4 +21,22 @@ interface DispatchEventInterface
      *
      */
     const EVENT_CONTROLLER_DISPATCH = 'mvc.controller.dispatch';
+
+    /**
+     * @param ServiceManager $sm
+     * @return mixed
+     */
+    public function setServiceManager(ServiceManager $sm);
+
+    /**
+     * @param DispatchListenerInterface $controller
+     * @return mixed
+     */
+    public function setController(Controller $controller);
+
+    /**
+     * @param ViewModel $vm
+     * @return mixed
+     */
+    public function setViewModel(ViewModel $vm);
 }

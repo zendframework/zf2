@@ -7,22 +7,34 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Response;
+namespace Zend\Framework\Dispatch;
 
+use Exception;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-interface EventInterface
+interface ErrorEventInterface
     extends Event
 {
     /**
      *
      */
-    const EVENT_RESPONSE = 'mvc.response';
+    const EVENT_DISPATCH_ERROR = 'mvc.dispatch.error';
 
     /**
-     * @param ServiceManager $sm
+     * @param Exception $exception
      * @return $this
      */
-    public function setServiceManager(ServiceManager $sm);
+    public function setException(Exception $exception);
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setControllerName($name);
+
+    /**
+     * @param $className
+     * @return $this
+     */
+    public function setControllerClass($className);
 }

@@ -13,10 +13,9 @@ use Exception;
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 use Zend\Framework\EventManager\EventTrait;
 use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\Render\EventInterface as RenderInterface;
 
 class ErrorEvent
-    implements EventInterface
+    implements ErrorEventInterface
 {
     /**
      *

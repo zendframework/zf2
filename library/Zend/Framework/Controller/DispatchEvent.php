@@ -10,7 +10,7 @@
 namespace Zend\Framework\Controller;
 
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\Controller\DispatchListenerInterface as ActionController;
+use Zend\Framework\Controller\DispatchListenerInterface as Controller;
 use Zend\Framework\EventManager\EventTrait as EventTrait;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\View\Model\ViewModel as ViewModel;
@@ -82,7 +82,7 @@ class DispatchEvent
      * @param $controller
      * @return $this
      */
-    public function setController($controller)
+    public function setController(Controller $controller)
     {
         $this->controller = $controller;
         return $this;
@@ -148,7 +148,7 @@ class DispatchEvent
     {
         $response = $listener($this);
 
-        if ($listener instanceof ActionController) {
+        if ($listener instanceof Controller) {
             $this->setResult($response);
         }
 

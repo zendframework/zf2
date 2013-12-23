@@ -88,12 +88,17 @@ class Event
 
     /**
      * @param View $view
+     * @return $this
      */
     public function setView(View $view)
     {
         $this->view = $view;
+        return $this;
     }
 
+    /**
+     * @return ViewModel
+     */
     public function getViewModel()
     {
         return $this->model;

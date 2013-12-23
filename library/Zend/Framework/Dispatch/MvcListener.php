@@ -66,7 +66,7 @@ class MvcListener
 
             $dispatch->setEventTarget($event->getApplication())
                      ->setException($exception->getPrevious())
-                     ->setController($exception->getControllerName())
+                     ->setControllerName($exception->getControllerName())
                      ->setControllerClass($exception->getControllerClass());
 
             $em->trigger($dispatch);

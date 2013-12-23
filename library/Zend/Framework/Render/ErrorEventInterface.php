@@ -7,22 +7,22 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Response;
+namespace Zend\Framework\Render;
 
+use Exception;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-interface EventInterface
+interface ErrorEventInterface
     extends Event
 {
     /**
      *
      */
-    const EVENT_RESPONSE = 'mvc.response';
+    const EVENT_RENDER_ERROR = 'mvc.render.error';
 
     /**
-     * @param ServiceManager $sm
+     * @param Exception $exception
      * @return $this
      */
-    public function setServiceManager(ServiceManager $sm);
+    public function setException(Exception $exception);
 }
