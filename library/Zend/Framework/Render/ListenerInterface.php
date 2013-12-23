@@ -9,17 +9,13 @@
 
 namespace Zend\Framework\Render;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\ListenerInterface as Listener;
 
-interface EventInterface
-    extends Event
+interface ListenerInterface
+    extends Listener
 {
     /**
      *
      */
     const EVENT_RENDER = 'mvc.render';
-    /**
-     *
-     */
-    const EVENT_RENDER_ERROR = 'mvc.render.error';
 }

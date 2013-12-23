@@ -10,23 +10,37 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Http\PhpEnvironment\Response;
 
 class Listener
-    extends ParentListener
-    implements FactoryInterface
+    implements ListenerInterface
 {
     /**
-     * @param ServiceManager $sm
-     * @return mixed|Listener
+     *
      */
-    public function createService(ServiceManager $sm)
-    {
-        return $this;
-    }
+    use ListenerTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_RESPONSE;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
 
     /**
      * Send content

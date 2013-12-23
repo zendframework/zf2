@@ -11,17 +11,37 @@ namespace Zend\Framework\Bootstrap;
 
 use Zend\Framework\Bootstrap\Event as BootstrapEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
-
-use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
+use Zend\Framework\EventManager\ListenerTrait as ListenerTrait;
+use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 
 class MvcListener
-    extends EventListener
+    implements MvcListenerInterface
 {
     /**
      *
      */
-    use CreateService;
+    use ListenerTrait, ServiceTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_MVC_APPLICATION;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
 
     /**
      * @param Event $event

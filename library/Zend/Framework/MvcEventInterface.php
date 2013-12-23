@@ -7,19 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Render;
+namespace Zend\Framework;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 
-interface EventInterface
+interface MvcEventInterface
     extends Event
 {
     /**
      *
      */
-    const EVENT_RENDER = 'mvc.render';
-    /**
-     *
-     */
-    const EVENT_RENDER_ERROR = 'mvc.render.error';
+    const EVENT_MVC_APPLICATION = 'mvc.application';
 }

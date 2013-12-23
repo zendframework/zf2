@@ -10,25 +10,35 @@
 namespace Zend\Framework\Controller;
 
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\Controller\AbstractActionController as ActionController;
-use Zend\Framework\Controller\DispatchEventInterface as ControllerDispatchEvent;
-use Zend\Framework\EventManager\Event as EventClass;
+use Zend\Framework\Controller\DispatchListenerInterface as ActionController;
+use Zend\Framework\EventManager\EventTrait as EventTrait;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\View\Model\ViewModel as ViewModel;
 
 class DispatchEvent
-    extends EventClass
-    implements ControllerDispatchEvent
+    implements DispatchEventInterface
 {
     /**
      *
      */
-    use ServiceTrait;
+    use EventTrait, ServiceTrait;
 
     /**
      * @var string
      */
     protected $eventName = self::EVENT_CONTROLLER_DISPATCH;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * @var bool Whether or not to stop propagation
+     */
+    protected $eventStopPropagation = false;
 
     /**
      * @var string

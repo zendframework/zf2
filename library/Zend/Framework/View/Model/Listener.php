@@ -10,17 +10,38 @@
 namespace Zend\Framework\View\Model;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\View\Model\ClearableModelInterface as ClearableModel;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
-    extends EventListener
-    implements FactoryInterface
+    implements ListenerInterface,
+               FactoryInterface
 {
     /**
+     *
+     */
+    use ListenerTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_MODEL;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
      * @var int
      */
     protected $eventPriority = -80;

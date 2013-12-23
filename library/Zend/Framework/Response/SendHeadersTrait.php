@@ -11,16 +11,14 @@ namespace Zend\Framework\Response;
 
 use Zend\Http\Header\MultipleHeaderInterface;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as Listener;
 
-abstract class AbstractListener
-    extends Listener
+trait SendHeadersTrait
 {
     /**
      * Send HTTP headers
      *
      * @param  Event $event
-     * @return PhpEnvironmentResponseSender
+     * @return $this
      */
     public function sendHeaders(Event $event)
     {

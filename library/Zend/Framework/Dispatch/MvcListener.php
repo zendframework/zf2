@@ -11,16 +11,36 @@ namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Dispatch\Event as DispatchEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
+use Zend\Framework\EventManager\ListenerTrait;
 
 class MvcListener
-    extends EventListener
+    implements MvcListenerInterface
 {
     /**
      *
      */
-    use CreateService;
+    use ListenerTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_MVC_APPLICATION;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
 
     /**
      * @param Event $event

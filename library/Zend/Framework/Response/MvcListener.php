@@ -11,22 +11,37 @@ namespace Zend\Framework\Response;
 
 use Zend\Framework\Response\Event as ResponseEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\EventManager\ListenerTrait;
+use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
 
 class MvcListener
-    extends EventListener
-    implements FactoryInterface
+    implements MvcListenerInterface
 {
     /**
-     * @param ServiceManager $sm
-     * @return mixed|MvcListener
+     *
      */
-    public function createService(ServiceManager $sm)
-    {
-        return $this;
-    }
+    use ListenerTrait, ServiceTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_MVC_APPLICATION;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
 
     /**
      * @param Event $event

@@ -9,33 +9,49 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Controller\DispatchEvent as ControllerDispatchEvent;
-use Zend\Framework\Dispatch\EventInterface as DispatchEvent;
-use Zend\Framework\Dispatch\Exception as DispatchException;
-
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
-
-use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
-
 use Exception;
+use Zend\Framework\Controller\DispatchEvent as ControllerDispatchEvent;
+use Zend\Framework\Dispatch\Exception as DispatchException;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\ListenerTrait;
 
 class Listener
-    extends EventListener
+    implements ListenerInterface
 {
+    /**
+     *
+     */
+    use ListenerTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_DISPATCH;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
+
     /**
      * @var
      */
     protected $dispatch;
 
     /**
-     *
-     */
-    use CreateService;
-
-    /**
-     * @param DispatchEvent $event
-     * @return void
+     * @param Event $event
+     * @return mixed|void
      * @throws DispatchException
      */
     public function __invoke(Event $event)
@@ -49,8 +65,6 @@ class Listener
         $controllerName = $rm->getParam('controller', 'not-found');
 
         $controller = $cm->getController( $controllerName );
-
-        $controller->setEventTarget($controller);
 
         $em->attach($controller);
 

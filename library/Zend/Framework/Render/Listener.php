@@ -10,19 +10,41 @@
 namespace Zend\Framework\Render;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Framework\Render\Exception as RenderException;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\View;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
 
-use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\ServiceManager\FactoryInterface;
-
 class Listener
-    extends EventListener
-    implements FactoryInterface
+    implements ListenerInterface
 {
+    /**
+     *
+     */
+    use ListenerTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_RENDER;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
+
     /**
      * Layout template - template used in root ViewModel of MVC event.
      *
@@ -34,14 +56,6 @@ class Listener
      * @var View
      */
     protected $view;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function createService(ServiceManager $sm)
-    {
-        return $this;
-    }
 
     /**
      * @param View $view

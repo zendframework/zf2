@@ -11,22 +11,32 @@ namespace Zend\Framework\Dispatch;
 
 use Exception;
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\Dispatch\EventInterface as DispatchEvent;
-use Zend\Framework\EventManager\Event as EventClass;
+use Zend\Framework\EventManager\EventTrait as EventTrait;
 
 class ErrorEvent
-    extends EventClass
-    implements DispatchEvent
+    implements EventInterface
 {
     /**
      *
      */
-    use ServiceTrait;
+    use EventTrait, ServiceTrait;
 
     /**
      * @var string
      */
     protected $eventName = self::EVENT_DISPATCH_ERROR;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * @var bool Whether or not to stop propagation
+     */
+    protected $eventStopPropagation = false;
 
     /**
      * @var string

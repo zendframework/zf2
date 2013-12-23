@@ -11,17 +11,35 @@ namespace Zend\Framework\View\Template;
 
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
-    extends EventListener
-    implements FactoryInterface
+    implements ListenerInterface
 {
     /**
+     *
+     */
+    use ListenerTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_TEMPLATE;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
      * @var int
      */
     protected $eventPriority = -70;
@@ -32,15 +50,6 @@ class Listener
      * @var mixed
      */
     protected $inflector;
-
-    /**
-     * @param ServiceManager $sm
-     * @return Listener
-     */
-    public function createService(ServiceManager $sm)
-    {
-        return $this;
-    }
 
     /**
      * @param Event $event

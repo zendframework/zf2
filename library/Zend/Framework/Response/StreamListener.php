@@ -10,28 +10,44 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\EventManager\ListenerTrait;
+use Zend\Framework\Response\SendHeadersTrait;
 use Zend\Http\Response\Stream;
 
 class StreamListener
-    extends AbstractListener
-    implements FactoryInterface
+    implements StreamListenerInterface
 {
     /**
-     * @param ServiceManager $sm
-     * @return Listener
+     *
      */
-    public function createService(ServiceManager $sm)
-    {
-        return $this;
-    }
+    use ListenerTrait, SendHeadersTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_RESPONSE;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
 
     /**
      * Send the stream
      *
      * @param  Event $event
-     * @return SimpleStreamResponseSender
+     * @return $this
      */
     public function sendStream(Event $event)
     {
@@ -48,7 +64,7 @@ class StreamListener
      * Send stream response
      *
      * @param  Event $event
-     * @return SimpleStreamResponseSender
+     * @return $this
      */
     public function __invoke(Event $event)
     {

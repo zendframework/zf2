@@ -10,17 +10,41 @@
 namespace Zend\Framework\View\Render;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as EventListener;
+use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\Renderer\Renderer;
-use Zend\Framework\View\Render\EventInterface as ViewRenderEvent;
-use Zend\Framework\View\Response\EventInterface as ViewResponseEvent;
 
 class Listener
-    extends EventListener
-    implements FactoryInterface
+    implements ListenerInterface,
+               FactoryInterface
 {
+    /**
+     *
+     */
+    use ListenerTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = self::EVENT_RENDER;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
+
     /**
      * Placeholders that may hold content
      *
@@ -130,10 +154,10 @@ class Listener
     {
         switch($event->getEventName())
         {
-            case ViewRenderEvent::EVENT_RENDER:
+            case self::EVENT_RENDER:
                 $this->selectRenderer($event);
                 break;
-            case ViewResponseEvent::EVENT_RESPONSE:
+            case self::EVENT_RESPONSE:
                 $this->injectResponse($event);
                 break;
         }

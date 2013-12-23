@@ -10,16 +10,11 @@
 namespace Zend\Framework\Module\Route;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\Listener as ParentListener;
-use Zend\Framework\Module\Route\EventInterface as ModuleRouteEvent;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Mvc\Router\Http\RouteMatch;
 
 class Listener
-    extends ParentListener
-    implements FactoryInterface,
-               ModuleRouteEvent
+    implements ListenerInterface
 {
     /**
      *
@@ -32,18 +27,30 @@ class Listener
     const ORIGINAL_CONTROLLER = '__CONTROLLER__';
 
     /**
-     * @var string
+     *
+     */
+    use ListenerTrait;
+
+    /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
      */
     protected $eventName = self::EVENT_ROUTE;
 
     /**
-     * @param ServiceManager $sm
-     * @return Listener
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
      */
-    public function createService(ServiceManager $sm)
-    {
-        return $this;
-    }
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = self::DEFAULT_PRIORITY;
 
     /**
      * @param Event $event

@@ -10,27 +10,35 @@
 namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 trait EventTrait
 {
     /**
-     * Name(s) of events to listener for
-     *
-     * @var string|array
+     * @param string $name
+     * @param mixed $target
      */
-    protected $eventName = Event::WILDCARD;
+    public function __construct($name = null, $target = null)
+    {
+        if (null !== $name) {
+            $this->setEventName($name);
+        }
+
+        if (null !== $target) {
+            $this->setEventTarget($target);
+        }
+    }
 
     /**
-     * Target (identifiers) of the events to listen for
-     *
-     * @var mixed
+     * @param Listener $listener
+     * @return bool
      */
-    protected $eventTarget = Event::WILDCARD;
+    public function __invoke(Listener $listener)
+    {
+        $listener($this);
 
-    /**
-     * @var bool Whether or not to stop propagation
-     */
-    protected $eventStopPropagation = false;
+        return $this->eventStopPropagation;
+    }
 
     /**
      * @param $name string|array

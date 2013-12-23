@@ -11,22 +11,34 @@ namespace Zend\Framework\Render;
 
 use Exception;
 use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
+use Zend\Framework\EventManager\EventTrait;
 use Zend\Framework\EventManager\Event as EventClass;
 use Zend\Framework\Render\EventInterface as RenderInterface;
 
 class ErrorEvent
-    extends EventClass
-    implements RenderInterface
+    implements EventInterface
 {
     /**
      *
      */
-    use ServiceTrait;
+    use EventTrait, ServiceTrait;
 
     /**
      * @var string
      */
     protected $eventName = self::EVENT_RENDER_ERROR;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * @var bool Whether or not to stop propagation
+     */
+    protected $eventStopPropagation = false;
 
     /**
      * @var string

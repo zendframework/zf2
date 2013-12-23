@@ -7,14 +7,20 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller;
+namespace Zend\Framework\View\Render;
 
-use Zend\Framework\Controller\AbstractController;
+use Zend\Framework\EventManager\ListenerInterface as Listener;
 
-/**
- * Basic action controller
- */
-abstract class AbstractActionController
-    extends AbstractController
+interface ListenerInterface
+    extends Listener
 {
+    /**
+     *
+     */
+    const EVENT_RENDER = 'view.render';
+
+    /**
+     *
+     */
+    const EVENT_RESPONSE = 'view.response';
 }

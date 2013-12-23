@@ -9,7 +9,10 @@
 
 namespace Zend\Framework\Controller;
 
+use Zend\Framework\EventManager\EventInterface as Event;
+
 interface DispatchEventInterface
+    extends Event
 {
     /**
      *

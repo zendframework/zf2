@@ -9,15 +9,31 @@
 
 namespace Zend\Framework\View\Response;
 
-use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\View\Response\EventInterface as ViewResponseEvent;
+use Zend\Framework\EventManager\EventTrait;
 
 class Event
     extends EventClass
-    implements ViewResponseEvent
+    implements EventInterface
 {
     /**
-     * @var
+     *
+     */
+    use EventTrait;
+
+    /**
+     * @var string
      */
     protected $eventName = self::EVENT_RESPONSE;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * @var bool Whether or not to stop propagation
+     */
+    protected $eventStopPropagation = false;
 }

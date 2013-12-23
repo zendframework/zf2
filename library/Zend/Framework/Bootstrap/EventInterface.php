@@ -9,10 +9,20 @@
 
 namespace Zend\Framework\Bootstrap;
 
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+
 interface EventInterface
+    extends Event
 {
     /**
      *
      */
     const EVENT_BOOTSTRAP = 'mvc.bootstrap';
+
+    /**
+     * @param ServiceManager $sm
+     * @return $this
+     */
+    public function setServiceManager(ServiceManager $sm);
 }

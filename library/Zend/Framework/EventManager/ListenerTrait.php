@@ -9,30 +9,38 @@
 
 namespace Zend\Framework\EventManager;
 
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 trait ListenerTrait
 {
     /**
-     * Name(s) of events to listener for
-     *
-     * @var string|array
+     * @param $event
+     * @param $target
+     * @param $priority
      */
-    protected $eventName = Listener::WILDCARD;
+    public function __construct($event = null, $target = null, $priority = null)
+    {
+        if (null !== $event) {
+            $this->setEventName($event);
+        }
+
+        if (null !== $target) {
+            $this->setEventTarget($target);
+        }
+
+        if (null !== $priority) {
+            $this->setPriority($priority);
+        }
+    }
 
     /**
-     * Target (identifiers) of the events to listen for
-     *
-     * @var mixed
+     * @param Event $event
+     * @return mixed
      */
-    protected $eventTarget = Listener::WILDCARD;
-
-    /**
-     * Priority of listener
-     *
-     * @var int
-     */
-    protected $eventPriority = Listener::DEFAULT_PRIORITY;
+    public function __invoke(Event $event)
+    {
+    }
 
     /**
      * @param $name string|array

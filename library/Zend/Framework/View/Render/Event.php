@@ -9,15 +9,30 @@
 
 namespace Zend\Framework\View\Render;
 
-use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\View\Render\EventInterface as ViewRenderEvent;
+use Zend\Framework\EventManager\EventTrait;
 
 class Event
-    extends EventClass
-    implements ViewRenderEvent
+    implements EventInterface
 {
     /**
-     * @var
+     *
+     */
+    use EventTrait;
+
+    /**
+     * @var string
      */
     protected $eventName = self::EVENT_RENDER;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * @var bool Whether or not to stop propagation
+     */
+    protected $eventStopPropagation = false;
 }

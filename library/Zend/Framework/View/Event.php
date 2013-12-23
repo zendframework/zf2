@@ -10,8 +10,7 @@
 namespace Zend\Framework\View;
 
 use ArrayAccess;
-use Zend\Framework\EventManager\Event as EventClass;
-use Zend\Framework\View\EventInterface as ViewEvent;
+use Zend\Framework\EventManager\EventTrait;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as Model;
@@ -19,9 +18,30 @@ use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 class Event
-    extends EventClass
-    implements ViewEvent
+    implements EventInterface
 {
+    /**
+     *
+     */
+    use EventTrait;
+
+    /**
+     * @var string
+     */
+    protected $eventName = self::EVENT_VIEW;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = self::WILDCARD;
+
+    /**
+     * @var bool Whether or not to stop propagation
+     */
+    protected $eventStopPropagation = false;
+
     /**
      * @var null|Model
      */

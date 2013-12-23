@@ -80,7 +80,7 @@ class PriorityQueueListener
             foreach($this->listeners[$name] as $priority => $listeners) {
                 foreach($listeners as $listener) {
                     foreach($listener->getEventTargets() as $t) {
-                        if (Listener::WILDCARD === $t || $target === $t || \is_subclass_of($target, $t)) {
+                        if (Listener::WILDCARD === $t || $target === $t || $target instanceof $t || \is_subclass_of($target, $t)) {
                             $queue->insert($listener, $priority);
                         }
                     }
