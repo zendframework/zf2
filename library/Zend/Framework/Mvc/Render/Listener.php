@@ -60,7 +60,7 @@ class Listener
             $error = new RenderErrorEvent;
 
             $error->setEventTarget($event->getEventTarget())
-                  ->setException($exception->getPrevious());
+                  ->setException($exception);
 
             $em->trigger($error);
         }

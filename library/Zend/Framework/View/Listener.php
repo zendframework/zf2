@@ -25,7 +25,7 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_RENDER, $target = null, $priority = null)
+    public function __construct($event = self::EVENT_VIEW_RENDER, $target = null, $priority = null)
     {
         $this->eventName = $event;
     }
@@ -38,10 +38,10 @@ class Listener
     {
         switch($event->getEventName())
         {
-            case self::EVENT_RENDER:
+            case self::EVENT_VIEW_RENDER:
                 $this->selectRenderer($event);
                 break;
-            case self::EVENT_RESPONSE:
+            case self::EVENT_VIEW_RESPONSE:
                 $this->injectResponse($event);
                 break;
         }

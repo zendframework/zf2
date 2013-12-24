@@ -15,14 +15,20 @@ use Zend\Framework\EventManager\ManagerInterface as EventManager;
 interface ApplicationInterface
 {
     /**
+     * @return EventManager
+     */
+    public function getEventManager();
+
+    /**
      * @return ServiceManager
      */
     public function getServiceManager();
 
     /**
-     * @return EventManager
+     * @param array $config
+     * @return self
      */
-    public function getEventManager();
+    public static function init(array $config = []);
 
     /**
      * Run the application

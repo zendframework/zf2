@@ -23,6 +23,11 @@ class Exception
     protected $controllerClass;
 
     /**
+     * @var \Exception
+     */
+    protected $exception;
+
+    /**
      * @return string
      */
     public function getControllerName()
@@ -41,12 +46,38 @@ class Exception
     }
 
     /**
+     * @return string
+     */
+    public function getControllerClass()
+    {
+        return $this->controllerClass;
+    }
+
+    /**
      * @param $controllerClass
      * @return self
      */
     public function setControllerClass($controllerClass)
     {
         $this->controllerClass = $controllerClass;
+        return $this;
+    }
+
+    /**
+     * @return \Exception
+     */
+    public function getException()
+    {
+        return $this->exception;
+    }
+
+    /**
+     * @param \Exception $exception
+     * @return self
+     */
+    public function setException(\Exception $exception)
+    {
+        $this->exception = $exception;
         return $this;
     }
 }

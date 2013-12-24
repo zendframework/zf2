@@ -19,7 +19,7 @@ interface EventListenerInterface
     /**
      *
      */
-    const EVENT_RESPONSE = 'view.response';
+    const EVENT_VIEW_RESPONSE = 'view.response';
 
     /**
      *

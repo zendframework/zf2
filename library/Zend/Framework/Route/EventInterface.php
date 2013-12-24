@@ -19,6 +19,15 @@ interface EventInterface
     extends Event
 {
     /**
+     *
+     */
+    const ERROR_CONTROLLER_CANNOT_DISPATCH = 'error-controller-cannot-dispatch';
+    const ERROR_CONTROLLER_NOT_FOUND       = 'error-controller-not-found';
+    const ERROR_CONTROLLER_INVALID         = 'error-controller-invalid';
+    const ERROR_ROUTER_NO_MATCH            = 'error-router-no-match';
+    const ERROR_EXCEPTION                  = 'error-exception';
+
+    /**
      * @param Request $request
      * @return self
      */

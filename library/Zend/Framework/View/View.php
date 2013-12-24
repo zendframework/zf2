@@ -103,9 +103,6 @@ class View
      */
     public function getEventManager()
     {
-        if (!$this->events instanceof EventManagerInterface) {
-            $this->setEventManager(new EventManager());
-        }
         return $this->events;
     }
 
@@ -124,7 +121,7 @@ class View
      */
     public function addRenderingStrategy($callable, $priority = 1)
     {
-        $this->getEventManager()->attach(ViewRender::EVENT_RENDER, $callable, $priority);
+        $this->getEventManager()->attach(ViewRender::EVENT_VIEW_RENDER, $callable, $priority);
         return $this;
     }
 
@@ -145,7 +142,7 @@ class View
      */
     public function addResponseStrategy($callable, $priority = 1)
     {
-        $this->getEventManager()->attach(ViewResponse::EVENT_RESPONSE, $callable, $priority);
+        $this->getEventManager()->attach(ViewResponse::EVENT_VIEW_RESPONSE, $callable, $priority);
         return $this;
     }
 
@@ -170,8 +167,7 @@ class View
 
         $event->setModel($model);
         $events  = $this->getEventManager();
-
-        $event->setEventName(ViewRender::EVENT_RENDER);
+        $event->setEventName(ViewRender::EVENT_VIEW_RENDER);
 
         /*$event->setCallback(function ($event, $listener, $response) {
             if ($response instanceof Renderer) {
@@ -190,10 +186,10 @@ class View
         }
 
         $event->setViewRenderer($renderer);
-        $event->setEventName(ViewRender::EVENT_RENDER_POST);
+        $event->setEventName(ViewRender::EVENT_VIEW_RENDER_POST);
         $events->trigger($event);
 
-        // If EVENT_RENDER or EVENT_RENDER_POST changed the model, make sure
+        // If EVENT_VIEW_RENDER or EVENT_VIEW_RENDER_POST changed the model, make sure
         // we use this new model instead of the current $model
         $model   = $event->getModel();
 
@@ -221,8 +217,8 @@ class View
         }
 
         $event->setResult($rendered);
+        $event->setEventName(ViewResponse::EVENT_VIEW_RESPONSE);
 
-        $event->setEventName(ViewResponse::EVENT_RESPONSE);
         $events->trigger($event);
     }
 

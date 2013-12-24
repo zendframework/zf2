@@ -71,7 +71,8 @@ class Listener
             $dispatchException = new DispatchException;
 
             $dispatchException->setControllerName($controllerName)
-                              ->setControllerClass(get_class($controller));
+                              ->setControllerClass(get_class($controller))
+                              ->setException($exception);
 
             throw $dispatchException;
         }

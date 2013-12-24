@@ -10,9 +10,10 @@
 namespace Zend\Framework\View\Exception;
 
 use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Route\EventInterface as RouteEvent;
+use Zend\Framework\View\Model\ViewModel;
 use Zend\Http\Response as HttpResponse;
 use Zend\Stdlib\ResponseInterface as Response;
-use Zend\Framework\View\Model\ViewModel;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -58,13 +59,13 @@ class Listener
         }
 
         switch ($error) {
-            case Application::ERROR_CONTROLLER_NOT_FOUND:
-            case Application::ERROR_CONTROLLER_INVALID:
-            case Application::ERROR_ROUTER_NO_MATCH:
+            case RouteEvent::ERROR_CONTROLLER_NOT_FOUND:
+            case RouteEvent::ERROR_CONTROLLER_INVALID:
+            case RouteEvent::ERROR_ROUTER_NO_MATCH:
                 // Specifically not handling these
                 return;
 
-            case Application::ERROR_EXCEPTION:
+            case RouteEvent::ERROR_EXCEPTION:
             default:
                 $model = new ViewModel(array(
                     'message'            => 'An error occurred during execution; please try again later.',

@@ -14,15 +14,10 @@ interface EventListenerInterface
     /**
      *
      */
-    const EVENT_RENDER = 'view.render';
+    const EVENT_VIEW_RENDER = 'view.render';
 
     /**
      *
      */
-    const EVENT_RESPONSE = 'view.response';
-
-    /**
-     *
-     */
-    const EVENT_RENDER_POST = 'view.render.post';
+    const EVENT_VIEW_RENDER_POST = 'view.render.post';
 }

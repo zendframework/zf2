@@ -11,6 +11,7 @@ namespace Zend\Framework\Route\NotFound;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\Route\EventInterface as RouteEvent;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
@@ -144,9 +145,9 @@ trait ListenerTrait
         }
 
         switch ($error) {
-            case Application::ERROR_CONTROLLER_NOT_FOUND:
-            case Application::ERROR_CONTROLLER_INVALID:
-            case Application::ERROR_ROUTER_NO_MATCH:
+            case RouteEvent::ERROR_CONTROLLER_NOT_FOUND:
+            case RouteEvent::ERROR_CONTROLLER_INVALID:
+            case RouteEvent::ERROR_ROUTER_NO_MATCH:
                 $this->reason = $error;
                 $response = $e->getResponse();
                 if (!$response) {
@@ -165,7 +166,7 @@ trait ListenerTrait
      *
      * If $displayNotFoundReason is enabled, checks to see if $reason is set,
      * and, if so, injects it into the model. If not, it injects
-     * Application::ERROR_CONTROLLER_CANNOT_DISPATCH.
+     * RouteEvent::ERROR_CONTROLLER_CANNOT_DISPATCH.
      *
      * @param  ViewModel $model
      * @return void
@@ -184,7 +185,7 @@ trait ListenerTrait
 
         // otherwise, must be a case of the controller not being able to
         // dispatch itself.
-        $model->setVariable('reason', Application::ERROR_CONTROLLER_CANNOT_DISPATCH);
+        $model->setVariable('reason', RouteEvent::ERROR_CONTROLLER_CANNOT_DISPATCH);
     }
 
     /**

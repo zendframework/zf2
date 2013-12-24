@@ -14,20 +14,10 @@ use Zend\Framework\Mvc\Event as MvcEvent;
 use Zend\Framework\ServiceManager;
 use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
 use Zend\Framework\ServiceManager\ServiceManagerInterface;
-use Zend\ModuleManager;
 
 class Application
     implements ApplicationInterface
 {
-    /**
-     *
-     */
-    const ERROR_CONTROLLER_CANNOT_DISPATCH = 'error-controller-cannot-dispatch';
-    const ERROR_CONTROLLER_NOT_FOUND       = 'error-controller-not-found';
-    const ERROR_CONTROLLER_INVALID         = 'error-controller-invalid';
-    const ERROR_EXCEPTION                  = 'error-exception';
-    const ERROR_ROUTER_NO_MATCH            = 'error-router-no-match';
-
     /**
      * @var ServiceManager
      */
@@ -42,19 +32,19 @@ class Application
     }
 
     /**
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->sm;
-    }
-
-    /**
      * @return EventManager
      */
     public function getEventManager()
     {
         return $this->sm->getEventManager();
+    }
+
+    /**
+     * @return ServiceManager
+     */
+    public function getServiceManager()
+    {
+        return $this->sm;
     }
 
     /**
@@ -84,8 +74,7 @@ class Application
         $event = new MvcEvent;
 
         $event->setEventTarget($this)
-              ->setServiceManager($sm)
-              ->setEventManager($em);
+              ->setServiceManager($sm);
 
         $em->trigger($event);
 

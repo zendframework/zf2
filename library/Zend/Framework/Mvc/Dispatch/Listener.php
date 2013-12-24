@@ -54,8 +54,8 @@ class Listener
 
             $dispatch = new DispatchErrorEvent;
 
-            $dispatch->setEventTarget($event->getApplication())
-                     ->setException($exception->getPrevious())
+            $dispatch->setEventTarget($event->getTarget())
+                     ->setException($exception->getException())
                      ->setControllerName($exception->getControllerName())
                      ->setControllerClass($exception->getControllerClass());
 

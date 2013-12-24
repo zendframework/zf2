@@ -49,10 +49,10 @@ trait EventTrait
     }
 
     /**
-     * @param $exception
+     * @param Exception $exception
      * @return self
      */
-    public function setException($exception)
+    public function setException(Exception $exception)
     {
         $this->exception = $exception;
         return $this;

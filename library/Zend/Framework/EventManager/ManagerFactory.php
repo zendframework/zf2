@@ -10,7 +10,6 @@
 namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\Manager as EventManager;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
@@ -19,7 +18,7 @@ class ManagerFactory
 {
     /**
      * @param ServiceManager $sm
-     * @return EventManager
+     * @return Manager
      */
     public function createService(ServiceManager $sm)
     {
@@ -31,7 +30,7 @@ class ManagerFactory
             foreach($eventListeners as $listener) {
                 if (is_string($listener)) {
                     $listener = $sm->getService($listener);
-                    if ($listener instanceof Listener) {
+                    if ($listener instanceof ListenerInterface) {
                         $listener->setEventName($event);
                     }
                 }

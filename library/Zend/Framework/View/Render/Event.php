@@ -21,7 +21,7 @@ class Event
      * @param string $name
      * @param string $target
      */
-    public function __construct($name = self::EVENT_RENDER, $target = null)
+    public function __construct($name = self::EVENT_VIEW_RENDER, $target = null)
     {
         $this->eventName = $name;
     }
