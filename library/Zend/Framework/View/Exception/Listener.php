@@ -40,10 +40,10 @@ class Listener
      *         priority dispatch.error event (or goto a render event) to ensure
      *         rendering occurs, and that munging of view models occurs when
      *         expected.
-     * @param  Event $event
+     * @param  EventInterface $event
      * @return void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         // Do nothing if no error in the event
         $error = $event->getError();

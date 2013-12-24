@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Response\Http;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Http\Response;
 
 class Listener
@@ -33,10 +33,10 @@ class Listener
     /**
      * Send HTTP response
      *
-     * @param  Event $event
+     * @param  EventInterface $event
      * @return self
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Response) {

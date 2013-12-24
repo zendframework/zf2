@@ -10,8 +10,16 @@
 namespace Zend\Framework\Module\Route;
 
 use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Route\EventInterface;
 
 interface ListenerInterface
     extends Listener
 {
+    /**
+     * Invokes listener with the event
+     *
+     * @param EventInterface $event
+     * @return mixed
+     */
+    public function __invoke(EventInterface $event);
 }

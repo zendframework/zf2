@@ -45,12 +45,4 @@ interface ListenerInterface
      * @return array
      */
     public function getEventTargets();
-
-    /**
-     * Invokes listener with the event
-     *
-     * @param EventInterface $event
-     * @return mixed
-     */
-    public function __invoke(EventInterface $event);
 }

@@ -12,8 +12,8 @@ namespace Zend\Framework\Render\Mvc;
 use Exception;
 use Zend\Framework\Render\Error\Event as RenderErrorEvent;
 use Zend\Framework\Render\Event as RenderEvent;
-use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait;
+use Zend\Framework\Mvc\EventInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -34,10 +34,10 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $sm = $event->getServiceManager();
         $em = $event->getEventManager();

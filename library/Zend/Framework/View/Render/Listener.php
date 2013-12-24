@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Render;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Listener
@@ -31,10 +31,10 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return mixed|void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         switch($event->getEventName())
         {

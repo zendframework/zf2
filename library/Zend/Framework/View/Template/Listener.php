@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Template;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\Module\Route\EventListenerInterface as RouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 
@@ -38,10 +38,10 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return mixed
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $model = $event->getResult();
         if (!$model instanceof ViewModel) {

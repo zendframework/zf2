@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\Dispatch\Mvc;
 
-use Zend\Framework\Dispatch\Event as DispatchEvent;
 use Zend\Framework\Dispatch\Error\Event as DispatchErrorEvent;
+use Zend\Framework\Dispatch\Event as DispatchEvent;
 use Zend\Framework\Dispatch\Exception as DispatchException;
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Mvc\EventInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -33,10 +33,10 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $em = $event->getEventManager();
         $sm = $event->getServiceManager();

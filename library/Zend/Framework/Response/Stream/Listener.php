@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Response\Stream;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Http\Response\Stream;
 
 class Listener
@@ -33,10 +33,10 @@ class Listener
     /**
      * Send stream response
      *
-     * @param  Event $event
+     * @param  EventInterface $event
      * @return self
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Stream) {

@@ -26,4 +26,14 @@ class Listener
     {
         $this->eventName = $event;
     }
+
+    /**
+     * Invokes listener with the event
+     *
+     * @param EventInterface $event
+     * @return mixed
+     */
+    public function __invoke(EventInterface $event)
+    {
+    }
 }

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 use Zend\View\Model\ClearableModelInterface as ClearableModel;
 
 class Listener
@@ -36,10 +36,10 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return mixed|void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $result = $event->getResult();
 

@@ -34,4 +34,12 @@ interface ListenerInterface
      * @return PriorityQueue
      */
     public function getEventListeners(Event $event, PriorityQueue $priorityQueue = null);
+
+    /**
+     * Invokes listener with the event
+     *
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event);
 }

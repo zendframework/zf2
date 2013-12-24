@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Render;
 
-use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
 
@@ -34,10 +33,10 @@ class Listener
     /**
      * Render the view
      *
-     * @param Event $event
+     * @param EventInterface $event
      * @return void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $result = $event->getResult();
         if ($result instanceof Response) {

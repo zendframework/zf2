@@ -10,8 +10,31 @@
 namespace Zend\Framework\Mvc;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 interface EventInterface
     extends Event
 {
+    /**
+     * @return EventManager
+     */
+    public function getEventManager();
+
+    /**
+     * @param EventManager $em
+     * @return self
+     */
+    public function setEventManager(EventManager $em);
+
+    /**
+     * @return ServiceManager
+     */
+    public function getServiceManager();
+
+    /**
+     * @param ServiceManager $sm
+     * @return self
+     */
+    public function setServiceManager(ServiceManager $sm);
 }

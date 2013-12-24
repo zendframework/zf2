@@ -9,9 +9,17 @@
 
 namespace Zend\Framework\Response\Stream;
 
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener
 {
+    /**
+     * Invokes listener with the event
+     *
+     * @param EventInterface $event
+     * @return mixed
+     */
+    public function __invoke(EventInterface $event);
 }

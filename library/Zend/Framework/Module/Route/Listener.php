@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Module\Route;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Route\EventInterface;
 use Zend\Mvc\Router\Http\RouteMatch;
 
 class Listener
@@ -31,10 +31,10 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $matches = $event->getRouteMatch();
         if (!$matches instanceof RouteMatch) {

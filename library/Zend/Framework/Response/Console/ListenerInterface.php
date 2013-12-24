@@ -10,8 +10,16 @@
 namespace Zend\Framework\Response\Console;
 
 use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\EventManager\EventInterface;
 
 interface ListenerInterface
     extends Listener
 {
+    /**
+     * Invokes listener with the event
+     *
+     * @param EventInterface $event
+     * @return mixed
+     */
+    public function __invoke(EventInterface $event);
 }

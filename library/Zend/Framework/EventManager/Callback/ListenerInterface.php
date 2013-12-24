@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\EventManager\Callback;
 
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 interface ListenerInterface
@@ -26,4 +27,11 @@ interface ListenerInterface
      * @return self
      */
     public function setCallback(callable $callback);
+    /**
+     * Invokes listener with the event
+     *
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event);
 }

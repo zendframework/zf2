@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\Mvc;
 
 use Zend\Framework\Route\Event as RouteEvent;
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Mvc\EventInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -31,10 +31,10 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $em = $event->getEventManager();
 

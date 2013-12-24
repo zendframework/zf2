@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Http\PhpEnvironment\Response;
 
 class Listener
@@ -31,10 +30,10 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return mixed|void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Response) {

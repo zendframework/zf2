@@ -56,14 +56,6 @@ trait ListenerTrait
     }
 
     /**
-     * @param Event $event
-     * @return mixed
-     */
-    public function __invoke(Event $event)
-    {
-    }
-
-    /**
      * @param $name string|array
      * @return Listener
      */

@@ -33,11 +33,11 @@ class Listener
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return mixed|void
      * @throws DispatchException
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $em = $event->getEventManager();
         $cm = $event->getControllerManager();

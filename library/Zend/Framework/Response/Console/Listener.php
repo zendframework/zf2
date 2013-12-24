@@ -10,7 +10,7 @@
 namespace Zend\Framework\Response\Console;
 
 use Zend\Console\Response;
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -33,10 +33,10 @@ class Listener
     /**
      * Send the response
      *
-     * @param  Event $event
+     * @param  EventInterface $event
      * @return void
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $response = $event->getResponse();
         if (!$response instanceof Response) {
