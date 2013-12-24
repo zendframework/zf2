@@ -17,7 +17,9 @@ class Event
     /**
      *
      */
-    use EventTrait;
+    use EventTrait {
+        EventTrait::__construct as event;
+    }
 
     /**
      * @param string $name
@@ -25,6 +27,6 @@ class Event
      */
     public function __construct($name = self::EVENT_RESPONSE, $target = null)
     {
-        $this->eventName = $name;
+        $this->event($name, $target);
     }
 }
