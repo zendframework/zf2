@@ -1157,6 +1157,18 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             'processOffset' => array('?')
         );
 
+        // offset without limit
+        $select46 = new Select;
+        $select46->from('foo')->offset("10");
+        $sqlPrep46 = 'SELECT "foo".* FROM "foo" LIMIT ? OFFSET ?';
+        $sqlStr46 = 'SELECT "foo".* FROM "foo" LIMIT \'18446744073709551615\' OFFSET \'10\'';
+        $params46 = array('limit' => "18446744073709551615", 'offset' => 10);
+        $internalTests46 = array(
+            'processSelect' => array(array(array('"foo".*')), '"foo"'),
+            'processLimit'  => array('?'),
+            'processOffset' => array('?')
+        );
+
         /**
          * $select = the select object
          * $sqlPrep = the sql as a result of preparation
@@ -1213,6 +1225,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select43, $sqlPrep43, array(),    $sqlStr43, $internalTests43),
             array($select44, $sqlPrep44, array(),    $sqlStr44, $internalTests44),
             array($select45, $sqlPrep45, $params45,  $sqlStr45, $internalTests45),
+            array($select46, $sqlPrep46, $params46,  $sqlStr46, $internalTests46),
         );
     }
 }
