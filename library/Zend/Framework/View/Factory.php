@@ -25,6 +25,7 @@ class Factory
     public function createService(ServiceManager $sm)
     {
         $view = new View;
+
         $view->setEventManager($sm->getEventManager());
         return $view;
     }

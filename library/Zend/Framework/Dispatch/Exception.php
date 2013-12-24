@@ -32,7 +32,7 @@ class Exception
 
     /**
      * @param $controller
-     * @return $this
+     * @return self
      */
     public function setControllerName($controller)
     {
@@ -42,7 +42,7 @@ class Exception
 
     /**
      * @param $controllerClass
-     * @return $this
+     * @return self
      */
     public function setControllerClass($controllerClass)
     {

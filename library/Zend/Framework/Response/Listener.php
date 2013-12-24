@@ -10,11 +10,10 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Http\PhpEnvironment\Response;
 
 class Listener
-    implements ListenerInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -41,23 +40,6 @@ class Listener
      * @var int
      */
     protected $eventPriority = self::DEFAULT_PRIORITY;
-
-    /**
-     * Send content
-     *
-     * @param  Event $event
-     * @return $this
-     */
-    public function sendContent(Event $event)
-    {
-        if ($event->contentSent()) {
-            return $this;
-        }
-        $response = $event->getResponse();
-        echo $response->getContent();
-        $event->setContentSent();
-        return $this;
-    }
 
     /**
      * @param Event $event

@@ -20,7 +20,7 @@ class Manager
 
     /**
      * @param ServiceManager $sm
-     * @return $this
+     * @return self
      */
     public function setServiceManager(ServiceManager $sm)
     {

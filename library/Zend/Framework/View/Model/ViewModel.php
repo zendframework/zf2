@@ -12,14 +12,13 @@ namespace Zend\Framework\View\Model;
 use ArrayAccess;
 use ArrayIterator;
 use Traversable;
-
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Exception;
 use Zend\View\Model;
-use Zend\View\Variables as ViewVariables;
-
-use Zend\View\Model\ModelInterface;
 use Zend\View\Model\ClearableModelInterface;
+use Zend\View\Model\ModelInterface;
+use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\View\Variables as ViewVariables;
 
 class ViewModel
     implements ModelInterface, ClearableModelInterface

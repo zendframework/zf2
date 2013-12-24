@@ -10,13 +10,12 @@
 namespace Zend\Framework\Dispatch;
 
 use Exception;
-use Zend\Framework\Controller\DispatchEvent as ControllerDispatchEvent;
+use Zend\Framework\Controller\Dispatch\Event as ControllerDispatchEvent;
 use Zend\Framework\Dispatch\Exception as DispatchException;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait;
 
 class Listener
-    implements ListenerInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -43,11 +42,6 @@ class Listener
      * @var int
      */
     protected $eventPriority = self::DEFAULT_PRIORITY;
-
-    /**
-     * @var
-     */
-    protected $dispatch;
 
     /**
      * @param Event $event

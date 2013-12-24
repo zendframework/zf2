@@ -14,8 +14,4 @@ use Zend\Framework\EventManager\ListenerInterface as Listener;
 interface ListenerInterface
     extends Listener
 {
-    /**
-     *
-     */
-    const EVENT_EXCEPTION = 'view.exception';
 }

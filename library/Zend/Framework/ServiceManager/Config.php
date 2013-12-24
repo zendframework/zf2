@@ -42,7 +42,7 @@ class Config
     /**
      * @param string $name
      * @param mixed $config
-     * @return $this
+     * @return self
      */
     public function add($name, $config)
     {

@@ -12,42 +12,8 @@ namespace Zend\Framework\EventManager;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 interface EventInterface
+    extends EventListenerInterface
 {
-    /**
-     *
-     */
-    const WILDCARD = '*';
-
-    /**
-     * Event name
-     *
-     * @return string|array
-     */
-    public function getEventName();
-
-    /**
-     * Event name
-     *
-     * @param $name
-     * @return Listener
-     */
-    public function setEventName($name);
-
-    /**
-     * Event target
-     *
-     * @return string|array
-     */
-    public function getEventTarget();
-
-    /**
-     * Event target
-     *
-     * @param $target
-     * @return Listener
-     */
-    public function setEventTarget($target);
-
     /**
      * Stop the event's propagation
      *

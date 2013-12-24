@@ -14,13 +14,4 @@ use Zend\Framework\EventManager\ListenerInterface as Listener;
 interface ListenerInterface
     extends Listener
 {
-    /**
-     *
-     */
-    const EVENT_RENDER = 'view.render';
-
-    /**
-     *
-     */
-    const EVENT_RESPONSE = 'view.response';
 }

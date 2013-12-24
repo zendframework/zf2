@@ -24,7 +24,7 @@ class Translate
 {
     /**
      * @param ServiceManager $sm
-     * @return $this
+     * @return self
      */
     public function createService(ServiceManager $sm)
     {

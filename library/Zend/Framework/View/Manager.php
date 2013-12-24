@@ -37,7 +37,7 @@ class Manager
 
     /**
      * @param ServiceManager $sm
-     * @return $this
+     * @return self
      */
     public function setServiceManager(ServiceManager $sm)
     {
@@ -120,7 +120,7 @@ class Manager
 
     /**
      * @param $resolver
-     * @return $this
+     * @return self
      */
     public function setViewResolver($resolver)
     {

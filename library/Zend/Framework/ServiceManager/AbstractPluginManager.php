@@ -40,7 +40,7 @@ abstract class AbstractPluginManager
 
     /**
      * @param Config $config
-     * @return $this
+     * @return self
      */
     public function setConfig(Config $config)
     {
@@ -50,7 +50,7 @@ abstract class AbstractPluginManager
 
     /**
      * @param ServiceManagerInterface $sm
-     * @return $this
+     * @return self
      */
     public function setServiceManager(ServiceManager $sm)
     {
@@ -80,7 +80,7 @@ abstract class AbstractPluginManager
     /**
      * @param $name
      * @param $service
-     * @return $this
+     * @return self
      */
     public function add($name, $service)
     {

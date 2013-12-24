@@ -9,16 +9,13 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\EventManager\EventTrait as EventTrait;
-
 class Event
-    implements EventInterface
+    implements EventInterface, EventListenerInterface
 {
     /**
      *
      */
-    use EventTrait, ServiceTrait;
+    use EventTrait;
 
     /**
      * @var string
@@ -36,27 +33,4 @@ class Event
      * @var bool Whether or not to stop propagation
      */
     protected $eventStopPropagation = false;
-
-    /**
-     * @var mixed
-     */
-    protected $result;
-
-    /**
-     * @return mixed
-     */
-    public function getResult()
-    {
-        return $this->result;
-    }
-
-    /**
-     * @param $result
-     * @return $this
-     */
-    public function setResult($result)
-    {
-        $this->result = $result;
-        return $this;
-    }
 }

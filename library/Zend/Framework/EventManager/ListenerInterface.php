@@ -12,60 +12,12 @@ namespace Zend\Framework\EventManager;
 use Zend\Framework\EventManager\EventInterface as Event;
 
 interface ListenerInterface
+    extends EventListenerInterface
 {
     /**
      *
      */
-    const WILDCARD = '*';
-
-    /**
-     *
-     */
     const DEFAULT_PRIORITY = 0;
-
-    /**
-     * Name(s) of event to listen for
-     *
-     * @return string|array
-     */
-    public function getEventName();
-
-    /**
-     * Name(s) of event to listen for
-     *
-     * @param $name
-     * @return Listener
-     */
-    public function setEventName($name);
-
-    /**
-     * Array of event names to listen for
-     *
-     * @return array
-     */
-    public function getEventNames();
-
-    /**
-     * Target identifiers
-     *
-     * @return string|array
-     */
-    public function getEventTarget();
-
-    /**
-     * Target identifiers to listener for
-     *
-     * @param $target
-     * @return Listener
-     */
-    public function setEventTarget($target);
-
-    /**
-     * Array of target identifiers to listener for
-     *
-     * @return array
-     */
-    public function getEventTargets();
 
     /**
      * Priority of listener
@@ -81,6 +33,20 @@ interface ListenerInterface
      * @return Listener
      */
     public function setEventPriority($priority);
+
+    /**
+     * Array of event names to listen for
+     *
+     * @return array
+     */
+    public function getEventNames();
+
+    /**
+     * Array of target identifiers to listener for
+     *
+     * @return array
+     */
+    public function getEventTargets();
 
     /**
      * Invokes listener with the event

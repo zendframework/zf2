@@ -11,8 +11,4 @@ namespace Zend\Framework\View\Response;
 
 interface EventInterface
 {
-    /**
-     *
-     */
-    const EVENT_RESPONSE = 'view.response';
 }

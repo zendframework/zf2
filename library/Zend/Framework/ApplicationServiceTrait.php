@@ -12,11 +12,12 @@ namespace Zend\Framework;
 use Zend\Framework\ApplicationInterface as Application;
 use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\ServiceManager as ApplicationServiceManager;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\Manager as ViewManager;
 use Zend\Framework\View\Model\ViewModel;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\View\View;
 
-use Zend\View\Renderer\Renderer as ViewRenderer;
+use Zend\View\Renderer\RendererInterface as ViewRenderer;
 
 //use Zend\Console\Request as Request;
 use Zend\Http\PhpEnvironment\Request as Request;
@@ -54,7 +55,7 @@ trait ApplicationServiceTrait
     /**
      * @param $name
      * @param $service
-     * @return $this
+     * @return self
      */
     public function addService($name, $service)
     {
@@ -72,7 +73,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param ServiceManager $sm
-     * @return $this
+     * @return self
      */
     public function setServiceManager(ServiceManager $sm)
     {
@@ -89,7 +90,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param ViewManager $vm
-     * @return $this
+     * @return self
      */
     public function setViewManager(ViewManager $vm)
     {
@@ -106,7 +107,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param array $config
-     * @return $this
+     * @return self
      */
     public function setApplicationConfig(array $config)
     {
@@ -123,7 +124,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param Application $application
-     * @return $this
+     * @return self
      */
     public function setApplication(Application $application)
     {
@@ -140,7 +141,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param EventManager $em
-     * @return $this
+     * @return self
      */
     public function setEventManager(EventManager $em)
     {
@@ -165,7 +166,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param ViewRenderer $renderer
-     * @return $this
+     * @return self
      */
     public function setViewRenderer(ViewRenderer $renderer)
     {
@@ -182,7 +183,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param ViewResolver $resolver
-     * @return $this
+     * @return self
      */
     public function setViewResolver(ViewResolver $resolver)
     {
@@ -199,7 +200,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param Request $request
-     * @return $this
+     * @return self
      */
     public function setRequest(Request $request)
     {
@@ -216,7 +217,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param Response $response
-     * @return $this
+     * @return self
      */
     public function setResponse(Response $response)
     {
@@ -233,7 +234,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param Router $router
-     * @return $this
+     * @return self
      */
     public function setRouter(Router $router)
     {
@@ -250,7 +251,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param RouteMatch $routeMatch
-     * @return $this
+     * @return self
      */
     public function setRouteMatch(RouteMatch $routeMatch)
     {
@@ -267,7 +268,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param ControllerManager $cm
-     * @return $this
+     * @return self
      */
     public function setControllerManager(ControllerManager $cm)
     {
@@ -284,7 +285,7 @@ trait ApplicationServiceTrait
 
     /**
      * @param ViewModel $viewModel
-     * @return $this
+     * @return self
      */
     public function setViewModel(ViewModel $viewModel)
     {
@@ -305,6 +306,15 @@ trait ApplicationServiceTrait
     public function getView()
     {
         return $this->getService('View');
+    }
+
+    /**
+     * @param View $view
+     * @return self
+     */
+    public function setView(View $view)
+    {
+        return $this->addService('View', $view);
     }
 
     /**

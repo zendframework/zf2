@@ -10,15 +10,9 @@
 namespace Zend\Framework\View\Model;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\View\Model\ClearableModelInterface as ClearableModel;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
-    implements ListenerInterface,
-               FactoryInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -45,15 +39,6 @@ class Listener
      * @var int
      */
     protected $eventPriority = -80;
-
-    /**
-     * @param ServiceManager $sm
-     * @return $this|mixed
-     */
-    public function createService(ServiceManager $sm)
-    {
-        return $this;
-    }
 
     /**
      * @param Event $event

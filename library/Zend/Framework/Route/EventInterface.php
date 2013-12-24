@@ -19,31 +19,26 @@ interface EventInterface
     extends Event
 {
     /**
-     *
-     */
-    const EVENT_ROUTE = 'mvc.route';
-
-    /**
      * @param Request $request
-     * @return $this
+     * @return self
      */
     public function setRequest(Request $request);
 
     /**
      * @param RouteMatch $routeMatch
-     * @return $this
+     * @return self
      */
     public function setRouteMatch(RouteMatch $routeMatch);
 
     /**
      * @param Router $router
-     * @return $this
+     * @return self
      */
     public function setRouter(Router $router);
 
     /**
      * @param ServiceManager $sm
-     * @return $this
+     * @return self
      */
     public function setServiceManager(ServiceManager $sm);
 }

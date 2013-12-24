@@ -12,8 +12,8 @@ namespace Zend\Framework\View;
 use Zend\Framework\EventManager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\EventManager\Manager as EventManager;
 use Zend\Framework\View\Event as ViewEvent;
-use Zend\Framework\View\Render\EventInterface as ViewRenderEvent;
-use Zend\Framework\View\Response\EventInterface as ViewResponseEvent;
+use Zend\Framework\View\Render\EventListenerInterface as ViewRender;
+use Zend\Framework\View\Response\EventListenerInterface as ViewResponse;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Exception;
@@ -90,11 +90,6 @@ class View
      */
     public function setEventManager(EventManagerInterface $events)
     {
-        /*$events->setIdentifiers(array(
-            __CLASS__,
-            get_class($this),
-        ));*/
-        //$events->setEventTarget($events);
         $this->events = $events;
         return $this;
     }
@@ -129,7 +124,7 @@ class View
      */
     public function addRenderingStrategy($callable, $priority = 1)
     {
-        $this->getEventManager()->attach(ViewRenderEvent::EVENT_RENDER, $callable, $priority);
+        $this->getEventManager()->attach(ViewRender::EVENT_RENDER, $callable, $priority);
         return $this;
     }
 
@@ -176,8 +171,8 @@ class View
         $event->setModel($model);
         $events  = $this->getEventManager();
 
+        $event->setEventName(ViewRender::EVENT_RENDER);
 
-        $event->setEventName(ViewRenderEvent::EVENT_RENDER);
         /*$event->setCallback(function ($event, $listener, $response) {
             if ($response instanceof Renderer) {
                 $event->stopEventPropagation();
@@ -186,7 +181,7 @@ class View
 
         $events->trigger($event);
 
-        $renderer = $event->getRenderer();
+        $renderer = $event->getViewRenderer();
         if (!$renderer instanceof Renderer) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: no renderer selected!',
@@ -194,8 +189,8 @@ class View
             ));
         }
 
-        $event->setRenderer($renderer);
-        $event->setEventName(ViewRenderEvent::EVENT_RENDER_POST);
+        $event->setViewRenderer($renderer);
+        $event->setEventName(ViewRender::EVENT_RENDER_POST);
         $events->trigger($event);
 
         // If EVENT_RENDER or EVENT_RENDER_POST changed the model, make sure
@@ -214,7 +209,7 @@ class View
 
         // Reset the model, in case it has changed, and set the renderer
         $event->setModel($model);
-        $event->setRenderer($renderer);
+        $event->setViewRenderer($renderer);
 
         $rendered = $renderer->render($model);
 
@@ -227,7 +222,7 @@ class View
 
         $event->setResult($rendered);
 
-        $event->setEventName(ViewResponseEvent::EVENT_RESPONSE);
+        $event->setEventName(ViewResponse::EVENT_RESPONSE);
         $events->trigger($event);
     }
 

@@ -18,7 +18,7 @@ trait SendHeadersTrait
      * Send HTTP headers
      *
      * @param  Event $event
-     * @return $this
+     * @return self
      */
     public function sendHeaders(Event $event)
     {

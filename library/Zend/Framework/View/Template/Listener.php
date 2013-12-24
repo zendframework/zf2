@@ -9,14 +9,12 @@
 
 namespace Zend\Framework\View\Template;
 
-use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait;
-use Zend\Mvc\ModuleRouteListener;
+use Zend\Framework\Module\Route\ListenerInterface as RouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
-    implements ListenerInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -43,13 +41,6 @@ class Listener
      * @var int
      */
     protected $eventPriority = -70;
-
-    /**
-     * FilterInterface/inflector used to normalize names for use as template identifiers
-     *
-     * @var mixed
-     */
-    protected $inflector;
 
     /**
      * @param Event $event
@@ -79,7 +70,7 @@ class Listener
 
         $module = $this->deriveModuleNamespace($controller);
 
-        if ($namespace = $routeMatch->getParam(ModuleRouteListener::MODULE_NAMESPACE)) {
+        if ($namespace = $routeMatch->getParam(RouteListener::MODULE_NAMESPACE)) {
             $controllerSubNs = $this->deriveControllerSubNamespace($namespace);
             if (!empty($controllerSubNs)) {
                 if (!empty($module)) {
@@ -103,77 +94,5 @@ class Listener
             $template .= '/' . $this->inflectName($action);
         }
         $model->setTemplate($template);
-    }
-
-    /**
-     * Inflect a name to a normalized value
-     *
-     * @param  string $name
-     * @return string
-     */
-    protected function inflectName($name)
-    {
-        if (!$this->inflector) {
-            $this->inflector = new CamelCaseToDashFilter();
-        }
-        $name = $this->inflector->filter($name);
-        return strtolower($name);
-    }
-
-    /**
-     * Determine the top-level namespace of the controller
-     *
-     * @param  string $controller
-     * @return string
-     */
-    protected function deriveModuleNamespace($controller)
-    {
-        if (!strstr($controller, '\\')) {
-            return '';
-        }
-        $module = substr($controller, 0, strpos($controller, '\\'));
-        return $module;
-    }
-
-    /**
-     * @param $namespace
-     * @return string
-     */
-    protected function deriveControllerSubNamespace($namespace)
-    {
-        if (!strstr($namespace, '\\')) {
-            return '';
-        }
-        $nsArray = explode('\\', $namespace);
-
-        // Remove the first two elements representing the module and controller directory.
-        $subNsArray = array_slice($nsArray, 2);
-        if (empty($subNsArray)) {
-            return '';
-        }
-        return implode('/', $subNsArray);
-    }
-
-    /**
-     * Determine the name of the controller
-     *
-     * Strip the namespace, and the suffix "Controller" if present.
-     *
-     * @param  string $controller
-     * @return string
-     */
-    protected function deriveControllerClass($controller)
-    {
-        if (strstr($controller, '\\')) {
-            $controller = substr($controller, strrpos($controller, '\\') + 1);
-        }
-
-        if ((10 < strlen($controller))
-            && ('Controller' == substr($controller, -10))
-        ) {
-            $controller = substr($controller, 0, -10);
-        }
-
-        return $controller;
     }
 }

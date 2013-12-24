@@ -9,19 +9,13 @@
 
 namespace Zend\Framework\Render;
 
-use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\EventManager\EventTrait as EventTrait;
-use Zend\Framework\View\View;
-use Zend\Framework\View\Model\ViewModel;
-use Zend\Framework\View\Renderer\Renderer;
-
 class Event
-    implements EventInterface
+    implements EventInterface, EventListenerInterface
 {
     /**
      *
      */
-    use EventTrait, ServiceTrait;
+    use EventTrait;
 
     /**
      * @var string
@@ -39,96 +33,4 @@ class Event
      * @var bool Whether or not to stop propagation
      */
     protected $eventStopPropagation = false;
-
-    /**
-     * @var ViewModel
-     */
-    protected $model;
-
-    /**
-     * @var Renderer
-     */
-    protected $renderer;
-
-    /**
-     * @var View
-     */
-    protected $view;
-
-    /**
-     * @var mixed
-     */
-    protected $result;
-
-    /**
-     * @return mixed
-     */
-    public function getResult()
-    {
-        return $this->result;
-    }
-
-    /**
-     * @param $result
-     * @return $this
-     */
-    public function setResult($result)
-    {
-        $this->result = $result;
-        return $this;
-    }
-
-    /**
-     * @return bool|View
-     */
-    public function getView()
-    {
-        return $this->view;
-    }
-
-    /**
-     * @param View $view
-     * @return $this
-     */
-    public function setView(View $view)
-    {
-        $this->view = $view;
-        return $this;
-    }
-
-    /**
-     * @return ViewModel
-     */
-    public function getViewModel()
-    {
-        return $this->model;
-    }
-
-    /**
-     * @param ViewModel $model
-     * @return $this
-     */
-    public function setViewModel(ViewModel $model)
-    {
-        $this->model = $model;
-        return $this;
-    }
-
-    /**
-     * @return Renderer
-     */
-    public function getRenderer()
-    {
-        return $this->renderer;
-    }
-
-    /**
-     * @param Renderer $renderer
-     * @return $this
-     */
-    public function setRenderer(Renderer $renderer)
-    {
-        $this->renderer = $renderer;
-        return $this;
-    }
 }

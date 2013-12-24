@@ -10,7 +10,6 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\View\Renderer\Renderer as Renderer;
 use Zend\Framework\ServiceManager\FactoryInterface;
 
 class RendererFactory

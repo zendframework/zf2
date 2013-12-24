@@ -11,12 +11,12 @@ namespace Zend\Framework\EventManager;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
-use Zend\Framework\EventManager\ManagerInterface as EventManagerInterface;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
+use Zend\Framework\EventManager\PriorityQueue\Listener as PriorityQueueListener;
 
 class Manager
     extends PriorityQueueListener
-    implements EventManagerInterface
+    implements ManagerInterface
 {
 
     /**
@@ -28,7 +28,7 @@ class Manager
      * Attach listener
      *
      * @param Listener $listener
-     * @return $this
+     * @return self
      */
     public function attach(Listener $listener)
     {
@@ -42,22 +42,23 @@ class Manager
 
     /**
      * @param Listener $listener
-     * @return $this
+     * @return self
      */
     public function detach(Listener $listener)
     {
         //if (in_array($listeners, $this->listeners)) {
-            //fixme!
+        //fixme!
         //}
 
         return parent::removeListener($listener);
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
+     * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function getEventListeners(Event $event)
+    public function getEventListeners(Event $event, PriorityQueue $queue = null)
     {
         $queue = new PriorityQueue;
 

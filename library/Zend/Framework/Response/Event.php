@@ -9,16 +9,13 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\ApplicationServiceTrait as ServiceTrait;
-use Zend\Framework\EventManager\EventTrait as EventTrait;
-
 class Event
-    implements EventInterface
+    implements EventInterface, EventListenerInterface
 {
     /**
      *
      */
-    use EventTrait, ServiceTrait;
+    use EventTrait;
 
     /**
      * @var string
@@ -36,62 +33,4 @@ class Event
      * @var bool Whether or not to stop propagation
      */
     protected $eventStopPropagation = false;
-
-    /**
-     * @var array
-     */
-    protected $contentSent = [];
-
-    /**
-     * @var array
-     */
-    protected $headersSent = [];
-
-    /**
-     * Set content sent for current response
-     *
-     * @return SendResponseEvent
-     */
-    public function setContentSent()
-    {
-        $response = $this->getResponse();
-        $this->contentSent[spl_object_hash($response)] = true;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function contentSent()
-    {
-        $response = $this->getResponse();
-        if (isset($this->contentSent[spl_object_hash($response)])) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Set headers sent for current response object
-     *
-     * @return SendResponseEvent
-     */
-    public function setHeadersSent()
-    {
-        $response = $this->getResponse();
-        $this->headersSent[spl_object_hash($response)] = true;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function headersSent()
-    {
-        $response = $this->getResponse();
-        if (isset($this->headersSent[spl_object_hash($response)])) {
-            return true;
-        }
-        return false;
-    }
 }

@@ -9,6 +9,7 @@
 
 namespace Zend\Framework;
 
+use Zend\Framework\Mvc\Event as MvcEvent;
 use Zend\Framework\ServiceManager;
 use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
 use Zend\Framework\ServiceManager\ServiceManagerInterface;
@@ -72,7 +73,7 @@ class Application
     }
 
     /**
-     * @return $this
+     * @return self
      */
     public function run()
     {

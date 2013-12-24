@@ -10,14 +10,11 @@
 namespace Zend\Framework\Render;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait;
-use Zend\Framework\Render\Exception as RenderException;
-use Zend\Framework\View\View;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
-    implements ListenerInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -44,26 +41,6 @@ class Listener
      * @var int
      */
     protected $eventPriority = self::DEFAULT_PRIORITY;
-
-    /**
-     * Layout template - template used in root ViewModel of MVC event.
-     *
-     * @var string
-     */
-    protected $layoutTemplate = 'layout';
-
-    /**
-     * @var View
-     */
-    protected $view;
-
-    /**
-     * @param View $view
-     */
-    public function setView(View $view)
-    {
-        $this->view = $view;
-    }
 
     /**
      * Render the view

@@ -16,13 +16,8 @@ interface EventInterface
     extends Event
 {
     /**
-     *
-     */
-    const EVENT_RESPONSE = 'mvc.response';
-
-    /**
      * @param ServiceManager $sm
-     * @return $this
+     * @return self
      */
     public function setServiceManager(ServiceManager $sm);
 }

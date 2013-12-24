@@ -1,0 +1,76 @@
+<?php
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
+
+namespace Zend\Framework\Route;
+
+use Zend\Framework\Dispatch\EventInterface as DispatchEvent;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\View\Model\ViewModel;
+use Zend\Stdlib\ResponseInterface as Response;
+
+class NotFoundListener
+    implements ListenerInterface, EventListenerInterface
+{
+    /**
+     *
+     */
+    use ListenerTrait;
+
+    /**
+     * Create and return a 404 view model
+     *
+     * @param  Event $event
+     * @return void
+     */
+    public function __invoke(Event $event)
+    {
+        if (DispatchEvent::EVENT_DISPATCH_ERROR == $event->getEventName()) {
+            $this->detectNotFoundError($event);
+        }
+
+        $vars = $event->getResult();
+        if ($vars instanceof Response) {
+            // Already have a response as the result
+            return;
+        }
+
+        $response = $event->getResponse();
+        if ($response->getStatusCode() != 404) {
+            // Only handle 404 responses
+            return;
+        }
+
+        if (!$response instanceof ViewModel) {
+            $model = new ViewModel();
+            if (is_string($response)) {
+                $model->setVariable('message', $response);
+            } else {
+                $model->setVariable('message', 'Page not found.');
+            }
+        } else {
+            $model = $response;
+            if ($model->getVariable('message') === null) {
+                $model->setVariable('message', 'Page not found.');
+            }
+        }
+
+        $model->setTemplate($this->getNotFoundTemplate());
+
+        // If displaying reasons, inject the reason
+        $this->injectNotFoundReason($model);
+
+        // If displaying exceptions, inject
+        $this->injectException($model, $event);
+
+        // Inject controller if we're displaying either the reason or the exception
+        $this->injectController($model, $event);
+
+        $event->setResponse($model);
+    }
+}

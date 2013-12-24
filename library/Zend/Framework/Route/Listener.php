@@ -10,11 +10,10 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Mvc\Router\RouteMatch;
 
 class Listener
-    implements ListenerInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *

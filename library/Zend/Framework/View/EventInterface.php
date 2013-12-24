@@ -14,8 +14,4 @@ use Zend\Framework\EventManager\EventInterface as Event;
 interface EventInterface
     extends Event
 {
-    /**
-     *
-     */
-    const EVENT_VIEW = 'view';
 }

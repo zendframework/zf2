@@ -13,6 +13,7 @@ use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 interface ManagerInterface
+    extends PriorityQueue\ListenerInterface
 {
     /**
      * @param ListenerInterface $listener

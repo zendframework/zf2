@@ -12,8 +12,7 @@ namespace Zend\Framework\View\Response;
 use Zend\Framework\EventManager\EventTrait;
 
 class Event
-    extends EventClass
-    implements EventInterface
+    implements EventInterface, EventListenerInterface
 {
     /**
      *

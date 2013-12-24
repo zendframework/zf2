@@ -9,16 +9,13 @@
 
 namespace Zend\Framework\Bootstrap;
 
-use Zend\Framework\EventManager\ListenerTrait as ListenerTrait;
-use Zend\Framework\ServiceManager\CreateServiceTrait as CreateService;
-
 class Listener
-    implements ListenerInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
      */
-    use ListenerTrait, CreateService;
+    use ListenerTrait;
 
     /**
      * Name(s) of events to listener for

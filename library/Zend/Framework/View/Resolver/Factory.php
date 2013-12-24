@@ -22,8 +22,8 @@ class Factory implements FactoryInterface
     public function createService(ServiceManager $serviceLocator)
     {
         $resolver = new ViewResolver\AggregateResolver();
-        $resolver->attach($serviceLocator->getService('View\Template\MapResolver'));
-        $resolver->attach($serviceLocator->getService('View\Template\PathStack'));
+        $resolver->attach($serviceLocator->getService('View\Template\Resolver\Map'));
+        $resolver->attach($serviceLocator->getService('View\Template\Resolver\PathStack'));
         return $resolver;
     }
 }

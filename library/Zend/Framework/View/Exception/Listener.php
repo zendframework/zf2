@@ -9,19 +9,13 @@
 
 namespace Zend\Framework\View\Exception;
 
-use Zend\EventManager\CallbackListener;
-use Zend\Framework\Application;
-use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Http\Response as HttpResponse;
 use Zend\Stdlib\ResponseInterface as Response;
-use Zend\View\Model\ViewModel;
+use Zend\Framework\View\Model\ViewModel;
 
 class Listener
-    implements ListenerInterface,
-               FactoryInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -48,77 +42,6 @@ class Listener
      * @var int
      */
     protected $eventPriority = self::DEFAULT_PRIORITY;
-
-    /**
-     * Display exceptions?
-     * @var bool
-     */
-    protected $displayExceptions = false;
-
-    /**
-     * Name of exception template
-     * @var string
-     */
-    protected $exceptionTemplate = 'error';
-
-    /**
-     * @param ServiceManager $sm
-     * @return $this
-     */
-    public function createService(ServiceManager $sm)
-    {
-        $vm = $sm->getViewManager();
-
-        $this->setDisplayExceptions($vm->displayExceptions());
-
-        $this->setExceptionTemplate($vm->exceptionTemplate());
-
-        return $this;
-    }
-
-    /**
-     * Flag: display exceptions in error pages?
-     *
-     * @param  bool $displayExceptions
-     * @return $this
-     */
-    public function setDisplayExceptions($displayExceptions)
-    {
-        $this->displayExceptions = (bool) $displayExceptions;
-        return $this;
-    }
-
-    /**
-     * Should we display exceptions in error pages?
-     *
-     * @return bool
-     */
-    public function displayExceptions()
-    {
-        return $this->displayExceptions;
-    }
-
-    /**
-     * Set the exception template
-     *
-     * @param  string $exceptionTemplate
-     * @return $this
-     */
-    public function setExceptionTemplate($exceptionTemplate)
-    {
-        $this->exceptionTemplate = (string) $exceptionTemplate;
-        return $this;
-    }
-
-    /**
-     * Retrieve the exception template
-     *
-     * @return string
-     */
-    public function getExceptionTemplate()
-    {
-        return $this->exceptionTemplate;
-    }
 
     /**
      * Create an exception view model, and set the HTTP status code

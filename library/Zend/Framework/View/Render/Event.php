@@ -9,10 +9,8 @@
 
 namespace Zend\Framework\View\Render;
 
-use Zend\Framework\EventManager\EventTrait;
-
 class Event
-    implements EventInterface
+    implements EventInterface, EventListenerInterface
 {
     /**
      *

@@ -122,7 +122,7 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @param $name
      * @param $service
-     * @return $this
+     * @return self
      */
     public function add($name, $service)
     {

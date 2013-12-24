@@ -10,22 +10,11 @@
 namespace Zend\Framework\Module\Route;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Mvc\Router\Http\RouteMatch;
 
 class Listener
-    implements ListenerInterface
+    implements ListenerInterface, EventListenerInterface
 {
-    /**
-     *
-     */
-    const MODULE_NAMESPACE    = '__NAMESPACE__';
-
-    /**
-     *
-     */
-    const ORIGINAL_CONTROLLER = '__CONTROLLER__';
-
     /**
      *
      */

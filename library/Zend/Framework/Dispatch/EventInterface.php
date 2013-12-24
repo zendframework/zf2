@@ -16,16 +16,6 @@ interface EventInterface
     extends Event
 {
     /**
-     *
-     */
-    const EVENT_DISPATCH = 'mvc.dispatch';
-
-    /**
-     *
-     */
-    const EVENT_DISPATCH_ERROR = 'mvc.dispatch.error';
-
-    /**
      * @param ServiceManager $sm
      * @return mixed
      */
