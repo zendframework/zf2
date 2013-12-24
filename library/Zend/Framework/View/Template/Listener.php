@@ -19,28 +19,23 @@ class Listener
     /**
      *
      */
+    const TEMPLATE_DEFAULT_PRIORITY = -70;
+
+    /**
+     *
+     */
     use ListenerTrait;
 
     /**
-     * Name(s) of events to listener for
-     *
-     * @var string|array
+     * @param $event
+     * @param $target
+     * @param $priority
      */
-    protected $eventName = self::EVENT_TEMPLATE;
-
-    /**
-     * Target (identifiers) of the events to listen for
-     *
-     * @var mixed
-     */
-    protected $eventTarget = self::WILDCARD;
-
-    /**
-     * Priority of listener
-     *
-     * @var int
-     */
-    protected $eventPriority = -70;
+    public function __construct($event = self::EVENT_TEMPLATE, $target = null, $priority = self::TEMPLATE_DEFAULT_PRIORITY)
+    {
+        $this->eventName = $event;
+        $this->eventPriority = $priority;
+    }
 
     /**
      * @param Event $event

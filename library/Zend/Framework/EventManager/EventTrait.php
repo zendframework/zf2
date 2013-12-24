@@ -15,17 +15,34 @@ use Zend\Framework\EventManager\ListenerInterface as Listener;
 trait EventTrait
 {
     /**
+     * @var string
+     */
+    public $eventName = self::WILDCARD;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    public $eventTarget = self::WILDCARD;
+
+    /**
+     * @var bool Whether or not to stop propagation
+     */
+    public $eventStopPropagation = false;
+
+    /**
      * @param string $name
      * @param mixed $target
      */
     public function __construct($name = null, $target = null)
     {
         if (null !== $name) {
-            $this->setEventName($name);
+            $this->eventName = $name;
         }
 
         if (null !== $target) {
-            $this->setEventTarget($target);
+            $this->eventTarget = $target;
         }
     }
 

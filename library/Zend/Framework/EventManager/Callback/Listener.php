@@ -20,27 +20,6 @@ class Listener
     use ListenerTrait;
 
     /**
-     * Name(s) of events to listener for
-     *
-     * @var string|array
-     */
-    protected $eventName = self::WILDCARD;
-
-    /**
-     * Target (identifiers) of the events to listen for
-     *
-     * @var mixed
-     */
-    protected $eventTarget = self::WILDCARD;
-
-    /**
-     * Priority of listener
-     *
-     * @var int
-     */
-    protected $eventPriority = self::DEFAULT_PRIORITY;
-
-    /**
      * @param Event $event
      * @return mixed
      */

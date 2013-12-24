@@ -18,28 +18,22 @@ class Listener
     /**
      *
      */
+    const MODEL_DEFAULT_PRIORITY = -80;
+    /**
+     *
+     */
     use ListenerTrait;
 
     /**
-     * Name(s) of events to listener for
-     *
-     * @var string|array
+     * @param $event
+     * @param $target
+     * @param $priority
      */
-    protected $eventName = self::EVENT_MODEL;
-
-    /**
-     * Target (identifiers) of the events to listen for
-     *
-     * @var mixed
-     */
-    protected $eventTarget = self::WILDCARD;
-
-    /**
-     * Priority of listener
-     *
-     * @var int
-     */
-    protected $eventPriority = -80;
+    public function __construct($event = self::EVENT_MODEL, $target = null, $priority = self::MODEL_DEFAULT_PRIORITY)
+    {
+        $this->eventName = $event;
+        $this->eventPriority = $priority;
+    }
 
     /**
      * @param Event $event

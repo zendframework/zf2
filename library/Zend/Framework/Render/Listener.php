@@ -22,25 +22,14 @@ class Listener
     use ListenerTrait;
 
     /**
-     * Name(s) of events to listener for
-     *
-     * @var string|array
+     * @param $event
+     * @param $target
+     * @param $priority
      */
-    protected $eventName = self::EVENT_RENDER;
-
-    /**
-     * Target (identifiers) of the events to listen for
-     *
-     * @var mixed
-     */
-    protected $eventTarget = self::WILDCARD;
-
-    /**
-     * Priority of listener
-     *
-     * @var int
-     */
-    protected $eventPriority = self::DEFAULT_PRIORITY;
+    public function __construct($event = self::EVENT_RENDER, $target = null, $priority = null)
+    {
+        $this->eventName = $event;
+    }
 
     /**
      * Render the view

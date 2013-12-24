@@ -15,6 +15,27 @@ use Zend\Framework\EventManager\ListenerInterface as Listener;
 trait ListenerTrait
 {
     /**
+     * Name(s) of events to listener for
+     *
+     * @var string|array
+     */
+    protected $eventName = Event::WILDCARD;
+
+    /**
+     * Target (identifiers) of the events to listen for
+     *
+     * @var mixed
+     */
+    protected $eventTarget = Event::WILDCARD;
+
+    /**
+     * Priority of listener
+     *
+     * @var int
+     */
+    protected $eventPriority = Listener::DEFAULT_PRIORITY;
+
+    /**
      * @param $event
      * @param $target
      * @param $priority

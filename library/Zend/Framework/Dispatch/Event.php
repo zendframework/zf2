@@ -18,19 +18,11 @@ class Event
     use EventTrait;
 
     /**
-     * @var string
+     * @param string $name
+     * @param string $target
      */
-    protected $eventName = self::EVENT_DISPATCH;
-
-    /**
-     * Target (identifiers) of the events to listen for
-     *
-     * @var mixed
-     */
-    protected $eventTarget = self::WILDCARD;
-
-    /**
-     * @var bool Whether or not to stop propagation
-     */
-    protected $eventStopPropagation = false;
+    public function __construct($name = self::EVENT_DISPATCH, $target = null)
+    {
+        $this->eventName = $name;
+    }
 }
