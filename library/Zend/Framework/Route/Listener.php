@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Mvc\Router\RouteMatch;
 
 class Listener

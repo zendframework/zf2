@@ -34,7 +34,7 @@ class Event
      */
     public function __invoke(Listener $listener)
     {
-        $response = $listener($this);
+        $response = $listener->triggerEvent($this);
 
         if ($listener instanceof ListenerInterface) {
             $this->setResult($response);

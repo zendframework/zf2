@@ -34,7 +34,7 @@ interface EventListenerInterface
     /**
      * Event target
      *
-     * @return string|array|object
+     * @return string|array|object|self::WILDCARD
      */
     public function getEventTarget();
 

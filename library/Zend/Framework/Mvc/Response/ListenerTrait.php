@@ -7,8 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Bootstrap\Mvc;
+namespace Zend\Framework\Mvc\Response;
 
+use Zend\Framework\ApplicationServiceTrait as Services;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 
 trait ListenerTrait
@@ -16,5 +17,5 @@ trait ListenerTrait
     /**
      *
      */
-    use ListenerService;
+    use ListenerService, Services;
 }

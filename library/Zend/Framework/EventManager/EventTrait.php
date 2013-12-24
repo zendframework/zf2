@@ -17,14 +17,14 @@ trait EventTrait
     /**
      * @var string
      */
-    public $eventName = self::WILDCARD;
+    public $eventName = Event::WILDCARD;
 
     /**
      * Target (identifiers) of the events to listen for
      *
      * @var mixed
      */
-    public $eventTarget = self::WILDCARD;
+    public $eventTarget = Event::WILDCARD;
 
     /**
      * @var bool Whether or not to stop propagation
@@ -52,7 +52,7 @@ trait EventTrait
      */
     public function __invoke(Listener $listener)
     {
-        $listener($this);
+        $listener->__invoke($this);
 
         return $this->eventStopPropagation;
     }

@@ -7,11 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Dispatch\Mvc;
+namespace Zend\Framework\Mvc\Bootstrap;
 
-use Zend\Framework\Dispatch\Error\Event as DispatchErrorEvent;
-use Zend\Framework\Dispatch\Event as DispatchEvent;
-use Zend\Framework\Dispatch\Exception as DispatchException;
+use Zend\Framework\Bootstrap\Event as BootstrapEvent;
 use Zend\Framework\Mvc\EventInterface;
 
 class Listener
@@ -41,25 +39,11 @@ class Listener
         $em = $event->getEventManager();
         $sm = $event->getServiceManager();
 
-        $dispatch = new DispatchEvent;
+        $bootstrap = new BootstrapEvent;
 
-        $dispatch->setEventTarget($event->getEventTarget())
-                 ->setServiceManager($sm);
+        $bootstrap->setEventTarget($event->getEventTarget())
+                  ->setServiceManager($sm);
 
-        try {
-
-            $em->trigger($dispatch);
-
-        } catch (DispatchException $exception) {
-
-            $dispatch = new DispatchErrorEvent;
-
-            $dispatch->setEventTarget($event->getApplication())
-                     ->setException($exception->getPrevious())
-                     ->setControllerName($exception->getControllerName())
-                     ->setControllerClass($exception->getControllerClass());
-
-            $em->trigger($dispatch);
-        }
+        $em->trigger($bootstrap);
     }
 }

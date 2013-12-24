@@ -45,4 +45,10 @@ interface ListenerInterface
      * @return array
      */
     public function getEventTargets();
+
+    /**
+     * @param EventInterface $event
+     * @return bool event propagation was stopped
+     */
+    public function triggerEvent(EventInterface $event);
 }

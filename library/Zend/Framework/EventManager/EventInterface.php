@@ -9,16 +9,13 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
-
 interface EventInterface
     extends EventListenerInterface
 {
     /**
      * Stop the event's propagation
      *
-     * @return Event
+     * @return EventInterface
      */
     public function stopEventPropagation();
 
@@ -32,8 +29,8 @@ interface EventInterface
     /**
      * Invokes the event with the listener that the event will invoke
      *
-     * @param Listener $listener
+     * @param ListenerInterface $listener
      * @return mixed
      */
-    public function __invoke(Listener $listener);
+    public function __invoke(ListenerInterface $listener);
 }

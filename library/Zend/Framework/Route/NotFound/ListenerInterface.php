@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route\NotFound;
 
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 interface ListenerInterface

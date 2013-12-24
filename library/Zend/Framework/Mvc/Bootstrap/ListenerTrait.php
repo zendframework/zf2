@@ -7,12 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Render\Mvc;
+namespace Zend\Framework\Mvc\Bootstrap;
 
-interface EventListenerInterface
+use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+
+trait ListenerTrait
 {
     /**
      *
      */
-    const EVENT_MVC_APPLICATION = 'mvc.application';
+    use ListenerService;
 }

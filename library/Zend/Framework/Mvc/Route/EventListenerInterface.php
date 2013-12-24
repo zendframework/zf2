@@ -7,12 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Bootstrap\Mvc;
-
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+namespace Zend\Framework\Mvc\Route;
 
 interface EventListenerInterface
-    extends Listener
 {
     /**
      *

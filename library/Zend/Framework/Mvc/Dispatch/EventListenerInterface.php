@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Mvc;
+namespace Zend\Framework\Mvc\Dispatch;
 
 interface EventListenerInterface
 {

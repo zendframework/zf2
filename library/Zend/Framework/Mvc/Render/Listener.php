@@ -7,9 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Mvc;
+namespace Zend\Framework\Mvc\Render;
 
-use Zend\Framework\Route\Event as RouteEvent;
+use Exception;
+use Zend\Framework\Render\Error\Event as RenderErrorEvent;
+use Zend\Framework\Render\Event as RenderEvent;
+use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Framework\Mvc\EventInterface;
 
 class Listener
@@ -36,15 +39,30 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
+        $sm = $event->getServiceManager();
         $em = $event->getEventManager();
 
-        $route = new RouteEvent;
+        $render = new RenderEvent;
 
-        $route->setEventTarget($event->getEventTarget())
-              ->setServiceManager($event->getServiceManager())
-              ->setRequest($event->getRequest())
-              ->setRouter($event->getRouter());
+        $render->setEventTarget($event->getEventTarget())
+               ->setServiceManager($sm)
+               ->setView($sm->getView());
 
-        $em->trigger($route);
+        //parent view model
+        $render->setViewModel($sm->getViewModel());
+
+        try {
+
+            $em->trigger($render);
+
+        } catch(Exception $exception) {
+
+            $error = new RenderErrorEvent;
+
+            $error->setEventTarget($event->getEventTarget())
+                  ->setException($exception->getPrevious());
+
+            $em->trigger($error);
+        }
     }
 }

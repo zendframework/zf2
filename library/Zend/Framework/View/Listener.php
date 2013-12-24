@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Listener

@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Response\Mvc;
+namespace Zend\Framework\Mvc\Route;
 
-use Zend\Framework\Response\Event as ResponseEvent;
+use Zend\Framework\Route\Event as RouteEvent;
 use Zend\Framework\Mvc\EventInterface;
 
 class Listener
@@ -32,17 +32,19 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @return mixed|void
+     * @return void
      */
     public function __invoke(EventInterface $event)
     {
         $em = $event->getEventManager();
 
-        $response = new ResponseEvent;
+        $route = new RouteEvent;
 
-        $response->setEventTarget($event->getEventTarget())
-                 ->setServiceManager($event->getServiceManager());
+        $route->setEventTarget($event->getEventTarget())
+              ->setServiceManager($event->getServiceManager())
+              ->setRequest($event->getRequest())
+              ->setRouter($event->getRouter());
 
-        $em->trigger($response);
+        $em->trigger($route);
     }
 }

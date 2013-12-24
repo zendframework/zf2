@@ -57,7 +57,7 @@ trait ListenerTrait
 
     /**
      * @param $name string|array
-     * @return Listener
+     * @return self
      */
     public function setEventName($name)
     {
@@ -86,7 +86,7 @@ trait ListenerTrait
 
     /**
      * @param $target
-     * @return Listener
+     * @return self
      */
     public function setEventTarget($target)
     {
@@ -95,7 +95,7 @@ trait ListenerTrait
     }
 
     /**
-     * @return mixed
+     * @return string|array|object|self::WILDCARD
      */
     public function getEventTarget()
     {
@@ -103,7 +103,7 @@ trait ListenerTrait
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getEventTargets()
     {
@@ -115,7 +115,7 @@ trait ListenerTrait
 
     /**
      * @param $priority
-     * @return Listener
+     * @return self
      */
     public function setEventPriority($priority)
     {
@@ -130,5 +130,14 @@ trait ListenerTrait
     public function getEventPriority()
     {
         return $this->eventPriority;
+    }
+
+    /**
+     * @param Event $event
+     * @return bool event propagation was stopped
+     */
+    public function triggerEvent(Event $event)
+    {
+        return $this->__invoke($event);
     }
 }

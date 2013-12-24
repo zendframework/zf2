@@ -7,12 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Render\Mvc;
+namespace Zend\Framework\Mvc\Response;
 
-use Exception;
-use Zend\Framework\Render\Error\Event as RenderErrorEvent;
-use Zend\Framework\Render\Event as RenderEvent;
-use Zend\Framework\EventManager\ListenerTrait;
+use Zend\Framework\Response\Event as ResponseEvent;
 use Zend\Framework\Mvc\EventInterface;
 
 class Listener
@@ -35,34 +32,17 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @return void
+     * @return mixed|void
      */
     public function __invoke(EventInterface $event)
     {
-        $sm = $event->getServiceManager();
         $em = $event->getEventManager();
 
-        $render = new RenderEvent;
+        $response = new ResponseEvent;
 
-        $render->setEventTarget($event->getEventTarget())
-               ->setServiceManager($sm)
-               ->setView($sm->getView());
+        $response->setEventTarget($event->getEventTarget())
+                 ->setServiceManager($event->getServiceManager());
 
-        //parent view model
-        $render->setViewModel($sm->getViewModel());
-
-        try {
-
-            $em->trigger($render);
-
-        } catch(Exception $exception) {
-
-            $error = new RenderErrorEvent;
-
-            $error->setEventTarget($event->getEventTarget())
-                  ->setException($exception->getPrevious());
-
-            $em->trigger($error);
-        }
+        $em->trigger($response);
     }
 }

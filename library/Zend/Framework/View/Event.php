@@ -35,7 +35,7 @@ class Event
      */
     public function __invoke(Listener $listener)
     {
-        $listener($this);
+        $listener->triggerEvent($this);
 
         if ($this->getViewRenderer() instanceof Renderer) {
             $this->stopEventPropagation();

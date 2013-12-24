@@ -7,14 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Render\Mvc;
+namespace Zend\Framework\Mvc\Response;
 
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
-
-trait ListenerTrait
+interface EventListenerInterface
 {
     /**
      *
      */
-    use ListenerService;
+    const EVENT_MVC_APPLICATION = 'mvc.application';
 }

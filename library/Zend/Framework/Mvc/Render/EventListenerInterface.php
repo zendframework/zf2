@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Response\Mvc;
+namespace Zend\Framework\Mvc\Render;
 
 interface EventListenerInterface
 {

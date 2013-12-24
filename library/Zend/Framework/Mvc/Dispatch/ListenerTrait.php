@@ -7,19 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Mvc;
+namespace Zend\Framework\Mvc\Dispatch;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
-use Zend\Framework\Mvc\EventInterface;
+use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 
-interface ListenerInterface
-    extends Listener
+trait ListenerTrait
 {
     /**
-     * Invokes listener with the event
      *
-     * @param EventInterface $event
-     * @return mixed
      */
-    public function __invoke(EventInterface $event);
+    use ListenerService;
 }
