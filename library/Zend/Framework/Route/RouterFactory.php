@@ -23,7 +23,7 @@ class RouterFactory
      * to instantiate the router. Uses the TreeRouteStack implementation by
      * default.
      *
-     * @param  ServiceLocatorInterface        $serviceLocator
+     * @param  ServiceManager                  $sm
      * @param  string|null                     $cName
      * @param  string|null                     $rName
      * @return \Zend\Mvc\Router\RouteStackInterface

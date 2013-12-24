@@ -60,11 +60,13 @@ class ServiceRequest
     }
 
     /**
-     * @param $name
+     * @param string $name
+     * @return self
      */
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -101,10 +103,12 @@ class ServiceRequest
 
     /**
      * @param $target
+     * @return self
      */
     public function setTarget($target)
     {
         $this->target = $target;
+        return $this;
     }
 
     /**

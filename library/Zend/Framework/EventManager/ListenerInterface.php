@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-
 interface ListenerInterface
     extends EventListenerInterface
 {
@@ -30,7 +28,7 @@ interface ListenerInterface
      * Priority of listener
      *
      * @param $priority
-     * @return Listener
+     * @return self
      */
     public function setEventPriority($priority);
 
@@ -54,5 +52,5 @@ interface ListenerInterface
      * @param Event $event
      * @return mixed
      */
-    public function __invoke(Event $event);
+    public function __invoke(EventInterface $event);
 }

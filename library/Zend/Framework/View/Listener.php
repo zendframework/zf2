@@ -25,7 +25,7 @@ class Listener
      *
      * @var string|array
      */
-    protected $eventName = self::EVENT_VIEW;
+    protected $eventName = self::EVENT_RENDER;
 
     /**
      * Target (identifiers) of the events to listen for

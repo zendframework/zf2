@@ -9,9 +9,7 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\Config as Config;
 
 abstract class AbstractPluginManager
     implements FactoryInterface

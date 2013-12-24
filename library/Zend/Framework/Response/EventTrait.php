@@ -32,7 +32,7 @@ trait EventTrait
     /**
      * Set content sent for current response
      *
-     * @return SendResponseEvent
+     * @return self
      */
     public function setContentSent()
     {
@@ -56,7 +56,7 @@ trait EventTrait
     /**
      * Set headers sent for current response object
      *
-     * @return SendResponseEvent
+     * @return self
      */
     public function setHeadersSent()
     {

@@ -9,7 +9,6 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\ApplictionServiceTrait;
 use Zend\Framework\ServiceManager\ConfigInterface as Config;
 
 class ServiceManager

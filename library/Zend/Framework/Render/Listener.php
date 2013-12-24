@@ -46,13 +46,13 @@ class Listener
      * Render the view
      *
      * @param Event $event
-     * @return Response
+     * @return void
      */
     public function __invoke(Event $event)
     {
         $result = $event->getResult();
         if ($result instanceof Response) {
-            return $result;
+            return;
         }
 
         // Martial arguments
@@ -68,7 +68,5 @@ class Listener
         $view->setResponse($response);
 
         $view->render($viewModel);
-
-        return $response;
     }
 }

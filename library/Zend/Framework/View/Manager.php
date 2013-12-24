@@ -11,7 +11,6 @@ namespace Zend\Framework\View;
 
 use Zend\Framework\ServiceManager\ConfigInterface as Config;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\ManagerInterface as ViewManager;
 
 class Manager

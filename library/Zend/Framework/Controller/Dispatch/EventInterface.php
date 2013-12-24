@@ -35,7 +35,7 @@ interface EventInterface
     public function setServiceManager(ServiceManager $sm);
 
     /**
-     * @return DispatchListenerInterface
+     * @return Controller
      */
     public function getController();
 

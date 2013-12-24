@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Render\Mvc;
 
+use Exception;
+use Zend\Framework\Render\Error\Event as RenderErrorEvent;
 use Zend\Framework\Render\Event as RenderEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait;

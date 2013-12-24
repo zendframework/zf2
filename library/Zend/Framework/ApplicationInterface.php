@@ -10,7 +10,7 @@
 namespace Zend\Framework;
 
 use Zend\Framework\ServiceManager\ServiceLocatorInterface as ServiceManager;
-use Zend\Framework\EventManager\EventManagerInterface as EventManager;
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
 
 interface ApplicationInterface
 {

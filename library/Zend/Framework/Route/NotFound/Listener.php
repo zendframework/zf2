@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\Dispatch\EventInterface as DispatchEvent;
+use Zend\Framework\Dispatch\EventListenerInterface as DispatchEvent;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;

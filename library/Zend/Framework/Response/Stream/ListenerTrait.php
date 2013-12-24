@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Response\Stream;
 
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 use Zend\Framework\Response\SendHeadersTrait as SendHeadersService;
 
@@ -30,9 +31,14 @@ trait ListenerTrait
         if ($event->contentSent()) {
             return $this;
         }
+
         $response = $event->getResponse();
         $stream   = $response->getStream();
+
         fpassthru($stream);
+
         $event->setContentSent();
+
+        return $this;
     }
 }

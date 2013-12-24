@@ -45,7 +45,7 @@ class Listener
      * Send HTTP response
      *
      * @param  Event $event
-     * @return HttpResponseSender
+     * @return self
      */
     public function __invoke(Event $event)
     {

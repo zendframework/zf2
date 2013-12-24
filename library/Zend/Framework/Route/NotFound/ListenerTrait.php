@@ -13,6 +13,7 @@ use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ViewModel;
+use Zend\Http\PhpEnvironment\Response as HttpResponse;
 
 trait ListenerTrait
 {

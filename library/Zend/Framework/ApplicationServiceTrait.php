@@ -13,6 +13,7 @@ use Zend\Framework\ApplicationInterface as Application;
 use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\ServiceManager as ApplicationServiceManager;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\View\Config as ViewConfig;
 use Zend\Framework\View\Manager as ViewManager;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\View;

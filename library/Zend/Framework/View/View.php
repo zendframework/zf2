@@ -145,7 +145,7 @@ class View
      */
     public function addResponseStrategy($callable, $priority = 1)
     {
-        $this->getEventManager()->attach(ViewEvent::EVENT_RESPONSE, $callable, $priority);
+        $this->getEventManager()->attach(ViewResponse::EVENT_RESPONSE, $callable, $priority);
         return $this;
     }
 

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework;
 
-use Zend\Framework\Application;
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 

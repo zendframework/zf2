@@ -9,11 +9,8 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\ServiceManager\Request;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\View\View;
-
 use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 class Factory
     implements FactoryInterface
@@ -27,6 +24,7 @@ class Factory
         $view = new View;
 
         $view->setEventManager($sm->getEventManager());
+
         return $view;
     }
 }

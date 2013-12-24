@@ -20,10 +20,10 @@ class Factory implements FactoryInterface
     /**
      * Create and return a request instance, according to current environment.
      *
-     * @param  ServiceLocatorInterface $serviceLocator
+     * @param  ServiceManager $sm
      * @return ConsoleRequest|HttpRequest
      */
-    public function createService(ServiceManager $serviceLocator)
+    public function createService(ServiceManager $sm)
     {
         if (Console::isConsole()) {
             return new ConsoleRequest();

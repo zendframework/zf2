@@ -19,7 +19,7 @@ class ManagerFactory
 {
     /**
      * @param ServiceManager $sm
-     * @return Application
+     * @return ControllerManager
      */
     public function createService(ServiceManager $sm)
     {

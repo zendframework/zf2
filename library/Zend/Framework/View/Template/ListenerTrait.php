@@ -10,6 +10,7 @@
 namespace Zend\Framework\View\Template;
 
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 
 trait ListenerTrait
 {

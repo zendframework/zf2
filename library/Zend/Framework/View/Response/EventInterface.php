@@ -9,6 +9,9 @@
 
 namespace Zend\Framework\View\Response;
 
+use Zend\Framework\EventManager\EventInterface as Event;
+
 interface EventInterface
+    extends Event
 {
 }

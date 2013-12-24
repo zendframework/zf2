@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Response\Console;
 
+use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 
 trait ListenerTrait
@@ -29,9 +30,13 @@ trait ListenerTrait
         if ($event->contentSent()) {
             return $this;
         }
+
         $response = $event->getResponse();
+
         echo $response->getContent();
+
         $event->setContentSent();
+
         return $this;
     }
 }

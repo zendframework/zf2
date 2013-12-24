@@ -9,6 +9,7 @@
 
 namespace Zend\Framework;
 
+use Zend\Framework\EventManager\ManagerInterface as EventManager;
 use Zend\Framework\Mvc\Event as MvcEvent;
 use Zend\Framework\ServiceManager;
 use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;

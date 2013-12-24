@@ -10,6 +10,8 @@
 namespace Zend\Framework\Dispatch\Mvc;
 
 use Zend\Framework\Dispatch\Event as DispatchEvent;
+use Zend\Framework\Dispatch\Error\Event as DispatchErrorEvent;
+use Zend\Framework\Dispatch\Exception as DispatchException;
 use Zend\Framework\EventManager\EventInterface as Event;
 
 class Listener

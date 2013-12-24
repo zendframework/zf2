@@ -23,7 +23,7 @@ class Event
     /**
      * @var string
      */
-    protected $eventName = self::EVENT_VIEW;
+    protected $eventName = self::EVENT_RENDER;
 
     /**
      * Target (identifiers) of the events to listen for

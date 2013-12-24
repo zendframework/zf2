@@ -60,7 +60,9 @@ class Manager
      */
     public function getEventListeners(Event $event, PriorityQueue $queue = null)
     {
-        $queue = new PriorityQueue;
+        if (null == $queue) {
+            $queue = new PriorityQueue;
+        }
 
         $name = $event->getEventName();
 

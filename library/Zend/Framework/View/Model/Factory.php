@@ -9,11 +9,9 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\ServiceManager\Request;
+use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\View;
-
-use Zend\Framework\ServiceManager\FactoryInterface;
 
 class Factory
     implements FactoryInterface

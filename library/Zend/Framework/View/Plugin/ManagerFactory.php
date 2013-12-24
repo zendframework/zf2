@@ -37,7 +37,7 @@ class ManagerFactory
                 ->setConfig(new ServiceConfig($config));
 
         if (isset($configuration['di']) && $sm->has('Di')) {
-            $plugins->addAbstractFactory($sm->get('DiAbstractServiceFactory'));
+            $plugins->addAbstractFactory($sm->getService('DiAbstractServiceFactory'));
         }
 
         // Configure URL view helper with router

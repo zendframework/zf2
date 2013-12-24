@@ -10,6 +10,7 @@
 namespace Zend\Framework\View\Model;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\View\Model\ClearableModelInterface as ClearableModel;
 
 class Listener
     implements ListenerInterface, EventListenerInterface

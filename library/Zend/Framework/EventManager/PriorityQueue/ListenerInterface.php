@@ -30,6 +30,7 @@ interface ListenerInterface
 
     /**
      * @param Event $event
+     * @param PriorityQueue $priorityQueue
      * @return PriorityQueue
      */
     public function getEventListeners(Event $event, PriorityQueue $priorityQueue = null);

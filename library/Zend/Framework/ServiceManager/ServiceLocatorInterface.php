@@ -9,11 +9,6 @@
 
 namespace Zend\Framework\ServiceManager;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
-
-/**
- * Service Manage Interface
- */
 interface ServiceLocatorInterface extends ServiceManagerInterface
 {
 }

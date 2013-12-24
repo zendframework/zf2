@@ -30,7 +30,7 @@ trait ListenerTrait
         }
 
         if (null !== $priority) {
-            $this->setPriority($priority);
+            $this->setEventPriority($priority);
         }
     }
 

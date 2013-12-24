@@ -10,12 +10,12 @@
 namespace Zend\Framework\Dispatch\Error;
 
 class Event
-    implements ErrorEventInterface, ErrorEventListenerInterface
+    implements EventInterface, EventListenerInterface
 {
     /**
      *
      */
-    use ErrorEventTrait;
+    use EventTrait;
 
     /**
      * @var string

@@ -17,7 +17,7 @@ class RendererFactory
 {
     /**
      * @param ServiceManager $sm
-     * @return View
+     * @return Renderer
      */
     public function createService(ServiceManager $sm)
     {

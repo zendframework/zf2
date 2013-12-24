@@ -27,14 +27,14 @@ interface EventListenerInterface
      * Event name
      *
      * @param $name
-     * @return Listener
+     * @return self
      */
     public function setEventName($name);
 
     /**
      * Event target
      *
-     * @return string|array
+     * @return string|array|object
      */
     public function getEventTarget();
 
@@ -42,7 +42,7 @@ interface EventListenerInterface
      * Event target
      *
      * @param $target
-     * @return Listener
+     * @return self
      */
     public function setEventTarget($target);
 }

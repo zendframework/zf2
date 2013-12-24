@@ -21,7 +21,7 @@ class MapFactory implements FactoryInterface
      * Creates a Zend\View\Resolver\AggregateResolver and populates it with the
      * ['view_manager']['template_map']
      *
-     * @param  ServiceManager $serviceLocator
+     * @param  ServiceManager $sm
      * @return ViewResolver\TemplateMapResolver
      */
     public function createService(ServiceManager $sm)
