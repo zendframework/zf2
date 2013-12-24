@@ -1157,7 +1157,10 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             'processOffset' => array('?')
         );
 
-        // offset without limit
+        /**
+         * offset without limit
+         * @group ZF2-5642
+         */
         $select46 = new Select;
         $select46->from('foo')->offset("10");
         $sqlPrep46 = 'SELECT "foo".* FROM "foo" LIMIT ? OFFSET ?';
