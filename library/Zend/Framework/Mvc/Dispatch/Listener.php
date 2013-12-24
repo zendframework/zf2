@@ -20,7 +20,9 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait {
+        ListenerTrait::__construct as listener;
+    }
 
     /**
      * @param $event
@@ -29,7 +31,7 @@ class Listener
      */
     public function __construct($event = self::EVENT_MVC_APPLICATION, $target = null, $priority = null)
     {
-        $this->eventName = $event;
+        $this->listener($event, $target, $priority);
     }
 
     /**

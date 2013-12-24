@@ -17,7 +17,9 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait {
+        ListenerTrait::__construct as listener;
+    }
 
     /**
      * @param $event
@@ -26,7 +28,7 @@ class Listener
      */
     public function __construct($event = self::EVENT_ROUTE, $target = null, $priority = null)
     {
-        $this->eventName = $event;
+        $this->listener($event, $target, $priority);
     }
 
     /**
