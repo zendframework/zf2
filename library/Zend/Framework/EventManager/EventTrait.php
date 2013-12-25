@@ -15,23 +15,23 @@ use Zend\Framework\EventManager\ListenerInterface as Listener;
 trait EventTrait
 {
     /**
-     * Wildcard identifier
+     * Wildcard
      *
      * @var string
      */
     public $name = Event::WILDCARD;
 
     /**
-     * Target (identifiers) of events
+     * Target (identifiers)
      *
      * @var mixed
      */
     public $target = Event::WILDCARD;
 
     /**
-     * @var bool Stop event propagation
+     * @var bool Propagation
      */
-    public $propagationStopped = false;
+    public $propagation = true;
 
     /**
      * @param string $name
@@ -49,19 +49,21 @@ trait EventTrait
     }
 
     /**
+     * Triggers event
+     *
      * @param Listener $listener
-     * @return propagation stopped
+     * @return bool Propagation
      */
     public function __invoke(Listener $listener)
     {
         $listener->__invoke($this);
 
-        return $this->propagationStopped();
+        return $this->propagation;
     }
 
     /**
      * @param $name string|array
-     * @return Listener
+     * @return self
      */
     public function setName($name)
     {
@@ -79,7 +81,7 @@ trait EventTrait
 
     /**
      * @param $target
-     * @return Listener
+     * @return self
      */
     public function setTarget($target)
     {
@@ -96,23 +98,23 @@ trait EventTrait
     }
 
     /**
-     * Stop the event's propagation
+     * Stop propagation
      *
-     * @return Event
+     * @return self
      */
     public function stopPropagation()
     {
-        $this->propagationStopped = true;
+        $this->propagation = false;
         return $this;
     }
 
     /**
-     * Is the event's propagation stopped?
+     * Whether propagation has stopped
      *
      * @return bool
      */
-    public function propagationStopped()
+    public function propagation()
     {
-        return $this->propagationStopped;
+        return $this->propagation;
     }
 }

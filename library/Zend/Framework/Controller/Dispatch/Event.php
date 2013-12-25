@@ -42,6 +42,6 @@ class Event
             $this->setResult($response);
         }
 
-        return $this->propagationStopped;
+        return $this->propagation;
     }
 }

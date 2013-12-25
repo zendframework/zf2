@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\EventManager\Callback;
 
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 
 trait ListenerTrait
@@ -16,7 +17,9 @@ trait ListenerTrait
     /**
      *
      */
-    use ListenerService;
+    use ListenerService {
+        ListenerService::__construct as listener;
+    }
 
     /**
      * @var callable
@@ -31,9 +34,8 @@ trait ListenerTrait
      */
     public function __construct($callback, $event = null, $target = null, $priority = null)
     {
+        $this->listener($event, $target, $priority);
         $this->setCallback($callback);
-
-        parent::__construct($event, $target, $priority);
     }
 
     /**
@@ -46,10 +48,12 @@ trait ListenerTrait
 
     /**
      * @param $callback
+     * @return param
      */
     public function setCallback(callable $callback)
     {
         $this->callback = $callback;
+        return $this;
     }
 
     /**

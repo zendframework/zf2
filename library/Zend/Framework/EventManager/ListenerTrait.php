@@ -95,7 +95,7 @@ trait ListenerTrait
     }
 
     /**
-     * @return string|array|object|self::WILDCARD
+     * @return string|array|object
      */
     public function target()
     {
@@ -133,6 +133,8 @@ trait ListenerTrait
     }
 
     /**
+     * Triggers listener
+     *
      * @param Event $event
      */
     public function __invoke(Event $event)

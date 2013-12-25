@@ -36,6 +36,13 @@ interface ListenerInterface
 
     /**
      * @param Event $event
+     * @param PriorityQueue $queue
+     * @return PriorityQueue
+     */
+    public function priorityQueue(Event $event, PriorityQueue $queue);
+
+    /**
+     * @param Event $event
      * @return bool propagation stopped
      */
     public function __invoke(Event $event);

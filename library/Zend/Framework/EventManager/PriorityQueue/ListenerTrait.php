@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\EventManager\PriorityQueue;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\ListenerInterface;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
@@ -22,17 +22,17 @@ trait ListenerTrait
     use ListenerService;
 
     /**
-     * @var array Listener
+     * @var array ListenerInterface
      */
     protected $listeners = [];
 
     /**
      * Add listener
      *
-     * @param Listener $listener
+     * @param ListenerInterface $listener
      * @return self
      */
-    public function add(Listener $listener)
+    public function add(ListenerInterface $listener)
     {
         $names    = $listener->names();
         $priority = $listener->priority();
@@ -47,67 +47,82 @@ trait ListenerTrait
     /**
      * Remove listener
      *
-     * @param Listener $listener
+     * @param ListenerInterface $listener
      * @return self
      */
-    public function remove(Listener $listener)
+    public function remove(ListenerInterface $listener)
     {
         return $this;
     }
 
     /**
-     * @param Event $event
+     * @param string $target
+     * @param array $listeners
+     * @param PriorityQueue $queue
+     */
+    public function match($target, array $listeners, PriorityQueue $queue)
+    {
+        foreach($listeners as $priority => $listeners) {
+            foreach($listeners as $listener) {
+                foreach($listener->targets() as $t) {
+                    if (
+                        ListenerInterface::WILDCARD === $t
+                        || $target === $t
+                        || $target instanceof $t
+                        || \is_subclass_of($target, $t)
+                    ) {
+                        $queue->insert($listener, $priority);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @param EventInterface $event
      * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function priorityQueue(Event $event, PriorityQueue $queue)
+    public function priorityQueue(EventInterface $event, PriorityQueue $queue)
     {
         $name   = $event->name();
         $target = $event->target();
 
-        $names = Event::WILDCARD == $name ? [$name] : [Event::WILDCARD, $name];
+        $names = EventInterface::WILDCARD == $name ? [$name] : [EventInterface::WILDCARD, $name];
 
         foreach($names as $name) {
             if (!isset($this->listeners[$name])) {
                 continue;
             }
 
-            foreach($this->listeners[$name] as $priority => $listeners) {
-                foreach($listeners as $listener) {
-                    foreach($listener->targets() as $t) {
-                        if (Listener::WILDCARD === $t || $target === $t || $target instanceof $t || \is_subclass_of($target, $t)) {
-                            $queue->insert($listener, $priority);
-                        }
-                    }
-                }
-            }
+            $this->match($target, $this->listeners[$name], $queue);
         }
 
         return $queue;
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return PriorityQueue
      */
-    public function listeners(Event $event)
+    public function listeners(EventInterface $event)
     {
         return $this->priorityQueue($event, new PriorityQueue);
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @return bool propagation stopped
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
         foreach($this->listeners($event) as $listener) {
             //var_dump(get_class($event).' :: '.$event->name().' :: '.get_class($listener));
-            if ($event->__invoke($listener)) {
-                return true;
+            if (!$event->__invoke($listener)) {
+                return false; //propagation stopped
             }
         }
 
-        return false; //propagation was not stopped
+        return true;
     }
 }
