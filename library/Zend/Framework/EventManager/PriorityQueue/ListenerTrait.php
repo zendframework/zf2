@@ -32,12 +32,12 @@ trait ListenerTrait
      * @param Listener $listener
      * @return self
      */
-    public function addListener(Listener $listener)
+    public function add(Listener $listener)
     {
-        $event    = $listener->getEventNames();
-        $priority = $listener->getEventPriority();
+        $names    = $listener->names();
+        $priority = $listener->priority();
 
-        foreach($event as $name) {
+        foreach($names as $name) {
             $this->listeners[$name][$priority][] = $listener;
         }
 
@@ -50,7 +50,7 @@ trait ListenerTrait
      * @param Listener $listener
      * @return self
      */
-    public function removeListener(Listener $listener)
+    public function remove(Listener $listener)
     {
         return $this;
     }
@@ -60,14 +60,10 @@ trait ListenerTrait
      * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function getEventListeners(Event $event, PriorityQueue $queue = null)
+    public function priorityQueue(Event $event, PriorityQueue $queue)
     {
-        if (null === $queue) {
-            $queue = new PriorityQueue;
-        }
-
-        $name   = $event->getEventName();
-        $target = $event->getEventTarget();
+        $name   = $event->name();
+        $target = $event->target();
 
         $names = Event::WILDCARD == $name ? [$name] : [Event::WILDCARD, $name];
 
@@ -78,7 +74,7 @@ trait ListenerTrait
 
             foreach($this->listeners[$name] as $priority => $listeners) {
                 foreach($listeners as $listener) {
-                    foreach($listener->getEventTargets() as $t) {
+                    foreach($listener->targets() as $t) {
                         if (Listener::WILDCARD === $t || $target === $t || $target instanceof $t || \is_subclass_of($target, $t)) {
                             $queue->insert($listener, $priority);
                         }
@@ -88,5 +84,30 @@ trait ListenerTrait
         }
 
         return $queue;
+    }
+
+    /**
+     * @param Event $event
+     * @return PriorityQueue
+     */
+    public function listeners(Event $event)
+    {
+        return $this->priorityQueue($event, new PriorityQueue);
+    }
+
+    /**
+     * @param Event $event
+     * @return bool propagation stopped
+     */
+    public function __invoke(Event $event)
+    {
+        foreach($this->listeners($event) as $listener) {
+            //var_dump(get_class($event).' :: '.$event->name().' :: '.get_class($listener));
+            if ($event->__invoke($listener)) {
+                return true;
+            }
+        }
+
+        return false; //propagation was not stopped
     }
 }

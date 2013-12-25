@@ -44,7 +44,7 @@ class Listener
 
         $this->sendContent($event);
         $errorLevel = (int) $response->getMetadata('errorLevel',0);
-        $event->stopEventPropagation();
+        $event->stopPropagation();
         exit($errorLevel);
     }
 }

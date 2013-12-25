@@ -30,41 +30,38 @@ class Manager
      * @param Listener $listener
      * @return self
      */
-    public function attach(Listener $listener)
+    public function add(Listener $listener)
     {
         if ($listener instanceof self) {
             $this->shared[] = $listener;
             return $this;
         }
 
-        return parent::addListener($listener);
+        return parent::add($listener);
     }
 
     /**
      * @param Listener $listener
      * @return self
      */
-    public function detach(Listener $listener)
+    public function remove(Listener $listener)
     {
         //if (in_array($listeners, $this->listeners)) {
         //fixme!
         //}
 
-        return parent::removeListener($listener);
+        return parent::remove($listener);
     }
 
     /**
      * @param EventInterface $event
-     * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function getEventListeners(Event $event, PriorityQueue $queue = null)
+    public function listeners(Event $event)
     {
-        if (null == $queue) {
-            $queue = new PriorityQueue;
-        }
+        $queue = new PriorityQueue;
 
-        $name = $event->getEventName();
+        $name = $event->name();
 
         foreach($this->shared as $shared) {
             foreach($shared->listeners[$name] as $priority => $listeners) {
@@ -74,14 +71,14 @@ class Manager
             }
         }
 
-        return parent::getEventListeners($event, $queue);
+        return $this->priorityQueue($event, $queue);
     }
 
     /**
-     * @param Event $event
-     * @return bool event propagation was stopped
+     * @param EventInterface $event
+     * @return bool
      */
-    public function trigger(Event $event)
+    public function trigger(EventInterface $event)
     {
         return $this->__invoke($event);
     }

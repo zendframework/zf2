@@ -39,7 +39,7 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        switch($event->getEventName())
+        switch($event->name())
         {
             case self::EVENT_VIEW_RENDER:
                 $this->selectViewRenderer($event);

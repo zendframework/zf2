@@ -46,7 +46,7 @@ class Listener
 
         $render = new RenderEvent;
 
-        $render->setEventTarget($event->getEventTarget())
+        $render->setTarget($event->target())
                ->setServiceManager($sm)
                ->setView($sm->getView());
 
@@ -61,7 +61,7 @@ class Listener
 
             $error = new RenderErrorEvent;
 
-            $error->setEventTarget($event->getEventTarget())
+            $error->setTarget($event->target())
                   ->setException($exception);
 
             $em->trigger($error);

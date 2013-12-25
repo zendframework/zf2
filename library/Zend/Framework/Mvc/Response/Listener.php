@@ -42,7 +42,7 @@ class Listener
 
         $response = new ResponseEvent;
 
-        $response->setEventTarget($event->getEventTarget())
+        $response->setTarget($event->target())
                  ->setServiceManager($event->getServiceManager());
 
         $em->trigger($response);

@@ -43,7 +43,7 @@ class Listener
 
         $bootstrap = new BootstrapEvent;
 
-        $bootstrap->setEventTarget($event->getEventTarget())
+        $bootstrap->setTarget($event->target())
                   ->setServiceManager($sm);
 
         $em->trigger($bootstrap);

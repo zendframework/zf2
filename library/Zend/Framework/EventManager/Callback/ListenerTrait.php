@@ -37,6 +37,14 @@ trait ListenerTrait
     }
 
     /**
+     * @return callable
+     */
+    public function callback()
+    {
+        return $this->callback;
+    }
+
+    /**
      * @param $callback
      */
     public function setCallback(callable $callback)
@@ -45,10 +53,11 @@ trait ListenerTrait
     }
 
     /**
-     * @return callable
+     * @param EventInterface $event
+     * @return mixed
      */
-    public function getCallback()
+    public function __invoke(EventInterface $event)
     {
-        return $this->callback;
+        return call_user_func($this->callback, $event);
     }
 }

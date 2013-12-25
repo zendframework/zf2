@@ -73,7 +73,7 @@ class Application
 
         $event = new MvcEvent;
 
-        $event->setEventTarget($this)
+        $event->setTarget($this)
               ->setServiceManager($sm);
 
         $em->trigger($event);

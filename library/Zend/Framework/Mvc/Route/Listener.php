@@ -39,11 +39,12 @@ class Listener
     public function __invoke(EventInterface $event)
     {
         $em = $event->getEventManager();
+        $sm = $event->getServiceManager();
 
         $route = new RouteEvent;
 
-        $route->setEventTarget($event->getEventTarget())
-              ->setServiceManager($event->getServiceManager())
+        $route->setTarget($event->target())
+              ->setServiceManager($sm)
               ->setRequest($event->getRequest())
               ->setRouter($event->getRouter());
 

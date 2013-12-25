@@ -20,26 +20,23 @@ interface ListenerInterface
      * @param Listener $listener
      * @return self
      */
-    public function addListener(Listener $listener);
+    public function add(Listener $listener);
 
     /**
      * @param Listener $listener
      * @return self
      */
-    public function removeListener(Listener $listener);
+    public function remove(Listener $listener);
 
     /**
      * @param Event $event
-     * @param PriorityQueue $priorityQueue
      * @return PriorityQueue
      */
-    public function getEventListeners(Event $event, PriorityQueue $priorityQueue = null);
+    public function listeners(Event $event);
 
     /**
-     * Invokes listener with the event
-     *
      * @param Event $event
-     * @return mixed
+     * @return bool propagation stopped
      */
     public function __invoke(Event $event);
 }

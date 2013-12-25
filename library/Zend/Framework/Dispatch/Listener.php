@@ -51,11 +51,11 @@ class Listener
 
         $controller = $cm->getController( $controllerName );
 
-        $em->attach($controller);
+        $em->add($controller);
 
         $dispatch = new ControllerDispatchEvent;
 
-        $dispatch->setEventTarget($controller)
+        $dispatch->setTarget($controller)
                  ->setServiceManager($sm)
                  ->setController($controller)
                  ->setViewModel($vm);

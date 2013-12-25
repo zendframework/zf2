@@ -15,14 +15,14 @@ interface ListenerInterface
     /**
      *
      */
-    const DEFAULT_PRIORITY = 0;
+    const PRIORITY = 0;
 
     /**
      * Priority of listener
      *
      * @return int
      */
-    public function getEventPriority();
+    public function priority();
 
     /**
      * Priority of listener
@@ -30,25 +30,19 @@ interface ListenerInterface
      * @param $priority
      * @return self
      */
-    public function setEventPriority($priority);
+    public function setPriority($priority);
 
     /**
      * Array of event names to listen for
      *
      * @return array
      */
-    public function getEventNames();
+    public function names();
 
     /**
      * Array of target identifiers to listener for
      *
      * @return array
      */
-    public function getEventTargets();
-
-    /**
-     * @param EventInterface $event
-     * @return bool event propagation was stopped
-     */
-    public function triggerEvent(EventInterface $event);
+    public function targets();
 }

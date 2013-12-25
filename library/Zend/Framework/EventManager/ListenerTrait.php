@@ -19,21 +19,21 @@ trait ListenerTrait
      *
      * @var string|array
      */
-    protected $eventName = Event::WILDCARD;
+    protected $name = Event::WILDCARD;
 
     /**
      * Target (identifiers) of the events to listen for
      *
      * @var mixed
      */
-    protected $eventTarget = Event::WILDCARD;
+    protected $target = Event::WILDCARD;
 
     /**
      * Priority of listener
      *
      * @var int
      */
-    protected $eventPriority = Listener::DEFAULT_PRIORITY;
+    protected $priority = Listener::PRIORITY;
 
     /**
      * @param $event
@@ -43,15 +43,15 @@ trait ListenerTrait
     public function __construct($event = null, $target = null, $priority = null)
     {
         if (null !== $event) {
-            $this->setEventName($event);
+            $this->setName($event);
         }
 
         if (null !== $target) {
-            $this->setEventTarget($target);
+            $this->setTarget($target);
         }
 
         if (null !== $priority) {
-            $this->setEventPriority($priority);
+            $this->setPriority($priority);
         }
     }
 
@@ -59,67 +59,67 @@ trait ListenerTrait
      * @param $name string|array
      * @return self
      */
-    public function setEventName($name)
+    public function setName($name)
     {
-        $this->eventName = $name;
+        $this->name = $name;
         return $this;
     }
 
     /**
      * @return string|array
      */
-    public function getEventName()
+    public function name()
     {
-        return $this->eventName;
+        return $this->name;
     }
 
     /**
      * @return string|array
      */
-    public function getEventNames()
+    public function names()
     {
-        if (is_array($this->eventName)) {
-            return $this->eventName;
+        if (is_array($this->name)) {
+            return $this->name;
         }
-        return [$this->eventName];
+        return [$this->name];
     }
 
     /**
      * @param $target
      * @return self
      */
-    public function setEventTarget($target)
+    public function setTarget($target)
     {
-        $this->eventTarget = $target;
+        $this->target = $target;
         return $this;
     }
 
     /**
      * @return string|array|object|self::WILDCARD
      */
-    public function getEventTarget()
+    public function target()
     {
-        return $this->eventTarget;
+        return $this->target;
     }
 
     /**
      * @return array
      */
-    public function getEventTargets()
+    public function targets()
     {
-        if (is_array($this->eventTarget)) {
-            return $this->eventTarget;
+        if (is_array($this->target)) {
+            return $this->target;
         }
-        return [$this->eventTarget];
+        return [$this->target];
     }
 
     /**
      * @param $priority
      * @return self
      */
-    public function setEventPriority($priority)
+    public function setPriority($priority)
     {
-        $this->eventPriority = $priority;
+        $this->priority = $priority;
 
         return $this;
     }
@@ -127,17 +127,15 @@ trait ListenerTrait
     /**
      * @return int
      */
-    public function getEventPriority()
+    public function priority()
     {
-        return $this->eventPriority;
+        return $this->priority;
     }
 
     /**
      * @param Event $event
-     * @return bool event propagation was stopped
      */
-    public function triggerEvent(Event $event)
+    public function __invoke(Event $event)
     {
-        return $this->__invoke($event);
     }
 }

@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\EventManager\PriorityQueue;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-
 class Listener
     implements ListenerInterface, EventListenerInterface
 {
@@ -18,20 +16,4 @@ class Listener
      *
      */
     use ListenerTrait;
-
-    /**
-     * @param Event $event
-     * @return bool event propagation was stopped
-     */
-    public function __invoke(Event $event)
-    {
-        foreach($this->getEventListeners($event) as $listener) {
-            //var_dump(get_class($event).' :: '.$event->getEventName().' :: '.get_class($listener));
-            if ($event($listener)) {
-                return true;
-            }
-        }
-
-        return false; //propagation was not stopped
-    }
 }

@@ -9,27 +9,10 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
-
 interface ManagerInterface
-    extends PriorityQueue\ListenerInterface
 {
     /**
-     * @param ListenerInterface $listener
-     * @return mixed
+     * @param EventInterface $event
      */
-    public function attach(Listener $listener);
-
-    /**
-     * @param ListenerInterface $listener
-     * @return mixed
-     */
-    public function detach(Listener $listener);
-
-    /**
-     * @param Event $event
-     * @return bool event propagation was stopped
-     */
-    public function trigger(Event $event);
+    public function trigger(EventInterface $event);
 }

@@ -31,11 +31,11 @@ class ManagerFactory
                 if (is_string($listener)) {
                     $listener = $sm->getService($listener);
                     if ($listener instanceof ListenerInterface) {
-                        $listener->setEventName($event);
+                        $listener->setName($event);
                     }
                 }
 
-                $em->attach($listener);
+                $em->add($listener);
             }
         }
 

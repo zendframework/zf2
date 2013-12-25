@@ -121,7 +121,7 @@ class View
      */
     public function addRenderingStrategy($callable, $priority = 1)
     {
-        $this->getEventManager()->attach(ViewRender::EVENT_VIEW_RENDER, $callable, $priority);
+        $this->getEventManager()->add(ViewRender::EVENT_VIEW_RENDER, $callable, $priority);
         return $this;
     }
 
@@ -142,7 +142,7 @@ class View
      */
     public function addResponseStrategy($callable, $priority = 1)
     {
-        $this->getEventManager()->attach(ViewResponse::EVENT_VIEW_RESPONSE, $callable, $priority);
+        $this->getEventManager()->add(ViewResponse::EVENT_VIEW_RESPONSE, $callable, $priority);
         return $this;
     }
 
@@ -167,11 +167,11 @@ class View
 
         $event->setModel($model);
         $events  = $this->getEventManager();
-        $event->setEventName(ViewRender::EVENT_VIEW_RENDER);
+        $event->setName(ViewRender::EVENT_VIEW_RENDER);
 
         /*$event->setCallback(function ($event, $listener, $response) {
             if ($response instanceof Renderer) {
-                $event->stopEventPropagation();
+                $event->stopPropagation();
             }
         });*/
 
@@ -186,7 +186,7 @@ class View
         }
 
         $event->setViewRenderer($renderer);
-        $event->setEventName(ViewRender::EVENT_VIEW_RENDER_POST);
+        $event->setName(ViewRender::EVENT_VIEW_RENDER_POST);
         $events->trigger($event);
 
         // If EVENT_VIEW_RENDER or EVENT_VIEW_RENDER_POST changed the model, make sure
@@ -217,7 +217,7 @@ class View
         }
 
         $event->setResult($rendered);
-        $event->setEventName(ViewResponse::EVENT_VIEW_RESPONSE);
+        $event->setName(ViewResponse::EVENT_VIEW_RESPONSE);
 
         $events->trigger($event);
     }
@@ -259,7 +259,7 @@ class View
     {
         $event = new ViewEvent;
 
-        $event->setEventTarget($this);
+        $event->setTarget($this);
 
         if (null !== ($request = $this->getRequest())) {
             $event->setRequest($request);

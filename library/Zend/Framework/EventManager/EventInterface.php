@@ -17,20 +17,20 @@ interface EventInterface
      *
      * @return EventInterface
      */
-    public function stopEventPropagation();
+    public function stopPropagation();
 
     /**
      * Is the event's propagation stopped?
      *
      * @return bool
      */
-    public function isEventPropagationStopped();
+    public function propagationStopped();
 
     /**
-     * Invokes the event with the listener that the event will invoke
+     * Triggers the event
      *
      * @param ListenerInterface $listener
-     * @return mixed
+     * @return propagation stopped
      */
     public function __invoke(ListenerInterface $listener);
 }

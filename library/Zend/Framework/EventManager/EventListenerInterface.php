@@ -21,7 +21,7 @@ interface EventListenerInterface
      *
      * @return string|array
      */
-    public function getEventName();
+    public function name();
 
     /**
      * Event name
@@ -29,14 +29,14 @@ interface EventListenerInterface
      * @param $name
      * @return self
      */
-    public function setEventName($name);
+    public function setName($name);
 
     /**
      * Event target
      *
      * @return string|array|object|self::WILDCARD
      */
-    public function getEventTarget();
+    public function target();
 
     /**
      * Event target
@@ -44,5 +44,5 @@ interface EventListenerInterface
      * @param $target
      * @return self
      */
-    public function setEventTarget($target);
+    public function setTarget($target);
 }

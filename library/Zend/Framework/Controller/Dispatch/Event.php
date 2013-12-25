@@ -36,12 +36,12 @@ class Event
      */
     public function __invoke(Listener $listener)
     {
-        $response = $listener->triggerEvent($this);
+        $response = $listener->__invoke($this);
 
         if ($listener instanceof ListenerInterface) {
             $this->setResult($response);
         }
 
-        return $this->eventStopPropagation;
+        return $this->propagationStopped;
     }
 }

@@ -45,7 +45,7 @@ class Listener
 
         $dispatch = new DispatchEvent;
 
-        $dispatch->setEventTarget($event->getEventTarget())
+        $dispatch->setTarget($event->target())
                  ->setServiceManager($sm);
 
         try {
@@ -56,7 +56,7 @@ class Listener
 
             $dispatch = new DispatchErrorEvent;
 
-            $dispatch->setEventTarget($event->getTarget())
+            $dispatch->setTarget($event->getTarget())
                      ->setException($exception->getException())
                      ->setControllerName($exception->getControllerName())
                      ->setControllerClass($exception->getControllerClass());

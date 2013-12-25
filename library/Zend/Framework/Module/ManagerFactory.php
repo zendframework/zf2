@@ -26,7 +26,7 @@ class ManagerFactory
 
         $em = $sm->getEventManager();
 
-        $em->attach($sm->getService('ModuleManager\DefaultListeners'));
+        $em->add($sm->getService('ModuleManager\DefaultListeners'));
 
         $mm = new ModuleManager($modules);
 

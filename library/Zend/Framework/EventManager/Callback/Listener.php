@@ -20,11 +20,13 @@ class Listener
     use ListenerTrait;
 
     /**
+     * Triggers listener
+     *
      * @param Event $event
      * @return mixed
      */
     public function __invoke(Event $event)
     {
-        return call_user_func($this->callback, $event);
+        return $this->__invoke($event);
     }
 }

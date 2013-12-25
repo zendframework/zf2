@@ -18,7 +18,7 @@ class Listener
     /**
      *
      */
-    const MODEL_DEFAULT_PRIORITY = -80;
+    const MODEL_PRIORITY = -80;
     /**
      *
      */
@@ -31,7 +31,7 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_MODEL, $target = null, $priority = self::MODEL_DEFAULT_PRIORITY)
+    public function __construct($event = self::EVENT_MODEL, $target = null, $priority = self::MODEL_PRIORITY)
     {
         $this->listener($event, $target, $priority);
     }

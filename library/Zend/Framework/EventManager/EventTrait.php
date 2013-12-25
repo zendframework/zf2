@@ -15,21 +15,23 @@ use Zend\Framework\EventManager\ListenerInterface as Listener;
 trait EventTrait
 {
     /**
+     * Wildcard identifier
+     *
      * @var string
      */
-    public $eventName = Event::WILDCARD;
+    public $name = Event::WILDCARD;
 
     /**
-     * Target (identifiers) of the events to listen for
+     * Target (identifiers) of events
      *
      * @var mixed
      */
-    public $eventTarget = Event::WILDCARD;
+    public $target = Event::WILDCARD;
 
     /**
-     * @var bool Whether or not to stop propagation
+     * @var bool Stop event propagation
      */
-    public $eventStopPropagation = false;
+    public $propagationStopped = false;
 
     /**
      * @param string $name
@@ -38,59 +40,59 @@ trait EventTrait
     public function __construct($name = null, $target = null)
     {
         if (null !== $name) {
-            $this->eventName = $name;
+            $this->name = $name;
         }
 
         if (null !== $target) {
-            $this->eventTarget = $target;
+            $this->target = $target;
         }
     }
 
     /**
      * @param Listener $listener
-     * @return bool
+     * @return propagation stopped
      */
     public function __invoke(Listener $listener)
     {
         $listener->__invoke($this);
 
-        return $this->eventStopPropagation;
+        return $this->propagationStopped();
     }
 
     /**
      * @param $name string|array
      * @return Listener
      */
-    public function setEventName($name)
+    public function setName($name)
     {
-        $this->eventName = $name;
+        $this->name = $name;
         return $this;
     }
 
     /**
      * @return string|array
      */
-    public function getEventName()
+    public function name()
     {
-        return $this->eventName;
+        return $this->name;
     }
 
     /**
      * @param $target
      * @return Listener
      */
-    public function setEventTarget($target)
+    public function setTarget($target)
     {
-        $this->eventTarget = $target;
+        $this->target = $target;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getEventTarget()
+    public function target()
     {
-        return $this->eventTarget;
+        return $this->target;
     }
 
     /**
@@ -98,9 +100,9 @@ trait EventTrait
      *
      * @return Event
      */
-    public function stopEventPropagation()
+    public function stopPropagation()
     {
-        $this->eventStopPropagation = true;
+        $this->propagationStopped = true;
         return $this;
     }
 
@@ -109,8 +111,8 @@ trait EventTrait
      *
      * @return bool
      */
-    public function isEventPropagationStopped()
+    public function propagationStopped()
     {
-        return $this->eventStopPropagation;
+        return $this->propagationStopped;
     }
 }

@@ -19,7 +19,7 @@ class Listener
     /**
      *
      */
-    const TEMPLATE_DEFAULT_PRIORITY = -70;
+    const TEMPLATE_PRIORITY = -70;
 
     /**
      *
@@ -33,7 +33,7 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_TEMPLATE, $target = null, $priority = self::TEMPLATE_DEFAULT_PRIORITY)
+    public function __construct($event = self::EVENT_TEMPLATE, $target = null, $priority = self::TEMPLATE_PRIORITY)
     {
         $this->listener($event, $target, $priority);
     }
@@ -56,7 +56,7 @@ class Listener
         }
 
         $routeMatch = $event->getRouteMatch();
-        $controller = $event->getEventTarget();
+        $controller = $event->target();
         if (is_object($controller)) {
             $controller = get_class($controller);
         }
