@@ -51,7 +51,7 @@ class Listener
 
         $controller = $cm->getController( $controllerName );
 
-        $em->add($controller);
+        $em->push($controller);
 
         $dispatch = new ControllerDispatchEvent;
 

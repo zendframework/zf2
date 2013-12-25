@@ -17,6 +17,14 @@ interface ListenerInterface
     extends Listener
 {
     /**
+     * Push listener to top of prioritized queue
+     *
+     * @param Listener $listener
+     * @return self
+     */
+    public function push(Listener $listener);
+
+    /**
      * @param Listener $listener
      * @return self
      */

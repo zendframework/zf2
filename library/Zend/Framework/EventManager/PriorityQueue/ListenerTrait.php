@@ -32,6 +32,24 @@ trait ListenerTrait
      * @param ListenerInterface $listener
      * @return self
      */
+    public function push(ListenerInterface $listener)
+    {
+        $names    = $listener->names();
+        $priority = $listener->priority();
+
+        foreach($names as $name) {
+            array_unshift($this->listeners[$name][$priority], $listener);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add listener
+     *
+     * @param ListenerInterface $listener
+     * @return self
+     */
     public function add(ListenerInterface $listener)
     {
         $names    = $listener->names();

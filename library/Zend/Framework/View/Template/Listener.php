@@ -19,11 +19,6 @@ class Listener
     /**
      *
      */
-    const TEMPLATE_PRIORITY = -70;
-
-    /**
-     *
-     */
     use ListenerTrait {
         ListenerTrait::__construct as listener;
     }
@@ -33,7 +28,7 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_TEMPLATE, $target = null, $priority = self::TEMPLATE_PRIORITY)
+    public function __construct($event = self::EVENT_TEMPLATE, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
     }

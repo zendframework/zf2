@@ -12,6 +12,8 @@ namespace Zend\Framework\EventManager;
 interface ManagerInterface
 {
     /**
+     * Trigger listeners
+     *
      * @param EventInterface $event
      */
     public function trigger(EventInterface $event);
