@@ -40,9 +40,9 @@ class Event
         $listener->__invoke($this);
 
         if ($this->getViewRenderer() instanceof Renderer) {
-            $this->propagationStopped = true;
+            $this->stopped = true;
         }
 
-        return $this->propagationStopped;
+        return $this->stopped;
     }
 }

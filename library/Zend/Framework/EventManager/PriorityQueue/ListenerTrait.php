@@ -112,7 +112,7 @@ trait ListenerTrait
      * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function prioritized(EventInterface $event, PriorityQueue $queue)
+    public function queue(EventInterface $event, PriorityQueue $queue)
     {
         $name   = $event->name();
         $target = $event->target();
@@ -136,19 +136,18 @@ trait ListenerTrait
      */
     public function listeners(EventInterface $event)
     {
-        return $this->prioritized($event, new PriorityQueue);
+        return $this->queue($event, new PriorityQueue);
     }
 
     /**
      * @param EventInterface $event
-     * @return bool propagation stopped
+     * @return bool stopped
      */
     public function __invoke(EventInterface $event)
     {
         foreach($this->listeners($event) as $listener) {
-            //var_dump(get_class($event).' :: '.$event->name().' :: '.get_class($listener));
-            if (!$event->__invoke($listener)) {
-                return false; //propagation stopped
+            if ($event->__invoke($listener)) {
+                return false; //event stopped
             }
         }
 

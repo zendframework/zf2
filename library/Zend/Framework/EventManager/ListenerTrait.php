@@ -9,9 +9,6 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
-
 trait ListenerTrait
 {
     /**
@@ -19,21 +16,21 @@ trait ListenerTrait
      *
      * @var string|array
      */
-    protected $name = Event::WILDCARD;
+    protected $name = ListenerInterface::WILDCARD;
 
     /**
      * Target (identifiers) of the events to listen for
      *
      * @var mixed
      */
-    protected $target = Event::WILDCARD;
+    protected $target = ListenerInterface::WILDCARD;
 
     /**
      * Priority of listener
      *
      * @var int
      */
-    protected $priority = Listener::PRIORITY;
+    protected $priority = ListenerInterface::PRIORITY;
 
     /**
      * @param $event
@@ -85,7 +82,7 @@ trait ListenerTrait
     }
 
     /**
-     * @param $target
+     * @param string|array $target
      * @return self
      */
     public function setTarget($target)
@@ -114,7 +111,7 @@ trait ListenerTrait
     }
 
     /**
-     * @param $priority
+     * @param int $priority
      * @return self
      */
     public function setPriority($priority)
@@ -135,9 +132,9 @@ trait ListenerTrait
     /**
      * Triggers listener
      *
-     * @param Event $event
+     * @param EventInterface $event
      */
-    public function __invoke(Event $event)
+    public function __invoke(EventInterface $event)
     {
     }
 }

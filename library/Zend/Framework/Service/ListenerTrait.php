@@ -7,12 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\Service;
 
-interface EventListenerInterface
+use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+
+trait ListenerTrait
 {
     /**
      *
      */
-    const EVENT_VIEW = 'view';
+    use ListenerService;
 }

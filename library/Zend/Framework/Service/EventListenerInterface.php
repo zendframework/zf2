@@ -7,12 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\Service;
 
 interface EventListenerInterface
 {
     /**
      *
      */
-    const EVENT_VIEW = 'view';
+    const EVENT_MVC_APPLICATION = 'mvc.service';
 }

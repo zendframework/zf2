@@ -7,12 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\Service;
 
-interface EventListenerInterface
+use Zend\Framework\EventManager\EventInterface as Event;
+
+interface EventInterface
+    extends Event
 {
-    /**
-     *
-     */
-    const EVENT_VIEW = 'view';
 }

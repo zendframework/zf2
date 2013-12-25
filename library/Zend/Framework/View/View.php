@@ -171,7 +171,7 @@ class View
 
         /*$event->setCallback(function ($event, $listener, $response) {
             if ($response instanceof Renderer) {
-                $event->stopPropagation();
+                $event->stop();
             }
         });*/
 

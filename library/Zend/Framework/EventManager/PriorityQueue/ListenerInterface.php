@@ -47,11 +47,11 @@ interface ListenerInterface
      * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function prioritized(Event $event, PriorityQueue $queue);
+    public function queue(Event $event, PriorityQueue $queue);
 
     /**
      * @param Event $event
-     * @return bool propagation stopped
+     * @return bool stopped
      */
     public function __invoke(Event $event);
 }

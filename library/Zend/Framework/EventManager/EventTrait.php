@@ -9,9 +9,6 @@
 
 namespace Zend\Framework\EventManager;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
-
 trait EventTrait
 {
     /**
@@ -19,23 +16,23 @@ trait EventTrait
      *
      * @var string
      */
-    public $name = Event::WILDCARD;
+    public $name = EventInterface::WILDCARD;
 
     /**
      * Target (identifiers)
      *
-     * @var mixed
+     * @var string|array
      */
-    public $target = Event::WILDCARD;
+    public $target = EventInterface::WILDCARD;
 
     /**
-     * @var bool Propagation
+     * @var bool Stopped
      */
-    public $propagation = true;
+    public $stopped = false;
 
     /**
      * @param string $name
-     * @param mixed $target
+     * @param string|array $target
      */
     public function __construct($name = null, $target = null)
     {
@@ -51,14 +48,14 @@ trait EventTrait
     /**
      * Triggers event
      *
-     * @param Listener $listener
-     * @return bool Propagation
+     * @param ListenerInterface $listener
+     * @return bool Stopped
      */
-    public function __invoke(Listener $listener)
+    public function __invoke(ListenerInterface $listener)
     {
         $listener->__invoke($this);
 
-        return $this->propagation;
+        return $this->stopped;
     }
 
     /**
@@ -80,7 +77,7 @@ trait EventTrait
     }
 
     /**
-     * @param $target
+     * @param string|array $target
      * @return self
      */
     public function setTarget($target)
@@ -90,7 +87,7 @@ trait EventTrait
     }
 
     /**
-     * @return mixed
+     * @return string|array
      */
     public function target()
     {
@@ -98,23 +95,23 @@ trait EventTrait
     }
 
     /**
-     * Stop propagation
+     * Stop event
      *
      * @return self
      */
-    public function stopPropagation()
+    public function stop()
     {
-        $this->propagation = false;
+        $this->stopped = true;
         return $this;
     }
 
     /**
-     * Whether propagation has stopped
+     * If event stopped
      *
      * @return bool
      */
-    public function propagation()
+    public function stopped()
     {
-        return $this->propagation;
+        return $this->stopped;
     }
 }

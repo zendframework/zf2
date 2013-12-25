@@ -7,9 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\Dispatch;
-
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+namespace Zend\Framework\Service;
 
 class Event
     implements EventInterface, EventListenerInterface
@@ -25,22 +23,20 @@ class Event
      * @param string $name
      * @param string $target
      */
-    public function __construct($name = self::EVENT_CONTROLLER_DISPATCH, $target = null)
+    public function __construct($name = self::EVENT_SERVICE, $target = null)
     {
         $this->event($name, $target);
     }
 
     /**
-     * @param Listener $listener
-     * @return bool
+     * Triggers event
+     *
+     * @param ListenerInterface $listener
+     * @return bool Stopped
      */
-    public function __invoke(Listener $listener)
+    public function __invoke(ListenerInterface $listener)
     {
-        $response = $listener->__invoke($this);
-
-        if ($listener instanceof ListenerInterface) {
-            $this->setResult($response);
-        }
+        $listener->__invoke($this);
 
         return $this->stopped;
     }

@@ -48,7 +48,7 @@ trait ManagerTrait
      * @param ListenerInterface $listener
      * @return $this
      */
-    public function unshare(ListenerInterface $listener)
+    public function detach(ListenerInterface $listener)
     {
         $names = $listener->names();
 
@@ -72,7 +72,7 @@ trait ManagerTrait
     public function remove(ListenerInterface $listener)
     {
         if ($this->shared) {
-            $this->unshare($listener);
+            $this->detach($listener);
         }
 
         return $this->removeFromQueue($listener);
@@ -112,7 +112,7 @@ trait ManagerTrait
             $this->shared($event, $queue);
         }
 
-        return $this->prioritized($event, $queue);
+        return $this->queue($event, $queue);
     }
 
     /**

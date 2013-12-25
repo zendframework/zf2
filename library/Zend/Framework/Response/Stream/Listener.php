@@ -48,7 +48,7 @@ class Listener
         $this->sendHeaders($event);
         $this->sendStream($event);
 
-        $event->stopPropagation();
+        $event->stop();
 
         return $this;
     }

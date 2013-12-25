@@ -13,34 +13,35 @@ interface ListenerInterface
     extends EventListenerInterface
 {
     /**
+     * Default priority
      *
      */
     const PRIORITY = 0;
 
     /**
-     * Priority of listener
+     * Listener Priority
      *
      * @return int
      */
     public function priority();
 
     /**
-     * Priority of listener
+     * Set listener priority
      *
-     * @param $priority
+     * @param int $priority
      * @return self
      */
     public function setPriority($priority);
 
     /**
-     * Array of event names to listen for
+     * Array of event names
      *
      * @return array
      */
     public function names();
 
     /**
-     * Array of target identifiers to listener for
+     * Array of targets
      *
      * @return array
      */
