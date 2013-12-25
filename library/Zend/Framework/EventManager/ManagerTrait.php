@@ -46,13 +46,34 @@ trait ManagerTrait
 
     /**
      * @param ListenerInterface $listener
+     * @return $this
+     */
+    public function unshare(ListenerInterface $listener)
+    {
+        $names = $listener->names();
+
+        foreach($this->shared as $shared) {
+            foreach($names as $name) {
+                if (!isset($shared->listeners[$name])) {
+                    continue;
+                }
+
+                $this->shared = array_diff($this->shared, [$listener]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ListenerInterface $listener
      * @return self
      */
     public function remove(ListenerInterface $listener)
     {
-        //if (in_array($listeners, $this->listeners)) {
-        //fixme!
-        //}
+        if ($this->shared) {
+            $this->unshare($listener);
+        }
 
         return $this->removeFromQueue($listener);
     }
@@ -61,7 +82,7 @@ trait ManagerTrait
      * @param EventInterface $event
      * @param PriorityQueue $queue
      */
-    public function matchShared(EventInterface $event, PriorityQueue $queue)
+    public function shared(EventInterface $event, PriorityQueue $queue)
     {
         $name   = $event->name();
         $target = $event->target();
@@ -88,10 +109,10 @@ trait ManagerTrait
         $queue = new PriorityQueue;
 
         if ($this->shared) {
-            $this->matchShared($event, $queue);
+            $this->shared($event, $queue);
         }
 
-        return $this->priorityQueue($event, $queue);
+        return $this->prioritized($event, $queue);
     }
 
     /**

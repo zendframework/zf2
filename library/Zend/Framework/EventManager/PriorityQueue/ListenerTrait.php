@@ -70,6 +70,17 @@ trait ListenerTrait
      */
     public function remove(ListenerInterface $listener)
     {
+        $names    = $listener->names();
+        $priority = $listener->priority();
+
+        foreach($names as $name) {
+            if (!isset($this->listeners[$name][$priority])) {
+                continue;
+            }
+
+            $this->listeners[$name][$priority] = array_diff($this->listeners[$name][$priority], [$listener]);
+        }
+
         return $this;
     }
 
@@ -84,8 +95,8 @@ trait ListenerTrait
             foreach($listeners as $listener) {
                 foreach($listener->targets() as $t) {
                     if (
-                        ListenerInterface::WILDCARD === $t
-                        || $target === $t
+                        $t === ListenerInterface::WILDCARD
+                        || $t === $target
                         || $target instanceof $t
                         || \is_subclass_of($target, $t)
                     ) {
@@ -101,7 +112,7 @@ trait ListenerTrait
      * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function priorityQueue(EventInterface $event, PriorityQueue $queue)
+    public function prioritized(EventInterface $event, PriorityQueue $queue)
     {
         $name   = $event->name();
         $target = $event->target();
@@ -125,7 +136,7 @@ trait ListenerTrait
      */
     public function listeners(EventInterface $event)
     {
-        return $this->priorityQueue($event, new PriorityQueue);
+        return $this->prioritized($event, new PriorityQueue);
     }
 
     /**

@@ -47,7 +47,7 @@ interface ListenerInterface
      * @param PriorityQueue $queue
      * @return PriorityQueue
      */
-    public function priorityQueue(Event $event, PriorityQueue $queue);
+    public function prioritized(Event $event, PriorityQueue $queue);
 
     /**
      * @param Event $event
