@@ -7,14 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Render;
+namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\EventManager\EventInterface;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\View\Response\EventListenerInterface as ViewResponse;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface, FactoryInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -28,7 +26,7 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_VIEW_RENDER, $target = null, $priority = null)
+    public function __construct($event = self::EVENT_VIEW_RENDERER, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
     }
@@ -39,14 +37,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        switch($event->name())
-        {
-            case self::EVENT_VIEW_RENDER:
-                $this->selectViewRenderer($event);
-                break;
-            case ViewResponse::EVENT_VIEW_RESPONSE:
-                $this->injectResponse($event);
-                break;
-        }
+        //$event->setViewRenderer($this->renderer);
     }
 }

@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Render;
+namespace Zend\Framework\View\Renderer;
 
 class Event
     implements EventInterface, EventListenerInterface
@@ -23,7 +23,7 @@ class Event
      * @param string $name
      * @param string $target
      */
-    public function __construct($name = self::EVENT_VIEW_RENDER, $target = null)
+    public function __construct($name = self::EVENT_VIEW_RENDERER, $target = null)
     {
         $this->event($name, $target);
     }

@@ -20,7 +20,7 @@ class Listener
     use ListenerTrait;
 
     /**
-     * Triggers listener
+     * Trigger
      *
      * @param Event $event
      * @return mixed

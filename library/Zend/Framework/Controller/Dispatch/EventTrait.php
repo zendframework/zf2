@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Controller\Dispatch;
 
-use Zend\Framework\ApplicationServiceTrait as Services;
+use Zend\Framework\Application\ServiceTrait as Services;
 use Zend\Framework\Controller\Dispatch\ListenerInterface as Controller;
 use Zend\Framework\EventManager\EventTrait as EventService;
 use Zend\Framework\View\Model\ViewModel as ViewModel;

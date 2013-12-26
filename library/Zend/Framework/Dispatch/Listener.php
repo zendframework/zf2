@@ -62,7 +62,7 @@ class Listener
 
         try {
 
-            $em->trigger($dispatch);
+            $em->__invoke($dispatch);
 
             $event->setResponse($dispatch->getResponse())
                   ->setResult($dispatch->getResult())

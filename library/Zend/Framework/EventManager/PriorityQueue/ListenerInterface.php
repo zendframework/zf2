@@ -17,7 +17,7 @@ interface ListenerInterface
     extends Listener
 {
     /**
-     * Push listener to top of prioritized queue
+     * Push listener to top of queue
      *
      * @param Listener $listener
      * @return self
@@ -25,24 +25,32 @@ interface ListenerInterface
     public function push(Listener $listener);
 
     /**
+     * Add
+     *
      * @param Listener $listener
      * @return self
      */
     public function add(Listener $listener);
 
     /**
+     * Remove
+     *
      * @param Listener $listener
      * @return self
      */
     public function remove(Listener $listener);
 
     /**
+     * Listeners
+     *
      * @param Event $event
      * @return PriorityQueue
      */
     public function listeners(Event $event);
 
     /**
+     * Queue listeners
+     *
      * @param Event $event
      * @param PriorityQueue $queue
      * @return PriorityQueue
@@ -50,6 +58,8 @@ interface ListenerInterface
     public function queue(Event $event, PriorityQueue $queue);
 
     /**
+     * Trigger
+     *
      * @param Event $event
      * @return bool stopped
      */

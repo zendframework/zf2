@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework;
+namespace Zend\Framework\Application;
 
-use Zend\Framework\ApplicationInterface as Application;
-use Zend\Framework\EventManager\ManagerInterface as EventManager;
+use Zend\Framework\Application\ListenerInterface as Application;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 use Zend\Framework\ServiceManager as ApplicationServiceManager;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 use Zend\Framework\View\Config as ViewConfig;
@@ -37,7 +37,7 @@ use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
 use Zend\Mvc\Router\RoutePluginManager as RoutePluginManager;
 
 
-trait ApplicationServiceTrait
+trait ServiceTrait
 {
     /**
      * @var ApplicationServiceManager

@@ -15,12 +15,14 @@ interface ListenerInterface
     extends Listener
 {
     /**
+     * Callback
+     *
      * @return callable
      */
     public function callback();
 
     /**
-     * Callable used for this listener
+     * Callback set
      *
      * @param callable $callback
      * @return self

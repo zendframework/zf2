@@ -10,7 +10,7 @@
 namespace Zend\Framework\Mvc;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ManagerInterface as EventManager;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
 interface EventInterface

@@ -10,7 +10,8 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\EventTrait as EventService;
-use Zend\Framework\ApplicationServiceTrait as Services;
+use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\View\Model\ViewModel;
 
 trait EventTrait
 {
@@ -18,4 +19,49 @@ trait EventTrait
      *
      */
     use EventService, Services;
+
+    /**
+     * @var mixed
+     */
+    protected $result;
+
+    /**
+     * @var ViewModel
+     */
+    protected $vm;
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param $result
+     * @return self
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+        return $this;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function getViewModel()
+    {
+        return $this->vm;
+    }
+
+    /**
+     * @param ViewModel $vm
+     * @return self
+     */
+    public function setViewModel(ViewModel $vm)
+    {
+        $this->vm = $vm;
+    }
 }

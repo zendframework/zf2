@@ -7,21 +7,20 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework;
+namespace Zend\Framework\Application;
 
-use Zend\Framework\EventManager\ManagerInterface as EventManager;
+use Zend\Framework\EventManager\Manager\ListenerTrait as ManagerService;
 use Zend\Framework\Mvc\Event as MvcEvent;
+use Zend\Framework\ServiceManager\Config  as ServiceManagerConfig;
 use Zend\Framework\ServiceManager;
-use Zend\Framework\ServiceManager\Config as ServiceManagerConfig;
 use Zend\Framework\ServiceManager\ServiceManagerInterface;
 
-class Application
-    implements ApplicationInterface
+trait ListenerTrait
 {
     /**
-     * @var ServiceManager
+     *
      */
-    protected $sm;
+    use ManagerService, ServiceTrait;
 
     /**
      * @param ServiceManagerInterface $sm
@@ -29,22 +28,6 @@ class Application
     public function __construct(ServiceManagerInterface $sm)
     {
         $this->sm = $sm;
-    }
-
-    /**
-     * @return EventManager
-     */
-    public function getEventManager()
-    {
-        return $this->sm->getEventManager();
-    }
-
-    /**
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->sm;
     }
 
     /**
@@ -64,20 +47,18 @@ class Application
     }
 
     /**
-     * @return self
+     *
      */
     public function run()
     {
         $sm = $this->getServiceManager();
-        $em = $this->getEventManager();
 
         $event = new MvcEvent;
 
         $event->setTarget($this)
-              ->setServiceManager($sm);
+              ->setServiceManager($sm)
+              ->setEventManager($this);
 
-        $em->trigger($event);
-
-        return $this;
+        $this->__invoke($event);
     }
 }

@@ -12,19 +12,20 @@ namespace Zend\Framework\EventManager;
 interface EventListenerInterface
 {
     /**
+     * Wildcard
      *
      */
     const WILDCARD = '*';
 
     /**
-     * Event name
+     * Name
      *
      * @return string|array
      */
     public function name();
 
     /**
-     * Event name
+     * Name set
      *
      * @param $name
      * @return self
@@ -32,14 +33,14 @@ interface EventListenerInterface
     public function setName($name);
 
     /**
-     * Event target
+     * Target
      *
      * @return string|array|object
      */
     public function target();
 
     /**
-     * Event target
+     * Target set
      *
      * @param $target
      * @return self

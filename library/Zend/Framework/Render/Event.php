@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Render;
 
+use Zend\Framework\Mvc\EventInterface;
+
 class Event
     implements EventInterface, EventListenerInterface
 {

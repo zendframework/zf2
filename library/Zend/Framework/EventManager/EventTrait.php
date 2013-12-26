@@ -16,21 +16,25 @@ trait EventTrait
      *
      * @var string
      */
-    public $name = EventInterface::WILDCARD;
+    protected $name = EventInterface::WILDCARD;
 
     /**
-     * Target (identifiers)
+     * Target
      *
      * @var string|array
      */
-    public $target = EventInterface::WILDCARD;
+    protected $target = EventInterface::WILDCARD;
 
     /**
+     * Stopped
+     *
      * @var bool Stopped
      */
-    public $stopped = false;
+    protected $stopped = false;
 
     /**
+     * Constructor
+     *
      * @param string $name
      * @param string|array $target
      */
@@ -46,7 +50,7 @@ trait EventTrait
     }
 
     /**
-     * Triggers event
+     * Trigger
      *
      * @param ListenerInterface $listener
      * @return bool Stopped
@@ -59,6 +63,18 @@ trait EventTrait
     }
 
     /**
+     * Name
+     *
+     * @return string|array
+     */
+    public function name()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Name set
+     *
      * @param $name string|array
      * @return self
      */
@@ -69,14 +85,8 @@ trait EventTrait
     }
 
     /**
-     * @return string|array
-     */
-    public function name()
-    {
-        return $this->name;
-    }
-
-    /**
+     * Target set
+     *
      * @param string|array $target
      * @return self
      */
@@ -87,6 +97,8 @@ trait EventTrait
     }
 
     /**
+     * Target
+     *
      * @return string|array
      */
     public function target()
@@ -95,7 +107,7 @@ trait EventTrait
     }
 
     /**
-     * Stop event
+     * Stop
      *
      * @return self
      */
@@ -106,7 +118,7 @@ trait EventTrait
     }
 
     /**
-     * If event stopped
+     * Stopped
      *
      * @return bool
      */

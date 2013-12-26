@@ -17,7 +17,7 @@ class ServiceManager
     /**
      *
      */
-    use ApplicationServiceTrait;
+    use Application\ServiceTrait;
 
     /**
      * @param Config $config

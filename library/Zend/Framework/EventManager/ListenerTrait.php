@@ -12,27 +12,29 @@ namespace Zend\Framework\EventManager;
 trait ListenerTrait
 {
     /**
-     * Name(s) of events to listener for
+     * Name
      *
      * @var string|array
      */
     protected $name = ListenerInterface::WILDCARD;
 
     /**
-     * Target (identifiers) of the events to listen for
+     * Target
      *
      * @var mixed
      */
     protected $target = ListenerInterface::WILDCARD;
 
     /**
-     * Priority of listener
+     * Priority
      *
      * @var int
      */
     protected $priority = ListenerInterface::PRIORITY;
 
     /**
+     * Constructor
+     *
      * @param $event
      * @param $target
      * @param $priority
@@ -53,6 +55,8 @@ trait ListenerTrait
     }
 
     /**
+     * Name set
+     *
      * @param $name string|array
      * @return self
      */
@@ -63,6 +67,8 @@ trait ListenerTrait
     }
 
     /**
+     * Name
+     *
      * @return string|array
      */
     public function name()
@@ -71,6 +77,8 @@ trait ListenerTrait
     }
 
     /**
+     * Names
+     *
      * @return string|array
      */
     public function names()
@@ -82,6 +90,8 @@ trait ListenerTrait
     }
 
     /**
+     * Target set
+     *
      * @param string|array $target
      * @return self
      */
@@ -92,6 +102,8 @@ trait ListenerTrait
     }
 
     /**
+     * Target
+     *
      * @return string|array|object
      */
     public function target()
@@ -100,6 +112,8 @@ trait ListenerTrait
     }
 
     /**
+     * Targets
+     *
      * @return array
      */
     public function targets()
@@ -111,6 +125,8 @@ trait ListenerTrait
     }
 
     /**
+     * Priority set
+     *
      * @param int $priority
      * @return self
      */
@@ -122,6 +138,8 @@ trait ListenerTrait
     }
 
     /**
+     * Priority
+     *
      * @return int
      */
     public function priority()
@@ -130,7 +148,7 @@ trait ListenerTrait
     }
 
     /**
-     * Triggers listener
+     * Trigger
      *
      * @param EventInterface $event
      */

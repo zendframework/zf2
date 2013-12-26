@@ -26,7 +26,7 @@ class Event
      * @param string $name
      * @param string $target
      */
-    public function __construct($name = self::EVENT_RENDER, $target = null)
+    public function __construct($name = self::EVENT_VIEW, $target = null)
     {
         $this->event($name, $target);
     }
@@ -38,10 +38,6 @@ class Event
     public function __invoke(Listener $listener)
     {
         $listener->__invoke($this);
-
-        if ($this->getViewRenderer() instanceof Renderer) {
-            $this->stopped = true;
-        }
 
         return $this->stopped;
     }

@@ -45,6 +45,6 @@ class Listener
         $response->setTarget($event->target())
                  ->setServiceManager($event->getServiceManager());
 
-        $em->trigger($response);
+        $em->__invoke($response);
     }
 }

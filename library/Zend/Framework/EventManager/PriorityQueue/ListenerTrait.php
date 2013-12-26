@@ -22,12 +22,14 @@ trait ListenerTrait
     use ListenerService;
 
     /**
+     * Listeners
+     *
      * @var array ListenerInterface
      */
     protected $listeners = [];
 
     /**
-     * Add listener
+     * Push listener to top of queue
      *
      * @param ListenerInterface $listener
      * @return self
@@ -38,6 +40,11 @@ trait ListenerTrait
         $priority = $listener->priority();
 
         foreach($names as $name) {
+            if (!isset($this->listeners[$name][$priority])) {
+                $this->listeners[$name][$priority][] = $listener;
+                continue;
+            }
+
             array_unshift($this->listeners[$name][$priority], $listener);
         }
 
@@ -85,6 +92,8 @@ trait ListenerTrait
     }
 
     /**
+     * Match target listeners
+     *
      * @param string $target
      * @param array $listeners
      * @param PriorityQueue $queue
@@ -108,6 +117,8 @@ trait ListenerTrait
     }
 
     /**
+     * Queue listeners
+     *
      * @param EventInterface $event
      * @param PriorityQueue $queue
      * @return PriorityQueue
@@ -131,6 +142,8 @@ trait ListenerTrait
     }
 
     /**
+     * Listeners
+     *
      * @param EventInterface $event
      * @return PriorityQueue
      */
@@ -140,12 +153,15 @@ trait ListenerTrait
     }
 
     /**
+     * Trigger
+     *
      * @param EventInterface $event
      * @return bool stopped
      */
     public function __invoke(EventInterface $event)
     {
         foreach($this->listeners($event) as $listener) {
+            //var_dump(get_class($event).' :: '.$event->name().' :: '.get_class($listener));
             if ($event->__invoke($listener)) {
                 return false; //event stopped
             }

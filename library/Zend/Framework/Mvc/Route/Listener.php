@@ -48,6 +48,6 @@ class Listener
               ->setRequest($event->getRequest())
               ->setRouter($event->getRouter());
 
-        $em->trigger($route);
+        $em->__invoke($route);
     }
 }

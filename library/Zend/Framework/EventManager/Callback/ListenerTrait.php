@@ -22,11 +22,15 @@ trait ListenerTrait
     }
 
     /**
+     * Callback
+     *
      * @var callable
      */
     protected $callback;
 
     /**
+     * Constructor
+     *
      * @param $callback
      * @param $event
      * @param $target
@@ -39,6 +43,8 @@ trait ListenerTrait
     }
 
     /**
+     * Callback
+     *
      * @return callable
      */
     public function callback()
@@ -47,8 +53,10 @@ trait ListenerTrait
     }
 
     /**
+     * Callback set
+     *
      * @param $callback
-     * @return param
+     * @return self
      */
     public function setCallback(callable $callback)
     {
@@ -57,6 +65,8 @@ trait ListenerTrait
     }
 
     /**
+     * Trigger
+     *
      * @param EventInterface $event
      * @return mixed
      */

@@ -7,15 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Render;
+namespace Zend\Framework\Application;
 
-use Zend\Framework\ApplicationServiceTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
-
-trait EventTrait
+interface EventListenerInterface
 {
     /**
      *
      */
-    use EventService;
+    const EVENT_APPLICATION = 'application';
 }

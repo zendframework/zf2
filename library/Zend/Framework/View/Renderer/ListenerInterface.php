@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Render;
+namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
@@ -16,7 +16,7 @@ interface ListenerInterface
     extends Listener
 {
     /**
-     * Invokes listener with the event
+     * Trigger
      *
      * @param EventInterface $event
      * @return mixed

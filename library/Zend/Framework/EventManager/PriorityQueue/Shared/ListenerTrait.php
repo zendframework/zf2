@@ -7,13 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager;
+namespace Zend\Framework\EventManager\PriorityQueue\Shared;
 
-use Zend\Framework\EventManager\EventListenerInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\ListenerInterface;
 use Zend\Framework\EventManager\PriorityQueue\ListenerTrait as ListenerService;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
-trait ManagerTrait
+trait ListenerTrait
 {
     /**
      *
@@ -24,19 +25,21 @@ trait ManagerTrait
     }
 
     /**
+     * Shared listeners
+     *
      * @var array self
      */
     protected $shared = [];
 
     /**
-     * Attach listener
+     * Add listener
      *
      * @param ListenerInterface $listener
      * @return self
      */
     public function add(ListenerInterface $listener)
     {
-        if ($listener instanceof PriorityQueue\EventListenerInterface) {
+        if ($listener instanceof EventListenerInterface) {
             $this->shared[] = $listener;
             return $this;
         }
@@ -45,10 +48,12 @@ trait ManagerTrait
     }
 
     /**
+     * Remove shared listener
+     *
      * @param ListenerInterface $listener
      * @return $this
      */
-    public function detach(ListenerInterface $listener)
+    public function unshare(ListenerInterface $listener)
     {
         $names = $listener->names();
 
@@ -66,19 +71,23 @@ trait ManagerTrait
     }
 
     /**
+     * Remove listener
+     *
      * @param ListenerInterface $listener
      * @return self
      */
     public function remove(ListenerInterface $listener)
     {
         if ($this->shared) {
-            $this->detach($listener);
+            $this->unshare($listener);
         }
 
         return $this->removeFromQueue($listener);
     }
 
     /**
+     * Shared listeners
+     *
      * @param EventInterface $event
      * @param PriorityQueue $queue
      */
@@ -87,7 +96,7 @@ trait ManagerTrait
         $name   = $event->name();
         $target = $event->target();
 
-        $names = Event::WILDCARD == $name ? [$name] : [Event::WILDCARD, $name];
+        $names = Listener::WILDCARD == $name ? [$name] : [Listener::WILDCARD, $name];
 
         foreach($this->shared as $shared) {
             foreach($names as $name) {
@@ -101,6 +110,8 @@ trait ManagerTrait
     }
 
     /**
+     * Listeners
+     *
      * @param EventInterface $event
      * @return PriorityQueue
      */
@@ -113,14 +124,5 @@ trait ManagerTrait
         }
 
         return $this->queue($event, $queue);
-    }
-
-    /**
-     * @param EventInterface $event
-     * @return bool
-     */
-    public function trigger(EventInterface $event)
-    {
-        return $this->__invoke($event);
     }
 }

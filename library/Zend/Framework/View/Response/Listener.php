@@ -9,11 +9,8 @@
 
 namespace Zend\Framework\View\Response;
 
-use Zend\Framework\EventManager\EventInterface;
-use Zend\Framework\ServiceManager\FactoryInterface;
-
 class Listener
-    implements ListenerInterface, EventListenerInterface, FactoryInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -30,14 +27,5 @@ class Listener
     public function __construct($event = self::EVENT_VIEW_RESPONSE, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
-    }
-
-    /**
-     * @param EventInterface $event
-     * @return mixed|void
-     */
-    public function __invoke(EventInterface $event)
-    {
-        $this->injectResponse($event);
     }
 }

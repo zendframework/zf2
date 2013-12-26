@@ -10,7 +10,7 @@
 namespace Zend\Framework\Render\Error;
 
 use Exception;
-use Zend\Framework\ApplicationServiceTrait as Services;
+use Zend\Framework\Application\ServiceTrait as Services;
 use Zend\Framework\EventManager\EventTrait as EventService;
 
 trait EventTrait

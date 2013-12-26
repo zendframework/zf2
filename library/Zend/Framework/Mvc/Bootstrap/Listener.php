@@ -46,6 +46,6 @@ class Listener
         $bootstrap->setTarget($event->target())
                   ->setServiceManager($sm);
 
-        $em->trigger($bootstrap);
+        $em->__invoke($bootstrap);
     }
 }

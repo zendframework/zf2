@@ -55,7 +55,7 @@ class Listener
 
         try {
 
-            $em->trigger($render);
+            $em->__invoke($render);
 
         } catch(Exception $exception) {
 
@@ -64,7 +64,7 @@ class Listener
             $error->setTarget($event->target())
                   ->setException($exception);
 
-            $em->trigger($error);
+            $em->__invoke($error);
         }
     }
 }

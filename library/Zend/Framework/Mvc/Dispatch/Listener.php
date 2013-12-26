@@ -50,7 +50,7 @@ class Listener
 
         try {
 
-            $em->trigger($dispatch);
+            $em->__invoke($dispatch);
 
         } catch (DispatchException $exception) {
 
@@ -61,7 +61,7 @@ class Listener
                      ->setControllerName($exception->getControllerName())
                      ->setControllerClass($exception->getControllerClass());
 
-            $em->trigger($dispatch);
+            $em->__invoke($dispatch);
         }
     }
 }

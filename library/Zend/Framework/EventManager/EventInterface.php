@@ -13,21 +13,21 @@ interface EventInterface
     extends EventListenerInterface
 {
     /**
-     * Stop event
+     * Stop
      *
      * @return EventInterface
      */
     public function stop();
 
     /**
-     * If event stopped
+     * Stopped
      *
      * @return bool
      */
     public function stopped();
 
     /**
-     * Triggers event
+     * Trigger
      *
      * @param ListenerInterface $listener
      * @return bool stopped

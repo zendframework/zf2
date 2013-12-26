@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\ApplicationServiceTrait as Services;
+use Zend\Framework\Application\ServiceTrait as Services;
 use Zend\Framework\EventManager\EventTrait as EventService;
 
 trait EventTrait

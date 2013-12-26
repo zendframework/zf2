@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\ManagerInterface as EventManagerInterface;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManagerInterface;
 use Zend\Framework\EventManager\Manager as EventManager;
 use Zend\Framework\View\Event as ViewEvent;
-use Zend\Framework\View\Render\EventListenerInterface as ViewRender;
+use Zend\Framework\View\Renderer\EventListenerInterface as ViewRenderer;
 use Zend\Framework\View\Response\EventListenerInterface as ViewResponse;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -37,6 +37,8 @@ class View
      * @var Response
      */
     protected $response;
+
+    protected $sm;
 
     /**
      * Set MVC request object
@@ -83,6 +85,14 @@ class View
     }
 
     /**
+     * @param $sm
+     */
+    public function setServiceManager($sm)
+    {
+        $this->sm = $sm;
+    }
+
+    /**
      * Set the event manager instance
      *
      * @param  EventManagerInterface $events
@@ -121,7 +131,7 @@ class View
      */
     public function addRenderingStrategy($callable, $priority = 1)
     {
-        $this->getEventManager()->add(ViewRender::EVENT_VIEW_RENDER, $callable, $priority);
+        $this->getEventManager()->add(ViewRenderer::EVENT_VIEW_RENDERER, $callable, $priority);
         return $this;
     }
 
@@ -165,9 +175,9 @@ class View
     {
         $event   = $this->getEvent();
 
-        $event->setModel($model);
+        $event->setViewModel($model);
         $events  = $this->getEventManager();
-        $event->setName(ViewRender::EVENT_VIEW_RENDER);
+        $event->setName(ViewRenderer::EVENT_VIEW_RENDERER);
 
         /*$event->setCallback(function ($event, $listener, $response) {
             if ($response instanceof Renderer) {
@@ -175,7 +185,7 @@ class View
             }
         });*/
 
-        $events->trigger($event);
+        $events->__invoke($event);
 
         $renderer = $event->getViewRenderer();
         if (!$renderer instanceof Renderer) {
@@ -186,12 +196,12 @@ class View
         }
 
         $event->setViewRenderer($renderer);
-        $event->setName(ViewRender::EVENT_VIEW_RENDER_POST);
-        $events->trigger($event);
+        $event->setName(ViewRenderer::EVENT_VIEW_RENDERER_POST);
+        $events->__invoke($event);
 
-        // If EVENT_VIEW_RENDER or EVENT_VIEW_RENDER_POST changed the model, make sure
+        // If EVENT_VIEW_RENDERER or EVENT_VIEW_RENDERER_POST changed the model, make sure
         // we use this new model instead of the current $model
-        $model   = $event->getModel();
+        $model   = $event->getViewModel();
 
         // If we have children, render them first, but only if:
         // a) the renderer does not implement TreeRendererInterface, or
@@ -204,7 +214,7 @@ class View
         }
 
         // Reset the model, in case it has changed, and set the renderer
-        $event->setModel($model);
+        $event->setViewModel($model);
         $event->setViewRenderer($renderer);
 
         $rendered = $renderer->render($model);
@@ -219,7 +229,7 @@ class View
         $event->setResult($rendered);
         $event->setName(ViewResponse::EVENT_VIEW_RESPONSE);
 
-        $events->trigger($event);
+        $events->__invoke($event);
     }
 
     /**
@@ -258,6 +268,7 @@ class View
     protected function getEvent()
     {
         $event = new ViewEvent;
+        $event->setServiceManager($this->sm);
 
         $event->setTarget($this);
 

@@ -9,13 +9,14 @@
 
 namespace Zend\Framework\Render;
 
+use Zend\Framework\Mvc\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener
 {
     /**
-     * Invokes listener with the event
+     * Trigger
      *
      * @param EventInterface $event
      * @return mixed

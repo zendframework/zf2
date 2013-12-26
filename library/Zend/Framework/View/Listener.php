@@ -9,8 +9,10 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\View\Renderer\Event as ViewRendererEvent;
+use Zend\Framework\View\Response\Event as ViewResponseEvent;
 use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\EventManager\EventInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface, FactoryInterface
@@ -27,7 +29,7 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_VIEW_RENDER, $target = null, $priority = null)
+    public function __construct($event = self::EVENT_VIEW, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
     }
@@ -35,17 +37,28 @@ class Listener
     /**
      * @param EventInterface $event
      * @return mixed|void
+     * @throws DispatchException
      */
     public function __invoke(EventInterface $event)
     {
-        switch($event->name())
-        {
-            case self::EVENT_VIEW_RENDER:
-                $this->selectRenderer($event);
-                break;
-            case self::EVENT_VIEW_RESPONSE:
-                $this->injectResponse($event);
-                break;
-        }
+        $em = $event->getEventManager();
+        $sm = $event->getServiceManager();
+
+        $renderer = new ViewRendererEvent;
+
+        $renderer->setTarget($event->target())
+                 ->setServiceManager($sm);
+
+        $em->__invoke($renderer);
+
+        $response = new ViewResponseEvent;
+
+        $response->setTarget($event->target())
+                 ->setServiceManager($sm)
+                 //->setResult($renderer->getResult())
+                 ->setResult($renderer->getResult())
+                 ->setViewRenderer($renderer->getViewRenderer());
+
+        $em->__invoke($response);
     }
 }

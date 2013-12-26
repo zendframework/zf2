@@ -9,9 +9,9 @@
 
 namespace Zend\Framework\View\Response;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
-use Zend\Framework\ApplicationServiceTrait as Services;
+use Zend\Framework\Application\ServiceTrait as Services;
 
 trait ListenerTrait
 {
@@ -55,15 +55,16 @@ trait ListenerTrait
      * Populates the content of the response object from the view rendering
      * results.
      *
-     * @param Event $event
+     * @param EventInterface $event
      * @return void
      */
-    public function injectResponse(Event $event)
+    public function __invoke(EventInterface $event)
     {
         $renderer = $event->getViewRenderer();
-        if ($renderer !== $this->renderer) {
-            return;
-        }
+        //fixme broken $this->render from view.renderer
+        //if ($renderer !== $this->renderer) {
+            //return;
+        //}
 
         $result   = $event->getResult();
         $response = $event->getResponse();

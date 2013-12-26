@@ -7,15 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager;
+namespace Zend\Framework\View\Renderer;
 
-class Manager
-    implements PriorityQueue\ListenerInterface,
-               PriorityQueue\EventListenerInterface,
-               ManagerInterface
+interface EventListenerInterface
 {
     /**
      *
      */
-    use ManagerTrait;
+    const EVENT_VIEW_RENDERER = 'view.renderer';
+
+    /**
+     *
+     */
+    const EVENT_VIEW_RENDERER_POST = 'view.renderer.post';
 }

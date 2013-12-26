@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\View\Response;
 
-use Zend\Framework\EventManager\EventTrait;
-
 class Event
     implements EventInterface, EventListenerInterface
 {
@@ -25,7 +23,7 @@ class Event
      * @param string $name
      * @param string $target
      */
-    public function __construct($name = self::EVENT_RESPONSE, $target = null)
+    public function __construct($name = self::EVENT_VIEW_RESPONSE, $target = null)
     {
         $this->event($name, $target);
     }

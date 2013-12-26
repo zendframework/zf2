@@ -7,21 +7,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework;
+namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\EventManager\ManagerInterface as EventManager;
-use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\Application\ServiceTrait as Services;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\View\Renderer\RendererInterface as Renderer;
 
-class ApplicationFactory
-    implements FactoryInterface
+trait ListenerTrait
 {
     /**
-     * @param ServiceManager $sm
-     * @return EventManager
+     *
      */
-    public function createService(ServiceManager $sm)
-    {
-        return new Application($sm);
-    }
+    use ListenerService, Services;
 }

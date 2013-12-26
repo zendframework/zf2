@@ -7,38 +7,45 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager;
+namespace Zend\Framework\Application;
 
-use Zend\Framework\EventManager\Manager as EventManager;
+use Zend\Framework\EventManager\ListenerInterface;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
 
-class ManagerFactory
+class ListenerFactory
     implements FactoryInterface
 {
     /**
      * @param ServiceManager $sm
-     * @return Manager
+     * @return EventManager
      */
     public function createService(ServiceManager $sm)
     {
-        $listeners = $sm->getApplicationConfig()['event_manager']['listeners'];
+        $application = new Listener($sm);
+        $application->setServiceManager($sm)
+                    ->setEventManager($application);
 
-        $em = new EventManager;
+        $listeners = $sm->getApplicationConfig()['event_manager']['listeners'];
 
         foreach($listeners as $event => $eventListeners) {
             foreach($eventListeners as $listener) {
                 if (is_string($listener)) {
-                    $listener = $sm->getService($listener);
+                    $service = $sm->getService($listener);
+                    if (!$service) {
+                        throw new \Exception($listener);
+                    }
+                    $listener = $service;
                     if ($listener instanceof ListenerInterface) {
                         $listener->setName($event);
                     }
                 }
 
-                $em->add($listener);
+                $application->add($listener);
             }
         }
 
-        return $em;
+        return $application;
     }
 }

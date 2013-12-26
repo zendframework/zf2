@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Render;
 
+use Zend\Framework\Mvc\EventInterface;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
 
@@ -56,6 +57,7 @@ class Listener
         $view = $event->getView();
         $view->setRequest($request);
         $view->setResponse($response);
+        $view->setServiceManager($event->getServiceManager());
 
         $view->render($viewModel);
     }

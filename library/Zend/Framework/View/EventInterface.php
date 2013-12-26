@@ -10,8 +10,30 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\View\Model\ViewModel;
 
 interface EventInterface
     extends Event
 {
+    /**
+     * @return mixed
+     */
+    public function getResult();
+
+    /**
+     * @param mixed $result
+     * @return self
+     */
+    public function setResult($result);
+
+    /**
+     * @return ViewModel
+     */
+    public function getViewModel();
+
+    /**
+     * @param ViewModel $vm
+     * @return self
+     */
+    public function setViewModel(ViewModel $vm);
 }
