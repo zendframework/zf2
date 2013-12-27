@@ -11,6 +11,8 @@ namespace Zend\Framework\Mvc\View;
 
 use Zend\Framework\View\Event as ViewEvent;
 use Zend\Framework\Mvc\EventInterface;
+use Zend\Stdlib\ResponseInterface as Response;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -38,12 +40,36 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $em = $event->getEventManager();
         $sm = $event->getServiceManager();
+        $em = $event->getEventManager();
+        $result = $event->getResult();
+        if ($result instanceof Response) {
+            return;
+        }
 
-        $view = new ViewEvent;
-        $view->setServiceManager($sm);
+        $viewModel = $event->getViewModel();
+        if (!$viewModel instanceof ViewModel) {
+            return;
+        }
 
-        $em->__invoke($view);
+        $render = new ViewEvent;
+
+        $render->setTarget($event->target())
+               ->setServiceManager($sm)
+               ->setViewModel($viewModel);
+
+        try {
+
+            $em->__invoke($render);
+
+        } catch(Exception $exception) {
+
+            $error = new ViewErrorEvent;
+
+            $error->setTarget($event->target())
+                ->setException($exception);
+
+            $em->__invoke($error);
+        }
     }
 }

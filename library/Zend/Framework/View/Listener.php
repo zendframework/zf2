@@ -9,14 +9,12 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\View\Renderer\Event as ViewRendererEvent;
-use Zend\Framework\View\Response\Event as ViewResponseEvent;
-use Zend\Framework\ServiceManager\FactoryInterface;
 use Zend\Framework\EventManager\EventInterface;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface, FactoryInterface
+    implements ListenerInterface, EventListenerInterface
 {
+
     /**
      *
      */
@@ -41,24 +39,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $em = $event->getEventManager();
-        $sm = $event->getServiceManager();
-
-        $renderer = new ViewRendererEvent;
-
-        $renderer->setTarget($event->target())
-                 ->setServiceManager($sm);
-
-        $em->__invoke($renderer);
-
-        $response = new ViewResponseEvent;
-
-        $response->setTarget($event->target())
-                 ->setServiceManager($sm)
-                 //->setResult($renderer->getResult())
-                 ->setResult($renderer->getResult())
-                 ->setViewRenderer($renderer->getViewRenderer());
-
-        $em->__invoke($response);
+        $this->render($event->getViewModel(), $event);
     }
 }

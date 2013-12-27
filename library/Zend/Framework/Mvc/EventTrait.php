@@ -18,4 +18,27 @@ trait EventTrait
      *
      */
     use EventService, Services;
+
+    /**
+     * @var mixed
+     */
+    protected $result;
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param $result
+     * @return self
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+        return $this;
+    }
 }

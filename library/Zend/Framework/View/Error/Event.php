@@ -7,9 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Render;
-
-use Zend\Framework\Mvc\EventInterface;
+namespace Zend\Framework\View\Error;
 
 class Event
     implements EventInterface, EventListenerInterface
@@ -25,7 +23,7 @@ class Event
      * @param string $name
      * @param string $target
      */
-    public function __construct($name = self::EVENT_RENDER, $target = null)
+    public function __construct($name = self::EVENT_RENDER_ERROR, $target = null)
     {
         $this->event($name, $target);
     }

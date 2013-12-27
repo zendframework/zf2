@@ -20,4 +20,15 @@ interface EventInterface
      * @return mixed
      */
     public function setServiceManager(ServiceManager $sm);
+
+    /**
+     * @return mixed
+     */
+    public function getResult();
+
+    /**
+     * @param $result
+     * @return self
+     */
+    public function setResult($result);
 }

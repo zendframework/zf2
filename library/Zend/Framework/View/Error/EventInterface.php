@@ -7,19 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Render;
+namespace Zend\Framework\View\Error;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
-use Zend\Framework\Mvc\EventInterface;
+use Exception;
+use Zend\Framework\EventManager\EventInterface as Event;
 
-interface ListenerInterface
-    extends Listener
+interface EventInterface
+    extends Event
 {
     /**
-     * Trigger
-     *
-     * @param EventInterface $event
-     * @return mixed
+     * @param Exception $exception
+     * @return self
      */
-    public function __invoke(EventInterface $event);
+    public function setException(Exception $exception);
 }

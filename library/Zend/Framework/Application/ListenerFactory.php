@@ -20,6 +20,7 @@ class ListenerFactory
     /**
      * @param ServiceManager $sm
      * @return EventManager
+     * @throws \Exception
      */
     public function createService(ServiceManager $sm)
     {

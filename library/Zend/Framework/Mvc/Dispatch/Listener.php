@@ -52,6 +52,8 @@ class Listener
 
             $em->__invoke($dispatch);
 
+            $event->setResult($dispatch->getResult());
+
         } catch (DispatchException $exception) {
 
             $dispatch = new DispatchErrorEvent;

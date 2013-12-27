@@ -9,10 +9,13 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\View\Renderer\Event as ViewRendererEvent;
+use Zend\Framework\View\Response\Event as ViewResponseEvent;
 use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\View\Renderer\TreeRendererInterface;
+use Zend\Framework\View\Model\ViewModel;
 
 trait ListenerTrait
 {
@@ -22,103 +25,97 @@ trait ListenerTrait
     use ListenerService;
 
     /**
-     * Placeholders that may hold content
-     *
-     * @var array
+     * @param ViewModel $model
+     * @param EventInterface $event
+     * @return mixed
+     * @throws Exception\RuntimeException
      */
-    protected $contentPlaceholders = array('article', 'content');
-
-    /**
-     * @var Renderer
-     */
-    protected $renderer;
-
-    /**
-     * @param ServiceManager $sm
-     * @return Listener
-     */
-    public function createService(ServiceManager $sm)
+    public function render(ViewModel $model, EventInterface $event)
     {
-        $this->setRenderer($sm->getViewRenderer());
-        return $this;
+        $em = $event->getEventManager();
+        $sm = $event->getServiceManager();
 
-    }
+        $rendererEvent = new ViewRendererEvent;
 
-    /**
-     * Set list of possible content placeholders
-     *
-     * @param  array $contentPlaceholders
-     * @return Listener
-     */
-    public function setContentPlaceholders(array $contentPlaceholders)
-    {
-        $this->contentPlaceholders = $contentPlaceholders;
-        return $this;
-    }
+        $rendererEvent->setServiceManager($sm)
+            //->setName(ViewRenderer::EVENT_VIEW_RENDERER)
+            ->setTarget($event->target())
+            ->setViewModel($model);
 
-    /**
-     * Get list of possible content placeholders
-     *
-     * @return array
-     */
-    public function getContentPlaceholders()
-    {
-        return $this->contentPlaceholders;
-    }
 
-    /**
-     * @param Renderer $renderer
-     * @return self
-     */
-    public function setRenderer(Renderer $renderer)
-    {
-        $this->renderer = $renderer;
-        return $this;
-    }
+        $em->__invoke($rendererEvent);
 
-    /**
-     * Select the PhpRenderer; typically, this will be registered last or at
-     * low priority.
-     *
-     * @param  Event $event
-     * @return Renderer
-     */
-    public function selectRenderer(Event $event)
-    {
-        $event->setRenderer($this->renderer);
-    }
+        $renderer = $rendererEvent->getViewRenderer();
 
-    /**
-     * Populate the response object from the View
-     *
-     * Populates the content of the response object from the view rendering
-     * results.
-     *
-     * @param Event $event
-     * @return void
-     */
-    public function injectResponse(Event $event)
-    {
-        $renderer = $event->getViewRenderer();
-        if ($renderer !== $this->renderer) {
-            return;
+        if (!$renderer instanceof Renderer) {
+            throw new Exception\RuntimeException(sprintf(
+                '%s: no renderer selected!',
+                __METHOD__
+            ));
         }
 
-        $result   = $event->getResult();
-        $response = $event->getResponse();
+        // If EVENT_VIEW_RENDERER changed the model, make sure
+        // we use this new model instead of the current $model
+        $model   = $rendererEvent->getViewModel();
 
-        // Set content
-        // If content is empty, check common placeholders to determine if they are
-        // populated, and set the content from them.
-        if (empty($result)) {
-            $placeholders = $renderer->plugin('placeholder');
-            foreach ($this->contentPlaceholders as $placeholder) {
-                if ($placeholders->containerExists($placeholder)) {
-                    $result = (string) $placeholders->getContainer($placeholder);
-                    break;
+        // If we have children, render them first, but only if:
+        // a) the renderer does not implement TreeRendererInterface, or
+        // b) it does, but canRenderTrees() returns false
+        if ($model->hasChildren()
+            && (!$renderer instanceof TreeRendererInterface
+                || !$renderer->canRenderTrees())
+        ) {
+            $this->renderChildren($model, $event);
+        }
+
+        // Reset the model, in case it has changed, and set the renderer
+        $event->setViewModel($model);
+        $event->setViewRenderer($renderer);
+
+        $rendered = $renderer->render($model);
+
+        // If this is a child model, return the rendered content; do not
+        // invoke the response strategy.
+        $options = $model->getOptions();
+        if (array_key_exists('has_parent', $options) && $options['has_parent']) {
+            return $rendered;
+        }
+
+        $responseEvent = new ViewResponseEvent;
+        $responseEvent->setServiceManager($sm)
+            //->setName(ViewResponse::EVENT_VIEW_RESPONSE)
+            ->setTarget($event->target())
+            ->setResult($rendered);
+
+        $em->__invoke($responseEvent);
+    }
+
+    /**
+     * Loop through children, rendering each
+     *
+     * @param  ViewModel $model
+     * @param EventInterface $event
+     * @throws Exception\DomainException
+     * @return void
+     */
+    protected function renderChildren(ViewModel $model, EventInterface $event)
+    {
+        foreach ($model as $child) {
+            if ($child->terminate()) {
+                throw new Exception\DomainException('Inconsistent state; child view model is marked as terminal');
+            }
+            $child->setOption('has_parent', true);
+            $result  = $this->render($child, $event);
+            $child->setOption('has_parent', null);
+            $capture = $child->captureTo();
+            if (!empty($capture)) {
+                if ($child->isAppend()) {
+                    $oldResult=$model->{$capture};
+                    $model->setVariable($capture, $oldResult . $result);
+                } else {
+                    $model->setVariable($capture, $result);
                 }
             }
         }
-        $response->setContent($result);
     }
 }

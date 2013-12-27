@@ -10,8 +10,8 @@
 namespace Zend\Framework\Service\Manager;
 
 use Exception;
-use Zend\Framework\Render\Error\Event as RenderErrorEvent;
-use Zend\Framework\Render\Event as RenderEvent;
+use Zend\Framework\View\Error\Event as RenderErrorEvent;
+use Zend\Framework\View\Event as RenderEvent;
 use Zend\Framework\EventManager\ListenerTrait;
 use Zend\Framework\Mvc\EventInterface;
 
