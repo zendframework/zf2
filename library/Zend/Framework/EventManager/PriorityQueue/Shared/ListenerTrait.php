@@ -96,7 +96,7 @@ trait ListenerTrait
         $name   = $event->name();
         $target = $event->target();
 
-        $names = Listener::WILDCARD == $name ? [$name] : [Listener::WILDCARD, $name];
+        $names = ListenerInterface::WILDCARD == $name ? [$name] : [ListenerInterface::WILDCARD, $name];
 
         foreach($this->shared as $shared) {
             foreach($names as $name) {

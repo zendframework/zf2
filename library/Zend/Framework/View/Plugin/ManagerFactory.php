@@ -9,15 +9,15 @@
 
 namespace Zend\Framework\View\Plugin;
 
-use Zend\Console\Console;
-use Zend\Framework\ServiceManager\Config as ServiceConfig;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+//use Zend\Console\Console;
+use Zend\Framework\Service\ListenerConfig as ServiceConfig;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\Plugin\Manager as PluginManager;
 use Zend\Mvc\Exception;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Helper as ViewHelper;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
 
 class ManagerFactory
     implements FactoryInterface

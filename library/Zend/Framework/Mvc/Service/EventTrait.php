@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service;
+namespace Zend\Framework\Mvc\Service;
 
 use Zend\Framework\Application\ServiceTrait as Services;
 use Zend\Framework\EventManager\EventTrait as EventService;
@@ -26,24 +26,19 @@ trait EventTrait
     protected $service;
 
     /**
-     * @var bool|object
-     */
-    protected $instance;
-
-    /**
      * @var array
      */
     protected $listeners = [];
 
     /**
+     * @var bool
+     */
+    protected $shared = true;
+
+    /**
      * @var array
      */
     protected $options = [];
-
-    /**
-     * @var ListenerInterface
-     */
-    protected $listener;
 
     /**
      * @return string
@@ -82,34 +77,19 @@ trait EventTrait
     }
 
     /**
-     * @return bool|object
+     * @return bool
      */
-    public function instance()
+    public function shared()
     {
-        return $this->instance;
-    }
-
-    /**
-     * @param $instance
-     */
-    public function setInstance($instance)
-    {
-        $this->instance = $instance;
-    }
-
-    /**
-     * @return ListenerInterface
-     */
-    public function listener()
-    {
-        return $this->listener;
+        return $this->shared;
     }
 
     /**
      * @param ListenerInterface $listener
+     * @return mixed
      */
-    public function setListener(ListenerInterface $listener)
+    public function  __invoke(ListenerInterface $listener)
     {
-        $this->listener = $listener;
+        return $listener->__invoke($this);
     }
 }

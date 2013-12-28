@@ -14,5 +14,10 @@ interface EventListenerInterface
     /**
      *
      */
-    const EVENT_MVC_APPLICATION = 'mvc.service';
+    const EVENT_SERVICE = 'service';
+    /**
+     *
+     */
+    const FACTORY_OLD_INTERFACE = 'Zend\Framework\ServiceManager\FactoryInterface';
+    const FACTORY_INTERFACE = 'Zend\Framework\Mvc\Service\ListenerFactoryInterface';
 }

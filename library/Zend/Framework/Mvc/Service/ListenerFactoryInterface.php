@@ -7,12 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service\Manager;
+namespace Zend\Framework\Mvc\Service;
 
-interface EventListenerInterface
+interface ListenerFactoryInterface
 {
     /**
+     * Create service
      *
+     * @param ListenerInterface $sm
+     * @return mixed
      */
-    const EVENT_SERVICE_MANAGER = 'mvc.service.manager';
+    public function createService(ListenerInterface $sm);
 }

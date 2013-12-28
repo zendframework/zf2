@@ -46,7 +46,8 @@ class Listener
         $dispatch = new DispatchEvent;
 
         $dispatch->setTarget($event->target())
-                 ->setServiceManager($sm);
+                 ->setServiceManager($sm)
+                 ->setEventManager($em);
 
         try {
 

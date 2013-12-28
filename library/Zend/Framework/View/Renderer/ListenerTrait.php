@@ -9,11 +9,8 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 use Zend\Framework\Application\ServiceTrait as Services;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\View\Renderer\RendererInterface as Renderer;
 
 trait ListenerTrait
 {

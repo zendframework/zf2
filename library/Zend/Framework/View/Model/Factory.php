@@ -9,16 +9,15 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\View\View;
+use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 
 class Factory
     implements FactoryInterface
 {
     /**
      * @param ServiceManager $sm
-     * @return View
+     * @return ViewModel
      */
     public function createService(ServiceManager $sm)
     {

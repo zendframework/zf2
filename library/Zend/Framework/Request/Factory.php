@@ -12,8 +12,8 @@ namespace Zend\Framework\Request;
 use Zend\Console\Console;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Http\PhpEnvironment\Request as HttpRequest;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 
 class Factory implements FactoryInterface
 {

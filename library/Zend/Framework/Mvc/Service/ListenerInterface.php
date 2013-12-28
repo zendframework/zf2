@@ -7,18 +7,19 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\ServiceManager;
+namespace Zend\Framework\Mvc\Service;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\EventManager\EventInterface;
 
-trait CreateServiceTrait
+interface ListenerInterface
+    extends Listener
 {
     /**
-     * @param ServiceManagerInterface $sm
-     * @return CreateServiceTrait
+     * Trigger
+     *
+     * @param EventInterface $event
+     * @return mixed
      */
-    public function createService(ServiceManager $sm)
-    {
-        return new self();
-    }
+    public function __invoke(EventInterface $event);
 }

@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\View\Helper;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 
 use Zend\View\Helper\Url as UrlHelper;
-use Zend\Framework\ServiceManager\FactoryInterface;
+use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
 
 class Url
     extends UrlHelper

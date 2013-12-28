@@ -12,7 +12,7 @@ namespace Zend\Framework\Route\NotFound;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 use Zend\Framework\Route\EventInterface as RouteEvent;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 

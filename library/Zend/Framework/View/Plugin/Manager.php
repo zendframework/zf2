@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Plugin;
 
-use Zend\Framework\ServiceManager\AbstractPluginManager;
+use Zend\Framework\Service\Plugin\AbstractListener as PluginListener;
 
 /**
  * Plugin manager implementation for view helpers
@@ -19,7 +19,7 @@ use Zend\Framework\ServiceManager\AbstractPluginManager;
  * helpers.
  */
 class Manager
-    extends AbstractPluginManager
+    extends PluginListener
     implements ManagerInterface
 {
 }

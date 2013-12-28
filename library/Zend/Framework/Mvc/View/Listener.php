@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Mvc\View;
 
+use Zend\Framework\View\Error\Event as ViewErrorEvent;
 use Zend\Framework\View\Event as ViewEvent;
 use Zend\Framework\Mvc\EventInterface;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -56,6 +57,7 @@ class Listener
 
         $render->setTarget($event->target())
                ->setServiceManager($sm)
+               ->setEventManager($em)
                ->setViewModel($viewModel);
 
         try {

@@ -7,11 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\ServiceManager;
+namespace Zend\Framework\Service\Plugin;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerConfig as Config;
+use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
 
-abstract class AbstractPluginManager
+abstract class AbstractListener
     implements FactoryInterface
 {
     /**
@@ -26,12 +28,12 @@ abstract class AbstractPluginManager
 
     /**
      * @param ServiceManager $sm
-     * @return mixed|AbstractPluginManager
+     * @return self
      */
     public function createService(ServiceManager $sm)
     {
         $this->setServiceManager($sm)
-             ->setConfig(new Config($sm->getApplicationConfig()['plugins']));
+            ->setConfig(new Config($sm->getApplicationConfig()['plugins']));
 
         return $this;
     }
@@ -47,7 +49,7 @@ abstract class AbstractPluginManager
     }
 
     /**
-     * @param ServiceManagerInterface $sm
+     * @param ServiceManager $sm
      * @return self
      */
     public function setServiceManager(ServiceManager $sm)

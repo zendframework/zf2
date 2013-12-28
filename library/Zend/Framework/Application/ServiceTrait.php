@@ -11,12 +11,11 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Application\ListenerInterface as Application;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
-use Zend\Framework\ServiceManager as ApplicationServiceManager;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\Config as ViewConfig;
 use Zend\Framework\View\Manager as ViewManager;
 use Zend\Framework\View\Model\ViewModel;
-use Zend\Framework\View\View;
+use Zend\Framework\View\Listener as View;
 
 use Zend\View\Renderer\RendererInterface as ViewRenderer;
 
@@ -30,7 +29,7 @@ use Zend\Mvc\Router\RouteStackInterface as Router;
 
 use Zend\Mvc\Controller\ControllerManager as ControllerManager;
 
-use Zend\Mvc\Router\Http\RouteMatch as RouteMatch;
+use Zend\Mvc\Router\RouteMatch;
 
 use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
 
@@ -40,7 +39,12 @@ use Zend\Mvc\Router\RoutePluginManager as RoutePluginManager;
 trait ServiceTrait
 {
     /**
-     * @var ApplicationServiceManager
+     * @var EventManager
+     */
+    protected $em;
+
+    /**
+     * @var ServiceManager
      */
     protected $sm;
 
@@ -69,7 +73,7 @@ trait ServiceTrait
      */
     public function getServiceManager()
     {
-        return $this->getService('ServiceManager');
+        return $this->sm; //getService('ServiceManager');
     }
 
     /**
@@ -137,7 +141,7 @@ trait ServiceTrait
      */
     public function getEventManager()
     {
-        return $this->getService('EventManager');
+        return $this->em; //$this->getService('EventManager');
     }
 
     /**
@@ -146,7 +150,7 @@ trait ServiceTrait
      */
     public function setEventManager(EventManager $em)
     {
-        return $this->addService('EventManager', $em);
+        return $this->addService('EventManager', $this->em = $em);
     }
 
     /**

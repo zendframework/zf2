@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\EventManager\Manager;
 
-use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\PriorityQueue\Shared\ListenerTrait as SharedListenerService;
 
 trait ListenerTrait

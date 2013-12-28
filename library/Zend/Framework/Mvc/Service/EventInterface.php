@@ -7,31 +7,24 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service;
+namespace Zend\Framework\Mvc\Service;
 
 use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 
 interface EventInterface
     extends Event
 {
+    /**
+     * @param EventManager $em
+     * @return self
+     */
+    public function setEventManager(EventManager $em);
 
     /**
-     * @return string
+     * @param ServiceManager $sm
+     * @return self
      */
-    public function service();
-
-    /**
-     * @return array
-     */
-    public function options();
-
-    /**
-     * @return bool|object
-     */
-    public function instance();
-
-    /**
-     * @return ListenerInterface
-     */
-    public function listener();
+    public function setServiceManager(ServiceManager $sm);
 }

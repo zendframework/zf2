@@ -11,8 +11,8 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\EventManager\ListenerInterface;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 
 class ListenerFactory
     implements FactoryInterface

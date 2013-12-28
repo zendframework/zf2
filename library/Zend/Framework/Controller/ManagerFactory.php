@@ -10,9 +10,9 @@
 namespace Zend\Framework\Controller;
 
 use Zend\Framework\Controller\Manager as ControllerManager;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\Config as Config;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerConfig as Config;
 
 class ManagerFactory
     implements FactoryInterface

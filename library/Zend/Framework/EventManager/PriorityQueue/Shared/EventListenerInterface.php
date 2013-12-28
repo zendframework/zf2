@@ -7,15 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\ServiceManager;
+namespace Zend\Framework\EventManager\PriorityQueue\Shared;
 
-use Zend\Framework\ServiceManager\ServiceRequestInterface as ServiceRequest;
-
-interface ServiceListenerInterface
+interface EventListenerInterface
 {
-    /**
-     * @param ServiceRequest $service
-     * @return mixed
-     */
-    public function __invoke(ServiceRequest $service);
 }

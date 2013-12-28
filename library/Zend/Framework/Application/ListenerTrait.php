@@ -9,11 +9,14 @@
 
 namespace Zend\Framework\Application;
 
+use Exception;
+use Zend\Framework\EventManager\ListenerInterface;
 use Zend\Framework\EventManager\Manager\ListenerTrait as ManagerService;
 use Zend\Framework\Mvc\Event as MvcEvent;
-use Zend\Framework\ServiceManager\Config  as ServiceManagerConfig;
-use Zend\Framework\ServiceManager;
-use Zend\Framework\ServiceManager\ServiceManagerInterface;
+use Zend\Framework\Service\ListenerConfig  as ServiceConfig;
+use Zend\Framework\Mvc\Service\Listener as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManagerInterface;
+use \Zend\Framework\Service\Listener as ServiceListener;
 
 trait ListenerTrait
 {
@@ -32,13 +35,43 @@ trait ListenerTrait
 
     /**
      * @param array $config
-     * @return Application
+     * @return Listener
+     * @throws Exception
      */
     public static function init(array $config = [])
     {
-        $sm = new ServiceManager(new ServiceManagerConfig($config['service_manager']));
+        $sm = new ServiceManager(new ServiceConfig($config['service_manager']));
 
         $sm->setApplicationConfig($config);
+
+        $application = new Listener($sm);
+
+        $sm->setEventManager($application);
+
+        $application->setEventManager($application);
+
+        $application->add(new ServiceListener);
+
+        $listeners = $config['event_manager']['listeners'];
+
+        foreach($listeners as $event => $eventListeners) {
+            foreach($eventListeners as $listener) {
+                if (is_string($listener)) {
+                    $service = $sm->getService($listener);
+                    if (!$service) {
+                        throw new Exception($listener);
+                    }
+                    $listener = $service;
+                    if ($listener instanceof ListenerInterface) {
+                        $listener->setName($event);
+                    }
+                }
+
+                $application->add($listener);
+            }
+        }
+
+        return $application;
 
         //$mm = $sm->getService('ModuleManager');
         //$mm->loadModules();

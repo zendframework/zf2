@@ -7,14 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service\Manager;
+namespace Zend\Framework\Service;
 
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
-
-trait ListenerTrait
+interface ListenerConfigInterface
 {
-    /**
-     *
-     */
-    use ListenerService;
 }

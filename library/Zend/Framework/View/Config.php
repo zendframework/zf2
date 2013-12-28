@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\ServiceManager\Config as ServiceConfig;
+use Zend\Framework\Service\ListenerConfig as ServiceConfig;
 
 class Config
     extends ServiceConfig

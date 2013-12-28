@@ -7,14 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\Mvc\Service;
 
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Service\ListenerConfigInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
 {
-
     /**
      *
      */
@@ -23,21 +22,15 @@ class Listener
     }
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @param ListenerConfigInterface $config
+     * @param string $event
+     * @param null $target
+     * @param null $priority
      */
-    public function __construct($event = self::EVENT_VIEW, $target = null, $priority = null)
+    public function __construct(ListenerConfigInterface $config, $event = self::EVENT_SERVICE, $target = null, $priority = null)
     {
+        $this->config = $config;
+        $this->sm = $this;
         $this->listener($event, $target, $priority);
-    }
-
-    /**
-     * @param EventInterface $event
-     * @return mixed|void
-     */
-    public function __invoke(EventInterface $event)
-    {
-        $this->render($event->getViewModel(), $event);
     }
 }

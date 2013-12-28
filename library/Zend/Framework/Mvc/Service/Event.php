@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service;
+namespace Zend\Framework\Mvc\Service;
 
 use Zend\Framework\EventManager\ListenerInterface;
 
@@ -17,37 +17,38 @@ class Event
     /**
      *
      */
-    use EventTrait;
+    use EventTrait {
+        EventTrait::__construct as event;
+    }
 
     /**
      * @param $service
      * @param array $options
-     * @param string $name
+     * @param bool $shared
+     * @param $name
      */
-    public function __construct($service, array $options = [], $name = self::EVENT_SERVICE)
+    public function __construct($service, array $options = [], $shared = true, $name = self::EVENT_SERVICE)
     {
         $this->service = $service;
         $this->options = $options;
-        $this->name    = $name;
+        $this->shared  = $shared;
+        $this->event($name);
     }
 
     /**
-     * Trigger
+     * Triggers event
      *
      * @param ListenerInterface $listener
      * @return bool Stopped
      */
-    public function __invoke(ListenerInterface $listener)
+    /*public function __invoke(ListenerInterface $listener)
     {
         $response = $listener->__invoke($this);
 
-        $this->setInstance($response);
-
         if ($response) {
-            $this->setListener($listener);
             $this->stopped = true;
         }
 
         return $this->stopped;
-    }
+    }*/
 }

@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\ServiceManager;
+namespace Zend\Framework\Service;
 
-class Config
-    implements ConfigInterface
+class ListenerConfig
+    implements ListenerConfigInterface
 {
     /**
      * @var array

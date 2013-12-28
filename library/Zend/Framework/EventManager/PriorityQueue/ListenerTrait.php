@@ -26,7 +26,7 @@ trait ListenerTrait
      *
      * @var array ListenerInterface
      */
-    protected $listeners = [];
+    public $listeners = [];
 
     /**
      * Push listener to top of queue
@@ -40,6 +40,9 @@ trait ListenerTrait
         $priority = $listener->priority();
 
         foreach($names as $name) {
+            if (!isset($this->listeners[$name])) {
+                $this->listeners[$name] = [];
+            }
             if (!isset($this->listeners[$name][$priority])) {
                 $this->listeners[$name][$priority][] = $listener;
                 continue;
@@ -63,6 +66,12 @@ trait ListenerTrait
         $priority = $listener->priority();
 
         foreach($names as $name) {
+            if (!isset($this->listeners[$name])) {
+                $this->listeners[$name] = [];
+            }
+            if (!isset($this->listeners[$name][$priority])) {
+                $this->listeners[$name][$priority] = [];
+            }
             $this->listeners[$name][$priority][] = $listener;
         }
 
@@ -100,8 +109,8 @@ trait ListenerTrait
      */
     public function match($target, array $listeners, PriorityQueue $queue)
     {
-        foreach($listeners as $priority => $listeners) {
-            foreach($listeners as $listener) {
+        foreach($listeners as $priority => $priorityListeners) {
+            foreach($priorityListeners as $listener) {
                 foreach($listener->targets() as $t) {
                     if (
                         $t === ListenerInterface::WILDCARD
@@ -161,7 +170,9 @@ trait ListenerTrait
     public function __invoke(EventInterface $event)
     {
         foreach($this->listeners($event) as $listener) {
-            //var_dump(get_class($event).' :: '.$event->name().' :: '.get_class($listener));
+            //if ('service' !== $event->name()) {
+                //var_dump(get_class($event).' :: '.$event->name().' :: '.get_class($listener));
+            //}
             if ($event->__invoke($listener)) {
                 return false; //event stopped
             }

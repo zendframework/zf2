@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Exception;
 
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 
 trait ListenerTrait
 {

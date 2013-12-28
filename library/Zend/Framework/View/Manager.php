@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\ServiceManager\ConfigInterface as Config;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerConfigInterface as Config;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\ManagerInterface as ViewManager;
 
 class Manager

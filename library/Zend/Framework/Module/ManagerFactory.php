@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Module;
 
-use Zend\Framework\ServiceManager\FactoryInterface;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 use Zend\ModuleManager\ModuleManager;
 
 class ManagerFactory

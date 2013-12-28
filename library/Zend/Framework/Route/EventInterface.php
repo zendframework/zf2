@@ -10,9 +10,9 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 use Zend\Http\PhpEnvironment\Request as Request;
-use Zend\Mvc\Router\Http\RouteMatch;
+use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteStackInterface as Router;
 
 interface EventInterface

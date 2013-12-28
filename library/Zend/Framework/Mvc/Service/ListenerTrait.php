@@ -7,22 +7,25 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\ServiceManager;
+namespace Zend\Framework\Mvc\Service;
 
 use Exception;
-use Zend\Framework\ServiceManager\ConfigInterface as Config;
+use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Service\Event as ServiceEvent;
 
-class ServiceManager implements ServiceLocatorInterface
+trait ListenerTrait
 {
     /**
-     * @var Config
+     *
      */
-    protected $config;
+    use ListenerService, Services;
 
     /**
-     * @var array
+     * @var ListenerConfig
      */
-    protected $shared = [];
+    protected $config;
 
     /**
      * @var array
@@ -32,15 +35,12 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @var array
      */
-    protected $pending = [];
+    protected $shared = [];
 
     /**
-     * @param Config $config
+     * @var array
      */
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-    }
+    protected $pending = [];
 
     /**
      * @param string $name
@@ -57,19 +57,36 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function getService($name)
     {
-        return $this->get(new ServiceRequest($name));
+        $event = new Event($name);
+
+        $event->setServiceManager($this->sm)
+              ->setEventManager($this->em);
+
+        return $this->get($event);
     }
 
     /**
-     * @param ServiceRequest $service
-     * @return object
+     * @param EventInterface $event
+     * @return bool|object
+     */
+    public function get(EventInterface $event)
+    {
+        return $this->__invoke($event);
+    }
+
+    /**
+     * @param EventInterface $event
+     * @return bool|object
      * @throws Exception
      */
-    public function get(ServiceRequest $service)
+    public function __invoke(EventInterface $event)
     {
-        $name = $service->getName();
+        $em = $event->getEventManager();
+        $sm = $event->getServiceManager();
 
-        if ($service->isShared() && isset($this->shared[$name])) {
+        $name = $event->service();
+
+        if ($event->shared() && isset($this->shared[$name])) {
             return $this->shared[$name];
         }
 
@@ -79,30 +96,25 @@ class ServiceManager implements ServiceLocatorInterface
 
         $this->pending[$name] = true;
 
-        //allow service event access to the SM
-        $service->setTarget($this);
-
         if (isset($this->listeners[$name])) {
 
-            $instance = $this->listeners[$name]($service);
+            $instance = $this->listeners[$name]->__invoke($event);
 
         } else {
 
-            foreach($service->getListeners() as $listener) {
-                $instance = $service($listener);
-                if (!$instance) {
-                    continue;
-                }
+            $service = new ServiceEvent($name, $event->options());
 
-                if ($service->isShared()) {
-                    $this->shared[$name] = $instance;
-                    break;
-                }
+            $service->setServiceManager($sm);
 
-                $this->listeners[$name] = $listener;
-                break;
+            $em->__invoke($service);
+
+            $this->listeners[$name] = $service->listener();
+
+            $instance = $service->instance();
+
+            if ($event->shared()) {
+                $this->shared[$name] = $instance;
             }
-
         }
 
         $this->pending[$name] = false;

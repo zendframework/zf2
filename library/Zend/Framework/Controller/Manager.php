@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\ServiceManager\ServiceManagerInterface as ServiceManager;
+use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 
 class Manager
 {

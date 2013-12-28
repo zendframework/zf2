@@ -10,7 +10,6 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\ListenerInterface as Listener;
-use Zend\View\Renderer\RendererInterface as Renderer;
 
 class Event
     implements EventInterface, EventListenerInterface
