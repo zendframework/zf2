@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\ServiceManager\ServiceLocatorInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 

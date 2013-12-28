@@ -44,8 +44,7 @@ trait ListenerTrait
 
             $factory = $class->newInstanceArgs($options);
 
-            if ($class->implementsInterface(EventListenerInterface::FACTORY_INTERFACE)
-                || $class->implementsInterface(EventListenerInterface::FACTORY_OLD_INTERFACE)) {
+            if ($class->implementsInterface(EventListenerInterface::FACTORY_INTERFACE)) {
                 return $factory->createService($sm);
             }
 
