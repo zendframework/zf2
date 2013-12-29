@@ -18,6 +18,7 @@ use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\Listener as View;
 
 use Zend\View\Renderer\RendererInterface as ViewRenderer;
+use Zend\View\Resolver\ResolverInterface as ViewResolver;
 
 //use Zend\Console\Request as Request;
 use Zend\Http\PhpEnvironment\Request as Request;
@@ -35,6 +36,7 @@ use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
 
 use Zend\Mvc\Router\RoutePluginManager as RoutePluginManager;
 
+use Zend\Framework\View\Plugin\Manager as ViewPluginManager;
 
 trait ServiceTrait
 {
