@@ -11,7 +11,7 @@ namespace Zend\Framework\View\Template\Resolver;
 
 use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
 use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
-use Zend\View\Resolver as ViewResolver;
+use Zend\View\Resolver\TemplatePathStack;
 
 class PathStackFactory implements FactoryInterface
 {
@@ -23,13 +23,13 @@ class PathStackFactory implements FactoryInterface
      * ['view_manager']['default_template_suffix']
      *
      * @param  ServiceManager $sm
-     * @return ViewResolver\TemplatePathStack
+     * @return TemplatePathStack
      */
     public function createService(ServiceManager $sm)
     {
         $config = $sm->getApplicationConfig();
 
-        $templatePathStack = new ViewResolver\TemplatePathStack();
+        $templatePathStack = new TemplatePathStack();
 
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];

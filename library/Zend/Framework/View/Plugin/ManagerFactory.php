@@ -28,17 +28,11 @@ class ManagerFactory
      */
     public function createService(ServiceManager $sm)
     {
-        $configuration = $sm->getApplicationConfig();
-
         $config = $sm->getViewManager()->getViewHelpers();
 
         $plugins = new PluginManager;
         $plugins->setServiceManager($sm)
                 ->setConfig(new ServiceConfig($config));
-
-        if (isset($configuration['di']) && $sm->has('Di')) {
-            $plugins->addAbstractFactory($sm->getService('DiAbstractServiceFactory'));
-        }
 
         // Configure URL view helper with router
         /*$plugins->addInvokableClass('url', function ($sm) use ($sm) {

@@ -11,17 +11,17 @@ namespace Zend\Framework\View\Resolver;
 
 use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
 use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
-use Zend\View\Resolver as ViewResolver;
+use Zend\View\Resolver\AggregateResolver as ViewResolver;
 
 class Factory implements FactoryInterface
 {
     /**
      * @param ServiceManager $serviceLocator
-     * @return mixed|ViewResolver\AggregateResolver
+     * @return ViewResolver
      */
     public function createService(ServiceManager $serviceLocator)
     {
-        $resolver = new ViewResolver\AggregateResolver();
+        $resolver = new ViewResolver;
         $resolver->attach($serviceLocator->getService('View\Template\Resolver\Map'));
         $resolver->attach($serviceLocator->getService('View\Template\Resolver\PathStack'));
         return $resolver;

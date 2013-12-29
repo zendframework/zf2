@@ -12,6 +12,7 @@ namespace Zend\Framework\View;
 use Zend\Framework\Service\ListenerConfigInterface as Config;
 use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\ManagerInterface as ViewManager;
+use Zend\View\Resolver\ResolverInterface as ViewResolver;
 
 class Manager
     implements ViewManager
@@ -110,7 +111,7 @@ class Manager
     }
 
     /**
-     * @return mixed
+     * @return ViewResolver
      */
     public function getViewResolver()
     {
@@ -118,10 +119,10 @@ class Manager
     }
 
     /**
-     * @param $resolver
+     * @param ViewResolver $resolver
      * @return self
      */
-    public function setViewResolver($resolver)
+    public function setViewResolver(ViewResolver $resolver)
     {
         $this->sm->setViewResolver($resolver);
         return $this;

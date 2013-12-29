@@ -11,7 +11,8 @@ namespace Zend\Framework\View\Template\Resolver;
 
 use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
 use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
-use Zend\View\Resolver as ViewResolver;
+use Zend\View\Resolver\TemplateMapResolver;
+
 
 class MapFactory implements FactoryInterface
 {
@@ -22,7 +23,7 @@ class MapFactory implements FactoryInterface
      * ['view_manager']['template_map']
      *
      * @param  ServiceManager $sm
-     * @return ViewResolver\TemplateMapResolver
+     * @return TemplateMapResolver
      */
     public function createService(ServiceManager $sm)
     {
@@ -34,6 +35,6 @@ class MapFactory implements FactoryInterface
                 $map = $config['template_map'];
             }
         }
-        return new ViewResolver\TemplateMapResolver($map);
+        return new TemplateMapResolver($map);
     }
 }

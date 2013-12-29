@@ -15,7 +15,10 @@ use Zend\Framework\View\Renderer\Event as ViewRendererEvent;
 use Zend\Framework\View\Response\Event as ViewResponseEvent;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Renderer\TreeRendererInterface;
+use Zend\View\Exception\DomainException;
+use Zend\View\Exception\RuntimeException;
 use Zend\Framework\View\Model\ViewModel;
+
 
 trait ListenerTrait
 {
@@ -28,7 +31,7 @@ trait ListenerTrait
      * @param ViewModel $model
      * @param EventInterface $event
      * @return mixed
-     * @throws Exception\RuntimeException
+     * @throws RuntimeException
      */
     public function render(ViewModel $model, EventInterface $event)
     {
@@ -48,7 +51,7 @@ trait ListenerTrait
         $renderer = $rendererEvent->getViewRenderer();
 
         if (!$renderer instanceof Renderer) {
-            throw new Exception\RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 '%s: no renderer selected!',
                 __METHOD__
             ));
@@ -95,14 +98,14 @@ trait ListenerTrait
      *
      * @param  ViewModel $model
      * @param EventInterface $event
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @return void
      */
     protected function renderChildren(ViewModel $model, EventInterface $event)
     {
         foreach ($model as $child) {
             if ($child->terminate()) {
-                throw new Exception\DomainException('Inconsistent state; child view model is marked as terminal');
+                throw new DomainException('Inconsistent state; child view model is marked as terminal');
             }
             $child->setOption('has_parent', true);
             $result  = $this->render($child, $event);
