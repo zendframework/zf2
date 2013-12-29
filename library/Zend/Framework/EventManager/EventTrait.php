@@ -50,19 +50,6 @@ trait EventTrait
     }
 
     /**
-     * Trigger
-     *
-     * @param ListenerInterface $listener
-     * @return bool Stopped
-     */
-    public function __invoke(ListenerInterface $listener)
-    {
-        $listener->__invoke($this);
-
-        return $this->stopped;
-    }
-
-    /**
      * Name
      *
      * @return string|array
@@ -126,4 +113,17 @@ trait EventTrait
     {
         return $this->stopped;
     }
+
+    /**
+     * Trigger
+     *
+     * @param ListenerInterface $listener
+     * @return bool Stopped
+     */
+    //public function __invoke(ListenerInterface $listener)
+    //{
+        //$listener->__invoke($this);
+
+        //return $this->stopped;
+    //}
 }

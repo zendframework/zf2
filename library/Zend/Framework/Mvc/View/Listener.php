@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Mvc\View;
 
+use Exception;
 use Zend\Framework\View\Error\Event as ViewErrorEvent;
 use Zend\Framework\View\Event as ViewEvent;
 use Zend\Framework\Mvc\EventInterface;

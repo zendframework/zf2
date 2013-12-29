@@ -32,5 +32,5 @@ interface EventInterface
      * @param ListenerInterface $listener
      * @return bool stopped
      */
-    public function __invoke(ListenerInterface $listener);
+    //public function __invoke(ListenerInterface $listener);
 }

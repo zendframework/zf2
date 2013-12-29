@@ -28,4 +28,39 @@ class Listener
     {
         $this->listener($event, $target, $priority);
     }
+
+    /**
+     * Populate the response object from the View
+     *
+     * Populates the content of the response object from the view rendering
+     * results.
+     *
+     * @param EventInterface $event
+     * @return void
+     */
+    public function __invoke(EventInterface $event)
+    {
+        $renderer = $event->getViewRenderer();
+        //fixme broken $this->render from view.renderer
+        //if ($renderer !== $this->renderer) {
+        //return;
+        //}
+
+        $result   = $event->getResult();
+        $response = $event->getResponse();
+
+        // Set content
+        // If content is empty, check common placeholders to determine if they are
+        // populated, and set the content from them.
+        if (empty($result)) {
+            $placeholders = $renderer->plugin('placeholder');
+            foreach ($this->contentPlaceholders as $placeholder) {
+                if ($placeholders->containerExists($placeholder)) {
+                    $result = (string) $placeholders->getContainer($placeholder);
+                    break;
+                }
+            }
+        }
+        $response->setContent($result);
+    }
 }

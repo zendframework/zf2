@@ -27,4 +27,15 @@ class Event
     {
         $this->event($name, $target);
     }
+
+    /**
+     * @param ListenerInterface $listener
+     * @return bool
+     */
+    public function __invoke(ListenerInterface $listener)
+    {
+        $listener->__invoke($this);
+
+        return $this->stopped;
+    }
 }

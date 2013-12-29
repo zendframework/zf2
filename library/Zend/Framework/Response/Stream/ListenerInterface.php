@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Response\Stream;
 
-use Zend\Framework\EventManager\EventInterface;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener

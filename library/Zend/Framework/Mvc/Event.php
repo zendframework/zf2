@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Mvc;
 
+use Zend\Framework\EventManager\ListenerInterface;
+
 class Event
     implements EventInterface, EventListenerInterface
 {
@@ -26,5 +28,16 @@ class Event
     public function __construct($name = self::EVENT_MVC_APPLICATION, $target = null)
     {
         $this->event($name, $target);
+    }
+
+    /**
+     * @param ListenerInterface $listener
+     * @return bool
+     */
+    public function __invoke(ListenerInterface $listener)
+    {
+        $listener->__invoke($this);
+
+        return $this->stopped;
     }
 }

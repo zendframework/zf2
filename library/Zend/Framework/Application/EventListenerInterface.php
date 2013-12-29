@@ -11,8 +11,4 @@ namespace Zend\Framework\Application;
 
 interface EventListenerInterface
 {
-    /**
-     *
-     */
-    const EVENT_APPLICATION = 'application';
 }

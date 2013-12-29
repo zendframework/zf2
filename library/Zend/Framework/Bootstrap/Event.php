@@ -27,4 +27,17 @@ class Event
     {
         $this->event($name, $target);
     }
+
+    /**
+     * Trigger
+     *
+     * @param ListenerInterface $listener
+     * @return bool Stopped
+     */
+    public function __invoke(ListenerInterface $listener)
+    {
+        $listener->__invoke($this);
+
+        return $this->stopped;
+    }
 }

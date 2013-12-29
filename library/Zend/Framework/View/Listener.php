@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\EventInterface;
-
 class Listener
     implements ListenerInterface, EventListenerInterface
 {

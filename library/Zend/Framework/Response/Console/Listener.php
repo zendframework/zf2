@@ -10,7 +10,7 @@
 namespace Zend\Framework\Response\Console;
 
 use Zend\Console\Response;
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Response\EventInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface

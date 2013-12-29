@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Response\Console;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Response\ListenerInterface as Listener;
+use Zend\Framework\Response\EventInterface;
 
 interface ListenerInterface
     extends Listener

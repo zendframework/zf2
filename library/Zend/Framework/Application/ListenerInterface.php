@@ -16,14 +16,6 @@ use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 interface ListenerInterface
 {
     /**
-     * Trigger
-     *
-     * @param EventInterface $event
-     * @return mixed
-     */
-    public function __invoke(EventInterface $event);
-
-    /**
      * @return EventManager
      */
     public function getEventManager();
@@ -32,4 +24,12 @@ interface ListenerInterface
      * @return ServiceManager
      */
     public function getServiceManager();
+    /**
+     * Trigger
+     *
+     * @param EventInterface $event
+     * @return mixed
+     */
+    public function __invoke(EventInterface $event);
+
 }

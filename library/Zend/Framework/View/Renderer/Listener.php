@@ -37,6 +37,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        //$event->setViewRenderer($this->renderer);
+        //var_dump(__FILE__);
     }
 }

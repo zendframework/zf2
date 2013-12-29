@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Response\Console;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\Response\EventInterface as Event;
+use Zend\Framework\Response\ListenerTrait as ListenerService;
 
 trait ListenerTrait
 {

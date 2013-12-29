@@ -10,7 +10,7 @@
 namespace Zend\Framework\Service;
 
 use Exception;
-use Zend\Framework\EventManager\EventInterface;
+use ReflectionClass;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -30,5 +30,43 @@ class Listener
     public function __construct($event = self::EVENT_SERVICE, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
+    }
+
+    /**
+     * @param EventInterface $event
+     * @return bool|object
+     * @throws Exception
+     */
+    public function __invoke(EventInterface $event)
+    {
+        $sm = $event->getServiceManager();
+
+        $name = $event->service();
+
+        $factory = $sm->getConfig($name);
+
+        if (!$factory) {
+            return false;
+        }
+
+        $options = $event->options();
+
+        if (is_string($factory)) {
+            $class = new ReflectionClass($factory);
+
+            $factory = $class->newInstanceArgs($options);
+
+            if ($class->implementsInterface(EventListenerInterface::FACTORY_INTERFACE)) {
+                return $factory->createService($sm);
+            }
+
+            return $factory;
+        }
+
+        if (is_callable($factory)) {
+            return call_user_func_array($factory, [$sm, $options]);
+        }
+
+        return $factory->createService($sm, $options);
     }
 }

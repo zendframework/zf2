@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Module\Route;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Route\ListenerInterface as Listener;
 use Zend\Framework\Route\EventInterface;
 
 interface ListenerInterface

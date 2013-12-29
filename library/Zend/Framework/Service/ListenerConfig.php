@@ -15,7 +15,7 @@ class ListenerConfig
     /**
      * @var array
      */
-    protected $config = [];
+    public $config = [];
 
     /**
      * @param array $config

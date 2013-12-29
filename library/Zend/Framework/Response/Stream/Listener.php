@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Response\Stream;
 
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Response\EventInterface;
 use Zend\Http\Response\Stream;
 
 class Listener
