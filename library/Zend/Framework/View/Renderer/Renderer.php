@@ -373,7 +373,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      */
     public function plugin($name, array $options = array())
     {
-        return $this->__helpers->getService($name, $options);
+        return $this->__helpers->get($name, $options);
     }
 
     /**
