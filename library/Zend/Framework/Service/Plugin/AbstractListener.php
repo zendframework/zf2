@@ -72,9 +72,18 @@ abstract class AbstractListener
      * @param $options
      * @return mixed
      */
-    public function get($name, $options)
+    public function getService($name, $options)
     {
         return $this->sm->getService($this->getAlias($name), $options);
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function get($name)
+    {
+        return $this->sm->get($this->getAlias($name));
     }
 
     /**
