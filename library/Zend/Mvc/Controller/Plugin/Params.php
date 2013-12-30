@@ -9,6 +9,7 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
+use Zend\Json\Json;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mvc\Exception\RuntimeException;
 use Zend\Mvc\InjectApplicationEventInterface;
@@ -117,5 +118,32 @@ class Params extends AbstractPlugin
         }
 
         return $controller->getEvent()->getRouteMatch()->getParam($param, $default);
+    }
+
+    /**
+     * Return all decode json parameters or a single decode json parameter
+     *
+     * @param string $param Parameter name to retrieve, or null to get all.
+     * @param mixed $default Default value to use when the parameter is missing.
+     * @return mixed
+     */
+    public function fromJson($param = null, $default = null)
+    {
+        $content = $this->getController()->getRequest()->getContent();
+
+        if(empty($content)){
+            return $default;
+        }
+
+        $json = Json::decode($content, Json::TYPE_ARRAY);
+        if(empty($json)){
+            return $default;
+        }
+
+        if($param){
+            return array_key_exists($param, $json) ? $json[$param] : $default;
+        }
+
+        return $json;
     }
 }
