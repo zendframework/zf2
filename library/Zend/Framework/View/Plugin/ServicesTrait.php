@@ -7,8 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Response;
+namespace Zend\Framework\View\Plugin;
 
 trait ServicesTrait
 {
+    /**
+     * @return bool|Listener
+     */
+    public function viewPluginManager()
+    {
+        return $this->service('View\Plugin\Manager');
+    }
 }

@@ -7,10 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Plugin;
+namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\Service\ListenerConfigInterface as Config;
+use Exception;
+use Zend\Framework\Controller\Event as Controller;
+use Zend\Framework\Dispatch\Exception as DispatchException;
+use Zend\Framework\EventManager\EventInterface as Event;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -23,16 +25,12 @@ class Listener
     }
 
     /**
-     * @param Config $config
-     * @param ServiceManager $sm
-     * @param string $event
-     * @param null $target
-     * @param null $priority
+     * @param $event
+     * @param $target
+     * @param $priority
      */
-    public function __construct(Config $config, ServiceManager $sm, $event = self::EVENT_VIEW_PLUGIN, $target = null, $priority = null)
+    public function __construct($event = self::EVENT_CONTROLLER_MANAGER, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
-        $this->sm = $sm;
-        $this->config = $config;
     }
 }

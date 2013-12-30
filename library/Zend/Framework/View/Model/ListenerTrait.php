@@ -9,12 +9,12 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use ListenerService;
+    use Listener;
 }

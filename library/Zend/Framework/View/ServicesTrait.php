@@ -10,37 +10,19 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\View\Config as ViewConfig;
-use Zend\Framework\View\Manager as ViewManager;
-use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\Listener as View;
-use Zend\Framework\View\Plugin\Listener as ViewPluginManager;
-use Zend\View\Resolver\ResolverInterface as ViewResolver;
-
-use Zend\Framework\View\Renderer\ServicesTrait as Renderer;
+use Zend\Framework\View\Plugin\ServicesTrait as ViewPlugin;
+use Zend\Framework\View\Renderer\ServicesTrait as ViewRenderer;
+use Zend\Framework\View\Resolver\ServicesTrait as ViewResolver;
+use Zend\Framework\View\Model\ServicesTrait as ViewModel;
+use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 
 trait ServicesTrait
 {
     /**
      *
      */
-    use Renderer;
-
-    /**
-     * @return ViewManager
-     */
-    public function viewManager()
-    {
-        return $this->service('View\Manager');
-    }
-
-    /**
-     * @param ViewManager $vm
-     * @return self
-     */
-    public function setViewManager(ViewManager $vm)
-    {
-        return $this->add('View\Manager', $vm);
-    }
+    use ViewPlugin, ViewRenderer, ViewResolver, ViewManager, ViewModel;
 
     /**
      * @return ViewConfig
@@ -48,48 +30,6 @@ trait ServicesTrait
     public function viewConfig()
     {
         return $this->viewManager()->viewConfig();
-    }
-
-    /**
-     * @return bool|ViewResolver
-     */
-    public function viewResolver()
-    {
-        return $this->service('View\Resolver');
-    }
-
-    /**
-     * @param ViewResolver $resolver
-     * @return self
-     */
-    public function setViewResolver(ViewResolver $resolver)
-    {
-        return $this->add('View\Resolver', $resolver);
-    }
-
-    /**
-     * @return bool|ViewModel
-     */
-    public function viewModel()
-    {
-        return $this->service('View\Model');
-    }
-
-    /**
-     * @param ViewModel $viewModel
-     * @return self
-     */
-    public function setViewModel(ViewModel $viewModel)
-    {
-        return $this->add('View\Model', $viewModel);
-    }
-
-    /**
-     * @return bool|ViewPluginManager
-     */
-    public function viewPluginManager()
-    {
-        return $this->service('View\Plugin\Manager');
     }
 
     /**

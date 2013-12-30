@@ -7,14 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller;
+namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
-
-trait ServicesTrait
+interface EventListenerInterface
 {
     /**
      *
      */
-    use ControllerManager;
+    const EVENT_CONTROLLER_MANAGER = 'mvc.controller.manager';
 }

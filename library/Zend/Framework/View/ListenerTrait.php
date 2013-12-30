@@ -17,7 +17,7 @@ use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Renderer\TreeRendererInterface;
 use Zend\View\Exception\DomainException;
 use Zend\View\Exception\RuntimeException;
-use Zend\Framework\View\Model\ViewModel;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 
 trait ListenerTrait

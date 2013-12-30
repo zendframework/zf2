@@ -12,7 +12,7 @@ namespace Zend\Framework\View;
 use Zend\Framework\EventManager\EventTrait as Event;
 use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\View\Renderer\ServicesTrait as Renderer;
+use Zend\Framework\View\Renderer\ServicesTrait as ViewRenderer;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 trait EventTrait
@@ -20,7 +20,7 @@ trait EventTrait
     /**
      *
      */
-    use Event, EventManager, Services, Renderer;
+    use Event, EventManager, Services, ViewRenderer;
 
     /**
      * @var mixed

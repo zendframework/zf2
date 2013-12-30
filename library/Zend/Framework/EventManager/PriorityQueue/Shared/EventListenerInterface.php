@@ -7,8 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\EventManager\PriorityQueue\Shared;
 
-interface ManagerInterface
+interface EventListenerInterface
 {
 }

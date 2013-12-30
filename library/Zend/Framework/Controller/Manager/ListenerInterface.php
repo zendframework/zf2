@@ -7,14 +7,19 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller;
+namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
+use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\EventManager\ListenerInterface as Listener;
 
-trait ServicesTrait
+interface ListenerInterface
+    extends Listener
 {
     /**
+     * Trigger
      *
+     * @param EventInterface $event
+     * @return mixed
      */
-    use ControllerManager;
+    public function __invoke(EventInterface $event);
 }

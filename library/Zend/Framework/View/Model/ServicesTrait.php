@@ -7,14 +7,24 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller;
-
-use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
+namespace Zend\Framework\View\Model;
 
 trait ServicesTrait
 {
     /**
-     *
+     * @return bool|ViewModel
      */
-    use ControllerManager;
+    public function viewModel()
+    {
+        return $this->service('View\Model');
+    }
+
+    /**
+     * @param ViewModel $viewModel
+     * @return self
+     */
+    public function setViewModel(ViewModel $viewModel)
+    {
+        return $this->add('View\Model', $viewModel);
+    }
 }

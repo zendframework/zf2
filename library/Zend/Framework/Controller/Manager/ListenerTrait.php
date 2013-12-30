@@ -7,26 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller;
+namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Service\ServicesTrait as Services;
 
-class Manager
+trait ListenerTrait
 {
     /**
-     * @var ServiceManager
+     *
      */
-    protected $sm;
-
-    /**
-     * @param ServiceManager $sm
-     * @return self
-     */
-    public function setServiceManager(ServiceManager $sm)
-    {
-        $this->sm = $sm;
-        return $this;
-    }
+    use Listener, Services;
 
     /**
      * @param $name

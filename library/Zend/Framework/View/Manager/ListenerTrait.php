@@ -7,46 +7,28 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Manager;
 
+use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\Service\ListenerConfigInterface as Config;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\View\ManagerInterface as ViewManager;
+use Zend\Framework\View\Config as ViewConfig;
 use Zend\View\Resolver\ResolverInterface as ViewResolver;
 
-class Manager
-    implements ViewManager
+trait ListenerTrait
 {
+    /**
+     *
+     */
+    use Listener, Services;
+
     /**
      * @var Config
      */
     protected $config;
 
     /**
-     * @var ServiceManager
-     */
-    protected $sm;
-
-    /**
-     * @param Config $config
-     */
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * @param ServiceManager $sm
-     * @return self
-     */
-    public function setServiceManager(ServiceManager $sm)
-    {
-        $this->sm = $sm;
-        return $this;
-    }
-
-    /**
-     * @return Config
+     * @return ViewConfig
      */
     public function viewConfig()
     {

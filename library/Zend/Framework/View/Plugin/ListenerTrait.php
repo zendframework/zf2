@@ -94,8 +94,7 @@ trait ListenerTrait
 
     /**
      * @param EventInterface $event
-     * @return bool|object
-     * @throws Exception
+     * @return mixed
      */
     public function __invoke(EventInterface $event)
     {
