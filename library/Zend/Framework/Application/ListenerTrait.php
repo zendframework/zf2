@@ -51,7 +51,7 @@ trait ListenerTrait
         //$application->setEventManager($application);
 
         //Service Listener
-        $application->add($sm);
+        //$application->add($sm);
 
         $listeners = $config['event_manager']['listeners'];
 
