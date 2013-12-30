@@ -13,6 +13,7 @@ use Zend\Framework\EventManager\Manager\ListenerInterface as EventManagerInterfa
 use Zend\Framework\EventManager\PriorityQueue\EventListenerInterface as PriorityQueueInterface;
 use Zend\Framework\EventManager\PriorityQueue\ListenerInterface as PriorityListenerInterface;
 use Zend\Framework\EventManager\PriorityQueue\Shared\ListenerInterface as SharedListenerInterface;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 class Listener
     implements ListenerInterface,
@@ -25,4 +26,12 @@ class Listener
      *
      */
     use ListenerTrait;
+
+    /**
+     * @param ServiceManager $sm
+     */
+    public function __construct(ServiceManager $sm)
+    {
+        $this->sm = $sm;
+    }
 }

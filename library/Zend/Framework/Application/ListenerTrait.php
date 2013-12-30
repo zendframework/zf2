@@ -15,7 +15,6 @@ use Zend\Framework\EventManager\Manager\ListenerTrait as Event;
 use Zend\Framework\Mvc\Event as MvcEvent;
 use Zend\Framework\Service\ListenerConfig  as ServiceConfig;
 use Zend\Framework\Service\Listener as ServiceManager;
-use Zend\Framework\Service\ListenerInterface as ServiceManagerInterface;
 
 trait ListenerTrait
 {
@@ -23,14 +22,6 @@ trait ListenerTrait
      *
      */
     use Event;
-
-    /**
-     * @param ServiceManagerInterface $sm
-     */
-    public function __construct(ServiceManagerInterface $sm)
-    {
-        $this->sm = $sm;
-    }
 
     /**
      * @param array $config
