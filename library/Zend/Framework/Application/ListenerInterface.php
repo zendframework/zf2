@@ -20,5 +20,4 @@ interface ListenerInterface
      * @return mixed
      */
     public function __invoke(EventInterface $event);
-
 }

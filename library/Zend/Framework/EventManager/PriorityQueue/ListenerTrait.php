@@ -170,9 +170,7 @@ trait ListenerTrait
     public function __invoke(EventInterface $event)
     {
         foreach($this->listeners($event) as $listener) {
-            //if ('service' !== $event->name()) {
-                //var_dump(get_class($event).' :: '.$event->name().' :: '.get_class($listener));
-            //}
+            //var_dump(get_class($event).' :: '.$event->name().' :: '.get_class($listener));
             if ($event->__invoke($listener)) {
                 return false; //event stopped
             }

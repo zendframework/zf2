@@ -12,7 +12,6 @@ namespace Zend\Framework\View;
 class Listener
     implements ListenerInterface, EventListenerInterface
 {
-
     /**
      *
      */

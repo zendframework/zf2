@@ -13,7 +13,6 @@ use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\View\Resolver\TemplateMapResolver;
 
-
 class MapFactory implements FactoryInterface
 {
     /**
