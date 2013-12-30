@@ -10,14 +10,15 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Framework\View\ServicesTrait as View;
 
 trait EventTrait
 {
     /**
      *
      */
-    use EventService, Services;
+    use Event, Services, View;
 
     /**
      * @var mixed

@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Mvc;
 
+use Zend\Framework\Application\Service\ServicesTrait as ApplicationServices;
 use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as Event;
 
@@ -17,7 +18,7 @@ trait EventTrait
     /**
      *
      */
-    use Event, Services;
+    use Event, Services, ApplicationServices;
 
     /**
      * @var mixed

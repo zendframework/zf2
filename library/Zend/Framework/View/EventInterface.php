@@ -10,7 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\View\Model\ViewModel;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 interface EventInterface
     extends Event

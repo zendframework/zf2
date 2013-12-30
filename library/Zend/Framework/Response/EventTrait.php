@@ -17,7 +17,7 @@ trait EventTrait
     /**
      *
      */
-    use EventService, Services;
+    use EventService, Services, ServicesTrait;
 
     /**
      * @var array

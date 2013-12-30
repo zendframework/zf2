@@ -10,14 +10,19 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
+use Zend\Framework\Controller\ServicesTrait as Controller;
+use Zend\Framework\Route\ServicesTrait as Route;
+use Zend\Framework\Response\ServicesTrait as Response;
+use Zend\Framework\View\ServicesTrait as View;
 
 trait EventTrait
 {
     /**
      *
      */
-    use EventService, Services;
+    use Controller, Event, EventManager, Services, Response, Route, View;
 
     /**
      * @var mixed

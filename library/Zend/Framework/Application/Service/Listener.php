@@ -7,17 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Application\Service;
 
-use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
-use Zend\Framework\Route\ServicesTrait as Route;
-use Zend\Framework\Request\ServicesTrait as Request;
+use Zend\Framework\Service\Listener as ServiceListener;
 
-trait EventTrait
+class Listener
+    extends ServiceListener
 {
     /**
      *
      */
-    use EventService, Route, Request, Services;
+    use ServicesTrait;
 }

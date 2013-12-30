@@ -7,16 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Bootstrap;
+namespace Zend\Framework\View\Response;
 
-use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
-
-trait EventTrait
+trait ServicesTrait
 {
-    /**
-     *
-     */
-    use Event, EventManager, Services;
 }

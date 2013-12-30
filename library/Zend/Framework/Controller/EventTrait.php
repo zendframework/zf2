@@ -11,15 +11,17 @@ namespace Zend\Framework\Controller;
 
 use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\Controller\ListenerInterface as Controller;
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Framework\Response\ServicesTrait as Response;
 use Zend\Framework\View\Model\ViewModel as ViewModel;
+use Zend\Framework\View\ServicesTrait as View;
 
 trait EventTrait
 {
     /**
      *
      */
-    use EventService, Services;
+    use Event, Response, Services, View;
 
     /**
      * @var string

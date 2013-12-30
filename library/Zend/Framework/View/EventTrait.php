@@ -9,16 +9,18 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\View\Model\ViewModel;
+use Zend\Framework\View\Renderer\ServicesTrait as Renderer;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 trait EventTrait
 {
     /**
      *
      */
-    use EventService, Services;
+    use Event, EventManager, Services, Renderer;
 
     /**
      * @var mixed

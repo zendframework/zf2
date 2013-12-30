@@ -9,15 +9,8 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Application\ServicesTrait as ApplicationServices;
-
 trait ServicesTrait
 {
-    /**
-     *
-     */
-    use ApplicationServices;
-
     /**
      * @var ListenerInterface
      */

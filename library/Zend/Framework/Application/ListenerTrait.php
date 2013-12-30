@@ -10,11 +10,11 @@
 namespace Zend\Framework\Application;
 
 use Exception;
+use Zend\Framework\Application\Service\Listener as ServiceManager;
 use Zend\Framework\EventManager\ListenerInterface;
 use Zend\Framework\EventManager\Manager\ListenerTrait as Event;
 use Zend\Framework\Mvc\Event as MvcEvent;
-use Zend\Framework\Service\ListenerConfig  as ServiceConfig;
-use Zend\Framework\Service\Listener as ServiceManager;
+use Zend\Framework\Service\ListenerConfig  as Config;
 
 trait ListenerTrait
 {
@@ -32,7 +32,7 @@ trait ListenerTrait
     {
         $sm = new ServiceManager;
 
-        $sm->setConfig(new ServiceConfig($config['service_manager']))
+        $sm->setConfig(new Config($config['service_manager']))
            ->setApplicationConfig($config);
 
         $application = new Listener($sm);

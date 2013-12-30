@@ -9,15 +9,17 @@
 
 namespace Zend\Framework\View\Response;
 
-use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\Service\ServicesTrait as Services;
+use Zend\Framework\View\Renderer\ServicesTrait as Renderer;
+use Zend\Framework\Response\ServicesTrait as Response;
 
 trait EventTrait
 {
     /**
      *
      */
-    use EventService, Services;
+    use EventService, Renderer, Response, Services;
 
     /**
      * @var mixed
