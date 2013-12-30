@@ -24,7 +24,7 @@ trait ListenerTrait
      * @param array $options
      * @return bool|mixed
      */
-    public function __invoke($factory, array $options)
+    public function __invoke($factory, array $options = [])
     {
         if (is_string($factory)) {
             $class = new ReflectionClass($factory);

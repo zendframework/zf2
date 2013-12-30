@@ -139,10 +139,7 @@ trait ListenerTrait
             $factory = $this->config($name);
 
             if ($factory) {
-
-                $event->setFactory($factory);
-
-                $instance = $listener->__invoke($event);
+                $instance = $listener->__invoke($factory, $event->options());
             }
 
             $this->listeners[$name] = $listener;

@@ -31,13 +31,4 @@ class Listener
     {
         $this->sm = $sm;
     }
-
-    /**
-     * @param EventInterface $event
-     * @return bool|mixed
-     */
-    public function __invoke(EventInterface $event)
-    {
-        return $this->factory($event->factory(), $event->options());
-    }
 }

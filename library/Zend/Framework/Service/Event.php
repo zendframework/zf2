@@ -26,7 +26,7 @@ class Event
      */
     public function __construct($alias, array $options = [], $name = self::EVENT_SERVICE)
     {
-        $this->alias = $alias;
+        $this->alias   = $alias;
         $this->options = $options;
         $this->name    = $name;
     }
@@ -39,14 +39,7 @@ class Event
      */
     public function __invoke(ListenerInterface $listener)
     {
-        $response = $listener->__invoke($this);
-
-        $this->instance = $response;
-
-        if ($response) {
-            $this->listener = $listener;
-            $this->stopped = true;
-        }
+        $listener->__invoke($this);
 
         return $this->stopped;
     }

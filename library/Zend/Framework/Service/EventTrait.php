@@ -10,7 +10,7 @@
 namespace Zend\Framework\Service;
 
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\EventManager\EventTrait as Event;
 use Zend\Framework\EventManager\ListenerInterface;
 
 trait EventTrait
@@ -18,7 +18,7 @@ trait EventTrait
     /**
      *
      */
-    use EventService, Services;
+    use Event, Services;
 
     /**
      * @var string
@@ -54,11 +54,6 @@ trait EventTrait
      * @var bool
      */
     protected $shared = true;
-
-    /**
-     * @var callable
-     */
-    protected $factory;
 
     /**
      * @return string
@@ -144,23 +139,5 @@ trait EventTrait
     public function setListener(ListenerInterface $listener)
     {
         $this->listener = $listener;
-    }
-
-    /**
-     * @return string|callable
-     */
-    public function factory()
-    {
-        return $this->factory;
-    }
-
-    /**
-     * @param string|callable $factory
-     * @return $this
-     */
-    public function setFactory($factory)
-    {
-        $this->factory = $factory;
-        return $this;
     }
 }
