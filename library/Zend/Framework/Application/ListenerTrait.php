@@ -63,12 +63,10 @@ trait ListenerTrait
             }
         }
 
-        return $application;
-
-        //$mm = $sm->getService('ModuleManager');
+        //$mm = $sm->service('ModuleManager');
         //$mm->loadModules();
 
-        return $sm->application();
+        return $application;
     }
 
     /**
