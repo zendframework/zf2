@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Service\Factory\Listener as FactoryService;
+
 use Exception;
 
 class Listener
@@ -40,9 +42,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $em = $event->eventManager();
-        $sm = $event->serviceManager();
-
         $name = $event->service();
 
         if ($event->shared() && isset($this->shared[$name])) {
@@ -61,7 +60,7 @@ class Listener
 
         } else {
 
-            $listener = new Factory\Listener($this);
+            $listener = new FactoryService($this);
 
             $instance = false;
 
@@ -70,7 +69,9 @@ class Listener
             $factory = $this->config($name);
 
             if ($factory) {
+
                 $event->setFactory($factory);
+
                 $instance = $listener->__invoke($event);
             }
 

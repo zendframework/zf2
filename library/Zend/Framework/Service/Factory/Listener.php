@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use ReflectionClass;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
@@ -19,7 +18,9 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait {
+        ListenerTrait::__invoke as factory;
+    }
 
     /**
      * Constructor
@@ -37,25 +38,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $factory = $event->factory();
-        $options = $event->options();
-
-        if (is_string($factory)) {
-            $class = new ReflectionClass($factory);
-
-            $factory = $class->newInstanceArgs($options);
-
-            if ($class->implementsInterface(self::FACTORY_INTERFACE)) {
-                return $factory->createService($this->sm);
-            }
-
-            return $factory;
-        }
-
-        if (is_callable($factory)) {
-            return call_user_func_array($factory, [$this->sm, $options]);
-        }
-
-        return $factory->createService($this->sm, $options);
+        return $this->factory($event->factory(), $event->options());
     }
 }
