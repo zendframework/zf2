@@ -9,6 +9,10 @@
 
 namespace Zend\Framework\View\Plugin;
 
-interface ManagerInterface
+interface EventListenerInterface
 {
+    /**
+     *
+     */
+    const EVENT_VIEW_PLUGIN = 'view.plugin';
 }

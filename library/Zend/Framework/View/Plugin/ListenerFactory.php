@@ -12,14 +12,14 @@ namespace Zend\Framework\View\Plugin;
 //use Zend\Console\Console;
 use Zend\Framework\Service\ListenerConfig as ServiceConfig;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\View\Plugin\Manager as PluginManager;
+use Zend\Framework\View\Plugin\Listener as PluginManager;
 use Zend\Mvc\Exception;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Helper as ViewHelper;
 
 use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
 
-class ManagerFactory
+class ListenerFactory
     implements FactoryInterface
 {
     /**
@@ -30,9 +30,7 @@ class ManagerFactory
     {
         $config = $sm->viewManager()->viewHelpers();
 
-        $plugins = new PluginManager;
-        $plugins->setServiceManager($sm)
-                ->setConfig(new ServiceConfig($config));
+        $plugins = new Listener(new ServiceConfig($config), $sm);
 
         // Configure URL view helper with router
         /*$plugins->addInvokableClass('url', function ($sm) use ($sm) {

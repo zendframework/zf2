@@ -14,11 +14,10 @@ use Zend\Framework\EventManager\EventInterface as Event;
 interface EventInterface
     extends Event
 {
-
     /**
      * @return string
      */
-    public function service();
+    public function alias();
 
     /**
      * @return array

@@ -9,8 +9,10 @@
 
 namespace Zend\Framework\Service;
 
+use Exception;
 use ReflectionClass;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Service\Factory\Listener as FactoryService;
 
 trait ListenerTrait
 {
@@ -22,7 +24,7 @@ trait ListenerTrait
     /**
      * @var ListenerConfig
      */
-    protected $config;
+    public $config;
 
     /**
      * @var array
@@ -46,6 +48,15 @@ trait ListenerTrait
     public function addInvokableClass($name, $class)
     {
         $this->config->add($name, $class);
+    }
+
+    /**
+     * @param $name
+     * @return string
+     */
+    public function alias($name)
+    {
+        return $name;
     }
 
     /**
@@ -94,5 +105,55 @@ trait ListenerTrait
     public function has($name)
     {
         return isset($this->shared[$name]);
+    }
+
+    /**
+     * @param EventInterface $event
+     * @return bool|object
+     * @throws Exception
+     */
+    public function __invoke(EventInterface $event)
+    {
+        $name = $event->alias();
+
+        if ($event->shared() && isset($this->shared[$name])) {
+            return $this->shared[$name];
+        }
+
+        if (!empty($this->pending[$name])) {
+            throw new Exception('Circular dependency: '.$name);
+        }
+
+        $this->pending[$name] = true;
+
+        if (isset($this->listeners[$name])) {
+
+            $instance = $this->listeners[$name]->__invoke($event);
+
+        } else {
+
+            $listener = new FactoryService($this);
+
+            $instance = false;
+
+            $factory = $this->config($name);
+
+            if ($factory) {
+
+                $event->setFactory($factory);
+
+                $instance = $listener->__invoke($event);
+            }
+
+            $this->listeners[$name] = $listener;
+
+            if ($event->shared()) {
+                $this->shared[$name] = $instance;
+            }
+        }
+
+        $this->pending[$name] = false;
+
+        return $instance;
     }
 }

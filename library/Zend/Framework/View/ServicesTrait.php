@@ -13,7 +13,7 @@ use Zend\Framework\View\Config as ViewConfig;
 use Zend\Framework\View\Manager as ViewManager;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\Listener as View;
-use Zend\Framework\View\Plugin\Manager as ViewPluginManager;
+use Zend\Framework\View\Plugin\Listener as ViewPluginManager;
 use Zend\View\Resolver\ResolverInterface as ViewResolver;
 
 use Zend\Framework\View\Renderer\ServicesTrait as Renderer;

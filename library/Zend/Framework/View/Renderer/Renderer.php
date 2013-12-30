@@ -18,7 +18,7 @@ use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
-use Zend\Framework\View\Plugin\ManagerInterface as PluginManager;
+use Zend\Framework\View\Plugin\ListenerInterface as PluginManager;
 
 use Zend\View\Renderer\RendererInterface as RendererInterface;
 use Zend\View\Renderer\TreeRendererInterface;

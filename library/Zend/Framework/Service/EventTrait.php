@@ -23,6 +23,11 @@ trait EventTrait
     /**
      * @var string
      */
+    protected $alias;
+
+    /**
+     * @var string
+     */
     protected $service;
 
     /**
@@ -56,6 +61,24 @@ trait EventTrait
     protected $factory;
 
     /**
+     * @return string
+     */
+    public function alias()
+    {
+        return $this->alias;
+    }
+
+    /**
+     * @param string $alias
+     * @return self
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function shared()
@@ -70,24 +93,6 @@ trait EventTrait
     public function setShared($shared)
     {
         $this->shared = $shared;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function service()
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param string $service
-     * @return self
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
         return $this;
     }
 

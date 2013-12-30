@@ -7,7 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service;
+namespace Zend\Framework\View\Plugin;
+
+use Zend\Framework\Service\Listener as ServiceManager;
+use Zend\Framework\Service\ListenerConfig as Config;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -17,17 +20,19 @@ class Listener
      */
     use ListenerTrait {
         ListenerTrait::__construct as listener;
-        ListenerTrait::__invoke as instance;
     }
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @param Config $config
+     * @param ServiceManager $sm
+     * @param string $event
+     * @param null $target
+     * @param null $priority
      */
-    public function __construct($event = self::EVENT_SERVICE, $target = null, $priority = null)
+    public function __construct(Config $config, ServiceManager $sm, $event = self::EVENT_VIEW_PLUGIN, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
-        $this->sm = $this;
+        $this->sm = $sm;
+        $this->config = $config;
     }
 }
