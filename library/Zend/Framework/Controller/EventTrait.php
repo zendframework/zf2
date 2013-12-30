@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\Dispatch;
+namespace Zend\Framework\Controller;
 
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\Controller\Dispatch\ListenerInterface as Controller;
+use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\EventManager\EventTrait as EventService;
 use Zend\Framework\View\Model\ViewModel as ViewModel;
 
