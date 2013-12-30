@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Mvc\Route;
 
-use Zend\Framework\Route\Event as RouteEvent;
+use Zend\Framework\Route\Event as Route;
 use Zend\Framework\Mvc\EventInterface;
 
 class Listener
@@ -41,7 +41,7 @@ class Listener
         $em = $event->eventManager();
         $sm = $event->serviceManager();
 
-        $route = new RouteEvent;
+        $route = new Route;
 
         $route->setTarget($event->target())
               ->setServiceManager($sm)

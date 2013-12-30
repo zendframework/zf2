@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Mvc\Dispatch;
 
-use Zend\Framework\Dispatch\Error\Event as DispatchErrorEvent;
-use Zend\Framework\Dispatch\Event as DispatchEvent;
+use Zend\Framework\Dispatch\Error\Event as DispatchError;
+use Zend\Framework\Dispatch\Event as Dispatch;
 use Zend\Framework\Dispatch\Exception as DispatchException;
 use Zend\Framework\Mvc\EventInterface;
 
@@ -43,7 +43,7 @@ class Listener
         $em = $event->eventManager();
         $sm = $event->serviceManager();
 
-        $dispatch = new DispatchEvent;
+        $dispatch = new Dispatch;
 
         $dispatch->setTarget($event->target())
                  ->setServiceManager($sm)
@@ -57,14 +57,14 @@ class Listener
 
         } catch (DispatchException $exception) {
 
-            $dispatch = new DispatchErrorEvent;
+            $error = new DispatchError;
 
-            $dispatch->setTarget($event->target())
-                     ->setException($exception->exception())
-                     ->setControllerName($exception->controllerName())
-                     ->setControllerClass($exception->controllerClass());
+            $error->setTarget($event->target())
+                  ->setException($exception->exception())
+                  ->setControllerName($exception->controllerName())
+                  ->setControllerClass($exception->controllerClass());
 
-            $em->__invoke($dispatch);
+            $em->__invoke($error);
         }
     }
 }

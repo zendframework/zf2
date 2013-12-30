@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Mvc\Response;
 
-use Zend\Framework\Response\Event as ResponseEvent;
+use Zend\Framework\Response\Event as Response;
 use Zend\Framework\Mvc\EventInterface;
 
 class Listener
@@ -40,7 +40,7 @@ class Listener
     {
         $em = $event->eventManager();
 
-        $response = new ResponseEvent;
+        $response = new Response;
 
         $response->setTarget($event->target())
                  ->setServiceManager($event->serviceManager());

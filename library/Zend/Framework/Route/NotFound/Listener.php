@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\Dispatch\EventListenerInterface as DispatchEvent;
+use Zend\Framework\Dispatch\EventListenerInterface as Dispatch;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;
 
@@ -29,7 +29,7 @@ class NotFoundListener
      */
     public function __invoke(EventInterface $event)
     {
-        if (DispatchEvent::EVENT_DISPATCH_ERROR == $event->name()) {
+        if (Dispatch::EVENT_DISPATCH_ERROR == $event->name()) {
             $this->detectNotFoundError($event);
         }
 
@@ -46,7 +46,7 @@ class NotFoundListener
         }
 
         if (!$response instanceof ViewModel) {
-            $model = new ViewModel();
+            $model = new ViewModel;
             if (is_string($response)) {
                 $model->setVariable('message', $response);
             } else {

@@ -10,8 +10,8 @@
 namespace Zend\Framework\Mvc\View;
 
 use Exception;
-use Zend\Framework\View\Error\Event as ViewErrorEvent;
-use Zend\Framework\View\Event as ViewEvent;
+use Zend\Framework\View\Error\Event as ViewError;
+use Zend\Framework\View\Event as View;
 use Zend\Framework\Mvc\EventInterface;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
@@ -54,7 +54,7 @@ class Listener
             return;
         }
 
-        $render = new ViewEvent;
+        $render = new View;
 
         $render->setTarget($event->target())
                ->setServiceManager($sm)
@@ -67,10 +67,10 @@ class Listener
 
         } catch(Exception $exception) {
 
-            $error = new ViewErrorEvent;
+            $error = new ViewError;
 
             $error->setTarget($event->target())
-                ->setException($exception);
+                  ->setException($exception);
 
             $em->__invoke($error);
         }

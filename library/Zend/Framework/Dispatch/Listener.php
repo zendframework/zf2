@@ -10,7 +10,7 @@
 namespace Zend\Framework\Dispatch;
 
 use Exception;
-use Zend\Framework\Controller\Event as ControllerDispatchEvent;
+use Zend\Framework\Controller\Event as Controller;
 use Zend\Framework\Dispatch\Exception as DispatchException;
 use Zend\Framework\EventManager\EventInterface as Event;
 
@@ -53,7 +53,7 @@ class Listener
 
         $em->push($controller);
 
-        $dispatch = new ControllerDispatchEvent;
+        $dispatch = new Controller;
 
         $dispatch->setTarget($controller)
                  ->setServiceManager($sm)

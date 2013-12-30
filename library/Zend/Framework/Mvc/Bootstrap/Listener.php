@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Mvc\Bootstrap;
 
-use Zend\Framework\Bootstrap\Event as BootstrapEvent;
+use Zend\Framework\Bootstrap\Event as Bootstrap;
 use Zend\Framework\Mvc\EventInterface;
 
 class Listener
@@ -41,7 +41,7 @@ class Listener
         $em = $event->eventManager();
         $sm = $event->serviceManager();
 
-        $bootstrap = new BootstrapEvent;
+        $bootstrap = new Bootstrap;
 
         $bootstrap->setTarget($event->target())
                   ->setServiceManager($sm)
