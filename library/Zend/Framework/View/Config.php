@@ -18,7 +18,7 @@ class Config
      * @param $name
      * @return mixed
      */
-    public function getConfig($name)
+    public function config($name)
     {
         return $this->get($name);
     }
@@ -26,7 +26,7 @@ class Config
     /**
      * @return array
      */
-    public function getViewHelpers()
+    public function viewHelpers()
     {
         return (array) $this->get('view_helpers');
     }
@@ -34,7 +34,7 @@ class Config
     /**
      * @return string
      */
-    public function getLayoutTemplate()
+    public function layoutTemplate()
     {
         return (string) $this->get('layout_template');
     }

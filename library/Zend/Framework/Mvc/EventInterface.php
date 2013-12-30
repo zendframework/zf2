@@ -11,7 +11,7 @@ namespace Zend\Framework\Mvc;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 interface EventInterface
     extends Event
@@ -19,7 +19,7 @@ interface EventInterface
     /**
      * @return mixed
      */
-    public function getResult();
+    public function result();
 
     /**
      * @param $result
@@ -30,7 +30,7 @@ interface EventInterface
     /**
      * @return EventManager
      */
-    public function getEventManager();
+    public function eventManager();
 
     /**
      * @param EventManager $em
@@ -41,7 +41,7 @@ interface EventInterface
     /**
      * @return ServiceManager
      */
-    public function getServiceManager();
+    public function serviceManager();
 
     /**
      * @param ServiceManager $sm

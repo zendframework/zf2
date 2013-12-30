@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Response;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 interface EventInterface
     extends Event
@@ -18,7 +18,7 @@ interface EventInterface
     /**
      * @return mixed
      */
-    public function getResult();
+    public function result();
 
     /**
      * @param $result

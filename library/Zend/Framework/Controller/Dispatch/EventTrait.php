@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Controller\Dispatch;
 
-use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\Controller\Dispatch\ListenerInterface as Controller;
 use Zend\Framework\EventManager\EventTrait as EventService;
 use Zend\Framework\View\Model\ViewModel as ViewModel;
@@ -54,7 +54,7 @@ trait EventTrait
     /**
      * @return string
      */
-    public function getError()
+    public function error()
     {
         return $this->error;
     }
@@ -72,7 +72,7 @@ trait EventTrait
     /**
      * @return object
      */
-    public function getController()
+    public function controller()
     {
         return $this->controller;
     }
@@ -80,7 +80,7 @@ trait EventTrait
     /**
      * @return string
      */
-    public function getControllerClass()
+    public function controllerClass()
     {
         return get_class($this->controller);
     }
@@ -98,7 +98,7 @@ trait EventTrait
     /**
      * @return mixed
      */
-    public function getResult()
+    public function result()
     {
         return $this->result;
     }
@@ -116,7 +116,7 @@ trait EventTrait
     /**
      * @return ViewModel
      */
-    public function getViewModel()
+    public function viewModel()
     {
         return $this->viewModel;
     }

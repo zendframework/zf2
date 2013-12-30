@@ -40,8 +40,8 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $em = $event->getEventManager();
-        $sm = $event->getServiceManager();
+        $em = $event->eventManager();
+        $sm = $event->serviceManager();
 
         $dispatch = new DispatchEvent;
 
@@ -53,16 +53,16 @@ class Listener
 
             $em->__invoke($dispatch);
 
-            $event->setResult($dispatch->getResult());
+            $event->setResult($dispatch->result());
 
         } catch (DispatchException $exception) {
 
             $dispatch = new DispatchErrorEvent;
 
-            $dispatch->setTarget($event->getTarget())
-                     ->setException($exception->getException())
-                     ->setControllerName($exception->getControllerName())
-                     ->setControllerClass($exception->getControllerClass());
+            $dispatch->setTarget($event->target())
+                     ->setException($exception->exception())
+                     ->setControllerName($exception->controllerName())
+                     ->setControllerClass($exception->controllerClass());
 
             $em->__invoke($dispatch);
         }

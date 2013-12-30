@@ -38,8 +38,8 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $em = $event->getEventManager();
-        $sm = $event->getServiceManager();
+        $em = $event->eventManager();
+        $sm = $event->serviceManager();
 
         $bootstrap = new BootstrapEvent;
 

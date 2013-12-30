@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\I18n\Translator;
 
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Mvc\I18n\Translator;
 
 /**
@@ -27,7 +27,7 @@ class Factory
     public function createService(ServiceManager $sm)
     {
         // Configure the translator
-        $config     = $sm->getApplicationConfig();
+        $config     = $sm->applicationConfig();
         $trConfig   = isset($config['translator']) ? $config['translator'] : array();
         $translator = Translator::factory($trConfig);
         return $translator;

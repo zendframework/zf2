@@ -31,7 +31,7 @@ trait ListenerTrait
             return $this;
         }
 
-        $response = $event->getResponse();
+        $response = $event->response();
 
         echo $response->getContent();
 

@@ -18,7 +18,7 @@ interface EventInterface
     /**
      * @return mixed
      */
-    public function getResult();
+    public function result();
 
     /**
      * @param mixed $result
@@ -29,7 +29,7 @@ interface EventInterface
     /**
      * @return ViewModel
      */
-    public function getViewModel();
+    public function viewModel();
 
     /**
      * @param ViewModel $vm

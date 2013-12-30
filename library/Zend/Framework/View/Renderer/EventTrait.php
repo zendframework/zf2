@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as EventService;
 
 trait EventTrait
@@ -27,7 +27,7 @@ trait EventTrait
     /**
      * @return mixed
      */
-    public function getResult()
+    public function result()
     {
         return $this->result;
     }

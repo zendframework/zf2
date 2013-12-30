@@ -359,7 +359,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      *
      * @return PluginManager
      */
-    public function getPluginManager()
+    public function pluginManager()
     {
         return $this->__helpers;
     }

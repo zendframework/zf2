@@ -9,15 +9,15 @@
 
 namespace Zend\Framework\Mvc;
 
-use Zend\Framework\Application\ServiceTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\Service\ServicesTrait as Services;
+use Zend\Framework\EventManager\EventTrait as Event;
 
 trait EventTrait
 {
     /**
      *
      */
-    use EventService, Services;
+    use Event, Services;
 
     /**
      * @var mixed
@@ -27,7 +27,7 @@ trait EventTrait
     /**
      * @return mixed
      */
-    public function getResult()
+    public function result()
     {
         return $this->result;
     }

@@ -7,15 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Service;
+namespace Zend\Framework\Service\Factory;
 
-interface ListenerFactoryInterface
+use Zend\Framework\Service\ListenerTrait as ListenerService;
+
+trait ListenerTrait
 {
     /**
-     * Create service
      *
-     * @param ListenerInterface $sm
-     * @return mixed
      */
-    public function createService(ListenerInterface $sm);
+    use ListenerService;
 }

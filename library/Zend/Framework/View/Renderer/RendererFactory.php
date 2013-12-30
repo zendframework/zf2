@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
 
 class RendererFactory
     implements FactoryInterface
@@ -23,11 +23,11 @@ class RendererFactory
     {
         $renderer = new Renderer();
 
-        $renderer->setPluginManager($sm->getViewPluginManager());
-        $renderer->setResolver($sm->getViewResolver());
+        $renderer->setPluginManager($sm->viewPluginManager());
+        $renderer->setResolver($sm->viewResolver());
 
         $modelHelper = $renderer->plugin('viewmodel');
-        $modelHelper->setRoot($sm->getViewModel());
+        $modelHelper->setRoot($sm->viewModel());
 
         return $renderer;
     }

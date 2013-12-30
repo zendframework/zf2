@@ -36,6 +36,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $this->render($event->getViewModel(), $event);
+        $this->render($event->viewModel(), $event);
     }
 }

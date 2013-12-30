@@ -10,7 +10,6 @@
 namespace Zend\Framework\Service;
 
 use Exception;
-use ReflectionClass;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -20,6 +19,7 @@ class Listener
      */
     use ListenerTrait {
         ListenerTrait::__construct as listener;
+        ListenerTrait::__invoke as instance;
     }
 
     /**
@@ -30,6 +30,7 @@ class Listener
     public function __construct($event = self::EVENT_SERVICE, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
+        $this->sm = $this;
     }
 
     /**
@@ -39,34 +40,49 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $sm = $event->getServiceManager();
+        $em = $event->eventManager();
+        $sm = $event->serviceManager();
 
         $name = $event->service();
 
-        $factory = $sm->getConfig($name);
-
-        if (!$factory) {
-            return false;
+        if ($event->shared() && isset($this->shared[$name])) {
+            return $this->shared[$name];
         }
 
-        $options = $event->options();
+        if (!empty($this->pending[$name])) {
+            throw new Exception('Circular dependency: '.$name);
+        }
 
-        if (is_string($factory)) {
-            $class = new ReflectionClass($factory);
+        $this->pending[$name] = true;
 
-            $factory = $class->newInstanceArgs($options);
+        if (isset($this->listeners[$name])) {
 
-            if ($class->implementsInterface(EventListenerInterface::FACTORY_INTERFACE)) {
-                return $factory->createService($sm);
+            $instance = $this->listeners[$name]->__invoke($event);
+
+        } else {
+
+            $listener = new Factory\Listener($this);
+
+            $instance = false;
+
+            $name = $event->service();
+
+            $factory = $this->config($name);
+
+            if ($factory) {
+                $event->setFactory($factory);
+                $instance = $listener->__invoke($event);
             }
 
-            return $factory;
+            $this->listeners[$name] = $listener;
+
+            if ($event->shared()) {
+                $this->shared[$name] = $instance;
+            }
         }
 
-        if (is_callable($factory)) {
-            return call_user_func_array($factory, [$sm, $options]);
-        }
+        $this->pending[$name] = false;
 
-        return $factory->createService($sm, $options);
+        return $instance;
     }
 }

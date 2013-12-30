@@ -10,8 +10,8 @@
 namespace Zend\Framework\Route;
 
 use Zend\Console\Console;
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 class RouterFactory
     implements FactoryInterface
@@ -30,7 +30,7 @@ class RouterFactory
      */
     public function createService(ServiceManager $sm, $cName = null, $rName = null)
     {
-        $config = $sm->getApplicationConfig();
+        $config = $sm->applicationConfig();
 
         // Defaults
         $routerClass        = 'Zend\Mvc\Router\Http\TreeRouteStack';
@@ -52,7 +52,7 @@ class RouterFactory
 
         // Inject the route plugins
         if (!isset($routerConfig['route_plugins'])) {
-            $routerConfig['route_plugins'] = $sm->getRoutePluginManager();
+            $routerConfig['route_plugins'] = $sm->routePluginManager();
         }
 
         // Obtain an instance

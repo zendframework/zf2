@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 class Factory
     implements FactoryInterface
@@ -23,7 +23,7 @@ class Factory
     {
         $vm = new ViewModel;
 
-        $vm->setTemplate($sm->getViewConfig()->getLayoutTemplate());
+        $vm->setTemplate($sm->viewConfig()->layoutTemplate());
 
         return $vm;
     }

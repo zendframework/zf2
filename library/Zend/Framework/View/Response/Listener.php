@@ -40,14 +40,14 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $renderer = $event->getViewRenderer();
+        $renderer = $event->viewRenderer();
         //fixme broken $this->render from view.renderer
         //if ($renderer !== $this->renderer) {
         //return;
         //}
 
-        $result   = $event->getResult();
-        $response = $event->getResponse();
+        $result   = $event->result();
+        $response = $event->response();
 
         // Set content
         // If content is empty, check common placeholders to determine if they are

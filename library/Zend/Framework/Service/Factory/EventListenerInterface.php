@@ -7,12 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Service;
+namespace Zend\Framework\Service\Factory;
+
+use Zend\Framework\Service\EventListenerInterface as EventListener;
 
 interface EventListenerInterface
+    extends EventListener
 {
-    /**
-     *
-     */
-    const EVENT_SERVICE = 'mvc.service';
 }

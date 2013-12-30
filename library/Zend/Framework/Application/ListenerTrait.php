@@ -11,19 +11,18 @@ namespace Zend\Framework\Application;
 
 use Exception;
 use Zend\Framework\EventManager\ListenerInterface;
-use Zend\Framework\EventManager\Manager\ListenerTrait as ManagerService;
+use Zend\Framework\EventManager\Manager\ListenerTrait as Event;
 use Zend\Framework\Mvc\Event as MvcEvent;
 use Zend\Framework\Service\ListenerConfig  as ServiceConfig;
-use Zend\Framework\Mvc\Service\Listener as ServiceManager;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManagerInterface;
-use \Zend\Framework\Service\Listener as ServiceListener;
+use Zend\Framework\Service\Listener as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManagerInterface;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use ManagerService, ServiceTrait;
+    use Event;
 
     /**
      * @param ServiceManagerInterface $sm
@@ -40,24 +39,26 @@ trait ListenerTrait
      */
     public static function init(array $config = [])
     {
-        $sm = new ServiceManager(new ServiceConfig($config['service_manager']));
+        $sm = new ServiceManager;
 
-        $sm->setApplicationConfig($config);
+        $sm->setConfig(new ServiceConfig($config['service_manager']))
+           ->setApplicationConfig($config);
 
         $application = new Listener($sm);
 
         $sm->setEventManager($application);
 
-        $application->setEventManager($application);
+        //$application->setEventManager($application);
 
-        $application->add(new ServiceListener);
+        //Service Listener
+        $application->add($sm);
 
         $listeners = $config['event_manager']['listeners'];
 
         foreach($listeners as $event => $eventListeners) {
             foreach($eventListeners as $listener) {
                 if (is_string($listener)) {
-                    $service = $sm->getService($listener);
+                    $service = $sm->get($listener);
                     if (!$service) {
                         throw new Exception($listener);
                     }
@@ -76,7 +77,7 @@ trait ListenerTrait
         //$mm = $sm->getService('ModuleManager');
         //$mm->loadModules();
 
-        return $sm->getApplication();
+        return $sm->application();
     }
 
     /**
@@ -84,12 +85,10 @@ trait ListenerTrait
      */
     public function run()
     {
-        $sm = $this->getServiceManager();
-
         $event = new MvcEvent;
 
         $event->setTarget($this)
-              ->setServiceManager($sm)
+              ->setServiceManager($this->sm)
               ->setEventManager($this);
 
         $this->__invoke($event);

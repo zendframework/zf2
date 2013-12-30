@@ -9,9 +9,9 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
 use Zend\Framework\View\Config as ViewConfig;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\Manager as ViewManager;
 
 class ManagerFactory
@@ -23,7 +23,7 @@ class ManagerFactory
      */
     public function createService(ServiceManager $sm)
     {
-        $config = $sm->getApplicationConfig()['view_manager'];
+        $config = $sm->applicationConfig()['view_manager'];
 
         $vm = new ViewManager(new ViewConfig($config));
         $vm->setServiceManager($sm);

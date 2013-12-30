@@ -41,10 +41,10 @@ class Event
     {
         $response = $listener->__invoke($this);
 
-        $this->setInstance($response);
+        $this->instance = $response;
 
         if ($response) {
-            $this->setListener($listener);
+            $this->listener = $listener;
             $this->stopped = true;
         }
 

@@ -34,4 +34,9 @@ interface EventInterface
      * @return ListenerInterface
      */
     public function listener();
+
+    /**
+     * @return string|callable
+     */
+    public function factory();
 }

@@ -10,7 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\Service\ListenerConfigInterface as Config;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\ManagerInterface as ViewManager;
 use Zend\View\Resolver\ResolverInterface as ViewResolver;
 
@@ -48,7 +48,7 @@ class Manager
     /**
      * @return Config
      */
-    public function getViewConfig()
+    public function viewConfig()
     {
         return $this->config;
     }
@@ -57,7 +57,7 @@ class Manager
      * @param $name
      * @return mixed
      */
-    public function getConfig($name)
+    public function config($name)
     {
         return $this->config->get($name);
     }
@@ -65,17 +65,17 @@ class Manager
     /**
      * @return array
      */
-    public function getViewHelpers()
+    public function viewHelpers()
     {
-        return $this->config->getViewHelpers();
+        return $this->config->viewHelpers();
     }
 
     /**
      * @return string
      */
-    public function getLayoutTemplate()
+    public function layoutTemplate()
     {
-        return $this->config->getLayoutTemplate();
+        return $this->config->layoutTemplate();
     }
 
     /**
@@ -113,9 +113,9 @@ class Manager
     /**
      * @return ViewResolver
      */
-    public function getViewResolver()
+    public function viewResolver()
     {
-        return $this->sm->getViewResolver();
+        return $this->sm->viewResolver();
     }
 
     /**

@@ -10,8 +10,8 @@
 namespace Zend\Framework\Controller;
 
 use Zend\Framework\Controller\Manager as ControllerManager;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
 use Zend\Framework\Service\ListenerConfig as Config;
 
 class ManagerFactory
@@ -23,7 +23,7 @@ class ManagerFactory
      */
     public function createService(ServiceManager $sm)
     {
-        $config = $sm->getApplicationConfig();
+        $config = $sm->applicationConfig();
 
         $cm = new ControllerManager(new Config($config['controllers']));
         $cm->setServiceManager($sm);

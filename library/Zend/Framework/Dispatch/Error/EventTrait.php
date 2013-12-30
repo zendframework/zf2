@@ -10,7 +10,7 @@
 namespace Zend\Framework\Dispatch\Error;
 
 use Exception;
-use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as EventService;
 
 trait EventTrait
@@ -53,7 +53,7 @@ trait EventTrait
     /**
      * @return string
      */
-    public function getControllerName()
+    public function controllerName()
     {
         return $this->controller;
     }
@@ -71,7 +71,7 @@ trait EventTrait
     /**
      * @return string
      */
-    public function getControllerClass()
+    public function controllerClass()
     {
         return $this->controllerClass;
     }
@@ -89,7 +89,7 @@ trait EventTrait
     /**
      * @return string
      */
-    public function getError()
+    public function error()
     {
         return $this->error;
     }
@@ -107,7 +107,7 @@ trait EventTrait
     /**
      * @return Exception
      */
-    public function getException()
+    public function exception()
     {
         return $this->exception;
     }

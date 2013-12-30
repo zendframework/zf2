@@ -30,7 +30,7 @@ class Exception
     /**
      * @return string
      */
-    public function getControllerName()
+    public function controllerName()
     {
         return $this->controller;
     }
@@ -48,7 +48,7 @@ class Exception
     /**
      * @return string
      */
-    public function getControllerClass()
+    public function controllerClass()
     {
         return $this->controllerClass;
     }
@@ -66,7 +66,7 @@ class Exception
     /**
      * @return \Exception
      */
-    public function getException()
+    public function exception()
     {
         return $this->exception;
     }

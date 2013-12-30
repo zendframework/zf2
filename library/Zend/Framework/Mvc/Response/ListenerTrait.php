@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Mvc\Response;
 
-use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 
 trait ListenerTrait

@@ -12,7 +12,7 @@ namespace Zend\Framework\Route\NotFound;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait as ListenerService;
 use Zend\Framework\Route\EventInterface as RouteEvent;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 
@@ -53,7 +53,7 @@ trait ListenerTrait
 
     public function createService(ServiceManager $sm)
     {
-        $vm = $sm->getViewManager();
+        $vm = $sm->viewManager();
 
         $this->setDisplayExceptions($vm->displayExceptions())
             ->setDisplayNotFoundReason($vm->displayNotFoundReason())
@@ -123,7 +123,7 @@ trait ListenerTrait
      *
      * @return string
      */
-    public function getNotFoundTemplate()
+    public function notFoundTemplate()
     {
         return $this->notFoundTemplate;
     }
@@ -139,7 +139,7 @@ trait ListenerTrait
      */
     public function detectNotFoundError(Event $e)
     {
-        $error = $e->getError();
+        $error = $e->error();
         if (empty($error)) {
             return;
         }
@@ -149,7 +149,7 @@ trait ListenerTrait
             case RouteEvent::ERROR_CONTROLLER_INVALID:
             case RouteEvent::ERROR_ROUTER_NO_MATCH:
                 $this->reason = $error;
-                $response = $e->getResponse();
+                $response = $e->response();
                 if (!$response) {
                     $response = new HttpResponse();
                     $e->setResponse($response);
@@ -232,9 +232,9 @@ trait ListenerTrait
             return;
         }
 
-        $controller = $e->getController();
+        $controller = $e->controller();
         if (empty($controller)) {
-            $routeMatch = $e->getRouteMatch();
+            $routeMatch = $e->routeMatch();
             if (empty($routeMatch)) {
                 return;
             }
@@ -245,7 +245,7 @@ trait ListenerTrait
             }
         }
 
-        $controllerClass = $e->getControllerClass();
+        $controllerClass = $e->controllerClass();
         $model->setVariable('controller', $controller);
         $model->setVariable('controller_class', $controllerClass);
     }

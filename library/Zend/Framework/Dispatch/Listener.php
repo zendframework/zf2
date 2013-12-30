@@ -41,15 +41,15 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $em = $event->getEventManager();
-        $cm = $event->getControllerManager();
-        $rm = $event->getRouteMatch();
-        $sm = $event->getServiceManager();
-        $vm = $event->getViewModel();
+        $em = $event->eventManager();
+        $cm = $event->controllerManager();
+        $rm = $event->routeMatch();
+        $sm = $event->serviceManager();
+        $vm = $event->viewModel();
 
         $controllerName = $rm->getParam('controller', 'not-found');
 
-        $controller = $cm->getController( $controllerName );
+        $controller = $cm->controller( $controllerName );
 
         $em->push($controller);
 
@@ -64,9 +64,9 @@ class Listener
 
             $em->__invoke($dispatch);
 
-            $event->setResponse($dispatch->getResponse())
-                  ->setResult($dispatch->getResult())
-                  ->setViewManager($dispatch->getViewManager());
+            $event->setResponse($dispatch->response())
+                  ->setResult($dispatch->result())
+                  ->setViewManager($dispatch->viewManager());
 
         } catch (Exception $exception) {
 

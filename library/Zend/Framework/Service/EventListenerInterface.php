@@ -18,5 +18,5 @@ interface EventListenerInterface
     /**
      *
      */
-    const FACTORY_INTERFACE = 'Zend\Framework\Mvc\Service\ListenerFactoryInterface';
+    const FACTORY_INTERFACE = 'Zend\Framework\Service\ListenerFactoryInterface';
 }

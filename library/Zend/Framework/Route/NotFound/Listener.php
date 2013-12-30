@@ -10,7 +10,6 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\Dispatch\EventListenerInterface as DispatchEvent;
-use Zend\Framework\Route\EventInterface;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;
 
@@ -34,13 +33,13 @@ class NotFoundListener
             $this->detectNotFoundError($event);
         }
 
-        $vars = $event->getResult();
+        $vars = $event->result();
         if ($vars instanceof Response) {
             // Already have a response as the result
             return;
         }
 
-        $response = $event->getResponse();
+        $response = $event->response();
         if ($response->getStatusCode() != 404) {
             // Only handle 404 responses
             return;
@@ -60,7 +59,7 @@ class NotFoundListener
             }
         }
 
-        $model->setTemplate($this->getNotFoundTemplate());
+        $model->setTemplate($this->notFoundTemplate());
 
         // If displaying reasons, inject the reason
         $this->injectNotFoundReason($model);

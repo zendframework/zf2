@@ -11,8 +11,8 @@ namespace Zend\Framework\I18n\View\Helper;
 
 use Zend\I18n\Exception;
 
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\I18n\View\Helper\Translate as I18nTranslate;
 
 /**
@@ -28,7 +28,7 @@ class Translate
      */
     public function createService(ServiceManager $sm)
     {
-        $this->setTranslator($sm->getService('Translator'));
+        $this->setTranslator($sm->service('Translator'));
         return $this;
     }
 }

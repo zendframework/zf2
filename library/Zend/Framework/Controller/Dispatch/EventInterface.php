@@ -11,7 +11,7 @@ namespace Zend\Framework\Controller\Dispatch;
 
 use Zend\Framework\Controller\Dispatch\ListenerInterface as Controller;
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\Model\ViewModel;
 
 interface EventInterface
@@ -20,7 +20,7 @@ interface EventInterface
     /**
      * @return mixed
      */
-    public function getError();
+    public function error();
 
     /**
      * @param $error
@@ -37,7 +37,7 @@ interface EventInterface
     /**
      * @return Controller
      */
-    public function getController();
+    public function controller();
 
     /**
      * @param Controller $controller
@@ -48,7 +48,7 @@ interface EventInterface
     /**
      * @return mixed
      */
-    public function getResult();
+    public function result();
 
     /**
      * @param $result
@@ -59,7 +59,7 @@ interface EventInterface
     /**
      * @return ViewModel
      */
-    public function getViewModel();
+    public function viewModel();
     /**
      * @param ViewModel $vm
      * @return mixed

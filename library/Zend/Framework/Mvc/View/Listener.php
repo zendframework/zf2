@@ -42,14 +42,14 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $sm = $event->getServiceManager();
-        $em = $event->getEventManager();
-        $result = $event->getResult();
+        $sm = $event->serviceManager();
+        $em = $event->eventManager();
+        $result = $event->result();
         if ($result instanceof Response) {
             return;
         }
 
-        $viewModel = $event->getViewModel();
+        $viewModel = $event->viewModel();
         if (!$viewModel instanceof ViewModel) {
             return;
         }

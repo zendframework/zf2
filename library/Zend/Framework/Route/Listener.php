@@ -37,8 +37,8 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $request    = $event->getRequest();
-        $router     = $event->getRouter();
+        $request    = $event->request();
+        $router     = $event->router();
 
         $routeMatch = $router->match($request);
 

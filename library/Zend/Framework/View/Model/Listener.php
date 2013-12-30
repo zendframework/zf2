@@ -38,20 +38,20 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $result = $event->getResult();
+        $result = $event->result();
 
         if (!$result instanceof ViewModel) {
             return;
         }
 
-        $model = $event->getViewModel();
+        $model = $event->viewModel();
 
         if ($result->terminate()) {
             $event->setViewModel($result);
             return;
         }
 
-        if ($event->getError() && $model instanceof ClearableModel) {
+        if ($event->error() && $model instanceof ClearableModel) {
             $model->clearChildren();
         }
 

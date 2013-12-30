@@ -9,6 +9,9 @@
 
 namespace Zend\Framework\EventManager\PriorityQueue;
 
+use Zend\Framework\EventManager\EventListenerInterface as EventListener;
+
 interface EventListenerInterface
+    extends EventListener
 {
 }

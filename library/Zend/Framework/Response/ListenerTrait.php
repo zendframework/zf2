@@ -30,7 +30,7 @@ trait ListenerTrait
         if ($event->contentSent()) {
             return $this;
         }
-        $response = $event->getResponse();
+        $response = $event->response();
         echo $response->getContent();
         $event->setContentSent();
         return $this;

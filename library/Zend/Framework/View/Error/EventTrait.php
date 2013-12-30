@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Error;
 
 use Exception;
-use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as EventService;
 
 trait EventTrait
@@ -33,7 +33,7 @@ trait EventTrait
     /**
      * @return mixed
      */
-    public function getError()
+    public function error()
     {
         return $this->error;
     }
@@ -61,7 +61,7 @@ trait EventTrait
     /**
      * @return Exception
      */
-    public function getException()
+    public function exception()
     {
         return $this->exception;
     }

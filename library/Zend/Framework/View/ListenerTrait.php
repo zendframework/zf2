@@ -35,8 +35,8 @@ trait ListenerTrait
      */
     public function render(ViewModel $model, EventInterface $event)
     {
-        $em = $event->getEventManager();
-        $sm = $event->getServiceManager();
+        $em = $event->eventManager();
+        $sm = $event->serviceManager();
 
         $rendererEvent = new ViewRendererEvent;
 
@@ -48,7 +48,7 @@ trait ListenerTrait
 
         $em->__invoke($rendererEvent);
 
-        $renderer = $rendererEvent->getViewRenderer();
+        $renderer = $rendererEvent->viewRenderer();
 
         if (!$renderer instanceof Renderer) {
             throw new RuntimeException(sprintf(
@@ -59,7 +59,7 @@ trait ListenerTrait
 
         // If EVENT_VIEW_RENDERER changed the model, make sure
         // we use this new model instead of the current $model
-        $model   = $rendererEvent->getViewModel();
+        $model   = $rendererEvent->viewModel();
 
         // If we have children, render them first, but only if:
         // a) the renderer does not implement TreeRendererInterface, or

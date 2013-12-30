@@ -49,13 +49,13 @@ class Listener
     public function __invoke(EventInterface $event)
     {
         // Do nothing if no error in the event
-        $error = $event->getError();
+        $error = $event->error();
         if (empty($error)) {
             return;
         }
 
         // Do nothing if the result is a response object
-        $result = $event->getResult();
+        $result = $event->result();
         if ($result instanceof Response) {
             return;
         }
@@ -74,10 +74,10 @@ class Listener
                     'exception'          => $event->getParam('exception'),
                     'display_exceptions' => $this->displayExceptions(),
                 ));
-                $model->setTemplate($this->getExceptionTemplate());
+                $model->setTemplate($this->exceptionTemplate());
                 $event->setResult($model);
 
-                $response = $event->getResponse();
+                $response = $event->response();
                 if (!$response) {
                     $response = new HttpResponse();
                     $response->setStatusCode(500);

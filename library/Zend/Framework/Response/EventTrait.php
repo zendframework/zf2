@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as EventService;
 
 trait EventTrait
@@ -36,7 +36,7 @@ trait EventTrait
      */
     public function setContentSent()
     {
-        $response = $this->getResponse();
+        $response = $this->response();
         $this->contentSent[spl_object_hash($response)] = true;
         return $this;
     }
@@ -46,7 +46,7 @@ trait EventTrait
      */
     public function contentSent()
     {
-        $response = $this->getResponse();
+        $response = $this->response();
         if (isset($this->contentSent[spl_object_hash($response)])) {
             return true;
         }
@@ -60,7 +60,7 @@ trait EventTrait
      */
     public function setHeadersSent()
     {
-        $response = $this->getResponse();
+        $response = $this->response();
         $this->headersSent[spl_object_hash($response)] = true;
         return $this;
     }
@@ -70,7 +70,7 @@ trait EventTrait
      */
     public function headersSent()
     {
-        $response = $this->getResponse();
+        $response = $this->response();
         if (isset($this->headersSent[spl_object_hash($response)])) {
             return true;
         }

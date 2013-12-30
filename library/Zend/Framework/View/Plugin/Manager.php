@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Service\ListenerConfig as Config;
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 /**
  * Plugin manager implementation for view helpers
@@ -56,7 +56,7 @@ class Manager
      * @param $name
      * @return string
      */
-    public function getAlias($name)
+    public function alias($name)
     {
         return $this->config->get(strtolower($name));
     }
@@ -68,7 +68,7 @@ class Manager
      */
     public function get($name, $options)
     {
-        return $this->sm->getService($this->getAlias($name), $options);
+        return $this->sm->service($this->alias($name), $options);
     }
 
     /**
@@ -78,7 +78,7 @@ class Manager
      */
     public function add($name, $service)
     {
-        $this->sm->add($this->getAlias($name), $service);
+        $this->sm->add($this->alias($name), $service);
         return $this;
     }
 
@@ -88,6 +88,6 @@ class Manager
      */
     public function addInvokableClass($name, $class)
     {
-        $this->sm->addInvokableClass($this->getAlias($name), $class);
+        $this->sm->addInvokableClass($this->alias($name), $class);
     }
 }

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 class Manager
 {
@@ -41,8 +41,8 @@ class Manager
      * @param $name
      * @return array|object
      */
-    public function getController($name)
+    public function controller($name)
     {
-        return $this->sm->getService($name);
+        return $this->sm->service($name);
     }
 }

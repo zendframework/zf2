@@ -38,7 +38,7 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $matches = $event->getRouteMatch();
+        $matches = $event->routeMatch();
         if (!$matches instanceof RouteMatch) {
             // Can't do anything without a route match
             return;

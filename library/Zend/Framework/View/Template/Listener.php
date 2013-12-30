@@ -39,7 +39,7 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $model = $event->getResult();
+        $model = $event->result();
         if (!$model instanceof ViewModel) {
             return;
         }
@@ -50,7 +50,7 @@ class Listener
             return;
         }
 
-        $routeMatch = $event->getRouteMatch();
+        $routeMatch = $event->routeMatch();
         $controller = $event->target();
         if (is_object($controller)) {
             $controller = get_class($controller);

@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\View\Helper;
 
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 use Zend\View\Helper\Url as UrlHelper;
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
 
 class Url
     extends UrlHelper
@@ -24,8 +24,8 @@ class Url
      */
     public function createService(ServiceManager $sm)
     {
-        $this->setRouter($sm->getRouter());
-        $this->setRouteMatch($sm->getRouteMatch());
+        $this->setRouter($sm->router());
+        $this->setRouteMatch($sm->routeMatch());
         return $this;
     }
 }

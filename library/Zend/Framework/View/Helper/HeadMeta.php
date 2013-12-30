@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\View\Helper;
 
-use Zend\Framework\Mvc\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 use Zend\View\Helper\HeadMeta as HeadMetaHelper;
-use Zend\Framework\Mvc\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
 
 class HeadMeta
     extends HeadMetaHelper
@@ -24,7 +24,7 @@ class HeadMeta
      */
     public function createService(ServiceManager $sm)
     {
-        $this->setView($sm->getViewRenderer());
+        $this->setView($sm->viewRenderer());
         return $this;
     }
 }

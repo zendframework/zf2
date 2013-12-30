@@ -10,7 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\EventTrait as EventService;
-use Zend\Framework\Application\ServiceTrait as Services;
+use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\View\Model\ViewModel;
 
 trait EventTrait
@@ -33,7 +33,7 @@ trait EventTrait
     /**
      * @return mixed
      */
-    public function getResult()
+    public function result()
     {
         return $this->result;
     }
@@ -51,7 +51,7 @@ trait EventTrait
     /**
      * @return ViewModel
      */
-    public function getViewModel()
+    public function viewModel()
     {
         return $this->vm;
     }
