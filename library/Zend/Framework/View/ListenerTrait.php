@@ -10,7 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\EventInterface;
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\View\Renderer\Event as ViewRendererEvent;
 use Zend\Framework\View\Response\Event as ViewResponseEvent;
 use Zend\View\Renderer\RendererInterface as Renderer;
@@ -25,7 +25,7 @@ trait ListenerTrait
     /**
      *
      */
-    use ListenerService;
+    use Listener;
 
     /**
      * @param ViewModel $model

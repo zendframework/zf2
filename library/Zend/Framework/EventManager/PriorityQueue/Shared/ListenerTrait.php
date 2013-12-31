@@ -11,7 +11,7 @@ namespace Zend\Framework\EventManager\PriorityQueue\Shared;
 
 use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface;
-use Zend\Framework\EventManager\PriorityQueue\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\PriorityQueue\ListenerTrait as Listener;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
 trait ListenerTrait
@@ -19,9 +19,9 @@ trait ListenerTrait
     /**
      *
      */
-    use ListenerService {
-        ListenerService::add    as addToQueue;
-        ListenerService::remove as removeFromQueue;
+    use Listener {
+        Listener::add    as addToQueue;
+        Listener::remove as removeFromQueue;
     }
 
     /**

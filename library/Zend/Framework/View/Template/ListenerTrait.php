@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Template;
 
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 
 trait ListenerTrait
@@ -17,7 +17,7 @@ trait ListenerTrait
     /**
      *
      */
-    use ListenerService;
+    use Listener;
 
     /**
      * FilterInterface/inflector used to normalize names for use as template identifiers

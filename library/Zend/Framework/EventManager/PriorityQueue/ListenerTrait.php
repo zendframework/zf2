@@ -11,7 +11,7 @@ namespace Zend\Framework\EventManager\PriorityQueue;
 
 use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface;
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
 trait ListenerTrait
@@ -19,7 +19,7 @@ trait ListenerTrait
     /**
      *
      */
-    use ListenerService;
+    use Listener;
 
     /**
      * Listeners
@@ -119,6 +119,7 @@ trait ListenerTrait
                         || \is_subclass_of($target, $t)
                     ) {
                         $queue->insert($listener, $priority);
+                        continue;
                     }
                 }
             }

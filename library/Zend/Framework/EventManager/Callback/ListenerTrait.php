@@ -10,15 +10,15 @@
 namespace Zend\Framework\EventManager\Callback;
 
 use Zend\Framework\EventManager\EventInterface;
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use ListenerService {
-        ListenerService::__construct as listener;
+    use Listener {
+        Listener::__construct as listener;
     }
 
     /**

@@ -10,14 +10,14 @@
 namespace Zend\Framework\Service\Factory;
 
 use ReflectionClass;
-use Zend\Framework\Service\ListenerTrait as ListenerService;
+use Zend\Framework\Service\ListenerTrait as Listener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use ListenerService;
+    use Listener;
 
     /**
      * @param string|callable $factory

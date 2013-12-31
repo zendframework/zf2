@@ -10,14 +10,14 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\EventManager\EventTrait as Event;
 
 trait EventTrait
 {
     /**
      *
      */
-    use EventService, Services, ServicesTrait;
+    use Event, Services, ServicesTrait;
 
     /**
      * @var array

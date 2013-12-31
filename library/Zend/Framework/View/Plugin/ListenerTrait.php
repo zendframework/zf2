@@ -22,11 +22,6 @@ trait ListenerTrait
     use Listener;
 
     /**
-     * @var ListenerConfigInterface
-     */
-    protected $plugins;
-
-    /**
      * @param $name
      * @return string
      */

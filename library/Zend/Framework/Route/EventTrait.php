@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\EventManager\EventTrait as Event;
 use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Request\ServicesTrait as Request;
 
@@ -19,5 +19,5 @@ trait EventTrait
     /**
      *
      */
-    use EventService, Route, Request, Services;
+    use Event, Route, Request, Services;
 }

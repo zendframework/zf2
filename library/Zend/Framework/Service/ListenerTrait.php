@@ -22,7 +22,7 @@ trait ListenerTrait
     use Listener, ServicesTrait;
 
     /**
-     * @var ListenerConfig
+     * @var ListenerConfigInterface
      */
     public $config;
 

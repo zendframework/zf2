@@ -9,12 +9,12 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use ListenerService;
+    use Listener;
 }

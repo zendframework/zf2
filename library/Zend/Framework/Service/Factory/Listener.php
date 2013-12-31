@@ -18,9 +18,7 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__invoke as factory;
-    }
+    use ListenerTrait;
 
     /**
      * Constructor

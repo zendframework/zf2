@@ -13,7 +13,6 @@ use Zend\Http\PhpEnvironment\Request as Request;
 
 trait ServicesTrait
 {
-
     /**
      * @return bool|Request
      */

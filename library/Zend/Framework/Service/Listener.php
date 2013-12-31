@@ -17,7 +17,6 @@ class Listener
      */
     use ListenerTrait {
         ListenerTrait::__construct as listener;
-        ListenerTrait::__invoke as instance;
     }
 
     /**

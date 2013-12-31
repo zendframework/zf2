@@ -11,14 +11,14 @@ namespace Zend\Framework\View\Error;
 
 use Exception;
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\EventTrait as EventService;
+use Zend\Framework\EventManager\EventTrait as Event;
 
 trait EventTrait
 {
     /**
      *
      */
-    use EventService, Services;
+    use Event, Services;
 
     /**
      * @var string

@@ -11,4 +11,16 @@ namespace Zend\Framework\Service;
 
 interface ListenerConfigInterface
 {
+    /**
+     * @param string $name
+     * @param null $default
+     * @return mixed
+     */
+    public function get($name, $default = null);
+    /**
+     * @param string $name
+     * @param mixed $config
+     * @return self
+     */
+    public function add($name, $config);
 }

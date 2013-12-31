@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\EventManager\ListenerTrait as ListenerService;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\Service\ServicesTrait as Services;
 
 trait ListenerTrait
@@ -17,5 +17,5 @@ trait ListenerTrait
     /**
      *
      */
-    use ListenerService, Services;
+    use Listener, Services;
 }

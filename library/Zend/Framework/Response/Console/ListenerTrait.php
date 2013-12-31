@@ -10,14 +10,14 @@
 namespace Zend\Framework\Response\Console;
 
 use Zend\Framework\Response\EventInterface as Event;
-use Zend\Framework\Response\ListenerTrait as ListenerService;
+use Zend\Framework\Response\ListenerTrait as Listener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use ListenerService;
+    use Listener;
 
     /**
      * Send content

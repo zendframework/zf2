@@ -10,15 +10,15 @@
 namespace Zend\Framework\Response\Stream;
 
 use Zend\Framework\Response\EventInterface as Event;
-use Zend\Framework\Response\ListenerTrait as ListenerService;
-use Zend\Framework\Response\SendHeadersTrait as SendHeadersService;
+use Zend\Framework\Response\ListenerTrait as Listener;
+use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use ListenerService, SendHeadersService;
+    use Listener, SendHeaders;
 
     /**
      * Send the stream
