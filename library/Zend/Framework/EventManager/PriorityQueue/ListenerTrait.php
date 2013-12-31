@@ -90,9 +90,6 @@ trait ListenerTrait
         $priority = $listener->priority();
 
         foreach($names as $name) {
-            if (!isset($this->listeners[$name])) {
-                continue;
-            }
             if (!isset($this->listeners[$name][$priority])) {
                 continue;
             }
