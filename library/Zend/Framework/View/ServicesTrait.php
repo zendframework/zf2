@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\View\Config as ViewConfig;
 use Zend\Framework\View\Listener as View;
 use Zend\Framework\View\Plugin\ServicesTrait as ViewPlugin;
 use Zend\Framework\View\Renderer\ServicesTrait as ViewRenderer;
@@ -23,14 +22,6 @@ trait ServicesTrait
      *
      */
     use ViewPlugin, ViewRenderer, ViewResolver, ViewManager, ViewModel;
-
-    /**
-     * @return ViewConfig
-     */
-    public function viewConfig()
-    {
-        return $this->viewManager()->viewConfig();
-    }
 
     /**
      * @return bool|View

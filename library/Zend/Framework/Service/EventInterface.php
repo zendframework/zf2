@@ -17,7 +17,7 @@ interface EventInterface
     /**
      * @return string
      */
-    public function alias();
+    public function service();
 
     /**
      * @return array

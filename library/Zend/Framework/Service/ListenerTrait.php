@@ -114,7 +114,7 @@ trait ListenerTrait
      */
     public function __invoke(EventInterface $event)
     {
-        $name = $event->alias();
+        $name = $event->service();
 
         if ($event->shared() && isset($this->shared[$name])) {
             return $this->shared[$name];

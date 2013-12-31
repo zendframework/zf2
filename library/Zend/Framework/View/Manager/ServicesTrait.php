@@ -9,10 +9,19 @@
 
 namespace Zend\Framework\View\Manager;
 
+use Zend\Framework\View\Config as ViewConfig;
 use Zend\Framework\View\Manager\Listener as ViewManager;
 
 trait ServicesTrait
 {
+    /**
+     * @return ViewConfig
+     */
+    public function viewConfig()
+    {
+        return $this->viewManager()->viewConfig();
+    }
+
     /**
      * @return ViewManager
      */
