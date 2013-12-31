@@ -104,6 +104,8 @@ trait ListenerTrait
                     continue;
                 }
 
+                $shared->shared($event, $queue);
+
                 $this->match($target, $shared->listeners[$name], $queue);
             }
         }

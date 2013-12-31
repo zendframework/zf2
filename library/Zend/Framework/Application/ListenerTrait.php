@@ -12,7 +12,7 @@ namespace Zend\Framework\Application;
 use Exception;
 use Zend\Framework\Application\Service\Listener as ServiceManager;
 use Zend\Framework\EventManager\ListenerInterface;
-use Zend\Framework\EventManager\Manager\ListenerTrait as EventManager;
+use Zend\Framework\EventManager\PriorityQueue\ListenerTrait as EventManager;
 use Zend\Framework\Mvc\Event as MvcEvent;
 use Zend\Framework\Service\ListenerConfig  as Config;
 
