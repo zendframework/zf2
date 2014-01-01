@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Service\Factory;
 
+use Exception;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
@@ -21,12 +22,20 @@ class Listener
     use ListenerTrait;
 
     /**
-     * Constructor
-     *
      * @param ServiceManager $sm
      */
     public function __construct(ServiceManager $sm)
     {
         $this->sm = $sm;
+    }
+
+    /**
+     * @param EventInterface $event
+     * @return mixed|void
+     * @throws Exception
+     */
+    public function __invoke(EventInterface $event)
+    {
+        throw new Exception('Missing __invoke method for ' . get_class($this));
     }
 }

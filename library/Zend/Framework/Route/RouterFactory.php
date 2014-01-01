@@ -10,40 +10,32 @@
 namespace Zend\Framework\Route;
 
 use Zend\Console\Console;
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class RouterFactory
-    implements FactoryInterface
+    extends FactoryListener
 {
     /**
-     * Create and return the router
-     *
-     * Retrieves the "router" key of the Config service, and uses it
-     * to instantiate the router. Uses the TreeRouteStack implementation by
-     * default.
-     *
-     * @param  ServiceManager                  $sm
-     * @param  string|null                     $cName
-     * @param  string|null                     $rName
-     * @return \Zend\Mvc\Router\RouteStackInterface
+     * @param EventInterface $event
+     * @return bool|mixed|object
      */
-    public function createService(ServiceManager $sm, $cName = null, $rName = null)
+    public function __invoke(EventInterface $event)
     {
-        $config = $sm->applicationConfig();
+        $config = $this->sm->applicationConfig();
 
         // Defaults
         $routerClass        = 'Zend\Mvc\Router\Http\TreeRouteStack';
         $routerConfig       = isset($config['router']) ? $config['router'] : array();
 
         // Console environment?
-        if ($rName === 'ConsoleRouter'                       // force console router
+        /*if ($rName === 'ConsoleRouter'                       // force console router
             || ($cName === 'router' && Console::isConsole()) // auto detect console
         ) {
             // We are in a console, use console router defaults.
             $routerClass = 'Zend\Mvc\Router\Console\SimpleRouteStack';
             $routerConfig = isset($config['console']['router']) ? $config['console']['router'] : array();
-        }
+        }*/
 
         // Obtain the configured router class, if any
         if (isset($routerConfig['router_class']) && class_exists($routerConfig['router_class'])) {
@@ -52,7 +44,7 @@ class RouterFactory
 
         // Inject the route plugins
         if (!isset($routerConfig['route_plugins'])) {
-            $routerConfig['route_plugins'] = $sm->routePluginManager();
+            $routerConfig['route_plugins'] = $this->sm->routePluginManager();
         }
 
         // Obtain an instance

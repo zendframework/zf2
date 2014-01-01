@@ -31,13 +31,13 @@ interface ListenerInterface
      * @param $name
      * @return mixed
      */
-    public function config($name);
+    public function listener($name);
 
     /**
-     * @param ListenerConfigInterface $config
-     * @return $this
+     * @param array $listeners
+     * @return self
      */
-    public function configuration(ListenerConfigInterface $config);
+    public function listeners(array $listeners);
 
     /**
      * @param $name

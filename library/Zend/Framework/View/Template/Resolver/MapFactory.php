@@ -9,24 +9,20 @@
 
 namespace Zend\Framework\View\Template\Resolver;
 
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\View\Resolver\TemplateMapResolver;
 
-class MapFactory implements FactoryInterface
+class MapFactory
+    extends FactoryListener
 {
     /**
-     * Create the template map view resolver
-     *
-     * Creates a Zend\View\Resolver\AggregateResolver and populates it with the
-     * ['view_manager']['template_map']
-     *
-     * @param  ServiceManager $sm
+     * @param EventInterface $event
      * @return TemplateMapResolver
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
-        $config = $sm->applicationConfig();
+        $config = $this->sm->applicationConfig();
         $map = array();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];

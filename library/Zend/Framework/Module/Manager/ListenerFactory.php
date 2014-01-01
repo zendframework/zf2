@@ -9,24 +9,24 @@
 
 namespace Zend\Framework\Module\Manager;
 
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\ModuleManager\ModuleManager;
 
 class ListenerFactory
-    implements FactoryInterface
+    extends FactoryListener
 {
     /**
-     * @param ServiceManager $sm
-     * @return mixed|ModuleManager
+     * @param EventInterface $event
+     * @return void|Listener
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
-        $modules = $sm->applicationConfig()['modules'];
+        $modules = $this->sm->applicationConfig()['modules'];
 
-        $em = $sm->eventManager();
+        $em = $this->sm->eventManager();
 
-        $em->add($sm->service('ModuleManager\DefaultListeners'));
+        $em->add($this->sm->service('ModuleManager\DefaultListeners'));
 
         $mm = new ModuleManager($modules);
 

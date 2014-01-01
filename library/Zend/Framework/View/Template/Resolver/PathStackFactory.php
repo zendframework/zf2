@@ -9,25 +9,20 @@
 
 namespace Zend\Framework\View\Template\Resolver;
 
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\View\Resolver\TemplatePathStack;
 
-class PathStackFactory implements FactoryInterface
+class PathStackFactory
+    extends FactoryListener
 {
     /**
-     * Create the template map view resolver
-     *
-     * Creates a Zend\View\Resolver\TemplatePathStack and populates it with the
-     * ['view_manager']['template_path_stack'] and sets the default suffix with the
-     * ['view_manager']['default_template_suffix']
-     *
-     * @param  ServiceManager $sm
+     * @param EventInterface $event
      * @return TemplatePathStack
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
-        $config = $sm->applicationConfig();
+        $config = $this->sm->applicationConfig();
 
         $templatePathStack = new TemplatePathStack();
 

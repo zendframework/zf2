@@ -12,19 +12,18 @@ namespace Zend\Framework\View\Helper;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 use Zend\View\Helper\HeadMeta as HeadMetaHelper;
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ServiceInterface;
 
 class HeadMeta
     extends HeadMetaHelper
-    implements FactoryInterface
+    implements ServiceInterface
 {
     /**
      * @param ServiceManager $sm
      * @return static
      */
-    public function createService(ServiceManager $sm)
+    public function __service(ServiceManager $sm)
     {
         $this->setView($sm->viewRenderer());
-        return $this;
     }
 }

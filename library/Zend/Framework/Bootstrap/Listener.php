@@ -18,7 +18,9 @@ class Listener
     use ListenerTrait {
         ListenerTrait::__construct as listener;
     }
-
+public static function gregb($a, $b) {
+    var_dump(__FILE__, __FUNCTION__, $a, $b);
+}
     /**
      * @param $event
      * @param $target

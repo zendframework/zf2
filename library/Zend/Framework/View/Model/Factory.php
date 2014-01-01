@@ -9,21 +9,21 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class Factory
-    implements FactoryInterface
+    extends FactoryListener
 {
     /**
-     * @param ServiceManager $sm
+     * @param EventInterface $event
      * @return ViewModel
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
         $vm = new ViewModel;
 
-        $vm->setTemplate($sm->viewConfig()->layoutTemplate());
+        $vm->setTemplate($this->sm->viewConfig()->layoutTemplate());
 
         return $vm;
     }

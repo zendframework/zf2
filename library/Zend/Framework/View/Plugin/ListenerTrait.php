@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\View\Plugin;
 
-use Zend\Framework\Service\EventInterface;
-use Zend\Framework\Service\ListenerConfigInterface as Config;
-use Zend\Framework\Service\ListenerTrait as Listener;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\Service\Event as Plugin;
+use Zend\Framework\Service\EventInterface;
+//use Zend\Framework\Service\ServicesTrait as Services;
 
 trait ListenerTrait
 {
@@ -28,25 +28,6 @@ trait ListenerTrait
     public function alias($name)
     {
         return $this->config->get(strtolower($name)) ? : $name;
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function config($name)
-    {
-        return $this->config($this->alias($name));
-    }
-
-    /**
-     * @param Config $config
-     * @return $this
-     */
-    public function configuration(Config $config)
-    {
-        $this->config = $config;
-        return $this;
     }
 
     /**

@@ -12,17 +12,17 @@ namespace Zend\Framework\View\Helper;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 use Zend\View\Helper\Url as UrlHelper;
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\ServiceInterface;
 
 class Url
     extends UrlHelper
-    implements FactoryInterface
+    implements ServiceInterface
 {
     /**
      * @param ServiceManager $sm
      * @return static
      */
-    public function createService(ServiceManager $sm)
+    public function __service(ServiceManager $sm)
     {
         $this->setRouter($sm->router());
         $this->setRouteMatch($sm->routeMatch());

@@ -9,25 +9,25 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class RendererFactory
-    implements FactoryInterface
+    extends FactoryListener
 {
     /**
-     * @param ServiceManager $sm
+     * @param EventInterface $event
      * @return Renderer
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
         $renderer = new Renderer();
 
-        $renderer->setPluginManager($sm->viewPluginManager());
-        $renderer->setResolver($sm->viewResolver());
+        $renderer->setPluginManager($this->sm->viewPluginManager());
+        $renderer->setResolver($this->sm->viewResolver());
 
         $modelHelper = $renderer->plugin('viewmodel');
-        $modelHelper->setRoot($sm->viewModel());
+        $modelHelper->setRoot($this->sm->viewModel());
 
         return $renderer;
     }

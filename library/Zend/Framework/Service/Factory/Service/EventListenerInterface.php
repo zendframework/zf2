@@ -7,15 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service;
+namespace Zend\Framework\Service\Factory\Service;
 
-interface ListenerFactoryInterface
+use Zend\Framework\Service\Factory\EventListenerInterface as EventListener;
+
+interface EventListenerInterface
+    extends EventListener
 {
-    /**
-     * Create service
-     *
-     * @param ListenerInterface $sm
-     * @return mixed
-     */
-    public function createService(ListenerInterface $sm);
 }

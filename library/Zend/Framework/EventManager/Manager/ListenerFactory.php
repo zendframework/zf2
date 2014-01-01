@@ -9,19 +9,17 @@
 
 namespace Zend\Framework\EventManager\Manager;
 
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as Factory;
 
 class ListenerFactory
-    implements FactoryInterface
+    extends Factory
 {
     /**
-     * Create Event Manager listener
-     *
-     * @param ServiceManager $sm
-     * @return Listener
+     * @param EventInterface $event
+     * @return void|Listener
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
         return new Listener;
     }

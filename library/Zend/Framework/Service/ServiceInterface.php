@@ -9,10 +9,13 @@
 
 namespace Zend\Framework\Service;
 
-interface EventListenerInterface
+interface ServiceInterface
 {
     /**
+     * Create service
      *
+     * @param ListenerInterface $sm
+     * @return mixed
      */
-    const EVENT_SERVICE = 'service';
+    public function __service(ListenerInterface $sm);
 }

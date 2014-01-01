@@ -9,28 +9,24 @@
 
 namespace Zend\Framework\View\Plugin;
 
-//use Zend\Console\Console;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\Framework\Service\ListenerConfig as ServiceConfig;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\View\Plugin\Listener as PluginManager;
 use Zend\Mvc\Exception;
-use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Helper as ViewHelper;
 
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-
 class ListenerFactory
-    implements FactoryInterface
+    extends FactoryListener
 {
     /**
-     * @param ServiceManager $sm
-     * @return PluginManager
+     * @param EventInterface $event
+     * @return Listener
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
-        $config = $sm->viewManager()->viewHelpers();
+        $config = $this->sm->viewManager()->viewHelpers();
 
-        $plugins = new Listener(new ServiceConfig($config), $sm);
+        $plugins = new Listener(new ServiceConfig($config), $this->sm);
 
         // Configure URL view helper with router
         /*$plugins->configure('url', function ($sm) use ($sm) {
@@ -49,8 +45,8 @@ class ListenerFactory
             return $helper;
         });*/
 
-        $plugins->configure('basepath', function ($sm) use ($sm) {
-            $config = $sm->applicationConfig();
+        $plugins->configure('basepath', function (EventInterface $event) {
+            $config = $this->sm->applicationConfig();
             $basePathHelper = new ViewHelper\BasePath;
             if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
                 $basePathHelper->setBasePath($config['view_manager']['base_path']);
@@ -70,8 +66,8 @@ class ListenerFactory
          * Other view helpers depend on this to decide which spec to generate their tags
          * based on. This is why it must be set early instead of later in the layout phtml.
          */
-        $plugins->configure('doctype', function ($sm) use ($sm) {
-            $config = $sm->applicationConfig();
+        $plugins->configure('doctype', function (EventInterface $event) {
+            $config = $this->sm->applicationConfig();
             $config = isset($config['view_manager']) ? $config['view_manager'] : array();
             $doctypeHelper = new ViewHelper\Doctype;
             if (isset($config['doctype']) && $config['doctype']) {

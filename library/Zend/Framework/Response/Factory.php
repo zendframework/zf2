@@ -12,18 +12,17 @@ namespace Zend\Framework\Response;
 use Zend\Console\Console;
 use Zend\Console\Response as ConsoleResponse;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
-class Factory implements FactoryInterface
+class Factory
+    extends FactoryListener
 {
     /**
-     * Create and return a response instance, according to current environment.
-     *
-     * @param  ServiceManager $sm
-     * @return \Zend\Stdlib\Message
+     * @param EventInterface $event
+     * @return ConsoleResponse|HttpResponse
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
         if (Console::isConsole()) {
             return new ConsoleResponse();

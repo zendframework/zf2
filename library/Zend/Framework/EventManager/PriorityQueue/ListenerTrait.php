@@ -28,6 +28,11 @@ trait ListenerTrait
      */
     public $listeners = [];
 
+    public function configure($name, $priority, $listener)
+    {
+        $this->listeners[$name][$priority][] = $listener;
+    }
+
     /**
      * Push listener to top of queue
      *
@@ -101,29 +106,26 @@ trait ListenerTrait
     }
 
     /**
-     * Match target listeners
-     *
-     * @param string $target
-     * @param array $listeners
+     * @param $target
+     * @param ListenerInterface $listener
      * @param PriorityQueue $queue
+     * @return bool
      */
-    public function match($target, array $listeners, PriorityQueue $queue)
+    public function match($target, ListenerInterface $listener, PriorityQueue $queue)
     {
-        foreach($listeners as $priority => $priorityListeners) {
-            foreach($priorityListeners as $listener) {
-                foreach($listener->targets() as $t) {
-                    if (
-                        $t === ListenerInterface::WILDCARD
-                        || $t === $target
-                        || $target instanceof $t
-                        || \is_subclass_of($target, $t)
-                    ) {
-                        $queue->insert($listener, $priority);
-                        break;
-                    }
-                }
+        foreach($listener->targets() as $t) {
+            if (
+                $t === ListenerInterface::WILDCARD
+                || $t === $target
+                || $target instanceof $t
+                || \is_subclass_of($target, $t)
+            ) {
+                $queue->insert($listener, ListenerInterface::PRIORITY);
+                return true;
             }
         }
+
+        return false;
     }
 
     /**
@@ -141,14 +143,31 @@ trait ListenerTrait
         $names = EventInterface::WILDCARD == $name ? [$name] : [EventInterface::WILDCARD, $name];
 
         foreach($names as $name) {
-            if (!isset($this->listeners[$name])) {
+            if (!isset($this->listeners[$name]) || !$this->listeners[$name]) {
                 continue;
             }
 
-            $this->match($target, $this->listeners[$name], $queue);
+            foreach($this->listeners[$name] as $priority => $priorityListeners) {
+                foreach($priorityListeners as $listener) {
+                    if (is_string($listener)) {
+                        $this->listeners[$name][$priority] = $listener = $this->listener($listener);
+                    }
+
+                    $this->match($target, $listener, $queue);
+                }
+            }
         }
 
         return $queue;
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function listener($name)
+    {
+        return new $name();
     }
 
     /**

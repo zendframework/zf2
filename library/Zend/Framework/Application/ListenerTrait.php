@@ -36,41 +36,29 @@ trait ListenerTrait
     {
         $sm = new ServiceManager;
 
-        $sm->configuration(new Config($config['service_manager']))
+        $sm->listeners($config['service_manager'])
            ->setApplicationConfig($config);
 
         $application = new Listener($sm);
 
         $sm->setEventManager($application);
 
-        //$application->setEventManager($application);
-
-        //Service Listener
-        //$application->add($sm);
-
-        $listeners = $config['event_manager']['listeners'];
-
-        foreach($listeners as $event => $eventListeners) {
-            foreach($eventListeners as $listener) {
-                if (is_string($listener)) {
-                    $service = $sm->get($listener);
-                    if (!$service) {
-                        throw new Exception($listener);
-                    }
-                    $listener = $service;
-                    if ($listener instanceof ListenerInterface) {
-                        $listener->setName($event);
-                    }
-                }
-
-                $application->add($listener);
-            }
-        }
+        $application->listeners = $config['event_manager']['listeners'];
 
         //$mm = $sm->service('ModuleManager');
         //$mm->loadModules();
 
         return $application;
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function listener($name)
+    {
+        return $this->sm->get($name);
+
     }
 
     /**

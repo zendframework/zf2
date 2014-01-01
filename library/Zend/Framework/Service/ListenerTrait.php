@@ -12,7 +12,7 @@ namespace Zend\Framework\Service;
 use Exception;
 use ReflectionClass;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\Service\Factory\Listener as FactoryService;
+use Zend\Framework\Service\Factory\Service\Listener as FactoryServiceListener;
 
 trait ListenerTrait
 {
@@ -20,11 +20,6 @@ trait ListenerTrait
      *
      */
     use Listener, ServicesTrait;
-
-    /**
-     * @var ListenerConfigInterface
-     */
-    public $config;
 
     /**
      * @var array
@@ -42,12 +37,31 @@ trait ListenerTrait
     protected $pending = [];
 
     /**
+     * @param $name
+     * @return FactoryListener
+     */
+    public function listener($name)
+    {
+        if (!isset($this->listeners[$name]) || !$this->listeners[$name]) {
+            return false;
+        }
+
+        $listener = $this->listeners[$name];
+
+        if (is_string($listener)) {
+            $this->listeners[$name] = $listener = new FactoryServiceListener($this->sm, $listener);
+        }
+
+        return $listener;
+    }
+
+    /**
      * @param string $name
      * @param string $class
      */
     public function configure($name, $class)
     {
-        $this->config->add($name, $class);
+        $this->listeners[$name] = $class;
     }
 
     /**
@@ -61,21 +75,12 @@ trait ListenerTrait
     }
 
     /**
-     * @param $name
-     * @return mixed
+     * @param array $listeners
+     * @return self
      */
-    public function config($name)
+    public function listeners(array $listeners)
     {
-        return $this->config->get($name);
-    }
-
-    /**
-     * @param ListenerConfigInterface $config
-     * @return $this
-     */
-    public function configuration(ListenerConfigInterface $config)
-    {
-        $this->config = $config;
+        $this->listeners = $listeners;
         return $this;
     }
 
@@ -118,27 +123,16 @@ trait ListenerTrait
 
         $this->pending[$name] = true;
 
-        if (isset($this->listeners[$name])) {
+        $instance = false;
 
-            $instance = $this->listeners[$name]->__invoke($event);
+        $listener = $this->listener($name);
 
-        } else {
+        if ($listener) {
+            $instance = $listener->__invoke($event);
+        }
 
-            $listener = new FactoryService($this);
-
-            $instance = false;
-
-            $factory = $this->config($name);
-
-            if ($factory) {
-                $instance = $listener->__invoke($factory, $event->options());
-            }
-
-            $this->listeners[$name] = $listener;
-
-            if ($event->shared()) {
-                $this->shared[$name] = $instance;
-            }
+        if ($event->shared()) {
+            $this->shared[$name] = $instance;
         }
 
         $this->pending[$name] = false;

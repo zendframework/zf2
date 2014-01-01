@@ -10,14 +10,14 @@
 namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Service\EventInterface;
 
 interface ListenerInterface
     extends Listener
 {
     /**
-     * @param string|callable $factory
-     * @param array $options
+     * @param EventInterface $event
      * @return mixed
      */
-    public function __invoke($factory, array $options);
+    public function __invoke(EventInterface $event);
 }

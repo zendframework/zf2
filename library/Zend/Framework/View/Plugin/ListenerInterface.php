@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Service\EventInterface;
-use Zend\Framework\Service\ListenerInterface as Listener;
+use Zend\Framework\EventManager\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener
@@ -20,6 +20,32 @@ interface ListenerInterface
      * @return string
      */
     public function alias($name);
+
+    /**
+     * @param string $name
+     * @param string $class
+     */
+    public function configure($name, $class);
+
+    /**
+     * @param string $name
+     * @param array $options
+     * @return object
+     */
+    public function get($name, array $options = []);
+
+    /**
+     * @param $name
+     * @param $service
+     * @return self
+     */
+    public function add($name, $service);
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function has($name);
 
     /**
      * Trigger

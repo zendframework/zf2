@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\I18n\Translator;
 
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\Mvc\I18n\Translator;
 
 /**
@@ -18,16 +18,16 @@ use Zend\Mvc\I18n\Translator;
  * replace it with the bridge class from this namespace.
  */
 class Factory
-    implements FactoryInterface
+    extends FactoryListener
 {
     /**
-     * @param ServiceManager $sm
-     * @return Translator
+     * @param EventInterface $event
+     * @return void|Listener
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
         // Configure the translator
-        $config     = $sm->applicationConfig();
+        $config     = $this->sm->applicationConfig();
         $trConfig   = isset($config['translator']) ? $config['translator'] : array();
         $translator = Translator::factory($trConfig);
         return $translator;

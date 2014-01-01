@@ -41,6 +41,12 @@ interface ListenerInterface
     public function remove(Listener $listener);
 
     /**
+     * @param $name
+     * @return mixed
+     */
+    public function listener($name);
+
+    /**
      * Listeners
      *
      * @param Event $event

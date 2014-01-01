@@ -7,24 +7,20 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Resolver;
+namespace Zend\Framework\EventManager;
 
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
-use Zend\View\Resolver\AggregateResolver as ViewResolver;
 
-class Factory
+class ListenerFactory
     extends FactoryListener
 {
     /**
      * @param EventInterface $event
-     * @return ViewResolver
+     * @return Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $resolver = new ViewResolver;
-        $resolver->attach($this->sm->service('View\Template\Resolver\Map'));
-        $resolver->attach($this->sm->service('View\Template\Resolver\PathStack'));
-        return $resolver;
+
     }
 }

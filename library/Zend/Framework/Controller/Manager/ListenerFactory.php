@@ -9,23 +9,23 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\Service\ListenerFactoryInterface as FactoryInterface;
+use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\Framework\Service\ListenerConfig as Config;
 
 class ListenerFactory
-    implements FactoryInterface
+    extends FactoryListener
 {
     /**
-     * @param ServiceManager $sm
-     * @return Listener
+     * @param EventInterface $event
+     * @return void|Listener
      */
-    public function createService(ServiceManager $sm)
+    public function __invoke(EventInterface $event)
     {
-        $config = $sm->applicationConfig();
+        $config = $this->sm->applicationConfig();
 
         $cm = new Listener(new Config($config['controllers']));
-        $cm->setServiceManager($sm);
+        $cm->setServiceManager($this->sm);
 
         return $cm;
     }
