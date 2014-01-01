@@ -9,10 +9,7 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Exception;
-use Zend\Framework\Controller\Event as Controller;
-use Zend\Framework\Dispatch\Exception as DispatchException;
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\EventManager\EventInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -32,5 +29,13 @@ class Listener
     public function __construct($event = self::EVENT_CONTROLLER_MANAGER, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
+    }
+
+    /**
+     * @param EventInterface $event
+     * @return mixed|void
+     */
+    public function __invoke(EventInterface $event)
+    {
     }
 }

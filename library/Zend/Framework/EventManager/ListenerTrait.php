@@ -146,13 +146,4 @@ trait ListenerTrait
     {
         return $this->priority;
     }
-
-    /**
-     * Trigger
-     *
-     * @param EventInterface $event
-     */
-    public function __invoke(EventInterface $event)
-    {
-    }
 }

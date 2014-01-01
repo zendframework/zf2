@@ -25,12 +25,4 @@ interface EventInterface
      * @return bool
      */
     public function stopped();
-
-    /**
-     * Trigger
-     *
-     * @param ListenerInterface $listener
-     * @return bool stopped
-     */
-    //public function __invoke(ListenerInterface $listener);
 }

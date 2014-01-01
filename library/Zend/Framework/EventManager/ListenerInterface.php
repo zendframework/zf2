@@ -46,14 +46,4 @@ interface ListenerInterface
      * @return array
      */
     public function targets();
-
-    // Listeners specify event interface
-    ///**
-    // * Trigger
-    // *
-    // * @param EventInterface $event
-    // */
-    //public function __invoke(EventInterface $event)
-    //{
-    //}
 }
