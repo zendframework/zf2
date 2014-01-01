@@ -10,7 +10,6 @@
 namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Framework\Service\ListenerConfigInterface as Config;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -23,16 +22,16 @@ class Listener
     }
 
     /**
-     * @param Config $config
+     * @param array $alias
      * @param ServiceManager $sm
      * @param string $event
      * @param null $target
      * @param null $priority
      */
-    public function __construct(Config $config, ServiceManager $sm, $event = self::EVENT_VIEW_PLUGIN, $target = null, $priority = null)
+    public function __construct(array $alias, ServiceManager $sm, $event = self::EVENT_VIEW_PLUGIN, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
         $this->sm = $sm;
-        $this->config = $config;
+        $this->alias = $alias;
     }
 }

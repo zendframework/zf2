@@ -25,12 +25,7 @@ interface EventInterface
     public function options();
 
     /**
-     * @return bool|object
+     * @return bool
      */
-    public function instance();
-
-    /**
-     * @return ListenerInterface
-     */
-    public function listener();
+    public function shared();
 }

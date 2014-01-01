@@ -22,7 +22,7 @@ class Factory
 {
     /**
      * @param EventInterface $event
-     * @return void|Listener
+     * @return Translator
      */
     public function __invoke(EventInterface $event)
     {

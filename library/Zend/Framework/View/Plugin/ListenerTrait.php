@@ -22,12 +22,23 @@ trait ListenerTrait
     use Listener;
 
     /**
+     * @var array
+     */
+    protected $alias = [];
+
+    /**
      * @param $name
      * @return string
      */
     public function alias($name)
     {
-        return $this->config->get(strtolower($name)) ? : $name;
+        $name = strtolower($name);
+
+        if (isset($this->alias[$name])) {
+            return $this->alias[$name];
+        }
+
+        return $name;
     }
 
     /**

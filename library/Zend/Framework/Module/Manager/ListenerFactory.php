@@ -18,7 +18,7 @@ class ListenerFactory
 {
     /**
      * @param EventInterface $event
-     * @return void|Listener
+     * @return void|ModuleManager
      */
     public function __invoke(EventInterface $event)
     {

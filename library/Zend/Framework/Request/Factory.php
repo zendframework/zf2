@@ -20,7 +20,7 @@ class Factory
 {
     /**
      * @param EventInterface $event
-     * @return void|Listener
+     * @return HttpRequest|ConsoleRequest
      */
     public function __invoke(EventInterface $event)
     {

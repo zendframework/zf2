@@ -11,14 +11,13 @@ namespace Zend\Framework\Service;
 
 use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\EventManager\ListenerInterface;
 
 trait EventTrait
 {
     /**
      *
      */
-    use Event, Services;
+    use Event;
 
     /**
      * @var string
@@ -26,24 +25,9 @@ trait EventTrait
     protected $service;
 
     /**
-     * @var bool|object
-     */
-    protected $instance;
-
-    /**
-     * @var array
-     */
-    protected $listeners = [];
-
-    /**
      * @var array
      */
     protected $options = [];
-
-    /**
-     * @var ListenerInterface
-     */
-    protected $listener;
 
     /**
      * @var bool
@@ -102,37 +86,5 @@ trait EventTrait
     {
         $this->options = $options;
         return $this;
-    }
-
-    /**
-     * @return bool|object
-     */
-    public function instance()
-    {
-        return $this->instance;
-    }
-
-    /**
-     * @param $instance
-     */
-    public function setInstance($instance)
-    {
-        $this->instance = $instance;
-    }
-
-    /**
-     * @return ListenerInterface
-     */
-    public function listener()
-    {
-        return $this->listener;
-    }
-
-    /**
-     * @param ListenerInterface $listener
-     */
-    public function setListener(ListenerInterface $listener)
-    {
-        $this->listener = $listener;
     }
 }

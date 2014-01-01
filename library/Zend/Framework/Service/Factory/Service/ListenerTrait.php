@@ -41,7 +41,7 @@ trait ListenerTrait
                 $this->factory = new $this->factory($this->sm);
             }
 
-            return $this->factory->__invoke($event);
+            return $event->__invoke($this->factory);
         }
 
         if (is_callable($this->factory)) {
