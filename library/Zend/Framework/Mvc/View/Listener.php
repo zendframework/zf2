@@ -44,7 +44,9 @@ class Listener
     {
         $sm = $event->serviceManager();
         $em = $event->eventManager();
+
         $result = $event->result();
+
         if ($result instanceof Response) {
             return;
         }

@@ -9,10 +9,9 @@
 
 namespace Zend\Framework\Mvc\View;
 
+use Zend\Framework\Mvc\EventListenerInterface as EventListener;
+
 interface EventListenerInterface
+    extends EventListener
 {
-    /**
-     *
-     */
-    const EVENT_MVC_APPLICATION = 'mvc.application';
 }

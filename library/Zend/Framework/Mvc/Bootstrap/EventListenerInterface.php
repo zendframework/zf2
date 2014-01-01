@@ -9,13 +9,9 @@
 
 namespace Zend\Framework\Mvc\Bootstrap;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Mvc\EventListenerInterface as EventListener;
 
 interface EventListenerInterface
-    extends Listener
+    extends EventListener
 {
-    /**
-     *
-     */
-    const EVENT_MVC_APPLICATION = 'mvc.application';
 }
