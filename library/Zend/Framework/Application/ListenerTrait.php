@@ -52,13 +52,16 @@ trait ListenerTrait
     }
 
     /**
+     * @override
+     *
+     * Pull listener from Service Manager
+     *
      * @param $name
      * @return mixed
      */
     public function listener($name)
     {
-        return $this->sm->get($name);
-
+        return $this->sm->get($name) ?: new $name();
     }
 
     /**
