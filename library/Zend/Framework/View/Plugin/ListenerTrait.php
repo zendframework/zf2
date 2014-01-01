@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Service\EventInterface;
-use Zend\Framework\Service\ListenerConfigInterface;
+use Zend\Framework\Service\ListenerConfigInterface as Config;
 use Zend\Framework\Service\ListenerTrait as Listener;
 use Zend\Framework\Service\Event as Plugin;
 
@@ -40,10 +40,10 @@ trait ListenerTrait
     }
 
     /**
-     * @param ListenerConfigInterface $config
+     * @param Config $config
      * @return $this
      */
-    public function setConfig(ListenerConfigInterface $config)
+    public function configuration(Config $config)
     {
         $this->config = $config;
         return $this;
@@ -53,9 +53,9 @@ trait ListenerTrait
      * @param string $name
      * @param string $class
      */
-    public function addInvokableClass($name, $class)
+    public function configure($name, $class)
     {
-        $this->sm->addInvokableClass($this->alias($name), $class);
+        $this->sm->configure($this->alias($name), $class);
     }
 
     /**

@@ -45,27 +45,19 @@ trait ListenerTrait
      * @param string $name
      * @param string $class
      */
-    public function addInvokableClass($name, $class)
+    public function configure($name, $class)
     {
         $this->config->add($name, $class);
     }
 
     /**
      * @param $name
-     * @return string
+     * @param array $options
+     * @return bool|object
      */
-    public function alias($name)
+    public function get($name, array $options = [])
     {
-        return $name;
-    }
-
-    /**
-     * @param $name
-     * @return object
-     */
-    public function get($name)
-    {
-        return $this->__invoke(new Event($name));
+        return $this->__invoke(new Event($name, $options));
     }
 
     /**
@@ -81,7 +73,7 @@ trait ListenerTrait
      * @param ListenerConfigInterface $config
      * @return $this
      */
-    public function setConfig(ListenerConfigInterface $config)
+    public function configuration(ListenerConfigInterface $config)
     {
         $this->config = $config;
         return $this;

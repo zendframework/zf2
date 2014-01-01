@@ -33,7 +33,7 @@ class ListenerFactory
         $plugins = new Listener(new ServiceConfig($config), $sm);
 
         // Configure URL view helper with router
-        /*$plugins->addInvokableClass('url', function ($sm) use ($sm) {
+        /*$plugins->configure('url', function ($sm) use ($sm) {
             $helper = new ViewHelper\Url;
             $router = Console::isConsole() ? 'HttpRouter' : 'Router';
             $helper->setRouter($sm->getService($router));
@@ -49,7 +49,7 @@ class ListenerFactory
             return $helper;
         });*/
 
-        $plugins->addInvokableClass('basepath', function ($sm) use ($sm) {
+        $plugins->configure('basepath', function ($sm) use ($sm) {
             $config = $sm->applicationConfig();
             $basePathHelper = new ViewHelper\BasePath;
             if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
@@ -70,7 +70,7 @@ class ListenerFactory
          * Other view helpers depend on this to decide which spec to generate their tags
          * based on. This is why it must be set early instead of later in the layout phtml.
          */
-        $plugins->addInvokableClass('doctype', function ($sm) use ($sm) {
+        $plugins->configure('doctype', function ($sm) use ($sm) {
             $config = $sm->applicationConfig();
             $config = isset($config['view_manager']) ? $config['view_manager'] : array();
             $doctypeHelper = new ViewHelper\Doctype;

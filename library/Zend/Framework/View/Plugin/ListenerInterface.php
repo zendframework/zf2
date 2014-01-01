@@ -16,6 +16,12 @@ interface ListenerInterface
     extends Listener
 {
     /**
+     * @param $name
+     * @return string
+     */
+    public function alias($name);
+
+    /**
      * Trigger
      *
      * @param EventInterface $event

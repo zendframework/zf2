@@ -15,6 +15,44 @@ interface ListenerInterface
     extends Listener
 {
     /**
+     * @param string $name
+     * @param string $class
+     */
+    public function configure($name, $class);
+
+    /**
+     * @param string $name
+     * @param array $options
+     * @return object
+     */
+    public function get($name, array $options = []);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function config($name);
+
+    /**
+     * @param ListenerConfigInterface $config
+     * @return $this
+     */
+    public function configuration(ListenerConfigInterface $config);
+
+    /**
+     * @param $name
+     * @param $service
+     * @return self
+     */
+    public function add($name, $service);
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function has($name);
+
+    /**
      * Trigger
      *
      * @param EventInterface $event
