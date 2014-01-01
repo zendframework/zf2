@@ -7,12 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\View;
+namespace Zend\Framework\Application\View;
 
 use Exception;
+use Zend\Framework\Application\EventInterface;
 use Zend\Framework\View\Error\Event as ViewError;
 use Zend\Framework\View\Event as View;
-use Zend\Framework\Mvc\EventInterface;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
 
@@ -31,7 +31,7 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_MVC_APPLICATION, $target = null, $priority = null)
+    public function __construct($event = self::EVENT_APPLICATION, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
     }

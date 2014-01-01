@@ -9,10 +9,34 @@
 
 namespace Zend\Framework\Application;
 
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\EventManager\EventInterface;
 
 interface ListenerInterface
 {
+    /**
+     * @return EventManager
+     */
+    public function eventManager();
+
+    /**
+     * @param EventManager $em
+     * @return self
+     */
+    public function setEventManager(EventManager $em);
+
+    /**
+     * @return ServiceManager
+     */
+    public function serviceManager();
+
+    /**
+     * @param ServiceManager $sm
+     * @return self
+     */
+    public function setServiceManager(ServiceManager $sm);
+
     /**
      * Trigger
      *

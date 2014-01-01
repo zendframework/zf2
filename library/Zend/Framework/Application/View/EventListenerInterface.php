@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Route;
+namespace Zend\Framework\Application\View;
 
-use Zend\Framework\Mvc\EventListenerInterface as EventListener;
+use Zend\Framework\Application\EventListenerInterface as EventListener;
 
 interface EventListenerInterface
     extends EventListener

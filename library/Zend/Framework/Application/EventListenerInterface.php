@@ -7,11 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Response;
-
-use Zend\Framework\Mvc\EventListenerInterface as EventListener;
+namespace Zend\Framework\Application;
 
 interface EventListenerInterface
-    extends EventListener
 {
+    /**
+     *
+     */
+    const EVENT_APPLICATION = 'mvc.application';
 }

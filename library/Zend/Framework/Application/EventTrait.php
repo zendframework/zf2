@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc;
+namespace Zend\Framework\Application;
 
 use Zend\Framework\Application\Service\ServicesTrait as ApplicationServices;
 use Zend\Framework\Service\ServicesTrait as Services;

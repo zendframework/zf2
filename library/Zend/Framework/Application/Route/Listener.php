@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Route;
+namespace Zend\Framework\Application\Route;
 
+use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Route\Event as Route;
-use Zend\Framework\Mvc\EventInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -27,7 +27,7 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_MVC_APPLICATION, $target = null, $priority = null)
+    public function __construct($event = self::EVENT_APPLICATION, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
     }

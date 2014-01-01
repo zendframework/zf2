@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Dispatch;
+namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 

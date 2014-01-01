@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Response;
+namespace Zend\Framework\Application\Bootstrap;
 
-use Zend\Framework\Response\Event as Response;
-use Zend\Framework\Mvc\EventInterface;
+use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Bootstrap\Event as Bootstrap;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -27,25 +27,26 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_MVC_APPLICATION, $target = null, $priority = null)
+    public function __construct($event = self::EVENT_APPLICATION, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
     }
 
     /**
      * @param EventInterface $event
-     * @return mixed|void
+     * @return void
      */
     public function __invoke(EventInterface $event)
     {
         $em = $event->eventManager();
         $sm = $event->serviceManager();
 
-        $response = new Response;
+        $bootstrap = new Bootstrap;
 
-        $response->setTarget($event->target())
-                 ->setServiceManager($sm);
+        $bootstrap->setTarget($event->target())
+                  ->setServiceManager($sm)
+                  ->setEventManager($em);
 
-        $em->__invoke($response);
+        $em->__invoke($bootstrap);
     }
 }

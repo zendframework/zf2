@@ -7,11 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc\Bootstrap;
+namespace Zend\Framework\Application\Dispatch;
 
-use Zend\Framework\Mvc\EventListenerInterface as EventListener;
+use Zend\Framework\EventManager\ListenerTrait as Listener;
 
-interface EventListenerInterface
-    extends EventListener
+trait ListenerTrait
 {
+    /**
+     *
+     */
+    use Listener;
 }

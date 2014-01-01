@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Mvc;
+namespace Zend\Framework\Application;
 
 use Zend\Framework\EventManager\ListenerInterface;
 
@@ -25,7 +25,7 @@ class Event
      * @param string $name
      * @param string $target
      */
-    public function __construct($name = self::EVENT_MVC_APPLICATION, $target = null)
+    public function __construct($name = self::EVENT_APPLICATION, $target = null)
     {
         $this->event($name, $target);
     }
