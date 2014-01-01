@@ -9,12 +9,12 @@
 
 namespace Zend\Framework\EventManager\Manager;
 
-use Zend\Framework\EventManager\PriorityQueue\Shared\ListenerTrait as SharedListener;
+use Zend\Framework\EventManager\PriorityQueue\ListenerTrait as Listener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use SharedListener;
+    use Listener;
 }

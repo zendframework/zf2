@@ -28,6 +28,11 @@ trait ListenerTrait
      */
     public $listeners = [];
 
+    /**
+     * @param $name
+     * @param $priority
+     * @param $listener
+     */
     public function configure($name, $priority, $listener)
     {
         $this->listeners[$name][$priority][] = $listener;
@@ -106,29 +111,6 @@ trait ListenerTrait
     }
 
     /**
-     * @param $target
-     * @param ListenerInterface $listener
-     * @param PriorityQueue $queue
-     * @return bool
-     */
-    public function match($target, ListenerInterface $listener, PriorityQueue $queue)
-    {
-        foreach($listener->targets() as $t) {
-            if (
-                $t === ListenerInterface::WILDCARD
-                || $t === $target
-                || $target instanceof $t
-                || \is_subclass_of($target, $t)
-            ) {
-                $queue->insert($listener, ListenerInterface::PRIORITY);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Queue listeners
      *
      * @param EventInterface $event
@@ -152,8 +134,17 @@ trait ListenerTrait
                     if (is_string($listener)) {
                         $this->listeners[$name][$priority] = $listener = $this->listener($listener);
                     }
-
-                    $this->match($target, $listener, $queue);
+                    foreach($listener->targets() as $t) {
+                        if (
+                            $t === ListenerInterface::WILDCARD
+                            || $t === $target
+                            || $target instanceof $t
+                            || \is_subclass_of($target, $t)
+                        ) {
+                            $queue->insert($listener, $priority);
+                            continue 2;
+                        }
+                    }
                 }
             }
         }

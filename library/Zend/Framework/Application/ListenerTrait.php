@@ -12,19 +12,17 @@ namespace Zend\Framework\Application;
 use Exception;
 use Zend\Framework\Application\Service\Listener as ServiceManager;
 use Zend\Framework\EventManager\ListenerInterface;
-use Zend\Framework\EventManager\PriorityQueue\ListenerTrait as PriorityQueue;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Service\ListenerConfig  as Config;
+use Zend\Framework\EventManager\Manager\ServicesTrait as EventManagerService;
 use Zend\Framework\Service\ServicesTrait as Services;
+use Zend\Framework\EventManager\Manager\ListenerTrait as EventManager;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use EventManager, PriorityQueue, Services {
-        PriorityQueue::add insteadof Services;
-        Services::add as addService;
+    use EventManager, EventManagerService, Services {
+        EventManager::add insteadof Services;
     }
 
     /**

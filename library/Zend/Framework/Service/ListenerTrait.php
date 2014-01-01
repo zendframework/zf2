@@ -24,7 +24,7 @@ trait ListenerTrait
     /**
      * @var array
      */
-    protected $listeners = [];
+    public $listeners = [];
 
     /**
      * @var array

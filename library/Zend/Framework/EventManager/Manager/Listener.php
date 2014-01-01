@@ -11,14 +11,12 @@ namespace Zend\Framework\EventManager\Manager;
 
 use Zend\Framework\EventManager\PriorityQueue\EventListenerInterface as PriorityQueueInterface;
 use Zend\Framework\EventManager\PriorityQueue\ListenerInterface as PriorityListenerInterface;
-use Zend\Framework\EventManager\PriorityQueue\Shared\ListenerInterface as SharedListenerInterface;
 
 class Listener
     implements ListenerInterface,
                EventListenerInterface,
                PriorityListenerInterface,
-               PriorityQueueInterface,
-               SharedListenerInterface
+               PriorityQueueInterface
 {
     /**
      *
