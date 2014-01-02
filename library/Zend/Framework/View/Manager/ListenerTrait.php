@@ -13,7 +13,6 @@ use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\Service\ListenerConfigInterface as Config;
 use Zend\Framework\View\Config as ViewConfig;
-use Zend\View\Resolver\ResolverInterface as ViewResolver;
 
 trait ListenerTrait
 {
@@ -90,23 +89,5 @@ trait ListenerTrait
     public function notFoundTemplate()
     {
         return $this->config->notFoundTemplate();
-    }
-
-    /**
-     * @return ViewResolver
-     */
-    public function viewResolver()
-    {
-        return $this->sm->viewResolver();
-    }
-
-    /**
-     * @param ViewResolver $resolver
-     * @return self
-     */
-    public function setViewResolver(ViewResolver $resolver)
-    {
-        $this->sm->setViewResolver($resolver);
-        return $this;
     }
 }

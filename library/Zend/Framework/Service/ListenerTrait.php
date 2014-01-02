@@ -12,7 +12,7 @@ namespace Zend\Framework\Service;
 use Exception;
 use ReflectionClass;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\Service\Factory\Service\Listener as FactoryServiceListener;
+use Zend\Framework\Service\Factory\Service\Listener as Factory;
 
 trait ListenerTrait
 {
@@ -37,8 +37,21 @@ trait ListenerTrait
     protected $pending = [];
 
     /**
+     * @param string|Factory|callable $factory
+     * @return Factory|callable
+     */
+    public function factory($factory)
+    {
+        if (is_string($factory)) {
+            return new Factory($this->sm, $factory);
+        }
+
+        return $factory;
+    }
+
+    /**
      * @param $name
-     * @return FactoryListener
+     * @return bool\Factory|callable
      */
     public function listener($name)
     {
@@ -46,13 +59,7 @@ trait ListenerTrait
             return false;
         }
 
-        $listener = $this->listeners[$name];
-
-        if (is_string($listener)) {
-            $this->listeners[$name] = $listener = new FactoryServiceListener($this->sm, $listener);
-        }
-
-        return $listener;
+        return $this->listeners[$name] = $this->factory($this->listeners[$name]);
     }
 
     /**

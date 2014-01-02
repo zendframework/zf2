@@ -21,6 +21,12 @@ interface ListenerInterface
     public function configure($name, $class);
 
     /**
+     * @param string|callable $factory
+     * @return callable
+     */
+    public function factory($factory);
+
+    /**
      * @param string $name
      * @param array $options
      * @return object
