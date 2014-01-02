@@ -50,16 +50,14 @@ trait ListenerTrait
     }
 
     /**
-     * @override
-     *
-     * Pull listener from Service Manager
+     * Pull listener from service manager
      *
      * @param $name
      * @return mixed
      */
     public function listener($name)
     {
-        return $this->sm->get($name) ?: new $name();
+        return $this->sm->get($name) ?: new $name;
     }
 
     /**
