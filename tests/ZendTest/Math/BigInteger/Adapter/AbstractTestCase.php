@@ -116,6 +116,16 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $op
+     * @param string $expected
+     * @dataProvider signProvider
+     */
+    public function testSign($op, $expected)
+    {
+        $this->assertEquals($expected, $this->adapter->sign($op));
+    }
+
+    /**
+     * @param string $op
      * @param string $baseFrom
      * @param string $baseTo
      * @param string $expected
@@ -295,6 +305,24 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
             array('12345678901234567890', '1234567890123456789', 1),
             array('12345678901234567890', '12345678901234567890', 0),
             array('1234567890123456789', '12345678901234567890', -1),
+        );
+    }
+
+    /**
+     * Sign function data provider
+     *
+     * @return array
+     */
+    public function signProvider()
+    {
+        return array(
+            array('0', 0),
+            array('-0', 0),
+            array('+0', 0),
+            array('1', 1),
+            array('-1', -1),
+            array('12345678901234567890', 1),
+            array('-12345678901234567890', -1),
         );
     }
 

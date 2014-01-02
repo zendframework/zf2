@@ -118,6 +118,16 @@ interface AdapterInterface
     public function comp($leftOperand, $rightOperand);
 
     /**
+     * Sign of big integer
+     * Returns < 0 if operand is less than 0;
+     * > 0 if operand is greater than 0, and 0 if they are equal to 0.
+     *
+     * @param  string $operand
+     * @return int
+     */
+    public function sign($operand);
+
+    /**
      * Convert big integer into it's binary number representation
      *
      * @param  string $int
