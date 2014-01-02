@@ -50,7 +50,7 @@ class ListenerFactory
             if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
                 $basePathHelper->setBasePath($config['view_manager']['base_path']);
             } else {
-                $request = $sm->request();
+                $request = $this->sm->request();
                 if (is_callable(array($request, 'getBasePath'))) {
                     $basePathHelper->setBasePath($request->getBasePath());
                 }
