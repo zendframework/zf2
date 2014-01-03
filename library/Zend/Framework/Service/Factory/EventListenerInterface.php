@@ -14,8 +14,4 @@ use Zend\Framework\Service\EventListenerInterface as EventListener;
 interface EventListenerInterface
     extends EventListener
 {
-    /**
-     *
-     */
-    const FACTORY_INTERFACE = 'Zend\Framework\Service\Factory\ListenerInterface';
 }

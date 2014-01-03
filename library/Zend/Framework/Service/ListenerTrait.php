@@ -10,7 +10,6 @@
 namespace Zend\Framework\Service;
 
 use Exception;
-use ReflectionClass;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\Service\Factory\Service\Listener as Factory;
 

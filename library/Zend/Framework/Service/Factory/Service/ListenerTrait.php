@@ -11,8 +11,7 @@ namespace Zend\Framework\Service\Factory\Service;
 
 use ReflectionClass;
 use Zend\Framework\Service\EventInterface;
-use Zend\Framework\Service\Factory\Listener as Factory;
-use Zend\Framework\Service\Factory\ListenerInterface as FactoryInterface;
+use Zend\Framework\Service\Factory\ListenerInterface;
 use Zend\Framework\Service\ListenerTrait as Listener;
 use Zend\Framework\Service\ServiceInterface;
 
@@ -36,7 +35,7 @@ trait ListenerTrait
     {
         $options = $event->options();
 
-        if (is_subclass_of($this->factory, self::FACTORY_INTERFACE)) {
+        if (is_subclass_of($this->factory, ListenerInterface::class)) {
             if (!is_object($this->factory)) {
                 $this->factory = new $this->factory($this->sm);
             }
@@ -50,7 +49,7 @@ trait ListenerTrait
 
         if ($options) {
 
-            $class = new ReflectionClass($factory);
+            $class = new ReflectionClass($this->factory);
             $instance = $class->newInstanceArgs($options);
 
         } else {
