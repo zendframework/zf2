@@ -39,6 +39,11 @@ class Filesystem extends AbstractAdapter implements
 {
 
     /**
+     * The size (in bytes) of metadata header inside data file
+     */
+    const HEADER_SIZE = 64;
+
+    /**
      * Buffered total space in bytes
      *
      * @var null|int|float
@@ -130,6 +135,7 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Remove expired items
      *
+     * @throws Exception\RuntimeException
      * @return bool
      */
     public function clearExpired()
@@ -174,6 +180,7 @@ class Filesystem extends AbstractAdapter implements
      *
      * @param string $namespace
      * @throws Exception\RuntimeException
+     * @throws Exception\InvalidArgumentException
      * @return bool
      */
     public function clearByNamespace($namespace)
@@ -211,6 +218,7 @@ class Filesystem extends AbstractAdapter implements
      *
      * @param string $prefix
      * @throws Exception\RuntimeException
+     * @throws Exception\InvalidArgumentException
      * @return bool
      */
     public function clearByPrefix($prefix)
@@ -497,11 +505,11 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Internal method to get an item.
      *
-     * @param  string  $normalizedKey
-     * @param  bool $success
-     * @param  mixed   $casToken
+     * @param  string $normalizedKey
+     * @param  bool   $success
+     * @param  mixed  $casToken
      * @return mixed Data on success, null on failure
-     * @throws Exception\ExceptionInterface
+     * @throws BaseException
      */
     protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
     {
@@ -514,13 +522,15 @@ class Filesystem extends AbstractAdapter implements
             $filespec = $this->getFileSpec($normalizedKey);
             $data     = $this->getFileContent($filespec . '.dat');
 
+            // Separate data from header
+            $data = substr($data, static::HEADER_SIZE);
+
             // use filemtime + filesize as CAS token
             if (func_num_args() > 2) {
                 $casToken = filemtime($filespec . '.dat') . filesize($filespec . '.dat');
             }
             $success  = true;
             return $data;
-
         } catch (BaseException $e) {
             $success = false;
             throw $e;
@@ -540,7 +550,7 @@ class Filesystem extends AbstractAdapter implements
         $result  = array();
         while ($keys) {
 
-            // LOCK_NB if more than one items have to read
+            // LOCK_NB if we are about to read multiple items
             $nonBlocking = count($keys) > 1;
             $wouldblock  = null;
 
@@ -553,6 +563,10 @@ class Filesystem extends AbstractAdapter implements
 
                 $filespec = $this->getFileSpec($key);
                 $data     = $this->getFileContent($filespec . '.dat', $nonBlocking, $wouldblock);
+
+                // Separate header from data
+                $data = substr($data, static::HEADER_SIZE);
+
                 if ($nonBlocking && $wouldblock) {
                     continue;
                 } else {
@@ -625,7 +639,9 @@ class Filesystem extends AbstractAdapter implements
             return false;
         }
 
-        $ttl = $this->getOptions()->getTtl();
+        // Load the TTL from data file header
+        $ttl = $this->getFileTtl($file);
+
         if ($ttl) {
             ErrorHandler::start();
             $mtime = filemtime($file);
@@ -749,8 +765,9 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Store an item.
      *
-     * @param  string $key
-     * @param  mixed  $value
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      *
@@ -758,19 +775,20 @@ class Filesystem extends AbstractAdapter implements
      * @triggers setItem.post(PostEvent)
      * @triggers setItem.exception(ExceptionEvent)
      */
-    public function setItem($key, $value)
+    public function setItem($key, $value, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
-        return parent::setItem($key, $value);
+        return parent::setItem($key, $value, $ttl);
     }
 
     /**
      * Store multiple items.
      *
-     * @param  array $keyValuePairs
+     * @param  array    $keyValuePairs
+     * @param  int|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      *
@@ -778,21 +796,22 @@ class Filesystem extends AbstractAdapter implements
      * @triggers setItems.post(PostEvent)
      * @triggers setItems.exception(ExceptionEvent)
      */
-    public function setItems(array $keyValuePairs)
+    public function setItems(array $keyValuePairs, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
 
-        return parent::setItems($keyValuePairs);
+        return parent::setItems($keyValuePairs, $ttl);
     }
 
     /**
      * Add an item.
      *
-     * @param  string $key
-     * @param  mixed  $value
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      *
@@ -800,20 +819,21 @@ class Filesystem extends AbstractAdapter implements
      * @triggers addItem.post(PostEvent)
      * @triggers addItem.exception(ExceptionEvent)
      */
-    public function addItem($key, $value)
+    public function addItem($key, $value, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
 
-        return parent::addItem($key, $value);
+        return parent::addItem($key, $value, $ttl);
     }
 
     /**
      * Add multiple items.
      *
-     * @param  array $keyValuePairs
+     * @param  array    $keyValuePairs
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      *
@@ -821,21 +841,22 @@ class Filesystem extends AbstractAdapter implements
      * @triggers addItems.post(PostEvent)
      * @triggers addItems.exception(ExceptionEvent)
      */
-    public function addItems(array $keyValuePairs)
+    public function addItems(array $keyValuePairs, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
 
-        return parent::addItems($keyValuePairs);
+        return parent::addItems($keyValuePairs, $ttl);
     }
 
     /**
      * Replace an existing item.
      *
-     * @param  string $key
-     * @param  mixed  $value
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      *
@@ -843,20 +864,21 @@ class Filesystem extends AbstractAdapter implements
      * @triggers replaceItem.post(PostEvent)
      * @triggers replaceItem.exception(ExceptionEvent)
      */
-    public function replaceItem($key, $value)
+    public function replaceItem($key, $value, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
 
-        return parent::replaceItem($key, $value);
+        return parent::replaceItem($key, $value, $ttl);
     }
 
     /**
      * Replace multiple existing items.
      *
-     * @param  array $keyValuePairs
+     * @param  array    $keyValuePairs
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      *
@@ -864,39 +886,47 @@ class Filesystem extends AbstractAdapter implements
      * @triggers replaceItems.post(PostEvent)
      * @triggers replaceItems.exception(ExceptionEvent)
      */
-    public function replaceItems(array $keyValuePairs)
+    public function replaceItems(array $keyValuePairs, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
 
-        return parent::replaceItems($keyValuePairs);
+        return parent::replaceItems($keyValuePairs, $ttl);
     }
 
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = null)
     {
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
+
         $filespec = $this->getFileSpec($normalizedKey);
         $this->prepareDirectoryStructure($filespec);
 
+        // Prepare header containing metadata
+        $header = static::buildHeader($ttl);
+
         // write data in non-blocking mode
         $wouldblock = null;
-        $this->putFileContent($filespec . '.dat', $value, true, $wouldblock);
+        $this->putFileContent($filespec . '.dat', $header . $value, true, $wouldblock);
 
         // delete related tag file (if present)
         $this->unlink($filespec . '.tag');
 
         // Retry writing data in blocking mode if it was blocked before
         if ($wouldblock) {
-            $this->putFileContent($filespec . '.dat', $value);
+            $this->putFileContent($filespec . '.dat', $header . $value);
         }
 
         return true;
@@ -906,12 +936,17 @@ class Filesystem extends AbstractAdapter implements
      * Internal method to store multiple items.
      *
      * @param  array $normalizedKeyValuePairs
+     * @param int|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
-        $oldUmask    = null;
+        $oldUmask = null;
+
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
 
         // create an associated array of files and contents to write
         $contents = array();
@@ -932,7 +967,10 @@ class Filesystem extends AbstractAdapter implements
             $wouldblock  = null;
 
             foreach ($contents as $file => & $content) {
-                $this->putFileContent($file, $content, $nonBlocking, $wouldblock);
+                // Prepare ttl information to the beginning of the file
+                $header = static::buildHeader($ttl);
+
+                $this->putFileContent($file, $header . $content, $nonBlocking, $wouldblock);
                 if (!$nonBlocking || !$wouldblock) {
                     unset($contents[$file]);
                 }
@@ -949,39 +987,45 @@ class Filesystem extends AbstractAdapter implements
      * It uses the token received from getItem() to check if the item has
      * changed before overwriting it.
      *
-     * @param  mixed  $token
-     * @param  string $key
-     * @param  mixed  $value
+     * @param  mixed    $token
+     * @param  string   $key
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      * @see    getItem()
      * @see    setItem()
      */
-    public function checkAndSetItem($token, $key, $value)
+    public function checkAndSetItem($token, $key, $value, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
 
-        return parent::checkAndSetItem($token, $key, $value);
+        return parent::checkAndSetItem($token, $key, $value, $ttl);
     }
 
     /**
      * Internal method to set an item only if token matches
      *
-     * @param  mixed  $token
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  mixed    $token
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      * @see    getItem()
      * @see    setItem()
      */
-    protected function internalCheckAndSetItem(& $token, & $normalizedKey, & $value)
+    protected function internalCheckAndSetItem(& $token, & $normalizedKey, & $value, $ttl = null)
     {
         if (!$this->internalHasItem($normalizedKey)) {
             return false;
+        }
+
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
         }
 
         // use filemtime + filesize as CAS token
@@ -991,13 +1035,14 @@ class Filesystem extends AbstractAdapter implements
             return false;
         }
 
-        return $this->internalSetItem($normalizedKey, $value);
+        return $this->internalSetItem($normalizedKey, $value, $ttl);
     }
 
     /**
      * Reset lifetime of an item
      *
-     * @param  string $key
+     * @param  string   $key
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      *
@@ -1005,20 +1050,21 @@ class Filesystem extends AbstractAdapter implements
      * @triggers touchItem.post(PostEvent)
      * @triggers touchItem.exception(ExceptionEvent)
      */
-    public function touchItem($key)
+    public function touchItem($key, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
 
-        return parent::touchItem($key);
+        return parent::touchItem($key, $ttl);
     }
 
     /**
      * Reset lifetime of multiple items.
      *
-     * @param  array $keys
+     * @param  array    $keys
+     * @param  int|null $ttl
      * @return array Array of not updated keys
      * @throws Exception\ExceptionInterface
      *
@@ -1026,27 +1072,32 @@ class Filesystem extends AbstractAdapter implements
      * @triggers touchItems.post(PostEvent)
      * @triggers touchItems.exception(ExceptionEvent)
      */
-    public function touchItems(array $keys)
+    public function touchItems(array $keys, $ttl = null)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
 
-        return parent::touchItems($keys);
+        return parent::touchItems($keys, $ttl);
     }
 
     /**
      * Internal method to reset lifetime of an item
      *
-     * @param  string $normalizedKey
+     * @param  string   $normalizedKey
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalTouchItem(& $normalizedKey)
+    protected function internalTouchItem(& $normalizedKey, $ttl = null)
     {
         if (!$this->internalHasItem($normalizedKey)) {
             return false;
+        }
+
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
         }
 
         $filespec = $this->getFileSpec($normalizedKey);
@@ -1165,7 +1216,7 @@ class Filesystem extends AbstractAdapter implements
                     'maxTtl'             => 0,
                     'staticTtl'          => false,
                     'ttlPrecision'       => 1,
-                    'expiredRead'        => true,
+                    'expiredRead'        => false,
                     'maxKeyLength'       => 251, // 255 - strlen(.dat | .tag)
                     'namespaceIsPrefix'  => true,
                     'namespaceSeparator' => $options->getNamespaceSeparator(),
@@ -1379,6 +1430,70 @@ class Filesystem extends AbstractAdapter implements
     }
 
     /**
+     * Retrieve TTL for given file using the first line or 512 bytes.
+     *
+     * @param string $file
+     * @param bool   $nonBlocking
+     * @param null   $wouldblock
+     * @return int
+     * @throws \Zend\Cache\Exception\RuntimeException
+     */
+    protected function getFileTtl($file, $nonBlocking = false, & $wouldblock = null)
+    {
+        $wouldblock = null;
+
+        ErrorHandler::start();
+
+        $fp = fopen($file, 'rb');
+        if ($fp === false) {
+            $err = ErrorHandler::stop();
+            throw new Exception\RuntimeException(
+                "Error opening file '{$file}'", 0, $err
+            );
+        }
+
+        if ($nonBlocking) {
+            $lock = flock($fp, LOCK_SH | LOCK_NB, $wouldblock);
+            if ($wouldblock) {
+                fclose($fp);
+                ErrorHandler::stop();
+                return;
+            }
+        } else {
+            $lock = flock($fp, LOCK_SH);
+        }
+
+        if (!$lock) {
+            fclose($fp);
+            $err = ErrorHandler::stop();
+            throw new Exception\RuntimeException(
+                "Error locking file '{$file}'", 0, $err
+            );
+        }
+
+        $header = fgets($fp, static::HEADER_SIZE);
+        if ($header === false) {
+            flock($fp, LOCK_UN);
+            fclose($fp);
+            $err = ErrorHandler::stop();
+            throw new Exception\RuntimeException(
+                'Error getting stream contents', 0, $err
+            );
+        }
+
+        flock($fp, LOCK_UN);
+        fclose($fp);
+
+        // Parse header and extract TTL
+        $ttl = null;
+        static::parseHeader($header, $ttl);
+
+        ErrorHandler::stop();
+
+        return $ttl;
+    }
+
+    /**
      * Prepares a directory structure for the given file(spec)
      * using the configured directory level.
      *
@@ -1488,14 +1603,15 @@ class Filesystem extends AbstractAdapter implements
     /**
      * Write content to a file
      *
-     * @param  string  $file        File complete path
-     * @param  string  $data        Data to write
-     * @param  bool $nonBlocking Don't block script if file is locked
-     * @param  bool $wouldblock  The optional argument is set to TRUE if the lock would block
+     * @param  string $file        File complete path
+     * @param  string $data        Data to write
+     * @param  bool   $nonBlocking Don't block script if file is locked
+     * @param  bool   $wouldblock  The optional argument is set to TRUE if the lock would block
+     * @throws \Zend\Cache\Exception\RuntimeException
+     * @internal param string $metadata Metadata to store
      * @return void
-     * @throws Exception\RuntimeException
      */
-    protected function putFileContent($file, $data, $nonBlocking = false, & $wouldblock = null)
+    protected function putFileContent($file, $data, $nonBlocking = false, &$wouldblock = null)
     {
         $options     = $this->getOptions();
         $locking     = $options->getFileLocking();
@@ -1599,7 +1715,7 @@ class Filesystem extends AbstractAdapter implements
      *
      * @param string $file
      * @return void
-     * @throws RuntimeException
+     * @throws Exception\RuntimeException
      */
     protected function unlink($file)
     {
@@ -1613,5 +1729,32 @@ class Filesystem extends AbstractAdapter implements
                 "Error unlinking file '{$file}'; file still exists", 0, $err
             );
         }
+    }
+
+    /**
+     * Build header string by pack()ing metadata
+     *
+     * @param int $ttl
+     * @return string
+     */
+    protected static function buildHeader($ttl = 0)
+    {
+        $highMap = 0xffffffff00000000;
+        $lowMap = 0x00000000ffffffff;
+        $higher = ($ttl & $highMap) >>32;
+        $lower = $ttl & $lowMap;
+        return pack('NN@' . static::HEADER_SIZE, $higher, $lower);
+    }
+
+    /**
+     * Process the header string and extract TTL value
+     *
+     * @param string $header
+     * @param string $ttl
+     */
+    protected static function parseHeader($header, &$ttl)
+    {
+        list($higher, $lower) = array_values(unpack('N2', $header));
+        $ttl = $higher << 32 | $lower;
     }
 }

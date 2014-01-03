@@ -18,7 +18,7 @@ class MockAdapter extends AbstractAdapter
     {
     }
 
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = null)
     {
     }
 

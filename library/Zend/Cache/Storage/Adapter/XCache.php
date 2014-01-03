@@ -337,18 +337,22 @@ class XCache extends AbstractAdapter implements
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
         $prefix      = ($options === '') ? '' : $namespace . $options->getNamespaceSeparator();
         $internalKey = $prefix . $normalizedKey;
-        $ttl         = $options->getTtl();
+
+        if($ttl === null){
+            $ttl = $options->getTtl();
+        }
 
         if (!xcache_set($internalKey, $value, $ttl)) {
             $type = is_object($value) ? get_class($value) : gettype($value);
@@ -380,19 +384,23 @@ class XCache extends AbstractAdapter implements
     /**
      * Internal method to increment an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
         $prefix      = ($namespace === '') ? '' : $namespace . $options->getNamespaceSeparator();
         $internalKey = $prefix . $normalizedKey;
-        $ttl         = $options->getTtl();
         $value       = (int) $value;
+
+        if($ttl === null){
+            $ttl = $options->getTtl();
+        }
 
         return xcache_inc($internalKey, $value, $ttl);
     }
@@ -400,19 +408,23 @@ class XCache extends AbstractAdapter implements
     /**
      * Internal method to decrement an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
         $prefix      = ($namespace === '') ? '' : $namespace . $options->getNamespaceSeparator();
         $internalKey = $prefix . $normalizedKey;
-        $ttl         = $options->getTtl();
         $value       = (int) $value;
+
+        if($ttl === null){
+            $ttl = $options->getTtl();
+        }
 
         return xcache_dec($internalKey, $value, $ttl);
     }

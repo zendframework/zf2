@@ -164,6 +164,7 @@ class Apc extends AbstractAdapter implements
      * Remove items by given namespace
      *
      * @param string $namespace
+     * @throws \Zend\Cache\Exception\InvalidArgumentException
      * @return bool
      */
     public function clearByNamespace($namespace)
@@ -185,6 +186,7 @@ class Apc extends AbstractAdapter implements
      * Remove items matching given prefix
      *
      * @param string $prefix
+     * @throws \Zend\Cache\Exception\InvalidArgumentException
      * @return bool
      */
     public function clearByPrefix($prefix)
@@ -206,9 +208,9 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to get an item.
      *
-     * @param  string  $normalizedKey
-     * @param  bool $success
-     * @param  mixed   $casToken
+     * @param  string $normalizedKey
+     * @param  bool   $success
+     * @param  mixed  $casToken
      * @return mixed Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
@@ -389,18 +391,22 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to store an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
         $prefix      = ($namespace === '') ? '' : $namespace . $options->getNamespaceSeparator();
         $internalKey = $prefix . $normalizedKey;
-        $ttl         = $options->getTtl();
+
+        if($ttl === null){
+            $ttl = $options->getTtl();
+        }
 
         if (!apc_store($internalKey, $value, $ttl)) {
             $type = is_object($value) ? get_class($value) : gettype($value);
@@ -415,16 +421,22 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to store multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
+     * @param  array        $normalizedKeyValuePairs
+     * @param  integer|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
+
+        if($ttl === null){
+            $ttl = $options->getTtl();
+        }
+
         if ($namespace === '') {
-            return array_keys(apc_store($normalizedKeyValuePairs, null, $options->getTtl()));
+            return array_keys(apc_store($normalizedKeyValuePairs, null, $ttl));
         }
 
         $prefix                = $namespace . $options->getNamespaceSeparator();
@@ -434,7 +446,7 @@ class Apc extends AbstractAdapter implements
             $internalKeyValuePairs[$internalKey] = &$value;
         }
 
-        $failedKeys = apc_store($internalKeyValuePairs, null, $options->getTtl());
+        $failedKeys = apc_store($internalKeyValuePairs, null, $ttl);
         $failedKeys = array_keys($failedKeys);
 
         // remove prefix
@@ -449,18 +461,22 @@ class Apc extends AbstractAdapter implements
     /**
      * Add an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string       $normalizedKey
+     * @param  mixed        $value
+     * @param  integer|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItem(& $normalizedKey, & $value)
+    protected function internalAddItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
         $prefix      = ($namespace === '') ? '' : $namespace . $options->getNamespaceSeparator();
         $internalKey = $prefix . $normalizedKey;
-        $ttl         = $options->getTtl();
+
+        if($ttl === null){
+            $ttl = $options->getTtl();
+        }
 
         if (!apc_add($internalKey, $value, $ttl)) {
             if (apc_exists($internalKey)) {
@@ -479,16 +495,22 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to add multiple items.
      *
-     * @param  array $normalizedKeyValuePairs
+     * @param  array        $normalizedKeyValuePairs
+     * @param  integer|null $ttl
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItems(array & $normalizedKeyValuePairs)
+    protected function internalAddItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
+
+        if($ttl === null){
+            $ttl = $options->getTtl();
+        }
+
         if ($namespace === '') {
-            return array_keys(apc_add($normalizedKeyValuePairs, null, $options->getTtl()));
+            return array_keys(apc_add($normalizedKeyValuePairs, null, $ttl));
         }
 
         $prefix                = $namespace . $options->getNamespaceSeparator();
@@ -498,7 +520,7 @@ class Apc extends AbstractAdapter implements
             $internalKeyValuePairs[$internalKey] = $value;
         }
 
-        $failedKeys = apc_add($internalKeyValuePairs, null, $options->getTtl());
+        $failedKeys = apc_add($internalKeyValuePairs, null, $ttl);
         $failedKeys = array_keys($failedKeys);
 
         // remove prefix
@@ -513,12 +535,13 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to replace an existing item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string       $normalizedKey
+     * @param  mixed        $value
+     * @param  integer|null $ttl
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalReplaceItem(& $normalizedKey, & $value)
+    protected function internalReplaceItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -529,7 +552,10 @@ class Apc extends AbstractAdapter implements
             return false;
         }
 
-        $ttl = $options->getTtl();
+        if ($ttl === null) {
+            $ttl = $options->getTtl();
+        }
+
         if (!apc_store($internalKey, $value, $ttl)) {
             $type = is_object($value) ? get_class($value) : gettype($value);
             throw new Exception\RuntimeException(
@@ -590,12 +616,13 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to increment an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -606,8 +633,12 @@ class Apc extends AbstractAdapter implements
 
         // initial value
         if ($newValue === false) {
-            $ttl      = $options->getTtl();
             $newValue = $value;
+
+            if($ttl === null){
+                $ttl = $options->getTtl();
+            }
+
             if (!apc_add($internalKey, $newValue, $ttl)) {
                 throw new Exception\RuntimeException(
                     "apc_add('{$internalKey}', {$newValue}, {$ttl}) failed"
@@ -621,12 +652,13 @@ class Apc extends AbstractAdapter implements
     /**
      * Internal method to decrement an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -637,8 +669,12 @@ class Apc extends AbstractAdapter implements
 
         // initial value
         if ($newValue === false) {
-            $ttl      = $options->getTtl();
             $newValue = -$value;
+
+            if($ttl === null){
+                $ttl = $options->getTtl();
+            }
+
             if (!apc_add($internalKey, $newValue, $ttl)) {
                 throw new Exception\RuntimeException(
                     "apc_add('{$internalKey}', {$newValue}, {$ttl}) failed"

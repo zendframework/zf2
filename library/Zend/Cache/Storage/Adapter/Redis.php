@@ -12,7 +12,7 @@ namespace Zend\Cache\Storage\Adapter;
 use Redis as RedisResource;
 use RedisException as RedisResourceException;
 use stdClass;
-use Zend\Cache\Storage\Adapter\AbstractAdapter;
+use Traversable;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\FlushableInterface;
@@ -55,6 +55,7 @@ class Redis extends AbstractAdapter implements
      * Create new Adapter for redis storage
      *
      * @param null|array|Traversable|RedisOptions $options
+     * @throws Exception\ExtensionNotLoadedException
      * @see \Zend\Cache\Storage\Adapter\Abstract
      */
     public function __construct($options = null)
@@ -212,16 +213,20 @@ class Redis extends AbstractAdapter implements
     /**
      * Internal method to store an item.
      *
-     * @param string &$normalizedKey Key in Redis under which value will be saved
-     * @param mixed  &$value         Value to store under cache key
+     * @param string   &$normalizedKey Key in Redis under which value will be saved
+     * @param mixed    &$value         Value to store under cache key
+     * @param int|null $ttl
      *
-     * @return bool
      * @throws Exception\RuntimeException
+     * @throws Exception\UnsupportedMethodCallException
+     * @return bool
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = null)
     {
         $redis = $this->getRedisResource();
-        $ttl = $this->getOptions()->getTtl();
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
 
         try {
             if ($ttl) {
@@ -239,18 +244,23 @@ class Redis extends AbstractAdapter implements
         return $success;
     }
 
-     /**
+    /**
      * Internal method to store multiple items.
      *
-     * @param array &$normalizedKeyValuePairs An array of normalized key/value pairs
+     * @param array    &$normalizedKeyValuePairs An array of normalized key/value pairs
+     * @param int|null $ttl
      *
-     * @return array Array of not stored keys
      * @throws Exception\RuntimeException
+     * @throws Exception\UnsupportedMethodCallException
+     * @return array Array of not stored keys
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array & $normalizedKeyValuePairs, $ttl = null)
     {
         $redis = $this->getRedisResource();
-        $ttl   = $this->getOptions()->getTtl();
+
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
 
         $namespacedKeyValuePairs = array();
         foreach ($normalizedKeyValuePairs as $normalizedKey => & $value) {
@@ -285,16 +295,34 @@ class Redis extends AbstractAdapter implements
     /**
      * Add an item.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
+     * @param  string   $normalizedKey
+     * @param  mixed    $value
+     * @param  int|null $ttl
      * @return bool
      * @throws Exception\RuntimeException
+     * @throws Exception\UnsupportedMethodCallException
      */
-    protected function internalAddItem(& $normalizedKey, & $value)
+    protected function internalAddItem(& $normalizedKey, & $value, $ttl = null)
     {
         $redis = $this->getRedisResource();
+
+        if($ttl === null){
+            $ttl = $this->getOptions()->getTtl();
+        }
+
         try {
-            return $redis->setnx($this->namespacePrefix . $normalizedKey, $value);
+            if ($ttl) {
+                if ($this->resourceManager->getMajorVersion($this->resourceId) < 2) {
+                    throw new Exception\UnsupportedMethodCallException("To use ttl you need version >= 2.0.0");
+                }
+
+                if($redis->get($this->namespacePrefix . $normalizedKey) !== false){
+                    return false; // value already exists
+                }
+                return $redis->setex($this->namespacePrefix . $normalizedKey, $ttl, $value);
+            } else {
+                return $redis->setnx($this->namespacePrefix . $normalizedKey, $value);
+            }
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
@@ -321,12 +349,13 @@ class Redis extends AbstractAdapter implements
     /**
      * Internal method to increment an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\RuntimeException
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $redis = $this->getRedisResource();
         try {
@@ -339,12 +368,13 @@ class Redis extends AbstractAdapter implements
     /**
      * Internal method to decrement an item.
      *
-     * @param  string $normalizedKey
-     * @param  int    $value
+     * @param  string   $normalizedKey
+     * @param  int      $value
+     * @param  int|null $ttl
      * @return int|bool The new value on success, false on failure
      * @throws Exception\RuntimeException
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem(& $normalizedKey, & $value, $ttl = null)
     {
         $redis = $this->getRedisResource();
         try {

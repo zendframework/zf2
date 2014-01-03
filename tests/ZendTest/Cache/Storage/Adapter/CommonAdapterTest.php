@@ -309,6 +309,28 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->_storage->getItem('key'));
     }
 
+    public function testGetItemReturnsNullOnExpiredItemAdhoc()
+    {
+        $capabilities = $this->_storage->getCapabilities();
+
+        if ($capabilities->getMinTtl() === 0) {
+            $this->markTestSkipped("Adapter doesn't support item expiration");
+        }
+
+        if ($capabilities->getUseRequestTime()) {
+            $this->markTestSkipped("Can't test get expired item if request time will be used");
+        }
+
+        $ttl = $capabilities->getTtlPrecision();
+        $this->_storage->setItem('key', 'value', $ttl);
+
+        // wait until expired
+        $wait = $ttl + $capabilities->getTtlPrecision();
+        usleep($wait * 2000000);
+
+        $this->assertNull($this->_storage->getItem('key'));
+    }
+
     public function testGetItemReturnsNullIfNonReadable()
     {
         $this->_options->setReadable(false);
@@ -565,6 +587,57 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testSetAndGetExpiredItemAdhoc()
+    {
+        $capabilities = $this->_storage->getCapabilities();
+
+        if ($capabilities->getMinTtl() === 0) {
+            $this->markTestSkipped("Adapter doesn't support item expiration");
+        }
+
+        $ttl = $capabilities->getTtlPrecision();
+        $this->_storage->setItem('key', 'value', $ttl);
+
+        // wait until expired
+        $wait = $ttl + $capabilities->getTtlPrecision();
+        usleep($wait * 2000000);
+
+        if ($capabilities->getUseRequestTime()) {
+            // Can't test much more if the request time will be used
+            $this->assertEquals('value', $this->_storage->getItem('key'));
+            return;
+        }
+
+        $this->assertNull($this->_storage->getItem('key'));
+    }
+
+    public function testSetAndGetExpiredItemOverlappingTtl()
+    {
+        $capabilities = $this->_storage->getCapabilities();
+
+        if ($capabilities->getMinTtl() === 0) {
+            $this->markTestSkipped("Adapter doesn't support item expiration");
+        }
+
+        $ttl = $capabilities->getTtlPrecision();
+        $this->_storage->setItem('key1', 'value1', $ttl);
+        $this->_storage->setItem('key2', 'value2', $ttl * 100);
+
+        // wait until the first item expired
+        usleep($ttl * 2000000);
+
+        if ($capabilities->getUseRequestTime()) {
+            // Can't test much more if the request time will be used
+            $this->assertEquals('value1', $this->_storage->getItem('key1'));
+            $this->assertEquals('value2', $this->_storage->getItem('key2'));
+
+            return;
+        }
+
+        $this->assertNull($this->_storage->getItem('key1'));
+        $this->assertEquals('value2', $this->_storage->getItem('key2'));
+    }
+
     public function testSetAndGetExpiredItems()
     {
         $capabilities = $this->_storage->getCapabilities();
@@ -598,6 +671,36 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_options->setTtl(0);
         if ($capabilities->getExpiredRead()) {
             $rs = $this->_storage->getItems(array_keys($items));
+            ksort($rs);
+            $this->assertEquals($items, $rs);
+        }
+    }
+
+    public function testSetAndGetExpiredItemsAdhoc()
+    {
+        $capabilities = $this->_storage->getCapabilities();
+
+        if ($capabilities->getMinTtl() === 0) {
+            $this->markTestSkipped("Adapter doesn't support item expiration");
+        }
+
+        $ttl = $capabilities->getTtlPrecision();
+
+        $items = array(
+            'key1' => 'value1',
+            'key2' => 'value2',
+            'key3' => 'value3'
+        );
+        $this->assertSame(array(), $this->_storage->setItems($items, $ttl));
+
+        // wait until expired
+        $wait = $ttl + $capabilities->getTtlPrecision();
+        usleep($wait * 2000000);
+
+        $rs = $this->_storage->getItems(array_keys($items));
+        if (!$capabilities->getUseRequestTime()) {
+            $this->assertEquals(array(), $rs);
+        } else {
             ksort($rs);
             $this->assertEquals($items, $rs);
         }
