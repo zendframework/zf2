@@ -26,20 +26,11 @@ trait ListenerTrait
     protected $config;
 
     /**
-     * @param $name
-     * @return mixed
-     */
-    public function config($name)
-    {
-        return $this->config->get($name);
-    }
-
-    /**
      * @return array
      */
     public function viewHelpers()
     {
-        return $this->config->viewHelpers();
+        return $this->config['view_helpers'];
     }
 
     /**
@@ -47,7 +38,7 @@ trait ListenerTrait
      */
     public function layoutTemplate()
     {
-        return $this->config->layoutTemplate();
+        return $this->config['layout_template'];
     }
 
     /**
@@ -55,7 +46,7 @@ trait ListenerTrait
      */
     public function displayExceptions()
     {
-        return $this->config->displayExceptions();
+        return $this->config['display_exceptions'];
     }
 
     /**
@@ -63,7 +54,7 @@ trait ListenerTrait
      */
     public function displayNotFoundReason()
     {
-        return $this->config->displayNotFoundReason();
+        return $this->config['display_not_found_reason'];
     }
 
     /**
@@ -71,7 +62,7 @@ trait ListenerTrait
      */
     public function exceptionTemplate()
     {
-        return $this->config->exceptionTemplate();
+        return $this->config['exception_template'];
     }
 
     /**
@@ -79,6 +70,6 @@ trait ListenerTrait
      */
     public function notFoundTemplate()
     {
-        return $this->config->notFoundTemplate();
+        return $this->config['not_found_template'];
     }
 }
