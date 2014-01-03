@@ -112,6 +112,23 @@ class ElementTest extends TestCase
         $this->assertEquals('foo', $element->getName());
     }
 
+    public function testAddAttribute()
+    {
+        $element = new Element();
+        $attributes = array(
+            'type'     => 'text',
+            'class'    => 'text-element',
+            'data-foo' => 'bar',
+        );
+        $element->addAttribute('class', 'baz');
+        $expected = array(
+            'type'     => 'text',
+            'class'    => 'text-element baz',
+            'data-foo' => 'bar',
+        );
+        $this->assertEquals($expected, $element->getAttributes());
+    }
+
     public function testCanPassNameToConstructor()
     {
         $element = new Element('foo');
