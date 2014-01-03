@@ -125,6 +125,8 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         if ($predicate instanceof Where) {
             $this->where = $predicate;
+        } elseif ($predicate instanceof Predicate\PredicateInterface) {
+            $this->where->addPredicate($predicate, $combination);
         } elseif ($predicate instanceof \Closure) {
             $predicate($this->where);
         } else {
