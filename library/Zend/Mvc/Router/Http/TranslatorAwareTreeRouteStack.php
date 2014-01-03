@@ -9,8 +9,11 @@
 
 namespace Zend\Mvc\Router\Http;
 
+use Traversable;
 use Zend\I18n\Translator\Translator;
 use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\Mvc\Router\Exception;
+use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\RequestInterface as Request;
 
 /**
@@ -38,6 +41,32 @@ class TranslatorAwareTreeRouteStack extends TreeRouteStack implements Translator
      * @var string
      */
     protected $translatorTextDomain = 'default';
+
+    /**
+     * factory(): defined by RouteInterface interface.
+     *
+     * @see    \Zend\Mvc\Router\RouteInterface::factory()
+     * @param  array|Traversable $options
+     * @return self
+     * @throws Exception\InvalidArgumentException
+     */
+    public static function factory($options = array())
+    {
+        if ($options instanceof Traversable) {
+            $options = ArrayUtils::iteratorToArray($options);
+        } elseif (!is_array($options)) {
+            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
+        }
+
+        $instance = parent::factory($options);
+
+        if (isset($options['router_translator'])) {
+            $translator = Translator::factory($options['router_translator']);
+            $instance->setTranslator($translator);
+        }
+
+        return $instance;
+    }
 
     /**
      * match(): defined by \Zend\Mvc\Router\RouteInterface
