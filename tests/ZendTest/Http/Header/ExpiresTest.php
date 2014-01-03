@@ -9,6 +9,7 @@
 
 namespace ZendTest\Http\Header;
 
+use DateTime;
 use Zend\Http\Header\Expires;
 
 class ExpiresTest extends \PHPUnit_Framework_TestCase
@@ -38,6 +39,13 @@ class ExpiresTest extends \PHPUnit_Framework_TestCase
         $expiresHeader = new Expires();
         $expiresHeader->setDate('Sun, 06 Nov 1994 08:49:37 GMT');
         $this->assertEquals('Expires: Sun, 06 Nov 1994 08:49:37 GMT', $expiresHeader->toString());
+    }
+
+    public function test0WillBeTratedAsValidExpiredDate()
+    {
+        $expiresHeader = new Expires();
+        $expiresHeader->setDate('0');
+        $this->assertSame(-1, $expiresHeader->compareTo(new DateTime('now')));
     }
 
     /**
