@@ -11,8 +11,7 @@ namespace Zend\Framework\View\Manager;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\Service\ListenerConfigInterface as Config;
-use Zend\Framework\View\Config as ViewConfig;
+use Zend\Framework\View\ConfigInterface;
 
 trait ListenerTrait
 {
@@ -22,17 +21,9 @@ trait ListenerTrait
     use Listener, Services;
 
     /**
-     * @var Config
+     * @var ConfigInterface
      */
     protected $config;
-
-    /**
-     * @return ViewConfig
-     */
-    public function viewConfig()
-    {
-        return $this->config;
-    }
 
     /**
      * @param $name

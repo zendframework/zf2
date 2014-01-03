@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\Service\ListenerConfigInterface as Config;
 use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\View\ConfigInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -21,9 +21,9 @@ class Listener
     use ListenerTrait;
 
     /**
-     * @param Config $config
+     * @param ConfigInterface $config
      */
-    public function __construct(Config $config)
+    public function __construct(ConfigInterface $config)
     {
         $this->config = $config;
     }

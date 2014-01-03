@@ -23,7 +23,7 @@ class Factory
     {
         $vm = new ViewModel;
 
-        $vm->setTemplate($this->sm->viewConfig()->layoutTemplate());
+        $vm->setTemplate($this->sm->viewManager()->layoutTemplate());
 
         return $vm;
     }

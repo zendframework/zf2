@@ -11,7 +11,6 @@ namespace Zend\Framework\Controller\Manager;
 
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
-use Zend\Framework\Service\ListenerConfig as Config;
 
 class ListenerFactory
     extends FactoryListener
@@ -24,7 +23,7 @@ class ListenerFactory
     {
         $config = $this->sm->applicationConfig();
 
-        $cm = new Listener(new Config($config['controllers']));
+        $cm = new Listener($config['controllers']);
         $cm->setServiceManager($this->sm);
 
         return $cm;

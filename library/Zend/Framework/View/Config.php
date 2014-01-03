@@ -9,11 +9,47 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\Service\ListenerConfig as ServiceConfig;
-
 class Config
-    extends ServiceConfig
+    implements ConfigInterface
 {
+    /**
+     * @var array
+     */
+    public $config = [];
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config)
+    {
+        $this->config = $config;
+    }
+
+    /**
+     * @param string $name
+     * @param null $default
+     * @return mixed
+     */
+    public function get($name, $default = null)
+    {
+        if (isset($this->config[$name])) {
+            return $this->config[$name];
+        }
+
+        return $default;
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $config
+     * @return self
+     */
+    public function add($name, $config)
+    {
+        $this->config[$name] = $config;
+        return $this;
+    }
+
     /**
      * @param $name
      * @return mixed

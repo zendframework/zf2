@@ -11,7 +11,7 @@ namespace Zend\Framework\View\Manager;
 
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
-use Zend\Framework\View\Config as ViewConfig;
+use Zend\Framework\View\Config;
 
 class ListenerFactory
     extends FactoryListener
@@ -24,7 +24,7 @@ class ListenerFactory
     {
         $config = $this->sm->applicationConfig()['view_manager'];
 
-        $vm = new Listener(new ViewConfig($config));
+        $vm = new Listener(new Config($config));
         $vm->setServiceManager($this->sm);
 
         return $vm;
