@@ -9,16 +9,13 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\EventInterface;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\View\Renderer\Event as ViewRendererEvent;
-use Zend\Framework\View\Response\Event as ViewResponseEvent;
+use Zend\Framework\View\Renderer\Event as ViewRenderer;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Renderer\TreeRendererInterface;
 use Zend\View\Exception\DomainException;
 use Zend\View\Exception\RuntimeException;
 use Zend\View\Model\ModelInterface as ViewModel;
-
 
 trait ListenerTrait
 {
@@ -28,27 +25,38 @@ trait ListenerTrait
     use Listener;
 
     /**
+     * @var
+     */
+    protected $em;
+
+    /**
+     * @var
+     */
+    protected $event;
+
+    /**
+     * @var
+     */
+    protected $sm;
+
+    /**
+     * Retrieve renderer for view model
+     *
      * @param ViewModel $model
-     * @param EventInterface $event
-     * @return mixed
+     * @return bool|Renderer
      * @throws RuntimeException
      */
-    public function render(ViewModel $model, EventInterface $event)
+    public function viewRenderer(ViewModel $model)
     {
-        $em = $event->eventManager();
-        $sm = $event->serviceManager();
+        $event = new ViewRenderer;
 
-        $rendererEvent = new ViewRendererEvent;
+        $event->setServiceManager($this->sm)
+              ->setTarget($this->event->target())
+              ->setViewModel($model);
 
-        $rendererEvent->setServiceManager($sm)
-            //->setName(ViewRenderer::EVENT_VIEW_RENDERER)
-            ->setTarget($event->target())
-            ->setViewModel($model);
+        $this->em->__invoke($event);
 
-
-        $em->__invoke($rendererEvent);
-
-        $renderer = $rendererEvent->viewRenderer();
+        $renderer = $event->viewRenderer();
 
         if (!$renderer instanceof Renderer) {
             throw new RuntimeException(sprintf(
@@ -57,68 +65,55 @@ trait ListenerTrait
             ));
         }
 
-        // If EVENT_VIEW_RENDERER changed the model, make sure
-        // we use this new model instead of the current $model
-        $model   = $rendererEvent->viewModel();
+        return $renderer;
+    }
+
+    /**
+     * @param ViewModel $model
+     * @return mixed
+     * @throws RuntimeException
+     */
+    public function render(ViewModel $model)
+    {
+        $renderer = $this->viewRenderer($model);
 
         // If we have children, render them first, but only if:
         // a) the renderer does not implement TreeRendererInterface, or
         // b) it does, but canRenderTrees() returns false
-        if ($model->hasChildren()
-            && (!$renderer instanceof TreeRendererInterface
-                || !$renderer->canRenderTrees())
-        ) {
-            $this->renderChildren($model, $event);
+        if ($model->hasChildren() && (!$renderer instanceof TreeRendererInterface || !$renderer->canRenderTrees())) {
+            $this->renderChildren($model);
         }
 
-        // Reset the model, in case it has changed, and set the renderer
-        $event->setViewModel($model);
-        $event->setViewRenderer($renderer);
-
-        $rendered = $renderer->render($model);
-
-        // If this is a child model, return the rendered content; do not
-        // invoke the response strategy.
-        $options = $model->getOptions();
-        if (array_key_exists('has_parent', $options) && $options['has_parent']) {
-            return $rendered;
-        }
-
-        $responseEvent = new ViewResponseEvent;
-        $responseEvent->setServiceManager($sm)
-            //->setName(ViewResponse::EVENT_VIEW_RESPONSE)
-            ->setTarget($event->target())
-            ->setResult($rendered);
-
-        $em->__invoke($responseEvent);
+        return $renderer->render($model);
     }
 
     /**
      * Loop through children, rendering each
      *
      * @param  ViewModel $model
-     * @param EventInterface $event
      * @throws DomainException
      * @return void
      */
-    protected function renderChildren(ViewModel $model, EventInterface $event)
+    protected function renderChildren(ViewModel $model)
     {
         foreach ($model as $child) {
             if ($child->terminate()) {
                 throw new DomainException('Inconsistent state; child view model is marked as terminal');
             }
-            $child->setOption('has_parent', true);
-            $result  = $this->render($child, $event);
-            $child->setOption('has_parent', null);
+
+            $result  = $this->render($child);
+
             $capture = $child->captureTo();
-            if (!empty($capture)) {
-                if ($child->isAppend()) {
-                    $oldResult=$model->{$capture};
-                    $model->setVariable($capture, $oldResult . $result);
-                } else {
-                    $model->setVariable($capture, $result);
-                }
+
+            if (empty($capture)) {
+                continue;
             }
+
+            if ($child->isAppend()) {
+                $result = $model->{$capture} . $result;
+            }
+
+            $model->setVariable($capture, $result);
         }
     }
 }

@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\View;
 
+use Zend\Framework\View\Response\Event as ViewResponseEvent;
+
 class Listener
     implements ListenerInterface, EventListenerInterface
 {
@@ -35,6 +37,17 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $this->render($event->viewModel(), $event);
+        $this->em    = $event->eventManager();
+        $this->sm    = $event->serviceManager();
+        $this->event = $event;
+
+        $rendered = $this->render($event->viewModel());
+
+        $responseEvent = new ViewResponseEvent;
+        $responseEvent->setServiceManager($this->sm)
+                      ->setTarget($this->event->target())
+                      ->setResult($rendered);
+
+        $this->em->__invoke($responseEvent);
     }
 }
