@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -17,21 +17,22 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
-
-    /**
-     * @param array $config
-     */
-    public function __construct(array $config)
-    {
-        $this->config = $config;
+    use ListenerTrait {
+        ListenerTrait::__construct as listener;
     }
 
     /**
-     * @param EventInterface $event
-     * @return mixed|void
+     * @param array $config
+     * @param ServiceManager $sm
+     * @param string $event
+     * @param null $target
+     * @param null $priority
      */
-    public function __invoke(EventInterface $event)
+    public function __construct(array $config, ServiceManager $sm, $event = self::EVENT_VIEW_MANAGER, $target = null, $priority = null)
     {
+        $this->listener($event, $target, $priority);
+        $this->sm     = $sm;
+        $this->config = $config;
+        $this->alias  = $config['view_helpers'];
     }
 }

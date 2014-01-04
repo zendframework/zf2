@@ -7,12 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Plugin;
+namespace Zend\Framework\View\Service;
 
-interface EventListenerInterface
+trait ServicesTrait
 {
-    /**
-     *
-     */
-    const EVENT_VIEW_PLUGIN = 'view.plugin';
 }

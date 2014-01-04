@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Plugin;
+namespace Zend\Framework\View\Service;
 
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;

@@ -14,5 +14,5 @@ interface EventListenerInterface
     /**
      *
      */
-    const EVENT_MODEL = 'view.manager';
+    const EVENT_VIEW_MANAGER = 'view.manager';
 }

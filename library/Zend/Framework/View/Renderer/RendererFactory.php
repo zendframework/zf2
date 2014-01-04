@@ -23,7 +23,7 @@ class RendererFactory
     {
         $renderer = new Renderer();
 
-        $renderer->setPluginManager($this->sm->viewPluginManager());
+        $renderer->setViewManager($this->sm->viewManager());
         $renderer->setResolver($this->sm->viewResolver());
 
         $modelHelper = $renderer->plugin('viewmodel');

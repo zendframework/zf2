@@ -9,15 +9,14 @@
 
 namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\Service\ServicesTrait as Services;
+use Zend\Framework\View\Service\ListenerTrait as Listener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener, Services;
+    use Listener;
 
     /**
      * @var array

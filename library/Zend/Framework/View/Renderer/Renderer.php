@@ -18,7 +18,7 @@ use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
-use Zend\Framework\View\Plugin\ListenerInterface as PluginManager;
+use Zend\Framework\View\Manager\ListenerInterface as ViewManager;
 
 use Zend\View\Renderer\RendererInterface as RendererInterface;
 use Zend\View\Renderer\TreeRendererInterface;
@@ -325,31 +325,12 @@ class Renderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * Set helper plugin manager instance
-     *
-     * @param  string|PluginManager $helpers
-     * @return PhpRenderer
-     * @throws Exception\InvalidArgumentException
+     * @param ViewManager $vm
+     * @return $this
      */
-    public function setPluginManager($helpers)
+    public function setViewManager(ViewManager $vm)
     {
-        if (is_string($helpers)) {
-            if (!class_exists($helpers)) {
-                throw new Exception\InvalidArgumentException(sprintf(
-                    'Invalid helper helpers class provided (%s)',
-                    $helpers
-                ));
-            }
-            $helpers = new $helpers();
-        }
-        if (!$helpers instanceof PluginManager) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Helper helpers must extend Zend\Framework\View\Plugin\Manager; got type "%s" instead',
-                (is_object($helpers) ? get_class($helpers) : gettype($helpers))
-            ));
-        }
-        //$helpers->setRenderer($this);
-        $this->__helpers = $helpers;
+        $this->__helpers = $vm;
 
         return $this;
     }

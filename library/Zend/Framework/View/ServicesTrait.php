@@ -10,7 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\View\Listener as View;
-use Zend\Framework\View\Plugin\ServicesTrait as ViewPlugin;
+use Zend\Framework\View\Service\ServicesTrait as ViewPlugin;
 use Zend\Framework\View\Renderer\ServicesTrait as ViewRenderer;
 use Zend\Framework\View\Resolver\ServicesTrait as ViewResolver;
 use Zend\Framework\View\Model\ServicesTrait as ViewModel;

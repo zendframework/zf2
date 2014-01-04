@@ -12,6 +12,7 @@ namespace Zend\Framework\Service\Factory;
 use Exception;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ServicesTrait as Services;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -19,7 +20,7 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait, Services;
 
     /**
      * @param ServiceManager $sm

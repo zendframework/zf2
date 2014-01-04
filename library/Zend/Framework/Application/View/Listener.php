@@ -59,6 +59,8 @@ class Listener
 
         } catch(Exception $exception) {
 
+            throw $exception; //error event not working
+
             $this->error($event, $exception);
 
         }
