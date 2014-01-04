@@ -16,6 +16,17 @@ interface EventInterface
     extends Event
 {
     /**
+     * @return mixed
+     */
+    public function result();
+
+    /**
+     * @param $result
+     * @return self
+     */
+    public function setResult($result);
+
+    /**
      * @param ServiceManager $sm
      * @return self
      */

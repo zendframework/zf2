@@ -30,6 +30,29 @@ trait EventTrait
     protected $headersSent = [];
 
     /**
+     * @var mixed
+     */
+    protected $result;
+
+    /**
+     * @return mixed
+     */
+    public function result()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param $result
+     * @return self
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+        return $this;
+    }
+
+    /**
      * Set content sent for current response
      *
      * @return self

@@ -9,7 +9,13 @@
 
 namespace Zend\Framework\Application\View;
 
+use Exception;
+use Zend\Framework\Application\EventInterface;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\EventManager\Manager\Listener as EventManager;
+use Zend\Framework\Service\Listener as ServiceManager;
+use Zend\Framework\View\Error\Event as Error;
+use Zend\Framework\View\Event as View;
 
 trait ListenerTrait
 {
@@ -17,4 +23,59 @@ trait ListenerTrait
      *
      */
     use Listener;
+
+    /**
+     * @var EventManager
+     */
+    protected $em;
+
+    /**
+     * @var EventInterface
+     */
+    protected $event;
+
+    /**
+     * @var ServiceManager
+     */
+    protected $sm;
+
+    /**
+     * @param EventInterface $event
+     * @param Exception $exception
+     * @return self
+     */
+    public function error(EventInterface $event, Exception $exception)
+    {
+        $error = new Error;
+
+        $error->setTarget($event->target())
+              ->setException($exception);
+
+        $this->em->__invoke($error);
+
+        $event->setResult($error->result());
+
+        return $this;
+    }
+
+    /**
+     * @param EventInterface $event
+     * @return self
+     */
+    public function render(EventInterface $event)
+    {
+        $render = new View;
+
+        $render->setTarget($event->target())
+               ->setServiceManager($this->sm)
+               ->setEventManager($this->em)
+               ->setViewModel($event->viewModel())
+               ->setResult($event->result());
+
+        $this->em->__invoke($render);
+
+        $event->setResult($render->result());
+
+        return $this;
+    }
 }

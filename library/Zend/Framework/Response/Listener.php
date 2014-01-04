@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Http\PhpEnvironment\Response;
-
 class Listener
     implements ListenerInterface, EventListenerInterface
 {
@@ -37,14 +35,26 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
+        $result   = $event->result();
         $response = $event->response();
-        if (!$response instanceof Response) {
-            return;
+
+        // Set content
+        // If content is empty, check common placeholders to determine if they are
+        // populated, and set the content from them.
+        if (empty($result)) {
+
+            $sm = $event->serviceManager();
+            $renderer = $sm->viewRenderer();
+
+            $placeholders = $renderer->plugin('placeholder');
+            foreach ($this->contentPlaceholders as $placeholder) {
+                if ($placeholders->containerExists($placeholder)) {
+                    $result = (string) $placeholders->getContainer($placeholder);
+                    break;
+                }
+            }
         }
 
-        $this->sendContent($event);
-        $errorLevel = (int) $response->getMetadata('errorLevel',0);
-        $event->stop();
-        exit($errorLevel);
+        $response->setContent($result);
     }
 }

@@ -17,7 +17,6 @@ use Zend\View\Exception;
 use Zend\View\Model;
 use Zend\View\Model\ClearableModelInterface;
 use Zend\View\Model\ModelInterface;
-use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Variables as ViewVariables;
 
 class ViewModel

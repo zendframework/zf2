@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 
 trait ListenerTrait
@@ -20,19 +19,31 @@ trait ListenerTrait
     use Listener;
 
     /**
-     * Send content
+     * Placeholders that may hold content
      *
-     * @param  Event $event
-     * @return self
+     * @var array
      */
-    public function sendContent(Event $event)
+    protected $contentPlaceholders = array('article', 'content');
+
+    /**
+     * Set list of possible content placeholders
+     *
+     * @param  array $contentPlaceholders
+     * @return Listener
+     */
+    public function setContentPlaceholders(array $contentPlaceholders)
     {
-        if ($event->contentSent()) {
-            return $this;
-        }
-        $response = $event->response();
-        echo $response->getContent();
-        $event->setContentSent();
+        $this->contentPlaceholders = $contentPlaceholders;
         return $this;
+    }
+
+    /**
+     * Get list of possible content placeholders
+     *
+     * @return array
+     */
+    public function getContentPlaceholders()
+    {
+        return $this->contentPlaceholders;
     }
 }

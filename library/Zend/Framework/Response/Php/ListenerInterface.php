@@ -7,9 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Response;
+namespace Zend\Framework\Response\Php;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener

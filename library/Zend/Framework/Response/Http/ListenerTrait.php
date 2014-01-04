@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Response\Http;
 
-use Zend\Framework\Response\EventInterface as Event;
 use Zend\Framework\Response\ListenerTrait as Listener;
+use Zend\Framework\Response\SendContentTrait as SendContent;
 use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
 
 trait ListenerTrait
@@ -18,22 +18,5 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener, SendHeaders;
-
-    /**
-     * Send content
-     *
-     * @param  Event $event
-     * @return self
-     */
-    public function sendContent(Event $event)
-    {
-        if ($event->contentSent()) {
-            return $this;
-        }
-        $response = $event->response();
-        echo $response->getContent();
-        $event->setContentSent();
-        return $this;
-    }
+    use Listener, SendContent, SendHeaders;
 }

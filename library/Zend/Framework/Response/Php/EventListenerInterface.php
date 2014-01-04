@@ -7,12 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Response;
+namespace Zend\Framework\Response\Php;
 
 interface EventListenerInterface
 {
     /**
      *
      */
-    const EVENT_VIEW_RESPONSE = 'view.response';
+    const EVENT_RESPONSE = 'mvc.response';
 }

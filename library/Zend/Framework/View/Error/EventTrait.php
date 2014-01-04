@@ -31,6 +31,11 @@ trait EventTrait
     protected $exception;
 
     /**
+     * @var mixed
+     */
+    protected $result;
+
+    /**
      * @return mixed
      */
     public function error()
@@ -64,5 +69,23 @@ trait EventTrait
     public function exception()
     {
         return $this->exception;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function result()
+    {
+        return $this->result;
+    }
+
+    /**
+     * @param $result
+     * @return self
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+        return $this;
     }
 }

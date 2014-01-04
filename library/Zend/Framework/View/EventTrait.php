@@ -65,5 +65,6 @@ trait EventTrait
     public function setViewModel(ViewModel $vm)
     {
         $this->vm = $vm;
+        return $this;
     }
 }

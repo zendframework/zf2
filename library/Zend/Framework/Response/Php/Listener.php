@@ -7,7 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\Response\Php;
+
+use Zend\Framework\Response\EventInterface;
+use Zend\Http\Response;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -24,21 +27,25 @@ class Listener
      * @param $target
      * @param $priority
      */
-    public function __construct($event = self::EVENT_VIEW, $target = null, $priority = null)
+    public function __construct($event = self::EVENT_RESPONSE, $target = null, $priority = null)
     {
         $this->listener($event, $target, $priority);
     }
 
     /**
-     * @param EventInterface $event
-     * @return void
+     * @param  EventInterface $event
+     * @return self
      */
     public function __invoke(EventInterface $event)
     {
-        $this->em    = $event->eventManager();
-        $this->sm    = $event->serviceManager();
-        $this->event = $event;
+        $response = $event->response();
+        if (!$response instanceof Response) {
+            return;
+        }
 
-        $event->setResult($this->render($event->viewModel()));
+        $this->sendContent($event);
+        $errorLevel = (int) $response->getMetadata('errorLevel',0);
+        $event->stop();
+        exit($errorLevel);
     }
 }

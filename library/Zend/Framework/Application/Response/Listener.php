@@ -44,7 +44,8 @@ class Listener
         $response = new Response;
 
         $response->setTarget($event->target())
-                 ->setServiceManager($sm);
+                 ->setServiceManager($sm)
+                 ->setResult($event->result());
 
         $em->__invoke($response);
     }

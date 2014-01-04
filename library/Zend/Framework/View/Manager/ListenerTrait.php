@@ -11,7 +11,6 @@ namespace Zend\Framework\View\Manager;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\View\ConfigInterface;
 
 trait ListenerTrait
 {
@@ -21,7 +20,7 @@ trait ListenerTrait
     use Listener, Services;
 
     /**
-     * @var ConfigInterface
+     * @var array
      */
     protected $config;
 

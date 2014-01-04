@@ -7,15 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Response\Console;
+namespace Zend\Framework\Response\Php;
 
-use Zend\Framework\Response\SendContentTrait as SendContent;
 use Zend\Framework\Response\ListenerTrait as Listener;
+use Zend\Framework\Response\SendContentTrait as SendContent;
+use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener, SendContent;
+    use Listener, SendContent, SendHeaders;
 }

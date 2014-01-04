@@ -11,8 +11,6 @@ namespace Zend\Framework\Application\View;
 
 use Exception;
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\View\Error\Event as ViewError;
-use Zend\Framework\View\Event as View;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModel;
 
@@ -42,39 +40,27 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $sm = $event->serviceManager();
-        $em = $event->eventManager();
+        /** @var \Zend\Framework\Application\Event $event */
+        /** @var \Zend\Framework\Application\Listener $em */
+        /** @var \Zend\Framework\Application\Service\Listener $sm */
+
+        $this->sm = $event->serviceManager();
+        $this->em = $event->eventManager();
 
         $result = $event->result();
 
-        if ($result instanceof Response) {
+        if ($result instanceof Response || !$result instanceof ViewModel) {
             return;
         }
-
-        $viewModel = $event->viewModel();
-        if (!$viewModel instanceof ViewModel) {
-            return;
-        }
-
-        $render = new View;
-
-        $render->setTarget($event->target())
-               ->setServiceManager($sm)
-               ->setEventManager($em)
-               ->setViewModel($viewModel);
 
         try {
 
-            $em->__invoke($render);
+            $this->render($event);
 
         } catch(Exception $exception) {
 
-            $error = new ViewError;
+            $this->error($event, $exception);
 
-            $error->setTarget($event->target())
-                  ->setException($exception);
-
-            $em->__invoke($error);
         }
     }
 }
