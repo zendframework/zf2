@@ -7,25 +7,29 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service\Factory\Service;
+namespace Zend\Framework\Service\Factory;
 
-use ReflectionClass;
 use Zend\Framework\Service\EventInterface;
-use Zend\Framework\Service\Factory\ListenerInterface;
-use Zend\Framework\Service\ListenerTrait as Listener;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;
 
-trait ListenerTrait
+class InstanceListener
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
      */
-    use Listener;
+    use ListenerTrait;
 
     /**
-     * @var string|callable
+     * @param ServiceManager $sm
+     * @param string|callable $factory
      */
-    protected $factory;
+    public function __construct(ServiceManager $sm, $factory)
+    {
+        $this->sm      = $sm;
+        $this->factory = $factory;
+    }
 
     /**
      * @param EventInterface $event
@@ -34,18 +38,6 @@ trait ListenerTrait
     public function __invoke(EventInterface $event)
     {
         $options = $event->options();
-
-        if (is_subclass_of($this->factory, ListenerInterface::class)) {
-            if (!is_object($this->factory)) {
-                $this->factory = new $this->factory($this->sm);
-            }
-
-            return $event->__invoke($this->factory);
-        }
-
-        if (is_callable($this->factory)) {
-            return call_user_func_array($this->factory, $event);
-        }
 
         if ($options) {
 
@@ -59,7 +51,7 @@ trait ListenerTrait
         }
 
         if ($instance instanceof ServiceInterface) {
-           $instance->__service($this->sm);
+            $instance->__service($this->sm);
         }
 
         return $instance;

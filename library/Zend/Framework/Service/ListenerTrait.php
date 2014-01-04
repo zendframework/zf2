@@ -11,7 +11,10 @@ namespace Zend\Framework\Service;
 
 use Exception;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\Service\Factory\Service\Listener as Factory;
+use Zend\Framework\Service\Factory\Service\Listener as FactoryService;
+use Zend\Framework\Service\Factory\CallableListener as CallableFactory;
+use Zend\Framework\Service\Factory\InstanceListener as InstanceFactory;
+use Zend\Framework\Service\Factory\ListenerInterface as FactoryInterface;
 
 trait ListenerTrait
 {
@@ -36,13 +39,21 @@ trait ListenerTrait
     protected $pending = [];
 
     /**
-     * @param string|Factory|callable $factory
-     * @return Factory|callable
+     * @param string|FactoryService|callable $factory
+     * @return FactoryService|callable
      */
     public function factory($factory)
     {
         if (is_string($factory)) {
-            return new Factory($this->sm, $factory);
+            if (is_subclass_of($factory, FactoryInterface::class)) {
+                return new $factory($this->sm);
+            }
+
+            if (is_callable($factory)) {
+                return new CallableFactory($this->sm, $factory);
+            }
+
+            return new InstanceFactory($this->sm, $factory);
         }
 
         return $factory;

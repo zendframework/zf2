@@ -7,11 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service\Factory\Service;
+namespace Zend\Framework\Service\Factory;
 
+use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
-class Listener
+class CallableListener
     implements ListenerInterface, EventListenerInterface
 {
     /**
@@ -27,5 +28,16 @@ class Listener
     {
         $this->sm      = $sm;
         $this->factory = $factory;
+    }
+
+    /**
+     * @param EventInterface $event
+     * @return mixed|object
+     */
+    public function __invoke(EventInterface $event)
+    {
+        $options = $event->options();
+
+        return call_user_func_array($this->factory, $event);
     }
 }
