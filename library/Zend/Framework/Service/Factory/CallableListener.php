@@ -38,6 +38,6 @@ class CallableListener
     {
         $options = $event->options();
 
-        return call_user_func_array($this->factory, $event);
+        return call_user_func_array($this->factory, [$event]);
     }
 }

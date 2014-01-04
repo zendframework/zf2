@@ -39,8 +39,8 @@ trait ListenerTrait
     protected $pending = [];
 
     /**
-     * @param string|FactoryService|callable $factory
-     * @return FactoryService|callable
+     * @param string|callable $factory
+     * @return FactoryInterface
      */
     public function factory($factory)
     {
@@ -54,6 +54,10 @@ trait ListenerTrait
             }
 
             return new InstanceFactory($this->sm, $factory);
+        }
+
+        if (is_callable($factory)) {
+            return new CallableFactory($this->sm, $factory);
         }
 
         return $factory;
