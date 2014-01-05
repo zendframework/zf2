@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\View\Renderer;
 
+use Zend\View\Renderer\RendererInterface as RendererInterface;
+
 class Event
     implements EventInterface, EventListenerInterface
 {
@@ -34,7 +36,12 @@ class Event
      */
     public function __invoke(ListenerInterface $listener)
     {
-        $listener->__invoke($this);
+        $response = $listener->__invoke($this);
+
+        if ($response instanceof RendererInterface) {
+            $this->setViewRenderer($response);
+            $this->stopped = true;
+        }
 
         return $this->stopped;
     }

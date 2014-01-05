@@ -10,14 +10,8 @@
 namespace Zend\Framework\Bootstrap;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 interface EventInterface
     extends Event
 {
-    /**
-     * @param ServiceManager $sm
-     * @return self
-     */
-    public function setServiceManager(ServiceManager $sm);
 }

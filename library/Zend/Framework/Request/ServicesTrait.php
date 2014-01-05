@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Request;
 
-use Zend\Http\PhpEnvironment\Request as Request;
+use Zend\Stdlib\RequestInterface as Request;
 
 trait ServicesTrait
 {

@@ -10,11 +10,12 @@
 namespace Zend\Framework\Application\Bootstrap;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener;
+    use Listener, EventManager;
 }

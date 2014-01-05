@@ -29,11 +29,6 @@ trait EventTrait
     protected $error;
 
     /**
-     * @var object
-     */
-    protected $controller;
-
-    /**
      * @var mixed
      */
     protected $result;
@@ -59,32 +54,6 @@ trait EventTrait
     public function error()
     {
         return $this->error;
-    }
-
-    /**
-     * @param $controller
-     * @return self
-     */
-    public function setController(Controller $controller)
-    {
-        $this->controller = $controller;
-        return $this;
-    }
-
-    /**
-     * @return object
-     */
-    public function controller()
-    {
-        return $this->controller;
-    }
-
-    /**
-     * @return string
-     */
-    public function controllerClass()
-    {
-        return get_class($this->controller);
     }
 
     /**

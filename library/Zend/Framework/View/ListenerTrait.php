@@ -10,6 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
 use Zend\Framework\View\Renderer\Event as ViewRenderer;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Renderer\TreeRendererInterface;
@@ -22,22 +23,7 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener;
-
-    /**
-     * @var
-     */
-    protected $em;
-
-    /**
-     * @var
-     */
-    protected $event;
-
-    /**
-     * @var
-     */
-    protected $sm;
+    use Listener, EventManager;
 
     /**
      * Retrieve renderer for view model
@@ -50,8 +36,7 @@ trait ListenerTrait
     {
         $event = new ViewRenderer;
 
-        $event->setServiceManager($this->sm)
-              ->setTarget($this->event->target())
+        $event->setTarget($model)
               ->setViewModel($model);
 
         $this->em->__invoke($event);

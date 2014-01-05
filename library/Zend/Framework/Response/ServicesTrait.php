@@ -9,11 +9,10 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Http\PhpEnvironment\Response as Response;
+use Zend\Stdlib\ResponseInterface as Response;
 
 trait ServicesTrait
 {
-
     /**
      * @return bool|object
      */

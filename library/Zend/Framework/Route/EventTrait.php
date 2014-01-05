@@ -9,15 +9,84 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\Route\ServicesTrait as Route;
-use Zend\Framework\Request\ServicesTrait as Request;
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
+use Zend\Mvc\Router\RouteStackInterface as Router;
+use Zend\Stdlib\RequestInterface as Request;
 
 trait EventTrait
 {
     /**
      *
      */
-    use Event, Route, Request, Services;
+    use Event;
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @var RouteMatch
+     */
+    protected $routeMatch;
+
+    /**
+     * @var Router
+     */
+    protected $router;
+
+    /**
+     * @return Request
+     */
+    public function request()
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param Request $request
+     * @return self
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+        return $this;
+    }
+
+    /**
+     * @return bool|RouteMatch
+     */
+    public function routeMatch()
+    {
+        return $this->routeMatch;
+    }
+
+    /**
+     * @param RouteMatch $routeMatch
+     * @return self
+     */
+    public function setRouteMatch(RouteMatch $routeMatch)
+    {
+        $this->routeMatch = $routeMatch;
+        return $this;
+    }
+
+    /**
+     * @return bool|Router
+     */
+    public function router()
+    {
+        return $this->router;
+    }
+
+    /**
+     * @param Router $router
+     * @return self
+     */
+    public function setRouter(Router $router)
+    {
+        $this->router = $router;
+        return $this;
+    }
 }

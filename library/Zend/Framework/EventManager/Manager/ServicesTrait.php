@@ -12,11 +12,16 @@ namespace Zend\Framework\EventManager\Manager;
 trait ServicesTrait
 {
     /**
+     * @var ListenerInterface
+     */
+    protected $em;
+
+    /**
      * @return ListenerInterface
      */
     public function eventManager()
     {
-        return $this->service('EventManager');
+        return $this->em;
     }
 
     /**
@@ -25,6 +30,7 @@ trait ServicesTrait
      */
     public function setEventManager(ListenerInterface $em)
     {
-        return $this->add('EventManager', $em);
+        $this->em = $em;
+        return $this;
     }
 }

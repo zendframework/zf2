@@ -11,10 +11,26 @@ namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 interface ListenerInterface
     extends Listener
 {
+    /**
+     * @param EventManager $em
+     * @return self
+     */
+    public function setEventManager(EventManager $em);
+
+    /**
+     * Matched route also goes into the SM
+     *
+     * @param ServiceManager $sm
+     * @return self
+     */
+    public function setServiceManager(ServiceManager $sm);
+
     /**
      * Trigger
      *

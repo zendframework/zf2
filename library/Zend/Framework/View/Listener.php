@@ -35,10 +35,7 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $this->em    = $event->eventManager();
-        $this->sm    = $event->serviceManager();
         $this->event = $event;
-
         $event->setResult($this->render($event->viewModel()));
     }
 }

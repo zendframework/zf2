@@ -10,17 +10,12 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\View\Model\ModelInterface as ViewModel;
+use Zend\View\Renderer\RendererInterface as ViewRenderer;
 
 interface EventInterface
     extends Event
 {
-    /**
-     * @param ServiceManager $sm
-     * @return mixed
-     */
-    public function setServiceManager(ServiceManager $sm);
-
     /**
      * @return mixed
      */
@@ -31,4 +26,25 @@ interface EventInterface
      * @return self
      */
     public function setResult($result);
+
+    /**
+     * @return ViewModel
+     */
+    public function viewModel();
+
+    /**
+     * @param ViewModel $vm
+     * @return self
+     */
+    public function setViewModel(ViewModel $vm);
+    /**
+     * @return bool|ViewRenderer
+     */
+    public function viewRenderer();
+
+    /**
+     * @param ViewRenderer $renderer
+     * @return self
+     */
+    public function setViewRenderer(ViewRenderer $renderer);
 }

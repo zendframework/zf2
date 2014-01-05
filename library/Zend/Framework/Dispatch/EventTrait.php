@@ -9,25 +9,80 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Controller\ServicesTrait as Controller;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 use Zend\Framework\Route\ServicesTrait as Route;
-use Zend\Framework\Response\ServicesTrait as Response;
-use Zend\Framework\View\ServicesTrait as View;
+use Zend\Framework\Controller\Manager\Listener as ControllerManager;
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 trait EventTrait
 {
     /**
      *
      */
-    use Controller, Event, EventManager, Services, Response, Route, View;
+    use Event;
+
+    /**
+     * @var ControllerManager
+     */
+    protected $cm;
+
+    /**
+     * @var EventManager
+     */
+    protected $em;
 
     /**
      * @var mixed
      */
     protected $result;
+
+    /**
+     * @var RouteMatch
+     */
+    protected $routeMatch;
+
+    /**
+     * @var ViewModel
+     */
+    protected $vm;
+
+    /**
+     * @return bool|ControllerManager
+     */
+    public function controllerManager()
+    {
+        return $this->cm;
+    }
+
+    /**
+     * @param ControllerManager $cm
+     * @return self
+     */
+    public function setControllerManager(ControllerManager $cm)
+    {
+        $this->cm = $cm;
+        return $this;
+    }
+
+    /**
+     * @return EventManager
+     */
+    public function eventManager()
+    {
+        return $this->em;
+    }
+
+    /**
+     * @param EventManager $em
+     * @return self
+     */
+    public function setEventManager(EventManager $em)
+    {
+        $this->em = $em;
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -44,6 +99,42 @@ trait EventTrait
     public function setResult($result)
     {
         $this->result = $result;
+        return $this;
+    }
+
+    /**
+     * @return bool|RouteMatch
+     */
+    public function routeMatch()
+    {
+        return $this->routeMatch;
+    }
+
+    /**
+     * @param RouteMatch $routeMatch
+     * @return self
+     */
+    public function setRouteMatch(RouteMatch $routeMatch)
+    {
+        $this->routeMatch = $routeMatch;
+        return $this;
+    }
+
+    /**
+     * @return bool|ViewModel
+     */
+    public function viewModel()
+    {
+        return $this->vm;
+    }
+
+    /**
+     * @param ViewModel $vm
+     * @return self
+     */
+    public function setViewModel(ViewModel $vm)
+    {
+        $this->vm = $vm;
         return $this;
     }
 }

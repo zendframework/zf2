@@ -35,17 +35,6 @@ interface EventInterface
     public function setServiceManager(ServiceManager $sm);
 
     /**
-     * @return Controller
-     */
-    public function controller();
-
-    /**
-     * @param Controller $controller
-     * @return self
-     */
-    public function setController(Controller $controller);
-
-    /**
      * @return mixed
      */
     public function result();

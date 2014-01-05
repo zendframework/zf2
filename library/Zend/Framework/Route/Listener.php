@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Mvc\Router\RouteMatch;
-
 class Listener
     implements ListenerInterface, EventListenerInterface
 {
@@ -40,10 +38,6 @@ class Listener
         $request    = $event->request();
         $router     = $event->router();
 
-        $routeMatch = $router->match($request);
-
-        if ($routeMatch instanceof RouteMatch) {
-            $event->setRouteMatch($routeMatch);
-        }
+        return $router->match($request);
     }
 }

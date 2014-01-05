@@ -10,10 +10,9 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Http\PhpEnvironment\Request as Request;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\Mvc\Router\RouteStackInterface as Router;
+use Zend\Stdlib\RequestInterface as Request;
 
 interface EventInterface
     extends Event
@@ -28,10 +27,20 @@ interface EventInterface
     const ERROR_EXCEPTION                  = 'error-exception';
 
     /**
+     * @return Request
+     */
+    public function request();
+
+    /**
      * @param Request $request
      * @return self
      */
     public function setRequest(Request $request);
+
+    /**
+     * @return bool|RouteMatch
+     */
+    public function routeMatch();
 
     /**
      * @param RouteMatch $routeMatch
@@ -40,14 +49,13 @@ interface EventInterface
     public function setRouteMatch(RouteMatch $routeMatch);
 
     /**
+     * @return bool|Router
+     */
+    public function router();
+
+    /**
      * @param Router $router
      * @return self
      */
     public function setRouter(Router $router);
-
-    /**
-     * @param ServiceManager $sm
-     * @return self
-     */
-    public function setServiceManager(ServiceManager $sm);
 }

@@ -11,10 +11,17 @@ namespace Zend\Framework\Application\Response;
 
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 
 interface ListenerInterface
     extends Listener
 {
+    /**
+     * @param EventManager $em
+     * @return self
+     */
+    public function setEventManager(EventManager $em);
+
     /**
      * Trigger
      *

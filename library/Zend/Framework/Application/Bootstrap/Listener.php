@@ -38,15 +38,10 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $em = $event->eventManager();
-        $sm = $event->serviceManager();
-
         $bootstrap = new Bootstrap;
 
-        $bootstrap->setTarget($event->target())
-                  ->setServiceManager($sm)
-                  ->setEventManager($em);
+        $bootstrap->setTarget($event->target());
 
-        $em->__invoke($bootstrap);
+        $this->em->__invoke($bootstrap);
     }
 }

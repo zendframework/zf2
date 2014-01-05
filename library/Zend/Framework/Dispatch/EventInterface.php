@@ -10,16 +10,35 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
+use Zend\Framework\Controller\Manager\Listener as ControllerManager;
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 interface EventInterface
     extends Event
 {
     /**
-     * @param ServiceManager $sm
-     * @return mixed
+     * @return bool|ControllerManager
      */
-    public function setServiceManager(ServiceManager $sm);
+    public function controllerManager();
+
+    /**
+     * @param ControllerManager $cm
+     * @return self
+     */
+    public function setControllerManager(ControllerManager $cm);
+
+    /**
+     * @return EventManager
+     */
+    public function eventManager();
+
+    /**
+     * @param EventManager $em
+     * @return self
+     */
+    public function setEventManager(EventManager $em);
 
     /**
      * @return mixed
@@ -31,4 +50,26 @@ interface EventInterface
      * @return self
      */
     public function setResult($result);
+
+    /**
+     * @return bool|RouteMatch
+     */
+    public function routeMatch();
+
+    /**
+     * @param RouteMatch $routeMatch
+     * @return self
+     */
+    public function setRouteMatch(RouteMatch $routeMatch);
+
+    /**
+     * @return bool|ViewModel
+     */
+    public function viewModel();
+
+    /**
+     * @param ViewModel $viewModel
+     * @return self
+     */
+    public function setViewModel(ViewModel $viewModel);
 }

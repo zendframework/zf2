@@ -9,15 +9,15 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Stdlib\ResponseInterface as Response;
 
 trait EventTrait
 {
     /**
      *
      */
-    use Event, Services, ServicesTrait;
+    use Event;
 
     /**
      * @var array
@@ -35,6 +35,11 @@ trait EventTrait
     protected $result;
 
     /**
+     * @var Response
+     */
+    protected $response;
+
+    /**
      * @return mixed
      */
     public function result()
@@ -49,6 +54,24 @@ trait EventTrait
     public function setResult($result)
     {
         $this->result = $result;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function response()
+    {
+        return $this->response;
+    }
+
+    /**
+     * @param Response $response
+     * @return self
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
         return $this;
     }
 

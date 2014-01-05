@@ -40,13 +40,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        /** @var \Zend\Framework\Application\Event $event */
-        /** @var \Zend\Framework\Application\Listener $em */
-        /** @var \Zend\Framework\Application\Service\Listener $sm */
-
-        $this->sm = $event->serviceManager();
-        $this->em = $event->eventManager();
-
         $result = $event->result();
 
         if ($result instanceof Response || !$result instanceof ViewModel) {

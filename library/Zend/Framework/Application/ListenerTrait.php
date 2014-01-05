@@ -67,8 +67,11 @@ trait ListenerTrait
         $event = new Event;
 
         $event->setTarget($this)
-              ->setServiceManager($this->sm)
-              ->setEventManager($this);
+              ->setControllerManager($this->sm->controllerManager())
+              ->setRequest($this->sm->request())
+              ->setResponse($this->sm->response())
+              ->setRouter($this->sm->router())
+              ->setViewModel($this->sm->viewModel());
 
         $this->__invoke($event);
     }

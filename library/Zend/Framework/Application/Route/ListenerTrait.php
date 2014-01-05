@@ -10,11 +10,13 @@
 namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
+use Zend\Framework\Service\ServicesTrait as Service;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener;
+    use EventManager, Listener, Service;
 }

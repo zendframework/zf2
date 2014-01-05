@@ -9,14 +9,12 @@
 
 namespace Zend\Framework\Bootstrap;
 
-use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
 
 trait EventTrait
 {
     /**
      *
      */
-    use Event, EventManager, Services;
+    use Event;
 }

@@ -37,6 +37,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        //no need to set or select since, the default renderer already exists in the SM
+        return $this->renderer;
     }
 }
