@@ -9,7 +9,7 @@
 
 namespace Zend\Db\Adapter\Platform;
 
-class Sql92 implements PlatformInterface
+class Sql92 extends AbstractPlatform
 {
     /**
      * Get name
@@ -95,25 +95,6 @@ class Sql92 implements PlatformInterface
     }
 
     /**
-     * Quote value list
-     *
-     * @param string|string[] $valueList
-     * @return string
-     */
-    public function quoteValueList($valueList)
-    {
-        if (!is_array($valueList)) {
-            return $this->quoteValue($valueList);
-        }
-
-        $value = reset($valueList);
-        do {
-            $valueList[key($valueList)] = $this->quoteValue($value);
-        } while ($value = next($valueList));
-        return implode(', ', $valueList);
-    }
-
-    /**
      * Get identifier separator
      *
      * @return string
@@ -121,42 +102,6 @@ class Sql92 implements PlatformInterface
     public function getIdentifierSeparator()
     {
         return '.';
-    }
-
-    /**
-     * Quote identifier in fragment
-     *
-     * @param  string $identifier
-     * @param  array $safeWords
-     * @return string
-     */
-    public function quoteIdentifierInFragment($identifier, array $safeWords = array())
-    {
-        $parts = preg_split('#([\.\s\W])#', $identifier, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
-        if ($safeWords) {
-            $safeWords = array_flip($safeWords);
-            $safeWords = array_change_key_case($safeWords, CASE_LOWER);
-        }
-        foreach ($parts as $i => $part) {
-            if ($safeWords && isset($safeWords[strtolower($part)])) {
-                continue;
-            }
-
-            switch ($part) {
-                case ' ':
-                case '.':
-                case '*':
-                case 'AS':
-                case 'As':
-                case 'aS':
-                case 'as':
-                    break;
-                default:
-                    $parts[$i] = '"' . str_replace('"', '\\' . '"', $part) . '"';
-            }
-        }
-
-        return implode('', $parts);
     }
 
 }
