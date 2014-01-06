@@ -13,6 +13,8 @@ use Zend\Framework\Application\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Mvc\Router\RouteInterface as Router;
+use Zend\Stdlib\RequestInterface as Request;
 
 interface ListenerInterface
     extends Listener
@@ -30,6 +32,18 @@ interface ListenerInterface
      * @return self
      */
     public function setServiceManager(ServiceManager $sm);
+
+    /**
+     * @param Request $request
+     * @return self
+     */
+    public function setRequest(Request $request);
+
+    /**
+     * @param Router $router
+     * @return self
+     */
+    public function setRouter(Router $router);
 
     /**
      * Trigger

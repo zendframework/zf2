@@ -9,13 +9,24 @@
 
 namespace Zend\Framework\Application\Service;
 
-use Zend\Framework\Service\Listener as ServiceListener;
-
 class Listener
-    extends ServiceListener
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
      */
-    use ServicesTrait;
+    use ListenerTrait {
+        ListenerTrait::__construct as __listener;
+    }
+
+    /**
+     * @param $event
+     * @param $target
+     * @param $priority
+     */
+    public function __construct($event = self::EVENT_SERVICE, $target = null, $priority = null)
+    {
+        $this->__listener($event, $target, $priority);
+        $this->sm = $this;
+    }
 }

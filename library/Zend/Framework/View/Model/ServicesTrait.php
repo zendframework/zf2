@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\View\Model;
 
+use Zend\View\Model\ModelInterface as ViewModel;
+
 trait ServicesTrait
 {
     /**

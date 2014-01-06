@@ -27,6 +27,5 @@ class Listener
     public function __construct($event = self::EVENT_SERVICE, $target = null, $priority = null)
     {
         $this->__listener($event, $target, $priority);
-        $this->sm = $this;
     }
 }

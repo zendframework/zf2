@@ -12,6 +12,8 @@ namespace Zend\Framework\Application\Dispatch;
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ListenerInterface
     extends Listener
@@ -21,6 +23,18 @@ interface ListenerInterface
      * @return self
      */
     public function setEventManager(EventManager $em);
+
+    /**
+     * @param ServiceManager $sm
+     * @return self
+     */
+    public function setServiceManager(ServiceManager $sm);
+
+    /**
+     * @param ViewModel $vm
+     * @return self
+     */
+    public function setViewModel(ViewModel $vm);
 
     /**
      * Trigger

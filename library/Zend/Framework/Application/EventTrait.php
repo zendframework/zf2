@@ -9,13 +9,14 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
+use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
 use Zend\Framework\EventManager\EventTrait as Event;
 use Zend\Framework\EventManager\ResultTrait as Result;
-use Zend\Framework\Request\ServiceTrait as Request;
-use Zend\Framework\Response\ServiceTrait as Response;
-use Zend\Framework\Route\ServiceTrait as Router;
-use Zend\Framework\View\Model\ServiceTrait as ViewModel;
+use Zend\Framework\Request\ServicesTrait as Request;
+use Zend\Framework\Response\ServicesTrait as Response;
+use Zend\Framework\Route\ServicesTrait as Router;
+use Zend\Framework\Service\ServiceTrait as Service;
+use Zend\Framework\View\Model\ServicesTrait as ViewModel;
 
 trait EventTrait
 {
@@ -28,5 +29,6 @@ trait EventTrait
         Result,
         Request,
         Router,
+        Service,
         ViewModel;
 }

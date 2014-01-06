@@ -41,10 +41,10 @@ interface ListenerInterface
     public function remove(Listener $listener);
 
     /**
-     * @param $name
+     * @param $listener
      * @return mixed
      */
-    public function listener($name);
+    public function listener($listener);
 
     /**
      * Listeners

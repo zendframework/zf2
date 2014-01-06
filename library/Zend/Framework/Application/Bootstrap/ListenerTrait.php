@@ -11,6 +11,7 @@ namespace Zend\Framework\Application\Bootstrap;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Service\ServiceTrait as Service;
 
 trait ListenerTrait
 {
@@ -18,5 +19,6 @@ trait ListenerTrait
      *
      */
     use EventManager,
-        Listener;
+        Listener,
+        Service;
 }

@@ -131,9 +131,7 @@ trait ListenerTrait
 
             foreach($this->listeners[$name] as $priority => $priorityListeners) {
                 foreach($priorityListeners as $index => $listener) {
-                    if (is_string($listener)) {
-                        $this->listeners[$name][$priority][$index] = $listener = $this->listener($listener);
-                    }
+                    $this->listeners[$name][$priority][$index] = $listener = $this->listener($listener);
                     foreach($listener->targets() as $t) {
                         if (
                             $t === ListenerInterface::WILDCARD
@@ -153,12 +151,12 @@ trait ListenerTrait
     }
 
     /**
-     * @param $name
+     * @param $listener
      * @return mixed
      */
-    public function listener($name)
+    public function listener($listener)
     {
-        return new $name();
+        return $listener;
     }
 
     /**

@@ -23,7 +23,8 @@ class ListenerFactory
     {
         $listener = new Listener;
 
-        $listener->setEventManager($this->sm->eventManager());
+        $listener->setServiceManager($this->sm)
+                 ->setEventManager($this->sm->eventManager());
 
         return $listener;
     }

@@ -53,12 +53,16 @@ trait ListenerTrait
     /**
      * Pull listener from service manager
      *
-     * @param $name
+     * @param $listener
      * @return mixed
      */
-    public function listener($name)
+    public function listener($listener)
     {
-        return $this->sm->get($name) ?: new $name;
+        if (is_string($listener)) {
+            return $this->sm->get($listener) ?: $listener;
+        }
+
+        return $listener;
     }
 
     /**
@@ -69,10 +73,7 @@ trait ListenerTrait
         $event = new Event;
 
         $event->setTarget($this)
-              ->setRequest($this->sm->request())
-              ->setResponse($this->sm->response())
-              ->setRouter($this->sm->router())
-              ->setViewModel($this->sm->viewModel());
+              ->setServiceManager($this->sm);
 
         $this->__invoke($event);
     }

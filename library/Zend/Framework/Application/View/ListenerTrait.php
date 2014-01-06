@@ -56,9 +56,8 @@ trait ListenerTrait
     {
         $render = new View;
 
-        $render->setTarget($event->target())
-               ->setViewModel($event->viewModel())
-               ->setResult($event->result());
+        $render->setTarget($event->viewModel())
+               ->setViewModel($event->viewModel());
 
         $this->em->__invoke($render);
 

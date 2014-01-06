@@ -12,6 +12,7 @@ namespace Zend\Framework\Application\Bootstrap;
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 interface ListenerInterface
     extends Listener
@@ -21,6 +22,12 @@ interface ListenerInterface
      * @return self
      */
     public function setEventManager(EventManager $em);
+
+    /**
+     * @param ServiceManager $sm
+     * @return self
+     */
+    public function setServiceManager(ServiceManager $sm);
 
     /**
      * Trigger

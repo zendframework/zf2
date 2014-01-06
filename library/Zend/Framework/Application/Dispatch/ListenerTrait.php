@@ -11,6 +11,9 @@ namespace Zend\Framework\Application\Dispatch;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Service\ServiceTrait as Service;
+use Zend\Framework\Route\ServicesTrait as Route;
+use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 
 trait ListenerTrait
 {
@@ -18,5 +21,8 @@ trait ListenerTrait
      *
      */
     use EventManager,
-        Listener;
+        Listener,
+        Service,
+        Route,
+        ViewModel;
 }

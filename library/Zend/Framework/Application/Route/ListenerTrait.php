@@ -11,6 +11,8 @@ namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Request\ServiceTrait as Request;
+use Zend\Framework\Route\ServiceTrait as Route;
 use Zend\Framework\Service\ServiceTrait as Service;
 
 trait ListenerTrait
@@ -20,5 +22,7 @@ trait ListenerTrait
      */
     use EventManager,
         Listener,
+        Request,
+        Route,
         Service;
 }
