@@ -10,7 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Service\EventManager\ServiceTrait as EventManager;
 use Zend\Framework\Service\ServiceTrait as Service;
 use Zend\View\Model\ModelInterface as ViewModel;
 use Zend\View\Renderer\RendererInterface as ViewRenderer;

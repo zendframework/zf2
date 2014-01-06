@@ -10,7 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\ListenerInterface as Listener;
-use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
+use Zend\Framework\Service\EventManager\ListenerInterface as EventManager;
 
 interface ListenerInterface
     extends Listener

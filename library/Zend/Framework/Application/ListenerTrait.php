@@ -11,9 +11,9 @@ namespace Zend\Framework\Application;
 
 use Exception;
 use Zend\Framework\Application\Service\Listener as ServiceManager;
-use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Service\EventManager\ListenerTrait as EventListener;
+use Zend\Framework\Service\EventManager\ServiceTrait as EventManager;
 use Zend\Framework\Service\ServiceTrait as Service;
-use Zend\Framework\EventManager\Manager\ListenerTrait as EventListener;
 
 trait ListenerTrait
 {
