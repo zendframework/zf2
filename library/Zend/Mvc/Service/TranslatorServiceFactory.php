@@ -11,13 +11,14 @@ namespace Zend\Mvc\Service;
 
 use Zend\Mvc\I18n\DummyTranslator;
 use Zend\Mvc\I18n\Translator;
+use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Overrides the translator factory from the i18n component in order to
  * replace it with the bridge class from this namespace.
  */
-class TranslatorServiceFactory
+class TranslatorServiceFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
