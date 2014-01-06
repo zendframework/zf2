@@ -11,6 +11,7 @@ namespace ZendTest\Mvc\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AcceptableViewModelSelector;
 use Zend\Http\Request;
+use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\Http\Header\Accept;
 use ZendTest\Mvc\Controller\TestAsset\SampleController;
@@ -20,9 +21,11 @@ class AcceptableViewModelSelectorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->request = new Request();
+        $this->response = new Response();
 
         $event = new MvcEvent();
         $event->setRequest($this->request);
+        $event->setResponse($this->response);
         $this->event = $event;
 
         $this->controller = new SampleController();
@@ -191,5 +194,30 @@ class AcceptableViewModelSelectorTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Zend\Mvc\Exception\InvalidArgumentException');
 
         $this->plugin->getViewModel($arr);
+    }
+
+    public function testProvidesVaryHeader()
+    {
+        $arr = array(
+                'Zend\View\Model\JsonModel' => array(
+                        'application/json',
+                        'application/javascript'
+                ),
+                'Zend\View\Model\FeedModel' => array(
+                        'application/rss+xml',
+                        'application/atom+xml'
+                ),
+                'Zend\View\Model\ViewModel' => '*/*'
+        );
+
+        $plugin   = $this->plugin;
+        $header   = Accept::fromString('Accept: application/rss+xml; version=0.2');
+        $this->request->getHeaders()->addHeader($header);
+        $plugin($arr);
+
+        $vary = $this->response->getHeaders()->get('Vary');
+
+        $this->assertInstanceOf('Zend\Http\Header\Vary', $vary, 'The Response must contain a Vary header.');
+        $this->assertContains('accept', strtolower($vary->getFieldValue()), 'The Vary header must contain Accept.');
     }
 }
