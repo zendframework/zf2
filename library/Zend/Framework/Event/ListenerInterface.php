@@ -7,43 +7,43 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager;
+namespace Zend\Framework\Event;
 
-interface EventListenerInterface
+interface ListenerInterface
+    extends EventListenerInterface
 {
     /**
-     * Wildcard
+     * Priority default
      *
      */
-    const WILDCARD = '*';
+    const PRIORITY = 0;
 
     /**
-     * Name
+     * Priority
      *
-     * @return string|array
+     * @return int
      */
-    public function name();
+    public function priority();
 
     /**
-     * Name set
+     * Priority set
      *
-     * @param $name
+     * @param int $priority
      * @return self
      */
-    public function setName($name);
+    public function setPriority($priority);
 
     /**
-     * Target
+     * Names
      *
-     * @return string|array|object
+     * @return array
      */
-    public function target();
+    public function names();
 
     /**
-     * Target set
+     * Targets
      *
-     * @param $target
-     * @return self
+     * @return array
      */
-    public function setTarget($target);
+    public function targets();
 }

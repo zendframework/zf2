@@ -10,8 +10,8 @@
 namespace Zend\Framework\Application;
 
 use Zend\Framework\Service\EventManager\ServicesTrait as EventManager;
-use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\EventManager\ResultTrait as Result;
+use Zend\Framework\Event\EventTrait as Event;
+use Zend\Framework\Event\ResultTrait as Result;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as Response;
 use Zend\Framework\Route\ServicesTrait as Router;

@@ -10,7 +10,7 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
-use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Service\EventManager\ServiceTrait as EventManager;
 use Zend\Framework\Service\ServiceTrait as Service;
 

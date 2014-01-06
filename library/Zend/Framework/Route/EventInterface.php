@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Event\EventInterface as Event;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\Mvc\Router\RouteInterface as Router;
 use Zend\Stdlib\RequestInterface as Request;

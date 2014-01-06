@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Event\EventInterface as Event;
 use Zend\Stdlib\ResponseInterface as Response;
 
 interface EventInterface

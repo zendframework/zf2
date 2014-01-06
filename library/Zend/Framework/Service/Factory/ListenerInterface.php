@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Service\EventInterface;
 
 interface ListenerInterface

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Exception;
 
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Route\EventInterface as Route;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Http\Response as HttpResponse;

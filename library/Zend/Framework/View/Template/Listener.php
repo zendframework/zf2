@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Template;
 
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Module\Route\EventListenerInterface as RouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 

@@ -11,7 +11,7 @@ namespace Zend\Framework\Application\View;
 
 use Exception;
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Service\EventManager\ServiceTrait as EventManager;
 use Zend\Framework\View\Error\Event as Error;
 use Zend\Framework\View\Event as View;

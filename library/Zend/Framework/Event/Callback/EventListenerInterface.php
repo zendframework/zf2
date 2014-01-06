@@ -7,22 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager;
+namespace Zend\Framework\Event\Callback;
 
-interface EventInterface
-    extends EventListenerInterface
+interface EventListenerInterface
 {
-    /**
-     * Stop
-     *
-     * @return EventInterface
-     */
-    public function stop();
-
-    /**
-     * Stopped
-     *
-     * @return bool
-     */
-    public function stopped();
 }

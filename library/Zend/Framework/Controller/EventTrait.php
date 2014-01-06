@@ -9,11 +9,11 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Framework\Event\EventTrait as Event;
 use Zend\Framework\Response\ServiceTrait as Response;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
-use Zend\Framework\EventManager\ResultTrait as Result;
-use Zend\Framework\EventManager\ErrorTrait as Error;
+use Zend\Framework\Event\ResultTrait as Result;
+use Zend\Framework\Event\ErrorTrait as Error;
 
 trait EventTrait
 {

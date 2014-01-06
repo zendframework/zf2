@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Bootstrap;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Event\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener

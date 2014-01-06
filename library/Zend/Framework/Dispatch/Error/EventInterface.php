@@ -10,7 +10,7 @@
 namespace Zend\Framework\Dispatch\Error;
 
 use Exception;
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Event\EventInterface as Event;
 
 interface EventInterface
     extends Event

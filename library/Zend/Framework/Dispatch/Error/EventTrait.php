@@ -11,7 +11,7 @@ namespace Zend\Framework\Dispatch\Error;
 
 use Exception;
 use Zend\Framework\Service\ServiceTrait as Service;
-use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Framework\Event\EventTrait as Event;
 
 trait EventTrait
 {

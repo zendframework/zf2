@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\EventManager\ResultTrait as Result;
+use Zend\Framework\Event\EventTrait as Event;
+use Zend\Framework\Event\ResultTrait as Result;
 
 trait EventTrait
 {

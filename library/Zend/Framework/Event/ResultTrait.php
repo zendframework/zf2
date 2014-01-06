@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager;
+namespace Zend\Framework\Event;
 
 trait ResultTrait
 {

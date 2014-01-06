@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Route\NotFound;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Route\EventInterface as RouteEvent;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\View\Model\ViewModel;

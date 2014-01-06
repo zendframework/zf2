@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Event\EventInterface as Event;
 use Zend\View\Model\ModelInterface as ViewModel;
 use Zend\View\Renderer\RendererInterface as ViewRenderer;
 

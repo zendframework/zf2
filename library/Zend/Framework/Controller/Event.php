@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Event\ListenerInterface as Listener;
 
 class Event
     implements EventInterface, EventListenerInterface

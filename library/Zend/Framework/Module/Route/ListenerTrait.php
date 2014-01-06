@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Module\Route;
 
-use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as Listener;
 
 trait ListenerTrait
 {

@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Service\EventManager;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
 interface ListenerInterface

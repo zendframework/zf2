@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Bootstrap;
 
-use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Framework\Event\EventTrait as Event;
 
 trait EventTrait
 {

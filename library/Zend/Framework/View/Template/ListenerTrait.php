@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Template;
 
-use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 
 trait ListenerTrait

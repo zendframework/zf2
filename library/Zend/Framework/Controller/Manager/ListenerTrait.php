@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Service\ServiceTrait as Service;
 
 trait ListenerTrait

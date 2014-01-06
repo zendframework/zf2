@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\EventManager\EventInterface;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Event\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener

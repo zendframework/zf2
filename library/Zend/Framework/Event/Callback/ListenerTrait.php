@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager\Callback;
+namespace Zend\Framework\Event\Callback;
 
-use Zend\Framework\EventManager\EventInterface;
-use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Event\ListenerTrait as Listener;
 
 trait ListenerTrait
 {

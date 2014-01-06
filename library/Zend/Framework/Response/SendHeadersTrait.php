@@ -10,7 +10,7 @@
 namespace Zend\Framework\Response;
 
 use Zend\Http\Header\MultipleHeaderInterface;
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Event\EventInterface as Event;
 
 trait SendHeadersTrait
 {

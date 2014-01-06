@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\EventManager\EventInterface as Event;
+use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Service\EventManager\ListenerInterface as EventManager;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\View\Model\ModelInterface as ViewModel;

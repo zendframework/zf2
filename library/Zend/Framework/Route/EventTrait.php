@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\EventManager\EventTrait as Event;
+use Zend\Framework\Event\EventTrait as Event;
 use Zend\Framework\Request\ServiceTrait as Request;
 use Zend\Framework\Route\ServiceTrait as Route;
 

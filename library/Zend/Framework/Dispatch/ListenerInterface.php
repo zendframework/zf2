@@ -10,7 +10,7 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Controller\Manager\ListenerInterface as ControllerManager;
-use Zend\Framework\EventManager\ListenerInterface as Listener;
+use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Service\EventManager\ListenerInterface as EventManager;
 
 interface ListenerInterface

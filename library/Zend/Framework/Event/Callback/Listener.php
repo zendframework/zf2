@@ -7,30 +7,26 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager;
+namespace Zend\Framework\Event\Callback;
 
-trait ErrorTrait
+use Zend\Framework\Event\EventInterface as Event;
+
+class Listener
+    implements ListenerInterface, EventListenerInterface
 {
     /**
-     * @var mixed
+     *
      */
-    protected $error;
+    use ListenerTrait;
 
     /**
+     * Trigger
+     *
+     * @param Event $event
      * @return mixed
      */
-    public function error()
+    public function __invoke(Event $event)
     {
-        return $this->error;
-    }
-
-    /**
-     * @param $error
-     * @return self
-     */
-    public function setError($error)
-    {
-        $this->error = $error;
-        return $this;
+        return $this->__invoke($event);
     }
 }

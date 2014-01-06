@@ -9,9 +9,9 @@
 
 namespace Zend\Framework\Service\EventManager;
 
-use Zend\Framework\EventManager\EventInterface;
-use Zend\Framework\EventManager\ListenerInterface;
-use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Event\ListenerInterface;
+use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
 trait ListenerTrait

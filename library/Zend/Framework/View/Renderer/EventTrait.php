@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Framework\EventManager\ResultTrait as Result;
+use Zend\Framework\Event\EventTrait as Event;
+use Zend\Framework\Event\ResultTrait as Result;
 use Zend\Framework\View\Renderer\ServiceTrait as Renderer;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 

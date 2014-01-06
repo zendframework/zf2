@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\EventManager\ListenerInterface;
+use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\ListenerInterface;
 
 interface EventInterface
     extends Event

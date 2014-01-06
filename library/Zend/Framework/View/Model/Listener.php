@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\EventManager\EventInterface;
+use Zend\Framework\Event\EventInterface;
 use Zend\View\Model\ClearableModelInterface as ClearableModel;
 
 class Listener
