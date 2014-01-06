@@ -46,10 +46,6 @@ class Listener
 
         $this->em->__invoke($route);
 
-        $routeMatch = $route->routeMatch();
-
-        $this->sm->setRouteMatch($routeMatch);
-
-        $event->setRouteMatch($routeMatch);
+        $event->setRouteMatch($route->routeMatch());
     }
 }
