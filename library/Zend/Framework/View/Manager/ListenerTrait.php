@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\View\Service\ListenerTrait as Listener;
+use Zend\Framework\Service\AliasTrait as Listener;
 
 trait ListenerTrait
 {

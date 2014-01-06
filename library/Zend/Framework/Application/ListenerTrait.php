@@ -58,11 +58,7 @@ trait ListenerTrait
      */
     public function listener($listener)
     {
-        if (is_string($listener)) {
-            return $this->sm->get($listener) ?: $listener;
-        }
-
-        return $listener;
+        return $this->sm->get($listener);
     }
 
     /**

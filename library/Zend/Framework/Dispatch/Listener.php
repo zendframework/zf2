@@ -12,7 +12,6 @@ namespace Zend\Framework\Dispatch;
 use Exception;
 use Zend\Framework\Controller\Event as Controller;
 use Zend\Framework\Dispatch\Exception as DispatchException;
-use Zend\Framework\Service\ServiceInterface;
 
 class Listener
     implements ListenerInterface, EventListenerInterface

@@ -7,13 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Service;
+namespace Zend\Framework\Service;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\Service\Event as Plugin;
-use Zend\Framework\Service\EventInterface;
 
-trait ListenerTrait
+trait AliasTrait
 {
     /**
      *
@@ -56,7 +54,7 @@ trait ListenerTrait
      */
     public function get($name, array $options = [])
     {
-        return $this->sm->__invoke(new Plugin($this->alias($name), $options));
+        return $this->sm->__invoke(new Event($this->alias($name), $options));
     }
 
     /**
