@@ -26,54 +26,6 @@ class ListenerFactory
 
         $vm = new Listener($config, $this->sm);
 
-        // Configure URL view helper with router
-        /*$vm->configure('url', function ($sm) use ($sm) {
-            $helper = new ViewHelper\Url;
-            $router = Console::isConsole() ? 'HttpRouter' : 'Router';
-            $helper->setRouter($sm->getService($router));
-
-            $match = $sm->application()
-                        ->mvcEvent()
-                        ->routeMatch();
-
-            if ($match instanceof RouteMatch) {
-                $helper->setRouteMatch($match);
-            }
-
-            return $helper;
-        });*/
-
-        $vm->configure('basepath', function () {
-            $config = $this->sm->applicationConfig();
-            $basePathHelper = new ViewHelper\BasePath;
-            if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
-                $basePathHelper->setBasePath($config['view_manager']['base_path']);
-            } else {
-                $request = $this->sm->request();
-                if (is_callable(array($request, 'getBasePath'))) {
-                    $basePathHelper->setBasePath($request->getBasePath());
-                }
-            }
-
-            return $basePathHelper;
-        });
-
-        /**
-         * Configure doctype view helper with doctype from configuration, if available.
-         *
-         * Other view helpers depend on this to decide which spec to generate their tags
-         * based on. This is why it must be set early instead of later in the layout phtml.
-         */
-        $vm->configure('doctype', function () {
-            $config = $this->sm->applicationConfig();
-            $config = isset($config['view_manager']) ? $config['view_manager'] : array();
-            $doctypeHelper = new ViewHelper\Doctype;
-            if (isset($config['doctype']) && $config['doctype']) {
-                $doctypeHelper->setDoctype($config['doctype']);
-            }
-            return $doctypeHelper;
-        });
-
         return $vm;
     }
 }
