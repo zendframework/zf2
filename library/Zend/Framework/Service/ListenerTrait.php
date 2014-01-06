@@ -65,7 +65,7 @@ trait ListenerTrait
 
     /**
      * @param $name
-     * @return bool|Factory|callable
+     * @return bool|FactoryInterface|callable
      */
     public function listener($name)
     {

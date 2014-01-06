@@ -111,11 +111,11 @@ class Renderer implements RendererInterface, TreeRendererInterface
     private $__file = null;
 
     /**
-     * Plugin manager
+     * View manager
      *
-     * @var PluginManager
+     * @var ViewManager
      */
-    private $__helpers;
+    private $vm;
 
     /**
      * @var FilterChain
@@ -131,11 +131,6 @@ class Renderer implements RendererInterface, TreeRendererInterface
      * @var array Temporary variable stack; used when variables passed to render()
      */
     private $__varsCache = array();
-
-    /**
-     * @var array Cache for the plugin call
-     */
-    private $__pluginCache = array();
 
     /**
      * Constructor.
@@ -330,19 +325,9 @@ class Renderer implements RendererInterface, TreeRendererInterface
      */
     public function setViewManager(ViewManager $vm)
     {
-        $this->__helpers = $vm;
+        $this->vm = $vm;
 
         return $this;
-    }
-
-    /**
-     * Get helper plugin manager instance
-     *
-     * @return PluginManager
-     */
-    public function pluginManager()
-    {
-        return $this->__helpers;
     }
 
     /**
@@ -354,7 +339,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      */
     public function plugin($name, array $options = array())
     {
-        return $this->__helpers->get($name, $options);
+        return $this->vm->get($name, $options);
     }
 
     /**
@@ -372,13 +357,13 @@ class Renderer implements RendererInterface, TreeRendererInterface
      */
     public function __call($method, $argv)
     {
-        if (!isset($this->__pluginCache[$method])) {
-            $this->__pluginCache[$method] = $this->plugin($method);
+        $plugin = $this->plugin($method);
+
+        if (is_callable($plugin)) {
+            return call_user_func_array($plugin, $argv);
         }
-        if (is_callable($this->__pluginCache[$method])) {
-            return call_user_func_array($this->__pluginCache[$method], $argv);
-        }
-        return $this->__pluginCache[$method];
+
+        return $plugin;
     }
 
     /**
