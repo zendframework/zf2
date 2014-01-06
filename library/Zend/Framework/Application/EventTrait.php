@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
 use Zend\Framework\EventManager\EventTrait as Event;
 use Zend\Framework\EventManager\ResultTrait as Result;
@@ -23,8 +22,7 @@ trait EventTrait
     /**
      *
      */
-    use ControllerManager,
-        Event,
+    use Event,
         EventManager,
         Response,
         Result,

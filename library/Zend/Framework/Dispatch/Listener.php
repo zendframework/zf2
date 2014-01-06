@@ -41,7 +41,7 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $cm = $event->controllerManager();
+        $cm = $this->controllerManager;
         $rm = $event->routeMatch();
         $vm = $event->viewModel();
 

@@ -43,7 +43,6 @@ class Listener
         $dispatch = new Dispatch;
 
         $dispatch->setTarget($event->target())
-                 ->setControllerManager($event->controllerManager())
                  ->setRouteMatch($event->routeMatch())
                  ->setViewModel($event->viewModel());
 

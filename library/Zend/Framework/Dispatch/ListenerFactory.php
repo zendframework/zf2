@@ -23,7 +23,8 @@ class ListenerFactory
     {
         $listener = new Listener;
 
-        $listener->setEventManager($this->sm->eventManager());
+        $listener->setEventManager($this->sm->eventManager())
+                 ->setControllerManager($this->sm->controllerManager());
 
         return $listener;
     }

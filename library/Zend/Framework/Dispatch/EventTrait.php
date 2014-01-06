@@ -13,7 +13,6 @@ use Zend\Framework\EventManager\EventTrait as Event;
 use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
 use Zend\Framework\EventManager\ResultTrait as Result;
 use Zend\Framework\Route\ServiceTrait as Route;
-use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 
 trait EventTrait
@@ -21,8 +20,7 @@ trait EventTrait
     /**
      *
      */
-    use ControllerManager,
-        Event,
+    use Event,
         EventManager,
         Result,
         Route,

@@ -9,12 +9,19 @@
 
 namespace Zend\Framework\Dispatch;
 
+use Zend\Framework\Controller\Manager\ListenerInterface as ControllerManager;
 use Zend\Framework\EventManager\ListenerInterface as Listener;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 
 interface ListenerInterface
     extends Listener
 {
+    /**
+     * @param ControllerManager $cm
+     * @return self
+     */
+    public function setControllerManager(ControllerManager $cm);
+
     /**
      * @param EventManager $em
      * @return self
