@@ -11,7 +11,6 @@ namespace Zend\Framework\Service;
 
 use Exception;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\Service\Factory\Service\Listener as FactoryService;
 use Zend\Framework\Service\Factory\CallableListener as CallableFactory;
 use Zend\Framework\Service\Factory\InstanceListener as InstanceFactory;
 use Zend\Framework\Service\Factory\ListenerInterface as FactoryInterface;
@@ -21,7 +20,8 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener, ServicesTrait;
+    use Listener,
+        ServiceTrait;
 
     /**
      * @var array

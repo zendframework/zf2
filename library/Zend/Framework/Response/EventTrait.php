@@ -10,14 +10,16 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\EventManager\EventTrait as Event;
-use Zend\Stdlib\ResponseInterface as Response;
+use Zend\Framework\EventManager\ResultTrait as Result;
 
 trait EventTrait
 {
     /**
      *
      */
-    use Event;
+    use Event,
+        Result,
+        ServiceTrait;
 
     /**
      * @var array
@@ -28,52 +30,6 @@ trait EventTrait
      * @var array
      */
     protected $headersSent = [];
-
-    /**
-     * @var mixed
-     */
-    protected $result;
-
-    /**
-     * @var Response
-     */
-    protected $response;
-
-    /**
-     * @return mixed
-     */
-    public function result()
-    {
-        return $this->result;
-    }
-
-    /**
-     * @param $result
-     * @return self
-     */
-    public function setResult($result)
-    {
-        $this->result = $result;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function response()
-    {
-        return $this->response;
-    }
-
-    /**
-     * @param Response $response
-     * @return self
-     */
-    public function setResponse(Response $response)
-    {
-        $this->response = $response;
-        return $this;
-    }
 
     /**
      * Set content sent for current response

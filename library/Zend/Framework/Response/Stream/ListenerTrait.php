@@ -18,7 +18,8 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener, SendHeaders;
+    use Listener,
+        SendHeaders;
 
     /**
      * Send the stream

@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Service\ServicesTrait as Services;
 use Zend\Framework\EventManager\EventTrait as Event;
 
 trait EventTrait

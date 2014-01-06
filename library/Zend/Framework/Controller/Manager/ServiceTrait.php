@@ -7,25 +7,30 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager\Manager;
+namespace Zend\Framework\Controller\Manager;
 
-trait ServicesTrait
+trait ServiceTrait
 {
+    /**
+     * @var ListenerInterface
+     */
+    protected $controllerManager;
+
     /**
      * @return ListenerInterface
      */
-    public function eventManager()
+    public function controllerManager()
     {
-        return $this->service('EventManager');
+        return $this->controllerManager;
     }
 
     /**
-     * @param ListenerInterface $em
+     * @param ListenerInterface $controllerManager
      * @return self
      */
-    public function setEventManager(ListenerInterface $em)
+    public function setControllerManager(ListenerInterface $controllerManager)
     {
-        $this->add('EventManager', $em);
+        $this->controllerManager = $controllerManager;
         return $this;
     }
 }

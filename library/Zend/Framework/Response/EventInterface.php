@@ -10,7 +10,6 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\EventManager\EventInterface as Event;
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Stdlib\ResponseInterface as Response;
 
 interface EventInterface

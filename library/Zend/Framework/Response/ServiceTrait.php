@@ -7,25 +7,32 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager\Manager;
+namespace Zend\Framework\Response;
 
-trait ServicesTrait
+use Zend\Stdlib\ResponseInterface as Response;
+
+trait ServiceTrait
 {
     /**
-     * @return ListenerInterface
+     * @var Response
      */
-    public function eventManager()
+    protected $response;
+
+    /**
+     * @return bool|object
+     */
+    public function response()
     {
-        return $this->service('EventManager');
+        return $this->response;
     }
 
     /**
-     * @param ListenerInterface $em
+     * @param Response $response
      * @return self
      */
-    public function setEventManager(ListenerInterface $em)
+    public function setResponse(Response $response)
     {
-        $this->add('EventManager', $em);
+        $this->response = $response;
         return $this;
     }
 }

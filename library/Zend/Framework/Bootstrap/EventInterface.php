@@ -14,4 +14,12 @@ use Zend\Framework\EventManager\EventInterface as Event;
 interface EventInterface
     extends Event
 {
+
+    /**
+     * Trigger
+     *
+     * @param ListenerInterface $listener
+     * @return bool Stopped
+     */
+    public function __invoke(ListenerInterface $listener);
 }

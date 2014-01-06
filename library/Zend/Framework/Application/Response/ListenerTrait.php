@@ -10,12 +10,13 @@
 namespace Zend\Framework\Application\Response;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
+use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener, EventManager;
+    use EventManager,
+        Listener;
 }

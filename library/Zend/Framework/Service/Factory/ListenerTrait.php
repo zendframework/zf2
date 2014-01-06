@@ -10,11 +10,12 @@
 namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
+use Zend\Framework\Service\ServiceTrait as Service;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener;
+    use Listener, Service;
 }

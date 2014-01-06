@@ -11,7 +11,7 @@ namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
-use Zend\Framework\Controller\Manager\Listener as ControllerManager;
+use Zend\Framework\Controller\Manager\ListenerInterface as ControllerManager;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\View\Model\ModelInterface as ViewModel;
 

@@ -9,10 +9,8 @@
 
 namespace Zend\Framework\Application\Service;
 
-//use Zend\Console\Request as Request;
-//use Zend\Console\Response as Response;
 use Zend\Framework\Controller\ServicesTrait as Controller;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
+use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as Response;
 use Zend\Framework\Route\ServicesTrait as Route;

@@ -17,5 +17,6 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener, SendContent;
+    use Listener,
+        SendContent;
 }

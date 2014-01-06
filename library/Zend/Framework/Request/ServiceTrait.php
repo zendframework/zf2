@@ -7,25 +7,32 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\EventManager\Manager;
+namespace Zend\Framework\Request;
 
-trait ServicesTrait
+use Zend\Stdlib\RequestInterface as Request;
+
+trait ServiceTrait
 {
     /**
-     * @return ListenerInterface
+     * @var Request
      */
-    public function eventManager()
+    protected $request;
+
+    /**
+     * @return bool|Request
+     */
+    public function request()
     {
-        return $this->service('EventManager');
+        return $this->request;
     }
 
     /**
-     * @param ListenerInterface $em
+     * @param Request $request
      * @return self
      */
-    public function setEventManager(ListenerInterface $em)
+    public function setRequest(Request $request)
     {
-        $this->add('EventManager', $em);
+        $this->request = $request;
         return $this;
     }
 }

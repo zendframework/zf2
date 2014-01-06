@@ -12,7 +12,6 @@ namespace Zend\Framework\View\Service;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
 use Zend\Framework\Service\Event as Plugin;
 use Zend\Framework\Service\EventInterface;
-//use Zend\Framework\Service\ServicesTrait as Services;
 
 trait ListenerTrait
 {

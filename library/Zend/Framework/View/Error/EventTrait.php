@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Error;
 
 use Exception;
-use Zend\Framework\Service\ServicesTrait as Services;
+use Zend\Framework\Service\ServiceTrait as Service;
 use Zend\Framework\EventManager\EventTrait as Event;
 
 trait EventTrait
@@ -18,7 +18,7 @@ trait EventTrait
     /**
      *
      */
-    use Event, Services;
+    use Event, Service;
 
     /**
      * @var string

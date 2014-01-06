@@ -23,7 +23,7 @@ class ListenerFactory
     {
         $listener = new Listener;
 
-        $listener->setRenderer($this->sm->viewRenderer());
+        $listener->setViewRenderer($this->sm->viewRenderer());
 
         return $listener;
     }

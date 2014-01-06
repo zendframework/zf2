@@ -11,18 +11,20 @@ namespace Zend\Framework\Application;
 
 use Exception;
 use Zend\Framework\Application\Service\Listener as ServiceManager;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManagerService;
-use Zend\Framework\Service\ServicesTrait as Services;
-use Zend\Framework\EventManager\Manager\ListenerTrait as EventManager;
+use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Service\ServiceTrait as Service;
+use Zend\Framework\EventManager\Manager\ListenerTrait as EventListener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use EventManager, EventManagerService, Services {
-        EventManager::add insteadof Services;
-    }
+    use EventListener,
+        EventManager,
+        Service {
+            EventListener::add insteadof Service;
+        }
 
     /**
      * @param array $config

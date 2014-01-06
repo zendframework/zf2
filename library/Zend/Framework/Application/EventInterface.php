@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Controller\Manager\Listener as ControllerManager;
+use Zend\Framework\Controller\Manager\ListenerInterface as ControllerManager;
 use Zend\Framework\EventManager\EventInterface as Event;
 use Zend\Framework\EventManager\Manager\ListenerInterface as EventManager;
 use Zend\Mvc\Router\RouteMatch;

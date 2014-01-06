@@ -10,7 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
+use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
 use Zend\Framework\View\Renderer\Event as ViewRenderer;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Renderer\TreeRendererInterface;
@@ -23,7 +23,8 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener, EventManager;
+    use EventManager,
+        Listener;
 
     /**
      * Retrieve renderer for view model

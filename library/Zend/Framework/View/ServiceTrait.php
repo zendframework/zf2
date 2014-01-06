@@ -9,13 +9,12 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\View\Listener as View;
-use Zend\Framework\View\Renderer\ServicesTrait as ViewRenderer;
-use Zend\Framework\View\Resolver\ServicesTrait as ViewResolver;
-use Zend\Framework\View\Model\ServicesTrait as ViewModel;
-use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
+use Zend\Framework\View\Renderer\ServiceTrait as ViewRenderer;
+use Zend\Framework\View\Resolver\ServiceTrait as ViewResolver;
+use Zend\Framework\View\Model\ServiceTrait as ViewModel;
+use Zend\Framework\View\Manager\ServiceTrait as ViewManager;
 
-trait ServicesTrait
+trait ServiceTrait
 {
     /**
      *
@@ -26,19 +25,25 @@ trait ServicesTrait
         ViewResolver;
 
     /**
-     * @return bool|View
+     * @var ListenerInterface
+     */
+    protected $view;
+
+    /**
+     * @return ListenerInterface
      */
     public function view()
     {
-        return $this->service('View');
+        return $this->view;
     }
 
     /**
-     * @param View $view
+     * @param ListenerInterface $view
      * @return self
      */
-    public function setView(View $view)
+    public function setView(ListenerInterface $view)
     {
-        return $this->add('View', $view);
+        $this->view = $view;
+        return $this;
     }
 }

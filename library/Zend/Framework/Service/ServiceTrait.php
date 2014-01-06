@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service;
 
-trait ServicesTrait
+trait ServiceTrait
 {
     /**
      * @var ListenerInterface

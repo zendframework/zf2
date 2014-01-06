@@ -12,8 +12,7 @@ namespace Zend\Framework\Application\View;
 use Exception;
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\EventManager\ListenerTrait as Listener;
-use Zend\Framework\EventManager\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Service\ServicesTrait as ServiceManager;
+use Zend\Framework\EventManager\Manager\ServiceTrait as EventManager;
 use Zend\Framework\View\Error\Event as Error;
 use Zend\Framework\View\Event as View;
 
@@ -22,7 +21,8 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener, EventManager, ServiceManager;
+    use EventManager,
+        Listener;
 
     /**
      * @var EventInterface
