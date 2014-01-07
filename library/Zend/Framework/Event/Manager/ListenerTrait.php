@@ -129,26 +129,34 @@ trait ListenerTrait
 
         $names = EventInterface::WILDCARD == $name ? [$name] : [EventInterface::WILDCARD, $name];
 
+        $queue = [];
+
         foreach($names as $name) {
             if (empty($this->listeners[$name])) {
                 continue;
             }
-
             foreach($this->listeners[$name] as $priority => $listeners) {
                 foreach($listeners as $index => $listener) {
-                    if (is_string($listener)) {
-                        $this->listeners[$name][$priority][$index] = $listener = $this->listener($listener);
-                    }
-                    foreach($listener->targets() as $t) {
-                        if (
-                            $t === ListenerInterface::WILDCARD
-                            || $t === $target
-                            || $target instanceof $t
-                            || \is_subclass_of($target, $t)
-                        ) {
-                            yield $listener;
-                            continue 2;
-                        }
+                    $queue[$priority][] = [$name, $index, $listener];
+                }
+            }
+        }
+
+        foreach($queue as $priority => $listeners) {
+            foreach($listeners as list($name, $index, $listener)) {
+                if (is_string($listener)) {
+                    $this->listeners[$name][$priority][$index] = $listener = $this->listener($listener);
+                }
+
+                foreach($listener->targets() as $t) {
+                    if (
+                        $t === ListenerInterface::WILDCARD
+                        || $t === $target
+                        || $target instanceof $t
+                        || \is_subclass_of($target, $t)
+                    ) {
+                        yield $listener;
+                        continue 2;
                     }
                 }
             }
@@ -164,9 +172,13 @@ trait ListenerTrait
     public function __invoke(EventInterface $event)
     {
         foreach($this->match($event) as $listener) {
+
             //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
-            if ($event->__invoke($listener)) {
-                return true; //event stopped
+
+            $event->__invoke($listener);
+
+            if ($event->stopped()) {
+                return true;
             }
         }
 
