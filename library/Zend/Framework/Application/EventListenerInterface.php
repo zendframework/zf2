@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Service\EventManager\EventListenerInterface as EventListener;
+use Zend\Framework\Event\Manager\EventListenerInterface as EventListener;
 
 interface EventListenerInterface
     extends EventListener

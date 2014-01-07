@@ -10,7 +10,7 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Event\EventTrait as Event;
-use Zend\Framework\Service\EventManager\ServiceTrait as EventManager;
+use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\Event\ResultTrait as Result;
 use Zend\Framework\Route\ServiceTrait as Route;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;

@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service\EventManager;
+namespace Zend\Framework\Event\Manager;
 
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface;
@@ -111,13 +111,21 @@ trait ListenerTrait
     }
 
     /**
-     * Queue listeners
+     * @param $listener
+     * @return mixed
+     */
+    public function listener($listener)
+    {
+        return new $listener;
+    }
+
+    /**
+     * Trigger
      *
      * @param EventInterface $event
-     * @param PriorityQueue $queue
-     * @return PriorityQueue
+     * @return bool stopped
      */
-    public function queue(EventInterface $event, PriorityQueue $queue)
+    public function __invoke(EventInterface $event)
     {
         $name   = $event->name();
         $target = $event->target();
@@ -125,7 +133,7 @@ trait ListenerTrait
         $names = EventInterface::WILDCARD == $name ? [$name] : [EventInterface::WILDCARD, $name];
 
         foreach($names as $name) {
-            if (!isset($this->listeners[$name]) || !$this->listeners[$name]) {
+            if (empty($this->listeners[$name])) {
                 continue;
             }
 
@@ -141,49 +149,14 @@ trait ListenerTrait
                             || $target instanceof $t
                             || \is_subclass_of($target, $t)
                         ) {
-                            $queue->insert($listener, $priority);
+                            //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
+                            if ($event->__invoke($listener)) {
+                                return false; //event stopped
+                            }
                             continue 2;
                         }
                     }
                 }
-            }
-        }
-
-        return $queue;
-    }
-
-    /**
-     * @param $listener
-     * @return mixed
-     */
-    public function listener($listener)
-    {
-        return new $listener;
-    }
-
-    /**
-     * Listeners
-     *
-     * @param EventInterface $event
-     * @return PriorityQueue
-     */
-    public function listeners(EventInterface $event)
-    {
-        return $this->queue($event, new PriorityQueue);
-    }
-
-    /**
-     * Trigger
-     *
-     * @param EventInterface $event
-     * @return bool stopped
-     */
-    public function __invoke(EventInterface $event)
-    {
-        foreach($this->listeners($event) as $listener) {
-            //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
-            if ($event->__invoke($listener)) {
-                return false; //event stopped
             }
         }
 

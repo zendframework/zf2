@@ -11,7 +11,7 @@ namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Controller\Manager\ListenerInterface as ControllerManager;
 use Zend\Framework\Event\ListenerInterface as Listener;
-use Zend\Framework\Service\EventManager\ListenerInterface as EventManager;
+use Zend\Framework\Event\Manager\ListenerInterface as EventManager;
 
 interface ListenerInterface
     extends Listener

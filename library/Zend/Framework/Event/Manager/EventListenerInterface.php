@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service\EventManager;
+namespace Zend\Framework\Event\Manager;
 
 use Zend\Framework\Event\EventListenerInterface as EventListener;
 

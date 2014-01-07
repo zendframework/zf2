@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Service\EventManager\ServicesTrait as EventManager;
+use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Event\EventTrait as Event;
 use Zend\Framework\Event\ResultTrait as Result;
 use Zend\Framework\Request\ServicesTrait as Request;

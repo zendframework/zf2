@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service\EventManager;
+namespace Zend\Framework\Event\Manager;
 
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Event\ListenerInterface as Listener;
@@ -45,23 +45,6 @@ interface ListenerInterface
      * @return mixed
      */
     public function listener($listener);
-
-    /**
-     * Listeners
-     *
-     * @param Event $event
-     * @return PriorityQueue
-     */
-    public function listeners(Event $event);
-
-    /**
-     * Queue listeners
-     *
-     * @param Event $event
-     * @param PriorityQueue $queue
-     * @return PriorityQueue
-     */
-    public function queue(Event $event, PriorityQueue $queue);
 
     /**
      * Trigger
