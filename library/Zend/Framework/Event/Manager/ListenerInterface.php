@@ -11,7 +11,6 @@ namespace Zend\Framework\Event\Manager;
 
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Event\ListenerInterface as Listener;
-use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
 interface ListenerInterface
     extends Listener

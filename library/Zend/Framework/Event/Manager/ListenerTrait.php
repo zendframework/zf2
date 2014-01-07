@@ -12,7 +12,6 @@ namespace Zend\Framework\Event\Manager;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\ListenerTrait as Listener;
-use Zend\Stdlib\SplPriorityQueue as PriorityQueue;
 
 trait ListenerTrait
 {
