@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Event\Manager;
 
+use Generator;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\ListenerTrait as Listener;
@@ -120,9 +121,9 @@ trait ListenerTrait
 
     /**
      * @param EventInterface $event
-     * @return \Generator
+     * @return Generator
      */
-    protected function match(EventInterface $event)
+    protected function queue(EventInterface $event)
     {
         $name   = $event->name();
         $target = $event->target();
@@ -136,16 +137,18 @@ trait ListenerTrait
                 continue;
             }
             foreach($this->listeners[$name] as $priority => $listeners) {
-                foreach($listeners as $index => $listener) {
-                    $queue[$priority][] = [$name, $index, $listener];
+                foreach($listeners as $listener) {
+                    $queue[$priority][] = $listener;
                 }
             }
         }
 
-        foreach($queue as $priority => $listeners) {
-            foreach($listeners as list($name, $index, $listener)) {
+        foreach($queue as $listeners) {
+            foreach($listeners as $listener) {
+
+                //if a listener stops the event, then not all listeners for this priority need to be initialized
                 if (is_string($listener)) {
-                    $this->listeners[$name][$priority][$index] = $listener = $this->listener($listener);
+                    $listener = $this->listener($listener);
                 }
 
                 foreach($listener->targets() as $t) {
@@ -171,7 +174,7 @@ trait ListenerTrait
      */
     public function __invoke(EventInterface $event)
     {
-        foreach($this->match($event) as $listener) {
+        foreach($this->queue($event) as $listener) {
 
             //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
 
