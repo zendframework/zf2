@@ -120,30 +120,19 @@ trait ListenerTrait
     }
 
     /**
-     * @param EventInterface $event
+     * @param string $name
+     * @param string|object $target
      * @return Generator
      */
-    protected function queue(EventInterface $event)
+    protected function queue($name, $target)
     {
-        $name   = $event->name();
-        $target = $event->target();
-
-        $names = EventInterface::WILDCARD == $name ? [$name] : [EventInterface::WILDCARD, $name];
-
-        $queue = [];
-
-        foreach($names as $name) {
-            if (empty($this->listeners[$name])) {
-                continue;
-            }
-            foreach($this->listeners[$name] as $priority => $listeners) {
-                foreach($listeners as $listener) {
-                    $queue[$priority][] = $listener;
-                }
-            }
+        if (!isset($this->listeners[$name])) {
+            return;
         }
 
-        foreach($queue as $listeners) {
+        krsort($this->listeners[$name], SORT_NUMERIC);
+
+        foreach($this->listeners[$name] as $listeners) {
             foreach($listeners as $listener) {
 
                 //if a listener stops the event, then not all listeners for this priority need to be initialized
@@ -174,7 +163,7 @@ trait ListenerTrait
      */
     public function __invoke(EventInterface $event)
     {
-        foreach($this->queue($event) as $listener) {
+        foreach($this->queue($event->name(), $event->target()) as $listener) {
 
             //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
 
