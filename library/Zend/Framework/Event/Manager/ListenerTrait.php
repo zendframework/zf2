@@ -119,12 +119,10 @@ trait ListenerTrait
     }
 
     /**
-     * Trigger
-     *
      * @param EventInterface $event
-     * @return bool stopped
+     * @return \Generator
      */
-    public function __invoke(EventInterface $event)
+    protected function match(EventInterface $event)
     {
         $name   = $event->name();
         $target = $event->target();
@@ -148,14 +146,27 @@ trait ListenerTrait
                             || $target instanceof $t
                             || \is_subclass_of($target, $t)
                         ) {
-                            //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
-                            if ($event->__invoke($listener)) {
-                                return true; //event stopped
-                            }
+                            yield $listener;
                             continue 2;
                         }
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Trigger
+     *
+     * @param EventInterface $event
+     * @return bool stopped
+     */
+    public function __invoke(EventInterface $event)
+    {
+        foreach($this->match($event) as $listener) {
+            //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
+            if ($event->__invoke($listener)) {
+                return true; //event stopped
             }
         }
 
