@@ -152,7 +152,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      *
      * Returns the object instance, as it is its own template engine
      *
-     * @return PhpRenderer
+     * @return self
      */
     public function getEngine()
     {
@@ -175,7 +175,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      * Set script resolver
      *
      * @param  Resolver $resolver
-     * @return PhpRenderer
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setResolver(Resolver $resolver)
@@ -209,7 +209,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      * Expects either an array, or an object implementing ArrayAccess.
      *
      * @param  array|ArrayAccess $variables
-     * @return PhpRenderer
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setVars($variables)
@@ -370,7 +370,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      * Set filter chain
      *
      * @param  FilterChain $filters
-     * @return PhpRenderer
+     * @return self
      */
     public function setFilterChain(FilterChain $filters)
     {
@@ -490,7 +490,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      * view script.
      *
      * @param  bool $renderTrees
-     * @return PhpRenderer
+     * @return self
      */
     public function setCanRenderTrees($renderTrees)
     {
@@ -512,7 +512,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      * Add a template to the stack
      *
      * @param  string $template
-     * @return PhpRenderer
+     * @return self
      */
     public function addTemplate($template)
     {
@@ -523,7 +523,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
     /**
      * Make sure View variables are cloned when the view is cloned.
      *
-     * @return PhpRenderer
+     * @return void
      */
     public function __clone()
     {

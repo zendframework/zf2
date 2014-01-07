@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Route;
 
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
+
 class Listener
     implements ListenerInterface, EventListenerInterface
 {
@@ -31,7 +33,7 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @return void
+     * @return RouteMatch
      */
     public function __invoke(EventInterface $event)
     {

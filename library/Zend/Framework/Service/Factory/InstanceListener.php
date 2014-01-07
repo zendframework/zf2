@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Service\Factory;
 
+use ReflectionClass;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;

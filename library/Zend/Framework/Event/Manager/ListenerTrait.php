@@ -136,8 +136,8 @@ trait ListenerTrait
                 continue;
             }
 
-            foreach($this->listeners[$name] as $priority => $priorityListeners) {
-                foreach($priorityListeners as $index => $listener) {
+            foreach($this->listeners[$name] as $priority => $listeners) {
+                foreach($listeners as $index => $listener) {
                     if (is_string($listener)) {
                         $this->listeners[$name][$priority][$index] = $listener = $this->listener($listener);
                     }
