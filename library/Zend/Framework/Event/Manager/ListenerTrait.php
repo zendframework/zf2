@@ -150,7 +150,7 @@ trait ListenerTrait
                         ) {
                             //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
                             if ($event->__invoke($listener)) {
-                                return false; //event stopped
+                                return true; //event stopped
                             }
                             continue 2;
                         }
@@ -159,6 +159,6 @@ trait ListenerTrait
             }
         }
 
-        return true;
+        return false;
     }
 }
