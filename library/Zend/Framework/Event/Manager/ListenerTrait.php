@@ -81,6 +81,21 @@ trait ListenerTrait
     }
 
     /**
+     * @param $name
+     * @return array
+     */
+    protected function listeners($name)
+    {
+        if (!isset($this->listeners[$name])) {
+            return [];
+        }
+
+        krsort($this->listeners[$name], SORT_NUMERIC);
+
+        return $this->listeners[$name];
+    }
+
+    /**
      * Push listener to top of queue
      *
      * @param ListenerInterface $listener
@@ -108,22 +123,13 @@ trait ListenerTrait
     }
 
     /**
-     * @param EventInterface $event
+     * @param string $name
+     * @param string $target
      * @return Generator
      */
-    protected function queue(EventInterface $event)
+    protected function queue($name, $target)
     {
-        $name = $event->name();
-
-        if (!isset($this->listeners[$name])) {
-            return;
-        }
-
-        krsort($this->listeners[$name], SORT_NUMERIC);
-
-        $target = $event->target();
-
-        foreach($this->listeners[$name] as $listeners) {
+        foreach($this->listeners($name) as $listeners) {
             foreach($listeners as $listener) {
 
                 //not all listeners for this priority need to be initialized
@@ -176,9 +182,12 @@ trait ListenerTrait
      */
     public function __invoke(EventInterface $event)
     {
+        $name   = $event->name();
+        $target = $event->target();
+
         $result = null;
 
-        foreach($this->queue($event) as $listener) {
+        foreach($this->queue($name, $target) as $listener) {
 
             //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
 
