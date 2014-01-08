@@ -16,7 +16,7 @@ class Listener
      *
      */
     use ListenerTrait {
-        ListenerTrait::__construct as __listener;
+        ListenerTrait::__construct as listener;
     }
 
     /**
@@ -26,6 +26,6 @@ class Listener
      */
     public function __construct($event = self::EVENT_SERVICE, $target = null, $priority = null)
     {
-        $this->__listener($event, $target, $priority);
+        $this->listener($event, $target, $priority);
     }
 }
