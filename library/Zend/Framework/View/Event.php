@@ -36,6 +36,10 @@ class Event
      */
     public function __invoke(Listener $listener)
     {
-        return $listener->__invoke($this);
+        $response = $listener->__invoke($this);
+
+        $this->setResult($response);
+
+        return $response;
     }
 }

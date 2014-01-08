@@ -11,9 +11,9 @@ namespace Zend\Framework\View;
 
 use Zend\Framework\Event\EventTrait as Event;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Event\ResultTrait as Result;
 use Zend\Framework\Service\ServiceTrait as Service;
-use Zend\View\Model\ModelInterface as ViewModel;
-use Zend\View\Renderer\RendererInterface as ViewRenderer;
+use Zend\Framework\View\Renderer\ServiceTrait as ViewRenderer;
 
 trait EventTrait
 {
@@ -22,74 +22,7 @@ trait EventTrait
      */
     use Event,
         EventManager,
-        Service;
-
-    /**
-     * @var ViewRenderer
-     */
-    protected $renderer;
-
-    /**
-     * @var mixed
-     */
-    protected $result;
-
-    /**
-     * @var ViewModel
-     */
-    protected $vm;
-
-    /**
-     * @return mixed
-     */
-    public function result()
-    {
-        return $this->result;
-    }
-
-    /**
-     * @param $result
-     * @return self
-     */
-    public function setResult($result)
-    {
-        $this->result = $result;
-        return $this;
-    }
-
-    /**
-     * @return ViewModel
-     */
-    public function viewModel()
-    {
-        return $this->vm;
-    }
-
-    /**
-     * @param ViewModel $vm
-     * @return self
-     */
-    public function setViewModel(ViewModel $vm)
-    {
-        $this->vm = $vm;
-        return $this;
-    }
-
-    /**
-     * @return bool|ViewRenderer
-     */
-    public function viewRenderer()
-    {
-        return $this->renderer;
-    }
-
-    /**
-     * @param ViewRenderer $renderer
-     * @return self
-     */
-    public function setViewRenderer(ViewRenderer $renderer)
-    {
-        $this->renderer = $renderer;
-        return $this;
-    }
+        Result,
+        Service,
+        ViewRenderer;
 }

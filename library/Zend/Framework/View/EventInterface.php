@@ -28,17 +28,6 @@ interface EventInterface
     public function setResult($result);
 
     /**
-     * @return ViewModel
-     */
-    public function viewModel();
-
-    /**
-     * @param ViewModel $vm
-     * @return self
-     */
-    public function setViewModel(ViewModel $vm);
-
-    /**
      * @return bool|ViewRenderer
      */
     public function viewRenderer();
