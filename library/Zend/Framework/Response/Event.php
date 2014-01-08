@@ -34,10 +34,6 @@ class Event
      */
     public function __invoke(ListenerInterface $listener)
     {
-        $response = $listener->__invoke($this);
-
-        $this->response->setContent($response);
-
-        return $response;
+        return $listener->__invoke($this);
     }
 }

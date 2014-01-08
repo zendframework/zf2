@@ -40,7 +40,7 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $response = $event->response();
+        $response = $event->target();
         if (!$response instanceof Response) {
             return $this;
         }

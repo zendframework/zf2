@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\Application\Dispatch;
 
+use Exception;
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Dispatch\Error\Event as DispatchError;
-use Zend\Framework\Dispatch\Event as Dispatch;
-use Zend\Framework\Dispatch\Exception as DispatchException;
+use Zend\Framework\Controller\Event as Controller;
+use Zend\Framework\Application\Dispatch\Error\Event as DispatchError;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -40,28 +40,34 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $dispatch = new Dispatch;
+        $controllerName = $event->routeMatch()->getParam('controller', 'not-found');
 
-        $dispatch->setTarget($event->target())
-                 ->setRouteMatch($this->routeMatch())
+        $controller = $this->controllerManager->controller( $controllerName );
+
+        $this->em->push($controller);
+
+        $dispatch = new Controller;
+
+        $dispatch->setTarget($controller)
                  ->setViewModel($this->viewModel);
 
         try {
 
             $this->em->__invoke($dispatch);
 
-            return $dispatch->result();
-
-        } catch (DispatchException $exception) {
+        } catch (Exception $exception) {
 
             $error = new DispatchError;
 
             $error->setTarget($event->target())
-                  ->setException($exception->exception())
-                  ->setControllerName($exception->controllerName())
-                  ->setControllerClass($exception->controllerClass());
+                  ->setException($exception)
+                  ->setControllerName($controllerName)
+                  ->setControllerClass(get_class($controller));
 
             $this->em->__invoke($error);
+
         }
+
+        return $dispatch->result();
     }
 }

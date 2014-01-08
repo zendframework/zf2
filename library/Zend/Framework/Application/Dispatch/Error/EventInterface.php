@@ -7,19 +7,29 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Bootstrap;
+namespace Zend\Framework\Application\Dispatch\Error;
 
+use Exception;
 use Zend\Framework\Event\EventInterface as Event;
 
 interface EventInterface
     extends Event
 {
+    /**
+     * @param Exception $exception
+     * @return self
+     */
+    public function setException(Exception $exception);
 
     /**
-     * Trigger
-     *
-     * @param ListenerInterface $listener
-     * @return bool Stopped
+     * @param $name
+     * @return self
      */
-    public function __invoke(ListenerInterface $listener);
+    public function setControllerName($name);
+
+    /**
+     * @param $className
+     * @return self
+     */
+    public function setControllerClass($className);
 }

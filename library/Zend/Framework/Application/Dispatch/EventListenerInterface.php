@@ -14,4 +14,8 @@ use Zend\Framework\Application\EventListenerInterface as EventListener;
 interface EventListenerInterface
     extends EventListener
 {
+    /**
+     *
+     */
+    const EVENT_DISPATCH_ERROR = 'mvc.dispatch.error';
 }

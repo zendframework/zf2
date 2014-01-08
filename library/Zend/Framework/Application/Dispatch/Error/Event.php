@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Bootstrap;
+namespace Zend\Framework\Application\Dispatch\Error;
 
 class Event
     implements EventInterface, EventListenerInterface
@@ -23,19 +23,8 @@ class Event
      * @param string $name
      * @param string $target
      */
-    public function __construct($name = self::EVENT_BOOTSTRAP, $target = null)
+    public function __construct($name = self::EVENT_DISPATCH_ERROR, $target = null)
     {
         $this->event($name, $target);
-    }
-
-    /**
-     * Trigger
-     *
-     * @param ListenerInterface $listener
-     * @return mixed
-     */
-    public function __invoke(ListenerInterface $listener)
-    {
-        return $listener->__invoke($this);
     }
 }

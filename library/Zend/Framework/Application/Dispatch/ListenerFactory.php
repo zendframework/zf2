@@ -25,7 +25,8 @@ class ListenerFactory
 
         $listener->setServiceManager($this->sm)
                  ->setEventManager($this->sm->eventManager())
-                 ->setViewModel($this->sm->viewModel());
+                 ->setViewModel($this->sm->viewModel())
+                 ->setControllerManager($this->sm->controllerManager());
 
         return $listener;
     }

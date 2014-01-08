@@ -38,12 +38,11 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $event->response()
-              ->setContent($event->result());
+        $event->response()->setContent($event->result());
 
         $response = new Response;
 
-        $response->setTarget($event->target())
+        $response->setTarget($event->response())
                  ->setResponse($event->response());
 
         $this->em->__invoke($response);

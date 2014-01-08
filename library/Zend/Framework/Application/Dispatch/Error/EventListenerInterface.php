@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Bootstrap;
+namespace Zend\Framework\Application\Dispatch\Error;
 
-use Zend\Framework\Application\EventListenerInterface as EventListener;
+use Zend\Framework\Application\Dispatch\EventListenerInterface as DispatchEventListenerInterface;
 
 interface EventListenerInterface
-    extends EventListener
+    extends DispatchEventListenerInterface
 {
 }

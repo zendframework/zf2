@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Dispatch\Error;
+namespace Zend\Framework\Application\Dispatch\Error;
 
 use Exception;
 use Zend\Framework\Service\ServiceTrait as Service;

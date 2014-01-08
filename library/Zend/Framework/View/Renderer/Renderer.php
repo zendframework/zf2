@@ -335,7 +335,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      *
      * @param  string     $name Name of plugin to return
      * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
-     * @return AbstractHelper
+     * @return callable|AbstractHelper
      */
     public function plugin($name, array $options = array())
     {
