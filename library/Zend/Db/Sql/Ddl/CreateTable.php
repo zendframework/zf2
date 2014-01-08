@@ -10,7 +10,6 @@
 namespace Zend\Db\Sql\Ddl;
 
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92 as AdapterSql92Platform;
 use Zend\Db\Sql\AbstractSql;
 
 class CreateTable extends AbstractSql implements SqlInterface
@@ -134,11 +133,9 @@ class CreateTable extends AbstractSql implements SqlInterface
      * @param  PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processSqlString(PlatformInterface $adapterPlatform = null)
     {
-        // get platform, or create default
-        $adapterPlatform = ($adapterPlatform) ?: new AdapterSql92Platform;
-
+        $adapterPlatform = self::getSqlPlatform()->resolvePlatform($adapterPlatform);
         $sqls       = array();
         $parameters = array();
 

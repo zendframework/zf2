@@ -12,14 +12,13 @@ namespace Zend\Db\Sql;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Db\Adapter\StatementContainerInterface;
 
 /**
  *
  * @property Where $where
  */
-class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
+class Delete extends AbstractPreparableSql
 {
     /**@#+
      * @const
@@ -116,10 +115,10 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    protected function processPrepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
-        $driver = $adapter->getDriver();
         $platform = $adapter->getPlatform();
+        $statementContainer = $statementContainer ?: $adapter->getDriver()->createStatement();
         $parameterContainer = $statementContainer->getParameterContainer();
 
         if (!$parameterContainer instanceof ParameterContainer) {
@@ -145,11 +144,12 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         // process where
         if ($this->where->count() > 0) {
-            $whereParts = $this->processExpression($this->where, $platform, $driver, 'where');
+            $whereParts = $this->processExpression($this->where, $platform, $adapter->getDriver(), 'where');
             $parameterContainer->merge($whereParts->getParameterContainer());
             $sql .= ' ' . sprintf($this->specifications[static::SPECIFICATION_WHERE], $whereParts->getSql());
         }
         $statementContainer->setSql($sql);
+        return $statementContainer;
     }
 
     /**
@@ -160,9 +160,9 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  null|PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processSqlString(PlatformInterface $adapterPlatform = null)
     {
-        $adapterPlatform = ($adapterPlatform) ?: new Sql92;
+        $adapterPlatform = self::getSqlPlatform()->resolvePlatform($adapterPlatform);
         $table = $this->table;
         $schema = null;
 

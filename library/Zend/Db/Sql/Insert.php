@@ -12,10 +12,9 @@ namespace Zend\Db\Sql;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Db\Adapter\StatementContainerInterface;
 
-class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
+class Insert extends AbstractPreparableSql
 {
     /**#@+
      * Constants
@@ -138,10 +137,11 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    protected function processPrepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
+        $statementContainer = $statementContainer ?: $adapter->getDriver()->createStatement();
         $parameterContainer = $statementContainer->getParameterContainer();
 
         if (!$parameterContainer instanceof ParameterContainer) {
@@ -190,6 +190,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
         );
 
         $statementContainer->setSql($sql);
+        return $statementContainer;
     }
 
     /**
@@ -198,9 +199,9 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  null|PlatformInterface $adapterPlatform Defaults to Sql92 if none provided
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processSqlString(PlatformInterface $adapterPlatform = null)
     {
-        $adapterPlatform = ($adapterPlatform) ?: new Sql92;
+        $adapterPlatform = self::getSqlPlatform()->resolvePlatform($adapterPlatform);
         $table = $this->table;
         $schema = null;
 

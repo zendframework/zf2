@@ -47,7 +47,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         foreach (get_object_vars($this->select) as $name => $value) {
             $this->{$name} = $value;
         }
-        parent::prepareStatement($adapter, $statementContainer);
+        return $this->processPrepareStatement($adapter, $statementContainer);
     }
 
     /**
@@ -60,7 +60,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         foreach (get_object_vars($this->select) as $name => $value) {
             $this->{$name} = $value;
         }
-        return parent::getSqlString($platform);
+        return $this->processSqlString($platform);
     }
 
     protected function processLimit(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)

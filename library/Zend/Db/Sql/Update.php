@@ -12,14 +12,13 @@ namespace Zend\Db\Sql;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Db\Adapter\StatementContainerInterface;
 
 /**
  *
  * @property Where $where
  */
-class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
+class Update extends AbstractPreparableSql
 {
     /**@#++
      * @const
@@ -145,10 +144,12 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    protected function processPrepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
+        $statementContainer = $statementContainer ?: $driver->createStatement();
+        // ensure statement has a ParameterContainer
         $parameterContainer = $statementContainer->getParameterContainer();
 
         if (!$parameterContainer instanceof ParameterContainer) {
@@ -195,6 +196,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $sql .= ' ' . sprintf($this->specifications[static::SPECIFICATION_WHERE], $whereParts->getSql());
         }
         $statementContainer->setSql($sql);
+        return $statementContainer;
     }
 
     /**
@@ -203,9 +205,9 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  null|PlatformInterface $adapterPlatform If null, defaults to Sql92
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processSqlString(PlatformInterface $adapterPlatform = null)
     {
-        $adapterPlatform = ($adapterPlatform) ?: new Sql92;
+        $adapterPlatform = self::getSqlPlatform()->resolvePlatform($adapterPlatform);
         $table = $this->table;
         $schema = null;
 

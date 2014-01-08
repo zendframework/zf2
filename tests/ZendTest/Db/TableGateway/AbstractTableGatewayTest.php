@@ -58,6 +58,7 @@ class AbstractTableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->mockSql = $this->getMock('Zend\Db\Sql\Sql', array('select', 'insert', 'update', 'delete'), array($this->mockAdapter, 'foo'));
         $this->mockSql->expects($this->any())->method('select')->will($this->returnValue($this->getMock('Zend\Db\Sql\Select', array('where', 'getRawSate'), array('foo'))));
         $this->mockSql->expects($this->any())->method('insert')->will($this->returnValue($this->getMock('Zend\Db\Sql\Insert', array('prepareStatement', 'values'), array('foo'))));
+        $this->mockSql->insert()->expects($this->any())->method('prepareStatement')->will($this->returnValue($mockStatement));
         $this->mockSql->expects($this->any())->method('update')->will($this->returnValue($this->getMock('Zend\Db\Sql\Update', array('where'), array('foo'))));
         $this->mockSql->expects($this->any())->method('delete')->will($this->returnValue($this->getMock('Zend\Db\Sql\Delete', array('where'), array('foo'))));
 
