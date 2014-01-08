@@ -25,15 +25,4 @@ interface EventInterface
      * @return self
      */
     public function setResponse(Response $response);
-
-    /**
-     * @return mixed
-     */
-    public function content();
-
-    /**
-     * @param $content
-     * @return self
-     */
-    public function setContent($content);
 }

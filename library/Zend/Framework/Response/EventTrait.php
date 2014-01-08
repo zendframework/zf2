@@ -16,8 +16,7 @@ trait EventTrait
     /**
      *
      */
-    use ContentTrait,
-        Event,
+    use Event,
         ServiceTrait;
 
     /**
