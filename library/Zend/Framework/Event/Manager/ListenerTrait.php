@@ -123,12 +123,12 @@ trait ListenerTrait
 
         $target = $event->target();
 
-        foreach($this->listeners[$name] as $priority => $listeners) {
-            foreach($listeners as $index => $listener) {
+        foreach($this->listeners[$name] as $listeners) {
+            foreach($listeners as $listener) {
 
                 //not all listeners for this priority need to be initialized
                 if (is_string($listener)) {
-                    $this->listeners[$name][$priority][$index] = $listener = $this->listener($listener);
+                    $listener = $this->listener($listener);
                 }
 
                 foreach($listener->targets() as $t) {
