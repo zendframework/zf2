@@ -32,12 +32,10 @@ class Event
 
     /**
      * @param Listener $listener
-     * @return bool
+     * @return mixed
      */
     public function __invoke(Listener $listener)
     {
-        $listener->__invoke($this);
-
-        return $this->stopped;
+        return $listener->__invoke($this);
     }
 }

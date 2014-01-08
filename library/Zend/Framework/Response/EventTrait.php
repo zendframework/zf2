@@ -10,15 +10,14 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\Event\EventTrait as Event;
-use Zend\Framework\Event\ResultTrait as Result;
 
 trait EventTrait
 {
     /**
      *
      */
-    use Event,
-        Result,
+    use ContentTrait,
+        Event,
         ServiceTrait;
 
     /**

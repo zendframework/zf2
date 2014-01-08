@@ -34,7 +34,7 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @return mixed|void
+     * @return mixed
      */
     public function __invoke(EventInterface $event)
     {
@@ -42,7 +42,7 @@ class Listener
 
         $response->setTarget($event->target())
                  ->setResponse($event->response())
-                 ->setResult($event->result());
+                 ->setContent($event->result());
 
         $this->em->__invoke($response);
     }

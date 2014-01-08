@@ -29,11 +29,11 @@ interface EventInterface
     /**
      * @return mixed
      */
-    public function result();
+    public function content();
 
     /**
-     * @param $result
+     * @param $content
      * @return self
      */
-    public function setResult($result);
+    public function setContent($content);
 }

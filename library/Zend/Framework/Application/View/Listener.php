@@ -43,12 +43,12 @@ class Listener
         $result = $event->result();
 
         if ($result instanceof Response || !$result instanceof ViewModel) {
-            return;
+            return $result;
         }
 
         try {
 
-            $this->render($event);
+            return $this->render($event);
 
         } catch(Exception $exception) {
 

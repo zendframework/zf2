@@ -32,12 +32,10 @@ class Event
      * Trigger
      *
      * @param ListenerInterface $listener
-     * @return bool Stopped
+     * @return mixed
      */
     public function __invoke(ListenerInterface $listener)
     {
-        $listener->__invoke($this);
-
-        return $this->stopped;
+        return $listener->__invoke($this);
     }
 }

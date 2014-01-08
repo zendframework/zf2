@@ -32,10 +32,17 @@ trait ListenerTrait
      * @param $name
      * @param $priority
      * @param $listener
+     * @return self
      */
     public function configure($name, $priority, $listener)
     {
+        if (!isset($this->listeners[$name])) {
+            $this->listeners[$name] = [];
+        }
+
         $this->listeners[$name][$priority][] = $listener;
+
+        return $this;
     }
 
     /**
@@ -53,6 +60,7 @@ trait ListenerTrait
             if (!isset($this->listeners[$name])) {
                 $this->listeners[$name] = [];
             }
+
             if (!isset($this->listeners[$name][$priority])) {
                 $this->listeners[$name][$priority][] = $listener;
                 continue;
@@ -79,9 +87,11 @@ trait ListenerTrait
             if (!isset($this->listeners[$name])) {
                 $this->listeners[$name] = [];
             }
+
             if (!isset($this->listeners[$name][$priority])) {
                 $this->listeners[$name][$priority] = [];
             }
+
             $this->listeners[$name][$priority][] = $listener;
         }
 
@@ -135,7 +145,7 @@ trait ListenerTrait
         foreach($this->listeners[$name] as $listeners) {
             foreach($listeners as $listener) {
 
-                //if a listener stops the event, then not all listeners for this priority need to be initialized
+                //not all listeners for this priority need to be initialized
                 if (is_string($listener)) {
                     $listener = $this->listener($listener);
                 }
@@ -159,7 +169,7 @@ trait ListenerTrait
      * Trigger
      *
      * @param EventInterface $event
-     * @return bool stopped
+     * @return mixed
      */
     public function __invoke(EventInterface $event)
     {
@@ -167,13 +177,13 @@ trait ListenerTrait
 
             //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
 
-            $event->__invoke($listener);
+            $result = $event->__invoke($listener);
 
             if ($event->stopped()) {
-                return true;
+                break;
             }
         }
 
-        return false;
+        return $result;
     }
 }

@@ -63,6 +63,6 @@ trait ListenerTrait
 
         $event->setResult($render->result());
 
-        return $this;
+        return $render->result();
     }
 }

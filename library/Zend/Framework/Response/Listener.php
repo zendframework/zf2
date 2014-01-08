@@ -35,26 +35,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $result   = $event->result();
-        $response = $event->response();
-
-        // Set content
-        // If content is empty, check common placeholders to determine if they are
-        // populated, and set the content from them.
-        if (empty($result)) {
-
-            $sm = $event->serviceManager();
-            $renderer = $sm->viewRenderer();
-
-            $placeholders = $renderer->plugin('placeholder');
-            foreach ($this->contentPlaceholders as $placeholder) {
-                if ($placeholders->containerExists($placeholder)) {
-                    $result = (string) $placeholders->getContainer($placeholder);
-                    break;
-                }
-            }
-        }
-
-        $response->setContent($result);
+        return $event->response()->setContent($event->content());
     }
 }

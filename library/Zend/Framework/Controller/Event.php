@@ -32,7 +32,7 @@ class Event
 
     /**
      * @param Listener $listener
-     * @return bool
+     * @return mixed
      */
     public function __invoke(Listener $listener)
     {
@@ -42,6 +42,6 @@ class Event
             $this->setResult($response);
         }
 
-        return $this->stopped;
+        return $response;
     }
 }

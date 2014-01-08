@@ -44,6 +44,6 @@ class Event
             $this->setRouteMatch($response);
         }
 
-        return $this->stopped;
+        return $response;
     }
 }

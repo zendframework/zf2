@@ -32,12 +32,10 @@ class Event
 
     /**
      * @param ListenerInterface $listener
-     * @return bool
+     * @return mixed
      */
     public function __invoke(ListenerInterface $listener)
     {
-        $listener->__invoke($this);
-
-        return $this->stopped;
+        $this->setResult($listener->__invoke($this));
     }
 }

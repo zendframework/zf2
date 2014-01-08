@@ -34,7 +34,7 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @return void
+     * @return null|void
      */
     public function __invoke(EventInterface $event)
     {

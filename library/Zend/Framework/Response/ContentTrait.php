@@ -9,12 +9,28 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\Event\ListenerTrait as Listener;
-
-trait ListenerTrait
+trait ContentTrait
 {
     /**
-     *
+     * @var mixed
      */
-    use Listener;
+    protected $content;
+
+    /**
+     * @return mixed
+     */
+    public function content()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param $content
+     * @return self
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
 }

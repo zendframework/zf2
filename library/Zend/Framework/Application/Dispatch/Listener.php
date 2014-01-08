@@ -36,7 +36,7 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @return void
+     * @return mixed
      */
     public function __invoke(EventInterface $event)
     {
@@ -50,7 +50,7 @@ class Listener
 
             $this->em->__invoke($dispatch);
 
-            $event->setResult($dispatch->result());
+            return $dispatch->result();
 
         } catch (DispatchException $exception) {
 

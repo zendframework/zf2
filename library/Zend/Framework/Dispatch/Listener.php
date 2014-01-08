@@ -59,7 +59,7 @@ class Listener
 
             $this->em->__invoke($dispatch);
 
-            $event->setResult($dispatch->result());
+            return $dispatch->result();
 
         } catch (Exception $exception) {
 
