@@ -13,7 +13,7 @@ use Exception;
 use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Service\Factory\CallableListener as CallableFactory;
 use Zend\Framework\Service\Factory\InstanceListener as InstanceFactory;
-use Zend\Framework\Service\Factory\ListenerInterface as FactoryInterface;
+use Zend\Framework\Service\Factory\ListenerInterface as Factory;
 
 trait ListenerTrait
 {
@@ -60,12 +60,12 @@ trait ListenerTrait
 
     /**
      * @param string|callable $factory
-     * @return FactoryInterface
+     * @return Factory
      */
     public function factory($factory)
     {
         if (is_string($factory)) {
-            if (is_subclass_of($factory, FactoryInterface::class)) {
+            if (is_subclass_of($factory, Factory::class)) {
                 return new $factory($this->sm);
             }
 
@@ -104,7 +104,7 @@ trait ListenerTrait
 
     /**
      * @param $name
-     * @return bool|FactoryInterface|callable
+     * @return bool|Factory|callable
      */
     public function listener($name)
     {
