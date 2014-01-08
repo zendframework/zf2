@@ -16,14 +16,6 @@ interface ListenerInterface
     extends Listener
 {
     /**
-     * Push listener to top of queue
-     *
-     * @param Listener $listener
-     * @return self
-     */
-    public function push(Listener $listener);
-
-    /**
      * Add
      *
      * @param Listener $listener
@@ -32,18 +24,34 @@ interface ListenerInterface
     public function add(Listener $listener);
 
     /**
-     * Remove
-     *
-     * @param Listener $listener
+     * @param $name
+     * @param $priority
+     * @param $listener
      * @return self
      */
-    public function remove(Listener $listener);
+    public function configure($name, $priority, $listener);
 
     /**
      * @param $listener
      * @return mixed
      */
     public function listener($listener);
+
+    /**
+     * Push listener to top of queue
+     *
+     * @param Listener $listener
+     * @return self
+     */
+    public function push(Listener $listener);
+
+    /**
+     * Remove
+     *
+     * @param Listener $listener
+     * @return self
+     */
+    public function remove(Listener $listener);
 
     /**
      * Trigger

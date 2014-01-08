@@ -39,6 +39,26 @@ trait ListenerTrait
     protected $pending = [];
 
     /**
+     * @param $name
+     * @param $service
+     * @return self
+     */
+    public function add($name, $service)
+    {
+        $this->shared[$name] = $service;
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $class
+     */
+    public function configure($name, $class)
+    {
+        $this->listeners[$name] = $class;
+    }
+
+    /**
      * @param string|callable $factory
      * @return FactoryInterface
      */
@@ -65,34 +85,34 @@ trait ListenerTrait
 
     /**
      * @param $name
-     * @return bool|FactoryInterface|callable
-     */
-    public function listener($name)
-    {
-        if (!isset($this->listeners[$name]) || !$this->listeners[$name]) {
-            return false;
-        }
-
-        return $this->listeners[$name] = $this->factory($this->listeners[$name]);
-    }
-
-    /**
-     * @param string $name
-     * @param string $class
-     */
-    public function configure($name, $class)
-    {
-        $this->listeners[$name] = $class;
-    }
-
-    /**
-     * @param $name
      * @param array $options
      * @return bool|object
      */
     public function get($name, array $options = [])
     {
         return $this->__invoke(new Event($name, $options));
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function has($name)
+    {
+        return isset($this->shared[$name]);
+    }
+
+    /**
+     * @param $name
+     * @return bool|FactoryInterface|callable
+     */
+    public function listener($name)
+    {
+        if (empty($this->listeners[$name])) {
+            return false;
+        }
+
+        return $this->listeners[$name] = $this->factory($this->listeners[$name]);
     }
 
     /**
@@ -103,26 +123,6 @@ trait ListenerTrait
     {
         $this->listeners = $listeners;
         return $this;
-    }
-
-    /**
-     * @param $name
-     * @param $service
-     * @return self
-     */
-    public function add($name, $service)
-    {
-        $this->shared[$name] = $service;
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return isset($this->shared[$name]);
     }
 
     /**
@@ -149,7 +149,7 @@ trait ListenerTrait
         $listener = $this->listener($name);
 
         if ($listener) {
-            $instance = $listener->__invoke($event);
+            $instance = $event->__invoke($listener);
         }
 
         if ($event->shared()) {

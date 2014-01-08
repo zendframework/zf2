@@ -29,6 +29,32 @@ trait ListenerTrait
     public $listeners = [];
 
     /**
+     * Add listener
+     *
+     * @param ListenerInterface $listener
+     * @return self
+     */
+    public function add(ListenerInterface $listener)
+    {
+        $names    = $listener->names();
+        $priority = $listener->priority();
+
+        foreach($names as $name) {
+            if (!isset($this->listeners[$name])) {
+                $this->listeners[$name] = [];
+            }
+
+            if (!isset($this->listeners[$name][$priority])) {
+                $this->listeners[$name][$priority] = [];
+            }
+
+            $this->listeners[$name][$priority][] = $listener;
+        }
+
+        return $this;
+    }
+
+    /**
      * @param $name
      * @param $priority
      * @param $listener
@@ -43,6 +69,15 @@ trait ListenerTrait
         $this->listeners[$name][$priority][] = $listener;
 
         return $this;
+    }
+
+    /**
+     * @param $listener
+     * @return mixed
+     */
+    public function listener($listener)
+    {
+        return new $listener;
     }
 
     /**
@@ -73,29 +108,39 @@ trait ListenerTrait
     }
 
     /**
-     * Add listener
-     *
-     * @param ListenerInterface $listener
-     * @return self
+     * @param string $name
+     * @param string|object $target
+     * @return Generator
      */
-    public function add(ListenerInterface $listener)
+    protected function queue($name, $target)
     {
-        $names    = $listener->names();
-        $priority = $listener->priority();
-
-        foreach($names as $name) {
-            if (!isset($this->listeners[$name])) {
-                $this->listeners[$name] = [];
-            }
-
-            if (!isset($this->listeners[$name][$priority])) {
-                $this->listeners[$name][$priority] = [];
-            }
-
-            $this->listeners[$name][$priority][] = $listener;
+        if (!isset($this->listeners[$name])) {
+            return;
         }
 
-        return $this;
+        krsort($this->listeners[$name], SORT_NUMERIC);
+
+        foreach($this->listeners[$name] as $priority => $listeners) {
+            foreach($listeners as $index => $listener) {
+
+                //not all listeners for this priority need to be initialized
+                if (is_string($listener)) {
+                    $this->listeners[$name][$priority][$index] = $listener = $this->listener($listener);
+                }
+
+                foreach($listener->targets() as $t) {
+                    if (
+                        $t === ListenerInterface::WILDCARD
+                        || $t === $target
+                        || $target instanceof $t
+                        || \is_subclass_of($target, $t)
+                    ) {
+                        yield $listener;
+                        continue 2;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -118,51 +163,6 @@ trait ListenerTrait
         }
 
         return $this;
-    }
-
-    /**
-     * @param $listener
-     * @return mixed
-     */
-    public function listener($listener)
-    {
-        return new $listener;
-    }
-
-    /**
-     * @param string $name
-     * @param string|object $target
-     * @return Generator
-     */
-    protected function queue($name, $target)
-    {
-        if (!isset($this->listeners[$name])) {
-            return;
-        }
-
-        krsort($this->listeners[$name], SORT_NUMERIC);
-
-        foreach($this->listeners[$name] as $listeners) {
-            foreach($listeners as $listener) {
-
-                //not all listeners for this priority need to be initialized
-                if (is_string($listener)) {
-                    $listener = $this->listener($listener);
-                }
-
-                foreach($listener->targets() as $t) {
-                    if (
-                        $t === ListenerInterface::WILDCARD
-                        || $t === $target
-                        || $target instanceof $t
-                        || \is_subclass_of($target, $t)
-                    ) {
-                        yield $listener;
-                        continue 2;
-                    }
-                }
-            }
-        }
     }
 
     /**

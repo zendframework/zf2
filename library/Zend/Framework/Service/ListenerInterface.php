@@ -15,6 +15,13 @@ interface ListenerInterface
     extends Listener
 {
     /**
+     * @param $name
+     * @param $service
+     * @return self
+     */
+    public function add($name, $service);
+
+    /**
      * @param string $name
      * @param string $class
      */
@@ -34,6 +41,12 @@ interface ListenerInterface
     public function get($name, array $options = []);
 
     /**
+     * @param string $name
+     * @return bool
+     */
+    public function has($name);
+
+    /**
      * @param $name
      * @return mixed
      */
@@ -44,19 +57,6 @@ interface ListenerInterface
      * @return self
      */
     public function listeners(array $listeners);
-
-    /**
-     * @param $name
-     * @param $service
-     * @return self
-     */
-    public function add($name, $service);
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name);
 
     /**
      * Trigger
