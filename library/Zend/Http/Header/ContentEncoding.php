@@ -27,8 +27,7 @@ class ContentEncoding implements HeaderInterface
             throw new Exception\InvalidArgumentException('Invalid header line for Content-Encoding string: "' . $name . '"');
         }
 
-        // @todo implementation details
-        $header->value = $value;
+        $header->value = strtolower($value);
 
         return $header;
     }
