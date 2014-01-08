@@ -35,7 +35,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $this->event = $event;
         return $this->render($event->target());
     }
 }
