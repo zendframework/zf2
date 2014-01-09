@@ -194,7 +194,7 @@ trait ListenerTrait
             $result = $event->__invoke($listener);
 
             if ($event->stopped()) {
-                return $result;
+                break;
             }
         }
 

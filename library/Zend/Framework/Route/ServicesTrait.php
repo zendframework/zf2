@@ -11,16 +11,16 @@ namespace Zend\Framework\Route;
 
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteStackInterface as Router;
-use Zend\Mvc\Router\RoutePluginManager as RoutePluginManager;
+use Zend\Framework\Route\Manager\ListenerInterface as RouteManager;
 
 trait ServicesTrait
 {
     /**
-     * @return bool|RoutePluginManager
+     * @return bool|RouteManager
      */
     public function routePluginManager()
     {
-        return $this->service('RoutePluginManager');
+        return $this->service('Route\Manager');
     }
 
     /**

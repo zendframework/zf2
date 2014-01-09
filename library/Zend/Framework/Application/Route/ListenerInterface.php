@@ -13,7 +13,7 @@ use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Event\Manager\ListenerInterface as EventManager;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
-use Zend\Mvc\Router\RouteInterface as Router;
+use Zend\Framework\Route\RouteInterface as Router;
 use Zend\Stdlib\RequestInterface as Request;
 
 interface ListenerInterface

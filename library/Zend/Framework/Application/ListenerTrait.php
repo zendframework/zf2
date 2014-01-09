@@ -68,8 +68,7 @@ trait ListenerTrait
     {
         $event = new Event;
 
-        $event->setTarget($this)
-              ->setServiceManager($this->sm);
+        $event->setServiceManager($this->sm);
 
         $this->__invoke($event);
     }

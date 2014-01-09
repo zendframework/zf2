@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route;
 
 use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\RouteInterface as Router;
+use Zend\Framework\Route\RouteInterface as Router;
 
 trait ServiceTrait
 {

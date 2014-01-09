@@ -82,6 +82,6 @@ trait AliasTrait
      */
     public function __invoke(EventInterface $event)
     {
-        return $this->sm->__invoke($event->setService($this->alias($event->name())));
+        return $this->sm->__invoke($event->setAlias($this->alias($event->name())));
     }
 }

@@ -21,7 +21,7 @@ trait EventTrait
     /**
      * @var string
      */
-    protected $service;
+    protected $alias;
 
     /**
      * @var array
@@ -36,18 +36,18 @@ trait EventTrait
     /**
      * @return string
      */
-    public function service()
+    public function alias()
     {
-        return $this->service;
+        return $this->alias;
     }
 
     /**
-     * @param string $service
+     * @param string $alias
      * @return self
      */
-    public function setService($service)
+    public function setAlias($alias)
     {
-        $this->service = $service;
+        $this->alias = $alias;
         return $this;
     }
 
