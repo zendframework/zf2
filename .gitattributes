@@ -6,3 +6,4 @@
 .travis.yml export-ignore
 .php_cs export-ignore
 build.xml export-ignore
+text eol=lf
