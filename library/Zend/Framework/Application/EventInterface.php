@@ -11,6 +11,7 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Event\Manager\ListenerInterface as EventManager;
+use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteStackInterface as Router;
 use Zend\Stdlib\RequestInterface as Request;
@@ -86,6 +87,18 @@ interface EventInterface
      */
     public function setRouteMatch(RouteMatch $routeMatch);
 
+    /**
+     * @return ServiceManager
+     */
+    public function serviceManager();
+
+    /**
+     * Matched route also goes into the SM
+     *
+     * @param ServiceManager $sm
+     * @return self
+     */
+    public function setServiceManager(ServiceManager $sm);
     /**
      * @return bool|ViewModel
      */
