@@ -15,25 +15,4 @@ use Zend\Framework\Service\ListenerInterface as ServiceManager;
 interface ListenerInterface
     extends EventManager
 {
-    /**
-     * @return EventManager
-     */
-    public function eventManager();
-
-    /**
-     * @param EventManager $em
-     * @return self
-     */
-    public function setEventManager(EventManager $em);
-
-    /**
-     * @return ServiceManager
-     */
-    public function serviceManager();
-
-    /**
-     * @param ServiceManager $sm
-     * @return self
-     */
-    public function setServiceManager(ServiceManager $sm);
 }
