@@ -38,12 +38,6 @@ interface ListenerInterface
     public function routeMatch();
 
     /**
-     * @param ServiceManager $sm
-     * @return self
-     */
-    public function setServiceManager(ServiceManager $sm);
-
-    /**
      * @param ViewModel $vm
      * @return self
      */

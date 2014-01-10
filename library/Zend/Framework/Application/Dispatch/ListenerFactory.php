@@ -33,8 +33,7 @@ class ListenerFactory
     {
         $listener = new Listener;
 
-        $listener->setServiceManager($this->sm)
-                 ->setEventManager($this->eventManager())
+        $listener->setEventManager($this->eventManager())
                  ->setViewModel($this->viewModel())
                  ->setControllerManager($this->controllerManager());
 

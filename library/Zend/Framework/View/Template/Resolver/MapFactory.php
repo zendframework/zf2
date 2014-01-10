@@ -30,7 +30,7 @@ class MapFactory
     {
         $config = $this->applicationConfig();
         $map = array();
-        if (is_array($config) && isset($config['view_manager'])) {
+        if (isset($config['view_manager'])) {
             $config = $config['view_manager'];
             if (is_array($config) && isset($config['template_map'])) {
                 $map = $config['template_map'];

@@ -32,7 +32,7 @@ class PathStackFactory
 
         $templatePathStack = new TemplatePathStack();
 
-        if (is_array($config) && isset($config['view_manager'])) {
+        if (isset($config['view_manager'])) {
             $config = $config['view_manager'];
             if (is_array($config)) {
                 if (isset($config['template_path_stack'])) {
