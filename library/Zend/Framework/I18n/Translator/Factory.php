@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\I18n\Translator;
 
+use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\Mvc\I18n\Translator;
@@ -21,13 +22,18 @@ class Factory
     extends FactoryListener
 {
     /**
+     *
+     */
+    use Config;
+
+    /**
      * @param EventInterface $event
      * @return Translator
      */
     public function __invoke(EventInterface $event)
     {
         // Configure the translator
-        $config     = $this->sm->applicationConfig();
+        $config     = $this->applicationConfig();
         $trConfig   = isset($config['translator']) ? $config['translator'] : array();
         $translator = Translator::factory($trConfig);
         return $translator;

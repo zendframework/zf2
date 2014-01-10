@@ -37,7 +37,7 @@ trait ListenerTrait
      */
     public function createService(ServiceManager $sm)
     {
-        $vm = $sm->viewManager();
+        $vm = $sm->service('View\Manager');
 
         $this->setDisplayExceptions($vm->displayExceptions());
 

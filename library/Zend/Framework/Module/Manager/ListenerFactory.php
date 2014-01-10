@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Module\Manager;
 
+use Zend\Framework\Application\Config\ServicesTrait as Config;
+use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\ModuleManager\ModuleManager;
@@ -17,14 +19,20 @@ class ListenerFactory
     extends FactoryListener
 {
     /**
+     *
+     */
+    use Config,
+        EventManager;
+
+    /**
      * @param EventInterface $event
      * @return void|ModuleManager
      */
     public function __invoke(EventInterface $event)
     {
-        $modules = $this->sm->applicationConfig()['modules'];
+        $modules = $this->applicationConfig()['modules'];
 
-        $em = $this->sm->eventManager();
+        $em = $this->eventManager();
 
         $em->add($this->sm->service('ModuleManager\DefaultListeners'));
 

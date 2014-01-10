@@ -9,12 +9,18 @@
 
 namespace Zend\Framework\View;
 
+use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class ListenerFactory
     extends FactoryListener
 {
+    /**
+     *
+     */
+    use EventManager;
+
     /**
      * @param EventInterface $event
      * @return Listener
@@ -23,7 +29,7 @@ class ListenerFactory
     {
         $listener = new Listener;
 
-        $listener->setEventManager($this->sm->eventManager());
+        $listener->setEventManager($this->eventManager());
 
         return $listener;
     }

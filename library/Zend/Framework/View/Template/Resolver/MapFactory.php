@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\View\Template\Resolver;
 
+use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\View\Resolver\TemplateMapResolver;
@@ -17,12 +18,17 @@ class MapFactory
     extends FactoryListener
 {
     /**
+     *
+     */
+    use Config;
+
+    /**
      * @param EventInterface $event
      * @return TemplateMapResolver
      */
     public function __invoke(EventInterface $event)
     {
-        $config = $this->sm->applicationConfig();
+        $config = $this->applicationConfig();
         $map = array();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];

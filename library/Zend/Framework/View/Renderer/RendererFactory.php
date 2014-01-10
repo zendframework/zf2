@@ -9,12 +9,18 @@
 
 namespace Zend\Framework\View\Renderer;
 
+use Zend\Framework\View\ServicesTrait as View;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class RendererFactory
     extends FactoryListener
 {
+    /**
+     *
+     */
+    use View;
+
     /**
      * @param EventInterface $event
      * @return Renderer
@@ -23,11 +29,11 @@ class RendererFactory
     {
         $renderer = new Renderer();
 
-        $renderer->setViewManager($this->sm->viewManager());
-        $renderer->setResolver($this->sm->viewResolver());
+        $renderer->setViewManager($this->viewManager());
+        $renderer->setResolver($this->viewResolver());
 
         $modelHelper = $renderer->plugin('viewmodel');
-        $modelHelper->setRoot($this->sm->viewModel());
+        $modelHelper->setRoot($this->viewModel());
 
         return $renderer;
     }

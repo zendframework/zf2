@@ -7,22 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Service;
-
-use Zend\Framework\Controller\ServicesTrait as Controller;
-use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
-use Zend\Framework\Request\ServicesTrait as Request;
-use Zend\Framework\Response\ServicesTrait as Response;
-use Zend\Framework\Route\ServicesTrait as Route;
-use Zend\Framework\View\ServicesTrait as View;
+namespace Zend\Framework\Application\Config;
 
 trait ServicesTrait
 {
-    /**
-     *
-     */
-    use Controller, EventManager, Route, Request, Response, View;
-
     /**
      * @return array
      */

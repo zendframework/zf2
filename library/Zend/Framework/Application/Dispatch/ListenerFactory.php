@@ -9,12 +9,22 @@
 
 namespace Zend\Framework\Application\Dispatch;
 
+use Zend\Framework\Controller\ServicesTrait as Controller;
+use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\View\ServicesTrait as View;
 
 class ListenerFactory
     extends FactoryListener
 {
+    /**
+     *
+     */
+    use Controller,
+        View,
+        EventManager;
+
     /**
      * @param EventInterface $event
      * @return Listener
@@ -24,9 +34,9 @@ class ListenerFactory
         $listener = new Listener;
 
         $listener->setServiceManager($this->sm)
-                 ->setEventManager($this->sm->eventManager())
-                 ->setViewModel($this->sm->viewModel())
-                 ->setControllerManager($this->sm->controllerManager());
+                 ->setEventManager($this->eventManager())
+                 ->setViewModel($this->viewModel())
+                 ->setControllerManager($this->controllerManager());
 
         return $listener;
     }

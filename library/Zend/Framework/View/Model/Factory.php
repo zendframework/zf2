@@ -9,12 +9,18 @@
 
 namespace Zend\Framework\View\Model;
 
+use Zend\Framework\View\ServicesTrait as View;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class Factory
     extends FactoryListener
 {
+    /**
+     *
+     */
+    use View;
+
     /**
      * @param EventInterface $event
      * @return ViewModel
@@ -23,7 +29,7 @@ class Factory
     {
         $vm = new ViewModel;
 
-        $vm->setTemplate($this->sm->viewManager()->layoutTemplate());
+        $vm->setTemplate($this->viewManager()->layoutTemplate());
 
         return $vm;
     }

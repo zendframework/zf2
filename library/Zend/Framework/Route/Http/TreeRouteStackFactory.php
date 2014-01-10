@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route\Http;
 
+use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
@@ -16,12 +17,17 @@ class TreeRouteStackFactory
     extends FactoryListener
 {
     /**
+     *
+     */
+    use Route;
+
+    /**
      * @param EventInterface $event
      * @return TreeRouteStack
      */
     public function __invoke(EventInterface $event)
     {
-        $rm = $this->sm->routeManager();
+        $rm = $this->routeManager();
 
         $router = new TreeRouteStack;
 

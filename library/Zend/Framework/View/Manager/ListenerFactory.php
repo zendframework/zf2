@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\View\Manager;
 
+use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\View\Helper as ViewHelper;
@@ -17,12 +18,17 @@ class ListenerFactory
     extends FactoryListener
 {
     /**
+     *
+     */
+    use Config;
+
+    /**
      * @param EventInterface $event
      * @return Listener
      */
     public function __invoke(EventInterface $event)
     {
-        $config = $this->sm->applicationConfig()['view_manager'];
+        $config = $this->applicationConfig()['view_manager'];
 
         $vm = new Listener($config, $this->sm);
 
