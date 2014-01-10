@@ -23,7 +23,7 @@ trait SendContentTrait
             return $this;
         }
 
-        $response = $event->response();
+        $response = $event->target();
 
         echo $response->getContent();
 

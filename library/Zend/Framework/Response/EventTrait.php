@@ -16,8 +16,7 @@ trait EventTrait
     /**
      *
      */
-    use Event,
-        ServiceTrait;
+    use Event;
 
     /**
      * @var array
@@ -36,7 +35,7 @@ trait EventTrait
      */
     public function setContentSent()
     {
-        $response = $this->response();
+        $response = $this->target();
         $this->contentSent[spl_object_hash($response)] = true;
         return $this;
     }
@@ -46,7 +45,7 @@ trait EventTrait
      */
     public function contentSent()
     {
-        $response = $this->response();
+        $response = $this->target();
         if (isset($this->contentSent[spl_object_hash($response)])) {
             return true;
         }
@@ -60,7 +59,7 @@ trait EventTrait
      */
     public function setHeadersSent()
     {
-        $response = $this->response();
+        $response = $this->target();
         $this->headersSent[spl_object_hash($response)] = true;
         return $this;
     }
@@ -70,7 +69,7 @@ trait EventTrait
      */
     public function headersSent()
     {
-        $response = $this->response();
+        $response = $this->target();
         if (isset($this->headersSent[spl_object_hash($response)])) {
             return true;
         }

@@ -42,8 +42,7 @@ class Listener
 
         $response = new Response;
 
-        $response->setTarget($event->response())
-                 ->setResponse($event->response());
+        $response->setTarget($event->response());
 
         $this->em->__invoke($response);
     }

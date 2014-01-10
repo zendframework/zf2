@@ -26,7 +26,7 @@ trait SendHeadersTrait
             return $this;
         }
 
-        $response = $event->response();
+        $response = $event->target();
 
         foreach ($response->getHeaders() as $header) {
             if ($header instanceof MultipleHeaderInterface) {

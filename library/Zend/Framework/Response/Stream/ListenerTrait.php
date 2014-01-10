@@ -33,7 +33,7 @@ trait ListenerTrait
             return $this;
         }
 
-        $response = $event->response();
+        $response = $event->target();
         $stream   = $response->getStream();
 
         fpassthru($stream);
