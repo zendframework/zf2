@@ -12,17 +12,13 @@ namespace Zend\Framework\Application;
 use Exception;
 use Zend\Framework\Service\Listener as ServiceManager;
 use Zend\Framework\Event\Manager\ListenerTrait as EventListener;
-use Zend\Framework\Service\ServiceTrait as Service;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use EventListener,
-        Service {
-            EventListener::add insteadof Service;
-        }
+    use EventListener;
 
     /**
      * @param array $config
