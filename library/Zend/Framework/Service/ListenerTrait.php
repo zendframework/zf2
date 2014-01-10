@@ -20,8 +20,7 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener,
-        ServiceTrait;
+    use Listener;
 
     /**
      * @var array
@@ -66,18 +65,18 @@ trait ListenerTrait
     {
         if (is_string($factory)) {
             if (is_subclass_of($factory, Factory::class)) {
-                return new $factory($this->sm);
+                return new $factory($this);
             }
 
             if (is_callable($factory)) {
-                return new CallableFactory($this->sm, $factory);
+                return new CallableFactory($this, $factory);
             }
 
-            return new InstanceFactory($this->sm, $factory);
+            return new InstanceFactory($this, $factory);
         }
 
         if (is_callable($factory)) {
-            return new CallableFactory($this->sm, $factory);
+            return new CallableFactory($this, $factory);
         }
 
         return $factory;

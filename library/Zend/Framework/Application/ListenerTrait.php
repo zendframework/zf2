@@ -30,6 +30,7 @@ trait ListenerTrait
         $sm = new ServiceManager;
 
         $sm->listeners($config['service_manager'])
+           ->add('ServiceManager', $sm)
            ->add('ApplicationConfig', $config);
 
         $application = new Listener($sm);
