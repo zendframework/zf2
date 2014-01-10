@@ -29,6 +29,15 @@ trait ServiceTrait
 
     /**
      * @param $name
+     * @return bool
+     */
+    public function has($name)
+    {
+        return $this->sm->has($name);
+    }
+
+    /**
+     * @param $name
      * @return bool|object
      */
     public function service($name)

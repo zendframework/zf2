@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Application\Dispatch\Error;
 
+use Zend\Framework\Event\ListenerInterface;
+
 class Event
     implements EventInterface, EventListenerInterface
 {
@@ -26,5 +28,14 @@ class Event
     public function __construct($name = self::EVENT_DISPATCH_ERROR, $target = null)
     {
         $this->event($name, $target);
+    }
+
+    /**
+     * @param ListenerInterface $listener
+     * @return mixed
+     */
+    public function __invoke(ListenerInterface $listener)
+    {
+        return $listener->__invoke($this);
     }
 }

@@ -11,6 +11,7 @@ namespace Zend\Framework\Application\Dispatch\Error;
 
 use Exception;
 use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\ListenerInterface;
 
 interface EventInterface
     extends Event
@@ -32,4 +33,10 @@ interface EventInterface
      * @return self
      */
     public function setControllerClass($className);
+
+    /**
+     * @param ListenerInterface $listener
+     * @return mixed
+     */
+    public function __invoke(ListenerInterface $listener);
 }

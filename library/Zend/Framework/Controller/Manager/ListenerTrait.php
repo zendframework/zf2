@@ -22,19 +22,10 @@ trait ListenerTrait
 
     /**
      * @param $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return $this->sm->has($name);
-    }
-
-    /**
-     * @param $name
      * @return array|object
      */
     public function controller($name)
     {
-        return $this->sm->service($name);
+        return $this->service($name);
     }
 }
