@@ -39,6 +39,6 @@ class Event
      */
     public function __invoke(ListenerInterface $listener)
     {
-        return $listener->__invoke($this) ?: false;
+        return $listener->__invoke($this);
     }
 }

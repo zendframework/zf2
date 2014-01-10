@@ -9,14 +9,16 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Service\AliasTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as Listener;
+use Zend\Framework\Service\AliasTrait as Alias;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener;
+    use Alias,
+        Listener;
 
     /**
      * @return mixed

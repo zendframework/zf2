@@ -9,15 +9,8 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Event\ListenerTrait as Listener;
-
 trait AliasTrait
 {
-    /**
-     *
-     */
-    use Listener;
-
     /**
      * @var array
      */
