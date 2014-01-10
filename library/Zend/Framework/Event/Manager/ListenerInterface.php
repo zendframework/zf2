@@ -52,12 +52,4 @@ interface ListenerInterface
      * @return self
      */
     public function remove(Listener $listener);
-
-    /**
-     * Trigger
-     *
-     * @param Event $event
-     * @return bool stopped
-     */
-    public function __invoke(Event $event);
 }

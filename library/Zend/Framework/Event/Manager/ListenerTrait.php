@@ -173,31 +173,4 @@ trait ListenerTrait
 
         return $this;
     }
-
-    /**
-     * Trigger
-     *
-     * @param EventInterface $event
-     * @return mixed
-     */
-    public function __invoke(EventInterface $event)
-    {
-        $name   = $event->name();
-        $target = $event->target();
-
-        $result = null;
-
-        foreach($this->queue($name, $target) as $listener) {
-
-            //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
-
-            $result = $event->__invoke($listener);
-
-            if ($event->stopped()) {
-                break;
-            }
-        }
-
-        return $result;
-    }
 }

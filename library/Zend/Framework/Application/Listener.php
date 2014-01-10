@@ -9,12 +9,14 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Exception;
+use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Service\Listener as ServiceListener;
+use Zend\Framework\Service\ListenerInterface as ServiceListenerInterface;
+
 
 class Listener
-    implements
-        ListenerInterface,
-        EventListenerInterface
+    implements ListenerInterface, EventListenerInterface
 {
     /**
      *
@@ -22,10 +24,62 @@ class Listener
     use ListenerTrait;
 
     /**
-     * @param ServiceManager $sm
+     * @param ServiceListenerInterface $sm
      */
-    public function __construct(ServiceManager $sm)
+    public function __construct(ServiceListenerInterface $sm)
     {
         $this->sm = $sm;
+    }
+
+    /**
+     * @param array $config
+     * @return Listener
+     * @throws Exception
+     */
+    public static function init(array $config = [])
+    {
+        $sm = new ServiceListener;
+
+        $sm->listeners($config['service_manager'])
+            ->add('ServiceManager', $sm)
+            ->add('ApplicationConfig', $config);
+
+        $application = new Listener($sm);
+
+        $sm->add('EventManager', $application);
+
+        $application->listeners = $config['event_manager']['listeners'];
+
+        //$mm = $sm->get('ModuleManager');
+        //$mm->loadModules();
+
+        return $application;
+    }
+
+    /**
+     * Trigger
+     *
+     * @param EventInterface $event
+     * @return mixed
+     */
+    public function __invoke(EventInterface $event)
+    {
+        $name   = $event->name();
+        $target = $event->target();
+
+        $result = null;
+
+        foreach($this->queue($name, $target) as $listener) {
+
+            //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
+
+            $result = $event->__invoke($listener);
+
+            if ($event->stopped()) {
+                break;
+            }
+        }
+
+        return $result;
     }
 }
