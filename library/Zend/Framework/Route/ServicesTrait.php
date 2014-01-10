@@ -18,7 +18,7 @@ trait ServicesTrait
     /**
      * @return bool|RouteManager
      */
-    public function routePluginManager()
+    public function routeManager()
     {
         return $this->service('Route\Manager');
     }

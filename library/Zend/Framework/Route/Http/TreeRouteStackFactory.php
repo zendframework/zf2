@@ -21,11 +21,11 @@ class TreeRouteStackFactory
      */
     public function __invoke(EventInterface $event)
     {
-        $rm = $this->sm->routePluginManager();
+        $rm = $this->sm->routeManager();
 
         $router = new TreeRouteStack;
 
-        $router->setRoutePluginManager($rm)
+        $router->setRouteManager($rm)
                ->addRoutes($rm->routes())
                ->setDefaultParams($rm->params());
 

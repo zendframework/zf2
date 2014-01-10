@@ -162,7 +162,7 @@ trait RouteTrait
             $specs['options'] = array();
         }
 
-        $route = $this->getRoutePluginManager()->get($specs['type'], $specs['options']);
+        $route = $this->rm->get($specs['type'], $specs['options']);
 
         if (isset($specs['priority'])) {
             $route->priority = $specs['priority'];

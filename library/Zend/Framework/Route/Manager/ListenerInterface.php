@@ -10,6 +10,7 @@
 namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Event\ListenerInterface as Listener;
+use Zend\Framework\Service\EventInterface;
 
 interface ListenerInterface
     extends Listener

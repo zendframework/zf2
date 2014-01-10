@@ -49,14 +49,14 @@ class Part
      *
      * @param  mixed              $route
      * @param  bool               $mayTerminate
-     * @param  RoutePluginManager $routePlugins
+     * @param  RoutePluginManager $rm
      * @param  array|null         $childRoutes
      * @param  ArrayObject|null   $prototypes
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($route, $mayTerminate, RoutePluginManager $routePlugins, array $childRoutes = null, ArrayObject $prototypes = null)
+    public function __construct($route, $mayTerminate, RoutePluginManager $rm, array $childRoutes = null, ArrayObject $prototypes = null)
     {
-        $this->routePluginManager = $routePlugins;
+        $this->rm = $rm;
 
         if (!$route instanceof RouteInterface) {
             $route = $this->routeFromArray($route);

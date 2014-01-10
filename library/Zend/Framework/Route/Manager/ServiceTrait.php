@@ -13,31 +13,31 @@ trait ServiceTrait
 {
 
     /**
-     * Route plugin manager
+     * Route manager
      *
      * @var ListenerInterface
      */
-    protected $routePluginManager;
+    protected $rm;
 
     /**
-     * Set the route plugin manager.
+     * Set the route manager.
      *
      * @param  ListenerInterface $rm
      * @return self
      */
-    public function setRoutePluginManager(ListenerInterface $rm)
+    public function setRouteManager(ListenerInterface $rm)
     {
-        $this->routePluginManager = $rm;
+        $this->rm = $rm;
         return $this;
     }
 
     /**
-     * Get the route plugin manager.
+     * Get the route manager.
      *
      * @return ListenerInterface
      */
-    public function getRoutePluginManager()
+    public function routeManager()
     {
-        return $this->routePluginManager;
+        return $this->rm;
     }
 }

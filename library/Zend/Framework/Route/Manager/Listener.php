@@ -35,13 +35,4 @@ class Listener
         $this->config = $config;
         $this->alias  = $config['route_plugins'];
     }
-
-    /**
-     * @param EventInterface $event
-     * @return mixed
-     */
-    public function __invoke(EventInterface $event)
-    {
-        var_dump(__FILE__);
-    }
 }
