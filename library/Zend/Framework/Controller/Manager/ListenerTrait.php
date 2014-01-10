@@ -26,6 +26,6 @@ trait ListenerTrait
      */
     public function controller($name)
     {
-        return $this->service($name);
+        return $this->sm->get($name);
     }
 }

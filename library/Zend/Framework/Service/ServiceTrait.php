@@ -17,35 +17,6 @@ trait ServiceTrait
     protected $sm;
 
     /**
-     * @param $name
-     * @param $service
-     * @return self
-     */
-    public function add($name, $service)
-    {
-        $this->sm->add($name, $service);
-        return $this;
-    }
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return $this->sm->has($name);
-    }
-
-    /**
-     * @param $name
-     * @return bool|object
-     */
-    public function service($name)
-    {
-        return $this->sm->get($name);
-    }
-
-    /**
      * @return ListenerInterface
      */
     public function serviceManager()
@@ -59,6 +30,10 @@ trait ServiceTrait
      */
     public function setServiceManager(ListenerInterface $sm)
     {
-        return $this->add('ServiceManager', $this->sm = $sm);
+        $this->sm = $sm;
+
+        $this->sm->add('ServiceManager', $sm);
+
+        return $this;
     }
 }

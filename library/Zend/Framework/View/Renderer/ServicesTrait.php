@@ -18,7 +18,7 @@ trait ServicesTrait
      */
     public function viewRenderer()
     {
-        return $this->service('View\Renderer');
+        return $this->sm->get('View\Renderer');
     }
 
     /**
@@ -27,6 +27,6 @@ trait ServicesTrait
      */
     public function setViewRenderer(ViewRenderer $renderer)
     {
-        return $this->add('View\Renderer', $renderer);
+        return $this->sm->add('View\Renderer', $renderer);
     }
 }

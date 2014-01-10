@@ -20,7 +20,7 @@ trait ServicesTrait
      */
     public function routeManager()
     {
-        return $this->service('Route\Manager');
+        return $this->sm->get('Route\Manager');
     }
 
     /**
@@ -28,7 +28,7 @@ trait ServicesTrait
      */
     public function router()
     {
-        return $this->service('Router');
+        return $this->sm->get('Router');
     }
 
     /**
@@ -37,7 +37,7 @@ trait ServicesTrait
      */
     public function setRouter(Router $router)
     {
-        return $this->add('Router', $router);
+        return $this->sm->add('Router', $router);
     }
 
     /**
@@ -45,7 +45,7 @@ trait ServicesTrait
      */
     public function routeMatch()
     {
-        return $this->service('Route\Match');
+        return $this->sm->get('Route\Match');
     }
 
     /**
@@ -54,6 +54,6 @@ trait ServicesTrait
      */
     public function setRouteMatch(RouteMatch $routeMatch)
     {
-        return $this->add('Route\Match', $routeMatch);
+        return $this->sm->add('Route\Match', $routeMatch);
     }
 }

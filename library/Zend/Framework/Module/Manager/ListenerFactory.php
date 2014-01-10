@@ -34,7 +34,7 @@ class ListenerFactory
 
         $em = $this->eventManager();
 
-        $em->add($this->sm->service('ModuleManager\DefaultListeners'));
+        $em->add($this->sm->get('ModuleManager\DefaultListeners'));
 
         $mm = new ModuleManager($modules);
 

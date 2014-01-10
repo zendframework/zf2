@@ -18,7 +18,7 @@ trait ServicesTrait
      */
     public function response()
     {
-        return $this->service('Response');
+        return $this->sm->get('Response');
     }
 
     /**
@@ -27,6 +27,6 @@ trait ServicesTrait
      */
     public function setResponse(Response $response)
     {
-        return $this->add('Response', $response);
+        return $this->sm->add('Response', $response);
     }
 }

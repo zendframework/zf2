@@ -31,8 +31,8 @@ class Url
      */
     public function __service(ServiceManager $sm)
     {
-        $this->setRouter($sm->service('Router'));
-        $this->setRouteMatch($sm->service('Route\Match'));
+        $this->setRouter($sm->get('Router'));
+        $this->setRouteMatch($sm->get('Route\Match'));
         return $this;
     }
     /**

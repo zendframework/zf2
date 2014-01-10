@@ -23,8 +23,8 @@ class Factory
     public function __invoke(EventInterface $event)
     {
         $resolver = new ViewResolver;
-        $resolver->attach($this->sm->service('View\Template\Resolver\Map'));
-        $resolver->attach($this->sm->service('View\Template\Resolver\PathStack'));
+        $resolver->attach($this->sm->get('View\Template\Resolver\Map'));
+        $resolver->attach($this->sm->get('View\Template\Resolver\PathStack'));
         return $resolver;
     }
 }

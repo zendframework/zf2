@@ -26,7 +26,7 @@ trait ServicesTrait
      */
     public function viewManager()
     {
-        return $this->service('View\Manager');
+        return $this->sm->get('View\Manager');
     }
 
     /**
@@ -35,6 +35,6 @@ trait ServicesTrait
      */
     public function setViewManager(ViewManager $vm)
     {
-        return $this->add('View\Manager', $vm);
+        return $this->sm->add('View\Manager', $vm);
     }
 }

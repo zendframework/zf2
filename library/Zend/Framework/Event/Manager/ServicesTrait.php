@@ -16,7 +16,7 @@ trait ServicesTrait
      */
     public function eventManager()
     {
-        return $this->service('EventManager');
+        return $this->sm->get('EventManager');
     }
 
     /**
@@ -25,7 +25,7 @@ trait ServicesTrait
      */
     public function setEventManager(ListenerInterface $em)
     {
-        $this->add('EventManager', $em);
+        $this->sm->add('EventManager', $em);
         return $this;
     }
 }

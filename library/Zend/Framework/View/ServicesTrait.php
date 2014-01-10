@@ -30,7 +30,7 @@ trait ServicesTrait
      */
     public function view()
     {
-        return $this->service('View');
+        return $this->sm->get('View');
     }
 
     /**
@@ -39,6 +39,6 @@ trait ServicesTrait
      */
     public function setView(View $view)
     {
-        return $this->add('View', $view);
+        return $this->sm->add('View', $view);
     }
 }

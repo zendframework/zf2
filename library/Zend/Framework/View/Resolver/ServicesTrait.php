@@ -18,7 +18,7 @@ trait ServicesTrait
      */
     public function viewResolver()
     {
-        return $this->service('View\Resolver');
+        return $this->sm->get('View\Resolver');
     }
 
     /**
@@ -27,6 +27,6 @@ trait ServicesTrait
      */
     public function setViewResolver(ViewResolver $resolver)
     {
-        return $this->add('View\Resolver', $resolver);
+        return $this->sm->add('View\Resolver', $resolver);
     }
 }

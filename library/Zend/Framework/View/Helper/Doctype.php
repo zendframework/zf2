@@ -24,7 +24,7 @@ class Doctype
      */
     public function __service(ServiceManager $sm)
     {
-        $config = $sm->service('ApplicationConfig');
+        $config = $sm->get('ApplicationConfig');
 
         $config = isset($config['view_manager']) ? $config['view_manager'] : array();
 

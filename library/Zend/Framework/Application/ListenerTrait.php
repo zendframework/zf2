@@ -38,7 +38,7 @@ trait ListenerTrait
 
         $application->listeners = $config['event_manager']['listeners'];
 
-        //$mm = $sm->service('ModuleManager');
+        //$mm = $sm->get('ModuleManager');
         //$mm->loadModules();
 
         return $application;

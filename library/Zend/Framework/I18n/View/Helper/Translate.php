@@ -28,6 +28,6 @@ class Translate
      */
     public function __service(ServiceManager $sm)
     {
-        $this->setTranslator($sm->service('Translator'));
+        $this->setTranslator($sm->get('Translator'));
     }
 }

@@ -16,7 +16,7 @@ trait ServicesTrait
      */
     public function applicationConfig()
     {
-        return $this->service('ApplicationConfig');
+        return $this->sm->get('ApplicationConfig');
     }
 
     /**
@@ -25,6 +25,6 @@ trait ServicesTrait
      */
     public function setApplicationConfig(array $config)
     {
-        return $this->add('ApplicationConfig', $config);
+        return $this->sm->add('ApplicationConfig', $config);
     }
 }

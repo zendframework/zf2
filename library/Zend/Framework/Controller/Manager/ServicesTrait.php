@@ -19,7 +19,7 @@ trait ServicesTrait
      */
     public function controllerPluginManager()
     {
-        return $this->service('Controller\Plugin\Manager');
+        return $this->sm->get('Controller\Plugin\Manager');
     }
 
     /**
@@ -27,7 +27,7 @@ trait ServicesTrait
      */
     public function controllerManager()
     {
-        return $this->service('Controller\Manager');
+        return $this->sm->get('Controller\Manager');
     }
 
     /**
@@ -36,6 +36,6 @@ trait ServicesTrait
      */
     public function setControllerManager(ControllerManager $cm)
     {
-        return $this->add('Controller\Manager', $cm);
+        return $this->sm->add('Controller\Manager', $cm);
     }
 }
