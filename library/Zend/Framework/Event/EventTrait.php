@@ -16,14 +16,14 @@ trait EventTrait
      *
      * @var string
      */
-    protected $name = null;
+    protected $name = EventInterface::WILDCARD;
 
     /**
      * Target
      *
      * @var string|array
      */
-    protected $target = null;
+    protected $target = EventInterface::WILDCARD;
 
     /**
      * Stopped
@@ -56,7 +56,7 @@ trait EventTrait
      */
     public function name()
     {
-        return $this->name ?: get_class($this);
+        return $this->name;
     }
 
     /**
@@ -90,7 +90,7 @@ trait EventTrait
      */
     public function target()
     {
-        return $this->target ?: $this;
+        return $this->target;
     }
 
     /**
