@@ -35,12 +35,10 @@
             <exec executable="php" failonerror="true">
                 <arg value="-d" />
                 <arg value="memory_limit=-1" />
-                <arg value="vendor/bin/phpcov.php" />
-                <arg value="--merge" />
+                <arg value="vendor/bin/phpcov" />
+                <arg value="merge" />
                 <arg value="--clover" />
                 <arg value="${basedir}/build/logs/clover.xml" />
-                <arg value="--whitelist" />
-                <arg value="${basedir}/library" />
                 <arg value="${basedir}/build/coverage" />
             </exec>
         </sequential>
