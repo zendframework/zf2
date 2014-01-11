@@ -19,6 +19,5 @@ trait EventTrait
      *
      */
     use Event,
-        Request,
         Route;
 }

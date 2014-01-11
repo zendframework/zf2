@@ -40,8 +40,7 @@ class Listener
     {
         $route = new Route;
 
-        $route->setTarget($event->target())
-              ->setRequest($this->request)
+        $route->setTarget($this->request)
               ->setRouter($this->router);
 
         $this->em->__invoke($route);

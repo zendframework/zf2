@@ -27,17 +27,6 @@ interface EventInterface
     const ERROR_EXCEPTION                  = 'error-exception';
 
     /**
-     * @return Request
-     */
-    public function request();
-
-    /**
-     * @param Request $request
-     * @return self
-     */
-    public function setRequest(Request $request);
-
-    /**
      * @return bool|RouteMatch
      */
     public function routeMatch();

@@ -45,7 +45,7 @@ class Listener
     public function __invoke(EventInterface $event)
     {
         var_dump(__FILE__);
-        $request    = $event->request();
+        $request    = $event->target();
 
         foreach ($this->routes as $name => $route) {
             if (($match = $route->match($request)) instanceof RouteMatch) {
