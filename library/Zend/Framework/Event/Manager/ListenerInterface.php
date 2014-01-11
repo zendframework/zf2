@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface as Listener;
 
 interface ListenerInterface
@@ -52,4 +52,12 @@ interface ListenerInterface
      * @return self
      */
     public function remove(Listener $listener);
+
+    /**
+     * Trigger
+     *
+     * @param EventInterface $event
+     * @return mixed
+     */
+    public function __invoke(EventInterface $event);
 }

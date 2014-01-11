@@ -9,17 +9,9 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\ListenerInterface as EventManager;
 
 interface ListenerInterface
     extends EventManager
 {
-    /**
-     * Trigger
-     *
-     * @param EventInterface $event
-     * @return mixed
-     */
-    public function __invoke(EventInterface $event);
 }

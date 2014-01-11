@@ -22,6 +22,12 @@ interface ListenerInterface
     public function add($name, $service);
 
     /**
+     * @param array $config
+     * @return self
+     */
+    public function config(array $config);
+
+    /**
      * @param string $name
      * @param string $class
      */
@@ -51,12 +57,6 @@ interface ListenerInterface
      * @return mixed
      */
     public function listener($name);
-
-    /**
-     * @param array $listeners
-     * @return self
-     */
-    public function listeners(array $listeners);
 
     /**
      * Trigger

@@ -49,6 +49,16 @@ trait ListenerTrait
     }
 
     /**
+     * @param array $config
+     * @return self
+     */
+    public function config(array $config)
+    {
+        $this->listeners = $config;
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @param string $class
      */
@@ -112,16 +122,6 @@ trait ListenerTrait
         }
 
         return $this->listeners[$name] = $this->factory($this->listeners[$name]);
-    }
-
-    /**
-     * @param array $listeners
-     * @return self
-     */
-    public function listeners(array $listeners)
-    {
-        $this->listeners = $listeners;
-        return $this;
     }
 
     /**
