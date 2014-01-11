@@ -11,7 +11,6 @@ namespace Zend\Framework\Route;
 
 use Traversable;
 use Zend\Mvc\Router\Exception;
-use Zend\Framework\Route\PriorityList;
 use Zend\Stdlib\ArrayUtils;
 
 trait RouteTrait

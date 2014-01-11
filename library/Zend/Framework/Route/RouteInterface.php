@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route;
 
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 
 /**
@@ -20,7 +21,7 @@ interface RouteInterface
      * Match a given request.
      *
      * @param  Request $request
-     * @return RouteMatch|null
+     * @return RouteMatch
      */
     public function match(Request $request);
 

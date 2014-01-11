@@ -11,6 +11,7 @@ namespace Zend\Framework\View;
 
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\View\Renderer\RendererInterface as ViewRenderer;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 interface EventInterface
     extends Event
@@ -36,4 +37,11 @@ interface EventInterface
      * @return self
      */
     public function setViewRenderer(ViewRenderer $renderer);
+
+    /**
+     * Target
+     *
+     * @return ViewModel
+     */
+    public function target();
 }

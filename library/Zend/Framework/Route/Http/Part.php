@@ -14,6 +14,7 @@ use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Framework\Route\PriorityList;
 use Zend\Framework\Route\Manager\Listener as RoutePluginManager;
+use Zend\Mvc\Router\Http\Query;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Mvc\Router\Http\RouteMatch;
 

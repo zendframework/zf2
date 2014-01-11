@@ -31,7 +31,7 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @return void
+     * @return mixed
      */
     public function __invoke(EventInterface $event)
     {

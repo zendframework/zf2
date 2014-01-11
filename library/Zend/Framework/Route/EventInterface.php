@@ -10,8 +10,8 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\Framework\Route\RouteInterface as Router;
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 
 interface EventInterface
@@ -47,4 +47,11 @@ interface EventInterface
      * @return self
      */
     public function setRouter(Router $router);
+
+    /**
+     * Target
+     *
+     * @return Request
+     */
+    public function target();
 }

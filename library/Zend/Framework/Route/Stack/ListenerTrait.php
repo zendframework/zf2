@@ -13,6 +13,7 @@ use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Route\Manager\ServiceTrait as RouteManager;
 use Zend\Framework\Route\ParamTrait as Param;
 use Zend\Framework\Route\RouteTrait as Route;
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 
 trait ListenerTrait
