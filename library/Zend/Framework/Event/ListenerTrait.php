@@ -77,19 +77,6 @@ trait ListenerTrait
     }
 
     /**
-     * Names
-     *
-     * @return string|array
-     */
-    public function names()
-    {
-        if (is_array($this->name)) {
-            return $this->name;
-        }
-        return [$this->name];
-    }
-
-    /**
      * Target set
      *
      * @param string|array $target
@@ -109,19 +96,6 @@ trait ListenerTrait
     public function target()
     {
         return $this->target;
-    }
-
-    /**
-     * Targets
-     *
-     * @return array
-     */
-    public function targets()
-    {
-        if (is_array($this->target)) {
-            return $this->target;
-        }
-        return [$this->target];
     }
 
     /**

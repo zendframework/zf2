@@ -32,18 +32,4 @@ interface ListenerInterface
      * @return self
      */
     public function setPriority($priority);
-
-    /**
-     * Names
-     *
-     * @return array
-     */
-    public function names();
-
-    /**
-     * Targets
-     *
-     * @return array
-     */
-    public function targets();
 }

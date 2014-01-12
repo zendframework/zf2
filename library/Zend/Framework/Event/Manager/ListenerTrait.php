@@ -36,20 +36,19 @@ trait ListenerTrait
      */
     public function add(ListenerInterface $listener)
     {
-        $names    = $listener->names();
+        $name     = $listener->name();
         $priority = $listener->priority();
 
-        foreach($names as $name) {
-            if (!isset($this->listeners[$name])) {
-                $this->listeners[$name] = [];
-            }
-
-            if (!isset($this->listeners[$name][$priority])) {
-                $this->listeners[$name][$priority] = [];
-            }
-
-            $this->listeners[$name][$priority][] = $listener;
+        if (!isset($this->listeners[$name])) {
+            $this->listeners[$name] = [];
         }
+
+        if (!isset($this->listeners[$name][$priority])) {
+            $this->listeners[$name][$priority] = [];
+        }
+
+        $this->listeners[$name][$priority][] = $listener;
+
 
         return $this;
     }
@@ -103,21 +102,19 @@ trait ListenerTrait
      */
     public function push(ListenerInterface $listener)
     {
-        $names    = $listener->names();
+        $name     = $listener->name();
         $priority = $listener->priority();
 
-        foreach($names as $name) {
-            if (!isset($this->listeners[$name])) {
-                $this->listeners[$name] = [];
-            }
-
-            if (!isset($this->listeners[$name][$priority])) {
-                $this->listeners[$name][$priority][] = $listener;
-                continue;
-            }
-
-            array_unshift($this->listeners[$name][$priority], $listener);
+        if (!isset($this->listeners[$name])) {
+            $this->listeners[$name] = [];
         }
+
+        if (!isset($this->listeners[$name][$priority])) {
+            $this->listeners[$name][$priority][] = $listener;
+            return $this;
+        }
+
+        array_unshift($this->listeners[$name][$priority], $listener);
 
         return $this;
     }
@@ -137,16 +134,15 @@ trait ListenerTrait
                     $listener = $this->listener($listener);
                 }
 
-                foreach($listener->targets() as $t) {
-                    if (
-                        $t === ListenerInterface::WILDCARD
-                        || $t === $target
-                        || $target instanceof $t
-                        || \is_subclass_of($target, $t)
-                    ) {
-                        yield $listener;
-                        continue 2;
-                    }
+                $t = $listener->target();
+
+                if ($t == ListenerInterface::WILDCARD
+                        || $t == $target
+                            || $target instanceof $t
+                                || \is_subclass_of($target, $t)
+                ) {
+                    yield $listener;
+                    continue;
                 }
             }
         }
@@ -160,16 +156,14 @@ trait ListenerTrait
      */
     public function remove(ListenerInterface $listener)
     {
-        $names    = $listener->names();
+        $name     = $listener->name();
         $priority = $listener->priority();
 
-        foreach($names as $name) {
-            if (!isset($this->listeners[$name][$priority])) {
-                continue;
-            }
-
-            $this->listeners[$name][$priority] = array_diff($this->listeners[$name][$priority], [$listener]);
+        if (!isset($this->listeners[$name][$priority])) {
+            return $this;
         }
+
+        $this->listeners[$name][$priority] = array_diff($this->listeners[$name][$priority], [$listener]);
 
         return $this;
     }
