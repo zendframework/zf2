@@ -28,7 +28,7 @@ class ListenerFactory
      */
     public function __invoke(EventInterface $event)
     {
-        $config = $this->applicationConfig()['router'];
+        $config = $this->appConfig()['router'];
 
         $vm = new Listener($config, $this->sm);
 

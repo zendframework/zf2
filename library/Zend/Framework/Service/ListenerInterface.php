@@ -56,7 +56,7 @@ interface ListenerInterface
      * @param $name
      * @return mixed
      */
-    public function listener($name);
+    public function service($name);
 
     /**
      * Trigger

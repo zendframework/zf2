@@ -47,7 +47,7 @@ trait AliasTrait
      */
     public function get($name, array $options = [])
     {
-        return $this->sm->__invoke(new Event($this->alias($name), $options));
+        return $this->sm->__invoke(new Event($name, $this->alias($name), $options));
     }
 
     /**

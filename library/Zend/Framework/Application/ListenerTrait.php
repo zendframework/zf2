@@ -31,7 +31,7 @@ trait ListenerTrait
 
         $sm->config($config['service_manager'])
            ->add('ServiceManager', $sm)
-           ->add('ApplicationConfig', $config);
+           ->add('AppConfig', $config);
 
         return $sm->get('EventManager');
     }

@@ -25,7 +25,7 @@ trait ListenerTrait
     /**
      * @var array
      */
-    public $listeners = [];
+    public $service = [];
 
     /**
      * @var array
@@ -54,7 +54,7 @@ trait ListenerTrait
      */
     public function config(array $config)
     {
-        $this->listeners = $config;
+        $this->service = $config;
         return $this;
     }
 
@@ -64,7 +64,7 @@ trait ListenerTrait
      */
     public function configure($name, $class)
     {
-        $this->listeners[$name] = $class;
+        $this->service[$name] = $class;
     }
 
     /**
@@ -99,7 +99,7 @@ trait ListenerTrait
      */
     public function get($name, array $options = [])
     {
-        return $this->__invoke(new Event($name, $options));
+        return $this->__invoke(new Event($name, $name, $options));
     }
 
     /**
@@ -115,13 +115,13 @@ trait ListenerTrait
      * @param $name
      * @return bool|Factory|callable
      */
-    public function listener($name)
+    public function service($name)
     {
-        if (empty($this->listeners[$name])) {
+        if (empty($this->service[$name])) {
             return false;
         }
 
-        return $this->listeners[$name] = $this->factory($this->listeners[$name]);
+        return $this->service[$name] = $this->factory($this->service[$name]);
     }
 
     /**
@@ -145,10 +145,10 @@ trait ListenerTrait
 
         $instance = false;
 
-        $listener = $this->listener($name);
+        $service = $this->service($name);
 
-        if ($listener) {
-            $instance = $event->__invoke($listener);
+        if ($service) {
+            $instance = $event->__invoke($service);
         }
 
         if ($event->shared()) {

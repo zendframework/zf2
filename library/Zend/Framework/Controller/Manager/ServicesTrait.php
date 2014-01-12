@@ -9,21 +9,10 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Mvc\Controller\ControllerManager as ControllerManager;
-use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
-
 trait ServicesTrait
 {
     /**
-     * @return bool|ControllerPluginManager
-     */
-    public function controllerPluginManager()
-    {
-        return $this->sm->get('Controller\Plugin\Manager');
-    }
-
-    /**
-     * @return bool|ControllerManager
+     * @return bool|ListenerInterface
      */
     public function controllerManager()
     {
@@ -31,10 +20,10 @@ trait ServicesTrait
     }
 
     /**
-     * @param ControllerManager $cm
+     * @param ListenerInterface $cm
      * @return self
      */
-    public function setControllerManager(ControllerManager $cm)
+    public function setControllerManager(ListenerInterface $cm)
     {
         return $this->sm->add('Controller\Manager', $cm);
     }

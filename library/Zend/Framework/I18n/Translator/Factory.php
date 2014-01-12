@@ -33,7 +33,7 @@ class Factory
     public function __invoke(EventInterface $event)
     {
         // Configure the translator
-        $config     = $this->applicationConfig();
+        $config     = $this->appConfig();
         $trConfig   = isset($config['translator']) ? $config['translator'] : array();
         $translator = Translator::factory($trConfig);
         return $translator;

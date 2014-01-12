@@ -24,6 +24,10 @@ interface EventInterface
      * @return array
      */
     public function options();
+    /**
+     * @return string
+     */
+    public function service();
 
     /**
      * @return bool

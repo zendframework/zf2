@@ -28,7 +28,7 @@ class ListenerFactory
      */
     public function __invoke(EventInterface $event)
     {
-        $config = $this->applicationConfig()['view_manager'];
+        $config = $this->appConfig()['view_manager'];
 
         $vm = new Listener($config, $this->sm);
 

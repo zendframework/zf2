@@ -20,15 +20,17 @@ class Event
     use EventTrait;
 
     /**
+     * @param $service
      * @param $alias
      * @param array $options
      * @param string $name
      */
-    public function __construct($alias, array $options = [], $name = self::EVENT_SERVICE)
+    public function __construct($service, $alias, array $options = [], $name = self::EVENT_SERVICE)
     {
         $this->alias   = $alias;
-        $this->options = $options;
         $this->name    = $name;
+        $this->options = $options;
+        $this->service = $service;
     }
 
     /**

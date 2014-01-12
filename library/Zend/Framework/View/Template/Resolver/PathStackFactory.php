@@ -28,7 +28,7 @@ class PathStackFactory
      */
     public function __invoke(EventInterface $event)
     {
-        $config = $this->applicationConfig();
+        $config = $this->appConfig();
 
         $templatePathStack = new TemplatePathStack();
 

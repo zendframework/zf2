@@ -27,9 +27,10 @@ class ListenerFactory
      */
     public function __invoke(EventInterface $event)
     {
-        $config = $this->applicationConfig();
+        $config = $this->appConfig()['controllers'];
 
-        $cm = new Listener($config['controllers']);
+        $cm = new Listener($config);
+
         $cm->setServiceManager($this->sm);
 
         return $cm;

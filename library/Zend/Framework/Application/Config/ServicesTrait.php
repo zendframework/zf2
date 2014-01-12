@@ -14,17 +14,17 @@ trait ServicesTrait
     /**
      * @return array
      */
-    public function applicationConfig()
+    public function appConfig()
     {
-        return $this->sm->get('ApplicationConfig');
+        return $this->sm->get('AppConfig');
     }
 
     /**
      * @param array $config
      * @return self
      */
-    public function setApplicationConfig(array $config)
+    public function setAppConfig(array $config)
     {
-        return $this->sm->add('ApplicationConfig', $config);
+        return $this->sm->add('AppConfig', $config);
     }
 }

@@ -28,7 +28,7 @@ class MapFactory
      */
     public function __invoke(EventInterface $event)
     {
-        $config = $this->applicationConfig();
+        $config = $this->appConfig();
         $map = array();
         if (isset($config['view_manager'])) {
             $config = $config['view_manager'];
