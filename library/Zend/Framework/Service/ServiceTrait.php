@@ -30,10 +30,7 @@ trait ServiceTrait
      */
     public function setServiceManager(ListenerInterface $sm)
     {
-        $this->sm = $sm;
-
-        $this->sm->add('ServiceManager', $sm);
-
+        $sm->add('ServiceManager', $this->sm = $sm);
         return $this;
     }
 }

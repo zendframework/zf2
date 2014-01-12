@@ -44,7 +44,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        var_dump(__FILE__);
         $request    = $event->target();
 
         foreach ($this->routes as $name => $route) {
