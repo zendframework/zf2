@@ -48,33 +48,6 @@ class Literal implements RouteInterface
     }
 
     /**
-     * factory(): defined by RouteInterface interface.
-     *
-     * @see    \Zend\Framework\Route\RouteInterface::factory()
-     * @param  array|Traversable $options
-     * @return Literal
-     * @throws Exception\InvalidArgumentException
-     */
-    public static function factory($options = array())
-    {
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        } elseif (!is_array($options)) {
-            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
-        }
-
-        if (!isset($options['route'])) {
-            throw new Exception\InvalidArgumentException('Missing "route" in options array');
-        }
-
-        if (!isset($options['defaults'])) {
-            $options['defaults'] = array();
-        }
-
-        return new static($options['route'], $options['defaults']);
-    }
-
-    /**
      * match(): defined by RouteInterface interface.
      *
      * @see    \Zend\Framework\Route\RouteInterface::match()

@@ -19,6 +19,12 @@ interface ListenerInterface
     const PRIORITY = 0;
 
     /**
+     * @param $target
+     * @return bool
+     */
+    public function matchTarget($target);
+
+    /**
      * Priority
      *
      * @return int

@@ -128,21 +128,13 @@ trait ListenerTrait
     {
         foreach($this->listeners($name) as $listeners) {
             foreach($listeners as $listener) {
-
                 //not all listeners for this priority need to be initialized
                 if (is_string($listener)) {
                     $listener = $this->listener($listener);
                 }
 
-                $t = $listener->target();
-
-                if ($t == ListenerInterface::WILDCARD
-                        || $t == $target
-                            || $target instanceof $t
-                                || \is_subclass_of($target, $t)
-                ) {
+                if ($listener->matchTarget($target)) {
                     yield $listener;
-                    continue;
                 }
             }
         }

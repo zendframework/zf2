@@ -55,6 +55,18 @@ trait ListenerTrait
     }
 
     /**
+     * @param $target
+     * @return bool
+     */
+    public function matchTarget($target)
+    {
+        return $this->target == self::WILDCARD
+                || $target == $this->target
+                    || $target instanceof $this->target
+                        || \is_subclass_of($target, $this->target);
+    }
+
+    /**
      * Name set
      *
      * @param $name string|array
@@ -74,28 +86,6 @@ trait ListenerTrait
     public function name()
     {
         return $this->name;
-    }
-
-    /**
-     * Target set
-     *
-     * @param string|array $target
-     * @return self
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
-        return $this;
-    }
-
-    /**
-     * Target
-     *
-     * @return string|array|object
-     */
-    public function target()
-    {
-        return $this->target;
     }
 
     /**
@@ -119,5 +109,27 @@ trait ListenerTrait
     public function priority()
     {
         return $this->priority;
+    }
+
+    /**
+     * Target set
+     *
+     * @param string|array $target
+     * @return self
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+        return $this;
+    }
+
+    /**
+     * Target
+     *
+     * @return string|array|object
+     */
+    public function target()
+    {
+        return $this->target;
     }
 }
