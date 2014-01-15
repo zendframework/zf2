@@ -400,4 +400,20 @@ class SegmentTest extends TestCase
         $route->match($request);
         $this->assertSame($uri2, $route->assemble($params2));
     }
+
+    public function testWithNullableDefaultAndHasChild()
+    {
+        $segment = new Segment(
+            '/:foo[/:bar]',
+            array(),
+            array('foo' => 'foo', 'bar' => null)
+        );
+        $chain = new \Zend\Mvc\Router\Http\Chain(
+            array($segment),
+            new \Zend\Mvc\Router\RoutePluginManager()
+        );
+
+        $this->assertEquals('/foo', $segment->assemble(array()));
+        $this->assertEquals('/foo', $chain->assemble(array()));
+    }
 }

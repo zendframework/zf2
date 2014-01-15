@@ -293,12 +293,14 @@ class Segment implements RouteInterface
                 case 'parameter':
                     $skippable = true;
 
-                    if (!isset($mergedParams[$part[1]])) {
+                    if (!array_key_exists($part[1], $mergedParams)) {
                         if (!$isOptional || $hasChild) {
                             throw new Exception\InvalidArgumentException(sprintf('Missing parameter "%s"', $part[1]));
                         }
 
                         return '';
+                    } elseif($mergedParams[$part[1]] === null) {
+                        $skip = true;
                     } elseif (!$isOptional || $hasChild || !isset($this->defaults[$part[1]]) || $this->defaults[$part[1]] !== $mergedParams[$part[1]]) {
                         $skip = false;
                     }
