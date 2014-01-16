@@ -20,6 +20,10 @@ class FirePhp implements FormatterInterface
     public function format($event)
     {
         $label = null;
+        if (!empty($event['extra']['label'])) {
+            $label = $event['extra']['label'];
+            unset($event['extra']['label']);
+        }
         if (!empty($event['extra'])) {
             $line  = $event['extra'];
             $label = $event['message'];
