@@ -11,7 +11,7 @@
 namespace ZendTest\Mvc\Controller\Plugin;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Form\Form;
+use Zend\Form;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\InputFilter\InputFilter;
@@ -35,7 +35,7 @@ class FilePostRedirectGetTest extends TestCase
 
     public function setUp()
     {
-        $this->form = new Form();
+        $this->form = new Form\Form();
 
         $router = new SimpleRouteStack;
         $router->addRoute('home', LiteralRoute::factory(array(
@@ -262,4 +262,28 @@ class FilePostRedirectGetTest extends TestCase
         $this->assertEquals($expects, $prgResultRoute->getHeaders()->get('Location')->getUri() , 'redirect to the same url');
         $this->assertEquals(303, $prgResultRoute->getStatusCode());
     }
+
+    public function testReuseMatchedFiles()
+    {
+        require_once __DIR__ . '/TestAsset/DisablePhpUploadChecks.php';
+
+        // Form with collection (x2) => fieldset => (file, text)
+        $form = new TestAsset\TestForm('testform');
+
+        copy(__DIR__ . '/TestAsset/nullfile', __DIR__ . '/TestAsset/nullfile_copy1');
+
+        $request = $this->request;
+        $request->setMethod('POST');
+        $request->setPost(new Parameters($form->getPost1()));
+        $request->setFiles(new Parameters($form->getFiles1()));
+
+        $this->controller->dispatch($this->request, $this->response);
+        $prgResultUrl = $this->controller->fileprg($form, '/test/getPage', true);
+
+        $this->assertEquals($form->getErrorMessages1(), $form->getMessages());
+        $this->assertEquals($form->getExpectedResult1(), $form->getData());
+
+        unlink(__DIR__ . '/TestAsset/nullfile_copy1');
+    }
+
 }
