@@ -520,7 +520,7 @@ class SetCookie implements MultipleHeaderInterface
             return false;
         }
 
-        if ($this->secure && $this->isSecure()!==$isSecure) {
+        if ($this->secure && $this->isSecure() !== $isSecure) {
             return false;
         }
 
