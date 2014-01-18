@@ -102,12 +102,12 @@ class MultiCheckboxTest extends TestCase
     {
         $element = new MultiCheckboxElement('my-checkbox');
         $inputSpec = $element->getInputSpecification();
-        $inArrayValidator=$inputSpec['validators'][0]->getValidator();
+        $inArrayValidator = $inputSpec['validators'][0]->getValidator();
 
         $element->setAttributes(array(
             'options' => $options,
         ));
-        $haystack=$inArrayValidator->getHaystack();
+        $haystack = $inArrayValidator->getHaystack();
         $this->assertCount(count($options), $haystack);
     }
 

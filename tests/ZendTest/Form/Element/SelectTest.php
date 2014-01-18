@@ -154,7 +154,7 @@ class SelectTest extends TestCase
         $this->assertInstanceOf('Zend\Validator\InArray', $inArrayValidator);
 
         $element->setValueOptions($options);
-        $haystack=$inArrayValidator->getHaystack();
+        $haystack = $inArrayValidator->getHaystack();
         $this->assertCount(count($options), $haystack);
     }
 

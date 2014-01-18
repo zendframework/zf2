@@ -235,7 +235,7 @@ class View implements EventManagerAwareInterface
             $capture = $child->captureTo();
             if (!empty($capture)) {
                 if ($child->isAppend()) {
-                    $oldResult=$model->{$capture};
+                    $oldResult = $model->{$capture};
                     $model->setVariable($capture, $oldResult . $result);
                 } else {
                     $model->setVariable($capture, $result);
