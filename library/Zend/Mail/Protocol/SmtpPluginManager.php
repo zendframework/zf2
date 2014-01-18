@@ -25,6 +25,7 @@ class SmtpPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
+        'xoauth2' => 'Zend\Mail\Protocol\Smtp\Auth\XOAuth2',
         'crammd5' => 'Zend\Mail\Protocol\Smtp\Auth\Crammd5',
         'login'   => 'Zend\Mail\Protocol\Smtp\Auth\Login',
         'plain'   => 'Zend\Mail\Protocol\Smtp\Auth\Plain',
