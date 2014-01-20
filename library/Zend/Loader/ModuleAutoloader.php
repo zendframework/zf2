@@ -191,7 +191,7 @@ class ModuleAutoloader implements SplAutoloader
                 }
                 $path = $basePath . substr($path, 1);
             }
-
+            
             $classLoaded = $this->loadModuleFromDir($path, $class);
             if ($classLoaded) {
                 return $classLoaded;
