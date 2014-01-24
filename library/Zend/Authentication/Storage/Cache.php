@@ -57,12 +57,11 @@ class Cache implements AuthStorageInterface
         }
         if ($key !== null) {
             $this->key = $key;
-        } else {
+        } elseif (session_id() !== '') {
             $this->key = session_id();
-        }
-
-        if ($this->key === '') {
-            $this->key = base64_encode(Rand::getBytes(32, true));
+        } else {
+            session_start();
+            $this->key = session_id();
         }
     }
 
