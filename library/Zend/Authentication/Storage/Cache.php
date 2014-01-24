@@ -11,6 +11,7 @@ namespace Zend\Authentication\Storage;
 
 use Zend\Authentication\Storage\StorageInterface as AuthStorageInterface;
 use Zend\Cache\Storage\StorageInterface as CacheStorageInterface;
+use Zend\Math\Rand;
 
 class Cache implements AuthStorageInterface
 {
@@ -18,11 +19,6 @@ class Cache implements AuthStorageInterface
      * Default cache namespace
      */
     const NAMESPACE_DEFAULT = 'Zend_Auth';
-
-    /**
-     * Default cache key name for auth data
-     */
-    const KEY_DEFAULT = 'storage';
 
     /**
      * Cache adapter to mimic PHP session storage
@@ -43,7 +39,7 @@ class Cache implements AuthStorageInterface
      * 
      * @var mixed
      */
-    protected $key = self::KEY_DEFAULT;
+    protected $key;
 
     /**
      * Sets cache storage options and initializes cache namespace object
@@ -61,6 +57,12 @@ class Cache implements AuthStorageInterface
         }
         if ($key !== null) {
             $this->key = $key;
+        } else {
+            $this->key = session_id();
+        }
+
+        if ($this->key === '') {
+            $this->key = base64_encode(Rand::getBytes(32, true));
         }
     }
 
