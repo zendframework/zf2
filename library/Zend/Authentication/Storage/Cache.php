@@ -11,7 +11,6 @@ namespace Zend\Authentication\Storage;
 
 use Zend\Authentication\Storage\StorageInterface as AuthStorageInterface;
 use Zend\Cache\Storage\StorageInterface as CacheStorageInterface;
-use Zend\Math\Rand;
 
 class Cache implements AuthStorageInterface
 {
