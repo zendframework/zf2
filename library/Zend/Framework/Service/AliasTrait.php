@@ -70,7 +70,7 @@ trait AliasTrait
     }
 
     /**
-     * @param Request $request
+     * @param RequestInterface $request
      * @return mixed
      */
     public function trigger(RequestInterface $request)

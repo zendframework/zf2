@@ -23,11 +23,6 @@ class Listener
         ServiceTrait;
 
     /**
-     * @var string
-     */
-    protected $name = self::EVENT_MODEL;
-
-    /**
      * @param EventInterface $event
      * @param $response
      * @return mixed|void

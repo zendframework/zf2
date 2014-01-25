@@ -126,7 +126,7 @@ class Listener
     }
 
     /**
-     * @param Request $request
+     * @param RequestInterface $request
      * @return bool|object
      * @throws Exception
      */

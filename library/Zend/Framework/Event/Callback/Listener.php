@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Event\Callback;
 
-use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\EventInterface;
 
 class Listener
     implements ListenerInterface
@@ -22,11 +22,11 @@ class Listener
     /**
      * Trigger
      *
-     * @param Event $event
+     * @param EventInterface $event
      * @param $response
      * @return mixed
      */
-    public function trigger(Event $event, $response)
+    public function trigger(EventInterface $event, $response)
     {
         return call_user_func($this->callback, $event);
     }

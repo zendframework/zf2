@@ -7,13 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Route\NotFound;
 
-use Zend\Framework\Dispatch\EventListenerInterface as Dispatch;
+use Zend\Framework\Route\EventInterface;
+use Zend\Framework\Dispatch\Error\EventInterface as DispatchError;
+use Zend\Framework\Event\ListenerTrait;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;
 
-class NotFoundListener
+class Listener
     implements ListenerInterface
 {
     /**
@@ -29,7 +31,7 @@ class NotFoundListener
      */
     public function trigger(EventInterface $event)
     {
-        if (Dispatch::EVENT_DISPATCH_ERROR == $event->name()) {
+        if (DispatchError::EVENT_DISPATCH_ERROR == $event->name()) {
             $this->detectNotFoundError($event);
         }
 

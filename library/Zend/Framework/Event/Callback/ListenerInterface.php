@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Event\Callback;
 
+use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Event\ListenerInterface as Listener;
 
 interface ListenerInterface

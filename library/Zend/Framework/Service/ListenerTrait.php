@@ -99,7 +99,7 @@ trait ListenerTrait
      */
     public function get($name, array $options = [])
     {
-        return $this->trigger(new Event($name, $name, $options));
+        return $this->trigger(new Request($name, $name, $options));
     }
 
     /**
@@ -125,15 +125,15 @@ trait ListenerTrait
     }
 
     /**
-     * @param EventInterface $event
+     * @param RequestInterface $request
      * @return bool|object
      * @throws Exception
      */
-    public function trigger(EventInterface $event)
+    public function trigger(RequestInterface $request)
     {
-        $name = $event->alias();
+        $name = $request->alias();
 
-        if ($event->shared() && isset($this->shared[$name])) {
+        if ($request->shared() && isset($this->shared[$name])) {
             return $this->shared[$name];
         }
 
@@ -148,10 +148,10 @@ trait ListenerTrait
         $factory = $this->service($name);
 
         if ($factory) {
-            $instance = $factory->service($event);
+            $instance = $factory->service($request);
         }
 
-        if ($event->shared()) {
+        if ($request->shared()) {
             $this->shared[$name] = $instance;
         }
 
