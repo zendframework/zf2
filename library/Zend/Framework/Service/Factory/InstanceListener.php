@@ -10,9 +10,11 @@
 namespace Zend\Framework\Service\Factory;
 
 use ReflectionClass;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Service\ServiceTrait as Service;
 
 class InstanceListener
     implements ListenerInterface
@@ -20,7 +22,8 @@ class InstanceListener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait,
+        Service;
 
     /**
      * @param ServiceManager $sm
@@ -33,12 +36,12 @@ class InstanceListener
     }
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return mixed|object
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
-        $options = $event->options();
+        $options = $request->options();
 
         if ($options) {
 

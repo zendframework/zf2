@@ -10,8 +10,10 @@
 namespace Zend\Framework\Service\Factory;
 
 use Exception;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Service\ServiceTrait as Service;
 
 class Listener
     implements ListenerInterface
@@ -19,7 +21,8 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait,
+        Service;
 
     /**
      * @param ServiceManager $sm
@@ -30,11 +33,11 @@ class Listener
     }
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return mixed|void
      * @throws Exception
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         throw new Exception('Missing service method for ' . get_class($this));
     }

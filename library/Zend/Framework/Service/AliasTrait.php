@@ -47,7 +47,7 @@ trait AliasTrait
      */
     public function get($name, array $options = [])
     {
-        return $this->sm->trigger(new Event($name, $this->alias($name), $options));
+        return $this->sm->trigger(new Request($name, $this->alias($name), $options));
     }
 
     /**
@@ -70,11 +70,11 @@ trait AliasTrait
     }
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return mixed
      */
-    public function trigger(EventInterface $event)
+    public function trigger(RequestInterface $request)
     {
-        return $this->sm->trigger($event->setAlias($this->alias($event->name())));
+        return $this->sm->trigger($request->setAlias($this->alias($request->name())));
     }
 }

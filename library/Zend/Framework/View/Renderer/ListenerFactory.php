@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\View\ServicesTrait as View;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class ListenerFactory
@@ -22,10 +22,10 @@ class ListenerFactory
     use View;
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return Renderer
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         $listener = new Listener;
 

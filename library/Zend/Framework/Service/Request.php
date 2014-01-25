@@ -9,18 +9,13 @@
 
 namespace Zend\Framework\Service;
 
-class Event
-    implements EventInterface
+class Request
+    implements RequestInterface
 {
     /**
      *
      */
-    use EventTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_SERVICE;
+    use RequestTrait;
 
     /**
      * @param $service

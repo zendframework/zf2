@@ -10,14 +10,14 @@
 namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\Event\ListenerInterface as Listener;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 
 interface ListenerInterface
     extends Listener
 {
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return mixed
      */
-    public function service(EventInterface $event);
+    public function service(Request $request);
 }

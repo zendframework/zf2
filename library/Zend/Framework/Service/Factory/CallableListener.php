@@ -9,8 +9,10 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ServiceTrait as Service;
 
 class CallableListener
     implements ListenerInterface
@@ -18,7 +20,8 @@ class CallableListener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait,
+        Service;
 
     /**
      * @param ServiceManager $sm
@@ -31,14 +34,14 @@ class CallableListener
     }
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return mixed|object
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         //fixme!
-        $options = $event->options();
+        $options = $request->options();
 
-        return call_user_func_array($this->factory, [$event]);
+        return call_user_func_array($this->factory, [$request]);
     }
 }

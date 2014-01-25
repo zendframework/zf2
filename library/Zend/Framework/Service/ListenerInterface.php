@@ -9,10 +9,7 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
-
 interface ListenerInterface
-    extends Listener
 {
     /**
      * @param $name
@@ -61,8 +58,8 @@ interface ListenerInterface
     /**
      * Trigger
      *
-     * @param EventInterface $event
+     * @param RequestInterface $event
      * @return mixed
      */
-    public function trigger(EventInterface $event);
+    public function trigger(RequestInterface $event);
 }

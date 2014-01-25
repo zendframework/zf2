@@ -11,7 +11,7 @@ namespace Zend\Framework\Request;
 
 use Zend\Console\Console;
 use Zend\Console\Request as ConsoleRequest;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\Http\PhpEnvironment\Request as HttpRequest;
 
@@ -19,10 +19,10 @@ class Factory
     extends FactoryListener
 {
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return HttpRequest|ConsoleRequest
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         if (Console::isConsole()) {
             return new ConsoleRequest();

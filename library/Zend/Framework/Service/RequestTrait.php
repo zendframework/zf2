@@ -11,13 +11,8 @@ namespace Zend\Framework\Service;
 
 use Zend\Framework\Event\EventTrait as Event;
 
-trait EventTrait
+trait RequestTrait
 {
-    /**
-     *
-     */
-    use Event;
-
     /**
      * @var string
      */
@@ -54,6 +49,15 @@ trait EventTrait
     {
         $this->alias = $alias;
         return $this;
+    }
+    /**
+     * Name
+     *
+     * @return string|array
+     */
+    public function name()
+    {
+        return $this->name;
     }
 
     /**

@@ -10,7 +10,7 @@
 namespace Zend\Framework\Controller\Manager;
 
 use Zend\Framework\Application\Config\ServicesTrait as Config;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class ListenerFactory
@@ -22,10 +22,10 @@ class ListenerFactory
     use Config;
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return void|Listener
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         $config = $this->appConfig()['controllers'];
 

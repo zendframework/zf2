@@ -10,7 +10,7 @@
 namespace Zend\Framework\I18n\Translator;
 
 use Zend\Framework\Application\Config\ServicesTrait as Config;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\Mvc\I18n\Translator;
 
@@ -27,10 +27,10 @@ class Factory
     use Config;
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return Translator
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         // Configure the translator
         $config     = $this->appConfig();

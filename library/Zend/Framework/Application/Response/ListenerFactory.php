@@ -11,7 +11,7 @@ namespace Zend\Framework\Application\Response;
 
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Response\ServicesTrait as Response;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class ListenerFactory
@@ -24,10 +24,10 @@ class ListenerFactory
         Response;
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return Listener
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         $listener = new Listener;
 

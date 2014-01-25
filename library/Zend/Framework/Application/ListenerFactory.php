@@ -11,7 +11,7 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class ListenerFactory
@@ -23,10 +23,10 @@ class ListenerFactory
     use EventManager, Config;
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return Listener
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         $config = $this->appConfig()['event_manager'];
 

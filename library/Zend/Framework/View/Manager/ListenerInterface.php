@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Event\ListenerInterface as Listener;
 
 interface ListenerInterface
@@ -50,8 +50,8 @@ interface ListenerInterface
     /**
      * Trigger
      *
-     * @param EventInterface $event
+     * @param Request $request
      * @return mixed
      */
-    public function trigger(EventInterface $event);
+    public function trigger(Request $request);
 }

@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Route\ServicesTrait as Route;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class TreeRouteStackFactory
@@ -22,10 +22,10 @@ class TreeRouteStackFactory
     use Route;
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return TreeRouteStack
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         $rm = $this->routeManager();
 

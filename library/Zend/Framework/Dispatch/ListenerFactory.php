@@ -11,7 +11,7 @@ namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Controller\ServicesTrait as Controller;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\Framework\View\ServicesTrait as View;
 
@@ -26,10 +26,10 @@ class ListenerFactory
         EventManager;
 
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return Listener
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         $listener = new Listener;
 

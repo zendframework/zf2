@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Resolver;
 
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\View\Resolver\AggregateResolver as ViewResolver;
 
@@ -17,10 +17,10 @@ class Factory
     extends FactoryListener
 {
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return ViewResolver
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         $resolver = new ViewResolver;
         $resolver->attach($this->sm->get('View\Template\Resolver\Map'));

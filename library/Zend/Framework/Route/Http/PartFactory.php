@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route\Http;
 
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 use Zend\Mvc\Router\Exception;
 
@@ -17,13 +17,13 @@ class PartFactory
     extends FactoryListener
 {
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return mixed|void|Part
      * @throws Exception\InvalidArgumentException
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
-        $options = $event->options();
+        $options = $request->options();
 
         if (!isset($options['route'])) {
             throw new Exception\InvalidArgumentException('Missing "route" in options array');

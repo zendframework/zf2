@@ -12,17 +12,17 @@ namespace Zend\Framework\Response;
 use Zend\Console\Console;
 use Zend\Console\Response as ConsoleResponse;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
-use Zend\Framework\Service\EventInterface;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
 class Factory
     extends FactoryListener
 {
     /**
-     * @param EventInterface $event
+     * @param Request $request
      * @return ConsoleResponse|HttpResponse
      */
-    public function service(EventInterface $event)
+    public function service(Request $request)
     {
         if (Console::isConsole()) {
             return new ConsoleResponse();

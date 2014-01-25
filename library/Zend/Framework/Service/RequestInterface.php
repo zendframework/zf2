@@ -9,10 +9,7 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Event\EventInterface as Event;
-
-interface EventInterface
-    extends Event
+interface RequestInterface
 {
     /**
      *
@@ -25,9 +22,17 @@ interface EventInterface
     public function alias();
 
     /**
+     * Name
+     *
+     * @return string|array
+     */
+    public function name();
+
+    /**
      * @return array
      */
     public function options();
+
     /**
      * @return string
      */
