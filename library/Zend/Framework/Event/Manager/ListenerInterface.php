@@ -40,10 +40,12 @@ interface ListenerInterface
     /**
      * Push listener to top of queue
      *
+     * @param string $name
      * @param Listener $listener
-     * @return self
+     * @param int $priority
+     * @return $this
      */
-    public function push(Listener $listener);
+    public function push($name, Listener $listener, $priority = ListenerInterface::PRIORITY);
 
     /**
      * Remove

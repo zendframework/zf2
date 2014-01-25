@@ -34,19 +34,4 @@ interface ListenerInterface
      * @return bool
      */
     public function matchTarget($target);
-
-    /**
-     * Name
-     *
-     * @return string|array
-     */
-    public function name();
-
-    /**
-     * Name set
-     *
-     * @param $name
-     * @return self
-     */
-    public function setName($name);
 }

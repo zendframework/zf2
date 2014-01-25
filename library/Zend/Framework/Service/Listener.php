@@ -16,9 +16,4 @@ class Listener
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_SERVICE;
 }

@@ -20,16 +20,4 @@ trait EventTrait
     {
         return $this->name;
     }
-
-    /**
-     * Name set
-     *
-     * @param $name string|array
-     * @return self
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
 }

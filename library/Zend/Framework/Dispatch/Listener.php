@@ -44,11 +44,13 @@ class Listener
 
         $controller = $this->controllerManager->controller( $controllerName );
 
-        $this->em->push($controller);
+        $controllerEvent = new Controller;
+
+        $this->em->push($controllerEvent->name(), $controller);
 
         try {
 
-            $response = $this->em->trigger(new Controller, $controller);
+            $response = $this->em->trigger($controllerEvent, $controller);
 
         } catch (Exception $exception) {
 

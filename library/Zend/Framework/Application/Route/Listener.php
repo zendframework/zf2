@@ -10,21 +10,15 @@
 namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Application\EventListenerInterface;
 use Zend\Framework\Route\Event as Route;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_APPLICATION;
 
     /**
      * Target

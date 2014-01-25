@@ -22,26 +22,4 @@ trait ListenerTrait
                     || $target instanceof $this->target
                         || \is_subclass_of($target, $this->target);
     }
-
-    /**
-     * Name set
-     *
-     * @param $name string|array
-     * @return self
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * Name
-     *
-     * @return string|array
-     */
-    public function name()
-    {
-        return $this->name;
-    }
 }

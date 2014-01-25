@@ -17,12 +17,4 @@ interface EventInterface
      * @return string|array
      */
     public function name();
-
-    /**
-     * Name set
-     *
-     * @param $name
-     * @return self
-     */
-    public function setName($name);
 }

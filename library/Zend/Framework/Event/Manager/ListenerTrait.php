@@ -98,14 +98,13 @@ trait ListenerTrait
     /**
      * Push listener to top of queue
      *
+     * @param string $name
      * @param ListenerInterface $listener
      * @param int $priority
-     * @return self
+     * @return $this
      */
-    public function push(ListenerInterface $listener, $priority = ListenerInterface::PRIORITY)
+    public function push($name, ListenerInterface $listener, $priority = ListenerInterface::PRIORITY)
     {
-        $name = $listener->name();
-
         if (!isset($this->listeners[$name])) {
             $this->listeners[$name] = [];
         }

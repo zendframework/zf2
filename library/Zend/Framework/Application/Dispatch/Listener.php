@@ -10,24 +10,18 @@
 namespace Zend\Framework\Application\Dispatch;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Application\EventListenerInterface;
 use Zend\Framework\Dispatch\Event as Dispatch;
 use Zend\Framework\Event\ListenerTrait as ListenerTrait;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use EventManager,
         ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_APPLICATION;
 
     /**
      * Target
