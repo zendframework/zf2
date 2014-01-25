@@ -20,5 +20,5 @@ class Listener
     /**
      * @var string
      */
-    protected $event = self::EVENT_SERVICE;
+    protected $name = self::EVENT_SERVICE;
 }
