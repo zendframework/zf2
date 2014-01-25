@@ -21,7 +21,7 @@ class PartFactory
      * @return mixed|void|Part
      * @throws Exception\InvalidArgumentException
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $options = $event->options();
 

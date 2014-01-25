@@ -26,7 +26,7 @@ class ListenerFactory
      * @param EventInterface $event
      * @return Listener
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $config = $this->appConfig()['router'];
 

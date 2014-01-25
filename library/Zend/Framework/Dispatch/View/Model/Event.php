@@ -7,11 +7,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch\Error;
+namespace Zend\Framework\Dispatch\View\Model;
 
-use Zend\Framework\Application\Dispatch\EventListenerInterface as DispatchEventListenerInterface;
-
-interface EventListenerInterface
-    extends DispatchEventListenerInterface
+class Event
+    implements EventInterface, EventListenerInterface
 {
+    /**
+     *
+     */
+    use EventTrait;
+
+    /**
+     * @var string
+     */
+    protected $name = self::EVENT_DISPATCH_VIEW_MODEL;
 }

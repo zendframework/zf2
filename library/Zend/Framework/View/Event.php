@@ -9,37 +9,16 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
-
 class Event
     implements EventInterface, EventListenerInterface
 {
     /**
      *
      */
-    use EventTrait {
-        EventTrait::__construct as event;
-    }
+    use EventTrait;
 
     /**
-     * @param string $name
-     * @param string $target
+     * @var string
      */
-    public function __construct($name = self::EVENT_VIEW, $target = null)
-    {
-        $this->event($name, $target);
-    }
-
-    /**
-     * @param Listener $listener
-     * @return mixed
-     */
-    public function __invoke(Listener $listener)
-    {
-        $response = $listener->__invoke($this);
-
-        $this->setResult($response);
-
-        return $response;
-    }
+    protected $name = self::EVENT_VIEW;
 }

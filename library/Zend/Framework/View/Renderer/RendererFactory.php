@@ -25,7 +25,7 @@ class RendererFactory
      * @param EventInterface $event
      * @return Renderer
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $renderer = new Renderer();
 

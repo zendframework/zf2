@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Event\ListenerInterface;
-
 class Event
     implements EventInterface, EventListenerInterface
 {
@@ -20,27 +18,19 @@ class Event
     use EventTrait;
 
     /**
+     * @var string
+     */
+    protected $name = self::EVENT_SERVICE;
+
+    /**
      * @param $service
      * @param $alias
      * @param array $options
-     * @param string $name
      */
-    public function __construct($service, $alias, array $options = [], $name = self::EVENT_SERVICE)
+    public function __construct($service, $alias, array $options = [])
     {
         $this->alias   = $alias;
-        $this->name    = $name;
         $this->options = $options;
         $this->service = $service;
-    }
-
-    /**
-     * Trigger
-     *
-     * @param ListenerInterface $listener
-     * @return bool|callable
-     */
-    public function __invoke(ListenerInterface $listener)
-    {
-        return $listener->__invoke($this);
     }
 }

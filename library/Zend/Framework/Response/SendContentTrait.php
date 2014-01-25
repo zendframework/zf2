@@ -15,19 +15,18 @@ trait SendContentTrait
      * Send content
      *
      * @param  EventInterface $event
+     * @param $response
      * @return self
      */
-    public function sendContent(EventInterface $event)
+    public function sendContent(EventInterface $event, $response)
     {
-        if ($event->contentSent()) {
-            return $this;
-        }
-
-        $response = $event->target();
+        //if ($event->contentSent()) {
+            //return $this;
+        //}
 
         echo $response->getContent();
 
-        $event->setContentSent();
+        //$event->setContentSent();
 
         return $this;
     }

@@ -10,19 +10,19 @@
 namespace Zend\Framework\Event;
 
 interface EventInterface
-    extends EventListenerInterface
 {
     /**
-     * Stop
+     * Name
      *
-     * @return EventInterface
+     * @return string|array
      */
-    public function stop();
+    public function name();
 
     /**
-     * Stopped
+     * Name set
      *
-     * @return bool
+     * @param $name
+     * @return self
      */
-    public function stopped();
+    public function setName($name);
 }

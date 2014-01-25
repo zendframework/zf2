@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\View;
+namespace Zend\Framework\Dispatch\View\Model;
 
-use Zend\Framework\Application\EventListenerInterface as EventListener;
+use Zend\Framework\Event\EventInterface as Event;
 
-interface EventListenerInterface
-    extends EventListener
+interface EventInterface
+    extends Event
 {
 }

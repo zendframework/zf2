@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch;
+namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 use Zend\Framework\Event\ListenerTrait as Listener;
@@ -23,6 +23,5 @@ trait ListenerTrait
     use ControllerManager,
         EventManager,
         Listener,
-        Route,
         ViewModel;
 }

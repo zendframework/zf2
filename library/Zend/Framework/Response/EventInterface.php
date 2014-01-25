@@ -14,9 +14,4 @@ use Zend\Framework\Event\EventInterface as Event;
 interface EventInterface
     extends Event
 {
-
-    /**
-     * @return Response
-     */
-    public function target();
 }

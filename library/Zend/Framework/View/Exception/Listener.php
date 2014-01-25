@@ -21,19 +21,19 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use ListenerTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_EXCEPTION, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_EXCEPTION;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * Create an exception view model, and set the HTTP status code
@@ -46,7 +46,7 @@ class Listener
      * @param  EventInterface $event
      * @return void
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event)
     {
         // Do nothing if no error in the event
         $error = $event->error();

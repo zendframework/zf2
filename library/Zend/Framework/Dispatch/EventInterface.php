@@ -7,15 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch;
+namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Application\EventListenerInterface as EventListener;
+use Zend\Framework\Event\EventInterface as Event;
 
-interface EventListenerInterface
-    extends EventListener
+interface EventInterface
+    extends Event
 {
-    /**
-     *
-     */
-    const EVENT_DISPATCH_ERROR = 'mvc.dispatch.error';
 }

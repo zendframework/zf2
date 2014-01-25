@@ -23,26 +23,36 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use ListenerTrait;
 
     /**
-     * @param $event
-     * @param null $target
-     * @param null $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_ROUTE_STACK, $target = null, $priority = null)
+    protected $name = self::EVENT_ROUTE_STACK;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
+
+    /**
+     *
+     */
+    public function __construct(PriorityList $routes = null)
     {
-        $this->listener($event, $target, $priority);
-        $this->routes = new PriorityList;
+        if (!$routes) {
+            $routes = new PriorityList;
+        }
+        $this->routes = $routes;
     }
 
     /**
      * @param EventInterface $event
      * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event)
     {
         $request    = $event->target();
 

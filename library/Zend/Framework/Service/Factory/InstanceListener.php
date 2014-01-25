@@ -36,7 +36,7 @@ class InstanceListener
      * @param EventInterface $event
      * @return mixed|object
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $options = $event->options();
 

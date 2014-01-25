@@ -10,7 +10,6 @@
 namespace Zend\Framework\Event;
 
 interface ListenerInterface
-    extends EventListenerInterface
 {
     /**
      * Priority default
@@ -19,23 +18,35 @@ interface ListenerInterface
     const PRIORITY = 0;
 
     /**
+     * Priority default
+     *
+     */
+    const STOPPED = '1869f';
+
+    /**
+     * Wildcard
+     *
+     */
+    const WILDCARD = '*';
+
+    /**
      * @param $target
      * @return bool
      */
     public function matchTarget($target);
 
     /**
-     * Priority
+     * Name
      *
-     * @return int
+     * @return string|array
      */
-    public function priority();
+    public function name();
 
     /**
-     * Priority set
+     * Name set
      *
-     * @param int $priority
+     * @param $name
      * @return self
      */
-    public function setPriority($priority);
+    public function setName($name);
 }

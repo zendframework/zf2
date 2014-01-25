@@ -20,9 +20,5 @@ trait EventTrait
     /**
      *
      */
-    use Event,
-        EventManager,
-        Result,
-        Service,
-        ViewRenderer;
+    use Event;
 }

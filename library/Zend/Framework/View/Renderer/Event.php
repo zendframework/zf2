@@ -9,40 +9,16 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\View\Renderer\RendererInterface as RendererInterface;
-
 class Event
     implements EventInterface, EventListenerInterface
 {
     /**
      *
      */
-    use EventTrait {
-        EventTrait::__construct as event;
-    }
+    use EventTrait;
 
     /**
-     * @param string $name
-     * @param string $target
+     * @var string
      */
-    public function __construct($name = self::EVENT_VIEW_RENDERER, $target = null)
-    {
-        $this->event($name, $target);
-    }
-
-    /**
-     * @param ListenerInterface $listener
-     * @return mixed
-     */
-    public function __invoke(ListenerInterface $listener)
-    {
-        $response = $listener->__invoke($this);
-
-        if ($response instanceof RendererInterface) {
-            $this->setViewRenderer($response);
-            $this->stopped = true;
-        }
-
-        return $response;
-    }
+    protected $name = self::EVENT_VIEW_RENDERER;
 }

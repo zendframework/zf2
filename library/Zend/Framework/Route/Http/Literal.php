@@ -9,11 +9,9 @@
 
 namespace Zend\Framework\Route\Http;
 
-use Traversable;
 use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
-use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\RequestInterface as Request;
 
 /**

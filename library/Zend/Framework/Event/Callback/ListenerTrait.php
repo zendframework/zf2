@@ -17,9 +17,7 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener {
-        Listener::__construct as listener;
-    }
+    use Listener;
 
     /**
      * Callback
@@ -32,13 +30,9 @@ trait ListenerTrait
      * Constructor
      *
      * @param $callback
-     * @param $event
-     * @param $target
-     * @param $priority
      */
-    public function __construct($callback, $event = null, $target = null, $priority = null)
+    public function __construct($callback)
     {
-        $this->listener($event, $target, $priority);
         $this->setCallback($callback);
     }
 
@@ -62,16 +56,5 @@ trait ListenerTrait
     {
         $this->callback = $callback;
         return $this;
-    }
-
-    /**
-     * Trigger
-     *
-     * @param EventInterface $event
-     * @return mixed
-     */
-    public function __invoke(EventInterface $event)
-    {
-        return call_user_func($this->callback, $event);
     }
 }

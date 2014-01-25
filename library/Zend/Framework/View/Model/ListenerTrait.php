@@ -16,5 +16,6 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener;
+    use Listener,
+        ServiceTrait;
 }

@@ -11,7 +11,6 @@ namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Request\ServicesTrait as Request;
-use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Service\EventInterface;
 use Zend\Framework\Service\Factory\Listener as FactoryListener;
 
@@ -22,21 +21,19 @@ class ListenerFactory
      *
      */
     use EventManager,
-        Request,
-        Route;
+        Request;
 
     /**
      * @param EventInterface $event
      * @return Listener
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $listener = new Listener;
 
         $listener->setServiceManager($this->sm)
                  ->setEventManager($this->eventManager())
-                 ->setRequest($this->request())
-                 ->setRouter($this->router());
+                 ->setRequest($this->request());
 
         return $listener;
     }

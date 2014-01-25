@@ -99,7 +99,7 @@ trait ListenerTrait
      */
     public function get($name, array $options = [])
     {
-        return $this->__invoke(new Event($name, $name, $options));
+        return $this->trigger(new Event($name, $name, $options));
     }
 
     /**
@@ -129,7 +129,7 @@ trait ListenerTrait
      * @return bool|object
      * @throws Exception
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event)
     {
         $name = $event->alias();
 
@@ -145,10 +145,10 @@ trait ListenerTrait
 
         $instance = false;
 
-        $service = $this->service($name);
+        $factory = $this->service($name);
 
-        if ($service) {
-            $instance = $event->__invoke($service);
+        if ($factory) {
+            $instance = $factory->service($event);
         }
 
         if ($event->shared()) {

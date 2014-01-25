@@ -9,10 +9,11 @@
 
 namespace Zend\Framework\Application\View;
 
-use Exception;
 use Zend\Framework\Application\EventInterface;
-use Zend\Stdlib\ResponseInterface as Response;
-use Zend\View\Model\ModelInterface as ViewModel;
+use Zend\Framework\Application\EventListenerInterface;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\View\Event as View;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -20,42 +21,28 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use EventManager,
+        ListenerTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_APPLICATION, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_APPLICATION;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event
+     * @param $response
      * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event, $response)
     {
-        $result = $event->result();
-
-        if ($result instanceof Response || !$result instanceof ViewModel) {
-            return $result;
-        }
-
-        try {
-
-            return $this->render($event);
-
-        } catch(Exception $exception) {
-
-            throw $exception; //error event not working
-
-            $this->error($event, $exception);
-
-        }
+        return $this->em->trigger(new View, $response);
     }
 }

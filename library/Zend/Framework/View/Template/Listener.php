@@ -19,35 +19,36 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use ListenerTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_TEMPLATE, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_TEMPLATE;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event
+     * @param $response
      * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event, $response)
     {
-        $model = $event->result();
+        $model = $response;
         if (!$model instanceof ViewModel) {
-            return;
+            return $model;
         }
 
         $template = $model->getTemplate();
 
         if (!empty($template)) {
-            return;
+            return $model;
         }
 
         $routeMatch = $event->routeMatch();
@@ -85,5 +86,7 @@ class Listener
             $template .= '/' . $this->inflectName($action);
         }
         $model->setTemplate($template);
+
+        return $model;
     }
 }

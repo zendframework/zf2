@@ -9,10 +9,11 @@
 
 namespace Zend\Framework\Application\Dispatch;
 
-use Exception;
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Controller\Event as Controller;
-use Zend\Framework\Application\Dispatch\Error\Event as DispatchError;
+use Zend\Framework\Application\EventListenerInterface;
+use Zend\Framework\Dispatch\Event as Dispatch;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -20,54 +21,28 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use EventManager,
+        ListenerTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_APPLICATION, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_APPLICATION;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event
+     * @param $routeMatch
      * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event, $routeMatch)
     {
-        $controllerName = $event->routeMatch()->getParam('controller', 'not-found');
-
-        $controller = $this->controllerManager->controller( $controllerName );
-
-        $this->em->push($controller);
-
-        $dispatch = new Controller;
-
-        $dispatch->setTarget($controller)
-                 ->setViewModel($this->viewModel);
-
-        try {
-
-            $this->em->__invoke($dispatch);
-
-        } catch (Exception $exception) {
-
-            $error = new DispatchError;
-
-            $error->setTarget($event->target())
-                  ->setException($exception)
-                  ->setControllerName($controllerName)
-                  ->setControllerClass(get_class($controller));
-
-            $this->em->__invoke($error);
-
-        }
-
-        return $dispatch->result();
+        return $this->em->trigger(new Dispatch, $routeMatch);
     }
 }

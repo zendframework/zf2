@@ -15,25 +15,10 @@ class Event
     /**
      *
      */
-    use EventTrait {
-        EventTrait::__construct as event;
-    }
+    use EventTrait;
 
     /**
-     * @param string $name
-     * @param string $target
+     * @var string
      */
-    public function __construct($name = self::EVENT_RESPONSE, $target = null)
-    {
-        $this->event($name, $target);
-    }
-
-    /**
-     * @param ListenerInterface $listener
-     * @return mixed
-     */
-    public function __invoke(ListenerInterface $listener)
-    {
-        return $listener->__invoke($this);
-    }
+    protected $name = self::EVENT_RESPONSE;
 }

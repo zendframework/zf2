@@ -34,7 +34,7 @@ class CallableListener
      * @param EventInterface $event
      * @return mixed|object
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         //fixme!
         $options = $event->options();

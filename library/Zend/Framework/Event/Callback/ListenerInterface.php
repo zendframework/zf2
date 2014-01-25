@@ -28,4 +28,13 @@ interface ListenerInterface
      * @return self
      */
     public function setCallback(callable $callback);
+
+    /**
+     * Trigger
+     *
+     * @param Event $event
+     * @param $response
+     * @return mixed
+     */
+    public function trigger(Event $event, $response);
 }

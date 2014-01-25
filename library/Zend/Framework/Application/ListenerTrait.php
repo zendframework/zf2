@@ -52,10 +52,7 @@ trait ListenerTrait
      */
     public function run()
     {
-        $event = new Event;
-
-        $event->setServiceManager($this->sm);
-
-        $this->__invoke($event);
+        $this->trigger(new Event);
+        return $this;
     }
 }

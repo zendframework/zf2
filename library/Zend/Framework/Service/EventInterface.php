@@ -10,7 +10,6 @@
 namespace Zend\Framework\Service;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Framework\Event\ListenerInterface;
 
 interface EventInterface
     extends Event
@@ -33,12 +32,4 @@ interface EventInterface
      * @return bool
      */
     public function shared();
-
-    /**
-     * Trigger
-     *
-     * @param ListenerInterface $listener
-     * @return bool|callable
-     */
-    public function __invoke(ListenerInterface $listener);
 }

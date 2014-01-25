@@ -10,7 +10,11 @@
 namespace Zend\Framework\Application\Response;
 
 use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Application\EventListenerInterface;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\Response\Event as Response;
+use Zend\Framework\Response\ServiceTrait as ResponseTrait;
 
 class Listener
     implements ListenerInterface, EventListenerInterface
@@ -18,32 +22,31 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use EventManager,
+        ListenerTrait,
+        ResponseTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_APPLICATION, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_APPLICATION;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event
+     * @param $response
      * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event, $response)
     {
-        $event->response()->setContent($event->result());
+        $this->response->setContent($response);
 
-        $response = new Response;
-
-        $response->setTarget($event->response());
-
-        $this->em->__invoke($response);
+        return $this->em->trigger(new Response, $this->response);
     }
 }

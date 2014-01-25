@@ -15,7 +15,6 @@ use Zend\Stdlib\ArrayUtils;
 
 trait RouteTrait
 {
-
     /**
      * Stack containing all routes.
      *

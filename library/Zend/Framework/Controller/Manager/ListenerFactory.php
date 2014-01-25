@@ -25,7 +25,7 @@ class ListenerFactory
      * @param EventInterface $event
      * @return void|Listener
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $config = $this->appConfig()['controllers'];
 

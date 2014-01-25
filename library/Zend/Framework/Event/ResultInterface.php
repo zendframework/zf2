@@ -7,11 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Route;
+namespace Zend\Framework\Event;
 
-use Zend\Framework\Application\EventListenerInterface as EventListener;
-
-interface EventListenerInterface
-    extends EventListener
+interface ResultInterface
 {
+    /**
+     * @return mixed
+     */
+    public function result();
 }

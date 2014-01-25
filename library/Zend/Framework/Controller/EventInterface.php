@@ -10,7 +10,6 @@
 namespace Zend\Framework\Controller;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 interface EventInterface
     extends Event
@@ -18,32 +17,11 @@ interface EventInterface
     /**
      * @return mixed
      */
-    public function error();
+    //public function error();
 
     /**
      * @param $error
      * @return self
      */
-    public function setError($error);
-
-    /**
-     * @return mixed
-     */
-    public function result();
-
-    /**
-     * @param $result
-     * @return self
-     */
-    public function setResult($result);
-
-    /**
-     * @return ViewModel
-     */
-    public function viewModel();
-    /**
-     * @param ViewModel $vm
-     * @return mixed
-     */
-    public function setViewModel(ViewModel $vm);
+    //public function setError($error);
 }

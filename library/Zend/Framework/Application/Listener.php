@@ -13,12 +13,24 @@ use Zend\Framework\Service\ListenerInterface as ServiceListenerInterface;
 
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
+
+    /**
+     * @var
+     */
+    protected $name = self::EVENT_APPLICATION;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param ServiceListenerInterface $sm

@@ -26,7 +26,7 @@ class MapFactory
      * @param EventInterface $event
      * @return TemplateMapResolver
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $config = $this->appConfig();
         $map = array();

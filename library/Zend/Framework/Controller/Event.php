@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
+use Zend\Framework\Event\EventTrait as EventTrait;
 
 class Event
     implements EventInterface, EventListenerInterface
@@ -17,31 +17,10 @@ class Event
     /**
      *
      */
-    use EventTrait {
-        EventTrait::__construct as event;
-    }
+    use EventTrait;
 
     /**
-     * @param string $name
-     * @param string $target
+     * @var string
      */
-    public function __construct($name = self::EVENT_CONTROLLER_DISPATCH, $target = null)
-    {
-        $this->event($name, $target);
-    }
-
-    /**
-     * @param Listener $listener
-     * @return mixed
-     */
-    public function __invoke(Listener $listener)
-    {
-        $response = $listener->__invoke($this);
-
-        if ($listener instanceof ListenerInterface) {
-            $this->setResult($response);
-        }
-
-        return $response;
-    }
+    protected $name = self::EVENT_CONTROLLER_DISPATCH;
 }

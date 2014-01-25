@@ -10,6 +10,7 @@
 namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Application\EventListenerInterface;
 use Zend\Framework\Route\Event as Route;
 
 class Listener
@@ -18,33 +19,32 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use ListenerTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_APPLICATION, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_APPLICATION;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event
-     * @return void
+     * @param $routeMatch
+     * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event, $routeMatch)
     {
-        $route = new Route;
+        $routeMatch = $this->em->trigger(new Route, $this->request);
 
-        $route->setTarget($this->request)
-              ->setRouter($this->router);
+        //needed for render
+        $this->sm->add('Route\Match', $routeMatch);
 
-        $this->em->__invoke($route);
-
-        $event->setRouteMatch($route->routeMatch());
+        return $routeMatch;
     }
 }

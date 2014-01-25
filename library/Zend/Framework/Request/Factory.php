@@ -22,7 +22,7 @@ class Factory
      * @param EventInterface $event
      * @return HttpRequest|ConsoleRequest
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         if (Console::isConsole()) {
             return new ConsoleRequest();

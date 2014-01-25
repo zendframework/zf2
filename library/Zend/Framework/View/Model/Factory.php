@@ -25,7 +25,7 @@ class Factory
      * @param EventInterface $event
      * @return ViewModel
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $vm = new ViewModel;
 

@@ -20,7 +20,7 @@ class Factory
      * @param EventInterface $event
      * @return ViewResolver
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $resolver = new ViewResolver;
         $resolver->attach($this->sm->get('View\Template\Resolver\Map'));

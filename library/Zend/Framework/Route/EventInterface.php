@@ -10,9 +10,6 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Framework\Route\RouteInterface as Router;
-use Zend\Mvc\Router\RouteMatch as RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
 
 interface EventInterface
     extends Event
@@ -25,33 +22,4 @@ interface EventInterface
     const ERROR_CONTROLLER_INVALID         = 'error-controller-invalid';
     const ERROR_ROUTER_NO_MATCH            = 'error-router-no-match';
     const ERROR_EXCEPTION                  = 'error-exception';
-
-    /**
-     * @return bool|RouteMatch
-     */
-    public function routeMatch();
-
-    /**
-     * @param RouteMatch $routeMatch
-     * @return self
-     */
-    public function setRouteMatch(RouteMatch $routeMatch);
-
-    /**
-     * @return bool|Router
-     */
-    public function router();
-
-    /**
-     * @param Router $router
-     * @return self
-     */
-    public function setRouter(Router $router);
-
-    /**
-     * Target
-     *
-     * @return Request
-     */
-    public function target();
 }

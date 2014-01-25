@@ -15,16 +15,10 @@ class Event
     /**
      *
      */
-    use EventTrait {
-        EventTrait::__construct as event;
-    }
+    use EventTrait;
 
     /**
-     * @param string $name
-     * @param string $target
+     * @var string
      */
-    public function __construct($name = self::EVENT_RENDER_ERROR, $target = null)
-    {
-        $this->event($name, $target);
-    }
+    protected $name = self::EVENT_RENDER_ERROR;
 }

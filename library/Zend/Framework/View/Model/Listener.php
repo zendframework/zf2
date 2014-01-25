@@ -18,43 +18,42 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use ListenerTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_MODEL, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_MODEL;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event
+     * @param $response
      * @return mixed|void
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event, $response = null)
     {
-        $result = $event->result();
-
-        if (!$result instanceof ViewModel) {
-            return;
+        if (!$response instanceof ViewModel) {
+            return $response;
         }
 
-        $model = $event->viewModel();
-
-        if ($result->terminate()) {
-            $event->setViewModel($result);
-            return;
+        if ($response->terminate()) {
+            $this->viewModel = $response;
+            return $response;
         }
 
-        if ($event->error() && $model instanceof ClearableModel) {
-            $model->clearChildren();
-        }
+        //if ($event->error() && $this->viewModel instanceof ClearableModel) {
+            //$this->viewModel->clearChildren();
+        //}
 
-        $model->addChild($result);
+        $this->viewModel->addChild($response);
+
+        return $this->viewModel;
     }
 }

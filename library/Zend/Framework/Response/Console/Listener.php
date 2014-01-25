@@ -18,36 +18,37 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use ListenerTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_RESPONSE, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_RESPONSE;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * Send the response
      *
      * @param  EventInterface $event
+     * @param $response
      * @return void
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event, $response = null)
     {
-        $response = $event->target();
         if (!$response instanceof Response) {
             return;
         }
 
-        $this->sendContent($event);
+        $this->sendContent($event, $response);
+
         $errorLevel = (int) $response->getMetadata('errorLevel',0);
-        $event->stop();
+
         exit($errorLevel);
     }
 }

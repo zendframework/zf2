@@ -18,15 +18,15 @@ trait SendHeadersTrait
      * Send HTTP headers
      *
      * @param  Event $event
+     * @param $response
      * @return self
      */
-    public function sendHeaders(Event $event)
+    public function sendHeaders(Event $event, $response)
     {
-        if (headers_sent() || $event->headersSent()) {
+        //if (headers_sent() || $event->headersSent()) {
+        if (headers_sent()) {
             return $this;
         }
-
-        $response = $event->target();
 
         foreach ($response->getHeaders() as $header) {
             if ($header instanceof MultipleHeaderInterface) {
@@ -39,7 +39,8 @@ trait SendHeadersTrait
         $status = $response->renderStatusLine();
         header($status);
 
-        $event->setHeadersSent();
+        //$event->setHeadersSent();
+
         return $this;
     }
 }

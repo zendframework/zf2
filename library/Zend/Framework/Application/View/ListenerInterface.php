@@ -11,22 +11,16 @@ namespace Zend\Framework\Application\View;
 
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\ListenerInterface as Listener;
-use Zend\Framework\Event\Manager\ListenerInterface as EventManager;
 
 interface ListenerInterface
     extends Listener
 {
     /**
-     * @param EventManager $em
-     * @return self
-     */
-    public function setEventManager(EventManager $em);
-
-    /**
      * Trigger
      *
      * @param EventInterface $event
+     * @param $response
      * @return mixed
      */
-    public function __invoke(EventInterface $event);
+    public function trigger(EventInterface $event, $response);
 }

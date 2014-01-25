@@ -23,10 +23,11 @@ class Listener
      * Trigger
      *
      * @param Event $event
+     * @param $response
      * @return mixed
      */
-    public function __invoke(Event $event)
+    public function trigger(Event $event, $response)
     {
-        return $this->__invoke($event);
+        return call_user_func($this->callback, $event);
     }
 }

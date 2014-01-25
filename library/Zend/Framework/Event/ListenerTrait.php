@@ -12,49 +12,6 @@ namespace Zend\Framework\Event;
 trait ListenerTrait
 {
     /**
-     * Name
-     *
-     * @var string|array
-     */
-    protected $name = ListenerInterface::WILDCARD;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = ListenerInterface::WILDCARD;
-
-    /**
-     * Priority
-     *
-     * @var int
-     */
-    protected $priority = ListenerInterface::PRIORITY;
-
-    /**
-     * Constructor
-     *
-     * @param $event
-     * @param $target
-     * @param $priority
-     */
-    public function __construct($event = null, $target = null, $priority = null)
-    {
-        if (null !== $event) {
-            $this->setName($event);
-        }
-
-        if (null !== $target) {
-            $this->setTarget($target);
-        }
-
-        if (null !== $priority) {
-            $this->setPriority($priority);
-        }
-    }
-
-    /**
      * @param $target
      * @return bool
      */
@@ -86,50 +43,5 @@ trait ListenerTrait
     public function name()
     {
         return $this->name;
-    }
-
-    /**
-     * Priority set
-     *
-     * @param int $priority
-     * @return self
-     */
-    public function setPriority($priority)
-    {
-        $this->priority = $priority;
-
-        return $this;
-    }
-
-    /**
-     * Priority
-     *
-     * @return int
-     */
-    public function priority()
-    {
-        return $this->priority;
-    }
-
-    /**
-     * Target set
-     *
-     * @param string|array $target
-     * @return self
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
-        return $this;
-    }
-
-    /**
-     * Target
-     *
-     * @return string|array|object
-     */
-    public function target()
-    {
-        return $this->target;
     }
 }

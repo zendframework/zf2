@@ -10,41 +10,8 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\View\Model\ModelInterface as ViewModel;
-use Zend\View\Renderer\RendererInterface as ViewRenderer;
 
 interface EventInterface
     extends Event
 {
-    /**
-     * @return mixed
-     */
-    public function result();
-
-    /**
-     * @param $result
-     * @return self
-     */
-    public function setResult($result);
-
-    /**
-     * @return ViewModel
-     */
-    public function viewModel();
-
-    /**
-     * @param ViewModel $vm
-     * @return self
-     */
-    public function setViewModel(ViewModel $vm);
-    /**
-     * @return bool|ViewRenderer
-     */
-    public function viewRenderer();
-
-    /**
-     * @param ViewRenderer $renderer
-     * @return self
-     */
-    public function setViewRenderer(ViewRenderer $renderer);
 }

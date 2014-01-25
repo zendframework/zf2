@@ -30,7 +30,7 @@ class Factory
      * @param EventInterface $event
      * @return Translator
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         // Configure the translator
         $config     = $this->appConfig();

@@ -111,7 +111,7 @@ class TreeRouteStack
         }
 
         if (!$route instanceof RouteInterface) {
-            throw new Exception\RuntimeException('Given route does not implement HTTP route interface');
+            throw new Exception\RuntimeException('Given route does not implement HTTP route interface ' . get_class($route));
         }
 
         if (isset($specs['child_routes'])) {

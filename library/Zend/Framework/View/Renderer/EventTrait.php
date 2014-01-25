@@ -19,8 +19,5 @@ trait EventTrait
     /**
      *
      */
-    use Event,
-        Renderer,
-        Result,
-        ViewModel;
+    use Event;
 }

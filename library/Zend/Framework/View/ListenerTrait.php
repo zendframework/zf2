@@ -35,14 +35,7 @@ trait ListenerTrait
      */
     public function viewRenderer(ViewModel $model)
     {
-        $event = new ViewRenderer;
-
-        $event->setTarget($model)
-              ->setViewModel($model);
-
-        $this->em->__invoke($event);
-
-        $renderer = $event->viewRenderer();
+        $renderer = $this->em->trigger(new ViewRenderer, $model);
 
         if (!$renderer instanceof Renderer) {
             throw new RuntimeException(sprintf(

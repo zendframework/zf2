@@ -25,7 +25,7 @@ class TreeRouteStackFactory
      * @param EventInterface $event
      * @return TreeRouteStack
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $rm = $this->routeManager();
 

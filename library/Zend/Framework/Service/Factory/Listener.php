@@ -34,8 +34,8 @@ class Listener
      * @return mixed|void
      * @throws Exception
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
-        throw new Exception('Missing __invoke method for ' . get_class($this));
+        throw new Exception('Missing service method for ' . get_class($this));
     }
 }

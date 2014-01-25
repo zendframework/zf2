@@ -25,7 +25,7 @@ class ListenerFactory
      * @param EventInterface $event
      * @return Renderer
      */
-    public function __invoke(EventInterface $event)
+    public function service(EventInterface $event)
     {
         $listener = new Listener;
 

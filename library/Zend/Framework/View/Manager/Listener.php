@@ -17,20 +17,26 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use ListenerTrait;
+
+    /**
+     * @var string
+     */
+    protected $name = self::EVENT_VIEW_MANAGER;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param array $config
      * @param ServiceManager $sm
-     * @param string $event
-     * @param null $target
-     * @param null $priority
      */
-    public function __construct(array $config, ServiceManager $sm, $event = self::EVENT_VIEW_MANAGER, $target = null, $priority = null)
+    public function __construct(array $config, ServiceManager $sm)
     {
-        $this->listener($event, $target, $priority);
         $this->sm     = $sm;
         $this->config = $config;
         $this->alias  = $config['view_helpers'];

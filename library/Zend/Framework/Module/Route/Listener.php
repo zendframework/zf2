@@ -18,55 +18,57 @@ class Listener
     /**
      *
      */
-    use ListenerTrait {
-        ListenerTrait::__construct as listener;
-    }
+    use ListenerTrait;
 
     /**
-     * @param $event
-     * @param $target
-     * @param $priority
+     * @var string
      */
-    public function __construct($event = self::EVENT_ROUTE, $target = null, $priority = null)
-    {
-        $this->listener($event, $target, $priority);
-    }
+    protected $name = self::EVENT_ROUTE;
+
+    /**
+     * Target
+     *
+     * @var mixed
+     */
+    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event
-     * @return void
+     * @param mixed $response
+     * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function trigger(EventInterface $event, $response)
     {
-        $matches = $event->routeMatch();
-        if (!$matches instanceof RouteMatch) {
+        if (!$response instanceof RouteMatch) {
             // Can't do anything without a route match
-            return;
+            return $response;
         }
 
-        $module = $matches->getParam(self::MODULE_NAMESPACE, false);
+        $module = $response->getParam(self::MODULE_NAMESPACE, false);
         if (!$module) {
             // No module namespace found; nothing to do
-            return;
+            return $response;
         }
 
-        $controller = $matches->getParam('controller', false);
+        $controller = $response->getParam('controller', false);
         if (!$controller) {
             // no controller matched, nothing to do
-            return;
+            return $response;
         }
 
         // Ensure the module namespace has not already been applied
         if (0 === strpos($controller, $module)) {
-            return;
+            return $response;
         }
 
         // Keep the originally matched controller name around
-        $matches->setParam(self::ORIGINAL_CONTROLLER, $controller);
+        $response->setParam(self::ORIGINAL_CONTROLLER, $controller);
 
         // Prepend the controllername with the module, and replace it in the
         // matches
         $controller = $module . '\\' . str_replace(' ', '', ucwords(str_replace('-', ' ', $controller)));
-        $matches->setParam('controller', $controller);
+        $response->setParam('controller', $controller);
+
+        return $response;
     }
 }
