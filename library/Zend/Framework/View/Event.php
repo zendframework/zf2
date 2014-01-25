@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\View;
 
+use Zend\Framework\Event\EventTrait as EventTrait;
+
 class Event
     implements EventInterface
 {

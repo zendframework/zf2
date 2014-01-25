@@ -9,13 +9,21 @@
 
 namespace Zend\Framework\View\Error;
 
+use Zend\Framework\Event\ErrorTrait as Error;
+use Zend\Framework\Event\ExceptionTrait as Exception;
+use Zend\Framework\Event\ResultTrait as Result;
+use Zend\Framework\Event\EventTrait as EventTrait;
+
 class Event
     implements EventInterface
 {
     /**
      *
      */
-    use EventTrait;
+    use Error,
+        EventTrait,
+        Exception,
+        Result;
 
     /**
      * @var string

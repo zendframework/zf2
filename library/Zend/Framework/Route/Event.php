@@ -9,13 +9,17 @@
 
 namespace Zend\Framework\Route;
 
+use Zend\Framework\Event\EventTrait as EventTrait;
+use Zend\Framework\Route\ServiceTrait as Route;
+
 class Event
     implements EventInterface
 {
     /**
      *
      */
-    use EventTrait;
+    use EventTrait,
+        Route;
 
     /**
      * @var string

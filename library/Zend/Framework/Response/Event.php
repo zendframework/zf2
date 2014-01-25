@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Response;
 
+use Zend\Framework\Event\EventTrait as EventTrait;
+
 class Event
     implements EventInterface
 {
