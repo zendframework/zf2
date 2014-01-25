@@ -10,6 +10,7 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
 
 class Listener
     implements ListenerInterface
@@ -17,7 +18,8 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait,
+        ServiceTrait;
 
     /**
      * @param EventInterface $event

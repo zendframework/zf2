@@ -11,6 +11,7 @@ namespace Zend\Framework\View\Model;
 
 use Zend\Framework\Event\EventInterface;
 use Zend\View\Model\ClearableModelInterface as ClearableModel;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
 
 class Listener
     implements ListenerInterface
@@ -18,7 +19,8 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait,
+        ServiceTrait;
 
     /**
      * @var string

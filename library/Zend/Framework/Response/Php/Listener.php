@@ -11,6 +11,9 @@ namespace Zend\Framework\Response\Php;
 
 use Zend\Framework\Response\EventInterface;
 use Zend\Http\Response;
+use Zend\Framework\Response\ListenerTrait as ListenerTrait;
+use Zend\Framework\Response\SendContentTrait as SendContent;
+use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
 
 class Listener
     implements ListenerInterface
@@ -18,7 +21,9 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait,
+        SendContent,
+        SendHeaders;
 
     /**
      * @param  EventInterface $event

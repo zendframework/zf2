@@ -11,7 +11,11 @@ namespace Zend\Framework\Dispatch;
 
 use Exception;
 use Zend\Framework\Controller\Event as Controller;
+use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 use Zend\Framework\Dispatch\Error\Event as DispatchError;
+use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 
 class Listener
     implements ListenerInterface
@@ -19,7 +23,10 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ControllerManager,
+        EventManager,
+        ListenerTrait,
+        ViewModel;
 
     /**
      * @param EventInterface $event

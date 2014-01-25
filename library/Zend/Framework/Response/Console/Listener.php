@@ -11,6 +11,8 @@ namespace Zend\Framework\Response\Console;
 
 use Zend\Console\Response;
 use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\SendContentTrait as SendContent;
+use Zend\Framework\Response\ListenerTrait as ListenerTrait;
 
 class Listener
     implements ListenerInterface
@@ -18,7 +20,8 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ListenerTrait,
+        SendContent;
 
     /**
      * Send the response
