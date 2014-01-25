@@ -12,24 +12,12 @@ namespace Zend\Framework\View\Manager;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_VIEW_MANAGER;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      * @param array $config

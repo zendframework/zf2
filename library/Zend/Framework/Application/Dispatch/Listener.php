@@ -24,13 +24,6 @@ class Listener
         ListenerTrait;
 
     /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
-
-    /**
      * @param EventInterface $event
      * @param $routeMatch
      * @return mixed

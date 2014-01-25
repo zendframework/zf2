@@ -12,6 +12,6 @@ namespace Zend\Framework\Application;
 use Zend\Framework\Event\Manager\ListenerInterface as EventManager;
 
 interface ListenerInterface
-    extends EventManager, EventListenerInterface
+    extends EventManager
 {
 }

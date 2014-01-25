@@ -12,24 +12,12 @@ namespace Zend\Framework\Route\Manager;
 use Zend\Framework\Service\ListenerInterface as ServiceManager;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_ROUTE_MANAGER;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      * @param array $config

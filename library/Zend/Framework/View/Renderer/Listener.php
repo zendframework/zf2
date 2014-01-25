@@ -12,24 +12,12 @@ namespace Zend\Framework\View\Renderer;
 use Zend\Framework\Event\EventInterface;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_VIEW_RENDERER;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event

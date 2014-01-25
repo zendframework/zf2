@@ -9,33 +9,11 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Event\EventInterface;
-
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_CONTROLLER_MANAGER;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
-
-    /**
-     * @param EventInterface $event
-     * @return mixed|void
-     */
-    public function trigger(EventInterface $event)
-    {
-    }
 }

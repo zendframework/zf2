@@ -15,13 +15,7 @@ interface EventInterface
     extends Event
 {
     /**
-     * @return mixed
+     *
      */
-    //public function error();
-
-    /**
-     * @param $error
-     * @return self
-     */
-    //public function setError($error);
+    const EVENT_CONTROLLER_DISPATCH = 'mvc.controller.dispatch';
 }

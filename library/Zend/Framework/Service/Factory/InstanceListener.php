@@ -15,7 +15,7 @@ use Zend\Framework\Service\ListenerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;
 
 class InstanceListener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *

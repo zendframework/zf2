@@ -14,7 +14,7 @@ use Zend\Framework\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class NotFoundListener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *

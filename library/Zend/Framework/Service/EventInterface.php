@@ -15,6 +15,11 @@ interface EventInterface
     extends Event
 {
     /**
+     *
+     */
+    const EVENT_SERVICE = 'service';
+
+    /**
      * @return string
      */
     public function alias();

@@ -14,4 +14,8 @@ use Zend\Framework\Event\EventInterface as Event;
 interface EventInterface
     extends Event
 {
+    /**
+     *
+     */
+    const EVENT_APPLICATION = 'mvc.application';
 }

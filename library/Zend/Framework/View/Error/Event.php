@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Error;
 
 class Event
-    implements EventInterface, EventListenerInterface
+    implements EventInterface
 {
     /**
      *

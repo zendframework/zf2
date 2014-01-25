@@ -162,10 +162,10 @@ trait ListenerTrait
 
     /**
      * @param EventInterface $event
-     * @param null $target
-     * @return null
+     * @param string $target
+     * @return string
      */
-    public function trigger(EventInterface $event, $target = null)
+    public function trigger(EventInterface $event, $target = ListenerInterface::WILDCARD)
     {
         $name = $event->name();
 

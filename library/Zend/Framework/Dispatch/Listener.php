@@ -14,24 +14,12 @@ use Zend\Framework\Controller\Event as Controller;
 use Zend\Framework\Dispatch\Error\Event as DispatchError;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_DISPATCH;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event

@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Renderer;
 
 class Event
-    implements EventInterface, EventListenerInterface
+    implements EventInterface
 {
     /**
      *

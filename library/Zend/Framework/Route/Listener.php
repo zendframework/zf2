@@ -12,24 +12,12 @@ namespace Zend\Framework\Route;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_ROUTE;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event

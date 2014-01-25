@@ -16,6 +16,16 @@ interface ListenerInterface
     extends Listener
 {
     /**
+     *
+     */
+    const MODULE_NAMESPACE    = '__NAMESPACE__';
+
+    /**
+     *
+     */
+    const ORIGINAL_CONTROLLER = '__CONTROLLER__';
+
+    /**
      * Trigger
      *
      * @param EventInterface $event

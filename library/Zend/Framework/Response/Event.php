@@ -10,7 +10,7 @@
 namespace Zend\Framework\Response;
 
 class Event
-    implements EventInterface, EventListenerInterface
+    implements EventInterface
 {
     /**
      *

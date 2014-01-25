@@ -14,4 +14,13 @@ use Zend\Framework\Event\EventInterface as Event;
 interface EventInterface
     extends Event
 {
+    /**
+     *
+     */
+    const EVENT_VIEW_RENDERER = 'view.renderer';
+
+    /**
+     *
+     */
+    const EVENT_VIEW_RENDERER_POST = 'view.renderer.post';
 }

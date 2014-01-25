@@ -14,24 +14,12 @@ use Zend\Framework\Module\Route\EventListenerInterface as RouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_TEMPLATE;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event

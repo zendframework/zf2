@@ -16,6 +16,11 @@ interface EventInterface
     extends Event
 {
     /**
+     *
+     */
+    const EVENT_RENDER_ERROR = 'mvc.render.error';
+
+    /**
      * @param Exception $exception
      * @return self
      */

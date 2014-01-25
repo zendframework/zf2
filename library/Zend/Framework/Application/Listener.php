@@ -21,18 +21,6 @@ class Listener
     use ListenerTrait;
 
     /**
-     * @var
-     */
-    protected $name = self::EVENT_APPLICATION;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
-
-    /**
      * @param ServiceListenerInterface $sm
      */
     public function __construct(ServiceListenerInterface $sm)

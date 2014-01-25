@@ -12,7 +12,7 @@ namespace Zend\Framework\Event\Callback;
 use Zend\Framework\Event\EventInterface as Event;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *

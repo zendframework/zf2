@@ -13,7 +13,7 @@ use Zend\Framework\Event\EventInterface;
 use Zend\View\Model\ClearableModelInterface as ClearableModel;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
@@ -24,13 +24,6 @@ class Listener
      * @var string
      */
     protected $name = self::EVENT_MODEL;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      * @param EventInterface $event

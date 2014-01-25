@@ -22,4 +22,9 @@ interface EventInterface
     const ERROR_CONTROLLER_INVALID         = 'error-controller-invalid';
     const ERROR_ROUTER_NO_MATCH            = 'error-router-no-match';
     const ERROR_EXCEPTION                  = 'error-exception';
+
+    /**
+     *
+     */
+    const EVENT_ROUTE = 'mvc.route';
 }

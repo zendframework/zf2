@@ -18,24 +18,12 @@ use Zend\Mvc\Router\Http\RouteMatch;
  * Simple route stack implementation.
  */
 class Listener
-    implements ListenerInterface, EventListenerInterface, RouteInterface
+    implements ListenerInterface, RouteInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_ROUTE_STACK;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      *

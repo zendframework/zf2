@@ -10,7 +10,7 @@
 namespace Zend\Framework\Service;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *

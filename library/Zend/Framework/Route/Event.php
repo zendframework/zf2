@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route;
 
 class Event
-    implements EventInterface, EventListenerInterface
+    implements EventInterface
 {
     /**
      *

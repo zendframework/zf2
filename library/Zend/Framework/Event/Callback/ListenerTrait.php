@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Event\Callback;
 
-use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerTrait as Listener;
 
 trait ListenerTrait

@@ -16,24 +16,12 @@ use Zend\Http\Response as HttpResponse;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class Listener
-    implements ListenerInterface, EventListenerInterface
+    implements ListenerInterface
 {
     /**
      *
      */
     use ListenerTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT_EXCEPTION;
-
-    /**
-     * Target
-     *
-     * @var mixed
-     */
-    protected $target = self::WILDCARD;
 
     /**
      * Create an exception view model, and set the HTTP status code
