@@ -11,7 +11,7 @@ namespace Zend\Framework\Application;
 
 use Exception;
 use Zend\Framework\Event\Manager\ListenerTrait as Listener;
-use Zend\Framework\Service\Listener as ServiceListener;
+use Zend\Framework\Service\Manager as ServiceManager;
 
 trait ListenerTrait
 {
@@ -27,7 +27,7 @@ trait ListenerTrait
      */
     public static function init(array $config = [])
     {
-        $sm = new ServiceListener;
+        $sm = new ServiceManager;
 
         $sm->config($config['service_manager'])
            ->add('ServiceManager', $sm)

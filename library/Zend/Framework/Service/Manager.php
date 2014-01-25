@@ -15,14 +15,9 @@ use Zend\Framework\Service\Factory\CallableListener as CallableFactory;
 use Zend\Framework\Service\Factory\InstanceListener as InstanceFactory;
 use Zend\Framework\Service\Factory\ListenerInterface as Factory;
 
-class Listener
-    implements ListenerInterface
+class Manager
+    implements ManagerInterface
 {
-    /**
-     *
-     */
-    use ListenerTrait;
-
     /**
      * @var array
      */

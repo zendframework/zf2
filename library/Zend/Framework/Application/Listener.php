@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Service\ListenerInterface as ServiceListenerInterface;
+use Zend\Framework\Service\ManagerInterface as ServiceManager;
 
 
 class Listener
@@ -21,9 +21,9 @@ class Listener
     use ListenerTrait;
 
     /**
-     * @param ServiceListenerInterface $sm
+     * @param ServiceManager $sm
      */
-    public function __construct(ServiceListenerInterface $sm)
+    public function __construct(ServiceManager $sm)
     {
         $this->sm = $sm;
     }

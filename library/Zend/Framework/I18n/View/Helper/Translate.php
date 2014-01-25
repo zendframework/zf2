@@ -11,7 +11,7 @@ namespace Zend\Framework\I18n\View\Helper;
 
 use Zend\I18n\Exception;
 
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;
 use Zend\I18n\View\Helper\Translate as I18nTranslate;
 

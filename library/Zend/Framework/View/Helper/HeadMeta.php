@@ -9,8 +9,7 @@
 
 namespace Zend\Framework\View\Helper;
 
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
-
+use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\View\Helper\HeadMeta as HeadMetaHelper;
 use Zend\Framework\Service\ServiceInterface;
 

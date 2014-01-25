@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service;
 
-interface ListenerInterface
+interface ManagerInterface
 {
     /**
      * @param $name

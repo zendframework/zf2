@@ -14,8 +14,8 @@ interface ServiceInterface
     /**
      * Create service
      *
-     * @param ListenerInterface $sm
+     * @param ManagerInterface $sm
      * @return mixed
      */
-    public function __service(ListenerInterface $sm);
+    public function __service(ManagerInterface $sm);
 }

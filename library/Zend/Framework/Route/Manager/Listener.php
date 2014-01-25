@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Service\ListenerInterface as ServiceManager;
+use Zend\Framework\Service\ManagerInterface as ServiceManager;
 
 class Listener
     implements ListenerInterface
