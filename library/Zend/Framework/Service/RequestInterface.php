@@ -22,13 +22,6 @@ interface RequestInterface
     public function alias();
 
     /**
-     * Name
-     *
-     * @return string|array
-     */
-    public function name();
-
-    /**
      * @return array
      */
     public function options();

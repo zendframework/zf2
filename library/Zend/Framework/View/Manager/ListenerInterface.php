@@ -46,12 +46,4 @@ interface ListenerInterface
      * @return bool
      */
     public function has($name);
-
-    /**
-     * Trigger
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function trigger(Request $request);
 }

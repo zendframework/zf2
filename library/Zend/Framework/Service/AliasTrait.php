@@ -68,13 +68,4 @@ trait AliasTrait
     {
         return $this->sm->has($this->alias($name));
     }
-
-    /**
-     * @param RequestInterface $request
-     * @return mixed
-     */
-    public function trigger(RequestInterface $request)
-    {
-        return $this->sm->trigger($request->setAlias($this->alias($request->name())));
-    }
 }

@@ -10,16 +10,8 @@
 namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Event\ListenerInterface as Listener;
-use Zend\Framework\Service\RequestInterface as Request;
 
 interface ListenerInterface
     extends Listener
 {
-    /**
-     * Trigger
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function trigger(Request $request);
 }
