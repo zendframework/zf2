@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\View\Manager\Listener as ViewManager;
-
 trait ServicesTrait
 {
     /**
@@ -22,7 +20,7 @@ trait ServicesTrait
     }
 
     /**
-     * @return ViewManager
+     * @return ManagerInterface
      */
     public function viewManager()
     {
@@ -30,10 +28,10 @@ trait ServicesTrait
     }
 
     /**
-     * @param ViewManager $vm
+     * @param ManagerInterface $vm
      * @return self
      */
-    public function setViewManager(ViewManager $vm)
+    public function setViewManager(ManagerInterface $vm)
     {
         return $this->sm->add('View\Manager', $vm);
     }

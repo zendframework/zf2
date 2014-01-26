@@ -11,13 +11,13 @@ namespace Zend\Framework\View\Manager;
 
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 
-class Listener
-    implements ListenerInterface
+class Manager
+    implements ManagerInterface
 {
     /**
      *
      */
-    use ListenerTrait;
+    use ManagerTrait;
 
     /**
      * @param array $config

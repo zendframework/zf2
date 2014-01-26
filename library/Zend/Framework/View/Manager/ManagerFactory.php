@@ -14,7 +14,7 @@ use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Helper as ViewHelper;
 
-class ListenerFactory
+class ManagerFactory
     extends Factory
 {
     /**
@@ -30,7 +30,7 @@ class ListenerFactory
     {
         $config = $this->appConfig()['view_manager'];
 
-        $vm = new Listener($config, $this->sm);
+        $vm = new Manager($config, $this->sm);
 
         return $vm;
     }

@@ -12,12 +12,12 @@ namespace Zend\Framework\View\Manager;
 trait ServiceTrait
 {
     /**
-     * @var ListenerInterface
+     * @var ManagerInterface
      */
     protected $vm;
 
     /**
-     * @return ListenerInterface
+     * @return ManagerInterface
      */
     public function viewManager()
     {
@@ -25,10 +25,10 @@ trait ServiceTrait
     }
 
     /**
-     * @param ListenerInterface $vm
+     * @param ManagerInterface $vm
      * @return self
      */
-    public function setViewManager(ListenerInterface $vm)
+    public function setViewManager(ManagerInterface $vm)
     {
         $this->vm = $vm;
         return $this;
