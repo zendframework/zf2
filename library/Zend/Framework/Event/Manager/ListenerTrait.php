@@ -162,31 +162,30 @@ trait ListenerTrait
 
     /**
      * @param EventInterface $event
-     * @param string $target
-     * @return string
+     * @param mixed $result
+     * @return mixed
      */
-    public function trigger(EventInterface $event, $target = ListenerInterface::WILDCARD)
+    public function trigger(EventInterface $event, $result = null)
     {
-        $name = $event->name();
+        $name   = $event->name();
+        $source = $event->source();
 
-        $response = $target;
-
-        foreach($this->queue($name, $target) as $listener) {
+        foreach($this->queue($name, $source) as $listener) {
 
             //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
 
-            $response = $listener->trigger($event, $response);
+            $result = $listener->trigger($event, $result);
 
-            if ($response == ListenerInterface::STOPPED) {
+            if ($result == ListenerInterface::STOPPED) {
                 break;
             }
 
-            if ($response instanceof Result) {
-                $response = $response->response();
+            if ($result instanceof Result) {
+                $result = $result->result();
                 break;
             }
         }
 
-        return $response;
+        return $result;
     }
 }

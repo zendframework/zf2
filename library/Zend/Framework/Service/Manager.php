@@ -95,7 +95,7 @@ class Manager
      */
     public function get($name, array $options = [])
     {
-        return $this->trigger(new Request($name, $name, $options));
+        return $this->request(new Request($name, $name, $options));
     }
 
     /**
@@ -125,7 +125,7 @@ class Manager
      * @return bool|object
      * @throws Exception
      */
-    public function trigger(RequestInterface $request)
+    public function request(RequestInterface $request)
     {
         $name = $request->alias();
 
@@ -141,10 +141,10 @@ class Manager
 
         $instance = false;
 
-        $factory = $this->service($name);
+        $service = $this->service($name);
 
-        if ($factory) {
-            $instance = $factory->service($request);
+        if ($service) {
+            $instance = $service->service($request);
         }
 
         if ($request->shared()) {

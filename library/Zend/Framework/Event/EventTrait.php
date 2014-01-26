@@ -18,6 +18,14 @@ trait EventTrait
      */
     public function name()
     {
-        return $this->name;
+        return isset($this->name) ? $this->name : EventInterface::WILDCARD;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function source()
+    {
+        return isset($this->source) ? $this->source : EventInterface::WILDCARD;
     }
 }

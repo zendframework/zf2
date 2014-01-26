@@ -56,10 +56,8 @@ interface ManagerInterface
     public function service($name);
 
     /**
-     * Trigger
-     *
      * @param RequestInterface $event
      * @return mixed
      */
-    public function trigger(RequestInterface $event);
+    public function request(RequestInterface $event);
 }
