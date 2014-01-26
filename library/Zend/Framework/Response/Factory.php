@@ -20,9 +20,10 @@ class Factory
 {
     /**
      * @param Request $request
+     * @param array $options
      * @return ConsoleResponse|HttpResponse
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         if (Console::isConsole()) {
             return new ConsoleResponse();

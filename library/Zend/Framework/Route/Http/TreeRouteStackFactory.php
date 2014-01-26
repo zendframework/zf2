@@ -23,9 +23,10 @@ class TreeRouteStackFactory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return TreeRouteStack
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         $rm = $this->routeManager();
 

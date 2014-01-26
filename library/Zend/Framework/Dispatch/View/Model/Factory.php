@@ -24,9 +24,10 @@ class Factory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return ViewModel
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         $em = $this->sm->get('EventManager');
 

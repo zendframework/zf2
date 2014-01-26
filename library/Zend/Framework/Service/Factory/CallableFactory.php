@@ -35,13 +35,11 @@ class CallableFactory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return mixed|object
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
-        //fixme!
-        $options = $request->options();
-
-        return call_user_func_array($this->factory, [$request]);
+        return call_user_func_array($this->factory, array_merge([$request], $options));
     }
 }

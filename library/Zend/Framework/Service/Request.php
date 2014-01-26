@@ -18,11 +18,6 @@ class Request
     protected $alias;
 
     /**
-     * @var array
-     */
-    protected $options = [];
-
-    /**
      * @var bool
      */
     protected $shared = true;
@@ -95,24 +90,6 @@ class Request
     public function setService($service)
     {
         $this->service = $service;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function options()
-    {
-        return $this->options;
-    }
-
-    /**
-     * @param array $options
-     * @return self
-     */
-    public function setOptions(array $options)
-    {
-        $this->options = $options;
         return $this;
     }
 }

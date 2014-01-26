@@ -23,9 +23,10 @@ class RendererFactory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return Renderer
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         $renderer = new Renderer();
 

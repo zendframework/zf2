@@ -17,7 +17,8 @@ interface FactoryInterface
 {
     /**
      * @param Request $request
+     * @param array $options
      * @return mixed
      */
-    public function service(Request $request);
+    public function service(Request $request, array $options = []);
 }

@@ -34,10 +34,11 @@ class Factory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return mixed|void
      * @throws Exception
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         throw new Exception('Missing service method for ' . get_class($this));
     }

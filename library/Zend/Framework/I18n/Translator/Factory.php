@@ -28,9 +28,10 @@ class Factory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return Translator
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         // Configure the translator
         $config     = $this->appConfig();

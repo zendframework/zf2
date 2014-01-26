@@ -23,9 +23,10 @@ class ListenerFactory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return Listener
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         $listener = new Listener;
 

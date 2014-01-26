@@ -94,7 +94,7 @@ class Manager
      */
     public function get($name, array $options = [])
     {
-        return $this->request(new Request($name, $name, $options));
+        return $this->request(new Request($name, $name), $options);
     }
 
     /**
@@ -121,10 +121,11 @@ class Manager
 
     /**
      * @param RequestInterface $request
+     * @param array $options
      * @return bool|object
      * @throws Exception
      */
-    public function request(RequestInterface $request)
+    public function request(RequestInterface $request, array $options = [])
     {
         $name = $request->alias();
 
@@ -143,7 +144,7 @@ class Manager
         $service = $this->service($name);
 
         if ($service) {
-            $instance = $service->service($request);
+            $instance = $service->service($request, $options);
         }
 
         if ($request->shared()) {

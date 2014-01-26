@@ -24,9 +24,10 @@ class MapFactory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return TemplateMapResolver
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         $config = $this->appConfig();
         $map = array();

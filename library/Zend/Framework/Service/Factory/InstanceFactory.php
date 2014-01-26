@@ -37,12 +37,11 @@ class InstanceFactory
 
     /**
      * @param Request $request
+     * @param array $options
      * @return mixed|object
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
-        $options = $request->options();
-
         if ($options) {
 
             $class = new ReflectionClass($this->factory);

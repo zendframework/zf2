@@ -27,15 +27,16 @@ class Listener
      * Create and return a 404 view model
      *
      * @param  EventInterface $event
+     * @param mixed $result
      * @return void
      */
-    public function trigger(EventInterface $event)
+    public function trigger(EventInterface $event, $result)
     {
         if (DispatchError::EVENT_DISPATCH_ERROR == $event->name()) {
             $this->detectNotFoundError($event);
         }
 
-        $vars = $event->result();
+        $vars = $result;
         if ($vars instanceof Response) {
             // Already have a response as the result
             return;

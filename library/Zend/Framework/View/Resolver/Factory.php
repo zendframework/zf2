@@ -18,9 +18,10 @@ class Factory
 {
     /**
      * @param Request $request
+     * @param array $options
      * @return ViewResolver
      */
-    public function service(Request $request)
+    public function service(Request $request, array $options = [])
     {
         $resolver = new ViewResolver;
         $resolver->attach($this->sm->get('View\Template\Resolver\Map'));
