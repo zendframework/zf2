@@ -11,6 +11,7 @@ namespace Zend\Framework\View;
 
 use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Event\Manager\ListenerInterface as EventManager;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ListenerInterface
     extends Listener
@@ -25,7 +26,8 @@ interface ListenerInterface
      * Trigger
      *
      * @param EventInterface $event
+     * @param ViewModel $viewModel
      * @return mixed
      */
-    public function trigger(EventInterface $event);
+    public function trigger(EventInterface $event, ViewModel $viewModel);
 }

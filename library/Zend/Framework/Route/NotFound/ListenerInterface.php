@@ -9,9 +9,16 @@
 
 namespace Zend\Framework\Route\NotFound;
 
-use Zend\Framework\Route\ListenerInterface as Listener;
+use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Event\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener
 {
+    /**
+     * @param EventInterface $event
+     * @param mixed $result
+     * @return mixed
+     */
+    public function trigger(EventInterface $event, $result);
 }

@@ -13,6 +13,7 @@ use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Route\RouteInterface;
 use Zend\Framework\Route\PriorityList;
 use Zend\Mvc\Router\Http\RouteMatch;
+use Zend\Stdlib\RequestInterface as Request;
 
 /**
  * Simple route stack implementation.
@@ -38,12 +39,11 @@ class Listener
 
     /**
      * @param EventInterface $event
+     * @param Request $request
      * @return mixed
      */
-    public function trigger(EventInterface $event)
+    public function trigger(EventInterface $event, Request $request)
     {
-        $request    = $event->target();
-
         foreach ($this->routes as $name => $route) {
             if (($match = $route->match($request)) instanceof RouteMatch) {
                 $match->setMatchedRouteName($name);

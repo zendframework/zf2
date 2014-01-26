@@ -24,25 +24,25 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param $response
+     * @param mixed $result
      * @return mixed|void
      */
-    public function trigger(EventInterface $event, $response = null)
+    public function trigger(EventInterface $event, $result)
     {
-        if (!$response instanceof ViewModel) {
-            return $response;
+        if (!$result instanceof ViewModel) {
+            return $result;
         }
 
-        if ($response->terminate()) {
-            $this->viewModel = $response;
-            return $response;
+        if ($result->terminate()) {
+            $this->viewModel = $result;
+            return $result;
         }
 
         //if ($event->error() && $this->viewModel instanceof ClearableModel) {
             //$this->viewModel->clearChildren();
         //}
 
-        $this->viewModel->addChild($response);
+        $this->viewModel->addChild($result);
 
         return $this->viewModel;
     }

@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\View;
 
+use Zend\View\Model\ModelInterface as ViewModel;
+
 class Listener
     implements ListenerInterface
 {
@@ -19,10 +21,10 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param $viewModel
+     * @param ViewModel $viewModel
      * @return mixed
      */
-    public function trigger(EventInterface $event, $viewModel = null)
+    public function trigger(EventInterface $event, ViewModel $viewModel)
     {
         return $this->render($viewModel);
     }
