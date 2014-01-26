@@ -10,7 +10,6 @@
 namespace Zend\Framework\Service;
 
 use Exception;
-use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\Factory\CallableFactory;
 use Zend\Framework\Service\Factory\InstanceFactory;
 use Zend\Framework\Service\Factory\Factory;
@@ -18,11 +17,6 @@ use Zend\Framework\Service\Factory\Factory;
 class Manager
     implements ManagerInterface
 {
-    /**
-     *
-     */
-    use EventListener;
-
     /**
      * @var array
      */
