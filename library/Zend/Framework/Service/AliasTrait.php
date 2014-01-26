@@ -47,7 +47,7 @@ trait AliasTrait
      */
     public function get($name, array $options = [])
     {
-        return $this->sm->request(new Request($name, $this->alias($name), $options));
+        return $this->sm->get($this->alias($name), $options);
     }
 
     /**
