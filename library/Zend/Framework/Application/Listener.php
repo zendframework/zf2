@@ -11,7 +11,6 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 
-
 class Listener
     implements ListenerInterface
 {

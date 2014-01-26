@@ -25,11 +25,11 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param $response
+     * @param mixed $result
      * @return mixed
      */
-    public function trigger(EventInterface $event, $response)
+    public function trigger(EventInterface $event, $result)
     {
-        return $this->em->trigger(new View, $response);
+        return $this->em->trigger(new View, $result);
     }
 }

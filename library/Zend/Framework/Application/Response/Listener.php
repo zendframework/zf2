@@ -27,7 +27,7 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param $response
+     * @param string $response
      * @return mixed
      */
     public function trigger(EventInterface $event, $response)
