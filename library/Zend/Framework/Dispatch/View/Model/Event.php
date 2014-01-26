@@ -12,7 +12,7 @@ namespace Zend\Framework\Dispatch\View\Model;
 use Zend\Framework\Event\EventTrait as EventTrait;
 
 class Event
-    implements EventInterface, EventListenerInterface
+    implements EventInterface
 {
     /**
      *
