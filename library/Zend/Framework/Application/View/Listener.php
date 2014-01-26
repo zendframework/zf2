@@ -10,7 +10,7 @@
 namespace Zend\Framework\Application\View;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\View\Event as View;
 
@@ -21,7 +21,7 @@ class Listener
      *
      */
     use EventManager,
-        ListenerTrait;
+        EventListener;
 
     /**
      * @param EventInterface $event

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Module\Route;
 
-use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Route\EventInterface;
 use Zend\Mvc\Router\Http\RouteMatch;
 
@@ -19,7 +19,7 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use EventListener;
 
     /**
      * @param EventInterface $event

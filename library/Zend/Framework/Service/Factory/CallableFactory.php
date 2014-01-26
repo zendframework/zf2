@@ -10,7 +10,7 @@
 namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceTrait as Service;
 
@@ -20,7 +20,7 @@ class CallableFactory
     /**
      *
      */
-    use ListenerTrait,
+    use EventListener,
         Service;
 
     /**

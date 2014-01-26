@@ -10,10 +10,10 @@
 namespace Zend\Framework\Application\Response;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\Response\Event as Response;
-use Zend\Framework\Response\ServiceTrait as ResponseTrait;
+use Zend\Framework\Response\ServiceTrait as ResponseService;
 
 class Listener
     implements ListenerInterface
@@ -22,8 +22,8 @@ class Listener
      *
      */
     use EventManager,
-        ListenerTrait,
-        ResponseTrait;
+        EventListener,
+        ResponseService;
 
     /**
      * @param EventInterface $event

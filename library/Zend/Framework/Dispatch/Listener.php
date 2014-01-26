@@ -13,7 +13,7 @@ use Exception;
 use Zend\Framework\Controller\Event as Controller;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 use Zend\Framework\Dispatch\Error\Event as DispatchError;
-use Zend\Framework\Event\ListenerTrait as ListenerTrait;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 
@@ -25,7 +25,7 @@ class Listener
      */
     use ControllerManager,
         EventManager,
-        ListenerTrait,
+        EventListener,
         ViewModel;
 
     /**
