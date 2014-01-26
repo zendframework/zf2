@@ -11,10 +11,10 @@ namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\View\ServicesTrait as View;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory;
 
 class ListenerFactory
-    extends FactoryListener
+    extends Factory
 {
     /**
      *

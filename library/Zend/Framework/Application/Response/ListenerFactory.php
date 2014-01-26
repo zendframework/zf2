@@ -12,10 +12,10 @@ namespace Zend\Framework\Application\Response;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Response\ServicesTrait as Response;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory;
 
 class ListenerFactory
-    extends FactoryListener
+    extends Factory
 {
     /**
      *

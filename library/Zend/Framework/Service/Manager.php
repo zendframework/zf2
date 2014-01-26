@@ -11,9 +11,9 @@ namespace Zend\Framework\Service;
 
 use Exception;
 use Zend\Framework\Event\ListenerTrait as ListenerTrait;
-use Zend\Framework\Service\Factory\CallableListener as CallableFactory;
-use Zend\Framework\Service\Factory\InstanceListener as InstanceFactory;
-use Zend\Framework\Service\Factory\ListenerInterface as Factory;
+use Zend\Framework\Service\Factory\CallableFactory;
+use Zend\Framework\Service\Factory\InstanceFactory;
+use Zend\Framework\Service\Factory\Factory;
 
 class Manager
     implements ManagerInterface

@@ -12,7 +12,7 @@ namespace Zend\Framework\Service\Factory;
 use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Service\RequestInterface as Request;
 
-interface ListenerInterface
+interface FactoryInterface
     extends Listener
 {
     /**

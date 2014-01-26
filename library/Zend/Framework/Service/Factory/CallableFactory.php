@@ -14,8 +14,8 @@ use Zend\Framework\Event\ListenerTrait as ListenerTrait;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceTrait as Service;
 
-class CallableListener
-    implements ListenerInterface
+class CallableFactory
+    implements FactoryInterface
 {
     /**
      *

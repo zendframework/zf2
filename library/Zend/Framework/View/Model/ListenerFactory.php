@@ -10,10 +10,10 @@
 namespace Zend\Framework\View\Model;
 
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory;
 
 class ListenerFactory
-    extends FactoryListener
+    extends Factory
 {
     /**
      *

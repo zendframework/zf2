@@ -172,8 +172,6 @@ trait ListenerTrait
 
         foreach($this->queue($name, $source) as $listener) {
 
-            //var_dump($event->name().' :: '.get_class($event).' :: '.get_class($listener));
-
             $result = $listener->trigger($event, $result);
 
             if ($result == ListenerInterface::STOPPED) {

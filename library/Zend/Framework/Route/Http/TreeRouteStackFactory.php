@@ -11,10 +11,10 @@ namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory;
 
 class TreeRouteStackFactory
-    extends FactoryListener
+    extends Factory
 {
     /**
      *

@@ -10,11 +10,11 @@
 namespace Zend\Framework\View\Resolver;
 
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\View\Resolver\AggregateResolver as ViewResolver;
 
 class Factory
-    extends FactoryListener
+    extends ServiceFactory
 {
     /**
      * @param Request $request

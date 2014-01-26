@@ -13,10 +13,10 @@ use Zend\Console\Console;
 use Zend\Console\Response as ConsoleResponse;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
 class Factory
-    extends FactoryListener
+    extends ServiceFactory
 {
     /**
      * @param Request $request

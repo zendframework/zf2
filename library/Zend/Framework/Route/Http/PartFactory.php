@@ -10,11 +10,11 @@
 namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory;
 use Zend\Mvc\Router\Exception;
 
 class PartFactory
-    extends FactoryListener
+    extends Factory
 {
     /**
      * @param Request $request

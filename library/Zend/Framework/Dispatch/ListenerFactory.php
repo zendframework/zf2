@@ -12,11 +12,11 @@ namespace Zend\Framework\Dispatch;
 use Zend\Framework\Controller\ServicesTrait as Controller;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\View\ServicesTrait as View;
 
 class ListenerFactory
-    extends FactoryListener
+    extends Factory
 {
     /**
      *

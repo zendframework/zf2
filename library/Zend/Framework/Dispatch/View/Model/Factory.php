@@ -10,12 +10,12 @@
 namespace Zend\Framework\Dispatch\View\Model;
 
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Framework\View\ServicesTrait as View;
 
 class Factory
-    extends FactoryListener
+    extends ServiceFactory
 {
     /**
      *

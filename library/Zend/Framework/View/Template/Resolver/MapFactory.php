@@ -11,11 +11,11 @@ namespace Zend\Framework\View\Template\Resolver;
 
 use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Resolver\TemplateMapResolver;
 
 class MapFactory
-    extends FactoryListener
+    extends Factory
 {
     /**
      *

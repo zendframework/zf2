@@ -9,14 +9,15 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use Exception;
+use ReflectionClass;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
+use Zend\Framework\Service\ServiceInterface;
 use Zend\Framework\Event\ListenerTrait as ListenerTrait;
 use Zend\Framework\Service\ServiceTrait as Service;
 
-class Listener
-    implements ListenerInterface
+class InstanceFactory
+    implements FactoryInterface
 {
     /**
      *
@@ -26,19 +27,37 @@ class Listener
 
     /**
      * @param ServiceManager $sm
+     * @param string|callable $factory
      */
-    public function __construct(ServiceManager $sm)
+    public function __construct(ServiceManager $sm, $factory)
     {
-        $this->sm = $sm;
+        $this->sm      = $sm;
+        $this->factory = $factory;
     }
 
     /**
      * @param Request $request
-     * @return mixed|void
-     * @throws Exception
+     * @return mixed|object
      */
     public function service(Request $request)
     {
-        throw new Exception('Missing service method for ' . get_class($this));
+        $options = $request->options();
+
+        if ($options) {
+
+            $class = new ReflectionClass($this->factory);
+            $instance = $class->newInstanceArgs($options);
+
+        } else {
+
+            $instance = new $this->factory; //could be anything
+
+        }
+
+        if ($instance instanceof ServiceInterface) {
+            $instance->__service($this->sm);
+        }
+
+        return $instance;
     }
 }

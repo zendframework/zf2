@@ -11,10 +11,10 @@ namespace Zend\Framework\Application\View;
 
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Listener as FactoryListener;
+use Zend\Framework\Service\Factory\Factory;
 
 class ListenerFactory
-    extends FactoryListener
+    extends Factory
 {
     /**
      *
@@ -29,7 +29,7 @@ class ListenerFactory
     {
         $listener = new Listener;
 
-        $listener->setEventManager($this->eventManager());;
+        $listener->setEventManager($this->eventManager());
 
         return $listener;
     }
