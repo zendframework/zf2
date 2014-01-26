@@ -11,7 +11,7 @@ namespace Zend\Framework\Route;
 
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Framework\Route\RouteInterface as Router;
-use Zend\Framework\Route\Manager\ListenerInterface as RouteManager;
+use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
 
 trait ServicesTrait
 {

@@ -15,17 +15,17 @@ trait ServiceTrait
     /**
      * Route manager
      *
-     * @var ListenerInterface
+     * @var ManagerInterface
      */
     protected $rm;
 
     /**
      * Set the route manager.
      *
-     * @param  ListenerInterface $rm
+     * @param  ManagerInterface $rm
      * @return self
      */
-    public function setRouteManager(ListenerInterface $rm)
+    public function setRouteManager(ManagerInterface $rm)
     {
         $this->rm = $rm;
         return $this;
@@ -34,7 +34,7 @@ trait ServiceTrait
     /**
      * Get the route manager.
      *
-     * @return ListenerInterface
+     * @return ManagerInterface
      */
     public function routeManager()
     {

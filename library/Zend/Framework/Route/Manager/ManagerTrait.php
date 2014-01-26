@@ -12,7 +12,7 @@ namespace Zend\Framework\Route\Manager;
 use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Service\AliasTrait as Alias;
 
-trait ListenerTrait
+trait ManagerTrait
 {
     /**
      *
