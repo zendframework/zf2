@@ -12,11 +12,6 @@ namespace Zend\Framework\Service;
 interface RequestInterface
 {
     /**
-     *
-     */
-    const EVENT_SERVICE = 'service';
-
-    /**
      * @return string
      */
     public function alias();
