@@ -617,7 +617,6 @@ class Paginator implements Countable, IteratorAggregate
         if ($this->cacheEnabled()) {
             $cacheId = $this->_getCacheId($pageNumber);
             static::$cache->setItem($cacheId, $items);
-            static::$cache->setTags($cacheId, array($this->_getCacheInternalId()));
         }
 
         return $items;
