@@ -10,6 +10,7 @@
 namespace Zend\Framework\Service;
 
 use Exception;
+use Zend\Framework\Service\Factory\AbstractFactory;
 use Zend\Framework\Service\Factory\CallableFactory;
 use Zend\Framework\Service\Factory\InstanceFactory;
 use Zend\Framework\Service\Factory\Factory;
@@ -20,7 +21,7 @@ class Manager
     /**
      * @var array
      */
-    public $service = [];
+    protected $service = [];
 
     /**
      * @var array
@@ -82,6 +83,10 @@ class Manager
 
         if (is_callable($factory)) {
             return new CallableFactory($this, $factory);
+        }
+
+        if (is_array($factory)) {
+            return new AbstractFactory($this, $factory);
         }
 
         return $factory;

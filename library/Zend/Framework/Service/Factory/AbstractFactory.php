@@ -14,7 +14,7 @@ use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceTrait as Service;
 
-class CallableFactory
+class AbstractFactory
     implements FactoryInterface
 {
     /**
@@ -40,6 +40,7 @@ class CallableFactory
      */
     public function service(Request $request, array $options = [])
     {
-        return call_user_func_array($this->factory, array_merge([$this->sm, $request], $options));
+        $factory = new $this->factory[0]($this->sm, $this->factory[1]);
+        return $factory->service($request, $options);
     }
 }
