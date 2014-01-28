@@ -573,7 +573,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $pageItems);
 
         // change the inside Paginator scale
-        $pageItems = $this->paginator->setItemCountPerPage(8)->setCurrentPageNumber(3)->getCurrentItems();
+        $this->paginator->setItemCountPerPage(8)->setCurrentPageNumber(3)->getCurrentItems();
 
         $pageItems = $this->paginator->getPageItemCache();
         $expected = /*array(3 => */ new \ArrayIterator(range(17, 24)) /*) */;
