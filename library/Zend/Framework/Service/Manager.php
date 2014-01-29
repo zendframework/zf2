@@ -70,22 +70,22 @@ class Manager
     public function factory($factory)
     {
         if (is_string($factory)) {
-            if (is_subclass_of($factory, Factory::class)) {
+            if (\is_subclass_of($factory, Factory::class)) {
                 return new $factory($this);
             }
 
-            if (is_callable($factory)) {
+            if (\is_callable($factory)) {
                 return new CallableFactory($this, $factory);
             }
 
             return new InstanceFactory($this, $factory);
         }
 
-        if (is_callable($factory)) {
+        if (\is_callable($factory)) {
             return new CallableFactory($this, $factory);
         }
 
-        if (is_array($factory)) {
+        if (\is_array($factory)) {
             return new AbstractFactory($this, $factory);
         }
 
