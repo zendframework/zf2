@@ -99,7 +99,7 @@ class Manager
      */
     public function get($name, array $options = [])
     {
-        return $this->request(new Request($name, $name), $options);
+        return $this->request(new Request($name), $options);
     }
 
     /**

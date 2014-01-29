@@ -17,11 +17,6 @@ interface RequestInterface
     public function alias();
 
     /**
-     * @return string
-     */
-    public function service();
-
-    /**
      * @return bool
      */
     public function shared();

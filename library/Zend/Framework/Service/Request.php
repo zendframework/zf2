@@ -23,18 +23,11 @@ class Request
     protected $shared = true;
 
     /**
-     * @var string
-     */
-    protected $service;
-
-    /**
-     * @param $service
      * @param $alias
      * @param array $options
      */
-    public function __construct($service, $alias, array $options = [])
+    public function __construct($alias, array $options = [])
     {
-        $this->service = $service;
         $this->alias   = $alias;
         $this->options = $options;
     }
@@ -48,48 +41,10 @@ class Request
     }
 
     /**
-     * @param string $alias
-     * @return self
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function shared()
     {
         return $this->shared;
-    }
-
-    /**
-     * @param $shared
-     * @return $this
-     */
-    public function setShared($shared)
-    {
-        $this->shared = $shared;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function service()
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param string $service
-     * @return self
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-        return $this;
     }
 }
