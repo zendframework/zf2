@@ -69,7 +69,7 @@ class Manager
      */
     public function factory($factory)
     {
-        if (is_string($factory)) {
+        if (\is_string($factory)) {
             if (\is_subclass_of($factory, Factory::class)) {
                 return new $factory($this);
             }
