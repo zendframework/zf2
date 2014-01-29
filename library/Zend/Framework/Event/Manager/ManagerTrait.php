@@ -15,7 +15,7 @@ use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Event\ResultInterface as Result;
 
-trait ListenerTrait
+trait ManagerTrait
 {
     /**
      *
@@ -36,7 +36,7 @@ trait ListenerTrait
      * @param $priority
      * @return self
      */
-    public function add(ListenerInterface $listener, $priority = ListenerInterface::PRIORITY)
+    public function add(ListenerInterface $listener, $priority = self::PRIORITY)
     {
         $name = $listener->name();
 
@@ -103,7 +103,7 @@ trait ListenerTrait
      * @param int $priority
      * @return $this
      */
-    public function push($name, ListenerInterface $listener, $priority = ListenerInterface::PRIORITY)
+    public function push($name, ListenerInterface $listener, $priority = self::PRIORITY)
     {
         if (!isset($this->listeners[$name])) {
             $this->listeners[$name] = [];
@@ -147,7 +147,7 @@ trait ListenerTrait
      * @param $priority
      * @return self
      */
-    public function remove(ListenerInterface $listener, $priority = ListenerInterface::PRIORITY)
+    public function remove(ListenerInterface $listener, $priority = self::PRIORITY)
     {
         $name = $listener->name();
 

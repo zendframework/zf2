@@ -17,12 +17,12 @@ trait ListenerTrait
      */
     public function matchTarget($target)
     {
-        if (!isset($this->target)) {
+        if (!isset($this->target) || !$target) {
             return true;
         }
 
         foreach((array) $this->target as $t) {
-            if ($t == self::WILDCARD || $target == $t || $target instanceof $t || \is_subclass_of($target, $t)) {
+            if ($target == $t || $target instanceof $t || \is_subclass_of($target, $t)) {
                 return true;
             }
         }

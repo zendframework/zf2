@@ -18,7 +18,7 @@ trait EventTrait
      */
     public function name()
     {
-        return isset($this->name) ? $this->name : EventInterface::WILDCARD;
+        return isset($this->name) ? $this->name : null;
     }
 
     /**
@@ -26,6 +26,6 @@ trait EventTrait
      */
     public function source()
     {
-        return isset($this->source) ? $this->source : EventInterface::WILDCARD;
+        return isset($this->source) ? $this->source : null;
     }
 }

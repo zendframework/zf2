@@ -12,9 +12,15 @@ namespace Zend\Framework\Event\Manager;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface as Listener;
 
-interface ListenerInterface
+interface ManagerInterface
     extends Listener
 {
+    /**
+     * Priority default
+     *
+     */
+    const PRIORITY = 0;
+
     /**
      * Add
      *
@@ -45,7 +51,7 @@ interface ListenerInterface
      * @param int $priority
      * @return $this
      */
-    public function push($name, Listener $listener, $priority = ListenerInterface::PRIORITY);
+    public function push($name, Listener $listener, $priority = self::PRIORITY);
 
     /**
      * Remove

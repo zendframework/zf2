@@ -12,11 +12,6 @@ namespace Zend\Framework\Event;
 interface EventInterface
 {
     /**
-     *
-     */
-    const WILDCARD = '*';
-
-    /**
      * Name
      *
      * @return string|array

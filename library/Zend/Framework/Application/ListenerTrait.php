@@ -10,7 +10,7 @@
 namespace Zend\Framework\Application;
 
 use Exception;
-use Zend\Framework\Event\Manager\ListenerTrait as Listener;
+use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Service\Manager as ServiceManager;
 
 trait ListenerTrait
@@ -18,7 +18,7 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener;
+    use EventManager;
 
     /**
      * @param array $config

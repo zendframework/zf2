@@ -15,19 +15,7 @@ interface ListenerInterface
      * Priority default
      *
      */
-    const PRIORITY = 0;
-
-    /**
-     * Priority default
-     *
-     */
     const STOPPED = '1869f';
-
-    /**
-     * Wildcard
-     *
-     */
-    const WILDCARD = '*';
 
     /**
      * @param $target
