@@ -31,17 +31,6 @@ class Listener
      */
     public function trigger(EventInterface $event, $options = null)
     {
-        return $this->dispatch(new Dispatch, $event->routeMatch());
-    }
-
-    /**
-     * @param Dispatch $dispatch
-     * @param RouteMatch $routeMatch
-     * @param $routeMatch
-     * @return mixed
-     */
-    public function dispatch(Dispatch $dispatch, RouteMatch $routeMatch)
-    {
-        return $this->em->trigger($dispatch, $routeMatch);
+        return $this->em->trigger(new Dispatch, $event->routeMatch());
     }
 }
