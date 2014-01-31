@@ -10,33 +10,32 @@
 namespace Zend\Framework\Event\Manager;
 
 use Generator;
-use Zend\Framework\Event\EventInterface;
-use Zend\Framework\Event\ListenerInterface;
-use Zend\Framework\Event\ListenerTrait as Listener;
-use Zend\Framework\Event\ResultInterface as Result;
+use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\ListenerInterface as Listener;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 
 trait ManagerTrait
 {
     /**
      *
      */
-    use Listener;
+    use EventListener;
 
     /**
      * Listeners
      *
-     * @var array ListenerInterface
+     * @var array Listener
      */
     public $listeners = [];
 
     /**
      * Add listener
      *
-     * @param ListenerInterface $listener
+     * @param Listener $listener
      * @param $priority
      * @return self
      */
-    public function add(ListenerInterface $listener, $priority = self::PRIORITY)
+    public function add(Listener $listener, $priority = self::PRIORITY)
     {
         $name = $listener->name();
 
@@ -81,11 +80,13 @@ trait ManagerTrait
     }
 
     /**
-     * @param $name
+     * @param Event $event
      * @return array
      */
-    protected function listeners($name)
+    protected function queue(Event $event)
     {
+        $name = $event->name();
+
         if (!isset($this->listeners[$name])) {
             return [];
         }
@@ -99,11 +100,11 @@ trait ManagerTrait
      * Push listener to top of queue
      *
      * @param string $name
-     * @param ListenerInterface $listener
+     * @param Listener $listener
      * @param int $priority
      * @return $this
      */
-    public function push($name, ListenerInterface $listener, $priority = self::PRIORITY)
+    public function push($name, Listener $listener, $priority = self::PRIORITY)
     {
         if (!isset($this->listeners[$name])) {
             $this->listeners[$name] = [];
@@ -120,13 +121,13 @@ trait ManagerTrait
     }
 
     /**
-     * @param string $name
-     * @param string $target
+     * @param Event $event
      * @return Generator
      */
-    protected function queue($name, $target)
+    protected function listeners($event)
     {
-        foreach($this->listeners($name) as $listeners) {
+        $target = $event->source();
+        foreach($this->queue($event) as $listeners) {
             foreach($listeners as $listener) {
                 //not all listeners for this priority need to be initialized
                 if (is_string($listener)) {
@@ -143,11 +144,11 @@ trait ManagerTrait
     /**
      * Remove listener
      *
-     * @param ListenerInterface $listener
+     * @param Listener $listener
      * @param $priority
      * @return self
      */
-    public function remove(ListenerInterface $listener, $priority = self::PRIORITY)
+    public function remove(Listener $listener, $priority = self::PRIORITY)
     {
         $name = $listener->name();
 
@@ -161,25 +162,19 @@ trait ManagerTrait
     }
 
     /**
-     * @param EventInterface $event
-     * @param mixed $result
+     * @param Event $event
+     * @param $options
      * @return mixed
      */
-    public function trigger(EventInterface $event, $result = null)
+    public function trigger(Event $event, $options = null)
     {
-        $name   = $event->name();
-        $source = $event->source();
+        foreach($this->listeners($event) as $listener) {
 
-        foreach($this->queue($name, $source) as $listener) {
+            //var_dump(get_class($listener));
 
-            $result = $listener->trigger($event, $result);
+            $result = $event->trigger($listener, $options);
 
-            if ($result == ListenerInterface::STOPPED) {
-                break;
-            }
-
-            if ($result instanceof Result) {
-                $result = $result->result();
+            if ($event->stopped()) {
                 break;
             }
         }

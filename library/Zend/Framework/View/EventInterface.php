@@ -18,4 +18,11 @@ interface EventInterface
      *
      */
     const EVENT_VIEW = 'view';
+
+    /**
+     * @param ListenerInterface $listener
+     * @param null $options
+     * @return mixed
+     */
+    public function trigger(ListenerInterface $listener, $options = null);
 }

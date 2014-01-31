@@ -65,8 +65,8 @@ interface ManagerInterface
      * Trigger
      *
      * @param EventInterface $event
-     * @param $target
+     * @param $options
      * @return mixed
      */
-    public function trigger(EventInterface $event, $target = null);
+    public function trigger(EventInterface $event, $options = null);
 }

@@ -12,6 +12,11 @@ namespace Zend\Framework\Event;
 trait EventTrait
 {
     /**
+     * @var bool
+     */
+    protected $stopped = false;
+
+    /**
      * Name
      *
      * @return string|array
@@ -27,5 +32,32 @@ trait EventTrait
     public function source()
     {
         return isset($this->source) ? $this->source : null;
+    }
+
+    /**
+     * @return $this
+     */
+    public function stop()
+    {
+        $this->stopped = true;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function stopped()
+    {
+        return $this->stopped;
+    }
+
+    /**
+     * @param ListenerInterface $listener
+     * @param $options
+     * @return mixed
+     */
+    public function trigger(ListenerInterface $listener, $options = null)
+    {
+        return $listener->trigger($this, $options);
     }
 }

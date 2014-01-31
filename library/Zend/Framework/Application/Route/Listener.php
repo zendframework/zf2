@@ -22,15 +22,16 @@ class Listener
 
     /**
      * @param EventInterface $event
+     * @param $options
      * @return mixed
      */
-    public function trigger(EventInterface $event)
+    public function trigger(EventInterface $event, $options = null)
     {
         $routeMatch = $this->em->trigger(new Route, $this->request);
 
         //needed for render
         $this->sm->add('Route\Match', $routeMatch);
 
-        return $routeMatch;
+        $event->setRouteMatch($routeMatch);
     }
 }

@@ -19,7 +19,8 @@ interface ListenerInterface
      * Trigger
      *
      * @param EventInterface $event
+     * @param $options
      * @return mixed
      */
-    public function trigger(EventInterface $event);
+    public function trigger(EventInterface $event, $options = null);
 }

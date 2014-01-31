@@ -23,11 +23,13 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param mixed $response
+     * @param $options
      * @return mixed
      */
-    public function trigger(EventInterface $event, $response)
+    public function trigger(EventInterface $event, $options = null)
     {
+        $response = $event->routeMatch();
+
         if (!$response instanceof RouteMatch) {
             // Can't do anything without a route match
             return $response;

@@ -26,12 +26,22 @@ class Listener
 
     /**
      * @param EventInterface $event
+     * @param $options
+     * @return mixed
+     */
+    public function trigger(EventInterface $event, $options = null)
+    {
+        return $this->dispatch(new Dispatch, $event->routeMatch());
+    }
+
+    /**
+     * @param Dispatch $dispatch
      * @param RouteMatch $routeMatch
      * @param $routeMatch
      * @return mixed
      */
-    public function trigger(EventInterface $event, RouteMatch $routeMatch)
+    public function dispatch(Dispatch $dispatch, RouteMatch $routeMatch)
     {
-        return $this->em->trigger(new Dispatch, $routeMatch);
+        return $this->em->trigger($dispatch, $routeMatch);
     }
 }

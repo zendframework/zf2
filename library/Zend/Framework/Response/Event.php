@@ -23,4 +23,20 @@ class Event
      * @var string
      */
     protected $name = self::EVENT_RESPONSE;
+
+    /**
+     * @param ListenerInterface $listener
+     * @param null $options
+     * @return mixed
+     */
+    public function trigger(ListenerInterface $listener, $options = null)
+    {
+        $response = $listener->trigger($this, $options);
+
+        if ($response) {
+            $this->stop();
+        }
+
+        return $response;
+    }
 }

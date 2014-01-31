@@ -22,4 +22,9 @@ interface EventInterface
      * @return mixed
      */
     public function source();
+
+    /**
+     * @return bool
+     */
+    public function stopped();
 }

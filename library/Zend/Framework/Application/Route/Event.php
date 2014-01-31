@@ -7,20 +7,32 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch;
+namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Application\EventInterface as ApplicationEvent;
-use Zend\Framework\Event\ListenerInterface as Listener;
+use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Route\Event as Route;
 
-interface ListenerInterface
-    extends Listener
+class Event
+    implements EventInterface
 {
     /**
-     * Trigger
      *
+     */
+    use ListenerTrait;
+
+    /**
      * @param ApplicationEvent $event
      * @param $options
      * @return mixed
      */
-    public function trigger(ApplicationEvent $event, $options = null);
+    public function trigger(ApplicationEvent $event, $options = null)
+    {
+        $routeMatch = $this->em->trigger(new Route, $this->request);
+
+        //needed for render
+        $this->sm->add('Route\Match', $routeMatch);
+
+        return $routeMatch;
+    }
 }

@@ -27,12 +27,12 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param string $response
+     * @param $options
      * @return mixed
      */
-    public function trigger(EventInterface $event, $response)
+    public function trigger(EventInterface $event, $options = null)
     {
-        $this->response->setContent($response);
+        $this->response->setContent($event->result());
 
         return $this->em->trigger(new Response, $this->response);
     }

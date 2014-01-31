@@ -7,13 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch;
+namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Application\EventInterface as ApplicationEvent;
-use Zend\Framework\Event\ListenerInterface as Listener;
+use Zend\Framework\Event\EventInterface as Event;
 
-interface ListenerInterface
-    extends Listener
+interface EventInterface
+    extends Event
 {
     /**
      * Trigger

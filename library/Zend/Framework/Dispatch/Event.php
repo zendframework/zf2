@@ -10,6 +10,8 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
+use Zend\Framework\View\Model\ServiceTrait as ViewModel;
+use Zend\View\Model\ModelInterface as ViewModelInterface;
 
 class Event
     implements EventInterface
@@ -17,10 +19,21 @@ class Event
     /**
      *
      */
-    use EventTrait;
+    use EventTrait,
+        ViewModel;
 
     /**
      * @var string
      */
     protected $name = self::EVENT_DISPATCH;
+
+    /**
+     * @param ListenerInterface $listener
+     * @param null $options
+     * @return mixed
+     */
+    public function trigger(ListenerInterface $listener, $options = null)
+    {
+        return  $listener->trigger($this, $options);
+    }
 }

@@ -35,12 +35,12 @@ class Listener
     public function trigger(EventInterface $event, $response = null)
     {
         if (!$response instanceof Response) {
-            return $this;
+            return false;
         }
 
         $this->sendHeaders($event, $response)
              ->sendContent($event, $response);
 
-        return self::STOPPED;
+        return true;
     }
 }
