@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Dispatch\View\Model;
 
+use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
+use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\View\Model\ViewModel;
@@ -20,7 +22,9 @@ class Factory
     /**
      *
      */
-    use View;
+    use EventManager,
+        Route,
+        View;
 
     /**
      * @param Request $request
@@ -29,12 +33,6 @@ class Factory
      */
     public function service(Request $request, array $options = [])
     {
-        $em = $this->sm->get('EventManager');
-
-        $vm = new ViewModel;
-
-        $vm->setTemplate($this->viewManager()->layoutTemplate());
-
-        return $em->trigger(new Event, $vm);
+        return $this->eventManager()->trigger(new Event(new ViewModel), $options);
     }
 }

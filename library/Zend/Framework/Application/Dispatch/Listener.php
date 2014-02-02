@@ -13,7 +13,6 @@ use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Dispatch\Event as Dispatch;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
-use Zend\Mvc\Router\RouteMatch as RouteMatch;
 
 class Listener
     implements ListenerInterface

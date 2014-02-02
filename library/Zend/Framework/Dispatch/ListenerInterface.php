@@ -12,6 +12,7 @@ namespace Zend\Framework\Dispatch;
 use Zend\Framework\Controller\Manager\ListenerInterface as ControllerManager;
 use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManager;
+use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ListenerInterface
@@ -39,8 +40,8 @@ interface ListenerInterface
      * Trigger
      *
      * @param EventInterface $event
-     * @param $response
+     * @param RouteMatch $routeMatch
      * @return mixed
      */
-    public function trigger(EventInterface $event, $response);
+    public function trigger(EventInterface $event, RouteMatch $routeMatch);
 }

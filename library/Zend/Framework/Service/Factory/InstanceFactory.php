@@ -44,8 +44,7 @@ class InstanceFactory
     {
         if ($options) {
 
-            $class = new ReflectionClass($this->factory);
-            $instance = $class->newInstanceArgs($options);
+            $instance = (new ReflectionClass($this->factory))->newInstanceArgs($options);
 
         } else {
 

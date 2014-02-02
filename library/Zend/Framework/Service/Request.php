@@ -23,13 +23,13 @@ class Request
     protected $shared = true;
 
     /**
-     * @param $alias
-     * @param array $options
+     * @param string $alias
+     * @param bool $shared
      */
-    public function __construct($alias, array $options = [])
+    public function __construct($alias, $shared = true)
     {
         $this->alias   = $alias;
-        $this->options = $options;
+        $this->shared  = $shared;
     }
 
     /**

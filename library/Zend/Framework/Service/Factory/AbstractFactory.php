@@ -40,7 +40,6 @@ class AbstractFactory
      */
     public function service(Request $request, array $options = [])
     {
-        $factory = new $this->factory[0]($this->sm, $this->factory[1]);
-        return $factory->service($request, $options);
+        return (new $this->factory[0]($this->sm, $this->factory[1]))->service($request, $options);
     }
 }

@@ -28,10 +28,7 @@ class Listener
      */
     public function trigger(EventInterface $event, $response)
     {
-        $model = $response;
-        if (!$model instanceof ViewModel) {
-            return $model;
-        }
+        $model = $event->source();
 
         $template = $model->getTemplate();
 
@@ -39,8 +36,8 @@ class Listener
             return $model;
         }
 
-        $routeMatch = $event->routeMatch();
-        $controller = $event->target();
+        $routeMatch = $response[1];
+        $controller = $response[0];
         if (is_object($controller)) {
             $controller = get_class($controller);
         }

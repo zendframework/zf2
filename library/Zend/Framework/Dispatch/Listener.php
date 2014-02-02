@@ -16,6 +16,7 @@ use Zend\Framework\Dispatch\Error\Event as DispatchError;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
+use Zend\Mvc\Router\RouteMatch;
 
 class Listener
     implements ListenerInterface
@@ -30,22 +31,22 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param $routeMatch
+     * @param RouteMatch $routeMatch
      * @return mixed
      */
-    public function trigger(EventInterface $event, $routeMatch)
+    public function trigger(EventInterface $event, RouteMatch $routeMatch)
     {
         $controllerName = $routeMatch->getParam('controller', 'not-found');
 
-        $controller = $this->controllerManager->controller( $controllerName );
+        $controller = $this->controllerManager->controller($controllerName, [$routeMatch]);
 
-        $controllerEvent = new Controller;
+        $controllerEvent = new Controller($controller);
 
         $this->em->push($controllerEvent->name(), $controller);
 
         try {
 
-            $response = $this->em->trigger($controllerEvent, $controller);
+            $response = $this->em->trigger($controllerEvent);
 
         } catch (Exception $exception) {
 

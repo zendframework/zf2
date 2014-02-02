@@ -14,6 +14,7 @@ use Zend\Framework\Service\Factory\AbstractFactory;
 use Zend\Framework\Service\Factory\CallableFactory;
 use Zend\Framework\Service\Factory\InstanceFactory;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\Factory\FactoryInterface;
 
 class Manager
     implements ManagerInterface
@@ -81,6 +82,10 @@ class Manager
             return new InstanceFactory($this, $factory);
         }
 
+        if (\is_object($factory) && $factory instanceof FactoryInterface) {
+            return $factory;
+        }
+
         if (\is_callable($factory)) {
             return new CallableFactory($this, $factory);
         }
@@ -95,11 +100,12 @@ class Manager
     /**
      * @param $name
      * @param array $options
+     * @param bool $shared
      * @return bool|object
      */
-    public function get($name, array $options = [])
+    public function get($name, array $options = [], $shared = true)
     {
-        return $this->request(new Request($name), $options);
+        return $this->request(new Request($name, $shared), $options);
     }
 
     /**

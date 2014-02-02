@@ -22,8 +22,8 @@ class ListenerFactory
      *
      */
     use Controller,
-        View,
-        EventManager;
+        EventManager,
+        View;
 
     /**
      * @param Request $request

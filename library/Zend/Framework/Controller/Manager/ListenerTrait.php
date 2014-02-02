@@ -22,10 +22,11 @@ trait ListenerTrait
 
     /**
      * @param $name
+     * @param array $options
      * @return array|object
      */
-    public function controller($name)
+    public function controller($name, array $options = [])
     {
-        return $this->sm->get($name);
+        return $this->sm->get($name, $options);
     }
 }

@@ -39,9 +39,10 @@ interface ManagerInterface
     /**
      * @param string $name
      * @param array $options
+     * @param bool $shared
      * @return object
      */
-    public function get($name, array $options = []);
+    public function get($name, array $options = [], $shared = true);
 
     /**
      * @param string $name

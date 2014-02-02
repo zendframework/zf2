@@ -23,4 +23,12 @@ class Event
      * @var string
      */
     protected $name = self::EVENT_CONTROLLER_DISPATCH;
+
+    /**
+     * @param ListenerInterface $controller
+     */
+    public function __construct(ListenerInterface $controller)
+    {
+        $this->source = $controller;
+    }
 }
