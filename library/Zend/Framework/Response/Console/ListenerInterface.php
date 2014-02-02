@@ -9,17 +9,9 @@
 
 namespace Zend\Framework\Response\Console;
 
-use Zend\Framework\Response\ListenerInterface as Listener;
-use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\ListenerInterface as ResponseListener;
 
 interface ListenerInterface
-    extends Listener
+    extends ResponseListener
 {
-    /**
-     * Trigger
-     *
-     * @param EventInterface $event
-     * @return mixed
-     */
-    public function trigger(EventInterface $event);
 }

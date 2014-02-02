@@ -10,6 +10,8 @@
 namespace Zend\Framework\Response\Stream;
 
 use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\ListenerTrait as ResponseListener;
+use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
 use Zend\Http\Response\Stream;
 
 class Listener
@@ -18,7 +20,8 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ResponseListener,
+        SendHeaders;
 
     /**
      * Send stream response
@@ -37,5 +40,27 @@ class Listener
              ->sendStream($event, $response);
 
         return self::STOPPED;
+    }
+
+    /**
+     * Send the stream
+     *
+     * @param  EventInterface $event
+     * @return self
+     */
+    public function sendStream(EventInterface $event)
+    {
+        if ($event->contentSent()) {
+            return $this;
+        }
+
+        $response = $event->target();
+        $stream   = $response->getStream();
+
+        fpassthru($stream);
+
+        $event->setContentSent();
+
+        return $this;
     }
 }

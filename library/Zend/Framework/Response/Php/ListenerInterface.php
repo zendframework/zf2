@@ -10,16 +10,26 @@
 namespace Zend\Framework\Response\Php;
 
 use Zend\Framework\Response\EventInterface;
-use Zend\Framework\Response\ListenerInterface as Listener;
+use Zend\Framework\Response\ListenerInterface as ResponseListener;
 
 interface ListenerInterface
-    extends Listener
+    extends ResponseListener
 {
     /**
-     * Trigger
+     * Send content
      *
-     * @param EventInterface $event
-     * @return mixed
+     * @param  EventInterface $event
+     * @param $response
+     * @return self
      */
-    public function trigger(EventInterface $event);
+    public function sendContent(EventInterface $event, $response);
+
+    /**
+     * Send HTTP headers
+     *
+     * @param  EventInterface $event
+     * @param $response
+     * @return self
+     */
+    public function sendHeaders(EventInterface $event, $response);
 }

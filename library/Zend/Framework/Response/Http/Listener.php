@@ -10,10 +10,10 @@
 namespace Zend\Framework\Response\Http;
 
 use Zend\Framework\Response\EventInterface;
-use Zend\Http\Response;
 use Zend\Framework\Response\ListenerTrait as ResponseListener;
 use Zend\Framework\Response\SendContentTrait as SendContent;
 use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
+use Zend\Http\Response;
 
 class Listener
     implements ListenerInterface

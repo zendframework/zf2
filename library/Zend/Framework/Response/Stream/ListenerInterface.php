@@ -10,16 +10,16 @@
 namespace Zend\Framework\Response\Stream;
 
 use Zend\Framework\Response\EventInterface;
-use Zend\Framework\Response\ListenerInterface as Listener;
+use Zend\Framework\Response\ListenerInterface as ResponseListener;
 
 interface ListenerInterface
-    extends Listener
+    extends ResponseListener
 {
     /**
-     * Trigger
+     * Send the stream
      *
      * @param EventInterface $event
      * @return mixed
      */
-    public function trigger(EventInterface $event);
+    public function sendStream(EventInterface $event);
 }
