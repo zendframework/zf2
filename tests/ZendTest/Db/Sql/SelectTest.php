@@ -397,6 +397,17 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @testdox: unit test: test limit() throws execption when invalid non-integer parameter passed
+     * @covers Zend\Db\Sql\Select::limit
+     */
+    public function testLimitExceptionOnInvalidNonIntegerParameter()
+    {
+        $select = new Select;
+        $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', 'Zend\Db\Sql\Select::limit expects parameter to be numeric');
+        $select->limit(5.6);
+    }
+
+    /**
      * @testdox: unit test: test offset()
      * @covers Zend\Db\Sql\Select::offset
      */
@@ -428,6 +439,16 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select->offset('foobar');
     }
 
+    /**
+     * @testdox: unit test: test offset() throws exception when invalid non-integer parameter passed
+     * @covers Zend\Db\Sql\Select::offset
+     */
+    public function testOffsetExceptionOnInvalidNonIntegerParameter()
+    {
+        $select = new Select;
+        $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', 'Zend\Db\Sql\Select::offset expects parameter to be numeric');
+        $select->offset(10.6);
+    }
 
     /**
      * @testdox unit test: Test group() returns same Select object (is chainable)
@@ -934,7 +955,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select26 = new Select;
         $select26->from('foo')->limit(5);
         $sqlPrep26 = 'SELECT "foo".* FROM "foo" LIMIT ?';
-        $sqlStr26 = 'SELECT "foo".* FROM "foo" LIMIT \'5\'';
+        $sqlStr26 = 'SELECT "foo".* FROM "foo" LIMIT 5';
         $params26 = array('limit' => 5);
         $internalTests26 = array(
             'processSelect' => array(array(array('"foo".*')), '"foo"'),
@@ -945,7 +966,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select27 = new Select;
         $select27->from('foo')->limit(5)->offset(10);
         $sqlPrep27 = 'SELECT "foo".* FROM "foo" LIMIT ? OFFSET ?';
-        $sqlStr27 = 'SELECT "foo".* FROM "foo" LIMIT \'5\' OFFSET \'10\'';
+        $sqlStr27 = 'SELECT "foo".* FROM "foo" LIMIT 5 OFFSET 10';
         $params27 = array('limit' => 5, 'offset' => 10);
         $internalTests27 = array(
             'processSelect' => array(array(array('"foo".*')), '"foo"'),
@@ -1149,7 +1170,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select45 = new Select;
         $select45->from('foo')->limit("5")->offset("10");
         $sqlPrep45 = 'SELECT "foo".* FROM "foo" LIMIT ? OFFSET ?';
-        $sqlStr45 = 'SELECT "foo".* FROM "foo" LIMIT \'5\' OFFSET \'10\'';
+        $sqlStr45 = 'SELECT "foo".* FROM "foo" LIMIT 5 OFFSET 10';
         $params45 = array('limit' => 5, 'offset' => 10);
         $internalTests45 = array(
             'processSelect' => array(array(array('"foo".*')), '"foo"'),
