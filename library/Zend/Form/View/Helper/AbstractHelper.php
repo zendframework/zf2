@@ -74,6 +74,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
         'dir'                => true,
         'draggable'          => true,
         'dropzone'           => true,
+        'for'                => true,
         'hidden'             => true,
         'id'                 => true,
         'lang'               => true,
