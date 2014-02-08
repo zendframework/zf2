@@ -39,7 +39,7 @@ class Factory
     /**
      * @param Request $request
      * @param array $options
-     * @return Listener
+     * @return Application
      */
     public function service(Request $request, array $options = [])
     {

@@ -14,7 +14,7 @@ use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Framework\Route\PriorityList;
 use Zend\Framework\Route\Manager\Manager as RoutePluginManager;
-use Zend\Mvc\Router\Http\Query;
+use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Mvc\Router\Http\RouteMatch;
 
@@ -178,7 +178,7 @@ class Part
     protected function hasQueryChild()
     {
         foreach ($this->routes as $route) {
-            if ($route instanceof Query) {
+            if ($route instanceof HttpRouteInterface) {
                 return true;
             }
         }

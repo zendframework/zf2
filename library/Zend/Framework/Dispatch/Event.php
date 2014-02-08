@@ -11,7 +11,6 @@ namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
-use Zend\View\Model\ModelInterface as ViewModelInterface;
 
 class Event
     implements EventInterface

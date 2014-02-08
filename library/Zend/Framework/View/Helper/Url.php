@@ -9,16 +9,15 @@
 
 namespace Zend\Framework\View\Helper;
 
-use Zend\Framework\Service\ManagerInterface as ServiceManager;
-use Zend\View\Helper\AbstractHelper as UrlHelper;
-use Zend\Framework\Service\ServiceInterface;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Framework\Route\Stack\ListenerInterface as RouteStackInterface;
 use Traversable;
+use Zend\Framework\Route\RouteInterface;
+use Zend\Framework\Service\ManagerInterface as ServiceManager;
+use Zend\Framework\Service\ServiceInterface;
 use Zend\Mvc\ModuleRouteListener;
-use Zend\View\Exception;
+use Zend\Mvc\Router\RouteMatch;
 use Zend\Stdlib\Exception as StdlibException;
-
+use Zend\View\Exception;
+use Zend\View\Helper\AbstractHelper as UrlHelper;
 
 class Url
     extends UrlHelper
@@ -30,14 +29,13 @@ class Url
      */
     public function __service(ServiceManager $sm)
     {
-        $this->setRouter($sm->get('Router'));
-        $this->setRouteMatch($sm->get('Route\Match'));
-        return $this;
+        return $this->setRouter($sm->get('Router'))
+                    ->setRouteMatch($sm->get('Route\Match'));
     }
     /**
-     * RouteStackInterface instance.
+     * RouteInterface instance.
      *
-     * @var RouteStackInterface
+     * @var RouteInterface
      */
     protected $router;
 
@@ -57,7 +55,7 @@ class Url
      * @param  array|Traversable    $options            Options for the route
      * @param  bool                 $reuseMatchedParams Whether to reuse matched parameters
      * @return string Url                         For the link href attribute
-     * @throws Exception\RuntimeException         If no RouteStackInterface was provided
+     * @throws Exception\RuntimeException         If no RouteInterface was provided
      * @throws Exception\RuntimeException         If no RouteMatch was provided
      * @throws Exception\RuntimeException         If RouteMatch didn't contain a matched route name
      * @throws Exception\InvalidArgumentException If the params object was not an array or \Traversable object
@@ -65,7 +63,7 @@ class Url
     public function __invoke($name = null, $params = array(), $options = array(), $reuseMatchedParams = false)
     {
         if (null === $this->router) {
-            throw new Exception\RuntimeException('No RouteStackInterface instance provided');
+            throw new Exception\RuntimeException('No RouteInterface instance provided');
         }
 
         if (3 == func_num_args() && is_bool($options)) {
@@ -117,10 +115,10 @@ class Url
     /**
      * Set the router to use for assembling.
      *
-     * @param RouteStackInterface $router
+     * @param RouteInterface $router
      * @return Url
      */
-    public function setRouter(RouteStackInterface $router)
+    public function setRouter(RouteInterface $router)
     {
         $this->router = $router;
         return $this;

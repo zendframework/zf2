@@ -11,7 +11,6 @@ namespace Zend\Framework\View\Template;
 
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Module\Route\ListenerInterface as RouteListener;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
     implements ListenerInterface

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterace;
+use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\ResultTrait as Result;
@@ -43,10 +43,12 @@ class Event
         $response = $listener->trigger($this, $options);
 
         switch(true) {
+            default:
+                break;
             case $response instanceof ViewModelInterface:
                 $this->setViewModel($response);
                 break;
-            case $listener instanceof ViewListenerInterace:
+            case $listener instanceof ViewListenerInterface:
                 $this->setResult($response);
                 break;
         }

@@ -25,7 +25,7 @@ class ManagerFactory
     /**
      * @param Request $request
      * @param array $options
-     * @return Listener
+     * @return Manager
      */
     public function service(Request $request, array $options = [])
     {

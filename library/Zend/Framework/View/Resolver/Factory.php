@@ -11,11 +11,17 @@ namespace Zend\Framework\View\Resolver;
 
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
+use Zend\Framework\View\Template\Resolver\ServicesTrait as TemplateResolver;
 use Zend\View\Resolver\AggregateResolver as ViewResolver;
 
 class Factory
     extends ServiceFactory
 {
+    /**
+     *
+     */
+    use TemplateResolver;
+
     /**
      * @param Request $request
      * @param array $options
@@ -23,9 +29,6 @@ class Factory
      */
     public function service(Request $request, array $options = [])
     {
-        $resolver = new ViewResolver;
-        $resolver->attach($this->sm->get('View\Template\Resolver\Map'));
-        $resolver->attach($this->sm->get('View\Template\Resolver\PathStack'));
-        return $resolver;
+        return (new ViewResolver)->attach($this->map())->attach($this->pathStack());
     }
 }

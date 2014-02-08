@@ -31,12 +31,6 @@ class Event
      */
     public function trigger(ListenerInterface $listener, $options = null)
     {
-        $response = $listener->trigger($this, $options);
-
-        if ($response instanceof RouteMatch) {
-            $this->setRouteMatch($response);
-        }
-
-        return $response;
+        return $listener->trigger($this, $options);
     }
 }

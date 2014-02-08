@@ -404,9 +404,8 @@ class Renderer implements RendererInterface, TreeRendererInterface
      * @return string The script output.
      * @throws Exception\DomainException if a ViewModel is passed, but does not
      *                                   contain a template option.
-     * @throws Exception\InvalidArgumentException if the values passed are not
-     *                                            an array or ArrayAccess object
      * @throws Exception\RuntimeException if the template cannot be rendered
+     * @throws \Exception
      */
     public function render($nameOrModel, $values = null)
     {

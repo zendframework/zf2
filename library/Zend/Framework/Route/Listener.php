@@ -12,7 +12,6 @@ namespace Zend\Framework\Route;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Route\ServiceTrait as Router;
-use Zend\Stdlib\RequestInterface as Request;
 
 class Listener
     implements ListenerInterface
