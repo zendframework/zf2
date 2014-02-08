@@ -10,7 +10,11 @@
 namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Event\ListenerTrait as EventListener;
+use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Request\ServiceTrait as Request;
 use Zend\Framework\Route\Event as Route;
+use Zend\Framework\Service\ServiceTrait as Service;
 
 class Listener
     implements ListenerInterface
@@ -18,7 +22,10 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use EventListener,
+        EventManager,
+        Request,
+        Service;
 
     /**
      * @param EventInterface $event
