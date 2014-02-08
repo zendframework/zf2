@@ -14,10 +14,10 @@ use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Service\Manager as ServiceManager;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
-class ApplicationFactory
-    extends Factory
+class Factory
+    extends ServiceFactory
 {
     /**
      *
