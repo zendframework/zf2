@@ -36,10 +36,10 @@ interface ManagerInterface
     public function config(array $listeners);
 
     /**
-     * @param ListenerInterface $listener
+     * @param string|ListenerInterface $listener
      * @return self
      */
-    public function remove(ListenerInterface $listener);
+    public function remove($listener);
 
     /**
      * Push listener to top of queue

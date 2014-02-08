@@ -135,10 +135,10 @@ trait ManagerTrait
     }
 
     /**
-     * @param Listener $listener
+     * @param string|Listener $listener
      * @return self
      */
-    public function remove(Listener $listener)
+    public function remove($listener)
     {
         foreach($this->listeners as $name => $listeners) {
             foreach(array_keys($listeners) as $priority) {
@@ -150,7 +150,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param $event
+     * @param string|Event $event
      * @param null $options
      * @return mixed
      */
