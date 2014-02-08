@@ -12,14 +12,8 @@ namespace Zend\Framework\Event;
 interface ListenerInterface
 {
     /**
-     * Priority default
-     *
-     */
-    const STOPPED = '1869f';
-
-    /**
-     * @param $target
+     * @param EventInterface $event
      * @return bool
      */
-    public function matchTarget($target);
+    public function target(EventInterface $event);
 }

@@ -11,16 +11,30 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
+use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
+use Zend\Framework\Service\Manager as ServiceManager;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
-class ListenerFactory
+class ApplicationFactory
     extends Factory
 {
     /**
      *
      */
-    use EventManager, Config;
+    use Config,
+        EventManager;
+
+    /**
+     * @param array $config
+     * @return EventManagerInterface
+     */
+    public static function factory(array $config)
+    {
+        return (new ServiceManager)->config($config['service_manager'])
+                                   ->add('AppConfig', $config)
+                                   ->get('EventManager');
+    }
 
     /**
      * @param Request $request
@@ -29,12 +43,6 @@ class ListenerFactory
      */
     public function service(Request $request, array $options = [])
     {
-        $config = $this->appConfig()['event_manager'];
-
-        $em = new Listener($this->sm);
-
-        $em->listeners = $config['listeners'];
-
-        return $em;
+        return (new Application($this->sm))->config($this->appConfig()['event_manager']['listeners']);
     }
 }

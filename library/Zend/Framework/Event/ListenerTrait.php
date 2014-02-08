@@ -12,11 +12,13 @@ namespace Zend\Framework\Event;
 trait ListenerTrait
 {
     /**
-     * @param $target
+     * @param EventInterface $event
      * @return bool
      */
-    public function matchTarget($target)
+    public function target(EventInterface $event)
     {
+        $target = $event->source();
+
         if (!isset($this->target) || !$target) {
             return true;
         }

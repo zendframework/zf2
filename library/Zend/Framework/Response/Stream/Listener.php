@@ -39,7 +39,9 @@ class Listener
         $this->sendHeaders($event, $response)
              ->sendStream($event, $response);
 
-        return self::STOPPED;
+        $event->stop();
+
+        return $this;
     }
 
     /**

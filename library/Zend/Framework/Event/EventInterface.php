@@ -24,6 +24,11 @@ interface EventInterface
     public function source();
 
     /**
+     * @return $this
+     */
+    public function stop();
+
+    /**
      * @return bool
      */
     public function stopped();

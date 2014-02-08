@@ -16,54 +16,32 @@ interface ManagerInterface
     extends Listener
 {
     /**
-     * Priority default
+     * Default priority
      *
      */
     const PRIORITY = 0;
 
     /**
-     * Add
-     *
-     * @param Listener $listener
-     * @return self
-     */
-    public function add(Listener $listener);
-
-    /**
-     * @param $name
-     * @param $priority
-     * @param $listener
-     * @return self
-     */
-    public function configure($name, $priority, $listener);
-
-    /**
-     * @param $listener
-     * @return mixed
-     */
-    public function listener($listener);
-
-    /**
-     * Push listener to top of queue
-     *
      * @param string $name
      * @param Listener $listener
-     * @param int $priority
-     * @return $this
+     * @param $priority
+     * @return self
      */
-    public function push($name, Listener $listener, $priority = self::PRIORITY);
+    public function add($name, Listener $listener, $priority = self::PRIORITY);
 
     /**
-     * Remove
-     *
+     * @param $listeners
+     * @return self
+     */
+    public function config(array $listeners);
+
+    /**
      * @param Listener $listener
      * @return self
      */
     public function remove(Listener $listener);
 
     /**
-     * Trigger
-     *
      * @param EventInterface $event
      * @param $options
      * @return mixed

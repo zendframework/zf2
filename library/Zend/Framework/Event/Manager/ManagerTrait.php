@@ -26,47 +26,32 @@ trait ManagerTrait
      *
      * @var array Listener
      */
-    public $listeners = [];
+    protected $listeners = [];
 
     /**
-     * Add listener
-     *
+     * @param string $name
      * @param Listener $listener
      * @param $priority
      * @return self
      */
-    public function add(Listener $listener, $priority = self::PRIORITY)
+    public function add($name, Listener $listener, $priority = ManagerInterface::PRIORITY)
     {
-        $name = $listener->name();
-
         if (!isset($this->listeners[$name])) {
             $this->listeners[$name] = [];
         }
 
-        if (!isset($this->listeners[$name][$priority])) {
-            $this->listeners[$name][$priority] = [];
-        }
-
         $this->listeners[$name][$priority][] = $listener;
-
 
         return $this;
     }
 
     /**
-     * @param $name
-     * @param $priority
-     * @param $listener
-     * @return self
+     * @param array $listeners
+     * @return $this
      */
-    public function configure($name, $priority, $listener)
+    public function config(array $listeners)
     {
-        if (!isset($this->listeners[$name])) {
-            $this->listeners[$name] = [];
-        }
-
-        $this->listeners[$name][$priority][] = $listener;
-
+        $this->listeners = $listeners;
         return $this;
     }
 
@@ -74,9 +59,32 @@ trait ManagerTrait
      * @param $listener
      * @return mixed
      */
-    public function listener($listener)
+    abstract protected function listener($listener);
+
+    /**
+     * @param array $listeners
+     * @return Generator
+     */
+    protected function generator(array $listeners)
     {
-        return new $listener;
+        foreach($listeners as $listener) {
+            yield $this->listener($listener);
+        }
+    }
+
+    /**
+     * @param Event $event
+     * @return Generator
+     */
+    protected function listeners($event)
+    {
+        foreach($this->queue($event) as $listeners) {
+            foreach($this->generator($listeners) as $listener) {
+                if ($listener->target($event)) {
+                    yield $listener;
+                }
+            }
+        }
     }
 
     /**
@@ -97,66 +105,16 @@ trait ManagerTrait
     }
 
     /**
-     * Push listener to top of queue
-     *
-     * @param string $name
      * @param Listener $listener
-     * @param int $priority
-     * @return $this
-     */
-    public function push($name, Listener $listener, $priority = self::PRIORITY)
-    {
-        if (!isset($this->listeners[$name])) {
-            $this->listeners[$name] = [];
-        }
-
-        if (!isset($this->listeners[$name][$priority])) {
-            $this->listeners[$name][$priority][] = $listener;
-            return $this;
-        }
-
-        array_unshift($this->listeners[$name][$priority], $listener);
-
-        return $this;
-    }
-
-    /**
-     * @param Event $event
-     * @return Generator
-     */
-    protected function listeners($event)
-    {
-        $target = $event->source();
-        foreach($this->queue($event) as $listeners) {
-            foreach($listeners as $listener) {
-                //not all listeners for this priority need to be initialized
-                if (is_string($listener)) {
-                    $listener = $this->listener($listener);
-                }
-
-                if ($listener->matchTarget($target)) {
-                    yield $listener;
-                }
-            }
-        }
-    }
-
-    /**
-     * Remove listener
-     *
-     * @param Listener $listener
-     * @param $priority
      * @return self
      */
-    public function remove(Listener $listener, $priority = self::PRIORITY)
+    public function remove(Listener $listener)
     {
-        $name = $listener->name();
-
-        if (!isset($this->listeners[$name][$priority])) {
-            return $this;
+        foreach($this->listeners as $name => $listeners) {
+            foreach(array_keys($listeners) as $priority) {
+                $this->listeners[$name][$priority] = array_diff($this->listeners[$name][$priority], [$listener]);
+            }
         }
-
-        $this->listeners[$name][$priority] = array_diff($this->listeners[$name][$priority], [$listener]);
 
         return $this;
     }
@@ -168,6 +126,8 @@ trait ManagerTrait
      */
     public function trigger(Event $event, $options = null)
     {
+        $result = null;
+
         foreach($this->listeners($event) as $listener) {
 
             //var_dump(get_class($listener));
