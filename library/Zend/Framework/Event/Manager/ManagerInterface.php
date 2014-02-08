@@ -23,11 +23,11 @@ interface ManagerInterface
 
     /**
      * @param string $name
-     * @param ListenerInterface $listener
+     * @param string|ListenerInterface $listener
      * @param $priority
      * @return self
      */
-    public function add($name, ListenerInterface $listener, $priority = self::PRIORITY);
+    public function add($name, $listener, $priority = self::PRIORITY);
 
     /**
      * @param $listeners
@@ -45,11 +45,11 @@ interface ManagerInterface
      * Push listener to top of queue
      *
      * @param string $name
-     * @param ListenerInterface $listener
+     * @param string|ListenerInterface $listener
      * @param int $priority
      * @return self
      */
-    public function push($name, ListenerInterface $listener, $priority = self::PRIORITY);
+    public function push($name, $listener, $priority = self::PRIORITY);
 
     /**
      * @param string|EventInterface $event

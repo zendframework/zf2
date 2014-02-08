@@ -30,11 +30,11 @@ trait ManagerTrait
 
     /**
      * @param string $name
-     * @param Listener $listener
+     * @param string|Listener $listener
      * @param $priority
      * @return self
      */
-    public function add($name, Listener $listener, $priority = ManagerInterface::PRIORITY)
+    public function add($name, $listener, $priority = ManagerInterface::PRIORITY)
     {
         if (!isset($this->listeners[$name])) {
             $this->listeners[$name] = [];
@@ -97,11 +97,11 @@ trait ManagerTrait
      * Push listener to top of queue
      *
      * @param string $name
-     * @param Listener $listener
+     * @param string|Listener $listener
      * @param int $priority
      * @return self
      */
-    public function push($name, Listener $listener, $priority = ManagerInterface::PRIORITY)
+    public function push($name, $listener, $priority = ManagerInterface::PRIORITY)
     {
         if (!isset($this->listeners[$name])) {
             $this->listeners[$name] = [];
