@@ -28,11 +28,11 @@ class Event
 
     /**
      * @param ListenerInterface $listener
-     * @param null $options
+     * @param $options
      * @return mixed
      */
     public function trigger(ListenerInterface $listener, $options = null)
     {
-        return  $listener->trigger($this, $options);
+        return $listener->trigger($this, $options);
     }
 }

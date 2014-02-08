@@ -36,6 +36,18 @@ interface ManagerInterface
     public function config(array $listeners);
 
     /**
+     * @param string|EventInterface $event
+     * @return mixed
+     */
+    public function event($event);
+
+    /**
+     * @param string|ListenerInterface $listener
+     * @return mixed
+     */
+    public function listener($listener);
+
+    /**
      * @param string|ListenerInterface $listener
      * @return self
      */

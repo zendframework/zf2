@@ -17,14 +17,14 @@ trait ListenerTrait
      */
     public function target(EventInterface $event)
     {
-        $target = $event->source();
+        $source = $event->source();
 
-        if (!isset($this->target) || !$target) {
+        if (!isset($this->target) || !$source) {
             return true;
         }
 
-        foreach((array) $this->target as $t) {
-            if ($target == $t || $target instanceof $t || \is_subclass_of($target, $t)) {
+        foreach((array) $this->target as $target) {
+            if ($source == $target || $source instanceof $target || \is_subclass_of($source, $target)) {
                 return true;
             }
         }

@@ -14,23 +14,23 @@ trait ServiceTrait
     /**
      * @var ListenerInterface
      */
-    protected $controllerManager;
+    protected $cm;
 
     /**
      * @return ListenerInterface
      */
     public function controllerManager()
     {
-        return $this->controllerManager;
+        return $this->cm;
     }
 
     /**
-     * @param ListenerInterface $controllerManager
+     * @param ListenerInterface $cm
      * @return self
      */
-    public function setControllerManager(ListenerInterface $controllerManager)
+    public function setControllerManager(ListenerInterface $cm)
     {
-        $this->controllerManager = $controllerManager;
+        $this->cm = $cm;
         return $this;
     }
 }

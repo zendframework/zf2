@@ -25,7 +25,7 @@ class CallableFactory
 
     /**
      * @param ServiceManager $sm
-     * @param string|callable $factory
+     * @param callable $factory
      */
     public function __construct(ServiceManager $sm, $factory)
     {

@@ -25,7 +25,7 @@ class AbstractFactory
 
     /**
      * @param ServiceManager $sm
-     * @param string|callable $factory
+     * @param array $factory
      */
     public function __construct(ServiceManager $sm, $factory)
     {

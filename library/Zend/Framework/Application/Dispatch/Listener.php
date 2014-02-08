@@ -30,6 +30,6 @@ class Listener
      */
     public function trigger(EventInterface $event, $options = null)
     {
-        return $this->em->trigger(new Dispatch, $event->routeMatch());
+        return $this->em->trigger('Dispatch\Event', $event->routeMatch());
     }
 }

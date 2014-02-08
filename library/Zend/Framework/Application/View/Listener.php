@@ -9,10 +9,9 @@
 
 namespace Zend\Framework\Application\View;
 
-use Zend\Framework\Application\EventInterface as ApplicationEvent;
+use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
-use Zend\Framework\View\Event as View;
 
 class Listener
     implements ListenerInterface
@@ -24,12 +23,12 @@ class Listener
         EventListener;
 
     /**
-     * @param ApplicationEvent $event
+     * @param EventInterface $event
      * @param $options
      * @return mixed
      */
-    public function trigger(ApplicationEvent $event, $options = null)
+    public function trigger(EventInterface $event, $options = null)
     {
-        return $this->em->trigger(new View, $event->viewModel());
+        return $this->em->trigger('View\Event', $event->viewModel());
     }
 }

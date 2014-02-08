@@ -56,16 +56,16 @@ trait ManagerTrait
     }
 
     /**
-     * @param $event
+     * @param string|Event $event
      * @return mixed
      */
-    abstract protected function event($event);
+    abstract public function event($event);
 
     /**
-     * @param $listener
+     * @param string|Listener $listener
      * @return mixed
      */
-    abstract protected function listener($listener);
+    abstract public function listener($listener);
 
     /**
      * @param array $listeners
@@ -154,14 +154,17 @@ trait ManagerTrait
      * @param null $options
      * @return mixed
      */
-    abstract public function trigger($event, $options = null);
+    public function trigger($event, $options = null)
+    {
+        return $this->triggerEvent($this->event($event), $options);
+    }
 
     /**
      * @param Event $event
      * @param $options
      * @return mixed
      */
-    public function __invoke(Event $event, $options = null)
+    protected function triggerEvent(Event $event, $options = null)
     {
         $result = null;
 

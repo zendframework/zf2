@@ -65,7 +65,7 @@ class Manager
     }
 
     /**
-     * @param string|callable $factory
+     * @param array|callable|FactoryInterface|object|string $factory
      * @return Factory
      */
     public function factory($factory)

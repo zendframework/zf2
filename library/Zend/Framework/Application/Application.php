@@ -34,7 +34,7 @@ class Application
      * @param $event
      * @return EventInterface
      */
-    protected function event($event)
+    public function event($event)
     {
         return $this->get($event);
     }
@@ -45,7 +45,15 @@ class Application
      */
     public function get($service)
     {
-        return is_string($service) ? $this->sm->get($service) : $service;
+        if (is_string($service)) {
+            return $this->sm->get($service);
+        }
+
+        if (is_array($service)) {
+            return $this->sm->get($service[0], $service[1]);
+        }
+
+        return $service;
     }
 
     /**
@@ -54,7 +62,7 @@ class Application
      * @param $listener
      * @return ListenerInterface
      */
-    protected function listener($listener)
+    public function listener($listener)
     {
         return $this->get($listener);
     }
@@ -65,15 +73,5 @@ class Application
     public function run()
     {
         return $this->trigger('Application\Event');
-    }
-
-    /**
-     * @param $event
-     * @param null $options
-     * @return mixed
-     */
-    public function trigger($event, $options = null)
-    {
-        return $this->__invoke($this->event($event), $options);
     }
 }

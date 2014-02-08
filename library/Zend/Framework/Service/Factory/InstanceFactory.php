@@ -27,7 +27,7 @@ class InstanceFactory
 
     /**
      * @param ServiceManager $sm
-     * @param string|callable $factory
+     * @param string $factory
      */
     public function __construct(ServiceManager $sm, $factory)
     {
