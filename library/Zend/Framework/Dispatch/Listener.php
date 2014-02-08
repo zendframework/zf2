@@ -10,7 +10,7 @@
 namespace Zend\Framework\Dispatch;
 
 use Exception;
-use Zend\Framework\Controller\EventInterface as ControllerEventInterface;
+use Zend\Framework\Controller\EventInterface as ControllerEvent;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 use Zend\Framework\Dispatch\Error\Event as DispatchError;
 use Zend\Framework\Event\ListenerTrait as EventListener;
@@ -40,7 +40,7 @@ class Listener
 
         $controller = $this->cm->controller($controllerName, [$routeMatch]);
 
-        $this->em->push(ControllerEventInterface::EVENT_CONTROLLER_DISPATCH, $controller);
+        $this->em->push(ControllerEvent::EVENT_CONTROLLER_DISPATCH, $controller);
 
         try {
 

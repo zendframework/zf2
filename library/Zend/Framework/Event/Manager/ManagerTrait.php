@@ -156,7 +156,7 @@ trait ManagerTrait
      */
     public function trigger($event, $options = null)
     {
-        return $this->triggerEvent($this->event($event), $options);
+        return $this->dispatch($this->event($event), $options);
     }
 
     /**
@@ -164,7 +164,7 @@ trait ManagerTrait
      * @param $options
      * @return mixed
      */
-    protected function triggerEvent(Event $event, $options = null)
+    protected function dispatch(Event $event, $options = null)
     {
         $result = null;
 
