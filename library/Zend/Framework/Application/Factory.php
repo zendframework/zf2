@@ -33,16 +33,16 @@ class Factory
     {
         return (new ServiceManager)->config($config['service_manager'])
                                    ->add('AppConfig', $config)
-                                   ->get('EventManager');
+                                   ->get('EventManager', $config['event_manager']['listeners']);
     }
 
     /**
      * @param Request $request
-     * @param array $options
+     * @param array $listeners
      * @return Application
      */
-    public function service(Request $request, array $options = [])
+    public function service(Request $request, array $listeners = [])
     {
-        return (new Application($this->sm))->config($this->appConfig()['event_manager']['listeners']);
+        return (new Application($this->sm))->config($listeners);
     }
 }

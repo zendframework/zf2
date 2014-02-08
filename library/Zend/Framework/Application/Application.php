@@ -34,7 +34,7 @@ class Application
      * @param $event
      * @return EventInterface
      */
-    public function event($event)
+    protected function event($event)
     {
         return $this->get($event);
     }
