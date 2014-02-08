@@ -31,8 +31,6 @@ interface ListenerInterface
     public function setCallback(callable $callback);
 
     /**
-     * Trigger
-     *
      * @param Event $event
      * @param $response
      * @return mixed

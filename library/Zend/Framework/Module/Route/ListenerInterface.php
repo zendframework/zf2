@@ -26,8 +26,6 @@ interface ListenerInterface
     const ORIGINAL_CONTROLLER = '__CONTROLLER__';
 
     /**
-     * Trigger
-     *
      * @param EventInterface $event
      * @param mixed $response
      * @return mixed

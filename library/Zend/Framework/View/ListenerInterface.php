@@ -23,8 +23,6 @@ interface ListenerInterface
     public function setEventManager(EventManager $em);
 
     /**
-     * Trigger
-     *
      * @param EventInterface $event
      * @param ViewModel $viewModel
      * @return mixed

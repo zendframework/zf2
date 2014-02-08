@@ -37,8 +37,6 @@ interface ListenerInterface
     public function setViewModel(ViewModel $vm);
 
     /**
-     * Trigger
-     *
      * @param EventInterface $event
      * @param RouteMatch $routeMatch
      * @return mixed

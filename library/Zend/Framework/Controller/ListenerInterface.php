@@ -15,8 +15,6 @@ interface ListenerInterface
     extends Listener
 {
     /**
-     * Trigger
-     *
      * @param EventInterface $event
      * @return mixed
      */

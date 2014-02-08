@@ -9,18 +9,16 @@
 
 namespace Zend\Framework\Application\Dispatch;
 
-use Zend\Framework\Application\EventInterface as ApplicationEvent;
+use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\ListenerInterface as Listener;
 
 interface ListenerInterface
     extends Listener
 {
     /**
-     * Trigger
-     *
-     * @param ApplicationEvent $event
+     * @param EventInterface $event
      * @param $options
      * @return mixed
      */
-    public function trigger(ApplicationEvent $event, $options = null);
+    public function trigger(EventInterface $event, $options = null);
 }
