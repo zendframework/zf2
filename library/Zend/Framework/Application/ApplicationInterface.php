@@ -9,19 +9,9 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\Manager\ManagerInterface;
 
 interface ApplicationInterface
     extends ManagerInterface
 {
-    /**
-     * Push listener to top of queue
-     *
-     * @param string $name
-     * @param ListenerInterface $listener
-     * @param int $priority
-     * @return self
-     */
-    public function push($name, ListenerInterface $listener, $priority = self::PRIORITY);
 }

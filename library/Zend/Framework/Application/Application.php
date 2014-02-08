@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Application;
 
+use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
@@ -30,37 +31,49 @@ class Application
     }
 
     /**
-     * Retrieve listener from service manager
-     *
-     * @param $listener
-     * @return mixed
+     * @param $event
+     * @return EventInterface
      */
-    protected function listener($listener)
+    public function event($event)
     {
-        return is_string($listener) ? $this->sm->get($listener) : $listener;
+        return $this->get($event);
     }
 
     /**
-     * Push listener to top of queue
-     *
-     * @param string $name
-     * @param ListenerInterface $listener
-     * @param int $priority
-     * @return self
+     * @param $service
+     * @return false|object
      */
-    public function push($name, ListenerInterface $listener, $priority = self::PRIORITY)
+    public function get($service)
     {
-        if (!isset($this->listeners[$name])) {
-            $this->listeners[$name] = [];
-        }
+        return is_string($service) ? $this->sm->get($service) : $service;
+    }
 
-        if (!isset($this->listeners[$name][$priority])) {
-            $this->listeners[$name][$priority][] = $listener;
-            return $this;
-        }
+    /**
+     * Retrieve listener from service manager
+     *
+     * @param $listener
+     * @return ListenerInterface
+     */
+    protected function listener($listener)
+    {
+        return $this->get($listener);
+    }
 
-        array_unshift($this->listeners[$name][$priority], $listener);
+    /**
+     * @return mixed
+     */
+    public function run()
+    {
+        return $this->trigger('Application\Event');
+    }
 
-        return $this;
+    /**
+     * @param $event
+     * @param null $options
+     * @return mixed
+     */
+    public function trigger($event, $options = null)
+    {
+        return $this->__invoke($this->event($event), $options);
     }
 }

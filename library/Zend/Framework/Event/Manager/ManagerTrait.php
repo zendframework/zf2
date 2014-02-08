@@ -56,6 +56,12 @@ trait ManagerTrait
     }
 
     /**
+     * @param $event
+     * @return mixed
+     */
+    abstract protected function event($event);
+
+    /**
      * @param $listener
      * @return mixed
      */
@@ -85,6 +91,30 @@ trait ManagerTrait
                 }
             }
         }
+    }
+
+    /**
+     * Push listener to top of queue
+     *
+     * @param string $name
+     * @param Listener $listener
+     * @param int $priority
+     * @return self
+     */
+    public function push($name, Listener $listener, $priority = ManagerInterface::PRIORITY)
+    {
+        if (!isset($this->listeners[$name])) {
+            $this->listeners[$name] = [];
+        }
+
+        if (!isset($this->listeners[$name][$priority])) {
+            $this->listeners[$name][$priority][] = $listener;
+            return $this;
+        }
+
+        array_unshift($this->listeners[$name][$priority], $listener);
+
+        return $this;
     }
 
     /**
@@ -120,11 +150,18 @@ trait ManagerTrait
     }
 
     /**
+     * @param $event
+     * @param null $options
+     * @return mixed
+     */
+    abstract public function trigger($event, $options = null);
+
+    /**
      * @param Event $event
      * @param $options
      * @return mixed
      */
-    public function trigger(Event $event, $options = null)
+    public function __invoke(Event $event, $options = null)
     {
         $result = null;
 
