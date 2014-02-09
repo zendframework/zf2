@@ -17,15 +17,9 @@ interface ManagerInterface
     extends ListenerInterface
 {
     /**
-     * @param Config $listeners
-     * @return self
-     */
-    public function config(Config $listeners);
-
-    /**
      * @return Config
      */
-    public function configuration();
+    public function config();
 
     /**
      * @param string|EventInterface $event

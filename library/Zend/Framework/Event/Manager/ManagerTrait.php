@@ -28,19 +28,9 @@ trait ManagerTrait
     protected $listeners;
 
     /**
-     * @param Config $listeners
-     * @return self
-     */
-    public function config(Config $listeners)
-    {
-        $this->listeners = $listeners;
-        return $this;
-    }
-
-    /**
      * @return ConfigInterface
      */
-    public function configuration()
+    public function config()
     {
         return $this->listeners;
     }

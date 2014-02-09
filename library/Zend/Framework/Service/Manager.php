@@ -35,6 +35,14 @@ class Manager
     protected $pending = [];
 
     /**
+     * @param ConfigInterface $config
+     */
+    public function __construct(ConfigInterface $config)
+    {
+        $this->service = $config;
+    }
+
+    /**
      * @param $name
      * @param $service
      * @return self
@@ -46,19 +54,9 @@ class Manager
     }
 
     /**
-     * @param ConfigInterface $config
-     * @return self
-     */
-    public function config(ConfigInterface $config)
-    {
-        $this->service = $config;
-        return $this;
-    }
-
-    /**
      * @return ConfigInterface
      */
-    public function configuration()
+    public function config()
     {
         return $this->service;
     }
@@ -67,7 +65,7 @@ class Manager
      * @param array|callable|FactoryInterface|object|string $factory
      * @return FactoryInterface
      */
-    public function factory($factory)
+    protected function factory($factory)
     {
         if (\is_string($factory)) {
             if (\is_subclass_of($factory, Factory::class)) {
@@ -120,7 +118,7 @@ class Manager
      * @param $name
      * @return false|FactoryInterface
      */
-    public function service($name)
+    protected function service($name)
     {
         if (empty($this->service[$name])) {
             return false;

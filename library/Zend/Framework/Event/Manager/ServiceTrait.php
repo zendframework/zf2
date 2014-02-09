@@ -31,7 +31,7 @@ trait ServiceTrait
      */
     public function events()
     {
-        return $this->em->configuration();
+        return $this->em->config();
     }
 
     /**

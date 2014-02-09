@@ -33,9 +33,9 @@ class Factory
      */
     public static function factory(array $config)
     {
-        return (new ServiceManager)->config(new ServiceConfig($config['service_manager']))
-                                   ->add('AppConfig', $config)
-                                   ->get('EventManager', $config['event_manager']['listeners']);
+        return (new ServiceManager(new ServiceConfig($config['service_manager'])))
+                ->add('AppConfig', $config)
+                ->get('EventManager', $config['event_manager']['listeners']);
     }
 
     /**
@@ -45,6 +45,6 @@ class Factory
      */
     public function service(Request $request, array $listeners = [])
     {
-        return (new Application($this->sm))->config(new EventConfig($listeners));
+        return new Application(new EventConfig($listeners), $this->sm);
     }
 }

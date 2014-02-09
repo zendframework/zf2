@@ -11,6 +11,7 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface;
+use Zend\Framework\Event\Manager\ConfigInterface as Config;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 
@@ -23,10 +24,12 @@ class Application
     use EventManager;
 
     /**
+     * @param Config $listeners
      * @param ServiceManagerInterface $sm
      */
-    public function __construct(ServiceManagerInterface $sm)
+    public function __construct(Config $listeners, ServiceManagerInterface $sm)
     {
+        $this->listeners = $listeners;
         $this->sm = $sm;
     }
 

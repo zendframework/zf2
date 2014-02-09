@@ -19,21 +19,9 @@ interface ManagerInterface
     public function add($name, $service);
 
     /**
-     * @param ConfigInterface $config
-     * @return self
-     */
-    public function config(ConfigInterface $config);
-
-    /**
      * @return ConfigInterface
      */
-    public function configuration();
-
-    /**
-     * @param string|callable $factory
-     * @return callable
-     */
-    public function factory($factory);
+    public function config();
 
     /**
      * @param string $name
@@ -48,12 +36,6 @@ interface ManagerInterface
      * @return bool
      */
     public function has($name);
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function service($name);
 
     /**
      * @param RequestInterface $event
