@@ -9,8 +9,20 @@
 
 namespace Zend\Framework\Controller\Manager;
 
+use Zend\Framework\Event\ListenerInterface;
+use Zend\Mvc\Router\RouteMatch;
+
 trait ServicesTrait
 {
+    /**
+     * @param RouteMatch $routeMatch
+     * @return false|ListenerInterface
+     */
+    public function controller(RouteMatch $routeMatch)
+    {
+        return $this->controllerManager()->controller($routeMatch);
+    }
+
     /**
      * @return bool|ManagerInterface
      */

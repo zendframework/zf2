@@ -35,17 +35,17 @@ class Listener
      */
     public function __invoke(EventInterface $event, RouteMatch $routeMatch)
     {
-        $controller = $this->cm->controller($routeMatch);
+        $controller = $this->controller($routeMatch);
 
-        $this->em->configuration()->push(ControllerEvent::EVENT_CONTROLLER_DISPATCH, $controller);
+        $this->events()->push(ControllerEvent::EVENT_CONTROLLER_DISPATCH, $controller);
 
         try {
 
-            $response = $this->em->trigger(['Controller\Event', $controller]);
+            $response = $this->trigger(['Controller\Event', $controller]);
 
         } catch (Exception $exception) {
 
-            $response = $this->em->trigger(['Dispatch\Error', [$controller, $routeMatch, $exception]]);
+            $response = $this->trigger(['Dispatch\Error', [$controller, $routeMatch, $exception]]);
 
         }
 

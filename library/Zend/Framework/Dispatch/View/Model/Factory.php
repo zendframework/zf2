@@ -33,6 +33,6 @@ class Factory
      */
     public function service(Request $request, array $options = [])
     {
-        return $this->eventManager()->trigger(['Dispatch\View\Model\Event', new ViewModel], $options);
+        return $this->trigger(['Dispatch\View\Model\Event', new ViewModel], $options);
     }
 }

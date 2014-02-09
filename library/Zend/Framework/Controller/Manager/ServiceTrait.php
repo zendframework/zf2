@@ -9,12 +9,24 @@
 
 namespace Zend\Framework\Controller\Manager;
 
+use Zend\Framework\Event\ListenerInterface;
+use Zend\Mvc\Router\RouteMatch;
+
 trait ServiceTrait
 {
     /**
      * @var ManagerInterface
      */
     protected $cm;
+
+    /**
+     * @param RouteMatch $routeMatch
+     * @return false|ListenerInterface
+     */
+    public function controller(RouteMatch $routeMatch)
+    {
+        return $this->cm->controller($routeMatch);
+    }
 
     /**
      * @return ManagerInterface

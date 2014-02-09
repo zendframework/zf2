@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Event\Manager;
 
+use Zend\Framework\Event\EventInterface;
+
 trait ServicesTrait
 {
     /**
@@ -20,6 +22,14 @@ trait ServicesTrait
     }
 
     /**
+     * @return ConfigInterface
+     */
+    public function events()
+    {
+        return $this->eventManager()->configuration();
+    }
+
+    /**
      * @param ManagerInterface $em
      * @return self
      */
@@ -27,5 +37,15 @@ trait ServicesTrait
     {
         $this->sm->add('EventManager', $em);
         return $this;
+    }
+
+    /**
+     * @param string|EventInterface $event
+     * @param $options
+     * @return mixed
+     */
+    public function trigger($event, $options = null)
+    {
+        return $this->eventManager()->trigger($event, $options);
     }
 }

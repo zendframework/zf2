@@ -33,6 +33,6 @@ class Listener
     {
         $this->response->setContent($event->result());
 
-        return $this->em->trigger('Response\Event', $this->response);
+        return $this->trigger('Response\Event', $this->response);
     }
 }

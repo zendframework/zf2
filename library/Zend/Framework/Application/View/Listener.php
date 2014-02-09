@@ -29,6 +29,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->em->trigger('View\Event', $event->viewModel());
+        return $this->trigger('View\Event', $event->viewModel());
     }
 }

@@ -29,6 +29,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->em->trigger('Dispatch\Event', $event->routeMatch());
+        return $this->trigger('Dispatch\Event', $event->routeMatch());
     }
 }

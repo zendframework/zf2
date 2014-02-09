@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Controller\ServicesTrait as Controller;
+use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
@@ -21,7 +21,7 @@ class ListenerFactory
     /**
      *
      */
-    use Controller,
+    use ControllerManager,
         EventManager,
         View;
 

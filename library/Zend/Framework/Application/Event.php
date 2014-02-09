@@ -15,6 +15,7 @@ use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\ResultTrait as Result;
 use Zend\Framework\Route\ServiceTrait as Route;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
+use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ModelInterface as ViewModelInterface;
 
 class Event
@@ -44,6 +45,9 @@ class Event
 
         switch(true) {
             default:
+                break;
+            case $response instanceof RouteMatch:
+                $this->setRouteMatch($response);
                 break;
             case $response instanceof ViewModelInterface:
                 $this->setViewModel($response);

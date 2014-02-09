@@ -13,6 +13,7 @@ use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\Request\ServiceTrait as Request;
+use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Service\ServiceTrait as Service;
 
 class Listener
@@ -24,6 +25,7 @@ class Listener
     use EventListener,
         EventManager,
         Request,
+        Route,
         Service;
 
     /**
@@ -33,11 +35,11 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        $routeMatch = $this->em->trigger('Route\Event', $this->request);
+        $routeMatch = $this->trigger('Route\Event', $this->request);
 
-        //needed for render
-        $this->sm->add('Route\Match', $routeMatch);
+        //update service manager, needed for render (i.e url view helper)
+        $this->setRouteMatch($routeMatch);
 
-        $event->setRouteMatch($routeMatch);
+        return $routeMatch;
     }
 }
