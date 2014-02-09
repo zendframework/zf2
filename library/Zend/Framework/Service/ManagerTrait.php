@@ -86,14 +86,23 @@ trait ManagerTrait
     }
 
     /**
-     * @param mixed $service
+     * @param mixed $name
      * @param array $options
      * @param bool $shared
      * @return false|object
      */
-    public function get($service, array $options = [], $shared = true)
+    public function get($name, array $options = [], $shared = true)
     {
-        return $this->__invoke(new Request($service, $shared), $options);
+        if (is_array($name)) {
+
+            list($name, $options) = $name;
+
+            if (!is_array($options)) {
+                $options = [$options];
+            }
+        }
+
+        return $this->__invoke(new Request($name, $shared), $options);
     }
 
     /**

@@ -39,23 +39,7 @@ class Application
      */
     public function event($event)
     {
-        return $event instanceof EventInterface ? $event : $this->get($event);
-    }
-
-    /**
-     * @param array|string $service
-     * @return false|object
-     */
-    public function get($service)
-    {
-        if (is_array($service)) {
-
-            list($service, $params) = $service;
-
-            return $this->sm->get($service, is_array($params) ? $params : [$params]);
-        }
-
-        return $this->sm->get($service);
+        return $event instanceof EventInterface ? $event : $this->sm->get($event);
     }
 
     /**
@@ -66,7 +50,7 @@ class Application
      */
     public function listener($listener)
     {
-        return $listener instanceof ListenerInterface ? $listener : $this->get($listener);
+        return $listener instanceof ListenerInterface ? $listener : $this->sm->get($listener);
     }
 
     /**
