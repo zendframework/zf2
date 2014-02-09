@@ -10,7 +10,6 @@
 namespace Zend\Framework\Application\Dispatch;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Dispatch\Event as Dispatch;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 
