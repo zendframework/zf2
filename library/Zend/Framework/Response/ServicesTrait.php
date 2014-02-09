@@ -27,6 +27,17 @@ trait ServicesTrait
      */
     public function setResponse(Response $response)
     {
-        return $this->sm->add('Response', $response);
+        $this->sm->add('Response', $response);
+        return $this;
+    }
+
+    /**
+     * @param $content
+     * @return self
+     */
+    public function setResponseContent($content)
+    {
+        $this->response()->setContent($content);
+        return $this;
     }
 }

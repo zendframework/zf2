@@ -31,8 +31,7 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        $this->response->setContent($event->result());
-
-        return $this->trigger('Response\Event', $this->response);
+        return $this->setResponseContent($event->result())
+                    ->trigger('Response\Event', $this->response());
     }
 }

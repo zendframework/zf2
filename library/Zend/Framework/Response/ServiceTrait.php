@@ -35,4 +35,14 @@ trait ServiceTrait
         $this->response = $response;
         return $this;
     }
+
+    /**
+     * @param $content
+     * @return self
+     */
+    public function setResponseContent($content)
+    {
+        $this->response->setContent($content);
+        return $this;
+    }
 }
