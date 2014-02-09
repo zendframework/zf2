@@ -12,7 +12,7 @@ namespace Zend\Framework\Application\Response;
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
-use Zend\Framework\Response\ServiceTrait as ResponseService;
+use Zend\Framework\Response\ServiceTrait as Response;
 
 class Listener
     implements ListenerInterface
@@ -22,7 +22,7 @@ class Listener
      */
     use EventManager,
         EventListener,
-        ResponseService;
+        Response;
 
     /**
      * @param EventInterface $event

@@ -13,7 +13,8 @@ use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\ResultTrait as Result;
-use Zend\Framework\Route\ServiceTrait as Route;
+use Zend\Framework\Route\ServicesTrait as Route;
+use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ModelInterface as ViewModelInterface;
@@ -33,6 +34,19 @@ class Event
      * @var string
      */
     protected $name = self::EVENT_APPLICATION;
+
+    /**
+     * @var ServiceManager
+     */
+    protected $sm;
+
+    /**
+     * @param ServiceManager $sm
+     */
+    public function __construct(ServiceManager $sm)
+    {
+        $this->sm = $sm;
+    }
 
     /**
      * @param ListenerInterface $listener

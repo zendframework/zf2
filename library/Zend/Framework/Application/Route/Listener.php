@@ -35,11 +35,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        $routeMatch = $this->trigger('Route\Event', $this->request);
-
-        //update service manager, needed for render (i.e url view helper)
-        $this->setRouteMatch($routeMatch);
-
-        return $routeMatch;
+        return $this->trigger('Route\Event', $this->request);
     }
 }
