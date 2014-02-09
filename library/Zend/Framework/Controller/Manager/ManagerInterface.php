@@ -9,11 +9,9 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-class Listener
-    implements ListenerInterface
+use Zend\Framework\Event\ListenerInterface;
+
+interface ManagerInterface
+    extends ListenerInterface
 {
-    /**
-     *
-     */
-    use ListenerTrait;
 }

@@ -28,8 +28,8 @@ interface ListenerInterface
 
     /**
      * @param Event $event
-     * @param $response
+     * @param null $options
      * @return mixed
      */
-    public function __invoke(Event $event, $response);
+    public function __invoke(Event $event, $options = null);
 }

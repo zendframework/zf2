@@ -12,12 +12,12 @@ namespace Zend\Framework\Controller\Manager;
 trait ServiceTrait
 {
     /**
-     * @var ListenerInterface
+     * @var ManagerInterface
      */
     protected $cm;
 
     /**
-     * @return ListenerInterface
+     * @return ManagerInterface
      */
     public function controllerManager()
     {
@@ -25,10 +25,10 @@ trait ServiceTrait
     }
 
     /**
-     * @param ListenerInterface $cm
+     * @param ManagerInterface $cm
      * @return self
      */
-    public function setControllerManager(ListenerInterface $cm)
+    public function setControllerManager(ManagerInterface $cm)
     {
         $this->cm = $cm;
         return $this;

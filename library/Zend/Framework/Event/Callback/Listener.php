@@ -21,11 +21,11 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param $response
+     * @param null $options
      * @return mixed
      */
-    public function __invoke(EventInterface $event, $response)
+    public function __invoke(EventInterface $event, $options = null)
     {
-        return call_user_func($this->callback, $event);
+        return call_user_func_array($this->callback, array_merge([$event], (array) $options));
     }
 }

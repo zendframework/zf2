@@ -12,7 +12,7 @@ namespace Zend\Framework\Controller\Manager;
 trait ServicesTrait
 {
     /**
-     * @return bool|ListenerInterface
+     * @return bool|ManagerInterface
      */
     public function controllerManager()
     {
@@ -20,10 +20,10 @@ trait ServicesTrait
     }
 
     /**
-     * @param ListenerInterface $cm
+     * @param ManagerInterface $cm
      * @return self
      */
-    public function setControllerManager(ListenerInterface $cm)
+    public function setControllerManager(ManagerInterface $cm)
     {
         return $this->sm->add('Controller\Manager', $cm);
     }

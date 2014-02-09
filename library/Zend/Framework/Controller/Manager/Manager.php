@@ -9,15 +9,16 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Event\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\ServiceTrait as Service;
 
-trait ListenerTrait
+class Manager
+    implements ManagerInterface
 {
     /**
      *
      */
-    use Listener,
+    use EventListener,
         Service;
 
     /**

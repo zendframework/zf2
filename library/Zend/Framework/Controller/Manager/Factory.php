@@ -11,10 +11,10 @@ namespace Zend\Framework\Controller\Manager;
 
 use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
-class ListenerFactory
-    extends Factory
+class Factory
+    extends ServiceFactory
 {
     /**
      *
@@ -24,16 +24,10 @@ class ListenerFactory
     /**
      * @param Request $request
      * @param array $options
-     * @return void|Listener
+     * @return void|Manager
      */
     public function service(Request $request, array $options = [])
     {
-        $config = $this->appConfig()['controllers'];
-
-        $cm = new Listener($config);
-
-        $cm->setServiceManager($this->sm);
-
-        return $cm;
+        return (new Manager($this->appConfig()['controllers']))->setServiceManager($this->sm);
     }
 }
