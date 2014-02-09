@@ -17,7 +17,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_NAME = 'Response\Event';
+    const EVENT = 'Response\Event';
 
     /**
      * @param ListenerInterface $listener

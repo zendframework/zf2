@@ -18,7 +18,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_NAME = 'View\Error\Event';
+    const EVENT = 'View\Error\Event';
 
     /**
      * @param Exception $exception

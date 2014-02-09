@@ -35,7 +35,7 @@ class Event
     /**
      * @var
      */
-    protected $name = self::EVENT_NAME;
+    protected $name = self::EVENT;
 
     /**
      * @var RouteMatch

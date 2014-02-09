@@ -20,7 +20,7 @@ interface ManagerInterface
      * @param null $options
      * @return mixed
      */
-    public function run($event = Event::EVENT_NAME, $options = null);
+    public function run($event = Event::EVENT, $options = null);
 
     /**
      * @param EventInterface $event

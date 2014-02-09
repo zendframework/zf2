@@ -22,5 +22,5 @@ class Event
     /**
      * @var string
      */
-    protected $name = self::EVENT_NAME;
+    protected $name = self::EVENT;
 }

@@ -17,7 +17,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_NAME = 'View\Event';
+    const EVENT = 'View\Event';
 
     /**
      * @param ListenerInterface $listener

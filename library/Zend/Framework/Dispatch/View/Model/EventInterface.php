@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_NAME = 'Dispatch\View\Model\Event';
+    const EVENT = 'Dispatch\View\Model\Event';
 }
