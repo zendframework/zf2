@@ -25,7 +25,7 @@ trait ManagerTrait
     /**
      * @var Config
      */
-    protected $listener;
+    protected $listeners;
 
     /**
      * @param string|Event $event
@@ -44,7 +44,7 @@ trait ManagerTrait
      */
     public function listeners()
     {
-        return $this->listener;
+        return $this->listeners;
     }
 
     /**

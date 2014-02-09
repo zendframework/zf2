@@ -29,7 +29,7 @@ class Manager
      */
     public function __construct(ServiceConfig $services, EventConfig $listeners)
     {
-        $this->service   = $services;
-        $this->listener = $listeners;
+        $this->services  = $services;
+        $this->listeners = $listeners;
     }
 }

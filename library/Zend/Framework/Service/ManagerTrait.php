@@ -21,7 +21,7 @@ trait ManagerTrait
     /**
      * @var ConfigInterface
      */
-    protected $service;
+    protected $services;
 
     /**
      * @var array
@@ -112,11 +112,11 @@ trait ManagerTrait
      */
     protected function service($name)
     {
-        if (empty($this->service[$name])) {
+        if (empty($this->services[$name])) {
             return false;
         }
 
-        return $this->service[$name] = $this->factory($this->service[$name]);
+        return $this->services[$name] = $this->factory($this->services[$name]);
     }
 
     /**
@@ -124,7 +124,7 @@ trait ManagerTrait
      */
     public function services()
     {
-        return $this->service;
+        return $this->services;
     }
 
     /**
