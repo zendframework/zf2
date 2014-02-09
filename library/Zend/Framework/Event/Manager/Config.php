@@ -71,4 +71,19 @@ class Config
 
         return $this;
     }
+
+    /**
+     * @param string $name
+     * @return array
+     */
+    public function reverse($name)
+    {
+        if (!isset($this[$name])) {
+            return [];
+        }
+
+        krsort($this[$name], SORT_NUMERIC);
+
+        return $this[$name];
+    }
 }

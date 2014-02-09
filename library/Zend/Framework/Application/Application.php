@@ -34,6 +34,8 @@ class Application
     }
 
     /**
+     * Retrieve event from service manager
+     *
      * @param array|EventInterface|string $event
      * @return EventInterface
      */

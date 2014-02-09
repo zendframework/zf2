@@ -30,7 +30,7 @@ trait ManagerTrait
     /**
      * @return ConfigInterface
      */
-    public function listeners()
+    public function config()
     {
         return $this->listeners;
     }
@@ -79,15 +79,7 @@ trait ManagerTrait
      */
     protected function queue(Event $event)
     {
-        $name = $event->name();
-
-        if (!isset($this->listeners[$name])) {
-            return [];
-        }
-
-        krsort($this->listeners[$name], SORT_NUMERIC);
-
-        return $this->listeners[$name];
+        return $this->config()->reverse($event->name());
     }
 
     /**

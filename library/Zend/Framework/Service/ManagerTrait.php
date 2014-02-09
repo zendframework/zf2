@@ -47,7 +47,7 @@ trait ManagerTrait
     /**
      * @return ConfigInterface
      */
-    public function services()
+    public function config()
     {
         return $this->service;
     }
