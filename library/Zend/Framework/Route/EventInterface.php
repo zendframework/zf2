@@ -40,5 +40,5 @@ interface EventInterface
      * @param null $options
      * @return mixed
      */
-    public function trigger(ListenerInterface $listener, $options = null);
+    public function __invoke(ListenerInterface $listener, $options = null);
 }

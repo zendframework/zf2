@@ -25,7 +25,7 @@ trait ListenerTrait
      * @param array $options
      * @return array|object
      */
-    public function controller($name, array $options = [])
+    public function get($name, array $options = [])
     {
         return $this->sm->get($name, $options);
     }

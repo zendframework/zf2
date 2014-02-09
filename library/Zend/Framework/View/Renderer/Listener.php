@@ -25,7 +25,7 @@ class Listener
      * @param EventInterface $event
      * @return mixed|void
      */
-    public function trigger(EventInterface $event)
+    public function __invoke(EventInterface $event)
     {
         return $this->renderer;
     }

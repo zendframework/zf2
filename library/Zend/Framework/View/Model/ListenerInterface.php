@@ -20,5 +20,5 @@ interface ListenerInterface
      * @param $result
      * @return mixed
      */
-    public function trigger(EventInterface $event, $result);
+    public function __invoke(EventInterface $event, $result);
 }

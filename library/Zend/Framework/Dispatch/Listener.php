@@ -34,11 +34,11 @@ class Listener
      * @param RouteMatch $routeMatch
      * @return mixed
      */
-    public function trigger(EventInterface $event, RouteMatch $routeMatch)
+    public function __invoke(EventInterface $event, RouteMatch $routeMatch)
     {
-        $controllerName = $routeMatch->getParam('controller', 'not-found');
+        $controllerName = $routeMatch->getParam('controller');
 
-        $controller = $this->cm->controller($controllerName, [$routeMatch]);
+        $controller = $this->cm->get($controllerName, [$routeMatch]);
 
         $this->em->push(ControllerEvent::EVENT_CONTROLLER_DISPATCH, $controller);
 
@@ -48,14 +48,13 @@ class Listener
 
         } catch (Exception $exception) {
 
-            $error = new DispatchError;
+            $error = new DispatchError($controller);
 
-            $error->setTarget($event->target())
-                  ->setException($exception)
+            $error->setException($exception)
                   ->setControllerName($controllerName)
                   ->setControllerClass(get_class($controller));
 
-            $this->em->trigger($error);
+            $response = $this->em->trigger($error);
 
         }
 

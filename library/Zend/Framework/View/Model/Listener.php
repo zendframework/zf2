@@ -27,7 +27,7 @@ class Listener
      * @param mixed $result
      * @return mixed|void
      */
-    public function trigger(EventInterface $event, $result)
+    public function __invoke(EventInterface $event, $result)
     {
         if (!$result instanceof ViewModel) {
             return $result;

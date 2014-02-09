@@ -56,8 +56,8 @@ trait EventTrait
      * @param $options
      * @return mixed
      */
-    public function trigger(ListenerInterface $listener, $options = null)
+    public function __invoke(ListenerInterface $listener, $options = null)
     {
-        return $listener->trigger($this, $options);
+        return $listener->__invoke($this, $options);
     }
 }

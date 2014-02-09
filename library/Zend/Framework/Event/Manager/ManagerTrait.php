@@ -156,7 +156,7 @@ trait ManagerTrait
      */
     public function trigger($event, $options = null)
     {
-        return $this->dispatch($this->event($event), $options);
+        return $this->__invoke($this->event($event), $options);
     }
 
     /**
@@ -164,7 +164,7 @@ trait ManagerTrait
      * @param $options
      * @return mixed
      */
-    protected function dispatch(Event $event, $options = null)
+    public function __invoke(Event $event, $options = null)
     {
         $result = null;
 
@@ -172,7 +172,7 @@ trait ManagerTrait
 
             //var_dump(get_class($listener));
 
-            $result = $event->trigger($listener, $options);
+            $result = $event->__invoke($listener, $options);
 
             if ($event->stopped()) {
                 break;

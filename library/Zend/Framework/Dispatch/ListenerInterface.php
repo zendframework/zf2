@@ -41,5 +41,5 @@ interface ListenerInterface
      * @param RouteMatch $routeMatch
      * @return mixed
      */
-    public function trigger(EventInterface $event, RouteMatch $routeMatch);
+    public function __invoke(EventInterface $event, RouteMatch $routeMatch);
 }

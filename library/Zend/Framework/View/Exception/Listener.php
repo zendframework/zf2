@@ -34,7 +34,7 @@ class Listener
      * @param  EventInterface $event
      * @return void
      */
-    public function trigger(EventInterface $event)
+    public function __invoke(EventInterface $event)
     {
         // Do nothing if no error in the event
         $error = $event->error();

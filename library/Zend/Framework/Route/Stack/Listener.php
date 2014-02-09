@@ -42,7 +42,7 @@ class Listener
      * @param Request $request
      * @return mixed
      */
-    public function trigger(EventInterface $event, Request $request)
+    public function __invoke(EventInterface $event, Request $request)
     {
         foreach ($this->routes as $name => $route) {
             if (($match = $route->match($request)) instanceof RouteMatch) {

@@ -27,7 +27,7 @@ class Listener
      * @param mixed $request
      * @return RouteMatch
      */
-    public function trigger(EventInterface $event, $request)
+    public function __invoke(EventInterface $event, $request)
     {
         return $this->router->match($request);
     }

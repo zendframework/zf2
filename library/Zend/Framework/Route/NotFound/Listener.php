@@ -30,7 +30,7 @@ class Listener
      * @param mixed $result
      * @return void
      */
-    public function trigger(EventInterface $event, $result)
+    public function __invoke(EventInterface $event, $result)
     {
         if (DispatchError::EVENT_DISPATCH_ERROR == $event->name()) {
             $this->detectNotFoundError($event);

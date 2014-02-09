@@ -24,7 +24,7 @@ class Listener
      * @param ViewModel $viewModel
      * @return mixed
      */
-    public function trigger(EventInterface $event, ViewModel $viewModel)
+    public function __invoke(EventInterface $event, ViewModel $viewModel)
     {
         return $this->render($viewModel);
     }

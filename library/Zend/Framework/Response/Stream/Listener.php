@@ -30,7 +30,7 @@ class Listener
      * @param $response
      * @return self
      */
-    public function trigger(EventInterface $event, $response = null)
+    public function __invoke(EventInterface $event, $response = null)
     {
         if (!$response instanceof Stream) {
             return $this;

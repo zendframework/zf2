@@ -24,7 +24,7 @@ class Listener
      * @param $response
      * @return mixed
      */
-    public function trigger(EventInterface $event, $response)
+    public function __invoke(EventInterface $event, $response)
     {
         return call_user_func($this->callback, $event);
     }

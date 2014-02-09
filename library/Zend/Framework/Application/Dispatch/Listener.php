@@ -28,7 +28,7 @@ class Listener
      * @param $options
      * @return mixed
      */
-    public function trigger(EventInterface $event, $options = null)
+    public function __invoke(EventInterface $event, $options = null)
     {
         return $this->em->trigger('Dispatch\Event', $event->routeMatch());
     }
