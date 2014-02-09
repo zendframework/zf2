@@ -104,7 +104,7 @@ class Manager
      */
     public function get($name, array $options = [], $shared = true)
     {
-        return $this->request(new Request($name, $shared), $options);
+        return $this->__invoke(new Request($name, $shared), $options);
     }
 
     /**
@@ -135,7 +135,7 @@ class Manager
      * @return bool|object
      * @throws Exception
      */
-    public function request(RequestInterface $request, array $options = [])
+    public function __invoke(RequestInterface $request, array $options = [])
     {
         $name = $request->alias();
 

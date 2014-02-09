@@ -59,5 +59,5 @@ interface ManagerInterface
      * @param RequestInterface $event
      * @return mixed
      */
-    public function request(RequestInterface $event);
+    public function __invoke(RequestInterface $event);
 }
