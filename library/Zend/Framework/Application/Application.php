@@ -71,10 +71,12 @@ class Application
     }
 
     /**
+     * @param string $event
+     * @param null $options
      * @return mixed
      */
-    public function run()
+    public function run($event = self::EVENT_APPLICATION, $options = null)
     {
-        return $this->trigger('Application\Event');
+        return $this->trigger($event, $options);
     }
 }

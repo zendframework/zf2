@@ -16,6 +16,18 @@ interface ApplicationInterface
     extends ManagerInterface
 {
     /**
+     *
+     */
+    const EVENT_APPLICATION = 'Application\Event';
+
+    /**
+     * @param string $event
+     * @param null $options
+     * @return mixed
+     */
+    public function run($event = self::EVENT_APPLICATION, $options = null);
+
+    /**
      * @param EventInterface $event
      * @param null $options
      * @return mixed
