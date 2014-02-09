@@ -11,27 +11,14 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface;
-use Zend\Framework\Event\Manager\ConfigInterface as Config;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 
-class Application
-    implements ApplicationInterface
+trait ManagerTrait
 {
     /**
      *
      */
     use EventManager;
-
-    /**
-     * @param Config $listeners
-     * @param ServiceManagerInterface $sm
-     */
-    public function __construct(Config $listeners, ServiceManagerInterface $sm)
-    {
-        $this->listeners = $listeners;
-        $this->sm = $sm;
-    }
 
     /**
      * Retrieve event from service manager
@@ -41,7 +28,7 @@ class Application
      */
     public function event($event)
     {
-        return $event instanceof EventInterface ? $event : $this->sm->get($event);
+        return $event instanceof EventInterface ? $event : $this->get($event);
     }
 
     /**
@@ -52,7 +39,7 @@ class Application
      */
     public function listener($listener)
     {
-        return $listener instanceof ListenerInterface ? $listener : $this->sm->get($listener);
+        return $listener instanceof ListenerInterface ? $listener : $this->get($listener);
     }
 
     /**

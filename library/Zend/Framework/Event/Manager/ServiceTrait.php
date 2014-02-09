@@ -31,7 +31,7 @@ trait ServiceTrait
      */
     public function listeners()
     {
-        return $this->em->config();
+        return $this->em->listeners();
     }
 
     /**

@@ -14,12 +14,8 @@ use Zend\Framework\Event\Manager\Config as EventConfig;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\Config as ServiceConfig;
-use Zend\Framework\Service\Manager as ServiceManager;
-use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
 class Factory
-    extends ServiceFactory
 {
     /**
      *
@@ -33,18 +29,14 @@ class Factory
      */
     public static function factory(array $config)
     {
-        return (new ServiceManager(new ServiceConfig($config['service_manager'])))
-                ->add('AppConfig', $config)
-                ->get('EventManager', $config['event_manager']['listeners']);
-    }
+        $services  = new ServiceConfig($config['service_manager']);
+        $listeners = new EventConfig($config['event_manager']['listeners']);
 
-    /**
-     * @param Request $request
-     * @param array $listeners
-     * @return Application
-     */
-    public function service(Request $request, array $listeners = [])
-    {
-        return new Application(new EventConfig($listeners), $this->sm);
+        $application = new Manager($services, $listeners);
+
+        $application->add('AppConfig', $config)
+                    ->add('EventManager', $application);
+
+        return $application;
     }
 }

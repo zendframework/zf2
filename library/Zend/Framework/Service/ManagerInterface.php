@@ -21,11 +21,6 @@ interface ManagerInterface
     public function add($name, $service);
 
     /**
-     * @return ConfigInterface
-     */
-    public function config();
-
-    /**
      * @param string $name
      * @param array $options
      * @param bool $shared
@@ -40,4 +35,9 @@ interface ManagerInterface
      * @return bool
      */
     public function has($name);
+
+    /**
+     * @return ConfigInterface
+     */
+    public function services();
 }

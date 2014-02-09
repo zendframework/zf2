@@ -19,7 +19,7 @@ interface ManagerInterface
     /**
      * @return Config
      */
-    public function config();
+    public function listeners();
 
     /**
      * @param string|EventInterface $event

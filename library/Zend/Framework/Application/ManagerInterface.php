@@ -10,10 +10,10 @@
 namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\EventInterface;
-use Zend\Framework\Event\Manager\ManagerInterface;
+use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 
-interface ApplicationInterface
-    extends ManagerInterface
+interface ManagerInterface
+    extends EventManagerInterface
 {
     /**
      *

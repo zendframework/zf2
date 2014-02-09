@@ -28,14 +28,6 @@ trait ManagerTrait
     protected $listeners;
 
     /**
-     * @return ConfigInterface
-     */
-    public function config()
-    {
-        return $this->listeners;
-    }
-
-    /**
      * @param string|Event $event
      * @return mixed
      */
@@ -46,6 +38,14 @@ trait ManagerTrait
      * @return mixed
      */
     abstract public function listener($listener);
+
+    /**
+     * @return ConfigInterface
+     */
+    public function listeners()
+    {
+        return $this->listeners;
+    }
 
     /**
      * @param array $listeners
@@ -79,7 +79,7 @@ trait ManagerTrait
      */
     protected function queue(Event $event)
     {
-        return $this->config()->reverse($event->name());
+        return $this->listeners()->reverse($event->name());
     }
 
     /**

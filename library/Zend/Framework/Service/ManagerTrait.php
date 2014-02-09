@@ -45,14 +45,6 @@ trait ManagerTrait
     }
 
     /**
-     * @return ConfigInterface
-     */
-    public function config()
-    {
-        return $this->service;
-    }
-
-    /**
      * @param array|callable|FactoryInterface|object|string $factory
      * @return FactoryInterface
      */
@@ -102,7 +94,7 @@ trait ManagerTrait
             }
         }
 
-        return $this->__invoke(new Request($name, $shared), $options);
+        return $this->request(new Request($name, $shared), $options);
     }
 
     /**
@@ -128,12 +120,20 @@ trait ManagerTrait
     }
 
     /**
+     * @return ConfigInterface
+     */
+    public function services()
+    {
+        return $this->service;
+    }
+
+    /**
      * @param RequestInterface $request
      * @param array $options
      * @return bool|object
      * @throws Exception
      */
-    public function __invoke(RequestInterface $request, array $options = [])
+    public function request(RequestInterface $request, array $options = [])
     {
         $name = $request->alias();
 
