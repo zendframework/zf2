@@ -21,7 +21,7 @@ trait ManagerTrait
     /**
      * @var ConfigInterface
      */
-    protected $service = [];
+    protected $service;
 
     /**
      * @var array

@@ -33,7 +33,7 @@ class Event
     /**
      * @var string
      */
-    protected $name = self::EVENT_APPLICATION;
+    protected $name = self::EVENT_NAME;
 
     /**
      * @var ServiceManager

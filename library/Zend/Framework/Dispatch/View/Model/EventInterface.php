@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_DISPATCH_VIEW_MODEL = 'mvc.dispatch.view.model';
+    const EVENT_NAME = 'Dispatch\View\Model\Event';
 }

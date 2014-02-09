@@ -17,7 +17,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_RESPONSE = 'mvc.response';
+    const EVENT_NAME = 'Response\Event';
 
     /**
      * @param ListenerInterface $listener

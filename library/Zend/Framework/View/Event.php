@@ -22,7 +22,7 @@ class Event
     /**
      * @var string
      */
-    protected $name = self::EVENT_VIEW;
+    protected $name = self::EVENT_NAME;
 
     /**
      * @param ListenerInterface $listener

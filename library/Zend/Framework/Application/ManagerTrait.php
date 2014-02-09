@@ -47,7 +47,7 @@ trait ManagerTrait
      * @param null $options
      * @return mixed
      */
-    public function run($event = self::EVENT_APPLICATION, $options = null)
+    public function run($event = Event::EVENT_NAME, $options = null)
     {
         return $this->trigger($event, $options);
     }

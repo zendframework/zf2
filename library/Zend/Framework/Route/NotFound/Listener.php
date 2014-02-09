@@ -32,7 +32,7 @@ class Listener
      */
     public function __invoke(EventInterface $event, $result)
     {
-        if (DispatchError::EVENT_DISPATCH_ERROR == $event->name()) {
+        if (DispatchError::EVENT_NAME == $event->name()) {
             $this->detectNotFoundError($event);
         }
 

@@ -30,6 +30,6 @@ class Manager
     public function __construct(ServiceConfig $services, EventConfig $listeners)
     {
         $this->service   = $services;
-        $this->listeners = $listeners;
+        $this->listener = $listeners;
     }
 }

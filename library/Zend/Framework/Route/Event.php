@@ -25,7 +25,7 @@ class Event
     /**
      * @var string
      */
-    protected $name = self::EVENT_ROUTE;
+    protected $name = self::EVENT_NAME;
 
     /**
      * @param ListenerInterface $listener

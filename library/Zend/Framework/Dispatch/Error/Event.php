@@ -35,7 +35,7 @@ class Event
     /**
      * @var
      */
-    protected $name = self::EVENT_DISPATCH_ERROR;
+    protected $name = self::EVENT_NAME;
 
     /**
      * @var RouteMatch

@@ -17,10 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_VIEW_RENDERER = 'view.renderer';
-
-    /**
-     *
-     */
-    const EVENT_VIEW_RENDERER_POST = 'view.renderer.post';
+    const EVENT_NAME = 'View\Renderer\Event';
 }

@@ -30,7 +30,7 @@ class Factory
     public static function factory(array $config)
     {
         $services  = new ServiceConfig($config['service_manager']);
-        $listeners = new EventConfig($config['event_manager']['listeners']);
+        $listeners = new EventConfig($config['event_manager']);
 
         $application = new Manager($services, $listeners);
 

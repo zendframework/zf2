@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_CONTROLLER_DISPATCH = 'mvc.controller.dispatch';
+    const EVENT_NAME = 'Controller\Event';
 }

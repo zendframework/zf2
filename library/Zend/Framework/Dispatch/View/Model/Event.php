@@ -24,7 +24,7 @@ class Event
     /**
      * @var string
      */
-    protected $name = self::EVENT_DISPATCH_VIEW_MODEL;
+    protected $name = self::EVENT_NAME;
 
     /**
      * @param ViewModel $viewModel

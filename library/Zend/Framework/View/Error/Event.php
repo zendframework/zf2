@@ -28,5 +28,5 @@ class Event
     /**
      * @var string
      */
-    protected $name = self::EVENT_RENDER_ERROR;
+    protected $name = self::EVENT_NAME;
 }

@@ -17,7 +17,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_DISPATCH = 'mvc.dispatch';
+    const EVENT_NAME = 'Dispatch\Event';
 
     /**
      * @param ListenerInterface $listener

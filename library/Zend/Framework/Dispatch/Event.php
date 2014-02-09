@@ -24,7 +24,7 @@ class Event
     /**
      * @var string
      */
-    protected $name = self::EVENT_DISPATCH;
+    protected $name = self::EVENT_NAME;
 
     /**
      * @param ListenerInterface $listener

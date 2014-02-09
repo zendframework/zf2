@@ -18,7 +18,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_RENDER_ERROR = 'mvc.render.error';
+    const EVENT_NAME = 'View\Error\Event';
 
     /**
      * @param Exception $exception

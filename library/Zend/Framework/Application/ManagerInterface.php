@@ -16,16 +16,11 @@ interface ManagerInterface
     extends EventManagerInterface
 {
     /**
-     *
-     */
-    const EVENT_APPLICATION = 'Application\Event';
-
-    /**
      * @param string $event
      * @param null $options
      * @return mixed
      */
-    public function run($event = self::EVENT_APPLICATION, $options = null);
+    public function run($event = Event::EVENT_NAME, $options = null);
 
     /**
      * @param EventInterface $event

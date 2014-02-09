@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_DISPATCH_ERROR = 'mvc.dispatch.error';
+    const EVENT_NAME = 'Dispatch\Error\Event';
 }

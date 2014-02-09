@@ -19,7 +19,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT_APPLICATION = 'mvc.application';
+    const EVENT_NAME = 'Application\Event';
 
     /**
      * @param RouteMatch $routeMatch
