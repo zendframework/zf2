@@ -20,7 +20,7 @@ class Manager
     implements ManagerInterface
 {
     /**
-     * @var array
+     * @var ConfigInterface
      */
     protected $service = [];
 
@@ -46,22 +46,21 @@ class Manager
     }
 
     /**
-     * @param array $config
+     * @param ConfigInterface $config
      * @return self
      */
-    public function config(array $config)
+    public function config(ConfigInterface $config)
     {
         $this->service = $config;
         return $this;
     }
 
     /**
-     * @param string $name
-     * @param string $class
+     * @return ConfigInterface
      */
-    public function configure($name, $class)
+    public function configuration()
     {
-        $this->service[$name] = $class;
+        return $this->service;
     }
 
     /**

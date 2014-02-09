@@ -19,16 +19,15 @@ interface ManagerInterface
     public function add($name, $service);
 
     /**
-     * @param array $config
+     * @param ConfigInterface $config
      * @return self
      */
-    public function config(array $config);
+    public function config(ConfigInterface $config);
 
     /**
-     * @param string $name
-     * @param string $class
+     * @return ConfigInterface
      */
-    public function configure($name, $class);
+    public function configuration();
 
     /**
      * @param string|callable $factory

@@ -10,6 +10,7 @@
 namespace Zend\Framework\Event\Manager;
 
 use Generator;
+use Zend\Framework\Event\Manager\ConfigInterface as Config;
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Event\ListenerTrait as EventListener;
@@ -22,37 +23,26 @@ trait ManagerTrait
     use EventListener;
 
     /**
-     * Listeners
-     *
-     * @var array Listener
+     * @var Config
      */
-    protected $listeners = [];
+    protected $listeners;
 
     /**
-     * @param string $name
-     * @param string|Listener $listener
-     * @param $priority
+     * @param Config $listeners
      * @return self
      */
-    public function add($name, $listener, $priority = ManagerInterface::PRIORITY)
+    public function config(Config $listeners)
     {
-        if (!isset($this->listeners[$name])) {
-            $this->listeners[$name] = [];
-        }
-
-        $this->listeners[$name][$priority][] = $listener;
-
+        $this->listeners = $listeners;
         return $this;
     }
 
     /**
-     * @param array $listeners
-     * @return self
+     * @return ConfigInterface
      */
-    public function config(array $listeners)
+    public function configuration()
     {
-        $this->listeners = $listeners;
-        return $this;
+        return $this->listeners;
     }
 
     /**
@@ -94,30 +84,6 @@ trait ManagerTrait
     }
 
     /**
-     * Push listener to top of queue
-     *
-     * @param string $name
-     * @param string|Listener $listener
-     * @param int $priority
-     * @return self
-     */
-    public function push($name, $listener, $priority = ManagerInterface::PRIORITY)
-    {
-        if (!isset($this->listeners[$name])) {
-            $this->listeners[$name] = [];
-        }
-
-        if (!isset($this->listeners[$name][$priority])) {
-            $this->listeners[$name][$priority][] = $listener;
-            return $this;
-        }
-
-        array_unshift($this->listeners[$name][$priority], $listener);
-
-        return $this;
-    }
-
-    /**
      * @param Event $event
      * @return array
      */
@@ -132,21 +98,6 @@ trait ManagerTrait
         krsort($this->listeners[$name], SORT_NUMERIC);
 
         return $this->listeners[$name];
-    }
-
-    /**
-     * @param string|Listener $listener
-     * @return self
-     */
-    public function remove($listener)
-    {
-        foreach($this->listeners as $name => $listeners) {
-            foreach(array_keys($listeners) as $priority) {
-                $this->listeners[$name][$priority] = array_diff($this->listeners[$name][$priority], [$listener]);
-            }
-        }
-
-        return $this;
     }
 
     /**

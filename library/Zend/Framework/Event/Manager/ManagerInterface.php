@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Event\Manager;
 
+use Zend\Framework\Event\Manager\ConfigInterface as Config;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface;
 
@@ -16,52 +17,15 @@ interface ManagerInterface
     extends ListenerInterface
 {
     /**
-     * Default priority
-     *
-     */
-    const PRIORITY = 0;
-
-    /**
-     * @param string $name
-     * @param string|ListenerInterface $listener
-     * @param $priority
+     * @param Config $listeners
      * @return self
      */
-    public function add($name, $listener, $priority = self::PRIORITY);
+    public function config(Config $listeners);
 
     /**
-     * @param $listeners
-     * @return self
+     * @return Config
      */
-    public function config(array $listeners);
-
-    /**
-     * @param string|EventInterface $event
-     * @return mixed
-     */
-    public function event($event);
-
-    /**
-     * @param string|ListenerInterface $listener
-     * @return mixed
-     */
-    public function listener($listener);
-
-    /**
-     * @param string|ListenerInterface $listener
-     * @return self
-     */
-    public function remove($listener);
-
-    /**
-     * Push listener to top of queue
-     *
-     * @param string $name
-     * @param string|ListenerInterface $listener
-     * @param int $priority
-     * @return self
-     */
-    public function push($name, $listener, $priority = self::PRIORITY);
+    public function configuration();
 
     /**
      * @param string|EventInterface $event
