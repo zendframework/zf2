@@ -9,9 +9,16 @@
 
 namespace Zend\Framework\Application;
 
+use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\ManagerInterface;
 
 interface ApplicationInterface
     extends ManagerInterface
 {
+    /**
+     * @param EventInterface $event
+     * @param null $options
+     * @return mixed
+     */
+    public function __invoke(EventInterface $event, $options = null);
 }

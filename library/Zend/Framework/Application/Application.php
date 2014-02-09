@@ -50,7 +50,7 @@ class Application
         }
 
         if (is_array($service)) {
-            return $this->sm->get($service[0], $service[1]);
+            return $this->sm->get($service[0], is_array($service[1]) ? $service[1] : [$service[1]]);
         }
 
         return $service;

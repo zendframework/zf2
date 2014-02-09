@@ -44,7 +44,7 @@ class Listener
 
         try {
 
-            $response = $this->em->trigger(['Controller\Event', [$controller]]);
+            $response = $this->em->trigger(['Controller\Event', $controller]);
 
         } catch (Exception $exception) {
 
