@@ -28,10 +28,6 @@ class ListenerFactory
      */
     public function service(Request $request, array $options = [])
     {
-        $listener = new Listener;
-
-        $listener->setViewRenderer($this->viewRenderer());
-
-        return $listener;
+        return (new Listener)->setViewRenderer($this->viewRenderer());
     }
 }

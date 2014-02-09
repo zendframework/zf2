@@ -28,10 +28,6 @@ class Factory
      */
     public function service(Request $request, array $options = [])
     {
-        $vm = new ViewModel;
-
-        $vm->setTemplate($this->viewManager()->layoutTemplate());
-
-        return $vm;
+        return (new ViewModel)->setTemplate($this->viewManager()->layoutTemplate());
     }
 }

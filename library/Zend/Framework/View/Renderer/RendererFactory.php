@@ -28,10 +28,8 @@ class RendererFactory
      */
     public function service(Request $request, array $options = [])
     {
-        $renderer = new Renderer();
-
-        $renderer->setViewManager($this->viewManager());
-        $renderer->setResolver($this->viewResolver());
+        $renderer = (new Renderer())->setViewManager($this->viewManager())
+                                    ->setResolver($this->viewResolver());
 
         $modelHelper = $renderer->plugin('viewmodel');
         $modelHelper->setRoot($this->viewModel());

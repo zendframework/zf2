@@ -28,10 +28,6 @@ class ListenerFactory
      */
     public function service(Request $request, array $options = [])
     {
-        $router = new Listener;
-
-        $router->setRouter($this->router());
-
-        return $router;
+        return (new Listener)->setRouter($this->router());
     }
 }

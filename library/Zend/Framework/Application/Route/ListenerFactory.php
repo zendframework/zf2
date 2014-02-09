@@ -30,12 +30,8 @@ class ListenerFactory
      */
     public function service(Request $request, array $options = [])
     {
-        $listener = new Listener;
-
-        $listener->setServiceManager($this->sm)
-                 ->setEventManager($this->eventManager())
-                 ->setRequest($this->request());
-
-        return $listener;
+        return (new Listener)->setServiceManager($this->sm)
+                             ->setEventManager($this->eventManager())
+                             ->setRequest($this->request());
     }
 }

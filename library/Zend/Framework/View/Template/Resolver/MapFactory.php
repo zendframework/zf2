@@ -30,13 +30,16 @@ class MapFactory
     public function service(Request $request, array $options = [])
     {
         $config = $this->appConfig();
+
         $map = array();
+
         if (isset($config['view_manager'])) {
             $config = $config['view_manager'];
             if (is_array($config) && isset($config['template_map'])) {
                 $map = $config['template_map'];
             }
         }
+
         return new TemplateMapResolver($map);
     }
 }
