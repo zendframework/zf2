@@ -34,40 +34,39 @@ class Application
     }
 
     /**
-     * @param $event
+     * @param array|EventInterface|string $event
      * @return EventInterface
      */
     public function event($event)
     {
-        return $this->get($event);
+        return $event instanceof EventInterface ? $event : $this->get($event);
     }
 
     /**
-     * @param $service
+     * @param array|string $service
      * @return false|object
      */
     public function get($service)
     {
-        if (is_string($service)) {
-            return $this->sm->get($service);
-        }
-
         if (is_array($service)) {
-            return $this->sm->get($service[0], is_array($service[1]) ? $service[1] : [$service[1]]);
+
+            list($service, $params) = $service;
+
+            return $this->sm->get($service, is_array($params) ? $params : [$params]);
         }
 
-        return $service;
+        return $this->sm->get($service);
     }
 
     /**
      * Retrieve listener from service manager
      *
-     * @param $listener
+     * @param array|ListenerInterface|string $listener
      * @return ListenerInterface
      */
     public function listener($listener)
     {
-        return $this->get($listener);
+        return $listener instanceof ListenerInterface ? $listener : $this->get($listener);
     }
 
     /**
@@ -78,5 +77,15 @@ class Application
     public function run($event = self::EVENT_APPLICATION, $options = null)
     {
         return $this->trigger($event, $options);
+    }
+
+    /**
+     * @param string|array|EventInterface $event
+     * @param null $options
+     * @return mixed
+     */
+    public function trigger($event, $options = null)
+    {
+        return $this->__invoke($this->event($event), $options);
     }
 }
