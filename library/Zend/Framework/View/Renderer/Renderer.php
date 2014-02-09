@@ -12,16 +12,16 @@ namespace Zend\Framework\View\Renderer;
 use ArrayAccess;
 use Traversable;
 use Zend\Filter\FilterChain;
+use Zend\Framework\View\Manager\ManagerInterface as ViewManager;
 use Zend\View\Exception;
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Model\ModelInterface as Model;
+use Zend\View\Renderer\RendererInterface as RendererInterface;
+use Zend\View\Renderer\TreeRendererInterface;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
-use Zend\Framework\View\Manager\ManagerInterface as ViewManager;
 
-use Zend\View\Renderer\RendererInterface as RendererInterface;
-use Zend\View\Renderer\TreeRendererInterface;
 /**
  * Abstract class for Zend_View to help enforce private constructs.
  *
@@ -321,7 +321,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
 
     /**
      * @param ViewManager $vm
-     * @return $this
+     * @return self
      */
     public function setViewManager(ViewManager $vm)
     {

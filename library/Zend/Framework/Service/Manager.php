@@ -66,7 +66,7 @@ class Manager
 
     /**
      * @param array|callable|FactoryInterface|object|string $factory
-     * @return Factory
+     * @return FactoryInterface
      */
     public function factory($factory)
     {
@@ -98,10 +98,10 @@ class Manager
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @param array $options
      * @param bool $shared
-     * @return bool|object
+     * @return false|object
      */
     public function get($name, array $options = [], $shared = true)
     {
@@ -119,7 +119,7 @@ class Manager
 
     /**
      * @param $name
-     * @return bool|Factory|callable
+     * @return false|FactoryInterface
      */
     public function service($name)
     {

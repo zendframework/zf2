@@ -9,8 +9,10 @@
 
 namespace Zend\Framework\Controller\Manager;
 
+use Zend\Framework\Controller\ListenerInterface;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\ServiceTrait as Service;
+use Zend\Mvc\Router\RouteMatch;
 
 class Manager
     implements ManagerInterface
@@ -20,6 +22,15 @@ class Manager
      */
     use EventListener,
         Service;
+
+    /**
+     * @param RouteMatch $routeMatch
+     * @return false|ListenerInterface
+     */
+    public function controller(RouteMatch $routeMatch)
+    {
+        return $this->get($routeMatch->getParam('controller'), [$routeMatch]);
+    }
 
     /**
      * @param $name

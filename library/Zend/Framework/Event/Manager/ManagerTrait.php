@@ -47,7 +47,7 @@ trait ManagerTrait
 
     /**
      * @param array $listeners
-     * @return $this
+     * @return self
      */
     public function config(array $listeners)
     {

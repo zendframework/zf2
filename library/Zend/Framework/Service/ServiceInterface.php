@@ -12,8 +12,6 @@ namespace Zend\Framework\Service;
 interface ServiceInterface
 {
     /**
-     * Create service
-     *
      * @param ManagerInterface $sm
      * @return mixed
      */

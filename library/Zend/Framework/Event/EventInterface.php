@@ -12,8 +12,6 @@ namespace Zend\Framework\Event;
 interface EventInterface
 {
     /**
-     * Name
-     *
      * @return string|array
      */
     public function name();
@@ -24,7 +22,7 @@ interface EventInterface
     public function source();
 
     /**
-     * @return $this
+     * @return self
      */
     public function stop();
 

@@ -33,17 +33,17 @@ trait AliasTrait
 
     /**
      * @param string $name
-     * @param string $class
+     * @param mixed $service
      */
-    public function configure($name, $class)
+    public function configure($name, $service)
     {
-        $this->sm->configure($this->alias($name), $class);
+        $this->sm->configure($this->alias($name), $service);
     }
 
     /**
      * @param string $name
      * @param array $options
-     * @return object
+     * @return false|object
      */
     public function get($name, array $options = [])
     {

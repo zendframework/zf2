@@ -17,8 +17,6 @@ trait EventTrait
     protected $stopped = false;
 
     /**
-     * Name
-     *
      * @return string|array
      */
     public function name()
@@ -35,7 +33,7 @@ trait EventTrait
     }
 
     /**
-     * @return $this
+     * @return self
      */
     public function stop()
     {
