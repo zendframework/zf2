@@ -37,7 +37,7 @@ class Listener
     {
         $controller = $this->controller($routeMatch);
 
-        $this->events()->push(ControllerEvent::EVENT_CONTROLLER_DISPATCH, $controller);
+        $this->listeners()->push(ControllerEvent::EVENT_CONTROLLER_DISPATCH, $controller);
 
         try {
 

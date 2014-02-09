@@ -12,16 +12,13 @@ namespace Zend\Framework\Service;
 interface ManagerInterface
 {
     /**
+     * Shared service
+     *
      * @param $name
      * @param $service
      * @return self
      */
     public function add($name, $service);
-
-    /**
-     * @return ConfigInterface
-     */
-    public function config();
 
     /**
      * @param string $name
@@ -32,14 +29,15 @@ interface ManagerInterface
     public function get($name, array $options = [], $shared = true);
 
     /**
+     * Shared service
+     *
      * @param string $name
      * @return bool
      */
     public function has($name);
 
     /**
-     * @param RequestInterface $event
-     * @return mixed
+     * @return ConfigInterface
      */
-    public function __invoke(RequestInterface $event);
+    public function services();
 }

@@ -9,14 +9,9 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
-use Serializable;
 use Zend\Framework\Event\ListenerInterface;
 
 interface ConfigInterface
-    extends IteratorAggregate, ArrayAccess, Serializable, Countable
 {
     /**
      * Default priority

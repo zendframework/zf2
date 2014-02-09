@@ -30,7 +30,7 @@ trait ManagerTrait
     /**
      * @return ConfigInterface
      */
-    public function config()
+    public function listeners()
     {
         return $this->listeners;
     }
@@ -62,7 +62,7 @@ trait ManagerTrait
      * @param Event $event
      * @return Generator
      */
-    protected function listeners($event)
+    protected function match($event)
     {
         foreach($this->queue($event) as $listeners) {
             foreach($this->generator($listeners) as $listener) {
@@ -109,7 +109,7 @@ trait ManagerTrait
     {
         $result = null;
 
-        foreach($this->listeners($event) as $listener) {
+        foreach($this->match($event) as $listener) {
 
             //var_dump(get_class($listener));
 

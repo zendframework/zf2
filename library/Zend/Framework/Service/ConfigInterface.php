@@ -9,13 +9,7 @@
 
 namespace Zend\Framework\Service;
 
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
-use Serializable;
-
 interface ConfigInterface
-    extends IteratorAggregate, ArrayAccess, Serializable, Countable
 {
     /**
      * @param string $name

@@ -29,9 +29,9 @@ trait ServiceTrait
     /**
      * @return ConfigInterface
      */
-    public function events()
+    public function listeners()
     {
-        return $this->em->config();
+        return $this->em->listeners();
     }
 
     /**
