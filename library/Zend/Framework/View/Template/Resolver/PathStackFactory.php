@@ -29,7 +29,7 @@ class PathStackFactory
      */
     public function service(Request $request, array $options = [])
     {
-        $config = $this->appConfig();
+        $config = $this->config();
 
         $templatePathStack = new TemplatePathStack();
 

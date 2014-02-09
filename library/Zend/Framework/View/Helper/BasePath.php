@@ -23,7 +23,7 @@ class BasePath
      */
     public function __service(ServiceManager $sm)
     {
-        $config = $sm->get('AppConfig');
+        $config = $sm->get('Config');
 
         if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
             $this->setBasePath($config['view_manager']['base_path']);

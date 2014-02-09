@@ -34,7 +34,7 @@ class Factory
     public function service(Request $request, array $options = [])
     {
         // Configure the translator
-        $config     = $this->appConfig();
+        $config     = $this->config();
         $trConfig   = isset($config['translator']) ? $config['translator'] : array();
         $translator = Translator::factory($trConfig);
         return $translator;

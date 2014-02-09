@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Event\Manager\Config as EventConfig;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
@@ -20,8 +19,7 @@ class Factory
     /**
      *
      */
-    use Config,
-        EventManager;
+    use EventManager;
 
     /**
      * @param array $config
@@ -34,7 +32,7 @@ class Factory
 
         $application = new Manager($services, $listeners);
 
-        $application->add('AppConfig', $config)
+        $application->add('Config', $config)
                     ->add('EventManager', $application);
 
         return $application;

@@ -29,7 +29,7 @@ class MapFactory
      */
     public function service(Request $request, array $options = [])
     {
-        $config = $this->appConfig();
+        $config = $this->config();
 
         $map = array();
 

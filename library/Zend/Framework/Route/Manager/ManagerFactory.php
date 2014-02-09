@@ -29,6 +29,6 @@ class ManagerFactory
      */
     public function service(Request $request, array $options = [])
     {
-        return new Manager($this->appConfig()['router'], $this->sm);
+        return new Manager($this->config()['router'], $this->sm);
     }
 }

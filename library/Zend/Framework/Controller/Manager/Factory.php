@@ -28,6 +28,6 @@ class Factory
      */
     public function service(Request $request, array $options = [])
     {
-        return (new Manager($this->appConfig()['controllers']))->setServiceManager($this->sm);
+        return (new Manager($this->config()['controllers']))->setServiceManager($this->sm);
     }
 }
