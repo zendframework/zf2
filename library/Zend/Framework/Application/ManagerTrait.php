@@ -11,6 +11,8 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface;
+use Zend\Framework\Event\ListenerTrait as EventListener;
+use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 
 trait ManagerTrait
@@ -18,7 +20,9 @@ trait ManagerTrait
     /**
      *
      */
-    use EventManager;
+    use EventGenerator,
+        EventListener,
+        EventManager;
 
     /**
      * Retrieve event from service manager
@@ -26,7 +30,7 @@ trait ManagerTrait
      * @param array|EventInterface|string $event
      * @return EventInterface
      */
-    public function event($event)
+    protected function event($event)
     {
         return $event instanceof EventInterface ? $event : $this->get($event);
     }
@@ -37,7 +41,7 @@ trait ManagerTrait
      * @param array|ListenerInterface|string $listener
      * @return ListenerInterface
      */
-    public function listener($listener)
+    protected function listener($listener)
     {
         return $listener instanceof ListenerInterface ? $listener : $this->get($listener);
     }

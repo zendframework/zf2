@@ -20,7 +20,7 @@ class Config
      * @param string $service
      * @return self
      */
-    public function configure($name, $service)
+    public function add($name, $service)
     {
         $this[$name] = $service;
         return $this;
