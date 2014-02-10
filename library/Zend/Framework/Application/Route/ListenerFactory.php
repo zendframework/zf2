@@ -10,7 +10,6 @@
 namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Request\ServicesTrait as RequestService;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
@@ -29,7 +28,6 @@ class ListenerFactory
      */
     public function service(Request $request, array $options = [])
     {
-        return (new Listener)->setServiceManager($this->sm)
-                             ->setEventManager($this->eventManager());
+        return (new Listener)->setEventManager($this->eventManager());
     }
 }

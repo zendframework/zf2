@@ -13,7 +13,6 @@ use Zend\Framework\Controller\Manager\ManagerInterface as ControllerManager;
 use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManager;
 use Zend\Mvc\Router\RouteMatch;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ListenerInterface
     extends Listener
@@ -29,12 +28,6 @@ interface ListenerInterface
      * @return self
      */
     public function setEventManager(EventManager $em);
-
-    /**
-     * @param ViewModel $vm
-     * @return self
-     */
-    public function setViewModel(ViewModel $vm);
 
     /**
      * @param EventInterface $event

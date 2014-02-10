@@ -21,8 +21,7 @@ class Listener
      *
      */
     use EventListener,
-        EventManager,
-        Service;
+        EventManager;
 
     /**
      * @param EventInterface $event

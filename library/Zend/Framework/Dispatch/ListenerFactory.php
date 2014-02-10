@@ -13,7 +13,6 @@ use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
-use Zend\Framework\View\ServicesTrait as View;
 
 class ListenerFactory
     extends Factory
@@ -22,8 +21,7 @@ class ListenerFactory
      *
      */
     use ControllerManager,
-        EventManager,
-        View;
+        EventManager;
 
     /**
      * @param Request $request
@@ -33,7 +31,6 @@ class ListenerFactory
     public function service(Request $request, array $options = [])
     {
         return (new Listener)->setEventManager($this->eventManager())
-                             ->setViewModel($this->viewModel())
                              ->setControllerManager($this->controllerManager());
     }
 }

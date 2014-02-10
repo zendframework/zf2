@@ -9,19 +9,17 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory as ServiceFactory;
+use Zend\Framework\Service\Factory\Factory;
 
 class EventFactory
-    extends ServiceFactory
+    extends Factory
 {
     /**
      *
      */
-    use Config,
-        EventManager;
+    use EventManager;
 
     /**
      * @param Request $request
