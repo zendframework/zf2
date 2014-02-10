@@ -32,7 +32,7 @@ trait InstanceTrait
         }
 
         if (is_object($factory) && $factory instanceof FactoryInterface) {
-            return $factory->__invoke($request, $options);
+            return $factory;
         }
 
         if (is_callable($factory)) {
