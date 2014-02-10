@@ -11,10 +11,8 @@ namespace Zend\Framework\Event\Manager;
 
 use Zend\Framework\Event\Manager\ConfigInterface as Config;
 use Zend\Framework\Event\EventInterface;
-use Zend\Framework\Event\ListenerInterface;
 
 interface ManagerInterface
-    extends ListenerInterface
 {
     /**
      * @return Config
