@@ -20,8 +20,7 @@ class ListenerFactory
     /**
      *
      */
-    use EventManager,
-        RequestService;
+    use EventManager;
 
     /**
      * @param Request $request
@@ -31,7 +30,6 @@ class ListenerFactory
     public function service(Request $request, array $options = [])
     {
         return (new Listener)->setServiceManager($this->sm)
-                             ->setEventManager($this->eventManager())
-                             ->setRequest($this->request());
+                             ->setEventManager($this->eventManager());
     }
 }

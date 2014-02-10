@@ -10,7 +10,6 @@
 namespace Zend\Framework\Application\Response;
 
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Response\ServicesTrait as Response;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
@@ -20,8 +19,7 @@ class ListenerFactory
     /**
      *
      */
-    use EventManager,
-        Response;
+    use EventManager;
 
     /**
      * @param Request $request
@@ -30,7 +28,6 @@ class ListenerFactory
      */
     public function service(Request $request, array $options = [])
     {
-        return (new Listener)->setEventManager($this->eventManager())
-                             ->setResponse($this->response());
+        return (new Listener)->setEventManager($this->eventManager());
     }
 }

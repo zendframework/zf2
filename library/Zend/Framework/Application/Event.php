@@ -13,6 +13,8 @@ use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\ResultTrait as Result;
+use Zend\Framework\Request\ServicesTrait as Request;
+use Zend\Framework\Response\ServicesTrait as Response;
 use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
@@ -26,6 +28,8 @@ class Event
      *
      */
     use EventTrait,
+        Request,
+        Response,
         Result,
         Route,
         ViewModel;
@@ -67,7 +71,7 @@ class Event
                 $this->setViewModel($response);
                 break;
             case $listener instanceof ViewListenerInterface:
-                $this->setResult($response);
+                $this->setResponseContent($response);
                 break;
         }
 
