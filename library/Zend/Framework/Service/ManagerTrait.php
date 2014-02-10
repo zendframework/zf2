@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Service;
 
+use Exception;
 use Zend\Framework\Service\Factory\InstanceTrait as ServiceFactory;
 
 trait ManagerTrait
@@ -66,21 +67,21 @@ trait ManagerTrait
 
         $name = $request->alias();
 
-        $service = $config->get($name);
-
-        if (!$service) {
+        if (!$config->has($name)) {
             return false;
         }
 
-        if (-1 === $service) {
+        if ($config->pending($name)) {
             throw new Exception('Circular dependency: '.$name);
         }
+
+        $service = $config->get($name);
 
         if ($request->shared() && !is_string($service)) {
             return $service;
         }
 
-        $config->set($name, -1);
+        $config->initializing($name);
 
         $instance = $this->instance($service, $request, $options);
 

@@ -25,6 +25,24 @@ interface ConfigInterface
     public function get($name);
 
     /**
+     * @param $name
+     * @return bool
+     */
+    public function has($name);
+
+    /**
+     * @param $name
+     * @return self
+     */
+    public function initializing($name);
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function pending($name);
+
+    /**
      * @param string $name
      * @param mixed $service
      * @return self

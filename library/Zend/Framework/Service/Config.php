@@ -16,6 +16,11 @@ class Config
     implements ConfigInterface
 {
     /**
+     * @var array
+     */
+    protected $pending = [];
+
+    /**
      * @param string $name
      * @param string $service
      * @return self
@@ -40,6 +45,34 @@ class Config
     }
 
     /**
+     * @param $name
+     * @return bool
+     */
+    public function has($name)
+    {
+        return !empty($this[$name]);
+    }
+
+    /**
+     * @param $name
+     * @return self
+     */
+    public function initializing($name)
+    {
+        $this->pending[$name] = true;
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function pending($name)
+    {
+        return !empty($this->pending[$name]);
+    }
+
+    /**
      * @param string $name
      * @param mixed $service
      * @return self
@@ -47,6 +80,9 @@ class Config
     public function set($name, $service)
     {
         $this[$name] = $service;
+
+        $this->pending[$name] = false;
+
         return $this;
     }
 }
