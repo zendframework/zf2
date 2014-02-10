@@ -38,8 +38,8 @@ class AbstractFactory
      * @param array $options
      * @return mixed|object
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
-        return (new $this->factory[0]($this->sm, $this->factory[1]))->service($request, $options);
+        return (new $this->factory[0]($this->sm, $this->factory[1]))->__invoke($request, $options);
     }
 }

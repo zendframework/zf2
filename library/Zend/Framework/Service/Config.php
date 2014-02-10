@@ -25,4 +25,28 @@ class Config
         $this[$name] = $service;
         return $this;
     }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function get($name)
+    {
+        if (!isset($this[$name])) {
+            return false;
+        }
+
+        return $this[$name];
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $service
+     * @return self
+     */
+    public function set($name, $service)
+    {
+        $this[$name] = $service;
+        return $this;
+    }
 }

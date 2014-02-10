@@ -23,7 +23,7 @@ class Factory
      * @param array $options
      * @return ConsoleResponse|HttpResponse
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         if (Console::isConsole()) {
             return new ConsoleResponse();

@@ -12,8 +12,6 @@ namespace Zend\Framework\Service;
 interface ManagerInterface
 {
     /**
-     * Shared service
-     *
      * @param $name
      * @param $service
      * @return self
@@ -24,17 +22,9 @@ interface ManagerInterface
      * @param string $name
      * @param array $options
      * @param bool $shared
-     * @return object
+     * @return false|object
      */
     public function get($name, array $options = [], $shared = true);
-
-    /**
-     * Shared service
-     *
-     * @param string $name
-     * @return bool
-     */
-    public function has($name);
 
     /**
      * @return ConfigInterface

@@ -17,4 +17,17 @@ interface ConfigInterface
      * @return self
      */
     public function add($name, $service);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function get($name);
+
+    /**
+     * @param string $name
+     * @param mixed $service
+     * @return self
+     */
+    public function set($name, $service);
 }

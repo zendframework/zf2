@@ -40,7 +40,7 @@ class InstanceFactory
      * @param array $options
      * @return mixed|object
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         if ($options) {
 

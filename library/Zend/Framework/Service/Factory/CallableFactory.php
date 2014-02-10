@@ -38,7 +38,7 @@ class CallableFactory
      * @param array $options
      * @return mixed|object
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         return call_user_func_array($this->factory, array_merge([$this->sm, $request], $options));
     }

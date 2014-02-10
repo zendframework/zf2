@@ -26,7 +26,7 @@ class Factory
      * @param array $options
      * @return void|Manager
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         return (new Manager($this->config()['controllers']))->setServiceManager($this->sm);
     }

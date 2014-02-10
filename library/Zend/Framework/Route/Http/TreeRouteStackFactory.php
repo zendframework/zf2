@@ -26,7 +26,7 @@ class TreeRouteStackFactory
      * @param array $options
      * @return TreeRouteStack
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         $rm = $this->routeManager();
 

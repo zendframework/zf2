@@ -9,12 +9,19 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Service\Factory\InstanceTrait as ServiceFactory;
+
 trait ManagerTrait
 {
     /**
      *
      */
-    use ServiceRequestTrait;
+    use ServiceFactory;
+
+    /**
+     * @var ConfigInterface
+     */
+    protected $services;
 
     /**
      * @param $name
@@ -23,7 +30,7 @@ trait ManagerTrait
      */
     public function add($name, $service)
     {
-        $this->shared[$name] = $service;
+        $this->services->add($name, $service);
         return $this;
     }
 
@@ -44,16 +51,40 @@ trait ManagerTrait
             }
         }
 
-        return $this->request(new Request($name, $shared), $options);
+        return $this->service(new Request($name, $shared), $options);
     }
 
     /**
-     * @param string $name
-     * @return bool
+     * @param RequestInterface $request
+     * @param array $options
+     * @return bool|object
+     * @throws Exception
      */
-    public function has($name)
+    protected function service(RequestInterface $request, array $options = [])
     {
-        return isset($this->shared[$name]);
+        $name = $request->alias();
+
+        $service = $this->services->get($name);
+
+        if (!$service) {
+            return false;
+        }
+
+        if (-1 === $service) {
+            throw new Exception('Circular dependency: '.$name);
+        }
+
+        if ($request->shared() && !is_string($service)) {
+            return $service;
+        }
+
+        $this->services->set($name, -1);
+
+        $instance = $this->instance($service, $request, $options);
+
+        $this->services->set($name, $request->shared() ? $instance : $service);
+
+        return $instance;
     }
 
     /**

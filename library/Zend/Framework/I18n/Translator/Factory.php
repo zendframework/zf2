@@ -31,7 +31,7 @@ class Factory
      * @param array $options
      * @return Translator
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         // Configure the translator
         $config     = $this->config();

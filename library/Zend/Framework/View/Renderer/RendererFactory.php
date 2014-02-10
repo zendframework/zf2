@@ -26,7 +26,7 @@ class RendererFactory
      * @param array $options
      * @return Renderer
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         $renderer = (new Renderer())->setViewManager($this->viewManager())
                                     ->setResolver($this->viewResolver());

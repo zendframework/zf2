@@ -31,7 +31,7 @@ class Factory
      * @param array $options
      * @return ViewModel
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         return $this->trigger(['Dispatch\View\Model\Event', new ViewModel], $options);
     }

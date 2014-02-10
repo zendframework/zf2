@@ -22,7 +22,7 @@ class LiteralFactory
      * @return Literal
      * @throws Exception\InvalidArgumentException
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         if (!isset($options['route'])) {
             throw new Exception\InvalidArgumentException('Missing "route" in options array');

@@ -14,8 +14,8 @@ use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\ResultTrait as Result;
 use Zend\Framework\Request\ServicesTrait as Request;
-use Zend\Framework\Response\ServicesTrait as Response;
-use Zend\Framework\Route\ServicesTrait as Route;
+use Zend\Framework\Response\ServicesTrait as ResponseTrait;
+use Zend\Framework\Route\ServicesTrait as RouteTrait;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Mvc\Router\RouteMatch;
@@ -29,9 +29,9 @@ class Event
      */
     use EventTrait,
         Request,
-        Response,
+        ResponseTrait,
         Result,
-        Route,
+        RouteTrait,
         ViewModel;
 
     /**

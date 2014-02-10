@@ -27,7 +27,7 @@ class PathStackFactory
      * @param array $options
      * @return TemplatePathStack
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         $config = $this->config();
 

@@ -38,7 +38,7 @@ class Factory
      * @return mixed|void
      * @throws Exception
      */
-    public function service(Request $request, array $options = [])
+    public function __invoke(Request $request, array $options = [])
     {
         throw new Exception('Missing service method for ' . get_class($this));
     }

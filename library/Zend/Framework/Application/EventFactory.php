@@ -26,7 +26,7 @@ class EventFactory
      * @param array $listeners
      * @return Event
      */
-    public function service(Request $request, array $listeners = [])
+    public function __invoke(Request $request, array $listeners = [])
     {
         return new Event($this->sm);
     }
