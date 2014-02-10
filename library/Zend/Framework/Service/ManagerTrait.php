@@ -62,9 +62,11 @@ trait ManagerTrait
      */
     protected function service(RequestInterface $request, array $options = [])
     {
+        $config = $this->services;
+
         $name = $request->alias();
 
-        $service = $this->services->get($name);
+        $service = $config->get($name);
 
         if (!$service) {
             return false;
@@ -78,11 +80,11 @@ trait ManagerTrait
             return $service;
         }
 
-        $this->services->set($name, -1);
+        $config->set($name, -1);
 
         $instance = $this->instance($service, $request, $options);
 
-        $this->services->set($name, $request->shared() ? $instance : $service);
+        $config->set($name, $request->shared() ? $instance : $service);
 
         return $instance;
     }
