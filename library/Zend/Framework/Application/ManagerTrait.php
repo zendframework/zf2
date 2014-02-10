@@ -45,24 +45,4 @@ trait ManagerTrait
     {
         return $listener instanceof ListenerInterface ? $listener : $this->get($listener);
     }
-
-    /**
-     * @param string $event
-     * @param null $options
-     * @return mixed
-     */
-    public function run($event = Event::EVENT, $options = null)
-    {
-        return $this->trigger($event, $options);
-    }
-
-    /**
-     * @param string|array|EventInterface $event
-     * @param null $options
-     * @return mixed
-     */
-    public function trigger($event, $options = null)
-    {
-        return $this->__invoke($this->event($event), $options);
-    }
 }

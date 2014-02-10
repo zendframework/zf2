@@ -32,4 +32,14 @@ class Manager
         $this->services  = $services;
         $this->listeners = $listeners;
     }
+
+    /**
+     * @param string $event
+     * @param null $options
+     * @return mixed
+     */
+    public function run($event = Event::EVENT, $options = null)
+    {
+        return $this->trigger($event, $options);
+    }
 }

@@ -23,12 +23,6 @@ trait GeneratorTrait
     protected $listeners;
 
     /**
-     * @param string|Event $event
-     * @return Event
-     */
-    abstract protected function event($event);
-
-    /**
      * @param string|Listener $listener
      * @return Listener
      */
