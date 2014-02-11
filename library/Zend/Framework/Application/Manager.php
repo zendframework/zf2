@@ -38,6 +38,7 @@ class Manager
         $this->services  = $services;
         $this->listeners = $listeners;
     }
+
     /**
      * Retrieve event from service manager
      *

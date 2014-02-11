@@ -19,7 +19,7 @@ trait ServiceTrait
     protected $response;
 
     /**
-     * @return bool|object
+     * @return Response
      */
     public function response()
     {
