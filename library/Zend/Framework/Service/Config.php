@@ -55,6 +55,15 @@ class Config
 
     /**
      * @param $name
+     * @return bool
+     */
+    public function initialized($name)
+    {
+        return isset($this->pending[$name]);
+    }
+
+    /**
+     * @param $name
      * @return self
      */
     public function initializing($name)
@@ -77,12 +86,10 @@ class Config
      * @param mixed $service
      * @return self
      */
-    public function set($name, $service)
+    public function update($name, $service)
     {
-        $this[$name] = $service;
-
         $this->pending[$name] = false;
 
-        return $this;
+        return $this->add($name, $service);
     }
 }

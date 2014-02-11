@@ -64,8 +64,8 @@ trait ManagerTrait
     protected function service(RequestInterface $request, array $options = [])
     {
         $config = $this->services;
-
-        $name = $request->alias();
+        $name   = $request->alias();
+        $shared = $request->shared();
 
         if (!$config->has($name)) {
             return false;
@@ -77,7 +77,7 @@ trait ManagerTrait
 
         $service = $config->get($name);
 
-        if ($request->shared() && !is_string($service)) {
+        if ($shared && !is_string($service)) {
             return $service;
         }
 
@@ -85,7 +85,7 @@ trait ManagerTrait
 
         $instance = $this->instance($service, $request, $options);
 
-        $config->set($name, $request->shared() ? $instance : $service);
+        $config->update($name, $shared ? $instance : $service);
 
         return $instance;
     }

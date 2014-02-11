@@ -13,7 +13,7 @@ interface ConfigInterface
 {
     /**
      * @param string $name
-     * @param string $service
+     * @param mixed $service
      * @return self
      */
     public function add($name, $service);
@@ -47,5 +47,5 @@ interface ConfigInterface
      * @param mixed $service
      * @return self
      */
-    public function set($name, $service);
+    public function update($name, $service);
 }
