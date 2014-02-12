@@ -10,7 +10,6 @@
 namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceTrait as Service;
 
@@ -20,8 +19,7 @@ class AbstractFactory
     /**
      *
      */
-    use EventListener,
-        Service;
+    use Service;
 
     /**
      * @param ServiceManager $sm

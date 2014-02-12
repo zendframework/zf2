@@ -56,10 +56,6 @@ trait InstanceTrait
     {
         $factory = $this->factory($service);
 
-        if (false === $factory) {
-            return false;
-        }
-
-        return $factory->__invoke($request, $options);
+        return $factory ? $factory->__invoke($request, $options) : false;
     }
 }

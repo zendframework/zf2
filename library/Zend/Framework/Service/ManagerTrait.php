@@ -47,15 +47,7 @@ trait ManagerTrait
             list($name, $options) = $name;
         }
 
-        if (!$options) {
-
-            $options = [];
-
-        } elseif (!is_array($options)) {
-
-            $options = [$options];
-
-        }
+        $options = $options ? (is_array($options) ? $options : [$options]) : [];
 
         return $this->service(new Request($name, $shared), $options);
     }

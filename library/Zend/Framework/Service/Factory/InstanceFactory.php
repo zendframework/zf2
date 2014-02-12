@@ -13,7 +13,6 @@ use ReflectionClass;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;
-use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\ServiceTrait as Service;
 
 class InstanceFactory
@@ -22,8 +21,7 @@ class InstanceFactory
     /**
      *
      */
-    use EventListener,
-        Service;
+    use Service;
 
     /**
      * @param ServiceManager $sm
