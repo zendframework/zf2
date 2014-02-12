@@ -10,7 +10,6 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
-use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 
 class Event
     implements EventInterface
@@ -18,8 +17,7 @@ class Event
     /**
      *
      */
-    use EventTrait,
-        ViewModel;
+    use EventTrait;
 
     /**
      * @param ListenerInterface $listener
