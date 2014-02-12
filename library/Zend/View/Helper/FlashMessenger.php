@@ -126,7 +126,8 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
                     $translatorTextDomain
                 );
             }
-            $messagesToPrint[] = $escapeHtml($item);
+            //$messagesToPrint[] = $escapeHtml($item);
+            $messagesToPrint[] = $item;
         });
 
         if (empty($messagesToPrint)) {
