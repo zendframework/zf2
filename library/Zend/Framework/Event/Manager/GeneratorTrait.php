@@ -10,18 +10,12 @@
 namespace Zend\Framework\Event\Manager;
 
 use Generator;
-use Zend\Framework\Event\Manager\ConfigInterface as Config;
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 
 trait GeneratorTrait
 {
-    /**
-     * @var Config
-     */
-    protected $listeners;
-
     /**
      * @param string|Listener $listener
      * @return Listener
@@ -73,8 +67,6 @@ trait GeneratorTrait
         $result = null;
 
         foreach($this->match($event) as $listener) {
-
-            //var_dump(get_class($listener));
 
             $result = $event->__invoke($listener, $options);
 

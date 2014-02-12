@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route\Stack;
 
-use Zend\Framework\Event\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Route\Manager\ServiceTrait as RouteManager;
 use Zend\Framework\Route\ParamTrait as Param;
 use Zend\Framework\Route\RouteTrait as Route;
@@ -21,7 +21,7 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener,
+    use EventListener,
         Param,
         Route,
         RouteManager;

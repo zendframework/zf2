@@ -9,14 +9,14 @@
 
 namespace Zend\Framework\Event\Callback;
 
-use Zend\Framework\Event\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener;
+    use EventListener;
 
     /**
      * Callback

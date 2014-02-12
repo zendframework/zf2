@@ -9,12 +9,12 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\Event\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 
 trait ListenerTrait
 {
     /**
      *
      */
-    use Listener;
+    use EventListener;
 }

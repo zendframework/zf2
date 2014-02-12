@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Exception;
 
-use Zend\Framework\Event\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 
 trait ListenerTrait
@@ -17,7 +17,7 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener;
+    use EventListener;
 
     /**
      * Display exceptions?

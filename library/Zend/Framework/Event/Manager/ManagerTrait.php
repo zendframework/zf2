@@ -14,6 +14,11 @@ use Zend\Framework\Event\EventInterface as Event;
 trait ManagerTrait
 {
     /**
+     * @var ConfigInterface
+     */
+    protected $listeners;
+
+    /**
      * @param string|Event $event
      * @return Event
      */

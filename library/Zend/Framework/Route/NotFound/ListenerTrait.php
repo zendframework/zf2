@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\NotFound;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Framework\Event\ListenerTrait as Listener;
+use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Route\EventInterface as RouteEvent;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ViewModel;
@@ -21,7 +21,7 @@ trait ListenerTrait
     /**
      *
      */
-    use Listener;
+    use EventListener;
 
     /**
      * Whether or not to display exceptions related to the 404 condition
