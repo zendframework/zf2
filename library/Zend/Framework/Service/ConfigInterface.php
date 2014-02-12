@@ -19,7 +19,14 @@ interface ConfigInterface
     public function add($name, $service);
 
     /**
-     * @param $name
+     * @param string $name
+     * @param null $default
+     * @return mixed
+     */
+    public function config($name, $default = null);
+
+    /**
+     * @param string $name
      * @return mixed
      */
     public function get($name);
@@ -32,20 +39,7 @@ interface ConfigInterface
 
     /**
      * @param $name
-     * @return self
-     */
-    public function initializing($name);
-
-    /**
-     * @param $name
      * @return bool
      */
-    public function pending($name);
-
-    /**
-     * @param string $name
-     * @param mixed $service
-     * @return self
-     */
-    public function update($name, $service);
+    public function initializing($name);
 }

@@ -21,14 +21,34 @@ class Config
     protected $pending = [];
 
     /**
+     * @var array
+     */
+    protected $shared = [];
+
+    /**
      * @param string $name
      * @param string $service
      * @return self
      */
     public function add($name, $service)
     {
-        $this[$name] = $service;
+        $this->shared[$name] = $service;
+        $this->pending[$name] = false;
         return $this;
+    }
+
+    /**
+     * @param $name
+     * @param null $default
+     * @return mixed
+     */
+    public function config($name, $default = null)
+    {
+        if (isset($this[$name])) {
+            return $this[$name];
+        }
+
+        return $default;
     }
 
     /**
@@ -37,11 +57,11 @@ class Config
      */
     public function get($name)
     {
-        if (!isset($this[$name])) {
-            return false;
+        if (isset($this->shared[$name])) {
+            return $this->shared[$name];
         }
 
-        return $this[$name];
+        return null;
     }
 
     /**
@@ -50,16 +70,7 @@ class Config
      */
     public function has($name)
     {
-        return !empty($this[$name]);
-    }
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function initialized($name)
-    {
-        return isset($this->pending[$name]);
+        return !empty($this->shared[$name]);
     }
 
     /**
@@ -68,28 +79,12 @@ class Config
      */
     public function initializing($name)
     {
+        if (!empty($this->pending[$name])) {
+            return true;
+        }
+
         $this->pending[$name] = true;
-        return $this;
-    }
 
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function pending($name)
-    {
-        return !empty($this->pending[$name]);
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $service
-     * @return self
-     */
-    public function update($name, $service)
-    {
-        $this->pending[$name] = false;
-
-        return $this->add($name, $service);
+        return false;
     }
 }

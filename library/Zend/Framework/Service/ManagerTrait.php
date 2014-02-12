@@ -63,29 +63,28 @@ trait ManagerTrait
      */
     protected function service(RequestInterface $request, array $options = [])
     {
-        $config = $this->services;
-        $name   = $request->alias();
-        $shared = $request->shared();
+        $alias    = $request->alias();
+        $services = $this->services;
+        $shared   = $request->shared();
 
-        if (!$config->has($name)) {
+        $config  = $services->config($alias);
+        $service = $services->get($alias);
+
+        if (!$config && !$service) {
             return false;
-        }
-
-        if ($config->pending($name)) {
-            throw new Exception('Circular dependency: '.$name);
-        }
-
-        $service = $config->get($name);
-
-        if ($shared && !is_string($service)) {
+        } elseif ($service) {
             return $service;
         }
 
-        $config->initializing($name);
+        if ($services->initializing($alias)) {
+            throw new Exception('Circular dependency: '.$alias);
+        }
 
-        $instance = $this->instance($service, $request, $options);
+        $instance = $this->instance($config, $request, $options);
 
-        $config->update($name, $shared ? $instance : $service);
+        if ($shared) {
+            $services->add($alias, $instance);
+        }
 
         return $instance;
     }
