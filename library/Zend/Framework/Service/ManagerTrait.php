@@ -72,7 +72,9 @@ trait ManagerTrait
 
         if (!$config && !$service) {
             return false;
-        } elseif ($service) {
+        }
+
+        if ($service) {
             return $service;
         }
 
@@ -85,6 +87,8 @@ trait ManagerTrait
         if ($shared) {
             $services->add($alias, $instance);
         }
+
+        $services->initialized($alias);
 
         return $instance;
     }

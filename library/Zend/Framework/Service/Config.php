@@ -77,6 +77,16 @@ class Config
      * @param $name
      * @return self
      */
+    public function initialized($name)
+    {
+        $this->pending[$name] = false;
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @return self
+     */
     public function initializing($name)
     {
         if (!empty($this->pending[$name])) {
