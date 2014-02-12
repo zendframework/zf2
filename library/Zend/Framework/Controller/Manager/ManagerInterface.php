@@ -9,11 +9,10 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Event\ListenerInterface;
+use Zend\Framework\Controller\ListenerInterface;
 use Zend\Mvc\Router\RouteMatch;
 
 interface ManagerInterface
-    extends ListenerInterface
 {
     /**
      * @param RouteMatch $routeMatch
