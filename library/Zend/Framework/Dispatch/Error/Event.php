@@ -33,11 +33,6 @@ class Event
     protected $exception;
 
     /**
-     * @var
-     */
-    protected $name = self::EVENT;
-
-    /**
      * @var RouteMatch
      */
     protected $routeMatch;

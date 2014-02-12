@@ -21,7 +21,7 @@ trait EventTrait
      */
     public function name()
     {
-        return isset($this->name) ? $this->name : null;
+        return isset($this->name) ? $this->name : self::EVENT;
     }
 
     /**

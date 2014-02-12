@@ -35,11 +35,6 @@ class Event
         ViewModel;
 
     /**
-     * @var string
-     */
-    protected $name = self::EVENT;
-
-    /**
      * @var ServiceManager
      */
     protected $sm;

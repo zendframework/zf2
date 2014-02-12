@@ -18,9 +18,4 @@ class Event
      *
      */
     use EventTrait;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT;
 }

@@ -20,11 +20,6 @@ class Event
     use EventTrait;
 
     /**
-     * @var string
-     */
-    protected $name = self::EVENT;
-
-    /**
      * @param ListenerInterface $listener
      * @param null $options
      * @return mixed

@@ -24,9 +24,4 @@ class Event
         EventTrait,
         Exception,
         Result;
-
-    /**
-     * @var string
-     */
-    protected $name = self::EVENT;
 }

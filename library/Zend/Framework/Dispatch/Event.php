@@ -22,11 +22,6 @@ class Event
         ViewModel;
 
     /**
-     * @var string
-     */
-    protected $name = self::EVENT;
-
-    /**
      * @param ListenerInterface $listener
      * @param $options
      * @return mixed

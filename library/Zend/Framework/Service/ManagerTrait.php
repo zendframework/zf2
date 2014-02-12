@@ -48,11 +48,13 @@ trait ManagerTrait
         }
 
         if (!$options) {
-            $options = [];
-        }
 
-        if ($options && !is_array($options)) {
+            $options = [];
+
+        } elseif (!is_array($options)) {
+
             $options = [$options];
+
         }
 
         return $this->service(new Request($name, $shared), $options);

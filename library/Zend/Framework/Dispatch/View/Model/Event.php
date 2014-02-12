@@ -10,7 +10,6 @@
 namespace Zend\Framework\Dispatch\View\Model;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
-use Zend\Framework\Event\ListenerInterface;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 class Event
@@ -22,25 +21,10 @@ class Event
     use EventTrait;
 
     /**
-     * @var string
-     */
-    protected $name = self::EVENT;
-
-    /**
      * @param ViewModel $viewModel
      */
     public function __construct(ViewModel $viewModel)
     {
         $this->source = $viewModel;
-    }
-
-    /**
-     * @param ListenerInterface $listener
-     * @param $options
-     * @return mixed
-     */
-    public function __invoke(ListenerInterface $listener, $options = null)
-    {
-        return $listener->__invoke($this, $options);
     }
 }
