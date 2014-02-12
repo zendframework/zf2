@@ -11,16 +11,10 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\Manager\Config as ListenersConfig;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
-use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\Config as ServiceConfig;
 
 class Factory
 {
-    /**
-     *
-     */
-    use EventManager;
-
     /**
      * @param array $config
      * @return EventManagerInterface
