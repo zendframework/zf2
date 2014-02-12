@@ -27,16 +27,17 @@ class Manager
      */
     public function controller(RouteMatch $routeMatch)
     {
-        return $this->get($routeMatch->getParam('controller'), [$routeMatch]);
+        return $this->get($routeMatch->getParam('controller'), $routeMatch);
     }
 
     /**
      * @param $name
-     * @param array $options
+     * @param mixed $options
+     * @param bool $shared
      * @return array|object
      */
-    public function get($name, array $options = [])
+    public function get($name, $options = null, $shared = false)
     {
-        return $this->sm->get($name, $options);
+        return $this->sm->get($name, $options, $shared);
     }
 }

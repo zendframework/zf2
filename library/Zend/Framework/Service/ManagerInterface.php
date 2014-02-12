@@ -20,11 +20,11 @@ interface ManagerInterface
 
     /**
      * @param string $name
-     * @param array $options
+     * @param mixed $options
      * @param bool $shared
      * @return false|object
      */
-    public function get($name, array $options = [], $shared = true);
+    public function get($name, $options = null, $shared = true);
 
     /**
      * @return ConfigInterface

@@ -9,10 +9,7 @@
 
 namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
-
 interface ManagerInterface
-    extends Listener
 {
     /**
      * @param $name
@@ -28,10 +25,11 @@ interface ManagerInterface
 
     /**
      * @param string $name
-     * @param array $options
+     * @param mixed $options
+     * @param bool $shared
      * @return object
      */
-    public function get($name, array $options = []);
+    public function get($name, $options = null, $shared = true);
 
     /**
      * @param $name

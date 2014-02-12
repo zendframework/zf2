@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\Event\ListenerTrait as Listener;
 use Zend\Framework\Service\AliasTrait as Alias;
 
 trait ManagerTrait
@@ -17,8 +16,7 @@ trait ManagerTrait
     /**
      *
      */
-    use Alias,
-        Listener;
+    use Alias;
 
     /**
      * @var array

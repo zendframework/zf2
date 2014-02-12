@@ -42,12 +42,13 @@ trait AliasTrait
 
     /**
      * @param string $name
-     * @param array $options
+     * @param mixed $options
+     * @param bool $shared
      * @return false|object
      */
-    public function get($name, array $options = [])
+    public function get($name, $options = null, $shared = true)
     {
-        return $this->sm->get($this->alias($name), $options);
+        return $this->sm->get($this->alias($name), $options, $shared);
     }
 
     /**

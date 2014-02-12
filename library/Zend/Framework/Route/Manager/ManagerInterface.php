@@ -9,9 +9,6 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
-
 interface ManagerInterface
-    extends Listener
 {
 }

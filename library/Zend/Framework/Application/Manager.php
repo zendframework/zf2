@@ -47,7 +47,7 @@ class Manager
      */
     protected function event($event)
     {
-        return $event instanceof EventInterface ? $event : $this->get($event, [], false);
+        return $event instanceof EventInterface ? $event : $this->get($event, null, false);
     }
 
     /**
@@ -58,7 +58,7 @@ class Manager
      */
     protected function listener($listener)
     {
-        return $listener instanceof ListenerInterface ? $listener : $this->get($listener, [], false);
+        return $listener instanceof ListenerInterface ? $listener : $this->get($listener, null, false);
     }
 
     /**
