@@ -259,7 +259,7 @@ abstract class ArrayUtils
         foreach ($b as $key => $value) {
             if (array_key_exists($key, $a)) {
                 if (is_int($key)) {
-                    $a[] = $value;
+                    $a[$key] = $value;
                 } elseif (is_array($value) && is_array($a[$key])) {
                     $a[$key] = static::merge($a[$key], $value);
                 } else {
