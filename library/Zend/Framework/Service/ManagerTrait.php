@@ -44,7 +44,8 @@ trait ManagerTrait
     public function get($name, $options = null, $shared = true)
     {
         if (is_array($name)) {
-            list($name, $options) = $name;
+            $options = $name;
+            $name = array_shift($options);
         }
 
         $options = $options ? (is_array($options) ? $options : [$options]) : [];

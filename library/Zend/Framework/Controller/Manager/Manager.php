@@ -32,7 +32,7 @@ class Manager
 
     /**
      * @param $name
-     * @param mixed $options
+     * @param null $options
      * @param bool $shared
      * @return array|object
      */

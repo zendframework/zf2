@@ -12,7 +12,6 @@ namespace Zend\Framework\Application;
 use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Framework\Event\ListenerInterface;
-use Zend\Framework\Event\ResultTrait as Result;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
 use Zend\Framework\Route\ServicesTrait as RouteTrait;
@@ -30,7 +29,6 @@ class Event
     use EventTrait,
         Request,
         ResponseTrait,
-        Result,
         RouteTrait,
         ViewModel;
 

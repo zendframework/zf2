@@ -43,7 +43,7 @@ class Listener
 
         } catch (Exception $exception) {
 
-            $response = $this->trigger(['Dispatch\Error', [$controller, $routeMatch, $exception]]);
+            $response = $this->trigger(['Dispatch\Error', $controller, $routeMatch, $exception]);
 
         }
 
