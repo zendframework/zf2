@@ -34,7 +34,7 @@ trait ListenerTrait
      */
     public function viewRenderer(ViewModel $model)
     {
-        $renderer = $this->em->trigger('View\Renderer\Event', $model);
+        $renderer = $this->trigger('View\Renderer\Event', $model);
 
         if (!$renderer instanceof Renderer) {
             throw new RuntimeException(sprintf(

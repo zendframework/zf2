@@ -24,7 +24,7 @@ trait ListenerTrait
         }
 
         foreach((array) $this->target as $target) {
-            if ($source == $target || $source instanceof $target || \is_subclass_of($source, $target)) {
+            if ($source == $target || $source instanceof $target || is_subclass_of($source, $target)) {
                 return true;
             }
         }
