@@ -23,6 +23,11 @@ trait GeneratorTrait
     abstract protected function listener($listener);
 
     /**
+     * @return Config
+     */
+    abstract public function listeners();
+
+    /**
      * @param array $listeners
      * @return Generator
      */
