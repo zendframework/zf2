@@ -37,7 +37,7 @@ trait AliasTrait
      */
     public function configure($name, $service)
     {
-        $this->sm->configure($this->alias($name), $service);
+        $this->sm->services()[$this->alias($name)] = $service;
     }
 
     /**
