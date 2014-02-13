@@ -153,16 +153,15 @@ class ArrayUtilsTest extends TestCase
                     'baz',
                 ),
                 array(
-                    0     => 'foo',
+                    0     => 'baz',
                     3     => 'bar',
-                    'baz' => 'baz',
-                    4     => 'baz'
+                    'baz' => 'baz'
                 )
             ),
             'merge-arrays-recursively' => array(
                 array(
                     'foo' => array(
-                        'baz'
+                        'bar'
                     )
                 ),
                 array(
@@ -172,8 +171,7 @@ class ArrayUtilsTest extends TestCase
                 ),
                 array(
                     'foo' => array(
-                        0 => 'baz',
-                        1 => 'baz'
+                        0 => 'baz'
                     )
                 )
             ),
