@@ -10,7 +10,6 @@
 namespace Zend\Framework\Dispatch\View\Model;
 
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\View\Model\ViewModel;
@@ -23,7 +22,6 @@ class Factory
      *
      */
     use EventManager,
-        Route,
         View;
 
     /**

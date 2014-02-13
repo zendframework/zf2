@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\View\ServicesTrait as View;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
@@ -19,7 +18,7 @@ class ListenerFactory
     /**
      *
      */
-    use View;
+    use ServicesTrait;
 
     /**
      * @param Request $request

@@ -47,12 +47,12 @@ trait InstanceTrait
     }
 
     /**
-     * @param array|callable|FactoryInterface|object|string $service
      * @param RequestInterface $request
+     * @param array|callable|FactoryInterface|object|string $service
      * @param array $options
      * @return mixed
      */
-    protected function instance($service, RequestInterface $request, array $options = [])
+    protected function instance(RequestInterface $request, $service, array $options = [])
     {
         $factory = $this->factory($service);
 

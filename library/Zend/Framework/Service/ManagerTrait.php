@@ -80,7 +80,7 @@ trait ManagerTrait
             throw new Exception('Circular dependency: '.$alias);
         }
 
-        $instance = $this->instance($config, $request, $options);
+        $instance = $this->instance($request, $config, $options);
 
         if ($shared) {
             $services->add($alias, $instance);
