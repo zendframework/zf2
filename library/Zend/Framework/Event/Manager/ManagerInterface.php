@@ -20,8 +20,8 @@ interface ManagerInterface
     public function listeners();
 
     /**
-     * @param string|EventInterface $event
-     * @param $options
+     * @param array|EventInterface|string $event
+     * @param null $options
      * @return mixed
      */
     public function trigger($event, $options = null);

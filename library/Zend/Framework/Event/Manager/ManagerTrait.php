@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\EventInterface;
 
 trait ManagerTrait
 {
@@ -19,8 +19,8 @@ trait ManagerTrait
     protected $listeners;
 
     /**
-     * @param string|Event $event
-     * @return Event
+     * @param array|EventInterface|string $event
+     * @return EventInterface
      */
     abstract protected function event($event);
 
@@ -33,7 +33,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param string|Event $event
+     * @param array|EventInterface|string $event
      * @param null $options
      * @return mixed
      */

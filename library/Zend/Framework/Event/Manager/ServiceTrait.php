@@ -46,7 +46,7 @@ trait ServiceTrait
 
     /**
      * @param string|EventInterface $event
-     * @param $options
+     * @param null $options
      * @return mixed
      */
     public function trigger($event, $options = null)

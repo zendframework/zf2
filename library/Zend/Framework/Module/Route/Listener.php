@@ -23,7 +23,7 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param $options
+     * @param null $options
      * @return mixed
      */
     public function __invoke(EventInterface $event, $options = null)
