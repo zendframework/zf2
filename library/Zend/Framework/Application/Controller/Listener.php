@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch;
+namespace Zend\Framework\Application\Controller;
 
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\ListenerTrait as EventListener;
-use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Service\ServiceTrait as ServiceManager;
 
 class Listener
     implements ListenerInterface
@@ -19,8 +19,8 @@ class Listener
     /**
      *
      */
-    use EventManager,
-        EventListener;
+    use EventListener,
+        ServiceManager;
 
     /**
      * @param EventInterface $event
@@ -29,6 +29,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->trigger('Dispatch\Event', $event->controller());
+        return $this->sm->get($event->routeMatch()->getParam('controller'), $event->routeMatch());
     }
 }

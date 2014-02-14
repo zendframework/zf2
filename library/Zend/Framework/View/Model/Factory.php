@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\View\ServicesTrait as View;
+use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
@@ -19,7 +19,7 @@ class Factory
     /**
      *
      */
-    use View;
+    use ViewManager;
 
     /**
      * @param Request $request

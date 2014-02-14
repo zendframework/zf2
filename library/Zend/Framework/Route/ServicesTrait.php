@@ -20,7 +20,7 @@ trait ServicesTrait
      */
     public function routeManager()
     {
-        return $this->sm->get('Route\Manager');
+        return $this->sm->get('Route\Manager', null, false);
     }
 
     /**
@@ -28,16 +28,7 @@ trait ServicesTrait
      */
     public function router()
     {
-        return $this->sm->get('Router');
-    }
-
-    /**
-     * @param Router $router
-     * @return self
-     */
-    public function setRouter(Router $router)
-    {
-        return $this->sm->add('Router', $router);
+        return $this->sm->get('Router', null, false);
     }
 
     /**

@@ -11,10 +11,10 @@ namespace Zend\Framework\Dispatch;
 
 use Exception;
 use Zend\Framework\Controller\EventInterface as ControllerEvent;
+use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\Service\ServiceTrait As ServiceManager;
-use Zend\Mvc\Router\RouteMatch;
 
 class Listener
     implements ListenerInterface
@@ -22,20 +22,16 @@ class Listener
     /**
      *
      */
-    use EventManager,
-        EventListener,
-        ServiceManager,
-        ServicesTrait;
+    use EventListener,
+        EventManager;
 
     /**
      * @param EventInterface $event
-     * @param RouteMatch $routeMatch
+     * @param Controller $controller
      * @return mixed
      */
-    public function __invoke(EventInterface $event, RouteMatch $routeMatch)
+    public function __invoke(EventInterface $event, Controller $controller)
     {
-        $controller = $this->controller($routeMatch);
-
         $this->listeners()->push(ControllerEvent::EVENT, $controller);
 
         try {
@@ -44,7 +40,7 @@ class Listener
 
         } catch (Exception $exception) {
 
-            $response = $this->trigger(['Dispatch\Error', $controller, $routeMatch, $exception]);
+            $response = $this->trigger(['Dispatch\Error', $controller], $exception);
 
         }
 

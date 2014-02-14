@@ -18,7 +18,7 @@ trait ServicesTrait
      */
     public function viewModel()
     {
-        return $this->sm->get('View\Model');
+        return $this->sm->get('View\Model', null, false);
     }
 
     /**

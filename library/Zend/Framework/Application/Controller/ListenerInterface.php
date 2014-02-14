@@ -7,28 +7,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch;
+namespace Zend\Framework\Application\Controller;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Event\ListenerTrait as EventListener;
-use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Event\ListenerInterface as Listener;
 
-class Listener
-    implements ListenerInterface
+interface ListenerInterface
+    extends Listener
 {
-    /**
-     *
-     */
-    use EventManager,
-        EventListener;
-
     /**
      * @param EventInterface $event
      * @param null $options
      * @return mixed
      */
-    public function __invoke(EventInterface $event, $options = null)
-    {
-        return $this->trigger('Dispatch\Event', $event->controller());
-    }
+    public function __invoke(EventInterface $event, $options = null);
 }

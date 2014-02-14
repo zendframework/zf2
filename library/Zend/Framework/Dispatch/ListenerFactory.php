@@ -20,8 +20,7 @@ class ListenerFactory
     /**
      *
      */
-    use EventManager,
-        ServiceManager;
+    use EventManager;
 
     /**
      * @param Request $request
@@ -30,7 +29,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setEventManager($this->eventManager())
-                             ->setServiceManager($this->serviceManager());
+        return (new Listener)->setEventManager($this->eventManager());
     }
 }
