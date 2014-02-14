@@ -28,6 +28,12 @@ interface ConfigInterface
     public function add($name, $listener, $priority = self::PRIORITY);
 
     /**
+     * @param string $name
+     * @return array
+     */
+    public function get($name);
+
+    /**
      * Push listener to top of queue
      *
      * @param string $name
@@ -42,10 +48,4 @@ interface ConfigInterface
      * @return self
      */
     public function remove($listener);
-
-    /**
-     * @param string $name
-     * @return array
-     */
-    public function reverse($name);
 }

@@ -34,6 +34,15 @@ class Config
     }
 
     /**
+     * @param string $name
+     * @return array
+     */
+    public function get($name)
+    {
+        return isset($this[$name]) ? $this[$name] : [];
+    }
+
+    /**
      * Push listener to top of queue
      *
      * @param string $name
@@ -70,20 +79,5 @@ class Config
         }
 
         return $this;
-    }
-
-    /**
-     * @param string $name
-     * @return array
-     */
-    public function reverse($name)
-    {
-        if (!isset($this[$name])) {
-            return [];
-        }
-
-        krsort($this[$name], SORT_NUMERIC);
-
-        return $this[$name];
     }
 }
