@@ -80,15 +80,15 @@ trait ManagerTrait
             throw new Exception('Circular dependency: '.$alias);
         }
 
-        $instance = $this->instance($request, $config, $options);
+        $service = $this->instance($request, $config, $options);
 
         if ($shared) {
-            $services->add($alias, $instance);
+            $services->add($alias, $service);
         }
 
         $services->initialized($alias);
 
-        return $instance;
+        return $service;
     }
 
     /**
