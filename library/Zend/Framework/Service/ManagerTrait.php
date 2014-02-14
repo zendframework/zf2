@@ -72,7 +72,7 @@ trait ManagerTrait
             return false;
         }
 
-        if ($service) {
+        if ($shared && $service) {
             return $service;
         }
 
