@@ -7,16 +7,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\Manager;
+namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Controller\ListenerInterface;
 use Zend\Mvc\Router\RouteMatch;
 
-interface ManagerInterface
+trait ServicesTrait
 {
     /**
      * @param RouteMatch $routeMatch
      * @return false|ListenerInterface
      */
-    public function controller(RouteMatch $routeMatch);
+    public function controller(RouteMatch $routeMatch)
+    {
+        return $this->sm->get($routeMatch->getParam('controller'), $routeMatch);
+    }
 }

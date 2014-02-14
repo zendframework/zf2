@@ -11,9 +11,9 @@ namespace Zend\Framework\Dispatch;
 
 use Exception;
 use Zend\Framework\Controller\EventInterface as ControllerEvent;
-use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Service\ServiceTrait As ServiceManager;
 use Zend\Mvc\Router\RouteMatch;
 
 class Listener
@@ -22,9 +22,10 @@ class Listener
     /**
      *
      */
-    use ControllerManager,
-        EventManager,
-        EventListener;
+    use EventManager,
+        EventListener,
+        ServiceManager,
+        ServicesTrait;
 
     /**
      * @param EventInterface $event

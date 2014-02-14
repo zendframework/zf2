@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\ManagerTrait as ServiceManager;
+use Zend\Framework\Service\RequestInterface as Request;
 
 class ListenerFactory
     extends Factory
@@ -20,8 +20,8 @@ class ListenerFactory
     /**
      *
      */
-    use ControllerManager,
-        EventManager;
+    use EventManager,
+        ServiceManager;
 
     /**
      * @param Request $request
@@ -31,6 +31,6 @@ class ListenerFactory
     public function __invoke(Request $request, array $options = [])
     {
         return (new Listener)->setEventManager($this->eventManager())
-                             ->setControllerManager($this->controllerManager());
+                             ->setServiceManager($this->serviceManager());
     }
 }

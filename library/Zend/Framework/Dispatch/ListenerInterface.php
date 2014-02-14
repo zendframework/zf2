@@ -9,19 +9,19 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Controller\Manager\ManagerInterface as ControllerManager;
 use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManager;
+use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Mvc\Router\RouteMatch;
 
 interface ListenerInterface
     extends Listener
 {
     /**
-     * @param ControllerManager $cm
+     * @param ServiceManager $sm
      * @return self
      */
-    public function setControllerManager(ControllerManager $cm);
+    public function setServiceManager(ServiceManager $sm);
 
     /**
      * @param EventManager $em
