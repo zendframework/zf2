@@ -23,7 +23,7 @@ trait ServicesTrait
      */
     public function dispatchViewModel(Controller $controller, RouteMatch $routeMatch)
     {
-        return $this->sm->get('Dispatch\View\Model', [$controller, $routeMatch]);
+        return $this->sm->get('Dispatch\View\Model', [$controller, $routeMatch], false);
     }
 
     /**
