@@ -16,6 +16,6 @@ trait ServicesTrait
      */
     public function translator()
     {
-        return $this->sm->get('Translator');
+        return $this->sm->get('Translator', null, false);
     }
 }

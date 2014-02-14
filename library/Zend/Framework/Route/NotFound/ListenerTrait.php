@@ -53,7 +53,7 @@ trait ListenerTrait
 
     public function createService(ServiceManager $sm)
     {
-        $vm = $sm->get('View\Manager');
+        $vm = $sm->get('View\Manager', null, false);
 
         $this->setDisplayExceptions($vm->displayExceptions())
             ->setDisplayNotFoundReason($vm->displayNotFoundReason())

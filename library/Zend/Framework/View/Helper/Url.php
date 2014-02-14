@@ -29,7 +29,7 @@ class Url
      */
     public function __service(ServiceManager $sm)
     {
-        return $this->setRouter($sm->get('Router'))
+        return $this->setRouter($sm->get('Router', null, false))
                     ->setRouteMatch($sm->get('Route\Match'));
     }
     /**
