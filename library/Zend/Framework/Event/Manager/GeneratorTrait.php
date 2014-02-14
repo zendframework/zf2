@@ -46,7 +46,7 @@ trait GeneratorTrait
     protected function match(Event $event)
     {
         foreach($this->queue($event->name()) as $listeners) {
-            foreach($this->generator((array) $listeners) as $listener) {
+            foreach($this->generator($listeners) as $listener) {
                 if ($listener->target($event)) {
                     yield $listener;
                 }
