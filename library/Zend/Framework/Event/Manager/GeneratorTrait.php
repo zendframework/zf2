@@ -29,10 +29,10 @@ trait GeneratorTrait
     abstract public function listeners();
 
     /**
-     * @param array $listeners
+     * @param array|Traversable $listeners
      * @return Generator
      */
-    protected function generator(array $listeners)
+    protected function generator($listeners)
     {
         foreach($listeners as $listener) {
             yield $this->listener($listener);
@@ -56,7 +56,7 @@ trait GeneratorTrait
 
     /**
      * @param string $event
-     * @return array
+     * @return array|Traversable
      */
     protected function queue($event)
     {
