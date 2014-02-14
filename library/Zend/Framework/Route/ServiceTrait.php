@@ -26,6 +26,15 @@ trait ServiceTrait
     protected $router;
 
     /**
+     * @param $request
+     * @return RouteMatch
+     */
+    public function match($request)
+    {
+        return $this->router->match($request);
+    }
+
+    /**
      * @return bool|Router
      */
     public function router()

@@ -29,6 +29,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $request)
     {
-        return $this->router->match($request);
+        return $this->match($request);
     }
 }
