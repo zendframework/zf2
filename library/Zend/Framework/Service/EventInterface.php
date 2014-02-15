@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service;
 
-interface RequestInterface
+interface EventInterface
 {
     /**
      * @return string

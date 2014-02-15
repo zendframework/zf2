@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Manager;
+namespace Zend\Framework\View;
 
 trait ServicesTrait
 {

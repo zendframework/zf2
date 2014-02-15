@@ -50,16 +50,16 @@ trait ManagerTrait
 
         $options = $options ? (is_array($options) ? $options : [$options]) : [];
 
-        return $this->service(new Request($name, $shared), $options);
+        return $this->instance($this->request($name, $shared), $options);
     }
 
     /**
-     * @param RequestInterface $request
+     * @param EventInterface $request
      * @param array $options
      * @return bool|object
      * @throws Exception
      */
-    protected function service(RequestInterface $request, array $options = [])
+    protected function instance(EventInterface $request, array $options = [])
     {
         $alias    = $request->alias();
         $services = $this->services;
@@ -88,6 +88,16 @@ trait ManagerTrait
         $services->initialized($alias);
 
         return $service;
+    }
+
+    /**
+     * @param $request
+     * @param bool $shared
+     * @return false|object|EventInterface
+     */
+    public function request($request, $shared = true)
+    {
+        return $request instanceof EventInterface ? $request : new Event($request, $shared);
     }
 
     /**

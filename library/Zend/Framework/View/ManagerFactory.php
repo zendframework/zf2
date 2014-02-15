@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Manager;
+namespace Zend\Framework\View;
 
 use Zend\Framework\Application\Config\ServicesTrait as Config;
-use Zend\Framework\Service\RequestInterface as Request;
+use Zend\Framework\Service\EventInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Helper as ViewHelper;
 

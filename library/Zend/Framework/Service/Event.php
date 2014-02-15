@@ -11,19 +11,9 @@ namespace Zend\Framework\Service;
 
 use Zend\Framework\Service\Factory\FactoryInterface;
 
-class Request
-    implements RequestInterface
+class Event
+    implements EventInterface
 {
-    /**
-     * @var string
-     */
-    protected $alias;
-
-    /**
-     * @var bool
-     */
-    protected $shared = true;
-
     /**
      * @param string $alias
      * @param bool $shared

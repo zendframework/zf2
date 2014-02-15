@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
-use Zend\Framework\Service\RequestInterface as Request;
+use Zend\Framework\View\ServicesTrait as ViewManager;
+use Zend\Framework\Service\EventInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
 class Factory

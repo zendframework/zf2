@@ -21,18 +21,18 @@ interface ManagerInterface
     public function add($name, $service);
 
     /**
-     * @param array|callable|FactoryInterface|object|string $factory
-     * @return FactoryInterface
-     */
-    public function factory($factory);
-
-    /**
      * @param string $name
      * @param mixed $options
      * @param bool $shared
      * @return false|object
      */
     public function get($name, $options = null, $shared = true);
+
+    /**
+     * @param array|callable|FactoryInterface|object|string $factory
+     * @return FactoryInterface
+     */
+    public function factory($factory);
 
     /**
      * @return ConfigInterface

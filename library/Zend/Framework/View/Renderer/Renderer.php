@@ -12,7 +12,7 @@ namespace Zend\Framework\View\Renderer;
 use ArrayAccess;
 use Traversable;
 use Zend\Filter\FilterChain;
-use Zend\Framework\View\Manager\ManagerInterface as ViewManager;
+use Zend\Framework\View\ManagerInterface as ViewManager;
 use Zend\View\Exception;
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Model\ModelInterface as Model;
