@@ -91,7 +91,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function values(array $values, $flag = self::VALUES_SET)
     {
-        if (!is_array($values)) {
+        if ($values === null) {
             throw new Exception\InvalidArgumentException('values() expects an array of values');
         }
 
