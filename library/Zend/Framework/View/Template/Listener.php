@@ -9,8 +9,10 @@
 
 namespace Zend\Framework\View\Template;
 
-use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Module\Route\ListenerInterface as RouteListener;
+use Zend\View\Model\ModelInterface as ViewModel;
+use Zend\Mvc\Router\RouteMatch;
 
 class Listener
     implements ListenerInterface
@@ -21,22 +23,19 @@ class Listener
     use ListenerTrait;
 
     /**
-     * @param EventInterface $event
-     * @param $response
-     * @return mixed
+     * @param ViewModel $model
+     * @param Controller $controller
+     * @param RouteMatch $routeMatch
+     * @return mixed|ViewModel
      */
-    public function __invoke(EventInterface $event, $response)
+    public function __invoke(ViewModel $model, Controller $controller, RouteMatch $routeMatch)
     {
-        $model = $event->source();
-
         $template = $model->getTemplate();
 
         if (!empty($template)) {
             return $model;
         }
 
-        $routeMatch = $response[1];
-        $controller = $response[0];
         if (is_object($controller)) {
             $controller = get_class($controller);
         }

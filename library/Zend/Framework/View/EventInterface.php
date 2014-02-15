@@ -10,6 +10,7 @@
 namespace Zend\Framework\View;
 
 use Zend\Framework\Event\EventInterface as Event;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 interface EventInterface
     extends Event
@@ -21,8 +22,8 @@ interface EventInterface
 
     /**
      * @param ListenerInterface $listener
-     * @param null $options
+     * @param ViewModel $viewModel
      * @return mixed
      */
-    public function __invoke(ListenerInterface $listener, $options = null);
+    public function __invoke(ListenerInterface $listener, ViewModel $viewModel);
 }

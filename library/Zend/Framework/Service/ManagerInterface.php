@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Service\Factory\FactoryInterface;
+
 interface ManagerInterface
 {
     /**
@@ -17,6 +19,12 @@ interface ManagerInterface
      * @return self
      */
     public function add($name, $service);
+
+    /**
+     * @param array|callable|FactoryInterface|object|string $factory
+     * @return FactoryInterface
+     */
+    public function factory($factory);
 
     /**
      * @param string $name
