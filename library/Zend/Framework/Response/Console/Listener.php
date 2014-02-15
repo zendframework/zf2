@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\Response\Console;
 
-use Zend\Console\Response;
 use Zend\Framework\Response\EventInterface;
 use Zend\Framework\Response\SendContentTrait as SendContent;
 use Zend\Framework\Response\ListenerTrait as ResponseListener;
+use Zend\Stdlib\ResponseInterface as Response;
 
 class Listener
     implements ListenerInterface
@@ -24,18 +24,12 @@ class Listener
         SendContent;
 
     /**
-     * Send the response
-     *
-     * @param  EventInterface $event
-     * @param $response
-     * @return void
+     * @param EventInterface $event
+     * @param Response $response
+     * @return mixed|void
      */
-    public function __invoke(EventInterface $event, $response = null)
+    public function __invoke(EventInterface $event, Response $response)
     {
-        if (!$response instanceof Response) {
-            return;
-        }
-
         $this->sendContent($event, $response);
 
         $errorLevel = (int) $response->getMetadata('errorLevel',0);

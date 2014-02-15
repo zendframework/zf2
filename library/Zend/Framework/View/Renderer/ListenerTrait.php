@@ -7,14 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Renderer\TreeRendererInterface;
 use Zend\View\Exception\DomainException;
-use Zend\View\Exception\RuntimeException;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 trait ListenerTrait
@@ -34,16 +33,7 @@ trait ListenerTrait
      */
     public function viewRenderer(ViewModel $model)
     {
-        $renderer = $this->trigger('View\Renderer\Event', $model);
-
-        if (!$renderer instanceof Renderer) {
-            throw new RuntimeException(sprintf(
-                '%s: no renderer selected!',
-                __METHOD__
-            ));
-        }
-
-        return $renderer;
+        return $this->trigger('View\Renderer\Service', $model);
     }
 
     /**

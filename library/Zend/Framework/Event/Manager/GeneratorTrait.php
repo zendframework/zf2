@@ -18,6 +18,11 @@ use Zend\Framework\Event\ListenerTrait as EventListener;
 trait GeneratorTrait
 {
     /**
+     * @var array
+     */
+    protected $events = [];
+
+    /**
      * @param string|Listener $listener
      * @return Listener
      */
@@ -66,10 +71,17 @@ trait GeneratorTrait
     /**
      * @param Event $event
      * @param null $options
-     * @return mixed
+     * @param bool $shared
+     * @return null
      */
-    public function __invoke(Event $event, $options = null)
+    public function __invoke(Event $event, $options = null, $shared = false)
     {
+        $name = $event->name();
+
+        if ($shared && $name && isset($this->events[$name])) {
+            return $this->events[$name];
+        }
+
         $result = null;
 
         foreach($this->match($event) as $listener) {
@@ -79,6 +91,10 @@ trait GeneratorTrait
             if ($event->stopped()) {
                 break;
             }
+        }
+
+        if ($shared && $name) {
+            $this->events[$name] = $result;
         }
 
         return $result;

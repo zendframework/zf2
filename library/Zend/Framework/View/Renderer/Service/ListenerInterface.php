@@ -7,25 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Renderer\Service;
 
+use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\ListenerInterface as Listener;
-use Zend\Framework\Event\Manager\ManagerInterface as EventManager;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ListenerInterface
     extends Listener
 {
     /**
-     * @param EventManager $em
-     * @return self
-     */
-    public function setEventManager(EventManager $em);
-
-    /**
      * @param EventInterface $event
-     * @param ViewModel $viewModel
      * @return mixed
      */
-    public function __invoke(EventInterface $event, ViewModel $viewModel);
+    public function __invoke(EventInterface $event);
 }

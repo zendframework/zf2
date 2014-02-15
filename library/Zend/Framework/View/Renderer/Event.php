@@ -10,6 +10,7 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 class Event
     implements EventInterface
@@ -18,4 +19,14 @@ class Event
      *
      */
     use EventTrait;
+
+    /**
+     * @param ListenerInterface $listener
+     * @param ViewModel $viewModel
+     * @return mixed
+     */
+    public function __invoke(ListenerInterface $listener, ViewModel $viewModel)
+    {
+        return $listener->__invoke($this, $viewModel);
+    }
 }

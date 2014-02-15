@@ -7,10 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Renderer\Service;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 interface EventInterface
     extends Event
@@ -18,12 +17,12 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'View\Event';
+    const EVENT = 'View\Renderer\Service';
 
     /**
      * @param ListenerInterface $listener
-     * @param ViewModel $viewModel
+     * @param null $options
      * @return mixed
      */
-    public function __invoke(ListenerInterface $listener, ViewModel $viewModel);
+    public function __invoke(ListenerInterface $listener, $options = null);
 }

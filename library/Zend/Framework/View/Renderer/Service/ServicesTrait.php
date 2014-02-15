@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Renderer;
+namespace Zend\Framework\View\Renderer\Service;
 
 use Zend\View\Renderer\RendererInterface as ViewRenderer;
 

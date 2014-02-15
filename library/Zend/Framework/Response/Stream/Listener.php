@@ -12,7 +12,7 @@ namespace Zend\Framework\Response\Stream;
 use Zend\Framework\Response\EventInterface;
 use Zend\Framework\Response\ListenerTrait as ResponseListener;
 use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
-use Zend\Http\Response\Stream;
+use Zend\Stdlib\ResponseInterface as Response;
 
 class Listener
     implements ListenerInterface
@@ -24,18 +24,12 @@ class Listener
         SendHeaders;
 
     /**
-     * Send stream response
-     *
-     * @param  EventInterface $event
-     * @param $response
-     * @return self
+     * @param EventInterface $event
+     * @param Response $response
+     * @return $this|mixed
      */
-    public function __invoke(EventInterface $event, $response = null)
+    public function __invoke(EventInterface $event, Response $response)
     {
-        if (!$response instanceof Stream) {
-            return $this;
-        }
-
         $this->sendHeaders($event, $response)
              ->sendStream($event, $response);
 

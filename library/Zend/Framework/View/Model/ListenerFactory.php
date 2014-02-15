@@ -27,10 +27,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        $listener = new Listener;
-
-        $listener->setViewModel($this->viewModel());
-
-        return $listener;
+        return (new Listener)->setViewModel($this->viewModel());
     }
 }

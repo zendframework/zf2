@@ -7,10 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Renderer\Service;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
-use Zend\View\Model\ModelInterface as ViewModel;
+use Zend\View\Exception\RuntimeException;
+use Zend\View\Renderer\RendererInterface as Renderer;
 
 class Event
     implements EventInterface
@@ -22,11 +23,18 @@ class Event
 
     /**
      * @param ListenerInterface $listener
-     * @param ViewModel $viewModel
+     * @param null $options
      * @return mixed
+     * @throws RuntimeException
      */
-    public function __invoke(ListenerInterface $listener, ViewModel $viewModel)
+    public function __invoke(ListenerInterface $listener, $options = null)
     {
-        return $listener->__invoke($this, $viewModel);
+        $response = $listener->__invoke($this, $options);
+
+        if (!$response instanceof Renderer) {
+            throw new RuntimeException('No view renderer selected!');
+        }
+
+        return $response;
     }
 }

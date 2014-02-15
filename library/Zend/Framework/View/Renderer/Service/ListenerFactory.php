@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Renderer\Service;
 
-use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\View\Renderer\RendererInterface;
 
 class ListenerFactory
     extends Factory
@@ -19,15 +19,15 @@ class ListenerFactory
     /**
      *
      */
-    use EventManager;
+    use ServicesTrait;
 
     /**
      * @param Request $request
      * @param array $options
-     * @return Listener
+     * @return RendererInterface
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setEventManager($this->eventManager());
+        return (new Listener)->setViewRenderer($this->viewRenderer());
     }
 }

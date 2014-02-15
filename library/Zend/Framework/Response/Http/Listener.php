@@ -13,7 +13,7 @@ use Zend\Framework\Response\EventInterface;
 use Zend\Framework\Response\ListenerTrait as ResponseListener;
 use Zend\Framework\Response\SendContentTrait as SendContent;
 use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
-use Zend\Http\Response;
+use Zend\Stdlib\ResponseInterface as Response;
 
 class Listener
     implements ListenerInterface
@@ -32,12 +32,8 @@ class Listener
      * @param $response
      * @return self
      */
-    public function __invoke(EventInterface $event, $response = null)
+    public function __invoke(EventInterface $event, Response $response)
     {
-        if (!$response instanceof Response) {
-            return false;
-        }
-
         $this->sendHeaders($event, $response)
              ->sendContent($event, $response);
 
