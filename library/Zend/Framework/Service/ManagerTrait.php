@@ -10,14 +10,14 @@
 namespace Zend\Framework\Service;
 
 use Exception;
-use Zend\Framework\Service\Factory\InstanceTrait as ServiceFactory;
+use Zend\Framework\Service\Factory\FactoryTrait;
 
 trait ManagerTrait
 {
     /**
      *
      */
-    use ServiceFactory;
+    use FactoryTrait;
 
     /**
      * @var ConfigInterface
@@ -63,7 +63,6 @@ trait ManagerTrait
     {
         $alias    = $request->alias();
         $services = $this->services;
-        $shared   = $request->shared();
 
         $config  = $services->config($alias);
         $service = $services->get($alias);
@@ -72,7 +71,7 @@ trait ManagerTrait
             return false;
         }
 
-        if ($shared && $service) {
+        if ($request->shared() && $service) {
             return $service;
         }
 
@@ -80,9 +79,9 @@ trait ManagerTrait
             throw new Exception('Circular dependency: '.$alias);
         }
 
-        $service = $this->instance($request, $config, $options);
+        $service = $request->__invoke($this->factory($config), $options);
 
-        if ($shared) {
+        if ($request->shared()) {
             $services->add($alias, $service);
         }
 
