@@ -58,7 +58,7 @@ trait ManagerTrait
 
         $options = $options ? (is_array($options) ? $options : [$options]) : [];
 
-        return $this->service($this->request($this->alias($name), $shared), $options);
+        return $this->service($this->request($name, $shared), $options);
     }
 
     /**
