@@ -9,15 +9,8 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\Service\AliasTrait as Alias;
-
 trait ManagerTrait
 {
-    /**
-     *
-     */
-    use Alias;
-
     /**
      * @var array
      */

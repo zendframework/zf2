@@ -22,51 +22,7 @@ trait AliasTrait
      */
     public function alias($name)
     {
-        $name = strtolower($name);
-
-        if (isset($this->alias[$name])) {
-            return $this->alias[$name];
-        }
-
-        return $name;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $service
-     */
-    public function configure($name, $service)
-    {
-        $this->sm->services()[$this->alias($name)] = $service;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $options
-     * @param bool $shared
-     * @return false|object
-     */
-    public function get($name, $options = null, $shared = true)
-    {
-        return $this->sm->get($this->alias($name), $options, $shared);
-    }
-
-    /**
-     * @param $name
-     * @param $service
-     * @return self
-     */
-    public function add($name, $service)
-    {
-        return $this->sm->add($this->alias($name), $service);
-    }
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return $this->sm->has($this->alias($name));
+        $lowercase = strtolower($name);
+        return isset($this->alias[$lowercase]) ? $this->alias[$lowercase] : $name;
     }
 }

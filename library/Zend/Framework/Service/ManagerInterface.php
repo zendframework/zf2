@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Service\Factory\FactoryInterface;
-
 interface ManagerInterface
 {
     /**
@@ -27,12 +25,6 @@ interface ManagerInterface
      * @return false|object
      */
     public function get($name, $options = null, $shared = true);
-
-    /**
-     * @param array|callable|FactoryInterface|object|string $factory
-     * @return FactoryInterface
-     */
-    public function factory($factory);
 
     /**
      * @return ConfigInterface

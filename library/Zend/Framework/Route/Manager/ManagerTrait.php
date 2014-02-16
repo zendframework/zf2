@@ -9,17 +9,8 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Event\ListenerTrait as EventListener;
-use Zend\Framework\Service\AliasTrait as Alias;
-
 trait ManagerTrait
 {
-    /**
-     *
-     */
-    use Alias,
-        EventListener;
-
     /**
      * @return mixed
      */

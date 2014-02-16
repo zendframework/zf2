@@ -11,36 +11,4 @@ namespace Zend\Framework\View;
 
 interface ManagerInterface
 {
-    /**
-     * @param $name
-     * @return string
-     */
-    public function alias($name);
-
-    /**
-     * @param string $name
-     * @param string $class
-     */
-    public function configure($name, $class);
-
-    /**
-     * @param string $name
-     * @param mixed $options
-     * @param bool $shared
-     * @return object
-     */
-    public function get($name, $options = null, $shared = true);
-
-    /**
-     * @param $name
-     * @param $service
-     * @return self
-     */
-    public function add($name, $service);
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name);
 }

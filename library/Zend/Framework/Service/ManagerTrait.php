@@ -10,6 +10,7 @@
 namespace Zend\Framework\Service;
 
 use Exception;
+use Zend\Framework\Service\Factory\FactoryInterface;
 use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 
 trait ManagerTrait
@@ -26,9 +27,21 @@ trait ManagerTrait
      */
     public function add($name, $service)
     {
-        $this->services->add($name, $service);
+        $this->services->add($this->alias($name), $service);
         return $this;
     }
+
+    /**
+     * @param string $alias
+     * @return string
+     */
+    abstract protected function alias($alias);
+
+    /**
+     * @param array|callable|FactoryInterface|object|string $factory
+     * @return FactoryInterface
+     */
+    abstract protected function factory($factory);
 
     /**
      * @param mixed $name
@@ -45,7 +58,7 @@ trait ManagerTrait
 
         $options = $options ? (is_array($options) ? $options : [$options]) : [];
 
-        return $this->service($this->request($name, $shared), $options);
+        return $this->service($this->request($this->alias($name), $shared), $options);
     }
 
     /**
@@ -57,10 +70,11 @@ trait ManagerTrait
     protected function service(EventInterface $request, array $options = [])
     {
         $alias    = $request->alias();
+        $name     = $this->alias($alias);
         $services = $this->services;
 
-        $config  = $services->config($alias);
-        $service = $services->get($alias);
+        $config  = $services->config($name);
+        $service = $services->get($name);
 
         if (!$config && !$service) {
             return false;
@@ -70,17 +84,17 @@ trait ManagerTrait
             return $service;
         }
 
-        if ($services->initializing($alias)) {
-            throw new Exception('Circular dependency: '.$alias);
+        if ($services->initializing($name)) {
+            throw new Exception('Circular dependency: '.$alias.'::'.$name);
         }
 
         $service = $request->__invoke($this->factory($config), $options);
 
         if ($request->shared()) {
-            $services->add($alias, $service);
+            $services->add($name, $service);
         }
 
-        $services->initialized($alias);
+        $services->initialized($name);
 
         return $service;
     }
