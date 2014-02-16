@@ -8,7 +8,7 @@ php:
 
 install:
   - sudo apt-get install parallel
-  - composer install --dev
+  - composer install --dev --prefer-dist
 
 before_script:
   - mkdir -p build/coverage
