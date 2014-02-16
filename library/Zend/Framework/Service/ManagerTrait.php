@@ -70,6 +70,16 @@ trait ManagerTrait
     }
 
     /**
+     * @param $request
+     * @param bool $shared
+     * @return false|object|EventInterface
+     */
+    public function request($request, $shared = true)
+    {
+        return $request instanceof EventInterface ? $request : new Event($request, $shared);
+    }
+
+    /**
      * @param EventInterface $request
      * @param array $options
      * @return bool|object
@@ -105,16 +115,6 @@ trait ManagerTrait
         $services->initialized($name);
 
         return $service;
-    }
-
-    /**
-     * @param $request
-     * @param bool $shared
-     * @return false|object|EventInterface
-     */
-    public function request($request, $shared = true)
-    {
-        return $request instanceof EventInterface ? $request : new Event($request, $shared);
     }
 
     /**
