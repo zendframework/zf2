@@ -12,6 +12,7 @@ namespace Zend\Mvc;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\RequestInterface;
 use Zend\Stdlib\ResponseInterface;
 
 /**
@@ -82,7 +83,7 @@ class Application implements
     protected $events;
 
     /**
-     * @var \Zend\Stdlib\RequestInterface
+     * @var RequestInterface
      */
     protected $request;
 
@@ -130,8 +131,8 @@ class Application implements
      * router. Attaches the ViewManager as a listener. Triggers the bootstrap
      * event.
      *
-     * @param array $listeners List of listeners to attach.
-     * @return Application
+     * @param  array $listeners List of listeners to attach.
+     * @return self
      */
     public function bootstrap(array $listeners = array())
     {
@@ -170,7 +171,7 @@ class Application implements
     /**
      * Get the request object
      *
-     * @return \Zend\Stdlib\RequestInterface
+     * @return RequestInterface
      */
     public function getRequest()
     {
@@ -201,7 +202,7 @@ class Application implements
      * Set the event manager instance
      *
      * @param  EventManagerInterface $eventManager
-     * @return Application
+     * @return self
      */
     public function setEventManager(EventManagerInterface $eventManager)
     {
@@ -241,8 +242,8 @@ class Application implements
      * All other services are configured after module loading, thus can be
      * overridden by modules.
      *
-     * @param array $configuration
-     * @return Application
+     * @param  array $configuration
+     * @return self
      */
     public static function init($configuration = array())
     {
@@ -268,7 +269,7 @@ class Application implements
      *           discovered controller, and controller class (if known).
      *           Typically, a handler should return a populated Response object
      *           that can be returned immediately.
-     * @return ResponseInterface
+     * @return self|bool|ResponseInterface
      */
     public function run()
     {
@@ -338,7 +339,7 @@ class Application implements
      * event object.
      *
      * @param  MvcEvent $event
-     * @return Application
+     * @return self
      */
     protected function completeRequest(MvcEvent $event)
     {
