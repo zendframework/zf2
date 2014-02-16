@@ -19,7 +19,7 @@ trait ServicesTrait
      */
     public function map()
     {
-        return $this->sm->get('View\Template\Resolver\Map', null, false);
+        return $this->sm->get('View\Template\Resolver\Map');
     }
 
     /**
@@ -27,6 +27,6 @@ trait ServicesTrait
      */
     public function pathStack()
     {
-        return $this->sm->get('View\Template\Resolver\PathStack', null, false);
+        return $this->sm->get('View\Template\Resolver\PathStack');
     }
 }

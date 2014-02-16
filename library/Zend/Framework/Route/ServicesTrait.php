@@ -20,7 +20,7 @@ trait ServicesTrait
      */
     public function routeManager()
     {
-        return $this->sm->get('Route\Manager', null, false);
+        return $this->sm->get('Route\Manager');
     }
 
     /**
@@ -28,7 +28,7 @@ trait ServicesTrait
      */
     public function router()
     {
-        return $this->sm->get('Router', null, false);
+        return $this->sm->get('Router');
     }
 
     /**

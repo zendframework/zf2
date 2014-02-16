@@ -28,7 +28,7 @@ class BasePath
         if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
             $this->setBasePath($config['view_manager']['base_path']);
         } else {
-            $request = $sm->get('Request', null, false);
+            $request = $sm->get('Request');
             if (is_callable(array($request, 'getBasePath'))) {
                 $this->setBasePath($request->getBasePath());
             }

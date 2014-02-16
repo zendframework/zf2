@@ -24,7 +24,7 @@ trait ServicesTrait
      */
     public function viewManager()
     {
-        return $this->sm->get('View\Manager', null, false);
+        return $this->sm->get('View\Manager');
     }
 
     /**

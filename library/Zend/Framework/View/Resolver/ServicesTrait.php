@@ -18,7 +18,7 @@ trait ServicesTrait
      */
     public function viewResolver()
     {
-        return $this->sm->get('View\Resolver', null, false);
+        return $this->sm->get('View\Resolver');
     }
 
     /**
