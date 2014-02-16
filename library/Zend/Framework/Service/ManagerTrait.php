@@ -59,14 +59,26 @@ trait ManagerTrait
      */
     public function get($name, $options = null, $shared = true)
     {
+        list($name, $options) = $this->options($name, $options);
+        return $this->service($this->request($name, $shared), $options);
+    }
+
+    /**
+     * @param $name
+     * @param null $options
+     * @return array
+     */
+    protected function options($name, $options = null)
+    {
         if (is_array($name)) {
-            $options = $name;
-            $name = array_shift($options);
+            return [array_shift($name), $name];
         }
 
-        $options = $options ? (is_array($options) ? $options : [$options]) : [];
+        if (is_array($options)) {
+            return [$name, $options];
+        }
 
-        return $this->service($this->request($name, $shared), $options);
+        return [$name, $options ? [$options] : []];
     }
 
     /**
