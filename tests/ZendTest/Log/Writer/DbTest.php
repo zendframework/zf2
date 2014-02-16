@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Log
  */
 
 namespace ZendTest\Log\Writer;
@@ -16,9 +15,6 @@ use Zend\Log\Writer\Db as DbWriter;
 use Zend\Log\Formatter\FormatterInterface;
 
 /**
- * @category   Zend
- * @package    Zend_Log
- * @subpackage UnitTests
  * @group      Zend_Log
  */
 class DbTest extends \PHPUnit_Framework_TestCase
@@ -197,15 +193,6 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->writer->write(array('message' => 'this should fail'));
     }
 
-    /**
-     * @group ZF-10089
-     */
-    public function testThrowStrictSetFormatter()
-    {
-        $this->setExpectedException('PHPUnit_Framework_Error');
-        $this->writer->setFormatter(new \StdClass());
-    }
-
     public function testWriteDateTimeAsTimestamp()
     {
         $date = new DateTime();
@@ -236,5 +223,24 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'extra_request_time' => $date->format(FormatterInterface::DEFAULT_DATETIME_FORMAT)
         )), $this->db->calls['execute'][0]);
+    }
+
+    public function testConstructWithOptions()
+    {
+        $formatter = new \Zend\Log\Formatter\Simple();
+        $filter    = new \Zend\Log\Filter\Mock();
+        $writer = new DbWriter(array(
+            'filters'   => $filter,
+            'formatter' => $formatter,
+            'table'     => $this->tableName,
+            'db'        => $this->db,
+
+        ));
+        $this->assertInstanceOf('Zend\Log\Writer\Db', $writer);
+        $this->assertAttributeEquals($this->tableName, 'tableName', $writer);
+
+        $filters = self::readAttribute($writer, 'filters');
+        $this->assertCount(1, $filters);
+        $this->assertEquals($filter, $filters[0]);
     }
 }

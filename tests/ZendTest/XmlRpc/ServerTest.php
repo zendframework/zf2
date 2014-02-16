@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_XmlRpc
  */
 
 namespace ZendTest\XmlRpc;
@@ -19,9 +18,6 @@ use Zend\XmlRpc\Fault;
 use Zend\XmlRpc;
 
 /**
- * @category   Zend
- * @package    Zend_XmlRpc
- * @subpackage UnitTests
  * @group      Zend_XmlRpc
  */
 class ServerTest extends \PHPUnit_Framework_TestCase
@@ -273,7 +269,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
      * Expects:
      * - class:
      *
-     * Returns: boolean
+     * Returns: bool
      */
     public function testSetResponseClass()
     {
@@ -461,13 +457,13 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testLoadFunctionsThrowsExceptionWithBadData()
     {
         $o = new \stdClass();
-        $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Unable to load server definition; must be an array or Zend_Server_Definition, received stdClass');
+        $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Unable to load server definition; must be an array or Zend\Server\Definition, received stdClass');
         $this->_server->loadFunctions($o);
     }
 
     public function testLoadFunctionsThrowsExceptionsWithBadData2()
     {
-        $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Unable to load server definition; must be an array or Zend_Server_Definition, received string');
+        $this->setExpectedException('Zend\XmlRpc\Server\Exception\InvalidArgumentException', 'Unable to load server definition; must be an array or Zend\Server\Definition, received string');
         $this->_server->loadFunctions('foo');
     }
 

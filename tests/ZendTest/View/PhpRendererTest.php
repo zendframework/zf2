@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
  */
 
 namespace ZendTest\View;
@@ -18,9 +17,6 @@ use Zend\View\Variables;
 use Zend\Filter\FilterChain;
 
 /**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
  * @group      Zend_View
  */
 class PhpRendererTest extends \PHPUnit_Framework_TestCase
@@ -152,7 +148,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testRenderingFiltersContentWithFilterChain()
     {
         $expected = 'foo bar baz';
-        $this->renderer->getFilterChain()->attach(function($content) {
+        $this->renderer->getFilterChain()->attach(function ($content) {
             return str_replace('INJECT', 'bar', $content);
         });
         $this->renderer->vars()->assign(array('bar' => 'INJECT'));
@@ -328,6 +324,24 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $helper  = $this->renderer->plugin('view_model');
         $this->assertTrue($helper->hasCurrent());
         $this->assertSame($model, $helper->getCurrent());
+    }
+
+    public function testRendererRaisesExceptionInCaseOfExceptionInView()
+    {
+        $resolver = new TemplateMapResolver(array(
+            'exception' => __DIR__ . '../../Mvc/View/_files/exception.phtml',
+        ));
+        $this->renderer->setResolver($resolver);
+
+        $model = new ViewModel();
+        $model->setTemplate('exception');
+
+        try {
+            $this->renderer->render($model);
+            $this->fail('Exception from renderer should propagate');
+        } catch (\Exception $e) {
+            $this->assertInstanceOf('Exception', $e);
+        }
     }
 
     public function testRendererRaisesExceptionIfResolverCannotResolveTemplate()

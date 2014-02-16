@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper;
@@ -15,9 +14,6 @@ use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Gravatar;
 
 /**
- * @category   Zend
- * @package    Zendview
- * @subpackage UnitTests
  * @group      Zendview
  * @group      Zendview_Helper
  */
@@ -188,6 +184,18 @@ class GravatarTest extends TestCase
         );
     }
 
+    public function testPassingAnMd5HashSkipsMd5Hashing()
+    {
+        $this->assertNotContains(
+            'test@test.com',
+            $this->helper->__invoke('test@test.com')->__toString()
+        );
+        $this->assertContains(
+            'b642b4217b34b1e8d3bd915fc65c4452',
+            $this->helper->__invoke('b642b4217b34b1e8d3bd915fc65c4452')->__toString()
+        );
+    }
+
     /**
      * Test auto detect location.
      * If request was made through the HTTPS protocol use secure location.
@@ -261,5 +269,12 @@ class GravatarTest extends TestCase
             'unknown' => array('val' => 1)
         );
         $this->helper->__invoke()->setOptions($options);
+    }
+
+    public function testEmailIsProperlyNormalized()
+    {
+        $this->assertEquals('example@example.com',
+            $this->helper->__invoke('Example@Example.com ')->getEmail()
+        );
     }
 }

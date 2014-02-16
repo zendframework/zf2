@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Uri
  */
 
 namespace ZendTest\Uri;
@@ -14,9 +13,6 @@ use Zend\Uri\Http as HttpUri;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * @category   Zend
- * @package    Zend_Uri
- * @subpackage UnitTests
  * @group      Zend_Uri
  * @group      Zend_Uri_Http
  * @group      Zend_Http
@@ -141,7 +137,7 @@ class HttpTest extends TestCase
      * Test the validity of the hosts
      *
      * @param string  $host
-     * @param boolean $expected
+     * @param  bool $expected
      * @return void
      * @dataProvider validHostProvider
      */
@@ -249,5 +245,11 @@ class HttpTest extends TestCase
         $uri = new HttpUri($origUri);
         $uri->getPort();
         $this->assertEquals($origUri, $uri->toString());
+    }
+
+    public function testValidHostTypesWithUnderScore()
+    {
+        $uri = new HttpUri('http://zf2_app.local');
+        $this->assertTrue($uri->isValid());
     }
 }

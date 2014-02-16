@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace ZendTest\Feed\Reader\Entry;
@@ -14,9 +13,6 @@ use DateTime;
 use Zend\Feed\Reader;
 
 /**
-* @category Zend
-* @package Zend_Feed
-* @subpackage UnitTests
 * @group Zend_Feed
 * @group Zend_Feed_Reader
 */
@@ -109,6 +105,16 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($edate, $entry->getDateCreated());
     }
 
+    public function testGetsDateCreatedWithFractional()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath . '/datecreated/plain/fractional.xml')
+        );
+        $entry = $feed->current();
+        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $this->assertEquals($edate, $entry->getDateCreated());
+    }
+
     /**
      * Get modification date (Unencoded Text)
      */
@@ -126,6 +132,16 @@ class AtomTest extends \PHPUnit_Framework_TestCase
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath . '/datemodified/plain/atom10.xml')
+        );
+        $entry = $feed->current();
+        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $this->assertEquals($edate, $entry->getDateModified());
+    }
+
+    public function testGetsDateModifiedWithFractional()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->feedSamplePath . '/datemodified/plain/fractional.xml')
         );
         $entry = $feed->current();
         $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');

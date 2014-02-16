@@ -3,19 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_I18n
  */
 
 namespace Zend\I18n\Validator;
 
 use Zend\I18n\Filter\Alpha as AlphaFilter;
 
-/**
- * @category   Zend
- * @package    Zend_Validate
- */
 class Alpha extends Alnum
 {
     const INVALID      = 'alphaInvalid';
@@ -53,7 +48,7 @@ class Alpha extends Alnum
      * Returns true if and only if $value contains only alphabetic characters
      *
      * @param  string $value
-     * @return boolean
+     * @return bool
      */
     public function isValid($value)
     {
@@ -69,19 +64,18 @@ class Alpha extends Alnum
             return false;
         }
 
-        if (null === self::$filter) {
-            self::$filter = new AlphaFilter();
+        if (null === static::$filter) {
+            static::$filter = new AlphaFilter();
         }
 
-        //self::$filter->setAllowWhiteSpace($this->allowWhiteSpace);
-        self::$filter->setAllowWhiteSpace($this->options['allowWhiteSpace']);
+        //static::$filter->setAllowWhiteSpace($this->allowWhiteSpace);
+        static::$filter->setAllowWhiteSpace($this->options['allowWhiteSpace']);
 
-        if ($value !== self::$filter->filter($value)) {
+        if ($value !== static::$filter->filter($value)) {
             $this->error(self::NOT_ALPHA);
             return false;
         }
 
         return true;
     }
-
 }

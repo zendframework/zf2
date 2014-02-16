@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
  */
 
 namespace Zend\Code\Reflection;
@@ -17,11 +16,12 @@ use Zend\Code\Scanner\CachingFileScanner;
 
 /**
  * @todo       implement line numbers
- * @category   Zend
- * @package    Zend_Reflection
  */
 class PropertyReflection extends PhpReflectionProperty implements ReflectionInterface
 {
+    /**
+     * @var AnnotationScanner
+     */
     protected $annotations;
 
     /**
@@ -34,6 +34,7 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
         $phpReflection  = parent::getDeclaringClass();
         $zendReflection = new ClassReflection($phpReflection->getName());
         unset($phpReflection);
+
         return $zendReflection;
     }
 
@@ -55,13 +56,15 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
         if (!($docComment = $this->getDocComment())) {
             return false;
         }
-        $r = new DocBlockReflection($docComment);
-        return $r;
+
+        $docBlockReflection = new DocBlockReflection($docComment);
+
+        return $docBlockReflection;
     }
 
     /**
-     * @param AnnotationManager $annotationManager
-     * @return AnnotationCollection
+     * @param  AnnotationManager $annotationManager
+     * @return AnnotationScanner
      */
     public function getAnnotations(AnnotationManager $annotationManager)
     {
@@ -74,8 +77,13 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
         }
 
         $class              = $this->getDeclaringClass();
-        $cachingFileScanner = new CachingFileScanner($class->getFileName());
+        $cachingFileScanner = $this->createFileScanner($class->getFileName());
         $nameInformation    = $cachingFileScanner->getClassNameInformation($class->getName());
+
+        if (!$nameInformation) {
+            return false;
+        }
+
         $this->annotations  = new AnnotationScanner($annotationManager, $docComment, $nameInformation);
 
         return $this->annotations;
@@ -84,5 +92,20 @@ class PropertyReflection extends PhpReflectionProperty implements ReflectionInte
     public function toString()
     {
         return $this->__toString();
+    }
+
+    /**
+     * Creates a new FileScanner instance.
+     *
+     * By having this as a seperate method it allows the method to be overridden
+     * if a different FileScanner is needed.
+     *
+     * @param  string $filename
+     *
+     * @return FileScanner
+     */
+    protected function createFileScanner($filename)
+    {
+        return new CachingFileScanner($filename);
     }
 }

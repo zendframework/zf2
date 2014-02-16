@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace ZendTest\Feed\PubSubHubbub;
@@ -23,9 +22,6 @@ use Zend\Http\Client as HttpClient;
  * You can also set the proper constant in your test configuration file to
  * point to the right place.
  *
- * @category   Zend
- * @package    Zend_Feed
- * @subpackage UnitTests
  * @group      Zend_Feed
  * @group      Zend_Feed_Subsubhubbub
  */
@@ -97,6 +93,9 @@ class SubscriberHttpTest extends \PHPUnit_Framework_TestCase
             .'%3A%2F%2Fwww.example.com%2Ftopic&hub.verify=sync&hub.verify=async'
             .'&hub.verify_token=abc',
             $this->client->getResponse()->getBody());
+
+        $subscriptionRecord = $this->subscriber->getStorage()->getSubscription();
+        $this->assertEquals($subscriptionRecord['subscription_state'], PubSubHubbub::SUBSCRIPTION_TODELETE);
     }
 
     protected function _getCleanMock($className)

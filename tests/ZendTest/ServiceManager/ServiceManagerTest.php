@@ -3,21 +3,28 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_ServiceManager
  */
 
 namespace ZendTest\ServiceManager;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Di\Di;
 use Zend\Mvc\Service\DiFactory;
 use Zend\ServiceManager\Di\DiAbstractServiceFactory;
 use Zend\ServiceManager\Exception;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Config;
 
-class ServiceManagerTest extends \PHPUnit_Framework_TestCase
+use ZendTest\ServiceManager\TestAsset\FooCounterAbstractFactory;
+use ZendTest\ServiceManager\TestAsset\MockSelfReturningDelegatorFactory;
+
+/**
+ * @group Zend_ServiceManager
+ */
+class ServiceManagerTest extends TestCase
 {
 
     /**
@@ -209,6 +216,23 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Zend\ServiceManager\ServiceManager::get
      */
+    public function testGetUsesIndivualSharedSettingWhenSetAndDeviatesFromShareByDefaultSetting()
+    {
+        $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setShareByDefault(false);
+        $this->serviceManager->setInvokableClass('foo', 'ZendTest\ServiceManager\TestAsset\Foo');
+        $this->serviceManager->setShared('foo', true);
+        $this->assertSame($this->serviceManager->get('foo'), $this->serviceManager->get('foo'));
+
+        $this->serviceManager->setShareByDefault(true);
+        $this->serviceManager->setInvokableClass('foo', 'ZendTest\ServiceManager\TestAsset\Foo');
+        $this->serviceManager->setShared('foo', false);
+        $this->assertNotSame($this->serviceManager->get('foo'), $this->serviceManager->get('foo'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::get
+     */
     public function testGetWithAlias()
     {
         $this->serviceManager->setService('foo', 'bar');
@@ -247,11 +271,11 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
     public function testAllowsRetrievingFromPeeringContainerFirst()
     {
         $parent = new ServiceManager();
-        $parent->setFactory('foo', function($sm) {
+        $parent->setFactory('foo', function ($sm) {
             return 'bar';
         });
         $child  = new ServiceManager();
-        $child->setFactory('foo', function($sm) {
+        $child->setFactory('foo', function ($sm) {
             return 'baz';
         });
         $child->addPeeringServiceManager($parent, ServiceManager::SCOPE_PARENT);
@@ -529,6 +553,24 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($abstractFactory->expectedInstance, $foo);
     }
 
+    /**
+     * When failing, this test will trigger a fatal error: Allowed memory size of # bytes exhausted
+     */
+    public function testCallingANonExistingServiceFromAnAbstractServiceDoesNotMakeTheServerExhaustTheAllowedMemoryByCallingItselfForTheGivenService()
+    {
+        $abstractFactory = new TestAsset\TrollAbstractFactory;
+        $this->serviceManager->addAbstractFactory($abstractFactory);
+
+        $this->assertSame($abstractFactory->inexistingServiceCheckResult, null);
+
+        // By doing this the Service Manager will rely on the Abstract Service Factory
+        $service = $this->serviceManager->get('SomethingThatCanBeCreated');
+
+        $this->assertSame(false, $abstractFactory->inexistingServiceCheckResult);
+
+        $this->assertInstanceOf('stdClass', $service);
+    }
+
     public function testShouldAllowAddingInitializersAsClassNames()
     {
         $result = $this->serviceManager->addInitializer('ZendTest\ServiceManager\TestAsset\FooInitializer');
@@ -539,6 +581,18 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Zend\ServiceManager\Exception\InvalidArgumentException');
         $result = $this->serviceManager->addInitializer(get_class($this));
+    }
+
+    public function testGetGlobIteratorServiceWorksProperly()
+    {
+        $config = new Config(array(
+            'invokables' => array(
+                'foo' => 'ZendTest\ServiceManager\TestAsset\GlobIteratorService',
+            ),
+        ));
+        $serviceManager = new ServiceManager($config);
+        $foo = $serviceManager->get('foo');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\GlobIteratorService', $foo);
     }
 
     public function duplicateService()
@@ -576,14 +630,420 @@ class ServiceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager->setAllowOverride(true);
         $sm = $this->serviceManager;
-        $this->serviceManager->setFactory('http.response', function ($services) use ($sm) {
+        $this->serviceManager->setFactory('http.response', function () use ($sm) {
             return $sm;
         });
         $this->serviceManager->setAlias('response', 'http.response');
         $this->assertSame($sm, $this->serviceManager->get('response'));
 
-        $self = $this;
         $this->serviceManager->{$method}('response', $service);
         $this->{$assertion}($expected, $this->serviceManager->get('response'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::canonicalizeName
+     */
+    public function testCanonicalizeName()
+    {
+        $this->serviceManager->setService('foo_bar', new \stdClass());
+        $this->assertEquals(true, $this->serviceManager->has('foo_bar'));
+        $this->assertEquals(true, $this->serviceManager->has('foobar'));
+        $this->assertEquals(true, $this->serviceManager->has('foo-bar'));
+        $this->assertEquals(true, $this->serviceManager->has('foo/bar'));
+        $this->assertEquals(true, $this->serviceManager->has('foo bar'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::canCreateFromAbstractFactory
+     */
+    public function testWanCreateFromAbstractFactoryWillNotInstantiateAbstractFactoryOnce()
+    {
+        $count = FooCounterAbstractFactory::$instantiationCount;
+        $this->serviceManager->addAbstractFactory(__NAMESPACE__ . '\TestAsset\FooCounterAbstractFactory');
+
+        $this->serviceManager->canCreateFromAbstractFactory('foo', 'foo');
+        $this->serviceManager->canCreateFromAbstractFactory('foo', 'foo');
+
+        $this->assertSame($count + 1, FooCounterAbstractFactory::$instantiationCount);
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::canCreateFromAbstractFactory
+     * @covers Zend\ServiceManager\ServiceManager::create
+     */
+    public function testAbstractFactoryNotUsedIfNotAbleToCreate()
+    {
+        $service = new \stdClass;
+
+        $af1 = $this->getMock('Zend\ServiceManager\AbstractFactoryInterface');
+        $af1->expects($this->any())->method('canCreateServiceWithName')->will($this->returnValue(true));
+        $af1->expects($this->any())->method('createServiceWithName')->will($this->returnValue($service));
+
+        $af2 = $this->getMock('Zend\ServiceManager\AbstractFactoryInterface');
+        $af2->expects($this->any())->method('canCreateServiceWithName')->will($this->returnValue(false));
+        $af2->expects($this->never())->method('createServiceWithName');
+
+        $this->serviceManager->addAbstractFactory($af1);
+        $this->serviceManager->addAbstractFactory($af2);
+
+        $this->assertSame($service, $this->serviceManager->create('test'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::setAlias
+     * @covers Zend\ServiceManager\ServiceManager::get
+     * @covers Zend\ServiceManager\ServiceManager::retrieveFromPeeringManager
+     */
+    public function testCanGetAliasedServicesFromPeeringServiceManagers()
+    {
+        $service   = new \stdClass();
+        $peeringSm = new ServiceManager();
+
+        $peeringSm->setService('actual-service-name', $service);
+        $this->serviceManager->addPeeringServiceManager($peeringSm);
+
+        $this->serviceManager->setAlias('alias-name', 'actual-service-name');
+
+        $this->assertSame($service, $this->serviceManager->get('alias-name'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::get
+     */
+    public function testDuplicateNewInstanceMultipleAbstractFactories()
+    {
+        $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setShareByDefault(false);
+        $this->serviceManager->addAbstractFactory('ZendTest\ServiceManager\TestAsset\BarAbstractFactory');
+        $this->serviceManager->addAbstractFactory('ZendTest\ServiceManager\TestAsset\FooAbstractFactory');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Bar', $this->serviceManager->get('bar'));
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Bar', $this->serviceManager->get('bar'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::setService
+     * @covers Zend\ServiceManager\ServiceManager::get
+     * @covers Zend\ServiceManager\ServiceManager::retrieveFromPeeringManagerFirst
+     * @covers Zend\ServiceManager\ServiceManager::setRetrieveFromPeeringManagerFirst
+     * @covers Zend\ServiceManager\ServiceManager::addPeeringServiceManager
+     */
+    public function testRetrieveServiceFromPeeringServiceManagerIfretrieveFromPeeringManagerFirstSetToTrueAndServiceNamesAreSame()
+    {
+        $foo1 = "foo1";
+        $boo1 = "boo1";
+        $boo2 = "boo2";
+
+        $this->serviceManager->setService($foo1, $boo1);
+        $this->assertEquals($this->serviceManager->get($foo1), $boo1);
+
+        $serviceManagerChild = new ServiceManager();
+        $serviceManagerChild->setService($foo1, $boo2);
+        $this->assertEquals($serviceManagerChild->get($foo1), $boo2);
+
+        $this->assertFalse($this->serviceManager->retrieveFromPeeringManagerFirst());
+        $this->serviceManager->setRetrieveFromPeeringManagerFirst(true);
+        $this->assertTrue($this->serviceManager->retrieveFromPeeringManagerFirst());
+
+        $this->serviceManager->addPeeringServiceManager($serviceManagerChild);
+
+        $this->assertContains($serviceManagerChild, $this->readAttribute($this->serviceManager, 'peeringServiceManagers'));
+
+        $this->assertEquals($serviceManagerChild->get($foo1), $boo2);
+        $this->assertEquals($this->serviceManager->get($foo1), $boo2);
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::create
+     * @covers Zend\ServiceManager\ServiceManager::createDelegatorFromFactory
+     * @covers Zend\ServiceManager\ServiceManager::createDelegatorCallback
+     * @covers Zend\ServiceManager\ServiceManager::addDelegator
+     */
+    public function testUsesDelegatorWhenAvailable()
+    {
+        $delegator = $this->getMock('Zend\\ServiceManager\\DelegatorFactoryInterface');
+
+        $this->serviceManager->setService('foo-delegator', $delegator);
+        $this->serviceManager->addDelegator('foo-service', 'foo-delegator');
+        $this->serviceManager->setInvokableClass('foo-service', 'stdClass');
+
+        $delegator
+            ->expects($this->once())
+            ->method('createDelegatorWithName')
+            ->with(
+                $this->serviceManager,
+                'fooservice',
+                'foo-service',
+                $this->callback(function ($callback) {
+                    if (!is_callable($callback)) {
+                        return false;
+                    }
+
+                    $service = call_user_func($callback);
+
+                    return $service instanceof \stdClass;
+                })
+            )
+            ->will($this->returnValue($delegator));
+
+        $this->assertSame($delegator, $this->serviceManager->create('foo-service'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::create
+     * @covers Zend\ServiceManager\ServiceManager::createDelegatorFromFactory
+     * @covers Zend\ServiceManager\ServiceManager::createDelegatorCallback
+     * @covers Zend\ServiceManager\ServiceManager::addDelegator
+     */
+    public function testUsesMultipleDelegates()
+    {
+        $fooDelegator = new MockSelfReturningDelegatorFactory();
+        $barDelegator = new MockSelfReturningDelegatorFactory();
+
+        $this->serviceManager->setService('foo-delegate', $fooDelegator);
+        $this->serviceManager->setService('bar-delegate', $barDelegator);
+        $this->serviceManager->addDelegator('foo-service', 'foo-delegate');
+        $this->serviceManager->addDelegator('foo-service', 'bar-delegate');
+        $this->serviceManager->setInvokableClass('foo-service', 'stdClass');
+
+        $this->assertSame($barDelegator, $this->serviceManager->create('foo-service'));
+        $this->assertCount(1, $barDelegator->instances);
+        $this->assertCount(1, $fooDelegator->instances);
+        $this->assertInstanceOf('stdClass', array_shift($fooDelegator->instances));
+        $this->assertSame($fooDelegator, array_shift($barDelegator->instances));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::resolveAlias
+     */
+    public function testSetCircularAliasReferenceThrowsException()
+    {
+        $this->setExpectedException('Zend\ServiceManager\Exception\CircularReferenceException');
+
+        // Only affects service managers that allow overwriting definitions
+        $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setInvokableClass('foo-service', 'stdClass');
+        $this->serviceManager->setAlias('foo-alias', 'foo-service');
+        $this->serviceManager->setAlias('bar-alias', 'foo-alias');
+        $this->serviceManager->setAlias('baz-alias', 'bar-alias');
+
+        // This will now cause a cyclic reference and should throw an exception
+        $this->serviceManager->setAlias('foo-alias', 'bar-alias');
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::checkForCircularAliasReference
+     */
+    public function testResolveCircularAliasReferenceThrowsException()
+    {
+        $this->setExpectedException('Zend\ServiceManager\Exception\CircularReferenceException');
+
+        // simulate an inconsistent state of $servicemanager->aliases as it could be
+        // caused by derived classes
+        $cyclicAliases = array(
+            'fooalias' => 'bazalias',
+            'baralias' => 'fooalias',
+            'bazalias' => 'baralias'
+        );
+
+        $reflection = new \ReflectionObject($this->serviceManager);
+        $propertyReflection = $reflection->getProperty('aliases');
+        $propertyReflection->setAccessible(true);
+        $propertyReflection->setValue($this->serviceManager, $cyclicAliases);
+
+        // This should throw the exception
+        $this->serviceManager->get('baz-alias');
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::createDelegatorFromFactory
+     */
+    public function testDelegatorFactoryWhenNotRegisteredAsService()
+    {
+        $delegator = $this->getMock('Zend\\ServiceManager\\DelegatorFactoryInterface');
+
+        $this->serviceManager->addDelegator('foo-service', $delegator);
+        $this->serviceManager->setInvokableClass('foo-service', 'stdClass');
+
+        $delegator
+            ->expects($this->once())
+            ->method('createDelegatorWithName')
+            ->with(
+                $this->serviceManager,
+                'fooservice',
+                'foo-service',
+                $this->callback(function ($callback) {
+                    if (!is_callable($callback)) {
+                        return false;
+                    }
+
+                    $service = call_user_func($callback);
+
+                    return $service instanceof \stdClass;
+                })
+            )
+            ->will($this->returnValue($delegator));
+
+        $this->assertSame($delegator, $this->serviceManager->create('foo-service'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::create
+     * @covers Zend\ServiceManager\ServiceManager::createDelegatorFromFactory
+     * @covers Zend\ServiceManager\ServiceManager::createDelegatorCallback
+     * @covers Zend\ServiceManager\ServiceManager::addDelegator
+     */
+    public function testMultipleDelegatorFactoriesWhenNotRegisteredAsServices()
+    {
+        $fooDelegator = new MockSelfReturningDelegatorFactory();
+        $barDelegator = new MockSelfReturningDelegatorFactory();
+
+        $this->serviceManager->addDelegator('foo-service', $fooDelegator);
+        $this->serviceManager->addDelegator('foo-service', $barDelegator);
+        $this->serviceManager->setInvokableClass('foo-service', 'stdClass');
+
+        $this->assertSame($barDelegator, $this->serviceManager->create('foo-service'));
+        $this->assertCount(1, $barDelegator->instances);
+        $this->assertCount(1, $fooDelegator->instances);
+        $this->assertInstanceOf('stdClass', array_shift($fooDelegator->instances));
+        $this->assertSame($fooDelegator, array_shift($barDelegator->instances));
+    }
+
+    public function testInvalidDelegatorFactoryThrowsException()
+    {
+        $delegatorFactory = new \stdClass;
+        $this->serviceManager->addDelegator('foo-service', $delegatorFactory);
+
+        try {
+            $this->serviceManager->create('foo-service');
+            $this->fail('Expected exception was not raised');
+        }catch (Exception\ServiceNotCreatedException $expected) {
+            $this->assertRegExp('/invalid factory/', $expected->getMessage());
+            return;
+        }
+    }
+
+    public function testInvalidDelegatorFactoryAmongMultipleOnesThrowsException()
+    {
+        $this->serviceManager->addDelegator('foo-service', new MockSelfReturningDelegatorFactory());
+        $this->serviceManager->addDelegator('foo-service', new MockSelfReturningDelegatorFactory());
+        $this->serviceManager->addDelegator('foo-service', 'stdClass');
+
+        try {
+            $this->serviceManager->create('foo-service');
+            $this->fail('Expected exception was not raised');
+        }catch (Exception\ServiceNotCreatedException $expected) {
+            $this->assertRegExp('/invalid factory/', $expected->getMessage());
+            return;
+        }
+    }
+
+    public function testDelegatorFromCallback()
+    {
+        $realService = $this->getMock('stdClass', array(), array(), 'RealService');
+        $delegator = $this->getMock('stdClass', array(), array(), 'Delegator');
+
+        $delegatorFactoryCallback = function ($serviceManager, $cName, $rName, $callback) use ($delegator) {
+            $delegator->real = call_user_func($callback);
+            return $delegator;
+        };
+
+        $this->serviceManager->setFactory('foo-service', function () use ($realService) { return $realService; } );
+        $this->serviceManager->addDelegator('foo-service', $delegatorFactoryCallback);
+
+        $service = $this->serviceManager->create('foo-service');
+
+        $this->assertSame($delegator, $service);
+        $this->assertSame($realService, $service->real);
+    }
+
+    /**
+     * @dataProvider getServiceOfVariousTypes
+     * @param $service
+     */
+    public function testAbstractFactoriesCanReturnAnyTypeButNull($service)
+    {
+        $abstractFactory = $this->getMock('Zend\ServiceManager\AbstractFactoryInterface');
+        $abstractFactory
+            ->expects($this->any())
+            ->method('canCreateServiceWithName')
+            ->with($this->serviceManager, 'something', 'something')
+            ->will($this->returnValue(true));
+
+        $abstractFactory
+            ->expects($this->any())
+            ->method('createServiceWithName')
+            ->with($this->serviceManager, 'something', 'something')
+            ->will($this->returnValue($service));
+
+        $this->serviceManager->addAbstractFactory($abstractFactory);
+
+        if ($service === null) {
+            try {
+                $this->serviceManager->get('something');
+                $this->fail('ServiceManager::get() successfully returned null');
+            } catch(\Exception $e) {
+                $this->assertInstanceOf('Zend\ServiceManager\Exception\ServiceNotCreatedException', $e);
+            }
+        } else {
+            $this->assertSame($service, $this->serviceManager->get('something'));
+        }
+    }
+
+    /**
+     * @dataProvider getServiceOfVariousTypes
+     * @param $service
+     */
+    public function testFactoriesCanReturnAnyTypeButNull($service)
+    {
+        $factory = function () use ($service) {
+            return $service;
+        };
+        $this->serviceManager->setFactory('something', $factory);
+
+        if ($service === null) {
+            try {
+                $this->serviceManager->get('something');
+                $this->fail('ServiceManager::get() successfully returned null');
+            } catch(\Exception $e) {
+                $this->assertInstanceOf('Zend\ServiceManager\Exception\ServiceNotCreatedException', $e);
+            }
+        } else {
+            $this->assertSame($service, $this->serviceManager->get('something'));
+        }
+    }
+
+    /**
+     * @dataProvider getServiceOfVariousTypes
+     * @param $service
+     */
+    public function testServicesCanBeOfAnyTypeButNull($service)
+    {
+        $this->serviceManager->setService('something', $service);
+
+        if ($service === null) {
+            try {
+                $this->serviceManager->get('something');
+                $this->fail('ServiceManager::get() successfully returned null');
+            } catch(\Exception $e) {
+                $this->assertInstanceOf('Zend\ServiceManager\Exception\ServiceNotFoundException', $e);
+            }
+        } else {
+            $this->assertSame($service, $this->serviceManager->get('something'));
+        }
+    }
+
+    public function getServiceOfVariousTypes()
+    {
+        return array(
+            array(null),
+            array('string'),
+            array(1),
+            array(1.2),
+            array(array()),
+            array(function () {}),
+            array(false),
+            array(new \stdClass()),
+            array(tmpfile())
+        );
     }
 }

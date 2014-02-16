@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Soap
  */
 
 namespace ZendTest\Soap\TestAsset;
@@ -84,7 +83,7 @@ function TestFunc7()
 /**
  * Return Object
  *
- * @return StdClass
+ * @return stdClass
  */
 function TestFunc8()
 {
@@ -104,11 +103,6 @@ function TestFunc9($foo, $bar)
     return "$foo $bar";
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class TestFixingMultiplePrototypes
 {
     /**
@@ -125,11 +119,6 @@ class TestFixingMultiplePrototypes
     }
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class Test
 {
     /**
@@ -189,17 +178,12 @@ class AutoDiscoverTestClass1
     public $param = "hello";
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class AutoDiscoverTestClass2
 {
     /**
      *
      * @param \ZendTest\Soap\TestAsset\AutoDiscoverTestClass1 $test
-     * @return boolean
+     * @return bool
      */
     public function add(AutoDiscoverTestClass1 $test)
     {
@@ -226,11 +210,6 @@ class AutoDiscoverTestClass2
     }
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class ComplexTypeB
 {
     /**
@@ -243,11 +222,6 @@ class ComplexTypeB
     public $foo;
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class ComplexTypeA
 {
     /**
@@ -256,11 +230,6 @@ class ComplexTypeA
     public $baz = array();
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class ComplexTest
 {
     /**
@@ -269,15 +238,10 @@ class ComplexTest
     public $var = 5;
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class ComplexObjectStructure
 {
     /**
-     * @var boolean
+     * @var bool
      */
     public $boolean = true;
 
@@ -297,11 +261,6 @@ class ComplexObjectStructure
     public $array = array(1, 2, 3);
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class ComplexObjectWithObjectStructure
 {
     /**
@@ -310,11 +269,6 @@ class ComplexObjectWithObjectStructure
     public $object;
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class MyService
 {
     /**
@@ -341,11 +295,6 @@ class MyService
     }
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class MyServiceSequence
 {
     /**
@@ -380,11 +329,6 @@ class MyServiceSequence
     }
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class MyResponse
 {
     /**
@@ -393,11 +337,6 @@ class MyResponse
     public $p1;
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class Recursion
 {
     /**
@@ -419,11 +358,6 @@ function OneWay($message)
 
 }
 
-/**
- * @category   Zend
- * @package    Zend_Soap
- * @subpackage UnitTests
- */
 class NoReturnType
 {
     /**
@@ -633,4 +567,63 @@ class TestLocalSoapClient extends \SoapClient
     }
 }
 
+}
+
+class SequenceTest
+{
+    /**
+     * @var int
+     */
+    public $var = 5;
+}
+
+
+
+class Book
+{
+    /**
+     * @var int
+     */
+    public $somevar;
+}
+class Cookie
+{
+    /**
+     * @var int
+     */
+    public $othervar;
+}
+class Anything
+{
+}
+
+
+
+class PublicPrivateProtected
+{
+    const PROTECTED_VAR_NAME = 'bar';
+    const PRIVATE_VAR_NAME = 'baz';
+
+    /**
+     * @var string
+     */
+    public $foo;
+
+    /**
+     * @var string
+     */
+    protected $bar;
+
+    /**
+     * @var string
+     */
+    private $baz;
+}
+
+class errorClass
+{
+    public function triggerError()
+    {
+        trigger_error('TestError', E_USER_ERROR);
+    }
 }

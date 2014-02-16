@@ -3,20 +3,18 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Paginator
  */
 
 namespace Zend\Paginator;
 
+use ArrayAccess;
 use Iterator;
+use LimitIterator;
+use Serializable;
 
-/**
- * @category   Zend
- * @package    Zend_Paginator
- */
-class SerializableLimitIterator extends \LimitIterator implements \Serializable, \ArrayAccess
+class SerializableLimitIterator extends LimitIterator implements Serializable, ArrayAccess
 {
 
     /**
@@ -41,7 +39,7 @@ class SerializableLimitIterator extends \LimitIterator implements \Serializable,
      * @param int $count Maximum number of elements to show or -1 for all
      * @see LimitIterator::__construct
      */
-    public function __construct (Iterator $it, $offset=0, $count=-1)
+    public function __construct(Iterator $it, $offset=0, $count=-1)
     {
         parent::__construct($it, $offset, $count);
         $this->offset = $offset;

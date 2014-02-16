@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace ZendTest\Filter;
@@ -14,9 +13,6 @@ use Zend\Filter\FilterChain;
 use Zend\Filter\AbstractFilter;
 
 /**
- * @category   Zend
- * @package    Zend_Filter
- * @subpackage UnitTests
  * @group      Zend_Filter
  */
 class FilterChainTest extends \PHPUnit_Framework_TestCase
@@ -51,7 +47,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
     public function testAllowsConnectingArbitraryCallbacks()
     {
         $chain = new FilterChain();
-        $chain->attach(function($value) {
+        $chain->attach(function ($value) {
             return strtolower($value);
         });
         $value = 'AbC';
@@ -118,7 +114,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
         return array(
             'callbacks' => array(
                 array('callback' => __CLASS__ . '::staticUcaseFilter'),
-                array('priority' => 10000, 'callback' => function($value) {
+                array('priority' => 10000, 'callback' => function ($value) {
                     return trim($value);
                 }),
             ),
@@ -182,6 +178,38 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
         $value         = 'AbC';
         $valueExpected = 'abc';
         $this->assertEquals($valueExpected, $unserialized->filter($value));
+    }
+
+    public function testMergingTwoFilterChainsKeepFiltersPriority()
+    {
+        $value         = 'AbC';
+        $valueExpected = 'abc';
+
+        $chain = new FilterChain();
+        $chain->attach(new StripUpperCase())
+              ->attach(new LowerCase(), 1001);
+        $this->assertEquals($valueExpected, $chain->filter($value));
+
+        $chain = new FilterChain();
+        $chain->attach(new LowerCase(), 1001)
+              ->attach(new StripUpperCase());
+        $this->assertEquals($valueExpected, $chain->filter($value));
+
+        $chain = new FilterChain();
+        $chain->attach(new LowerCase(), 1001);
+        $chainToMerge = new FilterChain();
+        $chainToMerge->attach(new StripUpperCase());
+        $chain->merge($chainToMerge);
+        $this->assertEquals(2, $chain->count());
+        $this->assertEquals($valueExpected, $chain->filter($value));
+
+        $chain = new FilterChain();
+        $chain->attach(new StripUpperCase());
+        $chainToMerge = new FilterChain();
+        $chainToMerge->attach(new LowerCase(), 1001);
+        $chain->merge($chainToMerge);
+        $this->assertEquals(2, $chain->count());
+        $this->assertEquals($valueExpected, $chain->filter($value));
     }
 }
 

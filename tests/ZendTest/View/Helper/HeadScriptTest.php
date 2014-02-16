@@ -3,23 +3,18 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry;
 use Zend\View\Helper;
 use Zend\View;
 
 /**
  * Test class for Zend_View_Helper_HeadScript.
  *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
@@ -44,7 +39,6 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        Registry::unsetRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadScript();
     }
@@ -58,17 +52,6 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($this->helper);
-    }
-
-    public function testNamespaceRegisteredInPlaceholderRegistryAfterInstantiation()
-    {
-        $registry = Registry::getRegistry();
-        if ($registry->containerExists('Zend_View_Helper_HeadScript')) {
-            $registry->deleteContainer('Zend_View_Helper_HeadScript');
-        }
-        $this->assertFalse($registry->containerExists('Zend_View_Helper_HeadScript'));
-        $helper = new Helper\HeadScript();
-        $this->assertTrue($registry->containerExists('Zend_View_Helper_HeadScript'));
     }
 
     public function testHeadScriptReturnsObjectInstance()

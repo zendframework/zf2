@@ -3,22 +3,19 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
  */
 
 namespace ZendTest\Code\Generator;
 
 use Zend\Code\Generator\ClassGenerator;
+use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Reflection\ClassReflection;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
- * @subpackage UnitTests
  *
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
@@ -29,7 +26,7 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testConstruction()
     {
         $class = new ClassGenerator();
-        $this->isInstanceOf($class, '\Zend\Code\Generator\ClassGenerator');
+        $this->isInstanceOf($class, 'Zend\Code\Generator\ClassGenerator');
     }
 
     public function testNameAccessors()
@@ -37,7 +34,6 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->setName('TestClass');
         $this->assertEquals($classGenerator->getName(), 'TestClass');
-
     }
 
     public function testClassDocBlockAccessors()
@@ -73,7 +69,7 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator->addProperties(array(
             'propOne',
             new PropertyGenerator('propTwo')
-            ));
+        ));
 
         $properties = $classGenerator->getProperties();
         $this->assertEquals(count($properties), 2);
@@ -96,7 +92,7 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Zend\Code\Generator\Exception\InvalidArgumentException',
             'A property by name prop3 already exists in this class'
-            );
+        );
         $classGenerator->addProperty('prop3');
     }
 
@@ -106,8 +102,8 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             'Zend\Code\Generator\Exception\InvalidArgumentException',
-            'addProperty() expects string for name'
-            );
+            'Zend\Code\Generator\ClassGenerator::addProperty expects string for name'
+        );
         $classGenerator->addProperty(true);
     }
 
@@ -117,7 +113,7 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator->addMethods(array(
             'methodOne',
             new MethodGenerator('methodTwo')
-            ));
+        ));
 
         $methods = $classGenerator->getMethods();
         $this->assertEquals(count($methods), 2);
@@ -138,8 +134,8 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             'Zend\Code\Generator\Exception\ExceptionInterface',
-            'addMethod() expects string for name'
-            );
+            'Zend\Code\Generator\ClassGenerator::addMethod expects string for name'
+        );
 
         $classGenerator->addMethod(true);
     }
@@ -154,7 +150,10 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $classGenerator = new ClassGenerator();
         $classGenerator->addMethodFromGenerator($methodA);
 
-        $this->setExpectedException('Zend\Code\Generator\Exception\InvalidArgumentException', 'A method by name foo already exists in this class.');
+        $this->setExpectedException(
+            'Zend\Code\Generator\Exception\InvalidArgumentException',
+            'A method by name foo already exists in this class.'
+        );
 
         $classGenerator->addMethodFromGenerator($methodB);
     }
@@ -170,6 +169,16 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($classGenerator->hasMethod('methodOne'));
     }
 
+    public function testRemoveMethod()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addMethod('methodOne');
+        $this->assertTrue($classGenerator->hasMethod('methodOne'));
+
+        $classGenerator->removeMethod('methodOne');
+        $this->assertFalse($classGenerator->hasMethod('methodOne'));
+    }
+
     /**
      * @group ZF-7361
      */
@@ -183,33 +192,18 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $classGenerator = new ClassGenerator(
-            'SampleClass',
-            null,
-            ClassGenerator::FLAG_ABSTRACT,
-            'ExtendedClassName',
-            array('Iterator', 'Traversable'),
-            array('foo', 'bar'),
-            array('baz')
-        );
-
-
-        $classGenerator = ClassGenerator::fromArray(
-            array(
+        $classGenerator = ClassGenerator::fromArray(array(
             'name' => 'SampleClass',
-            //'abstract' => true,
             'flags' => ClassGenerator::FLAG_ABSTRACT,
-            'name' => 'SampleClass',
             'extendedClass' => 'ExtendedClassName',
             'implementedInterfaces' => array('Iterator', 'Traversable'),
             'properties' => array('foo',
                 array('name' => 'bar')
-                ),
+            ),
             'methods' => array(
                 array('name' => 'baz')
-                ),
-            ));
-
+            ),
+        ));
 
         $expectedOutput = <<<EOS
 abstract class SampleClass extends ExtendedClassName implements Iterator, Traversable
@@ -245,8 +239,8 @@ EOS;
         $code = $classGenerator->generate();
 
         $expectedClassDef = 'class ClassWithInterface'
-                          . ' implements ZendTest\Code\Generator\TestAsset\OneInterface'
-                          . ', ZendTest\Code\Generator\TestAsset\TwoInterface';
+            . ' implements ZendTest\Code\Generator\TestAsset\OneInterface'
+            . ', ZendTest\Code\Generator\TestAsset\TwoInterface';
         $this->assertContains($expectedClassDef, $code);
     }
 
@@ -255,7 +249,7 @@ EOS;
      */
     public function testClassFromReflectionDiscardParentImplementedInterfaces()
     {
-        $reflClass = new ClassReflection('\ZendTest\Code\Generator\TestAsset\NewClassWithInterface');
+        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\NewClassWithInterface');
 
         $classGenerator = ClassGenerator::fromReflection($reflClass);
         $classGenerator->setSourceDirty(true);
@@ -263,9 +257,21 @@ EOS;
         $code = $classGenerator->generate();
 
         $expectedClassDef = 'class NewClassWithInterface'
-                          . ' extends ZendTest\Code\Generator\TestAsset\ClassWithInterface'
-                          . ' implements ZendTest\Code\Generator\TestAsset\ThreeInterface';
+            . ' extends ZendTest\Code\Generator\TestAsset\ClassWithInterface'
+            . ' implements ZendTest\Code\Generator\TestAsset\ThreeInterface';
         $this->assertContains($expectedClassDef, $code);
+    }
+
+    /**
+     * @group 4988
+     */
+    public function testNonNamespaceClassReturnsAllMethods()
+    {
+        require_once __DIR__ . '/../TestAsset/NonNamespaceClass.php';
+
+        $reflClass = new ClassReflection('ZendTest_Code_NsTest_BarClass');
+        $classGenerator = ClassGenerator::fromReflection($reflClass);
+        $this->assertCount(1, $classGenerator->getMethods());
     }
 
     /**
@@ -274,8 +280,9 @@ EOS;
     public function testSetextendedclassShouldIgnoreEmptyClassnameOnGenerate()
     {
         $classGeneratorClass = new ClassGenerator();
-        $classGeneratorClass->setName( 'MyClass' )
-                     ->setExtendedClass('');
+        $classGeneratorClass
+            ->setName('MyClass')
+            ->setExtendedClass('');
 
         $expected = <<<CODE
 class MyClass
@@ -285,7 +292,7 @@ class MyClass
 }
 
 CODE;
-        $this->assertEquals( $expected, $classGeneratorClass->generate() );
+        $this->assertEquals($expected, $classGeneratorClass->generate());
     }
 
     /**
@@ -294,8 +301,9 @@ CODE;
     public function testSetextendedclassShouldNotIgnoreNonEmptyClassnameOnGenerate()
     {
         $classGeneratorClass = new ClassGenerator();
-        $classGeneratorClass->setName( 'MyClass' )
-                     ->setExtendedClass('ParentClass');
+        $classGeneratorClass
+            ->setName('MyClass')
+            ->setExtendedClass('ParentClass');
 
         $expected = <<<CODE
 class MyClass extends ParentClass
@@ -305,7 +313,7 @@ class MyClass extends ParentClass
 }
 
 CODE;
-        $this->assertEquals( $expected, $classGeneratorClass->generate() );
+        $this->assertEquals($expected, $classGeneratorClass->generate());
     }
 
     /**
@@ -362,4 +370,132 @@ CODE;
         $received = $classGeneratorClass->generate();
         $this->assertContains('class FunClass', $received, $received);
     }
+
+    /**
+     * @group ZF2-151
+     */
+    public function testAddUses()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('My\Class');
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\Second\Use\Class', 'MyAlias');
+        $generated = $classGenerator->generate();
+
+        $this->assertContains('use My\First\Use\Class;', $generated);
+        $this->assertContains('use My\Second\Use\Class as MyAlias;', $generated);
+    }
+
+    /**
+     * @group 4990
+     */
+    public function testAddOneUseTwiceOnlyAddsOne()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('My\Class');
+        $classGenerator->addUse('My\First\Use\Class');
+        $classGenerator->addUse('My\First\Use\Class');
+        $generated = $classGenerator->generate();
+
+        $this->assertCount(1, $classGenerator->getUses());
+
+        $this->assertContains('use My\First\Use\Class;', $generated);
+    }
+
+    /**
+     * @group 4990
+     */
+    public function testAddOneUseWithAliasTwiceOnlyAddsOne()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('My\Class');
+        $classGenerator->addUse('My\First\Use\Class', 'MyAlias');
+        $classGenerator->addUse('My\First\Use\Class', 'MyAlias');
+        $generated = $classGenerator->generate();
+
+        $this->assertCount(1, $classGenerator->getUses());
+
+        $this->assertContains('use My\First\Use\Class as MyAlias;', $generated);
+    }
+
+    public function testCreateFromArrayWithDocBlockFromArray()
+    {
+        $classGenerator = ClassGenerator::fromArray(array(
+            'name' => 'SampleClass',
+            'docblock' => array(
+                'shortdescription' => 'foo',
+            ),
+        ));
+
+        $docBlock = $classGenerator->getDocBlock();
+        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+    }
+
+    public function testCreateFromArrayWithDocBlockInstance()
+    {
+        $classGenerator = ClassGenerator::fromArray(array(
+            'name' => 'SampleClass',
+            'docblock' => new DocBlockGenerator('foo'),
+        ));
+
+        $docBlock = $classGenerator->getDocBlock();
+        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
+    }
+
+    public function testExtendedClassProperies()
+    {
+        $reflClass = new ClassReflection('ZendTest\Code\Generator\TestAsset\ExtendedClassWithProperties');
+        $classGenerator = ClassGenerator::fromReflection($reflClass);
+        $code = $classGenerator->generate();
+        $this->assertContains('publicExtendedClassProperty', $code);
+        $this->assertContains('protectedExtendedClassProperty', $code);
+        $this->assertContains('privateExtendedClassProperty', $code);
+        $this->assertNotContains('publicClassProperty', $code);
+        $this->assertNotContains('protectedClassProperty', $code);
+        $this->assertNotContains('privateClassProperty', $code);
+
+
+    }
+
+    public function testHasMethodInsensitive()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addMethod('methodOne');
+
+        $this->assertTrue($classGenerator->hasMethod('methodOne'));
+        $this->assertTrue($classGenerator->hasMethod('MethoDonE'));
+    }
+
+    public function testRemoveMethodInsensitive()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->addMethod('methodOne');
+
+        $classGenerator->removeMethod('METHODONe');
+        $this->assertFalse($classGenerator->hasMethod('methodOne'));
+    }
+
+    public function testGenerateClassAndAddMethod()
+    {
+        $classGenerator = new ClassGenerator();
+        $classGenerator->setName('MyClass');
+        $classGenerator->addMethod('methodOne');
+
+        $expected = <<<CODE
+class MyClass
+{
+
+    public function methodOne()
+    {
+    }
+
+
+}
+
+CODE;
+
+        $output = $classGenerator->generate();
+        $this->assertEquals($expected, $output);
+    }
+
 }

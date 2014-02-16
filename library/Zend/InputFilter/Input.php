@@ -3,30 +3,30 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_InputFilter
  */
 
 namespace Zend\InputFilter;
 
 use Zend\Filter\FilterChain;
-use Zend\Validator\ValidatorChain;
 use Zend\Validator\NotEmpty;
+use Zend\Validator\ValidatorChain;
 
-/**
- * @category   Zend
- * @package    Zend_InputFilter
- */
-class Input implements InputInterface
+class Input implements InputInterface, EmptyContextInterface
 {
     /**
-     * @var boolean
+     * @var bool
      */
     protected $allowEmpty = false;
 
     /**
-     * @var boolean
+     * @var bool
+     */
+    protected $continueIfEmpty = false;
+
+    /**
+     * @var bool
      */
     protected $breakOnFailure = false;
 
@@ -46,12 +46,12 @@ class Input implements InputInterface
     protected $name;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $notEmptyValidator = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $required = true;
 
@@ -65,13 +65,18 @@ class Input implements InputInterface
      */
     protected $value;
 
+    /**
+     * @var mixed
+     */
+    protected $fallbackValue;
+
     public function __construct($name = null)
     {
         $this->name = $name;
     }
 
     /**
-     * @param  boolean $allowEmpty
+     * @param  bool $allowEmpty
      * @return Input
      */
     public function setAllowEmpty($allowEmpty)
@@ -81,7 +86,7 @@ class Input implements InputInterface
     }
 
     /**
-     * @param  boolean $breakOnFailure
+     * @param  bool $breakOnFailure
      * @return Input
      */
     public function setBreakOnFailure($breakOnFailure)
@@ -91,13 +96,22 @@ class Input implements InputInterface
     }
 
     /**
+     * @param bool $continueIfEmpty
+     * @return \Zend\InputFilter\Input
+     */
+    public function setContinueIfEmpty($continueIfEmpty)
+    {
+        $this->continueIfEmpty = (bool) $continueIfEmpty;
+        return $this;
+    }
+
+    /**
      * @param  string|null $errorMessage
      * @return Input
      */
     public function setErrorMessage($errorMessage)
     {
-        $errorMessage = (null === $errorMessage) ? null : (string) $errorMessage;
-        $this->errorMessage = $errorMessage;
+        $this->errorMessage = (null === $errorMessage) ? null : (string) $errorMessage;
         return $this;
     }
 
@@ -122,12 +136,13 @@ class Input implements InputInterface
     }
 
     /**
-     * @param  boolean $required
+     * @param  bool $required
      * @return Input
      */
     public function setRequired($required)
     {
         $this->required = (bool) $required;
+        $this->setAllowEmpty(!$required);
         return $this;
     }
 
@@ -152,7 +167,17 @@ class Input implements InputInterface
     }
 
     /**
-     * @return boolean
+     * @param  mixed $value
+     * @return Input
+     */
+    public function setFallbackValue($value)
+    {
+        $this->fallbackValue = $value;
+        return $this;
+    }
+
+    /**
+     * @return bool
      */
     public function allowEmpty()
     {
@@ -160,11 +185,19 @@ class Input implements InputInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function breakOnFailure()
     {
         return $this->breakOnFailure;
+    }
+
+    /**
+     * @return bool
+     */
+    public function continueIfEmpty()
+    {
+        return $this->continueIfEmpty;
     }
 
     /**
@@ -203,7 +236,7 @@ class Input implements InputInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isRequired()
     {
@@ -231,6 +264,14 @@ class Input implements InputInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getFallbackValue()
+    {
+        return $this->fallbackValue;
+    }
+
+    /**
      * @param  InputInterface $input
      * @return Input
      */
@@ -238,6 +279,7 @@ class Input implements InputInterface
     {
         $this->setAllowEmpty($input->allowEmpty());
         $this->setBreakOnFailure($input->breakOnFailure());
+        $this->setContinueIfEmpty($input->continueIfEmpty());
         $this->setErrorMessage($input->getErrorMessage());
         $this->setName($input->getName());
         $this->setRequired($input->isRequired());
@@ -253,14 +295,25 @@ class Input implements InputInterface
 
     /**
      * @param  mixed $context Extra "context" to provide the validator
-     * @return boolean
+     * @return bool
      */
     public function isValid($context = null)
     {
-        $this->injectNotEmptyValidator();
+        // Empty value needs further validation if continueIfEmpty is set
+        // so don't inject NotEmpty validator which would always
+        // mark that as false
+        if (!$this->continueIfEmpty()) {
+            $this->injectNotEmptyValidator();
+        }
         $validator = $this->getValidatorChain();
         $value     = $this->getValue();
-        return $validator->isValid($value, $context);
+        $result    = $validator->isValid($value, $context);
+        if (!$result && $fallbackValue = $this->getFallbackValue()) {
+            $this->setValue($fallbackValue);
+            $result = true;
+        }
+
+        return $result;
     }
 
     /**
@@ -272,10 +325,17 @@ class Input implements InputInterface
             return (array) $this->errorMessage;
         }
 
+        if ($this->getFallbackValue()) {
+            return array();
+        }
+
         $validator = $this->getValidatorChain();
         return $validator->getMessages();
     }
 
+    /**
+     * @return void
+     */
     protected function injectNotEmptyValidator()
     {
         if ((!$this->isRequired() && $this->allowEmpty()) || $this->notEmptyValidator) {
@@ -283,13 +343,13 @@ class Input implements InputInterface
         }
         $chain = $this->getValidatorChain();
 
-        // Check if NotEmpty validator is already first in chain
+        // Check if NotEmpty validator is already in chain
         $validators = $chain->getValidators();
-        if (isset($validators[0]['instance'])
-            && $validators[0]['instance'] instanceof NotEmpty
-        ) {
-            $this->notEmptyValidator = true;
-            return;
+        foreach ($validators as $validator) {
+            if ($validator['instance'] instanceof NotEmpty) {
+                $this->notEmptyValidator = true;
+                return;
+            }
         }
 
         $chain->prependByName('NotEmpty', array(), true);

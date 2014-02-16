@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace ZendTest\Filter;
@@ -13,9 +12,6 @@ namespace ZendTest\Filter;
 use Zend\Filter\Encrypt as EncryptFilter;
 
 /**
- * @category   Zend
- * @package    Zend_Filter
- * @subpackage UnitTests
  * @group      Zend_Filter
  */
 class EncryptTest extends \PHPUnit_Framework_TestCase
@@ -51,6 +47,20 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
         foreach ($valuesExpected as $input => $output) {
             $this->assertNotEquals($output, $filter($input));
         }
+    }
+
+    /**
+     * Ensures that the encryption works fine
+     */
+    public function testEncryptBlockCipher()
+    {
+        if (!extension_loaded('mcrypt')) {
+            $this->markTestSkipped('Mcrypt extension not installed');
+        }
+        $encrypt = new EncryptFilter(array('adapter' => 'BlockCipher', 'key' => 'testkey'));
+        $encrypt->setVector('1234567890123456890');
+        $encrypted = $encrypt->filter('test');
+        $this->assertEquals($encrypted, 'ec133eb7460682b0020b736ad6d2ef14c35de0f1e5976330ae1dd096ef3b4cb7MTIzNDU2Nzg5MDEyMzQ1NoZvxY1JkeL6TnQP3ug5F0k=');
     }
 
     /**

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Barcode
  */
 
 namespace ZendTest\Barcode;
@@ -18,9 +17,6 @@ use Zend\Config\Config;
 use ZendPdf as Pdf;
 
 /**
- * @category   Zend
- * @package    Zend_Barcode
- * @subpackage UnitTests
  * @group      Zend_Barcode
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
@@ -179,6 +175,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $barcode = Barcode\Barcode::makeBarcode('code25');
         $this->assertTrue($barcode instanceof Object\Code25);
+
+        // ensure makeBarcode creates unique instances
+        $this->assertNotSame($barcode, Barcode\Barcode::makeBarcode('code25'));
     }
 
     public function testBarcodeObjectFactoryWithBarcodeAsStringAndConfigAsArray()
@@ -244,7 +243,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $barcode = Barcode\Barcode::makeBarcode('barcodeNamespaceWithoutExtendingObjectAbstract');
     }
 
-    public function testBarcodeObjectFactoryWithUnexistantBarcode()
+    public function testBarcodeObjectFactoryWithUnexistentBarcode()
     {
         $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotFoundException');
         $barcode = Barcode\Barcode::makeBarcode('zf123', array());
@@ -263,6 +262,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->checkGDRequirement();
         $renderer = Barcode\Barcode::makeRenderer('image');
         $this->assertTrue($renderer instanceof Renderer\Image);
+
+        // ensure unique instance is created
+        $this->assertNotSame($renderer, Barcode\Barcode::makeRenderer('image'));
     }
 
     public function testBarcodeRendererFactoryWithBarcodeAsStringAndConfigAsArray()
@@ -323,7 +325,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $renderer = Barcode\Barcode::makeRenderer('rendererNamespaceWithoutExtendingRendererAbstract');
     }
 
-    public function testBarcodeRendererFactoryWithUnexistantRenderer()
+    public function testBarcodeRendererFactoryWithUnexistentRenderer()
     {
         $this->setExpectedException('\Zend\ServiceManager\Exception\ServiceNotFoundException');
         $renderer = Barcode\Barcode::makeRenderer('zend', array());

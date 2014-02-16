@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Memory
  */
 
 namespace ZendTest\Memory;
@@ -14,9 +13,6 @@ use Zend\Memory;
 use Zend\Memory\Container;
 
 /**
- * @category   Zend
- * @package    Zend_Memory
- * @subpackage UnitTests
  * @group      Zend_Memory
  */
 class MovableTest extends \PHPUnit_Framework_TestCase
@@ -48,14 +44,14 @@ class MovableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($memObject->getRef(), '012_456789');
 
         // value property
-        $this->assertEquals((string)$memObject->value, '012_456789');
+        $this->assertEquals((string) $memObject->value, '012_456789');
 
         $memObject->value[7] = '_';
-        $this->assertEquals((string)$memObject->value, '012_456_89');
+        $this->assertEquals((string) $memObject->value, '012_456_89');
 
         $memObject->value = 'another value';
         $this->assertTrue($memObject->value instanceof \Zend\Memory\Value);
-        $this->assertEquals((string)$memObject->value, 'another value');
+        $this->assertEquals((string) $memObject->value, 'another value');
     }
 
     /**
@@ -66,13 +62,13 @@ class MovableTest extends \PHPUnit_Framework_TestCase
         $memoryManager = new DummyMemoryManager();
         $memObject = new Container\Movable($memoryManager, 10, '0123456789');
 
-        $this->assertFalse((boolean)$memObject->isLocked());
+        $this->assertFalse((bool) $memObject->isLocked());
 
         $memObject->lock();
-        $this->assertTrue((boolean)$memObject->isLocked());
+        $this->assertTrue((bool) $memObject->isLocked());
 
         $memObject->unlock();
-        $this->assertFalse((boolean)$memObject->isLocked());
+        $this->assertFalse((bool) $memObject->isLocked());
     }
 
     /**
@@ -132,11 +128,10 @@ class MovableTest extends \PHPUnit_Framework_TestCase
 
 /**
  * Memory manager helper
- *
  */
 class DummyMemoryManager extends Memory\MemoryManager
 {
-    /** @var boolean */
+    /** @var bool */
     public $processUpdatePassed = false;
 
     /** @var integer */

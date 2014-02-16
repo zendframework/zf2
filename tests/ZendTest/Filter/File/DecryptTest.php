@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace ZendTest\Filter\File;
@@ -14,9 +13,6 @@ use Zend\Filter\File\Decrypt as FileDecrypt;
 use Zend\Filter\File\Encrypt as FileEncrypt;
 
 /**
- * @category   Zend
- * @package    Zend_Filter
- * @subpackage UnitTests
  * @group      Zend_Filter
  */
 class DecryptTest extends \PHPUnit_Framework_TestCase
@@ -61,7 +57,7 @@ class DecryptTest extends \PHPUnit_Framework_TestCase
             dirname(__DIR__).'/_files/newencryption.txt',
             $filter->getFilename());
 
-        $filter->setVector('1234567890123456');
+        $filter->setKey('1234567890123456');
         $filter->filter(dirname(__DIR__).'/_files/encryption.txt');
 
         $filter = new FileDecrypt();
@@ -70,7 +66,7 @@ class DecryptTest extends \PHPUnit_Framework_TestCase
             'Encryption',
             file_get_contents(dirname(__DIR__).'/_files/newencryption.txt'));
 
-        $filter->setVector('1234567890123456');
+        $filter->setKey('1234567890123456');
         $this->assertEquals(
             dirname(__DIR__).'/_files/newencryption.txt',
             $filter->filter(dirname(__DIR__).'/_files/newencryption.txt'));
@@ -84,7 +80,7 @@ class DecryptTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new FileEncrypt();
         $filter->setFilename(dirname(__DIR__).'/_files/newencryption.txt');
-        $filter->setVector('1234567890123456');
+        $filter->setKey('1234567890123456');
         $this->assertEquals(dirname(__DIR__).'/_files/newencryption.txt',
             $filter->filter(dirname(__DIR__).'/_files/encryption.txt'));
 
@@ -99,7 +95,7 @@ class DecryptTest extends \PHPUnit_Framework_TestCase
             dirname(__DIR__).'/_files/newencryption2.txt',
             $filter->getFilename());
 
-        $filter->setVector('1234567890123456');
+        $filter->setKey('1234567890123456');
         $input = $filter->filter(dirname(__DIR__).'/_files/newencryption.txt');
         $this->assertEquals(dirname(__DIR__).'/_files/newencryption2.txt', $input);
 

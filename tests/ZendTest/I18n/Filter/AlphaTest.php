@@ -3,20 +3,16 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_I18n
  */
 
-namespace ZendTest\Filter;
+namespace ZendTest\I18n\Filter;
 
 use Zend\I18n\Filter\Alpha as AlphaFilter;
 use Locale;
 
 /**
- * @category   Zend
- * @package    Zend_Filter
- * @subpackage UnitTests
  * @group      Zend_Filter
  */
 class AlphaTest extends \PHPUnit_Framework_TestCase
@@ -45,7 +41,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
     /**
      * The Alphabet means english alphabet.
      *
-     * @var boolean
+     * @var bool
      */
     protected static $meansEnglishAlphabet;
 
@@ -56,6 +52,10 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped('ext/intl not enabled');
+        }
+
         $this->filter = new AlphaFilter();
 
         $this->locale               = Locale::getDefault();

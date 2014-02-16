@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Validator
  */
 
 namespace ZendTest\Validator\File;
@@ -13,9 +12,6 @@ namespace ZendTest\Validator\File;
 use Zend\Validator\File;
 
 /**
- * @category   Zend
- * @package    Zend_Validator_File
- * @subpackage UnitTests
  * @group      Zend_Validator
  */
 class UploadTest extends \PHPUnit_Framework_TestCase
@@ -248,5 +244,31 @@ class UploadTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid(__DIR__ . '/_files/nofile.mo'));
         $this->assertTrue(array_key_exists('fileUploadErrorFileNotFound', $validator->getMessages()));
         $this->assertContains("nofile.mo'", current($validator->getMessages()));
+    }
+
+    /**
+     * @group ZF-12128
+     */
+    public function testErrorMessage()
+    {
+        $_FILES = array(
+            'foo' => array(
+                'name'     => 'bar',
+                'type'     => 'text',
+                'size'     => 100,
+                'tmp_name' => 'tmp_bar',
+                'error'    => 7,
+            )
+        );
+
+        $validator = new File\Upload;
+        $validator->isValid('foo');
+
+        $this->assertEquals(
+            array(
+                'fileUploadErrorCantWrite' => "File 'bar' can't be written",
+            ),
+            $validator->getMessages()
+        );
     }
 }

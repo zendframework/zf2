@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace ZendTest\Mvc\View;
@@ -18,11 +17,6 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\View\Http\ExceptionStrategy;
 use Zend\View\Model\ViewModel;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTest
- */
 class ExceptionStrategyTest extends TestCase
 {
     public function setUp()
@@ -168,5 +162,26 @@ class ExceptionStrategyTest extends TestCase
         $events->detachAggregate($this->strategy);
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH_ERROR);
         $this->assertEquals(0, count($listeners));
+    }
+
+    public function testReuseResponseStatusCodeIfItExists()
+    {
+        $event = new MvcEvent();
+        $response = new Response();
+        $response->setStatusCode(401);
+        $event->setResponse($response);
+        $this->strategy->prepareExceptionViewModel($event);
+        $response = $event->getResponse();
+        if (null !== $response) {
+            $this->assertEquals(401, $response->getStatusCode());
+        }
+        $model = $event->getResult();
+        if (null !== $model) {
+            $variables = $model->getVariables();
+            $this->assertArrayNotHasKey('message', $variables);
+            $this->assertArrayNotHasKey('exception', $variables);
+            $this->assertArrayNotHasKey('display_exceptions', $variables);
+            $this->assertNotEquals('error', $model->getTemplate());
+        }
     }
 }

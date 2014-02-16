@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Validator
  */
 
 namespace Zend\Validator;
@@ -13,10 +12,6 @@ namespace Zend\Validator;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
-/**
- * @category Zend
- * @package  Zend_Validate
- */
 class InArray extends AbstractValidator
 {
     const NOT_IN_ARRAY = 'notInArray';
@@ -68,7 +63,7 @@ class InArray extends AbstractValidator
     /**
      * Whether a recursive search should be done
      *
-     * @var boolean
+     * @var bool
      */
     protected $recursive = false;
 
@@ -80,7 +75,7 @@ class InArray extends AbstractValidator
      */
     public function getHaystack()
     {
-        if ($this->haystack == null) {
+        if ($this->haystack === null) {
             throw new Exception\RuntimeException('haystack option is mandatory');
         }
         return $this->haystack;
@@ -101,7 +96,7 @@ class InArray extends AbstractValidator
     /**
      * Returns the strict option
      *
-     * @return boolean|int
+     * @return bool|int
      */
     public function getStrict()
     {
@@ -142,7 +137,7 @@ class InArray extends AbstractValidator
     /**
      * Returns the recursive option
      *
-     * @return boolean
+     * @return bool
      */
     public function getRecursive()
     {
@@ -152,12 +147,12 @@ class InArray extends AbstractValidator
     /**
      * Sets the recursive option
      *
-     * @param  boolean $recursive
+     * @param  bool $recursive
      * @return InArray Provides a fluent interface
      */
     public function setRecursive($recursive)
     {
-        $this->recursive = (boolean) $recursive;
+        $this->recursive = (bool) $recursive;
         return $this;
     }
 
@@ -167,7 +162,7 @@ class InArray extends AbstractValidator
      *
      * @param mixed $value
      * See {@link http://php.net/manual/function.in-array.php#104501}
-     * @return boolean
+     * @return bool
      */
     public function isValid($value)
     {
@@ -178,7 +173,7 @@ class InArray extends AbstractValidator
         // we type cast the input to a string
         if (self::COMPARE_NOT_STRICT_AND_PREVENT_STR_TO_INT_VULNERABILITY == $this->strict
             && (is_int($value) || is_float($value))) {
-            $value =(string) $value;
+            $value = (string) $value;
         }
 
         $this->setValue($value);
@@ -199,7 +194,7 @@ class InArray extends AbstractValidator
                     if (self::COMPARE_NOT_STRICT_AND_PREVENT_STR_TO_INT_VULNERABILITY == $this->strict
                         && is_string($value) && (is_int($el) || is_float($el))
                     ) {
-                        $el = (string)$el;
+                        $el = (string) $el;
                     }
 
                     if ($el == $value) {
@@ -223,7 +218,7 @@ class InArray extends AbstractValidator
             ) {
                 foreach ($haystack as &$h) {
                     if (is_int($h) || is_float($h)) {
-                        $h = (string)$h;
+                        $h = (string) $h;
                     }
                 }
             }

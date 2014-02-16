@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Form
  */
 
 namespace Zend\Form\View\Helper\Captcha;
@@ -15,13 +14,25 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 use Zend\Form\View\Helper\FormInput;
 
-/**
- * @category   Zend
- * @package    Zend_Form
- * @subpackage View
- */
 class ReCaptcha extends FormInput
 {
+    /**
+     * Invoke helper as functor
+     *
+     * Proxies to {@link render()}.
+     *
+     * @param  ElementInterface $element
+     * @return string
+     */
+    public function __invoke(ElementInterface $element = null)
+    {
+        if (!$element) {
+            return $this;
+        }
+
+        return $this->render($element);
+    }
+
     /**
      * Render ReCaptcha form elements
      *
@@ -53,23 +64,6 @@ class ReCaptcha extends FormInput
         $js     = $this->renderJsEvents($challengeId, $responseId);
 
         return $hidden . $markup . $js;
-    }
-
-    /**
-     * Invoke helper as functor
-     *
-     * Proxies to {@link render()}.
-     *
-     * @param  ElementInterface $element
-     * @return string
-     */
-    public function __invoke(ElementInterface $element = null)
-    {
-        if (!$element) {
-            return $this;
-        }
-
-        return $this->render($element);
     }
 
     /**
@@ -116,7 +110,7 @@ class ReCaptcha extends FormInput
 function windowOnLoad(fn)
 {
     var old = window.onload;
-    window.onload = function() {
+    window.onload = function () {
         if (old) {
             old();
         }
@@ -131,11 +125,11 @@ function zendBindEvent(el, eventName, eventHandler)
         el.attachEvent('on'+eventName, eventHandler);
     }
 }
-windowOnLoad(function() {
+windowOnLoad(function () {
     zendBindEvent(
         document.getElementById("$challengeId").form,
         'submit',
-        function(e) {
+        function (e) {
             document.getElementById("$challengeId").value = document.getElementById("recaptcha_challenge_field").value;
             document.getElementById("$responseId").value = document.getElementById("recaptcha_response_field").value;
         }

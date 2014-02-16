@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace ZendTest\Mvc\Controller\Plugin;
@@ -13,6 +12,7 @@ namespace ZendTest\Mvc\Controller\Plugin;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Mvc\Controller\Plugin\Url as UrlPlugin;
 use Zend\Mvc\MvcEvent;
+use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\Router\Http\Literal as LiteralRoute;
 use Zend\Mvc\Router\Http\Segment as SegmentRoute;
 use Zend\Mvc\Router\RouteMatch;
@@ -30,6 +30,12 @@ class UrlTest extends TestCase
                 'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
             ),
         )));
+        $router->addRoute('default', array(
+            'type' => 'Zend\Mvc\Router\Http\Segment',
+            'options' => array(
+                'route' => '/:controller[/:action]',
+            )
+        ));
         $this->router = $router;
 
         $event = new MvcEvent();
@@ -45,6 +51,14 @@ class UrlTest extends TestCase
     {
         $url = $this->plugin->fromRoute('home');
         $this->assertEquals('/', $url);
+    }
+
+    public function testModel()
+    {
+        $it = new \ArrayIterator(array('controller' => 'ctrl', 'action' => 'act'));
+
+        $url = $this->plugin->fromRoute('default', $it);
+        $this->assertEquals('/ctrl/act', $url);
     }
 
     public function testPluginWithoutControllerRaisesDomainException()
@@ -127,5 +141,49 @@ class UrlTest extends TestCase
         $this->controller->getEvent()->setRouteMatch($routeMatch);
         $url = $this->plugin->fromRoute('replace', array('action' => 'bar'), true);
         $this->assertEquals('/foo/bar', $url);
+    }
+
+    public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
+    {
+        $router = new \Zend\Mvc\Router\Http\TreeRouteStack;
+        $router->addRoute('default', array(
+            'type' => 'Zend\Mvc\Router\Http\Segment',
+            'options' => array(
+                'route'    => '/:controller/:action',
+                'defaults' => array(
+                    ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
+                    'controller' => 'SampleController',
+                    'action'     => 'Dash'
+                )
+            ),
+            'child_routes' => array(
+                'wildcard' => array(
+                    'type'    => 'Zend\Mvc\Router\Http\Wildcard',
+                    'options' => array(
+                        'param_delimiter'     => '=',
+                        'key_value_delimiter' => '%'
+                    )
+                )
+            )
+        ));
+
+        $routeMatch = new RouteMatch(array(
+            ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
+            'controller' => 'Rainbow'
+        ));
+        $routeMatch->setMatchedRouteName('default/wildcard');
+
+        $event = new MvcEvent();
+        $event->setRouter($router)
+              ->setRouteMatch($routeMatch);
+
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->onRoute($event);
+
+        $controller = new SampleController();
+        $controller->setEvent($event);
+        $url = $controller->plugin('url')->fromRoute('default/wildcard', array('Twenty' => 'Cooler'), true);
+
+        $this->assertEquals('/Rainbow/Dash=Twenty%Cooler', $url);
     }
 }

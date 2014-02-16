@@ -3,18 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mail
  */
 
 namespace Zend\Mail\Header;
 
 /**
  * @todo       Add accessors for setting date from DateTime, Zend\Date, or a string
- * @category   Zend
- * @package    Zend_Mail
- * @subpackage Header
  */
 class Date implements HeaderInterface
 {
@@ -25,17 +21,21 @@ class Date implements HeaderInterface
 
     public static function fromString($headerLine)
     {
-        list($name, $value) = explode(': ', $headerLine, 2);
+        list($name, $value) = GenericHeader::splitHeaderLine($headerLine);
 
         // check to ensure proper header type for this factory
         if (strtolower($name) !== 'date') {
             throw new Exception\InvalidArgumentException('Invalid header line for Date string');
         }
 
-        $header = new static();
-        $header->value= $value;
+        $header = new static($value);
 
         return $header;
+    }
+
+    public function __construct($value)
+    {
+        $this->value = $value;
     }
 
     public function getFieldName()

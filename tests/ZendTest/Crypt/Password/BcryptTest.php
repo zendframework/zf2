@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
  */
 
 namespace ZendTest\Crypt\Password;
@@ -15,9 +14,6 @@ use Zend\Config\Config;
 use Zend\Crypt\Password\Exception;
 
 /**
- * @category   Zend
- * @package    Zend_Crypt
- * @subpackage UnitTests
  * @group      Zend_Crypt
  */
 class BcryptTest extends \PHPUnit_Framework_TestCase
@@ -98,7 +94,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
     public function testSetSmallSalt()
     {
         $this->setExpectedException('Zend\Crypt\Password\Exception\InvalidArgumentException',
-                                    'The length of the salt must be at lest ' . Bcrypt::MIN_SALT_SIZE . ' bytes');
+                                    'The length of the salt must be at least ' . Bcrypt::MIN_SALT_SIZE . ' bytes');
         $this->bcrypt->setSalt('small salt');
     }
 
@@ -122,6 +118,22 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->bcrypt->verify(substr($this->password, -1), $this->bcryptPassword));
     }
 
+    public function testVerifyFailureVersion()
+    {
+        $test = (substr(crypt('test', '$2y$04$012345678901234567890123456789'), 0, 3) === '$2y');
+        if (!$test) {
+            // We don't support new style hashes, test verify failure
+            $hash = '$y2$14$MTIzNDU2Nzg5MDEyMzQ1NeWUUefVlefsTbFhsbqKFv/vPSZBrSFVm';
+            $this->setExpectedException('Zend\Crypt\Password\Exception\RuntimeException',
+                'The supplied password hash could not be verified. Please check ' .
+                'backwards compatibility settings.'
+            );
+            $this->bcrypt->verify('test', $hash);
+        } else {
+            $this->markTestSkipped('Test requires PHP which does not support $2y hashes (<5.3.7)');
+        }
+    }
+
     public function testPasswordWith8bitCharacter()
     {
         $password = 'test' . chr(128);
@@ -132,11 +144,27 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
                                 $this->bcrypt->create($password));
         } else {
             $this->setExpectedException('Zend\Crypt\Password\Exception\RuntimeException',
-                'The bcrypt implementation used by PHP can contains a security flaw ' .
+                'The bcrypt implementation used by PHP can contain a security flaw ' .
                 'using password with 8-bit character. ' .
                 'We suggest to upgrade to PHP 5.3.7+ or use passwords with only 7-bit characters'
             );
             $output = $this->bcrypt->create($password);
         }
+    }
+
+    public function testSetBackwardCompatibility()
+    {
+        $result = $this->bcrypt->setBackwardCompatibility(true);
+        $this->assertTrue($result instanceof Bcrypt);
+        $this->assertTrue($this->bcrypt->getBackwardCompatibility());
+    }
+
+    public function testBackwardCompatibility()
+    {
+        $this->bcrypt->setSalt($this->salt);
+        $this->bcrypt->setBackwardCompatibility(true);
+        $password = $this->bcrypt->create($this->password);
+        $this->assertEquals('$2a$', substr($password, 0, 4));
+        $this->assertEquals(substr($password, 4), substr($this->bcryptPassword, 4));
     }
 }

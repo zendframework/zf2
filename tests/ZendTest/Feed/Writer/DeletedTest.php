@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace ZendTest\Feed\Writer;
@@ -14,9 +13,6 @@ use DateTime;
 use Zend\Feed\Writer;
 
 /**
-* @category Zend
-* @package Zend_Exception
-* @subpackage UnitTests
 * @group Zend_Feed
 * @group Zend_Feed_Writer
 */
@@ -247,4 +243,17 @@ class DeletedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('atom', $entry->getType());
     }
 
+    public function testFluentInterface()
+    {
+        $entry = new Writer\Deleted;
+
+        $result = $entry->setType('type')
+                        ->setBy(array('name' => 'foo'))
+                        ->setComment('comment')
+                        ->setEncoding('utf-8')
+                        ->setReference('foo')
+                        ->setWhen(null);
+
+        $this->assertSame($result, $entry);
+    }
 }

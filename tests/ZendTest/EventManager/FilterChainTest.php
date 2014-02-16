@@ -3,20 +3,16 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_EventManager
  */
 
-namespace ZendTest\Stdlib;
+namespace ZendTest\EventManager;
 
 use Zend\EventManager\FilterChain;
 use Zend\Stdlib\CallbackHandler;
 
 /**
- * @category   Zend
- * @package    Zend_Stdlib
- * @subpackage UnitTests
  * @group      Zend_Stdlib
  */
 class FilterChainTest extends \PHPUnit_Framework_TestCase
@@ -74,14 +70,14 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterChainShouldReturnLastResponse()
     {
-        $this->filterchain->attach(function($context, $params, $chain) {
+        $this->filterchain->attach(function ($context, $params, $chain) {
             if (isset($params['string'])) {
                 $params['string'] = trim($params['string']);
             }
             $return =  $chain->next($context, $params, $chain);
             return $return;
         });
-        $this->filterchain->attach(function($context, array $params) {
+        $this->filterchain->attach(function ($context, array $params) {
             $string = isset($params['string']) ? $params['string'] : '';
             return str_rot13($string);
         });
@@ -107,17 +103,17 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringStopsAsSoonAsAFilterFailsToCallNext()
     {
-        $this->filterchain->attach(function($context, $params, $chain) {
+        $this->filterchain->attach(function ($context, $params, $chain) {
             if (isset($params['string'])) {
                 $params['string'] = trim($params['string']);
             }
             return $chain->next($context, $params, $chain);
         }, 10000);
-        $this->filterchain->attach(function($context, array $params) {
+        $this->filterchain->attach(function ($context, array $params) {
             $string = isset($params['string']) ? $params['string'] : '';
             return str_rot13($string);
         }, 1000);
-        $this->filterchain->attach(function($context, $params, $chain) {
+        $this->filterchain->attach(function ($context, $params, $chain) {
             $string = isset($params['string']) ? $params['string'] : '';
             return hash('md5', $string);
         }, 100);

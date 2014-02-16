@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_ModuleManager
  */
 
 namespace ZendTest\ModuleManager\Listener;
@@ -24,7 +23,7 @@ use ZendTest\ModuleManager\TestAsset\MockApplication;
 
 require_once dirname(__DIR__) . '/TestAsset/ListenerTestModule/src/Foo/Bar.php';
 
-class LocatorRegistrationTest extends TestCase
+class LocatorRegistrationListenerTest extends TestCase
 {
     public $module;
 
@@ -84,7 +83,7 @@ class LocatorRegistrationTest extends TestCase
     public function testModuleClassIsRegisteredWithDiAndInjectedWithSharedInstances()
     {
         $locator         = $this->serviceManager;
-        $locator->setFactory('Foo\Bar', function($s) {
+        $locator->setFactory('Foo\Bar', function ($s) {
             $module   = $s->get('ListenerTestModule\Module');
             $manager  = $s->get('Zend\ModuleManager\ModuleManager');
             $instance = new \Foo\Bar($module, $manager);
@@ -121,5 +120,24 @@ class LocatorRegistrationTest extends TestCase
 
         $this->assertInstanceOf('Zend\ModuleManager\ModuleManager', $sharedInstance2);
         $this->assertSame($this->moduleManager, $locator->get('Foo\Bar')->moduleManager);
+    }
+
+    public function testNoDuplicateServicesAreDefinedForModuleManager()
+    {
+        $locatorRegistrationListener = new LocatorRegistrationListener;
+        $this->moduleManager->getEventManager()->attachAggregate($locatorRegistrationListener);
+
+        $this->moduleManager->loadModules();
+        $this->application->bootstrap();
+        $registeredServices = $this->application->getServiceManager()->getRegisteredServices();
+
+        $aliases = $registeredServices['aliases'];
+        $instances = $registeredServices['instances'];
+
+        $this->assertContains('zendmodulemanagermodulemanager', $aliases);
+        $this->assertFalse(in_array('modulemanager', $aliases));
+
+        $this->assertContains('modulemanager', $instances);
+        $this->assertFalse(in_array('zendmodulemanagermodulemanager', $instances));
     }
 }

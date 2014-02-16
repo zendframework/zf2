@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace Zend\Mvc;
@@ -13,10 +12,6 @@ namespace Zend\Mvc;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- */
 class RouteListener implements ListenerAggregateInterface
 {
     /**
@@ -69,7 +64,7 @@ class RouteListener implements ListenerAggregateInterface
         $routeMatch = $router->match($request);
 
         if (!$routeMatch instanceof Router\RouteMatch) {
-            $e->setError($target::ERROR_ROUTER_NO_MATCH);
+            $e->setError(Application::ERROR_ROUTER_NO_MATCH);
 
             $results = $target->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
             if (count($results)) {

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Permissions
  */
 
 namespace ZendTest\Permissions\Acl;
@@ -15,9 +14,6 @@ use Zend\Permissions\Acl\Role;
 use Zend\Permissions\Acl\Resource;
 
 /**
- * @category   Zend
- * @package    Zend_Permissions
- * @subpackage UnitTests
  * @group      Zend_Acl
  */
 class AclTest extends \PHPUnit_Framework_TestCase
@@ -182,11 +178,11 @@ class AclTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests basic Role multiple inheritance
+     * Tests basic Role multiple inheritance with array
      *
      * @return void
      */
-    public function testRoleRegistryInheritsMultiple()
+    public function testRoleRegistryInheritsMultipleArray()
     {
         $roleParent1 = new Role\GenericRole('parent1');
         $roleParent2 = new Role\GenericRole('parent2');
@@ -195,6 +191,39 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $roleRegistry->add($roleParent1)
                      ->add($roleParent2)
                      ->add($roleChild, array($roleParent1, $roleParent2));
+        $roleChildParents = $roleRegistry->getParents($roleChild);
+        $this->assertTrue(2 === count($roleChildParents));
+        $i = 1;
+        foreach ($roleChildParents as $roleParentId => $roleParent) {
+            $this->assertTrue("parent$i" === $roleParentId);
+            $i++;
+        }
+        $this->assertTrue($roleRegistry->inherits($roleChild, $roleParent1));
+        $this->assertTrue($roleRegistry->inherits($roleChild, $roleParent2));
+        $roleRegistry->remove($roleParent1);
+        $roleChildParents = $roleRegistry->getParents($roleChild);
+        $this->assertTrue(1 === count($roleChildParents));
+        $this->assertTrue(isset($roleChildParents['parent2']));
+        $this->assertTrue($roleRegistry->inherits($roleChild, $roleParent2));
+    }
+
+    /**
+     * Tests basic Role multiple inheritance with traversable object
+     *
+     * @return void
+     */
+    public function testRoleRegistryInheritsMultipleTraversable()
+    {
+        $roleParent1 = new Role\GenericRole('parent1');
+        $roleParent2 = new Role\GenericRole('parent2');
+        $roleChild   = new Role\GenericRole('child');
+        $roleRegistry = new Role\Registry();
+        $roleRegistry->add($roleParent1)
+            ->add($roleParent2)
+            ->add(
+                $roleChild,
+                new \ArrayIterator(array($roleParent1, $roleParent2))
+            );
         $roleChildParents = $roleRegistry->getParents($roleChild);
         $this->assertTrue(2 === count($roleChildParents));
         $i = 1;
@@ -1135,7 +1164,7 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $assertion->assertReturnValue = false;
         $this->assertFalse($acl->isAllowed($user, $blogPost, 'modify'), 'Assertion should return false');
 
-        // check to see if the last assertion has the proper objets
+        // check to see if the last assertion has the proper objects
         $this->assertInstanceOf('ZendTest\Permissions\Acl\TestAsset\UseCase1\User', $assertion->lastAssertRole, 'Assertion did not receive proper role object');
         $this->assertInstanceOf('ZendTest\Permissions\Acl\TestAsset\UseCase1\BlogPost', $assertion->lastAssertResource, 'Assertion did not receive proper resource object');
 
@@ -1176,7 +1205,7 @@ class AclTest extends \PHPUnit_Framework_TestCase
     /**
      * @group ZF-8039
      *
-     * Meant to test for the (in)existance of this notice:
+     * Meant to test for the (in)existence of this notice:
      * "Notice: Undefined index: allPrivileges in lib/Zend/Acl.php on line 682"
      */
     public function testMethodRemoveAllowDoesNotThrowNotice()
@@ -1191,13 +1220,13 @@ class AclTest extends \PHPUnit_Framework_TestCase
     public function testRoleObjectImplementsToString()
     {
         $role = new Role\GenericRole('_fooBar_');
-        $this->assertEquals('_fooBar_',(string)$role);
+        $this->assertEquals('_fooBar_',(string) $role);
     }
 
     public function testResourceObjectImplementsToString()
     {
         $resource = new Resource\GenericResource('_fooBar_');
-        $this->assertEquals('_fooBar_',(string)$resource);
+        $this->assertEquals('_fooBar_',(string) $resource);
     }
 
     /**
@@ -1303,4 +1332,51 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->_acl->isAllowed('guest', 'newsletter', 'read'));
     }
 
+    /**
+     * @group ZF2-3454
+     */
+    public function testAclResourcePermissionsAreInheritedWithMultilevelResourcesAndDenyPolicy()
+    {
+        $this->_acl->addRole('guest');
+        $this->_acl->addResource('blogposts');
+        $this->_acl->addResource('feature', 'blogposts');
+        $this->_acl->addResource('post_1', 'feature');
+        $this->_acl->addResource('post_2', 'feature');
+
+        // Allow a guest to read feature posts and
+        // comment on everything except feature posts.
+        $this->_acl->deny();
+        $this->_acl->allow('guest', 'feature', 'read');
+        $this->_acl->allow('guest', null, 'comment');
+        $this->_acl->deny('guest', 'feature', 'comment');
+
+        $this->assertFalse($this->_acl->isAllowed('guest', 'feature', 'write'));
+        $this->assertTrue($this->_acl->isAllowed('guest', 'post_1', 'read'));
+        $this->assertTrue($this->_acl->isAllowed('guest', 'post_2', 'read'));
+
+        $this->assertFalse($this->_acl->isAllowed('guest', 'post_1', 'comment'));
+        $this->assertFalse($this->_acl->isAllowed('guest', 'post_2', 'comment'));
+    }
+
+    public function testSetRuleWorksWithResourceInterface()
+    {
+        $roleGuest = new Role\GenericRole('guest');
+        $this->_acl->addRole($roleGuest);
+
+        $resourceFoo = new Resource\GenericResource('foo');
+        $this->_acl->addResource($resourceFoo);
+
+        $this->_acl->setRule(Acl\Acl::OP_ADD, Acl\Acl::TYPE_ALLOW, $roleGuest, $resourceFoo);
+    }
+
+    /**
+     * @group 4226
+     */
+    public function testAllowNullPermissionAfterResourcesExistShouldAllowAllPermissionsForRole()
+    {
+        $this->_acl->addRole('admin');
+        $this->_acl->addResource('newsletter');
+        $this->_acl->allow('admin');
+        $this->assertTrue($this->_acl->isAllowed('admin'));
+    }
 }

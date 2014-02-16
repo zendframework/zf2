@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Cache
  */
 
 namespace ZendTest\Cache;
@@ -13,9 +12,6 @@ namespace ZendTest\Cache;
 use Zend\Cache;
 
 /**
- * @category   Zend
- * @package    Zend_Cache
- * @subpackage UnitTests
  * @group      Zend_Cache
  */
 class StorageFactoryTest extends \PHPUnit_Framework_TestCase
@@ -87,6 +83,22 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
             'adapter' => 'Memory',
         ));
         $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Memory', $cache);
+    }
+
+    /**
+     * @group 4445
+     */
+    public function testFactoryWithAdapterAsStringAndOptions()
+    {
+        $cache = Cache\StorageFactory::factory(array(
+            'adapter' => 'Memory',
+            'options' => array(
+                'namespace' => 'test'
+            ),
+        ));
+
+        $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Memory', $cache);
+        $this->assertSame('test', $cache->getOptions()->getNamespace());
     }
 
     public function testFactoryAdapterAsArray()

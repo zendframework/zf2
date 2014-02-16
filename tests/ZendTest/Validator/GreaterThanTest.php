@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Validator
  */
 
 namespace ZendTest\Validator;
@@ -13,9 +12,6 @@ namespace ZendTest\Validator;
 use Zend\Validator\GreaterThan;
 
 /**
- * @category   Zend
- * @package    Zend_Validator
- * @subpackage UnitTests
  * @group      Zend_Validator
  */
 class GreaterThanTest extends \PHPUnit_Framework_TestCase
@@ -97,5 +93,33 @@ class GreaterThanTest extends \PHPUnit_Framework_TestCase
         $validator = new GreaterThan(1);
         $this->assertAttributeEquals($validator->getOption('messageVariables'),
                                      'messageVariables', $validator);
+    }
+
+    public function testCorrectInclusiveMessageReturn()
+    {
+        $valuesToValidate = array(0, 0.5, 5, 10);
+
+        foreach ($valuesToValidate as $value) {
+            $validator = new GreaterThan(10);
+            $validator->isValid($value);
+            $message = $validator->getMessages();
+
+            $this->assertArrayHaskey('notGreaterThan', $message);
+            $this->assertEquals($message['notGreaterThan'], "The input is not greater than '10'");
+        }
+    }
+
+    public function testCorrectNotInclusiveMessageReturn()
+    {
+        $valuesToValidate = array(0, 0.5, 5, 9);
+
+        foreach ($valuesToValidate as $value) {
+            $validator = new GreaterThan(array('min' => 10, 'inclusive' => true));
+            $validator->isValid($value);
+            $message = $validator->getMessages();
+
+            $this->assertArrayHaskey('notGreaterThanInclusive', $message);
+            $this->assertEquals($message['notGreaterThanInclusive'], "The input is not greater or equal than '10'");
+        }
     }
 }

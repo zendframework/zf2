@@ -3,12 +3,11 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Http
  */
 
-namespace ZendTest\Http;
+namespace ZendTest\Http\Response;
 
 use Zend\Http\Response\Stream;
 
@@ -27,7 +26,7 @@ class ResponseStreamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Foo Bar\r\nBar Foo", $response->getBody());
     }
 
-    public function testGzipResponse ()
+    public function testGzipResponse()
     {
         $stream = fopen(__DIR__ . '/../_files/response_gzip','rb');
 

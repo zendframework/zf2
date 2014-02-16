@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Validator
  */
 
 namespace ZendTest\Validator;
@@ -15,9 +14,6 @@ use DateTime;
 use DateInterval;
 
 /**
- * @category   Zend
- * @package    Zend_Validator
- * @subpackage UnitTests
  * @group      Zend_Validator
  */
 class DateStepTest extends \PHPUnit_Framework_TestCase
@@ -109,5 +105,16 @@ class DateStepTest extends \PHPUnit_Framework_TestCase
         $validator  = new Validator\DateStep(array());
         $this->assertObjectHasAttribute('messageTemplates', $validator);
         $this->assertAttributeEquals($validator->getOption('messageTemplates'), 'messageTemplates', $validator);
+    }
+
+    public function testStepError()
+    {
+        $validator = new Validator\DateStep(array(
+            'format'       => 'Y-m-d',
+            'baseValue'    => '2012-01-23',
+            'step' => new DateInterval("P10D"),
+        ));
+
+        $this->assertFalse($validator->isValid('2012-13-13'));
     }
 }

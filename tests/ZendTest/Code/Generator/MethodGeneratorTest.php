@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
  */
 
 namespace ZendTest\Code\Generator;
@@ -16,18 +15,12 @@ use Zend\Code\Generator\ValueGenerator;
 use Zend\Code\Reflection\MethodReflection;
 
 /**
- * @category   Zend
- * @package    Zend_Code_Generator
- * @subpackage UnitTests
  *
  * @group Zend_Code_Generator
  * @group Zend_Code_Generator_Php
  */
-class PhpMethodTest extends \PHPUnit_Framework_TestCase
+class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-
-
-
     public function testMethodConstructor()
     {
         $methodGenerator = new MethodGenerator();
@@ -71,7 +64,6 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
      * Enter description here...
      *
      * @return bool
-     *
      */
     public function someMethod()
     {
@@ -133,10 +125,7 @@ EOS;
         $methodGenerator->setAbstract(true);
 
         $expected = <<<EOS
-    abstract public function foo(\$one)
-    {
-    }
-
+    abstract public function foo(\$one);
 EOS;
         $this->assertEquals($expected, $methodGenerator->generate());
     }
@@ -181,5 +170,28 @@ EOS;
         $method->setParameter($param);
         $generated = $method->generate();
         $this->assertRegexp('/array \$options = array\(\)\)/', $generated, $generated);
+    }
+
+    public function testCreateFromArray()
+    {
+        $methodGenerator = MethodGenerator::fromArray(array(
+            'name'       => 'SampleMethod',
+            'body'       => 'foo',
+            'docblock'   => array(
+                'shortdescription' => 'foo',
+            ),
+            'abstract'   => true,
+            'final'      => true,
+            'static'     => true,
+            'visibility' => MethodGenerator::VISIBILITY_PROTECTED,
+        ));
+
+        $this->assertEquals('SampleMethod', $methodGenerator->getName());
+        $this->assertEquals('foo', $methodGenerator->getBody());
+        $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $methodGenerator->getDocBlock());
+        $this->assertTrue($methodGenerator->isAbstract());
+        $this->assertTrue($methodGenerator->isFinal());
+        $this->assertTrue($methodGenerator->isStatic());
+        $this->assertEquals(MethodGenerator::VISIBILITY_PROTECTED, $methodGenerator->getVisibility());
     }
 }

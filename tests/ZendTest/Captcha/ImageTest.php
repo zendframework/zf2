@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Captcha
  */
 
 namespace ZendTest\Captcha;
@@ -14,9 +13,6 @@ use DirectoryIterator;
 use Zend\Captcha\Image as ImageCaptcha;
 
 /**
- * @category   Zend
- * @package    Zend_Captcha
- * @subpackage UnitTests
  * @group      Zend_Captcha
  */
 class ImageTest extends \PHPUnit_Framework_TestCase
@@ -131,6 +127,11 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testCaptchaImageCleanupOnlyCaptchaFilesIdentifiedByTheirSuffix()
     {
+        if (!defined('TESTS_ZEND_CAPTCHA_GC')
+            || !constant('TESTS_ZEND_CAPTCHA_GC')
+        ) {
+            $this->markTestSkipped('Enable TESTS_ZEND_CAPTCHA_GC to run this test');
+        }
         $this->captcha->generate();
         $filename = $this->testDir . "/" . $this->captcha->getId() . ".png";
         $this->assertTrue(file_exists($filename));

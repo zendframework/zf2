@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper;
@@ -18,9 +17,6 @@ use Zend\View\Helper\Url as UrlHelper;
 /**
  * url() helper test -- tests integration with MVC
  *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
@@ -63,9 +59,11 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
                 'SharedEventManager' => 'Zend\EventManager\SharedEventManager',
                 'DispatchListener'   => 'Zend\Mvc\DispatchListener',
                 'RouteListener'      => 'Zend\Mvc\RouteListener',
+                'SendResponseListener' => 'Zend\Mvc\SendResponseListener'
             ),
             'factories' => array(
                 'Application'             => 'Zend\Mvc\Service\ApplicationFactory',
+                'ConsoleViewManager'      => 'Zend\Mvc\Service\ConsoleViewManagerFactory',
                 'EventManager'            => 'Zend\Mvc\Service\EventManagerFactory',
                 'ViewHelperManager'       => 'Zend\Mvc\Service\ViewHelperManagerFactory',
                 'Request'                 => 'Zend\Mvc\Service\RequestFactory',
@@ -73,6 +71,8 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
                 'Router'                  => 'Zend\Mvc\Service\RouterFactory',
                 'ConsoleRouter'           => 'Zend\Mvc\Service\RouterFactory',
                 'HttpRouter'              => 'Zend\Mvc\Service\RouterFactory',
+                'HttpViewManager'         => 'Zend\Mvc\Service\HttpViewManagerFactory',
+                'RoutePluginManager'      => 'Zend\Mvc\Service\RoutePluginManagerFactory',
                 'ViewManager'             => 'Zend\Mvc\Service\ViewManagerFactory',
                 'ViewResolver'            => 'Zend\Mvc\Service\ViewResolverFactory',
                 'ViewTemplateMapResolver' => 'Zend\Mvc\Service\ViewTemplateMapResolverFactory',

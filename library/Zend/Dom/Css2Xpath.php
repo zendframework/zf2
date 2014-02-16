@@ -3,18 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Dom
  */
 
 namespace Zend\Dom;
 
 /**
  * Transform CSS selectors to XPath
- *
- * @package    Zend_Dom
- * @subpackage Query
  */
 class Css2Xpath
 {
@@ -45,7 +41,7 @@ class Css2Xpath
         $path     = preg_replace('|\s+>\s+|', '>', $path);
         $segments = preg_split('/\s+/', $path);
         foreach ($segments as $key => $segment) {
-            $pathSegment = self::_tokenize($segment);
+            $pathSegment = static::_tokenize($segment);
             if (0 == $key) {
                 if (0 === strpos($pathSegment, '[contains(')) {
                     $paths[0] .= '*' . ltrim($pathSegment, '*');
@@ -55,13 +51,13 @@ class Css2Xpath
                 continue;
             }
             if (0 === strpos($pathSegment, '[contains(')) {
-                foreach ($paths as $key => $xpath) {
-                    $paths[$key] .= '//*' . ltrim($pathSegment, '*');
+                foreach ($paths as $pathKey => $xpath) {
+                    $paths[$pathKey] .= '//*' . ltrim($pathSegment, '*');
                     $paths[]      = $xpath . $pathSegment;
                 }
             } else {
-                foreach ($paths as $key => $xpath) {
-                    $paths[$key] .= '//' . $pathSegment;
+                foreach ($paths as $pathKey => $xpath) {
+                    $paths[$pathKey] .= '//' . $pathSegment;
                 }
             }
         }
@@ -89,7 +85,7 @@ class Css2Xpath
 
         // arbitrary attribute strict equality
         $expression = preg_replace_callback(
-            '|\[([a-z0-9_-]+)=[\'"]([^\'"]+)[\'"]\]|i',
+            '|\[@?([a-z0-9_-]+)=[\'"]([^\'"]+)[\'"]\]|i',
             function ($matches) {
                 return '[@' . strtolower($matches[1]) . "='" . $matches[2] . "']";
             },
@@ -117,11 +113,13 @@ class Css2Xpath
         );
 
         // Classes
-        $expression = preg_replace(
-            '|\.([a-z][a-z0-9_-]*)|i',
-            "[contains(concat(' ', normalize-space(@class), ' '), ' \$1 ')]",
-            $expression
-        );
+        if(false === strpos($expression, "[@")) {
+            $expression = preg_replace(
+                '|\.([a-z][a-z0-9_-]*)|i',
+                "[contains(concat(' ', normalize-space(@class), ' '), ' \$1 ')]",
+                $expression
+            );
+        }
 
         /** ZF-9764 -- remove double asterisk */
         $expression = str_replace('**', '*', $expression);

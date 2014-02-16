@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace Zend\Feed\Writer\Renderer\Entry;
@@ -17,8 +16,6 @@ use Zend\Feed\Writer;
 use Zend\Feed\Writer\Renderer;
 
 /**
-* @category Zend
-* @package Zend_Feed_Writer
 */
 class AtomDeleted extends Renderer\AbstractRenderer implements Renderer\RendererInterface
 {
@@ -27,7 +24,7 @@ class AtomDeleted extends Renderer\AbstractRenderer implements Renderer\Renderer
      *
      * @param  Writer\Deleted $container
      */
-    public function __construct (Writer\Deleted $container)
+    public function __construct(Writer\Deleted $container)
     {
         parent::__construct($container);
     }
@@ -104,5 +101,4 @@ class AtomDeleted extends Renderer\AbstractRenderer implements Renderer\Renderer
             $uri->appendChild($text);
         }
     }
-
 }

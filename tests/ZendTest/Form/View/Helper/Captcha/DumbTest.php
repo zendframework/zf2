@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Form
  */
 
 namespace ZendTest\Form\View\Helper\Captcha;
@@ -15,11 +14,6 @@ use Zend\Form\Element\Captcha as CaptchaElement;
 use Zend\Form\View\Helper\Captcha\Dumb as DumbCaptchaHelper;
 use ZendTest\Form\View\Helper\CommonTestCase;
 
-/**
- * @category   Zend
- * @package    Zend_Form
- * @subpackage UnitTest
- */
 class DumbTest extends CommonTestCase
 {
     public function setUp()
@@ -91,5 +85,14 @@ class DumbTest extends CommonTestCase
         $this->helper->setSeparator('-');
 
         $this->assertEquals('-', $this->helper->getSeparator());
+    }
+
+    public function testRenderSeparatorOneTimeAfterText()
+    {
+        $element = $this->getElement();
+        $this->helper->setSeparator('<br />');
+        $markup  = $this->helper->render($element);
+        $this->assertContains($this->captcha->getLabel() . ' <b>' . strrev($this->captcha->getWord()) . '</b>' . $this->helper->getSeparator() . '<input name="foo[id]" type="hidden"', $markup);
+        $this->assertNotContains($this->helper->getSeparator() . '<input name="foo[input]" type="text"', $markup);
     }
 }

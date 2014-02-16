@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Cache
  */
 
 namespace ZendTest\Cache\Pattern;
@@ -24,30 +23,35 @@ class TestCallbackCache
 
     public static function bar()
     {
-        ++self::$fooCounter;
+        ++static::$fooCounter;
         $args = func_get_args();
 
-        echo   'foobar_output('.implode(', ', $args) . ') : ' . self::$fooCounter;
-        return 'foobar_return('.implode(', ', $args) . ') : ' . self::$fooCounter;
+        echo   'foobar_output('.implode(', ', $args) . ') : ' . static::$fooCounter;
+        return 'foobar_return('.implode(', ', $args) . ') : ' . static::$fooCounter;
     }
 
     public static function emptyMethod() {}
 
 }
 
+class FailableCallback
+{
+    public function __invoke()
+    {
+        throw new \Exception('This callback should either fail or never be invoked');
+    }
+}
+
 /**
  * Test function
  * @see ZendTest\Cache\Pattern\Foo::bar
  */
-function bar ()
+function bar()
 {
     return call_user_func_array(__NAMESPACE__ . '\TestCallbackCache::bar', func_get_args());
 }
 
 /**
- * @category   Zend
- * @package    Zend_Cache
- * @subpackage UnitTests
  * @group      Zend_Cache
  */
 class CallbackCacheTest extends CommonPatternTest
@@ -164,5 +168,18 @@ class CallbackCacheTest extends CommonPatternTest
         } else {
             $this->assertEquals('', $data);
         }
+    }
+
+    /**
+     * @group 4629
+     * @return void
+     */
+    public function testCallCanReturnCachedNullValues()
+    {
+        $callback = new FailableCallback();
+        $key      = $this->_pattern->generateKey($callback, array());
+        $this->_storage->setItem($key, array(null));
+        $value    = $this->_pattern->call($callback);
+        $this->assertNull($value);
     }
 }

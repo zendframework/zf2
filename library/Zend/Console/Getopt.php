@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Console
  */
 
 namespace Zend\Console;
@@ -67,11 +66,6 @@ namespace Zend\Console;
  *
  * Example:  'abc:' means options '-a', '-b', and '-c'
  * are legal, and the latter requires a string parameter.
- *
- * @category   Zend
- * @package    Zend_Console_Getopt
- * @version    Release: @package_version@
- * @since      Class available since Release 0.6.0
  *
  * @todo  Handle flags that implicitly print usage message, e.g. --help
  *
@@ -193,7 +187,7 @@ class Getopt
     /**
      * State of the options: parsed or not yet parsed?
      *
-     * @var boolean
+     * @var bool
      */
     protected $parsed = false;
 
@@ -230,7 +224,7 @@ class Getopt
             $argv = array_slice($_SERVER['argv'], 1);
         }
         if (isset($argv)) {
-            $this->addArguments((array)$argv);
+            $this->addArguments((array) $argv);
         }
     }
 
@@ -255,7 +249,7 @@ class Getopt
      * Test whether a given option has been seen.
      *
      * @param  string $key
-     * @return boolean
+     * @return bool
      */
     public function __isset($key)
     {
@@ -347,7 +341,7 @@ class Getopt
     /**
      * Define multiple configuration options from an associative array.
      * These are not program options, but properties to configure
-     * the behavior of Zend_Console_Getopt.
+     * the behavior of Zend\Console\Getopt.
      *
      * @param  array $getoptConfig
      * @return \Zend\Console\Getopt Provides a fluent interface
@@ -365,7 +359,7 @@ class Getopt
     /**
      * Define one configuration option as a key/value pair.
      * These are not program options, but properties to configure
-     * the behavior of Zend_Console_Getopt.
+     * the behavior of Zend\Console\Getopt.
      *
      * @param  string $configKey
      * @param  string $configValue
@@ -565,6 +559,9 @@ class Getopt
         $maxLen = 20;
         $lines = array();
         foreach ($this->rules as $rule) {
+            if (isset($rule['isFreeformFlag'])) {
+                continue;
+            }
             $flags = array();
             if (is_array($rule['alias'])) {
                 foreach ($rule['alias'] as $flag) {
@@ -634,7 +631,7 @@ class Getopt
     /**
      * Define help messages for options.
      *
-     * The parameter $help_map is an associative array
+     * The parameter $helpMap is an associative array
      * mapping option name (short or long) to the help string.
      *
      * @param  array $helpMap
@@ -763,7 +760,10 @@ class Getopt
             // Magic methods in future will use this mark as real flag value
             $this->ruleMap[$flag] = $flag;
             $realFlag = $flag;
-            $this->rules[$realFlag] = array('param' => 'optional');
+            $this->rules[$realFlag] = array(
+                'param'          => 'optional',
+                'isFreeformFlag' => true
+            );
         } else {
             $realFlag = $this->ruleMap[$flag];
         }

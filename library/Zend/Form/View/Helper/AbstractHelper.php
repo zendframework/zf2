@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Form
  */
 
 namespace Zend\Form\View\Helper;
@@ -18,10 +17,6 @@ use Zend\View\Helper\EscapeHtmlAttr;
 
 /**
  * Base functionality for all form view helpers
- *
- * @category   Zend
- * @package    Zend_Form
- * @subpackage View
  */
 abstract class AbstractHelper extends BaseAbstractHelper
 {
@@ -47,7 +42,8 @@ abstract class AbstractHelper extends BaseAbstractHelper
      * @var array
      */
     protected $translatableAttributes = array(
-        'placeholder' => true
+        'placeholder' => true,
+        'title' => true,
     );
 
     /**
@@ -134,6 +130,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
         'ontimeupdate'       => true,
         'onvolumechange'     => true,
         'onwaiting'          => true,
+        'role'               => true,
         'spellcheck'         => true,
         'style'              => true,
         'tabindex'           => true,
@@ -208,7 +205,6 @@ abstract class AbstractHelper extends BaseAbstractHelper
     public function createAttributesString(array $attributes)
     {
         $attributes = $this->prepareAttributes($attributes);
-
         $escape     = $this->getEscapeHtmlHelper();
         $strings    = array();
         foreach ($attributes as $key => $value) {
@@ -355,6 +351,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
             if (!isset($this->validGlobalAttributes[$attribute])
                 && !isset($this->validTagAttributes[$attribute])
                 && 'data-' != substr($attribute, 0, 5)
+                && 'x-' != substr($attribute, 0, 2)
             ) {
                 // Invalid attribute for the current tag
                 unset($attributes[$key]);

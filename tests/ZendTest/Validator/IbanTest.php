@@ -3,19 +3,15 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_I18n
  */
 
-namespace ZendTest\I18n\Validator;
+namespace ZendTest\Validator;
 
 use Zend\Validator\Iban as IbanValidator;
 
 /**
- * @category   Zend
- * @package    Zend_Validator
- * @subpackage UnitTests
  * @group      Zend_Validator
  */
 class IbanTest extends \PHPUnit_Framework_TestCase
@@ -25,7 +21,7 @@ class IbanTest extends \PHPUnit_Framework_TestCase
         return array(
             array('AD1200012030200359100100', true),
             array('AT611904300234573201',     true),
-            array('AT61 1904 3002 3457 3201', false),
+            array('AT61 1904 3002 3457 3201', true),
             array('AD1200012030200354100100', false),
 
             array('AL47212110090000000235698741', true),

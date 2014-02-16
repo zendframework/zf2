@@ -3,23 +3,40 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace ZendTest\Mvc\Router\Http;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Http\Request;
+use Zend\I18n\Translator\TextDomain;
+use Zend\I18n\Translator\Translator;
 use Zend\Stdlib\Request as BaseRequest;
 use Zend\Mvc\Router\Http\Segment;
+use ZendTest\I18n\Translator\TestAsset\Loader as TestLoader;
 use ZendTest\Mvc\Router\FactoryTester;
 
 class SegmentTest extends TestCase
 {
     public static function routeProvider()
     {
+        $translator = new Translator();
+        $translator->setLocale('en-US');
+        $enLoader     = new TestLoader();
+        $deLoader     = new TestLoader();
+        $domainLoader = new TestLoader();
+        $enLoader->textDomain     = new TextDomain(array('fw' => 'framework'));
+        $deLoader->textDomain     = new TextDomain(array('fw' => 'baukasten'));
+        $domainLoader->textDomain = new TextDomain(array('fw' => 'fw-alternative'));
+        $translator->getPluginManager()->setService('test-en',     $enLoader);
+        $translator->getPluginManager()->setService('test-de',     $deLoader);
+        $translator->getPluginManager()->setService('test-domain', $domainLoader);
+        $translator->addTranslationFile('test-en', null, 'default', 'en-US');
+        $translator->addTranslationFile('test-de', null, 'default', 'de-DE');
+        $translator->addTranslationFile('test-domain', null, 'alternative', 'en-US');
+
         return array(
             'simple-match' => array(
                 new Segment('/:foo'),
@@ -149,15 +166,49 @@ class SegmentTest extends TestCase
             ),
             'url-encoded-parameters-are-decoded' => array(
                 new Segment('/:foo'),
-                '/foo+bar',
+                '/foo%20bar',
                 null,
                 array('foo' => 'foo bar')
+            ),
+            'urlencode-flaws-corrected' => array(
+                new Segment('/:foo'),
+                "/!$&'()*,-.:;=@_~+",
+                null,
+                array('foo' => "!$&'()*,-.:;=@_~+")
             ),
             'empty-matches-are-replaced-with-defaults' => array(
                 new Segment('/foo[/:bar]/baz-:baz', array(), array('bar' => 'bar')),
                 '/foo/baz-baz',
                 null,
                 array('bar' => 'bar', 'baz' => 'baz')
+            ),
+            'translate-with-default-locale' => array(
+                new Segment('/{fw}', array(), array()),
+                '/framework',
+                null,
+                array(),
+                array('translator' => $translator)
+            ),
+            'translate-with-specific-locale' => array(
+                new Segment('/{fw}', array(), array()),
+                '/baukasten',
+                null,
+                array(),
+                array('translator' => $translator, 'locale' => 'de-DE')
+            ),
+            'translate-uses-message-id-as-fallback' => array(
+                new Segment('/{fw}', array(), array()),
+                '/fw',
+                null,
+                array(),
+                array('translator' => $translator, 'locale' => 'fr-FR')
+            ),
+            'translate-with-specific-text-domain' => array(
+                new Segment('/{fw}', array(), array()),
+                '/fw-alternative',
+                null,
+                array(),
+                array('translator' => $translator, 'text_domain' => 'alternative')
             ),
         );
     }
@@ -185,11 +236,6 @@ class SegmentTest extends TestCase
                 'Zend\Mvc\Router\Exception\RuntimeException',
                 'Translated literal missing closing bracket'
             ),
-            'translated-parameter-without-closing-backet' => array(
-                ':{test',
-                'Zend\Mvc\Router\Exception\RuntimeException',
-                'Translated parameter missing closing bracket'
-            ),
         );
     }
 
@@ -199,12 +245,13 @@ class SegmentTest extends TestCase
      * @param        string  $path
      * @param        integer $offset
      * @param        array   $params
+     * @param        array   $options
      */
-    public function testMatching(Segment $route, $path, $offset, array $params = null)
+    public function testMatching(Segment $route, $path, $offset, array $params = null, array $options = array())
     {
         $request = new Request();
         $request->setUri('http://example.com' . $path);
-        $match = $route->match($request, $offset);
+        $match = $route->match($request, $offset, $options);
 
         if ($params === null) {
             $this->assertNull($match);
@@ -227,15 +274,16 @@ class SegmentTest extends TestCase
      * @param        string  $path
      * @param        integer $offset
      * @param        array   $params
+     * @param        array   $options
      */
-    public function testAssembling(Segment $route, $path, $offset, array $params = null)
+    public function testAssembling(Segment $route, $path, $offset, array $params = null, array $options = array())
     {
         if ($params === null) {
             // Data which will not match are not tested for assembling.
             return;
         }
 
-        $result = $route->assemble($params);
+        $result = $route->assemble($params, $options);
 
         if ($offset !== null) {
             $this->assertEquals($offset, strpos($path, $result, $offset));
@@ -263,16 +311,18 @@ class SegmentTest extends TestCase
         $route->assemble();
     }
 
-    public function testBuildTranslatedLiteral()
+    public function testTranslatedAssemblingThrowsExceptionWithoutTranslator()
     {
-        $this->setExpectedException('Zend\Mvc\Router\Exception\RuntimeException', 'Translated literals are not implemented yet');
+        $this->setExpectedException('Zend\Mvc\Router\Exception\RuntimeException', 'No translator provided');
         $route = new Segment('/{foo}');
+        $route->assemble();
     }
 
-    public function testBuildTranslatedParameter()
+    public function testTranslatedMatchingThrowsExceptionWithoutTranslator()
     {
-        $this->setExpectedException('Zend\Mvc\Router\Exception\RuntimeException', 'Translated parameters are not implemented yet');
-        $route = new Segment('/:{foo}');
+        $this->setExpectedException('Zend\Mvc\Router\Exception\RuntimeException', 'No translator provided');
+        $route = new Segment('/{foo}');
+        $route->match(new Request());
     }
 
     public function testNoMatchWithoutUriMethod()
@@ -304,5 +354,31 @@ class SegmentTest extends TestCase
                 'constraints' => array('foo' => 'bar')
             )
         );
+    }
+
+    public function testRawDecode()
+    {
+        // verify all characters which don't absolutely require encoding pass through match unchanged
+        // this includes every character other than #, %, / and ?
+        $raw = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`-=[]\\;\',.~!@$^&*()_+{}|:"<>';
+        $request = new Request();
+        $request->setUri('http://example.com/' . $raw);
+        $route   = new Segment('/:foo');
+        $match   = $route->match($request);
+
+        $this->assertSame($raw, $match->getParam('foo'));
+    }
+
+    public function testEncodedDecode()
+    {
+        // every character
+        $in  = '%61%62%63%64%65%66%67%68%69%6a%6b%6c%6d%6e%6f%70%71%72%73%74%75%76%77%78%79%7a%41%42%43%44%45%46%47%48%49%4a%4b%4c%4d%4e%4f%50%51%52%53%54%55%56%57%58%59%5a%30%31%32%33%34%35%36%37%38%39%60%2d%3d%5b%5d%5c%3b%27%2c%2e%2f%7e%21%40%23%24%25%5e%26%2a%28%29%5f%2b%7b%7d%7c%3a%22%3c%3e%3f';
+        $out = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`-=[]\\;\',./~!@#$%^&*()_+{}|:"<>?';
+        $request = new Request();
+        $request->setUri('http://example.com/' . $in);
+        $route   = new Segment('/:foo');
+        $match   = $route->match($request);
+
+        $this->assertSame($out, $match->getParam('foo'));
     }
 }

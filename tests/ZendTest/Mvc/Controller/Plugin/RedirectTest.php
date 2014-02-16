@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace ZendTest\Mvc\Controller\Plugin;
@@ -34,6 +33,10 @@ class RedirectTest extends TestCase
             ),
         )));
         $this->router = $router;
+
+        $routeMatch = new RouteMatch(array());
+        $routeMatch->setMatchedRouteName('home');
+        $this->routeMatch = $routeMatch;
 
         $event = new MvcEvent();
         $event->setRouter($router);
@@ -75,7 +78,7 @@ class RedirectTest extends TestCase
     {
         $controller = new SampleController();
         $plugin     = $controller->plugin('redirect');
-        $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose a response');
+        $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose');
         $plugin->toRoute('home');
     }
 
@@ -85,7 +88,7 @@ class RedirectTest extends TestCase
         $event      = new MvcEvent();
         $controller->setEvent($event);
         $plugin = $controller->plugin('redirect');
-        $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose a response');
+        $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose');
         $plugin->toRoute('home');
     }
 
@@ -161,5 +164,25 @@ class RedirectTest extends TestCase
         $headers = $response->getHeaders();
         $location = $headers->get('Location');
         $this->assertEquals('/foo/bar', $location->getFieldValue());
+    }
+
+    public function testPluginCanRefreshToRouteWhenProperlyConfigured()
+    {
+        $this->event->setRouteMatch($this->routeMatch);
+        $response = $this->plugin->refresh();
+        $this->assertTrue($response->isRedirect());
+        $headers = $response->getHeaders();
+        $location = $headers->get('Location');
+        $this->assertEquals('/', $location->getFieldValue());
+    }
+
+    public function testPluginCanRedirectToRouteWithNullWhenProperlyConfigured()
+    {
+        $this->event->setRouteMatch($this->routeMatch);
+        $response = $this->plugin->toRoute();
+        $this->assertTrue($response->isRedirect());
+        $headers = $response->getHeaders();
+        $location = $headers->get('Location');
+        $this->assertEquals('/', $location->getFieldValue());
     }
 }

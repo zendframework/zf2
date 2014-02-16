@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Log
  */
 
 namespace ZendTest\Log\Writer;
@@ -16,9 +15,6 @@ use Zend\Log\Logger;
 use Zend\Log\Formatter\Simple as SimpleFormatter;
 
 /**
- * @category   Zend
- * @package    Zend_Log
- * @subpackage UnitTests
  * @group      Zend_Log
  */
 class SyslogTest extends \PHPUnit_Framework_TestCase
@@ -101,5 +97,28 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
     {
         $writer   = new CustomSyslogWriter(array('application' => 'test_app'));
         $this->assertEquals('test_app', $writer->getApplicationName());
+    }
+
+    public function testConstructWithOptions()
+    {
+        $formatter = new \Zend\Log\Formatter\Simple();
+        $filter    = new \Zend\Log\Filter\Mock();
+        $writer = new CustomSyslogWriter(array(
+                'filters'   => $filter,
+                'formatter' => $formatter,
+                'application'  => 'test_app',
+        ));
+        $this->assertEquals('test_app', $writer->getApplicationName());
+        $this->assertAttributeEquals($formatter, 'formatter', $writer);
+
+        $filters = self::readAttribute($writer, 'filters');
+        $this->assertCount(1, $filters);
+        $this->assertEquals($filter, $filters[0]);
+    }
+
+    public function testDefaultFormatter()
+    {
+        $writer   = new CustomSyslogWriter(array('application' => 'test_app'));
+        $this->assertAttributeInstanceOf('Zend\Log\Formatter\Simple', 'formatter', $writer);
     }
 }

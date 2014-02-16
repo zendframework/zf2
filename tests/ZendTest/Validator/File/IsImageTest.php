@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Validator
  */
 
 namespace ZendTest\Validator\File;
@@ -15,9 +14,6 @@ use Zend\Validator\File;
 /**
  * IsImage testbed
  *
- * @category   Zend
- * @package    Zend_Validator_File
- * @subpackage UnitTests
  * @group      Zend_Validator
  */
 class IsImageTest extends \PHPUnit_Framework_TestCase
@@ -26,8 +22,10 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
     {
         // As of PHP >= 5.3.11 and >= 5.4.1 the magic database format has changed.
         // http://doc.php.net/downloads/pdf/split/de/File-Information.pdf (page 11)
-        if (version_compare(PHP_VERSION, '5.3.10', '<=') || (version_compare(PHP_VERSION, '5.4', '>=') &&
-                                                             version_compare(PHP_VERSION, '5.4.1', '<'))) {
+        if (version_compare(PHP_VERSION, '5.3.11', '<')
+            || (version_compare(PHP_VERSION, '5.4', '>=')
+                && version_compare(PHP_VERSION, '5.4.1', '<'))
+        ) {
             return __DIR__ . '/_files/magic.lte.5.3.10.mime';
         }
 
@@ -35,38 +33,55 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return array
+     */
+    public function basicBehaviorDataProvider()
+    {
+        $testFile = __DIR__ . '/_files/picture.jpg';
+        $fileUpload = array(
+            'tmp_name' => $testFile, 'name' => basename($testFile),
+            'size' => 200, 'error' => 0, 'type' => 'image/jpeg'
+        );
+        return array(
+            //    Options, isValid Param, Expected value
+            array(null,                              $fileUpload, true),
+            array('jpeg',                            $fileUpload, true),
+            array('test/notype',                     $fileUpload, false),
+            array('image/gif, image/jpeg',           $fileUpload, true),
+            array(array('image/vasa', 'image/jpeg'), $fileUpload, true),
+            array(array('image/jpeg', 'gif'),        $fileUpload, true),
+            array(array('image/gif', 'gif'),         $fileUpload, false),
+            array('image/jp',                        $fileUpload, false),
+            array('image/jpg2000',                   $fileUpload, false),
+            array('image/jpeg2000',                  $fileUpload, false),
+        );
+    }
+
+    /**
      * Ensures that the validator follows expected behavior
      *
+     * @dataProvider basicBehaviorDataProvider
      * @return void
      */
-    public function testBasic()
+    public function testBasic($options, $isValidParam, $expected)
     {
-        $valuesExpected = array(
-            array(null, true),
-            array('jpeg', true),
-            array('test/notype', false),
-            array('image/gif, image/jpeg', true),
-            array(array('image/vasa', 'image/jpeg'), true),
-            array(array('image/jpeg', 'gif'), true),
-            array(array('image/gif', 'gif'), false),
-        );
+        $validator = new File\IsImage($options);
+        $validator->enableHeaderCheck();
+        $this->assertEquals($expected, $validator->isValid($isValidParam));
+    }
 
-        $files = array(
-            'name'     => 'picture.jpg',
-            'type'     => 'image/jpeg',
-            'size'     => 200,
-            'tmp_name' => __DIR__ . '/_files/picture.jpg',
-            'error'    => 0
-        );
-
-        foreach ($valuesExpected as $element) {
-            $validator = new File\IsImage($element[0]);
+    /**
+     * Ensures that the validator follows expected behavior for legacy Zend\Transfer API
+     *
+     * @dataProvider basicBehaviorDataProvider
+     * @return void
+     */
+    public function testLegacy($options, $isValidParam, $expected)
+    {
+        if (is_array($isValidParam)) {
+            $validator = new File\IsImage($options);
             $validator->enableHeaderCheck();
-            $this->assertEquals(
-                $element[1],
-                $validator->isValid(__DIR__ . '/_files/picture.jpg', $files),
-                "Tested with " . var_export($element, 1)
-            );
+            $this->assertEquals($expected, $validator->isValid($isValidParam['tmp_name'], $isValidParam));
         }
     }
 
@@ -171,6 +186,15 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('image/gif,image/jpg', $validator->getMimeType());
     }
 
+    public function testNonMimeOptionsAtConstructorStillSetsDefaults()
+    {
+        $validator = new File\IsImage(array(
+            'enableHeaderCheck' => true,
+        ));
+
+        $this->assertNotEmpty($validator->getMimeType());
+    }
+
     /**
      * @group ZF-11258
      */
@@ -179,6 +203,6 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
         $validator = new File\IsImage();
         $this->assertFalse($validator->isValid(__DIR__ . '/_files/nofile.mo'));
         $this->assertTrue(array_key_exists('fileIsImageNotReadable', $validator->getMessages()));
-        $this->assertContains("'nofile.mo'", current($validator->getMessages()));
+        $this->assertContains("does not exist", current($validator->getMessages()));
     }
 }

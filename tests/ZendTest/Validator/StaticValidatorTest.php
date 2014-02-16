@@ -3,14 +3,12 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Validator
  */
 
 namespace ZendTest\Validator;
 
-use Zend\I18n\Translator;
 use Zend\Validator\AbstractValidator;
 use Zend\I18n\Validator\Alpha;
 use Zend\Validator\Between;
@@ -18,9 +16,6 @@ use Zend\Validator\StaticValidator;
 use Zend\Validator\ValidatorPluginManager;
 
 /**
- * @category   Zend
- * @package    Zend_Validator
- * @subpackage UnitTests
  * @group      Zend_Validator
  */
 class StaticValidatorTest extends \PHPUnit_Framework_TestCase
@@ -31,7 +26,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * Whether an error occurred
      *
-     * @var boolean
+     * @var bool
      */
     protected $errorOccurred = false;
 
@@ -70,7 +65,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCanSetGlobalDefaultTranslator()
     {
-        $translator = new Translator\Translator();
+        $translator = new TestAsset\Translator();
         AbstractValidator::setDefaultTranslator($translator);
         $this->assertSame($translator, AbstractValidator::getDefaultTranslator());
     }
@@ -84,13 +79,17 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
     public function testLocalTranslatorPreferredOverGlobalTranslator()
     {
         $this->testCanSetGlobalDefaultTranslator();
-        $translator = new Translator\Translator();
+        $translator = new TestAsset\Translator();
         $this->validator->setTranslator($translator);
         $this->assertNotSame(AbstractValidator::getDefaultTranslator(), $this->validator->getTranslator());
     }
 
     public function testMaximumErrorMessageLength()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped('ext/intl not enabled');
+        }
+
         $this->assertEquals(-1, AbstractValidator::getMessageLength());
         AbstractValidator::setMessageLength(10);
         $this->assertEquals(10, AbstractValidator::getMessageLength());
@@ -99,7 +98,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
         $loader->translations = array(
             Alpha::INVALID => 'This is the translated message for %value%',
         );
-        $translator = new Translator\Translator();
+        $translator = new TestAsset\Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
 
@@ -123,7 +122,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetDefaultTranslator()
     {
-        $translator = new Translator\Translator();
+        $translator = new TestAsset\Translator();
         AbstractValidator::setDefaultTranslator($translator);
         $this->assertSame($translator, AbstractValidator::getDefaultTranslator());
     }

@@ -3,19 +3,16 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Code
  */
 
 namespace ZendTest\Code\Reflection;
 
+use Exception;
 use Zend\Code\Reflection\FileReflection;
 
 /**
- * @category   Zend
- * @package    Zend_Reflection
- * @subpackage UnitTests
  * @group      Zend_Reflection
  * @group      Zend_Reflection_File
  */
@@ -31,8 +28,51 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
     public function testFileConstructorThrowsExceptionOnNonExistentFile()
     {
         $nonExistentFile = 'Non/Existent/File.php';
-        $this->setExpectedException('Zend\Code\Reflection\Exception\RuntimeException', 'File Non/Existent/File.php must be required before it can be reflected');
+        $this->setExpectedException('Zend\Code\Reflection\Exception\InvalidArgumentException', 'found');
         $reflectionFile = new FileReflection($nonExistentFile);
+    }
+
+    public function testFileConstructorFromAReflectedFilenameInIncludePathWithoutIncludeFlagEnabled()
+    {
+        $this->setExpectedException('Zend\Code\Reflection\Exception\RuntimeException', 'must be required');
+        $oldIncludePath = set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/TestAsset/');
+
+        try {
+            new FileReflection('an_empty_file.php', false);
+            set_include_path($oldIncludePath);
+            $this->fail('Should throw exception');
+        } catch (Exception $e) {
+            set_include_path($oldIncludePath);
+            throw $e;
+        }
+    }
+
+    public function testFileConstructorFromAReflectedFilenameIncluded()
+    {
+        include_once __DIR__ . '/TestAsset/an_empty_file.php';
+        $oldIncludePath = set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/TestAsset/');
+
+        try {
+            new FileReflection('an_empty_file.php', false);
+            set_include_path($oldIncludePath);
+        } catch (Exception $e) {
+            set_include_path($oldIncludePath);
+            throw $e;
+        }
+    }
+
+    public function testFileConstructorFromAReflectedFilenameInIncludePath()
+    {
+        $this->assertFalse(in_array(realpath(__DIR__ . '/TestAsset/a_second_empty_file.php'), get_included_files()));
+        $oldIncludePath = set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/TestAsset/');
+
+        try {
+            new FileReflection('a_second_empty_file.php', true);
+            set_include_path($oldIncludePath);
+        } catch(Exception $e) {
+            set_include_path($oldIncludePath);
+            throw $e;
+        }
     }
 
     public function testFileGetClassReturnsClassReflectionObject()
@@ -99,8 +139,12 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
 
-        $this->assertTrue($reflectionFile->getDocBlock() instanceof \Zend\Code\Reflection\DocBlockReflection);
-        $this->assertEquals('Jeremiah Small <jsmall@soliantconsulting.com>', $reflectionFile->getDocBlock()->getTag('author')->getContent());
+        $reflectionDocBlock = $reflectionFile->getDocBlock();
+        $this->assertTrue($reflectionDocBlock instanceof \Zend\Code\Reflection\DocBlockReflection);
+
+        $authorTag = $reflectionDocBlock->getTag('author');
+        $this->assertEquals('Jeremiah Small', $authorTag->getAuthorName());
+        $this->assertEquals('jsmall@soliantconsulting.com', $authorTag->getAuthorEmail());
     }
 
     public function testFileGetFunctionsReturnsFunctions()

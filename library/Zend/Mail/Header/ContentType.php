@@ -3,20 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mail
  */
 
 namespace Zend\Mail\Header;
 
 use Zend\Mail\Headers;
 
-/**
- * @category   Zend
- * @package    Zend_Mail
- * @subpackage Header
- */
 class ContentType implements HeaderInterface
 {
     /**
@@ -32,7 +26,7 @@ class ContentType implements HeaderInterface
     public static function fromString($headerLine)
     {
         $headerLine = iconv_mime_decode($headerLine, ICONV_MIME_DECODE_CONTINUE_ON_ERROR, 'UTF-8');
-        list($name, $value) = explode(': ', $headerLine, 2);
+        list($name, $value) = GenericHeader::splitHeaderLine($headerLine);
 
         // check to ensure proper header type for this factory
         if (strtolower($name) !== 'content-type') {
@@ -102,7 +96,7 @@ class ContentType implements HeaderInterface
      */
     public function setType($type)
     {
-        if (!preg_match('/^[a-z_-]+\/[a-z_-]+$/i', $type)) {
+        if (!preg_match('/^[a-z-]+\/[a-z0-9.+-]+$/i', $type)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a value in the format "type/subtype"; received "%s"',
                 __METHOD__,

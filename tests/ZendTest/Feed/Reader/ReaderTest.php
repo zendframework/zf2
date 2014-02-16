@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace ZendTest\Feed\Reader;
@@ -16,9 +15,6 @@ use Zend\Http\Response as HttpResponse;
 use Zend\Feed\Reader;
 
 /**
-* @category Zend
-* @package Zend_Feed
-* @subpackage UnitTests
 * @group Zend_Feed
 * @group Zend_Feed_Reader
 */
@@ -268,6 +264,11 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(Reader\Reader::isRegistered('JungleBooks'));
     }
 
+    /**
+     * This test is failing on windows:
+     * Failed asserting that exception of type "Zend\Feed\Reader\Exception\RuntimeException" matches expected exception "Zend\Feed\Reader\Exception\InvalidArgumentException". Message was: "DOMDocument cannot parse XML: Entity 'discloseInfo' failed to parse".
+     * @todo why is the assertEquals commented out?
+     */
     public function testXxePreventionOnFeedParsing()
     {
         $this->setExpectedException('Zend\Feed\Reader\Exception\InvalidArgumentException');
@@ -275,6 +276,30 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $string = str_replace('XXE_URI', $this->feedSamplePath.'/Reader/xxe-info.txt', $string);
         $feed = Reader\Reader::importString($string);
         //$this->assertEquals('info:', $feed->getTitle());
+    }
+
+    public function testImportRemoteFeedMethodPerformsAsExpected()
+    {
+        $uri = 'http://example.com/feeds/reader.xml';
+        $feedContents = file_get_contents($this->feedSamplePath . '/Reader/rss20.xml');
+        $response = $this->getMock('Zend\Feed\Reader\Http\ResponseInterface', array('getStatusCode', 'getBody'));
+        $response->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $response->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($feedContents));
+
+        $client = $this->getMock('Zend\Feed\Reader\Http\ClientInterface', array('get'));
+        $client->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo($uri))
+            ->will($this->returnValue($response));
+
+        $feed = Reader\Reader::importRemoteFeed($uri, $client);
+        $this->assertInstanceOf('Zend\Feed\Reader\Feed\FeedInterface', $feed);
+        $type = Reader\Reader::detectType($feed);
+        $this->assertEquals(Reader\Reader::TYPE_RSS_20, $type);
     }
 
     protected function _getTempDirectory()

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Log
  */
 
 namespace ZendTest\Log\Writer;
@@ -16,9 +15,6 @@ use Zend\Mail\Message as MailMessage;
 use Zend\Mail\Transport;
 
 /**
- * @category   Zend
- * @package    Zend_Log
- * @subpackage UnitTests
  * @group      Zend_Log
  */
 class MailTest extends \PHPUnit_Framework_TestCase
@@ -52,7 +48,9 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-        @unlink(__DIR__. '/' . self::FILENAME);
+        if (file_exists(__DIR__. '/' . self::FILENAME)) {
+            unlink(__DIR__. '/' . self::FILENAME);
+        }
     }
 
     /**
@@ -82,5 +80,35 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $contents = file_get_contents(__DIR__ . '/' . self::FILENAME);
         $this->assertContains('an info message', $contents);
         $this->assertContains('Subject: test', $contents);
+    }
+
+    public function testConstructWithOptions()
+    {
+        $message   = new MailMessage();
+        $transport = new Transport\File();
+        $options   = new Transport\FileOptions(array(
+                'path'      => __DIR__,
+                'callback'  => function (Transport\File $transport) {
+                    return MailTest::FILENAME;
+                },
+        ));
+        $transport->setOptions($options);
+
+        $formatter = new \Zend\Log\Formatter\Simple();
+        $filter    = new \Zend\Log\Filter\Mock();
+        $writer = new MailWriter(array(
+                'filters'   => $filter,
+                'formatter' => $formatter,
+                'mail'      => $message,
+                'transport' => $transport,
+        ));
+
+        $this->assertAttributeEquals($message, 'mail', $writer);
+        $this->assertAttributeEquals($transport, 'transport', $writer);
+        $this->assertAttributeEquals($formatter, 'formatter', $writer);
+
+        $filters = self::readAttribute($writer, 'filters');
+        $this->assertCount(1, $filters);
+        $this->assertEquals($filter, $filters[0]);
     }
 }

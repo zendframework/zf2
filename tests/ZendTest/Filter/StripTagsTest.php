@@ -3,19 +3,16 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Filter
  */
 
 namespace ZendTest\Filter;
 
 use Zend\Filter\StripTags as StripTagsFilter;
+use Zend\Stdlib\ErrorHandler;
 
 /**
- * @category   Zend
- * @package    Zend_Filter
- * @subpackage UnitTests
  * @group      Zend_Filter
  */
 class StripTagsTest extends \PHPUnit_Framework_TestCase
@@ -520,7 +517,7 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotClosedHtmlCommentAtEndOfString()
     {
-        $input    = 'text<!-- not closed comment at the end';;
+        $input    = 'text<!-- not closed comment at the end';
         $expected =  'text';
         $this->assertEquals($expected, $this->_filter->filter($input));
     }
@@ -537,5 +534,32 @@ class StripTagsTest extends \PHPUnit_Framework_TestCase
         $this->_filter->setAttributesAllowed(array('data-id','data-name'));
 
         $this->assertEquals($expected, $this->_filter->filter($input));
+    }
+
+    /**
+     * Ensures that a warning is raised if array is used
+     *
+     * @return void
+     */
+    public function testWarningIsRaisedIfArrayUsed()
+    {
+        $input = array('<li data-name="Test User" data-id="11223"></li>', '<li data-name="Test User 2" data-id="456789"></li>');
+
+        ErrorHandler::start(E_USER_WARNING);
+        $filtered = $this->_filter->filter($input);
+        $err = ErrorHandler::stop();
+
+        $this->assertEquals($input, $filtered);
+        $this->assertInstanceOf('ErrorException', $err);
+        $this->assertContains('cannot filter', $err->getMessage());
+    }
+
+    /**
+     * @return void
+     */
+    public function testReturnsNullIfNullIsUsed()
+    {
+        $filtered = $this->_filter->filter(null);
+        $this->assertNull($filtered);
     }
 }

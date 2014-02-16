@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Form
  */
 
 namespace ZendTest\Form\View\Helper;
@@ -37,6 +36,9 @@ class FormSelectTest extends CommonTestCase
             array(
                 'label' => 'This is the third label',
                 'value' => 'value3',
+                'attributes' => array(
+                    'class' => 'test-class',
+                ),
             ),
         );
         $element->setValueOptions($options);
@@ -58,6 +60,9 @@ class FormSelectTest extends CommonTestCase
         $this->assertContains('value="value1"', $markup);
         $this->assertContains('value="value2"', $markup);
         $this->assertContains('value="value3"', $markup);
+
+        //Test class attribute on third option
+        $this->assertRegexp('#option .*?value="value3" class="test-class"#', $markup);
     }
 
     public function testCanMarkSingleOptionAsSelected()
@@ -207,7 +212,7 @@ class FormSelectTest extends CommonTestCase
         $element->setValueOptions($options);
         $markup = $this->helper->render($element);
         list($value, $label) = each($options);
-        $this->assertRegexp(sprintf('#option .*?value="%s"#', (string)$value), $markup);
+        $this->assertRegexp(sprintf('#option .*?value="%s"#', (string) $value), $markup);
     }
 
     public function testInvokeWithNoElementChainsHelper()
@@ -237,6 +242,43 @@ class FormSelectTest extends CommonTestCase
 
         $markup = $this->helper->__invoke($element);
         $this->assertContains('>translated content<', $markup);
+    }
+
+    public function testCanTranslateOptGroupLabel()
+    {
+        $element = new SelectElement('test');
+        $element->setValueOptions(array(
+            'optgroup' => array(
+                'label' => 'translate me',
+                'options' => array(
+                    '0' => 'foo',
+                    '1' => 'bar',
+                ),
+            ),
+        ));
+
+        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator->expects($this->at(0))
+                       ->method('translate')
+                       ->with('translate me')
+                       ->will($this->returnValue('translated label'));
+        $mockTranslator->expects($this->at(1))
+                       ->method('translate')
+                       ->with('foo')
+                       ->will($this->returnValue('translated foo'));
+        $mockTranslator->expects($this->at(2))
+                       ->method('translate')
+                       ->with('bar')
+                       ->will($this->returnValue('translated bar'));
+
+        $this->helper->setTranslator($mockTranslator);
+        $this->assertTrue($this->helper->hasTranslator());
+
+        $markup = $this->helper->__invoke($element);
+
+        $this->assertContains('label="translated label"', $markup);
+        $this->assertContains('>translated foo<', $markup);
+        $this->assertContains('>translated bar<', $markup);
     }
 
     public function testTranslatorMethods()
@@ -322,6 +364,26 @@ class FormSelectTest extends CommonTestCase
         $this->assertNotContains('<option value=""></option>', $markup);
     }
 
+    public function testCanMarkOptionsAsSelectedWhenEmptyOptionOrZeroValueSelected()
+    {
+        $element = new SelectElement('foo');
+        $element->setEmptyOption('empty');
+        $element->setValueOptions(array(
+            0 => 'label0',
+            1 => 'label1',
+        ));
+
+        $element->setValue('');
+        $markup = $this->helper->render($element);
+        $this->assertContains('<option value="" selected="selected">empty</option>', $markup);
+        $this->assertContains('<option value="0">label0</option>', $markup);
+
+        $element->setValue('0');
+        $markup = $this->helper->render($element);
+        $this->assertContains('<option value="">empty</option>', $markup);
+        $this->assertContains('<option value="0" selected="selected">label0</option>', $markup);
+    }
+
     public function testRenderInputNotSelectElementRaisesException()
     {
         $element = new Element\Text('foo');
@@ -332,14 +394,6 @@ class FormSelectTest extends CommonTestCase
     public function testRenderElementWithNoNameRaisesException()
     {
         $element = new SelectElement();
-
-        $this->setExpectedException('Zend\Form\Exception\DomainException');
-        $this->helper->render($element);
-    }
-
-    public function testRenderElementWithNoValueOptionsRaisesException()
-    {
-        $element = new SelectElement('foo');
 
         $this->setExpectedException('Zend\Form\Exception\DomainException');
         $this->helper->render($element);

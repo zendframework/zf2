@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Http
  */
 
 namespace ZendTest\Http;
@@ -58,11 +57,21 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(303, $response->getStatusCode());
     }
 
+    public function testResponseSetStatusCodeWithUnknownCode()
+    {
+        $response = new Response;
+        $response->setStatusCode(606);
+        $this->assertEquals(606, $response->getStatusCode());
+    }
+
     public function testResponseSetStatusCodeThrowsExceptionOnInvalidCode()
     {
         $response = new Response;
-        $this->setExpectedException('Zend\Http\Exception\InvalidArgumentException', 'Invalid status code');
-        $response->setStatusCode(606);
+        $this->setExpectedException(
+            'Zend\Http\Exception\InvalidArgumentException',
+            'Invalid status code provided: "foo"'
+        );
+        $response->setStatusCode('foo');
     }
 
     public function testResponseEndsAtStatusCode()
@@ -88,7 +97,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('OK', $response->getReasonPhrase());
     }
 
-    public function testGzipResponse ()
+    public function testGzipResponse()
     {
         $response_text = file_get_contents(__DIR__ . '/_files/response_gzip');
 
@@ -99,7 +108,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('f24dd075ba2ebfb3bf21270e3fdc5303', md5($res->getContent()));
     }
 
-    public function testDeflateResponse ()
+    public function testDeflateResponse()
     {
         $response_text = file_get_contents(__DIR__ . '/_files/response_deflate');
 
@@ -131,7 +140,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('c830dd74bb502443cf12514c185ff174', md5($res->getContent()));
     }
 
-    public function testChunkedResponse ()
+    public function testChunkedResponse()
     {
         $response_text = file_get_contents(__DIR__ . '/_files/response_chunked');
 
@@ -272,7 +281,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response = Response::fromString($response_str);
 
         $this->assertEquals(strtolower(str_replace("\n", "\r\n", $response_str)), strtolower($response->toString()), 'Response convertion to string does not match original string');
-        $this->assertEquals(strtolower(str_replace("\n", "\r\n", $response_str)), strtolower((string)$response), 'Response convertion to string does not match original string');
+        $this->assertEquals(strtolower(str_replace("\n", "\r\n", $response_str)), strtolower((string) $response), 'Response convertion to string does not match original string');
     }
 
     public function testToStringGzip()
@@ -281,7 +290,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response = Response::fromString($response_str);
 
         $this->assertEquals(strtolower($response_str), strtolower($response->toString()), 'Response convertion to string does not match original string');
-        $this->assertEquals(strtolower($response_str), strtolower((string)$response), 'Response convertion to string does not match original string');
+        $this->assertEquals(strtolower($response_str), strtolower((string) $response), 'Response convertion to string does not match original string');
     }
 
     public function testGetHeaders()
@@ -303,8 +312,23 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     public function testUnknownCode()
     {
         $response_str = $this->readResponse('response_unknown');
-        $this->setExpectedException('InvalidArgumentException', 'Invalid status code provided: "550"');
         $response = Response::fromString($response_str);
+        $this->assertEquals(550, $response->getStatusCode());
+    }
+
+    /**
+     * @group 5253
+     */
+    public function testMultilineHeaderNoSpaces()
+    {
+        $response = Response::fromString($this->readResponse('response_multiline_header_nospace'));
+
+        // Make sure we got the corrent no. of headers
+        $this->assertEquals(6, count($response->getHeaders()), 'Header count is expected to be 6');
+
+        // Check header integrity
+        $this->assertEquals('timeout=15,max=100', $response->getHeaders()->get('keep-alive')->getFieldValue());
+        $this->assertEquals('text/html;charset=iso-8859-1', $response->getHeaders()->get('content-type')->getFieldValue());
     }
 
     public function testMultilineHeader()

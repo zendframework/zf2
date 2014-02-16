@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Config
  */
 
 namespace ZendTest\Config;
@@ -13,9 +12,6 @@ namespace ZendTest\Config;
 use Zend\Config\Config;
 
 /**
- * @category   Zend
- * @package    Zend_Config
- * @subpackage UnitTests
  * @group      Zend_Config
  */
 class ConfigTest extends \PHPUnit_Framework_TestCase
@@ -179,6 +175,15 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $data = new Config($this->menuData1);
         $this->assertEquals(3, count($data->button));
+    }
+
+    public function testCountAfterMerge()
+    {
+        $data = new Config($this->toCombineB);
+        $data->merge(
+            new Config($this->toCombineA)
+        );
+        $this->assertEquals(count($data->toArray()), $data->count());
     }
 
     public function testIterator()

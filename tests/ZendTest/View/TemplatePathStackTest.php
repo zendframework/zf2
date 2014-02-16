@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
  */
 
 namespace ZendTest\View;
@@ -13,9 +12,6 @@ namespace ZendTest\View;
 use Zend\View\Resolver\TemplatePathStack;
 
 /**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
  * @group      Zend_View
  */
 class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
@@ -186,6 +182,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
         $options = array(
             'lfi_protection'     => false,
             'use_stream_wrapper' => true,
+            'default_suffix'     => 'php',
         );
         return array(
             array($options),
@@ -204,6 +201,8 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
 
         $expected = (bool) ini_get('short_open_tag');
         $this->assertSame($expected, $this->stack->useStreamWrapper());
+
+        $this->assertSame($arg['default_suffix'], $this->stack->getDefaultSuffix());
 
         $this->assertEquals(array_reverse($this->paths), $this->stack->getPaths()->toArray());
     }

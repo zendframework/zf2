@@ -4,9 +4,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Mvc
  */
 
 namespace ZendTest\Mvc\Controller\Plugin;
@@ -19,15 +18,11 @@ use Zend\Mvc\Router\Http\Literal as LiteralRoute;
 use Zend\Mvc\Router\Http\Segment as SegmentRoute;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\SimpleRouteStack;
+use Zend\Mvc\ModuleRouteListener;
 use Zend\Stdlib\Parameters;
 use ZendTest\Mvc\Controller\TestAsset\SampleController;
 use ZendTest\Session\TestAsset\TestManager as SessionManager;
 
-/**
- * @category   Zend
- * @package    Zend_Mvc
- * @subpackage UnitTests
- */
 class PostRedirectGetTest extends TestCase
 {
     public $controller;
@@ -52,6 +47,14 @@ class PostRedirectGetTest extends TestCase
             )
         )));
 
+        $router->addRoute('ctl', SegmentRoute::factory(array(
+            'route' => '/ctl/:controller',
+            'defaults' => array(
+                '__NAMESPACE__' => 'ZendTest\Mvc\Controller\TestAsset',
+                'controller' => 'sample'
+            )
+        )));
+
         $this->controller = new SampleController();
         $this->request    = new Request();
         $this->event      = new MvcEvent();
@@ -65,7 +68,8 @@ class PostRedirectGetTest extends TestCase
         $this->sessionManager->destroy();
 
         $this->controller->setEvent($this->event);
-        $this->controller->flashMessenger()->setSessionManager($this->sessionManager);
+        $plugins = $this->controller->getPluginManager();
+        $plugins->get('flashmessenger')->setSessionManager($this->sessionManager);
     }
 
     public function testReturnsFalseOnIntialGet()
@@ -106,6 +110,37 @@ class PostRedirectGetTest extends TestCase
         $this->assertTrue($prgResultRoute->getHeaders()->has('Location'));
         $this->assertEquals('/', $prgResultRoute->getHeaders()->get('Location')->getUri());
         $this->assertEquals(303, $prgResultRoute->getStatusCode());
+    }
+
+    public function testReturnsPostOnRedirectGet()
+    {
+        $params = array(
+            'postval1' => 'value1'
+        );
+        $this->request->setMethod('POST');
+        $this->request->setPost(new Parameters($params));
+
+        $result         = $this->controller->dispatch($this->request, $this->response);
+        $prgResultRoute = $this->controller->prg('home');
+
+        $this->assertInstanceOf('Zend\Http\Response', $prgResultRoute);
+        $this->assertTrue($prgResultRoute->getHeaders()->has('Location'));
+        $this->assertEquals('/', $prgResultRoute->getHeaders()->get('Location')->getUri());
+        $this->assertEquals(303, $prgResultRoute->getStatusCode());
+
+        // Do GET
+        $this->request = new Request();
+        $this->controller->dispatch($this->request, $this->response);
+        $prgResult = $this->controller->prg('home');
+
+        $this->assertEquals($params, $prgResult);
+
+        // Do GET again to make sure data is empty
+        $this->request = new Request();
+        $this->controller->dispatch($this->request, $this->response);
+        $prgResult = $this->controller->prg('home');
+
+        $this->assertFalse($prgResult);
     }
 
     /**
@@ -158,6 +193,30 @@ class PostRedirectGetTest extends TestCase
         $this->assertInstanceOf('Zend\Http\Response', $prgResultRoute);
         $this->assertTrue($prgResultRoute->getHeaders()->has('Location'));
         $this->assertEquals('/foo/1', $prgResultRoute->getHeaders()->get('Location')->getUri());
+        $this->assertEquals(303, $prgResultRoute->getStatusCode());
+    }
+
+    public function testReuseMatchedParametersWithSegmentController()
+    {
+        $expects = '/ctl/sample';
+        $this->request->setMethod('POST');
+        $this->request->setUri($expects);
+        $this->request->setPost(new Parameters(array(
+            'postval1' => 'value1'
+        )));
+
+        $routeMatch = $this->event->getRouter()->match($this->request);
+        $this->event->setRouteMatch($routeMatch);
+
+        $moduleRouteListener = new ModuleRouteListener;
+        $moduleRouteListener->onRoute($this->event);
+
+        $this->controller->dispatch($this->request, $this->response);
+        $prgResultRoute = $this->controller->prg();
+
+        $this->assertInstanceOf('Zend\Http\Response', $prgResultRoute);
+        $this->assertTrue($prgResultRoute->getHeaders()->has('Location'));
+        $this->assertEquals($expects, $prgResultRoute->getHeaders()->get('Location')->getUri() , 'expects to redirect for the same url');
         $this->assertEquals(303, $prgResultRoute->getStatusCode());
     }
 }

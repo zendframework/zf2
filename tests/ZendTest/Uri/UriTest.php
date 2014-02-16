@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Uri
  */
 
 namespace ZendTest\Uri;
@@ -13,9 +12,6 @@ namespace ZendTest\Uri;
 use Zend\Uri\Uri;
 
 /**
- * @category   Zend
- * @package    Zend_Uri
- * @subpackage UnitTests
  * @group      Zend_Uri
  */
 class UriTest extends \PHPUnit_Framework_TestCase
@@ -902,7 +898,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
      * Valid query or fragment parts
      *
      * Each valid query or fragment part should require no encoding and if
-     * passed throuh an encoding method shoudl return unchanged.
+     * passed throuh an encoding method should return unchanged.
      *
      * @return array
      */
@@ -979,19 +975,19 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $obj2 = new Uri;
         $obj2->setPath('//path');
 
-        // A object with port
+        // An object with port
         $obj3 = new Uri;
         $obj3->setPort(123);
 
-        // A object with userInfo
+        // An object with userInfo
         $obj4 = new Uri;
         $obj4->setUserInfo('shahar:password');
 
-        // A object with scheme
+        // An object with scheme
         $obj5 = new Uri;
         $obj5->setScheme('https');
 
-        // A object with host
+        // An object with host
         $obj6 = new Uri;
         $obj6->setHost('example.com');
 
@@ -1335,4 +1331,18 @@ class UriTest extends \PHPUnit_Framework_TestCase
             array(array('scheme' => 'http', 'host' => 'example.com'))
         );
     }
+
+    public function testParseTwice()
+    {
+        $uri  = new Uri();
+        $uri->parse('http://user@example.com:1/absolute/url?query#fragment');
+        $uri->parse('/relative/url');
+        $this->assertNull($uri->getScheme());
+        $this->assertNull($uri->getHost());
+        $this->assertNull($uri->getUserInfo());
+        $this->assertNull($uri->getPort());
+        $this->assertNull($uri->getQuery());
+        $this->assertNull($uri->getFragment());
+    }
+
 }

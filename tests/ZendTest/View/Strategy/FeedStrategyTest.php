@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
  */
 
 namespace ZendTest\View\Strategy;
@@ -22,11 +21,6 @@ use Zend\View\Renderer\FeedRenderer;
 use Zend\View\Strategy\FeedStrategy;
 use Zend\View\ViewEvent;
 
-/**
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- */
 class FeedStrategyTest extends TestCase
 {
     public function setUp()
@@ -44,35 +38,31 @@ class FeedStrategyTest extends TestCase
         $this->assertSame($this->renderer, $result);
     }
 
-    public function testRssAcceptHeaderSelectsFeedStrategy()
+    /**
+     * @group #2410
+     */
+    public function testRssAcceptHeaderDoesNotSelectFeedStrategy()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/rss+xml');
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
+        $this->assertNotSame($this->renderer, $result);
     }
 
-    public function testAtomAcceptHeaderSelectsFeedStrategy()
+    /**
+     * @group #2410
+     */
+    public function testAtomAcceptHeaderDoesNotSelectFeedStrategy()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/atom+xml');
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
+        $this->assertNotSame($this->renderer, $result);
     }
 
-    public function testViewModelMatchedAcceptHeaderMatchSelectsFeedStrategy()
-    {
-        $this->event->setModel(new FeedModel());
-        $request = new HttpRequest();
-        $request->getHeaders()->addHeaderLine('Accept', '*/*');
-        $this->event->setRequest($request);
-        $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
-    }
-
-    public function testViewModelAcceptHeaderSelectsFeedStrategyAndSetsFeedtype()
+    public function testAcceptHeaderDoesNotSetFeedtype()
     {
         $this->event->setModel(new FeedModel());
         $request = new HttpRequest();
@@ -80,7 +70,7 @@ class FeedStrategyTest extends TestCase
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertSame($this->renderer, $result);
-        $this->assertSame('atom', $result->getFeedType());
+        $this->assertNotSame('atom', $result->getFeedType());
     }
 
     public function testLackOfFeedModelOrAcceptHeaderDoesNotSelectFeedStrategy()

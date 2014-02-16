@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Json
  */
 
 namespace ZendTest\Json;
@@ -15,12 +14,11 @@ use Zend\Json;
 use Zend\Json\Server\Request;
 use Zend\Json\Server\Response;
 
+require_once __DIR__ . '/TestAsset/FooFunc.php';
+
 /**
  * Test class for Zend_JSON_Server
  *
- * @category   Zend
- * @package    Zend_JSON_Server
- * @subpackage UnitTests
  * @group      Zend_JSON
  * @group      Zend_JSON_Server
  */
@@ -240,8 +238,8 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleValidMethodShouldWork()
     {
-        $this->server->setClass('ZendTest\\Json\\Foo')
-                     ->addFunction('ZendTest\\Json\\FooFunc')
+        $this->server->setClass('ZendTest\\Json\\TestAsset\\Foo')
+                     ->addFunction('ZendTest\\Json\\TestAsset\\FooFunc')
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -252,7 +250,21 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($response->isError());
 
 
-        $request->setMethod('ZendTest\\Json\\FooFunc')
+        $request->setMethod('ZendTest\\Json\\TestAsset\\FooFunc')
+                ->setId('foo');
+        $response = $this->server->handle();
+        $this->assertTrue($response instanceof Response);
+        $this->assertFalse($response->isError());
+    }
+
+    public function testHandleValidMethodWithNULLParamValueShouldWork()
+    {
+        $this->server->setClass('ZendTest\\Json\\TestAsset\\Foo')
+                     ->addFunction('ZendTest\\Json\\TestAsset\\FooFunc')
+                     ->setReturnResponse(true);
+        $request = $this->server->getRequest();
+        $request->setMethod('bar')
+                ->setParams(array(true, NULL, 'bar'))
                 ->setId('foo');
         $response = $this->server->handle();
         $this->assertTrue($response instanceof Response);
@@ -261,7 +273,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleValidMethodWithTooFewParamsShouldPassDefaultsOrNullsForMissingParams()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -277,9 +289,27 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($result[2]);
     }
 
+    public function testHandleValidMethodWithTooFewAssociativeParamsShouldPassDefaultsOrNullsForMissingParams()
+    {
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
+                     ->setReturnResponse(true);
+        $request = $this->server->getRequest();
+        $request->setMethod('bar')
+                ->setParams(array('one' => true))
+                ->setId('foo');
+        $response = $this->server->handle();
+        $this->assertTrue($response instanceof Response);
+        $this->assertFalse($response->isError());
+        $result = $response->getResult();
+        $this->assertTrue(is_array($result));
+        $this->assertTrue(3 == count($result));
+        $this->assertEquals('two', $result[1], var_export($result, 1));
+        $this->assertNull($result[2]);
+    }
+
     public function testHandleValidMethodWithTooManyParamsShouldWork()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -297,7 +327,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleShouldAllowNamedParamsInAnyOrder1()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -318,7 +348,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleShouldAllowNamedParamsInAnyOrder2()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -339,7 +369,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleValidWithoutRequiredParamShouldReturnError()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -357,7 +387,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleRequestWithErrorsShouldReturnErrorResponse()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
                      ->setReturnResponse(true);
         $response = $this->server->handle();
         $this->assertTrue($response instanceof Response);
@@ -367,7 +397,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleRequestWithInvalidMethodShouldReturnErrorResponse()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bogus')
@@ -380,7 +410,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleRequestWithExceptionShouldReturnErrorResponse()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo')
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('baz')
@@ -394,7 +424,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleShouldEmitResponseByDefault()
     {
-        $this->server->setClass('ZendTest\Json\Foo');
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo');
         $request = $this->server->getRequest();
         $request->setMethod('bar')
                 ->setParams(array(true, 'foo', 'bar'))
@@ -415,7 +445,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testResponseShouldBeEmptyWhenRequestHasNoId()
     {
-        $this->server->setClass('ZendTest\Json\Foo');
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo');
         $request = $this->server->getRequest();
         $request->setMethod('bar')
                 ->setParams(array(true, 'foo', 'bar'));
@@ -428,49 +458,40 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadFunctionsShouldLoadResultOfGetFunctions()
     {
-        $this->server->setClass('ZendTest\Json\Foo');
+        $this->server->setClass('ZendTest\Json\TestAsset\Foo');
         $functions = $this->server->getFunctions();
         $server = new Server\Server();
         $server->loadFunctions($functions);
         $this->assertEquals($functions->toArray(), $server->getFunctions()->toArray());
     }
-}
-
-/**
- * Class for testing JSON-RPC server
- */
-class Foo
-{
-    /**
-     * Bar
-     *
-     * @param  bool $one
-     * @param  string $two
-     * @param  mixed $three
-     * @return array
-     */
-    public function bar($one, $two = 'two', $three = null)
-    {
-        return array($one, $two, $three);
-    }
 
     /**
-     * Baz
-     *
-     * @return void
+     * @group ZF-4604
      */
-    public function baz()
+    public function testAddFunctionAndClassThatContainsConstructor()
     {
-        throw new \Exception('application error');
-    }
-}
+        $bar = new TestAsset\Bar('unique');
 
-/**
- * Test function for JSON-RPC server
- *
- * @return bool
- */
-function FooFunc()
-{
-    return true;
+        $this->server->addFunction(array($bar, 'foo'));
+
+        $request = $this->server->getRequest();
+        $request->setMethod('foo')
+            ->setParams(array(true, 'foo', 'bar'))
+            ->setId('foo');
+        ob_start();
+        $this->server->handle();
+        $buffer = ob_get_clean();
+
+        $decoded = Json\Json::decode($buffer, Json\Json::TYPE_ARRAY);
+
+        $this->assertTrue(is_array($decoded));
+        $this->assertTrue(array_key_exists('result', $decoded));
+        $this->assertTrue(array_key_exists('id', $decoded));
+        $this->assertTrue(in_array('unique', $decoded['result']));
+
+        $response = $this->server->getResponse();
+        $this->assertEquals($response->getResult(), $decoded['result']);
+        $this->assertEquals($response->getId(), $decoded['id']);
+
+    }
 }

@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace ZendTest\Feed\Writer;
@@ -13,12 +12,9 @@ namespace ZendTest\Feed\Writer;
 use DateTime;
 use Zend\Feed\Writer;
 use Zend\Feed\Writer\Feed;
-use Zend\Version\Version;
+use Zend\Feed\Writer\Version;
 
 /**
- * @category   Zend
- * @package    Zend_Feed
- * @subpackage UnitTests
  * @group      Zend_Feed
  * @group      Zend_Feed_Writer
  */
@@ -1025,6 +1021,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
 
 EOT;
         $feed = str_replace('%version%', Version::VERSION, $feed);
+        $feed = str_replace("\r\n", "\n", $feed);
         $this->assertEquals($feed, $export);
     }
 
@@ -1046,6 +1043,7 @@ EOT;
 
 EOT;
         $feed = str_replace('%version%', Version::VERSION, $feed);
+        $feed = str_replace("\r\n", "\n", $feed);
         $this->assertEquals($feed, $export);
     }
 
@@ -1060,5 +1058,31 @@ EOT;
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
+    }
+
+    public function testFluentInterface()
+    {
+        $writer = new Writer\Feed;
+        $return = $writer->addAuthor(array('name' => 'foo'))
+                         ->addAuthors(array(array('name' => 'foo')))
+                         ->setCopyright('copyright')
+                         ->addCategories(array(array('term' => 'foo')))
+                         ->addCategory(array('term' => 'foo'))
+                         ->addHub('foo')
+                         ->addHubs(array('foo'))
+                         ->setBaseUrl('http://www.example.com')
+                         ->setDateCreated(null)
+                         ->setDateModified(null)
+                         ->setDescription('description')
+                         ->setEncoding('utf-8')
+                         ->setId('1')
+                         ->setImage(array('uri' => 'http://www.example.com'))
+                         ->setLanguage('fr')
+                         ->setLastBuildDate(null)
+                         ->setLink('foo')
+                         ->setTitle('foo')
+                         ->setType('foo');
+
+        $this->assertSame($return, $writer);
     }
 }

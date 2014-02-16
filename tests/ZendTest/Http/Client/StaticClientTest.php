@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Http
  */
 
 namespace ZendTest\Http\Client;
@@ -17,9 +16,6 @@ use Zend\Http\Client;
 /**
  * This are the test for the prototype of Zend\Http\Client
  *
- * @category   Zend
- * @package    Zend\Http\Client
- * @subpackage UnitTests
  * @group      Zend\Http
  * @group      Zend\Http\Client
  */
@@ -78,6 +74,24 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($response->isSuccess());
         $this->assertContains('foo', $response->getBody());
         $this->assertContains('bar', $response->getBody());
+    }
+
+    /**
+     * Test GET with body
+     */
+    public function testHttpGetWithBody()
+    {
+        $getBody = 'baz';
+
+        $response= HTTPClient::get($this->baseuri . 'testRawGetData.php',
+                                   array('foo' => 'bar'),
+                                   array(),
+                                   $getBody);
+
+        $this->assertTrue($response->isSuccess());
+        $this->assertContains('foo', $response->getBody());
+        $this->assertContains('bar', $response->getBody());
+        $this->assertContains($getBody, $response->getBody());
     }
 
     /**

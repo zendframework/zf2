@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
  */
 
 namespace ZendTest\Navigation\Page;
@@ -20,9 +19,6 @@ use Zend\Config;
  * Tests the class Zend_Navigation_Page
  *
  * @author    Robin Skoglund
- * @category   Zend
- * @package    Zend_Navigation
- * @subpackage UnitTests
  * @group      Zend_Navigation
  */
 class PageTest extends \PHPUnit_Framework_TestCase
@@ -1099,6 +1095,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
 
             'resource' => 'joker',
             'privilege' => null,
+            'permission' => null,
 
             'foo'      => 'bar',
             'meaning'  => 42,
@@ -1117,6 +1114,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
                     'order'     => null,
                     'resource'  => null,
                     'privilege' => null,
+                    'permission' => null,
                     'active'    => null,
                     'visible'   => 1,
                     'pages'     => array(),
@@ -1136,6 +1134,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
                     'order'     => null,
                     'resource'  => null,
                     'privilege' => null,
+                    'permission' => null,
                     'active'    => null,
                     'visible'   => 1,
                     'pages'     => array(),
@@ -1153,5 +1152,40 @@ class PageTest extends \PHPUnit_Framework_TestCase
         ksort($options);
         ksort($toArray);
         $this->assertEquals($options, $toArray);
+    }
+
+    public function testSetPermission()
+    {
+        $page = AbstractPage::factory(array(
+            'type'       => 'uri'
+        ));
+
+        $page->setPermission('my_permission');
+        $this->assertEquals('my_permission', $page->getPermission());
+    }
+
+    public function testSetArrayPermission()
+    {
+        $page = AbstractPage::factory(array(
+            'type'       => 'uri'
+        ));
+
+        $page->setPermission(array('my_permission', 'other_permission'));
+        $this->assertInternalType('array', $page->getPermission());
+        $this->assertCount(2, $page->getPermission());
+    }
+
+    public function testSetObjectPermission()
+    {
+        $page = AbstractPage::factory(array(
+            'type'       => 'uri'
+        ));
+
+        $permission = new \stdClass();
+        $permission->name = 'my_permission';
+
+        $page->setPermission($permission);
+        $this->assertInstanceOf('stdClass', $page->getPermission());
+        $this->assertEquals('my_permission', $page->getPermission()->name);
     }
 }

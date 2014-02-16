@@ -3,9 +3,8 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Feed
  */
 
 namespace ZendTest\Feed\PubSubHubbub\Subscriber;
@@ -18,9 +17,6 @@ use Zend\Feed\PubSubHubbub\Subscriber\Callback as CallbackSubscriber;
 use ArrayObject;
 
 /**
- * @category   Zend
- * @package    Zend_Feed
- * @subpackage UnitTests
  * @group      Zend_Feed
  * @group      Zend_Feed_Subsubhubbub
  */
@@ -280,17 +276,9 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(1));
 
         $this->_tableGateway->expects($this->once())
-            ->method('update')
-            ->with(
-            $this->equalTo(array('id'                => 'verifytokenkey',
-                                 'verify_token'      => hash('sha256', 'cba'),
-                                 'created_time'      => $t->getTimestamp(),
-                                 'lease_seconds'     => 1234567,
-                                 'subscription_state'=> 'verified',
-                                 'expiration_time'   => $t->add(new DateInterval('PT1234567S'))
-                                     ->format('Y-m-d H:i:s'))),
-            $this->equalTo(array('id' => 'verifytokenkey'))
-        );
+            ->method('delete')
+            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->will($this->returnValue(true));
 
         $this->_callback->handle($this->_get);
         $this->assertTrue($this->_callback->getHttpResponse()->getStatusCode() == 200);
