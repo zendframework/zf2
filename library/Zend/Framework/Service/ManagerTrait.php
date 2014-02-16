@@ -10,15 +10,10 @@
 namespace Zend\Framework\Service;
 
 use Exception;
-use Zend\Framework\Service\Factory\FactoryTrait;
+use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 
 trait ManagerTrait
 {
-    /**
-     *
-     */
-    use FactoryTrait;
-
     /**
      * @var ConfigInterface
      */
@@ -50,7 +45,7 @@ trait ManagerTrait
 
         $options = $options ? (is_array($options) ? $options : [$options]) : [];
 
-        return $this->instance($this->request($name, $shared), $options);
+        return $this->service($this->request($name, $shared), $options);
     }
 
     /**
@@ -59,7 +54,7 @@ trait ManagerTrait
      * @return bool|object
      * @throws Exception
      */
-    protected function instance(EventInterface $request, array $options = [])
+    protected function service(EventInterface $request, array $options = [])
     {
         $alias    = $request->alias();
         $services = $this->services;

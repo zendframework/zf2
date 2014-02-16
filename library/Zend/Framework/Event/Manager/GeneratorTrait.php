@@ -71,17 +71,10 @@ trait GeneratorTrait
     /**
      * @param Event $event
      * @param null $options
-     * @param bool $shared
      * @return null
      */
-    public function __invoke(Event $event, $options = null, $shared = false)
+    public function __invoke(Event $event, $options = null)
     {
-        $name = $event->name();
-
-        if ($shared && $name && isset($this->events[$name])) {
-            return $this->events[$name];
-        }
-
         $result = null;
 
         foreach($this->match($event) as $listener) {
@@ -91,10 +84,6 @@ trait GeneratorTrait
             if ($event->stopped()) {
                 break;
             }
-        }
-
-        if ($shared && $name) {
-            $this->events[$name] = $result;
         }
 
         return $result;

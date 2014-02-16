@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service\Factory;
 
-trait FactoryTrait
+trait ServiceTrait
 {
     /**
      * @param array|callable|FactoryInterface|object|string $factory
