@@ -21,6 +21,11 @@ trait ManagerTrait
     protected $services;
 
     /**
+     * @var array
+     */
+    protected $alias = [];
+
+    /**
      * @param $name
      * @param $service
      * @return self
@@ -35,7 +40,10 @@ trait ManagerTrait
      * @param string $alias
      * @return string
      */
-    abstract protected function alias($alias);
+    protected function alias($alias)
+    {
+        return isset($this->alias[$lowercase = strtolower($alias)]) ? $this->alias[$lowercase] : $alias;
+    }
 
     /**
      * @param array|callable|FactoryInterface|object|string $factory

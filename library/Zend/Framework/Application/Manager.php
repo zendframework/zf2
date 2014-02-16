@@ -42,15 +42,6 @@ class Manager
     }
 
     /**
-     * @param string $alias
-     * @return string
-     */
-    protected function alias($alias)
-    {
-        return $alias;
-    }
-
-    /**
      * Retrieve event from service manager
      *
      * @param array|EventInterface|string $event

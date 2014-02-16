@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\ConfigInterface as ServiceConfig;
 use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
@@ -21,8 +20,7 @@ class Manager
     /**
      *
      */
-    use Alias,
-        ManagerTrait,
+    use ManagerTrait,
         ServiceFactory,
         ServiceManager;
 
