@@ -18,11 +18,6 @@ use Zend\Framework\Event\ListenerTrait as EventListener;
 trait GeneratorTrait
 {
     /**
-     * @var array
-     */
-    protected $events = [];
-
-    /**
      * @param string|Listener $listener
      * @return Listener
      */

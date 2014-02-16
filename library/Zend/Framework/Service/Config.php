@@ -10,6 +10,7 @@
 namespace Zend\Framework\Service;
 
 use ArrayObject;
+use Serializable;
 
 class Config
     extends ArrayObject
@@ -96,5 +97,25 @@ class Config
         $this->pending[$name] = true;
 
         return false;
+    }
+
+    /**
+     * @return string|void
+     */
+    public function serialize()
+    {
+        $this->pending = [];
+
+        $share = [];
+
+        foreach($this->shared as $name => $shared) {
+            if (is_scalar($shared) || is_array($shared) || $shared instanceof Serializable) {
+                $share[$name] = $shared;
+            }
+        }
+
+        $this->shared = $share;
+
+        return parent::serialize();
     }
 }
