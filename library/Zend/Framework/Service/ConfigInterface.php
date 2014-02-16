@@ -20,10 +20,9 @@ interface ConfigInterface
 
     /**
      * @param string $name
-     * @param null $default
      * @return mixed
      */
-    public function config($name, $default = null);
+    public function config($name);
 
     /**
      * @param string $name

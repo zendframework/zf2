@@ -17,6 +17,21 @@ class Config
     implements ConfigInterface
 {
     /**
+     * @var array
+     */
+    protected $config = [];
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+
+        $this->config = $config;
+    }
+
+    /**
      * @param string $name
      * @param string|Listener $listener
      * @param $priority
@@ -79,5 +94,24 @@ class Config
         }
 
         return $this;
+    }
+
+    /**
+     * @return string|void
+     */
+    public function serialize()
+    {
+        $this->exchangeArray([]);
+
+        return serialize($this->config);
+    }
+
+    /**
+     * @param string $serialized
+     * @return void|Config
+     */
+    public function unserialize($serialized)
+    {
+        return new self(unserialize($serialized));
     }
 }

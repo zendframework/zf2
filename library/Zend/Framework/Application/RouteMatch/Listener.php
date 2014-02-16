@@ -29,6 +29,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->sm->get($event->routeMatch()->getParam('controller'), $event->routeMatch());
+        return $this->sm->get($event->routeMatch()->getParam('controller'), $event->routeMatch(), false);
     }
 }

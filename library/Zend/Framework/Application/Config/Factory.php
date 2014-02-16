@@ -22,6 +22,6 @@ class Factory
      */
     public function __invoke(Request $request, array $config = [])
     {
-        return $config;
+        return require 'config/application.config.php';
     }
 }

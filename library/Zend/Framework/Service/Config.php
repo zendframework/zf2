@@ -18,12 +18,20 @@ class Config
     /**
      * @var array
      */
-    protected $pending = [];
+    protected $config = [];
 
     /**
      * @var array
      */
-    protected $shared = [];
+    protected $pending = [];
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config = [])
+    {
+        $this->config = $config;
+    }
 
     /**
      * @param string $name
@@ -32,23 +40,20 @@ class Config
      */
     public function add($name, $service)
     {
-        $this->shared[$name] = $service;
+        $this[$name] = $service;
+
         $this->pending[$name] = false;
+
         return $this;
     }
 
     /**
      * @param $name
-     * @param null $default
      * @return mixed
      */
-    public function config($name, $default = null)
+    public function config($name)
     {
-        if (isset($this[$name])) {
-            return $this[$name];
-        }
-
-        return $default;
+        return isset($this->config[$name]) ? $this->config[$name] : null;
     }
 
     /**
@@ -57,11 +62,7 @@ class Config
      */
     public function get($name)
     {
-        if (isset($this->shared[$name])) {
-            return $this->shared[$name];
-        }
-
-        return null;
+        return isset($this[$name]) ? $this[$name] : null;
     }
 
     /**
@@ -70,7 +71,7 @@ class Config
      */
     public function has($name)
     {
-        return !empty($this->shared[$name]);
+        return !empty($this[$name]);
     }
 
     /**
@@ -103,7 +104,19 @@ class Config
      */
     public function serialize()
     {
-        $this->pending = $this->shared = [];
-        return parent::serialize();
+        $this->pending = [];
+
+        $this->exchangeArray([]);
+
+        return serialize($this->config);
+    }
+
+    /**
+     * @param string $serialized
+     * @return void|Config
+     */
+    public function unserialize($serialized)
+    {
+        return new self(unserialize($serialized));
     }
 }
