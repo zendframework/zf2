@@ -102,9 +102,8 @@ trait ManagerTrait
         $alias    = $request->alias();
         $name     = $this->alias($alias);
         $services = $this->services;
-
-        $config  = $services->config($name);
-        $service = $services->get($name);
+        $config   = $services->config($name);
+        $service  = $services->get($name);
 
         if (!$config && !$service) {
             return false;
