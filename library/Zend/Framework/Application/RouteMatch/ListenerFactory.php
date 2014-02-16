@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Controller;
+namespace Zend\Framework\Application\RouteMatch;
 
 use Zend\Framework\Service\EventInterface as Request;
 use Zend\Framework\Service\Factory\Factory;

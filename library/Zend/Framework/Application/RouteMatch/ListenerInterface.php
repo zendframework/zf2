@@ -7,28 +7,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Controller;
+namespace Zend\Framework\Application\RouteMatch;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Event\ListenerTrait as EventListener;
-use Zend\Framework\Service\ServiceTrait as ServiceManager;
+use Zend\Framework\Event\ListenerInterface as Listener;
 
-class Listener
-    implements ListenerInterface
+interface ListenerInterface
+    extends Listener
 {
-    /**
-     *
-     */
-    use EventListener,
-        ServiceManager;
-
     /**
      * @param EventInterface $event
      * @param null $options
      * @return mixed
      */
-    public function __invoke(EventInterface $event, $options = null)
-    {
-        return $this->sm->get($event->routeMatch()->getParam('controller'), $event->routeMatch());
-    }
+    public function __invoke(EventInterface $event, $options = null);
 }
