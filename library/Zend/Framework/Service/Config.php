@@ -108,7 +108,6 @@ class Config
      */
     public function serialize()
     {
-        $this->pending = $this->service = [];
         return serialize($this->config);
     }
 
