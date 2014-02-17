@@ -301,4 +301,10 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests', 'PUT', array('a' => 1));
         $this->assertEquals('a=1', $this->getRequest()->getContent());
     }
+    
+    public function testCustomResponseObject()
+    {
+        $this->dispatch('/custom-response');
+        $this->assertResponseStatusCode(999);
+    }
 }
