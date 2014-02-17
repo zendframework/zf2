@@ -20,6 +20,19 @@ interface ConfigInterface
 
     /**
      * @param string $name
+     * @param callable $delegate
+     * @return self
+     */
+    public function assign($name, $delegate);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function assigned($name);
+
+    /**
+     * @param string $name
      * @return mixed
      */
     public function config($name);

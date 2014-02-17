@@ -17,6 +17,11 @@ class Config
     /**
      * @var array
      */
+    protected $assigned = [];
+
+    /**
+     * @var array
+     */
     protected $config = [];
 
     /**
@@ -45,10 +50,27 @@ class Config
     public function add($name, $service)
     {
         $this->service[$name] = $service;
-
-        $this->pending[$name] = false;
-
         return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param callable $callable
+     * @return self
+     */
+    public function assign($name, $callable)
+    {
+        $this->assigned[$name] = $callable;
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function assigned($name)
+    {
+        return isset($this->assigned[$name]) ? $this->assigned[$name] : null;
     }
 
     /**

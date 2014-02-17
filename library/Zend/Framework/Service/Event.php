@@ -41,12 +41,12 @@ class Event
     }
 
     /**
-     * @param FactoryInterface $factory
+     * @param callable $factory
      * @param array $options
      * @return mixed
      */
-    public function __invoke(FactoryInterface $factory, array $options = [])
+    public function __invoke(callable $factory, array $options = [])
     {
-        return $factory->__invoke($this, $options);
+        return $factory($this, $options);
     }
 }
