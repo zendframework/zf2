@@ -17,11 +17,11 @@ trait EventTrait
     protected $stopped = false;
 
     /**
-     * @param $listener
+     * @param callable $listener
      * @param null $options
      * @return mixed
      */
-    public function call($listener, $options = null)
+    public function call(callable $listener, $options = null)
     {
         return $this->__invoke($listener, $options);
     }
@@ -64,7 +64,7 @@ trait EventTrait
      * @param null $options
      * @return mixed
      */
-    public function __invoke($listener, $options = null)
+    public function __invoke(callable $listener, $options = null)
     {
         return $listener($this, $options);
     }

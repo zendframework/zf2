@@ -29,11 +29,11 @@ class Event
     }
 
     /**
-     * @param $listener
+     * @param callable $listener
      * @param null $options
      * @return mixed
      */
-    public function __invoke($listener, $options = null)
+    public function __invoke(callable $listener, $options = null)
     {
         return $listener($this->source, $options[0], $options[1]);
     }

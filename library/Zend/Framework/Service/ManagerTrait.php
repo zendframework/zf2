@@ -46,7 +46,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param array|callable|FactoryInterface|object|string $factory
+     * @param array|callable|FactoryInterface|string $factory
      * @return callable|FactoryInterface
      */
     abstract protected function factory($factory);

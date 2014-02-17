@@ -9,14 +9,12 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use Zend\Framework\Service\RequestInterface as Request;
-
 interface FactoryInterface
 {
     /**
-     * @param Request $request
+     * @param $request
      * @param array $options
      * @return mixed
      */
-    public function __invoke(Request $request, array $options = []);
+    public function call($request, array $options = []);
 }

@@ -65,7 +65,7 @@ trait GeneratorTrait
     /**
      * @param Event $event
      * @param null $options
-     * @return null
+     * @return mixed|null
      */
     public function __invoke(Event $event, $options = null)
     {

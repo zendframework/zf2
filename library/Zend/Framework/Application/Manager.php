@@ -10,7 +10,6 @@
 namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\EventInterface;
-use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ConfigInterface as EventConfig;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
@@ -55,8 +54,8 @@ class Manager
     /**
      * Retrieve listener from service manager
      *
-     * @param array|ListenerInterface|string $listener
-     * @return ListenerInterface
+     * @param array|callable|string $listener
+     * @return callable
      */
     protected function listener($listener)
     {

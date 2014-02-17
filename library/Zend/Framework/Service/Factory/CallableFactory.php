@@ -32,6 +32,16 @@ class CallableFactory
     }
 
     /**
+     * @param $request
+     * @param array $options
+     * @return mixed|object
+     */
+    public function call($request, array $options = [])
+    {
+        return $this->__invoke($request, $options);
+    }
+
+    /**
      * @param Request $request
      * @param array $options
      * @return mixed|object

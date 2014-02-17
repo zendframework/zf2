@@ -22,12 +22,12 @@ class Event
     use EventTrait;
 
     /**
-     * @param $listener
+     * @param callable $listener
      * @param null $options
      * @return mixed
      * @throws RuntimeException
      */
-    public function __invoke($listener, $options = null)
+    public function __invoke(callable $listener, $options = null)
     {
         $response = $listener($this, $options);
 
