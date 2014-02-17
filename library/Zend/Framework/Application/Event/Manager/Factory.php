@@ -18,7 +18,7 @@ class Factory
     /**
      * @param Request $request
      * @param array $listeners
-     * @return Event
+     * @return ManagerInterface
      */
     public function __invoke(Request $request, array $listeners = [])
     {

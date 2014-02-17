@@ -34,11 +34,4 @@ interface EventInterface
      * @return self
      */
     public function setRouteMatch(RouteMatch $routeMatch);
-
-    /**
-     * @param ListenerInterface $listener
-     * @param null $options
-     * @return mixed
-     */
-    public function __invoke(ListenerInterface $listener, $options = null);
 }

@@ -10,11 +10,9 @@
 namespace Zend\Framework\Dispatch;
 
 use Zend\Framework\Controller\ListenerInterface as Controller;
-use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManager;
 
 interface ListenerInterface
-    extends Listener
 {
     /**
      * @param EventManager $em

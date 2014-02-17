@@ -10,7 +10,6 @@
 namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Framework\Event\ListenerInterface;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -73,11 +72,4 @@ interface EventInterface
      * @return self
      */
     public function setViewModel(ViewModel $viewModel);
-
-    /**
-     * @param ListenerInterface $listener
-     * @param null $options
-     * @return mixed
-     */
-    public function __invoke(ListenerInterface $listener, $options = null);
 }

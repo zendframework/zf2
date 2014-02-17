@@ -13,7 +13,6 @@ use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait;
 use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Controller\ServiceTrait as ControllerTrait;
-use Zend\Framework\Event\ListenerInterface;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
 use Zend\Framework\Route\ServicesTrait as RouteTrait;
@@ -49,13 +48,13 @@ class Event
     }
 
     /**
-     * @param ListenerInterface $listener
+     * @param $listener
      * @param $options
      * @return mixed
      */
-    public function __invoke(ListenerInterface $listener, $options = null)
+    public function __invoke($listener, $options = null)
     {
-        $response = $listener->__invoke($this, $options);
+        $response = $listener($this, $options);
 
         switch(true) {
             default:

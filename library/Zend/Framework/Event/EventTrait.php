@@ -17,6 +17,16 @@ trait EventTrait
     protected $stopped = false;
 
     /**
+     * @param $listener
+     * @param null $options
+     * @return mixed
+     */
+    public function call($listener, $options = null)
+    {
+        return $this->__invoke($listener, $options);
+    }
+
+    /**
      * @return string|array
      */
     public function name()
@@ -50,12 +60,12 @@ trait EventTrait
     }
 
     /**
-     * @param ListenerInterface $listener
+     * @param $listener
      * @param null $options
      * @return mixed
      */
-    public function __invoke(ListenerInterface $listener, $options = null)
+    public function __invoke($listener, $options = null)
     {
-        return $listener->__invoke($this, $options);
+        return $listener($this, $options);
     }
 }

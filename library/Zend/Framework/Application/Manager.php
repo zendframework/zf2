@@ -60,7 +60,7 @@ class Manager
      */
     protected function listener($listener)
     {
-        return $listener instanceof ListenerInterface ? $listener : $this->get($listener, null, false);
+        return is_callable($listener) ? $listener : $this->get($listener, null, false);
     }
 
     /**

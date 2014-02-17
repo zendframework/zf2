@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\View\Renderer;
 
+use RuntimeException;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\View\Renderer\RendererInterface as Renderer;

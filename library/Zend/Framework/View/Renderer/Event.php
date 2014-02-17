@@ -21,12 +21,12 @@ class Event
     use EventTrait;
 
     /**
-     * @param ListenerInterface $listener
+     * @param $listener
      * @param ViewModel $viewModel
      * @return mixed
      */
-    public function __invoke(ListenerInterface $listener, ViewModel $viewModel)
+    public function __invoke($listener, ViewModel $viewModel)
     {
-        return $listener->__invoke($this, $viewModel);
+        return $listener($this, $viewModel);
     }
 }

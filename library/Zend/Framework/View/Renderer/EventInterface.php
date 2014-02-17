@@ -10,7 +10,6 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 interface EventInterface
     extends Event
@@ -19,11 +18,4 @@ interface EventInterface
      *
      */
     const EVENT = 'View\Render';
-
-    /**
-     * @param ListenerInterface $listener
-     * @param ViewModel $viewModel
-     * @return mixed
-     */
-    public function __invoke(ListenerInterface $listener, ViewModel $viewModel);
 }

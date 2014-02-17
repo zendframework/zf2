@@ -23,13 +23,13 @@ class Event
         Route;
 
     /**
-     * @param ListenerInterface $listener
+     * @param $listener
      * @param null $options
      * @return mixed
      */
-    public function __invoke(ListenerInterface $listener, $options = null)
+    public function __invoke($listener, $options = null)
     {
-        $response = $listener->__invoke($this, $options);
+        $response = $listener($this, $options);
 
         if ($response instanceof RouteMatch) {
             $this->setRouteMatch($response);

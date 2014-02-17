@@ -52,33 +52,33 @@ trait ManagerTrait
     abstract protected function factory($factory);
 
     /**
-     * @param mixed $name
+     * @param mixed $alias
      * @param mixed $options
      * @param bool $shared
      * @return false|object
      */
-    public function get($name, $options = null, $shared = true)
+    public function get($alias, $options = null, $shared = true)
     {
-        list($name, $options) = $this->options($name, $options);
-        return $this->service($this->request($name, $shared), $options);
+        list($alias, $options) = $this->options($alias, $options);
+        return $this->service($this->request($alias, $shared), $options);
     }
 
     /**
-     * @param $name
+     * @param $alias
      * @param null $options
      * @return array
      */
-    protected function options($name, $options = null)
+    protected function options($alias, $options = null)
     {
-        if (is_array($name)) {
-            return [array_shift($name), $name];
+        if (is_array($alias)) {
+            return [array_shift($alias), $alias];
         }
 
         if (is_array($options)) {
-            return [$name, $options];
+            return [$alias, $options];
         }
 
-        return [$name, $options ? [$options] : []];
+        return [$alias, $options ? [$options] : []];
     }
 
     /**
@@ -102,6 +102,7 @@ trait ManagerTrait
         $alias    = $request->alias();
         $name     = $this->alias($alias);
         $services = $this->services;
+
         $config   = $services->config($name);
         $assigned = $services->assigned($name);
         $service  = $services->get($name);

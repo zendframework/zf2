@@ -12,14 +12,13 @@ namespace Zend\Framework\Event\Manager;
 use Generator;
 use Traversable;
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Framework\Event\ListenerInterface as Listener;
-use Zend\Framework\Event\ListenerTrait as EventListener;
+use Zend\Framework\Event\ListenerInterface;
 
 trait GeneratorTrait
 {
     /**
-     * @param string|Listener $listener
-     * @return Listener
+     * @param $listener
+     * @return callable|ListenerInterface
      */
     abstract protected function listener($listener);
 
@@ -47,7 +46,7 @@ trait GeneratorTrait
     {
         foreach($this->queue($event->name()) as $listeners) {
             foreach($this->generator($listeners) as $listener) {
-                if ($listener->target($event)) {
+                if (!$listener instanceof ListenerInterface || $listener->target($event)) {
                     yield $listener;
                 }
             }
@@ -74,7 +73,7 @@ trait GeneratorTrait
 
         foreach($this->match($event) as $listener) {
 
-            $result = $event->__invoke($listener, $options);
+            $result = $event->call($listener, $options);
 
             if ($event->stopped()) {
                 break;

@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Controller;
 
+use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Event\EventTrait as EventTrait;
 
 class Event
@@ -20,9 +21,9 @@ class Event
     use EventTrait;
 
     /**
-     * @param ListenerInterface $controller
+     * @param Controller $controller
      */
-    public function __construct(ListenerInterface $controller)
+    public function __construct(Controller $controller)
     {
         $this->source = $controller;
     }
