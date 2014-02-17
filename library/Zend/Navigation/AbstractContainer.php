@@ -428,7 +428,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         $this->sort();
         next($this->index);
     }
-    
+
     /**
      * Moves index pointer to last page in the container
      *
@@ -454,7 +454,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         $this->sort();
         reset($this->index);
     }
-    
+
     /**
      * Sets index pointer to last page in the container
      *
