@@ -47,7 +47,7 @@ trait ManagerTrait
 
     /**
      * @param array|callable|FactoryInterface|object|string $factory
-     * @return FactoryInterface
+     * @return callable|FactoryInterface
      */
     abstract protected function factory($factory);
 
@@ -84,20 +84,20 @@ trait ManagerTrait
     /**
      * @param $request
      * @param bool $shared
-     * @return false|object|EventInterface
+     * @return false|RequestInterface
      */
     public function request($request, $shared = true)
     {
-        return $request instanceof EventInterface ? $request : new Event($request, $shared);
+        return $request instanceof RequestInterface ? $request : new Request($request, $shared);
     }
 
     /**
-     * @param EventInterface $request
+     * @param RequestInterface $request
      * @param array $options
      * @return bool|object
      * @throws Exception
      */
-    protected function service(EventInterface $request, array $options = [])
+    protected function service(RequestInterface $request, array $options = [])
     {
         $alias    = $request->alias();
         $name     = $this->alias($alias);
@@ -118,7 +118,7 @@ trait ManagerTrait
             throw new Exception('Circular dependency: '.$alias.'::'.$name);
         }
 
-        $service = $request->__invoke($assigned ? : $this->factory($config), $options);
+        $service = $request->call($assigned ? : $this->factory($config), $options);
 
         if ($request->shared()) {
             $services->add($name, $service);

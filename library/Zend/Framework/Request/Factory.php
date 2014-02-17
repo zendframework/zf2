@@ -11,7 +11,7 @@ namespace Zend\Framework\Request;
 
 use Zend\Console\Console;
 use Zend\Console\Request as ConsoleRequest;
-use Zend\Framework\Service\EventInterface as Request;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Http\PhpEnvironment\Request as HttpRequest;
 

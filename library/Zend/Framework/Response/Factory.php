@@ -12,7 +12,7 @@ namespace Zend\Framework\Response;
 use Zend\Console\Console;
 use Zend\Console\Response as ConsoleResponse;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
-use Zend\Framework\Service\EventInterface as Request;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
 class Factory

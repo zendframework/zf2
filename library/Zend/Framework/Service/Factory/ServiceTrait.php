@@ -13,7 +13,7 @@ trait ServiceTrait
 {
     /**
      * @param array|callable|FactoryInterface|object|string $factory
-     * @return FactoryInterface
+     * @return callable|FactoryInterface
      */
     public function factory($factory)
     {

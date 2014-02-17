@@ -9,10 +9,8 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Service\Factory\FactoryInterface;
-
-class Event
-    implements EventInterface
+class Request
+    implements RequestInterface
 {
     /**
      * @param string $alias
@@ -30,6 +28,16 @@ class Event
     public function alias()
     {
         return $this->alias;
+    }
+
+    /**
+     * @param callable $factory
+     * @param array $options
+     * @return mixed
+     */
+    public function call($factory, array $options = [])
+    {
+        return $this->__invoke($factory, $options);
     }
 
     /**

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application\RouteMatch;
 
-use Zend\Framework\Service\EventInterface as Request;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
 class ListenerFactory

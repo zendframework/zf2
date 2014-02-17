@@ -10,7 +10,7 @@
 namespace Zend\Framework\Dispatch\View\Model;
 
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
-use Zend\Framework\Service\EventInterface as Request;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\View\Model\ViewModel;
 

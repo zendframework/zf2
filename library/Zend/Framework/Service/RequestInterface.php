@@ -9,12 +9,19 @@
 
 namespace Zend\Framework\Service;
 
-interface EventInterface
+interface RequestInterface
 {
     /**
      * @return string
      */
     public function alias();
+
+    /**
+     * @param callable $factory
+     * @param array $options
+     * @return mixed
+     */
+    public function call($factory, array $options = []);
 
     /**
      * @return bool

@@ -10,7 +10,7 @@
 namespace Zend\Framework\I18n\Translator;
 
 use Zend\Framework\Application\Config\ServicesTrait as Config;
-use Zend\Framework\Service\EventInterface as Request;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Mvc\I18n\Translator;
 

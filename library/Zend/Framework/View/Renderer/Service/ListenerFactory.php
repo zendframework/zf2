@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Renderer\Service;
 
-use Zend\Framework\Service\EventInterface as Request;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Renderer\RendererInterface;
 
