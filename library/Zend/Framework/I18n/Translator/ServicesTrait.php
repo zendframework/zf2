@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\I18n\Translator;
 
+use Zend\I18n\Translator\Translator;
+
 trait ServicesTrait
 {
     /**

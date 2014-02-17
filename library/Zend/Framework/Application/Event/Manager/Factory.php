@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Application\Event\Manager;
 
+use Zend\Framework\Event\Manager\ManagerInterface;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
