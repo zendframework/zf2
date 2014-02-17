@@ -12,6 +12,11 @@ namespace Zend\Framework\Route\Manager;
 trait ManagerTrait
 {
     /**
+     * @var array
+     */
+    protected $config = [];
+
+    /**
      * @return mixed
      */
     public function routeClass()
