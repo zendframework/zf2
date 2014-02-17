@@ -34,6 +34,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
         foreach ($files as $file) {
             (is_dir("$dir/$file")) ? static::rmdir("$dir/$file") : unlink("$dir/$file");
         }
+
         return rmdir($dir);
     }
 
@@ -301,7 +302,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/tests', 'PUT', array('a' => 1));
         $this->assertEquals('a=1', $this->getRequest()->getContent());
     }
-    
+
     public function testCustomResponseObject()
     {
         $this->dispatch('/custom-response');
