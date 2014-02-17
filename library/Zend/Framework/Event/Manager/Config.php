@@ -9,12 +9,11 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use ArrayObject;
+use Serializable;
 use Zend\Framework\Event\ListenerInterface as Listener;
 
 class Config
-    extends ArrayObject
-    implements ConfigInterface
+    implements ConfigInterface, Serializable
 {
     /**
      * @var array
@@ -22,13 +21,17 @@ class Config
     protected $config = [];
 
     /**
+     * @var array
+     */
+    protected $listener = [];
+
+    /**
      * @param array $config
      */
     public function __construct(array $config = [])
     {
-        parent::__construct($config);
-
-        $this->config = $config;
+        $this->config   = $config;
+        $this->listener = $config;
     }
 
     /**
@@ -39,11 +42,11 @@ class Config
      */
     public function add($name, $listener, $priority = self::PRIORITY)
     {
-        if (!isset($this[$name])) {
-            $this[$name] = [];
+        if (!isset($this->listener[$name])) {
+            $this->listener[$name] = [];
         }
 
-        $this[$name][$priority][] = $listener;
+        $this->listener[$name][$priority][] = $listener;
 
         return $this;
     }
@@ -54,7 +57,7 @@ class Config
      */
     public function get($name)
     {
-        return isset($this[$name]) ? $this[$name] : [];
+        return isset($this->listener[$name]) ? $this->listener[$name] : [];
     }
 
     /**
@@ -67,16 +70,16 @@ class Config
      */
     public function push($name, $listener, $priority = self::PRIORITY)
     {
-        if (!isset($this[$name])) {
-            $this[$name] = [];
+        if (!isset($this->listener[$name])) {
+            $this->listener[$name] = [];
         }
 
-        if (!isset($this[$name][$priority])) {
-            $this[$name][$priority][] = $listener;
+        if (!isset($this->listener[$name][$priority])) {
+            $this->listener[$name][$priority][] = $listener;
             return $this;
         }
 
-        array_unshift($this[$name][$priority], $listener);
+        array_unshift($this->listener[$name][$priority], $listener);
 
         return $this;
     }
@@ -89,7 +92,7 @@ class Config
     {
         foreach($this as $name => $listeners) {
             foreach(array_keys($listeners) as $priority) {
-                $this[$name][$priority] = array_diff($this[$name][$priority], [$listener]);
+                $this->listener[$name][$priority] = array_diff($this->listener[$name][$priority], [$listener]);
             }
         }
 
@@ -101,8 +104,6 @@ class Config
      */
     public function serialize()
     {
-        $this->exchangeArray([]);
-
         return serialize($this->config);
     }
 
@@ -112,6 +113,6 @@ class Config
      */
     public function unserialize($serialized)
     {
-        return new self(unserialize($serialized));
+        $this->config = $this->listener = unserialize($serialized);
     }
 }

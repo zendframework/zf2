@@ -9,11 +9,10 @@
 
 namespace Zend\Framework\Service;
 
-use ArrayObject;
+use Serializable;
 
 class Config
-    extends ArrayObject
-    implements ConfigInterface
+    implements ConfigInterface, Serializable
 {
     /**
      * @var array
@@ -26,11 +25,16 @@ class Config
     protected $pending = [];
 
     /**
+     * @var array
+     */
+    protected $service = [];
+
+    /**
      * @param array $config
      */
     public function __construct(array $config = [])
     {
-        $this->config = $config;
+        $this->config  = $config;
     }
 
     /**
@@ -40,7 +44,7 @@ class Config
      */
     public function add($name, $service)
     {
-        $this[$name] = $service;
+        $this->service[$name] = $service;
 
         $this->pending[$name] = false;
 
@@ -62,7 +66,7 @@ class Config
      */
     public function get($name)
     {
-        return isset($this[$name]) ? $this[$name] : null;
+        return isset($this->service[$name]) ? $this->service[$name] : null;
     }
 
     /**
@@ -71,7 +75,7 @@ class Config
      */
     public function has($name)
     {
-        return !empty($this[$name]);
+        return !empty($this->service[$name]);
     }
 
     /**
@@ -104,10 +108,7 @@ class Config
      */
     public function serialize()
     {
-        $this->pending = [];
-
-        $this->exchangeArray([]);
-
+        $this->pending = $this->service = [];
         return serialize($this->config);
     }
 
@@ -117,6 +118,6 @@ class Config
      */
     public function unserialize($serialized)
     {
-        return new self(unserialize($serialized));
+        $this->config = unserialize($serialized);
     }
 }
