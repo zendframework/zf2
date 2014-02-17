@@ -11,7 +11,6 @@ namespace Zend\Framework\Dispatch;
 
 use Exception;
 use Zend\Framework\Controller\EventInterface as ControllerEvent;
-use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\Framework\Service\ServiceTrait As ServiceManager;
 
@@ -25,10 +24,10 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param Controller $controller
+     * @param callable $controller
      * @return mixed
      */
-    public function __invoke(EventInterface $event, Controller $controller)
+    public function __invoke(EventInterface $event, callable $controller)
     {
         $this->listeners()->push(ControllerEvent::EVENT, $controller);
 

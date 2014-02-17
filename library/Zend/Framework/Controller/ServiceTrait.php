@@ -12,12 +12,12 @@ namespace Zend\Framework\Controller;
 trait ServiceTrait
 {
     /**
-     * @var ListenerInterface
+     * @var callable|ListenerInterface
      */
     protected $controller;
 
     /**
-     * @return ListenerInterface
+     * @return callable|ListenerInterface
      */
     public function controller()
     {
@@ -25,10 +25,10 @@ trait ServiceTrait
     }
 
     /**
-     * @param ListenerInterface $controller
+     * @param callable|ListenerInterface $controller
      * @return self
      */
-    public function setController(ListenerInterface $controller)
+    public function setController(callable $controller)
     {
         $this->controller = $controller;
         return $this;

@@ -9,9 +9,9 @@
 
 namespace Zend\Framework\Application;
 
+use Zend\Framework\Application\RouteMatch\ListenerInterface as RouteMatchListener;
 use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait;
-use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Controller\ServiceTrait as ControllerTrait;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
@@ -59,7 +59,7 @@ class Event
         switch(true) {
             default:
                 break;
-            case $response instanceof Controller:
+            case $listener instanceof RouteMatchListener:
                 $this->setController($response);
                 break;
             case $response instanceof RouteMatch:

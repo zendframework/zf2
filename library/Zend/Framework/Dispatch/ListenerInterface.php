@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Dispatch;
 
-use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManager;
 
 interface ListenerInterface
@@ -22,8 +21,8 @@ interface ListenerInterface
 
     /**
      * @param EventInterface $event
-     * @param Controller $controller
+     * @param callable $controller
      * @return mixed
      */
-    public function __invoke(EventInterface $event, Controller $controller);
+    public function __invoke(EventInterface $event, callable $controller);
 }
