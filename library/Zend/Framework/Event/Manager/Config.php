@@ -57,7 +57,13 @@ class Config
      */
     public function get($name)
     {
-        return isset($this->listener[$name]) ? $this->listener[$name] : [];
+        if (!isset($this->listener[$name])) {
+            return [];
+        }
+
+        ksort($this->listener[$name], SORT_NUMERIC);
+
+        return $this->listener[$name];
     }
 
     /**
