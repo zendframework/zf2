@@ -7,18 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Template;
+namespace Zend\Framework\Module\View\Template;
 
-use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
 
 trait ListenerTrait
 {
-    /**
-     *
-     */
-    use EventListener;
-
     /**
      * FilterInterface/inflector used to normalize names for use as template identifiers
      *

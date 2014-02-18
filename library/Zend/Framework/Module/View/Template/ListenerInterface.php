@@ -7,14 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Template;
+namespace Zend\Framework\Module\View\Template;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ListenerInterface
-    extends Listener
 {
     /**
      * @param ViewModel $model

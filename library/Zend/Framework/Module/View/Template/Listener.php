@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Template;
+namespace Zend\Framework\Module\View\Template;
 
 use Zend\Framework\Module\Route\ListenerInterface as RouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
