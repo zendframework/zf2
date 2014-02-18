@@ -11,7 +11,7 @@ namespace Zend\Framework\View\Resolver;
 
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
-use Zend\Framework\View\Template\Resolver\ServicesTrait as TemplateResolver;
+use Zend\Framework\View\Resolver\Factory\ServicesTrait as ResolverFactory;
 use Zend\View\Resolver\AggregateResolver as ViewResolver;
 
 class Factory
@@ -20,7 +20,7 @@ class Factory
     /**
      *
      */
-    use TemplateResolver;
+    use ResolverFactory;
 
     /**
      * @param Request $request

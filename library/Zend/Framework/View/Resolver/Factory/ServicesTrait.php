@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Template\Resolver;
+namespace Zend\Framework\View\Resolver\Factory;
 
 use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Resolver\TemplatePathStack;
@@ -19,7 +19,7 @@ trait ServicesTrait
      */
     public function map()
     {
-        return $this->sm->get('View\Template\Resolver\Map');
+        return $this->sm->get('View\Resolver\Map');
     }
 
     /**
@@ -27,6 +27,6 @@ trait ServicesTrait
      */
     public function pathStack()
     {
-        return $this->sm->get('View\Template\Resolver\PathStack');
+        return $this->sm->get('View\Resolver\PathStack');
     }
 }
