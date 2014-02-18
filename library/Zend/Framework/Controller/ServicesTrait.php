@@ -7,30 +7,28 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Dispatch;
+namespace Zend\Framework\Controller;
 
-trait ServiceTrait
+trait ServicesTrait
 {
     /**
-     * @var callable|ListenerInterface
-     */
-    protected $controller;
-
-    /**
+     * @param $name
+     * @param null $options
      * @return callable|ListenerInterface
      */
-    public function controller()
+    public function controller($name, $options = null)
     {
-        return $this->controller;
+        return $this->sm->get($name, $options, false);
     }
 
     /**
+     * @param $name
      * @param callable|ListenerInterface $controller
      * @return self
      */
-    public function setController(callable $controller)
+    public function setController($name, callable $controller)
     {
-        $this->controller = $controller;
+        $this->sm->get($name, $controller);
         return $this;
     }
 }

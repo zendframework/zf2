@@ -11,7 +11,7 @@ namespace Zend\Framework\Application\Dispatch;
 
 use Exception;
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Dispatch\EventInterface as Dispatch;
+use Zend\Framework\Controller\EventInterface as Controller;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 
 class Listener
@@ -33,11 +33,11 @@ class Listener
         $request    = $event->request();
         $response   = $event->response();
 
-        $this->listeners()->push(Dispatch::EVENT, $controller);
+        $this->listeners()->push(Controller::EVENT, $controller);
 
         try {
 
-            $response = $this->trigger([Dispatch::EVENT, $controller], [$request, $response]);
+            $response = $this->trigger([Controller::EVENT, $controller], [$request, $response]);
 
         } catch (Exception $exception) {
 

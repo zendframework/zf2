@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Dispatch\Error;
+namespace Zend\Framework\Controller\Error;
 
 use Exception;
 use Zend\Framework\Event\EventTrait as EventTrait;

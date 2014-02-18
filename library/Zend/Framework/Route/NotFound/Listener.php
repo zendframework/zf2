@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\NotFound;
 
 use Zend\Framework\Event\EventInterface;
-use Zend\Framework\Dispatch\Error\EventInterface as DispatchError;
+use Zend\Framework\Controller\Error\EventInterface as DispatchError;
 use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;

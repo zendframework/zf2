@@ -10,7 +10,7 @@
 namespace Zend\Framework\Application\RouteMatch;
 
 use Zend\Framework\Event\EventInterface;
-use Zend\Framework\Dispatch\ServicesTrait as Dispatch;
+use Zend\Framework\Controller\ServicesTrait as Dispatch;
 use Zend\Framework\Service\ServiceTrait as ServiceManager;
 
 class Listener

@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Dispatch\View\Model;
+namespace Zend\Framework\Controller\View\Model;
 
 use Zend\View\Model\ModelInterface as ViewModel;
 

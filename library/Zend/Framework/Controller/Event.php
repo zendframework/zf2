@@ -7,10 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Dispatch\View\Model;
+namespace Zend\Framework\Controller;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
-use Zend\View\Model\ModelInterface as ViewModel;
 
 class Event
     implements EventInterface
@@ -21,11 +20,11 @@ class Event
     use EventTrait;
 
     /**
-     * @param ViewModel $viewModel
+     * @param callable $controller
      */
-    public function __construct(ViewModel $viewModel)
+    public function __construct(callable $controller)
     {
-        $this->source = $viewModel;
+        $this->source = $controller;
     }
 
     /**
@@ -35,6 +34,7 @@ class Event
      */
     public function __invoke(callable $listener, $options = null)
     {
-        return $listener($this->source, $options[0], $options[1]);
+        list($request, $response) = $options;
+        return $listener($this, $request, $response);
     }
 }

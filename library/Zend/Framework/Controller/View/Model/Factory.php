@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Dispatch\View\Model;
+namespace Zend\Framework\Controller\View\Model;
 
 use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
@@ -29,6 +29,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return $this->trigger(['Dispatch\View\Model\Event', new ViewModel], $options);
+        return $this->trigger(['Controller\View\Model\Event', new ViewModel], $options);
     }
 }

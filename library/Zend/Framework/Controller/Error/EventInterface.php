@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Dispatch;
+namespace Zend\Framework\Controller\Error;
 
 use Zend\Framework\Event\EventInterface as Event;
 
@@ -17,12 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Dispatch\Event';
-
-    /**
-     * @param callable $listener
-     * @param null $options
-     * @return mixed
-     */
-    public function __invoke(callable $listener, $options = null);
+    const EVENT = 'Dispatch\Error\Event';
 }
