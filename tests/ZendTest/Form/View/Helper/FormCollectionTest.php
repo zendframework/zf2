@@ -121,16 +121,16 @@ class FormCollectionTest extends TestCase
         $this->assertContains('id="customFieldsetcolors"', $markup);
         $this->assertContains('id="customFieldsetfieldsets"', $markup);
     }
-    
+
     public function testRenderTemplateWithCustomFieldsetHelper()
     {
         $form = $this->getForm();
-        
+
         $fieldsetHelper = new CustomFieldsetHelper();
         $fieldsetHelper->setView($this->renderer);
-        
+
         $markup = $this->helper->setFieldsetHelper($fieldsetHelper)->render($form);
-        
+
         $this->assertContains('<span data-template="<div id="customFieldsetcolors"', $markup);
         $this->assertContains('<span data-template="<div id="customFieldsetfieldsets"', $markup);
     }
