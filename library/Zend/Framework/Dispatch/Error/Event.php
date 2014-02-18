@@ -10,7 +10,6 @@
 namespace Zend\Framework\Dispatch\Error;
 
 use Exception;
-use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Mvc\Router\RouteMatch;
 
@@ -23,7 +22,7 @@ class Event
     use EventTrait;
 
     /**
-     * @var Controller
+     * @var callable
      */
     protected $controller;
 
@@ -38,11 +37,11 @@ class Event
     protected $routeMatch;
 
     /**
-     * @param Controller $controller
+     * @param callable $controller
      * @param RouteMatch $routeMatch
      * @param Exception $exception
      */
-    public function __construct(Controller $controller, RouteMatch $routeMatch, Exception $exception)
+    public function __construct(callable $controller, RouteMatch $routeMatch, Exception $exception)
     {
         $this->controller = $controller;
         $this->routeMatch = $routeMatch;
@@ -50,7 +49,7 @@ class Event
     }
 
     /**
-     * @return Controller
+     * @return callable
      */
     public function controller()
     {

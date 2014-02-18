@@ -18,4 +18,11 @@ interface EventInterface
      *
      */
     const EVENT = 'Dispatch\Event';
+
+    /**
+     * @param callable $listener
+     * @param null $options
+     * @return mixed
+     */
+    public function __invoke(callable $listener, $options = null);
 }

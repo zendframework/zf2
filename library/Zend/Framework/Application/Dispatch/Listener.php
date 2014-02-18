@@ -9,7 +9,9 @@
 
 namespace Zend\Framework\Application\Dispatch;
 
+use Exception;
 use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Dispatch\EventInterface as Dispatch;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 
 class Listener
@@ -27,6 +29,22 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->trigger('Dispatch\Event', $event->controller());
+        $controller = $event->controller();
+        $request    = $event->request();
+        $response   = $event->response();
+
+        $this->listeners()->push(Dispatch::EVENT, $controller);
+
+        try {
+
+            $response = $this->trigger([Dispatch::EVENT, $controller], [$request, $response]);
+
+        } catch (Exception $exception) {
+
+            $response = $this->trigger(['Dispatch\Error', $controller], $exception);
+
+        }
+
+        return $response;
     }
 }

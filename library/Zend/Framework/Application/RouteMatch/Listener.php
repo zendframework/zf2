@@ -9,7 +9,8 @@
 
 namespace Zend\Framework\Application\RouteMatch;
 
-use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Dispatch\ServicesTrait as Dispatch;
 use Zend\Framework\Service\ServiceTrait as ServiceManager;
 
 class Listener
@@ -18,7 +19,8 @@ class Listener
     /**
      *
      */
-    use ServiceManager;
+    use Dispatch,
+        ServiceManager;
 
     /**
      * @param EventInterface $event
@@ -27,6 +29,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->sm->get($event->routeMatch()->getParam('controller'), $event->routeMatch(), false);
+        return $this->controller($event->routeMatch()->getParam('controller'), $event->routeMatch());
     }
 }

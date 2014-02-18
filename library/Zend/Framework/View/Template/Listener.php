@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\View\Template;
 
-use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Framework\Module\Route\ListenerInterface as RouteListener;
 use Zend\View\Model\ModelInterface as ViewModel;
 use Zend\Mvc\Router\RouteMatch;
@@ -24,11 +23,11 @@ class Listener
 
     /**
      * @param ViewModel $model
-     * @param Controller $controller
+     * @param callable $controller
      * @param RouteMatch $routeMatch
      * @return mixed|ViewModel
      */
-    public function __invoke(ViewModel $model, Controller $controller, RouteMatch $routeMatch)
+    public function __invoke(ViewModel $model, callable $controller, RouteMatch $routeMatch)
     {
         $template = $model->getTemplate();
 

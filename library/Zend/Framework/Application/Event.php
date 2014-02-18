@@ -12,7 +12,7 @@ namespace Zend\Framework\Application;
 use Zend\Framework\Application\RouteMatch\ListenerInterface as RouteMatchListener;
 use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait;
-use Zend\Framework\Controller\ServiceTrait as ControllerTrait;
+use Zend\Framework\Dispatch\ServiceTrait as DispatchTrait;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
 use Zend\Framework\Route\ServicesTrait as RouteTrait;
@@ -27,7 +27,7 @@ class Event
     /**
      *
      */
-    use ControllerTrait,
+    use DispatchTrait,
         EventTrait,
         Request,
         ResponseTrait,

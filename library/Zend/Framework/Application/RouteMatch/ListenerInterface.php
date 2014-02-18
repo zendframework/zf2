@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application\RouteMatch;
 
-use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Event\EventInterface;
 
 interface ListenerInterface
 {

@@ -18,4 +18,23 @@ class Event
      *
      */
     use EventTrait;
+
+    /**
+     * @param callable $controller
+     */
+    public function __construct(callable $controller)
+    {
+        $this->source = $controller;
+    }
+
+    /**
+     * @param callable $listener
+     * @param null $options
+     * @return mixed
+     */
+    public function __invoke(callable $listener, $options = null)
+    {
+        list($request, $response) = $options;
+        return $listener($this, $request, $response);
+    }
 }

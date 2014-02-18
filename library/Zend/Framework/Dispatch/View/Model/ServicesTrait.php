@@ -9,19 +9,18 @@
 
 namespace Zend\Framework\Dispatch\View\Model;
 
-use Zend\Framework\Controller\ListenerInterface as Controller;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 trait ServicesTrait
 {
     /**
-     * @param Controller $controller
+     * @param callable $controller
      * @param RouteMatch $routeMatch
      * @return bool|ViewModel
      *
      */
-    public function dispatchViewModel(Controller $controller, RouteMatch $routeMatch)
+    public function dispatchViewModel(callable $controller, RouteMatch $routeMatch)
     {
         return $this->sm->get('Dispatch\View\Model', [$controller, $routeMatch]);
     }
