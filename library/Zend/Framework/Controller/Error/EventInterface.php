@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Dispatch\Error\Event';
+    const EVENT = 'Controller\Error\Event';
 }

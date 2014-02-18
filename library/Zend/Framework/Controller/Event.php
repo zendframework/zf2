@@ -10,6 +10,7 @@
 namespace Zend\Framework\Controller;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
+use Zend\Mvc\Router\RouteMatch;
 
 class Event
     implements EventInterface
@@ -20,11 +21,13 @@ class Event
     use EventTrait;
 
     /**
-     * @param callable $controller
+     * @param $controller
+     * @param RouteMatch $routeMatch
      */
-    public function __construct(callable $controller)
+    public function __construct($controller, RouteMatch $routeMatch)
     {
-        $this->source = $controller;
+        $this->name   = $controller;
+        $this->source = $routeMatch;
     }
 
     /**

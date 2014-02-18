@@ -16,23 +16,23 @@ trait ServiceTrait
     /**
      * @var ViewModel
      */
-    protected $dispatchViewModel;
+    protected $controllerViewModel;
 
     /**
      * @return ViewModel
      */
-    public function dispatchViewModel()
+    public function controllerViewModel()
     {
-        return $this->dispatchViewModel;
+        return $this->controllerViewModel;
     }
 
     /**
      * @param ViewModel $viewModel
      * @return self
      */
-    public function setDispatchViewModel(ViewModel $viewModel)
+    public function setControllerViewModel(ViewModel $viewModel)
     {
-        $this->dispatchViewModel = $viewModel;
+        $this->controllerViewModel = $viewModel;
         return $this;
     }
 }

@@ -15,22 +15,22 @@ use Zend\View\Model\ModelInterface as ViewModel;
 trait ServicesTrait
 {
     /**
-     * @param callable $controller
+     * @param $controller
      * @param RouteMatch $routeMatch
      * @return bool|ViewModel
      *
      */
-    public function dispatchViewModel(callable $controller, RouteMatch $routeMatch)
+    public function controllerViewModel($controller, RouteMatch $routeMatch)
     {
-        return $this->sm->get('Dispatch\View\Model', [$controller, $routeMatch]);
+        return $this->sm->get('Controller\View\Model', [$controller, $routeMatch]);
     }
 
     /**
      * @param ViewModel $viewModel
      * @return self
      */
-    public function setDispatchViewModel(ViewModel $viewModel)
+    public function setControllerViewModel(ViewModel $viewModel)
     {
-        return $this->sm->add('Dispatch\View\Model', $viewModel);
+        return $this->sm->add('Controller\View\Model', $viewModel);
     }
 }
