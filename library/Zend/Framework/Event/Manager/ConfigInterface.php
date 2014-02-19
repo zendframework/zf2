@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use Zend\Framework\Event\ListenerInterface;
-
 interface ConfigInterface
 {
     /**
@@ -21,7 +19,7 @@ interface ConfigInterface
 
     /**
      * @param string $name
-     * @param string|ListenerInterface $listener
+     * @param string|callable $listener
      * @param $priority
      * @return self
      */
@@ -40,7 +38,7 @@ interface ConfigInterface
     public function has($name);
 
     /**
-     * @param string|ListenerInterface $listener
+     * @param string|callable $listener
      * @return self
      */
     public function remove($listener);

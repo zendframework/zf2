@@ -10,7 +10,6 @@
 namespace Zend\Framework\Event\Manager;
 
 use Serializable;
-use Zend\Framework\Event\ListenerInterface as Listener;
 
 class Config
     implements ConfigInterface, Serializable
@@ -36,7 +35,7 @@ class Config
 
     /**
      * @param string $name
-     * @param string|Listener $listener
+     * @param string|callable $listener
      * @param $priority
      * @return self
      */
@@ -76,7 +75,7 @@ class Config
     }
 
     /**
-     * @param string|Listener $listener
+     * @param string|callable $listener
      * @return self
      */
     public function remove($listener)
