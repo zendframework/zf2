@@ -37,11 +37,12 @@ trait ServiceTrait
     }
 
     /**
-     * @return ConfigInterface
+     * @param $name
+     * @return bool
      */
-    public function controllers()
+    public function hasController($name)
     {
-        return $this->cm->listeners();
+        return $this->cm->listeners()->has($name);
     }
 
     /**

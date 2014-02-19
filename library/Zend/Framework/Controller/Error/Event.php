@@ -22,7 +22,7 @@ class Event
     use EventTrait;
 
     /**
-     * @var callable
+     * @var callable|string
      */
     protected $controller;
 
@@ -37,11 +37,11 @@ class Event
     protected $routeMatch;
 
     /**
-     * @param callable $controller
+     * @param callable|string $controller
      * @param RouteMatch $routeMatch
      * @param Exception $exception
      */
-    public function __construct(callable $controller, RouteMatch $routeMatch, Exception $exception)
+    public function __construct($controller, RouteMatch $routeMatch, Exception $exception)
     {
         $this->controller = $controller;
         $this->routeMatch = $routeMatch;
@@ -49,7 +49,7 @@ class Event
     }
 
     /**
-     * @return callable
+     * @return callable|string
      */
     public function controller()
     {

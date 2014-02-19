@@ -19,11 +19,6 @@ class Listener
     implements ListenerInterface
 {
     /**
-     *
-     */
-    use ListenerTrait;
-
-    /**
      * Create an exception view model, and set the HTTP status code
      *
      * @todo   dispatch.error does not halt dispatch unless a response is

@@ -14,6 +14,7 @@ use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\EventInterface as Controller;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
+use Zend\Framework\Controller\NotFound\EventInterface as NotFound;
 
 class Listener
     implements ListenerInterface
@@ -37,14 +38,16 @@ class Listener
 
         try {
 
-            $response = $this->dispatch([Controller::EVENT, $controller, $routeMatch], [$request, $response]);
+            if (!$this->hasController($controller)) {throw new \Exception(__FILE__);
+                return $this->dispatch([NotFound::EVENT, $routeMatch], $controller);
+            }
+
+            return $this->dispatch([Controller::EVENT, $controller, $routeMatch], [$request, $response]);
 
         } catch (Exception $exception) {
-
-            $response = $this->dispatch([Error::EVENT, $controller, $routeMatch], $exception);
+var_dump($this->dispatch([Error::EVENT, $controller, $routeMatch, $exception]));
+            return $this->dispatch([Error::EVENT, $controller, $routeMatch, $exception]);
 
         }
-
-        return $response;
     }
 }
