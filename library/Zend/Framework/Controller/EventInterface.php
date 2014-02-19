@@ -18,11 +18,4 @@ interface EventInterface
      *
      */
     const EVENT = 'Controller\Event';
-
-    /**
-     * @param callable $listener
-     * @param null $options
-     * @return mixed
-     */
-    public function __invoke(callable $listener, $options = null);
 }
