@@ -9,10 +9,7 @@
 
 namespace Zend\Framework\Route\Stack;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
-
 interface ListenerInterface
-    extends Listener
 {
     /**
      * Add a route to the stack.

@@ -12,7 +12,6 @@ namespace Zend\Framework\Route\Stack;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Route\RouteInterface;
 use Zend\Framework\Route\PriorityList;
-use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 
 /**
@@ -44,20 +43,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, Request $request)
     {
-        foreach ($this->routes as $name => $route) {
-            if (($match = $route->match($request)) instanceof RouteMatch) {
-                $match->setMatchedRouteName($name);
-
-                foreach ($this->defaultParams as $paramName => $value) {
-                    if ($match->getParam($paramName) === null) {
-                        $match->setParam($paramName, $value);
-                    }
-                }
-
-                return $match;
-            }
-        }
-
-        return null;
+        return $this->match($request);
     }
 }

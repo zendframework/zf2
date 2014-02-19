@@ -11,18 +11,12 @@ namespace Zend\Framework\Route\NotFound;
 
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Controller\Error\EventInterface as DispatchError;
-use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class Listener
     implements ListenerInterface
 {
-    /**
-     *
-     */
-    use EventListener;
-
     /**
      * Create and return a 404 view model
      *

@@ -10,7 +10,6 @@
 namespace Zend\Framework\Route;
 
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
-use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Route\ServiceTrait as Router;
 
 class Listener
@@ -19,8 +18,7 @@ class Listener
     /**
      *
      */
-    use EventListener,
-        Router;
+    use Router;
 
     /**
      * @param EventInterface $event

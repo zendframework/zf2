@@ -9,11 +9,9 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
 use Zend\Stdlib\ResponseInterface as Response;
 
 interface ListenerInterface
-    extends Listener
 {
     /**
      * @param EventInterface $event

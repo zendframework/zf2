@@ -9,10 +9,7 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\Event\ListenerInterface as Listener;
-
 interface ListenerInterface
-    extends Listener
 {
     /**
      * @param EventInterface $event
