@@ -10,7 +10,6 @@
 namespace Zend\Framework\Event\Manager;
 
 use Generator;
-use Traversable;
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Event\ListenerInterface;
 
@@ -28,38 +27,29 @@ trait GeneratorTrait
     abstract public function listeners();
 
     /**
-     * @param array|Traversable $listeners
-     * @return Generator
-     */
-    protected function generator($listeners)
-    {
-        foreach($listeners as $listener) {
-            yield $this->listener($listener);
-        }
-    }
-
-    /**
      * @param Event $event
      * @return Generator
      */
     protected function match(Event $event)
     {
-        foreach($this->queue($event->name()) as $listeners) {
-            foreach($this->generator($listeners) as $listener) {
-                if (!$listener instanceof ListenerInterface || $listener->target($event)) {
-                    yield $listener;
-                }
+        foreach($this->queue($event->name()) as $listener) {
+            if (!$listener instanceof ListenerInterface || $listener->target($event)) {
+                yield $listener;
             }
         }
     }
 
     /**
      * @param string $event
-     * @return array|Traversable
+     * @return Generator
      */
     protected function queue($event)
     {
-        return $this->listeners()->get($event);
+        foreach($this->listeners()->get($event) as $listeners) {
+            foreach($listeners as $listener) {
+                yield $this->listener($listener);
+            }
+        }
     }
 
     /**
