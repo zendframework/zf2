@@ -34,14 +34,10 @@ interface ConfigInterface
     public function get($name);
 
     /**
-     * Push listener to top of queue
-     *
-     * @param string $name
-     * @param string|ListenerInterface $listener
-     * @param int $priority
-     * @return self
+     * @param $name
+     * @return bool
      */
-    public function push($name, $listener, $priority = self::PRIORITY);
+    public function has($name);
 
     /**
      * @param string|ListenerInterface $listener

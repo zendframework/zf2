@@ -7,16 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\RouteMatch;
+namespace Zend\Framework\Controller\NotFound;
 
-use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Event\EventInterface as Event;
 
-interface ListenerInterface
+interface EventInterface
+    extends Event
 {
     /**
-     * @param EventInterface $event
-     * @param null $options
-     * @return mixed
+     *
      */
-    public function __invoke(EventInterface $event, $options = null);
+    const EVENT = 'Controller\Error\Event';
 }

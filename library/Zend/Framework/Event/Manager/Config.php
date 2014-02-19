@@ -67,27 +67,12 @@ class Config
     }
 
     /**
-     * Push listener to top of queue
-     *
-     * @param string $name
-     * @param string|Listener $listener
-     * @param int $priority
-     * @return self
+     * @param $name
+     * @return bool
      */
-    public function push($name, $listener, $priority = self::PRIORITY)
+    public function has($name)
     {
-        if (!isset($this->listener[$name])) {
-            $this->listener[$name] = [];
-        }
-
-        if (!isset($this->listener[$name][$priority])) {
-            $this->listener[$name][$priority][] = $listener;
-            return $this;
-        }
-
-        array_unshift($this->listener[$name][$priority], $listener);
-
-        return $this;
+        return isset($this->listener[$name]);
     }
 
     /**

@@ -7,29 +7,28 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\RouteMatch;
+namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
-use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
+use Zend\Framework\Application\Config\ServicesTrait as Config;
+use Zend\Framework\Event\Manager\Config as ListenersConfig;
+use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory;
 
-class ListenerFactory
-    extends Factory
+class Factory
+    extends ServiceFactory
 {
     /**
      *
      */
-    use ControllerManager,
-        EventManager;
+    use Config;
 
     /**
      * @param Request $request
      * @param array $options
-     * @return Listener
+     * @return Manager
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setControllerManager($this->controllerManager())->setEventManager($this->eventManager());
+        return new Manager($this->sm->services(), new ListenersConfig($this->config()['controllers']));
     }
 }

@@ -7,16 +7,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\RouteMatch;
+namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 
-interface ListenerInterface
+interface ManagerInterface
+    extends EventManagerInterface
 {
     /**
-     * @param EventInterface $event
+     * @param string $event
      * @param null $options
      * @return mixed
      */
-    public function __invoke(EventInterface $event, $options = null);
+    public function dispatch($event, $options = null);
 }

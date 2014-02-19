@@ -13,7 +13,7 @@ use Exception;
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\EventInterface as Controller;
-use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 
 class Listener
     implements ListenerInterface
@@ -21,7 +21,7 @@ class Listener
     /**
      *
      */
-    use EventManager;
+    use ControllerManager;
 
     /**
      * @param EventInterface $event
@@ -37,11 +37,11 @@ class Listener
 
         try {
 
-            $response = $this->trigger([Controller::EVENT, $controller, $routeMatch], [$request, $response]);
+            $response = $this->dispatch([Controller::EVENT, $controller, $routeMatch], [$request, $response]);
 
         } catch (Exception $exception) {
 
-            $response = $this->trigger([Error::EVENT, $controller, $routeMatch], $exception);
+            $response = $this->dispatch([Error::EVENT, $controller, $routeMatch], $exception);
 
         }
 
