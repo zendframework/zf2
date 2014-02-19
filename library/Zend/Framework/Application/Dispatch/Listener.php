@@ -38,14 +38,14 @@ class Listener
 
         try {
 
-            if (!$this->hasController($controller)) {throw new \Exception(__FILE__);
+            if (!$this->hasController($controller)) {
                 return $this->dispatch([NotFound::EVENT, $routeMatch], $controller);
             }
 
             return $this->dispatch([Controller::EVENT, $controller, $routeMatch], [$request, $response]);
 
         } catch (Exception $exception) {
-var_dump($this->dispatch([Error::EVENT, $controller, $routeMatch, $exception]));
+
             return $this->dispatch([Error::EVENT, $controller, $routeMatch, $exception]);
 
         }
