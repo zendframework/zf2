@@ -52,6 +52,25 @@ class Manager
     }
 
     /**
+     * @param string $event
+     * @param null $options
+     * @return mixed
+     */
+    public function dispatch($event, $options = null)
+    {
+        return $this->trigger($event, $options);
+    }
+
+    /**
+     * @param string $controller
+     * @return bool
+     */
+    public function dispatchable($controller)
+    {
+        return $this->listeners()->has($controller);
+    }
+
+    /**
      * Retrieve listener from service manager
      *
      * @param array|callable|string $listener
@@ -60,15 +79,5 @@ class Manager
     protected function listener($listener)
     {
         return is_callable($listener) ? $listener : $this->get($listener, null, false);
-    }
-
-    /**
-     * @param string $event
-     * @param null $options
-     * @return mixed
-     */
-    public function dispatch($event, $options = null)
-    {
-        return $this->trigger($event, $options);
     }
 }

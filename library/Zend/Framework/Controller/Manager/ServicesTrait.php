@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Event\Manager\ConfigInterface;
-
 trait ServicesTrait
 {
     /**
@@ -32,12 +30,12 @@ trait ServicesTrait
     }
 
     /**
-     * @param $name
+     * @param string $controller
      * @return bool
      */
-    public function dispatchable($name)
+    public function dispatchable($controller)
     {
-        return $this->controllerManager()->listeners()->has($name);
+        return $this->controllerManager()->dispatchable($controller);
     }
 
     /**
