@@ -22,7 +22,7 @@ trait GeneratorTrait
     abstract protected function listener($listener);
 
     /**
-     * @return Config
+     * @return ConfigInterface
      */
     abstract public function listeners();
 
