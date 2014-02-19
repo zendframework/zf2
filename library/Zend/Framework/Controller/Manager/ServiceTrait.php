@@ -40,7 +40,7 @@ trait ServiceTrait
      * @param $name
      * @return bool
      */
-    public function hasController($name)
+    public function dispatchable($name)
     {
         return $this->cm->listeners()->has($name);
     }

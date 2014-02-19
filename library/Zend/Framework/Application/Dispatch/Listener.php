@@ -38,7 +38,7 @@ class Listener
 
         try {
 
-            if (!$this->hasController($controller)) {
+            if (!$this->dispatchable($controller)) {
                 return $this->dispatch([NotFound::EVENT, $routeMatch], $controller);
             }
 

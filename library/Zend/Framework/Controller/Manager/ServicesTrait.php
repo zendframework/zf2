@@ -32,11 +32,12 @@ trait ServicesTrait
     }
 
     /**
-     * @return ConfigInterface
+     * @param $name
+     * @return bool
      */
-    public function controllers()
+    public function dispatchable($name)
     {
-        return $this->controllerManager()->listeners();
+        return $this->controllerManager()->listeners()->has($name);
     }
 
     /**
