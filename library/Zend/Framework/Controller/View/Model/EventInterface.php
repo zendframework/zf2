@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Controller\View\Model\Event';
+    const EVENT = 'Event\Controller\View\Model';
 }

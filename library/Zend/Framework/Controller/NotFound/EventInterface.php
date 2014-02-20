@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Controller\NotFound\Event';
+    const EVENT = 'Event\Controller\NotFound';
 }

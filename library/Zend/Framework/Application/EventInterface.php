@@ -21,7 +21,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Application\Event';
+    const EVENT = 'Event\Application';
 
     /**
      * @return Request

@@ -29,6 +29,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return $this->trigger(['Controller\View\Model\Event', new ViewModel], $options);
+        return $this->trigger([Event::EVENT, new ViewModel], $options);
     }
 }

@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Controller\Event';
+    const EVENT = 'Event\Controller';
 }

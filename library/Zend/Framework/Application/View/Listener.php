@@ -11,6 +11,7 @@ namespace Zend\Framework\Application\View;
 
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\View\Renderer\EventInterface as View;
 
 class Listener
     implements ListenerInterface
@@ -27,6 +28,10 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->trigger('View\Render', $event->viewModel());
+        if (!$event->viewModel()) {
+            return null;
+        }
+
+        return $this->trigger(View::EVENT, $event->viewModel());
     }
 }

@@ -23,6 +23,6 @@ class HeadMeta
      */
     public function __service(ServiceManager $sm)
     {
-        $this->setView($sm->get('View\Renderer', null, false));
+        $this->setView($sm->get('View\Renderer'));
     }
 }

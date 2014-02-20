@@ -27,7 +27,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Route\Event';
+    const EVENT = 'Event\Route';
 
     /**
      * @param RouteMatch $routeMatch

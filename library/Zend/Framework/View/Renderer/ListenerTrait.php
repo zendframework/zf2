@@ -12,6 +12,7 @@ namespace Zend\Framework\View\Renderer;
 use RuntimeException;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\Framework\View\Renderer\Service\EventInterface as ViewRenderer;
 use Zend\View\Renderer\TreeRendererInterface;
 use Zend\View\Exception\DomainException;
 use Zend\View\Model\ModelInterface as ViewModel;
@@ -32,7 +33,7 @@ trait ListenerTrait
      */
     public function viewRenderer(ViewModel $model)
     {
-        return $this->trigger('View\Renderer\Service', $model);
+        return $this->trigger(ViewRenderer::EVENT, $model);
     }
 
     /**

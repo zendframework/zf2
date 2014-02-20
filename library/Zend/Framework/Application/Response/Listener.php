@@ -11,6 +11,7 @@ namespace Zend\Framework\Application\Response;
 
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\Response\EventInterface as Response;
 
 class Listener
     implements ListenerInterface
@@ -27,6 +28,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->trigger('Response\Event', $event->response());
+        return $this->trigger(Response::EVENT, $event->response());
     }
 }
