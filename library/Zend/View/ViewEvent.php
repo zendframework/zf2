@@ -194,11 +194,10 @@ class ViewEvent extends Event
     public function getParams()
     {
         $params             = parent::getParams();
-        $params['model']    = $this->getModel();
-        $params['renderer'] = $this->getRenderer();
-        $params['request']  = $this->getRequest();
-        $params['response'] = $this->getResponse();
-        $params['result']   = $this->getResult();
+        foreach (array('model', 'renderer', 'request', 'response', 'result') as $param) {
+            $method = 'get' . $param;
+            $params[$param] = $this->$method();
+        }
         return $params;
     }
 
