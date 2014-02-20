@@ -101,7 +101,32 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
     {
         $flashMessenger = $this->getPluginFlashMessenger();
         $messages = $flashMessenger->getMessagesFromNamespace($namespace);
+        return $this->renderMessages($namespace, $messages, $classes);
+    }
 
+    /**
+     * Render Current Messages
+     *
+     * @param  string $namespace
+     * @param  array  $classes
+     * @return string
+     */
+    public function renderCurrent($namespace = PluginFlashMessenger::NAMESPACE_DEFAULT, array $classes = array())
+    {
+        $flashMessenger = $this->getPluginFlashMessenger();
+        $messages = $flashMessenger->getCurrentMessagesFromNamespace($namespace);
+        return $this->renderMessages($namespace, $messages, $classes);
+    }
+
+    /**
+     * Render Messages
+     *
+     * @param  array $messages
+     * @param  array $classes
+     * @return string
+     */
+    protected function renderMessages($namespace = PluginFlashMessenger::NAMESPACE_DEFAULT, array $messages = array(), array $classes = array())
+    {
         // Prepare classes for opening tag
         if (empty($classes)) {
             if (isset($this->classMessages[$namespace])) {
