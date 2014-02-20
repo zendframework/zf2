@@ -37,7 +37,7 @@
         "bin/pluginmap_generator.php",
         "bin/templatemap_generator.php"
     ],
-    "replace": {
+    "provide": {
         "zendframework/zend-authentication": "self.version",
         "zendframework/zend-barcode": "self.version",
         "zendframework/zend-cache": "self.version",
