@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -21,6 +22,7 @@ use Zend\Stdlib\ArrayUtils;
 
 class Collection extends Fieldset implements FieldsetPrepareAwareInterface
 {
+
     /**
      * Default template placeholder
      */
@@ -152,14 +154,12 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
     {
         if (!is_array($object) && !$object instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects an array or Traversable object argument; received "%s"',
-                __METHOD__,
-                (is_object($object) ? get_class($object) : gettype($object))
+                    '%s expects an array or Traversable object argument; received "%s"', __METHOD__, (is_object($object) ? get_class($object) : gettype($object))
             ));
         }
 
         $this->object = $object;
-        $this->count  = count($object);
+        $this->count = count($object);
 
         return $this;
     }
@@ -176,9 +176,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
     {
         if (!is_array($data) && !$data instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects an array or Traversable set of data; received "%s"',
-                __METHOD__,
-                (is_object($data) ? get_class($data) : gettype($data))
+                    '%s expects an array or Traversable set of data; received "%s"', __METHOD__, (is_object($data) ? get_class($data) : gettype($data))
             ));
         }
 
@@ -190,10 +188,9 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
         if (count($data) < $this->getCount()) {
             if (!$this->allowRemove) {
                 throw new Exception\DomainException(sprintf(
-                    'There are fewer elements than specified in the collection (%s). Either set the allow_remove option ' .
-                    'to true, or re-submit the form.',
-                    get_class($this)
-                    )
+                        'There are fewer elements than specified in the collection (%s). Either set the allow_remove option ' .
+                        'to true, or re-submit the form.', get_class($this)
+                )
                 );
             }
 
@@ -238,14 +235,13 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
             }
         } elseif (!empty($data) && !$this->allowAdd) {
             throw new Exception\DomainException(sprintf(
-                'There are more elements than specified in the collection (%s). Either set the allow_add option ' .
-                'to true, or re-submit the form.',
-                get_class($this)
-                )
+                    'There are more elements than specified in the collection (%s). Either set the allow_add option ' .
+                    'to true, or re-submit the form.', get_class($this)
+            )
             );
         }
 
-        if (! $this->createNewObjects()) {
+        if (!$this->createNewObjects()) {
             $this->replaceTemplateObjects();
         }
     }
@@ -313,8 +309,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      */
     public function setTargetElement($elementOrFieldset)
     {
-        if (is_array($elementOrFieldset)
-            || ($elementOrFieldset instanceof Traversable && !$elementOrFieldset instanceof ElementInterface)
+        if (is_array($elementOrFieldset) || ($elementOrFieldset instanceof Traversable && !$elementOrFieldset instanceof ElementInterface)
         ) {
             $factory = $this->getFormFactory();
             $elementOrFieldset = $factory->create($elementOrFieldset);
@@ -322,10 +317,7 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
 
         if (!$elementOrFieldset instanceof ElementInterface) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s requires that $elementOrFieldset be an object implementing %s; received "%s"',
-                __METHOD__,
-                __NAMESPACE__ . '\ElementInterface',
-                (is_object($elementOrFieldset) ? get_class($elementOrFieldset) : gettype($elementOrFieldset))
+                    '%s requires that $elementOrFieldset be an object implementing %s; received "%s"', __METHOD__, __NAMESPACE__ . '\ElementInterface', (is_object($elementOrFieldset) ? get_class($elementOrFieldset) : gettype($elementOrFieldset))
             ));
         }
 
@@ -502,23 +494,6 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
 
         $values = array();
 
-        foreach ($this->object as $key => $value) {
-            if ($this->hydrator) {
-                $values[$key] = $this->hydrator->extract($value);
-            } elseif ($value instanceof $this->targetElement->object) {
-                // @see https://github.com/zendframework/zf2/pull/2848
-                $targetElement = clone $this->targetElement;
-                $targetElement->object = $value;
-                $values[$key] = $targetElement->extract();
-                if (! $this->createNewObjects() && $this->has($key)) {
-                    $fieldset = $this->get($key);
-                    if ($fieldset instanceof Fieldset && $fieldset->allowObjectBinding($value)) {
-                        $fieldset->setObject($value);
-                    }
-                }
-            }
-        }
-
         // Recursively extract and populate values for nested fieldsets
         foreach ($this->fieldsets as $fieldset) {
             $name = $fieldset->getName();
@@ -538,6 +513,23 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
                                 $values[$name][$childName] = $fieldset->extract();
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        foreach ($this->object as $key => $value) {
+            if ($this->hydrator) {
+                $values[$key] = $this->hydrator->extract($value);
+            } elseif ($value instanceof $this->targetElement->object) {
+                // @see https://github.com/zendframework/zf2/pull/2848
+                $targetElement = clone $this->targetElement;
+                $targetElement->object = $value;
+                $values[$key] = $targetElement->extract();
+                if (!$this->createNewObjects() && $this->has($key)) {
+                    $fieldset = $this->get($key);
+                    if ($fieldset instanceof Fieldset && $fieldset->allowObjectBinding($value)) {
+                        $fieldset->setObject($value);
                     }
                 }
             }
@@ -615,4 +607,5 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
             }
         }
     }
+
 }
