@@ -46,7 +46,7 @@ class Manager
      * @param array|EventInterface|string $event
      * @return EventInterface
      */
-    public function event($event)
+    protected function event($event)
     {
         return $event instanceof EventInterface ? $event : $this->get($event, null, false);
     }

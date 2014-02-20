@@ -31,7 +31,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        var_dump(__FILE__);
         // Do nothing if no error in the event
         $error = $event->error();
         if (empty($error)) {
