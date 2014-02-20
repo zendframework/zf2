@@ -19,7 +19,7 @@ use Zend\Uri\Http;
 /**
  * Http client
  */
-class Client implements Stdlib\DispatchableInterface
+class Client implements ClientInterface
 {
     /**
      * @const string Supported HTTP Authentication methods
