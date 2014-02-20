@@ -501,7 +501,6 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
      */
     public function extract()
     {
-
         if ($this->object instanceof Traversable) {
             $this->object = ArrayUtils::iteratorToArray($this->object, false);
         }
@@ -513,42 +512,20 @@ class Collection extends Fieldset implements FieldsetPrepareAwareInterface
         $values = array();
 
         foreach ($this->object as $key => $value) {
-            if ($this->hydrator) {
-                $values[$key] = $this->hydrator->extract($value);
-            } elseif ($value instanceof $this->targetElement->object) {
-                // @see https://github.com/zendframework/zf2/pull/2848
-                $targetElement = clone $this->targetElement;
-                $targetElement->object = $value;
-                $values[$key] = $targetElement->extract();
-                if (! $this->createNewObjects() && $this->has($key)) {
-                    $fieldset = $this->get($key);
-                    if ($fieldset instanceof Fieldset && $fieldset->allowObjectBinding($value)) {
-                        $fieldset->setObject($value);
-                    }
-                }
-            }
-        }
+            if($value instanceof $this->targetElement->object) {
 
-        // Recursively extract and populate values for nested fieldsets
-        foreach ($this->fieldsets as $fieldset) {
-            $name = $fieldset->getName();
-            if (isset($values[$name])) {
-                $object = $values[$name];
-
-                if ($fieldset->allowObjectBinding($object)) {
-                    $fieldset->setObject($object);
-                    $values[$name] = $fieldset->extract();
+                //  Get fieldset (or add it by cloning)
+                if(!$this->has($key)) {
+                    $fieldset = $this->createNewTargetElementInstance();
+                    $this->add($fieldset->setName($key));
                 } else {
-                    foreach ($fieldset->fieldsets as $childFieldset) {
-                        $childName = $childFieldset->getName();
-                        if (isset($object[$childName])) {
-                            $childObject = $object[$childName];
-                            if ($childFieldset->allowObjectBinding($childObject)) {
-                                $fieldset->setObject($childObject);
-                                $values[$name][$childName] = $fieldset->extract();
-                            }
-                        }
-                    }
+                    $fieldset = $this->get($key);
+                }
+
+                //  Set the full object
+                if (! $this->createNewObjects() && $this->has($key)) {
+                    $fieldset->setObject($value);
+                    $values[$key] = $fieldset->extract();
                 }
             }
         }
