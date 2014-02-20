@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Controller\Error;
 
-use Exception;
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Mvc\Router\RouteMatch;
 
@@ -22,46 +21,16 @@ class Event
     use EventTrait;
 
     /**
-     * @var callable|string
-     */
-    protected $controller;
-
-    /**
-     * @var Exception
-     */
-    protected $exception;
-
-    /**
      * @var RouteMatch
      */
     protected $routeMatch;
 
     /**
-     * @param callable|string $controller
      * @param RouteMatch $routeMatch
-     * @param Exception $exception
      */
-    public function __construct($controller, RouteMatch $routeMatch, Exception $exception)
+    public function __construct(RouteMatch $routeMatch)
     {
-        $this->controller = $controller;
         $this->routeMatch = $routeMatch;
-        $this->exception  = $exception;
-    }
-
-    /**
-     * @return callable|string
-     */
-    public function controller()
-    {
-        return $this->controller;
-    }
-
-    /**
-     * @return Exception
-     */
-    public function exception()
-    {
-        return $this->exception;
     }
 
     /**
@@ -70,5 +39,16 @@ class Event
     public function routeMatch()
     {
         return $this->routeMatch;
+    }
+
+    /**
+     * @param callable $listener
+     * @param null $options
+     * @return mixed
+     */
+    public function __invoke(callable $listener, $options = null)
+    {
+        list($request, $response) = $options;
+        return $listener($this, $request, $response);
     }
 }

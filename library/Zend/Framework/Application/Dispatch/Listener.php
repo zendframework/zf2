@@ -11,10 +11,11 @@ namespace Zend\Framework\Application\Dispatch;
 
 use Exception;
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Controller\Error\EventInterface as Error;
+use Zend\Framework\Application\Dispatch\Error\EventInterface as DispatchError;
+use Zend\Framework\Controller\Error\EventInterface as ControllerError;
 use Zend\Framework\Controller\EventInterface as Controller;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
-use Zend\Framework\Controller\NotFound\EventInterface as NotFound;
+
 
 class Listener
     implements ListenerInterface
@@ -39,14 +40,14 @@ class Listener
         try {
 
             if (!$this->dispatchable($controller)) {
-                return $this->dispatch([NotFound::EVENT, $routeMatch], $controller);
+                return $this->dispatch([ControllerError::EVENT, $routeMatch], [$request, $response]);
             }
 
             return $this->dispatch([Controller::EVENT, $controller, $routeMatch], [$request, $response]);
 
         } catch (Exception $exception) {
 
-            return $this->dispatch([Error::EVENT, $controller, $routeMatch, $exception]);
+            return $this->dispatch([DispatchError::EVENT, $exception, $routeMatch], [$request, $response]);
 
         }
     }

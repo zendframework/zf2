@@ -27,6 +27,8 @@ class Listener
      */
     public function __invoke(EventInterface $event, $result)
     {
+        var_dump(__FILE__);
+
         if (!$result instanceof ViewModel) {
             return $result;
         }

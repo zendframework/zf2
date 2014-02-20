@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\NotFound;
+namespace Zend\Framework\Application\Dispatch\Error;
 
 use Zend\Framework\Event\EventInterface as Event;
 
@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Event\Controller\NotFound';
+    const EVENT = 'Dispatch\Error';
 }

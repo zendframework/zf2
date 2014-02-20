@@ -39,7 +39,7 @@ class Config
      */
     public function __construct(array $config = [])
     {
-        $this->config  = $config;
+        $this->config = $config;
     }
 
     /**

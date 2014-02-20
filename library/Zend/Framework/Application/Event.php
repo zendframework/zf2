@@ -62,7 +62,7 @@ class Event
             case $response instanceof ViewModelInterface:
                 $this->setViewModel($response);
                 break;
-            case $listener instanceof ViewListenerInterface:
+            case $response && $listener instanceof ViewListenerInterface:
                 $this->setResponseContent($response);
                 break;
         }

@@ -9,13 +9,16 @@
 
 namespace Zend\Framework\Controller\Error;
 
-use Zend\Framework\Event\EventInterface as Event;
+use Zend\Stdlib\RequestInterface;
+use Zend\Stdlib\ResponseInterface;
 
-interface EventInterface
-    extends Event
+interface ListenerInterface
 {
     /**
-     *
+     * @param EventInterface $event
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
+     * @return mixed
      */
-    const EVENT = 'Controller\Error';
+    public function __invoke(EventInterface $event, RequestInterface $request, ResponseInterface $response);
 }
