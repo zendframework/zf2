@@ -21,10 +21,10 @@ class Event
     use EventTrait;
 
     /**
-     * @param $controller
      * @param RouteMatch $routeMatch
+     * @param $controller
      */
-    public function __construct($controller, RouteMatch $routeMatch)
+    public function __construct(RouteMatch $routeMatch, $controller)
     {
         $this->name   = $controller;
         $this->source = $routeMatch;

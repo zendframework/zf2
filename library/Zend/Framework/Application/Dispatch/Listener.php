@@ -39,11 +39,9 @@ class Listener
 
         try {
 
-            if (!$this->dispatchable($controller)) {
-                return $this->dispatch([ControllerError::EVENT, $routeMatch], [$request, $response]);
-            }
+            $event = $this->dispatchable($controller) ? Controller::EVENT : ControllerError::EVENT;
 
-            return $this->dispatch([Controller::EVENT, $controller, $routeMatch], [$request, $response]);
+            return $this->dispatch([$event, $routeMatch, $controller], [$request, $response]);
 
         } catch (Exception $exception) {
 
