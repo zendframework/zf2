@@ -15,6 +15,11 @@ use Zend\Stdlib\ResponseInterface;
 interface ListenerInterface
 {
     /**
+     *
+     */
+    const TEMPLATE = 'error/404';
+
+    /**
      * @param EventInterface $event
      * @param RequestInterface $request
      * @param ResponseInterface $response

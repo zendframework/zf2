@@ -9,13 +9,21 @@
 
 namespace Zend\Framework\Controller\Error;
 
+use Zend\Framework\Controller\View\Model\ServiceTrait as ControllerViewModel;
+use Zend\Framework\View\Model\ServiceTrait as ViewModel;
+use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Stdlib\RequestInterface;
 use Zend\Stdlib\ResponseInterface;
-use Zend\Http\Response as HttpResponse;
 
 class Listener
     implements ListenerInterface
 {
+    /**
+     *
+     */
+    use ControllerViewModel,
+        ViewModel;
+
     /**
      * @param EventInterface $event
      * @param RequestInterface $request
@@ -24,7 +32,8 @@ class Listener
      */
     public function __invoke(EventInterface $event, RequestInterface $request, ResponseInterface $response)
     {
-        $response->setStatusCode(HttpResponse::STATUS_CODE_404)
-                 ->setContent($response->getReasonPhrase());
+        $response->setStatusCode(HttpResponse::STATUS_CODE_404);
+
+        return $this->viewModel()->addChild($this->controllerViewModel());
     }
 }
