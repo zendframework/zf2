@@ -38,7 +38,7 @@ class Listener
         $controller = $routeMatch->getParam('controller');
 
         try {
-throw new \Exception;
+
             if (!$this->dispatchable($controller)) {
                 return $this->dispatch([ControllerError::EVENT, $routeMatch], [$request, $response]);
             }
