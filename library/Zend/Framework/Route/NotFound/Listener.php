@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\NotFound;
 
 use Zend\Framework\Event\EventInterface;
-use Zend\Framework\Controller\Error\EventInterface as DispatchError;
+use Zend\Framework\Controller\Error\EventInterface as ControllerError;
 use Zend\Framework\View\Model\ViewModel;
 use Zend\Stdlib\ResponseInterface as Response;
 
@@ -26,7 +26,7 @@ class Listener
      */
     public function __invoke(EventInterface $event, $result)
     {
-        if (DispatchError::EVENT == $event->name()) {
+        if (ControllerError::EVENT == $event->name()) {
             $this->detectNotFoundError($event);
         }
 

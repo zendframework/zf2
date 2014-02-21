@@ -12,14 +12,6 @@ namespace Zend\Framework\View;
 trait ServicesTrait
 {
     /**
-     * @return array
-     */
-    public function viewConfig()
-    {
-        return $this->viewManager()->viewConfig();
-    }
-
-    /**
      * @return ManagerInterface
      */
     public function viewManager()

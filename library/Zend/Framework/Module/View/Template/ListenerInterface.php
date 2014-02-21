@@ -16,9 +16,8 @@ interface ListenerInterface
 {
     /**
      * @param ViewModel $model
-     * @param callable $controller
      * @param RouteMatch $routeMatch
      * @return mixed|ViewModel
      */
-    public function __invoke(ViewModel $model, callable $controller, RouteMatch $routeMatch);
+    public function __invoke(ViewModel $model, RouteMatch $routeMatch);
 }

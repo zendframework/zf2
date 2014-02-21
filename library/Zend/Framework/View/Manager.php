@@ -20,18 +20,26 @@ class Manager
     /**
      *
      */
-    use ManagerTrait,
+    use ServiceConfigTrait,
         ServiceFactory,
         ServiceManager;
 
     /**
-     * @param array $config
+     * @return ConfigInterface
+     */
+    public function viewConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param Config $config
      * @param ServiceConfig $services
      */
-    public function __construct(array $config, ServiceConfig $services)
+    public function __construct(Config $config, ServiceConfig $services)
     {
         $this->config   = $config;
-        $this->alias    = $config['view_helpers'];
+        $this->alias    = $config->aliases();
         $this->services = $services;
     }
 }

@@ -9,10 +9,24 @@
 
 namespace Zend\Framework\View;
 
-interface ManagerInterface
+interface ConfigInterface
 {
     /**
-     * @return ConfigInterface
+     * @param string $name
+     * @param mixed $service
+     * @return self
      */
-    public function viewConfig();
+    public function add($name, $service);
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function get($name);
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function has($name);
 }

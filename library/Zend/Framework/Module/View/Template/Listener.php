@@ -23,11 +23,10 @@ class Listener
 
     /**
      * @param ViewModel $model
-     * @param callable $controller
      * @param RouteMatch $routeMatch
      * @return mixed|ViewModel
      */
-    public function __invoke(ViewModel $model, callable $controller, RouteMatch $routeMatch)
+    public function __invoke(ViewModel $model, RouteMatch $routeMatch)
     {
         $template = $model->getTemplate();
 
@@ -35,12 +34,7 @@ class Listener
             return $model;
         }
 
-        if (is_object($controller)) {
-            $controller = get_class($controller);
-        }
-        if (!$controller) {
-            $controller = $routeMatch->getParam('controller', '');
-        }
+        $controller = $routeMatch->getParam('controller');
 
         $module = $this->deriveModuleNamespace($controller);
 

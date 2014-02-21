@@ -9,19 +9,19 @@
 
 namespace Zend\Framework\View;
 
-trait ManagerTrait
+trait ServiceConfigTrait
 {
     /**
-     * @var array
+     * @var
      */
     protected $config;
 
     /**
      * @return array
      */
-    public function viewHelpers()
+    public function aliases()
     {
-        return $this->config['view_helpers'];
+        return $this->config->aliases();
     }
 
     /**
@@ -29,7 +29,7 @@ trait ManagerTrait
      */
     public function layoutTemplate()
     {
-        return $this->config['layout_template'];
+        return $this->config->layoutTemplate();
     }
 
     /**
@@ -37,7 +37,7 @@ trait ManagerTrait
      */
     public function displayExceptions()
     {
-        return $this->config['display_exceptions'];
+        return $this->config->displayExceptions();
     }
 
     /**
@@ -45,7 +45,7 @@ trait ManagerTrait
      */
     public function displayNotFoundReason()
     {
-        return $this->config['display_not_found_reason'];
+        return $this->config->displayNotFoundReason();
     }
 
     /**
@@ -53,7 +53,7 @@ trait ManagerTrait
      */
     public function exceptionTemplate()
     {
-        return $this->config['exception_template'];
+        return $this->config->exceptionTemplate();
     }
 
     /**
@@ -61,6 +61,14 @@ trait ManagerTrait
      */
     public function notFoundTemplate()
     {
-        return $this->config['not_found_template'];
+        return $this->config->notFoundTemplate();
+    }
+
+    /**
+     * @return ConfigInterface
+     */
+    public function viewConfig()
+    {
+        return $this->config;
     }
 }

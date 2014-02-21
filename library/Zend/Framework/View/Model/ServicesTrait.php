@@ -14,11 +14,13 @@ use Zend\View\Model\ModelInterface as ViewModel;
 trait ServicesTrait
 {
     /**
-     * @return bool|ViewModel
+     * @param null $options
+     * @param bool $shared
+     * @return mixed
      */
-    public function viewModel()
+    public function viewModel($options = null, $shared = true)
     {
-        return $this->sm->get('View\Model');
+        return $this->sm->get('View\Model', $options, $shared);
     }
 
     /**

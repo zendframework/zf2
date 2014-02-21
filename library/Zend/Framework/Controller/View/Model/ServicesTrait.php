@@ -15,14 +15,13 @@ use Zend\View\Model\ModelInterface as ViewModel;
 trait ServicesTrait
 {
     /**
-     * @param $controller
      * @param RouteMatch $routeMatch
      * @return bool|ViewModel
      *
      */
-    public function controllerViewModel($controller, RouteMatch $routeMatch)
+    public function controllerViewModel(RouteMatch $routeMatch)
     {
-        return $this->sm->get('Controller\View\Model', [$controller, $routeMatch]);
+        return $this->sm->get('Controller\View\Model', [$routeMatch]);
     }
 
     /**
