@@ -9,13 +9,11 @@
 
 namespace Zend\Framework\Application\Dispatch\Error;
 
-use Zend\Framework\Controller\View\Model\ServicesTrait as ControllerViewModel;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Route\ServicesTrait as RouteServices;
 use Zend\Framework\View\Model\ServicesTrait as ViewModel;
 use Zend\Framework\View\ServicesConfigTrait as ViewConfig;
-use Zend\Framework\View\ServicesTrait as ViewManager;
 
 class ListenerFactory
     extends Factory
@@ -23,11 +21,9 @@ class ListenerFactory
     /**
      *
      */
-    use ControllerViewModel,
-        RouteServices,
+    use RouteServices,
         ViewConfig,
-        ViewModel,
-        ViewManager;
+        ViewModel;
 
     /**
      * @param Request $request
@@ -36,11 +32,10 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        $viewModel = $this->controllerViewModel($this->routeMatch())
+        $viewModel = $this->viewModel($this->routeMatch())
                           ->setTemplate($this->exceptionTemplate())
                           ->setVariable('display_exceptions', $this->displayExceptions());
 
-        return (new Listener)->setControllerViewModel($viewModel)
-                             ->setViewModel($this->viewModel());
+        return (new Listener)->setViewModel($viewModel);
     }
 }

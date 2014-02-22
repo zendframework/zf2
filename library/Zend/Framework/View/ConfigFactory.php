@@ -7,21 +7,22 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Model;
+namespace Zend\Framework\View;
 
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory as ServiceFactory;
+use Zend\Framework\Service\Factory\Factory;
+use Zend\View\Helper as ViewHelper;
 
-class Factory
-    extends ServiceFactory
+class ConfigFactory
+    extends Factory
 {
     /**
      * @param Request $request
      * @param array $options
-     * @return ViewModel
+     * @return Manager
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new ViewModel;
+        return new Config($this->sm->get('Config')['view_manager']);
     }
 }

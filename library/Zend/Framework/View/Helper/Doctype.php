@@ -23,12 +23,9 @@ class Doctype
      */
     public function __service(ServiceManager $sm)
     {
-        $config = $sm->get('Config');
-
-        $config = isset($config['view_manager']) ? $config['view_manager'] : array();
-
-        if (isset($config['doctype']) && $config['doctype']) {
-            $this->setDoctype($config['doctype']);
+        $config = $sm->get('View\Config');
+        if ($config && $config->get('doctype')) {
+            $this->setDoctype($config->get('doctype'));
         }
     }
 }

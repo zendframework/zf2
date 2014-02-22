@@ -25,18 +25,10 @@ class Manager
         ServiceManager;
 
     /**
-     * @return ConfigInterface
-     */
-    public function viewConfig()
-    {
-        return $this->config;
-    }
-
-    /**
-     * @param Config $config
+     * @param ConfigInterface $config
      * @param ServiceConfig $services
      */
-    public function __construct(Config $config, ServiceConfig $services)
+    public function __construct(ConfigInterface $config, ServiceConfig $services)
     {
         $this->config   = $config;
         $this->alias    = $config->aliases();

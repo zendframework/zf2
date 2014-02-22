@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Application\Dispatch\Error;
 
-use Zend\Framework\Controller\View\Model\ServiceTrait as ControllerViewModel;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Stdlib\RequestInterface;
@@ -21,8 +20,7 @@ class Listener
     /**
      *
      */
-    use ControllerViewModel,
-        ViewModel;
+    use ViewModel;
 
     /**
      * @param EventInterface $event
@@ -33,10 +31,6 @@ class Listener
     public function __invoke(EventInterface $event, RequestInterface $request, ResponseInterface $response)
     {
         $response->setStatusCode(HttpResponse::STATUS_CODE_500);
-
-        $viewModel = $this->controllerViewModel()
-                          ->setVariables(['exception' => $event->exception()]);
-
-        return $this->viewModel()->addChild($viewModel);
+        return $this->viewModel()->setVariables(['exception' => $event->exception()]);
     }
 }

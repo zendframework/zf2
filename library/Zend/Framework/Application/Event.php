@@ -60,7 +60,14 @@ class Event
                 $this->setRouteMatch($response);
                 break;
             case $response instanceof ViewModelInterface:
-                $this->setViewModel($response);
+                switch(true) {
+                    default:
+                        $this->setViewModel($response);
+                        break;
+                    case !$response->terminate() && $this->viewModel():
+                        $this->viewModel()->addChild($response);
+                        break;
+                }
                 break;
             case $response && $listener instanceof ViewListenerInterface:
                 $this->setResponseContent($response);

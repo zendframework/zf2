@@ -13,6 +13,13 @@ use Zend\Framework\Event\Manager\ManagerInterface;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
+/**
+ * Class Factory
+ *
+ * File required for static serialization
+ *
+ * @package Zend\Framework\Application\Event\Manager
+ */
 class Factory
     extends ServiceFactory
 {

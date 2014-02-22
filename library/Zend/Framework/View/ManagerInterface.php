@@ -11,8 +11,4 @@ namespace Zend\Framework\View;
 
 interface ManagerInterface
 {
-    /**
-     * @return ConfigInterface
-     */
-    public function viewConfig();
 }

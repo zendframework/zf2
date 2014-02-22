@@ -12,6 +12,13 @@ namespace Zend\Framework\Application\Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 
+/**
+ * Class Factory
+ *
+ * File required for static serialization
+ *
+ * @package Zend\Framework\Application\Config
+ */
 class Factory
     extends ServiceFactory
 {

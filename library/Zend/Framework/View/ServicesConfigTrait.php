@@ -64,6 +64,6 @@ trait ServicesConfigTrait
      */
     public function viewConfig()
     {
-        return $this->viewManager()->viewConfig();
+        return $this->sm->get('View\Config');
     }
 }

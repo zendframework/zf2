@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\Application\Config\ServicesTrait as ApplicationConfig;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Helper as ViewHelper;
@@ -20,7 +19,7 @@ class ManagerFactory
     /**
      *
      */
-    use ApplicationConfig;
+    use ServicesConfigTrait;
 
     /**
      * @param Request $request
@@ -29,6 +28,6 @@ class ManagerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Manager(new Config($this->config()['view_manager']), $this->sm->services());
+        return new Manager($this->viewConfig(), $this->sm->services());
     }
 }
