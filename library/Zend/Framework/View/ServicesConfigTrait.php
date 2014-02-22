@@ -28,6 +28,14 @@ trait ServicesConfigTrait
     }
 
     /**
+     * @return string
+     */
+    public function defaultTemplateSuffix()
+    {
+        return $this->viewConfig()->defaultTemplateSuffix();
+    }
+
+    /**
      * @return bool
      */
     public function displayExceptions()
@@ -57,6 +65,22 @@ trait ServicesConfigTrait
     public function notFoundTemplate()
     {
         return $this->viewConfig()->notFoundTemplate();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function templateMap()
+    {
+        return $this->viewConfig()->templateMap();
+    }
+
+    /**
+     * @return array
+     */
+    public function templatePathStack()
+    {
+        return $this->viewConfig()->templatePathStack();
     }
 
     /**

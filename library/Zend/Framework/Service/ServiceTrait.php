@@ -25,6 +25,14 @@ trait ServiceTrait
     }
 
     /**
+     * @return ConfigInterface
+     */
+    public function services()
+    {
+        return $this->sm->services();
+    }
+
+    /**
      * @param ManagerInterface $sm
      * @return self
      */

@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\I18n\View\Helper;
 
-use Zend\Framework\Application\Config\ServicesTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\I18n\Translator\ServicesTrait as Translator;
@@ -21,8 +20,7 @@ class Factory
     /**
      *
      */
-    use Config,
-        Translator;
+    use Translator;
 
     /**
      * @param Request $request

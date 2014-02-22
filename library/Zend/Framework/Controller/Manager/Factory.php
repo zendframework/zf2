@@ -9,8 +9,7 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Application\Config\ServicesTrait as Config;
-use Zend\Framework\Event\Manager\Config as ListenersConfig;
+use Zend\Framework\Controller\ServicesConfigTrait as Config;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\Service\RequestInterface as Request;
 
@@ -29,6 +28,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Manager($this->sm->services(), new ListenersConfig($this->config()['controllers']));
+        return new Manager($this->services(), $this->controllers());
     }
 }

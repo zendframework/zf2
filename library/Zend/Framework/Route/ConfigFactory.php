@@ -7,28 +7,21 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Resolver\Factory;
+namespace Zend\Framework\Route;
 
-use Zend\Framework\View\ServicesConfigTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
-use Zend\View\Resolver\TemplateMapResolver;
 
-class MapFactory
+class ConfigFactory
     extends Factory
 {
     /**
-     *
-     */
-    use Config;
-
-    /**
      * @param Request $request
      * @param array $options
-     * @return TemplateMapResolver
+     * @return array
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new TemplateMapResolver($this->templateMap());
+        return $this->sm->get('Config')['router'];
     }
 }

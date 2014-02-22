@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Resolver\Factory;
 
-use Zend\Framework\Application\Config\ServicesTrait as Config;
+use Zend\Framework\View\ServicesConfigTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Resolver\TemplatePathStack;
@@ -29,20 +29,16 @@ class PathStackFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        $config = $this->config();
+        $config = $this->viewConfig();
 
         $templatePathStack = new TemplatePathStack();
 
-        if (isset($config['view_manager'])) {
-            $config = $config['view_manager'];
-            if (is_array($config)) {
-                if (isset($config['template_path_stack'])) {
-                    $templatePathStack->addPaths($config['template_path_stack']);
-                }
-                if (isset($config['default_template_suffix'])) {
-                    $templatePathStack->setDefaultSuffix($config['default_template_suffix']);
-                }
-            }
+        if ($config->templatePathStack()) {
+            $templatePathStack->addPaths($config->templatePathStack());
+        }
+
+        if ($config->defaultTemplateSuffix()) {
+            $templatePathStack->setDefaultSuffix($config->defaultTemplateSuffix());
         }
 
         return $templatePathStack;

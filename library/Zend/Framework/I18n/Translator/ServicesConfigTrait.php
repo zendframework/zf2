@@ -7,24 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Config;
+namespace Zend\Framework\I18n\Translator;
 
-trait ServicesTrait
+trait ServicesConfigTrait
 {
     /**
      * @return array
      */
-    public function config()
+    public function translator()
     {
-        return $this->sm->get('Config');
-    }
-
-    /**
-     * @param array $config
-     * @return self
-     */
-    public function setConfig(array $config)
-    {
-        return $this->sm->add('Config', $config);
+        return $this->sm->get('Translator\Config');
     }
 }

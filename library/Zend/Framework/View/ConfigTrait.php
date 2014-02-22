@@ -28,6 +28,14 @@ trait ConfigTrait
     }
 
     /**
+     * @return string
+     */
+    public function defaultTemplateSuffix()
+    {
+        return $this->get('default_template_suffix');
+    }
+
+    /**
      * @return bool
      */
     public function displayExceptions()
@@ -57,5 +65,21 @@ trait ConfigTrait
     public function notFoundTemplate()
     {
         return $this->get('not_found_template');
+    }
+
+    /**
+     * @return array
+     */
+    public function templateMap()
+    {
+        return (array) $this->get('template_map');
+    }
+
+    /**
+     * @return array
+     */
+    public function templatePathStack()
+    {
+        return (array) $this->get('template_path_stack');
     }
 }

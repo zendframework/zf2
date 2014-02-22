@@ -65,6 +65,22 @@ trait ServiceConfigTrait
     }
 
     /**
+     * @return array
+     */
+    public function templateMap()
+    {
+        return $this->config->templateMap();
+    }
+
+    /**
+     * @return array
+     */
+    public function templatePathStack()
+    {
+        return $this->config->templatePathStack();
+    }
+
+    /**
      * @return ConfigInterface
      */
     public function viewConfig()
