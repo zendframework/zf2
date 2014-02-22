@@ -67,6 +67,12 @@ trait ManagerTrait
     }
 
     /**
+     * @param array|callable|FactoryInterface|object|string $factory
+     * @return callable|FactoryInterface
+     */
+    abstract protected function instance($factory);
+
+    /**
      * @param $alias
      * @param null $options
      * @return array
