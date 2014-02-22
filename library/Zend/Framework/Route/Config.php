@@ -9,15 +9,14 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\Config\ConfigTrait as SerialConfigTrait;
+use Zend\Framework\Config\ConfigTrait;
 use Zend\Framework\Config\ConfigInterface as Serializable;
 
 class Config
-    implements ConfigInterface, ConfigServiceInterface, Serializable
+    implements ConfigInterface, Serializable
 {
     /**
      *
      */
-    use ConfigServiceTrait,
-        SerialConfigTrait;
+    use ConfigTrait;
 }

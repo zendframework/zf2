@@ -12,13 +12,12 @@ namespace Zend\Framework\Service;
 use Serializable;
 
 class Config
-    implements ConfigInterface, ConfigServiceInterface, Serializable
+    implements ConfigInterface, Serializable
 {
     /**
      *
      */
-    use ConfigTrait,
-        ConfigServiceTrait;
+    use ConfigTrait;
 
     /**
      * @param array $config

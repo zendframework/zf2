@@ -12,11 +12,10 @@ namespace Zend\Framework\Event\Manager;
 use Serializable;
 
 class Config
-    implements ConfigInterface, ConfigServiceInterface, Serializable
+    implements ConfigInterface, Serializable
 {
     /**
      *
      */
-    use ConfigTrait,
-        ConfigServiceTrait;
+    use ConfigTrait;
 }
