@@ -28,6 +28,15 @@ trait ServicesTrait
     }
 
     /**
+     * @param ViewModel $viewModel
+     * @return self
+     */
+    public function setRootViewModel(ViewModel $viewModel)
+    {
+        return $this->sm->add('View\Model', $viewModel);
+    }
+
+    /**
      * @param null $options
      * @param bool $shared
      * @return ViewModel
@@ -35,14 +44,5 @@ trait ServicesTrait
     public function viewModel($options = null, $shared = true)
     {
         return $this->trigger('Event\View\Model', $options);
-    }
-
-    /**
-     * @param ViewModel $viewModel
-     * @return self
-     */
-    public function setRootViewModel(ViewModel $viewModel)
-    {
-        return $this->sm->add('View\Model', $viewModel);
     }
 }

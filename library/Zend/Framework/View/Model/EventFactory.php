@@ -11,14 +11,18 @@ namespace Zend\Framework\View\Model;
 
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\View\Model\ModelInterface;
 
 class EventFactory
     extends Factory
 {
     /**
-     *
+     * @return ModelInterface
      */
-    use ServicesTrait;
+    protected function viewModel()
+    {
+        return $this->sm->get('View\Model', null, false);
+    }
 
     /**
      * @param Request $request
@@ -27,6 +31,6 @@ class EventFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Event(new ViewModel);
+        return new Event($this->viewModel());
     }
 }
