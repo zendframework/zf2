@@ -29,6 +29,6 @@ class ManagerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Manager($this->viewConfig()->aliases(), $this->sm->services());
+        return new Manager($this->aliases(), $this->sm->services());
     }
 }
