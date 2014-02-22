@@ -7,30 +7,30 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Plugin;
 
 trait ServiceTrait
 {
     /**
      * @var ManagerInterface
      */
-    protected $vm;
+    protected $pm;
 
     /**
      * @return ManagerInterface
      */
-    public function viewManager()
+    public function viewPluginManager()
     {
-        return $this->vm;
+        return $this->pm;
     }
 
     /**
-     * @param ManagerInterface $vm
+     * @param ManagerInterface $pm
      * @return self
      */
-    public function setViewManager(ManagerInterface $vm)
+    public function setViewPluginManager(ManagerInterface $pm)
     {
-        $this->vm = $vm;
+        $this->pm = $pm;
         return $this;
     }
 }

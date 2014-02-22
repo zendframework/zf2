@@ -7,11 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Helper as ViewHelper;
+use Zend\Framework\View\ServicesConfigTrait;
 
 class ManagerFactory
     extends Factory
@@ -28,6 +29,6 @@ class ManagerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Manager($this->viewConfig(), $this->sm->services());
+        return new Manager($this->viewConfig()->aliases(), $this->sm->services());
     }
 }

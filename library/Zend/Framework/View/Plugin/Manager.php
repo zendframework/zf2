@@ -7,12 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Service\ConfigInterface as ServiceConfig;
 use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
+use Zend\Framework\View\ServiceConfigTrait;
 
 class Manager
     implements ManagerInterface, ServiceManagerInterface
@@ -20,18 +21,16 @@ class Manager
     /**
      *
      */
-    use ServiceConfigTrait,
-        ServiceFactory,
+    use ServiceFactory,
         ServiceManager;
 
     /**
-     * @param ConfigInterface $config
+     * @param array $aliases
      * @param ServiceConfig $services
      */
-    public function __construct(ConfigInterface $config, ServiceConfig $services)
+    public function __construct(array $aliases, ServiceConfig $services)
     {
-        $this->config   = $config;
-        $this->alias    = $config->aliases();
+        $this->alias    = $aliases;
         $this->services = $services;
     }
 }
