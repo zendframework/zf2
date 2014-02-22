@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Service;
 
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
@@ -22,6 +22,7 @@ class ConfigFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return $this->sm->get('Config')->router();
+        var_dump(__FILE__);
+        return $this->sm->get('Config')->services();
     }
 }

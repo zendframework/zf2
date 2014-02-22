@@ -25,7 +25,12 @@ class Factory
         $application = new Manager($services, $config->listeners());
 
         $services->add('Config', $config)
-                 ->add('EventManager', $application);
+                 ->add('Controller\Config', $config->controllers())
+                 ->add('Event\Manager', $application)
+                 ->add('Event\Manager\Config', $config->listeners())
+                 ->add('Router\Config', $config->router())
+                 ->add('Translator\Config', $config->translator())
+                 ->add('View\Config', $config->view());
 
         return $application;
     }

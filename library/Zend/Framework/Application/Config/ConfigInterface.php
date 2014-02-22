@@ -31,7 +31,7 @@ interface ConfigInterface
     /**
      * @return RouterConfig
      */
-    public function routerConfig();
+    public function router();
 
     /**
      * @return ServicesConfig
@@ -46,5 +46,5 @@ interface ConfigInterface
     /**
      * @return ViewConfig
      */
-    public function viewConfig();
+    public function view();
 }

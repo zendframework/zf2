@@ -29,6 +29,6 @@ class Factory
      */
     public function __invoke(Request $request, array $config = [])
     {
-        return require 'config/application.config.php';
+        return require 'config/application.config.php'; //must be serializable
     }
 }

@@ -45,7 +45,7 @@ class Config
     /**
      * @return RouterConfig
      */
-    public function routerConfig()
+    public function router()
     {
         return $this->get('router');
     }
@@ -69,7 +69,7 @@ class Config
     /**
      * @return ViewConfig
      */
-    public function viewConfig()
+    public function view()
     {
         return $this->get('view_manager');
     }
