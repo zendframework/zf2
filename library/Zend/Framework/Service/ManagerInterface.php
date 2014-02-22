@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Service\Factory\FactoryInterface;
+
 interface ManagerInterface
 {
     /**
