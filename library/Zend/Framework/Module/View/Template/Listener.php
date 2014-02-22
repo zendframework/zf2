@@ -29,7 +29,7 @@ class Listener
     public function __invoke(ViewModel $model, $routeMatch = null)
     {
         if (!$routeMatch instanceof RouteMatch) {
-            return;
+            return $model;
         }
 
         $template = $model->getTemplate();
