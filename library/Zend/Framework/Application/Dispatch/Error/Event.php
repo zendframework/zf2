@@ -11,7 +11,6 @@ namespace Zend\Framework\Application\Dispatch\Error;
 
 use Exception;
 use Zend\Framework\Event\EventTrait as EventTrait;
-use Zend\Mvc\Router\RouteMatch;
 
 class Event
     implements EventInterface
@@ -27,18 +26,11 @@ class Event
     protected $exception;
 
     /**
-     * @var RouteMatch
-     */
-    protected $routeMatch;
-
-    /**
      * @param Exception $exception
-     * @param $routeMatch
      */
-    public function __construct(Exception $exception, $routeMatch)
+    public function __construct(Exception $exception)
     {
         $this->exception  = $exception;
-        $this->routeMatch = $routeMatch;
     }
 
     /**
@@ -47,14 +39,6 @@ class Event
     public function exception()
     {
         return $this->exception;
-    }
-
-    /**
-     * @return RouteMatch
-     */
-    public function routeMatch()
-    {
-        return $this->routeMatch;
     }
 
     /**

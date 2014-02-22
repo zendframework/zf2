@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Application\Dispatch\Error;
 
+use Exception;
 use Zend\Framework\Event\EventInterface as Event;
 
 interface EventInterface
@@ -18,4 +19,9 @@ interface EventInterface
      *
      */
     const EVENT = 'Dispatch\Error';
+
+    /**
+     * @return Exception
+     */
+    public function exception();
 }

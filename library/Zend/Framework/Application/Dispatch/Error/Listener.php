@@ -34,6 +34,9 @@ class Listener
     {
         $response->setStatusCode(HttpResponse::STATUS_CODE_500);
 
-        return $this->viewModel()->addChild($this->controllerViewModel());
+        $viewModel = $this->controllerViewModel()
+                          ->setVariables(['exception' => $event->exception()]);
+
+        return $this->viewModel()->addChild($viewModel);
     }
 }

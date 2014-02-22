@@ -9,16 +9,10 @@
 
 namespace Zend\Framework\View\Exception;
 
-use Zend\Framework\Event\ListenerTrait as EventListener;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 
 trait ListenerTrait
 {
-    /**
-     *
-     */
-    use EventListener;
-
     /**
      * Display exceptions?
      * @var bool

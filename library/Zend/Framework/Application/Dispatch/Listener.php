@@ -45,7 +45,7 @@ class Listener
 
         } catch (Exception $exception) {
 
-            return $this->dispatch([DispatchError::EVENT, $exception, $routeMatch], [$request, $response]);
+            return $this->dispatch([DispatchError::EVENT, $exception], [$request, $response]);
 
         }
     }
