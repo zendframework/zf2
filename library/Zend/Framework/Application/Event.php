@@ -63,10 +63,10 @@ class Event
                 switch(true) {
                     default:
                         $this->setViewModel($response);
-                        break;
+                        break 2;
                     case !$response->terminate() && $this->viewModel():
                         $this->viewModel()->addChild($response);
-                        break;
+                        break 2;
                 }
                 break;
             case $response && $listener instanceof ViewListenerInterface:
