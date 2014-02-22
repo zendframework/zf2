@@ -29,6 +29,7 @@ class Factory
                  ->add('Event\Manager', $application)
                  ->add('Event\Manager\Config', $config->listeners())
                  ->add('Router\Config', $config->router())
+                 ->add('Service\Manager\Config', $config->services())
                  ->add('Translator\Config', $config->translator())
                  ->add('View\Config', $config->view());
 

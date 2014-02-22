@@ -29,7 +29,7 @@ trait ServiceTrait
      */
     public function services()
     {
-        return $this->sm->services();
+        return $this->sm->get('Service\Manager\Config');
     }
 
     /**

@@ -22,7 +22,6 @@ class ConfigFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        var_dump(__FILE__);
         return $this->sm->get('Config')->services();
     }
 }

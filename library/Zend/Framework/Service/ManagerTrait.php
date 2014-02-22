@@ -138,12 +138,4 @@ trait ManagerTrait
 
         return $service;
     }
-
-    /**
-     * @return ConfigInterface
-     */
-    public function services()
-    {
-        return $this->services;
-    }
 }

@@ -33,9 +33,4 @@ interface ManagerInterface
      * @return false|object
      */
     public function get($name, $options = null, $shared = true);
-
-    /**
-     * @return ConfigInterface
-     */
-    public function services();
 }
