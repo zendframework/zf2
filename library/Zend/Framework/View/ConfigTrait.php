@@ -22,14 +22,6 @@ trait ConfigTrait
     /**
      * @return string
      */
-    public function layoutTemplate()
-    {
-        return $this->get('layout_template');
-    }
-
-    /**
-     * @return string
-     */
     public function defaultTemplateSuffix()
     {
         return $this->get('default_template_suffix');
@@ -57,6 +49,14 @@ trait ConfigTrait
     public function exceptionTemplate()
     {
         return $this->get('exception_template');
+    }
+
+    /**
+     * @return string
+     */
+    public function layoutTemplate()
+    {
+        return $this->get('layout_template');
     }
 
     /**

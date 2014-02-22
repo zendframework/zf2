@@ -11,12 +11,38 @@ namespace Zend\Framework\View;
 
 interface ConfigInterface
 {
+
     /**
      * @param string $name
      * @param mixed $service
      * @return self
      */
     public function add($name, $service);
+
+    /**
+     * @return array
+     */
+    public function aliases();
+
+    /**
+     * @return string
+     */
+    public function defaultTemplateSuffix();
+
+    /**
+     * @return bool
+     */
+    public function displayExceptions();
+
+    /**
+     * @return bool
+     */
+    public function displayNotFoundReason();
+
+    /**
+     * @return string
+     */
+    public function exceptionTemplate();
 
     /**
      * @param string $name
@@ -29,4 +55,24 @@ interface ConfigInterface
      * @return bool
      */
     public function has($name);
+
+    /**
+     * @return string
+     */
+    public function layoutTemplate();
+
+    /**
+     * @return string
+     */
+    public function notFoundTemplate();
+
+    /**
+     * @return array
+     */
+    public function templateMap();
+
+    /**
+     * @return array
+     */
+    public function templatePathStack();
 }
