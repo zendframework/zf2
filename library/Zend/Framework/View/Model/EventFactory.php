@@ -19,6 +19,7 @@ class EventFactory
      *
      */
     use ServicesTrait;
+
     /**
      * @param Request $request
      * @param array $options
@@ -26,6 +27,7 @@ class EventFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Event($this->viewModel());
+        //specify a different event for a different view model
+        return new Event(new ViewModel);
     }
 }

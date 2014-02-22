@@ -38,19 +38,9 @@ trait ServicesTrait
 
     /**
      * @param null $options
-     * @param bool $shared
      * @return ViewModel
      */
-    public function viewModel($options = null, $shared = false)
-    {
-        return $this->sm->get('View\Model', $options, $shared);
-    }
-
-    /**
-     * @param null $options
-     * @return ViewModel
-     */
-    public function viewModelEvent($options = null)
+    public function viewModel($options = null)
     {
         return $this->trigger('Event\View\Model', $options);
     }
