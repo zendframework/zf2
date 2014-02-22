@@ -12,7 +12,7 @@ namespace Zend\Framework\I18n\Translator;
 trait ServicesConfigTrait
 {
     /**
-     * @return array
+     * @return ConfigInterface
      */
     public function translator()
     {

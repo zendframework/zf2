@@ -9,14 +9,13 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use Serializable;
-
-class Config
-    implements ConfigInterface, ConfigServiceInterface, Serializable
+trait ConfigServiceTrait
 {
     /**
-     *
+     * @return ConfigInterface
      */
-    use ConfigTrait,
-        ConfigServiceTrait;
+    public function listeners()
+    {
+        return $this->get('event_manager');
+    }
 }

@@ -11,7 +11,7 @@ namespace Zend\Framework\Controller\Manager;
 
 use Zend\Framework\Controller\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
-use Zend\Framework\Event\Manager\ConfigInterface as EventConfig;
+use Zend\Framework\Controller\ConfigInterface as ControllerConfig;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Service\ConfigInterface as ServiceConfig;
@@ -32,12 +32,12 @@ class Manager
 
     /**
      * @param ServiceConfig $services
-     * @param EventConfig $listeners
+     * @param ControllerConfig $controllers
      */
-    public function __construct(ServiceConfig $services, EventConfig $listeners)
+    public function __construct(ServiceConfig $services, ControllerConfig $controllers)
     {
         $this->services  = $services;
-        $this->listeners = $listeners;
+        $this->listeners = $controllers;
     }
 
     /**

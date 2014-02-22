@@ -23,6 +23,6 @@ class ConfigFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Config($this->sm->get('Config')['view_manager']);
+        return $this->sm->get('Config')->viewConfig();
     }
 }

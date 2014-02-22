@@ -16,6 +16,6 @@ trait ServicesConfigTrait
      */
     public function routerConfig()
     {
-        return $this->sm->get('Config')['router'];
+        return $this->sm->get('Config')->routerConfig();
     }
 }

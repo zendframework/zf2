@@ -9,25 +9,22 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Event\Manager\Config as ListenersConfig;
+use Zend\Framework\Application\Config\Config;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
-use Zend\Framework\Service\Config as ServiceConfig;
 
 class Factory
 {
     /**
-     * @param array $config
+     * @param Config $config
      * @return EventManagerInterface
      */
-    public static function factory(array $config)
+    public static function factory(Config $config)
     {
-        $services  = new ServiceConfig($config['service_manager']);
-        $listeners = new ListenersConfig($config['event_manager']);
+        $services = $config->services();
 
-        $application = new Manager($services, $listeners);
+        $application = new Manager($services, $config->listeners());
 
-        $application->services()->add('Config', $config)
-                                ->add('EventManager', $application);
+        $services->add('EventManager', $application);
 
         return $application;
     }

@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\Event\Manager\Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
@@ -23,6 +22,6 @@ class ConfigFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Config($this->sm->get('Config')['controllers']);
+        return $this->sm->get('Config')->controllers();
     }
 }

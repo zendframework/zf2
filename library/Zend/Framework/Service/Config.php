@@ -12,27 +12,13 @@ namespace Zend\Framework\Service;
 use Serializable;
 
 class Config
-    implements ConfigInterface, Serializable
+    implements ConfigInterface, ConfigServiceInterface, Serializable
 {
     /**
-     * @var array
+     *
      */
-    protected $assigned = [];
-
-    /**
-     * @var array
-     */
-    protected $config = [];
-
-    /**
-     * @var array
-     */
-    protected $pending = [];
-
-    /**
-     * @var array
-     */
-    protected $service = [];
+    use ConfigTrait,
+        ConfigServiceTrait;
 
     /**
      * @param array $config
@@ -40,105 +26,5 @@ class Config
     public function __construct(array $config = [])
     {
         $this->config = $config;
-    }
-
-    /**
-     * @param string $name
-     * @param string $service
-     * @return self
-     */
-    public function add($name, $service)
-    {
-        $this->service[$name] = $service;
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param callable $callable
-     * @return self
-     */
-    public function assign($name, $callable)
-    {
-        $this->assigned[$name] = $callable;
-        return $this;
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function assigned($name)
-    {
-        return isset($this->assigned[$name]) ? $this->assigned[$name] : null;
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function config($name)
-    {
-        return isset($this->config[$name]) ? $this->config[$name] : null;
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function get($name)
-    {
-        return isset($this->service[$name]) ? $this->service[$name] : null;
-    }
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return !empty($this->service[$name]);
-    }
-
-    /**
-     * @param $name
-     * @return self
-     */
-    public function initialized($name)
-    {
-        $this->pending[$name] = false;
-        return $this;
-    }
-
-    /**
-     * @param $name
-     * @return self
-     */
-    public function initializing($name)
-    {
-        if (!empty($this->pending[$name])) {
-            return true;
-        }
-
-        $this->pending[$name] = true;
-
-        return false;
-    }
-
-    /**
-     * @return string|void
-     */
-    public function serialize()
-    {
-        return serialize($this->config);
-    }
-
-    /**
-     * @param string $serialized
-     * @return void|Config
-     */
-    public function unserialize($serialized)
-    {
-        $this->config = unserialize($serialized);
     }
 }

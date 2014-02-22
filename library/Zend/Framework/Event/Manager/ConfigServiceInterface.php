@@ -9,14 +9,10 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use Serializable;
-
-class Config
-    implements ConfigInterface, ConfigServiceInterface, Serializable
+interface ConfigServiceInterface
 {
     /**
-     *
+     * @return array
      */
-    use ConfigTrait,
-        ConfigServiceTrait;
+    public function listeners();
 }

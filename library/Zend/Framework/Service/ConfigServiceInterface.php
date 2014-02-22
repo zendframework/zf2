@@ -7,16 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Event\Manager;
+namespace Zend\Framework\Service;
 
-use Serializable;
-
-class Config
-    implements ConfigInterface, ConfigServiceInterface, Serializable
+interface ConfigServiceInterface
 {
     /**
-     *
+     * @return array
      */
-    use ConfigTrait,
-        ConfigServiceTrait;
+    public function services();
 }

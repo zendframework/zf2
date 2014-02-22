@@ -7,16 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Event\Manager;
+namespace Zend\Framework\View;
 
-use Serializable;
-
-class Config
-    implements ConfigInterface, ConfigServiceInterface, Serializable
+trait ConfigServiceTrait
 {
     /**
-     *
+     * @return ConfigInterface
      */
-    use ConfigTrait,
-        ConfigServiceTrait;
+    public function viewConfig()
+    {
+        return $this->get('view_manager');
+    }
 }
