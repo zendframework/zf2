@@ -7,28 +7,26 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\View\Model;
+namespace Zend\Framework\View\Model;
 
-use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory as ServiceFactory;
-use Zend\Framework\View\Model\ViewModel;
+use Zend\Framework\Service\Factory\Factory;
 
-class Factory
-    extends ServiceFactory
+class EventFactory
+    extends Factory
 {
     /**
      *
      */
-    use EventManager;
+    use ServicesTrait;
 
     /**
      * @param Request $request
      * @param array $options
-     * @return ViewModel
+     * @return Listener
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return $this->trigger([Event::EVENT, new ViewModel], $options);
+        return new Event(new ViewModel);
     }
 }

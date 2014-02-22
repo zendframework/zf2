@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\View\Model;
+namespace Zend\Framework\View\Model;
 
 use Zend\Framework\Event\EventInterface as Event;
 
@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Event\Controller\View\Model';
+    const EVENT = 'Event\View\Model';
 }

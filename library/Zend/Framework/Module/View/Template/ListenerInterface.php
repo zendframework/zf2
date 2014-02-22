@@ -9,15 +9,14 @@
 
 namespace Zend\Framework\Module\View\Template;
 
-use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ListenerInterface
 {
     /**
      * @param ViewModel $model
-     * @param RouteMatch $routeMatch
+     * @param null $options
      * @return mixed|ViewModel
      */
-    public function __invoke(ViewModel $model, RouteMatch $routeMatch);
+    public function __invoke(ViewModel $model, $options = null);
 }

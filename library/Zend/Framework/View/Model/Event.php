@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\View\Model;
+namespace Zend\Framework\View\Model;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\View\Model\ModelInterface as ViewModel;
@@ -35,7 +35,6 @@ class Event
      */
     public function __invoke(callable $listener, $options = null)
     {
-        list($routeMatch) = $options;
-        return $listener($this->source, $routeMatch);
+        return $listener($this->source, $options);
     }
 }

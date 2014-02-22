@@ -36,7 +36,8 @@ class RendererFactory
                                     ->setResolver($this->viewResolver());
 
         $modelHelper = $renderer->plugin('viewmodel');
-        $modelHelper->setRoot($this->viewModel());
+
+        $modelHelper->setRoot($this->rootViewModel());
 
         return $renderer;
     }

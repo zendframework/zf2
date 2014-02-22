@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Controller\Error;
 
-use Zend\Framework\Controller\View\Model\ServiceTrait as ControllerViewModel;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
 use Zend\Stdlib\RequestInterface;
@@ -21,8 +20,7 @@ class Listener
     /**
      *
      */
-    use ControllerViewModel,
-        ViewModel;
+    use ViewModel;
 
     /**
      * @param EventInterface $event
@@ -34,6 +32,6 @@ class Listener
     {
         $response->setStatusCode(HttpResponse::STATUS_CODE_404);
 
-        return $this->viewModel()->addChild($this->controllerViewModel());
+        return $this->viewModel();
     }
 }

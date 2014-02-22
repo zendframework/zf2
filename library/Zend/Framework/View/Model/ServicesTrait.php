@@ -9,25 +9,39 @@
 
 namespace Zend\Framework\View\Model;
 
+use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 trait ServicesTrait
 {
     /**
+     *
+     */
+    use EventManager;
+
+    /**
+     * @return ViewModel
+     */
+    public function rootViewModel()
+    {
+        return $this->sm->get('View\Model');
+    }
+
+    /**
      * @param null $options
      * @param bool $shared
-     * @return mixed
+     * @return ViewModel
      */
     public function viewModel($options = null, $shared = true)
     {
-        return $this->sm->get('View\Model', $options, $shared);
+        return $this->trigger('Event\View\Model', $options);
     }
 
     /**
      * @param ViewModel $viewModel
      * @return self
      */
-    public function setViewModel(ViewModel $viewModel)
+    public function setRootViewModel(ViewModel $viewModel)
     {
         return $this->sm->add('View\Model', $viewModel);
     }

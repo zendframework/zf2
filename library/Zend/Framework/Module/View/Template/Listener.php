@@ -23,11 +23,15 @@ class Listener
 
     /**
      * @param ViewModel $model
-     * @param RouteMatch $routeMatch
+     * @param null $routeMatch
      * @return mixed|ViewModel
      */
-    public function __invoke(ViewModel $model, RouteMatch $routeMatch)
+    public function __invoke(ViewModel $model, $routeMatch = null)
     {
+        if (!$routeMatch instanceof RouteMatch) {
+            return;
+        }
+
         $template = $model->getTemplate();
 
         if (!empty($template)) {
