@@ -77,7 +77,7 @@ trait ConfigTrait
 
     /**
      * @param string $serialized
-     * @return void|Config
+     * @return void|ConfigInterface
      */
     public function unserialize($serialized)
     {

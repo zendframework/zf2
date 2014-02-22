@@ -23,7 +23,7 @@ class EventFactory
     /**
      * @param Request $request
      * @param array $options
-     * @return Listener
+     * @return Event
      */
     public function __invoke(Request $request, array $options = [])
     {

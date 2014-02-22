@@ -12,7 +12,7 @@ namespace Zend\Framework\View;
 trait ServiceConfigTrait
 {
     /**
-     * @var
+     * @var ConfigInterface
      */
     protected $config;
 

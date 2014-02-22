@@ -19,7 +19,7 @@ class ConfigFactory
     /**
      * @param Request $request
      * @param array $options
-     * @return Manager
+     * @return ConfigInterface
      */
     public function __invoke(Request $request, array $options = [])
     {
