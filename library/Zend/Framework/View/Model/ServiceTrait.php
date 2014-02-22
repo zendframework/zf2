@@ -19,14 +19,6 @@ trait ServiceTrait
     protected $viewModel;
 
     /**
-     * @return ViewModel
-     */
-    public function viewModel()
-    {
-        return $this->viewModel;
-    }
-
-    /**
      * @param ViewModel $viewModel
      * @return self
      */
@@ -34,5 +26,13 @@ trait ServiceTrait
     {
         $this->viewModel = $viewModel;
         return $this;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function viewModel()
+    {
+        return $this->viewModel;
     }
 }
