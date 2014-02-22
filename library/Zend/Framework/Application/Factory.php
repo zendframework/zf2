@@ -24,7 +24,8 @@ class Factory
 
         $application = new Manager($services, $config->listeners());
 
-        $services->add('EventManager', $application);
+        $services->add('Config', $config)
+                 ->add('EventManager', $application);
 
         return $application;
     }

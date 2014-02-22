@@ -23,16 +23,6 @@ class Factory
     extends ServiceFactory
 {
     /**
-     * @param Config $config
-     * @return Config
-     */
-    public static function factory(Config $config)
-    {
-        $config->services()->add('Config', $config);
-        return $config;
-    }
-
-    /**
      * @param Request $request
      * @param array $config
      * @return array|mixed|void
