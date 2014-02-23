@@ -27,8 +27,7 @@ class ContentTransferEncoding implements HeaderInterface
             throw new Exception\InvalidArgumentException('Invalid header line for Content-Transfer-Encoding string: "' . $name . '"');
         }
 
-        // @todo implementation details
-        $header->value = $value;
+        $header->value = strtolower($value);
 
         return $header;
     }
