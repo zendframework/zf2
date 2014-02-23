@@ -11,14 +11,6 @@ namespace Zend\Framework\View;
 
 interface ConfigInterface
 {
-
-    /**
-     * @param string $name
-     * @param mixed $service
-     * @return self
-     */
-    public function add($name, $service);
-
     /**
      * @return array
      */
@@ -43,18 +35,6 @@ interface ConfigInterface
      * @return string
      */
     public function exceptionTemplate();
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function get($name);
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function has($name);
 
     /**
      * @return string
