@@ -42,10 +42,6 @@ trait ServicesTrait
      */
     public function viewModel($options = null)
     {
-        if (null === $options) {
-            return $this->sm->create('View\Model');
-        }
-
         return $this->trigger('Event\View\Model', $options);
     }
 }
