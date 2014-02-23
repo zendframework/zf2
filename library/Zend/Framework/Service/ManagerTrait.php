@@ -54,6 +54,16 @@ trait ManagerTrait
     }
 
     /**
+     * @param mixed $alias
+     * @param mixed $options
+     * @return false|object
+     */
+    public function create($alias, $options = null)
+    {
+        return $this->get($alias, $options, false);
+    }
+
+    /**
      * @param array|callable|FactoryInterface|string $factory
      * @return callable|FactoryInterface
      */

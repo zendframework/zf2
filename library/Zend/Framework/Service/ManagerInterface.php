@@ -26,6 +26,13 @@ interface ManagerInterface
     public function config();
 
     /**
+     * @param $name
+     * @param null $options
+     * @return mixed
+     */
+    public function create($name, $options = null);
+
+    /**
      * @param array|callable|FactoryInterface|string $factory
      * @return callable|FactoryInterface
      */
