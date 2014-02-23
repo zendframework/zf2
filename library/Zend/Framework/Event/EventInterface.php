@@ -19,7 +19,7 @@ interface EventInterface
     public function call(callable $listener, $options);
 
     /**
-     * @return string|array
+     * @return string
      */
     public function name();
 

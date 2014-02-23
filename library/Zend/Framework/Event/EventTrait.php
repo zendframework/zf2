@@ -27,7 +27,7 @@ trait EventTrait
     }
 
     /**
-     * @return string|array
+     * @return string
      */
     public function name()
     {

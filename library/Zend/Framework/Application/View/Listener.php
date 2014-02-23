@@ -28,10 +28,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        if (!$event->viewModel()) {
-            return null;
-        }
-
-        return $this->trigger(View::EVENT, $event->viewModel());
+        return $event->viewModel() ? $this->trigger(View::EVENT, $event->viewModel()) : null;
     }
 }
