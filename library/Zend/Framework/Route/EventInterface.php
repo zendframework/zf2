@@ -10,7 +10,6 @@
 namespace Zend\Framework\Route;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Mvc\Router\RouteMatch as RouteMatch;
 
 interface EventInterface
     extends Event
@@ -28,10 +27,4 @@ interface EventInterface
      *
      */
     const EVENT = 'Event\Route';
-
-    /**
-     * @param RouteMatch $routeMatch
-     * @return self
-     */
-    public function setRouteMatch(RouteMatch $routeMatch);
 }

@@ -17,6 +17,7 @@ use Zend\Framework\Route\ServicesTrait as RouteTrait;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModelInterface;
 
 class Event
@@ -59,6 +60,9 @@ class Event
             case $response instanceof RouteMatch:
                 $this->setRouteMatch($response);
                 break;
+            case $response instanceof Response:
+                $this->setResponse($response);
+                break;
             case $response instanceof ViewModelInterface:
                 switch(true) {
                     default:
@@ -69,7 +73,7 @@ class Event
                         break 2;
                 }
                 break;
-            case $response && $listener instanceof ViewListenerInterface:
+            case $listener instanceof ViewListenerInterface:
                 $this->setResponseContent($response);
                 break;
         }
