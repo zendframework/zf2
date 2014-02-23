@@ -138,20 +138,4 @@ trait ManagerTrait
 
         return $service;
     }
-
-    /**
-     * @return string
-     */
-    public function serialize()
-    {
-        return serialize($this->services);
-    }
-
-    /**
-     * @param $serialized
-     */
-    public function unserialize($serialized)
-    {
-        $this->services = unserialize($serialized);
-    }
 }

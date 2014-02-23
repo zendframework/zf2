@@ -9,11 +9,9 @@
 
 namespace Zend\Framework\Service;
 
-use Serializable;
 use Zend\Framework\Service\Factory\FactoryInterface;
 
 interface ManagerInterface
-    extends Serializable
 {
     /**
      * @param $name
