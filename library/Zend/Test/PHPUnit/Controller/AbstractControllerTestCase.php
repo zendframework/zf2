@@ -196,7 +196,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
     {
         $request = $this->getRequest();
         if ($this->useConsoleRequest) {
-            preg_match_all('/(--\S+[= ]"\S*\s*\S*")|(--\S+=\S+|--\S+\s\S+|\S+)/', $url, $matches);
+            preg_match_all('/(--\w+[= ]"([^"]*)")|(--\S+=\S+|--\S+\s\S+|\S+)/', $url, $matches);
             $params = str_replace(array(' "', '"'), array('=', ''), $matches[0]);
             $request->params()->exchangeArray($params);
             return $this;
