@@ -90,9 +90,7 @@ class Manager
      */
     public function unserialize($serialized)
     {
-        $this->config    = unserialize($serialized);
-        $this->listeners = $this->config->listeners();
-        $this->services  = $this->config->services();
+        $this->__construct(unserialize($serialized));
 
         $this->services->add('Config', $this->config)
                        ->add('EventManager', $this);

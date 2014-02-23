@@ -137,6 +137,6 @@ class Config
      */
     public function unserialize($serialized)
     {
-        $this->config = unserialize($serialized);
+        $this->__construct(unserialize($serialized));
     }
 }

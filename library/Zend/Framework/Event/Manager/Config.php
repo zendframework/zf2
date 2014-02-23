@@ -101,6 +101,6 @@ class Config
      */
     public function unserialize($serialized)
     {
-        $this->serial = $this->listener = unserialize($serialized);
+        $this->__construct(unserialize($serialized));
     }
 }

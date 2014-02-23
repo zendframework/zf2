@@ -27,7 +27,7 @@ interface ConfigInterface
     public function listeners();
 
     /**
-     * @return array
+     * @return RouterConfig
      */
     public function router();
 
@@ -37,7 +37,7 @@ interface ConfigInterface
     public function services();
 
     /**
-     * @return array
+     * @return RouterConfig
      */
     public function translator();
 

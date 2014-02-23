@@ -81,6 +81,6 @@ trait ConfigTrait
      */
     public function unserialize($serialized)
     {
-        $this->serial = $this->config = unserialize($serialized);
+        $this->__construct(unserialize($serialized));
     }
 }
