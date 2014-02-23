@@ -9,98 +9,13 @@
 
 namespace Zend\Framework\Event\Manager;
 
+use Zend\Framework\Config\ConfigInterface as Serializable;
+
 class Config
-    implements ConfigInterface
+    implements ConfigInterface, Serializable
 {
     /**
-     * @var array
+     *
      */
-    protected $serial = [];
-
-    /**
-     * @var array
-     */
-    protected $listener = [];
-
-    /**
-     * @param array $listener
-     */
-    public function __construct(array $listener = [])
-    {
-        $this->listener = $listener;
-        $this->serial   = $listener;
-    }
-
-    /**
-     * @param string $name
-     * @param string|callable $listener
-     * @param $priority
-     * @return self
-     */
-    public function add($name, $listener, $priority = self::PRIORITY)
-    {
-        if (!isset($this->listener[$name])) {
-            $this->listener[$name] = [];
-        }
-
-        $this->listener[$name][$priority][] = $listener;
-
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @return array
-     */
-    public function get($name)
-    {
-        if (!isset($this->listener[$name])) {
-            return [];
-        }
-
-        ksort($this->listener[$name], SORT_NUMERIC);
-
-        return $this->listener[$name];
-    }
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return isset($this->listener[$name]);
-    }
-
-    /**
-     * @param string|callable $listener
-     * @return self
-     */
-    public function remove($listener)
-    {
-        foreach($this as $name => $listeners) {
-            foreach(array_keys($listeners) as $priority) {
-                $this->listener[$name][$priority] = array_diff($this->listener[$name][$priority], [$listener]);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return string|void
-     */
-    public function serialize()
-    {
-        return serialize($this->serial);
-    }
-
-    /**
-     * @param string $serialized
-     * @return void|Config
-     */
-    public function unserialize($serialized)
-    {
-        $this->__construct(unserialize($serialized));
-    }
+    use ConfigTrait;
 }

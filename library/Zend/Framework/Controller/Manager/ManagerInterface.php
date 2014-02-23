@@ -17,4 +17,10 @@ interface ManagerInterface
      * @return mixed
      */
     public function dispatch($event, $options = null);
+
+    /**
+     * @param string $controller
+     * @return bool
+     */
+    public function dispatchable($controller);
 }

@@ -64,7 +64,7 @@ trait ConfigTrait
      */
     public function has($name)
     {
-        return !empty($this->config[$name]);
+        return isset($this->config[$name]);
     }
 
     /**

@@ -9,10 +9,7 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use Serializable;
-
 interface ConfigInterface
-    extends Serializable
 {
     /**
      * Default priority
