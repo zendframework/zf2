@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View;
 
-use Zend\Framework\Config\ConfigTrait as SerializableConfigTrait;
+use Zend\Framework\Config\ConfigTrait as ConfigTrait;
 use Zend\Framework\Config\ConfigInterface as Serializable;
 
 class Config
@@ -21,75 +21,74 @@ class Config
     use ConfigTrait;
 
     /**
-     * @var array
+     * @return array
      */
-    protected $config = [];
-
-    /**
-     * @var array
-     */
-    protected $serial = [];
-
-    /**
-     * @param array $config
-     */
-    public function __construct(array $config = [])
+    public function aliases()
     {
-        $this->config = $config;
-        $this->serial = $config;
+        return $this->get('view_helpers');
     }
 
     /**
-     * @param string $name
-     * @param mixed $config
-     * @return self
+     * @return string
      */
-    public function add($name, $config)
+    public function defaultTemplateSuffix()
     {
-        $this->config[$name] = $config;
-        return $this;
+        return $this->get('default_template_suffix');
+    }
+
+    /**
+     * @return bool
+     */
+    public function displayExceptions()
+    {
+        return $this->get('display_exceptions');
+    }
+
+    /**
+     * @return bool
+     */
+    public function displayNotFoundReason()
+    {
+        return $this->get('display_not_found_reason');
+    }
+
+    /**
+     * @return string
+     */
+    public function exceptionTemplate()
+    {
+        return $this->get('exception_template');
+    }
+
+    /**
+     * @return string
+     */
+    public function layoutTemplate()
+    {
+        return $this->get('layout_template');
+    }
+
+    /**
+     * @return string
+     */
+    public function notFoundTemplate()
+    {
+        return $this->get('not_found_template');
     }
 
     /**
      * @return array
      */
-    public function config()
+    public function templateMap()
     {
-        return $this->config;
+        return (array) $this->get('template_map');
     }
 
     /**
-     * @param $name
-     * @return mixed
+     * @return array
      */
-    public function get($name)
+    public function templatePathStack()
     {
-        return isset($this->config[$name]) ? $this->config[$name] : null;
-    }
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return !empty($this->config[$name]);
-    }
-
-    /**
-     * @return string|void
-     */
-    public function serialize()
-    {
-        return serialize($this->serial);
-    }
-
-    /**
-     * @param string $serialized
-     * @return void|ConfigInterface
-     */
-    public function unserialize($serialized)
-    {
-        $this->serial = $this->config = unserialize($serialized);
+        return (array) $this->get('template_path_stack');
     }
 }
