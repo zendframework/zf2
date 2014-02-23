@@ -46,6 +46,14 @@ trait ManagerTrait
     }
 
     /**
+     * @return ConfigInterface
+     */
+    public function config()
+    {
+        return $this->get('Config');
+    }
+
+    /**
      * @param array|callable|FactoryInterface|string $factory
      * @return callable|FactoryInterface
      */
@@ -128,7 +136,7 @@ trait ManagerTrait
             throw new Exception('Circular dependency: '.$alias.'::'.$name);
         }
 
-        $service = $request->call($factory ? : $this->factory($config), $options);
+        $service = $request->service($factory ? : $this->factory($config), $options);
 
         if ($request->shared()) {
             $services->add($name, $service);

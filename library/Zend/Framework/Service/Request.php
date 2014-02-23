@@ -35,7 +35,7 @@ class Request
      * @param array $options
      * @return mixed
      */
-    public function call(callable $factory, array $options = [])
+    public function service(callable $factory, array $options = [])
     {
         return $this->__invoke($factory, $options);
     }

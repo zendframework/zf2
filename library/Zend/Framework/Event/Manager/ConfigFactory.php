@@ -22,6 +22,6 @@ class ConfigFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return $this->sm->get('Config')->listeners();
+        return $this->sm->config()->listeners();
     }
 }

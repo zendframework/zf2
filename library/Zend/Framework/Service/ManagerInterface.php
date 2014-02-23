@@ -21,6 +21,11 @@ interface ManagerInterface
     public function add($name, $service);
 
     /**
+     * @return ConfigInterface
+     */
+    public function config();
+
+    /**
      * @param array|callable|FactoryInterface|string $factory
      * @return callable|FactoryInterface
      */

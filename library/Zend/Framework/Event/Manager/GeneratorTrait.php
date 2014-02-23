@@ -63,7 +63,7 @@ trait GeneratorTrait
 
         foreach($this->match($event) as $listener) {
 
-            $result = $event->call($listener, $options);
+            $result = $event->signal($listener, $options);
 
             if ($event->stopped()) {
                 break;

@@ -16,6 +16,6 @@ trait ServicesConfigTrait
      */
     public function controllers()
     {
-        return $this->sm->get('Config')->controllers();
+        return $this->sm->config()->controllers();
     }
 }

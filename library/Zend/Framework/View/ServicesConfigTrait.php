@@ -88,6 +88,6 @@ trait ServicesConfigTrait
      */
     public function viewConfig()
     {
-        return $this->sm->get('Config')->view();
+        return $this->sm->config()->view();
     }
 }

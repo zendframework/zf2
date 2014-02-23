@@ -17,21 +17,21 @@ trait EventTrait
     protected $stopped = false;
 
     /**
-     * @param callable $listener
-     * @param null $options
-     * @return mixed
-     */
-    public function call(callable $listener, $options = null)
-    {
-        return $this->__invoke($listener, $options);
-    }
-
-    /**
      * @return string
      */
     public function name()
     {
         return isset($this->name) ? $this->name : static::EVENT;
+    }
+
+    /**
+     * @param callable $listener
+     * @param null $options
+     * @return mixed
+     */
+    public function signal(callable $listener, $options = null)
+    {
+        return $this->__invoke($listener, $options);
     }
 
     /**

@@ -16,6 +16,6 @@ trait ServicesConfigTrait
      */
     public function translator()
     {
-        return $this->sm->get('Config')->translator();
+        return $this->sm->config()->translator();
     }
 }
