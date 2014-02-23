@@ -53,12 +53,12 @@ class Config
 
     /**
      * @param string $name
-     * @param callable $callable
+     * @param callable $factory
      * @return self
      */
-    public function assign($name, $callable)
+    public function assign($name, callable $factory)
     {
-        $this->assigned[$name] = $callable;
+        $this->assigned[$name] = $factory;
         return $this;
     }
 

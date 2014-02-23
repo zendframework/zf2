@@ -16,10 +16,10 @@ interface ConfigInterface
 {
     /**
      * @param string $name
-     * @param callable $delegate
+     * @param callable $factory
      * @return self
      */
-    public function assign($name, $delegate);
+    public function assign($name, callable $factory);
 
     /**
      * @param $name
