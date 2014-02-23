@@ -20,18 +20,10 @@ class Factory
      */
     public static function factory(Config $config)
     {
-        $services = $config->services();
+        $application = new Manager($config);
 
-        $application = new Manager($services, $config->listeners());
-
-        $services->add('Config', $config)
-                 ->add('Controller\Config', $config->controllers())
-                 ->add('Event\Manager', $application)
-                 ->add('Event\Manager\Config', $config->listeners())
-                 ->add('Router\Config', $config->router())
-                 ->add('Service\Manager\Config', $config->services())
-                 ->add('Translator\Config', $config->translator())
-                 ->add('View\Config', $config->view());
+        $config->services()->add('Config', $config)
+                           ->add('EventManager', $application);
 
         return $application;
     }

@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\Event\Manager\ConfigInterface;
-
 trait ServicesConfigTrait
 {
     /**
@@ -18,6 +16,6 @@ trait ServicesConfigTrait
      */
     public function controllers()
     {
-        return $this->sm->get('Controller\Config');
+        return $this->sm->get('Config')->controllers();
     }
 }

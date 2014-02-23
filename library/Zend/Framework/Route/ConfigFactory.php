@@ -12,7 +12,7 @@ namespace Zend\Framework\Route;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
-class ConfigFactory
+class ConfigFactory1
     extends Factory
 {
     /**

@@ -9,18 +9,18 @@
 
 namespace Zend\Framework\Application;
 
+use Serializable;
+use Zend\Framework\Application\Config\ConfigInterface as Config;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
-use Zend\Framework\Event\Manager\ConfigInterface as EventConfig;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Service\ConfigInterface as ServiceConfig;
 use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager
-    implements EventManagerInterface, ManagerInterface, ServiceManagerInterface
+    implements EventManagerInterface, ManagerInterface, Serializable, ServiceManagerInterface
 {
     /**
      *
@@ -31,13 +31,18 @@ class Manager
         ServiceManager;
 
     /**
-     * @param ServiceConfig $services
-     * @param EventConfig $listeners
+     * @var Config
      */
-    public function __construct(ServiceConfig $services, EventConfig $listeners)
+    protected $config;
+
+    /**
+     * @param Config $config
+     */
+    public function __construct(Config $config)
     {
-        $this->services  = $services;
-        $this->listeners = $listeners;
+        $this->config    = $config;
+        $this->listeners = $config->listeners();
+        $this->services  = $config->services();
     }
 
     /**
@@ -70,5 +75,26 @@ class Manager
     public function run($event = Event::EVENT, $options = null)
     {
         return $this->trigger($event, $options);
+    }
+
+    /**
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize($this->config);
+    }
+
+    /**
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        $this->config    = unserialize($serialized);
+        $this->listeners = $this->config->listeners();
+        $this->services  = $this->config->services();
+
+        $this->services->add('Config', $this->config);
+        $this->services->add('EventManager', $this);
     }
 }

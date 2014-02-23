@@ -29,6 +29,6 @@ class ManagerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Manager($this->routerConfig()->config(), $this->services());
+        return new Manager($this->routerConfig(), $this->services());
     }
 }

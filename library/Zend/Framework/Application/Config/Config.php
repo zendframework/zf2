@@ -10,13 +10,6 @@
 namespace Zend\Framework\Application\Config;
 
 use Zend\Framework\Config\ConfigInterface as Serializable;
-use Zend\Framework\Config\ConfigTrait as ConfigTrait;
-use Zend\Framework\Controller\ConfigInterface as ControllersConfig;
-use Zend\Framework\Event\Manager\ConfigInterface as ListenersConfig;
-use Zend\Framework\I18n\Translator\ConfigInterface as TranslatorConfig;
-use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Service\ConfigInterface as ServicesConfig;
-use Zend\Framework\View\ConfigInterface as ViewConfig;
 
 class Config
     implements ConfigInterface, Serializable
@@ -27,50 +20,75 @@ class Config
     use ConfigTrait;
 
     /**
-     * @return ControllersConfig
+     * @var array
      */
-    public function controllers()
+    protected $config = [];
+
+    /**
+     * @var array
+     */
+    protected $serial = [];
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config = [])
     {
-        return $this->get('controllers');
+        $this->config = $config;
+        $this->serial = $config;
     }
 
     /**
-     * @return ListenersConfig
+     * @param string $name
+     * @param mixed $config
+     * @return self
      */
-    public function listeners()
+    public function add($name, $config)
     {
-        return $this->get('event_manager');
+        $this->config[$name] = $config;
+        return $this;
     }
 
     /**
-     * @return RouterConfig
+     * @return array
      */
-    public function router()
+    public function config()
     {
-        return $this->get('router');
+        return $this->config;
     }
 
     /**
-     * @return ServicesConfig
+     * @param $name
+     * @return mixed
      */
-    public function services()
+    public function get($name)
     {
-        return $this->get('service_manager');
+        return isset($this->config[$name]) ? $this->config[$name] : null;
     }
 
     /**
-     * @return TranslatorConfig
+     * @param $name
+     * @return bool
      */
-    public function translator()
+    public function has($name)
     {
-        return $this->get('translator');
+        return !empty($this->config[$name]);
     }
 
     /**
-     * @return ViewConfig
+     * @return string|void
      */
-    public function view()
+    public function serialize()
     {
-        return $this->get('view_manager');
+        return serialize($this->serial);
+    }
+
+    /**
+     * @param string $serialized
+     * @return void|ConfigInterface
+     */
+    public function unserialize($serialized)
+    {
+        $this->serial = $this->config = unserialize($serialized);
     }
 }

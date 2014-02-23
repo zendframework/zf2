@@ -16,10 +16,10 @@ interface ConfigInterface
 {
     /**
      * @param string $name
-     * @param mixed $service
+     * @param mixed $config
      * @return self
      */
-    public function add($name, $service);
+    public function add($name, $config);
 
     /**
      * @return array
