@@ -14,23 +14,23 @@ trait ServiceTrait
     /**
      * @var ManagerInterface
      */
-    protected $pm;
+    protected $vpm;
 
     /**
      * @return ManagerInterface
      */
     public function viewPluginManager()
     {
-        return $this->pm;
+        return $this->vpm;
     }
 
     /**
-     * @param ManagerInterface $pm
+     * @param ManagerInterface $vpm
      * @return self
      */
-    public function setViewPluginManager(ManagerInterface $pm)
+    public function setViewPluginManager(ManagerInterface $vpm)
     {
-        $this->pm = $pm;
+        $this->vpm = $vpm;
         return $this;
     }
 }

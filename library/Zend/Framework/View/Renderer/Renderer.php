@@ -115,7 +115,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      *
      * @var ViewPluginManager
      */
-    private $pm;
+    private $vpm;
 
     /**
      * @var FilterChain
@@ -320,12 +320,12 @@ class Renderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param ViewPluginManager $pm
+     * @param ViewPluginManager $vpm
      * @return self
      */
-    public function setViewPluginManager(ViewPluginManager $pm)
+    public function setViewPluginManager(ViewPluginManager $vpm)
     {
-        $this->pm = $pm;
+        $this->vpm = $vpm;
 
         return $this;
     }
@@ -339,7 +339,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      */
     public function plugin($name, array $options = array())
     {
-        return $this->pm->get($name, $options);
+        return $this->vpm->get($name, $options);
     }
 
     /**

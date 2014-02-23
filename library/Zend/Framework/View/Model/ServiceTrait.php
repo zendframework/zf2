@@ -22,6 +22,16 @@ trait ServiceTrait
      * @param ViewModel $viewModel
      * @return self
      */
+    public function addChildViewModel($viewModel)
+    {
+        $this->viewModel->addChild($viewModel);
+        return $this;
+    }
+
+    /**
+     * @param ViewModel $viewModel
+     * @return self
+     */
     public function setViewModel(ViewModel $viewModel)
     {
         $this->viewModel = $viewModel;

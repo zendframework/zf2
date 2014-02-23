@@ -65,7 +65,7 @@ class Event
                         $this->setViewModel($response);
                         break 2;
                     case !$response->terminate() && $this->viewModel():
-                        $this->viewModel()->addChild($response);
+                        $this->addChildViewModel($response);
                         break 2;
                 }
                 break;
