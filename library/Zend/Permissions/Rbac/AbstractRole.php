@@ -16,7 +16,7 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
     /**
      * @var null|RoleInterface
      */
-    protected $parent;
+    protected $parents;
 
     /**
      * @var string
@@ -101,18 +101,76 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
      * @param  RoleInterface $parent
      * @return RoleInterface
      */
-    public function setParent($parent)
+    public function setParent(RoleInterface $parent)
     {
-        $this->parent = $parent;
+        $this->parents[$parent->getName()] = $parent;
+        return $this;
+    }
+
+    /**
+     * @param RoleInterface|string|null $name
+     * @return null|RoleInterface
+     */
+    public function getParent($name = null)
+    {
+        if ($name === null) {
+            return reset($this->parents);
+        }
+
+        if (!$this->hasParent($name)) {
+            return null;
+        }
+
+        return $this->parents[$name];
+    }
+
+    /**
+     * @see \Zend\Permissions\Rbac\RoleInterface::addParent()
+     * @param string|RoleInterface
+     * @return self
+     */
+    public function addParent($parent)
+    {
+        if (is_string($parent)) {
+            if (isset($this->parents[$parent])) {
+                $parent = $this->parents[$parent];
+            } else {
+                $parent = new Role($parent);
+            }
+        }
+
+        if (!$parent instanceof RoleInterface) {
+            throw new Exception\InvalidArgumentException(
+                'Parent must be a string or implement Zend\Permissions\Rbac\RoleInterface'
+            );
+        }
+
+        $this->parents[$parent->getName()] = $parent;
+        $parent->addChild($this);
 
         return $this;
     }
 
     /**
-     * @return null|RoleInterface
+     * @see \Zend\Permissions\Rbac\RoleInterface::getParents()
+     * @return array|\Traversable
      */
-    public function getParent()
+    public function getParents()
     {
-        return $this->parent;
+        return $this->parents;
+    }
+
+    /**
+     * @see \Zend\Permissions\Rbac\RoleInterface::hasParent()
+     * @param string|RoleInterface $name
+     * @return bool
+     */
+    public function hasParent($name)
+    {
+        if ($name instanceof RoleInterface) {
+            $name = $name->getName();
+        }
+
+        return isset($this->parents[$name]);
     }
 }

@@ -45,13 +45,34 @@ interface RoleInterface extends RecursiveIterator
     public function addChild($child);
 
     /**
-     * @param  RoleInterface $parent
-     * @return RoleInterface
+     * @param RoleInterface|string $parent
+     * @return self
      */
-    public function setParent($parent);
+    public function addParent($parent);
+
+    /**
+     * @param  RoleInterface $parent
+     * @return self
+     */
+    public function setParent(RoleInterface $parent);
 
     /**
      * @return null|RoleInterface
      */
-    public function getParent();
+    public function getParent($name = null);
+
+    /**
+     * Return all parent roles
+     *
+     * @return array|\Traversable
+     */
+    public function getParents();
+
+    /**
+     * Check for the existence of a parent role
+     *
+     * @param string $name
+     * @return bool
+     */
+    public function hasParent($name);
 }

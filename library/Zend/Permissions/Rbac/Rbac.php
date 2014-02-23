@@ -17,61 +17,118 @@ class Rbac extends AbstractIterator
      * flag: whether or not to create roles automatically if
      * they do not exist.
      *
-     * @var bool
+     * @var        bool
+     * @deprecated 2.2.0 This is needless, since hasRole(), getRole() and IsGranted()
+     *             will look for roles recursively in children's children
      */
     protected $createMissingRoles = false;
 
     /**
-     * @param  bool                     $createMissingRoles
-     * @return \Zend\Permissions\Rbac\Rbac
+     * Add a child role.
+     *
+     * @deprecated 2.2.0
+     * @param string|RoleInterface $role
+     * @param array|RoleInterface|null $parents
+     * @return self
+     * @throws Exception\InvalidArgumentException
      */
-    public function setCreateMissingRoles($createMissingRoles)
+    public function addRole($role, $parents = null)
     {
-        $this->createMissingRoles = $createMissingRoles;
+        trigger_error(
+            'This method will be removed in the future. Please use addRoleWithParents() instead',
+            E_USER_DEPRECATED
+        );
 
+        $this->addRoleWithParents($role, $parents);
         return $this;
     }
 
     /**
-     * @return bool
-     */
-    public function getCreateMissingRoles()
-    {
-        return $this->createMissingRoles;
-    }
-
-    /**
-     * Add a child.
+     * Add a child with children.
      *
-     * @param  string|RoleInterface               $child
-     * @param  array|RoleInterface|null           $parents
+     * @param string|RoleInterface $role
+     * @param array|RoleInterface|null $children
      * @return self
      * @throws Exception\InvalidArgumentException
+     * @throws Exception\RoleNotFoundException
      */
-    public function addRole($child, $parents = null)
+    public function addRoleWithChildren($role, $children = null)
     {
-        if (is_string($child)) {
-            $child = new Role($child);
+        if (is_string($role)) {
+            $role = new Role($role);
         }
-        if (!$child instanceof RoleInterface) {
+
+        if (!$role instanceof RoleInterface) {
             throw new Exception\InvalidArgumentException(
                 'Child must be a string or implement Zend\Permissions\Rbac\RoleInterface'
             );
         }
 
+        if ($children) {
+            if (!is_array($children)) {
+                $children = array($children);
+            }
+
+            foreach ($children as $child) {
+                if (is_string($child) && $this->hasRole($child)) {
+                    // prefer defined roles to ensure defined permissions are used
+                    $child = $this->getRole($child);
+                }
+
+                $role->addChild($child);
+            }
+        }
+
+        $this->children[] = $role;
+        return $this;
+    }
+
+    /**
+     * Add a child role and its parents
+     *
+     * @todo clearify if createMissingRoles still makes sense
+     * @param string|RoleInterface $role
+     * @param array|RoleInterface|null $parents
+     * @return self
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RoleNotFoundException
+     */
+    public function addRoleWithParents($role, $parents = null)
+    {
+        if (is_string($role)) {
+            $role = new Role($role);
+        }
+
+        if (!$role instanceof RoleInterface) {
+            throw new Exception\InvalidArgumentException(
+                'Child must be a string or implement Zend\Permissions\Rbac\RoleInterface'
+            );
+        }
+
+        $this->children[] = $role;
+
         if ($parents) {
             if (!is_array($parents)) {
                 $parents = array($parents);
             }
+
             foreach ($parents as $parent) {
-                if ($this->createMissingRoles && !$this->hasRole($parent)) {
-                    $this->addRole($parent);
+                if ($this->hasRole($parent)) {
+                    // prefer already defined roles
+                    $this->getRole($parent)->addChild($role);
+                    continue;
                 }
-                $this->getRole($parent)->addChild($child);
+
+                if (!$this->createMissingRoles) {
+                    throw new Exception\RoleNotFoundException(sprintf(
+                        'Could not find parent role "%s"',
+                        ($parent instanceof RoleInterface)? $parent->getName() : $parent
+                    ));
+                }
+
+                $this->addRoleWithChildren($parent, $role);
             }
         }
-
-        $this->children[] = $child;
 
         return $this;
     }
@@ -86,9 +143,8 @@ class Rbac extends AbstractIterator
     {
         try {
             $this->getRole($objectOrName);
-
             return true;
-        } catch (Exception\InvalidArgumentException $e) {
+        } catch (Exception\RoleNotFoundException $e) {
             return false;
         }
     }
@@ -110,15 +166,17 @@ class Rbac extends AbstractIterator
 
         $it = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($it as $leaf) {
-            if ((is_string($objectOrName) && $leaf->getName() == $objectOrName) || $leaf == $objectOrName) {
+            if ((is_string($objectOrName) && $leaf->getName() == $objectOrName) || $leaf === $objectOrName) {
                 return $leaf;
             }
         }
 
-        throw new Exception\InvalidArgumentException(sprintf(
-            'No child with name "%s" could be found',
-            is_object($objectOrName) ? $objectOrName->getName() : $objectOrName
-        ));
+        throw new Exception\RoleNotFoundException(
+            sprintf(
+                'No child with name "%s" could be found',
+                is_object($objectOrName) ? $objectOrName->getName() : $objectOrName
+            )
+        );
     }
 
     /**
@@ -152,5 +210,36 @@ class Rbac extends AbstractIterator
         }
 
         return false;
+    }
+
+    /**
+     * @param      boolean                     $createMissingRoles
+     * @return     \Zend\Permissions\Rbac\Rbac
+     * @deprecated 2.2.0
+     */
+    public function setCreateMissingRoles($createMissingRoles)
+    {
+        trigger_error(
+            'This method does not make any effect and will be removed in the future.',
+            E_USER_DEPRECATED
+        );
+
+        $this->createMissingRoles = $createMissingRoles;
+
+        return $this;
+    }
+
+    /**
+     * @return     boolean
+     * @deprecated 2.2.0
+     */
+    public function getCreateMissingRoles()
+    {
+        trigger_error(
+            'This method does not make any effect and will be removed in the future.',
+            E_USER_DEPRECATED
+        );
+
+        return $this->createMissingRoles;
     }
 }
