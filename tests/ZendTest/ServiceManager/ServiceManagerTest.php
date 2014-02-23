@@ -1120,6 +1120,29 @@ class ServiceManagerTest extends TestCase
         }
     }
 
+    public function testGetRegisteredServicesReturnsTypeContent()
+    {
+        $this->serviceManager->setService('service101', new \stdClass());
+        $this->serviceManager->setFactory('factory202', function ($sm) {
+            return new \stdClass();
+        });
+
+        $instances = $this->serviceManager->getRegisteredServices('instances');
+        $this->assertContains('service101', $instances);
+    }
+
+    public function testGetRegisteredServicesReturnsAll()
+    {
+        $this->serviceManager->setService('service1', new \stdClass());
+        $this->serviceManager->setFactory('factory1', function ($sm) {
+            return new \stdClass();
+        });
+
+        $services = $this->serviceManager->getRegisteredServices();
+        $this->assertArrayHasKey('factories', $services);
+        $this->assertArrayHasKey('instances', $services);
+    }
+
     public function getServiceOfVariousTypes()
     {
         return array(
