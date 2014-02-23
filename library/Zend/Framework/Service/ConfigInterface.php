@@ -9,18 +9,11 @@
 
 namespace Zend\Framework\Service;
 
-use Serializable;
+use Zend\Framework\Config\ConfigInterface as Serializable;
 
 interface ConfigInterface
     extends Serializable
 {
-    /**
-     * @param string $name
-     * @param mixed $service
-     * @return self
-     */
-    public function add($name, $service);
-
     /**
      * @param string $name
      * @param callable $delegate
@@ -33,24 +26,6 @@ interface ConfigInterface
      * @return mixed
      */
     public function assigned($name);
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function config($name);
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function get($name);
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function has($name);
 
     /**
      * @param $name

@@ -42,9 +42,18 @@ trait ConfigTrait
     }
 
     /**
+     * @param $name
+     * @return mixed
+     */
+    public function config($name)
+    {
+        return isset($this->config[$name]) ? $this->config[$name] : null;
+    }
+
+    /**
      * @return array
      */
-    public function config()
+    public function configuration()
     {
         return $this->config;
     }

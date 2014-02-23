@@ -81,6 +81,14 @@ class Config
     }
 
     /**
+     * @return array
+     */
+    public function configuration()
+    {
+        return $this->config;
+    }
+
+    /**
      * @param $name
      * @return mixed
      */
@@ -95,7 +103,7 @@ class Config
      */
     public function has($name)
     {
-        return !empty($this->service[$name]);
+        return isset($this->service[$name]);
     }
 
     /**
