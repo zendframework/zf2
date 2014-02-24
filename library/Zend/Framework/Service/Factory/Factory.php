@@ -32,14 +32,6 @@ class Factory
     }
 
     /**
-     * @return Config
-     */
-    public function config()
-    {
-        return $this->sm->config();
-    }
-
-    /**
      * @param Request $request
      * @param array $options
      * @return mixed|void
