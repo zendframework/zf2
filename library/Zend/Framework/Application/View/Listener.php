@@ -11,6 +11,7 @@ namespace Zend\Framework\Application\View;
 
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
+use Zend\Framework\View\Exception\EventInterface as Exception;
 use Zend\Framework\View\Renderer\EventInterface as View;
 
 class Listener
@@ -28,6 +29,19 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $event->viewModel() ? $this->trigger(View::EVENT, $event->viewModel()) : null;
+        if (!$event->viewModel()) {
+            return null;
+        }
+
+        try {
+
+            return $this->trigger(View::EVENT, $event->viewModel());
+
+        } catch(\Exception $exception) {
+
+            $viewModel = $this->trigger([Exception::EVENT, $exception], $event->viewModel());
+
+            return $this->trigger(View::EVENT, $viewModel);
+        }
     }
 }
