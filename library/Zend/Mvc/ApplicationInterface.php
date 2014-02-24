@@ -10,36 +10,37 @@
 namespace Zend\Mvc;
 
 use Zend\EventManager\EventsCapableInterface;
-use Zend\Http\Request;
-use Zend\Http\Response;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Stdlib\RequestInterface;
+use Zend\Stdlib\ResponseInterface;
 
 interface ApplicationInterface extends EventsCapableInterface
 {
     /**
      * Get the locator object
      *
-     * @return \Zend\ServiceManager\ServiceLocatorInterface
+     * @return ServiceLocatorInterface
      */
     public function getServiceManager();
 
     /**
      * Get the request object
      *
-     * @return \Zend\Stdlib\RequestInterface
+     * @return RequestInterface
      */
     public function getRequest();
 
     /**
      * Get the response object
      *
-     * @return \Zend\Stdlib\ResponseInterface
+     * @return ResponseInterface
      */
     public function getResponse();
 
     /**
      * Run the application
      *
-     * @return Response
+     * @return ResponseInterface
      */
     public function run();
 }
