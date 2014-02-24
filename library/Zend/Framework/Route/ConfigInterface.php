@@ -9,9 +9,6 @@
 
 namespace Zend\Framework\Route;
 
-use Serializable;
-
 interface ConfigInterface
-    extends Serializable
 {
 }
