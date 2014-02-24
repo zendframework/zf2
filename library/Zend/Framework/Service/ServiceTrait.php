@@ -9,12 +9,22 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Config\ConfigInterface as Config;
+
 trait ServiceTrait
 {
     /**
      * @var ManagerInterface
      */
     protected $sm;
+
+    /**
+     * @return Config
+     */
+    public function config()
+    {
+        return $this->sm->config();
+    }
 
     /**
      * @return ManagerInterface
@@ -29,7 +39,7 @@ trait ServiceTrait
      */
     public function services()
     {
-        return $this->sm->config()->services();
+        return $this->config()->services();
     }
 
     /**

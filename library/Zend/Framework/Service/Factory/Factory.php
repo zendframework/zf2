@@ -34,7 +34,7 @@ class Factory
     /**
      * @return Config
      */
-    protected function config()
+    public function config()
     {
         return $this->sm->config();
     }

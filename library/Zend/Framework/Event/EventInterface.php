@@ -18,10 +18,10 @@ interface EventInterface
 
     /**
      * @param callable $listener
-     * @param $options
+     * @param null $options
      * @return mixed
      */
-    public function signal(callable $listener, $options);
+    public function signal(callable $listener, $options = null);
 
     /**
      * @return mixed

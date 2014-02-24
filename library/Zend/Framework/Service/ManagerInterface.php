@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Service\Factory\FactoryInterface;
 
 interface ManagerInterface
@@ -21,7 +22,7 @@ interface ManagerInterface
     public function add($name, $service);
 
     /**
-     * @return ConfigInterface
+     * @return Config
      */
     public function config();
 

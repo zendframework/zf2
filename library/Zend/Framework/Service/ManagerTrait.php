@@ -10,6 +10,7 @@
 namespace Zend\Framework\Service;
 
 use Exception;
+use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Service\Factory\FactoryInterface;
 use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 
@@ -46,7 +47,7 @@ trait ManagerTrait
     }
 
     /**
-     * @return ConfigInterface
+     * @return Config
      */
     public function config()
     {
