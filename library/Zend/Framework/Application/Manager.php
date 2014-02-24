@@ -44,8 +44,7 @@ class Manager
         $this->listeners = $config->listeners();
         $this->services  = $config->services();
 
-        $this->services->add('Config', $this->config)
-                       ->add('EventManager', $this);
+        $this->trigger(Unserialize\Event::EVENT, $this->config);
     }
 
     /**
