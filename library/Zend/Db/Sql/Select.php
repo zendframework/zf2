@@ -408,7 +408,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function limit($limit)
     {
-        if (!is_numeric($limit)) {
+        if (!is_numeric($limit) || $limit != (int) $limit) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects parameter to be numeric, "%s" given',
                 __METHOD__,
@@ -426,7 +426,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function offset($offset)
     {
-        if (!is_numeric($offset)) {
+        if (!is_numeric($offset) || $offset != (int) $offset) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects parameter to be numeric, "%s" given',
                 __METHOD__,
@@ -918,7 +918,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $sql = $driver->formatParameterName('limit');
             $parameterContainer->offsetSet('limit', $limit, ParameterContainer::TYPE_INTEGER);
         } else {
-            $sql = $platform->quoteValue($limit);
+            $sql = $limit;
         }
 
         return array($sql);
@@ -937,7 +937,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
             return array($driver->formatParameterName('offset'));
         }
 
-        return array($platform->quoteValue($offset));
+        return array($offset);
     }
 
     protected function processCombine(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
