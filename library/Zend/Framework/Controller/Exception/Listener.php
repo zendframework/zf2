@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch\Error;
+namespace Zend\Framework\Controller\Exception;
 
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;

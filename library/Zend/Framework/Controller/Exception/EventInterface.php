@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch\Error;
+namespace Zend\Framework\Controller\Exception;
 
 use Exception;
 use Zend\Framework\Event\EventInterface as Event;
@@ -18,7 +18,7 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Dispatch\Error';
+    const EVENT = 'Controller\Exception';
 
     /**
      * @return Exception

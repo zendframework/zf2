@@ -10,7 +10,7 @@
 namespace Zend\Framework\Application\Dispatch;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Application\Dispatch\Error\EventInterface as Exception;
+use Zend\Framework\Controller\Exception\EventInterface as Exception;
 use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\EventInterface as Controller;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
@@ -34,7 +34,7 @@ class Listener
         $request    = $event->request();
         $response   = $event->response();
         $routeMatch = $event->routeMatch();
-        $controller = $routeMatch->getParam('controller');
+        $controller = $event->controller();
 
         try {
 

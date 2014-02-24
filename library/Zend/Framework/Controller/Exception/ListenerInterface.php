@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch\Error;
+namespace Zend\Framework\Controller\Exception;
 
 use Zend\Stdlib\RequestInterface;
 use Zend\Stdlib\ResponseInterface;

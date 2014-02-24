@@ -46,6 +46,14 @@ class Event
     }
 
     /**
+     * @return null|string
+     */
+    public function controller()
+    {
+        return $this->routeMatch() ? $this->routeMatch()->getParam('controller') : null;
+    }
+
+    /**
      * @param callable $listener
      * @param $options
      * @return mixed
