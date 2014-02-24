@@ -29,9 +29,10 @@ interface ManagerInterface
     /**
      * @param $name
      * @param null $options
+     * @param bool $shared
      * @return mixed
      */
-    public function create($name, $options = null);
+    public function create($name, $options = null, $shared = false);
 
     /**
      * @param array|callable|FactoryInterface|string $factory

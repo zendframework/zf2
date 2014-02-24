@@ -57,11 +57,12 @@ trait ManagerTrait
     /**
      * @param mixed $alias
      * @param mixed $options
-     * @return false|object
+     * @param bool $shared
+     * @return null|object
      */
-    public function create($alias, $options = null)
+    public function create($alias, $options = null, $shared = false)
     {
-        return $this->get($alias, $options, false);
+        return $this->get($alias, $options, $shared);
     }
 
     /**
@@ -77,7 +78,7 @@ trait ManagerTrait
      * @param mixed $alias
      * @param mixed $options
      * @param bool $shared
-     * @return false|object
+     * @return null|object
      */
     public function get($alias, $options = null, $shared = true)
     {
@@ -112,7 +113,7 @@ trait ManagerTrait
     /**
      * @param $request
      * @param bool $shared
-     * @return false|RequestInterface
+     * @return RequestInterface
      */
     public function request($request, $shared = true)
     {
@@ -122,7 +123,7 @@ trait ManagerTrait
     /**
      * @param RequestInterface $request
      * @param array $options
-     * @return bool|object
+     * @return object
      * @throws Exception
      */
     protected function service(RequestInterface $request, array $options = [])
