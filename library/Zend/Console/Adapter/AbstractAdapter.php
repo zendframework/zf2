@@ -323,7 +323,7 @@ abstract class AbstractAdapter implements AdapterInterface
     /**
      * Determine and return current console width and height.
      *
-     * @return array array($width, $height)
+     * @return int[] array($width, $height)
      */
     public function getSize()
     {
