@@ -19,4 +19,12 @@ class Config
      *
      */
     use ConfigTrait;
+
+    /**
+     * @return array
+     */
+    public function plugins()
+    {
+        return $this->get('route_plugins');
+    }
 }

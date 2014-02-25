@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route\Manager;
 
+use Zend\Framework\Route\ConfigInterface as RouterConfig;
 use Zend\Framework\Service\ConfigInterface as ServiceConfig;
 use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
@@ -25,13 +26,13 @@ class Manager
         ServiceManager;
 
     /**
-     * @param array $config
+     * @param RouterConfig $config
      * @param ServiceConfig $services
      */
-    public function __construct(array $config, ServiceConfig $services)
+    public function __construct(RouterConfig $config, ServiceConfig $services)
     {
-        $this->config   = $config;
-        $this->alias    = $config['route_plugins'];
+        $this->config   = $config->configuration();
+        $this->alias    = $config->plugins();
         $this->services = $services;
     }
 }

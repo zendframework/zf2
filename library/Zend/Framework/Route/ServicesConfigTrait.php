@@ -12,7 +12,7 @@ namespace Zend\Framework\Route;
 trait ServicesConfigTrait
 {
     /**
-     * @return array
+     * @return ConfigInterface
      */
     public function routerConfig()
     {

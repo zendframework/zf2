@@ -11,4 +11,8 @@ namespace Zend\Framework\Route;
 
 interface ConfigInterface
 {
+    /**
+     * @return array
+     */
+    public function plugins();
 }
