@@ -44,7 +44,7 @@ class Manager
         $this->listeners = $config->listeners();
         $this->services  = $config->services();
 
-        $this->services->add('Config', $this->config)
+        $this->services->add('Config', $config)
                        ->add('EventManager', $this);
     }
 
