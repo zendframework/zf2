@@ -10,11 +10,17 @@
 namespace Zend\Framework\Route;
 
 use Traversable;
+use Zend\Framework\Route\Manager\ServiceTrait as RouteManager;
 use Zend\Mvc\Router\Exception;
 use Zend\Stdlib\ArrayUtils;
 
 trait RouteTrait
 {
+    /**
+     *
+     */
+    use RouteManager;
+
     /**
      * Stack containing all routes.
      *

@@ -11,7 +11,7 @@ namespace Zend\Framework\Route\Stack;
 
 use Zend\Framework\Route\Manager\ServiceTrait as RouteManager;
 use Zend\Framework\Route\ParamTrait as Param;
-use Zend\Framework\Route\RouteTrait as Route;
+use Zend\Framework\Route\RouteTrait as Router;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 
@@ -21,8 +21,7 @@ trait ListenerTrait
      *
      */
     use Param,
-        Route,
-        RouteManager;
+        Router;
 
     /**
      * match(): defined by RouteInterface interface.

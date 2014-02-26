@@ -9,6 +9,9 @@
 
 namespace Zend\Framework\View\Plugin;
 
+use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
+
 interface ManagerInterface
+    extends ServiceManagerInterface
 {
 }
