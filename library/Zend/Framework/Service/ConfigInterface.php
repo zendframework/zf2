@@ -9,7 +9,10 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Config\ConfigInterface as Serializable;
+
 interface ConfigInterface
+    extends Serializable
 {
     /**
      * @param string $name

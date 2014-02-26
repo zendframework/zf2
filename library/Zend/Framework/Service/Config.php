@@ -9,10 +9,8 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Config\ConfigInterface as Serializable;
-
 class Config
-    implements ConfigInterface, Serializable
+    implements ConfigInterface
 {
     /**
      * @var array

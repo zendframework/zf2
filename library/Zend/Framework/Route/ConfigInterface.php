@@ -9,7 +9,10 @@
 
 namespace Zend\Framework\Route;
 
+use Zend\Framework\Config\ConfigInterface as Serializable;
+
 interface ConfigInterface
+    extends Serializable
 {
     /**
      * @return array

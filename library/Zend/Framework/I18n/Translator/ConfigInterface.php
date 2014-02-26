@@ -9,6 +9,9 @@
 
 namespace Zend\Framework\I18n\Translator;
 
+use Zend\Framework\Config\ConfigInterface as Serializable;
+
 interface ConfigInterface
+    extends Serializable
 {
 }

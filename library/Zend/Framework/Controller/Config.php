@@ -9,12 +9,10 @@
 
 namespace Zend\Framework\Controller;
 
-use Zend\Framework\Config\ConfigInterface as Serializable;
-use Zend\Framework\Event\Manager\ConfigInterface as EventListener;
 use Zend\Framework\Event\Manager\ConfigTrait;
 
 class Config
-    implements ConfigInterface, EventListener, Serializable
+    implements ConfigInterface
 {
     /**
      *

@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Application\Config;
 
+use Zend\Framework\Config\ConfigInterface as Serializable;
 use Zend\Framework\Controller\ConfigInterface as ControllersConfig;
 use Zend\Framework\Event\Manager\ConfigInterface as ListenersConfig;
 use Zend\Framework\I18n\Translator\ConfigInterface as TranslatorConfig;
@@ -17,6 +18,7 @@ use Zend\Framework\Service\ConfigInterface as ServicesConfig;
 use Zend\Framework\View\ConfigInterface as ViewConfig;
 
 interface ConfigInterface
+    extends Serializable
 {
     /**
      * @return ControllersConfig

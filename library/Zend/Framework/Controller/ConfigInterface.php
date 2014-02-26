@@ -9,6 +9,9 @@
 
 namespace Zend\Framework\Controller;
 
+use Zend\Framework\Event\Manager\ConfigInterface as EventManagerConfigInterface;
+
 interface ConfigInterface
+    extends EventManagerConfigInterface
 {
 }

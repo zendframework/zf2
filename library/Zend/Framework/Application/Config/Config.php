@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Application\Config;
 
-use Zend\Framework\Config\ConfigInterface as Serializable;
 use Zend\Framework\Config\ConfigTrait as ConfigTrait;
 use Zend\Framework\Controller\ConfigInterface as ControllersConfig;
 use Zend\Framework\Event\Manager\ConfigInterface as ListenersConfig;
@@ -19,7 +18,7 @@ use Zend\Framework\Service\ConfigInterface as ServicesConfig;
 use Zend\Framework\View\ConfigInterface as ViewConfig;
 
 class Config
-    implements ConfigInterface, Serializable
+    implements ConfigInterface
 {
     /**
      *
