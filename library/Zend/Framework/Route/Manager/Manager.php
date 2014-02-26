@@ -9,13 +9,14 @@
 
 namespace Zend\Framework\Route\Manager;
 
+use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Route\ConfigInterface as RouterConfig;
 use Zend\Framework\Service\ConfigInterface as ServiceConfig;
 use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager
-    implements ManagerInterface
+    implements ManagerInterface, ServiceManagerInterface
 {
     /**
      *
