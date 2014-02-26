@@ -9,6 +9,7 @@ php:
 
 install:
   - sudo apt-get install parallel
+  - composer self-update
   - composer install --dev
 
 before_script:
