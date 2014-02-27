@@ -32,6 +32,7 @@ class Url
         return $this->setRouter($sm->get('Router'))
                     ->setRouteMatch($sm->get('Route\Match'));
     }
+
     /**
      * RouteInterface instance.
      *

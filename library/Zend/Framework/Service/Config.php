@@ -141,7 +141,6 @@ class Config
 
     /**
      * @param string $serialized
-     * @return void|Config
      */
     public function unserialize($serialized)
     {

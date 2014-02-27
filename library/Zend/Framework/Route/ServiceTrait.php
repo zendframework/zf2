@@ -14,7 +14,6 @@ use Zend\Framework\Route\RouteInterface as Router;
 
 trait ServiceTrait
 {
-
     /**
      * @var RouteMatch
      */
@@ -35,7 +34,7 @@ trait ServiceTrait
     }
 
     /**
-     * @return bool|Router
+     * @return Router
      */
     public function router()
     {
@@ -53,7 +52,7 @@ trait ServiceTrait
     }
 
     /**
-     * @return bool|RouteMatch
+     * @return null|RouteMatch
      */
     public function routeMatch()
     {

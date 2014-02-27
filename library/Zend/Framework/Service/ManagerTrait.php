@@ -17,14 +17,19 @@ use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 trait ManagerTrait
 {
     /**
-     * @var ConfigInterface
-     */
-    protected $services;
-
-    /**
      * @var array
      */
     protected $alias = [];
+
+    /**
+     * @var Config
+     */
+    //protected $config;
+
+    /**
+     * @var ConfigInterface
+     */
+    protected $services;
 
     /**
      * @param $name
@@ -137,7 +142,7 @@ trait ManagerTrait
         $service = $services->get($name);
 
         if (!$config && !$factory && !$service) {
-            return false;
+            return null;
         }
 
         if ($request->shared() && $service) {

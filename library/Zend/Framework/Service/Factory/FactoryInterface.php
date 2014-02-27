@@ -13,7 +13,6 @@ use Zend\Framework\Service\RequestInterface as Request;
 
 interface FactoryInterface
 {
-
     /**
      * @param Request $request
      * @param array $options

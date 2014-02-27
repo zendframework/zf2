@@ -22,8 +22,32 @@ class Config
     /**
      * @return array
      */
+    public function defaultParams()
+    {
+        return (array) $this->get('default_params');
+    }
+
+    /**
+     * @return array
+     */
     public function plugins()
     {
         return $this->get('route_plugins');
+    }
+
+    /**
+     * @return string
+     */
+    public function routeClass()
+    {
+        return $this->get('router_class');
+    }
+
+    /**
+     * @return array
+     */
+    public function routes()
+    {
+        return (array) $this->get('routes');
     }
 }

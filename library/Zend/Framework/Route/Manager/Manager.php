@@ -31,7 +31,7 @@ class Manager
      */
     public function __construct(RouterConfig $config, ServiceConfig $services)
     {
-        $this->config   = $config->configuration();
+        $this->config   = $config;
         $this->alias    = $config->plugins();
         $this->services = $services;
     }

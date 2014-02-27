@@ -23,10 +23,10 @@ class BasePath
      */
     public function __service(ServiceManager $sm)
     {
-        $config = $sm->get('View\Config');
+        $config = $sm->config()->view();
 
-        if ($config && $config->get('base_path')) {
-            $this->setBasePath($config->get('base_path'));
+        if ($config->basePath()) {
+            $this->setBasePath($config->basePath());
             return;
         }
 

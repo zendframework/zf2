@@ -28,8 +28,6 @@ trait ServiceTrait
         return $this;
     }
 
-
-
     /**
      * @param ViewModel $viewModel
      * @return self

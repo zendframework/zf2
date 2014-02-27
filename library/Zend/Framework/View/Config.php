@@ -30,6 +30,14 @@ class Config
     /**
      * @return string
      */
+    public function basePath()
+    {
+        return $this->get('base_path');
+    }
+
+    /**
+     * @return string
+     */
     public function defaultTemplateSuffix()
     {
         return $this->get('default_template_suffix');
@@ -49,6 +57,14 @@ class Config
     public function displayNotFoundReason()
     {
         return $this->get('display_not_found_reason');
+    }
+
+    /**
+     * @return string
+     */
+    public function docType()
+    {
+        return $this->get('doctype');
     }
 
     /**

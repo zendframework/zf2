@@ -12,16 +12,11 @@ namespace Zend\Framework\Route\Manager;
 trait ManagerTrait
 {
     /**
-     * @var array
-     */
-    protected $config = [];
-
-    /**
      * @return mixed
      */
     public function routeClass()
     {
-        return $this->config['router_class'];
+        return $this->config->routeClass();
     }
 
     /**
@@ -29,14 +24,14 @@ trait ManagerTrait
      */
     public function routes()
     {
-        return $this->config['routes'];
+        return $this->config->routes();
     }
 
     /**
      * @return mixed
      */
-    public function params()
+    public function defaultParams()
     {
-        return $this->config['default_params'];
+        return $this->config->defaultParams();
     }
 }

@@ -44,7 +44,7 @@ interface ManagerInterface
      * @param string $name
      * @param mixed $options
      * @param bool $shared
-     * @return false|object
+     * @return null|object
      */
     public function get($name, $options = null, $shared = true);
 }

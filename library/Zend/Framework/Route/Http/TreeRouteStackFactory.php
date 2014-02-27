@@ -34,7 +34,7 @@ class TreeRouteStackFactory
 
         $router->setRouteManager($rm)
                ->addRoutes($rm->routes())
-               ->setDefaultParams($rm->params());
+               ->setDefaultParams($rm->defaultParams());
 
         return $router;
     }

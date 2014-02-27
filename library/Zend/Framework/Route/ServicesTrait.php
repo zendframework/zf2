@@ -16,7 +16,7 @@ use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
 trait ServicesTrait
 {
     /**
-     * @return bool|RouteManager
+     * @return RouteManager
      */
     public function routeManager()
     {
@@ -24,7 +24,7 @@ trait ServicesTrait
     }
 
     /**
-     * @return bool|Router
+     * @return Router
      */
     public function router()
     {
@@ -32,7 +32,7 @@ trait ServicesTrait
     }
 
     /**
-     * @return bool|RouteMatch
+     * @return null|RouteMatch
      */
     public function routeMatch()
     {
