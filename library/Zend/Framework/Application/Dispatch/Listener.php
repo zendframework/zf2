@@ -31,10 +31,10 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
+        $controller = $event->controller();
         $request    = $event->request();
         $response   = $event->response();
         $routeMatch = $event->routeMatch();
-        $controller = $event->controller();
 
         try {
 
