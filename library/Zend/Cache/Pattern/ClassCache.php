@@ -9,7 +9,6 @@
 
 namespace Zend\Cache\Pattern;
 
-use Zend\Cache;
 use Zend\Cache\Exception;
 
 class ClassCache extends CallbackCache

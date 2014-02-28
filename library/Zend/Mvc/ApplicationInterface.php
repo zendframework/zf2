@@ -10,7 +10,6 @@
 namespace Zend\Mvc;
 
 use Zend\EventManager\EventsCapableInterface;
-use Zend\Http\Request;
 use Zend\Http\Response;
 
 interface ApplicationInterface extends EventsCapableInterface

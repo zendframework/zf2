@@ -9,8 +9,6 @@
 
 namespace Zend\View\Helper;
 
-use Zend\View\Model\ModelInterface;
-
 /**
  * Renders a template and stores the rendered output as a placeholder
  * variable for later use.
