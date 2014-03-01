@@ -30,7 +30,7 @@ class Config
      */
     public function controllers()
     {
-        return $this->configured('controllers');
+        return $this->get('controllers');
     }
 
     /**
@@ -38,7 +38,7 @@ class Config
      */
     public function listeners()
     {
-        return $this->configured('event_manager');
+        return $this->get('event_manager');
     }
 
     /**
@@ -46,7 +46,7 @@ class Config
      */
     public function router()
     {
-        return $this->configured('router');
+        return $this->get('router');
     }
 
     /**
@@ -54,7 +54,7 @@ class Config
      */
     public function services()
     {
-        return $this->configured('service_manager');
+        return $this->get('service_manager');
     }
 
     /**
@@ -62,7 +62,7 @@ class Config
      */
     public function translator()
     {
-        return $this->configured('translator');
+        return $this->get('translator');
     }
 
     /**
@@ -70,6 +70,6 @@ class Config
      */
     public function view()
     {
-        return $this->configured('view_manager');
+        return $this->get('view_manager');
     }
 }

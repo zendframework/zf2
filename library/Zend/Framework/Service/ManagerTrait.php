@@ -70,7 +70,7 @@ trait ManagerTrait
      */
     public function configured($name)
     {
-        return $this->services->configured($name);
+        return $this->services->get($name);
     }
 
     /**

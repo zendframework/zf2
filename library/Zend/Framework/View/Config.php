@@ -24,7 +24,7 @@ class Config
      */
     public function aliases()
     {
-        return $this->configured('view_helpers');
+        return $this->get('view_helpers');
     }
 
     /**
@@ -32,7 +32,7 @@ class Config
      */
     public function basePath()
     {
-        return $this->configured('base_path');
+        return $this->get('base_path');
     }
 
     /**
@@ -40,7 +40,7 @@ class Config
      */
     public function defaultTemplateSuffix()
     {
-        return $this->configured('default_template_suffix');
+        return $this->get('default_template_suffix');
     }
 
     /**
@@ -48,7 +48,7 @@ class Config
      */
     public function displayExceptions()
     {
-        return $this->configured('display_exceptions');
+        return $this->get('display_exceptions');
     }
 
     /**
@@ -56,7 +56,7 @@ class Config
      */
     public function displayNotFoundReason()
     {
-        return $this->configured('display_not_found_reason');
+        return $this->get('display_not_found_reason');
     }
 
     /**
@@ -64,7 +64,7 @@ class Config
      */
     public function docType()
     {
-        return $this->configured('doctype');
+        return $this->get('doctype');
     }
 
     /**
@@ -72,7 +72,7 @@ class Config
      */
     public function exceptionTemplate()
     {
-        return $this->configured('exception_template');
+        return $this->get('exception_template');
     }
 
     /**
@@ -80,7 +80,7 @@ class Config
      */
     public function layoutTemplate()
     {
-        return $this->configured('layout_template');
+        return $this->get('layout_template');
     }
 
     /**
@@ -88,7 +88,7 @@ class Config
      */
     public function notFoundTemplate()
     {
-        return $this->configured('not_found_template');
+        return $this->get('not_found_template');
     }
 
     /**
@@ -96,7 +96,7 @@ class Config
      */
     public function templateMap()
     {
-        return (array) $this->configured('template_map');
+        return (array) $this->get('template_map');
     }
 
     /**
@@ -104,6 +104,6 @@ class Config
      */
     public function templatePathStack()
     {
-        return (array) $this->configured('template_path_stack');
+        return (array) $this->get('template_path_stack');
     }
 }

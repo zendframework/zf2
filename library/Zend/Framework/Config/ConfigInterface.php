@@ -25,7 +25,7 @@ interface ConfigInterface
      * @param string $name
      * @return mixed
      */
-    public function configured($name);
+    public function get($name);
 
     /**
      * @param $name

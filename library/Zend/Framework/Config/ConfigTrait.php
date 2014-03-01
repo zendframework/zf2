@@ -52,7 +52,7 @@ trait ConfigTrait
      * @param $name
      * @return mixed
      */
-    public function configured($name)
+    public function get($name)
     {
         return isset($this->config[$name]) ? $this->config[$name] : null;
     }
