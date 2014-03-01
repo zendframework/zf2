@@ -84,11 +84,11 @@ trait ManagerTrait
         $alias = $request->alias();
         $name  = $this->alias($alias);
 
-        $config  = $this->configured($name);
-        $factory = $this->assigned($name);
-        $service = $this->service($name);
+        $config   = $this->configured($name);
+        $assigned = $this->assigned($name);
+        $service  = $this->service($name);
 
-        if (!$config && !$factory && !$service) {
+        if (!$config && !$assigned && !$service) {
             return null;
         }
 
@@ -100,7 +100,7 @@ trait ManagerTrait
             throw new Exception('Circular dependency: '.$alias.'::'.$name);
         }
 
-        $service = $request->service($factory ? : $this->factory($config), $options);
+        $service = $request->service($assigned ? : $this->factory($config), $options);
 
         if ($request->shared()) {
             $this->add($name, $service);
