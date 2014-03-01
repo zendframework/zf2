@@ -38,36 +38,4 @@ class Manager
         $this->alias    = $this->router->plugins();
         $this->services = $config->services();
     }
-
-    /**
-     * @return mixed
-     */
-    public function defaultParams()
-    {
-        return $this->router->defaultParams();
-    }
-
-    /**
-     * @return array
-     */
-    public function plugins()
-    {
-        return $this->router->plugins();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function routes()
-    {
-        return $this->router->routes();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function routeClass()
-    {
-        return $this->router->routeClass();
-    }
 }
