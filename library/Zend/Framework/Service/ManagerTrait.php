@@ -45,6 +45,73 @@ trait ManagerTrait
     }
 
     /**
+     * @param $name
+     * @param $callable
+     * @return $this
+     */
+    public function assign($name, callable $callable)
+    {
+        $this->services->assign($name, $callable);
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @return callable|null
+     */
+    public function assigned($name)
+    {
+        return $this->services->assigned($name);
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function configured($name)
+    {
+        return $this->services->configured($name);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @param array $options
+     * @return object
+     * @throws Exception
+     */
+    protected function create(RequestInterface $request, array $options = [])
+    {
+        $alias = $request->alias();
+        $name  = $this->alias($alias);
+
+        $config  = $this->configured($name);
+        $factory = $this->assigned($name);
+        $service = $this->service($name);
+
+        if (!$config && !$factory && !$service) {
+            return null;
+        }
+
+        if ($request->shared() && $service) {
+            return $service;
+        }
+
+        if ($this->initializing($name)) {
+            throw new Exception('Circular dependency: '.$alias.'::'.$name);
+        }
+
+        $service = $request->service($factory ? : $this->factory($config), $options);
+
+        if ($request->shared()) {
+            $this->add($name, $service);
+        }
+
+        $this->initialized($name);
+
+        return $service;
+    }
+
+    /**
      * @param array|callable|FactoryInterface|string $factory
      * @return callable|FactoryInterface
      */
@@ -59,7 +126,35 @@ trait ManagerTrait
     public function get($alias, $options = null, $shared = true)
     {
         list($alias, $options) = $this->options($alias, $options);
-        return $this->service($this->request($alias, $shared), $options);
+        return $this->create($this->request($alias, $shared), $options);
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function has($name)
+    {
+        return $this->services->has($name);
+    }
+
+    /**
+     * @param $name
+     * @return self
+     */
+    public function initialized($name)
+    {
+        $this->services->initialized($name);
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @return self
+     */
+    public function initializing($name)
+    {
+        return $this->services->initializing($name);
     }
 
     /**
@@ -91,41 +186,11 @@ trait ManagerTrait
     }
 
     /**
-     * @param RequestInterface $request
-     * @param array $options
-     * @return object
-     * @throws Exception
+     * @param $name
+     * @return object|null
      */
-    protected function service(RequestInterface $request, array $options = [])
+    public function service($name)
     {
-        $alias    = $request->alias();
-        $name     = $this->alias($alias);
-        $services = $this->services;
-
-        $config  = $services->configured($name);
-        $factory = $services->assigned($name);
-        $service = $services->get($name);
-
-        if (!$config && !$factory && !$service) {
-            return null;
-        }
-
-        if ($request->shared() && $service) {
-            return $service;
-        }
-
-        if ($services->initializing($name)) {
-            throw new Exception('Circular dependency: '.$alias.'::'.$name);
-        }
-
-        $service = $request->service($factory ? : $this->factory($config), $options);
-
-        if ($request->shared()) {
-            $services->add($name, $service);
-        }
-
-        $services->initialized($name);
-
-        return $service;
+        return $this->services->service($name);
     }
 }

@@ -9,10 +9,11 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Config\ConfigInterface as Serializable;
+use Zend\Framework\Application\Config\ConfigInterface as ApplicationConfigInterface;
+use Zend\Framework\Config\ConfigInterface as Config;
 
 interface ConfigInterface
-    extends Serializable
+    extends Config
 {
     /**
      * @param string $name
@@ -28,6 +29,11 @@ interface ConfigInterface
     public function assigned($name);
 
     /**
+     * @return ApplicationConfigInterface
+     */
+    public function config();
+
+    /**
      * @param $name
      * @return self
      */
@@ -38,4 +44,10 @@ interface ConfigInterface
      * @return bool
      */
     public function initializing($name);
+
+    /**
+     * @param $name
+     * @return object|null
+     */
+    public function service($name);
 }

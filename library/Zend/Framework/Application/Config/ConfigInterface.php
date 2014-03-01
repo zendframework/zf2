@@ -9,15 +9,16 @@
 
 namespace Zend\Framework\Application\Config;
 
+use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Controller\ConfigInterface as ControllersConfig;
 use Zend\Framework\Event\Manager\ConfigInterface as ListenersConfig;
 use Zend\Framework\I18n\Translator\ConfigInterface as TranslatorConfig;
 use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Config\ConfigInterface as ServiceConfig;
+use Zend\Framework\Service\ConfigInterface as ServiceConfig;
 use Zend\Framework\View\ConfigInterface as ViewConfig;
 
 interface ConfigInterface
-    extends ServiceConfig
+    extends Config
 {
     /**
      * @return ControllersConfig

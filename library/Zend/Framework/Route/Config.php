@@ -24,7 +24,7 @@ class Config
      */
     public function defaultParams()
     {
-        return (array) $this->get('default_params');
+        return (array) $this->configured('default_params');
     }
 
     /**
@@ -32,7 +32,7 @@ class Config
      */
     public function plugins()
     {
-        return $this->get('route_plugins');
+        return $this->configured('route_plugins');
     }
 
     /**
@@ -40,7 +40,7 @@ class Config
      */
     public function routeClass()
     {
-        return $this->get('router_class');
+        return $this->configured('router_class');
     }
 
     /**
@@ -48,6 +48,6 @@ class Config
      */
     public function routes()
     {
-        return (array) $this->get('routes');
+        return (array) $this->configured('routes');
     }
 }

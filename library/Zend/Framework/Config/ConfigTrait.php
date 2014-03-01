@@ -26,8 +26,7 @@ trait ConfigTrait
      */
     public function __construct(array $config = [])
     {
-        $this->config = $config;
-        $this->serial = $config;
+        $this->config = $this->serial = $config;
     }
 
     /**
@@ -53,7 +52,7 @@ trait ConfigTrait
      * @param $name
      * @return mixed
      */
-    public function get($name)
+    public function configured($name)
     {
         return isset($this->config[$name]) ? $this->config[$name] : null;
     }

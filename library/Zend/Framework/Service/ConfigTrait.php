@@ -9,8 +9,17 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Application\Config\ConfigInterface as ApplicationConfigInterface;
+use Zend\Framework\Config\ConfigInterface;
+use Zend\Framework\Config\ConfigTrait as Config;
+
 trait ConfigTrait
 {
+    /**
+     *
+     */
+    use Config;
+
     /**
      * @var array
      */
@@ -19,29 +28,16 @@ trait ConfigTrait
     /**
      * @var array
      */
-    protected $config = [];
-
-    /**
-     * @var array
-     */
     protected $pending = [];
 
     /**
-     * @var array
+     * @var ConfigInterface
      */
-    protected $services = [];
+    protected $services;
 
     /**
-     * @param array $config
-     */
-    public function __construct(array $config = [])
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * @param string $name
-     * @param string $service
+     * @param $name
+     * @param $service
      * @return self
      */
     public function add($name, $service)
@@ -51,19 +47,19 @@ trait ConfigTrait
     }
 
     /**
-     * @param string $name
-     * @param callable $factory
-     * @return self
+     * @param $name
+     * @param $callable
+     * @return $this
      */
-    public function assign($name, callable $factory)
+    public function assign($name, callable $callable)
     {
-        $this->assigned[$name] = $factory;
+        $this->assigned[$name] = $callable;
         return $this;
     }
 
     /**
      * @param $name
-     * @return mixed
+     * @return callable|null
      */
     public function assigned($name)
     {
@@ -71,29 +67,11 @@ trait ConfigTrait
     }
 
     /**
-     * @return array
+     * @return ApplicationConfigInterface
      */
     public function config()
     {
         return $this->config;
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function configured($name)
-    {
-        return isset($this->config[$name]) ? $this->config[$name] : null;
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public function get($name)
-    {
-        return isset($this->services[$name]) ? $this->services[$name] : null;
     }
 
     /**
@@ -131,18 +109,11 @@ trait ConfigTrait
     }
 
     /**
-     * @return string|void
+     * @param $name
+     * @return object|null
      */
-    public function serialize()
+    public function service($name)
     {
-        return serialize($this->config);
-    }
-
-    /**
-     * @param string $serialized
-     */
-    public function unserialize($serialized)
-    {
-        $this->__construct(unserialize($serialized));
+        return isset($this->services[$name]) ? $this->services[$name] : null;
     }
 }

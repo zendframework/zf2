@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Application\Config\ConfigInterface as Config;
+use Zend\Framework\Application\Config\ConfigInterface;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
@@ -29,23 +29,15 @@ class Manager
         ServiceManager;
 
     /**
-     * @param Config $config
+     * @param ConfigInterface $config
      */
-    public function __construct(Config $config)
+    public function __construct(ConfigInterface $config)
     {
+        //var_dump(__FUNCTION__.' '.__FILE__);
         $this->config    = $config;
         $this->listeners = $config->listeners();
         $this->services  = $config->services();
-
         $this->add('EventManager', $this);
-    }
-
-    /**
-     * @return Config
-     */
-    public function config()
-    {
-        return $this->config;
     }
 
     /**
@@ -78,5 +70,23 @@ class Manager
     public function run($event = Event::EVENT, $options = null)
     {
         return $this->trigger($event, $options);
+    }
+
+    /**
+     * @return string|void
+     */
+    public function serialize()
+    {
+        //var_dump(__FUNCTION__.' '.__FILE__);
+        return serialize($this->config);
+    }
+
+    /**
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        //var_dump(__FUNCTION__.' '.__FILE__);
+        $this->__construct(unserialize($serialized));
     }
 }
