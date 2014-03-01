@@ -10,6 +10,9 @@
 namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Application\Config\ConfigInterface as Config;
+use Zend\Framework\Route\ConfigInterface as RouterConfig;
+use Zend\Framework\Service\Factory\FactoryTrait;
+use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager
     implements ManagerInterface
@@ -17,7 +20,13 @@ class Manager
     /**
      *
      */
-    use ManagerTrait;
+    use FactoryTrait,
+        ServiceManager;
+
+    /**
+     * @var RouterConfig
+     */
+    protected $router;
 
     /**
      * @param Config $config
@@ -28,5 +37,37 @@ class Manager
         $this->router   = $config->router();
         $this->alias    = $this->router->plugins();
         $this->services = $config->services();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function defaultParams()
+    {
+        return $this->router->defaultParams();
+    }
+
+    /**
+     * @return array
+     */
+    public function plugins()
+    {
+        return $this->router->plugins();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function routes()
+    {
+        return $this->router->routes();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function routeClass()
+    {
+        return $this->router->routeClass();
     }
 }

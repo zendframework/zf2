@@ -14,4 +14,23 @@ use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 interface ManagerInterface
     extends ServiceManagerInterface
 {
+    /**
+     * @return mixed
+     */
+    public function defaultParams();
+
+    /**
+     * @return array
+     */
+    public function plugins();
+
+    /**
+     * @return mixed
+     */
+    public function routes();
+
+    /**
+     * @return mixed
+     */
+    public function routeClass();
 }
