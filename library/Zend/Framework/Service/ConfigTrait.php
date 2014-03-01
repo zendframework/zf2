@@ -76,6 +76,15 @@ trait ConfigTrait
 
     /**
      * @param $name
+     * @return mixed
+     */
+    public function configuration($name)
+    {
+        return $this->get($name);
+    }
+
+    /**
+     * @param $name
      * @return bool
      */
     public function has($name)

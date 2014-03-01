@@ -35,6 +35,12 @@ interface ConfigInterface
 
     /**
      * @param $name
+     * @return mixed
+     */
+    public function configuration($name);
+
+    /**
+     * @param $name
      * @return self
      */
     public function initialized($name);

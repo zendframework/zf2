@@ -68,9 +68,9 @@ trait ManagerTrait
      * @param $name
      * @return mixed
      */
-    public function configured($name)
+    public function configuration($name)
     {
-        return $this->services->get($name);
+        return $this->services->configuration($name);
     }
 
     /**
@@ -84,7 +84,7 @@ trait ManagerTrait
         $alias = $request->alias();
         $name  = $this->alias($alias);
 
-        $config   = $this->configured($name);
+        $config   = $this->configuration($name);
         $assigned = $this->assigned($name);
         $service  = $this->service($name);
 
