@@ -9,21 +9,30 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use Zend\Framework\Application\Config\ConfigInterface;
-use Zend\Framework\Service\ManagerInterface;
-
 trait FactoryTrait
 {
     /**
-     * @var ManagerInterface
+     * @param array|callable|FactoryInterface|object|string $factory
+     * @return callable|FactoryInterface
      */
-    protected $sm;
-
-    /**
-     * @return ConfigInterface
-     */
-    public function config()
+    public function factory($factory)
     {
-        return $this->sm->config();
+        if (is_string($factory) && is_subclass_of($factory, Factory::class)) {
+            return new $factory($this);
+        }
+
+        if (is_object($factory) && $factory instanceof FactoryInterface) {
+            return $factory;
+        }
+
+        if (is_callable($factory)) {
+            return new CallableFactory($this, $factory);
+        }
+
+        if (is_array($factory)) {
+            return new AbstractFactory($this, $factory);
+        }
+
+        return new InstanceFactory($this, $factory);
     }
 }

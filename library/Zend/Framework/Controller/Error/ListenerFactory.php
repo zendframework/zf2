@@ -13,7 +13,6 @@ use Zend\Framework\Route\ServicesTrait as Route;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\View\Model\ServicesTrait as ViewModel;
-use Zend\Framework\View\ServicesConfigTrait as ViewConfig;
 
 class ListenerFactory
     extends Factory
@@ -22,7 +21,6 @@ class ListenerFactory
      *
      */
     use Route,
-        ViewConfig,
         ViewModel;
 
     /**
@@ -33,7 +31,7 @@ class ListenerFactory
     public function __invoke(Request $request, array $options = [])
     {
         $viewModel = $this->viewModel($this->routeMatch())
-                          ->setTemplate($this->notFoundTemplate());
+                          ->setTemplate($this->config()->view()->notFoundTemplate());
 
         return (new Listener)->setViewModel($viewModel);
     }

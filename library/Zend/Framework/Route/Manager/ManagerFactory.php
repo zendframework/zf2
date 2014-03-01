@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Route\ServicesConfigTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Helper as ViewHelper;
@@ -17,11 +16,6 @@ use Zend\View\Helper as ViewHelper;
 class ManagerFactory
     extends Factory
 {
-    /**
-     *
-     */
-    use Config;
-
     /**
      * @param Request $request
      * @param array $options

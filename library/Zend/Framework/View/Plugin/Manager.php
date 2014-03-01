@@ -9,10 +9,9 @@
 
 namespace Zend\Framework\View\Plugin;
 
-use Zend\Framework\Application\Config\ConfigInterface as Config;
-use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
-use Zend\Framework\Service\ManagerTrait as ServiceManager;
-use Zend\Framework\View\ServiceConfigTrait;
+use Zend\Framework\Application\Config\ConfigInterface;
+use Zend\Framework\Service\Factory\FactoryTrait;
+use Zend\Framework\Service\ManagerTrait;
 
 class Manager
     implements ManagerInterface
@@ -20,13 +19,13 @@ class Manager
     /**
      *
      */
-    use ServiceFactory,
-        ServiceManager;
+    use FactoryTrait,
+        ManagerTrait;
 
     /**
-     * @param Config $config
+     * @param ConfigInterface $config
      */
-    public function __construct(Config $config)
+    public function __construct(ConfigInterface $config)
     {
         $this->config   = $config;
         $this->alias    = $config->view()->aliases();

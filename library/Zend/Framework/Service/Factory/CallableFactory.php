@@ -18,7 +18,7 @@ class CallableFactory
     /**
      *
      */
-    use FactoryTrait;
+    use ConfigTrait;
 
     /**
      * @var callable

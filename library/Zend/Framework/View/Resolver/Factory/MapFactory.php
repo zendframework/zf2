@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\View\Resolver\Factory;
 
-use Zend\Framework\View\ServicesConfigTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Resolver\TemplateMapResolver;
@@ -18,17 +17,12 @@ class MapFactory
     extends Factory
 {
     /**
-     *
-     */
-    use Config;
-
-    /**
      * @param Request $request
      * @param array $options
      * @return TemplateMapResolver
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new TemplateMapResolver($this->templateMap());
+        return new TemplateMapResolver($this->config()->view()->templateMap());
     }
 }

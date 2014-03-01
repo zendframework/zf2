@@ -12,7 +12,6 @@ namespace Zend\Framework\View\Exception;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\View\Model\ServicesTrait as ViewModel;
-use Zend\Framework\View\ServicesConfigTrait as ViewConfig;
 
 class ListenerFactory
     extends Factory
@@ -20,8 +19,7 @@ class ListenerFactory
     /**
      *
      */
-    use ViewConfig,
-        ViewModel;
+    use ViewModel;
 
     /**
      * @param Request $request
@@ -31,8 +29,8 @@ class ListenerFactory
     public function __invoke(Request $request, array $options = [])
     {
         $viewModel = $this->viewModel()
-                          ->setTemplate($this->exceptionTemplate())
-                          ->setVariable('display_exceptions', $this->displayExceptions());
+                          ->setTemplate($this->config()->view()->exceptionTemplate())
+                          ->setVariable('display_exceptions', $this->config()->view()->displayExceptions());
 
         return (new Listener)->setViewModel($viewModel);
     }

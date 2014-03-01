@@ -9,18 +9,12 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Controller\ServicesConfigTrait as Config;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\Service\RequestInterface as Request;
 
 class Factory
     extends ServiceFactory
 {
-    /**
-     *
-     */
-    use Config;
-
     /**
      * @param Request $request
      * @param array $options

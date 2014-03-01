@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\I18n\Translator;
 
-use Zend\Framework\I18n\Translator\ServicesConfigTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Mvc\I18n\Translator;
@@ -22,11 +21,6 @@ class Factory
     extends ServiceFactory
 {
     /**
-     *
-     */
-    use Config;
-
-    /**
      * @param Request $request
      * @param array $options
      * @return Translator
@@ -34,6 +28,6 @@ class Factory
     public function __invoke(Request $request, array $options = [])
     {
         // Configure the translator
-        return Translator::factory($this->translator()->config());
+        return Translator::factory($this->config()->translator()->config());
     }
 }

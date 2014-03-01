@@ -10,8 +10,8 @@
 namespace Zend\Framework\Service\Factory;
 
 use ReflectionClass;
-use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\ManagerInterface as ServiceManager;
+use Zend\Framework\Service\RequestInterface;
+use Zend\Framework\Service\ManagerInterface;
 use Zend\Framework\Service\ServiceInterface;
 
 class InstanceFactory
@@ -20,7 +20,7 @@ class InstanceFactory
     /**
      *
      */
-    use FactoryTrait;
+    use ConfigTrait;
 
     /**
      * @var string
@@ -28,21 +28,21 @@ class InstanceFactory
     protected $factory;
 
     /**
-     * @param ServiceManager $sm
+     * @param ManagerInterface $sm
      * @param string $factory
      */
-    public function __construct(ServiceManager $sm, $factory)
+    public function __construct(ManagerInterface $sm, $factory)
     {
         $this->sm      = $sm;
         $this->factory = $factory;
     }
 
     /**
-     * @param Request $request
+     * @param RequestInterface $request
      * @param array $options
      * @return mixed|object
      */
-    public function __invoke(Request $request, array $options = [])
+    public function __invoke(RequestInterface $request, array $options = [])
     {
         if ($options) {
 

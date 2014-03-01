@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\View\Resolver\Factory;
 
-use Zend\Framework\View\ServicesConfigTrait as Config;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Resolver\TemplatePathStack;
@@ -18,18 +17,13 @@ class PathStackFactory
     extends Factory
 {
     /**
-     *
-     */
-    use Config;
-
-    /**
      * @param Request $request
      * @param array $options
      * @return TemplatePathStack
      */
     public function __invoke(Request $request, array $options = [])
     {
-        $config = $this->viewConfig();
+        $config = $this->config()->view();
 
         $templatePathStack = new TemplatePathStack();
 

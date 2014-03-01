@@ -12,16 +12,10 @@ namespace Zend\Framework\View\Plugin;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\View\Helper as ViewHelper;
-use Zend\Framework\View\ServicesConfigTrait;
 
 class ManagerFactory
     extends Factory
 {
-    /**
-     *
-     */
-    use ServicesConfigTrait;
-
     /**
      * @param Request $request
      * @param array $options

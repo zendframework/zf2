@@ -14,7 +14,7 @@ use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Service\Factory\ServiceTrait;
+use Zend\Framework\Service\Factory\FactoryTrait;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager
@@ -25,7 +25,7 @@ class Manager
      */
     use EventGenerator,
         EventManager,
-        ServiceTrait,
+        FactoryTrait,
         ServiceManager;
 
     /**
@@ -38,6 +38,14 @@ class Manager
         $this->services  = $config->services();
 
         $this->add('EventManager', $this);
+    }
+
+    /**
+     * @return Config
+     */
+    public function config()
+    {
+        return $this->config;
     }
 
     /**

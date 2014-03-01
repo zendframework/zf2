@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Service\Factory\ServiceTrait;
+use Zend\Framework\Service\Factory\FactoryTrait;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 trait ManagerTrait
@@ -18,7 +18,7 @@ trait ManagerTrait
     /**
      *
      */
-    use ServiceTrait,
+    use FactoryTrait,
         ServiceManager;
 
     /**

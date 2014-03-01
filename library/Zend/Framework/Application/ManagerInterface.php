@@ -9,13 +9,18 @@
 
 namespace Zend\Framework\Application;
 
+use Zend\Framework\Config\ConfigInterface;
 use Zend\Framework\Event\EventInterface;
-
 use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 
 interface ManagerInterface
     extends ServiceManagerInterface
 {
+    /**
+     * @return ConfigInterface
+     */
+    public function config();
+
     /**
      * @param string $event
      * @param null $options

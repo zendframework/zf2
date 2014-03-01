@@ -19,7 +19,7 @@ class Factory
     /**
      *
      */
-    use FactoryTrait;
+    use ConfigTrait;
 
     /**
      * @param ServiceManager $sm
