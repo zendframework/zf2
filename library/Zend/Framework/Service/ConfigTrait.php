@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Application\Config\ConfigInterface as ApplicationConfigInterface;
 use Zend\Framework\Config\ConfigInterface;
 use Zend\Framework\Config\ConfigTrait as Config;
 
@@ -64,14 +63,6 @@ trait ConfigTrait
     public function assigned($name)
     {
         return isset($this->assigned[$name]) ? $this->assigned[$name] : null;
-    }
-
-    /**
-     * @return ApplicationConfigInterface
-     */
-    public function config()
-    {
-        return $this->config;
     }
 
     /**
