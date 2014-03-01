@@ -33,7 +33,6 @@ class Manager
      */
     public function __construct(ConfigInterface $config)
     {
-        //var_dump(__FUNCTION__.' '.__FILE__);
         $this->config    = $config;
         $this->listeners = $config->listeners();
         $this->services  = $config->services();
@@ -70,23 +69,5 @@ class Manager
     public function run($event = Event::EVENT, $options = null)
     {
         return $this->trigger($event, $options);
-    }
-
-    /**
-     * @return string|void
-     */
-    public function serialize()
-    {
-        //var_dump(__FUNCTION__.' '.__FILE__);
-        return serialize($this->config);
-    }
-
-    /**
-     * @param string $serialized
-     */
-    public function unserialize($serialized)
-    {
-        //var_dump(__FUNCTION__.' '.__FILE__);
-        $this->__construct(unserialize($serialized));
     }
 }

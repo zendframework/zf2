@@ -17,16 +17,11 @@ trait ConfigTrait
     protected $config = [];
 
     /**
-     * @var array
-     */
-    protected $serial = [];
-
-    /**
      * @param array $config
      */
     public function __construct(array $config = [])
     {
-        $this->config = $this->serial = $config;
+        $this->config = $config;
     }
 
     /**
@@ -71,7 +66,7 @@ trait ConfigTrait
      */
     public function serialize()
     {
-        return serialize($this->serial);
+        return serialize($this->config);
     }
 
     /**
