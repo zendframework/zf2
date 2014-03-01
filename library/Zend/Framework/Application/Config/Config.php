@@ -38,7 +38,7 @@ class Config
      */
     public function listeners()
     {
-        return $this->get('event_manager');
+        return $this->get('listeners');
     }
 
     /**
@@ -54,7 +54,7 @@ class Config
      */
     public function services()
     {
-        return $this->get('service_manager');
+        return $this->get('services');
     }
 
     /**
@@ -70,6 +70,6 @@ class Config
      */
     public function view()
     {
-        return $this->get('view_manager');
+        return $this->get('view');
     }
 }
