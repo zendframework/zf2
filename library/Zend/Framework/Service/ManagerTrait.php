@@ -115,7 +115,7 @@ trait ManagerTrait
      * @param array|callable|FactoryInterface|string $factory
      * @return callable|FactoryInterface
      */
-    abstract function factory($factory);
+    abstract protected function factory($factory);
 
     /**
      * @param mixed $alias
