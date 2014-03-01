@@ -14,8 +14,24 @@ use Zend\Framework\Config\ConfigInterface as Serializable;
 interface ConfigInterface
     extends Serializable
 {
+
+    /**
+     * @return array
+     */
+    public function defaultParams();
+
     /**
      * @return array
      */
     public function plugins();
+
+    /**
+     * @return string
+     */
+    public function routeClass();
+
+    /**
+     * @return array
+     */
+    public function routes();
 }

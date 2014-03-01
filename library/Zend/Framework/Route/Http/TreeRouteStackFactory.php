@@ -33,8 +33,8 @@ class TreeRouteStackFactory
         $router = new TreeRouteStack;
 
         $router->setRouteManager($rm)
-               ->addRoutes($rm->routes())
-               ->setDefaultParams($rm->defaultParams());
+               ->addRoutes($this->config()->router()->routes())
+               ->setDefaultParams($this->config()->router()->defaultParams());
 
         return $router;
     }

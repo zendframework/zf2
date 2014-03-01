@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Plugin;
 
-use Zend\Framework\Service\ConfigInterface as ServiceConfig;
+use Zend\Framework\Application\Config\ConfigInterface as Config;
 use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 use Zend\Framework\View\ServiceConfigTrait;
@@ -24,12 +24,12 @@ class Manager
         ServiceManager;
 
     /**
-     * @param array $aliases
-     * @param ServiceConfig $services
+     * @param Config $config
      */
-    public function __construct(array $aliases, ServiceConfig $services)
+    public function __construct(Config $config)
     {
-        $this->alias    = $aliases;
-        $this->services = $services;
+        $this->config   = $config;
+        $this->alias    = $config->view()->aliases();
+        $this->services = $config->services();
     }
 }

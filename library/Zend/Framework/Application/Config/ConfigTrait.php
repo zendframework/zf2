@@ -13,39 +13,57 @@ use Zend\Framework\Controller\ConfigInterface as ControllersConfig;
 use Zend\Framework\Event\Manager\ConfigInterface as ListenersConfig;
 use Zend\Framework\I18n\Translator\ConfigInterface as TranslatorConfig;
 use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Config\ConfigInterface as ServiceConfig;
+use Zend\Framework\Service\ConfigInterface as ServicesConfig;
+use Zend\Framework\Service\ConfigTrait as ServiceConfigTrait;
 use Zend\Framework\View\ConfigInterface as ViewConfig;
 
-interface ConfigInterface
-    extends ServiceConfig
+trait ConfigTrait
 {
     /**
      * @return ControllersConfig
      */
-    public function controllers();
+    public function controllers()
+    {
+        return $this->get('controllers');
+    }
 
     /**
      * @return ListenersConfig
      */
-    public function listeners();
+    public function listeners()
+    {
+        return $this->get('event_manager');
+    }
 
     /**
      * @return RouterConfig
      */
-    public function router();
+    public function router()
+    {
+        return $this->get('router');
+    }
 
     /**
-     * @return ServiceConfig
+     * @return ServicesConfig
      */
-    public function services();
+    public function services()
+    {
+        return $this->get('service_manager');
+    }
 
     /**
      * @return TranslatorConfig
      */
-    public function translator();
+    public function translator()
+    {
+        return $this->get('translator');
+    }
 
     /**
      * @return ViewConfig
      */
-    public function view();
+    public function view()
+    {
+        return $this->get('view_manager');
+    }
 }

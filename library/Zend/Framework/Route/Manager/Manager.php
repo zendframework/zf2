@@ -9,30 +9,24 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
-use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Service\ConfigInterface as ServiceConfig;
-use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
-use Zend\Framework\Service\ManagerTrait as ServiceManager;
+use Zend\Framework\Application\Config\ConfigInterface as Config;
 
 class Manager
-    implements ManagerInterface, ServiceManagerInterface
+    implements ManagerInterface
 {
     /**
      *
      */
-    use ManagerTrait,
-        ServiceFactory,
-        ServiceManager;
+    use ManagerTrait;
 
     /**
-     * @param RouterConfig $config
-     * @param ServiceConfig $services
+     * @param Config $config
      */
-    public function __construct(RouterConfig $config, ServiceConfig $services)
+    public function __construct(Config $config)
     {
         $this->config   = $config;
-        $this->alias    = $config->plugins();
-        $this->services = $services;
+        $this->router   = $config->router();
+        $this->alias    = $this->router->plugins();
+        $this->services = $config->services();
     }
 }

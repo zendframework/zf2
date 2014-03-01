@@ -9,14 +9,37 @@
 
 namespace Zend\Framework\Route\Manager;
 
+use Zend\Framework\Route\ConfigInterface as RouterConfig;
+use Zend\Framework\Service\Factory\ServiceTrait;
+use Zend\Framework\Service\ManagerTrait as ServiceManager;
+
 trait ManagerTrait
 {
     /**
+     *
+     */
+    use ServiceTrait,
+        ServiceManager;
+
+    /**
+     * @var RouterConfig
+     */
+    protected $router;
+
+    /**
      * @return mixed
      */
-    public function routeClass()
+    public function defaultParams()
     {
-        return $this->config->routeClass();
+        return $this->router->defaultParams();
+    }
+
+    /**
+     * @return array
+     */
+    public function plugins()
+    {
+        return $this->router->plugins();
     }
 
     /**
@@ -24,14 +47,14 @@ trait ManagerTrait
      */
     public function routes()
     {
-        return $this->config->routes();
+        return $this->router->routes();
     }
 
     /**
      * @return mixed
      */
-    public function defaultParams()
+    public function routeClass()
     {
-        return $this->config->defaultParams();
+        return $this->router->routeClass();
     }
 }

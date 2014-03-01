@@ -11,7 +11,6 @@ namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
-use Zend\Framework\Service\ServiceTrait as Service;
 
 class CallableFactory
     implements FactoryInterface
@@ -19,13 +18,18 @@ class CallableFactory
     /**
      *
      */
-    use Service;
+    use FactoryTrait;
+
+    /**
+     * @var callable
+     */
+    protected $factory;
 
     /**
      * @param ServiceManager $sm
      * @param callable $factory
      */
-    public function __construct(ServiceManager $sm, $factory)
+    public function __construct(ServiceManager $sm, callable $factory)
     {
         $this->sm      = $sm;
         $this->factory = $factory;

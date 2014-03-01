@@ -9,13 +9,7 @@
 
 namespace Zend\Framework\Application\Config;
 
-use Zend\Framework\Config\ConfigTrait as ConfigTrait;
-use Zend\Framework\Controller\ConfigInterface as ControllersConfig;
-use Zend\Framework\Event\Manager\ConfigInterface as ListenersConfig;
-use Zend\Framework\I18n\Translator\ConfigInterface as TranslatorConfig;
-use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Service\ConfigInterface as ServicesConfig;
-use Zend\Framework\View\ConfigInterface as ViewConfig;
+use Zend\Framework\Config\ConfigTrait as ServiceConfigTrait;
 
 class Config
     implements ConfigInterface
@@ -23,53 +17,6 @@ class Config
     /**
      *
      */
-    use ConfigTrait;
-
-    /**
-     * @return ControllersConfig
-     */
-    public function controllers()
-    {
-        return $this->get('controllers');
-    }
-
-    /**
-     * @return ListenersConfig
-     */
-    public function listeners()
-    {
-        return $this->get('event_manager');
-    }
-
-    /**
-     * @return RouterConfig
-     */
-    public function router()
-    {
-        return $this->get('router');
-    }
-
-    /**
-     * @return ServicesConfig
-     */
-    public function services()
-    {
-        return $this->get('service_manager');
-    }
-
-    /**
-     * @return TranslatorConfig
-     */
-    public function translator()
-    {
-        return $this->get('translator');
-    }
-
-    /**
-     * @return ViewConfig
-     */
-    public function view()
-    {
-        return $this->get('view_manager');
-    }
+    use ConfigTrait,
+        ServiceConfigTrait;
 }

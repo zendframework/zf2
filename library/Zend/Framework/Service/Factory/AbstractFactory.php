@@ -11,7 +11,6 @@ namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
-use Zend\Framework\Service\ServiceTrait as Service;
 
 class AbstractFactory
     implements FactoryInterface
@@ -19,7 +18,12 @@ class AbstractFactory
     /**
      *
      */
-    use Service;
+    use FactoryTrait;
+
+    /**
+     * @var array
+     */
+    protected $factory;
 
     /**
      * @param ServiceManager $sm

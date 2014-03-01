@@ -28,6 +28,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Manager($this->services(), $this->controllers());
+        return new Manager($this->config());
     }
 }

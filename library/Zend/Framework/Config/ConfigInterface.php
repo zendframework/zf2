@@ -22,15 +22,9 @@ interface ConfigInterface
     public function add($name, $config);
 
     /**
-     * @param $name
-     * @return mixed
-     */
-    public function config($name);
-
-    /**
      * @return array
      */
-    public function configuration();
+    public function config();
 
     /**
      * @param string $name

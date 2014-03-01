@@ -9,13 +9,12 @@
 
 namespace Zend\Framework\Controller\Manager;
 
+use Zend\Framework\Application\Config\ConfigInterface as Config;
 use Zend\Framework\Controller\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
-use Zend\Framework\Controller\ConfigInterface as ControllerConfig;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Service\ConfigInterface as ServiceConfig;
-use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
+use Zend\Framework\Service\Factory\ServiceTrait;
 use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
@@ -27,17 +26,17 @@ class Manager
      */
     use EventGenerator,
         EventManager,
-        ServiceFactory,
+        ServiceTrait,
         ServiceManager;
 
     /**
-     * @param ServiceConfig $services
-     * @param ControllerConfig $controllers
+     * @param Config $config
      */
-    public function __construct(ServiceConfig $services, ControllerConfig $controllers)
+    public function __construct(Config $config)
     {
-        $this->services  = $services;
-        $this->listeners = $controllers;
+        $this->config    = $config;
+        $this->listeners = $config->controllers();
+        $this->services  = $config->services();
     }
 
     /**
@@ -48,7 +47,7 @@ class Manager
      */
     protected function event($event)
     {
-        return $event instanceof EventInterface ? $event : $this->create($event);
+        return $event instanceof EventInterface ? $event : $this->get($event);
     }
 
     /**
@@ -78,6 +77,6 @@ class Manager
      */
     protected function listener($listener)
     {
-        return is_callable($listener) ? $listener : $this->create($listener);
+        return is_callable($listener) ? $listener : $this->get($listener);
     }
 }

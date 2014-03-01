@@ -11,7 +11,10 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Event\EventInterface;
 
+use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
+
 interface ManagerInterface
+    extends ServiceManagerInterface
 {
     /**
      * @param string $event

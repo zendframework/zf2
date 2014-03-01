@@ -34,6 +34,6 @@ class Factory
     public function __invoke(Request $request, array $options = [])
     {
         // Configure the translator
-        return Translator::factory($this->translator()->configuration());
+        return Translator::factory($this->translator()->config());
     }
 }

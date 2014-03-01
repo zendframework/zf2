@@ -10,19 +10,20 @@
 namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\Application\Config\ConfigInterface;
-use Zend\Framework\Service\RequestInterface as Request;
+use Zend\Framework\Service\ManagerInterface;
 
-interface FactoryInterface
+trait FactoryTrait
 {
+    /**
+     * @var ManagerInterface
+     */
+    protected $sm;
+
     /**
      * @return ConfigInterface
      */
-    public function config();
-
-    /**
-     * @param Request $request
-     * @param array $options
-     * @return mixed|void
-     */
-    public function __invoke(Request $request, array $options = []);
+    public function config()
+    {
+        return $this->sm->config();
+    }
 }

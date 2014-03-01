@@ -9,31 +9,24 @@
 
 namespace Zend\Framework\Application;
 
-use Serializable;
 use Zend\Framework\Application\Config\ConfigInterface as Config;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
-use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
+use Zend\Framework\Service\Factory\ServiceTrait;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager
-    implements EventManagerInterface, ManagerInterface, Serializable, ServiceManagerInterface
+    implements EventManagerInterface, ManagerInterface
 {
     /**
      *
      */
     use EventGenerator,
         EventManager,
-        ServiceFactory,
+        ServiceTrait,
         ServiceManager;
-
-    /**
-     * @var Config
-     */
-    protected $config;
 
     /**
      * @param Config $config
@@ -44,8 +37,7 @@ class Manager
         $this->listeners = $config->listeners();
         $this->services  = $config->services();
 
-        $this->services->add('Config', $config)
-                       ->add('EventManager', $this);
+        $this->add('EventManager', $this);
     }
 
     /**
@@ -56,7 +48,7 @@ class Manager
      */
     protected function event($event)
     {
-        return $event instanceof EventInterface ? $event : $this->create($event);
+        return $event instanceof EventInterface ? $event : $this->get($event);
     }
 
     /**
@@ -67,7 +59,7 @@ class Manager
      */
     protected function listener($listener)
     {
-        return is_callable($listener) ? $listener : $this->create($listener);
+        return is_callable($listener) ? $listener : $this->get($listener);
     }
 
     /**
@@ -78,21 +70,5 @@ class Manager
     public function run($event = Event::EVENT, $options = null)
     {
         return $this->trigger($event, $options);
-    }
-
-    /**
-     * @return string
-     */
-    public function serialize()
-    {
-        return serialize($this->config);
-    }
-
-    /**
-     * @param string $serialized
-     */
-    public function unserialize($serialized)
-    {
-        $this->__construct(unserialize($serialized));
     }
 }

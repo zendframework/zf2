@@ -9,20 +9,9 @@
 
 namespace Zend\Framework\Route\Manager;
 
-interface ManagerInterface
-{
-    /**
-     * @param $name
-     * @param $route
-     * @return self
-     */
-    public function add($name, $route);
+use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 
-    /**
-     * @param string $name
-     * @param mixed $options
-     * @param bool $shared
-     * @return false|object
-     */
-    public function get($name, $options = null, $shared = true);
+interface ManagerInterface
+    extends ServiceManagerInterface
+{
 }

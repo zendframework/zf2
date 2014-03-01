@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Service\Factory\FactoryInterface;
 
 interface ManagerInterface
+    extends ConfigInterface
 {
     /**
      * @param $name
@@ -20,19 +20,6 @@ interface ManagerInterface
      * @return self
      */
     public function add($name, $service);
-
-    /**
-     * @return Config
-     */
-    public function config();
-
-    /**
-     * @param $name
-     * @param null $options
-     * @param bool $shared
-     * @return mixed
-     */
-    public function create($name, $options = null, $shared = false);
 
     /**
      * @param array|callable|FactoryInterface|string $factory

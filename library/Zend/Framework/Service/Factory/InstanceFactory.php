@@ -13,7 +13,6 @@ use ReflectionClass;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;
-use Zend\Framework\Service\ServiceTrait as Service;
 
 class InstanceFactory
     implements FactoryInterface
@@ -21,7 +20,12 @@ class InstanceFactory
     /**
      *
      */
-    use Service;
+    use FactoryTrait;
+
+    /**
+     * @var string
+     */
+    protected $factory;
 
     /**
      * @param ServiceManager $sm

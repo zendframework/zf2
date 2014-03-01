@@ -10,26 +10,19 @@
 namespace Zend\Framework\Service;
 
 use Exception;
-use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Service\Factory\FactoryInterface;
-use Zend\Framework\Service\Factory\ServiceTrait as ServiceFactory;
 
 trait ManagerTrait
 {
     /**
+     *
+     */
+    use ConfigTrait;
+
+    /**
      * @var array
      */
     protected $alias = [];
-
-    /**
-     * @var Config
-     */
-    //protected $config;
-
-    /**
-     * @var ConfigInterface
-     */
-    protected $services;
 
     /**
      * @param $name
@@ -52,32 +45,10 @@ trait ManagerTrait
     }
 
     /**
-     * @return Config
-     */
-    public function config()
-    {
-        return $this->get('Config');
-    }
-
-    /**
-     * @param mixed $alias
-     * @param mixed $options
-     * @param bool $shared
-     * @return null|object
-     */
-    public function create($alias, $options = null, $shared = false)
-    {
-        return $this->get($alias, $options, $shared);
-    }
-
-    /**
      * @param array|callable|FactoryInterface|string $factory
      * @return callable|FactoryInterface
      */
-    public function factory($factory)
-    {
-        return $this->instance($factory);
-    }
+    abstract function factory($factory);
 
     /**
      * @param mixed $alias
@@ -90,12 +61,6 @@ trait ManagerTrait
         list($alias, $options) = $this->options($alias, $options);
         return $this->service($this->request($alias, $shared), $options);
     }
-
-    /**
-     * @param array|callable|FactoryInterface|object|string $factory
-     * @return callable|FactoryInterface
-     */
-    abstract protected function instance($factory);
 
     /**
      * @param $alias
@@ -137,7 +102,7 @@ trait ManagerTrait
         $name     = $this->alias($alias);
         $services = $this->services;
 
-        $config  = $services->config($name);
+        $config  = $services->configured($name);
         $factory = $services->assigned($name);
         $service = $services->get($name);
 
