@@ -148,7 +148,6 @@ trait ConfigServicesTrait
      * @param RequestInterface $request
      * @param array $options
      * @return object
-     * @throws Exception
      */
     abstract protected function service(RequestInterface $request, array $options = []);
 }
