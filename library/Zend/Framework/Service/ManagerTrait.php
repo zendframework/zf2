@@ -10,6 +10,7 @@
 namespace Zend\Framework\Service;
 
 use Exception;
+use Zend\Framework\Config\ConfigTrait;
 
 trait ManagerTrait
 {
