@@ -10,43 +10,43 @@
 namespace Zend\Framework\Application\Config;
 
 use Zend\Framework\Config\ConfigInterface as Config;
-use Zend\Framework\Controller\ConfigInterface as ControllersConfig;
-use Zend\Framework\Event\Manager\ConfigInterface as ListenersConfig;
-use Zend\Framework\I18n\Translator\ConfigInterface as TranslatorConfig;
-use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Service\ConfigInterface as ServiceConfig;
-use Zend\Framework\View\ConfigInterface as ViewConfig;
+use Zend\Framework\Controller\ConfigInterface as Controllers;
+use Zend\Framework\Event\Manager\ConfigInterface as Listeners;
+use Zend\Framework\I18n\Translator\ConfigInterface as Translator;
+use Zend\Framework\Route\ConfigInterface as Router;
+use Zend\Framework\Service\ConfigInterface as Services;
+use Zend\Framework\View\ConfigInterface as View;
 
 interface ConfigInterface
     extends Config
 {
     /**
-     * @return ControllersConfig
+     * @return Controllers
      */
     public function controllers();
 
     /**
-     * @return ListenersConfig
+     * @return Listeners
      */
     public function listeners();
 
     /**
-     * @return RouterConfig
+     * @return Router
      */
     public function router();
 
     /**
-     * @return ServiceConfig
+     * @return Services
      */
     public function services();
 
     /**
-     * @return TranslatorConfig
+     * @return Translator
      */
     public function translator();
 
     /**
-     * @return ViewConfig
+     * @return View
      */
     public function view();
 }
