@@ -121,6 +121,7 @@ trait ManagerTrait
     public function get($alias, $options = null, $shared = true)
     {
         list($alias, $options) = $this->options($alias, $options);
+
         return $this->create($this->request($alias, $shared), $options);
     }
 
@@ -160,6 +161,7 @@ trait ManagerTrait
     {
         $alias = $request->alias();
         $name  = $this->alias($alias);
+
         return [$name, $alias, $this->configuration($name), $this->assigned($name), $this->service($name)];
     }
 
