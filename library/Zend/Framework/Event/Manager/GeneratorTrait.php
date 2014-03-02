@@ -30,7 +30,7 @@ trait GeneratorTrait
      * @param Event $event
      * @return Generator
      */
-    protected function match(Event $event)
+    protected function generator(Event $event)
     {
         foreach($this->queue($event->name()) as $listener) {
             if (!$listener instanceof ListenerInterface || $listener->target($event)) {
@@ -61,7 +61,7 @@ trait GeneratorTrait
     {
         $result = null;
 
-        foreach($this->match($event) as $listener) {
+        foreach($this->generator($event) as $listener) {
 
             $result = $event->signal($listener, $options);
 

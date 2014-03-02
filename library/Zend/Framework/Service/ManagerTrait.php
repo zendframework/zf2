@@ -81,7 +81,7 @@ trait ManagerTrait
      */
     protected function create(RequestInterface $request, array $options = [])
     {
-        list($name, $alias, $config, $assigned, $service) = $this->lookup($request);
+        list($name, $alias, $config, $assigned, $service) = $this->match($request);
 
         if (!$config && !$assigned && !$service) {
             return null;
@@ -156,7 +156,7 @@ trait ManagerTrait
      * @param RequestInterface $request
      * @return array
      */
-    protected function lookup(RequestInterface $request)
+    protected function match(RequestInterface $request)
     {
         $alias = $request->alias();
         $name  = $this->alias($alias);
