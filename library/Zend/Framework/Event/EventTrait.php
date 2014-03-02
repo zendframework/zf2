@@ -12,6 +12,11 @@ namespace Zend\Framework\Event;
 trait EventTrait
 {
     /**
+     * @var string
+     */
+    protected $event;
+
+    /**
      * @var bool
      */
     protected $stopped = false;
