@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Service;
 
-use Zend\Framework\Config\ConfigInterface;
 use Zend\Framework\Config\ConfigTrait as Config;
 
 trait ConfigTrait
@@ -25,7 +24,7 @@ trait ConfigTrait
     protected $assigned = [];
 
     /**
-     * @var ConfigInterface
+     * @var array
      */
     protected $services;
 
