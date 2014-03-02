@@ -125,7 +125,7 @@ trait ManagerTrait
      * @param bool $shared
      * @return RequestInterface
      */
-    public function request($request, $shared = true)
+    protected function request($request, $shared = true)
     {
         return $request instanceof RequestInterface ? $request : new Request($request, $shared);
     }
