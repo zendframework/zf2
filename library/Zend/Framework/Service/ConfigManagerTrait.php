@@ -136,4 +136,19 @@ trait ConfigManagerTrait
 
         return [$alias, $options ? [$options] : []];
     }
+
+    /**
+     * @param string|RequestInterface $request
+     * @param bool $shared
+     * @return RequestInterface
+     */
+    abstract protected function request($request, $shared = true);
+
+    /**
+     * @param RequestInterface $request
+     * @param array $options
+     * @return object
+     * @throws Exception
+     */
+    abstract protected function service(RequestInterface $request, array $options = []);
 }
