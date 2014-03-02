@@ -10,6 +10,7 @@
 namespace Zend\Framework\Service;
 
 use Exception;
+use Zend\Framework\Service\Factory\FactoryInterface;
 
 trait ManagerTrait
 {
@@ -22,6 +23,12 @@ trait ManagerTrait
      * @var array
      */
     protected $pending = [];
+
+    /**
+     * @param array|callable|FactoryInterface|object|string $factory
+     * @return callable|FactoryInterface
+     */
+    abstract protected function factory($factory);
 
     /**
      * @param string $name
