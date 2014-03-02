@@ -9,17 +9,10 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\Event\Manager\ManagerInterface as EventManager;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ListenerInterface
 {
-    /**
-     * @param EventManager $em
-     * @return self
-     */
-    public function setEventManager(EventManager $em);
-
     /**
      * @param EventInterface $event
      * @param ViewModel $viewModel

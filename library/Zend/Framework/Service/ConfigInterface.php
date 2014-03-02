@@ -23,7 +23,7 @@ interface ConfigInterface
     public function assign($name, callable $factory);
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function assigned($name);
@@ -34,14 +34,14 @@ interface ConfigInterface
     public function config();
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function configuration($name);
 
     /**
-     * @param $name
-     * @return object|null
+     * @param string $name
+     * @return object
      */
     public function service($name);
 }

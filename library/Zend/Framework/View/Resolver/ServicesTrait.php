@@ -14,7 +14,7 @@ use Zend\View\Resolver\ResolverInterface as ViewResolver;
 trait ServicesTrait
 {
     /**
-     * @return bool|ViewResolver
+     * @return null|ViewResolver
      */
     public function viewResolver()
     {

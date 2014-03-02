@@ -33,7 +33,7 @@ interface ConfigInterface
     public function get($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return bool
      */
     public function has($name);

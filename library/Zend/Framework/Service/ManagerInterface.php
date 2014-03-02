@@ -13,8 +13,8 @@ interface ManagerInterface
     extends ConfigInterface
 {
     /**
-     * @param $name
-     * @param $service
+     * @param string $name
+     * @param mixed $service
      * @return self
      */
     public function add($name, $service);

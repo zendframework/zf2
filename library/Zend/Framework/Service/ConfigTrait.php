@@ -30,8 +30,8 @@ trait ConfigTrait
     protected $services;
 
     /**
-     * @param $name
-     * @param $service
+     * @param string $name
+     * @param mixed $service
      * @return self
      */
     public function add($name, $service)
@@ -41,8 +41,8 @@ trait ConfigTrait
     }
 
     /**
-     * @param $name
-     * @param $callable
+     * @param string $name
+     * @param callable $callable
      * @return $this
      */
     public function assign($name, callable $callable)
@@ -52,7 +52,7 @@ trait ConfigTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return callable|null
      */
     public function assigned($name)
@@ -61,7 +61,7 @@ trait ConfigTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function configuration($name)
@@ -70,7 +70,7 @@ trait ConfigTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return bool
      */
     public function has($name)
@@ -79,7 +79,7 @@ trait ConfigTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return object|null
      */
     public function service($name)

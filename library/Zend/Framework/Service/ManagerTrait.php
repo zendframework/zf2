@@ -24,8 +24,8 @@ trait ManagerTrait
     protected $alias = [];
 
     /**
-     * @param $name
-     * @param $service
+     * @param string $name
+     * @param mixed $service
      * @return self
      */
     public function add($name, $service)
@@ -44,8 +44,8 @@ trait ManagerTrait
     }
 
     /**
-     * @param $name
-     * @param $callable
+     * @param string $name
+     * @param callable $callable
      * @return $this
      */
     public function assign($name, callable $callable)
@@ -55,7 +55,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return callable|null
      */
     public function assigned($name)
@@ -64,7 +64,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function configuration($name)
@@ -94,7 +94,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return bool
      */
     public function has($name)
@@ -103,7 +103,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param $alias
+     * @param array|string $alias
      * @param null $options
      * @return array
      */
@@ -121,7 +121,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param $request
+     * @param string|RequestInterface $request
      * @param bool $shared
      * @return RequestInterface
      */
@@ -131,7 +131,7 @@ trait ManagerTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return object|null
      */
     public function service($name)

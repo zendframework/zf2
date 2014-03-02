@@ -44,7 +44,7 @@ trait ConfigTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function get($name)
@@ -53,7 +53,7 @@ trait ConfigTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return bool
      */
     public function has($name)

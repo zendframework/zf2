@@ -25,7 +25,7 @@ trait FactoryTrait
     protected $pending = [];
 
     /**
-     * @param $name
+     * @param string $name
      * @return self
      */
     public function initialized($name)
@@ -35,7 +35,7 @@ trait FactoryTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return self
      */
     public function initializing($name)
