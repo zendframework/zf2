@@ -16,7 +16,7 @@ trait ManagerTrait
     /**
      *
      */
-    use ConfigManagerTrait;
+    use ConfigServicesTrait;
 
     /**
      * @var array

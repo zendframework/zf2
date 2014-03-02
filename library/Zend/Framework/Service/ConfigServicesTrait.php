@@ -11,7 +11,7 @@ namespace Zend\Framework\Service;
 
 use Zend\Framework\Config\ConfigTrait;
 
-trait ConfigManagerTrait
+trait ConfigServicesTrait
 {
     /**
      *
