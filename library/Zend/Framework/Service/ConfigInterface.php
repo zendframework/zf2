@@ -41,18 +41,6 @@ interface ConfigInterface
 
     /**
      * @param $name
-     * @return self
-     */
-    public function initialized($name);
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function initializing($name);
-
-    /**
-     * @param $name
      * @return object|null
      */
     public function service($name);

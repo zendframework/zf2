@@ -10,7 +10,6 @@
 namespace Zend\Framework\Service;
 
 use Exception;
-use Zend\Framework\Service\Factory\FactoryInterface;
 
 trait ManagerTrait
 {
@@ -79,38 +78,7 @@ trait ManagerTrait
      * @return object
      * @throws Exception
      */
-    protected function create(RequestInterface $request, array $options = [])
-    {
-        list($name, $alias, $config, $assigned, $service) = $this->match($request);
-
-        if (!$config && !$assigned && !$service) {
-            return null;
-        }
-
-        if ($request->shared() && $service) {
-            return $service;
-        }
-
-        if ($this->initializing($name)) {
-            throw new Exception('Circular dependency: [' . $alias . ']::[' . $name . ']');
-        }
-
-        $service = $request->service($assigned ? : $this->factory($config), $options);
-
-        if ($request->shared()) {
-            $this->add($name, $service);
-        }
-
-        $this->initialized($name);
-
-        return $service;
-    }
-
-    /**
-     * @param array|callable|FactoryInterface|string $factory
-     * @return callable|FactoryInterface
-     */
-    abstract protected function factory($factory);
+    abstract protected function create(RequestInterface $request, array $options = []);
 
     /**
      * @param mixed $alias
@@ -132,37 +100,6 @@ trait ManagerTrait
     public function has($name)
     {
         return $this->services->has($name);
-    }
-
-    /**
-     * @param $name
-     * @return self
-     */
-    public function initialized($name)
-    {
-        $this->services->initialized($name);
-        return $this;
-    }
-
-    /**
-     * @param $name
-     * @return self
-     */
-    public function initializing($name)
-    {
-        return $this->services->initializing($name);
-    }
-
-    /**
-     * @param RequestInterface $request
-     * @return array
-     */
-    protected function match(RequestInterface $request)
-    {
-        $alias = $request->alias();
-        $name  = $this->alias($alias);
-
-        return [$name, $alias, $this->configuration($name), $this->assigned($name), $this->service($name)];
     }
 
     /**

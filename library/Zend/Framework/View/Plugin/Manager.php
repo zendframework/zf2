@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Application\Config\ConfigInterface;
-use Zend\Framework\Service\Factory\FactoryTrait as Factory;
+use Zend\Framework\Service\FactoryTrait as Factory;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager
