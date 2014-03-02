@@ -58,7 +58,7 @@ trait FactoryTrait
         $alias = $request->alias();
         $name  = $this->alias($alias);
 
-        return [$name, $alias, $this->configuration($name), $this->assigned($name), $this->service($name)];
+        return [$name, $alias, $this->configuration($alias), $this->assigned($alias), $this->service($alias)];
     }
 
     /**

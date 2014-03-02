@@ -50,7 +50,7 @@ trait ManagerTrait
      */
     public function assign($name, callable $callable)
     {
-        $this->services->assign($name, $callable);
+        $this->services->assign($this->alias($name), $callable);
         return $this;
     }
 
@@ -60,7 +60,7 @@ trait ManagerTrait
      */
     public function assigned($name)
     {
-        return $this->services->assigned($name);
+        return $this->services->assigned($this->alias($name));
     }
 
     /**
@@ -69,7 +69,7 @@ trait ManagerTrait
      */
     public function configuration($name)
     {
-        return $this->services->configuration($name);
+        return $this->services->configuration($this->alias($name));
     }
 
     /**
@@ -99,7 +99,7 @@ trait ManagerTrait
      */
     public function has($name)
     {
-        return $this->services->has($name);
+        return $this->services->has($this->alias($name));
     }
 
     /**
@@ -136,6 +136,6 @@ trait ManagerTrait
      */
     public function service($name)
     {
-        return $this->services->service($name);
+        return $this->services->service($this->alias($name));
     }
 }
