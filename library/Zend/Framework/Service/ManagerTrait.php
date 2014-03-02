@@ -35,7 +35,7 @@ trait ManagerTrait
      */
     public function add($name, $service)
     {
-        $this->services->add($this->alias($name), $service);
+        $this->services->add($this->aliased($name), $service);
         return $this;
     }
 
@@ -45,14 +45,25 @@ trait ManagerTrait
      */
     public function added($name)
     {
-        return $this->services->added($this->alias($name));
+        return $this->services->added($this->aliased($name));
+    }
+
+    /**
+     * @param string $alias
+     * @param string $name
+     * @return string
+     */
+    protected function alias($alias, $name)
+    {
+        $this->alias[strtolower($alias)] = $name;
+        return $this;
     }
 
     /**
      * @param string $alias
      * @return string
      */
-    protected function alias($alias)
+    protected function aliased($alias)
     {
         return isset($this->alias[$lowercase = strtolower($alias)]) ? $this->alias[$lowercase] : $alias;
     }
@@ -64,7 +75,7 @@ trait ManagerTrait
      */
     public function assign($name, callable $callable)
     {
-        $this->services->assign($this->alias($name), $callable);
+        $this->services->assign($this->aliased($name), $callable);
         return $this;
     }
 
@@ -74,7 +85,7 @@ trait ManagerTrait
      */
     public function assigned($name)
     {
-        return $this->services->assigned($this->alias($name));
+        return $this->services->assigned($this->aliased($name));
     }
 
     /**
@@ -83,7 +94,7 @@ trait ManagerTrait
      */
     public function configuration($name)
     {
-        return $this->services->configuration($this->alias($name));
+        return $this->services->configuration($this->aliased($name));
     }
 
     /**
@@ -105,7 +116,7 @@ trait ManagerTrait
      */
     public function has($name)
     {
-        return $this->services->has($this->alias($name));
+        return $this->services->has($this->aliased($name));
     }
 
     /**

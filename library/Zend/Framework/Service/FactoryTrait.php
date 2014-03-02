@@ -25,6 +25,12 @@ trait FactoryTrait
     protected $pending = [];
 
     /**
+     * @param string $alias
+     * @return string
+     */
+    abstract protected function aliased($alias);
+
+    /**
      * @param string $name
      * @return self
      */
@@ -50,18 +56,6 @@ trait FactoryTrait
     }
 
     /**
-     * @param RequestInterface $request
-     * @return array
-     */
-    protected function match(RequestInterface $request)
-    {
-        $alias = $request->alias();
-        $name  = $this->alias($alias);
-
-        return [$name, $alias, $this->configuration($alias), $this->assigned($alias), $this->added($alias)];
-    }
-
-    /**
      * @param string|RequestInterface $request
      * @param bool $shared
      * @return RequestInterface
@@ -79,7 +73,10 @@ trait FactoryTrait
      */
     protected function service(RequestInterface $request, array $options = [])
     {
-        list($name, $alias, $config, $assigned, $service) = $this->match($request);
+        $alias    = $request->alias();
+        $assigned = $this->assigned($alias);
+        $config   = $this->configuration($alias);
+        $service  = $this->added($alias);
 
         if (!$config && !$assigned && !$service) {
             return null;
@@ -88,6 +85,8 @@ trait FactoryTrait
         if ($request->shared() && $service) {
             return $service;
         }
+
+        $name = $this->aliased($alias);
 
         if ($this->initializing($name)) {
             throw new Exception('Circular dependency: [' . $alias . ']::[' . $name . ']');
