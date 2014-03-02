@@ -25,6 +25,11 @@ trait ManagerTrait
     protected $alias = [];
 
     /**
+     * @var ConfigInterface
+     */
+    protected $services;
+
+    /**
      * @param string $name
      * @param mixed $service
      * @return self
