@@ -10,12 +10,12 @@
 namespace Zend\Framework\Application\Config;
 
 use Zend\Framework\Config\ConfigTrait;
-use Zend\Framework\Controller\ConfigInterface as ControllersConfig;
-use Zend\Framework\Event\Manager\ConfigInterface as ListenersConfig;
-use Zend\Framework\I18n\Translator\ConfigInterface as TranslatorConfig;
-use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Service\ConfigInterface as ServicesConfig;
-use Zend\Framework\View\ConfigInterface as ViewConfig;
+use Zend\Framework\Controller\ConfigInterface as Controllers;
+use Zend\Framework\Event\Manager\ConfigInterface as Listeners;
+use Zend\Framework\I18n\Translator\ConfigInterface as Translator;
+use Zend\Framework\Route\ConfigInterface as Router;
+use Zend\Framework\Service\ConfigInterface as Services;
+use Zend\Framework\View\ConfigInterface as View;
 
 class Config
     implements ConfigInterface
@@ -26,7 +26,7 @@ class Config
     use ConfigTrait;
 
     /**
-     * @return ControllersConfig
+     * @return Controllers
      */
     public function controllers()
     {
@@ -34,7 +34,7 @@ class Config
     }
 
     /**
-     * @return ListenersConfig
+     * @return Listeners
      */
     public function listeners()
     {
@@ -42,7 +42,7 @@ class Config
     }
 
     /**
-     * @return RouterConfig
+     * @return Router
      */
     public function router()
     {
@@ -50,7 +50,7 @@ class Config
     }
 
     /**
-     * @return ServicesConfig
+     * @return Services
      */
     public function services()
     {
@@ -58,7 +58,7 @@ class Config
     }
 
     /**
-     * @return TranslatorConfig
+     * @return Translator
      */
     public function translator()
     {
@@ -66,7 +66,7 @@ class Config
     }
 
     /**
-     * @return ViewConfig
+     * @return View
      */
     public function view()
     {
