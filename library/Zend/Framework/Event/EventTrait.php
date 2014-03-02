@@ -62,7 +62,7 @@ trait EventTrait
     }
 
     /**
-     * @param $listener
+     * @param callable $listener
      * @param null $options
      * @return mixed
      */
