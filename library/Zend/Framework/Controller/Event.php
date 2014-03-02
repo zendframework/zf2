@@ -26,7 +26,7 @@ class Event
      */
     public function __construct(RouteMatch $routeMatch, $controller)
     {
-        $this->name   = $controller;
+        $this->event  = $controller;
         $this->source = $routeMatch;
     }
 

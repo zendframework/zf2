@@ -32,7 +32,7 @@ trait GeneratorTrait
      */
     protected function generator(Event $event)
     {
-        foreach($this->queue($event->name()) as $listener) {
+        foreach($this->queue($event->event()) as $listener) {
             if (!$listener instanceof ListenerInterface || $listener->target($event)) {
                 yield $listener;
             }

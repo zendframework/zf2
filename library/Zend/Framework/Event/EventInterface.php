@@ -12,9 +12,11 @@ namespace Zend\Framework\Event;
 interface EventInterface
 {
     /**
+     * Event name
+     *
      * @return string
      */
-    public function name();
+    public function event();
 
     /**
      * @param callable $listener

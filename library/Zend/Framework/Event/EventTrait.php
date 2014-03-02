@@ -17,11 +17,13 @@ trait EventTrait
     protected $stopped = false;
 
     /**
+     * Event name
+     *
      * @return string
      */
-    public function name()
+    public function event()
     {
-        return isset($this->name) ? $this->name : static::EVENT;
+        return isset($this->event) ? $this->event : static::EVENT;
     }
 
     /**
