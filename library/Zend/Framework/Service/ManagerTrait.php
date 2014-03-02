@@ -81,12 +81,7 @@ trait ManagerTrait
      */
     protected function create(RequestInterface $request, array $options = [])
     {
-        $alias = $request->alias();
-        $name  = $this->alias($alias);
-
-        $config   = $this->configuration($name);
-        $assigned = $this->assigned($name);
-        $service  = $this->service($name);
+        list($name, $alias, $config, $assigned, $service) = $this->lookup($request);
 
         if (!$config && !$assigned && !$service) {
             return null;
@@ -97,7 +92,7 @@ trait ManagerTrait
         }
 
         if ($this->initializing($name)) {
-            throw new Exception('Circular dependency: '.$alias.'::'.$name);
+            throw new Exception('Circular dependency: [' . $alias . ']::[' . $name . ']');
         }
 
         $service = $request->service($assigned ? : $this->factory($config), $options);
@@ -155,6 +150,17 @@ trait ManagerTrait
     public function initializing($name)
     {
         return $this->services->initializing($name);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return array
+     */
+    protected function lookup(RequestInterface $request)
+    {
+        $alias = $request->alias();
+        $name  = $this->alias($alias);
+        return [$name, $alias, $this->configuration($name), $this->assigned($name), $this->service($name)];
     }
 
     /**

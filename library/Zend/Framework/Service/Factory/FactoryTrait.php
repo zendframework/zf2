@@ -15,7 +15,7 @@ trait FactoryTrait
      * @param array|callable|FactoryInterface|object|string $factory
      * @return callable|FactoryInterface
      */
-    public function factory($factory)
+    protected function factory($factory)
     {
         if (is_string($factory) && is_subclass_of($factory, Factory::class)) {
             return new $factory($this);

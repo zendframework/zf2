@@ -10,8 +10,8 @@
 namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Application\Config\ConfigInterface;
-use Zend\Framework\Service\Factory\FactoryTrait;
-use Zend\Framework\Service\ManagerTrait;
+use Zend\Framework\Service\Factory\FactoryTrait as Factory;
+use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager
     implements ManagerInterface
@@ -19,8 +19,8 @@ class Manager
     /**
      *
      */
-    use FactoryTrait,
-        ManagerTrait;
+    use Factory,
+        ServiceManager;
 
     /**
      * @param ConfigInterface $config
