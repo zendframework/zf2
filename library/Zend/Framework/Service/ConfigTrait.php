@@ -72,7 +72,7 @@ trait ConfigTrait
      * @param string $name
      * @return mixed
      */
-    public function configuration($name)
+    public function configured($name)
     {
         return $this->get($name);
     }

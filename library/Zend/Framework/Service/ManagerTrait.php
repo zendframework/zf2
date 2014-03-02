@@ -92,9 +92,9 @@ trait ManagerTrait
      * @param string $name
      * @return mixed
      */
-    public function configuration($name)
+    public function configured($name)
     {
-        return $this->services->configuration($this->aliased($name));
+        return $this->services->configured($this->aliased($name));
     }
 
     /**

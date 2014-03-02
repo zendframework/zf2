@@ -75,7 +75,7 @@ trait FactoryTrait
     {
         $alias    = $request->alias();
         $assigned = $this->assigned($alias);
-        $config   = $this->configuration($alias);
+        $config   = $this->configured($alias);
         $service  = $this->added($alias);
 
         if (!$config && !$assigned && !$service) {
