@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Service;
 
-use Exception;
 use Zend\Framework\Config\ConfigTrait;
 
 trait ManagerTrait
@@ -38,6 +37,15 @@ trait ManagerTrait
     {
         $this->services->add($this->alias($name), $service);
         return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return object|null
+     */
+    public function added($name)
+    {
+        return $this->services->added($this->alias($name));
     }
 
     /**
@@ -79,14 +87,6 @@ trait ManagerTrait
     }
 
     /**
-     * @param RequestInterface $request
-     * @param array $options
-     * @return object
-     * @throws Exception
-     */
-    abstract protected function create(RequestInterface $request, array $options = []);
-
-    /**
      * @param mixed $alias
      * @param mixed $options
      * @param bool $shared
@@ -96,7 +96,7 @@ trait ManagerTrait
     {
         list($alias, $options) = $this->options($alias, $options);
 
-        return $this->create($this->request($alias, $shared), $options);
+        return $this->service($this->request($alias, $shared), $options);
     }
 
     /**
@@ -131,17 +131,12 @@ trait ManagerTrait
      * @param bool $shared
      * @return RequestInterface
      */
-    protected function request($request, $shared = true)
-    {
-        return $request instanceof RequestInterface ? $request : new Request($request, $shared);
-    }
+    abstract protected function request($request, $shared = true);
 
     /**
-     * @param string $name
-     * @return object|null
+     * @param RequestInterface $request
+     * @param array $options
+     * @return mixed
      */
-    public function service($name)
-    {
-        return $this->services->service($this->alias($name));
-    }
+    abstract protected function service(RequestInterface $request, array $options = []);
 }

@@ -58,7 +58,17 @@ trait FactoryTrait
         $alias = $request->alias();
         $name  = $this->alias($alias);
 
-        return [$name, $alias, $this->configuration($alias), $this->assigned($alias), $this->service($alias)];
+        return [$name, $alias, $this->configuration($alias), $this->assigned($alias), $this->added($alias)];
+    }
+
+    /**
+     * @param string|RequestInterface $request
+     * @param bool $shared
+     * @return RequestInterface
+     */
+    protected function request($request, $shared = true)
+    {
+        return $request instanceof RequestInterface ? $request : new Request($request, $shared);
     }
 
     /**
@@ -67,7 +77,7 @@ trait FactoryTrait
      * @return object
      * @throws Exception
      */
-    protected function create(RequestInterface $request, array $options = [])
+    protected function service(RequestInterface $request, array $options = [])
     {
         list($name, $alias, $config, $assigned, $service) = $this->match($request);
 
