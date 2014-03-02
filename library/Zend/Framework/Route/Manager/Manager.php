@@ -11,7 +11,7 @@ namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Application\Config\ConfigInterface as Config;
 use Zend\Framework\Route\ConfigInterface as RouterConfig;
-use Zend\Framework\Service\FactoryTrait as Factory;
+use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager

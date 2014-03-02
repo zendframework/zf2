@@ -14,7 +14,7 @@ use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Service\FactoryTrait as Factory;
+use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
 class Manager
