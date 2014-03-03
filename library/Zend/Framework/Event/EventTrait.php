@@ -17,6 +17,11 @@ trait EventTrait
     protected $event;
 
     /**
+     * @var mixed
+     */
+    protected $source;
+
+    /**
      * @var bool
      */
     protected $stopped = false;
@@ -46,7 +51,7 @@ trait EventTrait
      */
     public function source()
     {
-        return isset($this->source) ? $this->source : null;
+        return $this->source;
     }
 
     /**
