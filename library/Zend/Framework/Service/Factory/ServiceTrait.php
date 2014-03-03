@@ -34,7 +34,7 @@ trait ServiceTrait
      */
     public function create($name, $options = null)
     {
-        return $this->get($name, $options, false);
+        return $this->sm->create($name, $options);
     }
 
     /**
