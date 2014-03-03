@@ -20,6 +20,27 @@ interface FactoryInterface
     public function config();
 
     /**
+     * @param string $name
+     * @param mixed $options
+     * @return null|object
+     */
+    public function create($name, $options = null);
+
+    /**
+     * @param string $name
+     * @param mixed $options
+     * @param bool $shared
+     * @return null|object
+     */
+    public function get($name, $options = null, $shared = true);
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function has($name);
+
+    /**
      * @param Request $request
      * @param array $options
      * @return mixed|void

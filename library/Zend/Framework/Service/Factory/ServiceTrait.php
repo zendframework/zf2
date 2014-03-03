@@ -12,7 +12,7 @@ namespace Zend\Framework\Service\Factory;
 use Zend\Framework\Application\Config\ConfigInterface;
 use Zend\Framework\Service\ManagerInterface;
 
-trait ConfigTrait
+trait ServiceTrait
 {
     /**
      * @var ManagerInterface
@@ -25,5 +25,35 @@ trait ConfigTrait
     public function config()
     {
         return $this->sm->config();
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $options
+     * @return null|object
+     */
+    public function create($name, $options = null)
+    {
+        return $this->get($name, $options, false);
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $options
+     * @param bool $shared
+     * @return null|object
+     */
+    public function get($name, $options = null, $shared = true)
+    {
+        return $this->sm->get($name, $options, $shared);
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function has($name)
+    {
+        return $this->sm->has($name);
     }
 }

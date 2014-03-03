@@ -20,7 +20,7 @@ class InstanceFactory
     /**
      *
      */
-    use ConfigTrait;
+    use ServiceTrait;
 
     /**
      * @var string
@@ -44,6 +44,7 @@ class InstanceFactory
      */
     public function __invoke(RequestInterface $request, array $options = [])
     {
+
         if ($options) {
 
             $instance = (new ReflectionClass($this->factory))->newInstanceArgs($options);

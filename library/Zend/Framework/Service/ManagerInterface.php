@@ -22,6 +22,13 @@ interface ManagerInterface
     /**
      * @param string $name
      * @param mixed $options
+     * @return null|object
+     */
+    public function create($name, $options = null);
+
+    /**
+     * @param string $name
+     * @param mixed $options
      * @param bool $shared
      * @return null|object
      */

@@ -38,7 +38,7 @@ class Listener
 
         try {
 
-            $event = $this->dispatchable($controller) ? Controller::EVENT : Error::EVENT;
+            $event = $controller && $this->dispatchable($controller) ? $controller : Error::EVENT;
 
             return $this->dispatch([$event, $routeMatch, $controller], [$request, $response]);
 

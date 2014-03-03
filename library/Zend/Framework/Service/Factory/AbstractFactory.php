@@ -18,7 +18,7 @@ class AbstractFactory
     /**
      *
      */
-    use ConfigTrait;
+    use ServiceTrait;
 
     /**
      * @var array
