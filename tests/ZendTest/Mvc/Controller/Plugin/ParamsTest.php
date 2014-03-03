@@ -201,6 +201,53 @@ class ParamsTest extends TestCase
         $this->assertSame($this->plugin, $this->plugin->__invoke());
     }
 
+    public function testFromJsonRawBodyReturnsDefaultIfSet()
+    {
+        $this->setJson();
+
+        $value = $this->plugin->fromJsonRawBody('foo', 'bar');
+
+        $this->assertEquals($value, 'bar');
+    }
+
+    public function testFromJsonRawBodyReturnDefaultIfContentNotSet()
+    {
+        $value = $this->plugin->fromJsonRawBody();
+
+        $this->assertEquals($value, null);
+    }
+
+    public function testFromJsonRawBodyReturnEmptyArrayIfInvalidJsonOnBody()
+    {
+        $this->request->setContent("foo => bar");
+        $this->controller->dispatch($this->request);
+
+        $values = $this->plugin->fromJsonRawBody();
+
+        $this->assertEquals($values, null);
+    }
+
+    public function testFromJsonRawBodyReturnsExceptedValue()
+    {
+        $this->setJson();
+
+        $value = $this->plugin->fromJsonRawBody('value', 'default');
+        $valueOther = $this->plugin->fromJsonRawBody('other', 'default');
+
+        $this->assertEquals($value, 'json:1234');
+        $this->assertEquals($valueOther, '1234:other');
+    }
+
+    public function testFromJsonRawBodyReturnsAll()
+    {
+        $this->setJson();
+
+        $values = $this->plugin->fromJsonRawBody();
+
+        $this->assertEquals(2, count($values));
+        $this->assertEquals($values, array('value' => 'json:1234', 'other' => '1234:other'));
+    }
+
     protected function setQuery()
     {
         $this->request->setMethod(Request::METHOD_GET);
@@ -215,6 +262,13 @@ class ParamsTest extends TestCase
         $this->request->setMethod(Request::METHOD_POST);
         $this->request->getPost()->set('value', 'post:1234');
         $this->request->getPost()->set('other', '2345:other');
+
+        $this->controller->dispatch($this->request);
+    }
+
+    protected function setJson()
+    {
+        $this->request->setContent(json_encode(array('value' => 'json:1234', 'other' => '1234:other')));
 
         $this->controller->dispatch($this->request);
     }
