@@ -224,7 +224,7 @@ class ParamsTest extends TestCase
 
         $values = $this->plugin->fromJsonRawBody();
 
-        $this->assertEquals($values, []);
+        $this->assertEquals($values, array());
     }
 
     public function testFromJsonRawBodyReturnsExceptedValue()

@@ -138,7 +138,7 @@ class Params extends AbstractPlugin
             try{
                 $this->jsonDecoded = Json::decode($content, Json::TYPE_ARRAY);
             }catch (\Exception $e){
-                $this->jsonDecoded = [];
+                $this->jsonDecoded = array();
             }
         }
 
