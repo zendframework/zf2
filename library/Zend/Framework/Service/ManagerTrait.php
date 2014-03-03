@@ -20,11 +20,6 @@ trait ManagerTrait
     use ConfigServicesTrait;
 
     /**
-     * @var array
-     */
-    protected $pending = [];
-
-    /**
      * @param string $name
      * @param mixed $options
      * @return null|object
@@ -39,31 +34,6 @@ trait ManagerTrait
      * @return callable|FactoryInterface
      */
     abstract protected function factory($factory);
-
-    /**
-     * @param string $name
-     * @return self
-     */
-    protected function initialized($name)
-    {
-        $this->pending[$name] = false;
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @return self
-     */
-    protected function initializing($name)
-    {
-        if (!empty($this->pending[$name])) {
-            return true;
-        }
-
-        $this->pending[$name] = true;
-
-        return false;
-    }
 
     /**
      * @param string|RequestInterface $request
@@ -96,19 +66,17 @@ trait ManagerTrait
             return $service;
         }
 
-        $name = $this->aliased($alias);
-
-        if ($this->initializing($name)) {
-            throw new Exception('Circular dependency: [' . $alias . ']::[' . $name . ']');
+        if ($this->initializing($alias)) {
+            throw new Exception('Circular dependency: ' . $alias);
         }
 
         $service = $request->service($assigned ? : $this->factory($config), $options);
 
         if ($request->shared()) {
-            $this->add($name, $service);
+            $this->add($alias, $service);
         }
 
-        $this->initialized($name);
+        $this->initialized($alias);
 
         return $service;
     }

@@ -129,6 +129,24 @@ trait ConfigServicesTrait
     }
 
     /**
+     * @param string $name
+     * @return self
+     */
+    public function initialized($name)
+    {
+        $this->services->initialized($this->aliased($name));
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function initializing($name)
+    {
+        return $this->services->initializing($this->aliased($name));
+    }
+
+    /**
      * @param array|string $alias
      * @param null $options
      * @return array
