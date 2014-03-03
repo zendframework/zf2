@@ -100,4 +100,19 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
         $options = new TestOptions;
         $options->setFromArray('asd');
     }
+
+    public function testDisableStrictMode()
+    {
+        $options = array(
+            'test_field' => 1,
+            'stdlib_options_strictmode' => false,
+            'foo' => 'bar'
+        );
+
+        try {
+            $options = new TestOptions($options);
+        } catch (Exception $ex) {
+            $this->fail('Strict mode should be disabled and not throw an exception');
+        }
+    }
 }
