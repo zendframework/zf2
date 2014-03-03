@@ -14,7 +14,6 @@ use Zend\Framework\Controller\Exception\EventInterface as Exception;
 use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 
-
 class Listener
     implements ListenerInterface
 {
