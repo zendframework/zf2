@@ -10,7 +10,6 @@
 namespace Zend\Form\Element;
 
 use Traversable;
-use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 use Zend\Form\Fieldset;

@@ -16,7 +16,6 @@ use MongoClient;
 use MongoDate;
 use Traversable;
 use Zend\Log\Exception;
-use Zend\Log\Formatter\FormatterInterface;
 use Zend\Stdlib\ArrayUtils;
 
 /**

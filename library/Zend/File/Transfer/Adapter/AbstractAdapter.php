@@ -10,7 +10,6 @@
 namespace Zend\File\Transfer\Adapter;
 
 use ErrorException;
-use Zend\File\Transfer;
 use Zend\File\Transfer\Exception;
 use Zend\Filter;
 use Zend\Filter\Exception as FilterException;

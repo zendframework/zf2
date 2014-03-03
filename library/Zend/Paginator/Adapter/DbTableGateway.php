@@ -9,7 +9,6 @@
 
 namespace Zend\Paginator\Adapter;
 
-use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
 
 class DbTableGateway extends DbSelect

@@ -11,7 +11,6 @@ namespace Zend\Authentication\Adapter\DbTable;
 
 use Zend\Authentication\Result as AuthenticationResult;
 use Zend\Db\Adapter\Adapter as DbAdapter;
-use Zend\Db\Sql;
 use Zend\Db\Sql\Expression as SqlExpr;
 use Zend\Db\Sql\Predicate\Operator as SqlOp;
 

@@ -9,7 +9,6 @@
 
 namespace Zend\View\Renderer;
 
-use Zend\View\Model\ModelInterface;
 use Zend\View\Resolver\ResolverInterface;
 
 /**

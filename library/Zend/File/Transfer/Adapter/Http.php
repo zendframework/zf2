@@ -9,7 +9,6 @@
 
 namespace Zend\File\Transfer\Adapter;
 
-use Zend\File\Transfer;
 use Zend\File\Transfer\Exception;
 use Zend\ProgressBar;
 use Zend\ProgressBar\Adapter;

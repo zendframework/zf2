@@ -10,7 +10,6 @@
 namespace Zend\View\Helper;
 
 use Zend\View\Exception\InvalidArgumentException;
-use Zend\View\Helper\Placeholder\Container;
 
 /**
  * Helper for passing data between otherwise segregated Views. It's called

@@ -9,7 +9,6 @@
 
 namespace Zend\Code\Generator;
 
-use Zend\Code\Reflection\Exception as ReflectionException;
 use Zend\Code\Reflection\FileReflection;
 
 class FileGenerator extends AbstractGenerator

@@ -10,7 +10,6 @@
 namespace Zend\View\Helper;
 
 use stdClass;
-use Zend\View;
 use Zend\View\Exception;
 
 /**
