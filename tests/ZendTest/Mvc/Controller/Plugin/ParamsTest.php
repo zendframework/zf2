@@ -258,7 +258,7 @@ class ParamsTest extends TestCase
 
     protected function setJson()
     {
-        $this->request->setContent(json_encode(['value' => 'json:1234', 'other' => '1234:other']));
+        $this->request->setContent(json_encode(array('value' => 'json:1234', 'other' => '1234:other')));
 
         $this->controller->dispatch($this->request);
     }
