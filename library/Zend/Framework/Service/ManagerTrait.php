@@ -34,7 +34,7 @@ trait ManagerTrait
      * @param string $name
      * @return self
      */
-    public function initialized($name)
+    protected function initialized($name)
     {
         $this->pending[$name] = false;
         return $this;
@@ -44,7 +44,7 @@ trait ManagerTrait
      * @param string $name
      * @return self
      */
-    public function initializing($name)
+    protected function initializing($name)
     {
         if (!empty($this->pending[$name])) {
             return true;
