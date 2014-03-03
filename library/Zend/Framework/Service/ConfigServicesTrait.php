@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Application\Config\ConfigInterface as ApplicationConfigInterface;
 use Zend\Framework\Config\ConfigTrait;
 
 trait ConfigServicesTrait
@@ -86,6 +87,14 @@ trait ConfigServicesTrait
     public function assigned($name)
     {
         return $this->services->assigned($this->aliased($name));
+    }
+
+    /**
+     * @return ApplicationConfigInterface
+     */
+    public function config()
+    {
+        return $this->config;
     }
 
     /**
