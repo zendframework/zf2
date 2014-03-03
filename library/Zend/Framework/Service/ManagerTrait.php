@@ -20,16 +20,6 @@ trait ManagerTrait
     use ConfigServicesTrait;
 
     /**
-     * @param string $name
-     * @param mixed $options
-     * @return null|object
-     */
-    public function create($name, $options = null)
-    {
-        return $this->get($name, $options, false);
-    }
-
-    /**
      * @param array|callable|FactoryInterface|object|string $factory
      * @return callable|FactoryInterface
      */

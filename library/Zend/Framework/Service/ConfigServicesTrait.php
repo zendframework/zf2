@@ -25,6 +25,11 @@ trait ConfigServicesTrait
     protected $alias = [];
 
     /**
+     * @var array
+     */
+    protected $pending = [];
+
+    /**
      * @var ConfigInterface
      */
     protected $services;
@@ -107,6 +112,16 @@ trait ConfigServicesTrait
     }
 
     /**
+     * @param string $name
+     * @param mixed $options
+     * @return null|object
+     */
+    public function create($name, $options = null)
+    {
+        return $this->get($name, $options, false);
+    }
+
+    /**
      * @param mixed $alias
      * @param mixed $options
      * @param bool $shared
@@ -132,18 +147,25 @@ trait ConfigServicesTrait
      * @param string $name
      * @return self
      */
-    public function initialized($name)
+    protected function initialized($name)
     {
-        $this->services->initialized($this->aliased($name));
+        $this->pending[$name] = false;
+        return $this;
     }
 
     /**
      * @param string $name
-     * @return bool
+     * @return self
      */
-    public function initializing($name)
+    protected function initializing($name)
     {
-        return $this->services->initializing($this->aliased($name));
+        if (!empty($this->pending[$name])) {
+            return true;
+        }
+
+        $this->pending[$name] = true;
+
+        return false;
     }
 
     /**

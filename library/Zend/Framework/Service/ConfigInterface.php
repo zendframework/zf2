@@ -44,16 +44,4 @@ interface ConfigInterface
      * @return mixed
      */
     public function configured($name);
-
-    /**
-     * @param string $name
-     * @return self
-     */
-    public function initialized($name);
-
-    /**
-     * @param string $name
-     * @return self
-     */
-    public function initializing($name);
 }

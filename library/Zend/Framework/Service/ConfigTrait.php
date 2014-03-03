@@ -26,11 +26,6 @@ trait ConfigTrait
     /**
      * @var array
      */
-    protected $pending = [];
-
-    /**
-     * @var array
-     */
     protected $services;
 
     /**
@@ -89,30 +84,5 @@ trait ConfigTrait
     public function has($name)
     {
         return isset($this->services[$name]);
-    }
-
-    /**
-     * @param string $name
-     * @return self
-     */
-    public function initialized($name)
-    {
-        $this->pending[$name] = false;
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @return self
-     */
-    public function initializing($name)
-    {
-        if (!empty($this->pending[$name])) {
-            return true;
-        }
-
-        $this->pending[$name] = true;
-
-        return false;
     }
 }
