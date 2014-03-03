@@ -35,23 +35,23 @@ trait ConfigServicesTrait
     protected $services;
 
     /**
-     * @param string $name
+     * @param string $alias
      * @param mixed $service
      * @return self
      */
-    public function add($name, $service)
+    public function add($alias, $service)
     {
-        $this->services->add($this->aliased($name), $service);
+        $this->services->add($this->aliased($alias), $service);
         return $this;
     }
 
     /**
-     * @param string $name
+     * @param string $alias
      * @return object|null
      */
-    public function added($name)
+    public function added($alias)
     {
-        return $this->services->added($this->aliased($name));
+        return $this->services->added($this->aliased($alias));
     }
 
     /**
@@ -75,23 +75,23 @@ trait ConfigServicesTrait
     }
 
     /**
-     * @param string $name
+     * @param string $alias
      * @param callable $callable
      * @return $this
      */
-    public function assign($name, callable $callable)
+    public function assign($alias, callable $callable)
     {
-        $this->services->assign($this->aliased($name), $callable);
+        $this->services->assign($this->aliased($alias), $callable);
         return $this;
     }
 
     /**
-     * @param string $name
+     * @param string $alias
      * @return callable|null
      */
-    public function assigned($name)
+    public function assigned($alias)
     {
-        return $this->services->assigned($this->aliased($name));
+        return $this->services->assigned($this->aliased($alias));
     }
 
     /**
@@ -103,22 +103,22 @@ trait ConfigServicesTrait
     }
 
     /**
-     * @param string $name
+     * @param string $alias
      * @return mixed
      */
-    public function configured($name)
+    public function configured($alias)
     {
-        return $this->services->configured($this->aliased($name));
+        return $this->services->configured($this->aliased($alias));
     }
 
     /**
-     * @param string $name
+     * @param string $alias
      * @param mixed $options
      * @return null|object
      */
-    public function create($name, $options = null)
+    public function create($alias, $options = null)
     {
-        return $this->get($name, $options, false);
+        return $this->get($alias, $options, false);
     }
 
     /**
@@ -135,30 +135,32 @@ trait ConfigServicesTrait
     }
 
     /**
-     * @param string $name
+     * @param string $alias
      * @return bool
      */
-    public function has($name)
+    public function has($alias)
     {
-        return $this->services->has($this->aliased($name));
+        return $this->services->has($this->aliased($alias));
     }
 
     /**
-     * @param string $name
+     * @param string $alias
      * @return self
      */
-    protected function initialized($name)
+    protected function initialized($alias)
     {
-        $this->pending[$name] = false;
+        $this->pending[$this->aliased($alias)] = false;
         return $this;
     }
 
     /**
-     * @param string $name
+     * @param string $alias
      * @return self
      */
-    protected function initializing($name)
+    protected function initializing($alias)
     {
+        $name = $this->aliased($alias);
+
         if (!empty($this->pending[$name])) {
             return true;
         }
