@@ -224,7 +224,7 @@ class ParamsTest extends TestCase
 
         $values = $this->plugin->fromJsonRawBody();
 
-        $this->assertEquals($values, array());
+        $this->assertEquals($values, null);
     }
 
     public function testFromJsonRawBodyReturnsExceptedValue()
@@ -236,6 +236,16 @@ class ParamsTest extends TestCase
 
         $this->assertEquals($value, 'json:1234');
         $this->assertEquals($valueOther, '1234:other');
+    }
+
+    public function testFromJsonRawBodyReturnsAll()
+    {
+        $this->setJson();
+
+        $values = $this->plugin->fromJsonRawBody();
+
+        $this->assertEquals(2, count($values));
+        $this->assertEquals($values, array('value' => 'json:1234', 'other' => '1234:other'));
     }
 
     protected function setQuery()

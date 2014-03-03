@@ -9,6 +9,7 @@
 
 namespace Zend\Mvc\Controller\Plugin;
 
+use Zend\Json\Exception\ExceptionInterface;
 use Zend\Json\Json;
 use Zend\Mvc\Exception\RuntimeException;
 use Zend\Mvc\InjectApplicationEventInterface;
@@ -128,24 +129,22 @@ class Params extends AbstractPlugin
      */
     public function fromJsonRawBody($param = null, $default = null)
     {
-        if (empty($this->jsonDecoded)) {
-            $content = $this->getController()->getRequest()->getContent();
+        $content = $this->getController()->getRequest()->getContent();
 
-            if (empty($content)) {
-                return $default;
-            }
-
-            try{
-                $this->jsonDecoded = Json::decode($content, Json::TYPE_ARRAY);
-            }catch (\Exception $e){
-                $this->jsonDecoded = array();
-            }
+        if(empty($content)){
+            return null;
         }
 
-        if ($param != null) {
-            return array_key_exists($param, $this->jsonDecoded) ? $this->jsonDecoded[$param] : $default;
+        try{
+            $json = Json::decode($content, Json::TYPE_ARRAY);
+        }catch (ExceptionInterface $e){
+            return null;
         }
 
-        return $this->jsonDecoded;
+        if($param !== null && is_array($json)){
+            return array_key_exists($param, $json) ? $json[$param] : $default;
+        }
+
+        return $json;
     }
 }
