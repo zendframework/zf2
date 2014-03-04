@@ -17,13 +17,84 @@ trait ManagerTrait
     /**
      *
      */
-    use ConfigServicesTrait;
+    use ConfigServiceTrait;
+
+    /**
+     * @var array
+     */
+    protected $pending = [];
+
+    /**
+     * @param string $name
+     * @param mixed $options
+     * @return null|object
+     */
+    public function create($name, $options = null)
+    {
+        return $this->get($name, $options, false);
+    }
 
     /**
      * @param array|callable|FactoryInterface|object|string $factory
      * @return callable|FactoryInterface
      */
     abstract protected function factory($factory);
+
+    /**
+     * @param mixed $name
+     * @param mixed $options
+     * @param bool $shared
+     * @return null|object
+     */
+    public function get($name, $options = null, $shared = true)
+    {
+        list($name, $options) = $this->options($name, $options);
+
+        return $this->service($this->request($name, $shared), $options);
+    }
+
+    /**
+     * @param string $name
+     * @return self
+     */
+    protected function initialized($name)
+    {
+        $this->pending[$name] = false;
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return self
+     */
+    protected function initializing($name)
+    {
+        if (!empty($this->pending[$name])) {
+            return true;
+        }
+
+        $this->pending[$name] = true;
+
+        return false;
+    }
+
+    /**
+     * @param array|string $name
+     * @param null $options
+     * @return array
+     */
+    protected function options($name, $options = null)
+    {
+        if (is_array($name)) {
+            return [array_shift($name), $name];
+        }
+
+        if (is_array($options)) {
+            return [$name, $options];
+        }
+
+        return [$name, $options ? [$options] : []];
+    }
 
     /**
      * @param string|RequestInterface $request
@@ -43,10 +114,11 @@ trait ManagerTrait
      */
     protected function service(RequestInterface $request, array $options = [])
     {
-        $alias    = $request->alias();
-        $assigned = $this->assigned($alias);
-        $config   = $this->configured($alias);
-        $service  = $this->added($alias);
+        $name    = $request->alias();
+
+        $assigned = $this->assigned($name);
+        $config   = $this->configured($name);
+        $service  = $this->added($name);
 
         if (!$config && !$assigned && !$service) {
             return null;
@@ -56,17 +128,17 @@ trait ManagerTrait
             return $service;
         }
 
-        if ($this->initializing($alias)) {
-            throw new Exception('Circular dependency: ' . $alias);
+        if ($this->initializing($name)) {
+            throw new Exception('Circular dependency: ' . $name);
         }
 
         $service = $request->service($assigned ? : $this->factory($config), $options);
 
         if ($request->shared()) {
-            $this->add($alias, $service);
+            $this->add($name, $service);
         }
 
-        $this->initialized($alias);
+        $this->initialized($name);
 
         return $service;
     }

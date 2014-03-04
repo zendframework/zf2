@@ -11,6 +11,7 @@ namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Application\Config\ConfigInterface as Config;
 use Zend\Framework\Route\ConfigInterface as RouterConfig;
+use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
@@ -20,7 +21,8 @@ class Manager
     /**
      *
      */
-    use Factory,
+    use Alias,
+        Factory,
         ServiceManager;
 
     /**
@@ -37,5 +39,16 @@ class Manager
         $this->router   = $config->router();
         $this->alias    = $this->router->plugins();
         $this->services = $config->services();
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $options
+     * @param bool $shared
+     * @return null|object
+     */
+    public function route($name, $options = null, $shared = true)
+    {
+        return $this->get($this->alias($name), $options, $shared);
     }
 }

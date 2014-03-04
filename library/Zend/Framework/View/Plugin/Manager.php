@@ -10,6 +10,7 @@
 namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Application\Config\ConfigInterface;
+use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\ManagerTrait as ServiceManager;
 
@@ -19,7 +20,8 @@ class Manager
     /**
      *
      */
-    use Factory,
+    use Alias,
+        Factory,
         ServiceManager;
 
     /**
@@ -30,5 +32,16 @@ class Manager
         $this->config   = $config;
         $this->alias    = $config->view()->aliases();
         $this->services = $config->services();
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $options
+     * @param bool $shared
+     * @return null|object
+     */
+    public function plugin($name, $options = null, $shared = true)
+    {
+        return $this->get($this->alias(strtolower($name)), $options, $shared);
     }
 }

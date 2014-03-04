@@ -105,7 +105,7 @@ class TreeRouteStack
                 'prototypes'    => $this->prototypes,
             );
 
-            $route = $this->rm->create('chain', $options);
+            $route = $this->rm->route('chain', $options);
         } else {
             $route = parent::routeFromArray($specs);
         }
@@ -125,7 +125,7 @@ class TreeRouteStack
 
             $priority = (isset($route->priority) ? $route->priority : null);
 
-            $route = $this->rm->create('part', $options);
+            $route = $this->rm->route('part', $options);
             $route->priority = $priority;
         }
 

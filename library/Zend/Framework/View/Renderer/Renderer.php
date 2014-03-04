@@ -339,7 +339,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      */
     public function plugin($name, array $options = array())
     {
-        return $this->vpm->get($name, $options);
+        return $this->vpm->plugin($name, $options);
     }
 
     /**

@@ -14,4 +14,11 @@ use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
 interface ManagerInterface
     extends ServiceManagerInterface
 {
+    /**
+     * @param string $name
+     * @param mixed $options
+     * @param bool $shared
+     * @return null|object
+     */
+    public function plugin($name, $options = null, $shared = true);
 }
