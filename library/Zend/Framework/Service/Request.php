@@ -13,21 +13,21 @@ class Request
     implements RequestInterface
 {
     /**
-     * @param string $alias
+     * @param string $name
      * @param bool $shared
      */
-    public function __construct($alias, $shared = true)
+    public function __construct($name, $shared = true)
     {
-        $this->alias   = $alias;
-        $this->shared  = $shared;
+        $this->name   = $name;
+        $this->shared = $shared;
     }
 
     /**
      * @return string
      */
-    public function alias()
+    public function name()
     {
-        return $this->alias;
+        return $this->name;
     }
 
     /**

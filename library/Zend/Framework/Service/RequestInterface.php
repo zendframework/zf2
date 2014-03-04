@@ -14,7 +14,7 @@ interface RequestInterface
     /**
      * @return string
      */
-    public function alias();
+    public function name();
 
     /**
      * @param callable $factory

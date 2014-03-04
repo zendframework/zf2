@@ -86,7 +86,7 @@ trait ManagerTrait
      */
     protected function manage(RequestInterface $request, array $options = [])
     {
-        $name = $request->alias();
+        $name = $request->name();
 
         $assigned = $this->assigned($name);
         $config   = $this->configured($name);
