@@ -79,34 +79,6 @@ trait ManagerTrait
     }
 
     /**
-     * @param array|string $name
-     * @param null $options
-     * @return array
-     */
-    protected function options($name, $options = null)
-    {
-        if (is_array($name)) {
-            return [array_shift($name), $name];
-        }
-
-        if (is_array($options)) {
-            return [$name, $options];
-        }
-
-        return [$name, $options ? [$options] : []];
-    }
-
-    /**
-     * @param string|RequestInterface $request
-     * @param bool $shared
-     * @return RequestInterface
-     */
-    protected function request($request, $shared = true)
-    {
-        return $request instanceof RequestInterface ? $request : new Request($request, $shared);
-    }
-
-    /**
      * @param RequestInterface $request
      * @param array $options
      * @return object
@@ -141,5 +113,33 @@ trait ManagerTrait
         $this->initialized($name);
 
         return $service;
+    }
+
+    /**
+     * @param array|string $name
+     * @param null $options
+     * @return array
+     */
+    protected function options($name, $options = null)
+    {
+        if (is_array($name)) {
+            return [array_shift($name), $name];
+        }
+
+        if (is_array($options)) {
+            return [$name, $options];
+        }
+
+        return [$name, $options ? [$options] : []];
+    }
+
+    /**
+     * @param string|RequestInterface $request
+     * @param bool $shared
+     * @return RequestInterface
+     */
+    protected function request($request, $shared = true)
+    {
+        return $request instanceof RequestInterface ? $request : new Request($request, $shared);
     }
 }
