@@ -59,9 +59,6 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         $this->config = Config\Factory::fromFile(__DIR__ . '/_files/config.xml', true);
 
-        $this->cache = CacheFactory::adapterFactory('memory', array('memory_limit' => 0));
-        Paginator\Paginator::setCache($this->cache);
-
         $this->_restorePaginatorDefaults();
     }
 
@@ -114,6 +111,13 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         Paginator\Paginator::setScrollingStylePluginManager(new Paginator\ScrollingStylePluginManager());
 
         $this->paginator->setCacheEnabled(true);
+    }
+
+    protected function setCache()
+    {
+        $this->cache = CacheFactory::adapterFactory('memory', array('memory_limit' => 0));
+        //$this->cache = new TestCacheMock();
+        Paginator\Paginator::setCache($this->cache);
     }
 
     public function testGetsAndSetsDefaultScrollingStyle()
@@ -511,6 +515,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCachedItem()
     {
+        $this->setCache();
+
         $this->paginator->setCurrentPageNumber(1)->getCurrentItems();
         $this->paginator->setCurrentPageNumber(2)->getCurrentItems();
         $this->paginator->setCurrentPageNumber(3)->getCurrentItems();
@@ -562,6 +568,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheDoesNotDisturbResultsWhenChangingParam()
     {
+        $this->setCache();
+
         $this->paginator->setCurrentPageNumber(1)->getCurrentItems();
         $pageItems = $this->paginator->setItemCountPerPage(5)->getCurrentItems();
 
