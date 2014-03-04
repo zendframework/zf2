@@ -17,8 +17,7 @@ interface ManagerInterface
     /**
      * @param string $name
      * @param mixed $options
-     * @param bool $shared
      * @return null|object
      */
-    public function plugin($name, $options = null, $shared = true);
+    public function plugin($name, $options = null);
 }
