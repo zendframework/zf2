@@ -50,7 +50,7 @@ trait ManagerTrait
     {
         list($name, $options) = $this->options($name, $options);
 
-        return $this->service($this->request($name, $shared), $options);
+        return $this->manage($this->request($name, $shared), $options);
     }
 
     /**
@@ -112,13 +112,13 @@ trait ManagerTrait
      * @return object
      * @throws Exception
      */
-    protected function service(RequestInterface $request, array $options = [])
+    protected function manage(RequestInterface $request, array $options = [])
     {
-        $name    = $request->alias();
+        $name = $request->alias();
 
         $assigned = $this->assigned($name);
         $config   = $this->configured($name);
-        $service  = $this->added($name);
+        $service  = $this->service($name);
 
         if (!$config && !$assigned && !$service) {
             return null;

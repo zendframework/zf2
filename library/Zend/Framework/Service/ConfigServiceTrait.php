@@ -37,15 +37,6 @@ trait ConfigServiceTrait
 
     /**
      * @param string $name
-     * @return object|null
-     */
-    public function added($name)
-    {
-        return $this->services->added($name);
-    }
-
-    /**
-     * @param string $name
      * @param callable $callable
      * @return $this
      */
@@ -74,6 +65,17 @@ trait ConfigServiceTrait
 
     /**
      * @param string $name
+     * @param mixed $config
+     * @return self
+     */
+    public function configure($name, $config)
+    {
+        $this->services->configure($name, $config);
+        return $this;
+    }
+
+    /**
+     * @param string $name
      * @return mixed
      */
     public function configured($name)
@@ -83,10 +85,28 @@ trait ConfigServiceTrait
 
     /**
      * @param string $name
+     * @return object|null
+     */
+    public function get($name)
+    {
+        return $this->services->get($name);
+    }
+
+    /**
+     * @param string $name
      * @return bool
      */
     public function has($name)
     {
         return $this->services->has($name);
+    }
+
+    /**
+     * @param string $name
+     * @return object|null
+     */
+    public function service($name)
+    {
+        return $this->services->service($name);
     }
 }

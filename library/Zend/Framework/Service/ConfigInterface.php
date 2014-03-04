@@ -17,12 +17,6 @@ interface ConfigInterface
 {
     /**
      * @param string $name
-     * @return object
-     */
-    public function added($name);
-
-    /**
-     * @param string $name
      * @param callable $factory
      * @return self
      */
@@ -41,7 +35,20 @@ interface ConfigInterface
 
     /**
      * @param string $name
+     * @param mixed $config
+     * @return self
+     */
+    public function configure($name, $config);
+
+    /**
+     * @param string $name
      * @return mixed
      */
     public function configured($name);
+    /**
+     * @param string $name
+     * @return object
+     */
+    public function service($name);
+
 }
