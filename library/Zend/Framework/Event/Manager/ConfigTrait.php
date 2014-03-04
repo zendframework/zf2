@@ -56,7 +56,7 @@ trait ConfigTrait
      */
     public function remove($listener)
     {
-        foreach($this as $name => $listeners) {
+        foreach($this->config as $name => $listeners) {
             foreach(array_keys($listeners) as $priority) {
                 $this->config[$name][$priority] = array_diff($this->config[$name][$priority], [$listener]);
             }
