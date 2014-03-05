@@ -28,6 +28,11 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
         $this->createTable = $subject;
     }
 
+    public function hasSubject()
+    {
+        return $this->createTable !== null;
+    }
+
     /**
      * @param  null|PlatformInterface $platform
      * @return string
@@ -38,7 +43,7 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
         foreach (get_object_vars($this->createTable) as $name => $value) {
             $this->{$name} = $value;
         }
-        return parent::getSqlString($platform);
+        return $this->processSqlString($platform);
     }
 
     protected function processColumns(PlatformInterface $platform = null)

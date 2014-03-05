@@ -596,7 +596,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      * @covers Zend\Db\Sql\Select::prepareStatement
      * @dataProvider providerData
      */
-    public function testPrepareStatement(Select $select, $expectedSqlString, $expectedParameters, $unused1, $unused2, $useNamedParameters = false)
+    public function testPrepareStatement(Select $select, $expectedSqlString, $expectedParameters, $unused1, $unused2, $useNamedParameters = false, $platformsTest = array())
     {
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnCallback(
@@ -615,6 +615,23 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         if ($expectedParameters) {
             $this->assertEquals($expectedParameters, $parameterContainer->getNamedArray());
         }
+
+        foreach ($platformsTest as $platform=>$expects) {
+            //$driver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+            if (isset($expects['prepareSql'])) {
+                $adapter = $this->getMock(
+                    'Zend\Db\Adapter\Adapter',
+                    null,
+                    array(
+                        $mockDriver,
+                        new $platform
+                    )
+                );
+                $statement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
+                $statement->expects($this->once())->method('setSql')->with($expects['prepareSql']);
+                $select->prepareStatement($adapter, $statement);
+            }
+        }
     }
 
     /**
@@ -622,9 +639,16 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      * @covers Zend\Db\Sql\Select::getSqlString
      * @dataProvider providerData
      */
-    public function testGetSqlString(Select $select, $unused, $unused2, $expectedSqlString)
+    public function testGetSqlString(Select $select, $unused, $unused2, $expectedSqlString, $unused3, $unused4 = null, $platformsTest = array())
     {
         $this->assertEquals($expectedSqlString, $select->getSqlString(new TrustingSql92Platform()));
+
+        foreach ($platformsTest as $platform=>$expects) {
+            if (isset($expects['sql'])) {
+                $platform = new $platform();
+                $this->assertEquals($expects['sql'], $select->getSqlString($platform));
+            }
+        }
     }
 
     /**
@@ -1161,18 +1185,31 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             'processCombine' => array('UNION ALL', 'SELECT "bar".* FROM "bar" WHERE c = d')
         );
 
-        // limit with offset
+        // limit with offset and subselect and platform specific
+        $select45sub = new Select;
+        $select45sub
+                ->columns(array('colSub'), false)
+                ->from('bar')
+                ->limit("5")
+                ->offset("10");
         $select45 = new Select;
-        $select45->from('foo')->limit("5")->offset("10");
-        $sqlPrep45 = 'SELECT "foo".* FROM "foo" LIMIT ? OFFSET ?';
-        $sqlStr45 = 'SELECT "foo".* FROM "foo" LIMIT \'5\' OFFSET \'10\'';
-        $params45 = array('limit' => 5, 'offset' => 10);
-        $internalTests45 = array(
-            'processSelect' => array(array(array('"foo".*')), '"foo"'),
-            'processLimit'  => array('?'),
-            'processOffset' => array('?')
+        $select45
+                ->columns(array('col1'), false)
+                ->from(array(
+                    'foo' => $select45sub
+                ))
+                ->where(array('col2'=>10));
+        $sqlPrep45 = 'SELECT "col1" AS "col1" FROM (SELECT "colSub" AS "colSub" FROM "bar" LIMIT ? OFFSET ?) AS "foo" WHERE "col2" = ?';
+        $sqlStr45 = 'SELECT "col1" AS "col1" FROM (SELECT "colSub" AS "colSub" FROM "bar" LIMIT \'5\' OFFSET \'10\') AS "foo" WHERE "col2" = \'10\'';
+        $params45 = array('limit' => 5, 'offset' => 10, 'where1' => 10);
+        $params45 = array();
+        $internalTests45 = null;
+        $platformsTest45 = array(
+            'ZendTest\Db\TestAsset\TrustingMySqlPlatform' => array(
+                'sql'        => 'SELECT `col1` AS `col1` FROM (SELECT `colSub` AS `colSub` FROM `bar` LIMIT 5 OFFSET 10) AS `foo` WHERE `col2` = \'10\'',
+                'prepareSql' => 'SELECT `col1` AS `col1` FROM (SELECT `colSub` AS `colSub` FROM `bar` LIMIT ? OFFSET ?) AS `foo` WHERE `col2` = ?',
+            ),
         );
-
         /**
          * $select = the select object
          * $sqlPrep = the sql as a result of preparation
@@ -1228,7 +1265,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select42, $sqlPrep42, array(),    $sqlStr42, $internalTests42),
             array($select43, $sqlPrep43, array(),    $sqlStr43, $internalTests43),
             array($select44, $sqlPrep44, array(),    $sqlStr44, $internalTests44),
-            array($select45, $sqlPrep45, $params45,  $sqlStr45, $internalTests45),
+            array($select45, $sqlPrep45, $params45,  $sqlStr45, $internalTests45, null, $platformsTest45),
         );
     }
 }

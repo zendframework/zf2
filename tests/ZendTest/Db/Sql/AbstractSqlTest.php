@@ -14,7 +14,7 @@ use Zend\Db\Sql\ExpressionInterface;
 use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Sql\Predicate;
 use Zend\Db\Sql\Select;
-use ZendTest\Db\TestAsset\TrustingSql92Platform;
+use ZendTest\Db\TestAsset;
 
 class AbstractSqlTest extends \PHPUnit_Framework_TestCase
 {
@@ -125,16 +125,43 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('"release_date" = FROM_UNIXTIME(\'100000000\')', $sqlAndParams->getSql());
     }
 
+    public function testProcessExpressionWithDecorableExpressions()
+    {
+        // Initialize decorators
+        \Zend\Db\Sql\AbstractSql::getSqlPlatform()->setDecorators(array(
+            'mysql' => array(
+                'Zend\Db\Sql\Predicate\Operator' => 'ZendTest\Db\TestAsset\PredicateOperatorDecorator',
+            ),
+        ));
+
+        $platform = new TestAsset\TrustingMySqlPlatform;
+
+        $select = new Select('X');
+        $subSubExpression = new Predicate\Operator('subSubL', '=', $select);
+        $subExpression = new Predicate\Operator('subL', '=', $subSubExpression);
+        $expression = new Predicate\Operator('L', '=', $subExpression);
+
+        $actual92 = $this->invokeProcessExpressionMethod($expression, null, null)->getSql();
+        $expected92 = '"L" = "subL" = "subSubL" = (SELECT "X".* FROM "X")';
+
+        $actualServer = $this->invokeProcessExpressionMethod($expression, null, $platform)->getSql();
+        $expectedServer = "(`L` = (`subL` = (`subSubL` = (SELECT `X`.* FROM `X`))))";
+
+        $this->assertEquals($expected92, $actual92);
+        $this->assertEquals($expectedServer, $actualServer);
+    }
+
     /**
      * @param \Zend\Db\Sql\ExpressionInterface $expression
      * @param \Zend\Db\Adapter\Adapter|null $adapter
      * @return \Zend\Db\Adapter\StatementContainer
      */
-    protected function invokeProcessExpressionMethod(ExpressionInterface $expression, $driver = null)
+    protected function invokeProcessExpressionMethod(ExpressionInterface $expression, $driver = null, $platform = null)
     {
         $method = new \ReflectionMethod($this->abstractSql, 'processExpression');
         $method->setAccessible(true);
-        return $method->invoke($this->abstractSql, $expression, new TrustingSql92Platform, $driver);
+        $platform = $platform ?: new TestAsset\TrustingSql92Platform;
+        return $method->invoke($this->abstractSql, $expression, $platform, $driver);
     }
 
 }

@@ -32,6 +32,11 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         $this->select = $select;
     }
 
+    public function hasSubject()
+    {
+        return $this->select !== null;
+    }
+
     /**
      * @param AdapterInterface $adapter
      * @param StatementContainerInterface $statementContainer
@@ -48,7 +53,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         unset($this->specifications[self::OFFSET]);
 
         $this->specifications['LIMITOFFSET'] = null;
-        parent::prepareStatement($adapter, $statementContainer);
+        return $this->processPrepareStatement($adapter, $statementContainer);
     }
 
     /**
@@ -67,7 +72,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         unset($this->specifications[self::OFFSET]);
 
         $this->specifications['LIMITOFFSET'] = null;
-        return parent::getSqlString($platform);
+        return $this->processSqlString($platform);
     }
 
     /**

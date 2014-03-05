@@ -14,35 +14,43 @@ use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Sql\Exception;
 use Zend\Db\Sql\PreparableSqlInterface;
-use Zend\Db\Sql\SqlInterface;
 
-class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInterface, SqlInterface
+class AbstractPlatform
 {
-    /**
-     * @var object
-     */
-    protected $subject = null;
+    protected $defaultPlatform = 'Zend\Db\Adapter\Platform\Sql92';
 
     /**
      * @var PlatformDecoratorInterface[]
      */
-    protected $decorators = array();
+    protected $decorators = array(
+        'mysql'     => array(
+            'Zend\Db\Sql\Select' => 'Zend\Db\Sql\Platform\Mysql\SelectDecorator',
+            'Zend\Db\Sql\Ddl\CreateTable' => 'Zend\Db\Sql\Platform\Mysql\Ddl\CreateTableDecorator',
+        ),
+        'sqlserver' => array(
+            'Zend\Db\Sql\Select' => 'Zend\Db\Sql\Platform\SqlServer\SelectDecorator'
+        ),
+        'oracle'    => array(
+            'Zend\Db\Sql\Select' => 'Zend\Db\Sql\Platform\Oracle\SelectDecorator'
+        ),
+    );
 
     /**
-     * @param $subject
+     * Set decorator for specified platform
+     *
+     * @param string $type
+     * @param string|\Zend\Db\Sql\Platform\PlatformDecoratorInterface $decorator
+     * @param string|\Zend\Db\Adapter\Adapter|\Zend\Db\Adapter\Platform\PlatformInterface $adapterOrPlatform
+     * @return self
      */
-    public function setSubject($subject)
+    public function setTypeDecorator($type, $decorator, $adapterOrPlatform = null)
     {
-        $this->subject = $subject;
-    }
+        $platformName = is_string($adapterOrPlatform)
+                ? $adapterOrPlatform
+                : $this->resolvePlatform($adapterOrPlatform)->getName();
 
-    /**
-     * @param $type
-     * @param PlatformDecoratorInterface $decorator
-     */
-    public function setTypeDecorator($type, PlatformDecoratorInterface $decorator)
-    {
-        $this->decorators[$type] = $decorator;
+        $this->decorators[strtolower($platformName)][$type] = $decorator;
+        return $this;
     }
 
     /**
@@ -54,57 +62,127 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     }
 
     /**
-     * @param AdapterInterface $adapter
-     * @param StatementContainerInterface $statementContainer
-     * @throws Exception\RuntimeException
-     * @return void
+     * Return expression data for subject by platform
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    public function getExpressionData($subject, PlatformInterface $platform = null)
     {
-        if (!$this->subject instanceof PreparableSqlInterface) {
-            throw new Exception\RuntimeException('The subject does not appear to implement Zend\Db\Sql\PreparableSqlInterface, thus calling prepareStatement() has no effect');
+        $decorator = $this->getDecorator($subject, $platform);
+        if (!$decorator) {
+            return $subject->getExpressionData();
         }
-
-        $decoratorForType = false;
-        foreach ($this->decorators as $type => $decorator) {
-            if ($this->subject instanceof $type && $decorator instanceof PreparableSqlInterface) {
-                /** @var $decoratorForType PreparableSqlInterface|PlatformDecoratorInterface */
-                $decoratorForType = $decorator;
-                break;
-            }
+        $expressionData = $decorator->getExpressionData();
+        if ($decorator instanceof PlatformDecoratorInterface) {
+            $decorator->setSubject(null);
         }
-        if ($decoratorForType) {
-            $decoratorForType->setSubject($this->subject);
-            $decoratorForType->prepareStatement($adapter, $statementContainer);
-        } else {
-            $this->subject->prepareStatement($adapter, $statementContainer);
-        }
+        return $expressionData;
     }
 
     /**
-     * @param null|\Zend\Db\Adapter\Platform\PlatformInterface $adapterPlatform
-     * @return mixed
-     * @throws Exception\RuntimeException
+     * Prepare statement for subject by platform
+     *
+     * @param  AdapterInterface $adapter
+     * @param  StatementContainerInterface $statementContainer
+     * @return void
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    public function prepareStatement($subject, AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
-        if (!$this->subject instanceof SqlInterface) {
+        if (!$subject instanceof PreparableSqlInterface) {
             throw new Exception\RuntimeException('The subject does not appear to implement Zend\Db\Sql\PreparableSqlInterface, thus calling prepareStatement() has no effect');
         }
+        $decorator = $this->getDecorator($subject, $adapter);
+        if (!$decorator) {
+            return null;
+        }
+        $statementContainer = $decorator->prepareStatement($adapter, $statementContainer);
+        if ($decorator instanceof PlatformDecoratorInterface) {
+            $decorator->setSubject(null);
+        }
+        return $statementContainer;
+    }
 
-        $decoratorForType = false;
-        foreach ($this->decorators as $type => $decorator) {
-            if ($this->subject instanceof $type && $decorator instanceof SqlInterface) {
-                /** @var $decoratorForType SqlInterface|PlatformDecoratorInterface */
-                $decoratorForType = $decorator;
-                break;
+    /**
+     * Get SQL string for subject by platform
+     *
+     * @param  null|PlatformInterface $adapterPlatform If null, defaults to Sql92
+     * @return string
+     */
+    public function getSqlString($subject, PlatformInterface $platform = null)
+    {
+        $decorator = $this->getDecorator($subject, $platform);
+        if (!$decorator) {
+            return null;
+        }
+        $sqlString = $decorator->getSqlString($platform);
+        if ($decorator instanceof PlatformDecoratorInterface) {
+            $decorator->setSubject(null);
+        }
+        return $sqlString;
+    }
+
+    /**
+     * Add decorators for specified platform
+     * @param array $decorators
+     * @return \Zend\Db\Sql\Platform\AbstractPlatform
+     */
+    public function setDecorators($decorators)
+    {
+        foreach ($decorators as $platform=>$platformDecorators) {
+            foreach ($platformDecorators as $type=>$decorator) {
+                $this->setTypeDecorator($type, $decorator, $platform);
             }
         }
-        if ($decoratorForType) {
-            $decoratorForType->setSubject($this->subject);
-            return $decoratorForType->getSqlString($adapterPlatform);
-        }
+        return $this;
+    }
 
-        return $this->subject->getSqlString($adapterPlatform);
+    /**
+     * Find decorator for subject and platform. If not found - return subject
+     *
+     * @param mixed $subject
+     * @param PlatformInterface|AdapterInterface $adapterOrPlatform
+     * @return mixed
+     */
+    protected function getDecorator($subject, $adapterOrPlatform = null)
+    {
+        $platformName = strtolower($this->resolvePlatform($adapterOrPlatform)->getName());
+        if (isset($this->decorators[$platformName])) {
+            foreach ($this->decorators[$platformName] as $type => $decorator) {
+                if ($subject instanceof $type && is_a($decorator, $type, true)) {
+                    if (is_string($decorator)) {
+                        $decorator = $this->decorators[$platformName][$type] = new $decorator();
+                    } elseif ($decorator->hasSubject()) {
+                        $decorator = clone $decorator;
+                    }
+                    $decorator->setSubject($subject);
+                    return $decorator;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param null|Zend\Db\Adapter\AdapterInterface|Zend\Db\Adapter\Platform\PlatformInterface $adapterOrPlatform
+     * @return \Zend\Db\Adapter\Platform\PlatformInterface
+     * @throws Exception\InvalidArgumentException
+     */
+    public function resolvePlatform($adapterOrPlatform)
+    {
+        if (!$adapterOrPlatform) {
+            if (is_string($this->defaultPlatform)) {
+                $this->defaultPlatform = new $this->defaultPlatform;
+            }
+            return $this->defaultPlatform;
+        } elseif ($adapterOrPlatform instanceof AdapterInterface) {
+            return $adapterOrPlatform->getPlatform();
+        } elseif ($adapterOrPlatform instanceof PlatformInterface) {
+            return $adapterOrPlatform;
+        }
+        throw new Exception\InvalidArgumentException(sprintf(
+            '$adapterOrPlatform parameter should be %s, %s or %s',
+            'null',
+            'Zend\Db\Adapter\AdapterInterface',
+            'Zend\Db\Adapter\Platform\PlatformInterface'
+        ));
     }
 }

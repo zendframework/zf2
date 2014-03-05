@@ -14,7 +14,7 @@ use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Adapter\StatementContainer;
 
-abstract class AbstractSql
+abstract class AbstractSql implements SqlInterface
 {
     /**
      * @var array
@@ -31,6 +31,22 @@ abstract class AbstractSql
      */
     protected $instanceParameterIndex = array();
 
+    /**
+     * @var \Zend\Db\Sql\Platform\AbstractPlatform
+     */
+    protected static $sqlPlatform = null;
+
+    /**
+     * @return \Zend\Db\Sql\Platform\Platform
+     */
+    public static function getSqlPlatform()
+    {
+        if (!static::$sqlPlatform) {
+            static::$sqlPlatform = new \Zend\Db\Sql\Platform\Platform();
+        }
+        return static::$sqlPlatform;
+    }
+
     protected function processExpression(ExpressionInterface $expression, PlatformInterface $platform, DriverInterface $driver = null, $namedParameterPrefix = null)
     {
         // static counter for the number of times this method was invoked across the PHP runtime
@@ -45,7 +61,7 @@ abstract class AbstractSql
         $parameterContainer = $statementContainer->getParameterContainer();
 
         // initialize variables
-        $parts = $expression->getExpressionData();
+        $parts = self::getSqlPlatform()->getExpressionData($expression, $platform);
 
         if (!isset($this->instanceParameterIndex[$namedParameterPrefix])) {
             $this->instanceParameterIndex[$namedParameterPrefix] = 1;
@@ -185,4 +201,22 @@ abstract class AbstractSql
         }
         return $sql;
     }
+
+    /**
+     * Get SQL string for statement
+     *
+     * @param  null|PlatformInterface $adapterPlatform If null, defaults to Sql92
+     * @return string
+     */
+    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    {
+        $sqlString = self::getSqlPlatform()->getSqlString($this, $adapterPlatform);
+        if ($sqlString === null) {
+            //$adapterPlatform = self::getSqlPlatform()->resolvePlatform($adapterPlatform);
+            $sqlString = $this->processSqlString($adapterPlatform);
+        }
+        return $sqlString;
+    }
+
+    abstract protected function processSqlString(PlatformInterface $adapterPlatform = null);
 }

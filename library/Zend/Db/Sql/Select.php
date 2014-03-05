@@ -14,14 +14,13 @@ use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92 as AdapterSql92Platform;
 
 /**
  *
  * @property Where $where
  * @property Having $having
  */
-class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
+class Select extends AbstractPreparableSql
 {
     /**#@+
      * Constant
@@ -479,8 +478,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    protected function processPrepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
+        $statementContainer = $statementContainer ?: $adapter->getDriver()->createStatement();
         // ensure statement has a ParameterContainer
         $parameterContainer = $statementContainer->getParameterContainer();
         if (!$parameterContainer instanceof ParameterContainer) {
@@ -503,7 +503,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
         $sql = implode(' ', $sqls);
 
         $statementContainer->setSql($sql);
-        return;
+        return $statementContainer;
     }
 
     /**
@@ -512,11 +512,10 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  null|PlatformInterface $adapterPlatform If null, defaults to Sql92
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processSqlString(PlatformInterface $adapterPlatform = null)
     {
         // get platform, or create default
-        $adapterPlatform = ($adapterPlatform) ?: new AdapterSql92Platform;
-
+        $adapterPlatform = self::getSqlPlatform()->resolvePlatform($adapterPlatform);
         $sqls = array();
         $parameters = array();
 
