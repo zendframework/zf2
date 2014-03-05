@@ -96,7 +96,7 @@ trait ManagerTrait
             return null;
         }
 
-        if ($request->shared() && $service) {
+        if ($service && $request->shared()) {
             return $service;
         }
 
