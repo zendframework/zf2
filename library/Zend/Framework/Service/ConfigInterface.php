@@ -45,10 +45,10 @@ interface ConfigInterface
      * @return mixed
      */
     public function configured($name);
+
     /**
      * @param string $name
      * @return object
      */
     public function service($name);
-
 }
