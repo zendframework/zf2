@@ -32,7 +32,7 @@ class BasePath
 
         $request = $sm->get('Request');
 
-        if (is_callable(array($request, 'getBasePath'))) {
+        if (is_callable([$request, 'getBasePath'])) {
             $this->setBasePath($request->getBasePath());
         }
     }
