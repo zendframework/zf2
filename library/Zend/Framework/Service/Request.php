@@ -13,6 +13,16 @@ class Request
     implements RequestInterface
 {
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var bool
+     */
+    protected $shared = true;
+
+    /**
      * @param string $name
      * @param bool $shared
      */

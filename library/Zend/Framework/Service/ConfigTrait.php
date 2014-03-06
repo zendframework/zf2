@@ -26,7 +26,7 @@ trait ConfigTrait
     /**
      * @var array
      */
-    protected $services;
+    protected $services = [];
 
     /**
      * @param string $name
