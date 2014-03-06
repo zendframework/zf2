@@ -909,10 +909,13 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected function processLimit(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
         if ($this->limit === null) {
-            return null;
+            if ($this->offset === null) {
+                return null;
+            }
+            $this->limit = "18446744073709551615"; //maximum of unsigned BIGINT
         }
 
-        $limit = (int) $this->limit;
+        $limit = $this->limit;
 
         if ($driver) {
             $sql = $driver->formatParameterName('limit');
