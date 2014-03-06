@@ -14,7 +14,7 @@ use Zend\Stdlib\RequestInterface as Request;
 trait ServicesTrait
 {
     /**
-     * @return bool|Request
+     * @return Request
      */
     public function request()
     {

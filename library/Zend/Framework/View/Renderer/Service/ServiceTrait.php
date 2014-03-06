@@ -19,7 +19,7 @@ trait ServiceTrait
     protected $renderer;
 
     /**
-     * @return bool|ViewRenderer
+     * @return null|ViewRenderer
      */
     public function viewRenderer()
     {

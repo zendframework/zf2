@@ -19,7 +19,7 @@ trait ServiceTrait
     protected $resolver;
 
     /**
-     * @return null|ViewResolver
+     * @return ViewResolver
      */
     public function viewResolver()
     {

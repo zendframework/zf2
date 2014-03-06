@@ -19,7 +19,7 @@ trait ServiceTrait
     protected $request;
 
     /**
-     * @return bool|Request
+     * @return Request
      */
     public function request()
     {

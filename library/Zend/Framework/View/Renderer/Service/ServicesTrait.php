@@ -14,7 +14,7 @@ use Zend\View\Renderer\RendererInterface as ViewRenderer;
 trait ServicesTrait
 {
     /**
-     * @return bool|ViewRenderer
+     * @return null|ViewRenderer
      */
     public function viewRenderer()
     {

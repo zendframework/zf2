@@ -14,7 +14,7 @@ use Zend\Stdlib\ResponseInterface as Response;
 trait ServicesTrait
 {
     /**
-     * @return bool|object
+     * @return Response
      */
     public function response()
     {

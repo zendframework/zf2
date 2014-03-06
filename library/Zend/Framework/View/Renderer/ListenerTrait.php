@@ -28,7 +28,7 @@ trait ListenerTrait
      * Retrieve renderer for view model
      *
      * @param ViewModel $model
-     * @return bool|Renderer
+     * @return Renderer
      * @throws RuntimeException
      */
     public function viewRenderer(ViewModel $model)
