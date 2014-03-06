@@ -34,7 +34,7 @@ class Event
      * @param RouteMatch $routeMatch
      * @param $controller
      */
-    public function __construct(RouteMatch $routeMatch, $controller)
+    public function __construct(RouteMatch $routeMatch = null, $controller = null)
     {
         $this->routeMatch = $routeMatch;
         $this->controller = $controller;

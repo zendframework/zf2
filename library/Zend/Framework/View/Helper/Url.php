@@ -17,10 +17,10 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Stdlib\Exception as StdlibException;
 use Zend\View\Exception;
-use Zend\View\Helper\AbstractHelper as UrlHelper;
+use Zend\View\Helper\AbstractHelper as ViewHelper;
 
 class Url
-    extends UrlHelper
+    extends ViewHelper
     implements ServiceInterface
 {
     /**
@@ -29,8 +29,13 @@ class Url
      */
     public function __service(ServiceManager $sm)
     {
-        return $this->setRouter($sm->get('Router'))
-                    ->setRouteMatch($sm->get('Route\Match'));
+        $routeMatch = $sm->get('Route\Match');
+
+        if ($routeMatch) {
+            $this->setRouteMatch($routeMatch);
+        }
+
+        $this->setRouter($sm->get('Router'));
     }
 
     /**
