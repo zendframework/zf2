@@ -9,6 +9,8 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
+use Zend\View\Helper\Navigation\Menu;
+
 /**
  * Tests Zend_View_Helper_Navigation_Menu
  *
@@ -27,7 +29,7 @@ class MenuTest extends AbstractTest
     /**
      * View helper
      *
-     * @var Zend_View_Helper_Navigation_Menu
+     * @var Menu
      */
     protected $_helper;
 
@@ -591,6 +593,61 @@ class MenuTest extends AbstractTest
         $actual = $this->_helper->renderMenu($container, $options);
 
         $this->assertEquals(trim($expected), trim($actual));
+    }
+
+    public function testActiveClassParameterIsOptional()
+    {
+        $container = new \Zend\Navigation\Navigation(array(
+            array(
+                'label' => 'page 1',
+                'uri' => '',
+                'active' => true,
+                'pages' => array(
+                    array(
+                        'label' => 'subpage 1',
+                        'uri' => '',
+                        'active' => true,
+                    )
+                )
+            ),
+            array(
+                'label' => 'page 2',
+                'uri' => '',
+            )
+        ));
+        $renderNormalMenuMethod = new \ReflectionMethod(get_class($this->_helper), 'renderNormalMenu');
+        $renderNormalMenuMethod->setAccessible(true);
+        $renderDeepestMenuMethod = new \ReflectionMethod(get_class($this->_helper), 'renderDeepestMenu');
+        $renderDeepestMenuMethod->setAccessible(true);
+
+        // note, keys are here just for readability. order is what matters
+        $markup = $renderNormalMenuMethod->invokeArgs($this->_helper, array(
+                'container'          => $container,
+                'ulClass'            => 'navigation',
+                'indent'             => '',
+                'minDepth'           => null,
+                'maxDepth'           => null,
+                'onlyActiveBranch'   => true,
+                'escapeLabels'       => true,
+                'addClassToListItem' => false
+            )
+        );
+
+        $this->assertContains(sprintf('<li class="%s">', $this->_helper->getLiActiveClass() ), $markup);
+
+        // note, keys are here just for readability. order is what matters
+        $markup = $renderDeepestMenuMethod->invokeArgs($this->_helper, array(
+                'container'          => $container,
+                'ulClass'            => 'navigation',
+                'indent'             => '',
+                'minDepth'           => null,
+                'maxDepth'           => null,
+                'escapeLabels'       => true,
+                'addClassToListItem' => false
+            )
+        );
+
+        $this->assertContains(sprintf('<li class="%s">', $this->_helper->getLiActiveClass() ), $markup);
     }
 
     /**
