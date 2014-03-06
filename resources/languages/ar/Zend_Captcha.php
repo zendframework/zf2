@@ -11,6 +11,9 @@
  * EN-Revision: 30.Jul.2011
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);'),
+
     // Zend_Captcha_ReCaptcha
     "Missing captcha fields" => "كلمة التحقق مفقودة",
     "Failed to validate captcha" => "فشل في التحقق من صحة كلمة التحقق",

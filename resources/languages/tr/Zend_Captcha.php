@@ -11,6 +11,9 @@
  * TR-Revision: 28.Sept.2012
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=2; plural=(n > 1);'),
+
     // Zend_Captcha_ReCaptcha
     "Missing captcha fields" => "Eksik captcha alanı",
     "Failed to validate captcha" => "Captcha doğrulaması başarısız oldu",

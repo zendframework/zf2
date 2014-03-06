@@ -11,6 +11,9 @@
  * BG-Revision: 09.Sept.2012
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=2; plural=(n != 1);'),
+
     // Zend_I18n_Validator_Alnum
     "Invalid type given. String, integer or float expected" => "Зададен е невалиден тип данни. Очаква се стринг, цяло или реално число",
     "The input contains characters which are non alphabetic and no digits" => "Въведени са символи, които не са букви или числа",

@@ -11,6 +11,9 @@
  * EN-Revision: 07.Feb.2013
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=2; plural=(n > 1);'),
+
     // Zend_Captcha_ReCaptcha
     "Missing captcha fields" => "Faltando campos do captcha",
     "Failed to validate captcha" => "A validação do captcha falhou",

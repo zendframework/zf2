@@ -11,6 +11,9 @@
  * EN-Revision: 16.Jul.2013
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);'),
+
     // Zend\I18n\Validator\Alnum
     "Invalid type given. String, integer or float expected" => "Podan neveljaven tip. Predviden je niz, celo število ali število s premično vejico",
     "The input contains characters which are non alphabetic and no digits" => "Vnos vsebuje znake, ki niso abecedni ali številni",

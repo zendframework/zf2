@@ -11,6 +11,9 @@
  * EN-Revision: 30.Jul.2011
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=1; plural=0;'),
+
     // Zend\Captcha\ReCaptcha
     "Missing captcha fields" => "キャプチャフィールドが足りません",
     "Failed to validate captcha" => "キャプチャの検証に失敗しました",

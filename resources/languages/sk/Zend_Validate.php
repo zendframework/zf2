@@ -11,6 +11,9 @@
  * SK-Revision: 30.Sep.2013
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;'),
+
     // Zend\I18n\Validate\Alnum
     "Invalid type given. String, integer or float expected" => "Chybný typ. Bol očakávaný reťazec, celé alebo desatinné číslo",
     "The input contains characters which are non alphabetic and no digits" => "Hodnota obsahuje aj iné znaky ako písmená a číslice",

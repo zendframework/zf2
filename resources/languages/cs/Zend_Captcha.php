@@ -11,6 +11,9 @@
  * CS-Revision: 4.Nov.2013
  */
 return array(
+    // Set plural form
+    '' => array('plural_forms' => 'nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;'),
+
     // Zend\Captcha\ReCaptcha
     "Missing captcha fields" => "Chybí pole captcha",
     "Failed to validate captcha" => "Captchu se nepodařilo ověřit",
