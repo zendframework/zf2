@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Route\Config;
 
 use Zend\Framework\Config\ConfigTrait as ConfigTrait;
 

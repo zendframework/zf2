@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller;
+namespace Zend\Framework\Controller\Config;
 
-use Zend\Framework\Event\Manager\ConfigTrait;
+use Zend\Framework\Event\Config\ConfigTrait;
 
 class Config
     implements ConfigInterface

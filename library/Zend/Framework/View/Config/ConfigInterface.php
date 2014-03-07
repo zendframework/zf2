@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View;
+namespace Zend\Framework\View\Config;
 
 use Zend\Framework\Config\ConfigInterface as Serializable;
 

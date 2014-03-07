@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Service\Config\ConfigInterface;
+
 interface ManagerInterface
     extends ConfigInterface
 {

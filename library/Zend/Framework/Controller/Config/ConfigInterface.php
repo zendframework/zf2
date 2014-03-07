@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller;
+namespace Zend\Framework\Controller\Config;
 
-use Zend\Framework\Event\Manager\ConfigInterface as EventManagerConfigInterface;
+use Zend\Framework\Event\Config\ConfigInterface as EventManagerConfigInterface;
 
 interface ConfigInterface
     extends EventManagerConfigInterface

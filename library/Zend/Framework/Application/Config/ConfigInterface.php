@@ -10,12 +10,12 @@
 namespace Zend\Framework\Application\Config;
 
 use Zend\Framework\Config\ConfigInterface as Config;
-use Zend\Framework\Controller\ConfigInterface as Controllers;
-use Zend\Framework\Event\Manager\ConfigInterface as Listeners;
+use Zend\Framework\Controller\Config\ConfigInterface as Controllers;
+use Zend\Framework\Event\Config\ConfigInterface as Listeners;
 use Zend\Framework\I18n\Translator\ConfigInterface as Translator;
-use Zend\Framework\Route\ConfigInterface as Router;
-use Zend\Framework\Service\ConfigInterface as Services;
-use Zend\Framework\View\ConfigInterface as View;
+use Zend\Framework\Route\Config\ConfigInterface as Router;
+use Zend\Framework\Service\Config\ConfigInterface as Services;
+use Zend\Framework\View\Config\ConfigInterface as View;
 
 interface ConfigInterface
     extends Config

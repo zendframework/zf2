@@ -11,6 +11,7 @@ namespace Zend\Framework\Service;
 
 use Exception;
 use Zend\Framework\Service\Factory\FactoryInterface;
+use Zend\Framework\Service\Config\ConfigServiceTrait;
 
 trait ManagerTrait
 {

@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Event\Manager;
+namespace Zend\Framework\Event\Config;
 
 use Zend\Framework\Config\ConfigTrait as Config;
 

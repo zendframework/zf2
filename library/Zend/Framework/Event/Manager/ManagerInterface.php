@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Event\Manager;
 
-use Zend\Framework\Event\Manager\ConfigInterface as Config;
+use Zend\Framework\Event\Config\ConfigInterface as Config;
 use Zend\Framework\Event\EventInterface;
 
 interface ManagerInterface
