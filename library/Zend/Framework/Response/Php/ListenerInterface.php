@@ -23,13 +23,4 @@ interface ListenerInterface
      * @return self
      */
     public function sendContent(EventInterface $event, $response);
-
-    /**
-     * Send HTTP headers
-     *
-     * @param  EventInterface $event
-     * @param $response
-     * @return self
-     */
-    public function sendHeaders(EventInterface $event, $response);
 }
