@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Event\Manager;
 
+use Zend\Framework\Event\Config\ConfigInterface;
 use Zend\Framework\Event\EventInterface;
 
 trait ServicesTrait

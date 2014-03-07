@@ -10,6 +10,7 @@
 namespace Zend\Framework\Event\Manager;
 
 use Generator;
+use Zend\Framework\Event\Config\ConfigInterface;
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Event\ListenerInterface;
 

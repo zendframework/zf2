@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Application\Manager;
 
+use Zend\Framework\Application\EventInterface as Event;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 
