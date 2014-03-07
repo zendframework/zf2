@@ -9,18 +9,9 @@
 
 namespace Zend\Framework\Response\Php;
 
-use Zend\Framework\Response\EventInterface;
 use Zend\Framework\Response\ListenerInterface as ResponseListener;
 
 interface ListenerInterface
     extends ResponseListener
 {
-    /**
-     * Send content
-     *
-     * @param  EventInterface $event
-     * @param $response
-     * @return self
-     */
-    public function sendContent(EventInterface $event, $response);
 }

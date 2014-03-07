@@ -11,24 +11,26 @@ namespace Zend\Framework\Response;
 
 use Zend\Stdlib\ResponseInterface;
 
-trait SendContentTrait
+trait SendStreamTrait
 {
     /**
-     * Send content
+     * Send the stream
      *
      * @param EventInterface $event
      * @param ResponseInterface $response
      * @return self
      */
-    protected function sendContent(EventInterface $event, ResponseInterface $response)
+    protected function sendStream(EventInterface $event, ResponseInterface $response)
     {
-        //if ($event->contentSent()) {
-            //return $this;
-        //}
+        if ($event->contentSent()) {
+            return $this;
+        }
 
-        echo $response->getContent();
+        $stream = $response->getStream();
 
-        //$event->setContentSent();
+        fpassthru($stream);
+
+        $event->setContentSent();
 
         return $this;
     }

@@ -10,17 +10,18 @@
 namespace Zend\Framework\Response;
 
 use Zend\Http\Header\MultipleHeaderInterface;
+use Zend\Stdlib\ResponseInterface;
 
 trait SendHeadersTrait
 {
     /**
      * Send HTTP headers
      *
-     * @param  EventInterface $event
-     * @param $response
+     * @param EventInterface $event
+     * @param ResponseInterface $response
      * @return self
      */
-    public function sendHeaders(EventInterface $event, $response)
+    protected function sendHeaders(EventInterface $event, ResponseInterface $response)
     {
         //if (headers_sent() || $event->headersSent()) {
         if (headers_sent()) {
