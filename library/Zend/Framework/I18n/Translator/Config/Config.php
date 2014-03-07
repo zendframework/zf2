@@ -7,11 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\I18n\Translator;
+namespace Zend\Framework\I18n\Translator\Config;
 
-use Zend\Framework\Config\ConfigInterface as Serializable;
+use Zend\Framework\Config\ConfigTrait as ConfigTrait;
 
-interface ConfigInterface
-    extends Serializable
+class Config
+    implements ConfigInterface
 {
+    /**
+     *
+     */
+    use ConfigTrait;
 }
