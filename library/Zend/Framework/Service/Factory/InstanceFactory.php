@@ -11,7 +11,7 @@ namespace Zend\Framework\Service\Factory;
 
 use ReflectionClass;
 use Zend\Framework\Service\RequestInterface;
-use Zend\Framework\Service\ManagerInterface;
+use Zend\Framework\Service\Manager\ManagerInterface;
 use Zend\Framework\Service\ServiceInterface;
 
 class InstanceFactory

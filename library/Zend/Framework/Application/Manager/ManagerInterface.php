@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application;
+namespace Zend\Framework\Application\Manager;
 
 use Zend\Framework\Event\EventInterface;
-use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
+use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 
 interface ManagerInterface
     extends ServiceManagerInterface

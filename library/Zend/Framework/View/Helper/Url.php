@@ -11,7 +11,7 @@ namespace Zend\Framework\View\Helper;
 
 use Traversable;
 use Zend\Framework\Route\RouteInterface;
-use Zend\Framework\Service\ManagerInterface as ServiceManager;
+use Zend\Framework\Service\Manager\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\Router\RouteMatch;

@@ -7,11 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service;
+namespace Zend\Framework\Service\Manager;
 
 use Exception;
 use Zend\Framework\Service\Factory\FactoryInterface;
 use Zend\Framework\Service\Config\ConfigServiceTrait;
+use Zend\Framework\Service\Request;
+use Zend\Framework\Service\RequestInterface;
 
 trait ManagerTrait
 {

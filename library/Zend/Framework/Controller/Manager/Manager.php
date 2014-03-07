@@ -15,8 +15,8 @@ use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
-use Zend\Framework\Service\ManagerInterface as ServiceManagerInterface;
-use Zend\Framework\Service\ManagerTrait as ServiceManager;
+use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
+use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 
 class Manager
     implements EventManagerInterface, ManagerInterface, ServiceManagerInterface

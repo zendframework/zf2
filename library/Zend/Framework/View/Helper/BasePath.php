@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Helper;
 
-use Zend\Framework\Service\ManagerInterface as ServiceManager;
+use Zend\Framework\Service\Manager\ManagerInterface as ServiceManager;
 use Zend\View\Helper\BasePath as BasePathHelper;
 use Zend\Framework\Service\ServiceInterface;
 

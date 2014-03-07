@@ -14,7 +14,7 @@ use Zend\Framework\Event\EventTrait;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
 use Zend\Framework\Route\Manager\ServicesTrait as RouteTrait;
-use Zend\Framework\Service\ManagerInterface as ServiceManager;
+use Zend\Framework\Service\Manager\ManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Stdlib\ResponseInterface as Response;

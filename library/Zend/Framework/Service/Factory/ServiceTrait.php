@@ -10,7 +10,7 @@
 namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\Application\Config\ConfigInterface;
-use Zend\Framework\Service\ManagerInterface;
+use Zend\Framework\Service\Manager\ManagerInterface;
 
 trait ServiceTrait
 {

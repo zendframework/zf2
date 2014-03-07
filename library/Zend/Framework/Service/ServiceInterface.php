@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Service;
 
+use Zend\Framework\Service\Manager\ManagerInterface;
+
 interface ServiceInterface
 {
     /**
