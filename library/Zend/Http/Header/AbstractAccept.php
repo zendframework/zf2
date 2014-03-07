@@ -10,6 +10,7 @@
 namespace Zend\Http\Header;
 
 use stdClass;
+use Zend\Http\Header\Accept\FieldValuePart\AcceptFieldValuePart;
 
 /**
  * Abstract Accept Header
