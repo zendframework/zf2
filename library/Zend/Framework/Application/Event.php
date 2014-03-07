@@ -13,7 +13,7 @@ use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
-use Zend\Framework\Route\ServicesTrait as RouteTrait;
+use Zend\Framework\Route\Manager\ServicesTrait as RouteTrait;
 use Zend\Framework\Service\ManagerInterface as ServiceManager;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Mvc\Router\RouteMatch;

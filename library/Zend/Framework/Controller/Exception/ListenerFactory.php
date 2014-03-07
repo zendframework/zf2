@@ -11,7 +11,7 @@ namespace Zend\Framework\Controller\Exception;
 
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Route\ServicesTrait as RouteServices;
+use Zend\Framework\Route\Manager\ServicesTrait as RouteServices;
 use Zend\Framework\View\Model\ServicesTrait as ViewModel;
 
 class ListenerFactory

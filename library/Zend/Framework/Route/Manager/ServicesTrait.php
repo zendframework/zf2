@@ -7,16 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Route\Manager;
 
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Framework\Route\RouteInterface as Router;
-use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
 
 trait ServicesTrait
 {
     /**
-     * @return RouteManager
+     * @return ManagerInterface
      */
     public function routeManager()
     {

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\Route\ServicesTrait as Router;
+use Zend\Framework\Route\Manager\ServicesTrait as Router;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
