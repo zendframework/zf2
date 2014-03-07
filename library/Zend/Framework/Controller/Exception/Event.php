@@ -43,10 +43,10 @@ class Event
 
     /**
      * @param callable $listener
-     * @param null $options
+     * @param array $options
      * @return mixed
      */
-    public function __invoke(callable $listener, $options = null)
+    public function __invoke(callable $listener, array $options = [])
     {
         list($request, $response) = $options;
         return $listener($this, $request, $response);

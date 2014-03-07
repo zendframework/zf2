@@ -32,5 +32,5 @@ interface RouteInterface
      * @param  array $options
      * @return mixed
      */
-    public function assemble(array $params = array(), array $options = array());
+    public function assemble(array $params = [], array $options = []);
 }

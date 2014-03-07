@@ -23,7 +23,7 @@ class PriorityList
      *
      * @var array
      */
-    protected $routes = array();
+    protected $routes = [];
 
     /**
      * Serial assigned to routes to preserve LIFO.
@@ -59,11 +59,11 @@ class PriorityList
         $this->sorted = false;
         $this->count++;
 
-        $this->routes[$name] = array(
+        $this->routes[$name] = [
             'route'    => $route,
             'priority' => (int) $priority,
             'serial'   => $this->serial++,
-        );
+        ];
     }
 
     /**
@@ -90,7 +90,7 @@ class PriorityList
      */
     public function clear()
     {
-        $this->routes = array();
+        $this->routes = [];
         $this->serial = 0;
         $this->count  = 0;
         $this->sorted = false;
@@ -118,7 +118,7 @@ class PriorityList
      */
     protected function sort()
     {
-        uasort($this->routes, array($this, 'compare'));
+        uasort($this->routes, [$this, 'compare']);
         $this->sorted = true;
     }
 
