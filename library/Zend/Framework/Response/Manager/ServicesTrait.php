@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Manager;
+namespace Zend\Framework\Response\Manager;
 
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Framework\Route\RouteInterface as Router;
@@ -17,34 +17,18 @@ trait ServicesTrait
     /**
      * @return ManagerInterface
      */
-    public function routeManager()
+    public function responseManager()
     {
-        return $this->sm->get('Route\Manager');
+        return $this->sm->get('Response\Manager');
     }
 
     /**
-     * @return Router
-     */
-    public function router()
-    {
-        return $this->sm->get('Router');
-    }
-
-    /**
-     * @return null|RouteMatch
-     */
-    public function routeMatch()
-    {
-        return $this->sm->get('Route\Match');
-    }
-
-    /**
-     * @param RouteMatch $routeMatch
+     * @param ManagerInterface $rm
      * @return self
      */
-    public function setRouteMatch(RouteMatch $routeMatch)
+    public function setResponseManager(ManagerInterface $rm)
     {
-        $this->sm->add('Route\Match', $routeMatch);
+        $this->sm->add('Response\Manager', $rm);
         return $this;
     }
 }

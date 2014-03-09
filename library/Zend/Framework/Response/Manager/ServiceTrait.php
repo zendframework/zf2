@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Manager;
+namespace Zend\Framework\Response\Manager;
 
-use Zend\Stdlib\RequestInterface;
+use Zend\Stdlib\ResponseInterface;
 
 trait ServiceTrait
 {
@@ -22,12 +22,12 @@ trait ServiceTrait
     protected $rm;
 
     /**
-     * @param RequestInterface $request
+     * @param ResponseInterface $response
      * @return mixed
      */
-    public function match(RequestInterface $request)
+    public function response(ResponseInterface $response)
     {
-        return $this->rm->match($request);
+        return $this->rm->response($response);
     }
 
     /**
@@ -36,7 +36,7 @@ trait ServiceTrait
      * @param  ManagerInterface $rm
      * @return self
      */
-    public function setRouteManager(ManagerInterface $rm)
+    public function setResponseManager(ManagerInterface $rm)
     {
         $this->rm = $rm;
         return $this;
@@ -47,7 +47,7 @@ trait ServiceTrait
      *
      * @return ManagerInterface
      */
-    public function routeManager()
+    public function responseManager()
     {
         return $this->rm;
     }
