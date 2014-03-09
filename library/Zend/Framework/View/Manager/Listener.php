@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\View;
+namespace Zend\Framework\View\Manager;
 
 use Exception;
 use Zend\Framework\Application\EventInterface;

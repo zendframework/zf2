@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch;
+namespace Zend\Framework\Response\Manager;
 
-use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
+use Zend\Framework\Response\Manager\ServicesTrait as ResponseManager;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
 
@@ -19,7 +19,7 @@ class ListenerFactory
     /**
      *
      */
-    use ControllerManager;
+    use ResponseManager;
 
     /**
      * @param Request $request
@@ -28,6 +28,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setControllerManager($this->controllerManager());
+        return (new Listener)->setResponseManager($this->responseManager());
     }
 }

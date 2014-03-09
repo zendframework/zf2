@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\Application\View\ListenerInterface as ViewListenerInterface;
+use Zend\Framework\View\Manager\ListenerInterface as ViewListenerInterface;
 use Zend\Framework\Event\EventTrait;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;

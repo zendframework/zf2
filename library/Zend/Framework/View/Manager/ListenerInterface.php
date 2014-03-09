@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Dispatch;
+namespace Zend\Framework\View\Manager;
 
 use Zend\Framework\Application\EventInterface;
 
