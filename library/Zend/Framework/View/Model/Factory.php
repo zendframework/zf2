@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View\Model;
 
-use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
+use Zend\Framework\Service\RequestInterface as Request;
 
 class Factory
     extends ServiceFactory

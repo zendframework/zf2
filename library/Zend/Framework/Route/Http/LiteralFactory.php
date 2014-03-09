@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Route\Http;
 
-use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Mvc\Router\Exception;
 
 class LiteralFactory

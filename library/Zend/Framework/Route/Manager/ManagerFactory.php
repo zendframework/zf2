@@ -9,9 +9,8 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
-use Zend\View\Helper as ViewHelper;
+use Zend\Framework\Service\RequestInterface as Request;
 
 class ManagerFactory
     extends Factory

@@ -10,8 +10,8 @@
 namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Route\Manager\ServicesTrait as RouteManager;
-use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\RequestInterface as Request;
 
 class ListenerFactory
     extends Factory

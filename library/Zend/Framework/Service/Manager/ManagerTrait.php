@@ -10,8 +10,8 @@
 namespace Zend\Framework\Service\Manager;
 
 use Exception;
-use Zend\Framework\Service\Factory\FactoryInterface;
 use Zend\Framework\Service\Container\ServiceTrait as Container;
+use Zend\Framework\Service\Factory\FactoryInterface;
 use Zend\Framework\Service\Request;
 use Zend\Framework\Service\RequestInterface;
 

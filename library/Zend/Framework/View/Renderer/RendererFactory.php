@@ -9,11 +9,11 @@
 
 namespace Zend\Framework\View\Renderer;
 
+use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 use Zend\Framework\View\Model\ServicesTrait as ViewModel;
 use Zend\Framework\View\Resolver\ServicesTrait as ViewResolver;
-use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory;
 
 class RendererFactory
     extends Factory

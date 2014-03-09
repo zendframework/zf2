@@ -10,8 +10,8 @@
 namespace Zend\Framework\Controller\Error;
 
 use Zend\Framework\Route\Manager\ServicesTrait as Route;
-use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\View\Model\ServicesTrait as ViewModel;
 
 class ListenerFactory

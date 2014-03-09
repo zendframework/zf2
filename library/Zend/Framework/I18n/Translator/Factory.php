@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\I18n\Translator;
 
-use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory as ServiceFactory;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Mvc\I18n\Translator;
 
 /**

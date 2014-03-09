@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\RequestInterface as Request;
 use Zend\View\Renderer\RendererInterface;
 
 class ListenerFactory
