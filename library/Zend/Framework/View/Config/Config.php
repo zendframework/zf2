@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Config;
 
-use Zend\Framework\Config\ConfigTrait as ConfigTrait;
+use Zend\Framework\Config\ConfigTrait;
 
 class Config
     implements ConfigInterface

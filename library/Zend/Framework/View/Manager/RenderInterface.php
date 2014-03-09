@@ -7,17 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Plugin;
+namespace Zend\Framework\View\Manager;
 
-use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
+use Zend\View\Model\ModelInterface as ViewModel;
 
-interface ManagerInterface
-    extends ServiceManagerInterface
+interface RenderInterface
 {
+
     /**
-     * @param string $name
-     * @param mixed $options
-     * @return null|object
+     * @param ViewModel $viewModel
+     * @return mixed
      */
-    public function plugin($name, $options = null);
+    public function render(ViewModel $viewModel);
 }

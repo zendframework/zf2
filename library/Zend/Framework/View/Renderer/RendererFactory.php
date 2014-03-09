@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\Framework\View\Plugin\ServicesTrait as ViewPluginManager;
+use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 use Zend\Framework\View\Model\ServicesTrait as ViewModel;
 use Zend\Framework\View\Resolver\ServicesTrait as ViewResolver;
 use Zend\Framework\Service\RequestInterface as Request;
@@ -21,7 +21,7 @@ class RendererFactory
     /**
      *
      */
-    use ViewPluginManager,
+    use ViewManager,
         ViewModel,
         ViewResolver;
 
@@ -32,7 +32,7 @@ class RendererFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        $renderer = (new Renderer())->setViewPluginManager($this->viewPluginManager())
+        $renderer = (new Renderer())->setViewManager($this->viewManager())
                                     ->setResolver($this->viewResolver());
 
         $modelHelper = $renderer->plugin('viewmodel');

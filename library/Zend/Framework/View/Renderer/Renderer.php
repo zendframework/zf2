@@ -12,7 +12,7 @@ namespace Zend\Framework\View\Renderer;
 use ArrayAccess;
 use Traversable;
 use Zend\Filter\FilterChain;
-use Zend\Framework\View\Plugin\ManagerInterface as ViewPluginManager;
+use Zend\Framework\View\Manager\ManagerInterface as ViewManager;
 use Zend\View\Exception;
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Model\ModelInterface as Model;
@@ -111,11 +111,11 @@ class Renderer implements RendererInterface, TreeRendererInterface
     private $__file = null;
 
     /**
-     * View Plugin Manager
+     * View Manager
      *
-     * @var ViewPluginManager
+     * @var ViewManager
      */
-    private $vpm;
+    private $vm;
 
     /**
      * @var FilterChain
@@ -320,12 +320,12 @@ class Renderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param ViewPluginManager $vpm
+     * @param ViewManager $vm
      * @return self
      */
-    public function setViewPluginManager(ViewPluginManager $vpm)
+    public function setViewManager(ViewManager $vm)
     {
-        $this->vpm = $vpm;
+        $this->vm = $vm;
 
         return $this;
     }
@@ -339,7 +339,7 @@ class Renderer implements RendererInterface, TreeRendererInterface
      */
     public function plugin($name, array $options = array())
     {
-        return $this->vpm->plugin($name, $options);
+        return $this->vm->plugin($name, $options);
     }
 
     /**

@@ -9,9 +9,9 @@
 
 namespace Zend\Framework\Application\View;
 
-use Zend\Framework\Event\Manager\ServicesTrait as EventManager;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 
 class ListenerFactory
     extends Factory
@@ -19,7 +19,7 @@ class ListenerFactory
     /**
      *
      */
-    use EventManager;
+    use ViewManager;
 
     /**
      * @param Request $request
@@ -28,6 +28,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setEventManager($this->eventManager());
+        return (new Listener)->setViewManager($this->viewManager());
     }
 }

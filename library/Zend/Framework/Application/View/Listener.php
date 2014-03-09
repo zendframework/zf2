@@ -10,8 +10,7 @@
 namespace Zend\Framework\Application\View;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
-use Zend\Framework\View\Exception\EventInterface as Exception;
+use Zend\Framework\View\Manager\ServiceTrait as ViewManager;
 use Zend\Framework\View\Renderer\EventInterface as View;
 
 class Listener
@@ -20,7 +19,7 @@ class Listener
     /**
      *
      */
-    use EventManager;
+    use ViewManager;
 
     /**
      * @param EventInterface $event
@@ -35,13 +34,12 @@ class Listener
 
         try {
 
-            return $this->trigger(View::EVENT, $event->viewModel());
+            return $this->render($event->viewModel());
 
         } catch(\Exception $exception) {
 
-            $viewModel = $this->trigger([Exception::EVENT, $exception], $event->viewModel());
+            return $this->exception($exception, $event->viewModel());
 
-            return $this->trigger(View::EVENT, $viewModel);
         }
     }
 }

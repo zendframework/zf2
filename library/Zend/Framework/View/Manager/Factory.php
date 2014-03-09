@@ -7,14 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Plugin;
+namespace Zend\Framework\View\Manager;
 
+use Zend\Framework\Service\Factory\Factory as ServiceFactory;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\Service\Factory\Factory;
-use Zend\View\Helper as ViewHelper;
 
-class ManagerFactory
-    extends Factory
+class Factory
+    extends ServiceFactory
 {
     /**
      * @param Request $request
