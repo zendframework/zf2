@@ -10,8 +10,7 @@
 namespace Zend\Framework\Application\Route;
 
 use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
-use Zend\Framework\Route\EventInterface as Route;
+use Zend\Framework\Route\Manager\ServiceTrait as RouteManager;
 
 class Listener
     implements ListenerInterface
@@ -19,7 +18,7 @@ class Listener
     /**
      *
      */
-    use EventManager;
+    use RouteManager;
 
     /**
      * @param EventInterface $event
@@ -28,6 +27,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->trigger(Route::EVENT, $event->request());
+        return $this->match($event->request());
     }
 }

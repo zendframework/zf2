@@ -30,6 +30,7 @@ class Manager
                ManagerInterface,
                PluginInterface,
                RenderInterface,
+               RendererInterface,
                ServiceManagerInterface
 {
     /**

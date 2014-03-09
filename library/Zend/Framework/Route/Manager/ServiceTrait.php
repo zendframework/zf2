@@ -9,6 +9,8 @@
 
 namespace Zend\Framework\Route\Manager;
 
+use Zend\Stdlib\RequestInterface as Request;
+
 trait ServiceTrait
 {
 
@@ -18,6 +20,15 @@ trait ServiceTrait
      * @var ManagerInterface
      */
     protected $rm;
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function match(Request $request)
+    {
+        return $this->rm->match($request);
+    }
 
     /**
      * Set the route manager.

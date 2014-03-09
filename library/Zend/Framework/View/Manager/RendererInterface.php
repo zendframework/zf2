@@ -7,14 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Manager;
+namespace Zend\Framework\View\Manager;
 
-interface ManagerInterface
+use Zend\View\Model\ModelInterface as ViewModel;
+
+interface RendererInterface
 {
     /**
-     * @param string $name
-     * @param mixed $options
-     * @return null|object
+     * @param ViewModel $viewModel
+     * @param null $options
+     * @return mixed
      */
-    public function route($name, $options = null);
+    public function renderer(ViewModel $viewModel, $options = null);
 }
