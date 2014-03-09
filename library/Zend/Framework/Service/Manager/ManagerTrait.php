@@ -11,7 +11,7 @@ namespace Zend\Framework\Service\Manager;
 
 use Exception;
 use Zend\Framework\Service\Factory\FactoryInterface;
-use Zend\Framework\Service\Config\ConfigServiceTrait;
+use Zend\Framework\Service\Container\ServiceTrait as Container;
 use Zend\Framework\Service\Request;
 use Zend\Framework\Service\RequestInterface;
 
@@ -20,7 +20,7 @@ trait ManagerTrait
     /**
      *
      */
-    use ConfigServiceTrait;
+    use Container;
 
     /**
      * @var array

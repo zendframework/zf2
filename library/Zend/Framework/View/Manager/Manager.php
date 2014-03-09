@@ -19,7 +19,6 @@ use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
-use Zend\Framework\Service\Config\ConfigServiceTrait;
 use Zend\Framework\View\Exception\EventInterface as Exception;
 use Zend\Framework\View\Model\Render\EventInterface as Render;
 use Zend\Framework\View\Renderer\EventInterface as Renderer;

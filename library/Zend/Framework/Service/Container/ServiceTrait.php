@@ -7,12 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Service\Config;
+namespace Zend\Framework\Service\Container;
 
 use Zend\Framework\Application\Config\ConfigInterface as ApplicationConfigInterface;
 use Zend\Framework\Config\ConfigTrait;
+use Zend\Framework\Service\Config\ConfigInterface;
 
-trait ConfigServiceTrait
+trait ServiceTrait
 {
     /**
      *
