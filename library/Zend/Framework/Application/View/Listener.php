@@ -37,7 +37,7 @@ class Listener
             return $this->render($event->viewModel());
 
         } catch(Exception $exception) {
-var_dump($exception);
+
             return $this->exception($exception, $event->viewModel());
 
         }
