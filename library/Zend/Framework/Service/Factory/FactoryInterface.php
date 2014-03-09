@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use Zend\Framework\Application\Config\ConfigInterface;
+use Zend\Framework\Service\Manager\ConfigInterface;
 use Zend\Framework\Service\RequestInterface as Request;
 
 interface FactoryInterface

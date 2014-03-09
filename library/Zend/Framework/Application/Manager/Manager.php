@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Application\Manager;
 
-use Zend\Framework\Application\Config\ConfigInterface;
 use Zend\Framework\Application\EventInterface as Event;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;

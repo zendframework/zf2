@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Controller\Manager;
 
-use Zend\Framework\Application\Config\ConfigInterface as Config;
 use Zend\Framework\Controller\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
@@ -30,9 +29,9 @@ class Manager
         ServiceManager;
 
     /**
-     * @param Config $config
+     * @param ConfigInterface $config
      */
-    public function __construct(Config $config)
+    public function __construct(ConfigInterface $config)
     {
         $this->config    = $config;
         $this->listeners = $config->controllers();

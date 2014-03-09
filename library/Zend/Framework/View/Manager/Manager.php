@@ -10,7 +10,6 @@
 namespace Zend\Framework\View\Manager;
 
 use RuntimeException;
-use Zend\Framework\Application\Config\ConfigInterface;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;

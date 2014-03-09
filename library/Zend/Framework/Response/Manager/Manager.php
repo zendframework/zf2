@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Response\Manager;
 
-use Zend\Framework\Application\Config\ConfigInterface as Config;
 use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
@@ -41,9 +40,9 @@ class Manager
     protected $router;
 
     /**
-     * @param Config $config
+     * @param ConfigInterface $config
      */
-    public function __construct(Config $config)
+    public function __construct(ConfigInterface $config)
     {
         $this->config    = $config;
         $this->router    = $config->router();

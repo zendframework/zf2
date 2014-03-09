@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service\Container;
 
-use Zend\Framework\Application\Config\ConfigInterface as ApplicationConfigInterface;
+use Zend\Framework\Service\Manager\ConfigInterface as ServicesConfigInterface;
 use Zend\Framework\Config\ConfigTrait;
 use Zend\Framework\Service\Config\ConfigInterface;
 
@@ -57,7 +57,7 @@ trait ServiceTrait
     }
 
     /**
-     * @return ApplicationConfigInterface
+     * @return ServicesConfigInterface
      */
     public function config()
     {

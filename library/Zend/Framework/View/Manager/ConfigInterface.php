@@ -7,10 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Config;
+namespace Zend\Framework\View\Manager;
 
 use Zend\Framework\Config\ConfigInterface as Config;
-use Zend\Framework\Controller\Config\ConfigInterface as Controllers;
 use Zend\Framework\Event\Config\ConfigInterface as Listeners;
 use Zend\Framework\I18n\Translator\Config\ConfigInterface as Translator;
 use Zend\Framework\Route\Config\ConfigInterface as Router;
@@ -20,11 +19,6 @@ use Zend\Framework\View\Config\ConfigInterface as View;
 interface ConfigInterface
     extends Config
 {
-    /**
-     * @return Controllers
-     */
-    public function controllers();
-
     /**
      * @return Listeners
      */

@@ -7,18 +7,26 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Application\Config;
+namespace Zend\Framework\Application\Manager;
 
 use Zend\Framework\Config\ConfigTrait;
 use Zend\Framework\Controller\Config\ConfigInterface as Controllers;
+use Zend\Framework\Controller\Manager\ConfigInterface as ControllerConfigInterface;
 use Zend\Framework\Event\Config\ConfigInterface as Listeners;
 use Zend\Framework\I18n\Translator\Config\ConfigInterface as Translator;
+use Zend\Framework\Response\Manager\ConfigInterface as ResponseConfigInterface;
 use Zend\Framework\Route\Config\ConfigInterface as Router;
+use Zend\Framework\Route\Manager\ConfigInterface as RouteConfigInterface;
 use Zend\Framework\Service\Config\ConfigInterface as Services;
 use Zend\Framework\View\Config\ConfigInterface as View;
+use Zend\Framework\View\Manager\ConfigInterface as ViewConfigInterface;
 
 class Config
-    implements ConfigInterface
+    implements ConfigInterface,
+               ControllerConfigInterface,
+               ResponseConfigInterface,
+               RouteConfigInterface,
+               ViewConfigInterface
 {
     /**
      *
