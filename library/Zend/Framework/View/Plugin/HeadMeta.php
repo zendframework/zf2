@@ -7,14 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Helper;
+namespace Zend\Framework\View\Plugin;
 
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManager;
-use Zend\View\Helper\BasePath as BasePathHelper;
+use Zend\View\Helper\HeadMeta as HeadMetaHelper;
 use Zend\Framework\Service\ServiceInterface;
 
-class BasePath
-    extends BasePathHelper
+class HeadMeta
+    extends HeadMetaHelper
     implements ServiceInterface
 {
     /**
@@ -23,17 +23,6 @@ class BasePath
      */
     public function __service(ServiceManager $sm)
     {
-        $config = $sm->config()->view();
-
-        if ($config->basePath()) {
-            $this->setBasePath($config->basePath());
-            return;
-        }
-
-        $request = $sm->get('Request');
-
-        if (is_callable([$request, 'getBasePath'])) {
-            $this->setBasePath($request->getBasePath());
-        }
+        $this->setView($sm->get('View\Renderer'));
     }
 }

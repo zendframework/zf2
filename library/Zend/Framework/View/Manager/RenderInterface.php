@@ -13,7 +13,6 @@ use Zend\View\Model\ModelInterface as ViewModel;
 
 interface RenderInterface
 {
-
     /**
      * @param ViewModel $viewModel
      * @return mixed

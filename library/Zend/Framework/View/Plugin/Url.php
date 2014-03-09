@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Helper;
+namespace Zend\Framework\View\Plugin;
 
 use Traversable;
 use Zend\Framework\Route\RouteInterface;

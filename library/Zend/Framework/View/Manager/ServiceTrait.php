@@ -15,7 +15,7 @@ use Zend\View\Model\ModelInterface as ViewModel;
 trait ServiceTrait
 {
     /**
-     * @var PluginInterface|RenderInterface
+     * @var ManagerInterface|PluginInterface|RenderInterface
      */
     protected $vm;
 
