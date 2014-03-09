@@ -9,14 +9,13 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\View\Model\ModelInterface as ViewModel;
+use Zend\Framework\Event\EventInterface;
 
 interface ListenerInterface
 {
     /**
      * @param EventInterface $event
-     * @param ViewModel $viewModel
      * @return mixed
      */
-    public function __invoke(EventInterface $event, ViewModel $viewModel);
+    public function __invoke(EventInterface $event);
 }

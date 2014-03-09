@@ -9,9 +9,9 @@
 
 namespace Zend\Framework\Application\View;
 
+use Exception;
 use Zend\Framework\Application\EventInterface;
 use Zend\Framework\View\Manager\ServiceTrait as ViewManager;
-use Zend\Framework\View\Renderer\EventInterface as View;
 
 class Listener
     implements ListenerInterface
@@ -36,8 +36,8 @@ class Listener
 
             return $this->render($event->viewModel());
 
-        } catch(\Exception $exception) {
-
+        } catch(Exception $exception) {
+var_dump($exception);
             return $this->exception($exception, $event->viewModel());
 
         }

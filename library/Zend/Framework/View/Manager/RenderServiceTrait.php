@@ -12,7 +12,7 @@ namespace Zend\Framework\View\Manager;
 use RuntimeException;
 use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
 use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\Framework\View\Renderer\Service\EventInterface as ViewRenderer;
+use Zend\Framework\View\Renderer\EventInterface as ViewRenderer;
 use Zend\View\Renderer\TreeRendererInterface;
 use Zend\View\Exception\DomainException;
 use Zend\View\Model\ModelInterface as ViewModel;

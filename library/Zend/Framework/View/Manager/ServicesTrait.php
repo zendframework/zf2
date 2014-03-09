@@ -34,16 +34,6 @@ trait ServicesTrait
     }
 
     /**
-     * @param Event|string $event
-     * @param null $options
-     * @return mixed
-     */
-    public function render($event, $options = null)
-    {
-        return $this->viewManager()->render($event, $options);
-    }
-
-    /**
      * @param ManagerInterface $vm
      * @return self
      */

@@ -9,21 +9,22 @@
 
 namespace Zend\Framework\View\Manager;
 
+use Exception;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 trait ServiceTrait
 {
     /**
-     * @var ManagerInterface
+     * @var PluginInterface|RenderInterface
      */
     protected $vm;
 
     /**
-     * @param \Exception $exception
+     * @param Exception $exception
      * @param ViewModel $viewModel
      * @return mixed
      */
-    public function exception(\Exception $exception, ViewModel $viewModel)
+    public function exception(Exception $exception, ViewModel $viewModel)
     {
         return $this->vm->exception($exception, $viewModel);
     }
@@ -39,13 +40,23 @@ trait ServiceTrait
     }
 
     /**
-     * @param Event|string $event
+     * @param ViewModel $viewModel
      * @param null $options
      * @return mixed
      */
-    public function render($event, $options = null)
+    public function render(ViewModel $viewModel, $options = null)
     {
-        return $this->vm->render($event, $options);
+        return $this->vm->render($viewModel, $options);
+    }
+
+    /**
+     * @param ViewModel $viewModel
+     * @param null $options
+     * @return mixed
+     */
+    public function renderer(ViewModel $viewModel, $options = null)
+    {
+        return $this->vm->renderer($viewModel, $options);
     }
 
     /**

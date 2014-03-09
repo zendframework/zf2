@@ -10,7 +10,9 @@
 namespace Zend\Framework\View\Renderer;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
+use Zend\View\Exception\RuntimeException;
 use Zend\View\Model\ModelInterface as ViewModel;
+use Zend\View\Renderer\RendererInterface as Renderer;
 
 class Event
     implements EventInterface
@@ -21,19 +23,27 @@ class Event
     use EventTrait;
 
     /**
-     * @param string|ViewModel $viewModel
+     * @param ViewModel $viewModel
      */
-    public function __construct($viewModel)
+    public function __construct(ViewModel $viewModel)
     {
         $this->source = $viewModel;
     }
 
     /**
      * @param callable $listener
+     * @param null $options
      * @return mixed
+     * @throws RuntimeException
      */
-    public function __invoke(callable $listener)
+    public function __invoke(callable $listener, $options = null)
     {
-        return $listener($this, $this->source);
+        $response = $listener($this, $options);
+
+        if (!$response instanceof Renderer) {
+            throw new RuntimeException('No view renderer selected!');
+        }
+
+        return $response;
     }
 }

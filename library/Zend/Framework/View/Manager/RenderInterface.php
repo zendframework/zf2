@@ -19,4 +19,11 @@ interface RenderInterface
      * @return mixed
      */
     public function render(ViewModel $viewModel);
+
+    /**
+     * @param ViewModel $viewModel
+     * @param null $options
+     * @return mixed
+     */
+    public function renderer(ViewModel $viewModel, $options = null);
 }

@@ -21,7 +21,8 @@ use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\Config\ConfigServiceTrait;
 use Zend\Framework\View\Exception\EventInterface as Exception;
-use Zend\Framework\View\Renderer\EventInterface as Render;
+use Zend\Framework\View\Model\Render\EventInterface as Render;
+use Zend\Framework\View\Renderer\EventInterface as Renderer;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 class Manager
@@ -109,5 +110,15 @@ class Manager
     public function render(ViewModel $viewModel, $options = null)
     {
         return $this->trigger([Render::EVENT, $viewModel], $options);
+    }
+
+    /**
+     * @param ViewModel $viewModel
+     * @param null $options
+     * @return mixed
+     */
+    public function renderer(ViewModel $viewModel, $options = null)
+    {
+        return $this->trigger([Renderer::EVENT, $viewModel], $options);
     }
 }

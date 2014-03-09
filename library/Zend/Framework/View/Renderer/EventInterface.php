@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Event\Render';
+    const EVENT = 'Event\View\Renderer';
 }

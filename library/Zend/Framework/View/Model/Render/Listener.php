@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Renderer\Service;
+namespace Zend\Framework\View\Model\Render;
 
-use Zend\Framework\Event\EventInterface;
+use Zend\View\Model\ModelInterface as ViewModel;
 
 class Listener
     implements ListenerInterface
@@ -17,14 +17,15 @@ class Listener
     /**
      *
      */
-    use ServiceTrait;
+    use ListenerTrait;
 
     /**
      * @param EventInterface $event
-     * @return mixed|void
+     * @param ViewModel $viewModel
+     * @return mixed
      */
-    public function __invoke(EventInterface $event)
+    public function __invoke(EventInterface $event, ViewModel $viewModel)
     {
-        return $this->viewRenderer();
+        return $this->render($viewModel);
     }
 }

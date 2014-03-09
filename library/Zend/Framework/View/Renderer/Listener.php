@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\View\Model\ModelInterface as ViewModel;
+use Zend\Framework\Event\EventInterface;
 
 class Listener
     implements ListenerInterface
@@ -17,15 +17,14 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ServiceTrait;
 
     /**
      * @param EventInterface $event
-     * @param ViewModel $viewModel
-     * @return mixed
+     * @return mixed|void
      */
-    public function __invoke(EventInterface $event, ViewModel $viewModel)
+    public function __invoke(EventInterface $event)
     {
-        return $this->render($viewModel);
+        return $this->viewRenderer();
     }
 }

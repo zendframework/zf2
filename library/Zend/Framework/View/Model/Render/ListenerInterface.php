@@ -7,15 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Renderer\Service;
+namespace Zend\Framework\View\Model\Render;
 
-use Zend\Framework\Event\EventInterface as Event;
+use Zend\View\Model\ModelInterface as ViewModel;
 
-interface EventInterface
-    extends Event
+interface ListenerInterface
 {
     /**
-     *
+     * @param EventInterface $event
+     * @param ViewModel $viewModel
+     * @return mixed
      */
-    const EVENT = 'Event\Renderer\Service';
+    public function __invoke(EventInterface $event, ViewModel $viewModel);
 }
