@@ -9,9 +9,6 @@
 
 namespace Zend\Framework\Response\Manager;
 
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Framework\Route\RouteInterface as Router;
-
 trait ServicesTrait
 {
     /**
