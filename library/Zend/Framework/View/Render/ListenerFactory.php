@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Manager;
+namespace Zend\Framework\View\Render;
 
-use Zend\Framework\Route\Manager\ServicesTrait as RouteManager;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
+use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 
 class ListenerFactory
     extends Factory
@@ -19,7 +19,7 @@ class ListenerFactory
     /**
      *
      */
-    use RouteManager;
+    use ViewManager;
 
     /**
      * @param Request $request
@@ -28,6 +28,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setRouteManager($this->routeManager());
+        return (new Listener)->setViewManager($this->viewManager());
     }
 }

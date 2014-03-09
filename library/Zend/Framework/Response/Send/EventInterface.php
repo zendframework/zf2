@@ -7,16 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Manager;
+namespace Zend\Framework\Response\Send;
 
-use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Event\EventInterface as Event;
+use Zend\Stdlib\ResponseInterface as Response;
 
-interface ListenerInterface
+interface EventInterface
+    extends Event
 {
     /**
-     * @param EventInterface $event
-     * @param null $options
-     * @return mixed
+     * @return Response
      */
-    public function __invoke(EventInterface $event, $options = null);
+    public function response();
 }

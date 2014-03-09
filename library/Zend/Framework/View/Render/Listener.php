@@ -7,10 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Manager;
+namespace Zend\Framework\View\Render;
 
 use Exception;
-use Zend\Framework\Application\EventInterface;
 use Zend\Framework\View\Manager\ServiceTrait as ViewManager;
 
 class Listener

@@ -7,9 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\Manager;
-
-use Zend\Framework\Application\EventInterface;
+namespace Zend\Framework\View\Render;
 
 interface ListenerInterface
 {

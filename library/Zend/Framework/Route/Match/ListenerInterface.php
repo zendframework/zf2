@@ -7,26 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Manager;
+namespace Zend\Framework\Route\Match;
 
-use Zend\Framework\Application\EventInterface;
-use Zend\Framework\Route\Manager\ServiceTrait as RouteManager;
-
-class Listener
-    implements ListenerInterface
+interface ListenerInterface
 {
-    /**
-     *
-     */
-    use RouteManager;
-
     /**
      * @param EventInterface $event
      * @param null $options
      * @return mixed
      */
-    public function __invoke(EventInterface $event, $options = null)
-    {
-        return $this->match($event->request());
-    }
+    public function __invoke(EventInterface $event, $options = null);
 }

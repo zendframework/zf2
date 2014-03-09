@@ -7,9 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\Manager;
+namespace Zend\Framework\Controller\Dispatch;
 
-use Zend\Framework\Application\EventInterface;
 use Zend\Framework\Controller\Exception\EventInterface as Exception;
 use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;

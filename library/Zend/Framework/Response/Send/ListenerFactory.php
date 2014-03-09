@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Response\Manager;
+namespace Zend\Framework\Response\Send;
 
 use Zend\Framework\Response\Manager\ServicesTrait as ResponseManager;
 use Zend\Framework\Service\Factory\Factory;

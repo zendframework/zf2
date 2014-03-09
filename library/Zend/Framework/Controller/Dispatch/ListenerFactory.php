@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Manager;
+namespace Zend\Framework\Controller\Dispatch;
 
+use Zend\Framework\Controller\Manager\ServicesTrait as ControllerManager;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 
 class ListenerFactory
     extends Factory
@@ -19,7 +19,7 @@ class ListenerFactory
     /**
      *
      */
-    use ViewManager;
+    use ControllerManager;
 
     /**
      * @param Request $request
@@ -28,6 +28,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setViewManager($this->viewManager());
+        return (new Listener)->setControllerManager($this->controllerManager());
     }
 }

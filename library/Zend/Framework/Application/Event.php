@@ -9,19 +9,27 @@
 
 namespace Zend\Framework\Application;
 
-use Zend\Framework\View\Manager\ListenerInterface as ViewListenerInterface;
+use Zend\Framework\Controller\Dispatch\EventInterface as DispatchEventInterface;
 use Zend\Framework\Event\EventTrait;
+use Zend\Framework\View\Render\EventInterface as RenderEventInterface;
 use Zend\Framework\Request\ServicesTrait as Request;
+use Zend\Framework\Response\Send\EventInterface as SendEventInterface;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
 use Zend\Framework\Route\Manager\ServicesTrait as RouteTrait;
+use Zend\Framework\Route\Match\EventInterface as RouteMatchEventInterface;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManager;
+use Zend\Framework\View\Render\ListenerInterface as RenderListenerInterface;
 use Zend\Framework\View\Model\ServiceTrait as ViewModel;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\ModelInterface as ViewModelInterface;
 
 class Event
-    implements EventInterface
+    implements EventInterface,
+               DispatchEventInterface,
+               RenderEventInterface,
+               RouteMatchEventInterface,
+               SendEventInterface
 {
     /**
      *
@@ -81,7 +89,7 @@ class Event
                         break 2;
                 }
                 break;
-            case $listener instanceof ViewListenerInterface:
+            case $listener instanceof RenderListenerInterface:
                 $this->setResponseContent($response);
                 break;
         }

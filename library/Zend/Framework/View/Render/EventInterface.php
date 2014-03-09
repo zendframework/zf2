@@ -7,16 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Manager;
+namespace Zend\Framework\View\Render;
 
-use Zend\Framework\Application\EventInterface;
+use Zend\Framework\Event\EventInterface as Event;
+use Zend\View\Model\ModelInterface as ViewModel;
 
-interface ListenerInterface
+interface EventInterface
+    extends Event
 {
     /**
-     * @param EventInterface $event
-     * @param null $options
-     * @return mixed
+     * @return ViewModel
      */
-    public function __invoke(EventInterface $event, $options = null);
+    public function viewModel();
 }
