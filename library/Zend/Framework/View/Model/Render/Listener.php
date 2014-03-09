@@ -17,7 +17,7 @@ class Listener
     /**
      *
      */
-    use ListenerTrait;
+    use ServiceTrait;
 
     /**
      * @param EventInterface $event

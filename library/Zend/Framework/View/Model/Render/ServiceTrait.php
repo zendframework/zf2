@@ -7,34 +7,20 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\View\Manager;
+namespace Zend\Framework\View\Model\Render;
 
 use RuntimeException;
-use Zend\Framework\Event\Manager\ServiceTrait as EventManager;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\Framework\View\Renderer\EventInterface as ViewRenderer;
+use Zend\Framework\View\Manager\ServiceTrait as ViewManager;
 use Zend\View\Renderer\TreeRendererInterface;
 use Zend\View\Exception\DomainException;
 use Zend\View\Model\ModelInterface as ViewModel;
 
-trait RenderServiceTrait
+trait ServiceTrait
 {
     /**
      *
      */
-    use EventManager;
-
-    /**
-     * Retrieve renderer for view model
-     *
-     * @param ViewModel $model
-     * @return Renderer
-     * @throws RuntimeException
-     */
-    public function viewRenderer(ViewModel $model)
-    {
-        return $this->trigger(ViewRenderer::EVENT, $model);
-    }
+    use ViewManager;
 
     /**
      * @param ViewModel $model
@@ -43,7 +29,7 @@ trait RenderServiceTrait
      */
     public function render(ViewModel $model)
     {
-        $renderer = $this->viewRenderer($model);
+        $renderer = $this->renderer($model);
 
         // If we have children, render them first, but only if:
         // a) the renderer does not implement TreeRendererInterface, or
