@@ -9,11 +9,11 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\Factory\Factory as FactoryService;
 use Zend\Framework\Service\RequestInterface as Request;
 
-class ManagerFactory
-    extends Factory
+class Factory
+    extends FactoryService
 {
     /**
      * @param Request $request
