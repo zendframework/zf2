@@ -7,11 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Response;
+namespace Zend\Framework\Response\Send;
 
+use Zend\Framework\Response\EventInterface;
 use Zend\Stdlib\ResponseInterface;
 
-trait SendContentTrait
+trait ContentTrait
 {
     /**
      * Send content

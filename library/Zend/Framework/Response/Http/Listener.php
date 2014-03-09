@@ -10,8 +10,8 @@
 namespace Zend\Framework\Response\Http;
 
 use Zend\Framework\Response\EventInterface;
-use Zend\Framework\Response\SendContentTrait as SendContent;
-use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
+use Zend\Framework\Response\Send\ContentTrait;
+use Zend\Framework\Response\Send\HeadersTrait;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class Listener
@@ -20,8 +20,8 @@ class Listener
     /**
      *
      */
-    use SendContent,
-        SendHeaders;
+    use ContentTrait,
+        HeadersTrait;
 
     /**
      * Send HTTP response

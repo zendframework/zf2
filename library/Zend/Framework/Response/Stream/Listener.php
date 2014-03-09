@@ -10,8 +10,8 @@
 namespace Zend\Framework\Response\Stream;
 
 use Zend\Framework\Response\EventInterface;
-use Zend\Framework\Response\SendHeadersTrait as SendHeaders;
-use Zend\Framework\Response\SendStreamTrait as SendStream;
+use Zend\Framework\Response\Send\HeadersTrait;
+use Zend\Framework\Response\Send\StreamTrait;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class Listener
@@ -20,8 +20,8 @@ class Listener
     /**
      *
      */
-    use SendHeaders,
-        SendStream;
+    use HeadersTrait,
+        StreamTrait;
 
     /**
      * @param EventInterface $event

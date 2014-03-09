@@ -10,7 +10,7 @@
 namespace Zend\Framework\Response\Console;
 
 use Zend\Framework\Response\EventInterface;
-use Zend\Framework\Response\SendContentTrait as SendContent;
+use Zend\Framework\Response\Send\ContentTrait;
 use Zend\Stdlib\ResponseInterface as Response;
 
 class Listener
@@ -19,7 +19,7 @@ class Listener
     /**
      *
      */
-    use SendContent;
+    use ContentTrait;
 
     /**
      * @param EventInterface $event
