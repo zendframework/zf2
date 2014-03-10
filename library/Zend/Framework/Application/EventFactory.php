@@ -11,7 +11,7 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\View\Model\ServicesTrait as ViewModel;
+use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 
 class EventFactory
     extends Factory
@@ -19,7 +19,7 @@ class EventFactory
     /**
      *
      */
-    use ViewModel;
+    use ViewManager;
 
     /**
      * @param Request $request

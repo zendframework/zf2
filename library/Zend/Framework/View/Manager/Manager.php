@@ -19,6 +19,7 @@ use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\View\Exception\EventInterface as Exception;
+use Zend\Framework\View\Model\EventInterface as Model;
 use Zend\Framework\View\Model\Render\EventInterface as Render;
 use Zend\Framework\View\Renderer\EventInterface as Renderer;
 use Zend\View\Model\ModelInterface as ViewModel;
@@ -119,5 +120,15 @@ class Manager
     public function renderer(ViewModel $viewModel, $options = null)
     {
         return $this->trigger([Renderer::EVENT, $viewModel], $options);
+    }
+
+    /**
+     * @param mixed $source
+     * @param null $options
+     * @return ViewModel
+     */
+    public function viewModel($source, $options = null)
+    {
+        return $this->trigger([Model::EVENT, $source], $options);
     }
 }

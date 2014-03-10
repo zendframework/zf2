@@ -34,6 +34,23 @@ trait ServicesTrait
     }
 
     /**
+     * @return ViewModel
+     */
+    public function rootViewModel()
+    {
+        return $this->sm->get('View\Model');
+    }
+
+    /**
+     * @param ViewModel $viewModel
+     * @return self
+     */
+    public function setRootViewModel(ViewModel $viewModel)
+    {
+        return $this->sm->add('View\Model', $viewModel);
+    }
+
+    /**
      * @param ManagerInterface $vm
      * @return self
      */
@@ -49,5 +66,14 @@ trait ServicesTrait
     public function viewManager()
     {
         return $this->sm->get('View\Manager');
+    }
+
+    /**
+     * @param null $options
+     * @return ViewModel
+     */
+    public function viewModel($options = null)
+    {
+        return $this->viewManager()->viewModel($this, $options);
     }
 }
