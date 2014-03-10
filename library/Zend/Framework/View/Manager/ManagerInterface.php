@@ -14,27 +14,6 @@ use Zend\View\Model\ModelInterface as ViewModel;
 interface ManagerInterface
 {
     /**
-     * @param string $name
-     * @param mixed $options
-     * @return null|object
-     */
-    public function plugin($name, $options = null);
-
-    /**
-     * @param ViewModel $viewModel
-     * @param null $options
-     * @return mixed
-     */
-    public function render(ViewModel $viewModel, $options = null);
-
-    /**
-     * @param ViewModel $viewModel
-     * @param null $options
-     * @return mixed
-     */
-    public function renderer(ViewModel $viewModel, $options = null);
-
-    /**
      * @param mixed $source
      * @param null $options
      * @return ViewModel
