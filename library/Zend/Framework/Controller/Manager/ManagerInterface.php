@@ -20,10 +20,10 @@ interface ManagerInterface
      * @param Request $request
      * @param Response $response
      * @param RouteMatch $routeMatch
-     * @param null $controller
+     * @param string $controller
      * @return mixed
      */
-    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null);
+    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch, $controller);
 
     /**
      * @param string $controller
@@ -43,7 +43,7 @@ interface ManagerInterface
     /**
      * @param Request $request
      * @param Response $response
-     * @param \Exception $exception
+     * @param Exception $exception
      * @return mixed
      */
     public function exception(Request $request, Response $response, Exception $exception);

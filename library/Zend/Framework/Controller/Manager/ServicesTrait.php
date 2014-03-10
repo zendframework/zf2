@@ -48,15 +48,15 @@ trait ServicesTrait
     }
 
     /**
-     * @param $controller
-     * @param $routeMatch
-     * @param $request
-     * @param $response
+     * @param Request $request
+     * @param Response $response
+     * @param RouteMatch $routeMatch
+     * @param string $controller
      * @return mixed
      */
-    public function dispatch($controller, $routeMatch, $request, $response)
+    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch, $controller)
     {
-        return $this->controllerManager()->dispatch($controller, $routeMatch, $request, $response);
+        return $this->controllerManager()->dispatch($request, $response, $routeMatch, $controller);
     }
 
     /**

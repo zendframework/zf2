@@ -44,10 +44,31 @@ class Manager
     }
 
     /**
-     * @param null|RouteMatch $routeMatch
-     * @param null|string $controller
      * @param Request $request
      * @param Response $response
+     * @param RouteMatch $routeMatch
+     * @param string $controller
+     * @return mixed
+     */
+    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch, $controller)
+    {
+        return $this->trigger([$controller, $routeMatch, $controller], [$request, $response]);
+    }
+
+    /**
+     * @param string $controller
+     * @return bool
+     */
+    public function dispatchable($controller)
+    {
+        return $this->listeners()->has($controller);
+    }
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @param null|RouteMatch $routeMatch
+     * @param null|string $controller
      * @return mixed
      */
     public function error(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
@@ -75,27 +96,6 @@ class Manager
     public function exception(Request $request, Response $response, \Exception $exception)
     {
         return $this->trigger([Exception::EVENT, $exception], [$request, $response]);
-    }
-
-    /**
-     * @param Request $request
-     * @param Response $response
-     * @param RouteMatch $routeMatch
-     * @param null $controller
-     * @return mixed
-     */
-    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
-    {
-        return $this->trigger([$controller, $routeMatch, $controller], [$request, $response]);
-    }
-
-    /**
-     * @param string $controller
-     * @return bool
-     */
-    public function dispatchable($controller)
-    {
-        return $this->listeners()->has($controller);
     }
 
     /**
