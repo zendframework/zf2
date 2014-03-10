@@ -35,14 +35,14 @@ class Listener
         try {
 
             if (!$controller || !$this->dispatchable($controller)) {
-                return $this->error($routeMatch, $controller, $request, $response);
+                return $this->error($request, $response, $routeMatch, $controller);
             }
 
-            return $this->dispatch($controller, $routeMatch, $request, $response);
+            return $this->dispatch($request, $response, $routeMatch, $controller);
 
         } catch (Exception $exception) {
 
-            return $this->exception($exception, $request, $response);
+            return $this->exception($request, $response, $exception);
 
         }
     }

@@ -9,6 +9,11 @@
 
 namespace Zend\Framework\Controller\Manager;
 
+use Exception;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Stdlib\RequestInterface as Request;
+use Zend\Stdlib\ResponseInterface as Response;
+
 trait ServicesTrait
 {
     /**
@@ -20,26 +25,26 @@ trait ServicesTrait
     }
 
     /**
-     * @param $routeMatch
-     * @param $controller
-     * @param $request
-     * @param $response
+     * @param Request $request
+     * @param Response $response
+     * @param RouteMatch $routeMatch
+     * @param null $controller
      * @return mixed
      */
-    public function error($routeMatch, $controller, $request, $response)
+    public function error(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
     {
-        return $this->controllerManager()->error($routeMatch, $controller, $request, $response);
+        return $this->controllerManager()->error($request, $response, $routeMatch, $controller);
     }
 
     /**
-     * @param $exception
-     * @param $request
-     * @param $response
+     * @param Request $request
+     * @param Response $response
+     * @param Exception $exception
      * @return mixed
      */
-    public function exception($exception, $request, $response)
+    public function exception(Request $request, Response $response, Exception $exception)
     {
-        return $this->controllerManager()->exception($exception, $request, $response);
+        return $this->controllerManager()->exception($request, $response, $exception);
     }
 
     /**

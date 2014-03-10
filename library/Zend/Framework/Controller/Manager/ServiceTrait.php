@@ -9,6 +9,11 @@
 
 namespace Zend\Framework\Controller\Manager;
 
+use Exception;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Stdlib\RequestInterface as Request;
+use Zend\Stdlib\ResponseInterface as Response;
+
 trait ServiceTrait
 {
     /**
@@ -25,26 +30,26 @@ trait ServiceTrait
     }
 
     /**
-     * @param $routeMatch
-     * @param $controller
-     * @param $request
-     * @param $response
+     * @param Request $request
+     * @param Response $response
+     * @param RouteMatch $routeMatch
+     * @param null $controller
      * @return mixed
      */
-    public function error($routeMatch, $controller, $request, $response)
+    public function error(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
     {
-        return $this->cm->error($routeMatch, $controller, $request, $response);
+        return $this->cm->error($request, $response, $routeMatch, $controller);
     }
 
     /**
-     * @param $exception
-     * @param $request
-     * @param $response
+     * @param Request $request
+     * @param Response $response
+     * @param Exception $exception
      * @return mixed
      */
-    public function exception($exception, $request, $response)
+    public function exception(Request $request, Response $response, Exception $exception)
     {
-        return $this->cm->exception($exception, $request, $response);
+        return $this->cm->exception($request, $response, $exception);
     }
 
     /**
@@ -54,9 +59,9 @@ trait ServiceTrait
      * @param $response
      * @return mixed
      */
-    public function dispatch($controller, $routeMatch, $request, $response)
+    public function dispatch($request, $response, $routeMatch, $controller)
     {
-        return $this->cm->dispatch($controller, $routeMatch, $request, $response);
+        return $this->cm->dispatch($request, $response, $routeMatch, $controller);
     }
 
     /**

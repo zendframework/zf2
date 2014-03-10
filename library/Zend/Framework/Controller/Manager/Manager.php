@@ -18,6 +18,9 @@ use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Stdlib\RequestInterface as Request;
+use Zend\Stdlib\ResponseInterface as Response;
 
 class Manager
     implements EventManagerInterface, ManagerInterface, ServiceManagerInterface
@@ -41,13 +44,13 @@ class Manager
     }
 
     /**
-     * @param $routeMatch
-     * @param $controller
-     * @param $request
-     * @param $response
+     * @param null|RouteMatch $routeMatch
+     * @param null|string $controller
+     * @param Request $request
+     * @param Response $response
      * @return mixed
      */
-    public function error($routeMatch, $controller, $request, $response)
+    public function error(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
     {
         return $this->trigger([Error::EVENT, $routeMatch, $controller], [$request, $response]);
     }
@@ -64,24 +67,24 @@ class Manager
     }
 
     /**
-     * @param $exception
-     * @param $request
-     * @param $response
+     * @param Request $request
+     * @param Response $response
+     * @param \Exception $exception
      * @return mixed
      */
-    public function exception($exception, $request, $response)
+    public function exception(Request $request, Response $response, \Exception $exception)
     {
         return $this->trigger([Exception::EVENT, $exception], [$request, $response]);
     }
 
     /**
-     * @param $controller
-     * @param $routeMatch
-     * @param $request
-     * @param $response
+     * @param Request $request
+     * @param Response $response
+     * @param RouteMatch $routeMatch
+     * @param null $controller
      * @return mixed
      */
-    public function dispatch($controller, $routeMatch, $request, $response)
+    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
     {
         return $this->trigger([$controller, $routeMatch, $controller], [$request, $response]);
     }
