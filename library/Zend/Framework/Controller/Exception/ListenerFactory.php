@@ -30,7 +30,7 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        $viewModel = $this->viewModel($this->routeMatch())
+        $viewModel = $this->viewModel()
                           ->setTemplate($this->config()->view()->exceptionTemplate())
                           ->setVariable('display_exceptions', $this->config()->view()->displayExceptions());
 
