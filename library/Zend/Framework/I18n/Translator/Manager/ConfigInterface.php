@@ -7,28 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Manager;
+namespace Zend\Framework\I18n\Translator\Manager;
 
 use Zend\Framework\Config\ConfigInterface as Config;
-use Zend\Framework\Event\Config\ConfigInterface as Listeners;
-use Zend\Framework\Route\Config\ConfigInterface as Router;
-use Zend\Framework\Service\Config\ConfigInterface as Services;
+use Zend\Framework\I18n\Translator\Config\ConfigInterface as Translator;
 
 interface ConfigInterface
     extends Config
 {
     /**
-     * @return Listeners
+     * @return Translator
      */
-    public function listeners();
-
-    /**
-     * @return Router
-     */
-    public function router();
-
-    /**
-     * @return Services
-     */
-    public function services();
+    public function translator();
 }

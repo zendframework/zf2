@@ -10,74 +10,40 @@
 namespace Zend\Framework\Application\Manager;
 
 use Zend\Framework\Config\ConfigTrait;
-use Zend\Framework\Controller\Config\ConfigInterface as Controllers;
+use Zend\Framework\Controller\Manager\ConfigTrait as ControllerManager;
 use Zend\Framework\Controller\Manager\ConfigInterface as ControllerConfigInterface;
-use Zend\Framework\Event\Config\ConfigInterface as Listeners;
-use Zend\Framework\I18n\Translator\Config\ConfigInterface as Translator;
+use Zend\Framework\Event\Manager\ConfigTrait as EventManager;
+use Zend\Framework\Event\Manager\ConfigInterface as EventConfigInterface;
+use Zend\Framework\I18n\Translator\Manager\ConfigTrait as TranslatorManager;
+use Zend\Framework\I18n\Translator\Manager\ConfigInterface as TranslatorConfigInterface;
 use Zend\Framework\Response\Manager\ConfigInterface as ResponseConfigInterface;
-use Zend\Framework\Route\Config\ConfigInterface as Router;
+use Zend\Framework\Response\Manager\ConfigTrait as ResponseManager;
 use Zend\Framework\Route\Manager\ConfigInterface as RouteConfigInterface;
-use Zend\Framework\Service\Config\ConfigInterface as Services;
-use Zend\Framework\View\Config\ConfigInterface as View;
+use Zend\Framework\Route\Manager\ConfigTrait as RouteManager;
+use Zend\Framework\Service\Manager\ConfigInterface as ServiceConfigInterface;
+use Zend\Framework\Service\Manager\ConfigTrait as ServiceManager;
 use Zend\Framework\View\Manager\ConfigInterface as ViewConfigInterface;
+use Zend\Framework\View\Manager\ConfigTrait as ViewManager;
 
 class Config
     implements ConfigInterface,
                ControllerConfigInterface,
+               EventConfigInterface,
                ResponseConfigInterface,
                RouteConfigInterface,
+               ServiceConfigInterface,
+               TranslatorConfigInterface,
                ViewConfigInterface
 {
     /**
      *
      */
-    use ConfigTrait;
-
-    /**
-     * @return Controllers
-     */
-    public function controllers()
-    {
-        return $this->get('controllers');
-    }
-
-    /**
-     * @return Listeners
-     */
-    public function listeners()
-    {
-        return $this->get('listeners');
-    }
-
-    /**
-     * @return Router
-     */
-    public function router()
-    {
-        return $this->get('router');
-    }
-
-    /**
-     * @return Services
-     */
-    public function services()
-    {
-        return $this->get('services');
-    }
-
-    /**
-     * @return Translator
-     */
-    public function translator()
-    {
-        return $this->get('translator');
-    }
-
-    /**
-     * @return View
-     */
-    public function view()
-    {
-        return $this->get('view');
-    }
+    use ConfigTrait,
+        ControllerManager,
+        EventManager,
+        ResponseManager,
+        RouteManager,
+        ServiceManager,
+        TranslatorManager,
+        ViewManager;
 }
