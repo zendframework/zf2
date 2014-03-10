@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Controller\Dispatch;
 
+use Exception;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 
 class Listener
@@ -39,7 +40,7 @@ class Listener
 
             return $this->dispatch($controller, $routeMatch, $request, $response);
 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
 
             return $this->exception($exception, $request, $response);
 
