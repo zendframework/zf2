@@ -36,8 +36,6 @@ class Manager
         $this->config    = $config;
         $this->listeners = $config->listeners();
         $this->services  = $config->services();
-
-        //$this->add('EventManager', $this);
     }
 
     /**
