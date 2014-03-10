@@ -25,6 +25,6 @@ class Listener
      */
     public function __invoke(EventInterface $event)
     {
-        return $this->viewRenderer();
+        return $this->renderer();
     }
 }

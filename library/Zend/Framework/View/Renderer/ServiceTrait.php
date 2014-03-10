@@ -9,28 +9,28 @@
 
 namespace Zend\Framework\View\Renderer;
 
-use Zend\View\Renderer\RendererInterface as ViewRenderer;
+use Zend\View\Renderer\RendererInterface;
 
 trait ServiceTrait
 {
     /**
-     * @var ViewRenderer
+     * @var RendererInterface
      */
     protected $renderer;
 
     /**
-     * @return null|ViewRenderer
+     * @return null|RendererInterface
      */
-    public function viewRenderer()
+    public function renderer()
     {
         return $this->renderer;
     }
 
     /**
-     * @param ViewRenderer $renderer
+     * @param RendererInterface $renderer
      * @return self
      */
-    public function setViewRenderer(ViewRenderer $renderer)
+    public function setRenderer(RendererInterface $renderer)
     {
         $this->renderer = $renderer;
         return $this;

@@ -28,6 +28,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setViewRenderer($this->viewRenderer());
+        return (new Listener)->setRenderer($this->renderer());
     }
 }

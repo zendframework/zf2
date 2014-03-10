@@ -16,17 +16,8 @@ trait ServicesTrait
     /**
      * @return null|ViewRenderer
      */
-    public function viewRenderer()
+    public function renderer()
     {
         return $this->sm->get('View\Renderer');
-    }
-
-    /**
-     * @param ViewRenderer $renderer
-     * @return self
-     */
-    public function setViewRenderer(ViewRenderer $renderer)
-    {
-        return $this->sm->add('View\Renderer', $renderer);
     }
 }
