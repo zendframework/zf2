@@ -13,6 +13,7 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use Traversable;
+use Zend\Cache\Storage\IterableInterface;
 use Zend\Cache\Storage\IteratorInterface as CacheIterator;
 use Zend\Cache\Storage\StorageInterface as CacheStorage;
 use Zend\Cache\Storage\TaggableInterface;
@@ -217,9 +218,15 @@ class Paginator implements Countable, IteratorAggregate
      * Sets a cache object
      *
      * @param CacheStorage $cache
+     * @throws Exception\InvalidArgumentException
      */
     public static function setCache(CacheStorage $cache)
     {
+        if (!$cache instanceof IterableInterface) {
+            throw new Exception\InvalidArgumentException(
+                'Cache adapter must implement Zend\Cache\Storage\IterableInterface'
+            );
+        }
         static::$cache = $cache;
     }
 

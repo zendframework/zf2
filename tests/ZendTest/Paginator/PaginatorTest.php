@@ -21,6 +21,8 @@ use Zend\Paginator\Adapter;
 use Zend\Paginator\Exception;
 use Zend\View;
 use Zend\View\Helper;
+use ZendTest\Paginator\TestAsset\Cache\BasicCacheAdapter;
+use ZendTest\Paginator\TestAsset\Cache\IterableCacheAdapter;
 use ZendTest\Paginator\TestAsset\TestArrayAggregate;
 
 /**
@@ -115,8 +117,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setCache()
     {
-        $this->cache = CacheFactory::adapterFactory('memory', array('memory_limit' => 0));
-        //$this->cache = new TestCacheMock();
+        $this->cache = new IterableCacheAdapter();
         Paginator\Paginator::setCache($this->cache);
     }
 
@@ -532,6 +533,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testClearPageItemCache()
     {
+        $this->setCache();
+
         $this->paginator->setCurrentPageNumber(1)->getCurrentItems();
         $this->paginator->setCurrentPageNumber(2)->getCurrentItems();
         $this->paginator->setCurrentPageNumber(3)->getCurrentItems();
@@ -564,6 +567,15 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $pageItems = $this->paginator->getCurrentItems();
 
         $this->assertEquals($expected, $pageItems);
+    }
+
+    public function testCacheMustBeIterable()
+    {
+        $this->cache = new BasicCacheAdapter();
+        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException',
+            'Cache adapter must implement Zend\Cache\Storage\IterableInterface'
+        );
+        Paginator\Paginator::setCache($this->cache);
     }
 
     public function testCacheDoesNotDisturbResultsWhenChangingParam()
