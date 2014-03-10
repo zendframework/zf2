@@ -25,13 +25,38 @@ trait ServiceTrait
     }
 
     /**
-     * @param string $event
-     * @param null $options
+     * @param $routeMatch
+     * @param $controller
+     * @param $request
+     * @param $response
      * @return mixed
      */
-    public function dispatch($event, $options = null)
+    public function error($routeMatch, $controller, $request, $response)
     {
-        return $this->cm->dispatch($event, $options);
+        return $this->cm->error($routeMatch, $controller, $request, $response);
+    }
+
+    /**
+     * @param $exception
+     * @param $request
+     * @param $response
+     * @return mixed
+     */
+    public function exception($exception, $request, $response)
+    {
+        return $this->cm->exception($exception, $request, $response);
+    }
+
+    /**
+     * @param $controller
+     * @param $routeMatch
+     * @param $request
+     * @param $response
+     * @return mixed
+     */
+    public function dispatch($controller, $routeMatch, $request, $response)
+    {
+        return $this->cm->dispatch($controller, $routeMatch, $request, $response);
     }
 
     /**

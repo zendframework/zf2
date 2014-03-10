@@ -12,7 +12,7 @@ namespace Zend\Framework\Controller\Exception;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Route\Manager\ServicesTrait as RouteServices;
-use Zend\Framework\View\Model\ServicesTrait as ViewModel;
+use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 
 class ListenerFactory
     extends Factory
@@ -21,7 +21,7 @@ class ListenerFactory
      *
      */
     use RouteServices,
-        ViewModel;
+        ViewManager;
 
     /**
      * @param Request $request

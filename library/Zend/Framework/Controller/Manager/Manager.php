@@ -9,7 +9,9 @@
 
 namespace Zend\Framework\Controller\Manager;
 
+use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\EventInterface;
+use Zend\Framework\Controller\Exception\EventInterface as Exception;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
@@ -39,6 +41,18 @@ class Manager
     }
 
     /**
+     * @param $routeMatch
+     * @param $controller
+     * @param $request
+     * @param $response
+     * @return mixed
+     */
+    public function error($routeMatch, $controller, $request, $response)
+    {
+        return $this->trigger([Error::EVENT, $routeMatch, $controller], [$request, $response]);
+    }
+
+    /**
      * Retrieve event from service manager
      *
      * @param array|EventInterface|string $event
@@ -50,13 +64,26 @@ class Manager
     }
 
     /**
-     * @param string $event
-     * @param null $options
+     * @param $exception
+     * @param $request
+     * @param $response
      * @return mixed
      */
-    public function dispatch($event, $options = null)
+    public function exception($exception, $request, $response)
     {
-        return $this->trigger($event, $options);
+        return $this->trigger([Exception::EVENT, $exception], [$request, $response]);
+    }
+
+    /**
+     * @param $controller
+     * @param $routeMatch
+     * @param $request
+     * @param $response
+     * @return mixed
+     */
+    public function dispatch($controller, $routeMatch, $request, $response)
+    {
+        return $this->trigger([$controller, $routeMatch, $controller], [$request, $response]);
     }
 
     /**

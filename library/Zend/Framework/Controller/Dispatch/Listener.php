@@ -9,8 +9,6 @@
 
 namespace Zend\Framework\Controller\Dispatch;
 
-use Zend\Framework\Controller\Exception\EventInterface as Exception;
-use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\Manager\ServiceTrait as ControllerManager;
 
 class Listener
@@ -35,13 +33,15 @@ class Listener
 
         try {
 
-            $event = $controller && $this->dispatchable($controller) ? $controller : Error::EVENT;
+            if (!$controller || !$this->dispatchable($controller)) {
+                return $this->error($routeMatch, $controller, $request, $response);
+            }
 
-            return $this->dispatch([$event, $routeMatch, $controller], [$request, $response]);
+            return $this->dispatch($controller, $routeMatch, $request, $response);
 
         } catch (\Exception $exception) {
 
-            return $this->dispatch([Exception::EVENT, $exception], [$request, $response]);
+            return $this->exception($exception, $request, $response);
 
         }
     }

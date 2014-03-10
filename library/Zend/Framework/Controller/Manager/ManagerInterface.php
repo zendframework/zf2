@@ -12,11 +12,13 @@ namespace Zend\Framework\Controller\Manager;
 interface ManagerInterface
 {
     /**
-     * @param string $event
-     * @param null $options
+     * @param $controller
+     * @param $routeMatch
+     * @param $request
+     * @param $response
      * @return mixed
      */
-    public function dispatch($event, $options = null);
+    public function dispatch($controller, $routeMatch, $request, $response);
 
     /**
      * @param string $controller
