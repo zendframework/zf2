@@ -9,8 +9,16 @@
 
 namespace Zend\Framework\Route\Manager;
 
+use Zend\Stdlib\RequestInterface as Request;
+
 interface ManagerInterface
 {
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function match(Request $request);
+
     /**
      * @param string $name
      * @param mixed $options

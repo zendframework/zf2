@@ -9,6 +9,13 @@
 
 namespace Zend\Framework\Response\Manager;
 
+use Zend\Stdlib\ResponseInterface as Response;
+
 interface ManagerInterface
 {
+    /**
+     * @param Response $response
+     * @return mixed
+     */
+    public function response(Response $response);
 }

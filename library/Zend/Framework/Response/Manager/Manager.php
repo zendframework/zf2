@@ -21,7 +21,6 @@ use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 use Zend\Stdlib\ResponseInterface as Response;
 
-
 class Manager
     implements ManagerInterface, EventManagerInterface, ServiceManagerInterface
 {

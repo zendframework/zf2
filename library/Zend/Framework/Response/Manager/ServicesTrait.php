@@ -9,8 +9,19 @@
 
 namespace Zend\Framework\Response\Manager;
 
+use Zend\Stdlib\ResponseInterface;
+
 trait ServicesTrait
 {
+    /**
+     * @param ResponseInterface $response
+     * @return mixed
+     */
+    public function response(ResponseInterface $response)
+    {
+        return $this->responseManager()->response($response);
+    }
+
     /**
      * @return ManagerInterface
      */

@@ -11,7 +11,6 @@ namespace Zend\Framework\Response\Manager;
 
 use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Event\Config\ConfigInterface as Listeners;
-use Zend\Framework\I18n\Translator\Config\ConfigInterface as Translator;
 use Zend\Framework\Route\Config\ConfigInterface as Router;
 use Zend\Framework\Service\Config\ConfigInterface as Services;
 
@@ -32,9 +31,4 @@ interface ConfigInterface
      * @return Services
      */
     public function services();
-
-    /**
-     * @return Translator
-     */
-    public function translator();
 }
