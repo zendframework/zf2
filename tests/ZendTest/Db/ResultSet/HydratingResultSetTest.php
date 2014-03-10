@@ -67,4 +67,31 @@ class HydratingResultSetTest extends \PHPUnit_Framework_TestCase
         $obj = $hydratingRs->toArray();
         $this->assertInternalType('array', $obj);
     }
+
+    public function testSameCurrentForIteratorData()
+    {
+        $hydratingRs = new HydratingResultSet;
+        $hydratingRs->initialize(new \ArrayIterator(array(
+            array('q1'),
+        )));
+        $hydratingRs->rewind();
+        $this->assertSame(
+            $hydratingRs->current(),
+            $hydratingRs->current()
+        );
+    }
+
+    public function testSameCurrentForIteratorDataAndBuffering()
+    {
+        $hydratingRs = new HydratingResultSet;
+        $hydratingRs->initialize(new \ArrayIterator(array(
+            array('q1'),
+        )));
+        $hydratingRs->rewind();
+        $hydratingRs->buffer();
+        $this->assertSame(
+            $hydratingRs->current(),
+            $hydratingRs->current()
+        );
+    }
 }

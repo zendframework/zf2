@@ -48,6 +48,11 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
     protected $position = 0;
 
     /**
+     * @var mixed
+     */
+    protected $current = null;
+
+    /**
      * Set the data source for the result set
      *
      * @param  Iterator|IteratorAggregate|ResultInterface $dataSource
@@ -61,6 +66,10 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
             $this->buffer = array();
         }
 
+        $this->count      = null;
+        $this->fieldCount = null;
+        $this->current    = null;
+
         if ($dataSource instanceof ResultInterface) {
             $this->count = $dataSource->count();
             $this->fieldCount = $dataSource->getFieldCount();
@@ -72,9 +81,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
                 $this->dataSource->rewind();
             }
             return $this;
-        }
-
-        if (is_array($dataSource)) {
+        } elseif (is_array($dataSource)) {
             // its safe to get numbers from an array
             $first = current($dataSource);
             reset($dataSource);
@@ -90,8 +97,24 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
             throw new Exception\InvalidArgumentException('DataSource provided is not an array, nor does it implement Iterator or IteratorAggregate');
         }
 
-        if ($this->count == null && $this->dataSource instanceof Countable) {
+        if ($this->count === null && $this->dataSource instanceof Countable) {
             $this->count = $this->dataSource->count();
+        }
+
+        if ($this->fieldCount === null) {
+            if ($this->count == 0) {
+                $this->fieldCount = 0;
+            } else {
+                $dataSource->rewind();
+                $row = $dataSource->current();
+                if ($row instanceof Countable) {
+                    $this->fieldCount = $row->count();
+                } else {
+                    $this->fieldCount = count((array)$row);
+                }
+            }
+        } else {
+            $this->fieldCount = 0;
         }
 
         return $this;
@@ -112,10 +135,16 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
 
     public function isBuffered()
     {
-        if ($this->buffer === -1 || is_array($this->buffer)) {
-            return true;
+        return ($this->buffer === -1 || is_array($this->buffer));
+    }
+
+    protected function checkBuffered()
+    {
+        if ($this->buffer === null) {
+            // implicitly disable buffering from here on
+            $this->buffer = -2;
         }
-        return false;
+        return $this;
     }
 
     /**
@@ -135,29 +164,6 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     public function getFieldCount()
     {
-        if (null !== $this->fieldCount) {
-            return $this->fieldCount;
-        }
-
-        $dataSource = $this->getDataSource();
-        if (null === $dataSource) {
-            return 0;
-        }
-
-        $dataSource->rewind();
-        if (!$dataSource->valid()) {
-            $this->fieldCount = 0;
-            return 0;
-        }
-
-        $row = $dataSource->current();
-        if (is_object($row) && $row instanceof Countable) {
-            $this->fieldCount = $row->count();
-            return $this->fieldCount;
-        }
-
-        $row = (array) $row;
-        $this->fieldCount = count($row);
         return $this->fieldCount;
     }
 
@@ -168,11 +174,10 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     public function next()
     {
-        if ($this->buffer === null) {
-            $this->buffer = -2; // implicitly disable buffering from here on
-        }
+        $this->checkBuffered();
         $this->dataSource->next();
         $this->position++;
+        $this->current = null;
     }
 
     /**
@@ -192,14 +197,36 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     public function current()
     {
-        if ($this->buffer === null) {
-            $this->buffer = -2; // implicitly disable buffering from here on
-        } elseif (is_array($this->buffer) && isset($this->buffer[$this->position])) {
-            return $this->buffer[$this->position];
+        if ($this->current !== null) {
+            return $this->current;
         }
-        $data = $this->dataSource->current();
+        $this->checkBuffered();
         if (is_array($this->buffer)) {
-            $this->buffer[$this->position] = $data;
+            if (!isset($this->buffer[$this->position])) {
+                return $this->current = $this->buffer[$this->position] = $this->hydrateCurrent();
+            }
+            return $this->current = $this->buffer[$this->position];
+        }
+        return $this->current = $this->hydrateCurrent();
+    }
+
+    protected function hydrateCurrent()
+    {
+        return $this->dataSource->current();
+    }
+
+    protected function extract($data)
+    {
+        if (is_array($data)) {
+            return $data;
+        } elseif (method_exists($data, 'toArray')) {
+            return $data->toArray();
+        } elseif (method_exists($data, 'getArrayCopy')) {
+            return $data->getArrayCopy();
+        } else {
+            throw new Exception\RuntimeException(
+                'Rows as part of this DataSource, with type ' . gettype($data) . ' cannot be cast to an array'
+            );
         }
         return $data;
     }
@@ -237,6 +264,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
             }
         }
         $this->position = 0;
+        $this->current = null;
     }
 
     /**
@@ -263,17 +291,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
     {
         $return = array();
         foreach ($this as $row) {
-            if (is_array($row)) {
-                $return[] = $row;
-            } elseif (method_exists($row, 'toArray')) {
-                $return[] = $row->toArray();
-            } elseif (method_exists($row, 'getArrayCopy')) {
-                $return[] = $row->getArrayCopy();
-            } else {
-                throw new Exception\RuntimeException(
-                    'Rows as part of this DataSource, with type ' . gettype($row) . ' cannot be cast to an array'
-                );
-            }
+            $return[] = $this->extract($row);
         }
         return $return;
     }

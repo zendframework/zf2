@@ -29,7 +29,6 @@ class ResultSetIntegrationTest extends TestCase
      */
     protected function setUp()
     {
-
         $this->resultSet = new ResultSet;
     }
 
@@ -41,15 +40,22 @@ class ResultSetIntegrationTest extends TestCase
 
     public function testRowObjectPrototypeIsMutable()
     {
-        $row = new \ArrayObject();
+        $row = new ArrayObject();
         $this->resultSet->setArrayObjectPrototype($row);
         $this->assertSame($row, $this->resultSet->getArrayObjectPrototype());
     }
 
+    public function testRowObjectPrototypeMayBePassedToConstructorWithDeprecatedArgument()
+    {
+        $row = new ArrayObject();
+        $resultSet = new ResultSet(ResultSet::TYPE_ARRAYOBJECT, $row);
+        $this->assertSame($row, $resultSet->getArrayObjectPrototype());
+    }
+
     public function testRowObjectPrototypeMayBePassedToConstructor()
     {
-        $row = new \ArrayObject();
-        $resultSet = new ResultSet(ResultSet::TYPE_ARRAYOBJECT, $row);
+        $row = new ArrayObject();
+        $resultSet = new ResultSet($row);
         $this->assertSame($row, $resultSet->getArrayObjectPrototype());
     }
 
@@ -206,6 +212,31 @@ class ResultSetIntegrationTest extends TestCase
 
         $this->setExpectedException('Zend\Db\ResultSet\Exception\RuntimeException', 'Buffering must be enabled before iteration is started');
         $this->resultSet->buffer();
+    }
+
+    public function testSameCurrentForIteratorData()
+    {
+        $this->resultSet->initialize(new \ArrayIterator(array(
+            array('q1'),
+        )));
+        $this->resultSet->rewind();
+        $this->assertSame(
+            $this->resultSet->current(),
+            $this->resultSet->current()
+        );
+    }
+
+    public function testSameCurrentForIteratorDataAndBuffering()
+    {
+        $this->resultSet->initialize(new \ArrayIterator(array(
+            array('q1'),
+        )));
+        $this->resultSet->rewind();
+        $this->resultSet->buffer();
+        $this->assertSame(
+            $this->resultSet->current(),
+            $this->resultSet->current()
+        );
     }
 
 }

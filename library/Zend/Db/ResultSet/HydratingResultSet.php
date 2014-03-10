@@ -34,7 +34,7 @@ class HydratingResultSet extends AbstractResultSet
     public function __construct(HydratorInterface $hydrator = null, $objectPrototype = null)
     {
         $this->setHydrator(($hydrator) ?: new ArraySerializable);
-        $this->setObjectPrototype(($objectPrototype) ?: new ArrayObject);
+        $this->setObjectPrototype($objectPrototype);
     }
 
     /**
@@ -46,13 +46,25 @@ class HydratingResultSet extends AbstractResultSet
      */
     public function setObjectPrototype($objectPrototype)
     {
-        if (!is_object($objectPrototype)) {
+        if (!$objectPrototype) {
+            $objectPrototype = new ArrayObject;
+        } elseif (!is_object($objectPrototype)) {
             throw new Exception\InvalidArgumentException(
                 'An object must be set as the object prototype, a ' . gettype($objectPrototype) . ' was provided.'
             );
         }
         $this->objectPrototype = $objectPrototype;
         return $this;
+    }
+
+    /**
+     * Get the row object prototype
+     *
+     * @return stdClass
+     */
+    public function getObjectPrototype()
+    {
+        return $this->objectPrototype;
     }
 
     /**
@@ -77,40 +89,16 @@ class HydratingResultSet extends AbstractResultSet
         return $this->hydrator;
     }
 
-    /**
-     * Iterator: get current item
-     *
-     * @return object
-     */
-    public function current()
+    protected function hydrateCurrent()
     {
-        if ($this->buffer === null) {
-            $this->buffer = -2; // implicitly disable buffering from here on
-        } elseif (is_array($this->buffer) && isset($this->buffer[$this->position])) {
-            return $this->buffer[$this->position];
-        }
-        $data = $this->dataSource->current();
-        $object = is_array($data) ? $this->hydrator->hydrate($data, clone $this->objectPrototype) : false;
-
-        if (is_array($this->buffer)) {
-            $this->buffer[$this->position] = $object;
-        }
-
-        return $object;
+        $current = parent::hydrateCurrent();
+        return is_array($current)
+            ? $this->hydrator->hydrate($current, clone $this->getObjectPrototype())
+            : false;
     }
 
-    /**
-     * Cast result set to array of arrays
-     *
-     * @return array
-     * @throws Exception\RuntimeException if any row is not castable to an array
-     */
-    public function toArray()
+    protected function extract($data)
     {
-        $return = array();
-        foreach ($this as $row) {
-            $return[] = $this->getHydrator()->extract($row);
-        }
-        return $return;
+        return $this->getHydrator()->extract($data);
     }
 }
