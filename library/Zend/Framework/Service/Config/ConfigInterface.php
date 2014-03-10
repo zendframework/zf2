@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Service\Config;
 
-use Zend\Framework\Service\Manager\ConfigInterface as ManagerConfigInterface;
 use Zend\Framework\Config\ConfigInterface as Config;
+use Zend\Framework\Application\Manager\ConfigInterface as ApplicationConfig;
 
 interface ConfigInterface
     extends Config
@@ -29,7 +29,7 @@ interface ConfigInterface
     public function assigned($name);
 
     /**
-     * @return ManagerConfigInterface
+     * @return ApplicationConfig
      */
     public function config();
 
