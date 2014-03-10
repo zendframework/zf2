@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use Exception;
+use RuntimeException;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManager;
 
@@ -33,10 +33,10 @@ class Factory
      * @param Request $request
      * @param array $options
      * @return mixed|void
-     * @throws Exception
+     * @throws RuntimeException
      */
     public function __invoke(Request $request, array $options = [])
     {
-        throw new Exception('Missing service method for ' . get_class($this));
+        throw new RuntimeException('Missing service method for ' . get_class($this));
     }
 }

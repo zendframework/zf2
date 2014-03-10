@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Service\Manager;
 
-use Exception;
+use RuntimeException;
 use Zend\Framework\Service\Container\ServiceTrait as Container;
 use Zend\Framework\Service\Factory\FactoryInterface;
 use Zend\Framework\Service\Request;
@@ -85,7 +85,7 @@ trait ManagerTrait
      * @param RequestInterface $request
      * @param array $options
      * @return object
-     * @throws Exception
+     * @throws RuntimeException
      */
     protected function manage(RequestInterface $request, array $options = [])
     {
@@ -104,7 +104,7 @@ trait ManagerTrait
         }
 
         if ($this->initializing($name)) {
-            throw new Exception('Circular dependency: ' . $name);
+            throw new RuntimeException('Circular dependency: ' . $name);
         }
 
         $service = $request->service($assigned ? : $this->factory($config), $options);
