@@ -251,9 +251,9 @@ class Application implements
         $serviceManager->setService('ApplicationConfig', $configuration);
         $serviceManager->get('ModuleManager')->loadModules();
 
-        $listenersFromAppConfig     = isset($configuration['listeners']) ? $configuration['listeners'] : array();
+        $listenersFromAppConfig     = isset($configuration['application']['listeners']) ? $configuration['application']['listeners'] : array();
         $config                     = $serviceManager->get('Config');
-        $listenersFromConfigService = isset($config['listeners']) ? $config['listeners'] : array();
+        $listenersFromConfigService = isset($config['application']['listeners']) ? $config['application']['listeners'] : array();
 
         $listeners = array_unique(array_merge($listenersFromConfigService, $listenersFromAppConfig));
 
