@@ -36,19 +36,16 @@ abstract class AbstractListenerAggregate implements ListenerAggregateInterface
             }
         }
 
-        if (!empty($this->sharedListeners)) {
-            $sharedEvents = $events->getSharedManager();
+        $sharedEvents = $events->getSharedManager();
+        foreach ($this->sharedListeners as $id => $listeners) {
+            foreach ($listeners as $index => $callbacks) {
+                if (!is_array($callbacks)) {
+                    $this->sharedListeners[$id][$index] = $callbacks = array($callbacks);
+                }
 
-            foreach ($this->sharedListeners as $id => $listeners) {
-                foreach ($listeners as $index => $callbacks) {
-                    if (!is_array($callbacks)) {
-                        $this->sharedListeners[$id][$index] = $callbacks = array($callbacks);
-                    }
-
-                    foreach ($callbacks as $subIndex => $callback) {
-                        if ($sharedEvents->detach($id, $callback)) {
-                            unset($this->sharedListeners[$id][$index][$subIndex]);
-                        }
+                foreach ($callbacks as $subIndex => $callback) {
+                    if ($sharedEvents->detach($id, $callback)) {
+                        unset($this->sharedListeners[$id][$index][$subIndex]);
                     }
                 }
             }
