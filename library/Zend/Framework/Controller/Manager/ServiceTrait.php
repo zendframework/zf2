@@ -11,8 +11,6 @@ namespace Zend\Framework\Controller\Manager;
 
 use Exception;
 use Zend\Mvc\Router\RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Stdlib\ResponseInterface as Response;
 
 trait ServiceTrait
 {
@@ -32,20 +30,20 @@ trait ServiceTrait
     /**
      * @param RouteMatch $routeMatch
      * @param null $controller
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function error(RouteMatch $routeMatch = null, $controller = null, array $options = [])
+    public function error(RouteMatch $routeMatch = null, $controller = null, $options = null)
     {
         return $this->cm->error($routeMatch, $controller, $options);
     }
 
     /**
      * @param Exception $exception
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function exception(Exception $exception, array $options = [])
+    public function exception(Exception $exception, $options = null)
     {
         return $this->cm->exception($exception, $options);
     }
@@ -53,10 +51,10 @@ trait ServiceTrait
     /**
      * @param RouteMatch $routeMatch
      * @param string $controller
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function dispatch(RouteMatch $routeMatch, $controller, array $options = [])
+    public function dispatch(RouteMatch $routeMatch, $controller, $options = null)
     {
         return $this->cm->dispatch($routeMatch, $controller, $options);
     }

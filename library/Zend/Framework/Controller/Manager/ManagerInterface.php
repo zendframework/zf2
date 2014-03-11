@@ -17,10 +17,10 @@ interface ManagerInterface
     /**
      * @param RouteMatch $routeMatch
      * @param string $controller
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function dispatch(RouteMatch $routeMatch, $controller, array $options = []);
+    public function dispatch(RouteMatch $routeMatch, $controller, $options = null);
 
     /**
      * @param string $controller
@@ -31,15 +31,15 @@ interface ManagerInterface
     /**
      * @param RouteMatch $routeMatch
      * @param null $controller
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function error(RouteMatch $routeMatch = null, $controller = null, array $options = []);
+    public function error(RouteMatch $routeMatch = null, $controller = null, $options = null);
 
     /**
      * @param Exception $exception
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function exception(Exception $exception, array $options = []);
+    public function exception(Exception $exception, $options = null);
 }

@@ -44,10 +44,10 @@ class Manager
     /**
      * @param RouteMatch $routeMatch
      * @param string $controller
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function dispatch(RouteMatch $routeMatch, $controller, array $options = [])
+    public function dispatch(RouteMatch $routeMatch, $controller, $options = null)
     {
         return $this->trigger([$controller, $routeMatch, $controller], $options);
     }
@@ -64,10 +64,10 @@ class Manager
     /**
      * @param null|RouteMatch $routeMatch
      * @param null|string $controller
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function error(RouteMatch $routeMatch = null, $controller = null, array $options = [])
+    public function error(RouteMatch $routeMatch = null, $controller = null, $options = null)
     {
         return $this->trigger([Error::EVENT, $routeMatch, $controller], $options);
     }
@@ -85,10 +85,10 @@ class Manager
 
     /**
      * @param \Exception $exception
-     * @param array $options
+     * @param null $options
      * @return mixed
      */
-    public function exception(\Exception $exception, array $options = [])
+    public function exception(\Exception $exception, $options = null)
     {
         return $this->trigger([Exception::EVENT, $exception], $options);
     }
