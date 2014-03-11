@@ -13,7 +13,7 @@ use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Route\Config\ConfigInterface as RouterConfig;
+use Zend\Framework\Route\Config\ConfigInterface as RoutesConfigInterface;
 use Zend\Framework\Route\EventInterface as Event;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
@@ -35,7 +35,7 @@ class Manager
         ServiceManager;
 
     /**
-     * @var RouterConfig
+     * @var RoutesConfigInterface
      */
     protected $router;
 
@@ -90,5 +90,13 @@ class Manager
     public function route($name, $options = null)
     {
         return $this->create($this->alias($name), $options);
+    }
+
+    /**
+     * @return array|RoutesConfigInterface
+     */
+    public function routes()
+    {
+        return $this->router;
     }
 }

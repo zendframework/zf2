@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route\Manager;
 
+use Zend\Framework\Route\Config\ConfigInterface;
 use Zend\Stdlib\RequestInterface as Request;
 
 interface ManagerInterface
@@ -25,4 +26,9 @@ interface ManagerInterface
      * @return null|object
      */
     public function route($name, $options = null);
+
+    /**
+     * @return ConfigInterface
+     */
+    public function routes();
 }
