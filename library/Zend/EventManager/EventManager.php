@@ -388,7 +388,7 @@ class EventManager implements EventManagerInterface
      * Retrieve all listeners for a given event
      *
      * @param  string $event
-     * @return PriorityQueue|CallbackHandler[]
+     * @return PriorityQueue
      */
     public function getListeners($event)
     {
