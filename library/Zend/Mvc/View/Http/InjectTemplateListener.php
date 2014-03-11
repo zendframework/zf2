@@ -37,7 +37,9 @@ class InjectTemplateListener extends AbstractListenerAggregate
      */
     public function attach(Events $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'injectTemplate'), -90);
+        $sharedEvents = $events->getSharedManager();
+        $id = 'Zend\Stdlib\DispatchableInterface';
+        $this->sharedListeners[$id][] = $sharedEvents->attach($id, MvcEvent::EVENT_DISPATCH, array($this, 'injectTemplate'), -90);
     }
 
     /**

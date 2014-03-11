@@ -55,6 +55,10 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'prepareNotFoundViewModel'), -90);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'detectNotFoundError'));
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'prepareNotFoundViewModel'));
+
+        $sharedEvents = $events->getSharedManager();
+        $id = 'Zend\Stdlib\DispatchableInterface';
+        $this->sharedListeners[$id][] = $sharedEvents->attach($id, MvcEvent::EVENT_DISPATCH, array($this, 'prepareNotFoundViewModel'), -90);
     }
 
     /**
