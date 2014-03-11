@@ -11,19 +11,16 @@ namespace Zend\Framework\Controller\Manager;
 
 use Exception;
 use Zend\Mvc\Router\RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Stdlib\ResponseInterface as Response;
 
 interface ManagerInterface
 {
     /**
-     * @param Request $request
-     * @param Response $response
      * @param RouteMatch $routeMatch
      * @param string $controller
+     * @param array $options
      * @return mixed
      */
-    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch, $controller);
+    public function dispatch(RouteMatch $routeMatch, $controller, array $options = []);
 
     /**
      * @param string $controller
@@ -32,19 +29,17 @@ interface ManagerInterface
     public function dispatchable($controller);
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param RouteMatch $routeMatch
      * @param null $controller
+     * @param array $options
      * @return mixed
      */
-    public function error(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null);
+    public function error(RouteMatch $routeMatch = null, $controller = null, array $options = []);
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param Exception $exception
+     * @param array $options
      * @return mixed
      */
-    public function exception(Request $request, Response $response, Exception $exception);
+    public function exception(Exception $exception, array $options = []);
 }

@@ -25,38 +25,35 @@ trait ServicesTrait
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param RouteMatch $routeMatch
      * @param null $controller
+     * @param array $options
      * @return mixed
      */
-    public function error(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
+    public function error(RouteMatch $routeMatch = null, $controller = null, array $options = [])
     {
-        return $this->controllerManager()->error($request, $response, $routeMatch, $controller);
+        return $this->controllerManager()->error($routeMatch, $controller, $options);
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param Exception $exception
+     * @param array $options
      * @return mixed
      */
-    public function exception(Request $request, Response $response, Exception $exception)
+    public function exception(Exception $exception, array $options = [])
     {
-        return $this->controllerManager()->exception($request, $response, $exception);
+        return $this->controllerManager()->exception($exception, $options);
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param RouteMatch $routeMatch
      * @param string $controller
+     * @param array $options
      * @return mixed
      */
-    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch, $controller)
+    public function dispatch(RouteMatch $routeMatch, $controller, array $options = [])
     {
-        return $this->controllerManager()->dispatch($request, $response, $routeMatch, $controller);
+        return $this->controllerManager()->dispatch($routeMatch, $controller, $options);
     }
 
     /**

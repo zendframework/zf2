@@ -30,38 +30,35 @@ trait ServiceTrait
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param RouteMatch $routeMatch
      * @param null $controller
+     * @param array $options
      * @return mixed
      */
-    public function error(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
+    public function error(RouteMatch $routeMatch = null, $controller = null, array $options = [])
     {
-        return $this->cm->error($request, $response, $routeMatch, $controller);
+        return $this->cm->error($routeMatch, $controller, $options);
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param Exception $exception
+     * @param array $options
      * @return mixed
      */
-    public function exception(Request $request, Response $response, Exception $exception)
+    public function exception(Exception $exception, array $options = [])
     {
-        return $this->cm->exception($request, $response, $exception);
+        return $this->cm->exception($exception, $options);
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param RouteMatch $routeMatch
      * @param string $controller
+     * @param array $options
      * @return mixed
      */
-    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch, $controller)
+    public function dispatch(RouteMatch $routeMatch, $controller, array $options = [])
     {
-        return $this->cm->dispatch($request, $response, $routeMatch, $controller);
+        return $this->cm->dispatch($routeMatch, $controller, $options);
     }
 
     /**

@@ -19,8 +19,6 @@ use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 use Zend\Mvc\Router\RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Stdlib\ResponseInterface as Response;
 
 class Manager
     implements EventManagerInterface, ManagerInterface, ServiceManagerInterface
@@ -44,15 +42,14 @@ class Manager
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param RouteMatch $routeMatch
      * @param string $controller
+     * @param array $options
      * @return mixed
      */
-    public function dispatch(Request $request, Response $response, RouteMatch $routeMatch, $controller)
+    public function dispatch(RouteMatch $routeMatch, $controller, array $options = [])
     {
-        return $this->trigger([$controller, $routeMatch, $controller], [$request, $response]);
+        return $this->trigger([$controller, $routeMatch, $controller], $options);
     }
 
     /**
@@ -65,15 +62,14 @@ class Manager
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param null|RouteMatch $routeMatch
      * @param null|string $controller
+     * @param array $options
      * @return mixed
      */
-    public function error(Request $request, Response $response, RouteMatch $routeMatch = null, $controller = null)
+    public function error(RouteMatch $routeMatch = null, $controller = null, array $options = [])
     {
-        return $this->trigger([Error::EVENT, $routeMatch, $controller], [$request, $response]);
+        return $this->trigger([Error::EVENT, $routeMatch, $controller], $options);
     }
 
     /**
@@ -88,14 +84,13 @@ class Manager
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
      * @param \Exception $exception
+     * @param array $options
      * @return mixed
      */
-    public function exception(Request $request, Response $response, \Exception $exception)
+    public function exception(\Exception $exception, array $options = [])
     {
-        return $this->trigger([Exception::EVENT, $exception], [$request, $response]);
+        return $this->trigger([Exception::EVENT, $exception], $options);
     }
 
     /**
