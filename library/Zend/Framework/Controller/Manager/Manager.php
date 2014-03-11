@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Controller\Manager;
 
+use Zend\Framework\Controller\Config\ConfigInterface as Controllers;
 use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\EventInterface;
 use Zend\Framework\Controller\Exception\EventInterface as Exception;
@@ -42,6 +43,14 @@ class Manager
     }
 
     /**
+     * @return Controllers
+     */
+    public function controllers()
+    {
+        return $this->listeners;
+    }
+
+    /**
      * @param RouteMatch $routeMatch
      * @param string $controller
      * @param null $options
@@ -58,7 +67,7 @@ class Manager
      */
     public function dispatchable($controller)
     {
-        return $this->listeners()->has($controller);
+        return $this->listeners->has($controller);
     }
 
     /**

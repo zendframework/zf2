@@ -10,10 +10,16 @@
 namespace Zend\Framework\Controller\Manager;
 
 use Exception;
+use Zend\Framework\Controller\Config\ConfigInterface;
 use Zend\Mvc\Router\RouteMatch;
 
 interface ManagerInterface
 {
+    /**
+     * @return ConfigInterface
+     */
+    public function controllers();
+
     /**
      * @param RouteMatch $routeMatch
      * @param string $controller
