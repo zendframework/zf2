@@ -143,7 +143,7 @@ class SharedEventManager implements
      *
      * @param  string|int $id
      * @param  string|int $event
-     * @return false|PriorityQueue
+     * @return false|PriorityQueue|CallbackHandler[]
      */
     public function getListeners($id, $event)
     {
