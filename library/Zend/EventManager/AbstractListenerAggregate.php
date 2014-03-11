@@ -20,6 +20,9 @@ abstract class AbstractListenerAggregate implements ListenerAggregateInterface
      */
     protected $listeners = array();
 
+    /**
+     * @var array
+     */
     protected $sharedListeners = array();
 
     /**
