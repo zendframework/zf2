@@ -120,6 +120,7 @@ class FormRow extends AbstractHelper
         $elementHelper       = $this->getElementHelper();
         $elementErrorsHelper = $this->getElementErrorsHelper();
 
+        $attributes      = $element->getAttributes();
         $label           = $element->getLabel();
         $inputErrorClass = $this->getInputErrorClass();
 
@@ -171,7 +172,8 @@ class FormRow extends AbstractHelper
             $type = $element->getAttribute('type');
             if ($type === 'multi_checkbox' || $type === 'radio') {
                 $markup = sprintf(
-                    '<fieldset><legend>%s</legend>%s</fieldset>',
+                    '<fieldset %s><legend>%s</legend>%s</fieldset>',
+                    $this->createAttributesString($attributes),
                     $label,
                     $elementString);
             } else {
