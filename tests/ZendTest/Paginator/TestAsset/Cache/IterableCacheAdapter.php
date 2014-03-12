@@ -15,35 +15,12 @@ use Zend\Cache\Storage\IterableInterface;
 /**
  * Class IterableCacheAdapter
  *
- * A minimal cache adapter based on Zend\Cache\Storage\Adapter\Memory
- * implementing only IterableInterface
- * Used to test cache with Paginator.
- *
  * @package ZendTest\Paginator\TestAsset\Cache
  */
-class IterableCacheAdapter extends BasicCacheAdapter implements
-    IterableInterface
+class IterableCacheAdapter extends BasicCacheAdapter implements IterableInterface
 {
-    /* IterableInterface */
-
-    /**
-     * Get the storage iterator
-     *
-     * @return KeyListIterator
-     */
     public function getIterator()
     {
-        $ns   = $this->getOptions()->getNamespace();
-        $keys = array();
-
-        if (isset($this->data[$ns])) {
-            foreach ($this->data[$ns] as $key => & $tmp) {
-                if ($this->internalHasItem($key)) {
-                    $keys[] = $key;
-                }
-            }
-        }
-
-        return new KeyListIterator($this, $keys);
+        return new KeyListIterator($this, array_keys($this->data));
     }
 }

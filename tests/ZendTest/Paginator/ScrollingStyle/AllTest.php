@@ -32,10 +32,10 @@ class AllTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        parent::setUp();
         $this->scrollingStyle = new \Zend\Paginator\ScrollingStyle\All();
         $this->paginator = new Paginator(new ArrayAdapter(range(1, 101)));
         $this->paginator->setItemCountPerPage(10);
+        $this->paginator->setCacheEnabled(false);
     }
     /**
      * Cleans up the environment after running a test.
