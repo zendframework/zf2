@@ -20,7 +20,14 @@ final class Version
     /**
      * Zend Framework version identification - see compareVersion()
      */
+<<<<<<< Upstream, based on zf2/master
     const VERSION = '2.3.4dev';
+=======
+    const VERSION = '2.4.0dev';
+
+    /**
+     * Github Service Identifier for version information is retrieved from
+>>>>>>> 314c1c3 Bump version to 2.4.0dev
 
     /**
      * Github Service Identifier for version information is retrieved from
