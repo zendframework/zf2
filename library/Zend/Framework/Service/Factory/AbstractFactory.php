@@ -42,6 +42,6 @@ class AbstractFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new $this->factory[0]($this->sm, $this->factory[1]))->__invoke($request, $options);
+        return $this->get([$this->factory[0], $this->sm, $this->factory[1]])->__invoke($request, $options);
     }
 }
