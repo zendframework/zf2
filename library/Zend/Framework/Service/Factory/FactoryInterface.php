@@ -9,13 +9,13 @@
 
 namespace Zend\Framework\Service\Factory;
 
-use Zend\Framework\Service\Manager\ConfigInterface;
+use Zend\Framework\Application\Manager\ConfigInterface as ApplicationConfig;
 use Zend\Framework\Service\RequestInterface as Request;
 
 interface FactoryInterface
 {
     /**
-     * @return ConfigInterface
+     * @return ApplicationConfig
      */
     public function config();
 

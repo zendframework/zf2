@@ -10,12 +10,7 @@
 namespace Zend\Framework\Service\Factory;
 
 use Zend\Framework\Application\Manager\ConfigInterface as ApplicationConfig;
-use Zend\Framework\Controller\Manager\ConfigInterface as ControllerConfig;
-use Zend\Framework\Response\Manager\ConfigInterface as ResponseConfig;
-use Zend\Framework\Route\Manager\ConfigInterface as RouteConfig;
-use Zend\Framework\Service\Manager\ConfigInterface as ServiceConfig;
 use Zend\Framework\Service\Manager\ManagerInterface;
-use Zend\Framework\View\Manager\ConfigInterface as ViewConfig;
 
 trait ServiceTrait
 {
@@ -25,7 +20,7 @@ trait ServiceTrait
     protected $sm;
 
     /**
-     * @return ApplicationConfig|ControllerConfig|ResponseConfig|RouteConfig|ServiceConfig|ViewConfig
+     * @return ApplicationConfig
      */
     public function config()
     {
