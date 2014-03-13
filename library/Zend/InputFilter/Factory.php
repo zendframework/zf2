@@ -354,9 +354,6 @@ class Factory
                 continue;
             }
 
-            throw new Exception\RuntimeException(
-                'Invalid filter specification provided; was neither a filter instance nor an array specification'
-            );
         }
     }
 
