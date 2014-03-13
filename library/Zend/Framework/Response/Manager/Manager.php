@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Response\Manager;
 
-use Zend\Framework\Event\EventInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
@@ -53,12 +52,12 @@ class Manager
     /**
      * Retrieve event from service manager
      *
-     * @param array|EventInterface|string $event
-     * @return EventInterface
+     * @param array|Event|string $event
+     * @return Event
      */
     protected function event($event)
     {
-        return $event instanceof EventInterface ? $event : $this->create($event);
+        return $event instanceof Event ? $event : $this->create($event);
     }
 
     /**
