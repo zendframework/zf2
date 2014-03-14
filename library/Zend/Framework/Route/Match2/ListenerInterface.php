@@ -7,14 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Match;
+namespace Zend\Framework\Route\Match2;
 
 interface ListenerInterface
 {
     /**
      * @param EventInterface $event
-     * @param mixed $request
+     * @param null $options
      * @return mixed
      */
-    public function __invoke(EventInterface $event, $request);
+    public function __invoke(EventInterface $event, $options = null);
 }

@@ -7,42 +7,32 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Route\Match;
 
 use Zend\Mvc\Router\RouteMatch;
-use Zend\Framework\Route\RouteInterface as Router;
 
 trait ServiceTrait
 {
     /**
-     * @var Router
+     * @var RouteMatch
      */
-    protected $router;
+    protected $routeMatch;
 
     /**
-     * @param $request
-     * @return RouteMatch
+     * @return null|RouteMatch
      */
-    public function match($request)
+    public function routeMatch()
     {
-        return $this->router->match($request);
+        return $this->routeMatch;
     }
 
     /**
-     * @return Router
-     */
-    public function router()
-    {
-        return $this->router;
-    }
-
-    /**
-     * @param Router $router
+     * @param RouteMatch $routeMatch
      * @return self
      */
-    public function setRouter(Router $router)
+    public function setRouteMatch(RouteMatch $routeMatch)
     {
-        $this->router = $router;
+        $this->routeMatch = $routeMatch;
         return $this;
     }
 }

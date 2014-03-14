@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
-use Zend\Framework\Route\ServiceTrait as Route;
+use Zend\Framework\Route\Match\ServiceTrait as RouteMatchTrait;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
 
 class Event
@@ -20,7 +20,7 @@ class Event
      *
      */
     use EventTrait,
-        Route;
+        RouteMatchTrait;
 
     /**
      * @param $request

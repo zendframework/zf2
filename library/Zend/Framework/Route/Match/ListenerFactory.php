@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route\Match;
 
-use Zend\Framework\Route\Manager\ServicesTrait as RouteManager;
+use Zend\Framework\Route\Manager\ServicesTrait as Router;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
 
@@ -19,7 +19,7 @@ class ListenerFactory
     /**
      *
      */
-    use RouteManager;
+    use Router;
 
     /**
      * @param Request $request
@@ -28,6 +28,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setRouteManager($this->routeManager());
+        return (new Listener)->setRouter($this->router());
     }
 }

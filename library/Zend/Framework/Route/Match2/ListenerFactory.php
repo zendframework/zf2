@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Route\Match2;
 
-use Zend\Framework\Route\Manager\ServicesTrait as Router;
+use Zend\Framework\Route\Manager\ServicesTrait as RouteManager;
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
 
@@ -19,7 +19,7 @@ class ListenerFactory
     /**
      *
      */
-    use Router;
+    use RouteManager;
 
     /**
      * @param Request $request
@@ -28,6 +28,6 @@ class ListenerFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Listener)->setRouter($this->router());
+        return (new Listener)->setRouteManager($this->routeManager());
     }
 }

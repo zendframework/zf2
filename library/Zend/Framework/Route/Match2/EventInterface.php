@@ -7,14 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Route\Match2;
 
-interface ListenerInterface
+use Zend\Framework\Event\EventInterface as Event;
+use Zend\Stdlib\RequestInterface as Request;
+
+interface EventInterface
+    extends Event
 {
     /**
-     * @param EventInterface $event
-     * @param mixed $request
-     * @return mixed
+     * @return Request
      */
-    public function __invoke(EventInterface $event, $request);
+    public function request();
 }

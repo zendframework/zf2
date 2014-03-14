@@ -9,24 +9,25 @@
 
 namespace Zend\Framework\Route\Match;
 
-use Zend\Mvc\Router\RouteMatch as RouteMatch;
-use Zend\Framework\Route\ServiceTrait as Router;
+use Zend\Mvc\Router\RouteMatch;
 
-class Listener
-    implements ListenerInterface
+trait ServicesTrait
 {
     /**
-     *
+     * @return null|RouteMatch
      */
-    use Router;
+    public function routeMatch()
+    {
+        return $this->sm->get('Route\Match');
+    }
 
     /**
-     * @param EventInterface $event
-     * @param mixed $request
-     * @return RouteMatch
+     * @param RouteMatch $routeMatch
+     * @return self
      */
-    public function __invoke(EventInterface $event, $request)
+    public function setRouteMatch(RouteMatch $routeMatch)
     {
-        return $this->match($request);
+        $this->sm->add('Route\Match', $routeMatch);
+        return $this;
     }
 }
