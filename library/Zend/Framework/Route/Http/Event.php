@@ -26,7 +26,7 @@ class Event
     /**
      *
      */
-    protected $name = 'Event\Route\Http';
+    protected $event = 'Event\Route\Http';
 
     /**
      * @param $request

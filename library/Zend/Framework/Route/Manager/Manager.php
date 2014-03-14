@@ -100,13 +100,10 @@ class Manager
     }
 
     /**
-     * match(): defined by \Zend\Framework\Route\RouteInterface
-     *
-     * @see    \Zend\Framework\Route\RouteInterface::match()
-     * @param  Request      $request
-     * @param  integer|null $pathOffset
-     * @param  array        $options
-     * @return RouteMatch|null
+     * @param Request $request
+     * @param null $pathOffset
+     * @param array $options
+     * @return null|RouteMatch
      */
     public function match(Request $request, $pathOffset = null, array $options = [])
     {
@@ -114,7 +111,8 @@ class Manager
             $this->setBaseUrl($request->getBaseUrl());
         }
 
-        $uri           = $request->getUri();
+        $uri = $request->getUri();
+
         $baseUrlLength = strlen($this->baseUrl) ?: null;
 
         if ($pathOffset !== null) {
@@ -159,7 +157,7 @@ class Manager
      */
     public function assemble(array $params = array(), array $options = array())
     {
-        return '';
+        return ''; //FIXME!!!
         if (!isset($options['name'])) {
             throw new Exception\InvalidArgumentException('Missing "name" option');
         }

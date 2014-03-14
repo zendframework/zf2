@@ -309,20 +309,6 @@ class Segment implements RouteInterface
      */
     public function match(Request $request, $pathOffset = null, array $options = array())
     {
-        return $this->__invoke($request, $pathOffset, $options);
-    }
-
-    /**
-     * @param Event $event
-     * @param null $options
-     * @return null|RouteMatch
-     * @throws \Zend\Mvc\Router\Exception\RuntimeException
-     */
-    public function __invoke(Event $event, $options = null)
-    {
-        $request    = $event->request;
-        $pathOffset = $event->baseUrlLength;
-        $options    = $event->options;
 
         if (!method_exists($request, 'getUri')) {
             return null;
@@ -367,6 +353,17 @@ class Segment implements RouteInterface
         }
 
         return new RouteMatch(array_merge($this->defaults, $params), $matchedLength);
+    }
+
+    /**
+     * @param Event $event
+     * @param null $options
+     * @return null|RouteMatch
+     * @throws \Zend\Mvc\Router\Exception\RuntimeException
+     */
+    public function __invoke(Event $event, $options = null)
+    {
+        return $this->match($event->request, $event->baseUrlLength, $event->options);
     }
 
     /**

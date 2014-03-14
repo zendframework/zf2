@@ -52,18 +52,6 @@ class Literal implements RouteInterface
      */
     public function match(Request $request, $pathOffset = null)
     {
-        return $this->__invoke($request, $pathOffset);
-    }
-
-    /**
-     * @param $event
-     * @return null|RouteMatch
-     */
-    public function __invoke($event)
-    {
-        $request = $event->request;
-        $pathOffset = $event->baseUrlLength; //pathOffset;
-
         $uri  = $request->getUri();
         $path = $uri->getPath();
 
@@ -82,6 +70,15 @@ class Literal implements RouteInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param $event
+     * @return null|RouteMatch
+     */
+    public function __invoke($event)
+    {
+        return $this->match($event->request, $event->baseUrlLength);
     }
 
     /**

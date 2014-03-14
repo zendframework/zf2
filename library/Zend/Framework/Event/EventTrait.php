@@ -12,11 +12,6 @@ namespace Zend\Framework\Event;
 trait EventTrait
 {
     /**
-     * @var string
-     */
-    protected $event;
-
-    /**
      * @var mixed
      */
     protected $source;

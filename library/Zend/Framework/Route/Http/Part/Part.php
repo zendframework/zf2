@@ -70,19 +70,6 @@ class Part
      */
     public function match(Request $request, $pathOffset = null, array $options = array())
     {
-        return $this->__invoke($request, $pathOffset, $options);
-    }
-
-    /**
-     * @param Event $event
-     * @param null $options
-     * @return mixed|null|\Zend\Mvc\Router\RouteMatch
-     */
-    public function __invoke(Event $event, $options = null)
-    {
-        $request    = $event->request;
-        $pathOffset = $event->baseUrlLength;
-        $options    = $event->options;
 
         if ($pathOffset === null) {
             $pathOffset = 0;
@@ -118,6 +105,16 @@ class Part
         }
 
         return null;
+    }
+
+    /**
+     * @param Event $event
+     * @param null $options
+     * @return mixed|null|\Zend\Mvc\Router\RouteMatch
+     */
+    public function __invoke(Event $event, $options = null)
+    {
+        return $this->match($event->request, $event->baseUrlLength, $event->options);
     }
 
     /**
