@@ -46,6 +46,7 @@ class Manager
     {
         $this->config    = $config;
         $this->router    = $config->router();
+
         $this->alias     = $this->router->plugins();
         $this->listeners = $config->listeners();
         $this->services  = $config->services();
@@ -77,19 +78,9 @@ class Manager
      * @param Request $request
      * @return mixed
      */
-    public function match(Request $request)
+    public function route(Request $request)
     {
         return $this->trigger(Event::EVENT, $request);
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $options
-     * @return null|object
-     */
-    public function route($name, $options = null)
-    {
-        return $this->create($this->alias($name), $options);
     }
 
     /**

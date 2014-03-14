@@ -28,14 +28,6 @@ class PartFactory
             throw new Exception\InvalidArgumentException('Missing "route" in options array');
         }
 
-        if (!isset($options['route_plugins'])) {
-            throw new Exception\InvalidArgumentException('Missing "route_plugins" in options array');
-        }
-
-        if (!isset($options['prototypes'])) {
-            $options['prototypes'] = null;
-        }
-
         if (!isset($options['may_terminate'])) {
             $options['may_terminate'] = false;
         }
@@ -45,11 +37,10 @@ class PartFactory
         }
 
         return new Part(
+            $this->config(),
             $options['route'],
             $options['may_terminate'],
-            $options['route_plugins'],
-            $options['child_routes'],
-            $options['prototypes']
+            $options['child_routes']
         );
     }
 }

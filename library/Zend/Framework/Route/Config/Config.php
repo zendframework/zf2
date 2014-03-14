@@ -48,6 +48,6 @@ class Config
      */
     public function routes()
     {
-        return (array) $this->get('routes');
+        return $this->get('routes');
     }
 }

@@ -29,51 +29,6 @@ trait RouteTrait
     protected $routes;
 
     /**
-     * addRoutes(): defined by RouteStackInterface interface.
-     *
-     * @see    RouteStackInterface::addRoutes()
-     * @param  array|Traversable $routes
-     * @return self
-     * @throws Exception\InvalidArgumentException
-     */
-    public function addRoutes($routes)
-    {
-        if (!is_array($routes) && !$routes instanceof Traversable) {
-            throw new Exception\InvalidArgumentException('addRoutes expects an array or Traversable set of routes');
-        }
-
-        foreach ($routes as $name => $route) {
-            $this->addRoute($name, $route);
-        }
-
-        return $this;
-    }
-
-    /**
-     * addRoute(): defined by RouteStackInterface interface.
-     *
-     * @see    RouteStackInterface::addRoute()
-     * @param  string  $name
-     * @param  mixed   $route
-     * @param  int $priority
-     * @return self
-     */
-    public function addRoute($name, $route, $priority = null)
-    {
-        if (!$route instanceof RouteInterface) {
-            $route = $this->routeFromArray($route);
-        }
-
-        if ($priority === null && isset($route->priority)) {
-            $priority = $route->priority;
-        }
-
-        $this->routes->insert($name, $route, $priority);
-
-        return $this;
-    }
-
-    /**
      * assemble(): defined by RouteInterface interface.
      *
      * @see    \Zend\Framework\Route\RouteInterface::assemble()
@@ -130,61 +85,5 @@ trait RouteTrait
     public function hasRoute($name)
     {
         return $this->routes->get($name) !== null;
-    }
-
-    /**
-     * removeRoute(): defined by RouteStackInterface interface.
-     *
-     * @see    RouteStackInterface::removeRoute()
-     * @param  string $name
-     * @return self
-     */
-    public function removeRoute($name)
-    {
-        $this->routes->remove($name);
-        return $this;
-    }
-
-    /**
-     * Create a route from array specifications.
-     *
-     * @param  array|Traversable $specs
-     * @return self
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function routeFromArray($specs)
-    {
-        if ($specs instanceof Traversable) {
-            $specs = ArrayUtils::iteratorToArray($specs);
-        } elseif (!is_array($specs)) {
-            throw new Exception\InvalidArgumentException('Route definition must be an array or Traversable object');
-        }
-
-        if (!isset($specs['type'])) {
-            throw new Exception\InvalidArgumentException('Missing "type" option');
-        } elseif (!isset($specs['options'])) {
-            $specs['options'] = array();
-        }
-
-        $route = $this->rm->route($specs['type'], $specs['options']);
-
-        if (isset($specs['priority'])) {
-            $route->priority = $specs['priority'];
-        }
-
-        return $route;
-    }
-
-    /**
-     * setRoutes(): defined by RouteStackInterface interface.
-     *
-     * @param  array|Traversable $routes
-     * @return self
-     */
-    public function setRoutes($routes)
-    {
-        $this->routes->clear();
-        $this->addRoutes($routes);
-        return $this;
     }
 }

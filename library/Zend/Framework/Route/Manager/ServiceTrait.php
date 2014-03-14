@@ -25,9 +25,9 @@ trait ServiceTrait
      * @param RequestInterface $request
      * @return mixed
      */
-    public function match(RequestInterface $request)
+    public function route(RequestInterface $request)
     {
-        return $this->rm->match($request);
+        return $this->rm->route($request);
     }
 
     /**

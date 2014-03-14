@@ -9,11 +9,12 @@
 
 namespace Zend\Framework\Route\Http;
 
-use ArrayObject;
-use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Exception;
+use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Route\Http\Manager\Manager as RoutePluginManager;
+use Zend\Framework\Route\Manager\ConfigInterface;
 use Zend\Framework\Route\PriorityList;
-use Zend\Framework\Route\Manager\Manager as RoutePluginManager;
+use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Mvc\Router\Http\RouteMatch;
@@ -22,7 +23,7 @@ use Zend\Mvc\Router\Http\RouteMatch;
  * Part route.
  */
 class Part
-    extends TreeRouteStack implements RouteInterface
+    extends RoutePluginManager implements RouteInterface
 {
     /**
      * RouteInterface to match.
@@ -48,43 +49,42 @@ class Part
     /**
      * Create a new part route.
      *
+     * @param  ConfigInterface    $config
      * @param  mixed              $route
      * @param  bool               $mayTerminate
-     * @param  RoutePluginManager $rm
      * @param  array|null         $childRoutes
-     * @param  ArrayObject|null   $prototypes
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($route, $mayTerminate, RoutePluginManager $rm, array $childRoutes = null, ArrayObject $prototypes = null)
+    public function __construct(ConfigInterface $config, $route, $mayTerminate, array $childRoutes = null)
     {
-        $this->rm = $rm;
-
-        if (!$route instanceof RouteInterface) {
-            $route = $this->routeFromArray($route);
-        }
-
-        if ($route instanceof self) {
-            throw new Exception\InvalidArgumentException('Base route may not be a part route');
-        }
-
+        parent::__construct($config);
         $this->route        = $route;
         $this->mayTerminate = $mayTerminate;
         $this->childRoutes  = $childRoutes;
-        $this->prototypes   = $prototypes;
-        $this->routes       = new PriorityList();
     }
 
     /**
-     * match(): defined by RouteInterface interface.
-     *
-     * @see    \Zend\Framework\Route\RouteInterface::match()
-     * @param  Request      $request
-     * @param  integer|null $pathOffset
-     * @param  array        $options
-     * @return RouteMatch|null
+     * @param Request $request
+     * @param null $pathOffset
+     * @param array $options
+     * @return null|RouteMatch|\Zend\Mvc\Router\RouteMatch
      */
     public function match(Request $request, $pathOffset = null, array $options = array())
     {
+        return $this->__invoke($request, $pathOffset, $options);
+    }
+
+    /**
+     * @param Event $event
+     * @param null $options
+     * @return mixed|null|\Zend\Mvc\Router\RouteMatch
+     */
+    public function __invoke(Event $event, $options = null)
+    {
+        $request    = $event->request;
+        $pathOffset = $event->baseUrlLength;
+        $options    = $event->options;
+
         if ($pathOffset === null) {
             $pathOffset = 0;
         }
@@ -109,7 +109,7 @@ class Part
                 }
             }
 
-            foreach ($this->routes as $name => $route) {
+            foreach ($this->listeners as $name => $route) {
                 if (($subMatch = $route->match($request, $nextOffset, $options)) instanceof RouteMatch) {
                     if ($match->getLength() + $subMatch->getLength() + $pathOffset === $pathLength) {
                         return $match->merge($subMatch)->setMatchedRouteName($name);
@@ -177,7 +177,7 @@ class Part
      */
     protected function hasQueryChild()
     {
-        foreach ($this->routes as $route) {
+        foreach ($this->listeners as $route) {
             if ($route instanceof HttpRouteInterface) {
                 return true;
             }

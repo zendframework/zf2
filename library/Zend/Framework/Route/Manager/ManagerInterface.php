@@ -18,14 +18,7 @@ interface ManagerInterface
      * @param Request $request
      * @return mixed
      */
-    public function match(Request $request);
-
-    /**
-     * @param string $name
-     * @param mixed $options
-     * @return null|object
-     */
-    public function route($name, $options = null);
+    public function route(Request $request);
 
     /**
      * @return ConfigInterface

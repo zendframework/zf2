@@ -7,14 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Http;
+namespace Zend\Framework\Route\Http\Manager;
 
 use Zend\Framework\Route\Manager\ServicesTrait as Route;
-use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\Factory\Factory as FactoryService;
 use Zend\Framework\Service\RequestInterface as Request;
 
-class TreeRouteStackFactory
-    extends Factory
+class Factory
+    extends FactoryService
 {
     /**
      *
@@ -24,18 +24,10 @@ class TreeRouteStackFactory
     /**
      * @param Request $request
      * @param array $options
-     * @return TreeRouteStack
+     * @return Manager
      */
     public function __invoke(Request $request, array $options = [])
     {
-        $rm = $this->routeManager();
-
-        $router = new TreeRouteStack;
-
-        $router->setRouteManager($rm)
-               ->addRoutes($this->config()->router()->routes())
-               ->setDefaultParams($this->config()->router()->defaultParams());
-
-        return $router;
+        return new Manager($this->config());
     }
 }

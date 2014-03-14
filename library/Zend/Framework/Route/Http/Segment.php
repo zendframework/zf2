@@ -301,17 +301,29 @@ class Segment implements RouteInterface
     }
 
     /**
-     * match(): defined by RouteInterface interface.
-     *
-     * @see    \Zend\Mvc\Router\RouteInterface::match()
-     * @param  Request     $request
-     * @param  string|null $pathOffset
-     * @param  array       $options
-     * @return RouteMatch|null
-     * @throws Exception\RuntimeException
+     * @param Request $request
+     * @param null $pathOffset
+     * @param array $options
+     * @return null|RouteMatch|\Zend\Mvc\Router\RouteMatch
+     * @throws \Zend\Mvc\Router\Exception\RuntimeException
      */
     public function match(Request $request, $pathOffset = null, array $options = array())
     {
+        return $this->__invoke($request, $pathOffset, $options);
+    }
+
+    /**
+     * @param Event $event
+     * @param null $options
+     * @return null|RouteMatch
+     * @throws \Zend\Mvc\Router\Exception\RuntimeException
+     */
+    public function __invoke(Event $event, $options = null)
+    {
+        $request    = $event->request;
+        $pathOffset = $event->baseUrlLength;
+        $options    = $event->options;
+
         if (!method_exists($request, 'getUri')) {
             return null;
         }

@@ -46,18 +46,23 @@ class Literal implements RouteInterface
     }
 
     /**
-     * match(): defined by RouteInterface interface.
-     *
-     * @see    \Zend\Framework\Route\RouteInterface::match()
-     * @param  Request      $request
-     * @param  integer|null $pathOffset
-     * @return RouteMatch|null
+     * @param Request $request
+     * @param null $pathOffset
+     * @return null|RouteMatch
      */
     public function match(Request $request, $pathOffset = null)
     {
-        if (!method_exists($request, 'getUri')) {
-            return null;
-        }
+        return $this->__invoke($request, $pathOffset);
+    }
+
+    /**
+     * @param $event
+     * @return null|RouteMatch
+     */
+    public function __invoke($event)
+    {
+        $request = $event->request;
+        $pathOffset = $event->baseUrlLength; //pathOffset;
 
         $uri  = $request->getUri();
         $path = $uri->getPath();

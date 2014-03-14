@@ -54,16 +54,12 @@ class PriorityList
      * @param  int $priority
      * @return void
      */
-    public function insert($name, RouteInterface $route, $priority)
+    public function insert($name, $route, $priority = 0)
     {
         $this->sorted = false;
         $this->count++;
 
-        $this->routes[$name] = [
-            'route'    => $route,
-            'priority' => (int) $priority,
-            'serial'   => $this->serial++,
-        ];
+        $this->routes[$name][$priority] = $route;
     }
 
     /**
@@ -108,7 +104,7 @@ class PriorityList
             return null;
         }
 
-        return $this->routes[$name]['route'];
+        return $this->routes[$name][0];
     }
 
     /**
@@ -131,6 +127,8 @@ class PriorityList
      */
     protected function compare(array $route1, array $route2)
     {
+        return -1;
+
         if ($route1['priority'] === $route2['priority']) {
             return ($route1['serial'] > $route2['serial'] ? -1 : 1);
         }
