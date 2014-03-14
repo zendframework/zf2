@@ -178,11 +178,24 @@ class RedirectTest extends TestCase
         $this->assertEquals('/', $location->getFieldValue());
     }
 
-    public function testPluginWithCustomStatusCode()
+    public function testPluginCanRedirectToRouteWithCustomStatusCode()
     {
-        $controller = new SampleController();
-        $plugin     = $controller->plugin('redirect');
-        $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose');
-        $plugin->toRoute('home', array(), array(), false, 301);
+        $response = $this->plugin->toRoute('home', array(), array(), false, 301);
+        $this->assertTrue($response->isRedirect());
+        $headers = $response->getHeaders();
+        $location = $headers->get('Location');
+        $this->assertEquals('/', $location->getFieldValue());
+        $this->assertEquals(301, $response->getStatusCode());
     }
+
+    public function testPluginCanRedirectToUrlWithCustomStatusCode()
+    {
+        $response = $this->plugin->toUrl('/foo', 301);
+        $this->assertTrue($response->isRedirect());
+        $headers = $response->getHeaders();
+        $location = $headers->get('Location');
+        $this->assertEquals('/foo', $location->getFieldValue());
+        $this->assertEquals(301, $response->getStatusCode());
+    }
+
 }
