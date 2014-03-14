@@ -9,12 +9,18 @@
 
 namespace Zend\Framework\Route\Manager;
 
+use Zend\Framework\Route\Manager\ServicesTrait as Route;
 use Zend\Framework\Service\Factory\Factory as FactoryService;
 use Zend\Framework\Service\RequestInterface as Request;
 
 class Factory
     extends FactoryService
 {
+    /**
+     *
+     */
+    use Route;
+
     /**
      * @param Request $request
      * @param array $options

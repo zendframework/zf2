@@ -11,7 +11,7 @@ namespace Zend\Framework\Route\Http\Part;
 
 use Zend\Mvc\Router\Exception;
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Framework\Route\Http\Manager\Manager as RoutePluginManager;
+use Zend\Framework\Route\Manager\Manager as RoutePluginManager;
 use Zend\Framework\Route\Manager\ConfigInterface;
 use Zend\Framework\Route\PriorityList;
 use Zend\Framework\Route\RouteInterface;

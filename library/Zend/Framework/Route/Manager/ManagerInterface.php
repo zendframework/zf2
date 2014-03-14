@@ -10,15 +10,24 @@
 namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Route\Config\ConfigInterface;
-use Zend\Stdlib\RequestInterface as Request;
+use Zend\Stdlib\RequestInterface;
 
 interface ManagerInterface
 {
     /**
-     * @param Request $request
+     * @param RequestInterface $request
+     * @param null $pathOffset
+     * @param array $options
      * @return mixed
      */
-    public function route(Request $request);
+    public function match(RequestInterface $request, $pathOffset = null, array $options = []);
+
+    /**
+     * @param string $name
+     * @param null $options
+     * @return mixed
+     */
+    public function route($name, $options = null);
 
     /**
      * @return ConfigInterface

@@ -26,8 +26,7 @@ class Manager
     /**
      *
      */
-    use Alias,
-        EventGenerator,
+    use EventGenerator,
         EventManager,
         Factory,
         ServiceManager;
@@ -43,8 +42,6 @@ class Manager
     public function __construct(ConfigInterface $config)
     {
         $this->config    = $config;
-        $this->router    = $config->router();
-        $this->alias     = $this->router->plugins();
         $this->listeners = $config->listeners();
         $this->services  = $config->services();
     }

@@ -9,9 +9,6 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Framework\Route\RouteInterface as Router;
-
 trait ServicesTrait
 {
     /**
@@ -20,31 +17,5 @@ trait ServicesTrait
     public function routeManager()
     {
         return $this->sm->get('Route\Manager');
-    }
-
-    /**
-     * @return Router
-     */
-    public function router()
-    {
-        return $this->sm->get('Router');
-    }
-
-    /**
-     * @return null|RouteMatch
-     */
-    public function routeMatch()
-    {
-        return $this->sm->get('Route\Match');
-    }
-
-    /**
-     * @param RouteMatch $routeMatch
-     * @return self
-     */
-    public function setRouteMatch(RouteMatch $routeMatch)
-    {
-        $this->sm->add('Route\Match', $routeMatch);
-        return $this;
     }
 }

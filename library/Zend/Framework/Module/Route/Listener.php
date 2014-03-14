@@ -10,7 +10,7 @@
 namespace Zend\Framework\Module\Route;
 
 use Zend\Framework\Route\Match\EventInterface;
-use Zend\Mvc\Router\Http\RouteMatch;
+use Zend\Mvc\Router\RouteMatch;
 
 class Listener
     implements ListenerInterface

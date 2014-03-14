@@ -16,8 +16,8 @@ trait ConfigTrait
     /**
      * @return ConfigInterface
      */
-    public function router()
+    public function routes()
     {
-        return $this->get('router');
+        return $this->get('routes');
     }
 }

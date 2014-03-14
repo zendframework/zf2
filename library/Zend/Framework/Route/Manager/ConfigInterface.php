@@ -11,7 +11,7 @@ namespace Zend\Framework\Route\Manager;
 
 use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Event\Config\ConfigInterface as Listeners;
-use Zend\Framework\Route\Config\ConfigInterface as Router;
+use Zend\Framework\Route\Config\ConfigInterface as Routes;
 use Zend\Framework\Service\Config\ConfigInterface as Services;
 
 interface ConfigInterface
@@ -23,9 +23,9 @@ interface ConfigInterface
     public function listeners();
 
     /**
-     * @return Router
+     * @return Routes
      */
-    public function router();
+    public function routes();
 
     /**
      * @return Services

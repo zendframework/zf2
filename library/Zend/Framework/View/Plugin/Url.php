@@ -35,7 +35,7 @@ class Url
             $this->setRouteMatch($routeMatch);
         }
 
-        $this->setRouter($sm->get('Router'));
+        $this->setRouter($sm->get('Route\Manager'));
     }
 
     /**

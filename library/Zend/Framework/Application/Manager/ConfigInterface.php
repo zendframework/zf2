@@ -13,7 +13,7 @@ use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Controller\Config\ConfigInterface as Controllers;
 use Zend\Framework\Event\Config\ConfigInterface as Listeners;
 use Zend\Framework\I18n\Translator\Config\ConfigInterface as Translator;
-use Zend\Framework\Route\Config\ConfigInterface as Router;
+use Zend\Framework\Route\Config\ConfigInterface as Routes;
 use Zend\Framework\Service\Config\ConfigInterface as Services;
 use Zend\Framework\View\Config\ConfigInterface as View;
 
@@ -31,9 +31,9 @@ interface ConfigInterface
     public function listeners();
 
     /**
-     * @return Router
+     * @return Routes
      */
-    public function router();
+    public function routes();
 
     /**
      * @return Services
