@@ -9,17 +9,17 @@
 
 namespace Zend\Framework\Route\Http;
 
-use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\Factory\Factory as FactoryService;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Mvc\Router\Exception;
 
-class PartFactory
-    extends Factory
+class Factory
+    extends FactoryService
 {
     /**
      * @param Request $request
      * @param array $options
-     * @return mixed|void|Part
+     * @return Segment
      * @throws Exception\InvalidArgumentException
      */
     public function __invoke(Request $request, array $options = [])
@@ -28,19 +28,14 @@ class PartFactory
             throw new Exception\InvalidArgumentException('Missing "route" in options array');
         }
 
-        if (!isset($options['may_terminate'])) {
-            $options['may_terminate'] = false;
+        if (!isset($options['constraints'])) {
+            $options['constraints'] = array();
         }
 
-        if (!isset($options['child_routes']) || !$options['child_routes']) {
-            $options['child_routes'] = null;
+        if (!isset($options['defaults'])) {
+            $options['defaults'] = array();
         }
 
-        return new Part(
-            $this->config(),
-            $options['route'],
-            $options['may_terminate'],
-            $options['child_routes']
-        );
+        return new Segment($options['route'], $options['constraints'], $options['defaults']);
     }
 }

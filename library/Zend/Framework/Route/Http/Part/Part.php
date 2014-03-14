@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Http;
+namespace Zend\Framework\Route\Http\Part;
 
 use Zend\Mvc\Router\Exception;
 use Zend\Framework\Event\EventInterface as Event;

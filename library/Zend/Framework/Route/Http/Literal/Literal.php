@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Http;
+namespace Zend\Framework\Route\Http\Literal;
 
 use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Exception;

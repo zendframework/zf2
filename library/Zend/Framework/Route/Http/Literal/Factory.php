@@ -7,14 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Http;
+namespace Zend\Framework\Route\Http\Literal;
 
-use Zend\Framework\Service\Factory\Factory;
+use Zend\Framework\Service\Factory\Factory as FactoryService;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Mvc\Router\Exception;
 
-class LiteralFactory
-    extends Factory
+class Factory
+    extends FactoryService
 {
     /**
      * @param Request $request
