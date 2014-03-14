@@ -9,30 +9,21 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use ArrayObject;
-use Traversable;
-use Zend\Mvc\Router\Exception;
-use Zend\Framework\Route\Stack\Listener as SimpleRouteStack;
-use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Uri\Http as HttpUri;
-use Zend\Mvc\Router\Http\RouteMatch;
-
 use Zend\Framework\Event\Config\ConfigInterface as RoutesConfigInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Route\Http\EventInterface as Event;
+use Zend\Framework\Route\EventInterface as Event;
 use Zend\Framework\Route\RouteInterface;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
-use Zend\Framework\Route\PriorityList;
+use Zend\Mvc\Router\Exception;
+use Zend\Mvc\Router\Http\RouteMatch;
+use Zend\Stdlib\RequestInterface as Request;
+use Zend\Uri\Http as HttpUri;
 
-/**
- * Tree search implementation.
- */
 class Manager
     implements EventManagerInterface, ManagerInterface, RouteInterface, ServiceManagerInterface
 {

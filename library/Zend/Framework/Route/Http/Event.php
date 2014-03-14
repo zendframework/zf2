@@ -10,6 +10,7 @@
 namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
+use Zend\Framework\Route\EventInterface;
 use Zend\Framework\Route\Match\ServiceTrait as RouteMatchTrait;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
 
@@ -21,6 +22,11 @@ class Event
      */
     use EventTrait,
         RouteMatchTrait;
+
+    /**
+     *
+     */
+    protected $name = 'Event\Route\Http';
 
     /**
      * @param $request

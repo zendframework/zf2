@@ -13,7 +13,6 @@ use Zend\Mvc\Router\Exception;
 use Zend\Framework\Event\EventInterface as Event;
 use Zend\Framework\Route\Manager\Manager as RoutePluginManager;
 use Zend\Framework\Route\Manager\ConfigInterface;
-use Zend\Framework\Route\PriorityList;
 use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
 use Zend\Stdlib\RequestInterface as Request;

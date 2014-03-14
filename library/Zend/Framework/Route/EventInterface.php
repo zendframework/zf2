@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Http;
+namespace Zend\Framework\Route;
 
 use Zend\Framework\Event\EventInterface as Event;
 
@@ -17,5 +17,5 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Event\Route\Http';
+    const EVENT = 'Event\Route';
 }
