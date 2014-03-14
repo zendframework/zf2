@@ -177,4 +177,12 @@ class RedirectTest extends TestCase
         $location = $headers->get('Location');
         $this->assertEquals('/', $location->getFieldValue());
     }
+
+    public function testPluginWithCustomStatusCode()
+    {
+        $controller = new SampleController();
+        $plugin     = $controller->plugin('redirect');
+        $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'event compose');
+        $plugin->toRoute('home', array(), array(), false, 301);
+    }
 }

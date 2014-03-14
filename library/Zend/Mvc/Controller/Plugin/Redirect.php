@@ -14,9 +14,6 @@ use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
 
-/**
- * @todo       allow specifying status code as a default, or as an option to methods
- */
 class Redirect extends AbstractPlugin
 {
     protected $event;
@@ -29,11 +26,12 @@ class Redirect extends AbstractPlugin
      * @param  array $params Parameters to use in url generation, if any
      * @param  array $options RouteInterface-specific options to use in url generation, if any
      * @param  bool $reuseMatchedParams Whether to reuse matched parameters
+     * @param  int $statusCode Status code sended
      * @return Response
      * @throws Exception\DomainException if composed controller does not implement InjectApplicationEventInterface, or
      *         router cannot be found in controller event
      */
-    public function toRoute($route = null, $params = array(), $options = array(), $reuseMatchedParams = false)
+    public function toRoute($route = null, $params = array(), $options = array(), $reuseMatchedParams = false, $statusCode = 302)
     {
         $controller = $this->getController();
         if (!$controller || !method_exists($controller, 'plugin')) {
@@ -48,20 +46,21 @@ class Redirect extends AbstractPlugin
             $url = $urlPlugin->fromRoute($route, $params, $options, $reuseMatchedParams);
         }
 
-        return $this->toUrl($url);
+        return $this->toUrl($url, $statusCode);
     }
 
     /**
      * Redirect to the given URL
      *
      * @param  string $url
+     * @param  int $statusCode Status code sended
      * @return Response
      */
-    public function toUrl($url)
+    public function toUrl($url, $statusCode = 302)
     {
         $response = $this->getResponse();
         $response->getHeaders()->addHeaderLine('Location', $url);
-        $response->setStatusCode(302);
+        $response->setStatusCode($statusCode);
         return $response;
     }
 
