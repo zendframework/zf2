@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route\Http;
 
+use Zend\Framework\Route\Http\EventInterface;
 use Zend\Framework\Route\RouteInterface;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Router\Exception;
@@ -414,13 +415,12 @@ class Segment implements RouteInterface
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @param null $options
-     * @return null|RouteMatch
-     * @throws \Zend\Mvc\Router\Exception\RuntimeException
+     * @return RouteMatch
      */
-    public function __invoke(Event $event, $options = null)
+    public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->match($event->request, $event->baseUrlLength, $event->options);
+        return $this->match($event->request(), $event->baseUrlLength(), $event->options());
     }
 }

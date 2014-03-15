@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\Http\Part;
 
 use Zend\Mvc\Router\Exception;
-use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Route\Http\EventInterface;
 use Zend\Framework\Route\Manager\Manager as RoutePluginManager;
 use Zend\Framework\Route\Manager\ConfigInterface;
 use Zend\Framework\Route\RouteInterface;
@@ -160,12 +160,12 @@ class Part
     }
 
     /**
-     * @param Event $event
+     * @param EventInterface $event
      * @param null $options
-     * @return mixed|null|\Zend\Mvc\Router\RouteMatch
+     * @return RouteMatch
      */
-    public function __invoke(Event $event, $options = null)
+    public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->match($event->request, $event->baseUrlLength, $event->options);
+        return $this->match($event->request(), $event->baseUrlLength(), $event->options());
     }
 }

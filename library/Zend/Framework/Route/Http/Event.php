@@ -9,10 +9,9 @@
 
 namespace Zend\Framework\Route\Http;
 
-use Zend\Framework\Event\EventTrait as EventTrait;
-use Zend\Framework\Route\EventInterface;
 use Zend\Framework\Route\Match\ServiceTrait as RouteMatchTrait;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
+use Zend\Stdlib\RequestInterface as Request;
 
 class Event
     implements EventInterface
@@ -24,17 +23,12 @@ class Event
         RouteMatchTrait;
 
     /**
-     *
+     * @param Request $request
+     * @param int $baseUrlLength
+     * @param int $pathLength
+     * @param null|array $options
      */
-    protected $event = 'Event\Route\Http';
-
-    /**
-     * @param $request
-     * @param $baseUrlLength
-     * @param $pathLength
-     * @param $options
-     */
-    public function __construct($request, $baseUrlLength, $pathLength, $options)
+    public function __construct(Request $request, $baseUrlLength, $pathLength, $options)
     {
         $this->request       = $request;
         $this->baseUrlLength = $baseUrlLength;
@@ -51,23 +45,25 @@ class Event
     {
         $response = $listener($this, $options);
 
-        if ($response instanceof RouteMatch) {
-
-            $this->setRouteMatch($response);
-
-            if ($this->pathLength === null || $response->getLength() === $this->pathLength) {
-
-                //$response->setMatchedRouteName($name);
-
-                //foreach ($this->defaultParams as $paramName => $value) {
-                    //if ($response->getParam($paramName) === null) {
-                        //$response->setParam($paramName, $value);
-                    //}
-                //}
-
-                $this->stop();
-            }
+        if (!$response instanceof RouteMatch) {
+            return $response;
         }
+
+        $this->setRouteMatch($response);
+
+        if ($this->pathLength === null || $response->getLength() === $this->pathLength) {
+
+            //$response->setMatchedRouteName($name);
+
+            //foreach ($this->defaultParams as $paramName => $value) {
+                //if ($response->getParam($paramName) === null) {
+                    //$response->setParam($paramName, $value);
+                //}
+            //}
+
+            $this->stop();
+        }
+
 
         return $response;
     }

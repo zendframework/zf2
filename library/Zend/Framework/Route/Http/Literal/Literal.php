@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route\Http\Literal;
 
+use Zend\Framework\Route\Http\EventInterface;
 use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
@@ -88,11 +89,11 @@ class Literal implements RouteInterface
     }
 
     /**
-     * @param $event
+     * @param EventInterface $event
      * @return null|RouteMatch
      */
-    public function __invoke($event)
+    public function __invoke(EventInterface $event)
     {
-        return $this->match($event->request, $event->baseUrlLength);
+        return $this->match($event->request(), $event->baseUrlLength());
     }
 }

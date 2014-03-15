@@ -40,6 +40,6 @@ trait ManagerTrait
      */
     public function trigger($event, $options = null)
     {
-        return $this->__invoke($this->event($event), $options);
+        return $this->generate($this->event($event), $options);
     }
 }

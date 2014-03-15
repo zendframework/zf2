@@ -69,7 +69,7 @@ class Manager
      */
     protected function event($event)
     {
-        return $event instanceof Event ? $event : $this->create($event);
+        return is_object($event) ? $event : $this->create($event);
     }
 
     /**
@@ -150,7 +150,7 @@ class Manager
 
         $names = explode('/', $options['name'], 2);
 
-        $route = $this->listeners->get('Event\Route\Http')[$names[0]];
+        $route = $this->listeners->get(Event::EVENT)[$names[0]];
 
         $route = $this->route($route['type'], $route['options']);
 
