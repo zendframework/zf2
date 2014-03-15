@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route;
 
+use Generator;
 use Zend\Framework\Event\Config\ConfigTrait as ConfigTrait;
 
 class Config

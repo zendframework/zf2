@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Event\Config;
 
+use Generator;
 use Zend\Framework\Config\ConfigTrait as Config;
 
 trait ConfigTrait
