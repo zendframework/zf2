@@ -39,8 +39,6 @@ class Manager
     }
 
     /**
-     * Retrieve event from service manager
-     *
      * @param array|EventInterface|string $event
      * @return EventInterface
      */
@@ -50,8 +48,6 @@ class Manager
     }
 
     /**
-     * Retrieve listener from service manager
-     *
      * @param array|callable|string $listener
      * @return callable
      */

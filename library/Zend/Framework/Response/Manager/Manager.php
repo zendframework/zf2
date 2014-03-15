@@ -47,8 +47,6 @@ class Manager
     }
 
     /**
-     * Retrieve event from service manager
-     *
      * @param array|Event|string $event
      * @return Event
      */
@@ -58,8 +56,6 @@ class Manager
     }
 
     /**
-     * Retrieve listener from service manager
-     *
      * @param array|callable|string $listener
      * @return callable
      */
