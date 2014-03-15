@@ -121,9 +121,8 @@ class Part
      * @param array $options
      * @return null|RouteMatch|\Zend\Mvc\Router\RouteMatch
      */
-    public function match(Request $request, $pathOffset = null, array $options = array())
+    public function match(Request $request, $pathOffset = null, array $options = [])
     {
-
         if ($pathOffset === null) {
             $pathOffset = 0;
         }
@@ -167,6 +166,6 @@ class Part
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->match($event->request(), $event->baseUrlLength(), $event->options());
+        return $this->match($event->request(), $event->baseUrlLength(), $options);
     }
 }

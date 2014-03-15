@@ -21,11 +21,6 @@ interface EventInterface
     public function baseUrlLength();
 
     /**
-     * @return array
-     */
-    public function options();
-
-    /**
      * @return int
      */
     public function pathLength();

@@ -20,11 +20,13 @@ trait ServiceTrait
 
     /**
      * @param RequestInterface $request
+     * @param int $pathOffset
+     * @param null $options
      * @return mixed
      */
-    public function match(RequestInterface $request)
+    public function match(RequestInterface $request, $pathOffset, $options = null)
     {
-        return $this->rm->match($request);
+        return $this->rm->match($request, $pathOffset, $options);
     }
 
     /**

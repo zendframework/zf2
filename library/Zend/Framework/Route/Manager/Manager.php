@@ -131,28 +131,14 @@ class Manager
 
     /**
      * @param Request $request
+     * @param null $baseUrlLength
      * @param null $pathOffset
-     * @param array $options
+     * @param null $options
      * @return null|RouteMatch
      */
-    public function match(Request $request, $pathOffset = null, array $options = [])
+    public function match(Request $request, $baseUrlLength = null, $pathOffset = null, $options = null)
     {
-        $baseUrl = $request->getBaseUrl();
-        $uri = $request->getUri();
-
-        $baseUrlLength = strlen($baseUrl) ?: null;
-
-        if ($pathOffset !== null) {
-            $baseUrlLength += $pathOffset;
-        }
-
-        if ($baseUrlLength !== null) {
-            $pathLength = strlen($uri->getPath()) - $baseUrlLength;
-        } else {
-            $pathLength = null;
-        }
-
-        return $this->trigger([Event::EVENT, $request, $baseUrlLength, $pathLength, $options]);
+        return $this->trigger([Event::EVENT, $request, $baseUrlLength, $pathOffset], $options);
     }
 
     /**

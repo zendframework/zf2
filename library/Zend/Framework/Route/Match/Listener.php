@@ -22,11 +22,20 @@ class Listener
 
     /**
      * @param EventInterface $event
-     * @param mixed $request
+     * @param null $options
      * @return RouteMatch
      */
-    public function __invoke(EventInterface $event, $request)
+    public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->match($event->request());
+        $request = $event->request();
+        $baseUrl = $request->getBaseUrl();
+        $uri     = $request->getUri();
+
+        $baseUrlLength = strlen($baseUrl);
+        $pathLength    = strlen($uri->getPath()) ? : null;
+
+        $pathOffset = $baseUrlLength ? $pathLength - $baseUrlLength : null;
+
+        return $this->match($event->request(), $pathOffset, $options);
     }
 }

@@ -35,24 +35,11 @@ trait EventTrait
     protected $pathLength;
 
     /**
-     * @var array
-     */
-    protected $options;
-
-    /**
      * @return null|int
      */
     public function baseUrlLength()
     {
         return $this->baseUrlLength;
-    }
-
-    /**
-     * @return null|array
-     */
-    public function options()
-    {
-        return $this->options;
     }
 
     /**

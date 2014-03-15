@@ -26,14 +26,12 @@ class Event
      * @param Request $request
      * @param int $baseUrlLength
      * @param int $pathLength
-     * @param null|array $options
      */
-    public function __construct(Request $request, $baseUrlLength, $pathLength, $options)
+    public function __construct(Request $request, $baseUrlLength, $pathLength)
     {
         $this->request       = $request;
         $this->baseUrlLength = $baseUrlLength;
         $this->pathLength    = $pathLength;
-        $this->options       = $options;
     }
 
     /**
