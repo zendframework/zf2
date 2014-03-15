@@ -9,16 +9,17 @@
 
 namespace Zend\Framework\Route\Http\Literal;
 
+use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Http\EventInterface;
-use Zend\Framework\Route\RouteInterface;
+use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 
-class Literal implements RouteInterface
+class Literal implements AssembleInterface, RouteMatchInterface
 {
     /**
-     * RouteInterface to match.
+     * RouteMatchInterface to match.
      *
      * @var string
      */

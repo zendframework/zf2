@@ -7,15 +7,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Route\Match;
 
-use Zend\Framework\Event\Config\ConfigTrait as ConfigTrait;
+use Zend\Mvc\Router\RouteMatch as RouteMatch;
+use Zend\Stdlib\RequestInterface as Request;
 
-class Config
-    implements ConfigInterface
+interface MatchInterface
 {
     /**
-     *
+     * @param  Request $request
+     * @return RouteMatch
      */
-    use ConfigTrait;
+    public function match(Request $request);
 }

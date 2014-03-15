@@ -9,8 +9,8 @@
 
 namespace Zend\Framework\Route\Http;
 
-use Zend\Framework\Route\Http\EventInterface;
-use Zend\Framework\Route\RouteInterface;
+use Zend\Framework\Route\Assemble\AssembleInterface;
+use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
@@ -19,7 +19,7 @@ use Zend\Stdlib\RequestInterface as Request;
 /**
  * Segment route.
  */
-class Segment implements RouteInterface
+class Segment implements AssembleInterface, RouteMatchInterface
 {
     /**
      * Cache for the encode output.
@@ -117,12 +117,9 @@ class Segment implements RouteInterface
     }
 
     /**
-     * assemble(): Defined by RouteInterface interface.
-     *
-     * @see    \Zend\Mvc\Router\RouteInterface::assemble()
-     * @param  array $params
-     * @param  array $options
-     * @return mixed
+     * @param array $params
+     * @param array $options
+     * @return mixed|string
      */
     public function assemble(array $params = array(), array $options = array())
     {
@@ -285,9 +282,6 @@ class Segment implements RouteInterface
     }
 
     /**
-     * getAssembledParams(): defined by RouteInterface interface.
-     *
-     * @see    RouteInterface::getAssembledParams
      * @return array
      */
     public function getAssembledParams()

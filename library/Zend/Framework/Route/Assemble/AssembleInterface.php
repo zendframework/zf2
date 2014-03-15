@@ -7,27 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route;
+namespace Zend\Framework\Route\Assemble;
 
-use Zend\Mvc\Router\RouteMatch as RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
-
-/**
- * RouteInterface interface.
- */
-interface RouteInterface
+interface AssembleInterface
 {
     /**
-     * Match a given request.
-     *
-     * @param  Request $request
-     * @return RouteMatch
-     */
-    public function match(Request $request);
-
-    /**
-     * Assemble the route.
-     *
      * @param  array $params
      * @param  array $options
      * @return mixed

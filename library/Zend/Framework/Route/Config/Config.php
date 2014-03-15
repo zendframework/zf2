@@ -22,25 +22,25 @@ class Config
     /**
      * @return array
      */
-    public function defaultParams()
+    public function aliases()
     {
-        return (array) $this->get('default_params');
+        return $this->get('plugins');
     }
 
     /**
      * @return array
      */
-    public function plugins()
+    public function defaultParams()
     {
-        return $this->get('route_plugins');
+        return $this->get('default_params');
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function routeClass()
+    public function listeners()
     {
-        return $this->get('router_class');
+        return $this->get('listeners');
     }
 
     /**

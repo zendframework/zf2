@@ -10,10 +10,15 @@
 namespace Zend\Framework\Route\Config;
 
 use Zend\Framework\Config\ConfigInterface as Serializable;
+use Zend\Framework\Route\ConfigInterface as RouteConfigInterface;
 
 interface ConfigInterface
     extends Serializable
 {
+    /**
+     * @return array
+     */
+    public function aliases();
 
     /**
      * @return array
@@ -21,14 +26,9 @@ interface ConfigInterface
     public function defaultParams();
 
     /**
-     * @return array
+     * @return RouteConfigInterface
      */
-    public function plugins();
-
-    /**
-     * @return string
-     */
-    public function routeClass();
+    public function listeners();
 
     /**
      * @return array

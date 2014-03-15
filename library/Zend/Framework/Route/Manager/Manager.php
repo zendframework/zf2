@@ -13,8 +13,10 @@ use Zend\Framework\Event\Config\ConfigInterface as RoutesConfigInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
+use Zend\Framework\Route\Assemble\AssembleInterface;
+use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
 use Zend\Framework\Route\EventInterface as Event;
-use Zend\Framework\Route\RouteInterface;
+use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
@@ -25,7 +27,7 @@ use Zend\Stdlib\RequestInterface as Request;
 use Zend\Uri\Http as HttpUri;
 
 class Manager
-    implements EventManagerInterface, ManagerInterface, RouteInterface, ServiceManagerInterface
+    implements AssembleInterface, EventManagerInterface, ManagerInterface, RouteMatchInterface, ServiceManagerInterface
 {
     /**
      *
@@ -51,15 +53,21 @@ class Manager
     protected $requestUri;
 
     /**
+     * @var RouteConfigInterface
+     */
+    protected $routes;
+
+    /**
      * @param ConfigInterface $config
      */
     public function __construct(ConfigInterface $config)
     {
         $routes = $config->routes();
 
-        $this->alias     = $routes->plugins();
+        $this->alias     = $routes->aliases();
         $this->config    = $config;
-        $this->listeners = $routes->routes();
+        $this->listeners = $routes->listeners();
+        $this->routes    = $routes;
         $this->services  = $config->services();
     }
 
@@ -78,7 +86,13 @@ class Manager
      */
     protected function listener($listener)
     {
-        return is_callable($listener) ? $listener : $this->route($listener['type'], $listener['options']);
+        if (is_callable($listener)) {
+            return $listener;
+        }
+
+        $listener = $this->routes->routes()->get($listener);
+
+        return $this->route($listener['type'], $listener['options']);
     }
 
     /**
@@ -129,18 +143,15 @@ class Manager
      */
     public function routes()
     {
-        $this->listeners;
+        $this->routes;
     }
 
     /**
-     * assemble(): defined by \Zend\Framework\Route\RouteInterface interface.
-     *
-     * @see    \Zend\Framework\Route\RouteInterface::assemble()
-     * @param  array $params
-     * @param  array $options
-     * @return mixed
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\RuntimeException
+     * @param array $params
+     * @param array $options
+     * @return mixed|string
+     * @throws \Zend\Mvc\Router\Exception\InvalidArgumentException
+     * @throws \Zend\Mvc\Router\Exception\RuntimeException
      */
     public function assemble(array $params = [], array $options = [])
     {
@@ -150,7 +161,7 @@ class Manager
 
         $names = explode('/', $options['name'], 2);
 
-        $route = $this->listeners->get(Event::EVENT)[$names[0]];
+        $route = $this->routes->routes()->get($names[0]);
 
         $route = $this->route($route['type'], $route['options']);
 

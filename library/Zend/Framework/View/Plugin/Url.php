@@ -10,7 +10,7 @@
 namespace Zend\Framework\View\Plugin;
 
 use Traversable;
-use Zend\Framework\Route\RouteInterface;
+use Zend\Framework\Route\Manager\ManagerInterface as RouteManagerInterface;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManager;
 use Zend\Framework\Service\ServiceInterface;
 use Zend\Mvc\ModuleRouteListener;
@@ -35,18 +35,16 @@ class Url
             $this->setRouteMatch($routeMatch);
         }
 
-        $this->setRouter($sm->get('Route\Manager'));
+        $this->setRouteManager($sm->get('Route\Manager'));
     }
 
     /**
-     * RouteInterface instance.
-     *
-     * @var RouteInterface
+     * @var RouteManagerInterface
      */
-    protected $router;
+    protected $rm;
 
     /**
-     * RouteInterface match returned by the router.
+     * RouteMatchInterface match returned by the router.
      *
      * @var RouteMatch.
      */
@@ -68,7 +66,7 @@ class Url
      */
     public function __invoke($name = null, $params = array(), $options = array(), $reuseMatchedParams = false)
     {
-        if (null === $this->router) {
+        if (null === $this->rm) {
             throw new Exception\RuntimeException('No RouteInterface instance provided');
         }
 
@@ -115,18 +113,18 @@ class Url
 
         $options['name'] = $name;
 
-        return $this->router->assemble($params, $options);
+        return $this->rm->assemble($params, $options);
     }
 
     /**
      * Set the router to use for assembling.
      *
-     * @param RouteInterface $router
+     * @param RouteManagerInterface $rm
      * @return Url
      */
-    public function setRouter(RouteInterface $router)
+    public function setRouteManager(RouteManagerInterface $rm)
     {
-        $this->router = $router;
+        $this->rm = $rm;
         return $this;
     }
 

@@ -10,21 +10,22 @@
 namespace Zend\Framework\Route\Http\Part;
 
 use Zend\Mvc\Router\Exception;
+use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Http\EventInterface;
 use Zend\Framework\Route\Manager\Manager as RoutePluginManager;
 use Zend\Framework\Route\Manager\ConfigInterface;
-use Zend\Framework\Route\RouteInterface;
+use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
 use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Mvc\Router\Http\RouteMatch;
 
 class Part
-    extends RoutePluginManager implements RouteInterface
+    extends RoutePluginManager implements AssembleInterface, RouteMatchInterface
 {
     /**
-     * RouteInterface to match.
+     * RouteMatchInterface to match.
      *
-     * @var RouteInterface
+     * @var RouteMatchInterface
      */
     protected $route;
 
