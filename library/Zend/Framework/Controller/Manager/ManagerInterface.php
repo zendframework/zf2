@@ -11,10 +11,18 @@ namespace Zend\Framework\Controller\Manager;
 
 use Exception;
 use Zend\Framework\Controller\Config\ConfigInterface;
+use Zend\Framework\Controller\ListenerInterface;
 use Zend\Mvc\Router\RouteMatch;
 
 interface ManagerInterface
 {
+    /**
+     * @param $name
+     * @param null $options
+     * @return callable|ListenerInterface
+     */
+    public function controller($name, $options = null);
+
     /**
      * @return ConfigInterface
      */

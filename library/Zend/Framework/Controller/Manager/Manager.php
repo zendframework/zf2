@@ -13,6 +13,7 @@ use Zend\Framework\Controller\Config\ConfigInterface as Controllers;
 use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\EventInterface;
 use Zend\Framework\Controller\Exception\EventInterface as Exception;
+use Zend\Framework\Controller\ListenerInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
@@ -40,6 +41,16 @@ class Manager
         $this->config    = $config;
         $this->listeners = $config->controllers();
         $this->services  = $config->services();
+    }
+
+    /**
+     * @param $name
+     * @param null $options
+     * @return callable|ListenerInterface
+     */
+    public function controller($name, $options = null)
+    {
+        return $this->create($name, $options);
     }
 
     /**
@@ -106,6 +117,6 @@ class Manager
      */
     protected function listener($listener)
     {
-        return is_callable($listener) ? $listener : $this->create($listener);
+        return is_callable($listener) ? $listener : $this->controller($listener);
     }
 }
