@@ -69,7 +69,7 @@ class Manager
      */
     protected function event($event)
     {
-        return is_object($event) ? $event : $this->create($event);
+        return $event instanceof Event ? $event : $this->create($event);
     }
 
     /**
@@ -78,7 +78,7 @@ class Manager
      */
     protected function listener($listener)
     {
-        return $this->route($listener['type'], $listener['options']);
+        return is_callable($listener) ? $listener : $this->route($listener['type'], $listener['options']);
     }
 
     /**
