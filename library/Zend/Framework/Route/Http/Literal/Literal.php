@@ -14,9 +14,6 @@ use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 
-/**
- * Literal route.
- */
 class Literal implements RouteInterface
 {
     /**
@@ -43,6 +40,24 @@ class Literal implements RouteInterface
     {
         $this->route    = $route;
         $this->defaults = $defaults;
+    }
+
+    /**
+     * @param array $params
+     * @param array $options
+     * @return mixed|string
+     */
+    public function assemble(array $params = array(), array $options = array())
+    {
+        return $this->route;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssembledParams()
+    {
+        return array();
     }
 
     /**
@@ -79,29 +94,5 @@ class Literal implements RouteInterface
     public function __invoke($event)
     {
         return $this->match($event->request, $event->baseUrlLength);
-    }
-
-    /**
-     * assemble(): Defined by RouteInterface interface.
-     *
-     * @see    \Zend\Framework\Route\RouteInterface::assemble()
-     * @param  array $params
-     * @param  array $options
-     * @return mixed
-     */
-    public function assemble(array $params = array(), array $options = array())
-    {
-        return $this->route;
-    }
-
-    /**
-     * getAssembledParams(): defined by RouteInterface interface.
-     *
-     * @see    RouteInterface::getAssembledParams
-     * @return array
-     */
-    public function getAssembledParams()
-    {
-        return array();
     }
 }

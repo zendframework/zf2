@@ -116,113 +116,24 @@ class Segment implements RouteInterface
     }
 
     /**
-     * Parse a route definition.
+     * assemble(): Defined by RouteInterface interface.
      *
-     * @param  string $def
-     * @return array
-     * @throws Exception\RuntimeException
+     * @see    \Zend\Mvc\Router\RouteInterface::assemble()
+     * @param  array $params
+     * @param  array $options
+     * @return mixed
      */
-    protected function parseRouteDefinition($def)
+    public function assemble(array $params = array(), array $options = array())
     {
-        $currentPos = 0;
-        $length     = strlen($def);
-        $parts      = array();
-        $levelParts = array(&$parts);
-        $level      = 0;
+        $this->assembledParams = array();
 
-        while ($currentPos < $length) {
-            preg_match('(\G(?P<literal>[^:{\[\]]*)(?P<token>[:{\[\]]|$))', $def, $matches, 0, $currentPos);
-
-            $currentPos += strlen($matches[0]);
-
-            if (!empty($matches['literal'])) {
-                $levelParts[$level][] = array('literal', $matches['literal']);
-            }
-
-            if ($matches['token'] === ':') {
-                if (!preg_match('(\G(?P<name>[^:/{\[\]]+)(?:{(?P<delimiters>[^}]+)})?:?)', $def, $matches, 0, $currentPos)) {
-                    throw new Exception\RuntimeException('Found empty parameter name');
-                }
-
-                $levelParts[$level][] = array('parameter', $matches['name'], isset($matches['delimiters']) ? $matches['delimiters'] : null);
-
-                $currentPos += strlen($matches[0]);
-            } elseif ($matches['token'] === '{') {
-                if (!preg_match('(\G(?P<literal>[^}]+)\})', $def, $matches, 0, $currentPos)) {
-                    throw new Exception\RuntimeException('Translated literal missing closing bracket');
-                }
-
-                $currentPos += strlen($matches[0]);
-
-                $levelParts[$level][] = array('translated-literal', $matches['literal']);
-            } elseif ($matches['token'] === '[') {
-                $levelParts[$level][] = array('optional', array());
-                $levelParts[$level + 1] = &$levelParts[$level][count($levelParts[$level]) - 1][1];
-
-                $level++;
-            } elseif ($matches['token'] === ']') {
-                unset($levelParts[$level]);
-                $level--;
-
-                if ($level < 0) {
-                    throw new Exception\RuntimeException('Found closing bracket without matching opening bracket');
-                }
-            } else {
-                break;
-            }
-        }
-
-        if ($level > 0) {
-            throw new Exception\RuntimeException('Found unbalanced brackets');
-        }
-
-        return $parts;
-    }
-
-    /**
-     * Build the matching regex from parsed parts.
-     *
-     * @param  array   $parts
-     * @param  array   $constraints
-     * @param  int $groupIndex
-     * @return string
-     */
-    protected function buildRegex(array $parts, array $constraints, &$groupIndex = 1)
-    {
-        $regex = '';
-
-        foreach ($parts as $part) {
-            switch ($part[0]) {
-                case 'literal':
-                    $regex .= preg_quote($part[1]);
-                    break;
-
-                case 'parameter':
-                    $groupName = '?P<param' . $groupIndex . '>';
-
-                    if (isset($constraints[$part[1]])) {
-                        $regex .= '(' . $groupName . $constraints[$part[1]] . ')';
-                    } elseif ($part[2] === null) {
-                        $regex .= '(' . $groupName . '[^/]+)';
-                    } else {
-                        $regex .= '(' . $groupName . '[^' . $part[2] . ']+)';
-                    }
-
-                    $this->paramMap['param' . $groupIndex++] = $part[1];
-                    break;
-
-                case 'optional':
-                    $regex .= '(?:' . $this->buildRegex($part[1], $constraints, $groupIndex) . ')?';
-                    break;
-
-                case 'translated-literal':
-                    $regex .= '#' . $part[1] . '#';
-                    $this->translationKeys[] = $part[1];
-                    break;
-            }
-        }
-
-        return $regex;
+        return $this->buildPath(
+            $this->parts,
+            array_merge($this->defaults, $params),
+            false,
+            (isset($options['has_child']) ? $options['has_child'] : false),
+            $options
+        );
     }
 
     /**
@@ -301,6 +212,89 @@ class Segment implements RouteInterface
     }
 
     /**
+     * Build the matching regex from parsed parts.
+     *
+     * @param  array   $parts
+     * @param  array   $constraints
+     * @param  int $groupIndex
+     * @return string
+     */
+    protected function buildRegex(array $parts, array $constraints, &$groupIndex = 1)
+    {
+        $regex = '';
+
+        foreach ($parts as $part) {
+            switch ($part[0]) {
+                case 'literal':
+                    $regex .= preg_quote($part[1]);
+                    break;
+
+                case 'parameter':
+                    $groupName = '?P<param' . $groupIndex . '>';
+
+                    if (isset($constraints[$part[1]])) {
+                        $regex .= '(' . $groupName . $constraints[$part[1]] . ')';
+                    } elseif ($part[2] === null) {
+                        $regex .= '(' . $groupName . '[^/]+)';
+                    } else {
+                        $regex .= '(' . $groupName . '[^' . $part[2] . ']+)';
+                    }
+
+                    $this->paramMap['param' . $groupIndex++] = $part[1];
+                    break;
+
+                case 'optional':
+                    $regex .= '(?:' . $this->buildRegex($part[1], $constraints, $groupIndex) . ')?';
+                    break;
+
+                case 'translated-literal':
+                    $regex .= '#' . $part[1] . '#';
+                    $this->translationKeys[] = $part[1];
+                    break;
+            }
+        }
+
+        return $regex;
+    }
+
+    /**
+     * Decode a path segment.
+     *
+     * @param  string $value
+     * @return string
+     */
+    protected function decode($value)
+    {
+        return rawurldecode($value);
+    }
+
+    /**
+     * Encode a path segment.
+     *
+     * @param  string $value
+     * @return string
+     */
+    protected function encode($value)
+    {
+        if (!isset(static::$cacheEncode[$value])) {
+            static::$cacheEncode[$value] = rawurlencode($value);
+            static::$cacheEncode[$value] = strtr(static::$cacheEncode[$value], static::$urlencodeCorrectionMap);
+        }
+        return static::$cacheEncode[$value];
+    }
+
+    /**
+     * getAssembledParams(): defined by RouteInterface interface.
+     *
+     * @see    RouteInterface::getAssembledParams
+     * @return array
+     */
+    public function getAssembledParams()
+    {
+        return $this->assembledParams;
+    }
+
+    /**
      * @param Request $request
      * @param null $pathOffset
      * @param array $options
@@ -356,6 +350,70 @@ class Segment implements RouteInterface
     }
 
     /**
+     * Parse a route definition.
+     *
+     * @param  string $def
+     * @return array
+     * @throws Exception\RuntimeException
+     */
+    protected function parseRouteDefinition($def)
+    {
+        $currentPos = 0;
+        $length     = strlen($def);
+        $parts      = array();
+        $levelParts = array(&$parts);
+        $level      = 0;
+
+        while ($currentPos < $length) {
+            preg_match('(\G(?P<literal>[^:{\[\]]*)(?P<token>[:{\[\]]|$))', $def, $matches, 0, $currentPos);
+
+            $currentPos += strlen($matches[0]);
+
+            if (!empty($matches['literal'])) {
+                $levelParts[$level][] = array('literal', $matches['literal']);
+            }
+
+            if ($matches['token'] === ':') {
+                if (!preg_match('(\G(?P<name>[^:/{\[\]]+)(?:{(?P<delimiters>[^}]+)})?:?)', $def, $matches, 0, $currentPos)) {
+                    throw new Exception\RuntimeException('Found empty parameter name');
+                }
+
+                $levelParts[$level][] = array('parameter', $matches['name'], isset($matches['delimiters']) ? $matches['delimiters'] : null);
+
+                $currentPos += strlen($matches[0]);
+            } elseif ($matches['token'] === '{') {
+                if (!preg_match('(\G(?P<literal>[^}]+)\})', $def, $matches, 0, $currentPos)) {
+                    throw new Exception\RuntimeException('Translated literal missing closing bracket');
+                }
+
+                $currentPos += strlen($matches[0]);
+
+                $levelParts[$level][] = array('translated-literal', $matches['literal']);
+            } elseif ($matches['token'] === '[') {
+                $levelParts[$level][] = array('optional', array());
+                $levelParts[$level + 1] = &$levelParts[$level][count($levelParts[$level]) - 1][1];
+
+                $level++;
+            } elseif ($matches['token'] === ']') {
+                unset($levelParts[$level]);
+                $level--;
+
+                if ($level < 0) {
+                    throw new Exception\RuntimeException('Found closing bracket without matching opening bracket');
+                }
+            } else {
+                break;
+            }
+        }
+
+        if ($level > 0) {
+            throw new Exception\RuntimeException('Found unbalanced brackets');
+        }
+
+        return $parts;
+    }
+
+    /**
      * @param Event $event
      * @param null $options
      * @return null|RouteMatch
@@ -364,63 +422,5 @@ class Segment implements RouteInterface
     public function __invoke(Event $event, $options = null)
     {
         return $this->match($event->request, $event->baseUrlLength, $event->options);
-    }
-
-    /**
-     * assemble(): Defined by RouteInterface interface.
-     *
-     * @see    \Zend\Mvc\Router\RouteInterface::assemble()
-     * @param  array $params
-     * @param  array $options
-     * @return mixed
-     */
-    public function assemble(array $params = array(), array $options = array())
-    {
-        $this->assembledParams = array();
-
-        return $this->buildPath(
-            $this->parts,
-            array_merge($this->defaults, $params),
-            false,
-            (isset($options['has_child']) ? $options['has_child'] : false),
-            $options
-        );
-    }
-
-    /**
-     * getAssembledParams(): defined by RouteInterface interface.
-     *
-     * @see    RouteInterface::getAssembledParams
-     * @return array
-     */
-    public function getAssembledParams()
-    {
-        return $this->assembledParams;
-    }
-
-    /**
-     * Encode a path segment.
-     *
-     * @param  string $value
-     * @return string
-     */
-    protected function encode($value)
-    {
-        if (!isset(static::$cacheEncode[$value])) {
-            static::$cacheEncode[$value] = rawurlencode($value);
-            static::$cacheEncode[$value] = strtr(static::$cacheEncode[$value], static::$urlencodeCorrectionMap);
-        }
-        return static::$cacheEncode[$value];
-    }
-
-    /**
-     * Decode a path segment.
-     *
-     * @param  string $value
-     * @return string
-     */
-    protected function decode($value)
-    {
-        return rawurldecode($value);
     }
 }

@@ -82,24 +82,6 @@ class Manager
     }
 
     /**
-     * @param string $name
-     * @param mixed $options
-     * @return null|object
-     */
-    public function route($name, $options = null)
-    {
-        return $this->create($this->alias($name), $options);
-    }
-
-    /**
-     * @return RoutesConfigInterface
-     */
-    public function routes()
-    {
-        $this->listeners;
-    }
-
-    /**
      * @param Request $request
      * @param null $pathOffset
      * @param array $options
@@ -133,6 +115,24 @@ class Manager
     }
 
     /**
+     * @param string $name
+     * @param mixed $options
+     * @return null|object
+     */
+    public function route($name, $options = null)
+    {
+        return $this->create($this->alias($name), $options);
+    }
+
+    /**
+     * @return RoutesConfigInterface
+     */
+    public function routes()
+    {
+        $this->listeners;
+    }
+
+    /**
      * assemble(): defined by \Zend\Framework\Route\RouteInterface interface.
      *
      * @see    \Zend\Framework\Route\RouteInterface::assemble()
@@ -142,7 +142,7 @@ class Manager
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
         if (!isset($options['name'])) {
             throw new Exception\InvalidArgumentException('Missing "name" option');

@@ -18,9 +18,6 @@ use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Mvc\Router\Http\RouteMatch;
 
-/**
- * Part route.
- */
 class Part
     extends RoutePluginManager implements RouteInterface
 {
@@ -46,13 +43,10 @@ class Part
     protected $childRoutes;
 
     /**
-     * Create a new part route.
-     *
-     * @param  ConfigInterface    $config
-     * @param  mixed              $route
-     * @param  bool               $mayTerminate
-     * @param  array|null         $childRoutes
-     * @throws Exception\InvalidArgumentException
+     * @param ConfigInterface $config
+     * @param $route
+     * @param $mayTerminate
+     * @param array $childRoutes
      */
     public function __construct(ConfigInterface $config, $route, $mayTerminate, array $childRoutes = null)
     {
@@ -60,6 +54,64 @@ class Part
         $this->route        = $route;
         $this->mayTerminate = $mayTerminate;
         $this->childRoutes  = $childRoutes;
+    }
+
+    /**
+     * @param array $params
+     * @param array $options
+     * @return mixed|string
+     * @throws \Zend\Mvc\Router\Exception\RuntimeException
+     */
+    public function assemble(array $params = array(), array $options = array())
+    {
+        if ($this->childRoutes !== null) {
+            $this->addRoutes($this->childRoutes);
+            $this->childRoutes = null;
+        }
+
+        $options['has_child'] = (isset($options['name']));
+
+        $path   = $this->route->assemble($params, $options);
+        $params = array_diff_key($params, array_flip($this->route->getAssembledParams()));
+
+        if (!isset($options['name'])) {
+            if (!$this->mayTerminate) {
+                throw new Exception\RuntimeException('Part route may not terminate');
+            } else {
+                return $path;
+            }
+        }
+
+        unset($options['has_child']);
+        $options['only_return_path'] = true;
+        $path .= parent::assemble($params, $options);
+
+        return $path;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssembledParams()
+    {
+        // Part routes may not occur as base route of other part routes, so we
+        // don't have to return anything here.
+        return array();
+    }
+
+    /**
+     * Is one of the child routes a query route?
+     *
+     * @return bool
+     */
+    protected function hasQueryChild()
+    {
+        foreach ($this->listeners as $route) {
+            if ($route instanceof HttpRouteInterface) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -115,69 +167,5 @@ class Part
     public function __invoke(Event $event, $options = null)
     {
         return $this->match($event->request, $event->baseUrlLength, $event->options);
-    }
-
-    /**
-     * assemble(): Defined by RouteInterface interface.
-     *
-     * @see    \Zend\Framework\Route\RouteInterface::assemble()
-     * @param  array $params
-     * @param  array $options
-     * @return mixed
-     * @throws Exception\RuntimeException
-     */
-    public function assemble(array $params = array(), array $options = array())
-    {
-        if ($this->childRoutes !== null) {
-            $this->addRoutes($this->childRoutes);
-            $this->childRoutes = null;
-        }
-
-        $options['has_child'] = (isset($options['name']));
-
-        $path   = $this->route->assemble($params, $options);
-        $params = array_diff_key($params, array_flip($this->route->getAssembledParams()));
-
-        if (!isset($options['name'])) {
-            if (!$this->mayTerminate) {
-                throw new Exception\RuntimeException('Part route may not terminate');
-            } else {
-                return $path;
-            }
-        }
-
-        unset($options['has_child']);
-        $options['only_return_path'] = true;
-        $path .= parent::assemble($params, $options);
-
-        return $path;
-    }
-
-    /**
-     * getAssembledParams(): defined by RouteInterface interface.
-     *
-     * @see    RouteInterface::getAssembledParams
-     * @return array
-     */
-    public function getAssembledParams()
-    {
-        // Part routes may not occur as base route of other part routes, so we
-        // don't have to return anything here.
-        return array();
-    }
-
-    /**
-     * Is one of the child routes a query route?
-     *
-     * @return bool
-     */
-    protected function hasQueryChild()
-    {
-        foreach ($this->listeners as $route) {
-            if ($route instanceof HttpRouteInterface) {
-                return true;
-            }
-        }
-        return false;
     }
 }
