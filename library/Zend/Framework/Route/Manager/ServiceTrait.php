@@ -13,10 +13,7 @@ use Zend\Stdlib\RequestInterface;
 
 trait ServiceTrait
 {
-
     /**
-     * Route manager
-     *
      * @var ManagerInterface
      */
     protected $rm;
@@ -31,8 +28,6 @@ trait ServiceTrait
     }
 
     /**
-     * Set the route manager.
-     *
      * @param  ManagerInterface $rm
      * @return self
      */
@@ -43,8 +38,6 @@ trait ServiceTrait
     }
 
     /**
-     * Get the route manager.
-     *
      * @return ManagerInterface
      */
     public function routeManager()
