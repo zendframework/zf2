@@ -14,10 +14,12 @@ use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Route\Assemble\AssembleInterface;
+use Zend\Framework\Route\Assemble\AssemblerInterface;
 use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
 use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
 use Zend\Framework\Route\EventInterface as Event;
 use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
+use Zend\Framework\Route\PartInterface;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
@@ -29,6 +31,7 @@ use Zend\Stdlib\RequestInterface as Request;
 class Manager
     implements
         AssembleInterface,
+        AssemblerInterface,
         EventManagerInterface,
         ManagerInterface,
         RouteMatchInterface,
@@ -90,7 +93,7 @@ class Manager
 
         if ($children) {
 
-            if (!$route instanceof Manager) {
+            if (!$route instanceof PartInterface) {
                 throw new Exception\RuntimeException(sprintf('Route with name "%s" does not have child routes', $name));
             }
 

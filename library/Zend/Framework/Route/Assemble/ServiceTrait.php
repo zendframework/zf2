@@ -17,12 +17,12 @@ trait ServiceTrait
     protected $assembler;
 
     /**
-     * @param $route
+     * @param AssembleInterface $route
      * @param array $params
      * @param array $options
      * @return mixed
      */
-    public function build($route, array $params = [], array $options = [])
+    public function build(AssembleInterface $route, array $params = [], array $options = [])
     {
         return $this->assembler->build($route, $params, $options);
     }

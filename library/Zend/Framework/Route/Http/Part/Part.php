@@ -15,12 +15,13 @@ use Zend\Framework\Route\Http\EventInterface;
 use Zend\Framework\Route\Manager\Manager as RoutePluginManager;
 use Zend\Framework\Route\Manager\ConfigInterface;
 use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
+use Zend\Framework\Route\PartInterface;
 use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Mvc\Router\Http\RouteMatch;
 
 class Part
-    extends RoutePluginManager implements AssembleInterface, RouteMatchInterface
+    extends RoutePluginManager implements AssembleInterface, RouteMatchInterface, PartInterface
 {
     /**
      * RouteMatchInterface to match.
