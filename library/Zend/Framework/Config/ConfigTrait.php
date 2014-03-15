@@ -62,6 +62,16 @@ trait ConfigTrait
     }
 
     /**
+     * @param string $name
+     * @return self
+     */
+    public function remove($name)
+    {
+        unset($this->config[$name]);
+        return $this;
+    }
+
+    /**
      * @return string|void
      */
     public function serialize()

@@ -37,17 +37,28 @@ trait ConfigTrait
 
     /**
      * @param string $name
-     * @return array
+     * @return array|null
      */
     public function get($name)
     {
-        if (!isset($this->config[$name])) {
+        return isset($this->config[$name]) ? $this->config[$name] : null;
+    }
+
+    /**
+     * @param string $name
+     * @return array
+     */
+    public function queue($name)
+    {
+        $queue = $this->get($name);
+
+        if (!$queue) {
             return [];
         }
 
-        ksort($this->config[$name], SORT_NUMERIC);
+        ksort($queue, SORT_NUMERIC);
 
-        return $this->config[$name];
+        return $queue;
     }
 
     /**

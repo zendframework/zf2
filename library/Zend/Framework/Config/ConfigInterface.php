@@ -37,4 +37,10 @@ interface ConfigInterface
      * @return bool
      */
     public function has($name);
+
+    /**
+     * @param string $name
+     * @return self
+     */
+    public function remove($name);
 }

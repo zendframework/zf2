@@ -32,17 +32,5 @@ interface ConfigInterface
      * @param string $name
      * @return array
      */
-    public function get($name);
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name);
-
-    /**
-     * @param string|callable $listener
-     * @return self
-     */
-    public function remove($listener);
+    public function queue($name);
 }

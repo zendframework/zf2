@@ -138,7 +138,7 @@ class Manager
      */
     protected function queue($event)
     {
-        foreach($this->listeners()->get($event) as $listener) {
+        foreach($this->listeners()->queue($event) as $listener) {
             //foreach($listeners as $listener) {
                 yield $this->listener($listener);
             //}
