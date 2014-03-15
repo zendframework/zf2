@@ -27,7 +27,12 @@ use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
 
 class Manager
-    implements AssembleInterface, EventManagerInterface, ManagerInterface, RouteMatchInterface, ServiceManagerInterface
+    implements
+        AssembleInterface,
+        EventManagerInterface,
+        ManagerInterface,
+        RouteMatchInterface,
+        ServiceManagerInterface
 {
     /**
      *
@@ -56,6 +61,48 @@ class Manager
         $this->listeners = $routes->listeners();
         $this->routes    = $routes;
         $this->services  = $config->services();
+    }
+
+    /**
+     * @param array $params
+     * @param array $options
+     * @return mixed
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RuntimeException
+     */
+    public function assemble(array $params = [], array $options = [])
+    {
+        if (!isset($options['name'])) {
+            throw new Exception\InvalidArgumentException('Missing "name" option');
+        }
+
+        $name = explode('/', $options['name'], 2);
+
+        list($name, $children) = [$name[0], isset($name[1]) ? $name[1] : null];
+
+        $route = $this->routes->routes()->get($name);
+
+        $route = $this->route($route['type'], $route['options']);
+
+        if (!$route) {
+            throw new Exception\RuntimeException(sprintf('Route with name "%s" not found', $name));
+        }
+
+        if ($children) {
+
+            if (!$route instanceof Manager) {
+                throw new Exception\RuntimeException(sprintf('Route with name "%s" does not have child routes', $name));
+            }
+
+            $options['name'] = $children;
+
+        } else {
+
+            unset($options['name']);
+
+        }
+
+        return $this->build($route, $name, $params, $options);
     }
 
     /**
@@ -124,47 +171,5 @@ class Manager
     public function routes()
     {
         $this->routes;
-    }
-
-    /**
-     * @param array $params
-     * @param array $options
-     * @return mixed
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\RuntimeException
-     */
-    public function assemble(array $params = [], array $options = [])
-    {
-        if (!isset($options['name'])) {
-            throw new Exception\InvalidArgumentException('Missing "name" option');
-        }
-
-        $name = explode('/', $options['name'], 2);
-
-        list($name, $children) = [$name[0], isset($name[1]) ? $name[1] : null];
-
-        $route = $this->routes->routes()->get($name);
-
-        $route = $this->route($route['type'], $route['options']);
-
-        if (!$route) {
-            throw new Exception\RuntimeException(sprintf('Route with name "%s" not found', $name));
-        }
-
-        if ($children) {
-
-            if (!$route instanceof Manager) {
-                throw new Exception\RuntimeException(sprintf('Route with name "%s" does not have child routes', $name));
-            }
-
-            $options['name'] = $children;
-
-        } else {
-
-            unset($options['name']);
-
-        }
-
-        return $this->build($route, $name, $params, $options);
     }
 }
