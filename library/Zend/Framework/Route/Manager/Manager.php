@@ -14,6 +14,7 @@ use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Route\Assemble\AssembleInterface;
+use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
 use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
 use Zend\Framework\Route\EventInterface as Event;
 use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
@@ -24,7 +25,6 @@ use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\Stdlib\RequestInterface as Request;
-use Zend\Uri\Http as HttpUri;
 
 class Manager
     implements AssembleInterface, EventManagerInterface, ManagerInterface, RouteMatchInterface, ServiceManagerInterface
@@ -36,21 +36,8 @@ class Manager
         EventGenerator,
         EventManager,
         Factory,
+        RouteAssembler,
         ServiceManager;
-
-    /**
-     * Base URL.
-     *
-     * @var string
-     */
-    protected $baseUrl;
-
-    /**
-     * Request URI.
-     *
-     * @var HttpUri
-     */
-    protected $requestUri;
 
     /**
      * @var RouteConfigInterface
@@ -103,20 +90,13 @@ class Manager
      */
     public function match(Request $request, $pathOffset = null, array $options = [])
     {
-        if ($this->baseUrl === null && method_exists($request, 'getBaseUrl')) {
-            $this->setBaseUrl($request->getBaseUrl());
-        }
-
+        $baseUrl = $request->getBaseUrl();
         $uri = $request->getUri();
 
-        $baseUrlLength = strlen($this->baseUrl) ?: null;
+        $baseUrlLength = strlen($baseUrl) ?: null;
 
         if ($pathOffset !== null) {
             $baseUrlLength += $pathOffset;
-        }
-
-        if ($this->requestUri === null) {
-            $this->setRequestUri($uri);
         }
 
         if ($baseUrlLength !== null) {
@@ -149,9 +129,9 @@ class Manager
     /**
      * @param array $params
      * @param array $options
-     * @return mixed|string
-     * @throws \Zend\Mvc\Router\Exception\InvalidArgumentException
-     * @throws \Zend\Mvc\Router\Exception\RuntimeException
+     * @return mixed
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\RuntimeException
      */
     public function assemble(array $params = [], array $options = [])
     {
@@ -159,120 +139,32 @@ class Manager
             throw new Exception\InvalidArgumentException('Missing "name" option');
         }
 
-        $names = explode('/', $options['name'], 2);
+        $name = explode('/', $options['name'], 2);
 
-        $route = $this->routes->routes()->get($names[0]);
+        list($name, $children) = [$name[0], isset($name[1]) ? $name[1] : null];
+
+        $route = $this->routes->routes()->get($name);
 
         $route = $this->route($route['type'], $route['options']);
 
         if (!$route) {
-            throw new Exception\RuntimeException(sprintf('Route with name "%s" not found', $names[0]));
+            throw new Exception\RuntimeException(sprintf('Route with name "%s" not found', $name));
         }
 
-        if (isset($names[1])) {
+        if ($children) {
+
             if (!$route instanceof Manager) {
-                throw new Exception\RuntimeException(sprintf('Route with name "%s" does not have child routes', $names[0]));
+                throw new Exception\RuntimeException(sprintf('Route with name "%s" does not have child routes', $name));
             }
-            $options['name'] = $names[1];
+
+            $options['name'] = $children;
+
         } else {
+
             unset($options['name']);
+
         }
 
-        if (isset($options['only_return_path']) && $options['only_return_path']) {
-            return $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
-        }
-
-        if (!isset($options['uri'])) {
-            $uri = new HttpUri();
-
-            if (isset($options['force_canonical']) && $options['force_canonical']) {
-                if ($this->requestUri === null) {
-                    throw new Exception\RuntimeException('Request URI has not been set');
-                }
-
-                $uri->setScheme($this->requestUri->getScheme())
-                    ->setHost($this->requestUri->getHost())
-                    ->setPort($this->requestUri->getPort());
-            }
-
-            $options['uri'] = $uri;
-        } else {
-            $uri = $options['uri'];
-        }
-
-        //$path = $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
-        $path = $this->baseUrl . $route->assemble($params, $options);
-
-        if (isset($options['query'])) {
-            $uri->setQuery($options['query']);
-        }
-
-        if (isset($options['fragment'])) {
-            $uri->setFragment($options['fragment']);
-        }
-
-        if ((isset($options['force_canonical']) && $options['force_canonical']) || $uri->getHost() !== null || $uri->getScheme() !== null) {
-            if (($uri->getHost() === null || $uri->getScheme() === null) && $this->requestUri === null) {
-                throw new Exception\RuntimeException('Request URI has not been set');
-            }
-
-            if ($uri->getHost() === null) {
-                $uri->setHost($this->requestUri->getHost());
-            }
-
-            if ($uri->getScheme() === null) {
-                $uri->setScheme($this->requestUri->getScheme());
-            }
-
-            return $uri->setPath($path)->normalize()->toString();
-        } elseif (!$uri->isAbsolute() && $uri->isValidRelative()) {
-            return $uri->setPath($path)->normalize()->toString();
-        }
-
-        return $path;
-    }
-
-    /**
-     * Set the base URL.
-     *
-     * @param  string $baseUrl
-     * @return self
-     */
-    public function setBaseUrl($baseUrl)
-    {
-        $this->baseUrl = rtrim($baseUrl, '/');
-        return $this;
-    }
-
-    /**
-     * Get the base URL.
-     *
-     * @return string
-     */
-    public function getBaseUrl()
-    {
-        return $this->baseUrl;
-    }
-
-    /**
-     * Set the request URI.
-     *
-     * @param  HttpUri $uri
-     * @return Manager
-     */
-    public function setRequestUri(HttpUri $uri)
-    {
-        $this->requestUri = $uri;
-        return $this;
-    }
-
-    /**
-     * Get the request URI.
-     *
-     * @return HttpUri
-     */
-    public function getRequestUri()
-    {
-        return $this->requestUri;
+        return $this->build($route, $name, $params, $options);
     }
 }
