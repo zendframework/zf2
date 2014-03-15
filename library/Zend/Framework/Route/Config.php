@@ -21,16 +21,16 @@ class Config
 
     /**
      * @param string $name
-     * @return array
+     * @return Generator
      */
     public function queue($name)
     {
-        $queue = [];
-
-        foreach(array_keys($this->get($name)) as $route) {
-            $queue[] = $this->config[$name][$route];
+        if (!isset($this->config[$name])) {
+            return;
         }
 
-        return $queue;
+        foreach(array_keys($this->config[$name]) as $route) {
+            yield $this->config[$name][$route];
+        }
     }
 }

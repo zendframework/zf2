@@ -133,19 +133,6 @@ class Manager
     }
 
     /**
-     * @param string $event
-     * @return Generator
-     */
-    protected function queue($event)
-    {
-        foreach($this->listeners()->queue($event) as $listener) {
-            //foreach($listeners as $listener) {
-                yield $this->listener($listener);
-            //}
-        }
-    }
-
-    /**
      * assemble(): defined by \Zend\Framework\Route\RouteInterface interface.
      *
      * @see    \Zend\Framework\Route\RouteInterface::assemble()
@@ -157,13 +144,15 @@ class Manager
      */
     public function assemble(array $params = array(), array $options = array())
     {
-        return ''; //FIXME!!!
         if (!isset($options['name'])) {
             throw new Exception\InvalidArgumentException('Missing "name" option');
         }
 
         $names = explode('/', $options['name'], 2);
-        $route = $this->route($this->listeners[$names[0]]['type'], $this->listeners[$names[0]]['options']);
+
+        $route = $this->listeners->get('Event\Route\Http')[$names[0]];
+
+        $route = $this->route($route['type'], $route['options']);
 
         if (!$route) {
             throw new Exception\RuntimeException(sprintf('Route with name "%s" not found', $names[0]));
@@ -200,7 +189,8 @@ class Manager
             $uri = $options['uri'];
         }
 
-        $path = $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
+        //$path = $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
+        $path = $this->baseUrl . $route->assemble($params, $options);
 
         if (isset($options['query'])) {
             $uri->setQuery($options['query']);

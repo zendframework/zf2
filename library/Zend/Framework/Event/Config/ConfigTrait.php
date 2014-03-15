@@ -45,20 +45,24 @@ trait ConfigTrait
     }
 
     /**
-     * @param string $name
-     * @return array
+     * @param $name
+     * @return Generator
      */
     public function queue($name)
     {
         $queue = $this->get($name);
 
         if (!$queue) {
-            return [];
+            return;
         }
 
         ksort($queue, SORT_NUMERIC);
 
-        return $queue;
+        foreach($queue as $listeners) {
+            foreach($listeners as $listener) {
+                yield $listener;
+            }
+        }
     }
 
     /**

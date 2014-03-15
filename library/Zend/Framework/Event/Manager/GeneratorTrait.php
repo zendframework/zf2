@@ -46,10 +46,8 @@ trait GeneratorTrait
      */
     protected function queue($event)
     {
-        foreach($this->listeners()->queue($event) as $listeners) {
-            foreach($listeners as $listener) {
-                yield $this->listener($listener);
-            }
+        foreach($this->listeners()->queue($event) as $listener) {
+            yield $this->listener($listener);
         }
     }
 
