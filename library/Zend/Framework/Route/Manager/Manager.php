@@ -102,7 +102,7 @@ class Manager
 
         }
 
-        return $this->build($route, $name, $params, $options);
+        return $this->build($route, $params, $options);
     }
 
     /**

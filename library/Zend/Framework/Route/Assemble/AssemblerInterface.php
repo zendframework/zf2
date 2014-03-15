@@ -13,10 +13,9 @@ interface AssemblerInterface
 {
     /**
      * @param AssembleInterface $route
-     * @param string $name
      * @param array $params
      * @param array $options
      * @return mixed
      */
-    public function build(AssembleInterface $route, $name, array $params = [], array $options = []);
+    public function build(AssembleInterface $route, array $params = [], array $options = []);
 }

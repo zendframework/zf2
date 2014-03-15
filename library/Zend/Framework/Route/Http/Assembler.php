@@ -46,14 +46,13 @@ class Assembler
 
     /**
      * @param AssembleInterface $route
-     * @param string $name
      * @param array $params
      * @param array $options
      * @return mixed|string
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
-    public function build(AssembleInterface $route, $name, array $params = [], array $options = [])
+    public function build(AssembleInterface $route, array $params = [], array $options = [])
     {
         if (isset($options['only_return_path']) && $options['only_return_path']) {
             return $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);

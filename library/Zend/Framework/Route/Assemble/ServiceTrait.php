@@ -18,14 +18,13 @@ trait ServiceTrait
 
     /**
      * @param $route
-     * @param $name
      * @param array $params
      * @param array $options
      * @return mixed
      */
-    public function build($route, $name, array $params = [], array $options = [])
+    public function build($route, array $params = [], array $options = [])
     {
-        return $this->assembler->build($route, $name, $params, $options);
+        return $this->assembler->build($route, $params, $options);
     }
 
     /**
