@@ -96,7 +96,7 @@ class Manager
 
         $config = $this->routes->routes()->get($listener);
 
-        return $this->route($config['type'], $this->routes->routes()->get($listener));
+        return $this->route($config['type'], $config);
     }
 
     /**
