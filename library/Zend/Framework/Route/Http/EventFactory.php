@@ -28,16 +28,19 @@ class EventFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        list($httpRequest) = $options;
+        list($httpRequest, $pathOffset) = $options;
 
         $baseUrl = $httpRequest->getBaseUrl();
         $uri     = $httpRequest->getUri();
 
-        $baseUrlLength = strlen($baseUrl);
-        $pathLength    = strlen($uri->getPath()) ? : null;
+        $baseUrlLength = strlen($baseUrl) ? : null;
 
-        $pathOffset = $baseUrlLength ? $pathLength - $baseUrlLength : null;
+        if ($pathOffset !== null) {
+            $baseUrlLength += $pathOffset;
+        }
 
-        return new Event($uri, $baseUrlLength, $pathOffset);
+        $pathLength = $baseUrlLength ? strlen($uri->getPath()) - $baseUrlLength : null;
+
+        return new Event($uri, $pathLength, $baseUrlLength);
     }
 }

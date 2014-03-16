@@ -18,6 +18,11 @@ interface EventInterface
     /**
      * @return int
      */
+    public function pathLength();
+
+    /**
+     * @return int
+     */
     public function pathOffset();
 
     /**

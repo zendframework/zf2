@@ -24,11 +24,13 @@ class Event
 
     /**
      * @param Uri $uri
-     * @param int $pathOffset
+     * @param int|null $pathLength
+     * @param int|null $pathOffset
      */
-    public function __construct(Uri $uri, $pathOffset)
+    public function __construct(Uri $uri, $pathLength, $pathOffset)
     {
         $this->uri        = $uri;
+        $this->pathLength = $pathLength;
         $this->pathOffset = $pathOffset;
     }
 
@@ -47,7 +49,7 @@ class Event
 
         $this->setRouteMatch($response);
 
-        if ($this->pathOffset === null || $response->getLength() === $this->pathOffset) {
+        if ($this->pathLength === null || $response->getLength() === $this->pathLength) {
 
             //$response->setMatchedRouteName($name);
 
@@ -57,10 +59,8 @@ class Event
                 //}
             //}
 
-            //$this->stop();
+            $this->stop();
         }
-
-        $this->stop();
 
         return $response;
     }

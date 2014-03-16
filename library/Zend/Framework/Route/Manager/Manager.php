@@ -144,12 +144,13 @@ class Manager
 
     /**
      * @param Request $request
-     * @param array $options
+     * @param null $pathOffset
+     * @param null $options
      * @return null|RouteMatch
      */
-    public function match(Request $request, array $options = null)
+    public function match(Request $request, $pathOffset = null, $options = null)
     {
-        return $this->trigger([Event::EVENT, $request], $options);
+        return $this->trigger([Event::EVENT, $request, $pathOffset], $options);
     }
 
     /**

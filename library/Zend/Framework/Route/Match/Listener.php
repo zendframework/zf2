@@ -27,6 +27,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->match($event->request(), $options);
+        return $this->match($event->request(), null, $options);
     }
 }

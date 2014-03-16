@@ -20,14 +20,27 @@ trait EventTrait
     use Event;
 
     /**
-     * @var Uri
+     * @var int
      */
-    protected $uri;
+    protected $pathLength;
 
     /**
      * @var int
      */
     protected $pathOffset;
+
+    /**
+     * @var Uri
+     */
+    protected $uri;
+
+    /**
+     * @return int|null
+     */
+    public function pathLength()
+    {
+        return $this->pathLength;
+    }
 
     /**
      * @return int|null
