@@ -12,34 +12,16 @@ namespace Zend\Framework\Route\Http\Part;
 use Zend\Mvc\Router\Exception;
 use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Http\EventInterface;
-use Zend\Framework\Route\Manager\ConfigInterface;
+use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
 use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
 use Zend\Uri\Http as Uri;
 use Zend\Mvc\Router\Http\RouteMatch;
-
-
-use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
-use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
-use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Route\Assemble\AssemblerInterface;
-use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
-use Zend\Framework\Route\EventInterface as Event;
-use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
-use Zend\Framework\Service\AliasTrait as Alias;
-use Zend\Framework\Service\Factory\FactoryTrait as Factory;
-use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
-use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 
 class Part
     implements
         AssembleInterface,
         PartInterface
 {
-    /**
-     *
-     */
-    use RouteAssembler;
-
     /**
      * @var array
      */
@@ -56,7 +38,7 @@ class Part
     protected $rm;
 
     /**
-     * @var RouteMatchInterface
+     * @var
      */
     protected $route;
 
@@ -78,7 +60,7 @@ class Part
      * @param array $params
      * @param array $options
      * @return mixed|string
-     * @throws \Zend\Mvc\Router\Exception\RuntimeException
+     * @throws Exception\RuntimeException
      */
     public function assemble(array $params = array(), array $options = array())
     {
@@ -131,7 +113,7 @@ class Part
      * @param Uri $uri
      * @param null $pathOffset
      * @param array $options
-     * @return null|RouteMatch|\Zend\Mvc\Router\RouteMatch
+     * @return null|RouteMatch
      */
     public function match(Uri $uri, $pathOffset = null, array $options = [])
     {
