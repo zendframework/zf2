@@ -47,23 +47,17 @@ trait ConfigTrait
 
     /**
      * @param $name
-     * @return Generator
+     * @return array
      */
     public function queue($name)
     {
-        $queue = $this->get($name);
-
-        if (!$queue) {
-            return;
+        if (!isset($this->config[$name])) {
+            return [];
         }
 
-        ksort($queue, SORT_NUMERIC);
+        ksort($this->config[$name], SORT_NUMERIC);
 
-        foreach($queue as $listeners) {
-            foreach($listeners as $listener) {
-                yield $listener;
-            }
-        }
+        return $this->config[$name];
     }
 
     /**
