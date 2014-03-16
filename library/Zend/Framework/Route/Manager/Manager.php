@@ -19,7 +19,7 @@ use Zend\Framework\Route\Assemble\AssemblerInterface;
 use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
 use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
 use Zend\Framework\Route\EventInterface as Event;
-use Zend\Framework\Route\PartInterface;
+use Zend\Framework\Route\Http\Part\PartInterface;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
@@ -107,14 +107,6 @@ class Manager
     }
 
     /**
-     * @return array
-     */
-    public function getAssembledParams()
-    {
-        return [];
-    }
-
-    /**
      * @param array|Event|string $event
      * @return Event
      */
@@ -133,9 +125,21 @@ class Manager
             return $listener;
         }
 
-        $listener = $this->routes->routes()->get($listener);
+        $config = $this->routes->routes()->get($listener);
 
-        return $this->route($listener['type'], $listener['options']);
+        $route = $this->route($config['type'], $config['options']);
+
+        if (empty($config['child_routes'])) {
+            return $route;
+        }
+
+        $options = array(
+            'route'         => $route,
+            'may_terminate' => !empty('may_terminate'),
+            'child_routes'  => $config['child_routes']
+        );
+
+        return $this->route('part', $options);
     }
 
     /**

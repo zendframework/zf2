@@ -9,6 +9,7 @@
 
 namespace Zend\Framework\Route\Http\Part;
 
+use Zend\Framework\Event\Config\Config as Listeners;
 use Zend\Framework\Service\Factory\Factory as FactoryService;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Mvc\Router\Exception;
@@ -28,7 +29,7 @@ class Factory
             $this->config(),
             $options['route'],
             $options['may_terminate'],
-            $options['child_routes']
+            is_array($options['child_routes']) ? new Listeners($options['child_routes']): $options['child_routes']
         );
     }
 }

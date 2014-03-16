@@ -13,12 +13,12 @@ use Zend\Mvc\Router\Exception;
 use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Http\EventInterface;
 use Zend\Framework\Route\Manager\ConfigInterface;
-use Zend\Framework\Route\PartInterface;
 use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
 use Zend\Uri\Http as Uri;
 use Zend\Mvc\Router\Http\RouteMatch;
 
 
+use Zend\Framework\Event\Config\Config as Listeners;
 use Zend\Framework\Event\Config\ConfigInterface as RoutesConfigInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
@@ -67,31 +67,23 @@ class Part
     protected $mayTerminate;
 
     /**
-     * Child routes.
-     *
-     * @var mixed
-     */
-    protected $childRoutes;
-
-    /**
      * @param ConfigInterface $config
      * @param $route
      * @param $mayTerminate
-     * @param array $childRoutes
+     * @param Listeners $childRoutes
      */
-    public function __construct(ConfigInterface $config, $route, $mayTerminate, array $childRoutes = null)
+    public function __construct(ConfigInterface $config, $route, $mayTerminate, Listeners $childRoutes = null)
     {
         $routes = $config->routes();
 
         $this->alias     = $routes->aliases();
         $this->config    = $config;
-        $this->listeners = $routes->listeners();
+        $this->listeners = $childRoutes;
         $this->routes    = $routes;
         $this->services  = $config->services();
 
         $this->route        = $route;
         $this->mayTerminate = $mayTerminate;
-        $this->childRoutes  = $childRoutes;
     }
 
     /**
@@ -113,9 +105,21 @@ class Part
             return $listener;
         }
 
-        $listener = $this->routes->routes()->get($listener);
+        $config = $this->routes->routes()->get($listener);
 
-        return $this->route($listener['type'], $listener['options']);
+        $route = $this->route($config['type'], $config['options']);
+
+        if (empty($config['child_routes'])) {
+            return $route;
+        }
+
+        $options = array(
+            'route'         => $route,
+            'may_terminate' => !empty('may_terminate'),
+            'child_routes'  => $config['child_routes']
+        );
+
+        return $this->route('part', $options);
     }
 
     /**
@@ -126,11 +130,6 @@ class Part
      */
     public function assemble(array $params = array(), array $options = array())
     {
-        if ($this->childRoutes !== null) {
-            $this->addRoutes($this->childRoutes);
-            $this->childRoutes = null;
-        }
-
         $options['has_child'] = (isset($options['name']));
 
         $path   = $this->route->assemble($params, $options);
@@ -189,11 +188,6 @@ class Part
         }
 
         $match = $this->route->match($uri, $pathOffset, $options);
-
-        if ($this->childRoutes !== null) {
-            $this->addRoutes($this->childRoutes);
-            $this->childRoutes = null;
-        }
 
         $nextOffset = $pathOffset + $match->getLength();
 
