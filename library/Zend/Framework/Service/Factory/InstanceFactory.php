@@ -47,7 +47,9 @@ class InstanceFactory
 
         if ($options) {
 
-            $instance = (new ReflectionClass($this->factory))->newInstanceArgs($options);
+            $class = new ReflectionClass($this->factory);
+
+            $instance = $class->hasMethod('__construct') ? $class->newInstanceArgs($options) : $class->newInstance();
 
         } else {
 

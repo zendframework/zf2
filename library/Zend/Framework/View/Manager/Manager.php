@@ -86,7 +86,7 @@ class Manager
      */
     protected function listener($listener, $options = null)
     {
-        return is_callable($listener) ? $listener : $this->create($listener);
+        return is_callable($listener) ? $listener : $this->create($listener, $options);
     }
 
     /**
