@@ -18,7 +18,7 @@ use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Assemble\AssemblerInterface;
 use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
 use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
-use Zend\Framework\Route\EventInterface as Event;
+use Zend\Framework\Route\EventInterface as Route;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
@@ -76,12 +76,12 @@ class Manager
     }
 
     /**
-     * @param array|Event|string $event
-     * @return Event
+     * @param array|Route|string $event
+     * @return Route
      */
     protected function event($event)
     {
-        return $event instanceof Event ? $event : $this->create($event);
+        return $event instanceof Route ? $event : $this->create($event);
     }
 
     /**
@@ -107,7 +107,7 @@ class Manager
      */
     public function match(Request $request, $pathOffset = null, $options = null)
     {
-        return $this->trigger([Event::EVENT, $request, $pathOffset], $options);
+        return $this->trigger([Route::EVENT, $request, $pathOffset], $options);
     }
 
     /**

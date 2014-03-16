@@ -104,12 +104,14 @@ class Segment implements AssembleInterface
     /**
      * Create a new regex route.
      *
+     * @param  string $name,
      * @param  string $route
      * @param  array  $constraints
      * @param  array  $defaults
      */
-    public function __construct($route, array $constraints = array(), array $defaults = array())
+    public function __construct($name, $route, array $constraints = array(), array $defaults = array())
     {
+        $this->name     = $name;
         $this->defaults = $defaults;
         $this->parts    = $this->parseRouteDefinition($route);
         $this->regex    = $this->buildRegex($this->parts, $constraints);
@@ -399,6 +401,14 @@ class Segment implements AssembleInterface
         }
 
         return $parts;
+    }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return $this->name;
     }
 
     /**

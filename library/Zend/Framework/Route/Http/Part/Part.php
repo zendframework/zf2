@@ -14,13 +14,15 @@ use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Http\EventInterface;
 use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
 use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
+use Zend\Framework\Route\RouteInterface;
 use Zend\Uri\Http as Uri;
 use Zend\Mvc\Router\Http\RouteMatch;
 
 class Part
     implements
         AssembleInterface,
-        PartInterface
+        PartInterface,
+        RouteInterface
 {
     /**
      * @var array
@@ -146,6 +148,14 @@ class Part
         }
 
         return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return $this->route->name();
     }
 
     /**

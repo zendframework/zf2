@@ -11,11 +11,12 @@ namespace Zend\Framework\Route\Http\Literal;
 
 use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Http\EventInterface;
+use Zend\Framework\Route\RouteInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\Uri\Http as Uri;
 
-class Literal implements AssembleInterface
+class Literal implements AssembleInterface, RouteInterface
 {
     protected $route;
 
@@ -25,13 +26,15 @@ class Literal implements AssembleInterface
     protected $defaults;
 
     /**
+     * @param string $name
      * @param  string $route
      * @param  array  $defaults
      */
-    public function __construct($route, array $defaults = array())
+    public function __construct($name, $route, array $defaults = array())
     {
-        $this->route    = $route;
         $this->defaults = $defaults;
+        $this->name     = $name;
+        $this->route    = $route;
     }
 
     /**
@@ -76,6 +79,14 @@ class Literal implements AssembleInterface
         }
 
         return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return $this->name;
     }
 
     /**

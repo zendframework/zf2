@@ -24,6 +24,11 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Segment($options['options']['route'], $options['options']['constraints'], $options['options']['defaults']);
+        return new Segment(
+            $options['name'],
+            $options['options']['route'],
+            $options['options']['constraints'],
+            $options['options']['defaults']
+        );
     }
 }

@@ -46,11 +46,10 @@ class Assembler
      */
     public function __construct(RouteManager $rm, HttpUri $requestUri, $baseUrl, array $defaultParams = [])
     {
-        $this->rm            = $rm;
-
         $this->baseUrl       = $baseUrl;
         $this->defaultParams = $defaultParams;
         $this->requestUri    = $requestUri;
+        $this->rm            = $rm;
     }
 
     /**

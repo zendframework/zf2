@@ -51,7 +51,7 @@ class Event
 
         if ($this->pathLength === null || $response->getLength() === $this->pathLength) {
 
-            //$response->setMatchedRouteName($name);
+            $response->setMatchedRouteName($listener->name());
 
             //foreach ($this->defaultParams as $paramName => $value) {
                 //if ($response->getParam($paramName) === null) {
