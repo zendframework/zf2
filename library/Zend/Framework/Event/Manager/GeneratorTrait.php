@@ -18,9 +18,10 @@ trait GeneratorTrait
 {
     /**
      * @param $listener
+     * @param null $options
      * @return callable|ListenerInterface
      */
-    abstract protected function listener($listener);
+    abstract protected function listener($listener, $options = null);
 
     /**
      * @return ConfigInterface
@@ -29,11 +30,12 @@ trait GeneratorTrait
 
     /**
      * @param Event $event
+     * @param null $options
      * @return Generator
      */
-    protected function generator(Event $event)
+    protected function generator(Event $event, $options)
     {
-        foreach($this->queue($event->event()) as $listener) {
+        foreach($this->queue($event->event(), $options) as $listener) {
             if (!$listener instanceof ListenerInterface || $listener->target($event)) {
                 yield $listener;
             }
@@ -42,13 +44,14 @@ trait GeneratorTrait
 
     /**
      * @param string $event
+     * @param null $options
      * @return Generator
      */
-    protected function queue($event)
+    protected function queue($event, $options)
     {
         foreach($this->listeners()->queue($event) as $listeners) {
             foreach($listeners as $listener) {
-                yield $this->listener($listener);
+                yield $this->listener($listener, $options);
             }
         }
     }
@@ -62,7 +65,7 @@ trait GeneratorTrait
     {
         $result = null;
 
-        foreach($this->generator($event) as $listener) {
+        foreach($this->generator($event, $options) as $listener) {
 
             $result = $event->signal($listener, $options);
 

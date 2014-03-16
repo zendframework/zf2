@@ -57,9 +57,10 @@ class Manager
 
     /**
      * @param array|callable|string $listener
+     * @param null $options
      * @return callable
      */
-    protected function listener($listener)
+    protected function listener($listener, $options = null)
     {
         return is_callable($listener) ? $listener : $this->create($listener);
     }
