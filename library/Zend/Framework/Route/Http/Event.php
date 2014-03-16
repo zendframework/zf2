@@ -29,9 +29,9 @@ class Event
      */
     public function __construct(Uri $uri, $pathLength, $pathOffset)
     {
-        $this->uri        = $uri;
-        $this->pathLength = $pathLength;
-        $this->pathOffset = $pathOffset;
+        $this->pathLength    = $pathLength;
+        $this->pathOffset    = $pathOffset;
+        $this->uri           = $uri;
     }
 
     /**
@@ -52,12 +52,6 @@ class Event
         if ($this->pathLength === null || $response->getLength() === $this->pathLength) {
 
             $response->setMatchedRouteName($listener->name());
-
-            //foreach ($this->defaultParams as $paramName => $value) {
-                //if ($response->getParam($paramName) === null) {
-                    //$response->setParam($paramName, $value);
-                //}
-            //}
 
             $this->stop();
         }
