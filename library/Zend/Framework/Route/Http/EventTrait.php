@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Event\EventTrait as Event;
-use Zend\Stdlib\RequestInterface as Request;
+use Zend\Uri\Http as Uri;
 
 trait EventTrait
 {
@@ -20,41 +20,28 @@ trait EventTrait
     use Event;
 
     /**
-     * @var Request;
+     * @var Uri
      */
-    protected $request;
+    protected $uri;
 
     /**
      * @var int
      */
-    protected $baseUrlLength;
-
-    /**
-     * @var int
-     */
-    protected $pathLength;
-
-    /**
-     * @return null|int
-     */
-    public function baseUrlLength()
-    {
-        return $this->baseUrlLength;
-    }
+    protected $pathOffset;
 
     /**
      * @return int|null
      */
-    public function pathLength()
+    public function pathOffset()
     {
-        return $this->pathLength;
+        return $this->pathOffset;
     }
 
     /**
-     * @return Request
+     * @return Uri
      */
-    public function request()
+    public function uri()
     {
-        return $this->request;
+        return $this->uri;
     }
 }

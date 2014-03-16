@@ -17,4 +17,9 @@ interface AssembleInterface
      * @return mixed
      */
     public function assemble(array $params = [], array $options = []);
+
+    /**
+     * @return array
+     */
+    public function getAssembledParams();
 }

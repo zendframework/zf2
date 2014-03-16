@@ -27,15 +27,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        $request = $event->request();
-        $baseUrl = $request->getBaseUrl();
-        $uri     = $request->getUri();
-
-        $baseUrlLength = strlen($baseUrl);
-        $pathLength    = strlen($uri->getPath()) ? : null;
-
-        $pathOffset = $baseUrlLength ? $pathLength - $baseUrlLength : null;
-
-        return $this->match($event->request(), $pathOffset, $options);
+        return $this->match($event->request(), $options);
     }
 }

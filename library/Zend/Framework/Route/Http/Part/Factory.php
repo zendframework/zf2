@@ -24,18 +24,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        if (!isset($options['route'])) {
-            throw new Exception\InvalidArgumentException('Missing "route" in options array');
-        }
-
-        if (!isset($options['may_terminate'])) {
-            $options['may_terminate'] = false;
-        }
-
-        if (!isset($options['child_routes']) || !$options['child_routes']) {
-            $options['child_routes'] = null;
-        }
-
         return new Part(
             $this->config(),
             $options['route'],

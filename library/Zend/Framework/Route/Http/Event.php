@@ -11,7 +11,7 @@ namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Route\Match\ServiceTrait as RouteMatchTrait;
 use Zend\Mvc\Router\RouteMatch as RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
+use Zend\Uri\Http as Uri;
 
 class Event
     implements EventInterface
@@ -23,15 +23,13 @@ class Event
         RouteMatchTrait;
 
     /**
-     * @param Request $request
-     * @param int $baseUrlLength
-     * @param int $pathLength
+     * @param Uri $uri
+     * @param int $pathOffset
      */
-    public function __construct(Request $request, $baseUrlLength, $pathLength)
+    public function __construct(Uri $uri, $pathOffset)
     {
-        $this->request       = $request;
-        $this->baseUrlLength = $baseUrlLength;
-        $this->pathLength    = $pathLength;
+        $this->uri        = $uri;
+        $this->pathOffset = $pathOffset;
     }
 
     /**
@@ -49,7 +47,7 @@ class Event
 
         $this->setRouteMatch($response);
 
-        if ($this->pathLength === null || $response->getLength() === $this->pathLength) {
+        if ($this->pathOffset === null || $response->getLength() === $this->pathOffset) {
 
             //$response->setMatchedRouteName($name);
 
@@ -59,9 +57,10 @@ class Event
                 //}
             //}
 
-            $this->stop();
+            //$this->stop();
         }
 
+        $this->stop();
 
         return $response;
     }

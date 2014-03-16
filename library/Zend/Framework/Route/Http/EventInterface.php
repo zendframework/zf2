@@ -10,7 +10,7 @@
 namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Route\EventInterface as Event;
-use Zend\Stdlib\RequestInterface as Request;
+use Zend\Uri\Http as Uri;
 
 interface EventInterface
     extends Event
@@ -18,15 +18,10 @@ interface EventInterface
     /**
      * @return int
      */
-    public function baseUrlLength();
+    public function pathOffset();
 
     /**
-     * @return int
+     * @return Uri
      */
-    public function pathLength();
-
-    /**
-     * @return Request
-     */
-    public function request();
+    public function uri();
 }

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Route\Manager;
 
-use Zend\Stdlib\RequestInterface;
+use Zend\Stdlib\RequestInterface as Request;
 
 trait ServiceTrait
 {
@@ -19,14 +19,13 @@ trait ServiceTrait
     protected $rm;
 
     /**
-     * @param RequestInterface $request
-     * @param int $pathOffset
-     * @param null $options
+     * @param Request $request
+     * @param array $options
      * @return mixed
      */
-    public function match(RequestInterface $request, $pathOffset, $options = null)
+    public function match(Request $request, array $options = null)
     {
-        return $this->rm->match($request, $pathOffset, $options);
+        return $this->rm->match($request, $options);
     }
 
     /**

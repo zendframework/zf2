@@ -10,16 +10,15 @@
 namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Route\Assemble\AssembleInterface;
-use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
+use Zend\Uri\Http as Uri;
 
 /**
  * Segment route.
  */
-class Segment implements AssembleInterface, RouteMatchInterface
+class Segment implements AssembleInterface
 {
     /**
      * Cache for the encode output.
@@ -290,15 +289,14 @@ class Segment implements AssembleInterface, RouteMatchInterface
     }
 
     /**
-     * @param Request $request
+     * @param Uri $uri
      * @param null $pathOffset
      * @param array $options
      * @return null|RouteMatch|\Zend\Mvc\Router\RouteMatch
      * @throws \Zend\Mvc\Router\Exception\RuntimeException
      */
-    public function match(Request $request, $pathOffset = null, array $options = [])
+    public function match(Uri $uri, $pathOffset = null, array $options = [])
     {
-        $uri  = $request->getUri();
         $path = $uri->getPath();
 
         $regex = $this->regex;
@@ -410,6 +408,6 @@ class Segment implements AssembleInterface, RouteMatchInterface
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->match($event->request(), $event->baseUrlLength(), $options);
+        return $this->match($event->uri(), $event->pathOffset(), $options);
     }
 }

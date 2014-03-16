@@ -11,30 +11,20 @@ namespace Zend\Framework\Route\Http\Literal;
 
 use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Http\EventInterface;
-use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
+use Zend\Uri\Http as Uri;
 
-class Literal implements AssembleInterface, RouteMatchInterface
+class Literal implements AssembleInterface
 {
-    /**
-     * RouteMatchInterface to match.
-     *
-     * @var string
-     */
     protected $route;
 
     /**
-     * Default values.
-     *
      * @var array
      */
     protected $defaults;
 
     /**
-     * Create a new literal route.
-     *
      * @param  string $route
      * @param  array  $defaults
      */
@@ -63,13 +53,12 @@ class Literal implements AssembleInterface, RouteMatchInterface
     }
 
     /**
-     * @param Request $request
+     * @param Uri $uri
      * @param null $pathOffset
      * @return null|RouteMatch
      */
-    public function match(Request $request, $pathOffset = null)
+    public function match(Uri $uri, $pathOffset = null)
     {
-        $uri  = $request->getUri();
         $path = $uri->getPath();
 
         if ($pathOffset !== null) {
@@ -95,6 +84,6 @@ class Literal implements AssembleInterface, RouteMatchInterface
      */
     public function __invoke(EventInterface $event)
     {
-        return $this->match($event->request(), $event->baseUrlLength());
+        return $this->match($event->uri(), $event->pathOffset());
     }
 }

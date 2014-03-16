@@ -12,17 +12,46 @@ namespace Zend\Framework\Route\Http\Part;
 use Zend\Mvc\Router\Exception;
 use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Http\EventInterface;
-use Zend\Framework\Route\Manager\Manager as RoutePluginManager;
 use Zend\Framework\Route\Manager\ConfigInterface;
-use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
 use Zend\Framework\Route\PartInterface;
 use Zend\Mvc\Router\Http\RouteInterface as HttpRouteInterface;
-use Zend\Stdlib\RequestInterface as Request;
+use Zend\Uri\Http as Uri;
 use Zend\Mvc\Router\Http\RouteMatch;
 
+
+use Zend\Framework\Event\Config\ConfigInterface as RoutesConfigInterface;
+use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
+use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
+use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
+use Zend\Framework\Route\Assemble\AssemblerInterface;
+use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
+use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
+use Zend\Framework\Route\EventInterface as Event;
+use Zend\Framework\Service\AliasTrait as Alias;
+use Zend\Framework\Service\Factory\FactoryTrait as Factory;
+use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
+use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
+
 class Part
-    extends RoutePluginManager implements AssembleInterface, RouteMatchInterface, PartInterface
+    implements
+        AssembleInterface,
+        AssemblerInterface,
+        EventManagerInterface,
+        ServiceManagerInterface,
+
+        //AssembleInterface,
+        PartInterface
 {
+    /**
+     *
+     */
+    use Alias,
+        EventGenerator,
+        EventManager,
+        Factory,
+        RouteAssembler,
+        ServiceManager;
+
     /**
      * RouteMatchInterface to match.
      *
@@ -52,10 +81,41 @@ class Part
      */
     public function __construct(ConfigInterface $config, $route, $mayTerminate, array $childRoutes = null)
     {
-        parent::__construct($config);
+        $routes = $config->routes();
+
+        $this->alias     = $routes->aliases();
+        $this->config    = $config;
+        $this->listeners = $routes->listeners();
+        $this->routes    = $routes;
+        $this->services  = $config->services();
+
         $this->route        = $route;
         $this->mayTerminate = $mayTerminate;
         $this->childRoutes  = $childRoutes;
+    }
+
+    /**
+     * @param array|Event|string $event
+     * @return Event
+     */
+    protected function event($event)
+    {
+        return $event instanceof Event ? $event : $this->create($event);
+    }
+
+    /**
+     * @param array|callable|string $listener
+     * @return callable
+     */
+    protected function listener($listener)
+    {
+        if (is_callable($listener)) {
+            return $listener;
+        }
+
+        $listener = $this->routes->routes()->get($listener);
+
+        return $this->route($listener['type'], $listener['options']);
     }
 
     /**
@@ -117,42 +177,39 @@ class Part
     }
 
     /**
-     * @param Request $request
+     * @param Uri $uri
      * @param null $pathOffset
      * @param array $options
      * @return null|RouteMatch|\Zend\Mvc\Router\RouteMatch
      */
-    public function match(Request $request, $pathOffset = null, array $options = [])
+    public function match(Uri $uri, $pathOffset = null, array $options = [])
     {
         if ($pathOffset === null) {
             $pathOffset = 0;
         }
 
-        $match = $this->route->match($request, $pathOffset, $options);
+        $match = $this->route->match($uri, $pathOffset, $options);
 
-        if ($match !== null && method_exists($request, 'getUri')) {
-            if ($this->childRoutes !== null) {
-                $this->addRoutes($this->childRoutes);
-                $this->childRoutes = null;
+        if ($this->childRoutes !== null) {
+            $this->addRoutes($this->childRoutes);
+            $this->childRoutes = null;
+        }
+
+        $nextOffset = $pathOffset + $match->getLength();
+
+        $pathLength = strlen($uri->getPath());
+
+        if ($this->mayTerminate && $nextOffset === $pathLength) {
+            $query = $uri->getQuery();
+            if ('' == trim($query) || !$this->hasQueryChild()) {
+                return $match;
             }
+        }
 
-            $nextOffset = $pathOffset + $match->getLength();
-
-            $uri        = $request->getUri();
-            $pathLength = strlen($uri->getPath());
-
-            if ($this->mayTerminate && $nextOffset === $pathLength) {
-                $query = $uri->getQuery();
-                if ('' == trim($query) || !$this->hasQueryChild()) {
-                    return $match;
-                }
-            }
-
-            foreach ($this->listeners as $name => $route) {
-                if (($subMatch = $route->match($request, $nextOffset, $options)) instanceof RouteMatch) {
-                    if ($match->getLength() + $subMatch->getLength() + $pathOffset === $pathLength) {
-                        return $match->merge($subMatch)->setMatchedRouteName($name);
-                    }
+        foreach ($this->listeners as $name => $route) {
+            if (($subMatch = $route->match($uri, $nextOffset, $options)) instanceof RouteMatch) {
+                if ($match->getLength() + $subMatch->getLength() + $pathOffset === $pathLength) {
+                    return $match->merge($subMatch)->setMatchedRouteName($name);
                 }
             }
         }
@@ -167,6 +224,6 @@ class Part
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->match($event->request(), $event->baseUrlLength(), $options);
+        return $this->match($event->request(), $event->pathOffset(), $options);
     }
 }

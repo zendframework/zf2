@@ -13,20 +13,19 @@ use Zend\Framework\Event\Config\ConfigInterface as RoutesConfigInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
+use Zend\Stdlib\RequestInterface as Request;
 use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\Framework\Route\Assemble\AssemblerInterface;
 use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
 use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
 use Zend\Framework\Route\EventInterface as Event;
-use Zend\Framework\Route\Match\MatchInterface as RouteMatchInterface;
 use Zend\Framework\Route\PartInterface;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
 use Zend\Mvc\Router\Exception;
-use Zend\Mvc\Router\Http\RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
+use Zend\Mvc\Router\RouteMatch;
 
 class Manager
     implements
@@ -34,7 +33,6 @@ class Manager
         AssemblerInterface,
         EventManagerInterface,
         ManagerInterface,
-        RouteMatchInterface,
         ServiceManagerInterface
 {
     /**
@@ -109,6 +107,14 @@ class Manager
     }
 
     /**
+     * @return array
+     */
+    public function getAssembledParams()
+    {
+        return [];
+    }
+
+    /**
      * @param array|Event|string $event
      * @return Event
      */
@@ -134,14 +140,12 @@ class Manager
 
     /**
      * @param Request $request
-     * @param null $baseUrlLength
-     * @param null $pathOffset
-     * @param null $options
+     * @param array $options
      * @return null|RouteMatch
      */
-    public function match(Request $request, $baseUrlLength = null, $pathOffset = null, $options = null)
+    public function match(Request $request, array $options = null)
     {
-        return $this->trigger([Event::EVENT, $request, $baseUrlLength, $pathOffset], $options);
+        return $this->trigger([Event::EVENT, $request], $options);
     }
 
     /**

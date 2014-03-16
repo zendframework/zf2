@@ -24,18 +24,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        if (!isset($options['route'])) {
-            throw new Exception\InvalidArgumentException('Missing "route" in options array');
-        }
-
-        if (!isset($options['constraints'])) {
-            $options['constraints'] = array();
-        }
-
-        if (!isset($options['defaults'])) {
-            $options['defaults'] = array();
-        }
-
         return new Segment($options['route'], $options['constraints'], $options['defaults']);
     }
 }

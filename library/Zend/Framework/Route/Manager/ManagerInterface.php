@@ -16,12 +16,10 @@ interface ManagerInterface
 {
     /**
      * @param RequestInterface $request
-     * @param null $baseUrlLength
-     * @param null $pathOffset
-     * @param null $options
+     * @param array $options
      * @return mixed
      */
-    public function match(RequestInterface $request, $baseUrlLength = null, $pathOffset = null, $options = null);
+    public function match(RequestInterface $request, array $options = null);
 
     /**
      * @param string $name

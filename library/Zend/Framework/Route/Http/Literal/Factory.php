@@ -24,14 +24,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        if (!isset($options['route'])) {
-            throw new Exception\InvalidArgumentException('Missing "route" in options array');
-        }
-
-        if (!isset($options['defaults'])) {
-            $options['defaults'] = array();
-        }
-
         return new Literal($options['route'], $options['defaults']);
     }
 }
