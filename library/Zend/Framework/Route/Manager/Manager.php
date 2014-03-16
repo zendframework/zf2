@@ -90,13 +90,7 @@ class Manager
      */
     protected function listener($listener)
     {
-        if (is_callable($listener)) {
-            return $listener;
-        }
-
-        $config = $this->routes->routes()->get($listener);
-
-        return $this->route($config['type'], $config);
+        return is_callable($listener) ? $listener : $this->route($listener);
     }
 
     /**
@@ -117,7 +111,11 @@ class Manager
      */
     public function route($name, $options = null)
     {
-        $route = $this->create($this->alias($name), $options);
+        if (!$options) {
+            $options = $this->routes->routes()->get($name);
+        }
+
+        $route = $this->create($this->alias($options['type']), $options);
 
         if (empty($options['child_routes'])) {
             return $route;

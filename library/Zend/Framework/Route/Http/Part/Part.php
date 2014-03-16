@@ -138,7 +138,7 @@ class Part
 
         foreach ($this->childRoutes as $name => $route) {
 
-            $route = $this->rm->route($route['type'], $route);
+            $route = $this->rm->route($name, $route);
 
             if (($subMatch = $route->match($uri, $nextOffset, $options)) instanceof RouteMatch) {
                 if ($match->getLength() + $subMatch->getLength() + $pathOffset === $pathLength) {
