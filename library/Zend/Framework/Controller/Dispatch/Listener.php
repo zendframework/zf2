@@ -35,7 +35,7 @@ class Listener
         try {
 
             if (!$controller || !$this->dispatchable($controller)) {
-                return $this->error($routeMatch, $controller, [$request, $response, $routeMatch]);
+                return $this->error($routeMatch, $controller, [$request, $response]);
             }
 
             return $this->dispatch($routeMatch, $controller, [$request, $response, $routeMatch]);
