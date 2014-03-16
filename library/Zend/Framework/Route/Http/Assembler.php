@@ -72,7 +72,7 @@ class Assembler
 
         $route = $this->rm->routes()->routes()->get($name);
 
-        $route = $this->rm->route($route['type'], $route['options']);
+        $route = $this->rm->route($route['type'], $route);
 
         if (!$route) {
             throw new Exception\RuntimeException(sprintf('Route with name "%s" not found', $name));

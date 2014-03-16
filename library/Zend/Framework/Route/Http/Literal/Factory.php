@@ -24,6 +24,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Literal($options['route'], $options['defaults']);
+        return new Literal($options['options']['route'], $options['options']['defaults']);
     }
 }

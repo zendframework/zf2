@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Http;
+namespace Zend\Framework\Route\Http\Segment;
 
 use Zend\Framework\Service\Factory\Factory as FactoryService;
 use Zend\Framework\Service\RequestInterface as Request;
@@ -24,6 +24,6 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return new Segment($options['route'], $options['constraints'], $options['defaults']);
+        return new Segment($options['options']['route'], $options['options']['constraints'], $options['options']['defaults']);
     }
 }

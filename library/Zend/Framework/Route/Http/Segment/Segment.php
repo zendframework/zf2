@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Route\Http;
+namespace Zend\Framework\Route\Http\Segment;
 
 use Zend\Framework\Route\Assemble\AssembleInterface;
 use Zend\I18n\Translator\Translator;

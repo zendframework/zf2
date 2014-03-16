@@ -26,11 +26,10 @@ class Factory
     public function __invoke(Request $request, array $options = [])
     {
         return new Part(
-            $this->config(),
             $options['manager'],
             $options['route'],
             $options['may_terminate'],
-            is_array($options['child_routes']) ? new Listeners($options['child_routes']): $options['child_routes']
+            $options['child_routes']
         );
     }
 }

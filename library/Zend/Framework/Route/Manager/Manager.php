@@ -96,7 +96,7 @@ class Manager
 
         $config = $this->routes->routes()->get($listener);
 
-        $route = $this->route($config['type'], $config['options']);
+        $route = $this->create($this->alias($config['type']), $config);
 
         if (empty($config['child_routes'])) {
             return $route;
@@ -105,11 +105,11 @@ class Manager
         $options = array(
             'manager'       => $this,
             'route'         => $route,
-            'may_terminate' => !empty('may_terminate'),
+            'may_terminate' => !empty($options['may_terminate']),
             'child_routes'  => $config['child_routes']
         );
 
-        return $this->route('part', $options);
+        return $this->create($this->alias('part'), $options);
     }
 
     /**
@@ -130,7 +130,20 @@ class Manager
      */
     public function route($name, $options = null)
     {
-        return $this->create($this->alias($name), $options);
+        $route = $this->create($this->alias($name), $options);
+
+        if (empty($options['child_routes'])) {
+            return $route;
+        }
+
+        $options = array(
+            'manager'       => $this,
+            'route'         => $route,
+            'may_terminate' => !empty($options['may_terminate']),
+            'child_routes'  => $options['child_routes']
+        );
+
+        return $this->create($this->alias('part'), $options);
     }
 
     /**
