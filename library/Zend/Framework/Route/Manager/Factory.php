@@ -28,6 +28,10 @@ class Factory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        return (new Manager($this->config()))->setAssembler($this->assembler());
+        $rm = new Manager($this->config());
+
+        $rm->setAssembler($this->assembler($rm));
+
+        return $rm;
     }
 }

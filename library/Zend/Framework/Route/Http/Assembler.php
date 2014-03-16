@@ -9,8 +9,9 @@
 
 namespace Zend\Framework\Route\Http;
 
-use Zend\Framework\Route\Assemble\AssembleInterface;
+use Zend\Framework\Route\Http\Part\PartInterface;
 use Zend\Framework\Route\Assemble\AssemblerInterface;
+use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
 use Zend\Mvc\Router\Exception;
 use Zend\Uri\Http as HttpUri;
 
@@ -33,28 +34,65 @@ class Assembler
     protected $requestUri;
 
     /**
+     * @var RouteManager
+     */
+    protected $rm;
+
+    /**
+     * @param RouteManager $rm
      * @param HttpUri $requestUri
      * @param string $baseUrl
      * @param array $defaultParams
      */
-    public function __construct(HttpUri $requestUri, $baseUrl, array $defaultParams = [])
+    public function __construct(RouteManager $rm, HttpUri $requestUri, $baseUrl, array $defaultParams = [])
     {
+        $this->rm            = $rm;
+
         $this->baseUrl       = $baseUrl;
         $this->defaultParams = $defaultParams;
         $this->requestUri    = $requestUri;
     }
 
     /**
-     * @param AssembleInterface $route
      * @param array $params
      * @param array $options
-     * @return mixed|string
+     * @return mixed
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
-    public function build(AssembleInterface $route, array $params = [], array $options = [])
+    public function url(array $params = [], array $options = [])
     {
-        if (isset($options['only_return_path']) && $options['only_return_path']) {
+        if (!isset($options['name'])) {
+            throw new Exception\InvalidArgumentException('Missing "name" option');
+        }
+
+        $name = explode('/', $options['name'], 2);
+
+        list($name, $children) = [$name[0], isset($name[1]) ? $name[1] : null];
+
+        $route = $this->rm->routes()->routes()->get($name);
+
+        $route = $this->rm->route($route['type'], $route['options']);
+
+        if (!$route) {
+            throw new Exception\RuntimeException(sprintf('Route with name "%s" not found', $name));
+        }
+
+        if ($children) {
+
+            if (!$route instanceof PartInterface) {
+                throw new Exception\RuntimeException(sprintf('Route with name "%s" does not have child routes', $name));
+            }
+
+            $options['name'] = $children;
+
+        } else {
+
+            unset($options['name']);
+
+        }
+
+        if (!empty($options['only_return_path'])) {
             return $this->baseUrl . $route->assemble(array_merge($this->defaultParams, $params), $options);
         }
 

@@ -9,13 +9,16 @@
 
 namespace Zend\Framework\Route\Assemble;
 
+use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
+
 trait ServicesTrait
 {
     /**
+     * @param RouteManager $rm
      * @return AssemblerInterface
      */
-    public function assembler()
+    public function assembler(RouteManager $rm)
     {
-        return $this->sm->get('Route\Assembler');
+        return $this->sm->get('Route\Assembler', $rm);
     }
 }

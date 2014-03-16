@@ -19,7 +19,6 @@ use Zend\Framework\Route\Assemble\AssemblerInterface;
 use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
 use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
 use Zend\Framework\Route\EventInterface as Event;
-use Zend\Framework\Route\Http\Part\PartInterface;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
@@ -73,37 +72,7 @@ class Manager
      */
     public function assemble(array $params = [], array $options = [])
     {
-        if (!isset($options['name'])) {
-            throw new Exception\InvalidArgumentException('Missing "name" option');
-        }
-
-        $name = explode('/', $options['name'], 2);
-
-        list($name, $children) = [$name[0], isset($name[1]) ? $name[1] : null];
-
-        $route = $this->routes->routes()->get($name);
-
-        $route = $this->route($route['type'], $route['options']);
-
-        if (!$route) {
-            throw new Exception\RuntimeException(sprintf('Route with name "%s" not found', $name));
-        }
-
-        if ($children) {
-
-            if (!$route instanceof PartInterface) {
-                throw new Exception\RuntimeException(sprintf('Route with name "%s" does not have child routes', $name));
-            }
-
-            $options['name'] = $children;
-
-        } else {
-
-            unset($options['name']);
-
-        }
-
-        return $this->build($route, $params, $options);
+        return $this->url($params, $options);
     }
 
     /**
@@ -134,6 +103,7 @@ class Manager
         }
 
         $options = array(
+            'manager'       => $this,
             'route'         => $route,
             'may_terminate' => !empty('may_terminate'),
             'child_routes'  => $config['child_routes']
@@ -168,6 +138,6 @@ class Manager
      */
     public function routes()
     {
-        $this->routes;
+        return $this->routes;
     }
 }

@@ -19,14 +19,13 @@ use Zend\Mvc\Router\Http\RouteMatch;
 
 
 use Zend\Framework\Event\Config\Config as Listeners;
-use Zend\Framework\Event\Config\ConfigInterface as RoutesConfigInterface;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
 use Zend\Framework\Route\Assemble\AssemblerInterface;
 use Zend\Framework\Route\Assemble\ServiceTrait as RouteAssembler;
-use Zend\Framework\Route\Config\ConfigInterface as RouteConfigInterface;
 use Zend\Framework\Route\EventInterface as Event;
+use Zend\Framework\Route\Manager\ManagerInterface as RouteManager;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
@@ -53,6 +52,11 @@ class Part
         ServiceManager;
 
     /**
+     * @var RouteManager
+     */
+    protected $rm;
+
+    /**
      * RouteMatchInterface to match.
      *
      * @var RouteMatchInterface
@@ -68,12 +72,15 @@ class Part
 
     /**
      * @param ConfigInterface $config
+     * @param RouteManager $rm
      * @param $route
      * @param $mayTerminate
      * @param Listeners $childRoutes
      */
-    public function __construct(ConfigInterface $config, $route, $mayTerminate, Listeners $childRoutes = null)
+    public function __construct(ConfigInterface $config, RouteManager $rm, $route, $mayTerminate, Listeners $childRoutes = null)
     {
+        $this->rm = $rm;
+
         $routes = $config->routes();
 
         $this->alias     = $routes->aliases();
@@ -145,7 +152,7 @@ class Part
 
         unset($options['has_child']);
         $options['only_return_path'] = true;
-        $path .= parent::assemble($params, $options);
+        $path .= $this->rm->assemble($params, $options);
 
         return $path;
     }
