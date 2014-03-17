@@ -10,6 +10,7 @@
 namespace Zend\Framework\Route\Http\Segment;
 
 use Zend\Framework\Route\Assemble\AssembleInterface;
+use Zend\Framework\Route\Http\EventInterface;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Router\Exception;
 use Zend\Mvc\Router\Http\RouteMatch;

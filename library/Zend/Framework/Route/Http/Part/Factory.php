@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Route\Http\Part;
 
-use Zend\Framework\Event\Config\Config as Listeners;
 use Zend\Framework\Service\Factory\Factory as FactoryService;
 use Zend\Framework\Service\RequestInterface as Request;
 use Zend\Mvc\Router\Exception;
