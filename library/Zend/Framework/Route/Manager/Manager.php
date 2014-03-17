@@ -122,12 +122,12 @@ class Manager
             return $route;
         }
 
-        $options = array(
+        $options = [
             'manager'       => $this,
             'route'         => $route,
             'may_terminate' => !empty($options['may_terminate']),
             'child_routes'  => $options['child_routes']
-        );
+        ];
 
         return $this->create($this->alias('part'), $options);
     }
