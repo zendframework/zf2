@@ -9,10 +9,18 @@
 
 namespace Zend\Framework\View\Manager;
 
+use Exception;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 interface ManagerInterface
 {
+    /**
+     * @param Exception $exception
+     * @param ViewModel $viewModel
+     * @return mixed
+     */
+    public function exception(Exception $exception, ViewModel $viewModel);
+
     /**
      * @param string $name
      * @param mixed $options
