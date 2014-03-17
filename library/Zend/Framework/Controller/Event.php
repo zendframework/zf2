@@ -37,7 +37,7 @@ class Event
      */
     public function __invoke(callable $listener, array $options = [])
     {
-        list($request, $response) = $options;
-        return $listener($this, $request, $response);
+        list($request, $response, $routeMatch) = $options;
+        return $listener($this, $request, $response, $routeMatch);
     }
 }
