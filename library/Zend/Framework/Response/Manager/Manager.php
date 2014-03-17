@@ -12,13 +12,13 @@ namespace Zend\Framework\Response\Manager;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Response\EventInterface as Event;
+use Zend\Framework\Response\EventInterface as Response;
 use Zend\Framework\Route\Config\ConfigInterface as RouterConfig;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 use Zend\Framework\Service\Manager\ManagerTrait as ServiceManager;
-use Zend\Stdlib\ResponseInterface as Response;
+use Zend\Stdlib\ResponseInterface;
 
 class Manager
     implements ManagerInterface, EventManagerInterface, ServiceManagerInterface
@@ -47,12 +47,12 @@ class Manager
     }
 
     /**
-     * @param array|Event|string $event
-     * @return Event
+     * @param array|Response|string $event
+     * @return Response
      */
     protected function event($event)
     {
-        return $event instanceof Event ? $event : $this->create($event);
+        return $event instanceof Response ? $event : $this->create($event);
     }
 
     /**
@@ -66,11 +66,11 @@ class Manager
     }
 
     /**
-     * @param Response $response
+     * @param ResponseInterface $response
      * @return mixed
      */
-    public function response(Response $response)
+    public function response(ResponseInterface $response)
     {
-        return $this->trigger(Event::EVENT, $response);
+        return $this->trigger(Response::EVENT, $response);
     }
 }
