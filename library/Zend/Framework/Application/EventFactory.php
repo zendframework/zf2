@@ -10,7 +10,7 @@
 namespace Zend\Framework\Application;
 
 use Zend\Framework\Service\Factory\Factory;
-use Zend\Framework\Service\RequestInterface as Request;
+use Zend\Framework\Service\RequestInterface;
 use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 
 class EventFactory
@@ -22,11 +22,11 @@ class EventFactory
     use ViewManager;
 
     /**
-     * @param Request $request
+     * @param RequestInterface $request
      * @param array $listeners
      * @return Event
      */
-    public function __invoke(Request $request, array $listeners = [])
+    public function __invoke(RequestInterface $request, array $listeners = [])
     {
         $viewModel = $this->rootViewModel()
                           ->setTemplate($this->config()->view()->layoutTemplate())

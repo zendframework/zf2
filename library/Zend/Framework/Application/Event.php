@@ -15,7 +15,7 @@ use Zend\Framework\View\Render\EventInterface as RenderEventInterface;
 use Zend\Framework\Request\ServicesTrait as Request;
 use Zend\Framework\Response\Send\EventInterface as SendEventInterface;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
-use Zend\Framework\Route\Match\ServiceTrait as RouteMatchTrait;
+use Zend\Framework\Route\Match\ServicesTrait as RouteMatchTrait;
 use Zend\Framework\Route\Match\EventInterface as RouteMatchEventInterface;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManager;
 use Zend\Framework\View\Render\ListenerInterface as RenderListenerInterface;
