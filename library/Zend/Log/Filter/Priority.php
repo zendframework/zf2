@@ -10,6 +10,7 @@
 namespace Zend\Log\Filter;
 
 use Traversable;
+use Zend\Log\Logger;
 use Zend\Log\Exception;
 
 class Priority implements FilterInterface
@@ -28,7 +29,7 @@ class Priority implements FilterInterface
      * Filter logging by $priority. By default, it will accept any log
      * event whose priority value is less than or equal to $priority.
      *
-     * @param  int|array|Traversable $priority Priority
+     * @param  int|string|array|Traversable $priority Priority
      * @param  string $operator Comparison operator
      * @return Priority
      * @throws Exception\InvalidArgumentException
@@ -42,6 +43,36 @@ class Priority implements FilterInterface
             $operator = isset($priority['operator']) ? $priority['operator'] : null;
             $priority = isset($priority['priority']) ? $priority['priority'] : null;
         }
+
+        if (is_string($priority)) {
+            switch($priority) {
+                case 'EMERG'  :
+                    $priority = Logger::EMERG;
+                    break;
+                case 'ALERT'  :
+                    $priority = Logger::ALERT;
+                    break;
+                case 'CRIT'   :
+                    $priority = Logger::CRIT;
+                    break;
+                case 'ERR'    :
+                    $priority = Logger::ERR;
+                    break;
+                case 'WARN'   :
+                    $priority = Logger::WARN;
+                    break;
+                case 'NOTICE' :
+                    $priority = Logger::NOTICE;
+                    break;
+                case 'INFO'   :
+                    $priority = Logger::INFO;
+                    break;
+                case 'DEBUG'  :
+                    $priority = Logger::DEBUG;
+                    break;
+            }
+        }
+
         if (!is_int($priority)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Priority must be an integer; received "%s"',
