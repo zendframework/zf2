@@ -30,7 +30,7 @@ class Literal implements AssembleInterface, RouteInterface
      * @param  string $route
      * @param  array  $defaults
      */
-    public function __construct($name, $route, array $defaults = array())
+    public function __construct($name, $route, array $defaults = [])
     {
         $this->defaults = $defaults;
         $this->name     = $name;
@@ -42,7 +42,7 @@ class Literal implements AssembleInterface, RouteInterface
      * @param array $options
      * @return mixed|string
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
         return $this->route;
     }
@@ -52,7 +52,7 @@ class Literal implements AssembleInterface, RouteInterface
      */
     public function getAssembledParams()
     {
-        return array();
+        return [];
     }
 
     /**

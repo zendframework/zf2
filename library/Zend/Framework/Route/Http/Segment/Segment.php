@@ -26,7 +26,7 @@ class Segment implements AssembleInterface
      *
      * @var array
      */
-    protected static $cacheEncode = array();
+    protected static $cacheEncode = [];
 
     /**
      * Map of allowed special chars in path segments.
@@ -40,7 +40,7 @@ class Segment implements AssembleInterface
      *
      * @var array
      */
-    protected static $urlencodeCorrectionMap = array(
+    protected static $urlencodeCorrectionMap = [
         '%21' => "!", // sub-delims
         '%24' => "$", // sub-delims
         '%26' => "&", // sub-delims
@@ -58,7 +58,7 @@ class Segment implements AssembleInterface
         '%40' => "@", // pchar
 //      '%5F' => "_", // unreserved - not touched by rawurlencode
 //      '%7E' => "~", // unreserved - not touched by rawurlencode
-    );
+    ];
 
     /**
      * Parts of the route.
@@ -79,7 +79,7 @@ class Segment implements AssembleInterface
      *
      * @var array
      */
-    protected $paramMap = array();
+    protected $paramMap = [];
 
     /**
      * Default values.
@@ -93,14 +93,14 @@ class Segment implements AssembleInterface
      *
      * @var array
      */
-    protected $assembledParams = array();
+    protected $assembledParams = [];
 
     /**
      * Translation keys used in the regex.
      *
      * @var array
      */
-    protected $translationKeys = array();
+    protected $translationKeys = [];
 
     /**
      * Create a new regex route.
@@ -110,7 +110,7 @@ class Segment implements AssembleInterface
      * @param  array  $constraints
      * @param  array  $defaults
      */
-    public function __construct($name, $route, array $constraints = array(), array $defaults = array())
+    public function __construct($name, $route, array $constraints = [], array $defaults = [])
     {
         $this->name     = $name;
         $this->defaults = $defaults;
@@ -123,9 +123,9 @@ class Segment implements AssembleInterface
      * @param array $options
      * @return mixed|string
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
-        $this->assembledParams = array();
+        $this->assembledParams = [];
 
         return $this->buildPath(
             $this->parts,
@@ -329,7 +329,7 @@ class Segment implements AssembleInterface
         }
 
         $matchedLength = strlen($matches[0]);
-        $params        = array();
+        $params        = [];
 
         foreach ($this->paramMap as $index => $name) {
             if (isset($matches[$index]) && $matches[$index] !== '') {
@@ -351,8 +351,8 @@ class Segment implements AssembleInterface
     {
         $currentPos = 0;
         $length     = strlen($def);
-        $parts      = array();
-        $levelParts = array(&$parts);
+        $parts      = [];
+        $levelParts = [&$parts];
         $level      = 0;
 
         while ($currentPos < $length) {
@@ -361,7 +361,7 @@ class Segment implements AssembleInterface
             $currentPos += strlen($matches[0]);
 
             if (!empty($matches['literal'])) {
-                $levelParts[$level][] = array('literal', $matches['literal']);
+                $levelParts[$level][] = ['literal', $matches['literal']];
             }
 
             if ($matches['token'] === ':') {
@@ -369,7 +369,7 @@ class Segment implements AssembleInterface
                     throw new Exception\RuntimeException('Found empty parameter name');
                 }
 
-                $levelParts[$level][] = array('parameter', $matches['name'], isset($matches['delimiters']) ? $matches['delimiters'] : null);
+                $levelParts[$level][] = ['parameter', $matches['name'], isset($matches['delimiters']) ? $matches['delimiters'] : null];
 
                 $currentPos += strlen($matches[0]);
             } elseif ($matches['token'] === '{') {
@@ -379,9 +379,9 @@ class Segment implements AssembleInterface
 
                 $currentPos += strlen($matches[0]);
 
-                $levelParts[$level][] = array('translated-literal', $matches['literal']);
+                $levelParts[$level][] = ['translated-literal', $matches['literal']];
             } elseif ($matches['token'] === '[') {
-                $levelParts[$level][] = array('optional', array());
+                $levelParts[$level][] = ['optional', []];
                 $levelParts[$level + 1] = &$levelParts[$level][count($levelParts[$level]) - 1][1];
 
                 $level++;

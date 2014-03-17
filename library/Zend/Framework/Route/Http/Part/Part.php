@@ -64,7 +64,7 @@ class Part
      * @return mixed|string
      * @throws Exception\RuntimeException
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
         $options['has_child'] = (isset($options['name']));
 
@@ -93,7 +93,7 @@ class Part
     {
         // Part routes may not occur as base route of other part routes, so we
         // don't have to return anything here.
-        return array();
+        return [];
     }
 
     /**

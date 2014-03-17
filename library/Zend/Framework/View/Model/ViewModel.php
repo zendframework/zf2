@@ -33,13 +33,13 @@ class ViewModel
      * Child models
      * @var array
      */
-    protected $children = array();
+    protected $children = [];
 
     /**
      * Renderer options
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Template to use when rendering this model
@@ -59,7 +59,7 @@ class ViewModel
      * View variables
      * @var array|ArrayAccess&Traversable
      */
-    protected $variables = array();
+    protected $variables = [];
 
 
     /**
@@ -214,7 +214,7 @@ class ViewModel
      */
     public function clearOptions()
     {
-        $this->options = array();
+        $this->options = [];
         return $this;
     }
 
@@ -379,7 +379,7 @@ class ViewModel
      */
     public function clearChildren()
     {
-        $this->children = array();
+        $this->children = [];
         return $this;
     }
 
