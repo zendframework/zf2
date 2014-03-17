@@ -22,38 +22,38 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        $response = $event->routeMatch();
+        $routeMatch = $event->routeMatch();
 
-        if (!$response instanceof RouteMatch) {
+        if (!$routeMatch instanceof RouteMatch) {
             // Can't do anything without a route match
-            return $response;
+            return $routeMatch;
         }
 
-        $module = $response->getParam(self::MODULE_NAMESPACE, false);
+        $module = $routeMatch->getParam(self::MODULE_NAMESPACE, false);
         if (!$module) {
             // No module namespace found; nothing to do
-            return $response;
+            return $routeMatch;
         }
 
-        $controller = $response->getParam('controller', false);
+        $controller = $routeMatch->getParam('controller', false);
         if (!$controller) {
             // no controller matched, nothing to do
-            return $response;
+            return $routeMatch;
         }
 
         // Ensure the module namespace has not already been applied
         if (0 === strpos($controller, $module)) {
-            return $response;
+            return $routeMatch;
         }
 
         // Keep the originally matched controller name around
-        $response->setParam(self::ORIGINAL_CONTROLLER, $controller);
+        $routeMatch->setParam(self::ORIGINAL_CONTROLLER, $controller);
 
         // Prepend the controllername with the module, and replace it in the
         // matches
         $controller = $module . '\\' . str_replace(' ', '', ucwords(str_replace('-', ' ', $controller)));
-        $response->setParam('controller', $controller);
+        $routeMatch->setParam('controller', $controller);
 
-        return $response;
+        return $routeMatch;
     }
 }
