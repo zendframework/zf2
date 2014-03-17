@@ -11,10 +11,7 @@ namespace ZendTest\Tag\Cloud;
 
 use stdClass;
 use Zend\Tag;
-use Zend\Tag\Cloud;
 use Zend\Tag\Cloud\DecoratorPluginManager;
-use Zend\Tag\Exception\InvalidArgumentException;
-use ZendTest\Tag\Cloud\TestAsset;
 
 /**
  * @group      Zend_Tag
