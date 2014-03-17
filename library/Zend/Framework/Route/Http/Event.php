@@ -41,23 +41,23 @@ class Event
      */
     public function __invoke(callable $listener, $options = null)
     {
-        $response = $listener($this, $options);
+        $routeMatch = $listener($this, $options);
 
-        if (!$response instanceof RouteMatch) {
-            return $response;
+        if (!$routeMatch instanceof RouteMatch) {
+            return $routeMatch;
         }
 
-        $this->setRouteMatch($response);
+        $this->setRouteMatch($routeMatch);
 
-        if ($this->pathLength === null || $response->getLength() === $this->pathLength) {
+        if ($this->pathLength === null || $routeMatch->getLength() === $this->pathLength) {
 
-            if (!$response->getMatchedRouteName()) {
-                $response->setMatchedRouteName($listener->name());
+            if (!$routeMatch->getMatchedRouteName()) {
+                $routeMatch->setMatchedRouteName($listener->name());
             }
 
             $this->stop();
         }
 
-        return $response;
+        return $routeMatch;
     }
 }
