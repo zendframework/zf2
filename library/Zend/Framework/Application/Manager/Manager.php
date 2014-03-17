@@ -9,8 +9,7 @@
 
 namespace Zend\Framework\Application\Manager;
 
-use Zend\Framework\Application\EventInterface as Event;
-use Zend\Framework\Event\EventInterface;
+use Zend\Framework\Application\EventInterface as Application;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
@@ -39,12 +38,12 @@ class Manager
     }
 
     /**
-     * @param array|EventInterface|string $event
-     * @return EventInterface
+     * @param array|Application|string $event
+     * @return Application
      */
     protected function event($event)
     {
-        return $event instanceof EventInterface ? $event : $this->create($event);
+        return $event instanceof Application ? $event : $this->create($event);
     }
 
     /**
@@ -62,7 +61,7 @@ class Manager
      * @param null $options
      * @return mixed
      */
-    public function run($event = Event::EVENT, $options = null)
+    public function run($event = Application::EVENT, $options = null)
     {
         return $this->trigger($event, $options);
     }
