@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Application\Manager;
 
-use Zend\Framework\Application\EventInterface as Event;
+use Zend\Framework\Application\EventInterface as Application;
 use Zend\Framework\Service\Manager\ManagerInterface as ServiceManagerInterface;
 
 interface ManagerInterface
@@ -20,5 +20,5 @@ interface ManagerInterface
      * @param null $options
      * @return mixed
      */
-    public function run($event = Event::EVENT, $options = null);
+    public function run($event = Application::EVENT, $options = null);
 }
