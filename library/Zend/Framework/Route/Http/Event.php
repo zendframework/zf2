@@ -51,7 +51,9 @@ class Event
 
         if ($this->pathLength === null || $response->getLength() === $this->pathLength) {
 
-            $response->setMatchedRouteName($listener->name());
+            if (!$response->getMatchedRouteName()) {
+                $response->setMatchedRouteName($listener->name());
+            }
 
             $this->stop();
         }
