@@ -96,7 +96,7 @@ class Config
      */
     public function templateMap()
     {
-        return (array) $this->get('template_map');
+        return $this->get('template_map');
     }
 
     /**
@@ -104,6 +104,6 @@ class Config
      */
     public function templatePathStack()
     {
-        return (array) $this->get('template_path_stack');
+        return $this->get('template_path_stack');
     }
 }
