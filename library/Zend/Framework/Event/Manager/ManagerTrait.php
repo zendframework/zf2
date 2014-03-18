@@ -36,10 +36,11 @@ trait ManagerTrait
     /**
      * @param array|EventInterface|string $event
      * @param null $options
+     * @param callable $callback
      * @return mixed
      */
-    public function trigger($event, $options = null)
+    public function trigger($event, $options = null, callable $callback = null)
     {
-        return $this->generate($this->event($event), $options);
+        return $this->generate($this->event($event), $options, $callback);
     }
 }

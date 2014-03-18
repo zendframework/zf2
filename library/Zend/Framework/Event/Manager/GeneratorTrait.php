@@ -59,15 +59,21 @@ trait GeneratorTrait
     /**
      * @param Event $event
      * @param null $options
+     * @param callable $callback
      * @return mixed|null
      */
-    protected function generate(Event $event, $options = null)
+    protected function generate(Event $event, $options = null, callable $callback = null)
     {
         $result = null;
 
         foreach($this->generator($event, $options) as $listener) {
 
             $result = $event->signal($listener, $options);
+
+            if ($callback && $callback($event, $listener, $result)) {
+                $event->stop();
+                break;
+            }
 
             if ($event->stopped()) {
                 break;
