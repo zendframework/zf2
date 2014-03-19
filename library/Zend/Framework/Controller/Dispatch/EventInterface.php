@@ -18,11 +18,6 @@ interface EventInterface
     extends Event
 {
     /**
-     * @return null|string
-     */
-    public function controller();
-
-    /**
      * @return Request
      */
     public function request();

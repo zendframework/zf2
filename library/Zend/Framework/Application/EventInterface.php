@@ -24,11 +24,6 @@ interface EventInterface
     const EVENT = 'Event\Application';
 
     /**
-     * @return null|string
-     */
-    public function controller();
-
-    /**
      * @return Request
      */
     public function request();

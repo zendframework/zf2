@@ -11,7 +11,6 @@ namespace Zend\Framework\Application;
 
 use Zend\Framework\Controller\Dispatch\EventInterface as DispatchEventInterface;
 use Zend\Framework\Controller\RouteMatch\EventInterface as ControllerRouteMatchEventInterface;
-use Zend\Framework\Controller\RouteMatch\ListenerInterface as ControllerRouteMatchListenerInterface;
 use Zend\Framework\Event\EventTrait;
 use Zend\Framework\View\Render\EventInterface as RenderEventInterface;
 use Zend\Framework\Request\ServicesTrait as Request;
@@ -57,24 +56,6 @@ class Event
     }
 
     /**
-     * @return string
-     */
-    public function controller()
-    {
-        return $this->controller;
-    }
-
-    /**
-     * @param string $controller
-     * @return self
-     */
-    public function setController($controller)
-    {
-        $this->controller = $controller;
-        return $this;
-    }
-
-    /**
      * @param callable $listener
      * @param null $options
      * @return mixed
@@ -91,9 +72,6 @@ class Event
                 break;
             case $response instanceof Response:
                 $this->setResponse($response);
-                break;
-            case $response instanceof ControllerRouteMatchListenerInterface:
-                $this->setController($response);
                 break;
             case $response instanceof ViewModelInterface:
                 switch(true) {
