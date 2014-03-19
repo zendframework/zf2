@@ -9,12 +9,17 @@
 
 namespace Zend\Framework\Route\Http;
 
-use Zend\Framework\Route\EventInterface as Event;
+use Zend\Framework\Event\EventInterface as Event;
 use Zend\Uri\Http as Uri;
 
 interface EventInterface
     extends Event
 {
+    /**
+     *
+     */
+    const EVENT = 'Event\Route\Http';
+
     /**
      * @return int
      */

@@ -9,9 +9,18 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\Event\EventInterface as Event;
+use Zend\Framework\Event\EventTrait as EventTrait;
 
-interface EventInterface
-    extends Event
+class Event
+    implements EventInterface
 {
+    /**
+     *
+     */
+    use EventTrait;
+
+    /**
+     * Provides service name
+     */
+    const EVENT = 'Event\Route';
 }
