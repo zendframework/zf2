@@ -357,7 +357,7 @@ class Memcache extends AbstractAdapter implements
     protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $memc       = $this->getMemcacheResource();
-        $expiration = $this->expirationTime();
+        $expiration = $ttl ? $ttl : $this->expirationTime();
         $flag       = $this->getWriteFlag($value);
 
         if (!$memc->set($this->namespacePrefix . $normalizedKey, $value, $flag, $expiration)) {

@@ -220,7 +220,7 @@ class Redis extends AbstractAdapter implements
     protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $redis = $this->getRedisResource();
-        $ttl = $this->getOptions()->getTtl();
+        $ttl = $ttl ? $ttl : $this->getOptions()->getTtl();
 
         try {
             if ($ttl) {

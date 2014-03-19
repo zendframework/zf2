@@ -661,7 +661,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      *
      * @param  string $key
      * @param  mixed  $value
-     * @param  int  $ttl Lifetime for this item
+     * @param  int    $ttl    Lifetime for this item
      * @return bool
      * @throws Exception\ExceptionInterface
      *

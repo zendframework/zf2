@@ -163,8 +163,8 @@ abstract class AbstractZendServer extends AbstractAdapter
      * Internal method to store an item.
      *
      * @param  string $normalizedKey
-     * @param  mixed $value
-     * @param int $ttl
+     * @param  mixed  $value
+     * @param int     $ttl
      * @return bool
      */
     protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
