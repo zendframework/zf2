@@ -36,15 +36,6 @@ trait ConfigTrait
     }
 
     /**
-     * @param string $name
-     * @return array|null
-     */
-    public function get($name)
-    {
-        return isset($this->config[$name]) ? $this->config[$name] : null;
-    }
-
-    /**
      * @param $name
      * @return array
      */
