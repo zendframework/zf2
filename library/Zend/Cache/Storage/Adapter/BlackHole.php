@@ -175,10 +175,11 @@ class BlackHole implements
      * Store an item.
      *
      * @param  string $key
-     * @param  mixed  $value
+     * @param  mixed $value
+     * @param int $ttl
      * @return bool
      */
-    public function setItem($key, $value)
+    public function setItem($key, $value, $ttl = 0)
     {
         return false;
     }

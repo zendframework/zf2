@@ -375,10 +375,10 @@ class Memcached extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $memc       = $this->getMemcachedResource();
-        $expiration = $this->expirationTime();
+        $expiration = $ttl ? $ttl : $this->expirationTime();
         if (!$memc->set($this->namespacePrefix . $normalizedKey, $value, $expiration)) {
             throw $this->getExceptionByResultCode($memc->getResultCode());
         }

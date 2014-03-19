@@ -354,7 +354,7 @@ class Memcache extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $memc       = $this->getMemcacheResource();
         $expiration = $this->expirationTime();

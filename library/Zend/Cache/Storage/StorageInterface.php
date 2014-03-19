@@ -92,11 +92,11 @@ interface StorageInterface
      * Store an item.
      *
      * @param  string $key
-     * @param  mixed  $value
+     * @param  mixed $value
+     * @param int $ttl Lifetime for this item
      * @return bool
-     * @throws \Zend\Cache\Exception\ExceptionInterface
      */
-    public function setItem($key, $value);
+    public function setItem($key, $value, $ttl = 0);
 
     /**
      * Store multiple items.

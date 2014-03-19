@@ -661,6 +661,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      *
      * @param  string $key
      * @param  mixed  $value
+     * @param  int  $ttl Lifetime for this item
      * @return bool
      * @throws Exception\ExceptionInterface
      *
@@ -668,7 +669,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @triggers setItem.post(PostEvent)
      * @triggers setItem.exception(ExceptionEvent)
      */
-    public function setItem($key, $value)
+    public function setItem($key, $value, $ttl = 0)
     {
         if (!$this->getOptions()->getWritable()) {
             return false;
@@ -702,7 +703,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    abstract protected function internalSetItem(& $normalizedKey, & $value);
+    abstract protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0);
 
     /**
      * Store multiple items.

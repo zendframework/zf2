@@ -229,7 +229,7 @@ class WinCache extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
