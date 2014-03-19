@@ -37,10 +37,12 @@ interface ManagerInterface
     public function dispatch(RouteMatch $routeMatch, $controller, $options = null);
 
     /**
+     * @param RouteMatch $routeMatch
      * @param string $controller
-     * @return bool
+     * @param null $options
+     * @return mixed
      */
-    public function dispatchable($controller);
+    public function dispatchable(RouteMatch $routeMatch, $controller, $options = null);
 
     /**
      * @param RouteMatch $routeMatch
@@ -56,4 +58,11 @@ interface ManagerInterface
      * @return mixed
      */
     public function exception(Exception $exception, $options = null);
+
+    /**
+     * @param RouteMatch $routeMatch
+     * @param null $options
+     * @return string controller
+     */
+    public function match(RouteMatch $routeMatch, $options = null);
 }

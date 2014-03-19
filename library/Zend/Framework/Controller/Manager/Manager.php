@@ -14,6 +14,7 @@ use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\EventInterface;
 use Zend\Framework\Controller\Exception\EventInterface as Exception;
 use Zend\Framework\Controller\ListenerInterface;
+use Zend\Framework\Controller\Match\EventInterface as Match;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
@@ -73,12 +74,17 @@ class Manager
     }
 
     /**
-     * @param string $controller
+     * @param RouteMatch $routeMatch
+     * @param null $options
      * @return bool
      */
-    public function dispatchable($controller)
+    public function dispatchable(RouteMatch $routeMatch, $controller = null, $options = null)
     {
-        return $this->listeners->has($controller);
+        if (!$controller || !$this->listeners->has($controller)) {
+            return false;
+        }
+
+        return $this->match($routeMatch, $options);
     }
 
     /**
@@ -119,5 +125,15 @@ class Manager
     protected function listener($listener, $options = null)
     {
         return is_callable($listener) ? $listener : $this->controller($listener, $options);
+    }
+
+    /**
+     * @param RouteMatch $routeMatch
+     * @param null $options
+     * @return string controller
+     */
+    public function match(RouteMatch $routeMatch, $options = null)
+    {
+        return $this->trigger([Match::EVENT, $routeMatch], $options);
     }
 }

@@ -9,11 +9,9 @@
 
 namespace Zend\Framework\Module\Route;
 
-use Zend\Framework\Route\Match\ListenerInterface as Listener;
-use Zend\Framework\Route\Match\EventInterface;
+use Zend\Framework\Controller\Match\EventInterface;
 
 interface ListenerInterface
-    extends Listener
 {
     /**
      *

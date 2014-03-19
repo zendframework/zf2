@@ -27,14 +27,15 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        $controller = $event->controller();
         $request    = $event->request();
         $response   = $event->response();
         $routeMatch = $event->routeMatch();
 
+        $controller = $routeMatch->getParam('controller');
+
         try {
 
-            if (!$controller || !$this->dispatchable($controller)) {
+            if (!$controller || !$this->dispatchable($routeMatch, $controller, $options)) {
                 return $this->error($routeMatch, $controller, [$request, $response]);
             }
 
