@@ -7,12 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\Match;
+namespace Zend\Framework\Controller\RouteMatch;
 
 use Zend\Framework\Event\EventInterface as Event;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Stdlib\ResponseInterface as Response;
+use Zend\Mvc\Router\RouteMatch as RouteMatchInterface;
 
 interface EventInterface
     extends Event
@@ -20,10 +18,10 @@ interface EventInterface
     /**
      *
      */
-    const EVENT = 'Controller\Match';
+    const EVENT = 'Controller\RouteMatch';
 
     /**
-     * @return RouteMatch
+     * @return RouteMatchInterface
      */
     public function routeMatch();
 }

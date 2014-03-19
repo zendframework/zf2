@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Controller\Match;
+namespace Zend\Framework\Controller\RouteMatch;
 
 use Zend\Framework\Event\EventTrait as EventTrait;
 use Zend\Framework\Route\Match\ServiceTrait as RouteMatchTrait;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\Router\RouteMatch as RouteMatchInterface;
 
 class Event
     implements EventInterface
@@ -23,9 +23,9 @@ class Event
         RouteMatchTrait;
 
     /**
-     * @param RouteMatch $routeMatch
+     * @param RouteMatchInterface $routeMatch
      */
-    public function __construct(RouteMatch $routeMatch)
+    public function __construct(RouteMatchInterface $routeMatch)
     {
         $this->routeMatch = $this->source = $routeMatch;
     }

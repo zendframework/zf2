@@ -10,7 +10,7 @@
 namespace Zend\Framework\Application;
 
 use Zend\Framework\Controller\Dispatch\EventInterface as DispatchEventInterface;
-use Zend\Framework\Controller\Match\ListenerInterface as ControllerMatchListenerInterface;
+use Zend\Framework\Controller\RouteMatch\ListenerInterface as ControllerMatchListenerInterface;
 use Zend\Framework\Event\EventTrait;
 use Zend\Framework\View\Render\EventInterface as RenderEventInterface;
 use Zend\Framework\Request\ServicesTrait as Request;

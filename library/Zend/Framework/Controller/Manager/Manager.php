@@ -14,7 +14,7 @@ use Zend\Framework\Controller\Error\EventInterface as Error;
 use Zend\Framework\Controller\EventInterface;
 use Zend\Framework\Controller\Exception\EventInterface as Exception;
 use Zend\Framework\Controller\ListenerInterface;
-use Zend\Framework\Controller\Match\EventInterface as Match;
+use Zend\Framework\Controller\RouteMatch\EventInterface as Match;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
