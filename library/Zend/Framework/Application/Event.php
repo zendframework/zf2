@@ -10,7 +10,8 @@
 namespace Zend\Framework\Application;
 
 use Zend\Framework\Controller\Dispatch\EventInterface as DispatchEventInterface;
-use Zend\Framework\Controller\RouteMatch\ListenerInterface as ControllerMatchListenerInterface;
+use Zend\Framework\Controller\RouteMatch\EventInterface as ControllerRouteMatchEventInterface;
+use Zend\Framework\Controller\RouteMatch\ListenerInterface as ControllerRouteMatchListenerInterface;
 use Zend\Framework\Event\EventTrait;
 use Zend\Framework\View\Render\EventInterface as RenderEventInterface;
 use Zend\Framework\Request\ServicesTrait as Request;
@@ -27,6 +28,7 @@ use Zend\View\Model\ModelInterface as ViewModelInterface;
 
 class Event
     implements EventInterface,
+               ControllerRouteMatchEventInterface,
                DispatchEventInterface,
                RenderEventInterface,
                RouteMatchEventInterface,
@@ -90,7 +92,7 @@ class Event
             case $response instanceof Response:
                 $this->setResponse($response);
                 break;
-            case $response instanceof ControllerMatchListenerInterface:
+            case $response instanceof ControllerRouteMatchListenerInterface:
                 $this->setController($response);
                 break;
             case $response instanceof ViewModelInterface:

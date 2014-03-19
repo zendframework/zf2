@@ -9,20 +9,12 @@
 
 namespace Zend\Framework\Controller\RouteMatch;
 
-use Zend\Framework\Event\EventTrait as EventTrait;
-use Zend\Framework\Route\Match\ServiceTrait;
-
-class Event
-    implements EventInterface
+interface ListenerInterface
 {
     /**
-     *
+     * @param EventInterface $event
+     * @param null $options
+     * @return mixed
      */
-    use EventTrait,
-        ServiceTrait;
-
-    /**
-     * Provides service name
-     */
-    const EVENT = 'Event\Controller\RouteMatch';
+    public function __invoke(EventInterface $event, $options = null);
 }

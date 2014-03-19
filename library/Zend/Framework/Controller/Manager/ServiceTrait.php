@@ -60,14 +60,12 @@ trait ServiceTrait
     }
 
     /**
-     * @param RouteMatch $routeMatch
      * @param string $controller
-     * @param null $options
      * @return mixed
      */
-    public function dispatchable(RouteMatch $routeMatch, $controller, $options = null)
+    public function dispatchable($controller)
     {
-        return $this->cm->dispatchable($routeMatch, $controller, $options);
+        return $this->cm->dispatchable($controller);
     }
 
     /**

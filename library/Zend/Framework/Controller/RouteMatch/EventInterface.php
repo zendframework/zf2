@@ -16,11 +16,6 @@ interface EventInterface
     extends Event
 {
     /**
-     *
-     */
-    const EVENT = 'Controller\RouteMatch';
-
-    /**
      * @return RouteMatchInterface
      */
     public function routeMatch();
