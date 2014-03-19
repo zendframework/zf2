@@ -164,10 +164,10 @@ abstract class AbstractZendServer extends AbstractAdapter
      *
      * @param  string $normalizedKey
      * @param  mixed  $value
+     * @param int     $ttl
      * @return bool
-     * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();

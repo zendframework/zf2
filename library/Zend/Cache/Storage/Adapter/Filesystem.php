@@ -758,13 +758,13 @@ class Filesystem extends AbstractAdapter implements
      * @triggers setItem.post(PostEvent)
      * @triggers setItem.exception(ExceptionEvent)
      */
-    public function setItem($key, $value)
+    public function setItem($key, $value, $ttl = 0)
     {
         $options = $this->getOptions();
         if ($options->getWritable() && $options->getClearStatCache()) {
             clearstatcache();
         }
-        return parent::setItem($key, $value);
+        return parent::setItem($key, $value, $ttl);
     }
 
     /**
@@ -882,7 +882,7 @@ class Filesystem extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $filespec = $this->getFileSpec($normalizedKey);
         $this->prepareDirectoryStructure($filespec);

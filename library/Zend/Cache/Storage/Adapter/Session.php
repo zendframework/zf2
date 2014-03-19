@@ -264,7 +264,7 @@ class Session extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $cntr = $this->getSessionContainer();
         $ns   = $this->getOptions()->getNamespace();

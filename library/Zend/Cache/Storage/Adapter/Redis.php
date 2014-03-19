@@ -217,10 +217,10 @@ class Redis extends AbstractAdapter implements
      * @return bool
      * @throws Exception\RuntimeException
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem(& $normalizedKey, & $value, $ttl = 0)
     {
         $redis = $this->getRedisResource();
-        $ttl = $this->getOptions()->getTtl();
+        $ttl = $ttl ? $ttl : $this->getOptions()->getTtl();
 
         try {
             if ($ttl) {
