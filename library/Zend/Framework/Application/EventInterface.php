@@ -29,27 +29,9 @@ interface EventInterface
     public function request();
 
     /**
-     * @param Request $request
-     * @return self
-     */
-    public function setRequest(Request $request);
-
-    /**
      * @return Response
      */
     public function response();
-
-    /**
-     * @param Response $response
-     * @return self
-     */
-    public function setResponse(Response $response);
-
-    /**
-     * @param $content
-     * @return self
-     */
-    public function setResponseContent($content);
 
     /**
      * @return RouteMatch
@@ -57,19 +39,7 @@ interface EventInterface
     public function routeMatch();
 
     /**
-     * @param RouteMatch $routeMatch
-     * @return self
-     */
-    public function setRouteMatch(RouteMatch $routeMatch);
-
-    /**
      * @return ViewModel
      */
     public function viewModel();
-
-    /**
-     * @param ViewModel $viewModel
-     * @return self
-     */
-    public function setViewModel(ViewModel $viewModel);
 }

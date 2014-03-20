@@ -22,6 +22,14 @@ trait ServicesTrait
     }
 
     /**
+     * @return mixed
+     */
+    public function responseContent()
+    {
+        return $this->response()->getContent();
+    }
+
+    /**
      * @param Response $response
      * @return self
      */
