@@ -11,16 +11,10 @@ namespace Zend\Framework\Route\Http;
 
 use Zend\Framework\Service\Factory\Factory;
 use Zend\Framework\Service\RequestInterface as Request;
-use Zend\Framework\View\Manager\ServicesTrait as ViewManager;
 
 class EventFactory
     extends Factory
 {
-    /**
-     *
-     */
-    use ViewManager;
-
     /**
      * @param Request $request
      * @param array $options
