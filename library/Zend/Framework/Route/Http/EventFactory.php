@@ -22,10 +22,10 @@ class EventFactory
      */
     public function __invoke(Request $request, array $options = [])
     {
-        list($httpRequest, $pathOffset) = $options;
+        list($request, $pathOffset) = $options;
 
-        $baseUrl = $httpRequest->getBaseUrl();
-        $uri     = $httpRequest->getUri();
+        $baseUrl = $request->getBaseUrl();
+        $uri     = $request->getUri();
 
         $baseUrlLength = strlen($baseUrl) ? : null;
 
