@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\View\Config;
 
-use Zend\Framework\Config\ConfigInterface as Serializable;
+use Zend\Framework\Config\ConfigInterface as Config;
 
 interface ConfigInterface
-    extends Serializable
+    extends Config
 {
     /**
      * @return array

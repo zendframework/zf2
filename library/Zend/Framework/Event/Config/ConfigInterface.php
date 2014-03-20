@@ -9,10 +9,10 @@
 
 namespace Zend\Framework\Event\Config;
 
-use Zend\Framework\Config\ConfigInterface as Serializable;
+use Zend\Framework\Config\ConfigInterface as Config;
 
 interface ConfigInterface
-    extends Serializable
+    extends Config
 {
     /**
      * Default priority

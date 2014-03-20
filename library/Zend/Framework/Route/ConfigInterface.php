@@ -9,9 +9,9 @@
 
 namespace Zend\Framework\Route;
 
-use Zend\Framework\Event\Config\ConfigInterface as Serializable;
+use Zend\Framework\Event\Config\ConfigInterface as Config;
 
 interface ConfigInterface
-    extends Serializable
+    extends Config
 {
 }

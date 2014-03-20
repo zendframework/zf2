@@ -9,11 +9,11 @@
 
 namespace Zend\Framework\Route\Config;
 
-use Zend\Framework\Config\ConfigInterface as Serializable;
+use Zend\Framework\Config\ConfigInterface as Config;
 use Zend\Framework\Route\ConfigInterface as RouteConfigInterface;
 
 interface ConfigInterface
-    extends Serializable
+    extends Config
 {
     /**
      * @return array
