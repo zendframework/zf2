@@ -47,7 +47,7 @@ abstract class HeaderWrap
     protected static function wrapUnstructuredHeader($value, HeaderInterface $header)
     {
         $encoding = $header->getEncoding();
-        if ($encoding == 'ASCII' or !preg_match('/[^\x00-\x7f]/', $value)) {
+        if ($encoding == 'ASCII') {
             return wordwrap($value, 78, Headers::FOLDING);
         }
         return static::mimeEncodeValue($value, $encoding, 78);
