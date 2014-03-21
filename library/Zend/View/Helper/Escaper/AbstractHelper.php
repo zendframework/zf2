@@ -43,8 +43,11 @@ abstract class AbstractHelper extends Helper\AbstractHelper
      * @throws Exception\InvalidArgumentException
      * @return mixed Given a scalar, a scalar value is returned. Given an object, with the $recurse flag not allowing object recursion, returns a string. Otherwise, returns an array.
      */
-    public function __invoke($value, $recurse = self::RECURSE_NONE)
+    public function __invoke($value = null, $recurse = self::RECURSE_NONE)
     {
+		if (null === $value) {
+			return $this->getEscaper();
+		}
         if (is_string($value)) {
             return $this->escape($value);
         }
