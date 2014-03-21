@@ -142,6 +142,9 @@ class GenericHeader implements HeaderInterface, UnstructuredInterface
 
     public function getEncoding()
     {
+        if(!preg_match('/[^\x00-\x7f]/', $this->getFieldValue())){
+          return "ASCII";
+        }
         return $this->encoding;
     }
 
