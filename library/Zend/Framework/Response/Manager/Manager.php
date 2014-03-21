@@ -12,7 +12,9 @@ namespace Zend\Framework\Response\Manager;
 use Zend\Framework\Event\Manager\GeneratorTrait as EventGenerator;
 use Zend\Framework\Event\Manager\ManagerInterface as EventManagerInterface;
 use Zend\Framework\Event\Manager\ManagerTrait as EventManager;
-use Zend\Framework\Response\EventInterface as Response;
+use Zend\Framework\Response\Event as Response;
+use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\Send\Event as Send;
 use Zend\Framework\Route\Config\ConfigInterface as RouterConfig;
 use Zend\Framework\Service\AliasTrait as Alias;
 use Zend\Framework\Service\Factory\FactoryTrait as Factory;
@@ -47,12 +49,12 @@ class Manager
     }
 
     /**
-     * @param array|Response|string $event
-     * @return Response
+     * @param array|EventInterface|string $event
+     * @return EventInterface
      */
     protected function event($event)
     {
-        return $event instanceof Response ? $event : $this->create($event);
+        return $event instanceof EventInterface ? $event : $this->create($event);
     }
 
     /**
@@ -72,5 +74,14 @@ class Manager
     public function response(ResponseInterface $response)
     {
         return $this->trigger(Response::EVENT, $response);
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @return mixed
+     */
+    public function send(ResponseInterface $response)
+    {
+        return $this->trigger(Send::EVENT, $response);
     }
 }

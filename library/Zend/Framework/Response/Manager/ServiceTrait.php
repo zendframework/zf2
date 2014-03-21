@@ -31,6 +31,15 @@ trait ServiceTrait
     }
 
     /**
+     * @param ResponseInterface $response
+     * @return mixed
+     */
+    public function send(ResponseInterface $response)
+    {
+        return $this->rm->send($response);
+    }
+
+    /**
      * Set the route manager.
      *
      * @param  ManagerInterface $rm

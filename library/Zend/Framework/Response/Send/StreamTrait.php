@@ -9,7 +9,6 @@
 
 namespace Zend\Framework\Response\Send;
 
-use Zend\Framework\Response\EventInterface;
 use Zend\Stdlib\ResponseInterface;
 
 trait StreamTrait

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Response\Http;
 
-use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\Send\EventInterface;
 use Zend\Framework\Response\Send\ContentTrait;
 use Zend\Framework\Response\Send\HeadersTrait;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -24,11 +24,9 @@ class Listener
         HeadersTrait;
 
     /**
-     * Send HTTP response
-     *
-     * @param  EventInterface $event
-     * @param $response
-     * @return self
+     * @param EventInterface $event
+     * @param Response $response
+     * @return bool
      */
     public function __invoke(EventInterface $event, Response $response)
     {

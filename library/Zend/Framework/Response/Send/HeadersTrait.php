@@ -10,7 +10,6 @@
 namespace Zend\Framework\Response\Send;
 
 use Zend\Http\Header\MultipleHeaderInterface;
-use Zend\Framework\Response\EventInterface;
 use Zend\Stdlib\ResponseInterface;
 
 trait HeadersTrait

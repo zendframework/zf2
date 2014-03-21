@@ -9,14 +9,12 @@
 
 namespace Zend\Framework\Response;
 
-use Zend\Stdlib\ResponseInterface as Response;
-
 interface ListenerInterface
 {
     /**
      * @param EventInterface $event
-     * @param Response $options
+     * @param null $options
      * @return mixed
      */
-    public function __invoke(EventInterface $event, Response $options);
+    public function __invoke(EventInterface $event, $options = null);
 }

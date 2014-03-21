@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Response\Stream;
 
-use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\Send\EventInterface;
 use Zend\Framework\Response\Send\HeadersTrait;
 use Zend\Framework\Response\Send\StreamTrait;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -26,7 +26,6 @@ class Listener
     /**
      * @param EventInterface $event
      * @param Response $response
-     * @return $this|mixed
      */
     public function __invoke(EventInterface $event, Response $response)
     {
@@ -34,7 +33,5 @@ class Listener
              ->sendStream($event, $response);
 
         $event->stop();
-
-        return $this;
     }
 }

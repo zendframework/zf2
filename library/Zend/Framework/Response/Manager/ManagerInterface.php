@@ -18,4 +18,10 @@ interface ManagerInterface
      * @return mixed
      */
     public function response(ResponseInterface $response);
+
+    /**
+     * @param ResponseInterface $response
+     * @return mixed
+     */
+    public function send(ResponseInterface $response);
 }

@@ -10,12 +10,13 @@
 namespace Zend\Framework\Response;
 
 use Zend\Framework\Event\EventInterface as Event;
+use Zend\Stdlib\ResponseInterface as Response;
 
 interface EventInterface
     extends Event
 {
     /**
-     *
+     * @return Response
      */
-    const EVENT = 'Event\Response';
+    public function response();
 }

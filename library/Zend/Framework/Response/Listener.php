@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Framework\Response\Send;
+namespace Zend\Framework\Response;
 
 use Zend\Framework\Response\Manager\ServiceTrait as ResponseManager;
 
@@ -26,6 +26,6 @@ class Listener
      */
     public function __invoke(EventInterface $event, $options = null)
     {
-        return $this->send($event->response());
+        return $this->response($event->response());
     }
 }

@@ -17,21 +17,11 @@ class Event
     /**
      *
      */
-    use EventTrait;
+    use EventTrait,
+        ServiceTrait;
 
     /**
-     * @param callable $listener
-     * @param null $options
-     * @return mixed
+     *
      */
-    public function __invoke(callable $listener, $options = null)
-    {
-        $response = $listener($this, $options);
-
-        if ($response) {
-            $this->stop();
-        }
-
-        return $response;
-    }
+    const EVENT = 'Event\Response';
 }

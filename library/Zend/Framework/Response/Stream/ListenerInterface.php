@@ -9,9 +9,14 @@
 
 namespace Zend\Framework\Response\Stream;
 
-use Zend\Framework\Response\ListenerInterface as ResponseListener;
+use Zend\Framework\Response\Send\EventInterface;
+use Zend\Stdlib\ResponseInterface as Response;
 
 interface ListenerInterface
-    extends ResponseListener
 {
+    /**
+     * @param EventInterface $event
+     * @param Response $response
+     */
+    public function __invoke(EventInterface $event, Response $response);
 }

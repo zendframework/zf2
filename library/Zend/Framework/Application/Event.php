@@ -14,6 +14,7 @@ use Zend\Framework\Controller\RouteMatch\EventInterface as ControllerRouteMatchE
 use Zend\Framework\Event\EventTrait;
 use Zend\Framework\View\Render\EventInterface as RenderEventInterface;
 use Zend\Framework\Request\ServicesTrait as Request;
+use Zend\Framework\Response\EventInterface as ResponseEventInterface;
 use Zend\Framework\Response\Send\EventInterface as SendEventInterface;
 use Zend\Framework\Response\ServicesTrait as ResponseTrait;
 use Zend\Framework\Route\Match\ServicesTrait as RouteMatchTrait;
@@ -30,6 +31,7 @@ class Event
                ControllerRouteMatchEventInterface,
                DispatchEventInterface,
                RenderEventInterface,
+                ResponseEventInterface,
                RouteMatchEventInterface,
                SendEventInterface
 {

@@ -9,7 +9,7 @@
 
 namespace Zend\Framework\Response\Console;
 
-use Zend\Framework\Response\EventInterface;
+use Zend\Framework\Response\Send\EventInterface;
 use Zend\Framework\Response\Send\ContentTrait;
 use Zend\Stdlib\ResponseInterface as Response;
 
@@ -24,7 +24,6 @@ class Listener
     /**
      * @param EventInterface $event
      * @param Response $response
-     * @return mixed|void
      */
     public function __invoke(EventInterface $event, Response $response)
     {
