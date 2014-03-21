@@ -18,6 +18,9 @@ use Zend\Uri\Http as Uri;
 
 class Literal implements AssembleInterface, RouteInterface
 {
+    /**
+     * @var string
+     */
     protected $route;
 
     /**
