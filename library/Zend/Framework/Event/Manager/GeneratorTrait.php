@@ -70,7 +70,7 @@ trait GeneratorTrait
 
             $result = $event->signal($listener, $options);
 
-            if ($callback && $callback($event, $listener, $result)) {
+            if ($callback && $callback($event, $listener, $options, $result)) {
                 $event->stop();
                 break;
             }

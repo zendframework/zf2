@@ -34,6 +34,11 @@ class AssemblerFactory
 
         $request = $this->request();
 
-        return new Assembler($routeManager, $request->getUri(), $request->getBaseUrl(), $this->config()->routes()->defaultParams());
+        return new Assembler(
+            $routeManager,
+            $request->getUri(),
+            $request->getBaseUrl(),
+            $this->config()->routes()->defaultParams()
+        );
     }
 }
