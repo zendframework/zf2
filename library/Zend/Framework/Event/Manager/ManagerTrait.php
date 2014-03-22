@@ -26,14 +26,6 @@ trait ManagerTrait
     abstract protected function event($event);
 
     /**
-     * @param EventInterface $event
-     * @param null $options
-     * @param callable $callback
-     * @return mixed|null
-     */
-    abstract protected function generate(EventInterface $event, $options = null, callable $callback = null);
-
-    /**
      * @return ConfigInterface
      */
     public function listeners()
