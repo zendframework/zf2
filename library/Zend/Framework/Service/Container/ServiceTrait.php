@@ -110,4 +110,14 @@ trait ServiceTrait
     {
         return $this->services->service($name);
     }
+
+    /**
+     * @param string $name
+     * @return self
+     */
+    public function remove($name)
+    {
+        $this->services->remove($name);
+        return $this;
+    }
 }

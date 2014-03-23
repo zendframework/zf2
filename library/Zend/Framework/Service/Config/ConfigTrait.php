@@ -105,4 +105,14 @@ trait ConfigTrait
     {
         return isset($this->services[$name]) ? $this->services[$name] : null;
     }
+
+    /**
+     * @param string $name
+     * @return self
+     */
+    public function remove($name)
+    {
+        unset($this->services[$name]);
+        return $this;
+    }
 }
