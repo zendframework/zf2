@@ -352,11 +352,11 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  callable|InitializerInterface $initializer
      * @param  bool                          $topOfStack
-     * @param  string                        $classOrServiceName Specific, fully qualified class type or service name for which this initializer should run.
+     * @param  string|null          $className Specific, fully qualified class name for which this initializer should run.
      * @return ServiceManager
      * @throws Exception\InvalidArgumentException
      */
-    public function addInitializer($initializer, $topOfStack = true, $classOrServiceName = null)
+    public function addInitializer($initializer, $topOfStack = true, $className = null)
     {
         if (!($initializer instanceof InitializerInterface || is_callable($initializer))) {
             if (is_string($initializer)) {
@@ -368,8 +368,8 @@ class ServiceManager implements ServiceLocatorInterface
             }
         }
 
-        if ($classOrServiceName) {
-            $initializer = array($classOrServiceName => $initializer);
+        if ($className) {
+            $initializer = array($initializer, $className);
         } 
         
         if ($topOfStack) {
@@ -642,12 +642,12 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         foreach ($this->initializers as $initializer) {
-            if (is_array($initializer) && is_string($classOrServiceName = key($initializer))) { //Specific class/service name binding?
-                if (!$classOrServiceName == $rName && !$instance instanceof $classOrServiceName) {
-                    continue; //Skip
+            if (is_array($initializer)) { //Specific class/service name binding?
+                if (!$instance instanceof $initializer[1]) {
+                    continue;
                 }
                 
-                $initializer = $initializer[$classOrServiceName];
+                $initializer = $initializer[0];
             }
             
             if ($initializer instanceof InitializerInterface) {
