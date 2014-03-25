@@ -151,14 +151,36 @@ class ServiceManagerTest extends TestCase
     /**
      * @covers Zend\ServiceManager\ServiceManager::addInitializer
      */
-    public function testAddingClassInitializer()
+    public function testAddingServiceInitializerAddsDelegatorFactory()
     {
         $initializer =  new TestAsset\FooInitializer();
-        $className = 'ZendTest\ServiceManager\TestAsset\Foo';
+        $serviceName = 'FooService';
         
-        $this->serviceManager->addInitializer($initializer, true, $className);
+        $this->serviceManager->addInitializer($initializer, true, $serviceName);
         
-        $this->assertAttributeCount(1, 'initializers', $this->serviceManager);
+        $this->assertAttributeEmpty('initializers', $this->serviceManager);
+        $this->assertAttributeNotEmpty('delegators', $this->serviceManager);
+    }
+    
+    /**
+     * @covers Zend\ServiceManager\Config::configureServiceManager
+     */
+    public function testConfigureWithServiceInitializer()
+    {
+        $config = new Config(array(
+            'initializers' => array(
+                array(
+                    'initializer' => new TestAsset\FooInitializer(),
+                    'serviceName' => 'FooService'
+                ),
+                function($instance, $serviceLocator) {
+                    $instance->foo = 'test';
+                }
+            ),
+        ));
+        $serviceManager = new ServiceManager($config);
+        $this->assertAttributeCount(1, 'delegators', $serviceManager);
+        $this->assertAttributeCount(1, 'initializers', $serviceManager);
     }
     
     /**
@@ -385,41 +407,20 @@ class ServiceManagerTest extends TestCase
         $this->assertEquals('bar', $obj->foo);
     }
     
-    public function testCreateWithInitializerObjectAttachedToClasssType()
+    public function testCreateWithServiceInitializer()
     {
         $this->serviceManager->addInitializer(
             new TestAsset\FooInitializer(array('foo' => 'test')), 
             true, 
-            'ZendTest\ServiceManager\TestAsset\Foo'
+            'fooService'
         );
         $this->serviceManager->setFactory('fooService', function () {
             return new TestAsset\Foo();
         });
-        $fooInstance = $this->serviceManager->get('fooService');
-        $this->assertEquals('test', $fooInstance->foo);
+        $fooService = $this->serviceManager->get('fooService');
+        $this->assertEquals('test', $fooService->foo);
     }
     
-    public function testInitializerAttachedToSpecificServiceIgnoresServiceOfNotInterest()
-    {
-        $fooInitializer = $this->getMock('ZendTest\ServiceManager\TestAsset\FooInitializer');
-        $this->serviceManager->addInitializer(
-            $fooInitializer, 
-            true, 
-            'ZendTest\ServiceManager\TestAsset\Foo'
-        );
-        
-        $this->serviceManager->setFactory('foo', function () {
-            return new TestAsset\Foo();
-        });
-        $this->serviceManager->setFactory('bar', function () {
-            return new \stdClass();
-        });
-        
-        $fooInitializer->expects($this->once())->method('initialize');
-        
-        $this->serviceManager->get('foo');
-    }
-
     public function testHasReturnsFalseOnNonStringsAndArrays()
     {
         $obj = new \stdClass();

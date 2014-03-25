@@ -352,11 +352,11 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  callable|InitializerInterface $initializer
      * @param  bool                          $topOfStack
-     * @param  string|null          $className Specific, fully qualified class name for which this initializer should run.
+     * @param  string|null                   $serviceName If supplied, initializer will be added as a delegator factory for supplied service.
      * @return ServiceManager
      * @throws Exception\InvalidArgumentException
      */
-    public function addInitializer($initializer, $topOfStack = true, $className = null)
+    public function addInitializer($initializer, $topOfStack = true, $serviceName = null)
     {
         if (!($initializer instanceof InitializerInterface || is_callable($initializer))) {
             if (is_string($initializer)) {
@@ -367,15 +367,28 @@ class ServiceManager implements ServiceLocatorInterface
                 throw new Exception\InvalidArgumentException('$initializer should be callable.');
             }
         }
-
-        if ($className) {
-            $initializer = array($initializer, $className);
-        } 
         
-        if ($topOfStack) {
-            array_unshift($this->initializers, $initializer);
+        if ($serviceName) {
+            foreach ((array) $serviceName as $sName) {
+                $this->addDelegator(
+                    $sName,
+                    function ($locator, $name, $rName, $callback) use ($initializer) {
+                        $instance = $callback();
+                        if ($initializer instanceof InitializerInterface) {
+                            $initializer->initialize($instance, $locator);
+                        } else {
+                            call_user_func($initializer, $instance, $locator);
+                        }
+                        return $instance;
+                    }
+                );
+            }
         } else {
-            array_push($this->initializers, $initializer);
+            if ($topOfStack) {
+                array_unshift($this->initializers, $initializer);
+            } else {
+                array_push($this->initializers, $initializer);
+            }
         }
         
         return $this;
@@ -642,14 +655,6 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         foreach ($this->initializers as $initializer) {
-            if (is_array($initializer)) { //Specific class/service name binding?
-                if (!$instance instanceof $initializer[1]) {
-                    continue;
-                }
-                
-                $initializer = $initializer[0];
-            }
-            
             if ($initializer instanceof InitializerInterface) {
                 $initializer->initialize($instance, $this);
             } else {

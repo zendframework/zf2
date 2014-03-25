@@ -149,8 +149,15 @@ class Config implements ConfigInterface
             $serviceManager->setAlias($alias, $nameOrAlias);
         }
 
-        foreach ($this->getInitializers() as $key => $initializer) {
-            $serviceManager->addInitializer($initializer, true, ((is_string($key)) ? $key : null));
+        foreach ($this->getInitializers() as $initializer) {
+            $serviceName = null;
+            if (is_array($initializer) && isset($initializer['initializer'])) { //Service initializer?
+                if (isset($initializer['serviceName'])) {
+                    $serviceName = $initializer['serviceName'];
+                }
+                $initializer = $initializer['initializer'];
+            }
+            $serviceManager->addInitializer($initializer, true, $serviceName);
         }
 
         foreach ($this->getShared() as $name => $isShared) {
