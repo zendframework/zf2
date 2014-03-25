@@ -139,6 +139,10 @@ class Collection extends Fieldset
             $this->setCreateNewObjects($options['create_new_objects']);
         }
 
+        if (isset($options['should_create_children_on_prepare_element'])) {
+            $this->shouldCreateChildrenOnPrepareElement = (bool) $options['should_create_children_on_prepare_element'];
+        }
+
         return $this;
     }
 

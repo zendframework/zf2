@@ -247,19 +247,21 @@ class CollectionTest extends TestCase
         $collection = $this->form->get('colors');
         $element = new Element('foo');
         $collection->setOptions(array(
-                                  'target_element' => $element,
-                                  'count' => 2,
-                                  'allow_add' => true,
-                                  'allow_remove' => false,
-                                  'should_create_template' => true,
-                                  'template_placeholder' => 'foo',
-                             ));
+              'target_element' => $element,
+              'count' => 2,
+              'allow_add' => true,
+              'allow_remove' => false,
+              'should_create_template' => true,
+              'template_placeholder' => 'foo',
+              'should_create_children_on_prepare_element' => false,
+         ));
         $this->assertInstanceOf('Zend\Form\Element', $collection->getOption('target_element'));
         $this->assertEquals(2, $collection->getOption('count'));
         $this->assertEquals(true, $collection->getOption('allow_add'));
         $this->assertEquals(false, $collection->getOption('allow_remove'));
         $this->assertEquals(true, $collection->getOption('should_create_template'));
         $this->assertEquals('foo', $collection->getOption('template_placeholder'));
+        $this->assertEquals(false, $collection->getOption('should_create_children_on_prepare_element'));
     }
 
     public function testSetObjectNullRaisesException()
