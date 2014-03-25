@@ -426,10 +426,10 @@ class Ldap extends AbstractAdapter
                 // skip attributes marked to be omitted
                 continue;
             }
+            
+            $returnObject->$attr = $value;
             if (is_array($value)) {
-                $returnObject->$attr = (count($value) > 1) ? $value : $value[0];
-            } else {
-                $returnObject->$attr = $value;
+                $returnObject->$attr = (count($value) === 1) ? $value[0] : $value;
             }
         }
         return $returnObject;
