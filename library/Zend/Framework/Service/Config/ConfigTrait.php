@@ -99,20 +99,20 @@ trait ConfigTrait
 
     /**
      * @param string $name
-     * @return object|null
-     */
-    public function service($name)
-    {
-        return isset($this->services[$name]) ? $this->services[$name] : null;
-    }
-
-    /**
-     * @param string $name
      * @return self
      */
     public function remove($name)
     {
         unset($this->services[$name]);
         return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return object|null
+     */
+    public function service($name)
+    {
+        return isset($this->services[$name]) ? $this->services[$name] : null;
     }
 }
