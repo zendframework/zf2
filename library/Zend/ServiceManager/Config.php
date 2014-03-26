@@ -150,7 +150,14 @@ class Config implements ConfigInterface
         }
 
         foreach ($this->getInitializers() as $initializer) {
-            $serviceManager->addInitializer($initializer);
+            $serviceName = null;
+            if (is_array($initializer) && isset($initializer['initializer'])) { //Service initializer?
+                if (isset($initializer['serviceName'])) {
+                    $serviceName = $initializer['serviceName'];
+                }
+                $initializer = $initializer['initializer'];
+            }
+            $serviceManager->addInitializer($initializer, true, $serviceName);
         }
 
         foreach ($this->getShared() as $name => $isShared) {

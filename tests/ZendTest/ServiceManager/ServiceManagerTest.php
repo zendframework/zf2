@@ -147,7 +147,42 @@ class ServiceManagerTest extends TestCase
         $this->setExpectedException('Zend\ServiceManager\Exception\InvalidArgumentException');
         $this->serviceManager->addInitializer(5);
     }
-
+    
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::addInitializer
+     */
+    public function testAddingServiceInitializerAddsDelegatorFactory()
+    {
+        $initializer =  new TestAsset\FooInitializer();
+        $serviceName = 'FooService';
+        
+        $this->serviceManager->addInitializer($initializer, true, $serviceName);
+        
+        $this->assertAttributeEmpty('initializers', $this->serviceManager);
+        $this->assertAttributeNotEmpty('delegators', $this->serviceManager);
+    }
+    
+    /**
+     * @covers Zend\ServiceManager\Config::configureServiceManager
+     */
+    public function testConfigureWithServiceInitializer()
+    {
+        $config = new Config(array(
+            'initializers' => array(
+                array(
+                    'initializer' => new TestAsset\FooInitializer(),
+                    'serviceName' => 'FooService'
+                ),
+                function($instance, $serviceLocator) {
+                    $instance->foo = 'test';
+                }
+            ),
+        ));
+        $serviceManager = new ServiceManager($config);
+        $this->assertAttributeCount(1, 'delegators', $serviceManager);
+        $this->assertAttributeCount(1, 'initializers', $serviceManager);
+    }
+    
     /**
      * @covers Zend\ServiceManager\ServiceManager::setService
      */
@@ -371,7 +406,21 @@ class ServiceManagerTest extends TestCase
         $obj = $this->serviceManager->get('foo');
         $this->assertEquals('bar', $obj->foo);
     }
-
+    
+    public function testCreateWithServiceInitializer()
+    {
+        $this->serviceManager->addInitializer(
+            new TestAsset\FooInitializer(array('foo' => 'test')), 
+            true, 
+            'fooService'
+        );
+        $this->serviceManager->setFactory('fooService', function () {
+            return new TestAsset\Foo();
+        });
+        $fooService = $this->serviceManager->get('fooService');
+        $this->assertEquals('test', $fooService->foo);
+    }
+    
     public function testHasReturnsFalseOnNonStringsAndArrays()
     {
         $obj = new \stdClass();

@@ -352,10 +352,11 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  callable|InitializerInterface $initializer
      * @param  bool                          $topOfStack
+     * @param  string|null                   $serviceName If supplied, initializer will be added as a delegator factory for supplied service.
      * @return ServiceManager
      * @throws Exception\InvalidArgumentException
      */
-    public function addInitializer($initializer, $topOfStack = true)
+    public function addInitializer($initializer, $topOfStack = true, $serviceName = null)
     {
         if (!($initializer instanceof InitializerInterface || is_callable($initializer))) {
             if (is_string($initializer)) {
@@ -366,12 +367,30 @@ class ServiceManager implements ServiceLocatorInterface
                 throw new Exception\InvalidArgumentException('$initializer should be callable.');
             }
         }
-
-        if ($topOfStack) {
-            array_unshift($this->initializers, $initializer);
+        
+        if ($serviceName) {
+            foreach ((array) $serviceName as $sName) {
+                $this->addDelegator(
+                    $sName,
+                    function ($locator, $name, $rName, $callback) use ($initializer) {
+                        $instance = $callback();
+                        if ($initializer instanceof InitializerInterface) {
+                            $initializer->initialize($instance, $locator);
+                        } else {
+                            call_user_func($initializer, $instance, $locator);
+                        }
+                        return $instance;
+                    }
+                );
+            }
         } else {
-            array_push($this->initializers, $initializer);
+            if ($topOfStack) {
+                array_unshift($this->initializers, $initializer);
+            } else {
+                array_push($this->initializers, $initializer);
+            }
         }
+        
         return $this;
     }
 
