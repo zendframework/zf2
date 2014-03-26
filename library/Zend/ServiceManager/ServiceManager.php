@@ -124,6 +124,30 @@ class ServiceManager implements ServiceLocatorInterface
      */
     public function __construct(ConfigInterface $config = null)
     {
+        $defaultConfig = new Config(
+            array(
+                'invokables'         => $this->invokableClasses,
+                'factories'          => $this->factories,
+                'abstract_factories' => $this->abstractFactories,
+                'services'           => $this->instances,
+                'aliases'            => $this->aliases,
+                'initializers'       => $this->initializers,
+                'shared'             => $this->shared,
+                'delegators'         => $this->delegators,
+            )
+        );
+
+        $this->invokableClasses = array();
+        $this->factories = array();
+        $this->abstractFactories = array();
+        $this->instances = array();
+        $this->aliases = array();
+        $this->initializers = array();
+        $this->shared = array();
+        $this->delegators = array();
+
+        $defaultConfig->configureServiceManager($this);
+
         if ($config) {
             $config->configureServiceManager($this);
         }

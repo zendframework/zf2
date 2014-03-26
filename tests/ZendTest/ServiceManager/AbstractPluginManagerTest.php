@@ -195,6 +195,14 @@ class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testCanonicalizationWithKeyOverriddenByPluginManager()
     {
         $pluginManager = new OverrideKeysPluginManager();
+
+        $foo = $pluginManager->get('foo-invokable');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $foo);
+
+        $foo = $pluginManager->get('foo-factory');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $foo);
+
         $foo = $pluginManager->get('foo');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\FooFake', $foo);
     }
 }

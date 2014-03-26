@@ -17,7 +17,21 @@ class OverrideKeysPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        'FOO' => 'ZendTest\ServiceManager\TestAsset\Foo',
+        'FOOINVOKABLE' => 'ZendTest\ServiceManager\TestAsset\Foo',
+    );
+
+    /**
+     * @var array
+     */
+    protected $factories = array(
+        'FOOFACTORY' => 'ZendTest\ServiceManager\TestAsset\FooFactory',
+    );
+
+    /**
+     * @var array
+     */
+    protected $abstractFactories = array(
+        'FOO' => 'ZendTest\ServiceManager\TestAsset\FooFakeAbstractFactory',
     );
 
     /**
