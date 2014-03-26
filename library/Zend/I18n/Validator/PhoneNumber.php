@@ -40,7 +40,9 @@ class PhoneNumber extends AbstractValidator
     protected static $phone = array();
 
     /**
-     * @var
+     * Telephone Country Code
+     *
+     * @var string
      */
     protected $code;
 
@@ -137,7 +139,6 @@ class PhoneNumber extends AbstractValidator
 
         return $this->allowPossible;
     }
-
 
     /**
      * Get Telephone Country Code
