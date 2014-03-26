@@ -40,6 +40,11 @@ class PhoneNumber extends AbstractValidator
     protected static $phone = array();
 
     /**
+     * @var
+     */
+    protected $code;
+
+    /**
      * ISO 3611 Country Code
      *
      * @var string
@@ -131,6 +136,22 @@ class PhoneNumber extends AbstractValidator
         }
 
         return $this->allowPossible;
+    }
+
+
+    /**
+     * Get Telephone Country Code
+     * 
+     * @return string
+     */
+    public function getCode()
+    {
+        if (null === $this->code) {
+            $pattern = $this->loadPattern($this->getCountry());
+            $this->code = $pattern['code'];
+        }
+
+        return $this->code;
     }
 
     /**
