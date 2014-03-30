@@ -25,6 +25,10 @@ class HtmlList extends AbstractHtmlElement
      */
     public function __invoke(array $items, $ordered = false, $attribs = false, $escape = true)
     {
+        if (empty($items)) {
+            return '';
+        }
+
         $list = '';
 
         foreach ($items as $item) {
