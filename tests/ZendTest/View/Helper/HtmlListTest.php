@@ -218,4 +218,13 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertContains('<li>' . $value, $userdata);
     }
+
+    /**
+     * @group ZF2-6063
+     */
+    public function testEmptyList()
+    {
+        $list = $this->helper->__invoke(array());
+        $this->assertEquals('', $list);
+    }
 }
