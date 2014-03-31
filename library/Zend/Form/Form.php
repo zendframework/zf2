@@ -760,7 +760,7 @@ class Form extends Fieldset implements FormInterface
             $elements = $fieldset->getElements();
         }
 
-        if (!$fieldset instanceof Collection || $inputFilter instanceof CollectionInputFilter) {
+        if (!$fieldset instanceof Collection || $inputFilter instanceof CollectionInputFilter || !$fieldset->getTargetElement() instanceof FieldsetInterface) {
             foreach ($elements as $element) {
                 $name = $element->getName();
 
@@ -807,12 +807,12 @@ class Form extends Fieldset implements FormInterface
                     // so that elements of nested fieldsets can be recursively added
                     if ($childFieldset->getObject() instanceof InputFilterAwareInterface) {
                         $inputFilter->add($childFieldset->getObject()->getInputFilter(), $name);
+                    } elseif ($fieldset instanceof Collection && $inputFilter instanceof CollectionInputFilter) {
+                        continue;
+                    } elseif ($childFieldset instanceof Collection && $childFieldset->getTargetElement() instanceof FieldsetInterface) {
+                        $inputFilter->add(new CollectionInputFilter(), $name);
                     } else {
-                        if ($fieldset instanceof Collection && $inputFilter instanceof CollectionInputFilter) {
-                            continue;
-                        } else {
-                            $inputFilter->add(new InputFilter(), $name);
-                        }
+                        $inputFilter->add(new InputFilter(), $name);
                     }
                 }
 
