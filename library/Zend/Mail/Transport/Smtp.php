@@ -211,8 +211,8 @@ class Smtp implements TransportInterface
         // Prepare message
         $from       = $this->prepareFromAddress($message);
         $recipients = $this->prepareRecipients($message);
-        $headers    = $this->prepareHeaders($message);
         $body       = $this->prepareBody($message);
+        $headers    = $this->prepareHeaders($message);
 
         if ((count($recipients) == 0) && (!empty($headers) || !empty($body))) {
             throw new Exception\RuntimeException(  // Per RFC 2821 3.3 (page 18)
