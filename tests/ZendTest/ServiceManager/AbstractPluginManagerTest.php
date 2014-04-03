@@ -16,6 +16,7 @@ use Zend\ServiceManager\Config;
 
 use ZendTest\ServiceManager\TestAsset\FooPluginManager;
 use ZendTest\ServiceManager\TestAsset\MockSelfReturningDelegatorFactory;
+use ZendTest\ServiceManager\TestAsset\OverrideKeysPluginManager;
 
 class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -189,5 +190,19 @@ class AbstractPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('stdClass', array_shift($fooDelegator->instances));
         $this->assertSame($fooDelegator, array_shift($barDelegator->instances));
 
+    }
+
+    public function testCanonicalizationWithKeyOverriddenByPluginManager()
+    {
+        $pluginManager = new OverrideKeysPluginManager();
+
+        $foo = $pluginManager->get('foo-invokable');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $foo);
+
+        $foo = $pluginManager->get('foo-factory');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $foo);
+
+        $foo = $pluginManager->get('foo');
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\FooFake', $foo);
     }
 }
