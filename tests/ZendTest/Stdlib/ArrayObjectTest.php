@@ -319,6 +319,18 @@ class ArrayObjectTest extends TestCase
         $this->assertSame('foo', $ar['bar']);
     }
 
+    public function testPhpSerializeUnserialize()
+    {
+        $ar = new ArrayObject();
+        $ar->foo = 'bar';
+        $ar['bar'] = 'foo';
+        $serialized = serialize($ar);
+
+        $unserialized = unserialize($serialized);
+
+        $this->assertEquals($ar, $unserialized);
+    }
+
     public function testUasort()
     {
         $function = function ($a, $b) {
