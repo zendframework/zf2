@@ -226,7 +226,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             $this->connect();
         }
 
+        if ($this->profiler) {
+            $this->profiler->profilerStart('START TRANSACTION');
+        }
+
         pg_query($this->resource, 'BEGIN');
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish();
+        }
+
         $this->inTransaction = true;
     }
 
@@ -249,7 +258,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             return; // We ignore attempts to commit non-existing transaction
         }
 
+        if ($this->profiler) {
+            $this->profiler->profilerStart('COMMIT');
+        }
+
         pg_query($this->resource, 'COMMIT');
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish();
+        }
+
         $this->inTransaction = false;
     }
 
@@ -262,7 +280,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             return;
         }
 
+        if ($this->profiler) {
+            $this->profiler->profilerStart('ROLLBACK');
+        }
+
         pg_query($this->resource, 'ROLLBACK');
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish();
+        }
+
         $this->inTransaction = false;
     }
 
