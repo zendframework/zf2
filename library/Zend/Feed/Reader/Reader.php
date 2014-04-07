@@ -266,7 +266,7 @@ class Reader
      * HTTP client implementations.
      *
      * @param  string $uri
-     * @param  Http\Client $client
+     * @param  Http\ClientInterface $client
      * @return self
      * @throws Exception\RuntimeException if response is not an Http\ResponseInterface
      */
