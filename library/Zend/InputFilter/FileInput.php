@@ -103,7 +103,7 @@ class FileInput extends Input
                 'error'    => UPLOAD_ERR_NO_FILE,
             );
         }
-        if (is_array($rawValue) && isset($rawValue['tmp_name'])) {
+        if (is_array($rawValue) && array_key_exists('tmp_name', $rawValue)) {
             // Single file input
             $this->isValid = $validator->isValid($rawValue, $context);
         } elseif (is_array($rawValue) && !empty($rawValue) && isset($rawValue[0]['tmp_name'])) {

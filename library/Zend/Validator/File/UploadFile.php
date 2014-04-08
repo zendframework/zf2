@@ -57,7 +57,7 @@ class UploadFile extends AbstractValidator
     public function isValid($value)
     {
         if (is_array($value)) {
-            if (!isset($value['tmp_name']) || !isset($value['name']) || !isset($value['error'])) {
+            if (!array_key_exists('tmp_name', $value) || !array_key_exists('name', $value) || !array_key_exists('error', $value)) {
                 throw new Exception\InvalidArgumentException(
                     'Value array must be in $_FILES format'
                 );
