@@ -339,4 +339,16 @@ class FileInputTest extends InputTest
         $filters = $filterChain->getFilters()->toArray();
         $this->assertInstanceOf('Zend\Filter\StringTrim', $filters[0]);
     }
+
+    public function testCannotValidNullFileAndRetrieveMessage()
+    {
+        $input  = new FileInput();
+        $isValid = $input->isValid(null);
+
+        $this->assertFalse($isValid);
+
+        $messages = $input->getMessages();
+        $this->assertNotCount(0, $messages);
+        $this->assertArrayHasKey(Validator\File\UploadFile::NO_FILE, $messages);
+    }
 }
