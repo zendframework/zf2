@@ -193,7 +193,6 @@ class CollectionInputFilter extends InputFilter
 
             $values    = array();
             $rawValues = array();
-            $messages = array();
             foreach ($inputs as $name) {
                 $input = $this->inputs[$name];
 
@@ -204,17 +203,10 @@ class CollectionInputFilter extends InputFilter
                 }
                 $values[$name]    = $input->getValue($this->data);
                 $rawValues[$name] = $input->getRawValue();
-                $tmpMessages = $input->getMessages();
-                if (!empty($tmpMessages)) {
-                    $messages[$name] =  $tmpMessages;
-                }
             }
             $this->collectionValues[$key]    = $values;
             $this->collectionRawValues[$key] = $rawValues;
 
-            if (!empty($messages)) {
-                $this->collectionMessages[$key] = $messages;
-            }
         }
 
         return $valid;
@@ -298,6 +290,13 @@ class CollectionInputFilter extends InputFilter
      */
     public function getMessages()
     {
-        return $this->collectionMessages;
+        $messages = array();
+        foreach ($this->getInvalidInput() as $iteration => $inputFields) {
+            foreach ($inputFields as $name => $field) {
+                $messages[$iteration][$name] = $field->getMessages();
+            }
+        }
+
+        return $messages;
     }
 }
