@@ -21,6 +21,11 @@ abstract class AbstractListenerAggregate implements ListenerAggregateInterface
     protected $listeners = array();
 
     /**
+     * @var array
+     */
+    protected $sharedListeners = array();
+
+    /**
      * {@inheritDoc}
      */
     public function detach(EventManagerInterface $events)
@@ -28,6 +33,21 @@ abstract class AbstractListenerAggregate implements ListenerAggregateInterface
         foreach ($this->listeners as $index => $callback) {
             if ($events->detach($callback)) {
                 unset($this->listeners[$index]);
+            }
+        }
+
+        $sharedEvents = $events->getSharedManager();
+        foreach ($this->sharedListeners as $id => $listeners) {
+            foreach ($listeners as $index => $callbacks) {
+                if (!is_array($callbacks)) {
+                    $this->sharedListeners[$id][$index] = $callbacks = array($callbacks);
+                }
+
+                foreach ($callbacks as $subIndex => $callback) {
+                    if ($sharedEvents->detach($id, $callback)) {
+                        unset($this->sharedListeners[$id][$index][$subIndex]);
+                    }
+                }
             }
         }
     }

@@ -11,6 +11,7 @@ namespace ZendTest\Mvc\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
+use Zend\EventManager\SharedEventManager;
 use Zend\Http\Response;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
@@ -288,6 +289,8 @@ class RouteNotFoundStrategyTest extends TestCase
     public function testAttachesListenersAtExpectedPriorities()
     {
         $events = new EventManager();
+        $sharedEvents = new SharedEventManager();
+        $events->setSharedManager($sharedEvents);
         $events->attachAggregate($this->strategy);
 
         foreach (array(MvcEvent::EVENT_DISPATCH => -90, MvcEvent::EVENT_DISPATCH_ERROR => 1) as $event => $expectedPriority) {
@@ -325,14 +328,22 @@ class RouteNotFoundStrategyTest extends TestCase
     public function testDetachesListeners()
     {
         $events = new EventManager();
+        $sharedEvents = new SharedEventManager();
+        $events->setSharedManager($sharedEvents);
+
         $events->attachAggregate($this->strategy);
+
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
         $this->assertEquals(1, count($listeners));
+
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH_ERROR);
         $this->assertEquals(2, count($listeners));
+
         $events->detachAggregate($this->strategy);
+
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
         $this->assertEquals(0, count($listeners));
+
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH_ERROR);
         $this->assertEquals(0, count($listeners));
     }

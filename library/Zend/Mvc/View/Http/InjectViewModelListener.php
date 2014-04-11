@@ -29,9 +29,12 @@ class InjectViewModelListener extends AbstractListenerAggregate
      */
     public function attach(Events $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'injectViewModel'), -100);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'injectViewModel'), -100);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'injectViewModel'), -100);
+
+        $sharedEvents = $events->getSharedManager();
+        $id = 'Zend\Stdlib\DispatchableInterface';
+        $this->sharedListeners[$id][] = $sharedEvents->attach($id, MvcEvent::EVENT_DISPATCH, array($this, 'injectViewModel'), -100);
     }
 
     /**

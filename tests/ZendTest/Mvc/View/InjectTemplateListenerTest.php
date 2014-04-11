@@ -11,6 +11,7 @@ namespace ZendTest\Mvc\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
+use Zend\EventManager\SharedEventManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
@@ -303,8 +304,10 @@ class InjectTemplateListenerTest extends TestCase
     public function testAttachesListenerAtExpectedPriority()
     {
         $events = new EventManager();
+        $sharedEvents = new SharedEventManager();
+        $events->setSharedManager($sharedEvents);
         $events->attachAggregate($this->listener);
-        $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
+        $listeners = $sharedEvents->getListeners('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH);
 
         $expectedCallback = array($this->listener, 'injectTemplate');
         $expectedPriority = -90;
@@ -324,11 +327,17 @@ class InjectTemplateListenerTest extends TestCase
     public function testDetachesListeners()
     {
         $events = new EventManager();
+        $sharedEvents = new SharedEventManager();
+        $events->setSharedManager($sharedEvents);
+
         $events->attachAggregate($this->listener);
-        $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
+
+        $listeners = $sharedEvents->getListeners('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH);
         $this->assertEquals(1, count($listeners));
+
         $events->detachAggregate($this->listener);
-        $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
+
+        $listeners = $sharedEvents->getListeners('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH);
         $this->assertEquals(0, count($listeners));
     }
 }

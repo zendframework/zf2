@@ -11,6 +11,7 @@ namespace ZendTest\Mvc\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
+use Zend\EventManager\SharedEventManager;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\View\Http\InjectViewModelListener;
@@ -63,8 +64,10 @@ class InjectViewModelListenerTest extends TestCase
     public function testAttachesListenersAtExpectedPriorities()
     {
         $events = new EventManager();
+        $sharedEvents = new SharedEventManager();
+        $events->setSharedManager($sharedEvents);
         $events->attachAggregate($this->listener);
-        $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
+        $listeners = $sharedEvents->getListeners('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH);
 
         $expectedCallback = array($this->listener, 'injectViewModel');
         $expectedPriority = -100;
@@ -97,15 +100,29 @@ class InjectViewModelListenerTest extends TestCase
     public function testDetachesListeners()
     {
         $events = new EventManager();
+        $sharedEvents = new SharedEventManager();
+        $events->setSharedManager($sharedEvents);
+
         $events->attachAggregate($this->listener);
-        $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
+
+        $listeners = $sharedEvents->getListeners('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH);
         $this->assertEquals(1, count($listeners));
+
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH_ERROR);
         $this->assertEquals(1, count($listeners));
+
+        $listeners = $events->getListeners(MvcEvent::EVENT_RENDER_ERROR);
+        $this->assertEquals(1, count($listeners));
+
         $events->detachAggregate($this->listener);
-        $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
+
+        $listeners = $sharedEvents->getListeners('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH);
         $this->assertEquals(0, count($listeners));
+
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH_ERROR);
+        $this->assertEquals(0, count($listeners));
+
+        $listeners = $events->getListeners(MvcEvent::EVENT_RENDER_ERROR);
         $this->assertEquals(0, count($listeners));
     }
 }
