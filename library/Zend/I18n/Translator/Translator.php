@@ -565,9 +565,9 @@ class Translator implements TranslatorInterface
         }
 
         $messagesLoaded  = false;
+        $messagesLoaded |= $this->loadMessagesFromFiles($textDomain, $locale);
         $messagesLoaded |= $this->loadMessagesFromRemote($textDomain, $locale);
         $messagesLoaded |= $this->loadMessagesFromPatterns($textDomain, $locale);
-        $messagesLoaded |= $this->loadMessagesFromFiles($textDomain, $locale);
 
         if (!$messagesLoaded) {
             $discoveredTextDomain = null;
