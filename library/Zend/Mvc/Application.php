@@ -303,10 +303,10 @@ class Application implements
                 $this->response = $response;
                 return $this;
             }
-        }
 
-        if ($event->getError()) {
-            return $this->completeRequest($event);
+            if ($event->getError()) {
+                return $this->completeRequest($event);
+            }
         }
 
         // Trigger dispatch event
