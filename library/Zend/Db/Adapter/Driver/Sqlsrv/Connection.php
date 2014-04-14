@@ -236,6 +236,21 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         $this->resource->autocommit(false);
         $this->inTransaction = true;
         */
+        
+        if (!$this->inTransaction) {
+            // from zf1
+            if (!sqlsrv_begin_transaction($this->resource)) {
+                throw new Exception\RuntimeException(
+                    'Can not begin transaction',
+                    null,
+                    new ErrorException(sqlsrv_errors())
+                );
+            }
+            
+            $this->inTransaction = true;
+        }
+        
+        return $this;
     }
 
     /**
@@ -263,6 +278,22 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $this->inTransaction = false;
         */
+        
+        if ($this->inTransaction) {
+            // from zf1
+            if (!sqlsrv_commit($this->resource)) {
+                throw new Exception\RuntimeException(
+                    'Can not commit transaction',
+                    null,
+                    new ErrorException(sqlsrv_errors())
+                );
+            }
+            
+            $this->inTransaction = false;
+        }
+        
+        return $this;
+
     }
 
     /**
@@ -283,6 +314,22 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         $this->resource->rollback();
         return $this;
         */
+        
+        if ($this->inTransaction) {
+            // from zf1
+            if (!sqlsrv_rollback($this->resource)) {
+                throw new Exception\RuntimeException(
+                    'Can not rollback transaction',
+                    null,
+                    new ErrorException(sqlsrv_errors())
+                );
+            }
+            
+            $this->inTransaction = false;
+        }
+        
+        return $this;
+
     }
 
     /**
