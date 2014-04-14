@@ -139,8 +139,8 @@ class Result implements Iterator, ResultInterface
      */
     public function rewind()
     {
-        $this->position = 0;
-        $this->load(SQLSRV_SCROLL_FIRST);
+        //$this->position = 0;
+        //$this->load(SQLSRV_SCROLL_FIRST);
         return true;
     }
 
