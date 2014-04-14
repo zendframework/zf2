@@ -313,8 +313,10 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         // if the returnValue is something other than a Sqlsrv_result, bypass wrapping it
-        if ($returnValue === false) {
-            $errors = sqlsrv_errors();
+        // something wrong in driver because sqlsrv_execute returns TRUE with sql errors
+        $errors = sqlsrv_errors();
+        if ($returnValue === false || $errors) {
+            //$errors = sqlsrv_errors();
             // ignore general warnings
             if ($errors[0]['SQLSTATE'] != '01000') {
                 throw new Exception\RuntimeException(
