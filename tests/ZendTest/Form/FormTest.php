@@ -1123,6 +1123,75 @@ class FormTest extends TestCase
         $this->assertEquals('foo[fieldsets][0][field]', $form->get('fieldsets')->get('0')->get('field')->getName());
     }
 
+    public function testCanValidateFieldsetWithinCollection()
+    {
+        $form = new \ZendTest\Form\TestAsset\FormCollection();
+        $form->prepare();
+
+        $form->setData(array(
+            'colors' => array(
+                '#00FF00',
+                '#FF00FF',
+            ),
+            'fieldsets' => array(
+                array(
+                    'field' => 'pass',
+                    'nested_fieldset' => array(
+                        'anotherField' => 'pass',
+                    ),
+                ),
+                array(
+                    'field' => 'pass',
+                    'nested_fieldset' => array(
+                        'anotherField' => null, // Fail; bad must not be empty
+                    ),
+                ),
+            )
+        ));
+
+        $this->assertFalse( $form->isValid() );
+
+        $messages = $form->getMessages();
+        $this->assertCount( 1, $messages['fieldsets'] );
+        $this->assertCount( 1, $messages['fieldsets'][1] );
+        $this->assertCount( 1, $messages['fieldsets'][1]['nested_fieldset'] );
+    }
+
+    public function testCanValidateElementWithinCollection()
+    {
+        $form = new \ZendTest\Form\TestAsset\FormCollection();
+        $form->prepare();
+
+        $form->setData(array(
+            'colors' => array(
+                '#00FF00',
+                'ZZZZZZZ', // Fail; bad data
+            ),
+            'fieldsets' => array(
+                array(
+                    'field' => 'pass',
+                    'nested_fieldset' => array(
+                        'anotherField' => 'pass',
+                    ),
+                ),
+                array(
+                    'field' => 'pass',
+                    'nested_fieldset' => array(
+                        'anotherField' => 'pass',
+                    ),
+                ),
+            )
+        ));
+
+        $this->markTestSkipped('Bug: Cannot successfully validate Element direction under a Collection');
+
+        $this->assertFalse( $form->isValid() );
+
+        $messages = $form->getMessages();
+        $this->assertCount( 1, $messages['colors'] );
+        $this->assertCount( 1, $messages['colors'][1] );
+    }
+
     public function testUnsetValuesNotBound()
     {
         $model = new stdClass;

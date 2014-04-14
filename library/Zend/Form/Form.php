@@ -798,7 +798,13 @@ class Form extends Fieldset implements FormInterface
             }
         }
 
-        foreach ($fieldset->getFieldsets() as $childFieldset) {
+        if ($fieldset instanceof Collection && $fieldset->getTargetElement() instanceof FieldsetInterface) {
+            $childFieldsets = $fieldset->getTargetElement()->getFieldsets();
+        } else {
+            $childFieldsets = $fieldset->getFieldsets();
+        }
+
+        foreach ($childFieldsets as $childFieldset) {
             $name = $childFieldset->getName();
 
             if (!$childFieldset instanceof InputFilterProviderInterface) {
@@ -808,8 +814,8 @@ class Form extends Fieldset implements FormInterface
                     if ($childFieldset->getObject() instanceof InputFilterAwareInterface) {
                         $inputFilter->add($childFieldset->getObject()->getInputFilter(), $name);
                     } else {
-                        if ($fieldset instanceof Collection && $inputFilter instanceof CollectionInputFilter) {
-                            continue;
+                        if ($childFieldset instanceof Collection) {
+                            $inputFilter->add(new CollectionInputFilter(), $name);
                         } else {
                             $inputFilter->add(new InputFilter(), $name);
                         }
