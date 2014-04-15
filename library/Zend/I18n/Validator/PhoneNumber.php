@@ -139,6 +139,19 @@ class PhoneNumber extends AbstractValidator
 
         return $this->allowPossible;
     }
+    
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return PhoneNumber
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
 
     /**
      * Get Telephone Country Code
@@ -173,6 +186,8 @@ class PhoneNumber extends AbstractValidator
      */
     public function setCountry($country)
     {
+        $this->setCode(null);
+        
         $this->country = $country;
 
         return $this;
