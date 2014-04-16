@@ -42,14 +42,14 @@ class Priority implements FilterInterface
             $operator = isset($priority['operator']) ? $priority['operator'] : null;
             $priority = isset($priority['priority']) ? $priority['priority'] : null;
         }
-        if (!is_int($priority)) {
+        if (!is_int($priority) && !is_numeric($priority)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Priority must be an integer; received "%s"',
                 gettype($priority)
             ));
         }
 
-        $this->priority = $priority;
+        $this->priority = intval($priority);
         $this->operator = $operator === null ? '<=' : $operator;
     }
 

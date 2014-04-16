@@ -41,4 +41,15 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'must be an integer');
         new Priority('foo');
     }
+
+    public function testComparisonStringSupport()
+    {
+        // accept at or below priority '2'
+        $filter = new Priority('2');
+
+        $this->assertTrue($filter->filter(array('priority' => 2)));
+        $this->assertTrue($filter->filter(array('priority' => 1)));
+        $this->assertFalse($filter->filter(array('priority' => 3)));
+    }
+
 }
