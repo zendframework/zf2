@@ -38,7 +38,7 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorThrowsOnInvalidPriority()
     {
-        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'must be an integer');
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'must be a number');
         new Priority('foo');
     }
 
