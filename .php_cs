@@ -15,7 +15,8 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     })
     ->in(__DIR__ . '/library')
     ->in(__DIR__ . '/tests')
-    ->in(__DIR__ . '/bin');
+    ->in(__DIR__ . '/bin')
+    ->exclude(__DIR__ . '/demos');
 $config = Symfony\CS\Config\Config::create();
 $config->fixers(
     array(
