@@ -161,7 +161,7 @@ class Oracle implements PlatformInterface
         if ($this->quoteIdentifiers === false) {
             return $identifier;
         }
-        $parts = preg_split('#([\.\s\W])#', $identifier, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        $parts = preg_split('#('[^']*'|[\.\s\W])#', $identifier, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         if ($safeWords) {
             $safeWords = array_flip($safeWords);
             $safeWords = array_change_key_case($safeWords, CASE_LOWER);
@@ -180,7 +180,7 @@ class Oracle implements PlatformInterface
                 case 'as':
                     break;
                 default:
-                    $parts[$i] = '"' . str_replace('"', '\\' . '"', $part) . '"';
+                    $parts[$i] = (preg_match("#^'.*'$#", $part)) ? $part : '"' . str_replace('"', '\\' . '"', $part) . '"';
             }
         }
         return implode('', $parts);
