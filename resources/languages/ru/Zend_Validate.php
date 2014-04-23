@@ -20,7 +20,7 @@ return array(
     "Invalid type given, value should be a string" => "Недопустимый тип данных, значение должно быть строкой",
     "'%value%' contains non alphabetic characters" => "'%value%' содержит не буквенные символы",
     "'%value%' is an empty string" => "'%value%' - пустая строка",
-    
+
     // Zend\I18n\Validator\PhoneNumber
     "The input does not match a phone number format" => "Неправильный формат номера телефона",
     "The country provided is currently unsupported" => "Страна в настоящее время не поддерживается",
@@ -194,7 +194,7 @@ return array(
     "The input appears to be a local network name but local network names are not allowed" => 'Значение похоже на адрес в локальной сети. Локальные адреса не разрешены',
     "The input appears to be a DNS hostname but cannot extract TLD part" => "Значение похоже на DNS имя хоста, но не удаётся извлечь домен верхнего уровня",
     "The input appears to be a DNS hostname but cannot match TLD against known list" => "Значение похоже на DNS имя хоста, но оно не дожно быть из списка доменов верхнего уровня",
-    
+
     // Zend_Validate_Iban
     "Unknown country within the IBAN '%value%'" => "Не известная страна IBAN '%value%'",
     "'%value%' has a false IBAN format" => "'%value%' имеет недопустимый IBAN формат",

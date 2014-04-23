@@ -24,25 +24,25 @@ return array(
     // Zend\I18n\Validator\DateTime
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
     "The input does not appear to be a valid datetime" => "Hodnota nie je platný časový údaj",
-    
+
     // Zend\I18n\Validator\Float
     "Invalid type given. String, integer or float expected" => "Chybný typ. Bol očakávaný reťazec, celé alebo desatinné číslo",
     "The input does not appear to be a float" => "Hodnota nie je desatinné číslo",
-    
+
     // Zend\I18n\Validator\Int
     "Invalid type given. String or integer expected" => "Chybný typ. Bol očakávaný reťazec, alebo celé číslo",
     "The input does not appear to be an integer" => "Hodnota nie je celé číslo",
-    
+
     // Zend\I18n\Validator\PhoneNumber
     "The input does not match a phone number format" => "Zadaná hodnota nezodpovedá formatu telefonného čísla",
     "The country provided is currently unsupported" => "The country provided is currently unsupported",
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec.",
-    
+
     // Zend\I18n\Validator\PostCode
     "Invalid type given. String or integer expected" => "Chybný typ. Bol očakávaný reťazec, alebo celé číslo",
     "The input does not appear to be a postal code" => "Hodnota nevyzerá ako PSČ",
     "An exception has been raised while validating the input" => "Počas validácie bola vyvolaná výnimka",
-    
+
     // Zend\Validator\Barcode
     "The input failed checksum validation" => "Hodnota má chybný kontrolný súčet",
     "The input contains invalid characters" => "Hodnota obsahuje neplatné znaky",
@@ -68,7 +68,7 @@ return array(
 
     // Zend\Validator\Csrf
     "The form submitted did not originate from the expected site" => "Odoslaný formulár nepochádza z predpokladanej stránky",
-    
+
     // Zend\Validator\Date
     "Invalid type given. String, integer, array or DateTime expected" => "Chybný typ. Bol očakávaný reťazec, číslo, pole, alebo DateTime",
     "The input does not appear to be a valid date" => "Hodnota nie je platný dátum",
@@ -76,7 +76,7 @@ return array(
 
     // Zend\Validator\DateStep
     "The input is not a valid step" => "Hodnota nie je platný krok",
-    
+
     // Zend\Validator\Db\AbstractDb
     "No record matching the input was found" => "Nebol nájdený žiadny záznam zodpovedajúci zadanej hodnote",
     "A record matching the input was found" => "Bol nájdený záznam zodpovedajúci zadanej hodnote",
@@ -85,7 +85,7 @@ return array(
     "The input must contain only digits" => "Hodnota musí obsahovať len číslice",
     "The input is an empty string" => "Hodnota je prázdny reťazec",
     "Invalid type given. String, integer or float expected" => "Chybný typ. Bol očakávaný reťazec, celé alebo desatinné číslo",
-    
+
     // Zend\Validator\EmailAddress
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
     "The input is not a valid email address. Use the basic format local-part@hostname" => "'%value%' nie je platná e-mailová adresa. Použite formát local-part@hostname",
@@ -99,7 +99,7 @@ return array(
 
     // Zend\Validator\Explode
     "Invalid type given" => "Chybný typ",
-    
+
     // Zend\Validator\File\Count
     "Too many files, maximum '%max%' are allowed but '%count%' are given" => "Príliš veľa súborov. Maximum je '%max%', ale bolo zadaných '%count%'",
     "Too few files, minimum '%min%' are expected but '%count%' are given" => "Príliš málo súborov. Minimum je '%min%', ale bol zadaný len '%count%'",
@@ -194,7 +194,7 @@ return array(
     "File was illegally uploaded. This could be a possible attack" => "Súbor bol neoprávnene nahraný. Môže se jednať o útok",
     "File was not found" => "Súbor nebol nájdený",
     "Unknown error while uploading file" => "Počas odosielania súboru došlo k chybe",
-    
+
     // Zend\Validator\File\WordCount
     "Too many words, maximum '%max%' are allowed but '%count%' were counted" => "Príliš veľa slov. Maximálne je ich dovolených '%max%', ale bolo zadaných '%count%'",
     "Too few words, minimum '%min%' are expected but '%count%' were counted" => "Príliš málo slov. Musí ich byť aspoň '%min%', ale bolo zadaných len '%count%'",
@@ -217,10 +217,10 @@ return array(
     "The input does not appear to be a valid local network name" => "Zadaná hodnota nevyzerá ako platné sieťové meno",
     "The input does not appear to be a valid URI hostname" => "Zadaná hodnota nevyzerá ako platné URI hostname",
     "The input appears to be an IP address, but IP addresses are not allowed" => "Zadaná hodnota vyzerá ako IP adresa, ale tie nie sú dovolené",
-    "The input appears to be a local network name but local network names are not allowed" => "Zadaná hodnota vyzerá ako hostname lokálnej siete, tie ale nie sú povolené",    
+    "The input appears to be a local network name but local network names are not allowed" => "Zadaná hodnota vyzerá ako hostname lokálnej siete, tie ale nie sú povolené",
     "The input appears to be a DNS hostname but cannot extract TLD part" => "Zadaná hodnota síce vyzerá ako hostname, ale nemožno určiť TLD",
     "The input appears to be a DNS hostname but cannot match TLD against known list" => "Zadaná hodnota vyzerá ako hostname, ale nemohol byť overený voči známym TLD",
-    
+
     // Zend\Validator\Iban
     "Unknown country within the IBAN" => "Neznámý štát v IBAN",
     "Countries outside the Single Euro Payments Area (SEPA) are not supported" => "Štáty mimo jednotný europský platobný priestor (SEPA) nie su podporované",
@@ -240,7 +240,7 @@ return array(
 
     // Zend\Validator\IsInstanceOf
     "The input is not an instance of '%className%'" => "Hodnota nie je  inštanciou triedy '%className%'",
-    
+
     // Zend\Validator\Isbn
     "Invalid type given. String or integer expected" => "Chybný typ. Bol očakávaný reťazec, alebo celé číslo",
     "The input is not a valid ISBN number" => "Hodnota nie je platné ISBN",
@@ -252,7 +252,7 @@ return array(
     // Zend\Validator\NotEmpty
     "Value is required and can't be empty" => "Položka je povinná a nesmie byť prázdna",
     "Invalid type given. String, integer, float, boolean or array expected" => "Chybný typ. Bol očakávaný reťazec, celé alebo desatinné číslo, boolean alebo pole",
-        
+
     // Zend\Validator\Regex
     "Invalid type given. String, integer or float expected" => "Chybný typ. Bol očakávaný reťazec, celé alebo desatinné číslo",
     "The input does not match against pattern '%pattern%'" => "Hodnota nezodpovedá šablóne '%pattern%'",
@@ -277,12 +277,12 @@ return array(
     // Zend\Validator\Step
     "Invalid value given. Scalar expected" => "Chybný hodnota. Bola očakávana skalarna hodnota",
     "The input is not a valid step" => "Hodnota nie je platný krok",
-    
+
     // Zend\Validator\StringLength
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
     "The input is less than %min% characters long" => "Hodnota je kratšia ako %min% znakov",
     "The input is more than %max% characters long" => "Hodnota je dlhšia ako %max% znakov",
-    
+
     // Zend\Validator\Uri
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
     "The input does not appear to be a valid Uri" => "Hodnota nevyzerá ako platná Uri",
