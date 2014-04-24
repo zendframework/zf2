@@ -246,11 +246,15 @@ class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Counta
      *
      * @return bool
      */
-    public function hasMessages()
+    public function hasMessages($namespace = null)
     {
         $this->getMessagesFromContainer();
 
-        return isset($this->messages[$this->getNamespace()]);
+        if (null === $namespace) {
+        	$namespace = $this->getNamespace();
+        }
+        
+        return isset($this->messages[$namespace]);
     }
 
     /**
