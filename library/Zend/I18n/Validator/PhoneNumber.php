@@ -186,7 +186,7 @@ class PhoneNumber extends AbstractValidator
      */
     public function setCountry($country)
     {
-        $this->setCode(null);
+        $this->code = null;
         
         $this->country = $country;
 
