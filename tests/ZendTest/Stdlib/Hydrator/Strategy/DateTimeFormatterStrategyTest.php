@@ -9,25 +9,25 @@
 
 namespace ZendTest\Stdlib\Hydrator\Strategy;
 
-use Zend\Stdlib\Hydrator\Strategy\DateTimeFormaterStrategy;
+use Zend\Stdlib\Hydrator\Strategy\DateTimeFormatterStrategy;
 
-class DateTimeFormaterStrategyTest extends \PHPUnit_Framework_TestCase
+class DateTimeFormatterStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testHydrate()
     {
-        $strategy = new DateTimeFormaterStrategy;
+        $strategy = new DateTimeFormatterStrategy;
         $this->assertEquals('2014-04-26', $strategy->hydrate('2014-04-26')->format('Y-m-d'));
     }
 
     public function testExtract()
     {
-        $strategy = new DateTimeFormaterStrategy('d/m/Y');
+        $strategy = new DateTimeFormatterStrategy('d/m/Y');
         $this->assertEquals('26/04/2014', $strategy->extract(new \DateTime('2014-04-26')));
     }
 
     public function testGetNullWithInvalidDateOnHydration()
     {
-        $strategy = new DateTimeFormaterStrategy;
+        $strategy = new DateTimeFormatterStrategy;
         $this->assertEquals(null, $strategy->hydrate(null));
         $this->assertEquals(null, $strategy->hydrate(''));
     }
