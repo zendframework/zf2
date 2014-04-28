@@ -63,12 +63,11 @@ class DateTimeFormatterStrategy implements StrategyInterface
      */
     public function hydrate($value)
     {
-        $value = $this->getFilter()->filter($value);
         if ($value === '' || $value === null) {
             return null;
         }
 
-        return new DateTime($value);
+        return DateTime::createFromFormat($this->getFilter()->getFormat(), $value);
     }
 
     /**
