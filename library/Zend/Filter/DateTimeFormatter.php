@@ -46,6 +46,16 @@ class DateTimeFormatter extends AbstractFilter
     }
 
     /**
+     * Gets format
+     *
+     * @return string
+     */
+    public function getFormat()
+    {
+        return $this->format;
+    }
+
+    /**
      * Filter a datetime string by normalizing it to the filters specified format
      *
      * @param  DateTime|string|integer $value

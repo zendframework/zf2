@@ -15,7 +15,7 @@ class DateTimeFormatterStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testHydrate()
     {
-        $strategy = new DateTimeFormatterStrategy;
+        $strategy = new DateTimeFormatterStrategy('Y-m-d');
         $this->assertEquals('2014-04-26', $strategy->hydrate('2014-04-26')->format('Y-m-d'));
     }
 
