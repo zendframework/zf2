@@ -27,7 +27,7 @@ class DateTimeFormatterStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testGetNullWithInvalidDateOnHydration()
     {
-        $strategy = new DateTimeFormatterStrategy;
+        $strategy = new DateTimeFormatterStrategy('Y-m-d');
         $this->assertEquals(null, $strategy->hydrate(null));
         $this->assertEquals(null, $strategy->hydrate(''));
     }
