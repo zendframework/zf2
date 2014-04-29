@@ -21,28 +21,18 @@ class DateTimeFormatterStrategy implements StrategyInterface
     protected $filter;
 
     /**
-     * Constructor
-     *
-     * @param string|null $format
+     * @var string
      */
-    public function __construct($format = null)
-    {
-        if ($format !== null) {
-            $this->setFormat($format);
-        }
-    }
+    protected $format;
 
     /**
-     * Sets format
+     * Constructor
      *
-     * @param  string $format
-     * @return self
+     * @param string $format
      */
-    public function setFormat($format)
+    public function __construct($format)
     {
-        $this->getFilter()->setFormat($format);
-
-        return $this;
+        $this->format = $format;
     }
 
     /**
@@ -53,7 +43,7 @@ class DateTimeFormatterStrategy implements StrategyInterface
      */
     public function extract($value)
     {
-        return $this->getFilter()->filter($value);
+        return $this->getFilter($this->format)->filter($value);
     }
 
     /**
@@ -68,7 +58,7 @@ class DateTimeFormatterStrategy implements StrategyInterface
             return null;
         }
 
-        return DateTime::createFromFormat($this->getFilter()->getFormat(), $value);
+        return DateTime::createFromFormat($this->format, $value);
     }
 
     /**
@@ -89,11 +79,12 @@ class DateTimeFormatterStrategy implements StrategyInterface
      *
      * @return FilterInterface
      */
-    public function getFilter()
+    private function getFilter($format)
     {
         if (!$this->filter) {
             $this->setFilter(new DateTimeFormatter);
         }
+        $this->filter->setFormat($format);
 
         return $this->filter;
     }
