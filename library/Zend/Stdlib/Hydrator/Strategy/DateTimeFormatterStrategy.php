@@ -11,6 +11,7 @@ namespace Zend\Stdlib\Hydrator\Strategy;
 
 use DateTime;
 use Zend\Filter\DateTimeFormatter;
+use Zend\Filter\FilterInterface;
 
 class DateTimeFormatterStrategy implements StrategyInterface
 {
@@ -71,12 +72,27 @@ class DateTimeFormatterStrategy implements StrategyInterface
     }
 
     /**
-     * @return DateTimeFormatter
+     * Sets filter for formatting date
+     *
+     * @param FilterInterface $filter
+     * @return self
      */
-    protected function getFilter()
+    public function setFilter(FilterInterface $filter)
+    {
+        $this->filter = $filter;
+
+        return $this;
+    }
+
+    /**
+     * Gets filter for formatting date
+     *
+     * @return FilterInterface
+     */
+    public function getFilter()
     {
         if (!$this->filter) {
-            $this->filter = new DateTimeFormatter();
+            $this->setFilter(new DateTimeFormatter);
         }
 
         return $this->filter;
