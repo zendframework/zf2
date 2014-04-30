@@ -14,7 +14,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionObject;
 use stdClass;
 use Zend\Config\Config;
-use Zend\Http\Request;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
@@ -22,7 +21,7 @@ use Zend\Mvc\Router;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Uri\UriFactory;
-use ZendTest\Mvc\TestAsset\StubBootstrapListener;
+use Zend\ModuleManager\ModuleEvent;
 
 class ApplicationTest extends TestCase
 {
@@ -783,5 +782,29 @@ class ApplicationTest extends TestCase
         foreach ($events as $event) {
             $this->assertFalse($marker->{$event}, sprintf('Assertion failed for event "%s"', $event));
         }
+    }
+
+    public function testSharedListeners()
+    {
+        $app = Application::init(array(
+            'modules' => array(),
+            'module_listener_options' => array(),
+            'service_manager' => array(
+                'invokables' => array(
+                    'StubSharedListener' => 'ZendTest\Mvc\TestAsset\StubSharedListener'
+                ),
+            ),
+            'shared_listeners' => array(
+                'StubSharedListener',
+            ),
+        ));
+
+        $this->assertInstanceOf(
+            'ZendTest\Mvc\TestAsset\StubSharedListener',
+            $app->getServiceManager()->get('ModuleManager')->getEvent()->getParam('StubSharedListener')
+        );
+
+        $listeners = $app->getEventManager()->getSharedManager()->getListeners('Zend\ModuleManager\ModuleManager', ModuleEvent::EVENT_MERGE_CONFIG);
+        $this->assertEquals(1, count($listeners));
     }
 }

@@ -249,6 +249,13 @@ class Application implements
         $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
         $serviceManager = new ServiceManager(new Service\ServiceManagerConfig($smConfig));
         $serviceManager->setService('ApplicationConfig', $configuration);
+
+        $sharedEvents = $serviceManager->get('SharedEventManager');
+        $sharedListeners = isset($configuration['shared_listeners']) ? $configuration['shared_listeners'] : array();
+        foreach ($sharedListeners as $listener) {
+            $sharedEvents->attachAggregate($serviceManager->get($listener));
+        }
+
         $serviceManager->get('ModuleManager')->loadModules();
 
         $listenersFromAppConfig     = isset($configuration['listeners']) ? $configuration['listeners'] : array();
