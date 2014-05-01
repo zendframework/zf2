@@ -63,7 +63,7 @@ class DateTimeFormatterStrategy implements StrategyInterface
     /**
      * Sets filter for formatting date
      *
-     * @param DateTimeFormatter $filter
+     * @param  DateTimeFormatter $filter
      * @return self
      */
     public function setFilter(DateTimeFormatter $filter)
