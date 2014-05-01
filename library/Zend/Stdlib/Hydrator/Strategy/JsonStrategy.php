@@ -31,7 +31,7 @@ class JsonStrategy implements StrategyInterface
     /**
      * Sets objectDecodeType
      *
-     * @param int $objectDecodeType
+     * @param  int  $objectDecodeType
      * @return self
      */
     public function setObjectDecodeType($objectDecodeType)
@@ -44,7 +44,7 @@ class JsonStrategy implements StrategyInterface
     /**
      * Sets cycleCheck
      *
-     * @param bool $cycleCheck
+     * @param  bool $cycleCheck
      * @return self
      */
     public function setCycleCheck($cycleCheck)
@@ -57,7 +57,7 @@ class JsonStrategy implements StrategyInterface
     /**
      * Sets encodeOptions
      *
-     * @param array $encodeOptions
+     * @param  array $encodeOptions
      * @return self
      */
     public function setEncodeOptions(array $encodeOptions)
@@ -70,22 +70,22 @@ class JsonStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
      *
-     * @param mixed $value The original value to encode.
+     * @param  mixed  $value The original value to encode.
      * @return string JSON encoded object
      */
     public function hydrate($value)
     {
-        return Json::encode($value, $this->cycleCheck, $this->options);
+        return Json::decode($value, $this->cycleCheck, $this->options);
     }
 
     /**
      * Converts the given value so that it can be extracted by the hydrator.
      *
-     * @param string $value The original encoded value.
+     * @param  string $value The original encoded value.
      * @return mixed
      */
     public function extract($value)
     {
-        return Json::decode($value, $this->objectDecodeType);
+        return Json::encode($value, $this->objectDecodeType);
     }
 }
