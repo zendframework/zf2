@@ -75,7 +75,7 @@ class JsonStrategy implements StrategyInterface
      */
     public function hydrate($value)
     {
-        return Json::decode($value, $this->cycleCheck, $this->options);
+        return Json::decode($value, $this->objectDecodeType);
     }
 
     /**
@@ -86,6 +86,6 @@ class JsonStrategy implements StrategyInterface
      */
     public function extract($value)
     {
-        return Json::encode($value, $this->objectDecodeType);
+        return Json::encode($value, $this->cycleCheck, $this->encodeOptions);
     }
 }

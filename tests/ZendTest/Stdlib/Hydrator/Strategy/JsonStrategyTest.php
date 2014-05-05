@@ -25,5 +25,7 @@ class JsonStrategyTest extends \PHPUnit_Framework_TestCase
         $strategy = new JsonStrategy;
         $encodedValue = Json::encode(array('something' => 'foo2'));
         $this->assertEquals(Json::decode($encodedValue), $strategy->hydrate($encodedValue));
+        $strategy->setObjectDecodeType(Json::TYPE_ARRAY);
+        $this->assertEquals(array('something' => 'foo2'), $strategy->hydrate($encodedValue));
     }
 }
