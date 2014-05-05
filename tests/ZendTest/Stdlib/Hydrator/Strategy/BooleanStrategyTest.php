@@ -9,10 +9,10 @@
 
 namespace ZendTest\Stdlib\Hydrator\Strategy;
 
-
 use Zend\Stdlib\Hydrator\Strategy\BooleanStrategy;
 
-class BooleanStrategyTest extends \PHPUnit_Framework_TestCase {
+class BooleanStrategyTest extends \PHPUnit_Framework_TestCase
+{
     public function testExtractString()
     {
         $hydrator = new BooleanStrategy('true', 'false');
@@ -62,4 +62,3 @@ class BooleanStrategyTest extends \PHPUnit_Framework_TestCase {
         $hydrator->hydrate(new \stdClass());
     }
 }
- 

@@ -9,10 +9,10 @@
 
 namespace Zend\Stdlib\Hydrator\Strategy;
 
-
 use Zend\Stdlib\Exception\InvalidArgumentException;
 
-class BooleanStrategy implements StrategyInterface {
+class BooleanStrategy implements StrategyInterface
+{
     /**
      * @var int|string
      */
@@ -32,9 +32,9 @@ class BooleanStrategy implements StrategyInterface {
     /**
      * Converts the given value so that it can be extracted by the hydrator.
      *
-     * @param mixed $value The original value.
-     * @param object $object (optional) The original object for context.
-     * @return mixed Returns the value that should be extracted.
+     * @param  mixed  $value  The original value.
+     * @param  object $object (optional) The original object for context.
+     * @return mixed  Returns the value that should be extracted.
      */
     public function extract($value)
     {
@@ -55,8 +55,8 @@ class BooleanStrategy implements StrategyInterface {
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
      *
-     * @param mixed $value The original value.
-     * @param array $data (optional) The original data for context.
+     * @param  mixed $value The original value.
+     * @param  array $data  (optional) The original data for context.
      * @return mixed Returns the value that should be hydrated.
      */
     public function hydrate($value)
@@ -98,4 +98,4 @@ class BooleanStrategy implements StrategyInterface {
     {
         return $this->falseValue;
     }
-} 
+}
