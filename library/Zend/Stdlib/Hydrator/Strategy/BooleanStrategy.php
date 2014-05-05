@@ -49,14 +49,7 @@ class BooleanStrategy implements StrategyInterface {
             return $this->getTrueValue();
         }
 
-        if ($value == false) {
-            return $this->getFalseValue();
-        }
-
-        throw new InvalidArgumentException(sprintf(
-            'Unexpected value %s can\'t be extracted',
-            $value
-        ));
+        return $this->getFalseValue();
     }
 
     /**
@@ -71,7 +64,7 @@ class BooleanStrategy implements StrategyInterface {
 
         if (!is_string($value) && !is_int($value)) {
             throw new InvalidArgumentException(sprintf(
-                'Unable to extract. Expected string or int. %s was given.',
+                'Unable to hydrate. Expected string or int. %s was given.',
                 is_object($value) ? get_class($value) : gettype($value)
             ));
         }
