@@ -70,8 +70,8 @@ class JsonStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
      *
-     * @param  mixed  $value The original value to encode.
-     * @return string JSON encoded object
+     * @param  string $value The original encoded value.
+     * @return mixed
      */
     public function hydrate($value)
     {
@@ -81,8 +81,8 @@ class JsonStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be extracted by the hydrator.
      *
-     * @param  string $value The original encoded value.
-     * @return mixed
+     * @param  mixed  $value The original value to encode.
+     * @return string JSON encoded object
      */
     public function extract($value)
     {
