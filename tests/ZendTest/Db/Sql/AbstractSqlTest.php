@@ -14,7 +14,8 @@ use Zend\Db\Sql\ExpressionInterface;
 use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Sql\Predicate;
 use Zend\Db\Sql\Select;
-use ZendTest\Db\TestAsset\TrustingSql92Platform;
+use Zend\Db\Sql\AbstractSql;
+use ZendTest\Db\TestAsset;
 
 class AbstractSqlTest extends \PHPUnit_Framework_TestCase
 {
@@ -126,15 +127,46 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Zend\Db\Sql\AbstractSql::processExpression
+     */
+    public function testProcessExpressionWithDecorableExpressions()
+    {
+        AbstractSql::getSqlPlatform()->setTypeDecorator(
+            'Zend\Db\Sql\Predicate\Operator',
+            'ZendTest\Db\TestAsset\PredicateOperatorDecorator',
+            'mysql'
+        );
+
+        $select = new Select('X');
+        $select->offset(10);
+        $expression = new Predicate\Operator(
+            'level0', '=',
+            new Predicate\Operator(
+                    'level1', '=',
+                    new Predicate\Operator(
+                            'level2', '=',
+                            $select
+                    )
+            )
+        );
+
+        $this->assertEquals(
+            "{`level0` = {`level1` = {`level2` = (SELECT `X`.* FROM `X` LIMIT 18446744073709551615 OFFSET 10)}}}",
+            $this->invokeProcessExpressionMethod($expression, null, new TestAsset\TrustingMySqlPlatform)->getSql()
+        );
+    }
+
+    /**
      * @param \Zend\Db\Sql\ExpressionInterface $expression
      * @param \Zend\Db\Adapter\Adapter|null $adapter
      * @return \Zend\Db\Adapter\StatementContainer
      */
-    protected function invokeProcessExpressionMethod(ExpressionInterface $expression, $driver = null)
+    protected function invokeProcessExpressionMethod(ExpressionInterface $expression, $driver = null, $platform = null)
     {
         $method = new \ReflectionMethod($this->abstractSql, 'processExpression');
         $method->setAccessible(true);
-        return $method->invoke($this->abstractSql, $expression, new TrustingSql92Platform, $driver);
+        $platform = $platform ?: new TestAsset\TrustingSql92Platform;
+        return $method->invoke($this->abstractSql, $expression, $platform, $driver);
     }
 
 }

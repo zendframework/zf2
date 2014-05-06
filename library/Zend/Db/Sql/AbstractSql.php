@@ -61,7 +61,10 @@ abstract class AbstractSql
         $parameterContainer = $statementContainer->getParameterContainer();
 
         // initialize variables
-        $parts = $expression->getExpressionData();
+        $parts = self::getSqlPlatform()->setSubject($expression)->getExpressionData($platform);
+        if (!$parts) {
+            $parts = $expression->getExpressionData();
+        }
 
         if (!isset($this->instanceParameterIndex[$namedParameterPrefix])) {
             $this->instanceParameterIndex[$namedParameterPrefix] = 1;

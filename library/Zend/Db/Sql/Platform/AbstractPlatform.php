@@ -15,6 +15,7 @@ use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Sql\Exception;
 use Zend\Db\Sql\PreparableSqlInterface;
 use Zend\Db\Sql\SqlInterface;
+use Zend\Db\Sql\ExpressionInterface;
 
 class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInterface, SqlInterface
 {
@@ -146,6 +147,29 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
         return $sql;
     }
 
+    /**
+     * @param \Zend\Db\Adapter\Platform\PlatformInterface $adapterPlatform
+     * @return null
+     * @throws Exception\RuntimeException
+     */
+    public function getExpressionData(PlatformInterface $adapterPlatform = null)
+    {
+        if ($this->subject instanceof PlatformDecoratorInterface) {
+            return null;
+        }
+        if (!$this->subject instanceof ExpressionInterface) {
+            throw new Exception\RuntimeException('The subject does not appear to implement Zend\Db\Sql\ExpressionInterface, thus calling getExpressionData() has no effect');
+        }
+        $decorator = $this->getDecorator($adapterPlatform);
+        if (!$decorator) {
+            return null;
+        }
+
+        $decorator->setSubject($this->subject);
+        $parts = $decorator->getExpressionData();
+        $this->cloneCounter[get_class($decorator)]--;
+        return $parts;
+    }
     /**
      * Find decorator for subject and platform. If not found - return subject
      *
