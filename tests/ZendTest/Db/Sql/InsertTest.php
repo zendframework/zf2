@@ -167,6 +167,10 @@ class InsertTest extends \PHPUnit_Framework_TestCase
             ->values(array('bar' => 'baz', 'boo' => new Expression('NOW()')));
 
         $this->insert->prepareStatement($mockAdapter, $mockStatement);
+
+        //without statement
+        $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
+        $this->insert->prepareStatement($mockAdapter);
     }
 
     /**

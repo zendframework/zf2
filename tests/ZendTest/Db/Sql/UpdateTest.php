@@ -193,6 +193,10 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
             ->where('x = y');
 
         $this->update->prepareStatement($mockAdapter, $mockStatement);
+
+        //without statement
+        $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
+        $this->update->prepareStatement($mockAdapter);
     }
 
     /**

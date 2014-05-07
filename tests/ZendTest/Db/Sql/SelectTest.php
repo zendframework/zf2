@@ -626,6 +626,18 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testPrepareStatementWithoutStatement()
+    {
+        $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
+        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
+        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+
+        $select = new Select('foo');
+        $statement = $select->prepareStatement($mockAdapter);
+        $this->assertSame($mockStatement, $statement);
+    }
+
     /**
      * @group ZF2-5192
      */

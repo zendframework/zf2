@@ -142,6 +142,10 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
             ->where('x = y');
 
         $this->delete->prepareStatement($mockAdapter, $mockStatement);
+
+        //without statement
+        $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
+        $this->delete->prepareStatement($mockAdapter);
     }
 
     /**

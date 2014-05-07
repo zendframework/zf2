@@ -145,8 +145,9 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
+        $statementContainer = ($statementContainer) ?: $adapter->getDriver()->createStatement();
         if (static::getSqlPlatform()->setSubject($this)->prepareStatement($adapter, $statementContainer)) {
             return $statementContainer;
         }
