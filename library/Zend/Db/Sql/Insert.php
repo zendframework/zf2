@@ -174,6 +174,9 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
     {
+        if (static::getSqlPlatform()->setSubject($this)->prepareStatement($adapter, $statementContainer)) {
+            return $statementContainer;
+        }
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
         $parameterContainer = $statementContainer->getParameterContainer();
@@ -238,6 +241,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
             throw new Exception\InvalidArgumentException('values or select should be present');
         }
         $statementContainer->setSql($sql);
+        return $statementContainer;
     }
 
     /**
@@ -248,6 +252,9 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
+        if ($sql = static::getSqlPlatform()->setSubject($this)->getSqlString($adapterPlatform)) {
+            return $sql;
+        }
         $adapterPlatform = ($adapterPlatform) ?: new Sql92;
         $table = $this->table;
         $schema = null;

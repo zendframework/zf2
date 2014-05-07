@@ -43,6 +43,9 @@ class DropTable extends AbstractSql implements SqlInterface
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
+        if ($sql = static::getSqlPlatform()->setSubject($this)->getSqlString($adapterPlatform)) {
+            return $sql;
+        }
         // get platform, or create default
         $adapterPlatform = ($adapterPlatform) ?: new AdapterSql92Platform;
 
