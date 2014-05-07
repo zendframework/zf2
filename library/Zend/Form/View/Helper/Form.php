@@ -34,6 +34,13 @@ class Form extends AbstractHelper
     );
 
     /**
+     * View helper used for rendering form rows
+     *
+     * @var FormRow|callable
+     */
+    private $formRowHelper;
+
+    /**
      * Invoke as function
      *
      * @param  null|FormInterface $form
@@ -66,7 +73,8 @@ class Form extends AbstractHelper
             if ($element instanceof FieldsetInterface) {
                 $formContent.= $this->getView()->formCollection($element);
             } else {
-                $formContent.= $this->getView()->formRow($element);
+                $formRowHelper = $this->getFormRowHelper();
+                $formContent.= $formRowHelper($element);
             }
         }
 
@@ -107,5 +115,26 @@ class Form extends AbstractHelper
     public function closeTag()
     {
         return '</form>';
+    }
+
+    /**
+     * @param callable|FormRow $formRowHelper
+     */
+    public function setFormRowHelper($formRowHelper)
+    {
+        $this->formRowHelper = $formRowHelper;
+    }
+
+    /**
+     * Returns the assigned form row view helper
+     *
+     * @return FormRow|callable
+     */
+    protected function getFormRowHelper()
+    {
+        if(!$this->formRowHelper) {
+            $this->setFormRowHelper($this->getView()->formRow());
+        }
+        return $this->formRowHelper;
     }
 }
