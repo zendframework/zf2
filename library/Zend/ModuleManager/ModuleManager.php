@@ -40,9 +40,9 @@ class ModuleManager implements ModuleManagerInterface
     protected $event;
 
     /**
-     * @var bool
+     * @var int
      */
-    protected $loadFinished;
+    protected $loadFinished = 0;
 
     /**
      * modules
@@ -50,6 +50,13 @@ class ModuleManager implements ModuleManagerInterface
      * @var array|Traversable
      */
     protected $modules = array();
+
+    /**
+     * Childs dependency modules
+     *
+     * @var array
+     */
+    protected $childsModules = array();
 
     /**
      * True if modules have already been loaded
@@ -100,6 +107,23 @@ class ModuleManager implements ModuleManagerInterface
     }
 
     /**
+     * Load childs dependency modules
+     *
+     * @param ModuleEvent $e
+     * @return void
+     */
+    public function onLoadChildsModules(ModuleEvent $e)
+    {
+        if (!isset($this->childsModules[$e->getModuleName()])) {
+            return;
+        }
+        foreach($this->childsModules[$e->getModuleName()] as $module) {
+            $this->loadModule($module);
+        }
+        unset($this->childsModules[$e->getModuleName()]);
+    }
+
+    /**
      * Load the provided modules.
      *
      * @triggers loadModules
@@ -134,7 +158,7 @@ class ModuleManager implements ModuleManagerInterface
      * @triggers loadModule
      * @return mixed Module's Module class
      */
-    public function loadModule($module)
+    public function loadModule($module, $isChild = false)
     {
         $moduleName = $module;
         if (is_array($module)) {
@@ -156,10 +180,15 @@ class ModuleManager implements ModuleManagerInterface
          * To load a module, we clone the event if we are inside a nested
          * loadModule() call, and use the original event otherwise.
          */
-        if (!isset($this->loadFinished)) {
-            $this->loadFinished = 0;
-        }
 
+        if ($this->loadFinished > 0 && $isChild) {
+            $parentModule = $this->getEvent()->getModuleName();
+            $childModule = is_object($module)
+                    ? array($moduleName=>$module)
+                    : $moduleName;
+            $this->childsModules[$parentModule][] = $childModule;
+            return;
+        }
         $event = ($this->loadFinished > 0) ? clone $this->getEvent() : $this->getEvent();
         $event->setModuleName($moduleName);
 
@@ -330,5 +359,6 @@ class ModuleManager implements ModuleManagerInterface
     {
         $events = $this->getEventManager();
         $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($this, 'onLoadModules'));
+        $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($this, 'onLoadChildsModules'), -100);
     }
 }
