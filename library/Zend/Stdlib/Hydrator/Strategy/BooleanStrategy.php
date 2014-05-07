@@ -61,7 +61,6 @@ class BooleanStrategy implements StrategyInterface
      */
     public function hydrate($value)
     {
-
         if (!is_string($value) && !is_int($value)) {
             throw new InvalidArgumentException(sprintf(
                 'Unable to hydrate. Expected string or int. %s was given.',
