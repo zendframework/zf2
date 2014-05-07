@@ -9,6 +9,7 @@
 
 namespace Zend\Form\View\Helper;
 
+use Zend\Form\Exception\InvalidArgumentException;
 use Zend\Form\FieldsetInterface;
 use Zend\Form\FormInterface;
 
@@ -74,7 +75,7 @@ class Form extends AbstractHelper
                 $formContent.= $this->getView()->formCollection($element);
             } else {
                 $formRowHelper = $this->getFormRowHelper();
-                $formContent.= $formRowHelper($element);
+                $formContent .= $formRowHelper($element);
             }
         }
 
@@ -122,6 +123,13 @@ class Form extends AbstractHelper
      */
     public function setFormRowHelper($formRowHelper)
     {
+        if(!is_callable($formRowHelper)) {
+            throw new InvalidArgumentException(sprintf(
+                '%s expects a callable; received "%s"',
+                __METHOD__,
+                (is_object($formRowHelper) ? get_class($formRowHelper) : gettype($formRowHelper))
+            ));
+        }
         $this->formRowHelper = $formRowHelper;
     }
 
@@ -133,7 +141,7 @@ class Form extends AbstractHelper
     protected function getFormRowHelper()
     {
         if(!$this->formRowHelper) {
-            $this->setFormRowHelper($this->getView()->formRow());
+            $this->setFormRowHelper($this->getView()->plugin('formRow'));
         }
         return $this->formRowHelper;
     }
