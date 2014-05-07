@@ -42,6 +42,23 @@ class Form extends AbstractHelper
     private $formRowHelper;
 
     /**
+     * @param FormRow|callable $formRowHelper
+     */
+    public function __construct($formRowHelper = null)
+    {
+        if (null !== $formRowHelper) {
+            if(!is_callable($formRowHelper)) {
+                throw new InvalidArgumentException(sprintf(
+                    '%s expects a callable; received "%s"',
+                    __METHOD__,
+                    (is_object($formRowHelper) ? get_class($formRowHelper) : gettype($formRowHelper))
+                ));
+            }
+            $this->formRowHelper = $formRowHelper;
+        }
+    }
+
+    /**
      * Invoke as function
      *
      * @param  null|FormInterface $form
@@ -119,21 +136,6 @@ class Form extends AbstractHelper
     }
 
     /**
-     * @param callable|FormRow $formRowHelper
-     */
-    public function setFormRowHelper($formRowHelper)
-    {
-        if(!is_callable($formRowHelper)) {
-            throw new InvalidArgumentException(sprintf(
-                '%s expects a callable; received "%s"',
-                __METHOD__,
-                (is_object($formRowHelper) ? get_class($formRowHelper) : gettype($formRowHelper))
-            ));
-        }
-        $this->formRowHelper = $formRowHelper;
-    }
-
-    /**
      * Returns the assigned form row view helper
      *
      * @return FormRow|callable
@@ -141,7 +143,7 @@ class Form extends AbstractHelper
     protected function getFormRowHelper()
     {
         if(!$this->formRowHelper) {
-            $this->setFormRowHelper($this->getView()->plugin('formRow'));
+            $this->formRowHelper = $this->getView()->plugin('formRow');
         }
         return $this->formRowHelper;
     }
