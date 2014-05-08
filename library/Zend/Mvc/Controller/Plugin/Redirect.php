@@ -21,8 +21,19 @@ use Zend\Mvc\MvcEvent;
  */
 class Redirect extends AbstractPlugin
 {
+    /**
+     * @var MvcEven
+     */
     protected $event;
+    
+    /**
+     * @var Response
+     */
     protected $response;
+    
+    /**
+     * @var Request
+     */
     protected $request;
 
     /**
