@@ -66,7 +66,7 @@ class Redirect extends AbstractPlugin
         if ($url instanceof Referer) {
             $url = $url->getUri();
         } else {
-            if (!$defaultUrl) {
+            if ($defaultUrl === null) {
                 return $this->toRoute();
             }
         }
