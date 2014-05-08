@@ -28,9 +28,9 @@ class RedirectTest extends TestCase
     {
         $this->response = new Response();
         $this->request = new Request();
-        $this->requestHeaders = new Headers() ;
+        $this->requestHeaders = new Headers();
 
-        $this->request->setHeaders($this->requestHeaders) ;
+        $this->request->setHeaders($this->requestHeaders);
 
         $router = new SimpleRouteStack;
         $router->addRoute('home', LiteralRoute::factory(array(

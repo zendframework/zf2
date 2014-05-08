@@ -63,15 +63,14 @@ class Redirect extends AbstractPlugin
     {
         $url = $this->getRequest()->getHeader('Referer', $defaultUrl);
 
-        if ($url instanceof Referer) {
-            $url = $url->getUri();
-        } else {
+        if (!$url instanceof Referer) {
             if ($defaultUrl === null) {
                 return $this->toRoute();
             }
+            return $this->toUrl($defaultUrl);
         }
 
-        return $this->toUrl($url);
+        return $this->toUrl($url->getUri());
     }
 
     /**
@@ -104,7 +103,7 @@ class Redirect extends AbstractPlugin
      * @return Request
      * @throws Exception\DomainException if unable to find request
      */
-    public function getRequest()
+    protected function getRequest()
     {
         if ($this->request) {
             return $this->request;
