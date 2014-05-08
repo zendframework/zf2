@@ -10,6 +10,8 @@
 namespace Zend\Mvc\Controller\Plugin;
 
 use Zend\Http\Response;
+use Zend\Http\Request;
+use Zend\Http\Header\Referer;
 use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
@@ -21,6 +23,7 @@ class Redirect extends AbstractPlugin
 {
     protected $event;
     protected $response;
+    protected $request;
 
     /**
      * Generates a URL based on a route
@@ -52,6 +55,26 @@ class Redirect extends AbstractPlugin
     }
 
     /**
+     * Redirect to referer URL if present in header otherwise redirect to the specified url
+     * @param string $url URL to redirect if HTTP_REFERER is not present in request header
+     * @return Response
+     */
+    public function toReferer($defaultUrl = null)
+    {
+        $url = $this->getRequest()->getHeader('Referer', $defaultUrl);
+        
+        if ($url instanceof Referer) {
+            $url = $url->getUri();
+        } else {
+            if (!$defaultUrl) {
+                return $this->toRoute();
+            }
+        }
+
+        return $this->toUrl($url);
+    }
+
+    /**
      * Redirect to the given URL
      *
      * @param  string $url
@@ -73,6 +96,27 @@ class Redirect extends AbstractPlugin
     public function refresh()
     {
         return $this->toRoute(null, array(), array(), true);
+    }
+
+    /**
+     * Get the request
+     *
+     * @return Request
+     * @throws Exception\DomainException if unable to find request
+     */
+    public function getRequest()
+    {
+        if ($this->request) {
+            return $this->request;
+        }
+
+        $event = $this->getEvent();
+        $request = $event->getRequest();
+        if (!$request instanceof Request) {
+            throw new Exception\DomainException('Redirect plugin requires event compose a request');
+        }
+        $this->request = $request;
+        return $this->request;
     }
 
     /**
