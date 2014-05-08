@@ -197,6 +197,7 @@ class PriorityList implements Iterator, Countable
      */
     public function current()
     {
+        $this->sort();
         $node = current($this->items);
 
         return $node ? $node['data'] : false;
@@ -229,7 +230,22 @@ class PriorityList implements Iterator, Countable
     }
 
     /**
+<<<<<<< Upstream, based on zf2/master
      * {@inheritDoc}
+=======
+     * @return self
+     */
+    public function getIterator()
+    {
+        return clone $this;
+    }
+
+    /**
+     * count(): defined by Countable interface.
+     *
+     * @see    Countable::count()
+     * @return int
+>>>>>>> 0fe9823 fix current() and add Iterator
      */
     public function count()
     {
