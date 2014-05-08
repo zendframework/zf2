@@ -62,7 +62,7 @@ class Redirect extends AbstractPlugin
     public function toReferer($defaultUrl = null)
     {
         $url = $this->getRequest()->getHeader('Referer', $defaultUrl);
-        
+
         if ($url instanceof Referer) {
             $url = $url->getUri();
         } else {
