@@ -22,30 +22,30 @@ use Zend\Mvc\MvcEvent;
 class Redirect extends AbstractPlugin
 {
     /**
-     * @var MvcEven
+     * @var null|MvcEvent
      */
     protected $event;
-    
+
     /**
-     * @var Response
+     * @var null|Response
      */
     protected $response;
-    
+
     /**
-     * @var Request
+     * @var null|Request
      */
     protected $request;
 
     /**
      * Generates a URL based on a route
      *
-     * @param  string $route RouteInterface name
-     * @param  array $params Parameters to use in url generation, if any
-     * @param  array $options RouteInterface-specific options to use in url generation, if any
-     * @param  bool $reuseMatchedParams Whether to reuse matched parameters
+     * @param  string                    $route              RouteInterface name
+     * @param  array                     $params             Parameters to use in url generation, if any
+     * @param  array                     $options            RouteInterface-specific options to use in url generation, if any
+     * @param  bool                      $reuseMatchedParams Whether to reuse matched parameters
      * @return Response
      * @throws Exception\DomainException if composed controller does not implement InjectApplicationEventInterface, or
-     *         router cannot be found in controller event
+     *                                                      router cannot be found in controller event
      */
     public function toRoute($route = null, $params = array(), $options = array(), $reuseMatchedParams = false)
     {
@@ -67,7 +67,7 @@ class Redirect extends AbstractPlugin
 
     /**
      * Redirect to referer URL if present in header otherwise redirect to the specified url
-     * @param string $url URL to redirect if HTTP_REFERER is not present in request header
+     * @param  string   $url URL to redirect if HTTP_REFERER is not present in request header
      * @return Response
      */
     public function toReferer($defaultUrl = null)
@@ -78,6 +78,7 @@ class Redirect extends AbstractPlugin
             if ($defaultUrl === null) {
                 return $this->toRoute();
             }
+
             return $this->toUrl($defaultUrl);
         }
 
@@ -87,7 +88,7 @@ class Redirect extends AbstractPlugin
     /**
      * Redirect to the given URL
      *
-     * @param  string $url
+     * @param  string   $url
      * @return Response
      */
     public function toUrl($url)
@@ -95,6 +96,7 @@ class Redirect extends AbstractPlugin
         $response = $this->getResponse();
         $response->getHeaders()->addHeaderLine('Location', $url);
         $response->setStatusCode(302);
+
         return $response;
     }
 
@@ -126,6 +128,7 @@ class Redirect extends AbstractPlugin
             throw new Exception\DomainException('Redirect plugin requires event compose a request');
         }
         $this->request = $request;
+
         return $this->request;
     }
 
@@ -147,6 +150,7 @@ class Redirect extends AbstractPlugin
             throw new Exception\DomainException('Redirect plugin requires event compose a response');
         }
         $this->response = $response;
+
         return $this->response;
     }
 
