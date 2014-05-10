@@ -149,7 +149,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 >>>>>>> 5c9abf5 #6142 - Implementing more performing extraction via an extraction map cache
         }
 
-        // pass 1 - finding out which properties can be extracted, with which methods
+        // pass 1 - finding out which properties can be extracted, with which methods (populate hydration cache)
         if (! isset($this->extractionMethodsCache[$objectClass])) {
             $this->extractionMethodsCache[$objectClass] = array();
             $filter                                     = $this->filterComposite;
@@ -184,6 +184,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
         $values = array();
 
+        // pass 2 - actually extract data
         foreach ($this->extractionMethodsCache[$objectClass] as $methodName => $attributeName) {
             $realAttributeName          = $this->extractName($attributeName, $object);
             $values[$realAttributeName] = $this->extractValue($realAttributeName, $object->$methodName(), $object);
