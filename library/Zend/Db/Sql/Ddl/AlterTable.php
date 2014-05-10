@@ -10,7 +10,7 @@
 namespace Zend\Db\Sql\Ddl;
 
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92 as AdapterSql92Platform;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Sql\AbstractSql;
 
 class AlterTable extends AbstractSql implements SqlInterface
@@ -179,19 +179,17 @@ class AlterTable extends AbstractSql implements SqlInterface
     }
 
     /**
-     * @param  PlatformInterface $adapterPlatform
+     * @param AdapterInterface $adapter
+     * @param PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform)
     {
-        // get platform, or create default
-        $adapterPlatform = ($adapterPlatform) ?: new AdapterSql92Platform;
-
         $sqls = array();
         $parameters = array();
 
         foreach ($this->specifications as $name => $specification) {
-            $parameters[$name] = $this->{'process' . $name}($adapterPlatform, null, null, $sqls, $parameters);
+            $parameters[$name] = $this->{'process' . $name}($adapter, $adapterPlatform, null, null, $sqls, $parameters);
             if ($specification && is_array($parameters[$name]) && ($parameters[$name] != array(array()))) {
                 $sqls[$name] = $this->createSqlFromSpecificationAndParameters($specification, $parameters[$name]);
             }
@@ -208,35 +206,35 @@ class AlterTable extends AbstractSql implements SqlInterface
         return $sql;
     }
 
-    protected function processTable(PlatformInterface $adapterPlatform = null)
+    protected function processTable(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         return array($adapterPlatform->quoteIdentifier($this->table));
     }
 
-    protected function processAddColumns(PlatformInterface $adapterPlatform = null)
+    protected function processAddColumns(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $sqls = array();
         foreach ($this->addColumns as $column) {
-            $sqls[] = $this->processExpression($column, $adapterPlatform)->getSql();
+            $sqls[] = $this->processExpression($column, $adapter, $adapterPlatform)->getSql();
         }
 
         return array($sqls);
     }
 
-    protected function processChangeColumns(PlatformInterface $adapterPlatform = null)
+    protected function processChangeColumns(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $sqls = array();
         foreach ($this->changeColumns as $name => $column) {
             $sqls[] = array(
                 $adapterPlatform->quoteIdentifier($name),
-                $this->processExpression($column, $adapterPlatform)->getSql()
+                $this->processExpression($column, $adapter, $adapterPlatform)->getSql()
             );
         }
 
         return array($sqls);
     }
 
-    protected function processDropColumns(PlatformInterface $adapterPlatform = null)
+    protected function processDropColumns(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $sqls = array();
         foreach ($this->dropColumns as $column) {
@@ -246,17 +244,17 @@ class AlterTable extends AbstractSql implements SqlInterface
         return array($sqls);
     }
 
-    protected function processAddConstraints(PlatformInterface $adapterPlatform = null)
+    protected function processAddConstraints(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $sqls = array();
         foreach ($this->addConstraints as $constraint) {
-            $sqls[] = $this->processExpression($constraint, $adapterPlatform);
+            $sqls[] = $this->processExpression($constraint, $adapter, $adapterPlatform);
         }
 
         return array($sqls);
     }
 
-    protected function processDropConstraints(PlatformInterface $adapterPlatform = null)
+    protected function processDropConstraints(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $sqls = array();
         foreach ($this->dropConstraints as $constraint) {

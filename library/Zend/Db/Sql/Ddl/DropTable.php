@@ -10,7 +10,7 @@
 namespace Zend\Db\Sql\Ddl;
 
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92 as AdapterSql92Platform;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Sql\AbstractSql;
 
 class DropTable extends AbstractSql implements SqlInterface
@@ -38,19 +38,18 @@ class DropTable extends AbstractSql implements SqlInterface
     }
 
     /**
-     * @param  null|PlatformInterface $adapterPlatform
+     * @param AdapterInterface $adapter
+     * @param PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform)
     {
-        // get platform, or create default
-        $adapterPlatform = ($adapterPlatform) ?: new AdapterSql92Platform;
-
         $sqls       = array();
         $parameters = array();
 
         foreach ($this->specifications as $name => $specification) {
             $parameters[$name] = $this->{'process' . $name}(
+                $adapter,
                 $adapterPlatform,
                 null,
                 null,
@@ -70,7 +69,7 @@ class DropTable extends AbstractSql implements SqlInterface
         return $sql;
     }
 
-    protected function processTable(PlatformInterface $adapterPlatform = null)
+    protected function processTable(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         return array($adapterPlatform->quoteIdentifier($this->table));
     }

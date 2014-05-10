@@ -131,13 +131,13 @@ class Sql
 
     public function getSqlStringForSqlObject(SqlInterface $sqlObject, PlatformInterface $platform = null)
     {
-        $platform = ($platform) ?: $this->adapter->getPlatform();
+        $adapterOrPlatform = ($platform) ?: $this->adapter;
 
         if ($this->sqlPlatform) {
             $this->sqlPlatform->setSubject($sqlObject);
-            $sqlString = $this->sqlPlatform->getSqlString($platform);
+            $sqlString = $this->sqlPlatform->getSqlString($adapterOrPlatform);
         } else {
-            $sqlString = $sqlObject->getSqlString($platform);
+            $sqlString = $sqlObject->getSqlString($adapterOrPlatform);
         }
 
         return $sqlString;

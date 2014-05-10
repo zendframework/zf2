@@ -12,7 +12,6 @@ namespace Zend\Db\Sql;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Db\Adapter\StatementContainerInterface;
 
 class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
@@ -172,7 +171,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param  StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    protected function processPrepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
     {
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
@@ -204,7 +203,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
             foreach ($this->columns as $cIndex => $column) {
                 $columns[$cIndex] = $platform->quoteIdentifier($column);
                 if (isset($this->values[$cIndex]) && $this->values[$cIndex] instanceof Expression) {
-                    $exprData = $this->processExpression($this->values[$cIndex], $platform, $driver);
+                    $exprData = $this->processExpression($this->values[$cIndex], $adapter, $platform, $driver);
                     $values[$cIndex] = $exprData->getSql();
                     $parameterContainer->merge($exprData->getParameterContainer());
                 } else {
@@ -241,14 +240,14 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     }
 
     /**
-     * Get SQL string for this statement
+     * Get the SQL string, based on the platform
      *
-     * @param  null|PlatformInterface $adapterPlatform Defaults to Sql92 if none provided
+     * @param AdapterInterface $adapter
+     * @param PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform)
     {
-        $adapterPlatform = ($adapterPlatform) ?: new Sql92;
         $table = $this->table;
         $schema = null;
 
@@ -270,7 +269,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $values = array();
             foreach ($this->values as $value) {
                 if ($value instanceof Expression) {
-                    $exprData = $this->processExpression($value, $adapterPlatform);
+                    $exprData = $this->processExpression($value, $adapter, $adapterPlatform);
                     $values[] = $exprData->getSql();
                 } elseif ($value === null) {
                     $values[] = 'NULL';
@@ -285,7 +284,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 implode(', ', $values)
             );
         } elseif ($this->values instanceof Select) {
-            $selectString = $this->values->getSqlString($adapterPlatform);
+            $selectString = $this->values->getSqlString($adapter);
             if ($columns) {
                 $columns = "($columns)";
             }

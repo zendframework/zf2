@@ -46,7 +46,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
      * @param AdapterInterface $adapter
      * @param StatementContainerInterface $statementContainer
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    protected function processPrepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
     {
         // localize variables
         foreach (get_object_vars($this->select) as $name => $value) {
@@ -57,14 +57,17 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         unset($this->specifications[self::OFFSET]);
 
         $this->specifications['LIMITOFFSET'] = null;
-        parent::prepareStatement($adapter, $statementContainer);
+        parent::processPrepareStatement($adapter, $statementContainer);
     }
 
     /**
-     * @param PlatformInterface $platform
+     * Get the SQL string, based on the platform
+     *
+     * @param AdapterInterface $adapter
+     * @param PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $platform = null)
+    protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform)
     {
         // localize variables
         foreach (get_object_vars($this->select) as $name => $value) {
@@ -76,18 +79,19 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         unset($this->specifications[self::OFFSET]);
 
         $this->specifications['LIMITOFFSET'] = null;
-        return parent::getSqlString($platform);
+        return parent::processGetSqlString($adapter, $adapterPlatform);
     }
 
     /**
+     * @param AdapterInterface $adapter
      * @param PlatformInterface $platform
-     * @param DriverInterface $driver
-     * @param ParameterContainer $parameterContainer
-     * @param $sqls
+     * @param null|DriverInterface $driver
+     * @param null|ParameterContainer $parameterContainer
+     * @param array $sqls
      * @param $parameters
      * @return null
      */
-    protected function processLimitOffset(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null, &$sqls, &$parameters)
+    protected function processLimitOffset(AdapterInterface $adapter, PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null, &$sqls, &$parameters)
     {
         if ($this->limit === null && $this->offset === null) {
             return null;
@@ -148,7 +152,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
     }
 
 
-    protected function processJoins(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
+    protected function processJoins(AdapterInterface $adapter, PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
         if (!$this->joins) {
             return null;
@@ -166,7 +170,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
                 : $platform->quoteIdentifier($join['name']);
             // on expression
             $joinSpecArgArray[$j][] = ($join['on'] instanceof ExpressionInterface)
-                ? $this->processExpression($join['on'], $platform, $driver, $this->processInfo['paramPrefix'] . 'join')
+                ? $this->processExpression($join['on'], $adapter, $platform, $driver, $this->processInfo['paramPrefix'] . 'join')
                 : $platform->quoteIdentifierInFragment($join['on'], array('=', 'AND', 'OR', '(', ')', 'BETWEEN')); // on
             if ($joinSpecArgArray[$j][2] instanceof StatementContainerInterface) {
                 if ($parameterContainer) {

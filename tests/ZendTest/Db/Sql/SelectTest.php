@@ -688,6 +688,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
+        $platform = new Sql92;
+        $adapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver, $platform));
         $parameterContainer = new ParameterContainer();
 
         $sr = new \ReflectionObject($select);
@@ -695,7 +697,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         foreach ($internalTests as $method => $expected) {
             $mr = $sr->getMethod($method);
             $mr->setAccessible(true);
-            $return = $mr->invokeArgs($select, array(new Sql92, $mockDriver, $parameterContainer));
+            $return = $mr->invokeArgs($select, array($adapter, $platform, $mockDriver, $parameterContainer));
             $this->assertEquals($expected, $return);
         }
     }

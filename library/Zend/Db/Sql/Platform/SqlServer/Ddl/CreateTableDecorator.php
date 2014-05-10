@@ -12,6 +12,7 @@ namespace Zend\Db\Sql\Platform\SqlServer\Ddl;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Sql\Ddl\CreateTable;
 use Zend\Db\Sql\Platform\PlatformDecoratorInterface;
+use Zend\Db\Adapter\AdapterInterface;
 
 class CreateTableDecorator extends CreateTable implements PlatformDecoratorInterface
 {
@@ -31,23 +32,27 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
     }
 
     /**
-     * @param  null|PlatformInterface $platform
+     * Get the SQL string, based on the platform
+     *
+     * @param AdapterInterface $adapter
+     * @param PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $platform = null)
+    protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform)
     {
         // localize variables
         foreach (get_object_vars($this->createTable) as $name => $value) {
             $this->{$name} = $value;
         }
-        return parent::getSqlString($platform);
+        return parent::processGetSqlString($adapter, $adapterPlatform);
     }
 
     /**
-     * @param PlatformInterface $adapterPlatform
+     * @param AdapterInterface $adapter
+     * @param null|PlatformInterface $adapterPlatform
      * @return array
      */
-    protected function processTable(PlatformInterface $adapterPlatform = null)
+    protected function processTable(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $ret = array('');
         if ($this->isTemporary) {

@@ -9,11 +9,15 @@
 
 namespace Zend\Db\Sql;
 
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Adapter\StatementContainer;
 use Zend\Db\Sql\Platform\PlatformDecoratorInterface;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\Platform\Sql92;
+use Zend\Db\Adapter\StatementContainerInterface;
 
 abstract class AbstractSql
 {
@@ -32,7 +36,29 @@ abstract class AbstractSql
      */
     protected $instanceParameterIndex = array();
 
-    protected function processExpression(ExpressionInterface $expression, PlatformInterface $platform, DriverInterface $driver = null, $namedParameterPrefix = null)
+    /**
+     * @param  null|AdapterInterface|PlatformInterface $adapterPlatform
+     * @return type
+     */
+    public function getSqlString($adapterPlatform = null)
+    {
+        $adapter = $this->resolveAdapterAndPlatform($adapterPlatform);
+        $platform = $adapter->getPlatform();
+        return $this->processGetSqlString($adapter, $platform);
+    }
+
+    /**
+     * @param AdapterInterface $adapter
+     * @param StatementContainerInterface $statementContainer
+     * @return StatementContainerInterface
+     */
+    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    {
+        $this->processPrepareStatement($adapter, $statementContainer);
+        return $statementContainer;
+    }
+
+    protected function processExpression(ExpressionInterface $expression, AdapterInterface $adapter, PlatformInterface $platform, DriverInterface $driver = null, $namedParameterPrefix = null)
     {
         // static counter for the number of times this method was invoked across the PHP runtime
         static $runtimeExpressionPrefix = 0;
@@ -75,13 +101,13 @@ abstract class AbstractSql
                 } elseif (isset($types[$vIndex]) && $types[$vIndex] == ExpressionInterface::TYPE_VALUE && $value instanceof Select) {
                     // process sub-select
                     if ($driver) {
-                        $values[$vIndex] = '(' . $this->processSubSelect($value, $platform, $driver, $parameterContainer) . ')';
+                        $values[$vIndex] = '(' . $this->processSubSelect($value, $adapter, $platform, $driver, $parameterContainer) . ')';
                     } else {
-                        $values[$vIndex] = '(' . $this->processSubSelect($value, $platform) . ')';
+                        $values[$vIndex] = '(' . $this->processSubSelect($value, $adapter, $platform) . ')';
                     }
                 } elseif (isset($types[$vIndex]) && $types[$vIndex] == ExpressionInterface::TYPE_VALUE && $value instanceof ExpressionInterface) {
                     // recursive call to satisfy nested expressions
-                    $innerStatementContainer = $this->processExpression($value, $platform, $driver, $namedParameterPrefix . $vIndex . 'subpart');
+                    $innerStatementContainer = $this->processExpression($value, $adapter, $platform, $driver, $namedParameterPrefix . $vIndex . 'subpart');
                     $values[$vIndex] = $innerStatementContainer->getSql();
                     if ($driver) {
                         $parameterContainer->merge($innerStatementContainer->getParameterContainer());
@@ -163,7 +189,7 @@ abstract class AbstractSql
         return vsprintf($specificationString, $topParameters);
     }
 
-    protected function processSubSelect(Select $subselect, PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
+    protected function processSubSelect(Select $subselect, AdapterInterface $adapter, PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
         if ($driver) {
             $stmtContainer = new StatementContainer;
@@ -178,9 +204,9 @@ abstract class AbstractSql
                 /** @var Select|PlatformDecoratorInterface $subselectDecorator */
                 $subselectDecorator = clone $this;
                 $subselectDecorator->setSubject($subselect);
-                $subselectDecorator->prepareStatement(new \Zend\Db\Adapter\Adapter($driver, $platform), $stmtContainer);
+                $subselectDecorator->prepareStatement($adapter, $stmtContainer);
             } else {
-                $subselect->prepareStatement(new \Zend\Db\Adapter\Adapter($driver, $platform), $stmtContainer);
+                $subselect->prepareStatement($adapter, $stmtContainer);
             }
 
             // copy count
@@ -192,11 +218,34 @@ abstract class AbstractSql
             if ($this instanceof PlatformDecoratorInterface) {
                 $subselectDecorator = clone $this;
                 $subselectDecorator->setSubject($subselect);
-                $sql = $subselectDecorator->getSqlString($platform);
+                $sql = $subselectDecorator->getSqlString($adapter);
             } else {
-                $sql = $subselect->getSqlString($platform);
+                $sql = $subselect->getSqlString($adapter);
             }
         }
         return $sql;
+    }
+    /**
+     *
+     * @param null|AdapterInterface|PlatformInterface $adapterOrPlatform
+     * @return AdapterInterface
+     * @throws Exception\InvalidArgumentException
+     */
+    protected function resolveAdapterAndPlatform($adapterOrPlatform = null)
+    {
+        $adapterOrPlatform = $adapterOrPlatform ?: new Sql92;
+        if ($adapterOrPlatform instanceof PlatformInterface) {
+            return new Adapter(array('driver'=>'pdo'), $adapterOrPlatform);
+        }
+        if ($adapterOrPlatform instanceof AdapterInterface) {
+            return $adapterOrPlatform;
+        }
+
+        throw new Exception\InvalidArgumentException(sprintf(
+            '$adapterOrPlatform should be %s or %s or %s',
+            'NULL',
+            'Zend\Db\Adapter\AdapterInterface',
+            'Zend\Db\Adapter\Platform\PlatformInterface'
+        ));
     }
 }

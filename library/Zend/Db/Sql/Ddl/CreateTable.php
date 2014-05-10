@@ -10,7 +10,7 @@
 namespace Zend\Db\Sql\Ddl;
 
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92 as AdapterSql92Platform;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Sql\AbstractSql;
 
 class CreateTable extends AbstractSql implements SqlInterface
@@ -131,14 +131,12 @@ class CreateTable extends AbstractSql implements SqlInterface
     }
 
     /**
-     * @param  PlatformInterface $adapterPlatform
+     * @param AdapterInterface $adapter
+     * @param PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform)
     {
-        // get platform, or create default
-        $adapterPlatform = ($adapterPlatform) ?: new AdapterSql92Platform;
-
         $sqls       = array();
         $parameters = array();
 
@@ -149,6 +147,7 @@ class CreateTable extends AbstractSql implements SqlInterface
             }
 
             $parameters[$name] = $this->{'process' . $name}(
+                $adapter,
                 $adapterPlatform,
                 null,
                 null,
@@ -185,7 +184,7 @@ class CreateTable extends AbstractSql implements SqlInterface
         return $sql;
     }
 
-    protected function processTable(PlatformInterface $adapterPlatform = null)
+    protected function processTable(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $ret = array();
         if ($this->isTemporary) {
@@ -198,20 +197,20 @@ class CreateTable extends AbstractSql implements SqlInterface
         return $ret;
     }
 
-    protected function processColumns(PlatformInterface $adapterPlatform = null)
+    protected function processColumns(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $sqls = array();
         foreach ($this->columns as $column) {
-            $sqls[] = $this->processExpression($column, $adapterPlatform)->getSql();
+            $sqls[] = $this->processExpression($column, $adapter, $adapterPlatform)->getSql();
         }
         return array($sqls);
     }
 
-    protected function processConstraints(PlatformInterface $adapterPlatform = null)
+    protected function processConstraints(AdapterInterface $adapter, PlatformInterface $adapterPlatform = null)
     {
         $sqls = array();
         foreach ($this->constraints as $constraint) {
-            $sqls[] = $this->processExpression($constraint, $adapterPlatform)->getSql();
+            $sqls[] = $this->processExpression($constraint, $adapter, $adapterPlatform)->getSql();
         }
         return array($sqls);
     }

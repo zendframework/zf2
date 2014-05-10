@@ -15,6 +15,7 @@ use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Sql\Predicate;
 use Zend\Db\Sql\Select;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
+use Zend\Db\Adapter\Adapter;
 
 class AbstractSqlTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,9 +25,13 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
      */
     protected $abstractSql = null;
 
+    protected $adapter;
+
     public function setup()
     {
         $this->abstractSql = $this->getMockForAbstractClass('Zend\Db\Sql\AbstractSql');
+        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $this->adapter = new Adapter($mockDriver, new TrustingSql92Platform);
     }
 
     /**
@@ -134,7 +139,7 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
     {
         $method = new \ReflectionMethod($this->abstractSql, 'processExpression');
         $method->setAccessible(true);
-        return $method->invoke($this->abstractSql, $expression, new TrustingSql92Platform, $driver);
+        return $method->invoke($this->abstractSql, $expression, $this->adapter, new TrustingSql92Platform, $driver);
     }
 
 }

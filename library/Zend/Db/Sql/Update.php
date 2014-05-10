@@ -12,7 +12,6 @@ namespace Zend\Db\Sql;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
-use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Db\Adapter\StatementContainerInterface;
 
 /**
@@ -145,7 +144,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    protected function processPrepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
     {
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
@@ -175,7 +174,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $setSql = array();
             foreach ($set as $column => $value) {
                 if ($value instanceof Expression) {
-                    $exprData = $this->processExpression($value, $platform, $driver);
+                    $exprData = $this->processExpression($value, $adapter, $platform, $driver);
                     $setSql[] = $platform->quoteIdentifier($column) . ' = ' . $exprData->getSql();
                     $parameterContainer->merge($exprData->getParameterContainer());
                 } else {
@@ -190,7 +189,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         // process where
         if ($this->where->count() > 0) {
-            $whereParts = $this->processExpression($this->where, $platform, $driver, 'where');
+            $whereParts = $this->processExpression($this->where, $adapter, $platform, $driver, 'where');
             $parameterContainer->merge($whereParts->getParameterContainer());
             $sql .= ' ' . sprintf($this->specifications[static::SPECIFICATION_WHERE], $whereParts->getSql());
         }
@@ -198,14 +197,14 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
     }
 
     /**
-     * Get SQL string for statement
+     * Get the SQL string, based on the platform
      *
-     * @param  null|PlatformInterface $adapterPlatform If null, defaults to Sql92
+     * @param AdapterInterface $adapter
+     * @param PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform)
     {
-        $adapterPlatform = ($adapterPlatform) ?: new Sql92;
         $table = $this->table;
         $schema = null;
 
@@ -225,7 +224,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $setSql = array();
             foreach ($set as $column => $value) {
                 if ($value instanceof Expression) {
-                    $exprData = $this->processExpression($value, $adapterPlatform);
+                    $exprData = $this->processExpression($value, $adapter, $adapterPlatform);
                     $setSql[] = $adapterPlatform->quoteIdentifier($column) . ' = ' . $exprData->getSql();
                 } elseif ($value === null) {
                     $setSql[] = $adapterPlatform->quoteIdentifier($column) . ' = NULL';
@@ -238,7 +237,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
 
         $sql = sprintf($this->specifications[static::SPECIFICATION_UPDATE], $table, $set);
         if ($this->where->count() > 0) {
-            $whereParts = $this->processExpression($this->where, $adapterPlatform, null, 'where');
+            $whereParts = $this->processExpression($this->where, $adapter, $adapterPlatform, null, 'where');
             $sql .= ' ' . sprintf($this->specifications[static::SPECIFICATION_WHERE], $whereParts->getSql());
         }
         return $sql;
