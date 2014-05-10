@@ -53,8 +53,9 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
             return ':' . $x;
         }));
 
+        $mockParameterContainer = $this->getMock('Zend\Db\Adapter\ParameterContainer');
         $expression = new Expression('? > ? AND y < ?', array('x', 5, 10), array(Expression::TYPE_IDENTIFIER));
-        $sqlAndParams = $this->invokeProcessExpressionMethod($expression, $mockDriver);
+        $sqlAndParams = $this->invokeProcessExpressionMethod($expression, $mockDriver, $mockParameterContainer);
 
         $parameterContainer = $sqlAndParams->getParameterContainer();
         $parameters = $parameterContainer->getNamedArray();
@@ -72,7 +73,7 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(10, current($parameters));
 
         // ensure next invocation increases number by 1
-        $sqlAndParamsNext = $this->invokeProcessExpressionMethod($expression, $mockDriver);
+        $sqlAndParamsNext = $this->invokeProcessExpressionMethod($expression, $mockDriver, $mockParameterContainer);
 
         $parameterContainer = $sqlAndParamsNext->getParameterContainer();
         $parameters = $parameterContainer->getNamedArray();
@@ -130,11 +131,11 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
      * @param \Zend\Db\Adapter\Adapter|null $adapter
      * @return \Zend\Db\Adapter\StatementContainer
      */
-    protected function invokeProcessExpressionMethod(ExpressionInterface $expression, $driver = null)
+    protected function invokeProcessExpressionMethod(ExpressionInterface $expression, $driver = null, $parameterContainer = null)
     {
         $method = new \ReflectionMethod($this->abstractSql, 'processExpression');
         $method->setAccessible(true);
-        return $method->invoke($this->abstractSql, $expression, new TrustingSql92Platform, $driver);
+        return $method->invoke($this->abstractSql, $expression, new TrustingSql92Platform, $driver, $parameterContainer);
     }
 
 }
