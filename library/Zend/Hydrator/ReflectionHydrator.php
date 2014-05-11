@@ -30,6 +30,7 @@ class ReflectionHydrator extends AbstractHydrator
     {
         $result = array();
 
+        /* @var \ReflectionProperty $property */
         foreach (self::getReflProperties($object) as $property) {
             $propertyName = $property->getName();
 

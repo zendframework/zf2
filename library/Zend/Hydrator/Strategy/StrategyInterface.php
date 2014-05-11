@@ -28,7 +28,7 @@ interface StrategyInterface
      * Converts the given value so that it can be hydrated by the hydrator
      *
      * @param  mixed $value   The original value
-     * @param  mixed $context An optional context (most often, the object itself)
+     * @param  mixed $context An optional context (most often, the object itself for extraction or data for hydration)
      * @return mixed
      */
     public function hydrate($value, $context = null);

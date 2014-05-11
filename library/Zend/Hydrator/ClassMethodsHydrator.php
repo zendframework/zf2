@@ -53,7 +53,8 @@ class ClassMethodsHydrator extends AbstractHydrator
                 continue;
             }
 
-            $result[strtolower($property)] = $this->extractValue($property, $object->$method(), $object);
+            $property          = $this->namingStrategy->getNameForExtraction($property, $object);
+            $result[$property] = $this->extractValue($property, $object->$method(), $object);
         }
 
         return $result;
@@ -65,7 +66,9 @@ class ClassMethodsHydrator extends AbstractHydrator
     public function hydrate(array $data, $object)
     {
         foreach ($data as $property => $value) {
-            $method = 'set' . $property; // No need to uppercase, PHP is case insensitive
+            $property = $this->namingStrategy->getNameForHydration($property, $data);
+            $method   = 'set' . $property; // PHP is case insensitive for call methods, no
+                                           // need to uppercase first character
 
             if (method_exists($object, $method)) {
                 $value = $this->hydrateValue($property, $value, $data);

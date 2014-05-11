@@ -40,7 +40,7 @@ class HydratorPluginManager extends AbstractPluginManager
     public function validatePlugin($plugin)
     {
         if ($plugin instanceof HydratorInterface) {
-            return; // We're okey!
+            return; // We're okay!
         }
 
         throw new Exception\RuntimeException(sprintf(

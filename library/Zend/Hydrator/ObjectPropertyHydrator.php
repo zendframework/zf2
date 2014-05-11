@@ -27,6 +27,7 @@ class ObjectPropertyHydrator extends AbstractHydrator
                 continue;
             }
 
+            $property        = $this->namingStrategy->getNameForExtraction($property, $object);
             $data[$property] = $this->extractValue($property, $value, $object);
         }
 
@@ -39,6 +40,7 @@ class ObjectPropertyHydrator extends AbstractHydrator
     public function hydrate(array $data, $object)
     {
         foreach ($data as $property => $value) {
+            $property          = $this->namingStrategy->getNameForHydration($property, $data);
             $object->$property = $this->hydrateValue($property, $value, $data);
         }
 

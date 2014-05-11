@@ -19,7 +19,7 @@ class ArraySerializableHydrator extends AbstractHydrator
      */
     public function extract($object)
     {
-        if (!is_callable(array($object, 'getArrayCopy'))) {
+        if (!is_callable([$object, 'getArrayCopy'])) {
             throw new Exception\BadMethodCallException(sprintf(
                 '%s expects the provided object to implement getArrayCopy()', __METHOD__
             ));
@@ -33,6 +33,7 @@ class ArraySerializableHydrator extends AbstractHydrator
                 continue;
             }
 
+            $property        = $this->namingStrategy->getNameForExtraction($property, $object);
             $data[$property] = $this->extractValue($property, $value, $object);
         }
 
@@ -45,12 +46,13 @@ class ArraySerializableHydrator extends AbstractHydrator
     public function hydrate(array $data, $object)
     {
         array_walk($data, function (&$value, $property) use ($data) {
-            $value = $this->hydrateValue($property, $value, $data);
+            $property = $this->namingStrategy->getNameForHydration($property, $data);
+            $value    = $this->hydrateValue($property, $value, $data);
         });
 
-        if (is_callable(array($object, 'exchangeArray'))) {
+        if (is_callable([$object, 'exchangeArray'])) {
             $object->exchangeArray($data);
-        } elseif (is_callable(array($object, 'populate'))) {
+        } elseif (is_callable([$object, 'populate'])) {
             $object->populate($data);
         } else {
             throw new Exception\BadMethodCallException(sprintf(

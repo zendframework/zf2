@@ -37,6 +37,6 @@ class ExcludeMethodsFilter implements FilterInterface
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;
 
-        return !in_array(substr($property, $pos), $this->methods);
+        return !in_array(substr($property, $pos), $this->methods, true);
     }
 }

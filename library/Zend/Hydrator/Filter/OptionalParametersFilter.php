@@ -31,6 +31,10 @@ class OptionalParametersFilter implements FilterInterface
      */
     public function accept($property, $context = null)
     {
+        $pos      = strpos($property, '::');
+        $pos      = $pos !== false ? $pos + 2 : 0;
+        $property = substr($property, $pos);
+
         if (isset(self::$propertiesCache[$property])) {
             return self::$propertiesCache[$property];
         }
@@ -38,7 +42,7 @@ class OptionalParametersFilter implements FilterInterface
         try {
             $reflectionMethod = new ReflectionMethod($context, $property);
         } catch (ReflectionException $exception) {
-            throw new InvalidArgumentException(sprintf('Method %s doesn\'t exist', $property));
+            throw new InvalidArgumentException(sprintf('Method "%s" does not exist', $property));
         }
 
         return self::$propertiesCache[$property] = ($reflectionMethod->getNumberOfRequiredParameters() === 0);

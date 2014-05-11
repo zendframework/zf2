@@ -10,9 +10,9 @@
 namespace Zend\Hydrator;
 
 use Zend\Hydrator\Filter\CompositeFilter;
-use Zend\Hydrator\Filter\ProvidesCompositeFilterTrait;
-use Zend\Hydrator\Normalizer\ProvidesNormalizerTrait;
-use Zend\Hydrator\Strategy\ProvidesStrategiesTrait;
+use Zend\Hydrator\NamingStrategy\NamingStrategyInterface;
+use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
+use Zend\Hydrator\Strategy\StrategyInterface;
 
 /**
  * This abstract hydrator provides a built-in support for filters and strategies. All
@@ -20,9 +20,22 @@ use Zend\Hydrator\Strategy\ProvidesStrategiesTrait;
  */
 abstract class AbstractHydrator implements HydratorInterface
 {
-    use ProvidesCompositeFilterTrait;
-    use ProvidesNormalizerTrait;
-    use ProvidesStrategiesTrait;
+    /**
+     * @var CompositeFilter
+     */
+    protected $compositeFilter;
+
+    /**
+     * List of strategies, indexed by a property name
+     *
+     * @var array|StrategyInterface[]
+     */
+    protected $strategies = [];
+
+    /**
+     * @var NamingStrategyInterface
+     */
+    protected $namingStrategy;
 
     /**
      * Constructor
@@ -30,6 +43,97 @@ abstract class AbstractHydrator implements HydratorInterface
     public function __construct()
     {
         $this->compositeFilter = new CompositeFilter();
+        $this->namingStrategy  = new UnderscoreNamingStrategy();
+    }
+
+    /**
+     * Add a new strategy for a given property
+     *
+     * @param  string            $name
+     * @param  StrategyInterface $strategy
+     * @return void
+     */
+    public function addStrategy($name, StrategyInterface $strategy)
+    {
+        $this->strategies[$name] = $strategy;
+    }
+
+    /**
+     * Remove a strategy for a given property
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function removeStrategy($name)
+    {
+        unset($this->strategies[$name]);
+    }
+
+    /**
+     * Get a strategy for a given property (null if none)
+     *
+     * @param  string $name
+     * @return StrategyInterface|null
+     */
+    public function getStrategy($name)
+    {
+        if (isset($this->strategies[$name])) {
+            return $this->strategies[$name];
+        }
+
+        return isset($this->strategies['*']) ? $this->strategies['*'] : null;
+    }
+
+    /**
+     * Has a given property a strategy attached to it?
+     *
+     * @param  string $name
+     * @return bool True if the given property has a strategy
+     */
+    public function hasStrategy($name)
+    {
+        return isset($this->strategies[$name]) || isset($this->strategies['*']);
+    }
+
+    /**
+     * Get all the strategies
+     *
+     * @return array|StrategyInterface[]
+     */
+    public function getStrategies()
+    {
+        return $this->strategies;
+    }
+
+    /**
+     * Clear all the strategies
+     *
+     * @return void
+     */
+    public function clearStrategies()
+    {
+        $this->strategies = [];
+    }
+
+    /**
+     * Set a naming strategy
+     *
+     * @param  NamingStrategyInterface $namingStrategy
+     * @return void
+     */
+    public function setNamingStrategy(NamingStrategyInterface $namingStrategy)
+    {
+        $this->namingStrategy = $namingStrategy;
+    }
+
+    /**
+     * Get naming strategy
+     *
+     * @return NamingStrategyInterface
+     */
+    public function getNamingStrategy()
+    {
+        return $this->namingStrategy;
     }
 
     /**

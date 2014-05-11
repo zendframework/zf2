@@ -1,0 +1,26 @@
+{
+    "name": "zendframework/zend-hydrator",
+    "description": "provides a flexible and efficient hydrator library",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "zf2",
+        "hydration",
+        "hydrator",
+        "extraction"
+    ],
+    "autoload": {
+        "psr-0": {
+            "Zend\\Hydrator\\": ""
+        }
+    },
+    "target-dir": "Zend/Hydrator",
+    "require": {
+        "php": ">=5.4"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev",
+            "dev-develop": "3.1-dev"
+        }
+    }
+}

@@ -17,7 +17,7 @@ class CompositeFilter implements FilterInterface
     /**
      * Constant to add with "or" / "and" conditition
      */
-    const CONDITION_OR = 1;
+    const CONDITION_OR  = 1;
     const CONDITION_AND = 2;
 
     /**
@@ -94,6 +94,16 @@ class CompositeFilter implements FilterInterface
         }
 
         return false;
+    }
+
+    /**
+     * Clear all the filters
+     *
+     * @return void
+     */
+    public function clearFilters()
+    {
+        $this->filters = [];
     }
 
     /**

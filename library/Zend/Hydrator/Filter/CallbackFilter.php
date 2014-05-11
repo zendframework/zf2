@@ -10,19 +10,19 @@
 namespace Zend\Hydrator\Filter;
 
 /**
- * This filter accepts any method where the Callable returns true
+ * This filter accepts any method where the callable returns true
  */
-class CallableFilter implements FilterInterface
+class CallbackFilter implements FilterInterface
 {
     /**
-     * @var Callable
+     * @var callable
      */
     protected $callable;
 
     /**
-     * @param Callable $callable
+     * @param callable $callable
      */
-    public function __construct(Callable $callable)
+    public function __construct(callable $callable)
     {
         $this->callable = $callable;
     }
@@ -32,6 +32,8 @@ class CallableFilter implements FilterInterface
      */
     public function accept($property, $context = null)
     {
-        return $this->callable($property);
+        $callable = $this->callable;
+
+        return $callable($property);
     }
 }

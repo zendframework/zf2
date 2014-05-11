@@ -38,12 +38,14 @@ class NumberOfParametersFilter implements FilterInterface
      */
     public function accept($property, $context = null)
     {
+        $pos      = strpos($property, '::');
+        $pos      = $pos !== false ? $pos + 2 : 0;
+        $property = substr($property, $pos);
+
         try {
             $reflectionMethod = new ReflectionMethod($context, $property);
         } catch (ReflectionException $exception) {
-            throw new InvalidArgumentException(
-                "Method $property doesn't exist"
-            );
+            throw new InvalidArgumentException(sprintf('Method "%s" does not exist', $property));
         }
 
         return $reflectionMethod->getNumberOfParameters() === $this->numberOfParameters;
