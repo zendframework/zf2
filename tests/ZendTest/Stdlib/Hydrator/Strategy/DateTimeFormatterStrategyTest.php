@@ -31,4 +31,10 @@ class DateTimeFormatterStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $strategy->hydrate(null));
         $this->assertEquals(null, $strategy->hydrate(''));
     }
+
+    public function testGetNullWithNullDateOnExtraction()
+    {
+        $strategy = new DateTimeFormatterStrategy('Y-m-d');
+        $this->assertEquals(null, $strategy->extract(null));
+    }
 }
