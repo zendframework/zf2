@@ -19,7 +19,8 @@ class ObjectPropertyHydrator extends AbstractHydrator
      */
     public function extract($object)
     {
-        $data = get_object_vars($object);
+        $data   = get_object_vars($object);
+        $result = [];
 
         foreach ($data as $property => $value) {
             if (!$this->compositeFilter->accept($property, $object)) {
@@ -27,11 +28,11 @@ class ObjectPropertyHydrator extends AbstractHydrator
                 continue;
             }
 
-            $property        = $this->namingStrategy->getNameForExtraction($property, $object);
-            $data[$property] = $this->extractValue($property, $value, $object);
+            $property          = $this->namingStrategy->getNameForExtraction($property, $object);
+            $result[$property] = $this->extractValue($property, $value, $object);
         }
 
-        return $data;
+        return $result;
     }
 
     /**

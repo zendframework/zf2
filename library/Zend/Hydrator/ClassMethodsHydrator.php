@@ -9,6 +9,10 @@
 
 namespace Zend\Hydrator;
 
+use Zend\Hydrator\Filter\CompositeFilter;
+use Zend\Hydrator\Filter\GetFilter;
+use Zend\Hydrator\Filter\HasFilter;
+use Zend\Hydrator\Filter\IsFilter;
 use Zend\Hydrator\Filter\OptionalParametersFilter;
 
 /**
@@ -24,16 +28,32 @@ use Zend\Hydrator\Filter\OptionalParametersFilter;
 class ClassMethodsHydrator extends AbstractHydrator
 {
     /**
+     * Holds the names of the methods used for hydration, indexed by class::property name,
+     * false if the hydration method is not callable/usable for hydration purposes
+     *
+     * @var string[]|bool[]
+     */
+    private $hydrationMethodsCache = [];
+
+    /**
+     * A map of extraction methods to property name to be used during extraction, indexed
+     * by class name and method name
+     *
+     * @var array
+     */
+    private $extractionMethodsCache = [];
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         parent::__construct();
 
-        // NOTE: In ZF2 we attached a lot more filters. However, there is now no need
-        // as we use preg_filter, which automatically returns NULL if the method does not
-        // match a specific pattern. We only need to make sure that it does not need
-        // any required parameters
+        $this->compositeFilter->setType(CompositeFilter::CONDITION_AND);
+        $this->compositeFilter->addFilter(new CompositeFilter([
+            new GetFilter(), new HasFilter(), new IsFilter()
+        ]));
         $this->compositeFilter->addFilter(new OptionalParametersFilter());
     }
 
@@ -42,17 +62,28 @@ class ClassMethodsHydrator extends AbstractHydrator
      */
     public function extract($object)
     {
+        $objectClass = get_class($object);
+
         $methods = get_class_methods($object);
         $result  = array();
 
-        foreach ($methods as $method) {
-            // Remove get/is/has prefix from method, so that we get property name
-            $property = preg_filter(array('/get/', '/is/', '/has/'), '', $method);
+        // Pass 1: finding out which properties can be extracted, with which methods (populate hydration cache)
+        if (!isset($this->extractionMethodsCache[$objectClass])) {
+            $this->extractionMethodsCache[$objectClass] = [];
 
-            if (null === $property || !$this->compositeFilter->accept($method, $object)) {
-                continue;
+            foreach ($methods as $method) {
+                if (!$this->compositeFilter->accept($method, $object)) {
+                    continue;
+                }
+
+                $property = preg_replace('/get/', '', $method); // Allow to strip "get" for getters
+
+                $this->extractionMethodsCache[$objectClass][$method] = $property;
             }
+        }
 
+        // Pass 2: actually extract data
+        foreach ($this->extractionMethodsCache[$objectClass] as $method => $property) {
             $property          = $this->namingStrategy->getNameForExtraction($property, $object);
             $result[$property] = $this->extractValue($property, $object->$method(), $object);
         }
@@ -65,14 +96,24 @@ class ClassMethodsHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
-        foreach ($data as $property => $value) {
-            $property = $this->namingStrategy->getNameForHydration($property, $data);
-            $method   = 'set' . $property; // PHP is case insensitive for call methods, no
-                                           // need to uppercase first character
+        $objectClass = get_class($object);
 
-            if (method_exists($object, $method)) {
-                $value = $this->hydrateValue($property, $value, $data);
-                $object->$method($value);
+        foreach ($data as $property => $value) {
+            $propertyFqn = $objectClass . '::$' . $property;
+
+            if (!isset($this->hydrationMethodsCache[$propertyFqn])) {
+                $property   = $this->namingStrategy->getNameForHydration($property, $data);
+
+                $method = 'set' . $property; // PHP is case insensitive for call methods, no
+                                             // need to uppercase first character
+
+                $this->hydrationMethodsCache[$propertyFqn] = is_callable([$object, $method])
+                    ? $method
+                    : false;
+            }
+
+            if ($this->hydrationMethodsCache[$propertyFqn]) {
+                $object->{$this->hydrationMethodsCache[$propertyFqn]}($this->hydrateValue($property, $value, $data));
             }
         }
 

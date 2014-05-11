@@ -16,49 +16,58 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zend\Hydrator\Strategy;
-use Zend\Hydrator\HydratorInterface;
+namespace ZendTest\Hydrator\Asset;
 
-/**
- * This strategy allows to set another hydrator for a given strategy. This is especially
- * useful when you have embedded objects and want to hydrate/extract recursively
- */
-class HydratorStrategy implements StrategyInterface
+
+class ClassMethods
 {
-    /**
-     * @var HydratorInterface
-     */
-    protected $hydrator;
+    protected $firstName;
+    protected $lastName;
+    protected $isDead;
+    protected $hasDog;
 
-    /**
-     * @param HydratorInterface $hydrator
-     */
-    public function __construct(HydratorInterface $hydrator)
+    public function setFirstName($firstName)
     {
-        $this->hydrator = $hydrator;
+        $this->firstName = (string) $firstName;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function extract($value, $context = null)
+    public function getFirstName()
     {
-        if (is_object($value)) {
-            return $this->hydrator->extract($value, $context);
-        }
-
-        return $value;
+        return $this->firstName;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function hydrate($value, $context = null)
+    public function setLastName($lastName)
     {
-        if (is_array($value)) {
-            return $this->hydrator->hydrate($value, $context);
-        }
+        $this->lastName = (string) $lastName;
+    }
 
-        return $value;
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    public function setIsDead($isDead)
+    {
+        $this->isDead = (bool) $isDead;
+    }
+
+    public function isDead()
+    {
+        return $this->isDead;
+    }
+
+    public function setHasDog($hasDog)
+    {
+        $this->hasDog = (bool) $hasDog;
+    }
+
+    public function hasDog()
+    {
+        return $this->hasDog;
+    }
+
+    public function getMethodWithRequiredParameter($requiredParameter)
+    {
+        return 'foo';
     }
 }
