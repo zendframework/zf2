@@ -47,13 +47,13 @@ abstract class AbstractHydrator implements HydratorInterface
     }
 
     /**
-     * Add a new strategy for a given property
+     * Set a new strategy for a given property
      *
      * @param  string            $name
      * @param  StrategyInterface $strategy
      * @return void
      */
-    public function addStrategy($name, StrategyInterface $strategy)
+    public function setStrategy($name, StrategyInterface $strategy)
     {
         $this->strategies[$name] = $strategy;
     }

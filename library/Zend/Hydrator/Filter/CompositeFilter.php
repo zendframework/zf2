@@ -38,7 +38,7 @@ class CompositeFilter implements FilterInterface
      * @param array $filters
      * @param int   $type
      */
-    public function __construct(array $filters = array(), $type = self::CONDITION_OR)
+    public function __construct(array $filters = [], $type = self::CONDITION_OR)
     {
         $this->filters = $filters;
         $this->type    = $type;
@@ -73,6 +73,16 @@ class CompositeFilter implements FilterInterface
     public function addFilter(FilterInterface $filter)
     {
         $this->filters[] = $filter;
+    }
+
+    /**
+     * Get filters
+     *
+     * @return array|FilterInterface[]
+     */
+    public function getFilters()
+    {
+        return $this->filters;
     }
 
     /**
@@ -123,16 +133,17 @@ class CompositeFilter implements FilterInterface
                     return true;
                 }
             }
-        }
 
-        // If condition is AND, all the filters need to evaluate to true
-        foreach ($this->filters as $filter) {
-            if ($filter->accept($property, $context) === false) {
-                return false;
+            return false;
+        } else {
+            // If condition is AND, all the filters need to evaluate to true
+            foreach ($this->filters as $filter) {
+                if ($filter->accept($property, $context) === false) {
+                    return false;
+                }
             }
-        }
 
-        // If we're here, then all filters evaluated to true
-        return true;
+            return true;
+        }
     }
 }
