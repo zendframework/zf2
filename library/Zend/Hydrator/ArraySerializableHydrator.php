@@ -25,7 +25,8 @@ class ArraySerializableHydrator extends AbstractHydrator
             ));
         }
 
-        $data = $object->getArrayCopy();
+        $data   = $object->getArrayCopy();
+        $result = [];
 
         foreach ($data as $property => $value) {
             if (!$this->compositeFilter->accept($property, $object)) {
@@ -33,11 +34,11 @@ class ArraySerializableHydrator extends AbstractHydrator
                 continue;
             }
 
-            $property        = $this->namingStrategy->getNameForExtraction($property, $object);
-            $data[$property] = $this->extractValue($property, $value, $object);
+            $property          = $this->namingStrategy->getNameForExtraction($property, $object);
+            $result[$property] = $this->extractValue($property, $value, $object);
         }
 
-        return $data;
+        return $result;
     }
 
     /**
@@ -45,15 +46,17 @@ class ArraySerializableHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
-        array_walk($data, function (&$value, $property) use ($data) {
-            $property = $this->namingStrategy->getNameForHydration($property, $data);
-            $value    = $this->hydrateValue($property, $value, $data);
-        });
+        $replacement = [];
+
+        foreach ($data as $property => &$value) {
+            $property               = $this->namingStrategy->getNameForHydration($property, $data);
+            $replacement[$property] = $this->hydrateValue($property, $value, $data);
+        }
 
         if (is_callable([$object, 'exchangeArray'])) {
-            $object->exchangeArray($data);
+            $object->exchangeArray($replacement);
         } elseif (is_callable([$object, 'populate'])) {
-            $object->populate($data);
+            $object->populate($replacement);
         } else {
             throw new Exception\BadMethodCallException(sprintf(
                 '%s expects the provided object to implement exchangeArray() or populate()', __METHOD__

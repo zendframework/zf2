@@ -32,7 +32,7 @@ class ReflectionHydrator extends AbstractHydrator
 
         /* @var \ReflectionProperty $property */
         foreach (self::getReflProperties($object) as $property) {
-            $propertyName = $property->getName();
+            $propertyName = $this->namingStrategy->getNameForExtraction($property->getName(), $object);
 
             if (!$this->compositeFilter->accept($property, $object)) {
                 continue;
@@ -53,6 +53,8 @@ class ReflectionHydrator extends AbstractHydrator
         $reflProperties = self::getReflProperties($object);
 
         foreach ($data as $property => $value) {
+            $property = $this->namingStrategy->getNameForHydration($property, $data);
+
             if (isset($reflProperties[$property])) {
                 $reflProperties[$property]->setValue($object, $this->hydrateValue($property, $value, $data));
             }
