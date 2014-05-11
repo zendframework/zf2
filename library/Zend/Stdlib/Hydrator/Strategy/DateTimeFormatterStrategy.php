@@ -37,11 +37,15 @@ class DateTimeFormatterStrategy implements StrategyInterface
     /**
      * Converts to date time string
      *
-     * @param DateTime|string|int
-     * @param string
+     * @param DateTime|string|int|null
+     * @param string|null
      */
     public function extract($value)
     {
+        if ($value === null) {
+            return null;
+        }
+
         return $this->getFilter($this->format)->filter($value);
     }
 
