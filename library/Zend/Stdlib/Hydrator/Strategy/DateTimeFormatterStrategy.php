@@ -29,7 +29,7 @@ class DateTimeFormatterStrategy implements StrategyInterface
      *
      * @param string $format
      */
-    public function __construct($format)
+    public function __construct($format = DateTime::RFC3339)
     {
         $this->format = $format;
     }
