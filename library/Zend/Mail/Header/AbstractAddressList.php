@@ -115,6 +115,7 @@ abstract class AbstractAddressList implements HeaderInterface
 
                 if ($format == HeaderInterface::FORMAT_ENCODED
                     && 'ASCII' !== $encoding
+                    && preg_match('/[^\x00-\x7f]/', $name)
                 ) {
                     $name = HeaderWrap::mimeEncodeValue($name, $encoding);
                 }
