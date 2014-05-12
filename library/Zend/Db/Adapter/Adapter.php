@@ -10,6 +10,8 @@
 namespace Zend\Db\Adapter;
 
 use Zend\Db\ResultSet;
+use Zend\Db\Sql\SqlInterface;
+use Zend\Db\Sql\PreparableSqlInterface;
 
 /**
  * @property Driver\DriverInterface $driver
@@ -155,6 +157,24 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
         return $this->driver->getConnection()->getCurrentSchema();
     }
 
+    protected function resolveSqlString($sql)
+    {
+        if (is_string($sql)) {
+            return $sql;
+        }
+        if ($sql instanceof SqlInterface) {
+            return $sql->getSqlString($this->getPlatform());
+        }
+        if (is_array($sql) || $sql instanceof \Traversable) {
+            $res = '';
+            foreach ($sql as $query) {
+                $res  .= rtrim($this->resolveSqlString($query), ';') . ';';
+            }
+            return $res;
+        }
+        throw new Exception\InvalidArgumentException('$sql should be string, array, SqlInterface or Traversable');
+    }
+
     /**
      * query() is a convenience function
      *
@@ -170,22 +190,21 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
             $parameters = null;
         } elseif (is_array($parametersOrQueryMode) || $parametersOrQueryMode instanceof ParameterContainer) {
             $mode = self::QUERY_MODE_PREPARE;
-            $parameters = $parametersOrQueryMode;
+            $parameters = is_array($parametersOrQueryMode) ? new ParameterContainer($parametersOrQueryMode) : $parametersOrQueryMode;
         } else {
             throw new Exception\InvalidArgumentException('Parameter 2 to this method must be a flag, an array, or ParameterContainer');
         }
 
         if ($mode == self::QUERY_MODE_PREPARE) {
-            $this->lastPreparedStatement = null;
-            $this->lastPreparedStatement = $this->driver->createStatement($sql);
+            $this->lastPreparedStatement = $this->createStatement($sql, $parameters);
             $this->lastPreparedStatement->prepare();
-            if (is_array($parameters) || $parameters instanceof ParameterContainer) {
-                $this->lastPreparedStatement->setParameterContainer((is_array($parameters)) ? new ParameterContainer($parameters) : $parameters);
+            if ($parameters) {
                 $result = $this->lastPreparedStatement->execute();
             } else {
                 return $this->lastPreparedStatement;
             }
         } else {
+            $sql = $this->resolveSqlString($sql);
             $result = $this->driver->getConnection()->execute($sql);
         }
 
@@ -207,11 +226,18 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
      */
     public function createStatement($initialSql = null, $initialParameters = null)
     {
-        $statement = $this->driver->createStatement($initialSql);
         if ($initialParameters == null || !$initialParameters instanceof ParameterContainer && is_array($initialParameters)) {
             $initialParameters = new ParameterContainer((is_array($initialParameters) ? $initialParameters : array()));
         }
-        $statement->setParameterContainer($initialParameters);
+
+        $statement = $this->driver->createStatement($initialSql);
+        if ($initialSql instanceof PreparableSqlInterface) {
+            $initialSql->prepareStatement($this, $statement);
+            $statement->getParameterContainer()->setFromArray($initialParameters->getNamedArray());
+        } else {
+            $statement->setParameterContainer($initialParameters);
+        }
+
         return $statement;
     }
 

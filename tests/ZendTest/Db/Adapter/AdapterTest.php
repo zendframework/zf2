@@ -11,6 +11,8 @@ namespace ZendTest\Db\Adapter;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\Profiler;
+use Zend\Db\Sql\Select;
+use Zend\Db\Adapter\ParameterContainer;
 
 class AdapterTest extends \PHPUnit_Framework_TestCase
 {
@@ -210,6 +212,16 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->mockStatement, $s);
     }
 
+    public function testQueryWhenPreparedProducesStatement_UseSelectObject()
+    {
+        $parameterContainer = new ParameterContainer();
+        $this->mockStatement->expects($this->any())->method('getParameterContainer')->will($this->returnValue($parameterContainer));
+        $this->assertSame(
+            $this->mockStatement,
+            $this->adapter->query(new Select('foo'))
+        );
+    }
+
     /**
      * @testdox unit test: Test query() in prepare mode, with array of parameters, produces a result object
      * @covers Zend\Db\Adapter\Adapter::query
@@ -225,6 +237,23 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
 
         $r = $this->adapter->query($sql, $parray);
         $this->assertSame($result, $r);
+    }
+
+    public function testQueryWhenPreparedWithParameterArrayProducesResult_UseSelectObject()
+    {
+        $parameterContainer = new ParameterContainer();
+        $this->mockStatement->expects($this->any())->method('getParameterContainer')->will($this->returnValue($parameterContainer));
+        $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $this->mockStatement->expects($this->any())->method('execute')->will($this->returnValue($result));
+
+        $sql = new Select('foo');
+        $sql->where(array('x = ?' => 5));
+
+        $this->assertSame(
+            $result,
+            $this->adapter->query($sql, array('bar'=>'baz'))
+        );
+        $this->assertEquals(array('where1'=>5,'bar'=>'baz'), $parameterContainer->getNamedArray());
     }
 
     /**
@@ -244,6 +273,22 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $r);
     }
 
+    public function testQueryWhenPreparedWithParameterContainerProducesResult_UseSelectObject()
+    {
+        $sql = new Select('foo');
+        $parameterContainer = new ParameterContainer();
+        $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $this->mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($this->mockStatement));
+        $this->mockStatement->expects($this->any())->method('execute')->will($this->returnValue($result));
+        $this->mockStatement->expects($this->any())->method('getParameterContainer')->will($this->returnValue($parameterContainer));
+        $result->expects($this->any())->method('isQueryResult')->will($this->returnValue(true));
+
+        $this->assertInstanceOf(
+            'Zend\Db\ResultSet\ResultSet',
+            $this->adapter->query($sql, $parameterContainer)
+        );
+    }
+
     /**
      * @testdox unit test: Test query() in execute mode produces a driver result object
      * @covers Zend\Db\Adapter\Adapter::query
@@ -256,6 +301,18 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
 
         $r = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
         $this->assertSame($result, $r);
+    }
+
+    public function testQueryWhenExecutedProducesAResult_UseSelectObject()
+    {
+        $sql = new Select('foo');
+        $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $this->mockConnection->expects($this->any())->method('execute')->will($this->returnValue($result));
+
+        $this->assertSame(
+            $result,
+            $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE)
+        );
     }
 
     /**
@@ -277,6 +334,20 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('ZendTest\Db\Adapter\TemporaryResultSet', $r);
     }
 
+    public function testQueryWhenExecutedProducesAResultSetObjectWhenResultIsQuery_UseSelectObject()
+    {
+        $sql = new Select('foo');
+
+        $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $this->mockConnection->expects($this->any())->method('execute')->will($this->returnValue($result));
+        $result->expects($this->any())->method('isQueryResult')->will($this->returnValue(true));
+
+        $this->assertInstanceOf(
+            'Zend\Db\ResultSet\ResultSet',
+            $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE)
+        );
+    }
+
     /**
      * @testdox unit test: Test createStatement() produces a statement object
      * @covers Zend\Db\Adapter\Adapter::createStatement
@@ -284,6 +355,20 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
     public function testCreateStatement()
     {
         $this->assertSame($this->mockStatement, $this->adapter->createStatement());
+    }
+
+    public function testCreateStatementWithSqlAndParameters()
+    {
+        $parameterContainer = new ParameterContainer();
+        $this->mockStatement->expects($this->any())->method('getParameterContainer')->will($this->returnValue($parameterContainer));
+
+        $sql = new Select('foo');
+        $sql->where(array('x = ?' => 5));
+        $params = array('bar'=>'baz');
+
+        $statement = $this->adapter->createStatement($sql, $params);
+        $this->assertSame($this->mockStatement, $statement);
+        $this->assertEquals(array('where1'=>5,'bar'=>'baz'), $parameterContainer->getNamedArray());
     }
 
     /**
