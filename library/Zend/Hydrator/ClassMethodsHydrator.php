@@ -77,6 +77,7 @@ class ClassMethodsHydrator extends AbstractHydrator
                 }
 
                 $property = preg_replace('/get/', '', $method); // Allow to strip "get" for getters
+                $property = $this->namingStrategy->getNameForExtraction($property, $object);
 
                 $this->extractionMethodsCache[$objectClass][$method] = $property;
             }
@@ -84,7 +85,6 @@ class ClassMethodsHydrator extends AbstractHydrator
 
         // Pass 2: actually extract data
         foreach ($this->extractionMethodsCache[$objectClass] as $method => $property) {
-            $property          = $this->namingStrategy->getNameForExtraction($property, $object);
             $result[$property] = $this->extractValue($property, $object->$method(), $object);
         }
 
