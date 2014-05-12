@@ -400,26 +400,32 @@ class EmailAddress extends AbstractValidator
         }
 
         $validAddress = false;
-        $reserved     = true;
+        $error = null;
+
         foreach ($this->mxRecord as $hostname => $weight) {
             $res = $this->isReserved($hostname);
             if (!$res) {
-                $reserved = false;
+                $error = self::INVALID_SEGMENT;
             }
 
-            if (!$res
-                && (checkdnsrr($hostname, "A")
-                || checkdnsrr($hostname, "AAAA")
-                || checkdnsrr($hostname, "A6"))
-            ) {
-                $validAddress = true;
-                break;
+            if (empty($hostname)) {
+                $error = self::INVALID_HOSTNAME;
+                $validAddress = false;
+            } else {
+                if (!$res
+                    && (checkdnsrr($hostname, "A")
+                        || checkdnsrr($hostname, "AAAA")
+                        || checkdnsrr($hostname, "A6"))
+                ) {
+                    $validAddress = true;
+                    break;
+                }
             }
         }
 
         if (!$validAddress) {
             $result = false;
-            $error  = ($reserved) ? self::INVALID_SEGMENT : self::INVALID_MX_RECORD;
+            $error  = $error ?: self::INVALID_MX_RECORD;
             $this->error($error);
         }
 
