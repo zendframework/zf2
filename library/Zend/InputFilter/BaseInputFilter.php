@@ -339,7 +339,7 @@ class BaseInputFilter implements
 
             // Validate an input
             if ($input instanceof InputInterface) {
-                if (!$input->isValid($data)) {
+                if (!$input->isValid($this->data)) {
                     // Validation failure
                     $this->invalidInputs[$name] = $input;
                     $valid = false;
