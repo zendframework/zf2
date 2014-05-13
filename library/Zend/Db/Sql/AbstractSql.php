@@ -17,7 +17,6 @@ use Zend\Db\Adapter\StatementContainer;
 use Zend\Db\Sql\Platform\PlatformDecoratorInterface;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\Platform\Sql92;
-use Zend\Db\Adapter\StatementContainerInterface;
 
 abstract class AbstractSql implements SqlInterface
 {
@@ -38,7 +37,7 @@ abstract class AbstractSql implements SqlInterface
 
         /**
      * @param  null|AdapterInterface|PlatformInterface $adapterPlatform
-     * @return type
+     * @return string
      */
     public function getSqlString($adapterPlatform = null)
     {
