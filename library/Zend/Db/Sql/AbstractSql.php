@@ -36,7 +36,7 @@ abstract class AbstractSql
      */
     protected $instanceParameterIndex = array();
 
-    /**
+        /**
      * @param  null|AdapterInterface|PlatformInterface $adapterPlatform
      * @return type
      */
@@ -44,7 +44,16 @@ abstract class AbstractSql
     {
         $adapter = $this->resolveAdapterAndPlatform($adapterPlatform);
         $platform = $adapter->getPlatform();
-        return $this->processGetSqlString($adapter, $platform);
+        $sqlPlatform = $adapter->getSqlPlatform();
+
+        if ($this instanceof PlatformDecoratorInterface) {
+            return $this->processGetSqlString($adapter, $platform);
+        }
+        if ($sqlPlatform->getSubject() === $this) {
+            return $this->processGetSqlString($adapter, $platform);
+        }
+        $sqlPlatform->setSubject($this);
+        return $sqlPlatform->getSqlString($adapter);
     }
 
     /**
@@ -52,9 +61,23 @@ abstract class AbstractSql
      * @param StatementContainerInterface $statementContainer
      * @return StatementContainerInterface
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
-        $this->processPrepareStatement($adapter, $statementContainer);
+        $statementContainer = $statementContainer ?: $adapter->getDriver()->createStatement();
+        $sqlPlatform = $adapter->getSqlPlatform();
+
+        if ($this instanceof PlatformDecoratorInterface) {
+            $this->processPrepareStatement($adapter, $statementContainer);
+            return $statementContainer;
+        }
+
+        if ($sqlPlatform->getSubject() === $this) {
+            $this->processPrepareStatement($adapter, $statementContainer);
+            return $statementContainer;
+        }
+
+        $sqlPlatform->setSubject($this);
+        $sqlPlatform->prepareStatement($adapter, $statementContainer);
         return $statementContainer;
     }
 
@@ -200,14 +223,7 @@ abstract class AbstractSql
             $subselect->processInfo['paramPrefix'] = 'subselect' . $subselect->processInfo['subselectCount'];
 
             // call subselect
-            if ($this instanceof PlatformDecoratorInterface) {
-                /** @var Select|PlatformDecoratorInterface $subselectDecorator */
-                $subselectDecorator = clone $this;
-                $subselectDecorator->setSubject($subselect);
-                $subselectDecorator->prepareStatement($adapter, $stmtContainer);
-            } else {
-                $subselect->prepareStatement($adapter, $stmtContainer);
-            }
+            $subselect->prepareStatement($adapter, $stmtContainer);
 
             // copy count
             $this->processInfo['subselectCount'] = $subselect->processInfo['subselectCount'];
@@ -215,16 +231,11 @@ abstract class AbstractSql
             $parameterContainer->merge($stmtContainer->getParameterContainer()->getNamedArray());
             $sql = $stmtContainer->getSql();
         } else {
-            if ($this instanceof PlatformDecoratorInterface) {
-                $subselectDecorator = clone $this;
-                $subselectDecorator->setSubject($subselect);
-                $sql = $subselectDecorator->getSqlString($adapter);
-            } else {
-                $sql = $subselect->getSqlString($adapter);
-            }
+            $sql = $subselect->getSqlString($adapter);
         }
         return $sql;
     }
+
     /**
      *
      * @param null|AdapterInterface|PlatformInterface $adapterOrPlatform

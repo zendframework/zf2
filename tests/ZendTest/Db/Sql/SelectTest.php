@@ -596,7 +596,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      * @covers Zend\Db\Sql\Select::prepareStatement
      * @dataProvider providerData
      */
-    public function testPrepareStatement(Select $select, $expectedSqlString, $expectedParameters, $unused1, $unused2, $useNamedParameters = false)
+    public function testPrepareStatement(Select $select, $expectedSqlString, $expectedParameters, $unused1, $unused2, $useNamedParameters = false, $platformsTest = array())
     {
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnCallback(
@@ -614,6 +614,15 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
         if ($expectedParameters) {
             $this->assertEquals($expectedParameters, $parameterContainer->getNamedArray());
+        }
+
+        foreach ($platformsTest as $platform=>$expects) {
+            if (isset($expects['prepareSql'])) {
+                $adapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver, new $platform));
+                $statement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
+                $statement->expects($this->once())->method('setSql')->with($expects['prepareSql']);
+                $select->prepareStatement($adapter, $statement);
+            }
         }
     }
 
@@ -634,9 +643,17 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      * @covers Zend\Db\Sql\Select::getSqlString
      * @dataProvider providerData
      */
-    public function testGetSqlString(Select $select, $unused, $unused2, $expectedSqlString)
+    public function testGetSqlString(Select $select, $unused, $unused2, $expectedSqlString, $unused3, $unused4 = null, $platformsTest = array())
     {
         $this->assertEquals($expectedSqlString, $select->getSqlString(new TrustingSql92Platform()));
+
+        foreach ($platformsTest as $platform=>$expects) {
+            if (isset($expects['sql'])) {
+                $platform = new $platform();
+                $actual = $select->getSqlString($platform);
+                $this->assertEquals($expects['sql'], $actual);
+            }
+        }
     }
 
     /**
@@ -1236,6 +1253,36 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             'processJoins' => array(array(array('INNER', 'psql_function_which_returns_table AS "bar"', '"foo"."id" = "bar"."fooid"')))
         );
 
+
+        $select50b = new Select;
+        $select50b->from('foo')->offset(10);
+        $select50 = new Select;
+        //TODO $select50->from('bar')->columns(array('baz'=>$select50b));
+        $select50->from('bar')->join(array('baz'=>$select50b), 'q=z');
+
+        $sqlPrep50 = 'SELECT "bar".*, "baz".* FROM "bar" INNER JOIN (SELECT "foo".* FROM "foo" OFFSET ?) AS "baz" ON "q"="z"';
+        $sqlStr50 = 'SELECT "bar".*, "baz".* FROM "bar" INNER JOIN (SELECT "foo".* FROM "foo" OFFSET \'10\') AS "baz" ON "q"="z"';
+        $platformsTest50 = array(
+            'ZendTest\Db\TestAsset\TrustingMySqlPlatform' => array(
+                'sql'        => 'SELECT `bar`.*, `baz`.* FROM `bar` INNER JOIN (SELECT `foo`.* FROM `foo` LIMIT 18446744073709551615 OFFSET 10) AS `baz` ON `q`=`z`',
+                'prepareSql' => 'SELECT `bar`.*, `baz`.* FROM `bar` INNER JOIN (SELECT `foo`.* FROM `foo` LIMIT 18446744073709551615 OFFSET ?) AS `baz` ON `q`=`z`',
+            ),
+        );
+
+        $select51b = new Select;
+        $select51b->from('foo')->offset(10);
+        $select51 = new Select;
+        $select51->from('bar')->where(array('baz'=>$select51b));
+
+        $sqlPrep51 = 'SELECT "bar".* FROM "bar" WHERE "baz" = (SELECT "foo".* FROM "foo" OFFSET ?)';
+        $sqlStr51 = 'SELECT "bar".* FROM "bar" WHERE "baz" = (SELECT "foo".* FROM "foo" OFFSET \'10\')';
+        $platformsTest51 = array(
+            'ZendTest\Db\TestAsset\TrustingMySqlPlatform' => array(
+                'sql'        => 'SELECT `bar`.* FROM `bar` WHERE `baz` = (SELECT `foo`.* FROM `foo` LIMIT 18446744073709551615 OFFSET 10)',
+                'prepareSql' => 'SELECT `bar`.* FROM `bar` WHERE `baz` = (SELECT `foo`.* FROM `foo` LIMIT 18446744073709551615 OFFSET ?)',
+            ),
+        );
+
         /**
          * $select = the select object
          * $sqlPrep = the sql as a result of preparation
@@ -1296,6 +1343,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select47, $sqlPrep47, $params47,  $sqlStr47, $internalTests47),
             array($select48, $sqlPrep48, array(),    $sqlStr48, $internalTests48),
             array($select49, $sqlPrep49, array(),    $sqlStr49, $internalTests49),
+            array($select50, $sqlPrep50, array(),    $sqlStr50, null, null, $platformsTest50),
+            array($select51, $sqlPrep51, array(),    $sqlStr51, null, null, $platformsTest51),
         );
     }
 }

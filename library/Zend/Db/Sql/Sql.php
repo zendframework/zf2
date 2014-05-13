@@ -117,29 +117,14 @@ class Sql
      */
     public function prepareStatementForSqlObject(PreparableSqlInterface $sqlObject, StatementInterface $statement = null)
     {
-        $statement = ($statement) ?: $this->adapter->getDriver()->createStatement();
-
-        if ($this->sqlPlatform) {
-            $this->sqlPlatform->setSubject($sqlObject);
-            $this->sqlPlatform->prepareStatement($this->adapter, $statement);
-        } else {
-            $sqlObject->prepareStatement($this->adapter, $statement);
-        }
-
+        $statement = $statement ?: $this->adapter->getDriver()->createStatement();
+        $sqlObject->prepareStatement($this->adapter, $statement);
         return $statement;
     }
 
     public function getSqlStringForSqlObject(SqlInterface $sqlObject, PlatformInterface $platform = null)
     {
         $adapterOrPlatform = ($platform) ?: $this->adapter;
-
-        if ($this->sqlPlatform) {
-            $this->sqlPlatform->setSubject($sqlObject);
-            $sqlString = $this->sqlPlatform->getSqlString($adapterOrPlatform);
-        } else {
-            $sqlString = $sqlObject->getSqlString($adapterOrPlatform);
-        }
-
-        return $sqlString;
+        return $sqlObject->getSqlString($adapterOrPlatform);
     }
 }

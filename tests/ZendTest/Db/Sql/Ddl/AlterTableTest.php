@@ -12,6 +12,7 @@ namespace ZendTest\Db\Sql\Ddl;
 use Zend\Db\Sql\Ddl\AlterTable;
 use Zend\Db\Sql\Ddl\Column;
 use Zend\Db\Sql\Ddl\Constraint;
+use ZendTest\Db\TestAsset\TrustingMySqlPlatform;
 
 class AlterTableTest extends \PHPUnit_Framework_TestCase
 {
@@ -105,5 +106,21 @@ EOS;
 
         $expected = str_replace("\r\n", "\n", $expected);
         $this->assertEquals($expected, $at->getSqlString());
+    }
+
+    public function testGetSqlStringDecorators()
+    {
+        $at = new AlterTable('foo');
+        $at->addColumn(new Column\Varchar('another', 255));
+
+        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mySqlAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver, new TrustingMySqlPlatform()));
+        $mySqlAdapter->getSqlPlatform()->setTypeDecorator('Zend\Db\Sql\Ddl\AlterTable', new \ZendTest\Db\TestAsset\AlterTableDecorator);
+
+$expected =<<<EOS
+{decorate}ALTER TABLE `foo`
+ADD COLUMN `another` VARCHAR(255) NOT NULL {decorate}
+EOS;
+        $this->assertEquals($expected, $at->getSqlString($mySqlAdapter));
     }
 }

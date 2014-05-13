@@ -10,7 +10,7 @@
 namespace Zend\Db\Adapter;
 
 use Zend\Db\ResultSet;
-
+use Zend\Db\Sql\Platform\Platform as SqlPlatform;
 /**
  * @property Driver\DriverInterface $driver
  * @property Platform\PlatformInterface $platform
@@ -61,6 +61,11 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
     protected $lastPreparedStatement = null;
 
     /**
+     * @var SqlPlatform
+     */
+    protected $sqlPlatform = null;
+
+    /**
      * @param Driver\DriverInterface|array $driver
      * @param Platform\PlatformInterface $platform
      * @param ResultSet\ResultSetInterface $queryResultPrototype
@@ -97,6 +102,8 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
         if ($profiler) {
             $this->setProfiler($profiler);
         }
+
+        $this->sqlPlatform = new SqlPlatform($this);
     }
 
     /**
@@ -140,6 +147,14 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
     public function getPlatform()
     {
         return $this->platform;
+    }
+
+    /**
+     * @return SqlPlatform
+     */
+    public function getSqlPlatform()
+    {
+        return $this->sqlPlatform;
     }
 
     /**

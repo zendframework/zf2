@@ -13,6 +13,7 @@ use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Predicate\IsNotNull;
 use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Sql\Where;
+use ZendTest\Db\TestAsset;
 
 class DeleteTest extends \PHPUnit_Framework_TestCase
 {
@@ -154,6 +155,29 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
         $this->delete->from(new TableIdentifier('foo', 'sch'))
             ->where('x = y');
         $this->assertEquals('DELETE FROM "sch"."foo" WHERE x = y', $this->delete->getSqlString());
+    }
+
+    public function testSubQueryWithDecorators()
+    {
+        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
+        $mySqlAdapter = new \Zend\Db\Adapter\Adapter($mockDriver, new TestAsset\TrustingMySqlPlatform());
+
+        $mySqlAdapter->getSqlPlatform()->setTypeDecorator('Zend\Db\Sql\Delete', new \ZendTest\Db\TestAsset\DeleteDecorator);
+
+        $subSelect = new \Zend\Db\Sql\Select('y');
+        $subSelect->offset(10);
+        $this->delete->from('foo')->where(array('x'=>$subSelect));
+
+        $this->assertEquals(
+            '{decorate}DELETE FROM `foo` WHERE `x` = (SELECT `y`.* FROM `y` LIMIT 18446744073709551615 OFFSET 10){decorate}',
+            $this->delete->getSqlString($mySqlAdapter)
+        );
+
+        $this->assertEquals(
+            '{decorate}DELETE FROM `foo` WHERE `x` = (SELECT `y`.* FROM `y` LIMIT 18446744073709551615 OFFSET ?){decorate}',
+            $this->delete->prepareStatement($mySqlAdapter, new \Zend\Db\Adapter\StatementContainer)->getSql()
+        );
     }
 
     /**

@@ -28,6 +28,11 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     protected $decorators = array();
 
     /**
+     * @var array
+     */
+    protected $cloneCounter = array();
+
+    /**
      * @param $subject
      * @return self
      */
@@ -35,6 +40,11 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     {
         $this->subject = $subject;
         return $this;
+    }
+
+    public function getSubject()
+    {
+        return $this->subject;
     }
 
     /**
@@ -69,6 +79,7 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
         if ($decoratorForType = $this->getDecoratorForType()) {
             $decoratorForType->setSubject($this->subject);
             $decoratorForType->prepareStatement($adapter, $statementContainer);
+            $this->cloneCounter[get_class($decoratorForType)]--;
         } else {
             $this->subject->prepareStatement($adapter, $statementContainer);
         }
@@ -87,7 +98,9 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
 
         if ($decoratorForType = $this->getDecoratorForType()) {
             $decoratorForType->setSubject($this->subject);
-            return $decoratorForType->getSqlString($adapterPlatform);
+            $sql = $decoratorForType->getSqlString($adapterPlatform);
+            $this->cloneCounter[get_class($decoratorForType)]--;
+            return $sql;
         }
 
         return $this->subject->getSqlString($adapterPlatform);
@@ -100,7 +113,13 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     {
         foreach ($this->decorators as $type => $decorator) {
             if ($this->subject instanceof $type && is_a($decorator, $type, true)) {
-                return $decorator;
+                $decoratorClass = get_class($decorator);
+                $counter = isset($this->cloneCounter[$decoratorClass])
+                        ? ++$this->cloneCounter[$decoratorClass]
+                        : $this->cloneCounter[$decoratorClass] = 0;
+                return $counter === 0
+                        ? $decorator
+                        : clone $decorator;
             }
         }
         return null;

@@ -14,6 +14,7 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\TableIdentifier;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
+use ZendTest\Db\TestAsset;
 
 class InsertTest extends \PHPUnit_Framework_TestCase
 {
@@ -215,6 +216,28 @@ class InsertTest extends \PHPUnit_Framework_TestCase
         // with Select and columns
         $this->insert->columns(array('col1', 'col2'));
         $this->assertEquals('INSERT INTO "foo" ("col1", "col2") SELECT "bar".* FROM "bar"', $this->insert->getSqlString(new TrustingSql92Platform()));
+    }
+
+    public function testSubQueryWithDecorators()
+    {
+        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
+        $mySqlAdapter = new \Zend\Db\Adapter\Adapter($mockDriver, new TestAsset\TrustingMySqlPlatform());
+
+        $mySqlAdapter->getSqlPlatform()->setTypeDecorator('Zend\Db\Sql\Insert', new TestAsset\InsertDecorator);
+
+        $subSelect = new Select('bar');
+        $subSelect->offset(10);
+        $this->insert->into('foo')->select($subSelect);
+
+        $this->assertEquals(
+            '{decorate}INSERT INTO `foo`  SELECT `bar`.* FROM `bar` LIMIT 18446744073709551615 OFFSET 10{decorate}',
+            $this->insert->getSqlString($mySqlAdapter)
+        );
+        $this->assertEquals(
+            '{decorate}INSERT INTO `foo`  SELECT `bar`.* FROM `bar` LIMIT 18446744073709551615 OFFSET ?{decorate}',
+            $this->insert->prepareStatement($mySqlAdapter, new \Zend\Db\Adapter\StatementContainer)->getSql()
+        );
     }
 
     /**

@@ -30,7 +30,7 @@ class MasterSlaveFeatureTest extends \PHPUnit_Framework_TestCase
     {
         $this->mockMasterAdapter = $this->getMock(
             'Zend\Db\Adapter\AdapterInterface',
-            array('getDriver', 'getPlatform')
+            array('getDriver', 'getPlatform', 'getSqlPlatform')
         );
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
@@ -40,10 +40,11 @@ class MasterSlaveFeatureTest extends \PHPUnit_Framework_TestCase
         ));
         $this->mockMasterAdapter->expects($this->any())->method('getDriver')->will($this->returnValue($mockDriver));
         $this->mockMasterAdapter->expects($this->any())->method('getPlatform')->will($this->returnValue(new \Zend\Db\Adapter\Platform\Sql92()));
+        $this->mockMasterAdapter->expects($this->any())->method('getSqlPlatform')->will($this->returnValue(new \Zend\Db\Sql\Platform\Platform($this->mockMasterAdapter)));
 
         $this->mockSlaveAdapter = $this->getMock(
             'Zend\Db\Adapter\AdapterInterface',
-            array('getDriver', 'getPlatform')
+            array('getDriver', 'getPlatform', 'getSqlPlatform')
         );
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
@@ -53,6 +54,7 @@ class MasterSlaveFeatureTest extends \PHPUnit_Framework_TestCase
         ));
         $this->mockSlaveAdapter->expects($this->any())->method('getDriver')->will($this->returnValue($mockDriver));
         $this->mockSlaveAdapter->expects($this->any())->method('getPlatform')->will($this->returnValue(new \Zend\Db\Adapter\Platform\Sql92()));
+        $this->mockSlaveAdapter->expects($this->any())->method('getSqlPlatform')->will($this->returnValue(new \Zend\Db\Sql\Platform\Platform($this->mockSlaveAdapter)));
 
         $this->feature = new MasterSlaveFeature($this->mockSlaveAdapter);
     }
