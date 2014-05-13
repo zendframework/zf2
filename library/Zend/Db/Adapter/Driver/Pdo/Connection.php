@@ -319,7 +319,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         try {
             $this->resource = new \PDO($dsn, $username, $password, $options);
             $this->resource->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            if (isset($charset) && $pdoDriver == 'pgsql') {
+            if (isset($charset) && $pdoDriver != 'pgsql') {
                 $this->resource->exec('SET NAMES ' . $this->resource->quote($charset));
             }
             $this->driverName = strtolower($this->resource->getAttribute(\PDO::ATTR_DRIVER_NAME));
