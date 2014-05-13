@@ -14,7 +14,7 @@ use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Adapter\StatementContainerInterface;
 
-class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
+class Insert extends AbstractPreparableSql
 {
     /**#@+
      * Constants

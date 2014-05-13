@@ -19,7 +19,7 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Db\Adapter\StatementContainerInterface;
 
-abstract class AbstractSql
+abstract class AbstractSql implements SqlInterface
 {
     /**
      * @var array
@@ -57,29 +57,13 @@ abstract class AbstractSql
     }
 
     /**
+     * Get the SQL string, based on the platform
+     *
      * @param AdapterInterface $adapter
-     * @param StatementContainerInterface $statementContainer
-     * @return StatementContainerInterface
+     * @param PlatformInterface $adapterPlatform
+     * @return string
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
-    {
-        $statementContainer = $statementContainer ?: $adapter->getDriver()->createStatement();
-        $sqlPlatform = $adapter->getSqlPlatform();
-
-        if ($this instanceof PlatformDecoratorInterface) {
-            $this->processPrepareStatement($adapter, $statementContainer);
-            return $statementContainer;
-        }
-
-        if ($sqlPlatform->getSubject() === $this) {
-            $this->processPrepareStatement($adapter, $statementContainer);
-            return $statementContainer;
-        }
-
-        $sqlPlatform->setSubject($this);
-        $sqlPlatform->prepareStatement($adapter, $statementContainer);
-        return $statementContainer;
-    }
+    abstract protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform);
 
     protected function processExpression(ExpressionInterface $expression, AdapterInterface $adapter, PlatformInterface $platform, DriverInterface $driver = null, $namedParameterPrefix = null)
     {

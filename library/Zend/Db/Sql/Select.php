@@ -20,7 +20,7 @@ use Zend\Db\Adapter\Platform\PlatformInterface;
  * @property Where $where
  * @property Having $having
  */
-class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
+class Select extends AbstractPreparableSql
 {
     /**#@+
      * Constant
