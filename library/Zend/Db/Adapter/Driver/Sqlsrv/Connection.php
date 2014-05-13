@@ -10,10 +10,8 @@
 namespace Zend\Db\Adapter\Driver\Sqlsrv;
 
 use Zend\Db\Adapter\Driver\AbstractConnection;
-use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Driver\Sqlsrv\Exception\ErrorException;
 use Zend\Db\Adapter\Exception;
-use Zend\Db\Adapter\Profiler;
 
 class Connection extends AbstractConnection
 {
@@ -25,7 +23,7 @@ class Connection extends AbstractConnection
     /**
      * Constructor
      *
-     * @param array|resource $connectionInfo
+     * @param  array|resource                                      $connectionInfo
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
      */
     public function __construct($connectionInfo)
@@ -48,6 +46,7 @@ class Connection extends AbstractConnection
     public function setDriver(Sqlsrv $driver)
     {
         $this->driver = $driver;
+
         return $this;
     }
 
@@ -64,13 +63,14 @@ class Connection extends AbstractConnection
 
         $result = sqlsrv_query($this->resource, 'SELECT SCHEMA_NAME()');
         $r = sqlsrv_fetch_array($result);
+
         return $r[0];
     }
 
     /**
      * Set resource
      *
-     * @param  resource $resource
+     * @param  resource                           $resource
      * @throws Exception\InvalidArgumentException
      * @return self
      */
@@ -80,6 +80,7 @@ class Connection extends AbstractConnection
             throw new Exception\InvalidArgumentException('Resource provided was not of type SQL Server Connection');
         }
         $this->resource = $resource;
+
         return $this;
     }
 
@@ -234,7 +235,7 @@ class Connection extends AbstractConnection
     /**
      * Execute
      *
-     * @param  string $sql
+     * @param  string                     $sql
      * @throws Exception\RuntimeException
      * @return mixed
      */
@@ -272,6 +273,7 @@ class Connection extends AbstractConnection
         }
 
         $result = $this->driver->createResult($returnValue);
+
         return $result;
     }
 
@@ -288,13 +290,14 @@ class Connection extends AbstractConnection
         }
 
         $statement = $this->driver->createStatement($sql);
+
         return $statement;
     }
 
     /**
      * Get last generated id
      *
-     * @param string $name
+     * @param  string $name
      * @return mixed
      */
     public function getLastGeneratedValue($name = null)
@@ -305,6 +308,7 @@ class Connection extends AbstractConnection
         $sql = 'SELECT @@IDENTITY as Current_Identity';
         $result = sqlsrv_query($this->resource, $sql);
         $row = sqlsrv_fetch_array($result);
+
         return $row['Current_Identity'];
     }
 }

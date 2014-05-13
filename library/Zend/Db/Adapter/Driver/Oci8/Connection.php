@@ -10,9 +10,7 @@
 namespace Zend\Db\Adapter\Driver\Oci8;
 
 use Zend\Db\Adapter\Driver\AbstractConnection;
-use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
-use Zend\Db\Adapter\Profiler;
 
 class Connection extends AbstractConnection
 {
@@ -24,7 +22,7 @@ class Connection extends AbstractConnection
     /**
      * Constructor
      *
-     * @param array|resource|null $connectionInfo
+     * @param  array|resource|null                                 $connectionInfo
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
      */
     public function __construct($connectionInfo = null)
@@ -39,12 +37,13 @@ class Connection extends AbstractConnection
     }
 
     /**
-     * @param Oci8 $driver
+     * @param  Oci8 $driver
      * @return self
      */
     public function setDriver(Oci8 $driver)
     {
         $this->driver = $driver;
+
         return $this;
     }
 
@@ -63,6 +62,7 @@ class Connection extends AbstractConnection
         $stmt = oci_parse($this->resource, $query);
         oci_execute($stmt);
         $dbNameArray = oci_fetch_array($stmt, OCI_ASSOC);
+
         return $dbNameArray['current_schema'];
     }
 
@@ -78,6 +78,7 @@ class Connection extends AbstractConnection
             throw new Exception\InvalidArgumentException('A resource of type "oci8 connection" was expected');
         }
         $this->resource = $resource;
+
         return $this;
     }
 
@@ -116,6 +117,7 @@ class Connection extends AbstractConnection
                     return $p[$name];
                 }
             }
+
             return null;
         };
 
@@ -271,6 +273,7 @@ class Connection extends AbstractConnection
         }
 
         $resultPrototype = $this->driver->createResult($ociStmt);
+
         return $resultPrototype;
     }
 
