@@ -31,13 +31,13 @@ class OptionalParametersFilter implements FilterInterface
      */
     public function accept($property, $context = null)
     {
-        $pos      = strpos($property, '::');
-        $pos      = $pos !== false ? $pos + 2 : 0;
-        $property = substr($property, $pos);
-
         if (isset(self::$propertiesCache[$property])) {
             return self::$propertiesCache[$property];
         }
+
+        $pos      = strpos($property, '::');
+        $pos      = $pos !== false ? $pos + 2 : 0;
+        $property = substr($property, $pos);
 
         try {
             $reflectionMethod = new ReflectionMethod($context, $property);

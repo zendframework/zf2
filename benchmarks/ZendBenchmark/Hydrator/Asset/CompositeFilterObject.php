@@ -16,31 +16,20 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zend\Hydrator\NamingStrategy;
+namespace ZendBenchmark\Hydrator\Asset;
 
-/**
- * This strategy assumes that incoming data is underscore_separated, and transforms the names
- * to camelCased. This is often used for API, where the convention is to used underscore_separated
- * property keys.
- *
- * This is a very sensitive performance class, so we need optimized string methods instead of
- * Zend filters. Do not change that unless you know what you're doing!
- */
-class UnderscoreNamingStrategy implements NamingStrategyInterface
+
+class CompositeFilterObject
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function getNameForExtraction($name, $context = null)
+    public function getOne()
     {
-        return strtolower(preg_replace('/\B([A-Z])/', '_$0', $name));
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getNameForHydration($name, $context = null)
+    public function getTwo($requiredParam)
     {
-        return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($name)))));
+    }
+
+    public function isThree()
+    {
     }
 }
