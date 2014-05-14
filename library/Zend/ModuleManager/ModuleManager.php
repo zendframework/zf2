@@ -158,7 +158,7 @@ class ModuleManager implements ModuleManagerInterface
      * @triggers loadModule
      * @return mixed Module's Module class
      */
-    public function loadModule($module, $isChild = false)
+    public function loadModule($module, $afterCurrent = false)
     {
         $moduleName = $module;
         if (is_array($module)) {
@@ -181,7 +181,7 @@ class ModuleManager implements ModuleManagerInterface
          * loadModule() call, and use the original event otherwise.
          */
 
-        if ($this->loadFinished > 0 && $isChild) {
+        if ($this->loadFinished > 0 && $afterCurrent) {
             $parentModule = $this->getEvent()->getModuleName();
             $childModule = is_object($module)
                     ? array($moduleName=>$module)
