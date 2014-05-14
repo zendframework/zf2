@@ -34,7 +34,7 @@ class ClassMethodsObject
     protected $twelve    = 'twelve';
     protected $thirteen  = 'thirteen';
     protected $fourteen  = 'fourteen';
-    protected $fiveteen  = 'fiveteen';
+    protected $fifteen   = 'fifteen';
     protected $sixteen   = 'sixteen';
     protected $seventeen = 'seventeen';
     protected $eighteen  = 'eighteen';
@@ -106,19 +106,19 @@ class ClassMethodsObject
     }
 
     /**
-     * @param mixed $fiveteen
+     * @param mixed $fifteen
      */
-    public function setFiveteen($fiveteen)
+    public function setFifteen($fifteen)
     {
-        $this->fiveteen = $fiveteen;
+        $this->fifteen = $fifteen;
     }
 
     /**
      * @return mixed
      */
-    public function getFiveteen()
+    public function getFitfeen()
     {
-        return $this->fiveteen;
+        return $this->fifteen;
     }
 
     /**

@@ -65,7 +65,7 @@ class ClassMethodsHydrator extends AbstractHydrator
         $objectClass = get_class($object);
 
         $methods = get_class_methods($object);
-        $result  = array();
+        $result  = [];
 
         // Pass 1: finding out which properties can be extracted, with which methods (populate hydration cache)
         if (!isset($this->extractionMethodsCache[$objectClass])) {
@@ -102,10 +102,9 @@ class ClassMethodsHydrator extends AbstractHydrator
             $propertyFqn = $objectClass . '::$' . $property;
 
             if (!isset($this->hydrationMethodsCache[$propertyFqn])) {
-                $property   = $this->namingStrategy->getNameForHydration($property, $data);
-
-                $method = 'set' . $property; // PHP is case insensitive for call methods, no
-                                             // need to uppercase first character
+                $property = $this->namingStrategy->getNameForHydration($property, $data);
+                $method   = 'set' . $property; // PHP is case insensitive for call methods, no
+                                               // need to uppercase first character
 
                 $this->hydrationMethodsCache[$propertyFqn] = is_callable([$object, $method])
                     ? $method

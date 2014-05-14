@@ -14,7 +14,7 @@ use ReflectionMethod;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
 /**
- * This filter accepts any method that don't have any required parameters (only optional)
+ * This filter accepts any method that have only optional parameters
  */
 class OptionalParametersFilter implements FilterInterface
 {
