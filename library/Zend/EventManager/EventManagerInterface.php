@@ -19,12 +19,12 @@ interface EventManagerInterface
     /**
      * Attach a listener to an event
      *
-     * @param  string   $event
+     * @param  string   $eventName
      * @param  callable $listener
      * @param  int      $priority Priority at which to register listener
      * @return callable
      */
-    public function attach($event, callable $listener, $priority = 1);
+    public function attach($eventName, callable $listener, $priority = 1);
 
     /**
      * Attach a listener aggregate
