@@ -12,6 +12,7 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
+        "athletic/athletic": "0.1.7",
         "doctrine/annotations": ">=1.0",
         "ircmaxell/random-lib": "dev-master",
         "ircmaxell/security-lib": "dev-master",
