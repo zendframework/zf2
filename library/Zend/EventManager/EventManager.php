@@ -18,15 +18,8 @@ use Traversable;
  * Use the EventManager when you want to create a per-instance notification
  * system for your objects.
  */
-class EventManager implements EventManagerInterface, SharedEventManagerAwareInterface
+class EventManager extends FastEventManager implements SharedEventManagerAwareInterface
 {
-    /**
-     * Subscribed events and their listeners
-     *
-     * @var array
-     */
-    protected $events = [];
-
     /**
      * Identifiers, used to pull shared signals from SharedEventManagerInterface instance
      *
@@ -98,116 +91,11 @@ class EventManager implements EventManagerInterface, SharedEventManagerAwareInte
      */
     public function attach($eventName, callable $listener, $priority = 1)
     {
+        // The '.0' is a hack that allows to circumvent the fact that array_merge remove
+        // any numeric key
         $this->events[$eventName][(int) $priority . '.0'][] = $listener;
 
         return $listener;
-    }
-
-    /**
-     * Attach a listener aggregate
-     *
-     * Listener aggregates accept an EventManagerInterface instance, and call attach()
-     * one or more times, typically to attach to multiple events using local
-     * methods.
-     *
-     * @param  ListenerAggregateInterface $aggregate
-     * @param  int                        $priority If provided, a suggested priority for the aggregate to use
-     * @return mixed return value of {@link ListenerAggregateInterface::attach()}
-     */
-    public function attachAggregate(ListenerAggregateInterface $aggregate, $priority = 1)
-    {
-        return $aggregate->attach($this, $priority);
-    }
-
-    /**
-     * Unsubscribe a listener from an event
-     *
-     * This method is quite inefficient as it needs to traverse each queue, so use with care! If you are that
-     * worried about performance, you should always filter by the event name so that less work is done
-     *
-     * @param  callable    $listener
-     * @param  null|string $eventName
-     * @return bool Returns true if event and listener found, and unsubscribed; returns false if either event or listener not found
-     */
-    public function detach(callable $listener, $eventName = null)
-    {
-        if ($eventName !== null && isset($this->events[$eventName])) {
-            foreach ($this->events[$eventName] as &$listeners) {
-                if (($key = array_search($listener, $listeners, true)) !== false) {
-                    unset($listeners[$key]);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        foreach ($this->events as &$event) {
-            foreach ($event as &$listeners) {
-                if (($key = array_search($listener, $listeners, true)) !== false) {
-                    unset($listeners[$key]);
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Detach a listener aggregate
-     *
-     * Listener aggregates accept an EventManagerInterface instance, and call detach()
-     * of all previously attached listeners.
-     *
-     * @param  ListenerAggregateInterface $aggregate
-     * @return bool
-     */
-    public function detachAggregate(ListenerAggregateInterface $aggregate)
-    {
-        return $aggregate->detach($this);
-    }
-
-    /**
-     * Trigger all listeners for a given event (optionally until a callback evaluates to true)
-     *
-     * @param  string              $eventName
-     * @param  EventInterface|null $event
-     * @param  callable|null       $callback
-     * @return ResponseCollection All listener return values
-     */
-    public function trigger($eventName, EventInterface $event = null, callable $callback = null)
-    {
-        // Initial value of stop propagation flag should be false
-        $event = $event ?: new Event();
-        $event->stopPropagation(false);
-
-        $responses = [];
-        $listeners = $this->getListeners($eventName);
-
-        foreach ($listeners as $listenersByPriority) {
-            foreach ($listenersByPriority as $listener) {
-                $lastResponse = $listener($event);
-                $responses[]  = $lastResponse;
-
-                if (($callback && $callback($lastResponse) || $event->isPropagationStopped())) {
-                    $responseCollection = new ResponseCollection($responses);
-                    $responseCollection->setStopped(true);
-
-                    return $responseCollection;
-                }
-            }
-        }
-
-        return new ResponseCollection($responses);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getEventNames()
-    {
-        return array_keys($this->events);
     }
 
     /**
@@ -231,14 +119,6 @@ class EventManager implements EventManagerInterface, SharedEventManagerAwareInte
         krsort($listeners, SORT_NUMERIC);
 
         return $listeners;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function clearListeners($eventName)
-    {
-        unset($this->events[$eventName]);
     }
 
     /**

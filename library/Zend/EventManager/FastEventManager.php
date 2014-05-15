@@ -18,8 +18,6 @@
 
 namespace Zend\EventManager;
 
-use Traversable;
-
 /**
  * The fast event manager is a minimal, featured limited implementation of the event manager interface. It
  * does not contain any advanced features (like wildcard) and have no knowledge of shared manager. This
@@ -60,35 +58,43 @@ class FastEventManager implements EventManagerInterface
     }
 
     /**
-     * Detach an event listener
-     *
-     * @param  callable $listener
-     * @param  string $eventName optional to speed up process
-     * @return bool
+     * {@inheritDoc}
      */
     public function detach(callable $listener, $eventName = '')
     {
-        // TODO: Implement detach() method.
+        if ($eventName !== null && isset($this->events[$eventName])) {
+            foreach ($this->events[$eventName] as &$listeners) {
+                if (($key = array_search($listener, $listeners, true)) !== false) {
+                    unset($listeners[$key]);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        foreach ($this->events as &$event) {
+            foreach ($event as &$listeners) {
+                if (($key = array_search($listener, $listeners, true)) !== false) {
+                    unset($listeners[$key]);
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
-     * Detach a listener aggregate
-     *
-     * @param  ListenerAggregateInterface $aggregate
-     * @return bool
+     * {@inheritDoc}
      */
     public function detachAggregate(ListenerAggregateInterface $aggregate)
     {
-        // TODO: Implement detachAggregate() method.
+        return $aggregate->detach($this);
     }
 
     /**
-     * Trigger an event (optionally until using a callback returns a boolean true)
-     *
-     * @param  string $eventName
-     * @param  EventInterface|null $event
-     * @param  callable|null $callback
-     * @return ResponseCollection
+     * {@inheritDoc}
      */
     public function trigger($eventName, EventInterface $event = null, callable $callback = null)
     {
@@ -117,9 +123,7 @@ class FastEventManager implements EventManagerInterface
     }
 
     /**
-     * Get a list of event names for which this collection has listeners
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function getEventNames()
     {
@@ -127,10 +131,7 @@ class FastEventManager implements EventManagerInterface
     }
 
     /**
-     * Retrieve a list of listeners registered to a given event
-     *
-     * @param  string $eventName
-     * @return array
+     * {@inheritDoc}
      */
     public function getListeners($eventName)
     {
@@ -143,45 +144,10 @@ class FastEventManager implements EventManagerInterface
     }
 
     /**
-     * Clear all listeners for a given event
-     *
-     * @param  string $eventName
-     * @return void
+     * {@inheritDoc}
      */
     public function clearListeners($eventName)
     {
-        // TODO: Implement clearListeners() method.
-    }
-
-    /**
-     * Set the identifiers (overrides any currently set identifiers)
-     *
-     * @param  array|Traversable $identifiers
-     * @return void
-     */
-    public function setIdentifiers($identifiers)
-    {
-        // TODO: Implement setIdentifiers() method.
-    }
-
-    /**
-     * Add some identifier(s) (appends to any currently set identifiers)
-     *
-     * @param  array|Traversable $identifiers
-     * @return void
-     */
-    public function addIdentifiers($identifiers)
-    {
-        // TODO: Implement addIdentifiers() method.
-    }
-
-    /**
-     * Get the identifier(s) for this EventManager
-     *
-     * @return array
-     */
-    public function getIdentifiers()
-    {
-        // TODO: Implement getIdentifiers() method.
+        unset($this->events[$eventName]);
     }
 }

@@ -47,6 +47,9 @@ interface EventManagerInterface
     /**
      * Detach a listener aggregate
      *
+     * Listener aggregates accept an EventManagerInterface instance, and call detach()
+     * of all previously attached listeners
+     *
      * @param  ListenerAggregateInterface $aggregate
      * @return bool
      */
@@ -84,27 +87,4 @@ interface EventManagerInterface
      * @return void
      */
     public function clearListeners($eventName);
-
-    /**
-     * Set the identifiers (overrides any currently set identifiers)
-     *
-     * @param  array|Traversable $identifiers
-     * @return void
-     */
-    public function setIdentifiers($identifiers);
-
-    /**
-     * Add some identifier(s) (appends to any currently set identifiers)
-     *
-     * @param  array|Traversable $identifiers
-     * @return void
-     */
-    public function addIdentifiers($identifiers);
-
-    /**
-     * Get the identifier(s) for this EventManager
-     *
-     * @return array
-     */
-    public function getIdentifiers();
 }

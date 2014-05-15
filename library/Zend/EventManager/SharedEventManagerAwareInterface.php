@@ -9,6 +9,8 @@
 
 namespace Zend\EventManager;
 
+use Traversable;
+
 /**
  * Interface to automate setter injection for a SharedEventManagerInterface instance
  */
@@ -28,4 +30,27 @@ interface SharedEventManagerAwareInterface
      * @return SharedEventManagerInterface
      */
     public function getSharedManager();
+
+    /**
+     * Set the identifiers (overrides any currently set identifiers)
+     *
+     * @param  array|Traversable $identifiers
+     * @return void
+     */
+    public function setIdentifiers($identifiers);
+
+    /**
+     * Add some identifier(s) (appends to any currently set identifiers)
+     *
+     * @param  array|Traversable $identifiers
+     * @return void
+     */
+    public function addIdentifiers($identifiers);
+
+    /**
+     * Get the identifier(s) for this EventManager
+     *
+     * @return array
+     */
+    public function getIdentifiers();
 }
