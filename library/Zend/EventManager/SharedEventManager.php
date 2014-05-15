@@ -15,6 +15,9 @@ namespace Zend\EventManager;
  * Allows attaching to EMs composed by other classes without having an instance first.
  * The assumption is that the SharedEventManager will be injected into EventManager
  * instances, and then queried for additional listeners when triggering an event.
+ *
+ * Implementation note: this is performance sensitive code, please do not change unless you have
+ * carefully benchmarked it
  */
 class SharedEventManager implements SharedEventManagerInterface
 {
@@ -110,27 +113,29 @@ class SharedEventManager implements SharedEventManagerInterface
     {
         $listeners = [];
 
-        foreach ($identifiers as $identifier) {
-            // listeners attached to wildcard identifiers will be merged below
-            if ($identifier !== '*') {
-                if (isset($this->identifiers[$identifier][$eventName]) && $eventName !== '*') {
-                    $listeners = array_merge_recursive($listeners, $this->identifiers[$identifier][$eventName]);
-                }
+        // We detect if there is a wildcard identifier so that we can retrieve its listeners, and
+        // remove the conditional in the foreach
+        $wildcardIdentifierListeners = isset($identifiers['*']) ? $identifiers['*'] : null;
+        unset($identifiers['*']);
 
-                if (isset($this->identifiers[$identifier]['*'])) {
-                    $listeners = array_merge_recursive($listeners, $this->identifiers[$identifier]['*']);
-                }
+        foreach ($identifiers as $identifier) {
+            if (isset($this->identifiers[$identifier][$eventName]) && $eventName !== '*') {
+                $listeners = array_merge_recursive($listeners, $this->identifiers[$identifier][$eventName]);
+            }
+
+            if (isset($this->identifiers[$identifier]['*'])) {
+                $listeners = array_merge_recursive($listeners, $this->identifiers[$identifier]['*']);
             }
         }
 
         // merge listeners attached to wildcard identifiers
-        if (isset($this->identifiers['*'])) {
-            if (isset($this->identifiers['*'][$eventName]) && $eventName !== '*') {
-                $listeners = array_merge_recursive($listeners, $this->identifiers['*'][$eventName]);
+        if (null !== $wildcardIdentifierListeners) {
+            if (isset($wildcardIdentifierListeners[$eventName]) && $eventName !== '*') {
+                $listeners = array_merge_recursive($listeners, $wildcardIdentifierListeners[$eventName]);
             }
 
-            if (isset($this->identifiers['*']['*'])) {
-                $listeners = array_merge_recursive($listeners, $this->identifiers['*']['*']);
+            if (isset($wildcardIdentifierListeners['*'])) {
+                $listeners = array_merge_recursive($listeners, $wildcardIdentifierListeners['*']);
             }
         }
 

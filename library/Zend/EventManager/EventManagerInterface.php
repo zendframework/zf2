@@ -12,9 +12,9 @@ namespace Zend\EventManager;
 use Traversable;
 
 /**
- * Interface for messengers
+ * Interface for event manager
  */
-interface EventManagerInterface extends SharedEventManagerAwareInterface
+interface EventManagerInterface
 {
     /**
      * Attach a listener to an event

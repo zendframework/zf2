@@ -18,7 +18,7 @@ use Traversable;
  * Use the EventManager when you want to create a per-instance notification
  * system for your objects.
  */
-class EventManager implements EventManagerInterface
+class EventManager implements EventManagerInterface, SharedEventManagerAwareInterface
 {
     /**
      * Subscribed events and their listeners
@@ -193,7 +193,7 @@ class EventManager implements EventManagerInterface
         $responses = [];
         $listeners = $this->getListeners($eventName);
 
-        foreach ($listeners as $listenersByPriority) {
+        /*foreach ($listeners as $listenersByPriority) {
             foreach ($listenersByPriority as $listener) {
                 $lastResponse = $listener($event);
                 $responses[]  = $lastResponse;
@@ -207,7 +207,7 @@ class EventManager implements EventManagerInterface
             }
         }
 
-        return new ResponseCollection($responses);
+        return new ResponseCollection($responses);*/
     }
 
     /**
@@ -249,7 +249,6 @@ class EventManager implements EventManagerInterface
         ) {
             ++$mergeCount;
         }
-
 
         // merge
         if ($mergeCount > 1) {

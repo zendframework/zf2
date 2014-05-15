@@ -78,7 +78,7 @@ class TriggerEvmBenchmark extends AthleticEvent
     public function triggerEventTenTimesWithEmptySharedManager()
     {
         $this->eventManager->setSharedManager(new SharedEventManager());
-        
+
         for ($i = 0 ; $i !== 10 ; ++$i) {
             $this->eventManager->trigger('eventName1');
         }
