@@ -25,10 +25,14 @@ class Digits extends AbstractFilter
      */
     public function filter($value)
     {
+<<<<<<< Upstream, based on zf2/master
         if (is_int($value)) {
             return (string) $value;
         }
         if (! (is_float($value) || is_string($value))) {
+=======
+        if (! (is_int($value) || is_float($value) || is_string($value))) {
+>>>>>>> dde042f Digit filter should not touch boolean
             return $value;
         }
         $value = (string) $value;
