@@ -39,7 +39,19 @@ class FastEventManager implements EventManagerInterface
     protected $orderedByPriority = [];
 
     /**
-     * {@inheritDoc}
+     * Attach a listener to an event
+     *
+     * The first argument is the event, and the next argument describes a
+     * callback that will respond to that event.
+     *
+     * The last argument indicates a priority at which the event should be
+     * executed. By default, this value is 1; however, you may set it for any
+     * integer value. Higher values have higher priority (i.e., execute first).
+     *
+     * @param  string   $eventName An event or array of event names
+     * @param  callable $listener
+     * @param  int      $priority If provided, the priority at which to register the callable
+     * @return callable if attaching callable (to allow later unsubscribe)
      */
     public function attach($eventName, callable $listener, $priority = 1)
     {

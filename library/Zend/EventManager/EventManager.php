@@ -87,7 +87,6 @@ class EventManager extends FastEventManager implements SharedEventManagerAwareIn
      * @param  callable $listener
      * @param  int      $priority If provided, the priority at which to register the callable
      * @return callable if attaching callable (to allow later unsubscribe)
-     * @throws Exception\InvalidArgumentException
      */
     public function attach($eventName, callable $listener, $priority = 1)
     {
