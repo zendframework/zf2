@@ -113,7 +113,7 @@ class SharedEventManager implements SharedEventManagerInterface
     {
         $listeners = [];
 
-        // We detect if there is a wildcard identifier so that we can retrieve its listeners, and
+        // we detect if there is a wildcard identifier so that we can retrieve its listeners, and
         // remove the conditional in the foreach
         $wildcardIdentifierListeners = isset($identifiers['*']) ? $identifiers['*'] : null;
         unset($identifiers['*']);

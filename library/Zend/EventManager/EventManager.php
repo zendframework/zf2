@@ -42,13 +42,6 @@ class EventManager implements EventManagerInterface, SharedEventManagerAwareInte
     protected $sharedManager = null;
 
     /**
-     * Are listeners already ordered by priority?
-     *
-     * @var bool
-     */
-    protected $orderedByPriority = true;
-
-    /**
      * Constructor
      *
      * Allows optionally specifying identifier(s) to use to pull signals from a
@@ -106,7 +99,6 @@ class EventManager implements EventManagerInterface, SharedEventManagerAwareInte
     public function attach($eventName, callable $listener, $priority = 1)
     {
         $this->events[$eventName][(int) $priority . '.0'][] = $listener;
-        $this->orderedByPriority                            = false;
 
         return $listener;
     }
@@ -193,7 +185,7 @@ class EventManager implements EventManagerInterface, SharedEventManagerAwareInte
         $responses = [];
         $listeners = $this->getListeners($eventName);
 
-        /*foreach ($listeners as $listenersByPriority) {
+        foreach ($listeners as $listenersByPriority) {
             foreach ($listenersByPriority as $listener) {
                 $lastResponse = $listener($event);
                 $responses[]  = $lastResponse;
@@ -207,7 +199,7 @@ class EventManager implements EventManagerInterface, SharedEventManagerAwareInte
             }
         }
 
-        return new ResponseCollection($responses);*/
+        return new ResponseCollection($responses);
     }
 
     /**
@@ -223,40 +215,20 @@ class EventManager implements EventManagerInterface, SharedEventManagerAwareInte
      */
     public function getListeners($eventName)
     {
-        $listeners  = $wildcardListeners = $sharedListeners = [];
-        $mergeCount = 0;
-
-        // pre-order all listeners by priority
-        if (!$this->orderedByPriority) {
-            foreach ($this->events as &$listenersByPriority) {
-                krsort($listenersByPriority, SORT_NUMERIC);
-            }
-
-            $this->orderedByPriority = true;
-        }
-
         // retrieve listeners
-        if (isset($this->events[$eventName]) && ($listeners = $this->events[$eventName])) {
-           ++$mergeCount;
-        }
+        $listeners = isset($this->events[$eventName]) ? $this->events[$eventName] : [];
 
-        if (isset($this->events['*']) && ($wildcardListeners = $this->events['*'])) {
-            ++$mergeCount;
-        }
+        // retrieve wildcard listeners
+        $wildcardListeners = isset($this->events['*']) ? $this->events['*'] : [];
 
-        if (null !== $this->sharedManager
-            && ($sharedListeners = $this->sharedManager->getListeners($this->identifiers, $eventName))
-        ) {
-            ++$mergeCount;
-        }
+        // retrieve shared manager listeners
+        $sharedListeners = (null !== $this->sharedManager)
+            ? $this->sharedManager->getListeners($this->identifiers, $eventName)
+            : [];
 
         // merge
-        if ($mergeCount > 1) {
-            $listeners = array_merge_recursive($listeners, $wildcardListeners, $sharedListeners);
-            krsort($listeners, SORT_NUMERIC);
-        } else {
-           $listeners = $listeners ?: $wildcardListeners ?: $sharedListeners;
-        }
+        $listeners = array_merge_recursive($listeners, $wildcardListeners, $sharedListeners);
+        krsort($listeners, SORT_NUMERIC);
 
         return $listeners;
     }
