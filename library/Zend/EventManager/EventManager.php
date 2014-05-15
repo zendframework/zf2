@@ -301,19 +301,4 @@ class EventManager implements EventManagerInterface
     {
         return $this->identifiers;
     }
-
-    /**
-     * Prepare arguments
-     *
-     * Use this method if you want to be able to modify arguments from within a
-     * listener. It returns an ArrayObject of the arguments, which may then be
-     * passed to trigger() or triggerUntil().
-     *
-     * @param  array $args
-     * @return ArrayObject
-     */
-    public function prepareArgs(array $args)
-    {
-        return new ArrayObject($args);
-    }
 }
