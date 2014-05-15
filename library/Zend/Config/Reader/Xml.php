@@ -149,7 +149,11 @@ class Xml implements ReaderInterface
 
                 if ($attributes) {
                     if (!is_array($child)) {
-                        $child = array();
+                        if(is_string($child)){
+                            $child = array('_' => $child);
+                        }else{
+                            $child = array();
+                        }
                     }
 
                     $child = array_merge($child, $attributes);
