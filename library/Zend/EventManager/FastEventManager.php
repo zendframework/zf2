@@ -104,7 +104,7 @@ class FastEventManager implements EventManagerInterface
                 $lastResponse = $listener($event);
                 $responses[]  = $lastResponse;
 
-                if ($event->isPropagationStopped() || ($callback && $callback($lastResponse))) {
+                if (($callback && $callback($lastResponse) || $event->isPropagationStopped())) {
                     $responseCollection = new ResponseCollection($responses);
                     $responseCollection->setStopped(true);
 
