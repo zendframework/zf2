@@ -29,7 +29,12 @@
     },
     "autoload": {
         "psr-0": {
-            "Zend\\": "library/",
+            "Zend\\": "library/"
+
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
             "ZendBenchmark\\": "benchmarks/"
         }
     },

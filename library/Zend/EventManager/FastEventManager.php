@@ -147,12 +147,18 @@ class FastEventManager implements EventManagerInterface
      */
     public function getListeners($eventName)
     {
-        if (isset($this->orderedByPriority[$eventName]) && !$this->orderedByPriority[$eventName]) {
+        if (!isset($this->events[$eventName])) {
+            return [];
+        }
+
+        // Make sure to return listeners ordered by priority
+        // If `events[$eventName]` exists we are sure that `orderedByPriority[$eventName]` exists, too
+        if (!$this->orderedByPriority[$eventName]) {
             krsort($this->events[$eventName], SORT_NUMERIC);
             $this->orderedByPriority[$eventName] = true;
         }
 
-        return isset($this->events[$eventName]) ? $this->events[$eventName] : [];
+        return $this->events[$eventName];
     }
 
     /**
