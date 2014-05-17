@@ -8,6 +8,8 @@
  */
 
 namespace Zend\Hydrator;
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 
 /**
  * This very simple hydrator uses the public variables of an object.
@@ -22,14 +24,16 @@ class ObjectPropertyHydrator extends AbstractHydrator
         $data   = get_object_vars($object);
         $result = [];
 
+        $context = new ExtractionContext($object);
+
         foreach ($data as $property => $value) {
-            if (!$this->compositeFilter->accept($property, $object)) {
+            if (!$this->compositeFilter->accept($property, $context)) {
                 unset($data[$property]);
                 continue;
             }
 
-            $property          = $this->namingStrategy->getNameForExtraction($property, $object);
-            $result[$property] = $this->extractValue($property, $value, $object);
+            $property          = $this->namingStrategy->getNameForExtraction($property, $context);
+            $result[$property] = $this->extractValue($property, $value, $context);
         }
 
         return $result;
@@ -40,9 +44,11 @@ class ObjectPropertyHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
+        $context = new HydrationContext($data, $object);
+
         foreach ($data as $property => $value) {
-            $property          = $this->namingStrategy->getNameForHydration($property, $data);
-            $object->$property = $this->hydrateValue($property, $value, $data);
+            $property          = $this->namingStrategy->getNameForHydration($property, $context);
+            $object->$property = $this->hydrateValue($property, $value, $context);
         }
 
         return $object;

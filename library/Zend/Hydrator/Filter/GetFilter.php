@@ -9,6 +9,8 @@
 
 namespace Zend\Hydrator\Filter;
 
+use Zend\Hydrator\Context\ExtractionContext;
+
 /**
  * This filter accepts any method that starts with "get"
  */
@@ -17,7 +19,7 @@ class GetFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, $context = null)
+    public function accept($property, ExtractionContext $context)
     {
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;

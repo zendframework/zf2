@@ -17,6 +17,9 @@
  */
 
 namespace Zend\Hydrator\Strategy;
+
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 use Zend\Hydrator\HydratorInterface;
 
 /**
@@ -41,7 +44,7 @@ class HydratorStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function extract($value, $context = null)
+    public function extract($value, ExtractionContext $context)
     {
         if (is_object($value)) {
             return $this->hydrator->extract($value, $context);
@@ -53,7 +56,7 @@ class HydratorStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate($value, $context = null)
+    public function hydrate($value, HydrationContext $context)
     {
         if (is_array($value)) {
             return $this->hydrator->hydrate($value, $context);

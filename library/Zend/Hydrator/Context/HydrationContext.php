@@ -16,30 +16,49 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zend\Hydrator\NamingStrategy;
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
+namespace Zend\Hydrator\Context;
 
 /**
- * Allow to customize property names for hydration and extraction
+ * Hydration context
+ *
+ * @author  Michaël Gallego <mic.gallego@gmail.com>
+ * @licence MIT
  */
-interface NamingStrategyInterface
+class HydrationContext
 {
     /**
-     * Get the name to use for extraction
-     *
-     * @param  string            $name
-     * @param  ExtractionContext $context
-     * @return string
+     * @var object
      */
-    public function getNameForExtraction($name, ExtractionContext $context);
+    protected $object;
 
     /**
-     * Get the name to use for hydration
-     *
-     * @param  string           $name
-     * @param  HydrationContext $context
-     * @return string
+     * @var array
      */
-    public function getNameForHydration($name, HydrationContext $context);
+    protected $data = [];
+
+    /**
+     * @param array  $data
+     * @param object $object
+     */
+    public function __construct(array $data, $object)
+    {
+        $this->data   = $data;
+        $this->object = $object;
+    }
+
+    /**
+     * @return object
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
 }

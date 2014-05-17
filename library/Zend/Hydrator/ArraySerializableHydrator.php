@@ -8,6 +8,8 @@
  */
 
 namespace Zend\Hydrator;
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 
 /**
  * This hydrator uses the getArrayCopy/exchangeArray to extract/hydrate an object, respectively
@@ -28,14 +30,16 @@ class ArraySerializableHydrator extends AbstractHydrator
         $data   = $object->getArrayCopy();
         $result = [];
 
+        $context = new ExtractionContext($object);
+
         foreach ($data as $property => $value) {
             if (!$this->compositeFilter->accept($property, $object)) {
                 unset($data[$property]);
                 continue;
             }
 
-            $property          = $this->namingStrategy->getNameForExtraction($property, $object);
-            $result[$property] = $this->extractValue($property, $value, $object);
+            $property          = $this->namingStrategy->getNameForExtraction($property, $context);
+            $result[$property] = $this->extractValue($property, $value, $context);
         }
 
         return $result;
@@ -46,11 +50,12 @@ class ArraySerializableHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
+        $context     = new HydrationContext($data, $object);
         $replacement = [];
 
         foreach ($data as $property => &$value) {
-            $property               = $this->namingStrategy->getNameForHydration($property, $data);
-            $replacement[$property] = $this->hydrateValue($property, $value, $data);
+            $property               = $this->namingStrategy->getNameForHydration($property, $context);
+            $replacement[$property] = $this->hydrateValue($property, $value, $context);
         }
 
         if (is_callable([$object, 'exchangeArray'])) {

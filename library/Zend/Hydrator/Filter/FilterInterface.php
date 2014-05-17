@@ -8,6 +8,7 @@
  */
 
 namespace Zend\Hydrator\Filter;
+use Zend\Hydrator\Context\ExtractionContext;
 
 /**
  * An filter is a special class that is run before any property/method is extracted, so that
@@ -18,9 +19,9 @@ interface FilterInterface
     /**
      * Should return true if it accepts the given property/method, false otherwise
      *
-     * @param  string $property The name of the property
-     * @param  object $context  An optional context (most often, an object)
+     * @param  string            $property The name of the property
+     * @param  ExtractionContext $context Current extraction context
      * @return bool
      */
-    public function accept($property, $context = null);
+    public function accept($property, ExtractionContext $context);
 }

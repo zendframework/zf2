@@ -19,6 +19,8 @@
 namespace Zend\Hydrator\Strategy;
 
 use DateTime;
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 
 /**
  * Built-in strategy that can outputs Date to a given format. By default, it outputs dates to
@@ -69,7 +71,7 @@ class DateStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function extract($value, $context = null)
+    public function extract($value, ExtractionContext $context)
     {
         if (!$value instanceof DateTime) {
             return $value;
@@ -81,7 +83,7 @@ class DateStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate($value, $context = null)
+    public function hydrate($value, HydrationContext $context)
     {
         return new DateTime($value);
     }

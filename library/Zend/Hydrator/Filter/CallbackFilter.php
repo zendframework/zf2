@@ -9,6 +9,8 @@
 
 namespace Zend\Hydrator\Filter;
 
+use Zend\Hydrator\Context\ExtractionContext;
+
 /**
  * This filter accepts any method where the callable returns true
  */
@@ -30,7 +32,7 @@ class CallbackFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, $context = null)
+    public function accept($property, ExtractionContext $context)
     {
         $callable = $this->callable;
 

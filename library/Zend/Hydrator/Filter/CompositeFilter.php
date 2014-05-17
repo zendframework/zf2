@@ -9,6 +9,8 @@
 
 namespace Zend\Hydrator\Filter;
 
+use Zend\Hydrator\Context\ExtractionContext;
+
 /**
  * A composite filter is built as a tree of filters
  */
@@ -119,7 +121,7 @@ class CompositeFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, $context = null)
+    public function accept($property, ExtractionContext $context)
     {
         // If there are no filters attached, we decide to always accept
         if (empty($this->filters)) {

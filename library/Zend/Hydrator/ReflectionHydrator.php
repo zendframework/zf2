@@ -10,6 +10,8 @@
 namespace Zend\Hydrator;
 
 use ReflectionClass;
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 
 /**
  * This hydrator uses Reflection API to extract/hydrate
@@ -28,18 +30,19 @@ class ReflectionHydrator extends AbstractHydrator
      */
     public function extract($object)
     {
-        $result = array();
+        $result  = [];
+        $context = new ExtractionContext($object);
 
         /* @var \ReflectionProperty $property */
         foreach (self::getReflProperties($object) as $property) {
-            $propertyName = $this->namingStrategy->getNameForExtraction($property->getName(), $object);
+            $propertyName = $this->namingStrategy->getNameForExtraction($property->getName(), $context);
 
-            if (!$this->compositeFilter->accept($property, $object)) {
+            if (!$this->compositeFilter->accept($property, $context)) {
                 continue;
             }
 
             $value                 = $property->getValue($object);
-            $result[$propertyName] = $this->extractValue($propertyName, $value, $object);
+            $result[$propertyName] = $this->extractValue($propertyName, $value, $context);
         }
 
         return $result;
@@ -51,12 +54,13 @@ class ReflectionHydrator extends AbstractHydrator
     public function hydrate(array $data, $object)
     {
         $reflProperties = self::getReflProperties($object);
+        $context        = new HydrationContext($data, $object);
 
         foreach ($data as $property => $value) {
-            $property = $this->namingStrategy->getNameForHydration($property, $data);
+            $property = $this->namingStrategy->getNameForHydration($property, $context);
 
             if (isset($reflProperties[$property])) {
-                $reflProperties[$property]->setValue($object, $this->hydrateValue($property, $value, $data));
+                $reflProperties[$property]->setValue($object, $this->hydrateValue($property, $value, $context));
             }
         }
         return $object;

@@ -17,6 +17,8 @@
  */
 
 namespace Zend\Hydrator\NamingStrategy;
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 
 /**
  * This strategy assumes that incoming data is underscore_separated, and transforms the names
@@ -31,7 +33,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getNameForExtraction($name, $context = null)
+    public function getNameForExtraction($name, ExtractionContext $context)
     {
         return strtolower(preg_replace('/\B([A-Z])/', '_$0', $name));
     }
@@ -39,7 +41,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getNameForHydration($name, $context = null)
+    public function getNameForHydration($name, HydrationContext $context)
     {
         return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($name)))));
     }

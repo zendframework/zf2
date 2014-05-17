@@ -11,6 +11,7 @@ namespace Zend\Hydrator\Filter;
 
 use ReflectionException;
 use ReflectionMethod;
+use Zend\Hydrator\Context\ExtractionContext;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
 /**
@@ -36,14 +37,14 @@ class NumberOfParametersFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, $context = null)
+    public function accept($property, ExtractionContext $context)
     {
         $pos      = strpos($property, '::');
         $pos      = $pos !== false ? $pos + 2 : 0;
         $property = substr($property, $pos);
 
         try {
-            $reflectionMethod = new ReflectionMethod($context, $property);
+            $reflectionMethod = new ReflectionMethod($context->getObject(), $property);
         } catch (ReflectionException $exception) {
             throw new InvalidArgumentException(sprintf('Method "%s" does not exist', $property));
         }

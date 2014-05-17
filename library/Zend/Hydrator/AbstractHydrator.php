@@ -9,6 +9,8 @@
 
 namespace Zend\Hydrator;
 
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 use Zend\Hydrator\Filter\CompositeFilter;
 use Zend\Hydrator\NamingStrategy\NamingStrategyInterface;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
@@ -139,15 +141,15 @@ abstract class AbstractHydrator implements HydratorInterface
     /**
      * Extract the value using a strategy, if one is set
      *
-     * @param  string $property The name of the property
-     * @param  mixed  $value    The value to extract
-     * @param  object $object   The context
+     * @param  string            $property The name of the property
+     * @param  mixed             $value    The value to extract
+     * @param  ExtractionContext $context  The context
      * @return mixed
      */
-    public function extractValue($property, $value, $object)
+    public function extractValue($property, $value, ExtractionContext $context)
     {
         if ($this->hasStrategy($property)) {
-            return $this->getStrategy($property)->extract($value, $object);
+            return $this->getStrategy($property)->extract($value, $context);
         }
 
         return $value;
@@ -156,15 +158,15 @@ abstract class AbstractHydrator implements HydratorInterface
     /**
      * Hydrate the value using a strategy, if one is st
      *
-     * @param  string $property The name of the property
-     * @param  mixed  $value    The value to hydrate
-     * @param  array  $data     The context
+     * @param  string           $property The name of the property
+     * @param  mixed            $value    The value to hydrate
+     * @param  HydrationContext $context  The context
      * @return mixed
      */
-    public function hydrateValue($property, $value, $data)
+    public function hydrateValue($property, $value, HydrationContext $context)
     {
         if ($this->hasStrategy($property)) {
-            return $this->getStrategy($property)->hydrate($value, $data);
+            return $this->getStrategy($property)->hydrate($value, $context);
         }
 
         return $value;

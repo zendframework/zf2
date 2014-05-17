@@ -9,6 +9,9 @@
 
 namespace Zend\Hydrator;
 
+use ProxyManager\ProxyGenerator\Hydrator\MethodGenerator\Extract;
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 use Zend\Hydrator\Filter\CompositeFilter;
 use Zend\Hydrator\Filter\GetFilter;
 use Zend\Hydrator\Filter\HasFilter;
@@ -67,17 +70,19 @@ class ClassMethodsHydrator extends AbstractHydrator
         $methods = get_class_methods($object);
         $result  = [];
 
+        $context = new ExtractionContext($object);
+
         // Pass 1: finding out which properties can be extracted, with which methods (populate hydration cache)
         if (!isset($this->extractionMethodsCache[$objectClass])) {
             $this->extractionMethodsCache[$objectClass] = [];
 
             foreach ($methods as $method) {
-                if (!$this->compositeFilter->accept($method, $object)) {
+                if (!$this->compositeFilter->accept($method, $context)) {
                     continue;
                 }
 
                 $property = preg_replace('/get/', '', $method); // Allow to strip "get" for getters
-                $property = $this->namingStrategy->getNameForExtraction($property, $object);
+                $property = $this->namingStrategy->getNameForExtraction($property, $context);
 
                 $this->extractionMethodsCache[$objectClass][$method] = $property;
             }
@@ -85,7 +90,7 @@ class ClassMethodsHydrator extends AbstractHydrator
 
         // Pass 2: actually extract data
         foreach ($this->extractionMethodsCache[$objectClass] as $method => $property) {
-            $result[$property] = $this->extractValue($property, $object->$method(), $object);
+            $result[$property] = $this->extractValue($property, $object->$method(), $context);
         }
 
         return $result;
@@ -97,12 +102,13 @@ class ClassMethodsHydrator extends AbstractHydrator
     public function hydrate(array $data, $object)
     {
         $objectClass = get_class($object);
+        $context     = new HydrationContext($data, $object);
 
         foreach ($data as $property => $value) {
             $propertyFqn = $objectClass . '::$' . $property;
 
             if (!isset($this->hydrationMethodsCache[$propertyFqn])) {
-                $property = $this->namingStrategy->getNameForHydration($property, $data);
+                $property = $this->namingStrategy->getNameForHydration($property, $context);
                 $method   = 'set' . $property; // PHP is case insensitive for call methods, no
                                                // need to uppercase first character
 
@@ -112,7 +118,7 @@ class ClassMethodsHydrator extends AbstractHydrator
             }
 
             if ($this->hydrationMethodsCache[$propertyFqn]) {
-                $object->{$this->hydrationMethodsCache[$propertyFqn]}($this->hydrateValue($property, $value, $data));
+                $object->{$this->hydrationMethodsCache[$propertyFqn]}($this->hydrateValue($property, $value, $context));
             }
         }
 

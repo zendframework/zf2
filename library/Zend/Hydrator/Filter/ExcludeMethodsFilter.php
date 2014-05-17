@@ -9,6 +9,8 @@
 
 namespace Zend\Hydrator\Filter;
 
+use Zend\Hydrator\Context\ExtractionContext;
+
 /**
  * This filter exclude any methods that have a name in the array
  */
@@ -33,7 +35,7 @@ class ExcludeMethodsFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, $context = null)
+    public function accept($property, ExtractionContext $context)
     {
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;

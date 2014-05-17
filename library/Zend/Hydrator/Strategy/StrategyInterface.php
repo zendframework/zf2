@@ -9,6 +9,9 @@
 
 namespace Zend\Hydrator\Strategy;
 
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
+
 /**
  * A strategy is a very powerful concept that allows to alter a property before extracting or
  * hydrating it
@@ -18,18 +21,18 @@ interface StrategyInterface
     /**
      * Converts the given value so that it can be extracted by the hydrator
      *
-     * @param  mixed $value   The original value
-     * @param  mixed $context An optional context (most often, the array or data)
+     * @param  mixed             $value   The original value
+     * @param  ExtractionContext $context
      * @return mixed
      */
-    public function extract($value, $context = null);
+    public function extract($value, ExtractionContext $context);
 
     /**
      * Converts the given value so that it can be hydrated by the hydrator
      *
-     * @param  mixed $value   The original value
-     * @param  mixed $context An optional context (most often, the object itself for extraction or data for hydration)
+     * @param  mixed            $value   The original value
+     * @param  HydrationContext $context
      * @return mixed
      */
-    public function hydrate($value, $context = null);
+    public function hydrate($value, HydrationContext $context);
 }
