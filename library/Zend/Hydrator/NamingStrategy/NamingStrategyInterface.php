@@ -28,18 +28,18 @@ interface NamingStrategyInterface
     /**
      * Get the name to use for extraction
      *
-     * @param  string            $name
-     * @param  ExtractionContext $context
+     * @param  string                 $name
+     * @param  ExtractionContext|null $context
      * @return string
      */
-    public function getNameForExtraction($name, ExtractionContext $context);
+    public function getNameForExtraction($name, ExtractionContext $context = null);
 
     /**
      * Get the name to use for hydration
      *
-     * @param  string           $name
-     * @param  HydrationContext $context
+     * @param  string                $name
+     * @param  HydrationContext|null $context
      * @return string
      */
-    public function getNameForHydration($name, HydrationContext $context);
+    public function getNameForHydration($name, HydrationContext $context = null);
 }

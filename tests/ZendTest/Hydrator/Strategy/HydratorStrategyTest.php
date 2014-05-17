@@ -18,6 +18,8 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
 use Zend\Hydrator\Strategy\HydratorStrategy;
 
 class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
@@ -26,14 +28,16 @@ class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $data    = ['foo' => 'bar'];
         $value   = new \stdClass;
-        $context = new \stdClass;
+
+        $extractionContext = new ExtractionContext($value);
+        $hydrationContext  = new HydrationContext($data, $value);
 
         $hydrator = $this->getMock('Zend\Hydrator\HydratorInterface');
-        $hydrator->expects($this->once())->method('extract')->with($value, $context);
-        $hydrator->expects($this->once())->method('hydrate')->with($data, $context);
+        $hydrator->expects($this->once())->method('extract')->with($value, $extractionContext);
+        $hydrator->expects($this->once())->method('hydrate')->with($data, $hydrationContext);
 
         $strategy = new HydratorStrategy($hydrator);
-        $strategy->extract($value, $context);
-        $strategy->hydrate($data, $context);
+        $strategy->extract($value, $extractionContext);
+        $strategy->hydrate($data, $hydrationContext);
     }
 }

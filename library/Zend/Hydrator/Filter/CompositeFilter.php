@@ -121,7 +121,7 @@ class CompositeFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, ExtractionContext $context)
+    public function accept($property, ExtractionContext $context = null)
     {
         // If there are no filters attached, we decide to always accept
         if (empty($this->filters)) {

@@ -18,6 +18,7 @@
 
 namespace ZendTest\Hydrator\Filter;
 
+use Zend\Hydrator\Context\ExtractionContext;
 use Zend\Hydrator\Filter\NumberOfParametersFilter;
 use ZendTest\Hydrator\Asset\NumberOfParametersObject;
 
@@ -25,21 +26,22 @@ class NumberOfParametersFilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter()
     {
-        $object = new NumberOfParametersObject();
+        $object  = new NumberOfParametersObject();
+        $context = new ExtractionContext($object);
 
         // Test for 0 parameters
         $filter = new NumberOfParametersFilter();
-        $this->assertTrue($filter->accept('methodWithNoParameters', $object));
-        $this->assertTrue($filter->accept('Object::methodWithNoParameters', $object));
-        $this->assertFalse($filter->accept('methodWithOneParameter', $object));
-        $this->assertFalse($filter->accept('Object::methodWithOneParameter', $object));
+        $this->assertTrue($filter->accept('methodWithNoParameters', $context));
+        $this->assertTrue($filter->accept('Object::methodWithNoParameters', $context));
+        $this->assertFalse($filter->accept('methodWithOneParameter', $context));
+        $this->assertFalse($filter->accept('Object::methodWithOneParameter', $context));
 
         // Test for 1 parameter
         $filter = new NumberOfParametersFilter(1);
-        $this->assertFalse($filter->accept('methodWithNoParameters', $object));
-        $this->assertFalse($filter->accept('Object::methodWithNoParameters', $object));
-        $this->assertTrue($filter->accept('methodWithOneParameter', $object));
-        $this->assertTrue($filter->accept('Object::methodWithOneParameter', $object));
+        $this->assertFalse($filter->accept('methodWithNoParameters', $context));
+        $this->assertFalse($filter->accept('Object::methodWithNoParameters', $context));
+        $this->assertTrue($filter->accept('methodWithOneParameter', $context));
+        $this->assertTrue($filter->accept('Object::methodWithOneParameter', $context));
     }
 
     public function testThrowExceptionForUnknownMethod()
@@ -49,9 +51,10 @@ class NumberOfParametersFilterTest extends \PHPUnit_Framework_TestCase
             'Method "unknownMethod" does not exist'
         );
 
-        $object = new NumberOfParametersObject();
-        $filter = new NumberOfParametersFilter();
+        $object  = new NumberOfParametersObject();
+        $context = new ExtractionContext($object);
+        $filter  = new NumberOfParametersFilter();
 
-        $filter->accept('unknownMethod', $object);
+        $filter->accept('unknownMethod', $context);
     }
 }

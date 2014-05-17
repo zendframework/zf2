@@ -18,6 +18,7 @@
 
 namespace ZendTest\Hydrator\Filter;
 
+use Zend\Hydrator\Context\ExtractionContext;
 use Zend\Hydrator\Filter\CompositeFilter;
 
 class CompositeFilterTest extends \PHPUnit_Framework_TestCase
@@ -76,7 +77,7 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
         $filterOne       = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
         $filterTwo       = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
 
-        $context = new \stdClass;
+        $context = new ExtractionContext(new \stdClass());
 
         $filterOne->expects($this->once())
                   ->method('accept')
@@ -98,7 +99,7 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
         $filterOne       = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
         $filterTwo       = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
 
-        $context = new \stdClass;
+        $context = new ExtractionContext(new \stdClass());
 
         $filterOne->expects($this->once())
                   ->method('accept')

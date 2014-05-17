@@ -18,6 +18,9 @@
 
 namespace ZendTest\Hydrator;
 
+use Zend\Hydrator\Context\ExtractionContext;
+use Zend\Hydrator\Context\HydrationContext;
+
 class AbstractHydratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanSetAndRemoveStrategies()
@@ -82,10 +85,11 @@ class AbstractHydratorTest extends \PHPUnit_Framework_TestCase
         $strategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
         $hydrator->setStrategy('foo', $strategy);
 
-        $object = new \stdClass;
+        $object  = new \stdClass;
+        $context = new ExtractionContext($object);
 
-        $strategy->expects($this->once())->method('extract')->with('myValue', $object);
-        $hydrator->extractValue('foo', 'myValue', $object);
+        $strategy->expects($this->once())->method('extract')->with('myValue', $context);
+        $hydrator->extractValue('foo', 'myValue', $context);
     }
 
     public function testCanHydrateUsingStrategy()
@@ -96,9 +100,10 @@ class AbstractHydratorTest extends \PHPUnit_Framework_TestCase
         $strategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
         $hydrator->setStrategy('foo', $strategy);
 
-        $data = ['myValue' => 'bar'];
+        $data    = ['myValue' => 'bar'];
+        $context = new HydrationContext($data, new \stdClass());
 
-        $strategy->expects($this->once())->method('hydrate')->with('myValue', $data);
-        $hydrator->hydrateValue('foo', 'myValue', $data);
+        $strategy->expects($this->once())->method('hydrate')->with('myValue', $context);
+        $hydrator->hydrateValue('foo', 'myValue', $context);
     }
 }

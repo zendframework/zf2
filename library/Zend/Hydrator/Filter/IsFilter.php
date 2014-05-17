@@ -19,7 +19,7 @@ class IsFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, ExtractionContext $context)
+    public function accept($property, ExtractionContext $context = null)
     {
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;

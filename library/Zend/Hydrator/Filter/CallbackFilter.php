@@ -32,7 +32,7 @@ class CallbackFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, ExtractionContext $context)
+    public function accept($property, ExtractionContext $context = null)
     {
         $callable = $this->callable;
 

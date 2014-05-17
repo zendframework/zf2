@@ -25,12 +25,12 @@ class OptionalParametersFilter implements FilterInterface
      *
      * @var array|bool[]
      */
-    private static $propertiesCache = array();
+    private static $propertiesCache = [];
 
     /**
      * {@inheritDoc}
      */
-    public function accept($property, ExtractionContext $context)
+    public function accept($property, ExtractionContext $context = null)
     {
         if (isset(self::$propertiesCache[$property])) {
             return self::$propertiesCache[$property];

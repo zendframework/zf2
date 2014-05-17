@@ -71,7 +71,7 @@ class DateStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function extract($value, ExtractionContext $context)
+    public function extract($value, ExtractionContext $context = null)
     {
         if (!$value instanceof DateTime) {
             return $value;
@@ -83,7 +83,7 @@ class DateStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate($value, HydrationContext $context)
+    public function hydrate($value, HydrationContext $context = null)
     {
         return new DateTime($value);
     }

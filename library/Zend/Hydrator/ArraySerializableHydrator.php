@@ -33,7 +33,7 @@ class ArraySerializableHydrator extends AbstractHydrator
         $context = new ExtractionContext($object);
 
         foreach ($data as $property => $value) {
-            if (!$this->compositeFilter->accept($property, $object)) {
+            if (!$this->compositeFilter->accept($property, $context)) {
                 unset($data[$property]);
                 continue;
             }

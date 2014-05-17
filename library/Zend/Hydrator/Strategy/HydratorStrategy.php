@@ -44,7 +44,7 @@ class HydratorStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function extract($value, ExtractionContext $context)
+    public function extract($value, ExtractionContext $context = null)
     {
         if (is_object($value)) {
             return $this->hydrator->extract($value, $context);
@@ -56,7 +56,7 @@ class HydratorStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate($value, HydrationContext $context)
+    public function hydrate($value, HydrationContext $context = null)
     {
         if (is_array($value)) {
             return $this->hydrator->hydrate($value, $context);

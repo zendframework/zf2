@@ -35,11 +35,11 @@ class ExcludeMethodsFilter implements FilterInterface
     /**
      * {@inheritDoc}
      */
-    public function accept($property, ExtractionContext $context)
+    public function accept($property, ExtractionContext $context = null)
     {
         $pos = strpos($property, '::');
         $pos = $pos !== false ? $pos + 2 : 0;
 
-        return isset($this->methods[substr($property, $pos)]);
+        return !isset($this->methods[substr($property, $pos)]);
     }
 }

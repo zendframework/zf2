@@ -19,9 +19,9 @@ interface FilterInterface
     /**
      * Should return true if it accepts the given property/method, false otherwise
      *
-     * @param  string            $property The name of the property
-     * @param  ExtractionContext $context Current extraction context
+     * @param  string                 $property The name of the property
+     * @param  ExtractionContext|null $context Current extraction context
      * @return bool
      */
-    public function accept($property, ExtractionContext $context);
+    public function accept($property, ExtractionContext $context = null);
 }

@@ -18,6 +18,7 @@
 
 namespace ZendTest\Hydrator\Filter;
 
+use Zend\Hydrator\Context\ExtractionContext;
 use Zend\Hydrator\Filter\OptionalParametersFilter;
 use ZendTest\Hydrator\Asset\NumberOfParametersObject;
 
@@ -25,14 +26,15 @@ class OptionalParametersFilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter()
     {
-        $object = new NumberOfParametersObject();
-        $filter = new OptionalParametersFilter();
+        $object  = new NumberOfParametersObject();
+        $context = new ExtractionContext($object);
+        $filter  = new OptionalParametersFilter();
 
         // Test for method that does not have any required parameters
-        $this->assertTrue($filter->accept('methodWithNoParameters', $object));
-        $this->assertTrue($filter->accept('Object::methodWithNoParameters', $object));
-        $this->assertFalse($filter->accept('methodWithOneParameter', $object));
-        $this->assertFalse($filter->accept('Object::methodWithOneParameter', $object));
+        $this->assertTrue($filter->accept('methodWithNoParameters', $context));
+        $this->assertTrue($filter->accept('Object::methodWithNoParameters', $context));
+        $this->assertFalse($filter->accept('methodWithOneParameter', $context));
+        $this->assertFalse($filter->accept('Object::methodWithOneParameter', $context));
     }
 
     public function testThrowExceptionForUnknownMethod()
@@ -42,9 +44,10 @@ class OptionalParametersFilterTest extends \PHPUnit_Framework_TestCase
             'Method "unknownMethod" does not exist'
         );
 
-        $object = new NumberOfParametersObject();
-        $filter = new OptionalParametersFilter();
+        $object  = new NumberOfParametersObject();
+        $context = new ExtractionContext($object);
+        $filter  = new OptionalParametersFilter();
 
-        $filter->accept('unknownMethod', $object);
+        $filter->accept('unknownMethod', $context);
     }
 }

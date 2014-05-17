@@ -33,7 +33,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getNameForExtraction($name, ExtractionContext $context)
+    public function getNameForExtraction($name, ExtractionContext $context = null)
     {
         return strtolower(preg_replace('/\B([A-Z])/', '_$0', $name));
     }
@@ -41,7 +41,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getNameForHydration($name, HydrationContext $context)
+    public function getNameForHydration($name, HydrationContext $context = null)
     {
         return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($name)))));
     }
