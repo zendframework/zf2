@@ -65,4 +65,13 @@ class EventTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('default', $event->getParam('baz', 'default'));
     }
+
+    public function testAssertPropagationIsStoppedByDefault()
+    {
+        $event = new Event();
+        $this->assertFalse($event->isPropagationStopped());
+
+        $event->stopPropagation(true);
+        $this->assertTrue($event->isPropagationStopped());
+    }
 }

@@ -145,15 +145,6 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['event1', 'event2'], $eventManager->getEventNames());
     }
 
-    public function testCanPrepareArgs()
-    {
-        $eventManager = new EventManager();
-        $args         = $eventManager->prepareArgs(['value']);
-
-        $this->assertInstanceOf('ArrayObject', $args);
-        $this->assertCount(1, $args);
-    }
-
     public function testCanTriggerListenersByPriority()
     {
         $eventManager = new EventManager();

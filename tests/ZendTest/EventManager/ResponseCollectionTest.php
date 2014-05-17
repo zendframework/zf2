@@ -24,6 +24,8 @@ class ResponseCollectionTest extends \PHPUnit_Framework_TestCase
 
         $responseCollection->setStopped(true);
         $this->assertTrue($responseCollection->stopped());
+        $this->assertTrue($responseCollection->contains('value1'));
+        $this->assertFalse($responseCollection->contains('value4'));
     }
 
     public function testResponseCollectionIsIterableAndCountable()

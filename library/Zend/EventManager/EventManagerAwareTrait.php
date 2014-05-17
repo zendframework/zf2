@@ -17,11 +17,6 @@ trait EventManagerAwareTrait
     protected $eventManager;
 
     /**
-     * @var array
-     */
-    protected $eventIdentifiers = array();
-
-    /**
      * Set the event manager instance used by this context
      *
      * @param  EventManagerInterface $eventManager
@@ -30,8 +25,10 @@ trait EventManagerAwareTrait
     public function setEventManager(EventManagerInterface $eventManager)
     {
         if ($eventManager instanceof SharedEventManagerAwareInterface) {
+            $eventIdentifiers = isset($this->eventIdentifiers) ? (array) $this->eventIdentifiers : [];
+
             $eventManager->setIdentifiers(
-                array_unique(array_merge([__CLASS__, get_class($this)], $this->eventIdentifiers)
+                array_unique(array_merge([__CLASS__, get_class($this)], $eventIdentifiers)
             ));
         }
 
