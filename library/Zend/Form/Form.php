@@ -18,6 +18,7 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\InputFilter\ReplaceableInputInterface;
+use Zend\InputFilter\CollectionInput;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
@@ -760,7 +761,7 @@ class Form extends Fieldset implements FormInterface
             $elements = $fieldset->getElements();
         }
 
-        if (!$fieldset instanceof Collection || !$fieldset->getTargetElement() instanceof FieldsetInterface || $inputFilter instanceof CollectionInputFilter) {
+        if (!$fieldset instanceof Collection || $inputFilter instanceof CollectionInputFilter) {
             foreach ($elements as $element) {
                 $name = $element->getName();
 
@@ -810,6 +811,20 @@ class Form extends Fieldset implements FormInterface
                     } else {
                         if ($fieldset instanceof Collection && $inputFilter instanceof CollectionInputFilter) {
                             continue;
+                        } else if ($childFieldset instanceof Collection && !$childFieldset->getTargetElement() instanceof FieldsetInterface) {
+                            /**
+                             * We have a collection with a target element that
+                             * is not a fieldset.  Add an CollectionInput,
+                             * considering the wishes of the target element.
+                             */
+                            if ($childFieldset->getTargetElement() instanceof InputProviderInterface) {
+                                $collectionInputSpec = $childFieldset->getTargetElement()->getInputSpecification();
+                                $collectionInputSpec['type'] = 'Zend\InputFilter\CollectionInput';
+                                unset($collectionInputSpec['name']);
+                                $inputFilter->add($collectionInputSpec, $name);
+                            } else {
+                                $inputFilter->add(new CollectionInput(), $name);
+                            }
                         } else {
                             $inputFilter->add(new InputFilter(), $name);
                         }
