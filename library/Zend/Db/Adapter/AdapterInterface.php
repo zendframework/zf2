@@ -26,4 +26,9 @@ interface AdapterInterface
      */
     public function getPlatform();
 
+    /**
+     * @return \Zend\Db\Sql\Platform\AbstractPlatform
+     */
+    public function getSqlPlatform();
+
 }

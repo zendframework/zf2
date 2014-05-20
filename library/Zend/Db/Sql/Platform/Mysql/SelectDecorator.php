@@ -36,7 +36,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
      * @param AdapterInterface $adapter
      * @param StatementContainerInterface $statementContainer
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    protected function processPrepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
     {
         // localize variables
         foreach (get_object_vars($this->select) as $name => $value) {
@@ -45,14 +45,17 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         if ($this->limit === null && $this->offset !== null) {
             $this->specifications[self::LIMIT] = 'LIMIT 18446744073709551615';
         }
-        parent::prepareStatement($adapter, $statementContainer);
+        parent::processPrepareStatement($adapter, $statementContainer);
     }
 
     /**
-     * @param PlatformInterface $platform
+     * Get the SQL string, based on the platform
+     *
+     * @param AdapterInterface $adapter
+     * @param PlatformInterface $adapterPlatform
      * @return string
      */
-    public function getSqlString(PlatformInterface $platform = null)
+    protected function processGetSqlString(AdapterInterface $adapter, PlatformInterface $adapterPlatform)
     {
         // localize variables
         foreach (get_object_vars($this->select) as $name => $value) {
@@ -61,10 +64,10 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         if ($this->limit === null && $this->offset !== null) {
             $this->specifications[self::LIMIT] = 'LIMIT 18446744073709551615';
         }
-        return parent::getSqlString($platform);
+        return parent::processGetSqlString($adapter, $adapterPlatform);
     }
 
-    protected function processLimit(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
+    protected function processLimit(AdapterInterface $adapter, PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
         if ($this->limit === null && $this->offset !== null) {
             return array('');
@@ -82,7 +85,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         return array($sql);
     }
 
-    protected function processOffset(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
+    protected function processOffset(AdapterInterface $adapter, PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
         if ($this->offset === null) {
             return null;

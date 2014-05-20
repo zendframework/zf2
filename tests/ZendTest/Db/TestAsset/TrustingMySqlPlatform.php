@@ -7,10 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Db\Sql;
+namespace ZendTest\Db\TestAsset;
 
+use Zend\Db\Adapter\Platform\MySql;
 
-interface SqlInterface
+class TrustingMySqlPlatform extends MySql
 {
-    public function getSqlString($adapterPlatform = null);
+    public function quoteValue($value)
+    {
+        return $this->quoteTrustedValue($value);
+    }
 }

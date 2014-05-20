@@ -10,7 +10,6 @@
 namespace Zend\Db\Sql\Platform;
 
 use Zend\Db\Adapter\AdapterInterface;
-use Zend\Db\Adapter\Platform\PlatformInterface;
 use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Sql\Exception;
 use Zend\Db\Sql\PreparableSqlInterface;
@@ -29,11 +28,23 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     protected $decorators = array();
 
     /**
+     * @var array
+     */
+    protected $cloneCounter = array();
+
+    /**
      * @param $subject
+     * @return self
      */
     public function setSubject($subject)
     {
         $this->subject = $subject;
+        return $this;
+    }
+
+    public function getSubject()
+    {
+        return $this->subject;
     }
 
     /**
@@ -65,46 +76,52 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
             throw new Exception\RuntimeException('The subject does not appear to implement Zend\Db\Sql\PreparableSqlInterface, thus calling prepareStatement() has no effect');
         }
 
-        $decoratorForType = false;
-        foreach ($this->decorators as $type => $decorator) {
-            if ($this->subject instanceof $type && $decorator instanceof PreparableSqlInterface) {
-                /** @var $decoratorForType PreparableSqlInterface|PlatformDecoratorInterface */
-                $decoratorForType = $decorator;
-                break;
-            }
-        }
-        if ($decoratorForType) {
+        if ($decoratorForType = $this->getDecoratorForType()) {
             $decoratorForType->setSubject($this->subject);
             $decoratorForType->prepareStatement($adapter, $statementContainer);
+            $this->cloneCounter[get_class($decoratorForType)]--;
         } else {
             $this->subject->prepareStatement($adapter, $statementContainer);
         }
     }
 
     /**
-     * @param null|\Zend\Db\Adapter\Platform\PlatformInterface $adapterPlatform
+     * @param null|AdapterInterface|\Zend\Db\Adapter\Platform\PlatformInterface $adapterPlatform
      * @return mixed
      * @throws Exception\RuntimeException
      */
-    public function getSqlString(PlatformInterface $adapterPlatform = null)
+    public function getSqlString($adapterPlatform = null)
     {
         if (!$this->subject instanceof SqlInterface) {
             throw new Exception\RuntimeException('The subject does not appear to implement Zend\Db\Sql\PreparableSqlInterface, thus calling prepareStatement() has no effect');
         }
 
-        $decoratorForType = false;
-        foreach ($this->decorators as $type => $decorator) {
-            if ($this->subject instanceof $type && $decorator instanceof SqlInterface) {
-                /** @var $decoratorForType SqlInterface|PlatformDecoratorInterface */
-                $decoratorForType = $decorator;
-                break;
-            }
-        }
-        if ($decoratorForType) {
+        if ($decoratorForType = $this->getDecoratorForType()) {
             $decoratorForType->setSubject($this->subject);
-            return $decoratorForType->getSqlString($adapterPlatform);
+            $sql = $decoratorForType->getSqlString($adapterPlatform);
+            $this->cloneCounter[get_class($decoratorForType)]--;
+            return $sql;
         }
 
         return $this->subject->getSqlString($adapterPlatform);
+    }
+
+    /**
+     * @return null|SqlInterface|PlatformDecoratorInterface
+     */
+    protected function getDecoratorForType()
+    {
+        foreach ($this->decorators as $type => $decorator) {
+            if ($this->subject instanceof $type && is_a($decorator, $type, true)) {
+                $decoratorClass = get_class($decorator);
+                $counter = isset($this->cloneCounter[$decoratorClass])
+                        ? ++$this->cloneCounter[$decoratorClass]
+                        : $this->cloneCounter[$decoratorClass] = 0;
+                return $counter === 0
+                        ? $decorator
+                        : clone $decorator;
+            }
+        }
+        return null;
     }
 }
