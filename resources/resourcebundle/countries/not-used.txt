@@ -1,0 +1,12 @@
+not-used {
+    AP { "African Regional Industrial Property Organization" }
+    BX { "Benelux Trademarks and Design Offices" }
+    EF { "Union of Countries under the European Community Patent Convention" }
+    EM { "European Trademark Office" }
+    EP { "European Patent Organization" }
+    EV { "Eurasian Patent Organization" }
+    GC { "Patent Office of the Cooperation Council for the Arab States of the Gulf (GCC)" }
+    IB { "International Bureau of WIPO" }
+    OA { "African Intellectual Property Organization" }
+    WO { "World Intellectual Property Organization" }
+}
