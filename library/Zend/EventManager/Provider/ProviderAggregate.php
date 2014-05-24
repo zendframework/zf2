@@ -77,15 +77,15 @@ class ProviderAggregate implements ProviderInterface
 
     /**
      * @param $eventName
-     * @param $context
+     * @param $target
      * @param array $parameters
      * @throws \Zend\EventManager\Exception\RuntimeException
      * @return \Zend\EventManager\EventInterface
      */
-    public function get($eventName, $context = null, $parameters = null)
+    public function get($eventName, $target = null, $parameters = array())
     {
         foreach ($this->queue as $provider) {
-            $event = $provider->get($eventName, $context, $parameters);
+            $event = $provider->get($eventName, $target, $parameters);
             if ($event instanceof EventInterface) {
                 return $event;
             }

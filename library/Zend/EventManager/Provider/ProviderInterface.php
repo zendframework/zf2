@@ -6,9 +6,9 @@ interface ProviderInterface
 {
     /**
      * @param $eventName
-     * @param $context
+     * @param $target
      * @param array $parameters
      * @return \Zend\EventManager\EventInterface
      */
-    public function get($eventName, $context = null, $parameters = []);
+    public function get($eventName, $target = null, $parameters = array());
 }

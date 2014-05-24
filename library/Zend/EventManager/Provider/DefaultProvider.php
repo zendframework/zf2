@@ -39,15 +39,15 @@ class DefaultProvider implements ProviderInterface, EventClassAwareInterface
 
     /**
      * @param $eventName
-     * @param $context
+     * @param $target
      * @param $parameters
      * @return \Zend\EventManager\EventInterface
      */
-    public function get($eventName, $context = null, $parameters = [])
+    public function get($eventName, $target = null, $parameters = array())
     {
         $event = new $this->eventClass();
         $event->setName($eventName);
-        $event->setTarget($context);
+        $event->setTarget($target);
         $event->setParams($parameters);
 
         return $event;

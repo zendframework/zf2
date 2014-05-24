@@ -38,15 +38,15 @@ class PrototypeProvider extends DefaultProvider
 
     /**
      * @param $eventName
-     * @param $context
+     * @param $target
      * @param array $parameters
      * @return \Zend\EventManager\Event|\Zend\EventManager\EventInterface
      */
-    public function get($eventName, $context = null, $parameters = [])
+    public function get($eventName, $target = null, $parameters = array())
     {
         $event = $this->getEventPrototype();
         $event->setName($eventName);
-        $event->setTarget($context);
+        $event->setTarget($target);
         $event->setParams($parameters);
 
         return $event;
