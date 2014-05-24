@@ -2,7 +2,7 @@
 
 namespace ZendTest\EventManager\Resolver;
 
-use Zend\EventManager\Resolver\PrototypeResolver;
+use Zend\EventManager\Provider\PrototypeProvider;
 
 /**
  * @group Zend_EventManager
@@ -10,13 +10,13 @@ use Zend\EventManager\Resolver\PrototypeResolver;
 class PrototypeResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var PrototypeResolver
+     * @var PrototypeProvider
      */
     public $resolver;
 
     public function setUp()
     {
-        $this->resolver = new PrototypeResolver();
+        $this->resolver = new PrototypeProvider();
     }
 
     public function testSetEventPrototype()

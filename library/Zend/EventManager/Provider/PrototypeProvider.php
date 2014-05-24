@@ -1,13 +1,13 @@
 <?php
 
-namespace Zend\EventManager\Resolver;
+namespace Zend\EventManager\Provider;
 
 use Zend\EventManager\EventInterface;
 
 /**
  * Use EventClass or Event instance as prototype
  */
-class PrototypeResolver extends DefaultResolver
+class PrototypeProvider extends DefaultProvider
 {
     /**
      * @var \Zend\EventManager\Event
@@ -38,14 +38,17 @@ class PrototypeResolver extends DefaultResolver
 
     /**
      * @param $eventName
+     * @param $context
+     * @param array $parameters
      * @return \Zend\EventManager\Event|\Zend\EventManager\EventInterface
      */
-    public function get($eventName = null)
+    public function get($eventName, $context = null, $parameters = [])
     {
         $event = $this->getEventPrototype();
-        if (null !== $eventName) {
-            $event->setName($eventName);
-        }
+        $event->setName($eventName);
+        $event->setTarget($context);
+        $event->setParams($parameters);
+
         return $event;
     }
 }

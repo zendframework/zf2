@@ -2,7 +2,7 @@
 
 namespace ZendTest\EventManager\Resolver;
 
-use Zend\EventManager\Resolver\EventPluginManager;
+use Zend\EventManager\Provider\EventPluginManager;
 
 /**
  * @group Zend_EventManager

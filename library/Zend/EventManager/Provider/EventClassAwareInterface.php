@@ -1,6 +1,6 @@
 <?php
 
-namespace Zend\EventManager\Resolver;
+namespace Zend\EventManager\Provider;
 
 /**
  * Provides compatibility layer with EventManager::setEventClass($class)

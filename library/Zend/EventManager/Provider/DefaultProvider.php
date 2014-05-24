@@ -1,10 +1,10 @@
 <?php
 
-namespace Zend\EventManager\Resolver;
+namespace Zend\EventManager\Provider;
 
 use Zend\EventManager\Exception\InvalidArgumentException;
 
-class DefaultResolver implements ResolverInterface, EventClassAwareInterface
+class DefaultProvider implements ProviderInterface, EventClassAwareInterface
 {
     /**
      * @var string
@@ -39,10 +39,14 @@ class DefaultResolver implements ResolverInterface, EventClassAwareInterface
 
     /**
      * @param $eventName
+     * @param $context
+     * @param $parameters
      * @return \Zend\EventManager\EventInterface
      */
-    public function get($eventName = null)
+    public function get($eventName, $context = null, $parameters = null)
     {
-        return new $this->eventClass($eventName);
+        $event = new $this->eventClass($eventName, $context, $parameters);
+
+        return $event;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zend\EventManager\Resolver;
+namespace Zend\EventManager\Provider;
 
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\Exception\RuntimeException;
@@ -11,7 +11,7 @@ use Zend\ServiceManager\AbstractPluginManager;
  * If a triggered event has other that an EventInterface as first parameter, and this manager is set
  * as event resolver for EventManager, then the first parameter will be used as service index key.
  */
-class EventPluginManager extends AbstractPluginManager implements ResolverInterface
+class EventPluginManager extends AbstractPluginManager implements ProviderInterface
 {
     /**
      * Do not share events instances by default

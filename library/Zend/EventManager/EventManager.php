@@ -13,8 +13,8 @@ use ArrayAccess;
 use ArrayObject;
 use Traversable;
 use Zend\EventManager\Exception\RuntimeException;
-use Zend\EventManager\Resolver\EventClassAwareInterface;
-use Zend\EventManager\Resolver\PrototypeResolver;
+use Zend\EventManager\Provider\EventClassAwareInterface;
+use Zend\EventManager\Provider\PrototypeProvider;
 use Zend\Stdlib\CallbackHandler;
 use Zend\Stdlib\PriorityQueue;
 
@@ -46,9 +46,9 @@ class EventManager implements EventManagerInterface
 
     /**
      * Create events instances from resolver
-     * @var Resolver\ResolverInterface
+     * @var Provider\ProviderInterface
      */
-    protected $eventResolver;
+    protected $eventProvider;
 
     /**
      * Constructor
@@ -69,11 +69,11 @@ class EventManager implements EventManagerInterface
      * @param string $class                 The class name
      *
      * @return EventManager                 Provides a fluent interface
-     * @throws Exception\RuntimeException   If the Resolver does not implements \Zend\EventManager\Resolver\EventClassAwareInterface
+     * @throws Exception\RuntimeException   If the Resolver does not implements \Zend\EventManager\Provider\EventClassAwareInterface
      */
     public function setEventClass($class)
     {
-        $resolver = $this->getEventResolver();
+        $resolver = $this->getEventProvider();
 
         if (! $resolver instanceof EventClassAwareInterface) {
             throw new RuntimeException(sprintf(
@@ -86,25 +86,25 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * @param Resolver\ResolverInterface $eventResolver
+     * @param Provider\ProviderInterface $eventResolver
      * @return self
      */
-    public function setEventResolver(Resolver\ResolverInterface $eventResolver)
+    public function setEventProvider(Provider\ProviderInterface $eventResolver)
     {
-        $this->eventResolver = $eventResolver;
+        $this->eventProvider = $eventResolver;
         return $this;
     }
 
     /**
      * Get the resolver: If none provided, the default is assigned at first call
-     * @return Resolver\ResolverInterface
+     * @return Provider\ProviderInterface
      */
-    public function getEventResolver()
+    public function getEventProvider()
     {
-        if (null === $this->eventResolver) {
-            $this->setEventResolver(new PrototypeResolver);
+        if (null === $this->eventProvider) {
+            $this->setEventProvider(new PrototypeProvider);
         }
-        return $this->eventResolver;
+        return $this->eventProvider;
     }
 
     /**
@@ -227,9 +227,7 @@ class EventManager implements EventManagerInterface
             $e->setName($event);
             $e->setTarget($target);
         } else {
-            $e = $this->getEventResolver()->get($event);
-            $e->setTarget($target);
-            $e->setParams($argv);
+            $e = $this->getEventProvider()->get($event, $target, $argv);
         }
 
         if ($callback && !is_callable($callback)) {
@@ -271,9 +269,7 @@ class EventManager implements EventManagerInterface
             $e->setName($event);
             $e->setTarget($target);
         } else {
-            $e = $this->getEventResolver()->get($event);
-            $e->setTarget($target);
-            $e->setParams($argv);
+            $e = $this->getEventProvider()->get($event, $target, $argv);
         }
 
         if (!is_callable($callback)) {
