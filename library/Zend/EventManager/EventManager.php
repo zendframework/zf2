@@ -45,7 +45,7 @@ class EventManager implements EventManagerInterface
     protected $sharedManager = null;
 
     /**
-     * Create events instances from resolver
+     * Create events instances from provider
      * @var Provider\ProviderInterface
      */
     protected $eventProvider;
@@ -73,14 +73,14 @@ class EventManager implements EventManagerInterface
      */
     public function setEventClass($class)
     {
-        $resolver = $this->getEventProvider();
+        $provider = $this->getEventProvider();
 
-        if (! $resolver instanceof EventClassAwareInterface) {
+        if (! $provider instanceof EventClassAwareInterface) {
             throw new RuntimeException(sprintf(
-                'Resolver of class %s does not supports eventClass assignment', get_class($resolver)
+                'Provider of class %s does not supports eventClass assignment', get_class($provider)
             ));
         }
-        $resolver->setEventClass($class);
+        $provider->setEventClass($class);
 
         return $this;
     }
