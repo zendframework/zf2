@@ -87,7 +87,7 @@ class ProviderAggregate implements ProviderInterface
      * @param $target
      * @param array $parameters
      * @throws \Zend\EventManager\Exception\RuntimeException
-     * @return \Zend\EventManager\EventInterface
+     * @return \Zend\EventManager\EventInterface|void
      */
     public function get($eventName, $target = null, $parameters = array())
     {
