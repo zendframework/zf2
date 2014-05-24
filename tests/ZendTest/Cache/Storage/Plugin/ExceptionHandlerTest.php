@@ -20,7 +20,7 @@ class ExceptionHandlerTest extends CommonPluginTest
     /**
      * The storage adapter
      *
-     * @var Zend\Cache\Storage\Adapter\AbstractAdapter
+     * @var \Zend\Cache\Storage\Adapter\AbstractAdapter
      */
     protected $_adapter;
 
@@ -71,6 +71,8 @@ class ExceptionHandlerTest extends CommonPluginTest
 
             'decrementItem.exception'  => 'onException',
             'decrementItems.exception' => 'onException',
+
+            'clearExpired.exception' => 'onException',
         );
         foreach ($expectedListeners as $eventName => $expectedCallbackMethod) {
             $listeners = $this->_adapter->getEventManager()->getListeners($eventName);

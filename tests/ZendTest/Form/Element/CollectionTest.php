@@ -9,9 +9,9 @@
 
 namespace ZendTest\Form\Element;
 
-use stdClass;
 use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
+use stdClass;
 use Zend\Form\Element;
 use Zend\Form\Element\Collection as Collection;
 use Zend\Form\Fieldset;
@@ -21,10 +21,10 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Stdlib\Hydrator\ObjectProperty as ObjectPropertyHydrator;
 use ZendTest\Form\TestAsset\ArrayModel;
 use ZendTest\Form\TestAsset\CustomCollection;
-use ZendTest\Form\TestAsset\Entity\Product;
-use ZendTest\Form\TestAsset\ProductFieldset;
 use ZendTest\Form\TestAsset\Entity\Address;
 use ZendTest\Form\TestAsset\Entity\Phone;
+use ZendTest\Form\TestAsset\Entity\Product;
+use ZendTest\Form\TestAsset\ProductFieldset;
 
 class CollectionTest extends TestCase
 {
@@ -150,6 +150,63 @@ class CollectionTest extends TestCase
         $this->assertEquals(true, $this->form->isValid());
     }
 
+    public function testCannotValidateFormWithCollectionWithBadColor()
+    {
+        $this->form->setData(array(
+            'colors' => array(
+                '#ffffff',
+                '123465'
+            ),
+            'fieldsets' => array(
+                array(
+                    'field' => 'oneValue',
+                    'nested_fieldset' => array(
+                        'anotherField' => 'anotherValue'
+                    )
+                ),
+                array(
+                    'field' => 'twoValue',
+                    'nested_fieldset' => array(
+                        'anotherField' => 'anotherValue'
+                    )
+                )
+            )
+        ));
+
+        $this->assertEquals(false, $this->form->isValid());
+        $messages = $this->form->getMessages();
+        $this->assertArrayHasKey('colors', $messages);
+    }
+
+    public function testCannotValidateFormWithCollectionWithBadFieldsetField()
+    {
+        $this->form->setData(array(
+            'colors' => array(
+                '#ffffff',
+                '#ffffff'
+            ),
+            'fieldsets' => array(
+                array(
+                    'field' => 'oneValue',
+                    'nested_fieldset' => array(
+                        'anotherField' => 'anotherValue'
+                    )
+                ),
+                array(
+                    'field' => 'twoValue',
+                    'nested_fieldset' => array(
+                        'anotherField' => null,
+                    )
+                )
+            )
+        ));
+
+        $this->assertEquals(false, $this->form->isValid());
+        $messages = $this->form->getMessages();
+        $this->assertCount(1, $messages);
+        $this->assertArrayHasKey('fieldsets', $messages);
+    }
+
     public function testCanValidateFormWithCollectionWithTemplate()
     {
         $collection = $this->form->get('colors');
@@ -247,13 +304,13 @@ class CollectionTest extends TestCase
         $collection = $this->form->get('colors');
         $element = new Element('foo');
         $collection->setOptions(array(
-                                  'target_element' => $element,
-                                  'count' => 2,
-                                  'allow_add' => true,
-                                  'allow_remove' => false,
-                                  'should_create_template' => true,
-                                  'template_placeholder' => 'foo',
-                             ));
+            'target_element' => $element,
+            'count' => 2,
+            'allow_add' => true,
+            'allow_remove' => false,
+            'should_create_template' => true,
+            'template_placeholder' => 'foo',
+        ));
         $this->assertInstanceOf('Zend\Form\Element', $collection->getOption('target_element'));
         $this->assertEquals(2, $collection->getOption('count'));
         $this->assertEquals(true, $collection->getOption('allow_add'));
@@ -309,12 +366,12 @@ class CollectionTest extends TestCase
         $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
         $cat2->setName("bar2");
 
-        $product->setCategories(array($cat1,$cat2));
+        $product->setCategories(array($cat1, $cat2));
 
         $form->bind($product);
 
         $form->setData(
-            array("product"=>
+            array("product" =>
                 array(
                     "name" => "franz",
                     "price" => 13,
@@ -328,7 +385,7 @@ class CollectionTest extends TestCase
 
         $objectAfterExtractHash = spl_object_hash($this->productFieldset->get("categories")->getTargetElement()->getObject());
 
-        $this->assertSame($originalObjectHash,$objectAfterExtractHash);
+        $this->assertSame($originalObjectHash, $objectAfterExtractHash);
     }
 
     public function testDoesNotCreateNewObjects()
@@ -351,12 +408,12 @@ class CollectionTest extends TestCase
         $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
         $cat2->setName("bar2");
 
-        $product->setCategories(array($cat1,$cat2));
+        $product->setCategories(array($cat1, $cat2));
 
         $form->bind($product);
 
         $form->setData(
-            array("product"=>
+            array("product" =>
                 array(
                     "name" => "franz",
                     "price" => 13,
@@ -399,12 +456,12 @@ class CollectionTest extends TestCase
         $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
         $cat2->setName("bar2");
 
-        $product->setCategories(array($cat1,$cat2));
+        $product->setCategories(array($cat1, $cat2));
 
         $form->bind($product);
 
         $form->setData(
-            array("product"=>
+            array("product" =>
                 array(
                     "name" => "franz",
                     "price" => 13,
@@ -420,6 +477,30 @@ class CollectionTest extends TestCase
         $categories = $product->getCategories();
         $this->assertNotSame($categories[0], $cat1);
         $this->assertNotSame($categories[1], $cat2);
+    }
+
+    public function testDoNotCreateExtraFieldsetOnMultipleBind()
+    {
+        $form = new \Zend\Form\Form();
+        $this->productFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
+        $form->add($this->productFieldset);
+        $form->setHydrator(new \Zend\Stdlib\Hydrator\ObjectProperty());
+
+        $product = new Product();
+        $categories = array(new \ZendTest\Form\TestAsset\Entity\Category(), new \ZendTest\Form\TestAsset\Entity\Category());
+        $product->setCategories($categories);
+
+        $market = new \StdClass();
+        $market->product = $product;
+
+        // this will pass the test
+        $form->bind($market);
+        $this->assertSame(count($categories), iterator_count($form->get('product')->get('categories')->getIterator()));
+
+        // this won't pass, but must
+        $form->bind($market);
+        $this->assertSame(count($categories), iterator_count($form->get('product')->get('categories')->getIterator()));
+
     }
 
     public function testExtractDefaultIsEmptyArray()
@@ -462,10 +543,10 @@ class CollectionTest extends TestCase
 
         $mockHydrator = $this->getMock('Zend\Stdlib\Hydrator\HydratorInterface');
         $mockHydrator->expects($this->exactly(2))
-                     ->method('extract')
-                     ->will($this->returnCallback(function ($object) {
-                         return $object->field . '_foo';
-                     }));
+            ->method('extract')
+            ->will($this->returnCallback(function ($object) {
+                return $object->field . '_foo';
+            }));
 
         $collection->setHydrator($mockHydrator);
 
@@ -531,7 +612,7 @@ class CollectionTest extends TestCase
         $obj1 = new stdClass();
 
         $targetElement->setHydrator(new ObjectPropertyHydrator())
-                      ->setObject($obj1);
+            ->setObject($obj1);
 
         $obj2 = new stdClass();
         $obj2->field = 'fieldOne';
@@ -545,13 +626,12 @@ class CollectionTest extends TestCase
         ));
     }
 
-    public function testCanBindObjectAndPopulateAndExtractNestedFieldsets()
+    public function testCollectionCanBindObjectAndPopulateAndExtractNestedFieldsets()
     {
-
         $productFieldset = new \ZendTest\Form\TestAsset\ProductFieldset();
         $productFieldset->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
 
-        $mainFieldset = new Fieldset('shop');
+        $mainFieldset = new Fieldset();
         $mainFieldset->setObject(new stdClass);
         $mainFieldset->setHydrator(new ObjectPropertyHydrator());
         $mainFieldset->add($productFieldset);
@@ -570,26 +650,102 @@ class CollectionTest extends TestCase
         $market = new stdClass();
 
         $prices = array(100, 200);
+        $categoryNames = array('electronics', 'furniture');
+        $productCountries = array('Russia', 'Jamaica');
 
         $shop1 = new stdClass();
         $shop1->product = new Product();
         $shop1->product->setPrice($prices[0]);
 
+        $category = new \ZendTest\Form\TestAsset\Entity\Category();
+        $category->setName($categoryNames[0]);
+        $shop1->product->setCategories(array($category));
+
+        $country = new  \ZendTest\Form\TestAsset\Entity\Country();
+        $country->setName($productCountries[0]);
+        $shop1->product->setMadeInCountry($country);
+
+
+
         $shop2 = new stdClass();
         $shop2->product = new Product();
         $shop2->product->setPrice($prices[1]);
+
+        $category = new \ZendTest\Form\TestAsset\Entity\Category();
+        $category->setName($categoryNames[1]);
+        $shop2->product->setCategories(array($category));
+
+        $country = new  \ZendTest\Form\TestAsset\Entity\Country();
+        $country->setName($productCountries[1]);
+        $shop2->product->setMadeInCountry($country);
+
+
 
         $market->collection = array($shop1, $shop2);
         $form->bind($market);
 
         //test for object binding
-        foreach ($form->get('collection')->getFieldsets() as $_fieldset) {
-            $this->assertInstanceOf('ZendTest\Form\TestAsset\Entity\Product', $_fieldset->get('product')->getObject());
+        $_marketCollection = $form->get('collection');
+        $this->assertInstanceOf('Zend\Form\Element\Collection', $_marketCollection);
+
+        foreach ($_marketCollection as $_shopFieldset) {
+
+            $this->assertInstanceOf('Zend\Form\Fieldset', $_shopFieldset);
+            $this->assertInstanceOf('stdClass', $_shopFieldset->getObject());
+
+            // test for collection -> fieldset
+            $_productFieldset = $_shopFieldset->get('product');
+            $this->assertInstanceOf('ZendTest\Form\TestAsset\ProductFieldset', $_productFieldset);
+            $this->assertInstanceOf('ZendTest\Form\TestAsset\Entity\Product', $_productFieldset->getObject());
+
+            // test for collection -> fieldset -> fieldset
+            $this->assertInstanceOf('ZendTest\Form\TestAsset\CountryFieldset', $_productFieldset->get('made_in_country'));
+            $this->assertInstanceOf('ZendTest\Form\TestAsset\Entity\Country', $_productFieldset->get('made_in_country')->getObject());
+
+            // test for collection -> fieldset -> collection
+            $_productCategories = $_productFieldset->get('categories');
+            $this->assertInstanceOf('Zend\Form\Element\Collection', $_productCategories);
+
+            // test for collection -> fieldset -> collection -> fieldset
+            foreach ($_productCategories as $_category) {
+                $this->assertInstanceOf('ZendTest\Form\TestAsset\CategoryFieldset', $_category);
+                $this->assertInstanceOf('ZendTest\Form\TestAsset\Entity\Category', $_category->getObject());
+            }
         };
 
-        //test for correct extract and populate
+        // test for correct extract and populate form values
+        // test for collection -> fieldset -> field value
         foreach ($prices as $_k => $_price) {
-            $this->assertEquals($_price, $form->get('collection')->get($_k)->get('product')->get('price')->getValue());
+            $this->assertEquals(
+                $_price,
+                $form->get('collection')->get($_k)
+                    ->get('product')
+                    ->get('price')
+                    ->getValue()
+            );
+        }
+
+        // test for collection -> fieldset -> fieldset ->field value
+        foreach ($productCountries as $_k => $_countryName) {
+            $this->assertEquals(
+                $_countryName,
+                $form->get('collection')->get($_k)
+                    ->get('product')
+                    ->get('made_in_country')
+                    ->get('name')
+                    ->getValue()
+            );
+        }
+
+        // test collection -> fieldset -> collection -> fieldset -> field value
+        foreach ($categoryNames as $_k => $_categoryName) {
+            $this->assertEquals(
+                $_categoryName,
+                $form->get('collection')->get($_k)
+                    ->get('product')
+                    ->get('categories')->get(0)
+                    ->get('name')->getValue()
+            );
         }
     }
 
@@ -658,10 +814,10 @@ class CollectionTest extends TestCase
 
         $form = new Form();
         $form->add(array(
-            'type'    => 'Zend\Form\Element\Collection',
-            'name'    => 'collection',
+            'type' => 'Zend\Form\Element\Collection',
+            'name' => 'collection',
             'options' => array(
-                'count'          => 1,
+                'count' => 1,
                 'target_element' => new \ZendTest\Form\TestAsset\CategoryFieldset(),
             )
         ));
@@ -748,7 +904,7 @@ class CollectionTest extends TestCase
 
         //test for object binding
         foreach ($form->get('main')->getFieldsets() as $_fieldset) {
-            foreach($_fieldset->getFieldsets() as $_nestedfieldset) {
+            foreach ($_fieldset->getFieldsets() as $_nestedfieldset) {
                 $this->assertInstanceOf('ZendTest\Form\TestAsset\Entity\Product', $_nestedfieldset->get('products')->getObject());
             }
         };
@@ -844,7 +1000,7 @@ class CollectionTest extends TestCase
         $this->assertCount(count($names), $form->get('names'));
 
         $i = 0;
-        foreach($form->get('names') as $field) {
+        foreach ($form->get('names') as $field) {
             $this->assertEquals($names[$i], $field->getValue());
             $i++;
         };

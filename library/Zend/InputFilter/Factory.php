@@ -10,6 +10,7 @@
 namespace Zend\InputFilter;
 
 use Traversable;
+use Zend\Filter\Exception;
 use Zend\Filter\FilterChain;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Validator\ValidatorInterface;
@@ -310,6 +311,9 @@ class Factory
         }
 
         foreach ($inputFilterSpecification as $key => $value) {
+            if (null === $value) {
+                continue;
+            }
 
             if (($value instanceof InputInterface)
                 || ($value instanceof InputFilterInterface)
@@ -328,6 +332,7 @@ class Factory
     /**
      * @param  FilterChain       $chain
      * @param  array|Traversable $filters
+     * @throws Exception\RuntimeException
      * @return void
      */
     protected function populateFilters(FilterChain $chain, $filters)
@@ -363,6 +368,7 @@ class Factory
     /**
      * @param  ValidatorChain    $chain
      * @param  array|Traversable $validators
+     * @throws Exception\RuntimeException
      * @return void
      */
     protected function populateValidators(ValidatorChain $chain, $validators)

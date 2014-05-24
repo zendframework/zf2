@@ -720,7 +720,7 @@ class Server implements ZendServerServer
      * - stdClass; if so, calls __toString() and verifies XML
      * - string; if so, verifies XML
      *
-     * @param  DOMDocument|DOMNode|SimpleXMLElement|stdClass|string $request
+     * @param  DOMDocument|DOMNode|SimpleXMLElement|\stdClass|string $request
      * @return self
      * @throws Exception\InvalidArgumentException
      */
@@ -745,10 +745,12 @@ class Server implements ZendServerServer
             }
             $xml = trim($xml);
 
-            libxml_disable_entity_loader(true);
+            $loadEntities = libxml_disable_entity_loader(true);
 
             $dom = new DOMDocument();
             $loadStatus = $dom->loadXML($xml);
+
+            libxml_disable_entity_loader($loadEntities);
 
             // @todo check libxml errors ? validate document ?
             if (strlen($xml) == 0 || !$loadStatus) {
@@ -760,7 +762,6 @@ class Server implements ZendServerServer
                     throw new Exception\InvalidArgumentException('Invalid XML: Detected use of illegal DOCTYPE');
                 }
             }
-            libxml_disable_entity_loader(false);
         }
 
         $this->request = $xml;
@@ -880,7 +881,7 @@ class Server implements ZendServerServer
      * If no request is passed, pulls request using php:://input (for
      * cross-platform compatibility purposes).
      *
-     * @param  DOMDocument|DOMNode|SimpleXMLElement|stdClass|string $request Optional request
+     * @param  DOMDocument|DOMNode|SimpleXMLElement|\stdClass|string $request Optional request
      * @return void|string
      */
     public function handle($request = null)
@@ -999,7 +1000,7 @@ class Server implements ZendServerServer
     /**
      * Checks if provided fault name is registered as valid in this server.
      *
-     * @param $fault Name of a fault class
+     * @param string $fault Name of a fault class
      * @return bool
      */
     public function isRegisteredAsFaultException($fault)
