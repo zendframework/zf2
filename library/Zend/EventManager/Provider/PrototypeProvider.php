@@ -17,7 +17,7 @@ use Zend\EventManager\EventInterface;
 class PrototypeProvider extends DefaultProvider
 {
     /**
-     * @var \Zend\EventManager\Event
+     * @var EventInterface
      */
     protected $eventPrototype;
 
@@ -47,7 +47,7 @@ class PrototypeProvider extends DefaultProvider
      * @param $eventName
      * @param $target
      * @param array $parameters
-     * @return \Zend\EventManager\Event|\Zend\EventManager\EventInterface
+     * @return EventInterface
      */
     public function get($eventName, $target = null, $parameters = array())
     {
