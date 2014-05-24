@@ -45,6 +45,8 @@ class DefaultProvider implements ProviderInterface, EventClassAwareInterface
     }
 
     /**
+     * Instantiate the Event, then, stick to the interface, set name, target and parameters properties.
+     *
      * @param $eventName
      * @param $target
      * @param $parameters

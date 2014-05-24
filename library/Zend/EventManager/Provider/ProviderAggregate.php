@@ -23,6 +23,9 @@ class ProviderAggregate implements ProviderInterface
     protected $queue;
 
     /**
+     * Adding the default provider in the queue will guaranty that a \Zend\EventManager\EventInterface is always
+     * returned by the aggregator. It provides a reasonable fallback for the event dispatch process.
+     *
      * @param bool $autoAddDefaultProvider  Set the default Resolver at low priority
      */
     public function __construct($autoAddDefaultProvider = false)
@@ -30,24 +33,25 @@ class ProviderAggregate implements ProviderInterface
         $this->queue = new PriorityQueue;
 
         if (true === $autoAddDefaultProvider) {
-            $this->queue->insert(new PrototypeProvider, -PHP_INT_MAX);
+            $this->queue->insert(new DefaultProvider, -PHP_INT_MAX);
         }
     }
 
     /**
      * @return ProviderInterface[]|PriorityQueue
      */
-    public function getResolvers()
+    public function getProviders()
     {
         return $this->queue;
     }
 
     /**
-     * Add multiples resolvers at once
+     * Add multiples providers at once
      *
-     * @param array|\Traversable $providers  The set of resolvers. If the item is an array, we treat it as follow:
+     * @param array|\Traversable $providers The set of resolvers. If the item is an array, we treat it as follow:
      *                                       $resolver[0] = ResolverInterface
      *                                       $resolver[1] = (int) Priority
+     * @return $this
      */
     public function addProviders($providers)
     {
@@ -55,10 +59,11 @@ class ProviderAggregate implements ProviderInterface
             is_array($provider) ? list($provider, $priority) = $provider : $priority = 0;
             $this->addProvider($provider, $priority);
         }
+        return $this;
     }
 
     /**
-     * Add a resolver to the queue
+     * Add a resolver to the queue.
      *
      * @param ProviderInterface $provider
      * @param int $priority
@@ -71,18 +76,21 @@ class ProviderAggregate implements ProviderInterface
     }
 
     /**
-     * remove the given resolver from queue
+     * remove the given provider from queue.
+     * Following PriorityQueue doc, only the first matched provider will be removed.
      *
      * @param ProviderInterface $provider
-     * @return $this
+     * @return bool                         True on success, false otherwise
      */
     public function removeProvider(ProviderInterface $provider)
     {
-        $this->queue->remove($provider);
-        return $this;
+        return $this->queue->remove($provider);
     }
 
     /**
+     * Loop through each providers registered in queue. Once an EventInterface is returned by one of the providers,
+     * the method will return it instantly, skipping next providers in queue.
+     *
      * @param $eventName
      * @param $target
      * @param array $parameters

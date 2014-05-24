@@ -19,71 +19,71 @@ class ProviderAggregateTest extends \PHPUnit_Framework_TestCase
     /**
      * @var ProviderAggregate
      */
-    protected $resolver;
+    protected $provider;
 
     public function setUp()
     {
-        $this->resolver = new ProviderAggregate();
+        $this->provider = new ProviderAggregate();
     }
 
     public function testCanAssignDefaultProviderOnConstruct()
     {
-        $this->assertCount(0, $this->resolver->getResolvers());
+        $this->assertCount(0, $this->provider->getProviders());
 
         $resolver  = new ProviderAggregate(true);
-        $resolvers = $resolver->getResolvers();
+        $resolvers = $resolver->getProviders();
         $this->assertCount(1, $resolvers);
         $this->assertInstanceOf('Zend\EventManager\Provider\DefaultProvider', $resolvers->top());
     }
 
-    public function testAddResolver()
+    public function testAddProvider()
     {
         $mock = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
-        $this->assertSame($this->resolver, $this->resolver->addProvider($mock));
-        $this->assertCount(1, $resolvers = $this->resolver->getResolvers());
+        $this->assertSame($this->provider, $this->provider->addProvider($mock));
+        $this->assertCount(1, $resolvers = $this->provider->getProviders());
         $this->assertSame($mock, $resolvers->top());
 
         $this->setExpectedException('PHPUnit_Framework_Error');
-        $this->resolver->addProvider(new \stdClass());
+        $this->provider->addProvider(new \stdClass());
     }
 
-    public function testAddMultiplesResolversWithoutPriority()
+    public function testAddMultiplesProvidersWithoutPriority()
     {
         $mock1 = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
         $mock2 = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
 
-        $this->resolver->addProviders(array($mock1, $mock2));
-        $this->assertCount(2, $resolvers = $this->resolver->getResolvers());
+        $this->assertSame($this->provider, $this->provider->addProviders(array($mock1, $mock2)));
+        $this->assertCount(2, $resolvers = $this->provider->getProviders());
         $this->assertSame($mock1, $resolvers->top(), 'expecting FIFO insertion');
     }
 
-    public function testAddMultiplesResolversWithPriority()
+    public function testAddMultiplesProvidersWithPriority()
     {
         $mock1 = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
         $mock2 = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
 
-        $this->resolver->addProviders(array(
+        $this->provider->addProviders(array(
             array($mock1, 1),
             array($mock2, 2),
         ));
 
-        $this->assertSame($mock2, $this->resolver->getResolvers()->top(), 'expecting Prioritized insertion');
+        $this->assertSame($mock2, $this->provider->getProviders()->top(), 'expecting Prioritized insertion');
     }
 
-    public function testRemoveResolver()
+    public function testRemoveProvider()
     {
-        $this->resolver->addProvider($survivor = $this->getMock('Zend\EventManager\Provider\ProviderInterface'));
-        $this->resolver->addProvider($delete = $this->getMock('Zend\EventManager\Provider\ProviderInterface'));
-        $this->resolver->removeProvider($delete);
+        $this->provider->addProvider($survivor = $this->getMock('Zend\EventManager\Provider\ProviderInterface'));
+        $this->provider->addProvider($delete = $this->getMock('Zend\EventManager\Provider\ProviderInterface'));
+        $this->provider->removeProvider($delete);
 
-        $resolvers = $this->resolver->getResolvers();
+        $resolvers = $this->provider->getProviders();
         $this->assertCount(1, $resolvers);
         $this->assertSame($survivor, $resolvers->top());
     }
 
     public function testGetEventReturnVoidIfNoProviders()
     {
-        $this->assertNull($this->resolver->get('argg'));
+        $this->assertNull($this->provider->get('argg'));
     }
 
     public function testGetEventReturnVoidIfProvidersDoNotReturnAnEvent()
@@ -95,8 +95,8 @@ class ProviderAggregateTest extends \PHPUnit_Framework_TestCase
             ->with($name = 'test')
             ->will($this->returnValue(new \stdClass()));
 
-        $this->resolver->addProvider($resolver);
-        $this->assertNull($this->resolver->get($name));
+        $this->provider->addProvider($resolver);
+        $this->assertNull($this->provider->get($name));
     }
 
     public function testGetEventReturnFirstValidResolverResponse()
@@ -112,9 +112,9 @@ class ProviderAggregateTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('get');
 
-        $this->resolver->addProvider($resolverOk, 1);
-        $this->resolver->addProvider($resolverFails);
+        $this->provider->addProvider($resolverOk, 1);
+        $this->provider->addProvider($resolverFails);
 
-        $this->assertSame($expected, $this->resolver->get('test'));
+        $this->assertSame($expected, $this->provider->get('test'));
     }
 }

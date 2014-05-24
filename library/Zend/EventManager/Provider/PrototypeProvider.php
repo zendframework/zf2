@@ -44,6 +44,8 @@ class PrototypeProvider extends DefaultProvider
     }
 
     /**
+     * Return a clone of the registered prototype, then set name, target ans parameters
+     *
      * @param $eventName
      * @param $target
      * @param array $parameters
