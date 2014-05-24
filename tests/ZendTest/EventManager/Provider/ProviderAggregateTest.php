@@ -52,7 +52,7 @@ class ProviderAggregateTest extends \PHPUnit_Framework_TestCase
         $mock1 = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
         $mock2 = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
 
-        $this->resolver->addProviders([$mock1, $mock2]);
+        $this->resolver->addProviders(array($mock1, $mock2));
         $this->assertCount(2, $resolvers = $this->resolver->getResolvers());
         $this->assertSame($mock1, $resolvers->top(), 'expecting FIFO insertion');
     }
@@ -62,10 +62,10 @@ class ProviderAggregateTest extends \PHPUnit_Framework_TestCase
         $mock1 = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
         $mock2 = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
 
-        $this->resolver->addProviders([
-            [$mock1, 1],
-            [$mock2, 2],
-        ]);
+        $this->resolver->addProviders(array(
+            array($mock1, 1),
+            array($mock2, 2),
+        ));
 
         $this->assertSame($mock2, $this->resolver->getResolvers()->top(), 'expecting Prioritized insertion');
     }
