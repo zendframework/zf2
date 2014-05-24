@@ -26,7 +26,7 @@ class DefaultProviderTest extends \PHPUnit_Framework_TestCase
         $this->provider = new DefaultProvider;
     }
 
-    public function testGetEventReturnInsranceOfZendEventByDefault()
+    public function testGetEventReturnInstanceOfZendEventByDefault()
     {
         $this->assertInstanceOf('Zend\EventManager\Event', $event = $this->provider->get('test'));
         $this->assertEquals('test', $event->getName());

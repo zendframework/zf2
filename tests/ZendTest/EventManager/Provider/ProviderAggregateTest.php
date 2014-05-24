@@ -26,6 +26,12 @@ class ProviderAggregateTest extends \PHPUnit_Framework_TestCase
         $this->provider = new ProviderAggregate();
     }
 
+    public function testGetProvidersReturnThePriorityQueueInstance()
+    {
+        $this->assertInstanceOf('Zend\Stdlib\PriorityQueue', $queue = $this->provider->getProviders());
+        $this->assertSame($queue, $this->provider->getProviders());
+    }
+
     public function testCanAssignDefaultProviderOnConstruct()
     {
         $this->assertCount(0, $this->provider->getProviders());
