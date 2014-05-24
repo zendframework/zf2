@@ -11,7 +11,7 @@ use Zend\ServiceManager\AbstractPluginManager;
  * If a triggered event has other that an EventInterface as first parameter, and this manager is set
  * as event resolver for EventManager, then the first parameter will be used as service index key.
  */
-class EventPluginManager extends AbstractPluginManager implements ProviderInterface
+class EventPluginManager extends AbstractPluginManager
 {
     /**
      * Do not share events instances by default
