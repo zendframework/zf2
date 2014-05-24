@@ -14,7 +14,7 @@ use ArrayObject;
 use Traversable;
 use Zend\EventManager\Exception\RuntimeException;
 use Zend\EventManager\Provider\EventClassAwareInterface;
-use Zend\EventManager\Provider\PrototypeProvider;
+use Zend\EventManager\Provider\DefaultProvider;
 use Zend\Stdlib\CallbackHandler;
 use Zend\Stdlib\PriorityQueue;
 
@@ -102,7 +102,7 @@ class EventManager implements EventManagerInterface
     public function getEventProvider()
     {
         if (null === $this->eventProvider) {
-            $this->setEventProvider(new PrototypeProvider);
+            $this->setEventProvider(new DefaultProvider);
         }
         return $this->eventProvider;
     }
