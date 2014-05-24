@@ -12,6 +12,9 @@ namespace Zend\EventManager;
 use ArrayAccess;
 use ArrayObject;
 use Traversable;
+use Zend\EventManager\Exception\RuntimeException;
+use Zend\EventManager\Resolver\EventClassAwareInterface;
+use Zend\EventManager\Resolver\PrototypeResolver;
 use Zend\Stdlib\CallbackHandler;
 use Zend\Stdlib\PriorityQueue;
 
@@ -30,11 +33,6 @@ class EventManager implements EventManagerInterface
     protected $events = array();
 
     /**
-     * @var string Class representing the event being emitted
-     */
-    protected $eventClass = 'Zend\EventManager\Event';
-
-    /**
      * Identifiers, used to pull shared signals from SharedEventManagerInterface instance
      * @var array
      */
@@ -45,6 +43,12 @@ class EventManager implements EventManagerInterface
      * @var false|null|SharedEventManagerInterface
      */
     protected $sharedManager = null;
+
+    /**
+     * Create events instances from resolver
+     * @var Resolver\ResolverInterface
+     */
+    protected $eventResolver;
 
     /**
      * Constructor
@@ -60,15 +64,47 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Set the event class to utilize
+     * Set the event class, if supported by the underlying resolver
      *
-     * @param  string $class
-     * @return EventManager
+     * @param string $class                 The class name
+     *
+     * @return EventManager                 Provides a fluent interface
+     * @throws Exception\RuntimeException   If the Resolver does not implements \Zend\EventManager\Resolver\EventClassAwareInterface
      */
     public function setEventClass($class)
     {
-        $this->eventClass = $class;
+        $resolver = $this->getEventResolver();
+
+        if (! $resolver instanceof EventClassAwareInterface) {
+            throw new RuntimeException(sprintf(
+                'Resolver of class %s does not supports eventClass assignment', get_class($resolver)
+            ));
+        }
+        $resolver->setEventClass($class);
+
         return $this;
+    }
+
+    /**
+     * @param Resolver\ResolverInterface $eventResolver
+     * @return self
+     */
+    public function setEventResolver(Resolver\ResolverInterface $eventResolver)
+    {
+        $this->eventResolver = $eventResolver;
+        return $this;
+    }
+
+    /**
+     * Get the resolver: If none provided, the default is assigned at first call
+     * @return Resolver\ResolverInterface
+     */
+    public function getEventResolver()
+    {
+        if (null === $this->eventResolver) {
+            $this->setEventResolver(new PrototypeResolver);
+        }
+        return $this->eventResolver;
     }
 
     /**
@@ -191,8 +227,7 @@ class EventManager implements EventManagerInterface
             $e->setName($event);
             $e->setTarget($target);
         } else {
-            $e = new $this->eventClass();
-            $e->setName($event);
+            $e = $this->getEventResolver()->get($event);
             $e->setTarget($target);
             $e->setParams($argv);
         }
@@ -236,8 +271,7 @@ class EventManager implements EventManagerInterface
             $e->setName($event);
             $e->setTarget($target);
         } else {
-            $e = new $this->eventClass();
-            $e->setName($event);
+            $e = $this->getEventResolver()->get($event);
             $e->setTarget($target);
             $e->setParams($argv);
         }
