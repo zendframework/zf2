@@ -116,6 +116,5 @@ class ProviderAggregateTest extends \PHPUnit_Framework_TestCase
         $this->resolver->addProvider($resolverFails);
 
         $this->assertSame($expected, $this->resolver->get('test'));
-
     }
 }

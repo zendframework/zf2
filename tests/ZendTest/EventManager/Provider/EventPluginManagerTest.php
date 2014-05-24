@@ -39,4 +39,3 @@ class EventPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->manager->validatePlugin(new \stdClass);
     }
 }
- 
