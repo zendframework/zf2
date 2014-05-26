@@ -7,15 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Db\Sql\Platform\Mysql;
+namespace ZendTest\Db\TestAsset;
 
-use Zend\Db\Sql\Platform\AbstractPlatform;
+use Zend\Db\Adapter\Platform\MySql;
 
-class Mysql extends AbstractPlatform
+class TrustingMySqlPlatform extends MySql
 {
-    public function __construct()
+    public function quoteValue($value)
     {
-        $this->setTypeDecorator('Zend\Db\Sql\Select', new SelectDecorator());
-        $this->setTypeDecorator('Zend\Db\Sql\Ddl\CreateTable', new Ddl\CreateTableDecorator());
+        return $this->quoteTrustedValue($value);
     }
 }

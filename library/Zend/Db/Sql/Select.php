@@ -482,8 +482,12 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
+        $statementContainer = ($statementContainer) ?: $adapter->getDriver()->createStatement();
+        if (static::getSqlPlatform()->setSubject($this)->prepareStatement($adapter, $statementContainer)) {
+            return $statementContainer;
+        }
         // ensure statement has a ParameterContainer
         $parameterContainer = $statementContainer->getParameterContainer();
         if (!$parameterContainer instanceof ParameterContainer) {
@@ -506,7 +510,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
         $sql = implode(' ', $sqls);
 
         $statementContainer->setSql($sql);
-        return;
+        return $statementContainer;
     }
 
     /**
@@ -517,6 +521,9 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
+        if ($sql = static::getSqlPlatform()->setSubject($this)->getSqlString($adapterPlatform)) {
+            return $sql;
+        }
         // get platform, or create default
         $adapterPlatform = ($adapterPlatform) ?: new AdapterSql92Platform;
 

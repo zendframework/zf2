@@ -13,6 +13,7 @@ use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Predicate\IsNotNull;
 use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Sql\Where;
+use ZendTest\Db\TestAsset;
 
 class DeleteTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,6 +29,9 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->delete = new Delete;
+        $sqlPlatform = new \ReflectionProperty($this->delete, 'sqlPlatform');
+        $sqlPlatform->setAccessible(true);
+        $sqlPlatform->setValue($this->delete, null);
     }
 
     /**
@@ -138,6 +142,10 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
             ->where('x = y');
 
         $this->delete->prepareStatement($mockAdapter, $mockStatement);
+
+        //without statement
+        $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
+        $this->delete->prepareStatement($mockAdapter);
     }
 
     /**
@@ -154,6 +162,27 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
         $this->delete->from(new TableIdentifier('foo', 'sch'))
             ->where('x = y');
         $this->assertEquals('DELETE FROM "sch"."foo" WHERE x = y', $this->delete->getSqlString());
+    }
+
+    public function testSubQueryWithDecorators()
+    {
+        $mySqlPlatform = new TestAsset\TrustingMySqlPlatform();
+        $mySqlAdapter = new \Zend\Db\Adapter\Adapter(array('driver'=>'mysqli'),$mySqlPlatform);
+
+        $this->delete->getSqlPlatform()->setTypeDecorator('Zend\Db\Sql\Delete', 'ZendTest\Db\TestAsset\DeleteDecorator', $mySqlPlatform);
+
+        $subSelect = new \Zend\Db\Sql\Select('y');
+        $subSelect->offset(10);
+        $this->delete->from('foo')->where(array('x'=>$subSelect));
+
+        $this->assertEquals(
+            '{decorate}DELETE FROM `foo` WHERE `x` = (SELECT `y`.* FROM `y` LIMIT 18446744073709551615 OFFSET 10){decorate}',
+            $this->delete->getSqlString($mySqlPlatform)
+        );
+        $this->assertEquals(
+            '{decorate}DELETE FROM `foo` WHERE `x` = (SELECT `y`.* FROM `y` LIMIT 18446744073709551615 OFFSET ?){decorate}',
+            $this->delete->prepareStatement($mySqlAdapter, $mySqlAdapter->createStatement())->getSql()
+        );
     }
 
     /**
@@ -204,6 +233,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
         $deleteIgnore->from('foo')
             ->where('x = y');
+
         $this->assertEquals('DELETE IGNORE FROM "foo" WHERE x = y', $deleteIgnore->getSqlString());
 
         // with TableIdentifier

@@ -11,6 +11,7 @@ namespace ZendTest\Db\Sql\Ddl;
 
 use Zend\Db\Sql\Ddl\Column\Column;
 use Zend\Db\Sql\Ddl\CreateTable;
+use ZendTest\Db\TestAsset\TrustingMySqlPlatform;
 
 class CreateTableTest extends \PHPUnit_Framework_TestCase
 {
@@ -136,5 +137,18 @@ class CreateTableTest extends \PHPUnit_Framework_TestCase
         $ct = new CreateTable('foo', true);
         $ct->addColumn(new Column('bar'));
         $this->assertEquals("CREATE TEMPORARY TABLE \"foo\" (\n    \"bar\" INTEGER NOT NULL\n)", $ct->getSqlString());
+    }
+
+    public function testGetSqlStringDecorators()
+    {
+        $ct = new CreateTable('foo');
+        $column = new Column('another');
+        $column->setOption('format', 'xxx');
+        $ct->addColumn($column);
+
+        $this->assertEquals(
+            "CREATE TABLE `foo` (\n    `another` INTEGER NOT NULL COLUMN_FORMAT XXX\n)",
+            $ct->getSqlString(new TrustingMySqlPlatform())
+        );
     }
 }
