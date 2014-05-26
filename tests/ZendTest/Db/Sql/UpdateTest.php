@@ -14,6 +14,7 @@ use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\TableIdentifier;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
+use ZendTest\Db\TestAsset\TrustingMySqlPlatform;
 
 class UpdateTest extends \PHPUnit_Framework_TestCase
 {
@@ -192,6 +193,10 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
             ->where('x = y');
 
         $this->update->prepareStatement($mockAdapter, $mockStatement);
+
+        //without statement
+        $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
+        $this->update->prepareStatement($mockAdapter);
     }
 
     /**
@@ -212,6 +217,26 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
             ->where('x = y');
 
         $this->assertEquals('UPDATE "sch"."foo" SET "bar" = \'baz\', "boo" = NOW(), "bam" = NULL WHERE x = y', $this->update->getSqlString(new TrustingSql92Platform()));
+    }
+
+    public function testSubQueryWithDecorators()
+    {
+        $mySqlPlatform = new TrustingMySqlPlatform();
+        $mySqlAdapter = new \Zend\Db\Adapter\Adapter(array('driver'=>'mysqli'),$mySqlPlatform);
+        $this->update->getSqlPlatform()->setTypeDecorator('Zend\Db\Sql\Update', 'ZendTest\Db\TestAsset\UpdateDecorator', $mySqlPlatform);
+
+        $subSelect = new \Zend\Db\Sql\Select('bar');
+        $subSelect->offset(10);
+        $this->update->table('foo')->where(array('baz'=>$subSelect));
+
+        $this->assertEquals(
+            '{decorate}UPDATE `foo` SET  WHERE `baz` = (SELECT `bar`.* FROM `bar` LIMIT 18446744073709551615 OFFSET 10){decorate}',
+            $this->update->getSqlString($mySqlPlatform)
+        );
+        $this->assertEquals(
+            '{decorate}UPDATE `foo` SET  WHERE `baz` = (SELECT `bar`.* FROM `bar` LIMIT 18446744073709551615 OFFSET ?){decorate}',
+            $this->update->prepareStatement($mySqlAdapter, $mySqlAdapter->createStatement())->getSql()
+        );
     }
 
     /**

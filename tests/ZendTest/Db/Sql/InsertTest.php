@@ -14,6 +14,7 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\TableIdentifier;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
+use ZendTest\Db\TestAsset\TrustingMySqlPlatform;
 
 class InsertTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,6 +30,9 @@ class InsertTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->insert = new Insert;
+        $sqlPlatform = new \ReflectionProperty($this->insert, 'sqlPlatform');
+        $sqlPlatform->setAccessible(true);
+        $sqlPlatform->setValue($this->insert, null);
     }
 
     /**
@@ -163,6 +167,10 @@ class InsertTest extends \PHPUnit_Framework_TestCase
             ->values(array('bar' => 'baz', 'boo' => new Expression('NOW()')));
 
         $this->insert->prepareStatement($mockAdapter, $mockStatement);
+
+        //without statement
+        $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
+        $this->insert->prepareStatement($mockAdapter);
     }
 
     /**
@@ -215,6 +223,27 @@ class InsertTest extends \PHPUnit_Framework_TestCase
         // with Select and columns
         $this->insert->columns(array('col1', 'col2'));
         $this->assertEquals('INSERT INTO "foo" ("col1", "col2") SELECT "bar".* FROM "bar"', $this->insert->getSqlString(new TrustingSql92Platform()));
+    }
+
+    public function testSubQueryWithDecorators()
+    {
+        $mySqlPlatform = new TrustingMySqlPlatform();
+        $mySqlAdapter = new \Zend\Db\Adapter\Adapter(array('driver'=>'mysqli'),$mySqlPlatform);
+
+        $this->insert->getSqlPlatform()->setTypeDecorator('Zend\Db\Sql\Insert', 'ZendTest\Db\TestAsset\InsertDecorator', $mySqlPlatform);
+
+        $subSelect = new Select('bar');
+        $subSelect->offset(10);
+        $this->insert->into('foo')->select($subSelect);
+
+        $this->assertEquals(
+            '{decorate}INSERT INTO `foo`  SELECT `bar`.* FROM `bar` LIMIT 18446744073709551615 OFFSET 10{decorate}',
+            $this->insert->getSqlString($mySqlPlatform)
+        );
+        $this->assertEquals(
+            '{decorate}INSERT INTO `foo`  SELECT `bar`.* FROM `bar` LIMIT 18446744073709551615 OFFSET ?{decorate}',
+            $this->insert->prepareStatement($mySqlAdapter, $mySqlAdapter->createStatement())->getSql()
+        );
     }
 
     /**

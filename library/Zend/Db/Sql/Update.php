@@ -145,8 +145,12 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @param StatementContainerInterface $statementContainer
      * @return void
      */
-    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer)
+    public function prepareStatement(AdapterInterface $adapter, StatementContainerInterface $statementContainer = null)
     {
+        $statementContainer = ($statementContainer) ?: $adapter->getDriver()->createStatement();
+        if (static::getSqlPlatform()->setSubject($this)->prepareStatement($adapter, $statementContainer)) {
+            return $statementContainer;
+        }
         $driver   = $adapter->getDriver();
         $platform = $adapter->getPlatform();
         $parameterContainer = $statementContainer->getParameterContainer();
@@ -195,6 +199,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $sql .= ' ' . sprintf($this->specifications[static::SPECIFICATION_WHERE], $whereParts->getSql());
         }
         $statementContainer->setSql($sql);
+        return $statementContainer;
     }
 
     /**
@@ -205,6 +210,9 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
+        if ($sql = static::getSqlPlatform()->setSubject($this)->getSqlString($adapterPlatform)) {
+            return $sql;
+        }
         $adapterPlatform = ($adapterPlatform) ?: new Sql92;
         $table = $this->table;
         $schema = null;
