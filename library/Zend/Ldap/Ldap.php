@@ -481,12 +481,6 @@ class Ldap
         if ($pos) {
             $dname = substr($name, $pos + 1);
             $aname = substr($name, 0, $pos);
-        } else {
-            $pos = strpos($name, '\\');
-            if ($pos) {
-                $dname = substr($name, 0, $pos);
-                $aname = substr($name, $pos + 1);
-            }
         }
     }
 
