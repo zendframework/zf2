@@ -127,8 +127,19 @@ class Sql
         return $this->sqlPlatform->setSubject($sqlObject)->prepareStatement($adapter, $statement);
     }
 
-    public function getSqlStringForSqlObject(SqlInterface $sqlObject, PlatformInterface $platform = null)
+    public function getSqlStringForSqlObject(SqlInterface $sqlObject, $adapterOrPlatform = null)
     {
-        return $this->sqlPlatform->setSubject($sqlObject)->getSqlString($platform);
+        if ($adapterOrPlatform == null) {
+            $adapterOrPlatform = $this->adapter->getPlatform();
+        } elseif ($adapterOrPlatform instanceof AdapterInterface) {
+            $adapterOrPlatform = $adapterOrPlatform->getPlatform();
+        } elseif (!$adapterOrPlatform instanceof PlatformInterface) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '$adapterOrPlatform should be null, %s, or %s',
+                'Zend\Db\Adapter\AdapterInterface',
+                'Zend\Db\Adapter\Platform\PlatformInterface'
+            ));
+        }
+        return $this->sqlPlatform->setSubject($sqlObject)->getSqlString($adapterOrPlatform);
     }
 }

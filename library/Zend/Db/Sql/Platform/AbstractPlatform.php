@@ -109,12 +109,19 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
      */
     protected function resolvePlatform($adapterOrPlatform)
     {
-        if ($adapterOrPlatform instanceof PlatformInterface) {
-            return $adapterOrPlatform;
+        if ($adapterOrPlatform == null) {
+            return $this->defaultPlatform;
         }
         if ($adapterOrPlatform instanceof AdapterInterface) {
             return $adapterOrPlatform->getPlatform();
         }
-        return $this->defaultPlatform;
+        if ($adapterOrPlatform instanceof PlatformInterface) {
+            return $adapterOrPlatform;
+        }
+        throw new Exception\InvalidArgumentException(sprintf(
+            '$adapterOrPlatform should be null, %s, or %s',
+            'Zend\Db\Adapter\AdapterInterface',
+            'Zend\Db\Adapter\Platform\PlatformInterface'
+        ));
     }
 }

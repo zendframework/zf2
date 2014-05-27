@@ -149,6 +149,10 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         // Sql92
         $this->assertEquals(
             'SELECT "foo".* FROM "foo" OFFSET \'10\'',
+            $this->sql->getSqlStringForSqlObject($select, $adapterSql92)
+        );
+        $this->assertEquals(
+            'SELECT "foo".* FROM "foo" OFFSET \'10\'',
             $this->sql->getSqlStringForSqlObject($select, $adapterSql92->getPlatform())
         );
         $adapterSql92->getDriver()->createStatement()->expects($this->any())->method('setSql')
@@ -156,6 +160,10 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $this->sql->prepareStatementForSqlObject($select, null, $adapterSql92);
 
         // MySql
+        $this->assertEquals(
+            'SELECT `foo`.* FROM `foo` LIMIT 18446744073709551615 OFFSET 10',
+            $this->sql->getSqlStringForSqlObject($select, $adapterMySql)
+        );
         $this->assertEquals(
             'SELECT `foo`.* FROM `foo` LIMIT 18446744073709551615 OFFSET 10',
             $this->sql->getSqlStringForSqlObject($select, $adapterMySql->getPlatform())
@@ -167,6 +175,10 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         // Oracle
         $this->assertEquals(
             'SELECT * FROM (SELECT b.*, rownum b_rownum FROM ( SELECT "foo".* FROM "foo" ) b ) WHERE b_rownum > (10)',
+            $this->sql->getSqlStringForSqlObject($select, $adapterOracle)
+        );
+        $this->assertEquals(
+            'SELECT * FROM (SELECT b.*, rownum b_rownum FROM ( SELECT "foo".* FROM "foo" ) b ) WHERE b_rownum > (10)',
             $this->sql->getSqlStringForSqlObject($select, $adapterOracle->getPlatform())
         );
         $adapterOracle->getDriver()->createStatement()->expects($this->any())->method('setSql')
@@ -174,6 +186,10 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $this->sql->prepareStatementForSqlObject($select, null, $adapterOracle);
 
         // SqlServer
+        $this->assertContains(
+            'WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN 10+1 AND 0+10',
+            $this->sql->getSqlStringForSqlObject($select, $adapterSqlServer)
+        );
         $this->assertContains(
             'WHERE [ZEND_SQL_SERVER_LIMIT_OFFSET_EMULATION].[__ZEND_ROW_NUMBER] BETWEEN 10+1 AND 0+10',
             $this->sql->getSqlStringForSqlObject($select, $adapterSqlServer->getPlatform())
