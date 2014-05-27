@@ -69,6 +69,11 @@ class Input implements InputInterface, EmptyContextInterface
      * @var mixed
      */
     protected $fallbackValue;
+    
+    /**
+     * @var bool
+     */
+    protected $valueProvided = false;
 
     /**
      * @var bool
@@ -167,8 +172,17 @@ class Input implements InputInterface, EmptyContextInterface
      */
     public function setValue($value)
     {
+        $this->valueProvided = true;
         $this->value = $value;
         return $this;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function isValueProvided()
+    {
+        return $this->valueProvided;
     }
 
     /**
