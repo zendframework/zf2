@@ -34,7 +34,8 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     protected $defaultPlatform = null;
 
     /**
-     * @param $subject
+     * @param PreparableSqlInterface|SqlInterface $subject
+     * @return self
      */
     public function setSubject($subject)
     {
@@ -43,8 +44,10 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     }
 
     /**
-     * @param $type
+     *
+     * @param string $type
      * @param PlatformDecoratorInterface $decorator
+     * @param AdapterInterface|PlatformInterface $adapterOrPlatform
      */
     public function setTypeDecorator($type, PlatformDecoratorInterface $decorator, $adapterOrPlatform = null)
     {
@@ -52,6 +55,11 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
         $this->decorators[$platformName][$type] = $decorator;
     }
 
+    /**
+     * @param PreparableSqlInterface|SqlInterface $subject
+     * @param AdapterInterface|PlatformInterface $adapterOrPlatform
+     * @return PlatformDecoratorInterface|PreparableSqlInterface|SqlInterface
+     */
     protected function getTypeDecorator($subject, $adapterOrPlatform)
     {
         $platformName = strtolower($this->resolvePlatform($adapterOrPlatform)->getName());
@@ -104,8 +112,10 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     }
 
     /**
+     *
      * @param null|PlatformInterface|AdapterInterface $adapterOrPlatform
      * @return PlatformInterface
+     * @throws Exception\InvalidArgumentException
      */
     protected function resolvePlatform($adapterOrPlatform)
     {

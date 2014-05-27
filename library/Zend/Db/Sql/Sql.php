@@ -116,9 +116,11 @@ class Sql
     }
 
     /**
+     *
      * @param PreparableSqlInterface $sqlObject
-     * @param StatementInterface|null $statement
-     * @return StatementInterface
+     * @param StatementInterface $statement
+     * @param AdapterInterface $adapter
+     * @return mixed
      */
     public function prepareStatementForSqlObject(PreparableSqlInterface $sqlObject, StatementInterface $statement = null, AdapterInterface $adapter = null)
     {
@@ -127,6 +129,12 @@ class Sql
         return $this->sqlPlatform->setSubject($sqlObject)->prepareStatement($adapter, $statement);
     }
 
+    /**
+     * @param SqlInterface $sqlObject
+     * @param null|PlatformInterface|AdapterInterface $adapterOrPlatform
+     * @return string
+     * @throws Exception\InvalidArgumentException
+     */
     public function getSqlStringForSqlObject(SqlInterface $sqlObject, $adapterOrPlatform = null)
     {
         if ($adapterOrPlatform == null) {
