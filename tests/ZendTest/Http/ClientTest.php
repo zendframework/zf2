@@ -18,6 +18,7 @@ use Zend\Http\Header\SetCookie;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Http\Client\Adapter\Test;
+use ZendTest\Http\TestAsset\ExtendedClient;
 
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -376,6 +377,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+<<<<<<< Upstream, based on zf2/master
      * @group 6231
      */
     public function testHttpQueryParametersCastToString()
@@ -405,5 +407,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($response->toString()));
 
         $client->send($request);
+=======
+     * Test for pull request 6301
+     * Previous functionality would have thrown an exception
+     * This test serves to verify that exception is not thrown
+     */
+    public function testCanSpecifyCustomAuthMethodsInExtendingClasses()
+    {
+        $client = new ExtendedClient();
+        $client->setAuth('username', 'password', ExtendedClient::AUTH_CUSTOM);
+>>>>>>> d0d9ac2 Unit test for self:: to static:: Http\Client update
     }
 }
