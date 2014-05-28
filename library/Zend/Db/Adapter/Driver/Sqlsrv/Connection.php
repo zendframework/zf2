@@ -236,6 +236,21 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         $this->resource->autocommit(false);
         $this->inTransaction = true;
         */
+        
+        if (!$this->inTransaction) {
+            // from zf1
+            if (!sqlsrv_begin_transaction($this->resource)) {
+                throw new Exception\RuntimeException(
+                    'Can not begin transaction',
+                    null,
+                    new ErrorException(sqlsrv_errors())
+                );
+            }
+            
+            $this->inTransaction = true;
+        }
+        
+        return $this;
     }
 
     /**
@@ -263,6 +278,22 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $this->inTransaction = false;
         */
+        
+        if ($this->inTransaction) {
+            // from zf1
+            if (!sqlsrv_commit($this->resource)) {
+                throw new Exception\RuntimeException(
+                    'Can not commit transaction',
+                    null,
+                    new ErrorException(sqlsrv_errors())
+                );
+            }
+            
+            $this->inTransaction = false;
+        }
+        
+        return $this;
+
     }
 
     /**
@@ -283,6 +314,22 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         $this->resource->rollback();
         return $this;
         */
+        
+        if ($this->inTransaction) {
+            // from zf1
+            if (!sqlsrv_rollback($this->resource)) {
+                throw new Exception\RuntimeException(
+                    'Can not rollback transaction',
+                    null,
+                    new ErrorException(sqlsrv_errors())
+                );
+            }
+            
+            $this->inTransaction = false;
+        }
+        
+        return $this;
+
     }
 
     /**
@@ -313,8 +360,10 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         // if the returnValue is something other than a Sqlsrv_result, bypass wrapping it
-        if ($returnValue === false) {
-            $errors = sqlsrv_errors();
+        // something wrong in driver because sqlsrv_execute returns TRUE with sql errors
+        $errors = sqlsrv_errors();
+        if ($returnValue === false || $errors) {
+            //$errors = sqlsrv_errors();
             // ignore general warnings
             if ($errors[0]['SQLSTATE'] != '01000') {
                 throw new Exception\RuntimeException(
