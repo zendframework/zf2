@@ -33,7 +33,6 @@ interface InputInterface
     public function isRequired();
     public function getValidatorChain();
     public function getValue();
-    public function isValueProvided();
 
     public function isValid();
     public function getMessages();
