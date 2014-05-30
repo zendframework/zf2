@@ -11,11 +11,8 @@ namespace Zend\Mvc\I18n;
 
 use Zend\I18n\Translator\TranslatorInterface as I18nTranslatorInterface;
 use Zend\Mvc\Exception;
-use Zend\Validator\Translator\TranslatorInterface as ValidatorTranslatorInterface;
 
-class Translator implements
-    I18nTranslatorInterface,
-    ValidatorTranslatorInterface
+class Translator implements I18nTranslatorInterface
 {
     /**
      * @var I18nTranslatorInterface
@@ -39,6 +36,7 @@ class Translator implements
      * @deprecated
      * @param string $method
      * @param array $args
+     * @throws \Zend\Mvc\Exception\BadMethodCallException
      * @return mixed
      */
     public function __call($method, array $args)
