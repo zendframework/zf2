@@ -25,11 +25,6 @@ class TranslatorTest extends TestCase
         $this->assertInstanceOf('Zend\I18n\Translator\TranslatorInterface', $this->translator);
     }
 
-    public function testIsAValidatorTranslator()
-    {
-        $this->assertInstanceOf('Zend\Validator\Translator\TranslatorInterface', $this->translator);
-    }
-
     public function testCanRetrieveComposedTranslator()
     {
         $this->assertSame($this->i18nTranslator, $this->translator->getTranslator());
