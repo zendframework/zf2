@@ -12,8 +12,7 @@ namespace Zend\Mvc\I18n;
 use Zend\I18n\Translator\TranslatorInterface as I18nTranslatorInterface;
 use Zend\Mvc\Exception;
 
-class Translator implements
-    I18nTranslatorInterface
+class Translator implements I18nTranslatorInterface
 {
     /**
      * @var I18nTranslatorInterface
