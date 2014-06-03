@@ -131,7 +131,7 @@ class Part
         if ($this->isStream) {
             $encodedStream = $this->getEncodedStream($EOL);
             $encodedStreamContents = stream_get_contents($encodedStream);
-            rewind($encodedStream);
+            @rewind($encodedStream);
             return $encodedStreamContents;
         }
         return Mime::encode($this->content, $this->encoding, $EOL);
