@@ -599,4 +599,14 @@ abstract class AbstractSource implements MetadataInterface
 
         $this->prepareDataHierarchy('triggers', $schema);
     }
+    
+    /**
+     * Clear cached data
+     * 
+     */
+    protected function clearCache()
+    {
+    	$this->data = array();
+    }
+    
 }
