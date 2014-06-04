@@ -248,4 +248,13 @@ class Metadata implements MetadataInterface
     {
         return $this->source->getColumn($columnName, $table, $schema);
     }
+    
+    /**
+     * Clear cached data
+     *
+     */
+    public function clearCache()
+    {
+    	$this->source->clearCache();
+    }
 }
