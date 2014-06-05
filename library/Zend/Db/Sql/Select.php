@@ -89,8 +89,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 array(1 => '%1$s', 2 => '%1$s %2$s', 'combinedby' => ', ')
             )
         ),
-        self::LIMIT  => 'LIMIT %1$s',
-        self::OFFSET => 'OFFSET %1$s',
+        self::LIMIT  => 'LIMIT %1$d',
+        self::OFFSET => 'OFFSET %1$d',
         'statementEnd' => '%1$s',
         self::COMBINE => '%1$s ( %2$s )',
     );
