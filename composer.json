@@ -52,8 +52,9 @@
         "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
     },
     "autoload": {
-        "psr-0": {
-            "Zend\\": "library/"
+        "psr-4": {
+            "Zend\\": "library/Zend/",
+            "ZendTest\\": "tests/ZendTest/"
         }
     },
     "bin": [
