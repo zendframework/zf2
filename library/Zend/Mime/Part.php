@@ -131,7 +131,10 @@ class Part
         if ($this->isStream) {
             $encodedStream = $this->getEncodedStream($EOL);
             $encodedStreamContents = stream_get_contents($encodedStream);
-            @rewind($encodedStream);
+            $streamMetaData = stream_get_meta_data($encodedStream);
+            if ($streamMetaData['seekable']) {
+                rewind($encodedStream);
+            }
             return $encodedStreamContents;
         }
         return Mime::encode($this->content, $this->encoding, $EOL);
