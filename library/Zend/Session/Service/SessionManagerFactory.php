@@ -115,7 +115,7 @@ class SessionManagerFactory implements FactoryInterface
             }
             
             // Set config options, if any
-            if (isset($managerConfig['validators'])) {
+            if (isset($managerConfig['config'])) {
                 $manager->getConfig()->setOptions($managerConfig['config']);
             }
             
