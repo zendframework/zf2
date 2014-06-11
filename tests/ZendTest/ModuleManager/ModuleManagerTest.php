@@ -270,6 +270,11 @@ class ModuleManagerTest extends TestCase
         $moduleManager->getEventManager()->attachAggregate($this->defaultListeners);
         $moduleManager->loadModules();
 
+        $this->assertSame(
+            array('LoadChildsModule', 'LoadChildsModule2', 'BarModule', 'SomeModule'),
+            array_keys($moduleManager->getLoadedModules())
+        );
+
         $config = $configListener->getMergedConfig(false);
         $this->assertArrayHasKey('bar', $config);
         $this->assertSame('foo', $config['bar']);

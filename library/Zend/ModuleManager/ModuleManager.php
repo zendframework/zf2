@@ -59,6 +59,11 @@ class ModuleManager implements ModuleManagerInterface
     protected $childsModules = array();
 
     /**
+     * @var ModuleEvent
+     */
+    protected $loadEvent = null;
+
+    /**
      * True if modules have already been loaded
      *
      * @var bool
@@ -114,13 +119,14 @@ class ModuleManager implements ModuleManagerInterface
      */
     public function onLoadChildsModules(ModuleEvent $e)
     {
-        if (!isset($this->childsModules[$e->getModuleName()])) {
+        $parentModule = $this->loadEvent->getModuleName();
+        if (!isset($this->childsModules[$parentModule])) {
             return;
         }
-        foreach($this->childsModules[$e->getModuleName()] as $module) {
+        foreach($this->childsModules[$parentModule] as $module) {
             $this->loadModule($module);
         }
-        unset($this->childsModules[$e->getModuleName()]);
+        unset($this->childsModules[$parentModule]);
     }
 
     /**
@@ -182,7 +188,7 @@ class ModuleManager implements ModuleManagerInterface
          */
 
         if ($this->loadFinished > 0 && $afterCurrent) {
-            $parentModule = $this->getEvent()->getModuleName();
+            $parentModule = $this->loadEvent->getModuleName();
             $childModule = is_object($module)
                     ? array($moduleName=>$module)
                     : $moduleName;
@@ -200,6 +206,7 @@ class ModuleManager implements ModuleManagerInterface
         $event->setModule($module);
 
         $this->loadedModules[$moduleName] = $module;
+        $this->loadEvent = $event;
         $this->getEventManager()->trigger(ModuleEvent::EVENT_LOAD_MODULE, $this, $event);
 
         $this->loadFinished--;

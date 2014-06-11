@@ -7,15 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace LoadChildsModule;
+namespace LoadChildsModule2;
 
 
 class Module
 {
     public function init($moduleManager)
     {
-        $moduleManager->loadModule('LoadChildsModule2', 'after');
-        $moduleManager->loadModule(array('SomeModule' => new \SomeModule\Module()), 'after');
+        $moduleManager->loadModule('BarModule', 'after');
     }
 
     public function getConfig()
