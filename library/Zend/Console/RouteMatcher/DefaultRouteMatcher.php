@@ -71,6 +71,10 @@ class DefaultRouteMatcher implements RouteMatcherInterface
 
         if ($filters !== null) {
             foreach ($filters as $name => $filter) {
+                if (is_string($filter) && class_exists($filter)) {
+                    $filter = new $filter();
+                }
+
                 if (!$filter instanceof FilterInterface) {
                     throw new Exception\InvalidArgumentException('Cannot use ' . gettype($filters) . ' as filter for ' . __CLASS__);
                 }
@@ -80,6 +84,10 @@ class DefaultRouteMatcher implements RouteMatcherInterface
 
         if ($validators !== null) {
             foreach ($validators as $name => $validator) {
+                if (is_string($validator) && class_exists($validator)) {
+                    $validator = new $validator();
+                }
+
                 if (!$validator instanceof ValidatorInterface) {
                     throw new Exception\InvalidArgumentException('Cannot use ' . gettype($validator) . ' as validator for ' . __CLASS__);
                 }
