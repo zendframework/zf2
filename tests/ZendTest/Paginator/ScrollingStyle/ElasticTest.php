@@ -31,11 +31,11 @@ class ElasticTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        parent::setUp();
         $this->scrollingStyle = new \Zend\Paginator\ScrollingStyle\Elastic();
         $this->paginator = new Paginator(new ArrayAdapter(range(1, 101)));
         $this->paginator->setItemCountPerPage(5);
         $this->paginator->setPageRange(5);
+        $this->paginator->setCacheEnabled(false);
     }
     /**
      * Cleans up the environment after running a test.

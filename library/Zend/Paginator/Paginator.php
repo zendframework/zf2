@@ -13,8 +13,10 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use Traversable;
+use Zend\Cache\Storage\IterableInterface;
 use Zend\Cache\Storage\IteratorInterface as CacheIterator;
 use Zend\Cache\Storage\StorageInterface as CacheStorage;
+use Zend\Cache\Storage\TaggableInterface;
 use Zend\Db\ResultSet\AbstractResultSet;
 use Zend\Filter\FilterInterface;
 use Zend\Json\Json;
@@ -216,9 +218,15 @@ class Paginator implements Countable, IteratorAggregate
      * Sets a cache object
      *
      * @param CacheStorage $cache
+     * @throws Exception\InvalidArgumentException
      */
     public static function setCache(CacheStorage $cache)
     {
+        if (!$cache instanceof IterableInterface) {
+            throw new Exception\InvalidArgumentException(
+                'Cache adapter must implement Zend\Cache\Storage\IterableInterface'
+            );
+        }
         static::$cache = $cache;
     }
 
@@ -373,8 +381,14 @@ class Paginator implements Countable, IteratorAggregate
             $cacheIterator = static::$cache->getIterator();
             $cacheIterator->setMode(CacheIterator::CURRENT_AS_KEY);
             foreach ($cacheIterator as $key) {
-                $tags = static::$cache->getTags($key);
-                if ($tags && in_array($this->_getCacheInternalId(), $tags)) {
+                if (static::$cache instanceof TaggableInterface) {
+                    $tags = static::$cache->getTags($key);
+                    if ($tags && in_array($this->_getCacheInternalId(), $tags)) {
+                        if (substr($key, 0, $prefixLength) == self::CACHE_TAG_PREFIX) {
+                            static::$cache->removeItem($this->_getCacheId((int)substr($key, $prefixLength)));
+                        }
+                    }
+                } else {
                     if (substr($key, 0, $prefixLength) == self::CACHE_TAG_PREFIX) {
                         static::$cache->removeItem($this->_getCacheId((int)substr($key, $prefixLength)));
                     }
@@ -617,7 +631,9 @@ class Paginator implements Countable, IteratorAggregate
         if ($this->cacheEnabled()) {
             $cacheId = $this->_getCacheId($pageNumber);
             static::$cache->setItem($cacheId, $items);
-            static::$cache->setTags($cacheId, array($this->_getCacheInternalId()));
+            if (static::$cache instanceof TaggableInterface) {
+                static::$cache->setTags($cacheId, array($this->_getCacheInternalId()));
+            }
         }
 
         return $items;
@@ -710,8 +726,14 @@ class Paginator implements Countable, IteratorAggregate
             $cacheIterator = static::$cache->getIterator();
             $cacheIterator->setMode(CacheIterator::CURRENT_AS_VALUE);
             foreach ($cacheIterator as $key => $value) {
-                $tags = static::$cache->getTags($key);
-                if ($tags && in_array($this->_getCacheInternalId(), $tags)) {
+                if (static::$cache instanceof TaggableInterface) {
+                    $tags = static::$cache->getTags($key);
+                    if ($tags && in_array($this->_getCacheInternalId(), $tags)) {
+                        if (substr($key, 0, $prefixLength) == self::CACHE_TAG_PREFIX) {
+                            $data[(int) substr($key, $prefixLength)] = $value;
+                        }
+                    }
+                } else {
                     if (substr($key, 0, $prefixLength) == self::CACHE_TAG_PREFIX) {
                         $data[(int) substr($key, $prefixLength)] = $value;
                     }

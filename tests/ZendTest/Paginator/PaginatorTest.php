@@ -11,7 +11,6 @@ namespace ZendTest\Paginator;
 
 use ReflectionMethod;
 use stdClass;
-use Zend\Cache\StorageFactory as CacheFactory;
 use Zend\Config;
 use Zend\Db\Adapter as DbAdapter;
 use Zend\Db\Sql;
@@ -21,6 +20,8 @@ use Zend\Paginator\Adapter;
 use Zend\Paginator\Exception;
 use Zend\View;
 use Zend\View\Helper;
+use ZendTest\Paginator\TestAsset\Cache\BasicCacheAdapter;
+use ZendTest\Paginator\TestAsset\Cache\IterableCacheAdapter;
 use ZendTest\Paginator\TestAsset\TestArrayAggregate;
 
 /**
@@ -59,10 +60,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         $this->config = Config\Factory::fromFile(__DIR__ . '/_files/config.xml', true);
 
-        $this->cache = CacheFactory::adapterFactory('memory', array('memory_limit' => 0));
-        Paginator\Paginator::setCache($this->cache);
-
         $this->_restorePaginatorDefaults();
+        $this->paginator->setCacheEnabled(false);
     }
 
     protected function tearDown()
@@ -105,6 +104,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->paginator->setCurrentPageNumber(1);
         $this->paginator->setPageRange(10);
         $this->paginator->setView();
+        $this->paginator->setCacheEnabled(false);
 
         Paginator\Paginator::setDefaultScrollingStyle();
         Helper\PaginationControl::setDefaultViewPartial(null);
@@ -112,7 +112,12 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         Paginator\Paginator::setGlobalConfig($this->config->default);
 
         Paginator\Paginator::setScrollingStylePluginManager(new Paginator\ScrollingStylePluginManager());
+    }
 
+    protected function setCache()
+    {
+        $this->cache = new IterableCacheAdapter();
+        Paginator\Paginator::setCache($this->cache);
         $this->paginator->setCacheEnabled(true);
     }
 
@@ -126,14 +131,12 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testHasCorrectCountAfterInit()
     {
-        $paginator = new Paginator\Paginator(new Adapter\ArrayAdapter(range(1, 101)));
-        $this->assertEquals(11, $paginator->count());
+        $this->assertEquals(11, $this->paginator->count());
     }
 
     public function testHasCorrectCountOfAllItemsAfterInit()
     {
-        $paginator = new Paginator\Paginator(new Adapter\ArrayAdapter(range(1, 101)));
-        $this->assertEquals(101, $paginator->getTotalItemCount());
+        $this->assertEquals(101, $this->paginator->getTotalItemCount());
     }
 
     public function testLoadsFromConfig()
@@ -460,12 +463,11 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGivesCorrectItemCount()
     {
-        $paginator = new Paginator\Paginator(new Adapter\ArrayAdapter(range(1, 101)));
-        $paginator->setCurrentPageNumber(5)
+        $this->paginator->setCurrentPageNumber(5)
                   ->setItemCountPerPage(5);
         $expected = new \ArrayIterator(range(21, 25));
 
-        $this->assertEquals($expected, $paginator->getCurrentItems());
+        $this->assertEquals($expected, $this->paginator->getCurrentItems());
     }
 
     /**
@@ -511,6 +513,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCachedItem()
     {
+        $this->setCache();
+
         $this->paginator->setCurrentPageNumber(1)->getCurrentItems();
         $this->paginator->setCurrentPageNumber(2)->getCurrentItems();
         $this->paginator->setCurrentPageNumber(3)->getCurrentItems();
@@ -526,6 +530,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testClearPageItemCache()
     {
+        $this->setCache();
+
         $this->paginator->setCurrentPageNumber(1)->getCurrentItems();
         $this->paginator->setCurrentPageNumber(2)->getCurrentItems();
         $this->paginator->setCurrentPageNumber(3)->getCurrentItems();
@@ -560,8 +566,19 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $pageItems);
     }
 
+    public function testCacheMustBeIterable()
+    {
+        $this->cache = new BasicCacheAdapter();
+        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException',
+            'Cache adapter must implement Zend\Cache\Storage\IterableInterface'
+        );
+        Paginator\Paginator::setCache($this->cache);
+    }
+
     public function testCacheDoesNotDisturbResultsWhenChangingParam()
     {
+        $this->setCache();
+
         $this->paginator->setCurrentPageNumber(1)->getCurrentItems();
         $pageItems = $this->paginator->setItemCountPerPage(5)->getCurrentItems();
 
@@ -573,7 +590,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $pageItems);
 
         // change the inside Paginator scale
-        $pageItems = $this->paginator->setItemCountPerPage(8)->setCurrentPageNumber(3)->getCurrentItems();
+        $this->paginator->setItemCountPerPage(8)->setCurrentPageNumber(3)->getCurrentItems();
 
         $pageItems = $this->paginator->getPageItemCache();
         $expected = /*array(3 => */ new \ArrayIterator(range(17, 24)) /*) */;
@@ -603,10 +620,9 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     public function testFilter()
     {
         $filter = new Filter\Callback(array($this, 'filterCallback'));
-        $paginator = new Paginator\Paginator(new Adapter\ArrayAdapter(range(1, 101)));
-        $paginator->setFilter($filter);
+        $this->paginator->setFilter($filter);
 
-        $page = $paginator->getCurrentItems();
+        $page = $this->paginator->getCurrentItems();
 
         $this->assertEquals(new \ArrayIterator(range(10, 100, 10)), $page);
     }
@@ -687,7 +703,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @group ZF-7602
      */
-    public function testInvalidDataInConstructor_ThrowsException()
+    public function testInvalidDataInConstructorThrowsException()
     {
         $this->setExpectedException('Zend\Paginator\Exception\ExceptionInterface');
 
@@ -700,11 +716,12 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     public function testArrayAccessInClassSerializableLimitIterator()
     {
         $iterator  = new \ArrayIterator(array('zf9396', 'foo', null));
-        $paginator = new Paginator\Paginator(new Adapter\Iterator($iterator));
+        $this->paginator = new Paginator\Paginator(new Adapter\Iterator($iterator));
+        $this->_restorePaginatorDefaults();
 
-        $this->assertEquals('zf9396', $paginator->getItem(1));
+        $this->assertEquals('zf9396', $this->paginator->getItem(1));
 
-        $items = $paginator->getAdapter()
+        $items = $this->paginator->getAdapter()
                            ->getItems(0, 10);
 
         $this->assertEquals('foo', $items[1]);
@@ -791,5 +808,4 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($outputGetCacheId, 'Zend_Paginator_1_' . $outputGetCacheInternalId);
     }
-
 }
