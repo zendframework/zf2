@@ -9,11 +9,10 @@
 
 namespace Zend\Mvc\View\Helper;
 
-use Traversable;
 use Zend\Mvc\Router\RouteStackInterface;
 use Zend\Stdlib\RequestInterface;
+use Zend\View\Exception;
 use Zend\View\Helper\AbstractHelper;
-use Zend\View\HelperPluginManager;
 
 /**
  * Helper for getting the current route.
@@ -35,10 +34,19 @@ class MatchedRoute extends AbstractHelper
     protected $request;
 
     /**
+     * @throws \Zend\View\Exception\RuntimeException
      * @return string
      */
     public function __invoke()
     {
+        if (null === $this->router) {
+            throw new Exception\RuntimeException('No RouteStackInterface instance provided');
+        }
+
+        if (null === $this->request) {
+            throw new Exception\RuntimeException('No RequestInterface instance provided');
+        }
+
         $router = $this->router;
         $request = $this->request;
 
@@ -60,10 +68,10 @@ class MatchedRoute extends AbstractHelper
     }
 
     /**
-     * @param \Zend\Stdlib\RequestInterface $request
+     * @param RequestInterface $request
      * @return MatchedRoute
      */
-    public function setRequest($request)
+    public function setRequest(RequestInterface $request)
     {
         $this->request = $request;
         return $this;

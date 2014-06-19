@@ -9,27 +9,32 @@
 
 namespace ZendTest\View\Helper;
 
+use Zend\Http\Request;
 use Zend\Mvc\View\Helper\MatchedRoute;
-use Zend\View\Helper\Url as UrlHelper;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\SimpleRouteStack as Router;
 
 /**
- * Zend\View\Helper\Url Test
- *
- * Tests formText helper, including some common functionality of all form helpers
- *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group  Zend_View
+ * @group  Zend_View_Helper
+ * @covers \Zend\Mvc\View\Helper\MatchedRoute
  */
 class MatchedRouteTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
+     * @var Router
      */
+    private $router;
+
+    /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @var MatchedRoute
+     */
+    private $matchedRouteHelper;
+
     protected function setUp()
     {
         $router = new Router();
@@ -47,149 +52,45 @@ class MatchedRouteTest extends \PHPUnit_Framework_TestCase
         ));
         $this->router = $router;
 
-        $this->url = new MatchedRoute();
-        $this->url->setRouter($router);
+        $request = new Request();
+        $this->request = $request;
+
+        $this->matchedRouteHelper = new MatchedRoute();
+        $this->matchedRouteHelper->setRouter($router);
+        $this->matchedRouteHelper->setRequest($request);
     }
 
     public function testHelperHasHardDependencyWithRouter()
     {
+        $matchedRouteHelper = new MatchedRoute();
+        $matchedRouteHelper->setRequest($this->request);
         $this->setExpectedException('Zend\View\Exception\RuntimeException', 'No RouteStackInterface instance provided');
-        $url = new MatchedRoute();
-        $url('home');
+        $matchedRouteHelper->__invoke('home');
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $matchedRouteHelper->setRouter(null);
+    }
+
+    public function testHelperHasHardDependencyWithRequest()
+    {
+        $matchedRouteHelper = new MatchedRoute();
+        $matchedRouteHelper->setRouter($this->router);
+        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'No RequestInterface instance provided');
+        $matchedRouteHelper->__invoke('home');
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $matchedRouteHelper->setRequest(null);
     }
 
     public function testHomeRoute()
     {
-        $url = $this->url->__invoke('home');
-        $this->assertEquals('/', $url);
+        $this->request->setUri('/');
+        $matchedRoute = $this->matchedRouteHelper->__invoke();
+        $this->assertEquals('home', $matchedRoute);
     }
 
     public function testModuleRoute()
     {
-        $url = $this->url->__invoke('default', array('controller' => 'ctrl', 'action' => 'act'));
-        $this->assertEquals('/ctrl/act', $url);
-    }
-
-    public function testModel()
-    {
-        $it = new \ArrayIterator(array('controller' => 'ctrl', 'action' => 'act'));
-
-        $url = $this->url->__invoke('default', $it);
-        $this->assertEquals('/ctrl/act', $url);
-    }
-
-    /**
-     * @expectedException \Zend\View\Exception\InvalidArgumentException
-     */
-    public function testThrowsExceptionOnInvalidParams()
-    {
-        $this->url->__invoke('default', 'invalid params');
-    }
-
-    public function testPluginWithoutRouteMatchesInEventRaisesExceptionWhenNoRouteProvided()
-    {
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'RouteMatch');
-        $url = $this->url->__invoke();
-    }
-
-    public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
-    {
-        $this->url->setRouteMatch(new RouteMatch(array()));
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'matched');
-        $url = $this->url->__invoke();
-    }
-
-    public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl()
-    {
-        $routeMatch = new RouteMatch(array());
-        $routeMatch->setMatchedRouteName('home');
-        $this->url->setRouteMatch($routeMatch);
-        $url = $this->url->__invoke();
-        $this->assertEquals('/', $url);
-    }
-
-    public function testCanReuseMatchedParameters()
-    {
-        $this->router->addRoute('replace', array(
-            'type'    => 'Zend\Mvc\Router\Http\Segment',
-            'options' => array(
-                'route'    => '/:controller/:action',
-                'defaults' => array(
-                    'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-                ),
-            ),
-        ));
-        $routeMatch = new RouteMatch(array(
-            'controller' => 'foo',
-        ));
-        $routeMatch->setMatchedRouteName('replace');
-        $this->url->setRouteMatch($routeMatch);
-        $url = $this->url->__invoke('replace', array('action' => 'bar'), array(), true);
-        $this->assertEquals('/foo/bar', $url);
-    }
-
-    public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
-    {
-        $this->router->addRoute('replace', array(
-            'type' => 'Zend\Mvc\Router\Http\Segment',
-            'options' => array(
-                'route'    => '/:controller/:action',
-                'defaults' => array(
-                    'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-                ),
-            ),
-        ));
-        $routeMatch = new RouteMatch(array(
-            'controller' => 'foo',
-        ));
-        $routeMatch->setMatchedRouteName('replace');
-        $this->url->setRouteMatch($routeMatch);
-        $url = $this->url->__invoke('replace', array('action' => 'bar'), true);
-        $this->assertEquals('/foo/bar', $url);
-    }
-
-    public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
-    {
-        $router = new \Zend\Mvc\Router\Http\TreeRouteStack;
-        $router->addRoute('default', array(
-            'type' => 'Zend\Mvc\Router\Http\Segment',
-            'options' => array(
-                'route'    => '/:controller/:action',
-                'defaults' => array(
-                    ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
-                    'controller' => 'SampleController',
-                    'action'     => 'Dash'
-                )
-            ),
-            'child_routes' => array(
-                'wildcard' => array(
-                    'type'    => 'Zend\Mvc\Router\Http\Wildcard',
-                    'options' => array(
-                        'param_delimiter'     => '=',
-                        'key_value_delimiter' => '%'
-                    )
-                )
-            )
-        ));
-
-        $routeMatch = new RouteMatch(array(
-            ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
-            'controller' => 'Rainbow'
-        ));
-        $routeMatch->setMatchedRouteName('default/wildcard');
-
-        $event = new MvcEvent();
-        $event->setRouter($router)
-              ->setRouteMatch($routeMatch);
-
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->onRoute($event);
-
-        $helper = new UrlHelper();
-        $helper->setRouter($router);
-        $helper->setRouteMatch($routeMatch);
-
-        $url = $helper->__invoke('default/wildcard', array('Twenty' => 'Cooler'), true);
-        $this->assertEquals('/Rainbow/Dash=Twenty%Cooler', $url);
+        $this->request->setUri('/foo/bar');
+        $matchedRoute = $this->matchedRouteHelper->__invoke();
+        $this->assertEquals('default', $matchedRoute);
     }
 }
