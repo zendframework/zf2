@@ -630,6 +630,19 @@ class ServiceManager implements ServiceLocatorInterface
             ));
         }
 
+        $instance = $this->applyInitializers($instance);
+
+        return $instance;
+    }
+
+    /**
+     * Applies the initializers known to the ServiceManager to $instance
+     *
+     * @param bool|mixed|null|object $instance
+     * @return bool|mixed|null|object
+     */
+    public function applyInitializers($instance)
+    {
         // Do not call initializers if we do not have an instance
         if ($instance === null) {
             return $instance;
@@ -645,7 +658,7 @@ class ServiceManager implements ServiceLocatorInterface
 
         return $instance;
     }
-
+    
     /**
      * Determine if we can create an instance.
      * Proxies to has()
