@@ -70,6 +70,11 @@ class Input implements InputInterface, EmptyContextInterface
      */
     protected $fallbackValue;
 
+    /**
+     * @var bool
+     */
+    protected $hasFallback = false;
+
     public function __construct($name = null)
     {
         $this->name = $name;
@@ -173,6 +178,7 @@ class Input implements InputInterface, EmptyContextInterface
     public function setFallbackValue($value)
     {
         $this->fallbackValue = $value;
+        $this->hasFallback = true;
         return $this;
     }
 
@@ -272,17 +278,31 @@ class Input implements InputInterface, EmptyContextInterface
     }
 
     /**
+     * @return bool
+     */
+    public function hasFallback()
+    {
+        return $this->hasFallback;
+    }
+
+    public function clearFallbackValue()
+    {
+        $this->hasFallback = false;
+        $this->fallbackValue = null;
+    }
+
+    /**
      * @param  InputInterface $input
      * @return Input
      */
     public function merge(InputInterface $input)
     {
-        $this->setAllowEmpty($input->allowEmpty());
         $this->setBreakOnFailure($input->breakOnFailure());
         $this->setContinueIfEmpty($input->continueIfEmpty());
         $this->setErrorMessage($input->getErrorMessage());
         $this->setName($input->getName());
         $this->setRequired($input->isRequired());
+        $this->setAllowEmpty($input->allowEmpty());
         $this->setValue($input->getRawValue());
 
         $filterChain = $input->getFilterChain();
@@ -308,8 +328,8 @@ class Input implements InputInterface, EmptyContextInterface
         $validator = $this->getValidatorChain();
         $value     = $this->getValue();
         $result    = $validator->isValid($value, $context);
-        if (!$result && $fallbackValue = $this->getFallbackValue()) {
-            $this->setValue($fallbackValue);
+        if (!$result && $this->hasFallback()) {
+            $this->setValue($this->getFallbackValue());
             $result = true;
         }
 
@@ -325,7 +345,7 @@ class Input implements InputInterface, EmptyContextInterface
             return (array) $this->errorMessage;
         }
 
-        if ($this->getFallbackValue()) {
+        if ($this->hasFallback()) {
             return array();
         }
 
