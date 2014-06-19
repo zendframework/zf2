@@ -16,7 +16,7 @@ use Zend\Mvc\Router\SimpleRouteStack as Router;
 /**
  * @group  Zend_View
  * @group  Zend_View_Helper
- * @covers \Zend\Mvc\View\Helper\MatchedRoute
+ * @covers \Zend\Mvc\View\Helper\MatchedRouteName
  */
 class MatchedRouteNameTest extends \PHPUnit_Framework_TestCase
 {
