@@ -10,7 +10,7 @@
 namespace ZendTest\View\Helper;
 
 use Zend\Http\Request;
-use Zend\Mvc\View\Helper\MatchedRoute;
+use Zend\Mvc\View\Helper\MatchedRouteName;
 use Zend\Mvc\Router\SimpleRouteStack as Router;
 
 /**
@@ -18,7 +18,7 @@ use Zend\Mvc\Router\SimpleRouteStack as Router;
  * @group  Zend_View_Helper
  * @covers \Zend\Mvc\View\Helper\MatchedRoute
  */
-class MatchedRouteTest extends \PHPUnit_Framework_TestCase
+class MatchedRouteNameTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Router
@@ -31,7 +31,7 @@ class MatchedRouteTest extends \PHPUnit_Framework_TestCase
     private $request;
 
     /**
-     * @var MatchedRoute
+     * @var MatchedRouteName
      */
     private $matchedRouteHelper;
 
@@ -55,14 +55,14 @@ class MatchedRouteTest extends \PHPUnit_Framework_TestCase
         $request = new Request();
         $this->request = $request;
 
-        $this->matchedRouteHelper = new MatchedRoute();
+        $this->matchedRouteHelper = new MatchedRouteName();
         $this->matchedRouteHelper->setRouter($router);
         $this->matchedRouteHelper->setRequest($request);
     }
 
     public function testHelperHasHardDependencyWithRouter()
     {
-        $matchedRouteHelper = new MatchedRoute();
+        $matchedRouteHelper = new MatchedRouteName();
         $matchedRouteHelper->setRequest($this->request);
         $this->setExpectedException('Zend\View\Exception\RuntimeException', 'No RouteStackInterface instance provided');
         $matchedRouteHelper->__invoke('home');
@@ -72,7 +72,7 @@ class MatchedRouteTest extends \PHPUnit_Framework_TestCase
 
     public function testHelperHasHardDependencyWithRequest()
     {
-        $matchedRouteHelper = new MatchedRoute();
+        $matchedRouteHelper = new MatchedRouteName();
         $matchedRouteHelper->setRouter($this->router);
         $this->setExpectedException('Zend\View\Exception\RuntimeException', 'No RequestInterface instance provided');
         $matchedRouteHelper->__invoke('home');

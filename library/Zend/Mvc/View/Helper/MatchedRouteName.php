@@ -17,7 +17,7 @@ use Zend\View\Helper\AbstractHelper;
 /**
  * Helper for getting the current route.
  */
-class MatchedRoute extends AbstractHelper
+class MatchedRouteName extends AbstractHelper
 {
     /**
      * RouteStackInterface instance.
@@ -59,7 +59,7 @@ class MatchedRoute extends AbstractHelper
      * Set the router to use for assembling.
      *
      * @param RouteStackInterface $router
-     * @return MatchedRoute
+     * @return $this
      */
     public function setRouter(RouteStackInterface $router)
     {
@@ -69,7 +69,7 @@ class MatchedRoute extends AbstractHelper
 
     /**
      * @param RequestInterface $request
-     * @return MatchedRoute
+     * @return $this
      */
     public function setRequest(RequestInterface $request)
     {
