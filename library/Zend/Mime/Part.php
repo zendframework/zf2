@@ -132,8 +132,10 @@ class Part
             $encodedStream = $this->getEncodedStream($EOL);
             $encodedStreamContents = stream_get_contents($encodedStream);
             $streamMetaData = stream_get_meta_data($encodedStream);
-            if ($streamMetaData['seekable']) {
-                rewind($encodedStream);
+            if (isset($streamMetaData['seekable'])) {
+                if ($streamMetaData['seekable']) {
+                    rewind($encodedStream);
+                }
             }
             return $encodedStreamContents;
         }
