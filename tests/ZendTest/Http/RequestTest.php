@@ -299,4 +299,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $request = Request::fromString('X-CUS_TOM someurl', true);
     }
+
+    public function testStandardMethodsOnlyFlagIsSetByFromString()
+    {
+        $request = Request::fromString('GET someurl', true);
+        $this->assertTrue($request->isStandardMethodsOnly());
+    }
 }
