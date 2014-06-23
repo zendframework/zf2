@@ -11,7 +11,6 @@ namespace Zend\Validator;
 
 use Countable;
 use Zend\Stdlib\PriorityQueue;
-use Zend\Stdlib\SplPriorityQueue;
 
 class ValidatorChain implements
     Countable,
