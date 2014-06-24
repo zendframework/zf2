@@ -19,7 +19,7 @@ class ValidatorChain implements
     /**
      * Default priority at which validators are added
      */
-    const DEFAULT_PRIORITY = 1000;
+    const DEFAULT_PRIORITY = 1;
 
     /**
      * @var ValidatorPluginManager
