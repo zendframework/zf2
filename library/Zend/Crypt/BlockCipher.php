@@ -258,7 +258,7 @@ class BlockCipher
     /**
      * Set the encryption/decryption key
      *
-     * @param  string$key
+     * @param  string                             $key
      * @return BlockCipher
      * @throws Exception\InvalidArgumentException
      */
@@ -442,7 +442,7 @@ class BlockCipher
      *
      * @param  string                             $fileIn
      * @param  string                             $fileOut
-     * @return boolean
+     * @return bool
      * @throws Exception\InvalidArgumentException
      */
     public function encryptFile($fileIn, $fileOut, $compress = true)
@@ -572,7 +572,7 @@ class BlockCipher
      *
      * @param  string                             $fileIn
      * @param  string                             $fileOut
-     * @return boolean
+     * @return bool
      * @throws Exception\InvalidArgumentException
      */
     public function decryptFile($fileIn, $fileOut, $compress = true)
