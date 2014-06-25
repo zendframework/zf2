@@ -75,13 +75,6 @@ class BlockCipher
     protected $key;
 
     /**
-     * Buffer size for file encryption
-     *
-     * @var int
-     */
-    protected $bufferSize = 1048576; // 16 * 65536 bytes = 1 Mb
-
-    /**
      * Constructor
      *
      * @param SymmetricInterface $cipher
@@ -413,21 +406,27 @@ class BlockCipher
         if (empty($this->cipher)) {
             throw new Exception\InvalidArgumentException('No symmetric cipher specified');
         }
-
+        if (empty($this->key)) {
+            throw new Exception\InvalidArgumentException('No key specified for encryption');
+        }
         if (!$this->saltSetted) {
             // generate a random salt (IV) if the salt has not been set
             $iv = Rand::getBytes($this->cipher->getSaltSize(), true);
         } else {
             $iv = $this->getSalt();
         }
-        $keys = $this->generateKeys($iv);
-        $this->cipher->setKey($keys['enc']);
+        $keys = Pbkdf2::calc($this->getPbkdf2HashAlgorithm(),
+                             $this->getKey(),
+                             $iv,
+                             $this->getKeyIteration(),
+                             $this->cipher->getKeySize() * 2);
+        $this->cipher->setKey(substr($keys, 0, $this->cipher->getKeySize()));
         $this->cipher->setSalt($iv);
 
         // encryption
         $ciphertext = $this->cipher->encrypt($data);
         // HMAC
-        $hmac = Hmac::compute($keys['hmac'],
+        $hmac = Hmac::compute(substr($keys, $this->cipher->getKeySize()),
                               $this->getHashAlgorithm(),
                               $this->cipher->getAlgorithm() . $ciphertext);
         if (!$this->binaryOutput) {
@@ -435,98 +434,6 @@ class BlockCipher
         }
 
         return $hmac . $ciphertext;
-    }
-
-    /**
-     * Encrypt then authenticate a file using HMAC
-     *
-     * @param  string                             $fileIn
-     * @param  string                             $fileOut
-     * @return bool
-     * @throws Exception\InvalidArgumentException
-     */
-    public function encryptFile($fileIn, $fileOut, $compress = true)
-    {
-        if (!file_exists($fileIn)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                "I cannot open the %s file", $fileIn
-            ));
-        }
-        if (file_exists($fileOut)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                "The file %s already exists", $fileOut
-            ));
-        }
-        $read = fopen($fileIn, "r");
-        if ($compress) {
-            // Compress the file to be encrypted
-            $compressFile = $fileIn . '_zip';
-            $write = fopen('compress.zlib://' . $compressFile, "w");
-            while ($data = fread($read, $this->bufferSize)) {
-                fwrite($write, $data);
-            }
-            fclose($write);
-            fclose($read);
-            $read = fopen($compressFile, "r");
-        }
-        $write = fopen($fileOut, "w");
-        if (empty($this->cipher)) {
-            throw new Exception\InvalidArgumentException('No symmetric cipher specified');
-        }
-
-        if (!$this->saltSetted) {
-            // generate a random salt (IV) if the salt has not been set
-            $iv = Rand::getBytes($this->cipher->getSaltSize(), true);
-        } else {
-            $iv = $this->getSalt();
-        }
-        $keys  = $this->generateKeys($iv);
-        $hmac  = '';
-        $size  = 0;
-        $tot   = filesize($fileIn);
-        $this->cipher->setKey($keys['enc']);
-        $padding = $this->cipher->getPadding();
-        $this->cipher->setPadding(new Symmetric\Padding\NoPadding);
-        $this->cipher->setSalt($iv);
-
-        $hashAlgo  = $this->getHashAlgorithm();
-        $saltSize  = $this->cipher->getSaltSize();
-        $algorithm = $this->cipher->getAlgorithm();
-
-        while ($data = fread($read, $this->bufferSize)) {
-            $size += strlen($data);
-            // Padding if last block
-            if ($size == $tot) {
-                $this->cipher->setPadding($padding);
-            }
-            $result = $this->cipher->encrypt($data);
-            if ($size <= $this->bufferSize) {
-                // Write a placeholder for the HMAC and write the IV
-                fwrite($write, str_repeat(0, Hmac::getOutputSize($hashAlgo)));
-            } else {
-                $result = substr($result, $saltSize);
-            }
-            $hmac = Hmac::compute($keys['hmac'],
-                                  $hashAlgo,
-                                  $algorithm . $hmac . $result);
-            $this->cipher->setSalt(substr($result, -1 * $saltSize));
-            if (fwrite($write, $result) !== strlen($result)) {
-                return false;
-            }
-        }
-        $result = true;
-        // write the HMAC at the beginning of the file
-        fseek($write, 0);
-        if (fwrite($write, $hmac) !== strlen($hmac)) {
-            $result = false;
-        }
-        fclose($write);
-        fclose($read);
-        if ($compress) {
-            unlink($compressFile);
-        }
-
-        return $result;
     }
 
     /**
@@ -547,6 +454,9 @@ class BlockCipher
         if (empty($this->cipher)) {
             throw new Exception\InvalidArgumentException('No symmetric cipher specified');
         }
+        if (empty($this->key)) {
+            throw new Exception\InvalidArgumentException('No key specified for decryption');
+        }
         $hmacSize   = Hmac::getOutputSize($this->hash);
         $hmac       = substr($data, 0, $hmacSize);
         $ciphertext = substr($data, $hmacSize);
@@ -554,10 +464,14 @@ class BlockCipher
             $ciphertext = base64_decode($ciphertext);
         }
         $iv   = substr($ciphertext, 0, $this->cipher->getSaltSize());
-        $keys = $this->generateKeys($iv);
+        $keys = Pbkdf2::calc($this->getPbkdf2HashAlgorithm(),
+                             $this->getKey(),
+                             $iv,
+                             $this->getKeyIteration(),
+                             $this->cipher->getKeySize() * 2);
         // set the decryption key
-        $this->cipher->setKey($keys['enc']);
-        $hmacNew = Hmac::compute($keys['hmac'],
+        $this->cipher->setKey(substr($keys, 0, $this->cipher->getKeySize()));
+        $hmacNew = Hmac::compute(substr($keys, $this->cipher->getKeySize()),
                                  $this->hash,
                                  $this->cipher->getAlgorithm() . $ciphertext);
         if (!Utils::compareStrings($hmacNew, $hmac)) {
@@ -565,122 +479,5 @@ class BlockCipher
         }
 
         return $this->cipher->decrypt($ciphertext);
-    }
-
-    /**
-     * Decrypt a file
-     *
-     * @param  string                             $fileIn
-     * @param  string                             $fileOut
-     * @return bool
-     * @throws Exception\InvalidArgumentException
-     */
-    public function decryptFile($fileIn, $fileOut, $compress = true)
-    {
-        if (!file_exists($fileIn)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                "I cannot open the %s file", $fileIn
-            ));
-        }
-        if (file_exists($fileOut)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                "The file %s already exists", $fileOut
-            ));
-        }
-        $read = fopen($fileIn, "r");
-        if ($compress) {
-            $compressFile = $fileOut . "_zip";
-            $write = fopen($compressFile, "w");
-        } else {
-            $write = fopen($fileOut, "w");
-        }
-        if (empty($this->cipher)) {
-            throw new Exception\InvalidArgumentException('No symmetric cipher specified');
-        }
-
-        $hmacRead = fread($read, Hmac::getOutputSize($this->getHashAlgorithm()));
-        $iv       = fread($read, $this->cipher->getSaltSize());
-        $tot      = filesize($fileIn);
-        $hmac     = $iv;
-        $size     = strlen($iv) + strlen($hmacRead);
-        $keys     = $this->generateKeys($iv);
-        $padding  = $this->cipher->getPadding();
-        $this->cipher->setPadding(new Symmetric\Padding\NoPadding);
-        $this->cipher->setKey($keys['enc']);
-
-        $blockSize = $this->cipher->getBlockSize();
-        $hashAlgo  = $this->getHashAlgorithm();
-        $algorithm = $this->cipher->getAlgorithm();
-        $saltSize  = $this->cipher->getSaltSize();
-
-        while ($data = fread($read, $this->bufferSize)) {
-            $size += strlen($data);
-            // Unpadding if last block
-            if ($size + $blockSize >= $tot) {
-                $this->cipher->setPadding($padding);
-                $data .= fread($read, $blockSize);
-            }
-            $result = $this->cipher->decrypt($iv . $data);
-            $hmac   = Hmac::compute($keys['hmac'],
-                                    $hashAlgo,
-                                    $algorithm . $hmac . $data);
-            $iv     = substr($data, -1 * $saltSize);
-            if (fwrite($write, $result) !== strlen($result)) {
-                return false;
-            }
-        }
-        fclose($write);
-        fclose($read);
-
-        // check for data integrity
-        if (!Utils::compareStrings($hmac, $hmacRead)) {
-            if ($compress) {
-                unlink($compressFile);
-            } else {
-                unlink($fileOut);
-            }
-
-            return false;
-        }
-        // Uncompress the file out
-        if ($compress) {
-            $read  = fopen('compress.zlib://' . $compressFile, "r");
-            $write = fopen($fileOut, "w");
-            while ($data = fread($read, $this->bufferSize)) {
-                fwrite($write, $data);
-            }
-            fclose($write);
-            fclose($read);
-            unlink($compressFile);
-        }
-
-        return true;
-    }
-
-    /**
-     * Generate encryption key and authentication key
-     * using PBKDF2 algorithm
-     *
-     * @param  string $iv
-     * @return array
-     */
-    protected function generateKeys($iv)
-    {
-        if (!$this->getKey()) {
-            throw new Exception\InvalidArgumentException('No key specified');
-        }
-        if (empty($this->cipher)) {
-            throw new Exception\InvalidArgumentException('No symmetric cipher specified');
-        }
-        $key = Pbkdf2::calc($this->getPbkdf2HashAlgorithm(),
-                            $this->getKey(),
-                            $iv,
-                            $this->getKeyIteration(),
-                            $this->cipher->getKeySize() * 2);
-
-        return array(
-            'enc'  => substr($key, 0, $this->cipher->getKeySize()),
-            'hmac' => substr($key, $this->cipher->getKeySize())
-        );
     }
 }

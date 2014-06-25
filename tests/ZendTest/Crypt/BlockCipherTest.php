@@ -12,8 +12,6 @@ namespace ZendTest\Crypt;
 use Zend\Crypt\BlockCipher;
 use Zend\Crypt\Symmetric\Mcrypt;
 use Zend\Crypt\Symmetric\Exception;
-use Zend\Crypt\Hmac;
-use Zend\Math\Rand;
 
 /**
  * @group      Zend_Crypt
@@ -127,7 +125,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     {
         $plaintext = 'test';
         $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    'No key specified');
+                                    'No key specified for encryption');
         $ciphertext = $this->blockCipher->encrypt($plaintext);
     }
 
@@ -194,173 +192,5 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
         $encrypted = substr($encrypted, -1);
         $decrypted = $this->blockCipher->decrypt($encrypted);
         $this->assertTrue($decrypted === false);
-    }
-
-    public function testEncryptDecryptFile()
-    {
-        // Test 5 files with a random size bewteen 1 Kb and 5 Mb
-        for ($i=1; $i <= 5; $i++) {
-            $fileIn  = $this->generateTmpFile(Rand::getInteger(1024, 1048576 * 5), Rand::getBytes(1));
-            $fileOut = $fileIn . '.enc';
-            $this->blockCipher->setKey('test');
-
-            // encrypt
-            $this->assertTrue($this->blockCipher->encryptFile($fileIn, $fileOut));
-
-            // check if the file is compressed
-            $this->assertTrue(filesize($fileOut) < fileSize($fileIn));
-
-            $decryptFile = $fileOut . '.dec';
-            // decrypt
-            $this->assertTrue($this->blockCipher->decryptFile($fileOut, $decryptFile));
-            $this->assertEquals(filesize($fileIn), filesize($decryptFile));
-            $this->assertEquals(file_get_contents($fileIn), file_get_contents($decryptFile));
-
-            unlink($fileIn);
-            unlink($fileOut);
-            unlink($decryptFile);
-        }
-    }
-
-    public function testEncrypDecryptFileNoCOmpression()
-    {
-        // Test 5 files with a random size between 1 Kb and 5 Mb
-        for ($i=1; $i <= 5; $i++) {
-            $fileIn  = $this->generateTmpFile(Rand::getInteger(1024, 1048576 * 5), Rand::getBytes(1));
-            $fileOut = $fileIn . '.enc';
-            $this->blockCipher->setKey('test');
-
-            // encrypt without compression
-            $this->assertTrue($this->blockCipher->encryptFile($fileIn, $fileOut, false));
-
-            $paddingSize = $this->blockCipher->getCipher()->getBlockSize();
-            $this->assertEquals(filesize($fileOut),
-                                filesize($fileIn) +
-                                $this->blockCipher->getCipher()->getSaltSize() +
-                                Hmac::getOutputSize($this->blockCipher->getHashAlgorithm()) +
-                                $paddingSize - filesize($fileIn) % $paddingSize);
-
-            $decryptFile = $fileOut . '.dec';
-            // decrypt
-            $this->assertTrue($this->blockCipher->decryptFile($fileOut, $decryptFile));
-            $this->assertEquals(filesize($fileIn), filesize($decryptFile));
-            $this->assertEquals(file_get_contents($fileIn), file_get_contents($decryptFile));
-
-            unlink ($fileIn);
-            unlink ($fileOut);
-            unlink ($decryptFile);
-        }
-    }
-
-    public function testDecryptFileNoValidAuthenticate()
-    {
-        $fileIn  = $this->generateTmpFile(1048576, Rand::getBytes(1));
-        $fileOut = $fileIn . '.enc';
-
-        $this->blockCipher->setKey('test');
-        $this->assertTrue($this->blockCipher->encryptFile($fileIn, $fileOut, false));
-
-        $fileOut2 = $fileIn . '.dec';
-        $this->assertTrue($this->blockCipher->decryptFile($fileOut, $fileOut2, false));
-        unlink ($fileOut2);
-
-        // Tampering of the encrypted file
-        $ciphertext = file_get_contents($fileOut);
-        $ciphertext[0] = chr((ord($ciphertext[0]) + 1) % 256);
-        file_put_contents($fileOut, $ciphertext);
-
-        $this->assertFalse($this->blockCipher->decryptFile($fileOut, $fileOut2, false));
-        $this->assertFalse(file_exists($fileOut2));
-
-        unlink($fileIn);
-        unlink($fileOut);
-    }
-
-    public function testEncryptFileWithNoKey()
-    {
-        $fileIn  = $this->generateTmpFile(1048576, Rand::getBytes(1));
-        $fileOut = $fileIn . '.enc';
-
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    'No key specified');
-        $this->blockCipher->encryptFile($fileIn, $fileOut);
-
-        unlink($fileIn);
-    }
-
-    public function testDecryptFileWithNoKey()
-    {
-        $fileIn  = $this->generateTmpFile(1048576, Rand::getBytes(1));
-        $fileOut = $fileIn . '.enc';
-
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    'No key specified');
-        $this->blockCipher->decryptFile($fileIn, $fileOut);
-
-        unlink($fileIn);
-    }
-
-    public function testEncryptFileInvalidInputFile()
-    {
-        $randomFile = uniqid('Invalid_File');
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    "I cannot open the $randomFile file");
-        $this->blockCipher->setKey('test');
-        $this->blockCipher->encryptFile($randomFile, '');
-    }
-
-    public function testDecryptFileInvalidInputFile()
-    {
-        $randomFile = uniqid('Invalid_File');
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    "I cannot open the $randomFile file");
-        $this->blockCipher->setKey('test');
-        $this->blockCipher->decryptFile($randomFile, '');
-
-    }
-
-    public function testEncryptFileInvalidOutputFile()
-    {
-        $fileIn  = $this->generateTmpFile(1024);
-        $fileOut = $this->generateTmpFile(1024);
-
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    "The file $fileOut already exists");
-        $this->blockCipher->setKey('test');
-        $this->blockCipher->encryptFile($fileIn, $fileOut);
-
-        unlink($fileIn);
-        unlink($fileOut);
-    }
-
-    public function testDecryptFileInvalidOutputFile()
-    {
-        $fileIn  = $this->generateTmpFile(1024);
-        $fileOut = $this->generateTmpFile(1024);
-
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    "The file $fileOut already exists");
-        $this->blockCipher->setKey('test');
-        $this->blockCipher->decryptFile($fileIn, $fileOut);
-
-        unlink($fileIn);
-        unlink($fileOut);
-    }
-
-    /**
-     * Generate a temporary file with a selected size
-     *
-     * @param  string $size
-     * @param  string $content
-     * @return string
-     */
-    protected function generateTmpFile($size, $content = 'A')
-    {
-        $fileName = sys_get_temp_dir() . '/' . uniqid('ZF2_BlockCipher_test');
-        $num = $size / strlen($content) + 1;
-        $content  = str_repeat('A', $size / strlen($content) + 1);
-        file_put_contents($fileName, substr($content, 0, $size));
-
-        return $fileName;
     }
 }
