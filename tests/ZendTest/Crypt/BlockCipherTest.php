@@ -125,7 +125,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     {
         $plaintext = 'test';
         $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    'No key specified for the encryption');
+                                    'No key specified for encryption');
         $ciphertext = $this->blockCipher->encrypt($plaintext);
     }
 
