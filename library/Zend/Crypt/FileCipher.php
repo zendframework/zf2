@@ -14,7 +14,7 @@ use Zend\Crypt\Symmetric\SymmetricInterface;
 use Zend\Math\Rand;
 
 /**
- * Encrypt/decrypt a file usinf a symmetric cipher then authenticate using HMAC
+ * Encrypt/decrypt a file using a symmetric cipher then authenticate using HMAC
  */
 class FileCipher
 {
@@ -37,7 +37,7 @@ class FileCipher
      *
      * @var SymmetricPluginManager
      */
-    protected static $symmetricPlugins = null;
+    protected static $symmetricPlugins;
 
     /**
      * Hash algorithm for HMAC
@@ -68,12 +68,6 @@ class FileCipher
     protected $bufferSize = 1048576; // 16 * 65536 bytes = 1 Mb
 
     /**
-     * Compress the file before encryption
-     * @var bool
-     */
-    protected $compress = true;
-
-    /**
      * Constructor
      *
      * @param SymmetricInterface $cipher
@@ -88,7 +82,7 @@ class FileCipher
      *
      * @param  string      $adapter
      * @param  array       $options
-     * @return BlockCipher
+     * @return self
      */
     public static function factory($adapter, $options = array())
     {
@@ -143,7 +137,7 @@ class FileCipher
      * Set the symmetric cipher
      *
      * @param  SymmetricInterface $cipher
-     * @return BlockCipher
+     * @return self
      */
     public function setCipher(SymmetricInterface $cipher)
     {
@@ -166,7 +160,7 @@ class FileCipher
      * Set the number of iterations for Pbkdf2
      *
      * @param  int         $num
-     * @return BlockCipher
+     * @return self
      */
     public function setKeyIteration($num)
     {
@@ -189,7 +183,7 @@ class FileCipher
      * Set the encryption/decryption key
      *
      * @param  string                             $key
-     * @return BlockCipher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setKey($key)
@@ -216,7 +210,7 @@ class FileCipher
      * Set algorithm of the symmetric cipher
      *
      * @param  string                             $algo
-     * @return BlockCipher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setCipherAlgorithm($algo)
@@ -265,7 +259,7 @@ class FileCipher
      * Set the hash algorithm for HMAC authentication
      *
      * @param  string                             $hash
-     * @return BlockCipher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setHashAlgorithm($hash)
@@ -294,7 +288,7 @@ class FileCipher
      * Set the hash algorithm for the Pbkdf2
      *
      * @param  string                             $hash
-     * @return BlockCipher
+     * @return self
      * @throws Exception\InvalidArgumentException
      */
     public function setPbkdf2HashAlgorithm($hash)
@@ -318,36 +312,12 @@ class FileCipher
     {
         return $this->pbkdf2Hash;
     }
-
-    /**
-     * Set the compression of the file
-     *
-     * @param  bool       $compress
-     * @return FileCipher
-     */
-    public function setCompress($compress)
-    {
-        $this->compress = (boolean) $compress;
-
-        return $this;
-    }
-
-    /**
-     * Get the compression setting
-     *
-     * @return bool
-     */
-    public function getCompress()
-    {
-        return $this->compress;
-    }
-
+    
     /**
      * Encrypt then authenticate a file using HMAC
      *
      * @param  string                             $fileIn
      * @param  string                             $fileOut
-     * @param  bool                               $compress
      * @return bool
      * @throws Exception\InvalidArgumentException
      */
@@ -367,14 +337,8 @@ class FileCipher
             throw new Exception\InvalidArgumentException('No key specified for encryption');
         }
 
-        if ($this->compress) {
-            $compressFile = $this->compressFile($fileIn);
-            $read         = fopen($compressFile, "r");
-        } else {
-            $read = fopen($fileIn, "r");
-        }
-        $write = fopen($fileOut, "w");
-
+        $read    = fopen($fileIn, "r");
+        $write   = fopen($fileOut, "w");
         $iv      = Rand::getBytes($this->cipher->getSaltSize(), true);
         $keys    = Pbkdf2::calc($this->getPbkdf2HashAlgorithm(),
                                 $this->getKey(),
@@ -424,10 +388,6 @@ class FileCipher
         }
         fclose($write);
         fclose($read);
-        // Remove the file compressed
-        if ($this->compress) {
-            unlink($compressFile);
-        }
 
         return $result;
     }
@@ -457,14 +417,8 @@ class FileCipher
             throw new Exception\InvalidArgumentException('No key specified for decryption');
         }
 
-        $read = fopen($fileIn, "r");
-        if ($this->compress) {
-            $compressFile = sys_get_temp_dir() . '/' . uniqid('tmp_compress_');
-            $write = fopen($compressFile, "w");
-        } else {
-            $write = fopen($fileOut, "w");
-        }
-
+        $read     = fopen($fileIn, "r");
+        $write    = fopen($fileOut, "w");
         $hmacRead = fread($read, Hmac::getOutputSize($this->getHashAlgorithm()));
         $iv       = fread($read, $this->cipher->getSaltSize());
         $tot      = filesize($fileIn);
@@ -506,74 +460,9 @@ class FileCipher
 
         // check for data integrity
         if (!Utils::compareStrings($hmac, $hmacRead)) {
-            if ($this->compress) {
-                unlink($compressFile);
-            } else {
-                unlink($fileOut);
-            }
-
+            unlink($fileOut);
             return false;
         }
-        // Uncompress the file out
-        if ($this->compress) {
-            $this->unCompressFile($compressFile, $fileOut);
-            unlink($compressFile);
-        }
-
         return true;
-    }
-
-    /**
-     * Compress a file
-     *
-     * @param  string                             $fileIn
-     * @param  string                             $fileOut
-     * @return string
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function compressFile($fileIn, $fileOut = null)
-    {
-        if (!file_exists($fileIn)) {
-            throw new Exception\InvalidArgumentException("The file %s doesn't exist", $fileIn);
-        }
-        if (!$fileOut) {
-            $fileOut = sys_get_temp_dir() . '/' . uniqid('tmp_compress_');
-        }
-        $read  = fopen($fileIn, "r");
-        $write = fopen('compress.zlib://' . $fileOut, "w");
-        while ($data = fread($read, $this->bufferSize)) {
-            fwrite($write, $data);
-        }
-        fclose($write);
-        fclose($read);
-
-        return $fileOut;
-    }
-
-    /**
-     * Uncompress a file
-     *
-     * @param  string                             $fileIn
-     * @param  string                             $fileOut
-     * @return string
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function unCompressFile($fileIn, $fileOut = null)
-    {
-        if (!file_exists($fileIn)) {
-            throw new Exception\InvalidArgumentException("The file %s doesn't exist", $fileIn);
-        }
-        if (!$fileOut) {
-            $fileOut = sys_get_temp_dir() . '/' . uniqid('tmp_compress_');
-        }
-        $read  = fopen('compress.zlib://' . $fileIn, "r");
-        $write = fopen($fileOut, "w");
-        while ($data = fread($read, $this->bufferSize)) {
-            fwrite($write, $data);
-        }
-        fclose($write);
-        fclose($read);
-
-        return $fileOut;
     }
 }

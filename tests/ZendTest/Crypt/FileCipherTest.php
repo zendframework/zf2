@@ -21,11 +21,18 @@ use Zend\Math\Rand;
 class FileCipherTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var BlockCipher
+     * @var fileCipher
      */
-    protected $blockCipher;
-    protected $plaintext;
+    protected $fileCipher;
+
+    /**
+     * @var string
+     */ 
     protected $fileIn;
+
+    /**
+     * @var string
+     */
     protected $fileOut;
 
     public function setUp()
@@ -115,44 +122,10 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($result, $this->fileCipher);
         $this->assertEquals(1000, $this->fileCipher->getKeyIteration());
     }
-
-    public function testSetCompress()
-    {
-        $result = $this->fileCipher->setCompress(false);
-        $this->assertEquals($result, $this->fileCipher);
-        $this->assertEquals(false, $this->fileCipher->getCompress());
-    }
-
-    public function testEncryptDecryptFile()
-    {
-        // Test 5 files with a random size bewteen 1 Kb and 5 Mb
-        for ($i=1; $i <= 5; $i++) {
-            $fileIn  = $this->generateTmpFile(Rand::getInteger(1024, 1048576 * 5), Rand::getBytes(1));
-            $fileOut = $fileIn . '.enc';
-            $this->fileCipher->setKey('test');
-
-            // encrypt
-            $this->assertTrue($this->fileCipher->encrypt($fileIn, $fileOut));
-
-            // check if the file is compressed
-            $this->assertTrue(filesize($fileOut) < fileSize($fileIn));
-
-            $decryptFile = $fileOut . '.dec';
-            // decrypt
-            $this->assertTrue($this->fileCipher->decrypt($fileOut, $decryptFile));
-            $this->assertEquals(filesize($fileIn), filesize($decryptFile));
-            $this->assertEquals(file_get_contents($fileIn), file_get_contents($decryptFile));
-
-            unlink($fileIn);
-            unlink($fileOut);
-            unlink($decryptFile);
-        }
-    }
-
-    public function testEncrypDecryptFileNoCompress()
+ 
+    public function testEncrypDecryptFile()
     {
         $this->fileCipher->setKey('test');
-        $this->fileCipher->setCompress(false);
 
         // Test 5 files with a random size between 1 Kb and 5 Mb
         for ($i=1; $i <= 5; $i++) {
