@@ -167,7 +167,7 @@ class MethodGenerator extends AbstractMemberGenerator
     }
 
     /**
-     * @param  ParameterGenerator|string $parameter
+     * @param  ParameterGenerator|array|string $parameter
      * @throws Exception\InvalidArgumentException
      * @return MethodGenerator
      */
