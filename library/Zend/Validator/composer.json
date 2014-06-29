@@ -24,6 +24,7 @@
         "zendframework/zend-math": "self.version",
         "zendframework/zend-servicemanager": "self.version",
         "zendframework/zend-session": "self.version",
+        "malkusch/bav": "~1.0",
         "zendframework/zend-uri": "self.version"
     },
     "suggest": {
@@ -34,6 +35,7 @@
         "zendframework/zend-resources": "Translations of validator messages",
         "zendframework/zend-servicemanager": "Zend\\ServiceManager component to allow using the ValidatorPluginManager and validator chains",
         "zendframework/zend-session": "Zend\\Session component",
+        "malkusch/bav": "malkusch\\bav, required for German banking validation",
         "zendframework/zend-uri": "Zend\\Uri component, required by the Uri and Sitemap\\Loc validators"
     },
     "extra": {
