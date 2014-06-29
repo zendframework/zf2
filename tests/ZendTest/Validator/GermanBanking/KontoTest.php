@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Validator;
+namespace ZendTest\Validator\GermanBanking;
 
 use Zend\Validator\GermanBanking\Konto;
 

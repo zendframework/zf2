@@ -7,46 +7,46 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Validator;
+namespace ZendTest\Validator\GermanBanking;
 
-use Zend\Validator\GermanBanking\Blz;
+use Zend\Validator\GermanBanking\Bic;
 
 /**
  * @group      Zend_Validator
  */
-class BlzTest extends \PHPUnit_Framework_TestCase
+class BicTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Blz
+     * @var Bic
      */
     protected $validator;
 
     /**
-     * Creates a new Blz object for each test method
+     * Creates a new Bic object for each test method
      *
      * @return void
      */
     public function setUp()
     {
-        $this->validator = new Blz();
+        $this->validator = new Bic();
     }
 
-    public function blzDataProvider()
+    public function bicDataProvider()
     {
         return array(
-            //    blz           isValid
-            array("12345",      false),
-            array("",           false),
-            array(null,         false),
-            array("70169464",   true),
-            array("10000000",   true),
+            //    bic               isValid
+            array("VZVDDED1XXX",    true),
+            array("VZVDDED1",       true),
+            array("VZVDDED1~~~",    false),
+            array("",               false),
+            array(null,             false),
         );
     }
 
     /**
      * Ensures that the validator follows expected behavior
      *
-     * @dataProvider blzDataProvider
+     * @dataProvider bicDataProvider
      */
     public function testIsValid($input, $result)
     {
