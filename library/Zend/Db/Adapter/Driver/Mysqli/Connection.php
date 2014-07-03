@@ -9,29 +9,15 @@
 
 namespace Zend\Db\Adapter\Driver\Mysqli;
 
-use Zend\Db\Adapter\Driver\ConnectionInterface;
+use Zend\Db\Adapter\Driver\AbstractConnection;
 use Zend\Db\Adapter\Exception;
-use Zend\Db\Adapter\Profiler;
 
-class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
+class Connection extends AbstractConnection
 {
-
     /**
      * @var Mysqli
      */
     protected $driver = null;
-
-    /**
-     * @var Profiler\ProfilerInterface
-     */
-    protected $profiler = null;
-
-    /**
-     * Connection parameters
-     *
-     * @var array
-     */
-    protected $connectionParameters = array();
 
     /**
      * @var \mysqli
@@ -39,16 +25,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     protected $resource = null;
 
     /**
-     * In transaction
-     *
-     * @var bool
-     */
-    protected $inTransaction = false;
-
-    /**
      * Constructor
      *
-     * @param array|mysqli|null $connectionInfo
+     * @param  array|mysqli|null                                   $connectionInfo
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
      */
     public function __construct($connectionInfo = null)
@@ -63,53 +42,14 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * @param Mysqli $driver
-     * @return Connection
+     * @param  Mysqli $driver
+     * @return self
      */
     public function setDriver(Mysqli $driver)
     {
         $this->driver = $driver;
+
         return $this;
-    }
-
-    /**
-     * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
-     */
-    public function setProfiler(Profiler\ProfilerInterface $profiler)
-    {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    /**
-     * @return null|Profiler\ProfilerInterface
-     */
-    public function getProfiler()
-    {
-        return $this->profiler;
-    }
-
-    /**
-     * Set connection parameters
-     *
-     * @param  array $connectionParameters
-     * @return Connection
-     */
-    public function setConnectionParameters(array $connectionParameters)
-    {
-        $this->connectionParameters = $connectionParameters;
-        return $this;
-    }
-
-    /**
-     * Get connection parameters
-     *
-     * @return array
-     */
-    public function getConnectionParameters()
-    {
-        return $this->connectionParameters;
     }
 
     /**
@@ -126,6 +66,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         /** @var $result \mysqli_result */
         $result = $this->resource->query('SELECT DATABASE()');
         $r = $result->fetch_row();
+
         return $r[0];
     }
 
@@ -133,11 +74,12 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Set resource
      *
      * @param  \mysqli $resource
-     * @return Connection
+     * @return self
      */
     public function setResource(\mysqli $resource)
     {
         $this->resource = $resource;
+
         return $this;
     }
 
@@ -149,6 +91,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     public function getResource()
     {
         $this->connect();
+
         return $this->resource;
     }
 
@@ -156,7 +99,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
      * Connect
      *
      * @throws Exception\RuntimeException
-     * @return Connection
+     * @return self
      */
     public function connect()
     {
@@ -174,6 +117,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                     return $p[$name];
                 }
             }
+
             return;
         };
 
@@ -243,7 +187,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Begin transaction
      *
-     * @return void
+     * @return self
      */
     public function beginTransaction()
     {
@@ -253,43 +197,37 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $this->resource->autocommit(false);
         $this->inTransaction = true;
-    }
 
-    /**
-     * In transaction
-     *
-     * @return bool
-     */
-    public function inTransaction()
-    {
-        return $this->inTransaction;
+        return $this;
     }
 
     /**
      * Commit
      *
-     * @return void
+     * @return self
      */
     public function commit()
     {
-        if (!$this->resource) {
+        if (!$this->isConnected()) {
             $this->connect();
         }
 
         $this->resource->commit();
         $this->inTransaction = false;
         $this->resource->autocommit(true);
+
+        return $this;
     }
 
     /**
      * Rollback
      *
      * @throws Exception\RuntimeException
-     * @return Connection
+     * @return self
      */
     public function rollback()
     {
-        if (!$this->resource) {
+        if (!$this->isConnected()) {
             throw new Exception\RuntimeException('Must be connected before you can rollback.');
         }
 
@@ -299,13 +237,15 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $this->resource->rollback();
         $this->resource->autocommit(true);
+        $this->inTransaction = false;
+
         return $this;
     }
 
     /**
      * Execute
      *
-     * @param  string $sql
+     * @param  string                          $sql
      * @throws Exception\InvalidQueryException
      * @return Result
      */
@@ -331,6 +271,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
         return $resultPrototype;
     }
 

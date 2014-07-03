@@ -9,34 +9,21 @@
 
 namespace Zend\Db\Adapter\Driver\IbmDb2;
 
+use Zend\Db\Adapter\Driver\AbstractConnection;
 use Zend\Db\Adapter\Driver\ConnectionInterface;
 use Zend\Db\Adapter\Exception;
-use Zend\Db\Adapter\Profiler;
 
-class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
+class Connection extends AbstractConnection
 {
-    /** @var IbmDb2 */
+    /**
+     * @var IbmDb2
+     */
     protected $driver = null;
-
-    /**
-     * @var array
-     */
-    protected $connectionParameters = null;
-
-    /**
-     * @var resource
-     */
-    protected $resource = null;
-
-    /**
-     * @var Profiler\ProfilerInterface
-     */
-    protected $profiler = null;
 
     /**
      * Constructor
      *
-     * @param array|resource|null $connectionParameters (ibm_db2 connection resource)
+     * @param  array|resource|null                $connectionParameters (ibm_db2 connection resource)
      * @throws Exception\InvalidArgumentException
      */
     public function __construct($connectionParameters = null)
@@ -55,54 +42,19 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     /**
      * Set driver
      *
-     * @param IbmDb2 $driver
-     * @return Connection
+     * @param  IbmDb2 $driver
+     * @return self
      */
     public function setDriver(IbmDb2 $driver)
     {
         $this->driver = $driver;
+
         return $this;
-    }
-
-    /**
-     * @param Profiler\ProfilerInterface $profiler
-     * @return Connection
-     */
-    public function setProfiler(Profiler\ProfilerInterface $profiler)
-    {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    /**
-     * @return null|Profiler\ProfilerInterface
-     */
-    public function getProfiler()
-    {
-        return $this->profiler;
-    }
-
-    /**
-     * @param array $connectionParameters
-     * @return Connection
-     */
-    public function setConnectionParameters(array $connectionParameters)
-    {
-        $this->connectionParameters = $connectionParameters;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getConnectionParameters()
-    {
-        return $this->connectionParameters;
     }
 
     /**
      * @param  resource $resource DB2 resource
-     * @return Connection
+     * @return self
      */
     public function setResource($resource)
     {
@@ -110,6 +62,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             throw new Exception\InvalidArgumentException('The resource provided must be of type "DB2 Connection"');
         }
         $this->resource = $resource;
+
         return $this;
     }
 
@@ -125,17 +78,8 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $info = db2_server_info($this->resource);
-        return (isset($info->DB_NAME) ? $info->DB_NAME : '');
-    }
 
-    /**
-     * Get resource
-     *
-     * @return mixed
-     */
-    public function getResource()
-    {
-        return $this->resource;
+        return (isset($info->DB_NAME) ? $info->DB_NAME : '');
     }
 
     /**
@@ -159,6 +103,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                     return $p[$name];
                 }
             }
+
             return null;
         };
 
@@ -180,6 +125,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
                 __METHOD__
             ));
         }
+
         return $this;
     }
 
@@ -204,37 +150,41 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             db2_close($this->resource);
             $this->resource = null;
         }
+
         return $this;
     }
 
     /**
      * Begin transaction
      *
-     * @return ConnectionInterface
+     * @return self
      */
     public function beginTransaction()
     {
         // TODO: Implement beginTransaction() method.
+        return $this;
     }
 
     /**
      * Commit
      *
-     * @return ConnectionInterface
+     * @return self
      */
     public function commit()
     {
         // TODO: Implement commit() method.
+        return $this;
     }
 
     /**
      * Rollback
      *
-     * @return ConnectionInterface
+     * @return self
      */
     public function rollback()
     {
         // TODO: Implement rollback() method.
+        return $this;
     }
 
     /**
@@ -267,6 +217,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
 
         $resultPrototype = $this->driver->createResult(($resultResource === true) ? $this->resource : $resultResource);
+
         return $resultPrototype;
     }
 
