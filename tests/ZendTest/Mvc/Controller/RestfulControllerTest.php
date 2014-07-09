@@ -16,6 +16,7 @@ use Zend\EventManager\SharedEventManager;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\View\Model\JsonModel;
 
 class RestfulControllerTest extends TestCase
 {
@@ -48,8 +49,8 @@ class RestfulControllerTest extends TestCase
         );
         $this->controller->entities = $entities;
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertArrayHasKey('entities', $result);
-        $this->assertEquals($entities, $result['entities']);
+        $this->assertArrayHasKey('entities', $result->getVariables());
+        $this->assertEquals($entities, $result->entities);
         $this->assertEquals('getList', $this->routeMatch->getParam('action'));
     }
 
@@ -59,8 +60,8 @@ class RestfulControllerTest extends TestCase
         $this->controller->entity = $entity;
         $this->routeMatch->setParam('id', 1);
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertArrayHasKey('entity', $result);
-        $this->assertEquals($entity, $result['entity']);
+        $this->assertArrayHasKey('entity', $result->getVariables());
+        $this->assertEquals($entity, $result->entity);
         $this->assertEquals('get', $this->routeMatch->getParam('action'));
     }
 
@@ -71,8 +72,8 @@ class RestfulControllerTest extends TestCase
         $post = $this->request->getPost();
         $post->fromArray($entity);
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertArrayHasKey('entity', $result);
-        $this->assertEquals($entity, $result['entity']);
+        $this->assertArrayHasKey('entity', $result->getVariables());
+        $this->assertEquals($entity, $result->entity);
         $this->assertEquals('create', $this->routeMatch->getParam('action'));
     }
 
@@ -84,8 +85,8 @@ class RestfulControllerTest extends TestCase
                       ->setContent($string);
         $this->routeMatch->setParam('id', 1);
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertArrayHasKey('entity', $result);
-        $test = $result['entity'];
+        $this->assertArrayHasKey('entity', $result->getVariables());
+        $test = $result->entity;
         $this->assertArrayHasKey('id', $test);
         $this->assertEquals(1, $test['id']);
         $this->assertArrayHasKey('name', $test);
@@ -104,7 +105,7 @@ class RestfulControllerTest extends TestCase
         $this->request->setMethod('PUT')
                       ->setContent($string);
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertEquals($entities, $result);
+        $this->assertEquals($entities, $result->getVariables());
         $this->assertEquals('replaceList', $this->routeMatch->getParam('action'));
     }
 
@@ -119,7 +120,7 @@ class RestfulControllerTest extends TestCase
         $this->request->setMethod('PATCH')
                       ->setContent($string);
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertEquals($entities, $result);
+        $this->assertEquals($entities, $result->getVariables());
         $this->assertEquals('patchList', $this->routeMatch->getParam('action'));
     }
 
@@ -130,7 +131,7 @@ class RestfulControllerTest extends TestCase
         $this->request->setMethod('DELETE');
         $this->routeMatch->setParam('id', 1);
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertEquals(array(), $result);
+        $this->assertEquals(array(), $result->getVariables());
         $this->assertEquals(array(), $this->controller->entity);
         $this->assertEquals('delete', $this->routeMatch->getParam('action'));
     }
@@ -173,8 +174,8 @@ class RestfulControllerTest extends TestCase
                       ->setContent($string);
         $this->routeMatch->setParam('id', 1);
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertArrayHasKey('entity', $result);
-        $test = $result['entity'];
+        $this->assertArrayHasKey('entity', $result->getVariables());
+        $test = $result->entity;
         $this->assertArrayHasKey('id', $test);
         $this->assertEquals(1, $test['id']);
         $this->assertArrayHasKey('name', $test);
@@ -223,8 +224,8 @@ class RestfulControllerTest extends TestCase
         $this->controller->addHttpMethodHandler('DESCRIBE', array($this->controller, 'describe'));
         $this->request->setMethod('DESCRIBE');
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertArrayHasKey('description', $result);
-        $this->assertContains('::describe', $result['description']);
+        $this->assertArrayHasKey('description', $result->getVariables());
+        $this->assertContains('::describe', $result->description);
     }
 
     public function testDispatchCallsActionMethodBasedOnNormalizingAction()
@@ -350,8 +351,8 @@ class RestfulControllerTest extends TestCase
         $this->controller->getEventManager()->setSharedManager(new SharedEventManager());
 
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertInternalType('array', $result);
-        $this->assertEquals(array('entity' => array('foo' => 'bar')), $result);
+        $this->assertInstanceOf('\Zend\View\Model\JsonModel', $result);
+        $this->assertEquals(new JsonModel(array('entity' => array('foo' => 'bar'))), $result);
     }
 
     public function matchingContentTypes()
@@ -404,8 +405,8 @@ class RestfulControllerTest extends TestCase
         $this->controller->entity = $entity;
         $this->routeMatch->setParam('id', 0);
         $result = $this->controller->dispatch($this->request, $this->response);
-        $this->assertArrayHasKey('entity', $result);
-        $this->assertEquals($entity, $result['entity']);
+        $this->assertArrayHasKey('entity', $result->getVariables());
+        $this->assertEquals($entity, $result->entity);
         $this->assertEquals('get', $this->routeMatch->getParam('action'));
     }
 
