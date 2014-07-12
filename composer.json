@@ -17,7 +17,6 @@
         "ircmaxell/random-lib": "dev-master",
         "ircmaxell/security-lib": "dev-master",
         "mikey179/vfsStream": "1.2.*",
-        "fabpot/php-cs-fixer": "1.*",
         "phpunit/PHPUnit": "~4.0",
         "satooshi/php-coveralls": "dev-master",
         "sebastianbergmann/phpcov": "1.1.0",
