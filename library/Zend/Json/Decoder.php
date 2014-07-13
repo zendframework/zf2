@@ -76,6 +76,79 @@ class Decoder
     protected $tokenValue;
 
     /**
+     * Decode Unicode Characters from \u0000 ASCII syntax.
+     *
+     * This algorithm was originally developed for the
+     * Solar Framework by Paul M. Jones
+     *
+     * @link   http://solarphp.com/
+     * @link   https://github.com/solarphp/core/blob/master/Solar/Json.php
+     * @param  string $chrs
+     * @return string
+     */
+    public static function decodeUnicodeString($chrs)
+    {
+        $chrs       = (string) $chrs;
+        $utf8       = '';
+        $strlenChrs = strlen($chrs);
+
+        for ($i = 0; $i < $strlenChrs; $i++) {
+            $ordChrsC = ord($chrs[$i]);
+
+            switch (true) {
+                case preg_match('/\\\u[0-9A-F]{4}/i', substr($chrs, $i, 6)):
+                    // single, escaped unicode character
+                    $utf16 = chr(hexdec(substr($chrs, ($i + 2), 2)))
+                           . chr(hexdec(substr($chrs, ($i + 4), 2)));
+                    $utf8char = self::_utf162utf8($utf16);
+                    $search  = array('\\', "\n", "\t", "\r", chr(0x08), chr(0x0C), '"', '\'', '/');
+                    if (in_array($utf8char, $search)) {
+                        $replace = array('\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\\"', '\\\'', '\\/');
+                        $utf8char  = str_replace($search, $replace, $utf8char);
+                    }
+                    $utf8 .= $utf8char;
+                    $i += 5;
+                    break;
+                case ($ordChrsC >= 0x20) && ($ordChrsC <= 0x7F):
+                    $utf8 .= $chrs{$i};
+                    break;
+                case ($ordChrsC & 0xE0) == 0xC0:
+                    // characters U-00000080 - U-000007FF, mask 110XXXXX
+                    //see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
+                    $utf8 .= substr($chrs, $i, 2);
+                    ++$i;
+                    break;
+                case ($ordChrsC & 0xF0) == 0xE0:
+                    // characters U-00000800 - U-0000FFFF, mask 1110XXXX
+                    // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
+                    $utf8 .= substr($chrs, $i, 3);
+                    $i += 2;
+                    break;
+                case ($ordChrsC & 0xF8) == 0xF0:
+                    // characters U-00010000 - U-001FFFFF, mask 11110XXX
+                    // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
+                    $utf8 .= substr($chrs, $i, 4);
+                    $i += 3;
+                    break;
+                case ($ordChrsC & 0xFC) == 0xF8:
+                    // characters U-00200000 - U-03FFFFFF, mask 111110XX
+                    // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
+                    $utf8 .= substr($chrs, $i, 5);
+                    $i += 4;
+                    break;
+                case ($ordChrsC & 0xFE) == 0xFC:
+                    // characters U-04000000 - U-7FFFFFFF, mask 1111110X
+                    // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
+                    $utf8 .= substr($chrs, $i, 6);
+                    $i += 5;
+                    break;
+            }
+        }
+
+        return $utf8;
+    }
+
+    /**
      * Constructor
      *
      * @param string $source     String source to decode
@@ -262,24 +335,16 @@ class Decoder
         return $result;
     }
 
-
     /**
      * Removes whitespace characters from the source input
      */
     protected function _eatWhitespace()
     {
-        if (preg_match(
-                '/([\t\b\f\n\r ])*/s',
-                $this->source,
-                $matches,
-                PREG_OFFSET_CAPTURE,
-                $this->offset)
-            && $matches[0][1] == $this->offset)
-        {
+        if (preg_match('/([\t\b\f\n\r ])*/s', $this->source, $matches, PREG_OFFSET_CAPTURE, $this->offset)
+            && $matches[0][1] == $this->offset) {
             $this->offset += strlen($matches[0][0]);
         }
     }
-
 
     /**
      * Retrieves the next token from the source stream
@@ -304,8 +369,8 @@ class Decoder
 
         switch ($str{$i}) {
             case '{':
-               $this->token = self::LBRACE;
-               break;
+                $this->token = self::LBRACE;
+                break;
             case '}':
                 $this->token = self::RBRACE;
                 break;
@@ -321,7 +386,7 @@ class Decoder
             case ':':
                 $this->token = self::COLON;
                 break;
-            case  '"':
+            case '"':
                 $result = '';
                 do {
                     $i++;
@@ -338,31 +403,31 @@ class Decoder
                         }
                         $chr = $str{$i};
                         switch ($chr) {
-                            case '"' :
+                            case '"':
                                 $result .= '"';
                                 break;
                             case '\\':
                                 $result .= '\\';
                                 break;
-                            case '/' :
+                            case '/':
                                 $result .= '/';
                                 break;
-                            case 'b' :
+                            case 'b':
                                 $result .= "\x08";
                                 break;
-                            case 'f' :
+                            case 'f':
                                 $result .= "\x0c";
                                 break;
-                            case 'n' :
+                            case 'n':
                                 $result .= "\x0a";
                                 break;
-                            case 'r' :
+                            case 'r':
                                 $result .= "\x0d";
                                 break;
-                            case 't' :
+                            case 't':
                                 $result .= "\x09";
                                 break;
-                            case '\'' :
+                            case '\'':
                                 $result .= '\'';
                                 break;
                             default:
@@ -397,7 +462,7 @@ class Decoder
                 if (($i+ 3) < $strLength && substr($str, $start, 4) == "null") {
                     $this->token = self::DATUM;
                 }
-                $this->tokenValue = NULL;
+                $this->tokenValue = null;
                 $i += 3;
                 break;
         }
@@ -409,8 +474,7 @@ class Decoder
 
         $chr = $str{$i};
         if ($chr == '-' || $chr == '.' || ($chr >= '0' && $chr <= '9')) {
-            if (preg_match('/-?([0-9])*(\.[0-9]*)?((e|E)((-|\+)?)[0-9]+)?/s',
-                $str, $matches, PREG_OFFSET_CAPTURE, $start) && $matches[0][1] == $start) {
+            if (preg_match('/-?([0-9])*(\.[0-9]*)?((e|E)((-|\+)?)[0-9]+)?/s', $str, $matches, PREG_OFFSET_CAPTURE, $start) && $matches[0][1] == $start) {
 
                 $datum = $matches[0][0];
 
@@ -434,79 +498,6 @@ class Decoder
         }
 
         return $this->token;
-    }
-
-    /**
-     * Decode Unicode Characters from \u0000 ASCII syntax.
-     *
-     * This algorithm was originally developed for the
-     * Solar Framework by Paul M. Jones
-     *
-     * @link   http://solarphp.com/
-     * @link   https://github.com/solarphp/core/blob/master/Solar/Json.php
-     * @param  string $chrs
-     * @return string
-     */
-    public static function decodeUnicodeString($chrs)
-    {
-        $chrs       = (string) $chrs;
-        $utf8       = '';
-        $strlenChrs = strlen($chrs);
-
-        for ($i = 0; $i < $strlenChrs; $i++) {
-            $ordChrsC = ord($chrs[$i]);
-
-            switch (true) {
-                case preg_match('/\\\u[0-9A-F]{4}/i', substr($chrs, $i, 6)):
-                    // single, escaped unicode character
-                    $utf16 = chr(hexdec(substr($chrs, ($i + 2), 2)))
-                           . chr(hexdec(substr($chrs, ($i + 4), 2)));
-                    $utf8char = self::_utf162utf8($utf16);
-                    $search  = array('\\', "\n", "\t", "\r", chr(0x08), chr(0x0C), '"', '\'', '/');
-                    if (in_array($utf8char, $search)) {
-                        $replace = array('\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\\"', '\\\'', '\\/');
-                        $utf8char  = str_replace($search, $replace, $utf8char);
-                    }
-                    $utf8 .= $utf8char;
-                    $i += 5;
-                    break;
-                case ($ordChrsC >= 0x20) && ($ordChrsC <= 0x7F):
-                    $utf8 .= $chrs{$i};
-                    break;
-                case ($ordChrsC & 0xE0) == 0xC0:
-                    // characters U-00000080 - U-000007FF, mask 110XXXXX
-                    //see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-                    $utf8 .= substr($chrs, $i, 2);
-                    ++$i;
-                    break;
-                case ($ordChrsC & 0xF0) == 0xE0:
-                    // characters U-00000800 - U-0000FFFF, mask 1110XXXX
-                    // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-                    $utf8 .= substr($chrs, $i, 3);
-                    $i += 2;
-                    break;
-                case ($ordChrsC & 0xF8) == 0xF0:
-                    // characters U-00010000 - U-001FFFFF, mask 11110XXX
-                    // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-                    $utf8 .= substr($chrs, $i, 4);
-                    $i += 3;
-                    break;
-                case ($ordChrsC & 0xFC) == 0xF8:
-                    // characters U-00200000 - U-03FFFFFF, mask 111110XX
-                    // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-                    $utf8 .= substr($chrs, $i, 5);
-                    $i += 4;
-                    break;
-                case ($ordChrsC & 0xFE) == 0xFC:
-                    // characters U-04000000 - U-7FFFFFFF, mask 1111110X
-                    // see http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
-                    $utf8 .= substr($chrs, $i, 6);
-                    $i += 5;
-                    break;
-            }
-        }
-
-        return $utf8;
     }
 
     /**
