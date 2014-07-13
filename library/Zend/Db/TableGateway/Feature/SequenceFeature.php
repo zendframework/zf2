@@ -30,7 +30,6 @@ class SequenceFeature extends AbstractFeature
      */
     protected $sequenceValue;
 
-
     /**
      * @param string $primaryKeyField
      * @param string $sequenceName
@@ -59,7 +58,7 @@ class SequenceFeature extends AbstractFeature
             return $insert;
         }
 
-        $insert->values(array($this->primaryKeyField => $this->sequenceValue),  Insert::VALUES_MERGE);
+        $insert->values(array($this->primaryKeyField => $this->sequenceValue), Insert::VALUES_MERGE);
         return $insert;
     }
 
@@ -86,7 +85,7 @@ class SequenceFeature extends AbstractFeature
             case 'PostgreSQL':
                 $sql = 'SELECT NEXTVAL(\'' . $this->sequenceName . '\')';
                 break;
-            default :
+            default:
                 return null;
         }
 
@@ -114,7 +113,7 @@ class SequenceFeature extends AbstractFeature
             case 'PostgreSQL':
                 $sql = 'SELECT CURRVAL(\'' . $this->sequenceName . '\')';
                 break;
-            default :
+            default:
                 return null;
         }
 

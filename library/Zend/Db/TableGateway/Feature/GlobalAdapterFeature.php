@@ -65,6 +65,4 @@ class GlobalAdapterFeature extends AbstractFeature
     {
         $this->tableGateway->adapter = self::getStaticAdapter();
     }
-
-
 }

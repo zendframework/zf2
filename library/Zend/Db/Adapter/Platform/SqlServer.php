@@ -115,7 +115,7 @@ class SqlServer implements PlatformInterface
         }
         trigger_error(
             'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
-                . 'can introduce security vulnerabilities in a production environment.'
+            . 'can introduce security vulnerabilities in a production environment.'
         );
         return '\'' . str_replace('\'', '\'\'', $value) . '\'';
     }
@@ -200,5 +200,4 @@ class SqlServer implements PlatformInterface
         }
         return implode('', $parts);
     }
-
 }

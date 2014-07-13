@@ -80,7 +80,6 @@ class SqliteMetadata extends AbstractSource
 
         $p = $this->adapter->getPlatform();
 
-
         $results = $this->fetchPragma('table_info', $table, $schema);
 
         $columns = array();

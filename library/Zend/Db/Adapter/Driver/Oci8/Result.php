@@ -222,5 +222,4 @@ class Result implements Iterator, ResultInterface
         // @todo OCI8 generated value in Driver Result
         return null;
     }
-
 }

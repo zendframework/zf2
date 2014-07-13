@@ -120,7 +120,7 @@ class Postgresql implements PlatformInterface
         }
         trigger_error(
             'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
-                . 'can introduce security vulnerabilities in a production environment.'
+            . 'can introduce security vulnerabilities in a production environment.'
         );
         return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
     }
@@ -209,5 +209,4 @@ class Postgresql implements PlatformInterface
         }
         return implode('', $parts);
     }
-
 }
