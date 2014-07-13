@@ -88,7 +88,6 @@ class Float extends AbstractValidator
         return $this;
     }
 
-
     /**
      * Returns true if and only if $value is a floating-point value
      *
