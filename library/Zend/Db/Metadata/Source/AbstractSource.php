@@ -348,7 +348,7 @@ abstract class AbstractSource implements MetadataInterface
         $constraint = new Object\ConstraintObject($constraintName, $table, $schema);
 
         foreach (array(
-            'constraint_type'         => 'setType',
+            'constraint_type' => 'setType',
             'match_option'            => 'setMatchOption',
             'update_rule'             => 'setUpdateRule',
             'delete_rule'             => 'setDeleteRule',

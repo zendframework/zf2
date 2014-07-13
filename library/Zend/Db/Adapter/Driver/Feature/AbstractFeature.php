@@ -36,5 +36,4 @@ abstract class AbstractFeature
      * @return string
      */
     abstract public function getName();
-
 }

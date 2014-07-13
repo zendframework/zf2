@@ -277,7 +277,6 @@ class Pdo implements DriverInterface, DriverFeatureInterface, Profiler\ProfilerA
             $rowCount = $oracleRowCounter->getRowCountClosure($context);
         }
 
-
         $result->initialize($resource, $this->connection->getLastGeneratedValue(), $rowCount);
         return $result;
     }

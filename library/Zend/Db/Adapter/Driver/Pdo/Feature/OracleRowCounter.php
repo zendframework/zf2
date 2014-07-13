@@ -76,5 +76,4 @@ class OracleRowCounter extends AbstractFeature
                 : $oracleRowCounter->getCountForSql($context);
         };
     }
-
 }

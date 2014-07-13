@@ -156,7 +156,6 @@ class CreateTable extends AbstractSql implements SqlInterface
                 $parameters
             );
 
-
             if ($specification
                 && is_array($parameters[$name])
                 && ($parameters[$name] != array(array()))
@@ -173,7 +172,6 @@ class CreateTable extends AbstractSql implements SqlInterface
                 $sqls[] = ",\n";
             }
         }
-
 
         // remove last ,
         if (count($sqls) > 2) {
