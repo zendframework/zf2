@@ -114,7 +114,6 @@ class Simple implements RouteInterface
             $options['filters'] = null;
         }
 
-
         return new static(
             $options['route'],
             $options['constraints'],
