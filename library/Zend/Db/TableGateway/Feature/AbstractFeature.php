@@ -42,7 +42,6 @@ abstract class AbstractFeature extends AbstractTableGateway
         return array();
     }
 
-
     /*
     public function preInitialize();
     public function postInitialize();
@@ -55,5 +54,4 @@ abstract class AbstractFeature extends AbstractTableGateway
     public function preDelete(Delete $delete);
     public function postDelete(StatementInterface $statement, ResultInterface $result);
     */
-
 }

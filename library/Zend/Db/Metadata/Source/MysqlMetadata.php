@@ -54,7 +54,12 @@ class MysqlMetadata extends AbstractSource
             array('V', 'IS_UPDATABLE'),
         );
 
-        array_walk($isColumns, function (&$c) use ($p) { $c = $p->quoteIdentifierChain($c); });
+        array_walk(
+            $isColumns,
+            function (&$c) use ($p) {
+                $c = $p->quoteIdentifierChain($c);
+            }
+        );
 
         $sql = 'SELECT ' . implode(', ', $isColumns)
              . ' FROM ' . $p->quoteIdentifierChain(array('INFORMATION_SCHEMA', 'TABLES')) . 'T'
@@ -112,7 +117,12 @@ class MysqlMetadata extends AbstractSource
             array('C', 'COLUMN_TYPE'),
         );
 
-        array_walk($isColumns, function (&$c) use ($p) { $c = $p->quoteIdentifierChain($c); });
+        array_walk(
+            $isColumns,
+            function (&$c) use ($p) {
+                $c = $p->quoteIdentifierChain($c);
+            }
+        );
 
         $sql = 'SELECT ' . implode(', ', $isColumns)
              . ' FROM ' . $p->quoteIdentifierChain(array('INFORMATION_SCHEMA', 'TABLES')) . 'T'

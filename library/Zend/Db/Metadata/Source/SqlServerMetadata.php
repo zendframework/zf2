@@ -14,7 +14,6 @@ use Zend\Db\Adapter\Adapter;
 class SqlServerMetadata extends AbstractSource
 {
 
-
     protected function loadSchemaData()
     {
         if (isset($this->data['schemas'])) {
@@ -56,7 +55,12 @@ class SqlServerMetadata extends AbstractSource
             array('V', 'IS_UPDATABLE'),
         );
 
-        array_walk($isColumns, function (&$c) use ($p) { $c = $p->quoteIdentifierChain($c); });
+        array_walk(
+            $isColumns,
+            function (&$c) use ($p) {
+                $c = $p->quoteIdentifierChain($c);
+            }
+        );
 
         $sql = 'SELECT ' . implode(', ', $isColumns)
             . ' FROM ' . $p->quoteIdentifierChain(array('INFORMATION_SCHEMA', 'TABLES')) . ' t'
@@ -113,7 +117,12 @@ class SqlServerMetadata extends AbstractSource
             array('C', 'COLUMN_NAME'),
         );
 
-        array_walk($isColumns, function (&$c) use ($p) { $c = $p->quoteIdentifierChain($c); });
+        array_walk(
+            $isColumns,
+            function (&$c) use ($p) {
+                $c = $p->quoteIdentifierChain($c);
+            }
+        );
 
         $sql = 'SELECT ' . implode(', ', $isColumns)
             . ' FROM ' . $p->quoteIdentifierChain(array('INFORMATION_SCHEMA', 'TABLES')) . 'T'

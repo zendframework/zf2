@@ -47,10 +47,15 @@ abstract class AbstractOptions implements ParameterObjectInterface
         }
 
         if (!is_array($options) && !$options instanceof Traversable) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Parameter provided to %s must be an %s, %s or %s',
-                __METHOD__, 'array', 'Traversable', 'Zend\Stdlib\AbstractOptions'
-            ));
+            throw new Exception\InvalidArgumentException(
+                sprintf(
+                    'Parameter provided to %s must be an %s, %s or %s',
+                    __METHOD__,
+                    'array',
+                    'Traversable',
+                    'Zend\Stdlib\AbstractOptions'
+                )
+            );
         }
 
         foreach ($options as $key => $value) {
@@ -73,7 +78,9 @@ abstract class AbstractOptions implements ParameterObjectInterface
             return '_' . strtolower($letter);
         };
         foreach ($this as $key => $value) {
-            if ($key === '__strictMode__') continue;
+            if ($key === '__strictMode__') {
+                continue;
+            }
             $normalizedKey = preg_replace_callback('/([A-Z])/', $transform, $key);
             $array[$normalizedKey] = $value;
         }
@@ -152,7 +159,7 @@ abstract class AbstractOptions implements ParameterObjectInterface
         } catch (Exception\BadMethodCallException $e) {
             throw new Exception\InvalidArgumentException(
                 'The class property $' . $key . ' cannot be unset as'
-                    . ' NULL is an invalid value for it',
+                . ' NULL is an invalid value for it',
                 0,
                 $e
             );

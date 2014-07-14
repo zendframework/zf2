@@ -255,8 +255,12 @@ class PriorityList implements Iterator, Countable
         }
         return array_map(
             ($flag == self::EXTR_PRIORITY)
-                ? function ($item) { return $item['priority']; }
-                : function ($item) { return $item['data']; },
+            ?  function ($item) {
+                return $item['priority'];
+            }
+            : function ($item) {
+                return $item['data'];
+            },
             $this->items
         );
     }

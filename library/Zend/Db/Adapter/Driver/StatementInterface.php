@@ -42,5 +42,4 @@ interface StatementInterface extends StatementContainerInterface
      * @return ResultInterface
      */
     public function execute($parameters = null);
-
 }

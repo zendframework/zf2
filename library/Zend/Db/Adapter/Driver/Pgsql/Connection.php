@@ -179,11 +179,15 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         $connection = array_filter($connection); // remove nulls
         $connection = http_build_query($connection, null, ' '); // @link http://php.net/pg_connect
 
-        set_error_handler(function ($number, $string) {
-            throw new Exception\RuntimeException(
-                __METHOD__ . ': Unable to connect to database', null, new Exception\ErrorException($string, $number)
-            );
-        });
+        set_error_handler(
+            function ($number, $string) {
+                throw new Exception\RuntimeException(
+                    __METHOD__ . ': Unable to connect to database',
+                    null,
+                    new Exception\ErrorException($string, $number)
+                );
+            }
+        );
         $this->resource = pg_connect($connection);
         restore_error_handler();
 

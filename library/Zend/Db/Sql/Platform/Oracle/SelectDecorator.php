@@ -112,9 +112,13 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         }
 
         // first, produce column list without compound names (using the AS portion only)
-        array_unshift($sqls, $this->createSqlFromSpecificationAndParameters(
-            array('SELECT %1$s FROM (SELECT b.%1$s, rownum b_rownum FROM (' => current($this->specifications[self::SELECT])), $selectParameters
-        ));
+        array_unshift(
+            $sqls,
+            $this->createSqlFromSpecificationAndParameters(
+                array('SELECT %1$s FROM (SELECT b.%1$s, rownum b_rownum FROM (' => current($this->specifications[self::SELECT])),
+                $selectParameters
+            )
+        );
 
         if ($parameterContainer) {
             if ($this->limit === null) {
@@ -128,25 +132,29 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
             }
         } else {
             if ($this->limit === null) {
-                array_push($sqls, ') b ) WHERE b_rownum > ('. (int) $this->offset. ')'
+                array_push(
+                    $sqls,
+                    ') b ) WHERE b_rownum > ('. (int) $this->offset. ')'
                 );
             } else {
-                array_push($sqls, ') b WHERE rownum <= ('
-                        . (int) $this->offset
-                        . '+'
-                        . (int) $this->limit
-                        . ')) WHERE b_rownum >= ('
-                        . (int) $this->offset
-                        . ' + 1)'
+                array_push(
+                    $sqls,
+                    ') b WHERE rownum <= ('
+                    . (int) $this->offset
+                    . '+'
+                    . (int) $this->limit
+                    . ')) WHERE b_rownum >= ('
+                    . (int) $this->offset
+                    . ' + 1)'
                 );
             }
         }
 
         $sqls[self::SELECT] = $this->createSqlFromSpecificationAndParameters(
-            $this->specifications[self::SELECT], $parameters[self::SELECT]
+            $this->specifications[self::SELECT],
+            $parameters[self::SELECT]
         );
     }
-
 
     protected function processJoins(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
@@ -178,5 +186,4 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
         return array($joinSpecArgArray);
     }
-
 }

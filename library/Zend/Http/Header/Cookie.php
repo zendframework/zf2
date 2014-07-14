@@ -112,6 +112,4 @@ class Cookie extends ArrayObject implements HeaderInterface
     {
         return $this->toString();
     }
-
-
 }

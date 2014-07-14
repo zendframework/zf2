@@ -89,5 +89,4 @@ class MasterSlaveFeature extends AbstractFeature
     {
         $this->tableGateway->sql = $this->masterSql;
     }
-
 }

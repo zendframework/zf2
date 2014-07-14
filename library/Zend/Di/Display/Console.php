@@ -87,8 +87,9 @@ class Console
             }
         }
 
-        if ($this->runtimeClasses)
-        echo '  Runtime classes:' . PHP_EOL;
+        if ($this->runtimeClasses) {
+            echo '  Runtime classes:' . PHP_EOL;
+        }
 
         $unknownRuntimeClasses = array_diff($this->runtimeClasses, $knownClasses);
         foreach ($unknownRuntimeClasses as $runtimeClass) {
