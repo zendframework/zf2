@@ -80,11 +80,15 @@ class AddressListHeaderTest extends \PHPUnit_Framework_TestCase
         $list->add($address);
         $list->add('zf-contributors@lists.zend.com');
         $list->add('fw-announce@lists.zend.com', 'ZF Announce List');
+        $list->add('zf-comma@lists.zend.com', 'ZF, with comma');
     }
 
     public function getExpectedFieldValue()
     {
-        return "ZF DevTeam <zf-devteam@zend.com>,\r\n zf-contributors@lists.zend.com,\r\n ZF Announce List <fw-announce@lists.zend.com>";
+        return "ZF DevTeam <zf-devteam@zend.com>,\r\n"
+            . " zf-contributors@lists.zend.com,\r\n"
+            . " ZF Announce List <fw-announce@lists.zend.com>,\r\n"
+            . " \"ZF, with comma\" <zf-comma@lists.zend.com>";
     }
 
     /**
@@ -118,7 +122,7 @@ class AddressListHeaderTest extends \PHPUnit_Framework_TestCase
         $header   = call_user_func($callback, $headerLine);
         $this->assertInstanceOf($class, $header);
         $list = $header->getAddressList();
-        $this->assertEquals(3, count($list));
+        $this->assertEquals(4, count($list));
         $this->assertTrue($list->has('zf-devteam@zend.com'));
         $this->assertTrue($list->has('zf-contributors@lists.zend.com'));
         $this->assertTrue($list->has('fw-announce@lists.zend.com'));
@@ -152,7 +156,7 @@ class AddressListHeaderTest extends \PHPUnit_Framework_TestCase
         $header   = call_user_func($callback, $headerLine);
         $this->assertInstanceOf($class, $header);
         $list = $header->getAddressList();
-        $this->assertEquals(3, count($list));
+        $this->assertEquals(4, count($list));
         $this->assertTrue($list->has('zf-devteam@zend.com'));
         $this->assertTrue($list->has('zf-contributors@lists.zend.com'));
         $this->assertTrue($list->has('fw-announce@lists.zend.com'));

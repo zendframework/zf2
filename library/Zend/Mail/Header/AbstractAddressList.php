@@ -55,38 +55,35 @@ abstract class AbstractAddressList implements HeaderInterface
         if ($decodedLine != $headerLine) {
             $header->setEncoding('UTF-8');
         }
-        // split value on ","
+
         $fieldValue = str_replace(Headers::FOLDING, ' ', $fieldValue);
-        $values     = explode(',', $fieldValue);
-        array_walk(
-            $values,
-            function (&$value) {
-                $value = trim($value);
-            }
-        );
+
+        $regexp_simple = '(?P<plainEmail>[^<>," ]+)';
+        $regexp_named = '(?P<name>[^<,]*)<(?P<namedEmail>[^<>," ]+)>';
+        $regexp_quoted_name = '(?P<quotedName>"[^"]*") *<(?P<quotedNamedEmail>[^<>," ]+)>';
+        preg_match_all('/,?(' . $regexp_quoted_name . '|' . $regexp_named . '|' . $regexp_simple . ')/siu', $fieldValue, $matched_addresses);
 
         $addressList = $header->getAddressList();
-        foreach ($values as $address) {
-            // split values into name/email
-            if (!preg_match('/^((?P<name>.*?)<(?P<namedEmail>[^>]+)>|(?P<email>.+))$/', $address, $matches)) {
+        for ($i = 0; $i < count($matched_addresses['name']); $i++) {
+            $name = null;
+            $email = null;
+
+            if (!empty($matched_addresses['name'][$i])) {
+                $name = trim($matched_addresses['name'][$i]);
+                $email = $matched_addresses['namedEmail'][$i];
+            }
+            if (!empty($matched_addresses['quotedName'][$i])) {
+                $name = $matched_addresses['quotedName'][$i];
+                $email = $matched_addresses['quotedNamedEmail'][$i];
+            }
+            if (!empty($matched_addresses['plainEmail'][$i])) {
+                $email = $matched_addresses['plainEmail'][$i];
+            }
+
+            if ($email === null) {
                 // Should we raise an exception here?
                 continue;
             }
-            $name = null;
-            if (isset($matches['name'])) {
-                $name  = trim($matches['name']);
-            }
-            if (empty($name)) {
-                $name = null;
-            }
-
-            if (isset($matches['namedEmail'])) {
-                $email = $matches['namedEmail'];
-            }
-            if (isset($matches['email'])) {
-                $email = $matches['email'];
-            }
-            $email = trim($email); // we may have leading whitespace
 
             // populate address list
             $addressList->add($email, $name);
