@@ -27,7 +27,7 @@ class UnderscoreToStudlyCase extends UnderscoreToCamelCase
                     return $value;
                 }
 
-                return mb_strtolower(mb_substr($value, 0, 1)) . substr($value, 1);
+                return mb_strtolower(mb_substr($value, 0, 1)) . mb_substr($value, 1);
             };
         }
 
