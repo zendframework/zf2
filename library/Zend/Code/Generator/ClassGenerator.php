@@ -838,10 +838,12 @@ class ClassGenerator extends AbstractGenerator
         }
 
         $uses = $this->getUses();
+
         if (!empty($uses)) {
             foreach ($uses as $use) {
                 $output .= 'use ' . $use . ';' . self::LINE_FEED;
             }
+
             $output .= self::LINE_FEED;
         }
 
@@ -861,6 +863,7 @@ class ClassGenerator extends AbstractGenerator
         }
 
         $implemented = $this->getImplementedInterfaces();
+
         if (!empty($implemented)) {
             $output .= ' implements ' . implode(', ', $implemented);
         }
@@ -874,17 +877,15 @@ class ClassGenerator extends AbstractGenerator
         }
 
         $properties = $this->getProperties();
-        if (!empty($properties)) {
-            foreach ($properties as $property) {
-                $output .= $property->generate() . self::LINE_FEED . self::LINE_FEED;
-            }
+
+        foreach ($properties as $property) {
+            $output .= $property->generate() . self::LINE_FEED . self::LINE_FEED;
         }
 
         $methods = $this->getMethods();
-        if (!empty($methods)) {
-            foreach ($methods as $method) {
-                $output .= $method->generate() . self::LINE_FEED;
-            }
+
+        foreach ($methods as $method) {
+            $output .= $method->generate() . self::LINE_FEED;
         }
 
         $output .= self::LINE_FEED . '}' . self::LINE_FEED;
