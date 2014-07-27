@@ -531,7 +531,8 @@ class ClassGenerator extends AbstractGenerator
     }
 
     /**
-     * @param  array $constants
+     * @param  PropertyGenerator[]|array[] $constants
+     *
      * @return ClassGenerator
      */
     public function addConstants(array $constants)
