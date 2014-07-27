@@ -177,11 +177,15 @@ class Xml implements FormatterInterface
         foreach ($dataToInsert as $key => $value) {
             if (empty($value)
                 || is_scalar($value)
+                || ((is_array($value) || $value instanceof Traversable) && $key == "extra")
                 || (is_object($value) && method_exists($value, '__toString'))
             ) {
                 if ($key == "message") {
                     $value = $escaper->escapeHtml($value);
                 } elseif ($key == "extra" && empty($value)) {
+                    continue;
+                } elseif ($key == "extra" && (is_array($value) || $value instanceof Traversable)) {
+                    $elt->appendChild($this->buildElementTree($dom, $dom->createElement('extra'), $value));
                     continue;
                 }
                 $elt->appendChild(new DOMElement($key, (string) $value));
@@ -189,9 +193,59 @@ class Xml implements FormatterInterface
         }
 
         $xml = $dom->saveXML();
+
         $xml = preg_replace('/<\?xml version="1.0"( encoding="[^\"]*")?\?>\n/u', '', $xml);
 
         return $xml . PHP_EOL;
+    }
+
+    /**
+     * Recursion function to create an xml tree structure out of array structure
+     * @param DomDocument $doc - DomDocument where the current nodes will be generated
+     * @param DomElement $rootElement - root element the tree will be attached to
+     * @param $mixedData array|Traversable - mixedData
+     * @return DomElement $domElement - DOM Element with appended child nodes
+     */
+    protected function buildElementTree(DOMDocument $doc, DOMElement $rootElement, $mixedData)
+    {
+        if (is_array($mixedData) || $mixedData instanceof Traversable) {
+
+            foreach ($mixedData as $key => $value) {
+
+                // key is numeric and switch is not possible, numeric values are not valid node names
+                if (is_numeric($key) && (is_numeric($value) || empty($value))) {
+                    continue;
+                }
+
+                if (is_array($value) || $value instanceof Traversable) {
+                    // current value is an array, start recursion
+                    $rootElement->appendChild($this->buildElementTree($doc, $doc->createElement($key), $value));
+                    continue;
+                }
+
+                if (is_object($value) && !method_exists($value, '__toString')) {
+                    // object does not support __toString() method, manually convert the value
+                    $value = $this->getEscaper()->escapeHtml(
+                        '"Object" of type ' . get_class($value) . " does not support __toString() method"
+                    );
+                }
+
+                if (is_numeric($key)) {
+                    // xml does not allow numeric values, try to switch the value and the key
+                    $key = (string)$value;
+                    $value = null;
+                }
+
+                try {
+                    $rootElement->appendChild(new DOMElement($key, (!empty($value)) ? (string) $value : null));
+                } catch (\DOMException $e) {
+                    // the input name is not valid, go one.
+                    continue;
+                }
+            }
+        }
+
+        return $rootElement;
     }
 
     /**
