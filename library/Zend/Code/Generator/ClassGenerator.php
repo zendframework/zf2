@@ -591,7 +591,7 @@ class ClassGenerator extends AbstractGenerator
 
         // backwards compatibility
         // @todo remove this on next major version
-        if($flags === PropertyGenerator::FLAG_CONSTANT) {
+        if ($flags === PropertyGenerator::FLAG_CONSTANT) {
             return $this->addConstant($name, $defaultValue);
         }
 
@@ -618,7 +618,7 @@ class ClassGenerator extends AbstractGenerator
 
         // backwards compatibility
         // @todo remove this on next major version
-        if($property->isConst()) {
+        if ($property->isConst()) {
             return $this->addConstantFromGenerator($property);
         }
 
@@ -868,10 +868,9 @@ class ClassGenerator extends AbstractGenerator
         $output .= self::LINE_FEED . '{' . self::LINE_FEED . self::LINE_FEED;
 
         $constants = $this->getConstants();
-        if(!empty($constants)) {
-            foreach ($constants as $constant) {
-                $output .= $constant->generate() . self::LINE_FEED . self::LINE_FEED;
-            }
+
+        foreach ($constants as $constant) {
+            $output .= $constant->generate() . self::LINE_FEED . self::LINE_FEED;
         }
 
         $properties = $this->getProperties();
