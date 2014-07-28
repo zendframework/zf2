@@ -150,7 +150,8 @@ class ValidatorChain implements
         if (!$this->validators->isEmpty()) {
             $queue = $this->validators->getIterator();
             $queue->setExtractFlags(PriorityQueue::EXTR_PRIORITY);
-            $priority = $queue->extract()[0] + 1;
+            $extractedNode = $queue->extract();
+            $priority = $extractedNode[0] + 1;
         }
 
         $this->validators->insert(
