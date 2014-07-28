@@ -378,6 +378,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
 <<<<<<< Upstream, based on zf2/master
+<<<<<<< Upstream, based on zf2/master
      * @group 6231
      */
     public function testHttpQueryParametersCastToString()
@@ -411,11 +412,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      * Test for pull request 6301
      * Previous functionality would have thrown an exception
      * This test serves to verify that exception is not thrown
+=======
+     * @group 6301
+>>>>>>> f5ea706 #6301 - adding assertion for auth type state being set
      */
     public function testCanSpecifyCustomAuthMethodsInExtendingClasses()
     {
         $client = new ExtendedClient();
+
         $client->setAuth('username', 'password', ExtendedClient::AUTH_CUSTOM);
+<<<<<<< Upstream, based on zf2/master
 >>>>>>> d0d9ac2 Unit test for self:: to static:: Http\Client update
+=======
+
+        $this->assertAttributeEquals(
+            array (
+                'user'     => 'username',
+                'password' => 'password',
+                'type'     => ExtendedClient::AUTH_CUSTOM,
+            ),
+            'auth',
+            $client
+        );
+>>>>>>> f5ea706 #6301 - adding assertion for auth type state being set
     }
 }
