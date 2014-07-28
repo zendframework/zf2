@@ -195,6 +195,25 @@ class BaseInputFilterTest extends TestCase
         $filter->setData($dataset);
         $this->assertSame($expected, $filter->isValid());
     }
+	
+	public function testValidatorContextIsFiltered()
+    {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped('ext/intl not enabled');
+        }
+
+        $filter = $this->getInputFilter();
+		
+		$filter->get('qux')->getValidatorChain()->attach(new Validator\Identical('baz'));
+		
+        $validData = array(
+            'baz' => 'aaaaa ',
+            'qux' => 'aaaaa',
+        );
+        $filter->setValidationGroup('baz', 'qux');
+        $filter->setData($validData);
+        $this->assertTrue($filter->isValid());
+    }
 
     public function testCanValidatePartialDataset()
     {
