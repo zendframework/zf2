@@ -102,16 +102,27 @@ class ValidatorChain implements
      * If $breakChainOnFailure is true, then if the validator fails, the next validator in the chain,
      * if one exists, will not be executed.
      *
-     * @param  ValidatorInterface      $validator
+     * @param  callable|ValidatorInterface      $callback A Validator implementation or valid PHP callback
      * @param  bool                 $breakChainOnFailure
      * @param  int $priority Priority at which to enqueue validator; defaults to 1000 (higher executes earlier)
-     * @return ValidatorChain Provides a fluent interface
+     * @throws Exception\InvalidArgumentException
+     * @return self
      */
-    public function attach(ValidatorInterface $validator, $breakChainOnFailure = false, $priority = self::DEFAULT_PRIORITY)
+    public function attach($callback, $breakChainOnFailure = false, $priority = self::DEFAULT_PRIORITY)
     {
+        if (!is_callable($callback)) {
+            if (!$callback instanceof ValidatorInterface || !is_array($callback)) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'Expected a valid PHP callback; received "%s"',
+                    (is_object($callback) ? get_class($callback) : gettype($callback))
+                ));
+            }
+            $callback = array($callback, 'validator');
+        }
+
         $this->validators->insert(
             array(
-                'instance'            => $validator,
+                'instance'            => $callback,
                 'breakChainOnFailure' => (bool) $breakChainOnFailure,
             ),
             $priority
