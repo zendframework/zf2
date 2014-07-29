@@ -311,4 +311,13 @@ class InputTest extends TestCase
         $input2->merge($input);
         $this->assertTrue($input2->continueIfEmpty());
     }
+    
+    public function testValueProvided()
+    {
+        $input = new Input('foo');
+        $this->assertFalse($input->isValueProvided());
+        
+        $input->setValue('bar');
+        $this->assertTrue($input->isValueProvided());
+    }
 }
