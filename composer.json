@@ -38,7 +38,7 @@
         "ircmaxell/random-lib": "dev-master",
         "ircmaxell/security-lib": "dev-master",
         "mikey179/vfsStream": "1.2.*",
-        "fabpot/php-cs-fixer": "*@dev",
+        "fabpot/php-cs-fixer": "dev-master",
         "phpunit/PHPUnit": "3.7.*",
         "satooshi/php-coveralls": "dev-master",
         "sebastianbergmann/phpcov": "1.1.0"
@@ -54,6 +54,11 @@
     "autoload": {
         "psr-0": {
             "Zend\\": "library/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "ZendTest\\": "tests/"
         }
     },
     "bin": [

@@ -19,7 +19,7 @@ use Zend\Uri\Uri;
 /** PHPUnit Test Case */
 
 /**
- * Test cases for Zend_Soap_AutoDiscover
+ * Test cases for Zend\Soap\AutoDiscover
  *
  * @group      Zend_Soap
  */
@@ -122,7 +122,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        if (is_null($element)) {
+        if (null === $element) {
             $element = $this->dom->documentElement;
         }
 

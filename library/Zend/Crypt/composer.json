@@ -6,6 +6,7 @@
         "zf2",
         "crypt"
     ],
+    "homepage": "https://github.com/zendframework/zf2",
     "autoload": {
         "psr-0": {
             "Zend\\Crypt\\": ""
@@ -17,6 +18,9 @@
         "zendframework/zend-math": "self.version",
         "zendframework/zend-stdlib": "self.version",
         "zendframework/zend-servicemanager": "self.version"
+    },
+    "suggest": {
+        "ext-mcrypt": "Required for most features of Zend\\Crypt"
     },
     "extra": {
         "branch-alias": {

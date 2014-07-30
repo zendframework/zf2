@@ -47,13 +47,41 @@ class InputFilterTest extends TestCase
     }
 
     /**
+     * @covers \Zend\InputFilter\BaseInputFilter::getValue
+     *
+     * @group 6028
+     */
+    public function testGetValueReturnsArrayIfNestedInputFilters()
+    {
+        $inputFilter = new InputFilter();
+        $inputFilter->add(new Input(), 'name');
+
+        $this->filter->add($inputFilter, 'people');
+
+        $data = array(
+            'people' => array(
+                 'name' => 'Wanderson'
+            )
+        );
+
+        $this->filter->setData($data);
+        $this->assertTrue($this->filter->isValid());
+
+        $this->assertInternalType('array', $this->filter->getValue('people'));
+    }
+
+    /**
      * @group ZF2-5648
      */
     public function testCountZeroValidateInternalInputWithCollectionInputFilter()
     {
+        $inputFilter = new InputFilter();
+        $inputFilter->add(new Input(), 'name');
+
         $collection = new CollectionInputFilter();
-        $collection->setCount(0)
-                   ->add(new Input(), 'name');
+        $collection->setInputFilter($inputFilter);
+        $collection->setCount(0);
+
         $this->filter->add($collection, 'people');
 
         $data = array(
