@@ -63,6 +63,13 @@ class CurrencyFormatTest extends \PHPUnit_Framework_TestCase
             //array('en_US', 'EUR',     false,             1234567.891234567890000,  null, '€1,234,568'),
             //array('en_US', 'EUR',     false,             1234567.891234567890000,  null, '€1,234,568'),
             array('en_US', 'USD',       false, 1234567.891234567890000, null,                       '$1,234,568'),
+            array('de_DE', 'USD',       true,  0.123,                   null,                       '0,12 $'),
+            array('de_DE', 'USD',       false, 0.123,                   null,                       '0 $'),
+            array('de_DE', 'LYD',       true,  0.1231231,               null,                       '0,123 LYD'),
+            array('de_DE', 'LYD',       true,  0.123,                   '#,##0.00 ¤',               '0,12 LYD'),
+            array('de_DE', 'LYD',       false, 0.1231231,               null,                       '0 LYD'),
+            array('de_DE', 'EUR',       true,  1234.56,                 null,                       '1.234,56 €'),
+            array('de_DE', 'EUR',       true,  0.123,                   null,                       '0,12 €'),
         );
     }
 
