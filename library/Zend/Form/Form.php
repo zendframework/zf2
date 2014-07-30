@@ -755,9 +755,11 @@ class Form extends Fieldset implements FormInterface
         $inputFactory = $formFactory->getInputFilterFactory();
     
         // For collections, we need to populate the input filter used to loop the data
+        $useInputFilterProvider = ($fieldset === $this);
         if ($fieldset instanceof Collection && $inputFilter instanceof CollectionInputFilter) {
             $inputFilter = $inputFilter->getInputFilter();
             $fieldset = $fieldset->getTargetElement();
+            $useInputFilterProvider = true;
         }
     
         foreach ($fieldset->getElements() as $element) {
@@ -790,7 +792,7 @@ class Form extends Fieldset implements FormInterface
             $inputFilter->add($input, $name);
         }
 
-        if ($fieldset === $this && $fieldset instanceof InputFilterProviderInterface) {
+        if ($useInputFilterProvider && $fieldset instanceof InputFilterProviderInterface) {
             foreach ($fieldset->getInputFilterSpecification() as $name => $spec) {
                 $input = $inputFactory->createInput($spec);
                 $inputFilter->add($input, $name);
