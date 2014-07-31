@@ -34,8 +34,12 @@ class AnnotationManagerTest extends TestCase
         $doctrineParser = new Annotation\Parser\DoctrineAnnotationParser();
         $doctrineParser->registerAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation');
 
+        $doctrineParser1 = new Annotation\Parser\DoctrineAnnotationParser();
+        $doctrineParser1->registerAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotationWithSpace');
+
         $this->manager->attach($genericParser);
         $this->manager->attach($doctrineParser);
+        $this->manager->attach($doctrineParser1);
 
         $reflection = new Reflection\ClassReflection(__NAMESPACE__ . '\TestAsset\EntityWithMixedAnnotations');
         $prop = $reflection->getProperty('test');
@@ -43,6 +47,16 @@ class AnnotationManagerTest extends TestCase
 
         $this->assertTrue($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
         $this->assertTrue($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation'));
+        $this->assertTrue($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotationWithSpace'));
+        $this->assertFalse($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
+
+        $reflection = new Reflection\ClassReflection(__NAMESPACE__ . '\TestAsset\EntityWithMixedSpaceAnnotations');
+        $prop = $reflection->getProperty('test');
+        $annotations = $prop->getAnnotations($this->manager);
+
+        $this->assertTrue($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
+        $this->assertTrue($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotation'));
+        $this->assertTrue($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotationWithSpace'));
         $this->assertFalse($annotations->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
 
         foreach ($annotations as $annotation) {
@@ -51,6 +65,9 @@ class AnnotationManagerTest extends TestCase
                     $this->assertEquals('first', $annotation->content);
                     break;
                 case __NAMESPACE__ . '\TestAsset\DoctrineAnnotation':
+                    $this->assertEquals(array('foo' => 'bar', 'bar' => 'baz'), $annotation->value);
+                    break;
+                case __NAMESPACE__ . '\TestAsset\DoctrineAnnotationWithSpace':
                     $this->assertEquals(array('foo' => 'bar', 'bar' => 'baz'), $annotation->value);
                     break;
                 default:

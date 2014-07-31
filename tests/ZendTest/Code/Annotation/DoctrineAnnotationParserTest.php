@@ -47,6 +47,16 @@ class DoctrineAnnotationParserTest extends TestCase
         $this->assertEquals(array('foo' => 'bar'), $test->value);
     }
 
+    public function testParserCreatesNewAnnotationWithSpaceInstances()
+    {
+        $this->parser->registerAnnotation(__NAMESPACE__ . '\TestAsset\DoctrineAnnotationWithSpace');
+
+        $event = $this->getEvent();
+        $test  = $this->parser->onCreateAnnotation($event);
+        $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\DoctrineAnnotationWithSpace', $test);
+        $this->assertEquals(array('foo' => 'bar'), $test->value);
+    }
+
     public function testReturnsFalseDuringCreationIfAnnotationIsNotRegistered()
     {
         $event = $this->getEvent();
