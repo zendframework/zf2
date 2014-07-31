@@ -21,7 +21,7 @@ interface StrategyInterface
      * @param object $object (optional) The original object for context.
      * @return mixed Returns the value that should be extracted.
      */
-    public function extract($value);
+    public function extract($value, $object = null);
 
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
@@ -30,5 +30,5 @@ interface StrategyInterface
      * @param array  $data (optional) The original data for context.
      * @return mixed Returns the value that should be hydrated.
      */
-    public function hydrate($value);
+    public function hydrate($value, $data = null);
 }
