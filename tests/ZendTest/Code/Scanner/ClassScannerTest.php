@@ -174,4 +174,18 @@ class ClassScannerTest extends TestCase
         $this->assertEquals('second', $annotations[1]->content);
         $this->assertEquals('third',  $annotations[2]->content);
     }
+
+    public function testClassScannerCanScanAnnotationsWithSpaces()
+    {
+        $file    = new FileScanner(__DIR__ . '/../Annotation/TestAsset/EntityWithSpaceAnnotations.php');
+        $class   = $file->getClass('ZendTest\Code\Annotation\TestAsset\EntityWithSpaceAnnotations');
+        $annotations = $class->getAnnotations($this->manager);
+
+        $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Annotation\TestAsset\Foo'));
+        $this->assertTrue($annotations->hasAnnotation('ZendTest\Code\Annotation\TestAsset\Bar'));
+
+        $this->assertEquals('first',  $annotations[0]->content);
+        $this->assertEquals('second', $annotations[1]->content);
+        $this->assertEquals('third',  $annotations[2]->content);
+    }
 }

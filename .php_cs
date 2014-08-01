@@ -1,5 +1,7 @@
 <?php
 $finder = Symfony\CS\Finder\DefaultFinder::create()
+    ->notPath('ZendTest/Code/Annotation/TestAsset/EntityWithMixedSpaceAnnotations.php')
+    ->notPath('ZendTest/Code/Annotation/TestAsset/EntityWithSpaceAnnotations.php')
     ->notPath('ZendTest/Code/Generator/TestAsset')
     ->notPath('ZendTest/Code/Reflection/FunctionReflectionTest.php')
     ->notPath('ZendTest/Code/Reflection/MethodReflectionTest.php')
