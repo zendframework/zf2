@@ -51,6 +51,9 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
         $body = '
         //we need a multi-line method body.
         $assigned = 1;
+        if(true){
+            $assignedInParentheses = \'code in parentheses\';
+        }
         $alsoAssigined = 2;
         return \'mixedValue\';
     ';
