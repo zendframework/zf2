@@ -51,7 +51,7 @@ class MongoDB implements SaveHandlerInterface
      *
      * @param Mongo|MongoClient $mongo
      * @param MongoDBOptions $options
-     * @throws Zend\Session\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct($mongo, MongoDBOptions $options)
     {
@@ -63,11 +63,11 @@ class MongoDB implements SaveHandlerInterface
         }
 
         if (null === ($database = $options->getDatabase())) {
-            throw new InvalidArgumentException('The database option cannot be emtpy');
+            throw new InvalidArgumentException('The database option cannot be empty');
         }
 
         if (null === ($collection = $options->getCollection())) {
-            throw new InvalidArgumentException('The collection option cannot be emtpy');
+            throw new InvalidArgumentException('The collection option cannot be empty');
         }
 
         $this->mongoCollection = $mongo->selectCollection($database, $collection);

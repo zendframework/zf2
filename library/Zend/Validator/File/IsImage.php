@@ -13,7 +13,7 @@ use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * Validator which checks if the file already exists in the directory
+ * Validator which checks if the file is an image
  */
 class IsImage extends MimeType
 {
@@ -40,8 +40,7 @@ class IsImage extends MimeType
      */
     public function __construct($options = array())
     {
-        // http://de.wikipedia.org/wiki/Liste_von_Dateiendungen
-        // http://www.iana.org/assignments/media-types/image/
+        // http://www.iana.org/assignments/media-types/media-types.xhtml#image
         $default = array(
             'application/cdf',
             'application/dicom',

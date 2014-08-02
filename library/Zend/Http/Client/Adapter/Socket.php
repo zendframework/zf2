@@ -28,10 +28,10 @@ class Socket implements HttpAdapter, StreamInterface
      * @var array
      */
     protected static $sslCryptoTypes = array(
-            'ssl'   => STREAM_CRYPTO_METHOD_SSLv23_CLIENT,
-            'sslv2' => STREAM_CRYPTO_METHOD_SSLv2_CLIENT,
-            'sslv3' => STREAM_CRYPTO_METHOD_SSLv3_CLIENT,
-            'tls'   => STREAM_CRYPTO_METHOD_TLS_CLIENT
+        'ssl'   => STREAM_CRYPTO_METHOD_SSLv23_CLIENT,
+        'sslv2' => STREAM_CRYPTO_METHOD_SSLv2_CLIENT,
+        'sslv3' => STREAM_CRYPTO_METHOD_SSLv3_CLIENT,
+        'tls'   => STREAM_CRYPTO_METHOD_TLS_CLIENT,
     );
 
     /**
@@ -69,7 +69,7 @@ class Socket implements HttpAdapter, StreamInterface
         'sslcafile'             => null,
         'sslcapath'             => null,
         'sslallowselfsigned'    => false,
-        'sslusecontext'         => false
+        'sslusecontext'         => false,
     );
 
     /**
@@ -412,7 +412,9 @@ class Socket implements HttpAdapter, StreamInterface
         $statusCode = $responseObj->getStatusCode();
 
         // Handle 100 and 101 responses internally by restarting the read again
-        if ($statusCode == 100 || $statusCode == 101) return $this->read();
+        if ($statusCode == 100 || $statusCode == 101) {
+            return $this->read();
+        }
 
         // Check headers to see what kind of connection / transfer encoding we have
         $headers = $responseObj->getHeaders();
@@ -509,7 +511,6 @@ class Socket implements HttpAdapter, StreamInterface
             $contentLength = $contentLength->getFieldValue();
 
             $currentPos = ftell($this->socket);
-            $chunk = '';
 
             for ($readTo = $currentPos + $contentLength;
                  $readTo > $currentPos;

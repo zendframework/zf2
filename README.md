@@ -13,9 +13,16 @@ Develop:
 
 This is the fourth minor (feature) release for the version 2 series.
 
-DD MMM YYYY
+DD MMM YYY
 
 ### UPDATES IN 2.4.0
+
+- [#6154](https://github.com/zendframework/zf2/pull/6154) updates
+  `Zend\InputFilter\BaseInputFilter::isValid()` to accept an optional `$context`
+  parameter; if used, this value will be passed to all composed inputs as
+  context, instead of the value provided to `setData()`. For classes overriding
+  the `isValid()` method of an InputFilter, you will need to add
+  `$context = null` as an argument.
 
 Please see [CHANGELOG.md](CHANGELOG.md).
 

@@ -12,7 +12,7 @@ namespace ZendTest\Filter\Word;
 use Zend\Filter\Word\SeparatorToCamelCase as SeparatorToCamelCaseFilter;
 
 /**
- * Test class for Zend_Filter_Word_SeparatorToCamelCase.
+ * Test class for Zend\Filter\Word\SeparatorToCamelCase.
  *
  * @group      Zend_Filter
  */
@@ -70,6 +70,19 @@ class SeparatorToCamelCaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEquals($string, $filtered);
         $this->assertEquals('TestŠuma', $filtered);
+    }
+
+    /**
+     * @group 6151
+     */
+    public function testFilterSeparatesCamelCasedNonAlphaWordsWithProvidedSeparator()
+    {
+        $string   = 'user_2_user';
+        $filter   = new SeparatorToCamelCaseFilter('_');
+        $filtered = $filter($string);
+
+        $this->assertNotEquals($string, $filtered);
+        $this->assertEquals('User2User', $filtered);
     }
 
     /**

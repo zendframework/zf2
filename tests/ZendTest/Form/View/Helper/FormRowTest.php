@@ -166,7 +166,7 @@ class FormRowTest extends TestCase
         $element->setAttribute('class', 'foo bar');
 
         $markup = $this->helper->setInputErrorClass('custom-error-class')->render($element);
-        $this->assertRegexp('/<input name="foo" class="foo bar custom-error-class" type="text" [^\/>]*\/?>/', $markup);
+        $this->assertRegexp('/<input name="foo" class="foo\&\#x20\;bar\&\#x20\;custom-error-class" type="text" [^\/>]*\/?>/', $markup);
     }
 
     public function testInvokeWithNoElementChainsHelper()
@@ -212,14 +212,6 @@ class FormRowTest extends TestCase
 
         $this->helper->setTranslatorEnabled(false);
         $this->assertFalse($this->helper->isTranslatorEnabled());
-    }
-
-    public function testInvokeSetLabelPositionToAppend()
-    {
-        $element = new Element('foo');
-        $this->helper->__invoke($element, 'append');
-
-        $this->assertSame('append', $this->helper->getLabelPosition());
     }
 
     public function testSetLabelPositionInputNullRaisesException()
@@ -408,6 +400,65 @@ class FormRowTest extends TestCase
         $this->helper->__invoke($element);
 
         $this->assertSame('append', $this->helper->getLabelPosition());
+    }
+
+    /**
+     * @covers Zend\Form\View\Helper\FormRow::render
+     */
+    public function testCanSetLabelPositionViaRender()
+    {
+        $element  = new Element('foo');
+        $element->setAttribute('id', 'bar');
+        $element->setLabel('Baz');
+
+        $markup = $this->helper->render($element, 'append');
+        $this->assertRegexp('#^<input name="foo" id="bar" type="text" value=""\/?><label for="bar">Baz</label>$#', $markup);
+
+        $markup = $this->helper->render($element, 'prepend');
+        $this->assertRegexp('#^<label for="bar">Baz</label><input name="foo" id="bar" type="text" value=""\/?>$#', $markup);
+    }
+
+    public function testSetLabelPositionViaRenderIsNotCached()
+    {
+        $labelPositionBeforeRender = $this->helper->getLabelPosition();
+        $element = new Element('foo');
+
+        $this->helper->render($element, 'append');
+        $this->assertSame($labelPositionBeforeRender, $this->helper->getLabelPosition());
+
+        $this->helper->render($element, 'prepend');
+        $this->assertSame($labelPositionBeforeRender, $this->helper->getLabelPosition());
+    }
+
+    /**
+     * @covers Zend\Form\View\Helper\FormRow::__invoke
+     */
+    public function testCanSetLabelPositionViaInvoke()
+    {
+        $element  = new Element('foo');
+        $element->setAttribute('id', 'bar');
+        $element->setLabel('Baz');
+
+        $markup = $this->helper->__invoke($element, 'append');
+        $this->assertRegexp('#^<input name="foo" id="bar" type="text" value=""\/?><label for="bar">Baz</label>$#', $markup);
+
+        $markup = $this->helper->__invoke($element, 'prepend');
+        $this->assertRegexp('#^<label for="bar">Baz</label><input name="foo" id="bar" type="text" value=""\/?>$#', $markup);
+    }
+
+    /**
+     * @covers Zend\Form\View\Helper\FormRow::__invoke
+     */
+    public function testSetLabelPositionViaInvokeIsNotCached()
+    {
+        $labelPositionBeforeRender = $this->helper->getLabelPosition();
+        $element = new Element('foo');
+
+        $this->helper->__invoke($element, 'append');
+        $this->assertSame($labelPositionBeforeRender, $this->helper->getLabelPosition());
+
+        $this->helper->__invoke($element, 'prepend');
+        $this->assertSame($labelPositionBeforeRender, $this->helper->getLabelPosition());
     }
 
     public function testLabelOptionAlwaysWrapDefaultsToFalse()

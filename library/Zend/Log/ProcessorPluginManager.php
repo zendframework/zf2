@@ -14,17 +14,18 @@ use Zend\ServiceManager\AbstractPluginManager;
 class ProcessorPluginManager extends AbstractPluginManager
 {
     /**
-     * Default set of writers
+     * Default set of processors
      *
      * @var array
      */
     protected $invokableClasses = array(
         'backtrace' => 'Zend\Log\Processor\Backtrace',
+        'referenceid' => 'Zend\Log\Processor\ReferenceId',
         'requestid' => 'Zend\Log\Processor\RequestId',
     );
 
     /**
-     * Allow many writers of the same type
+     * Allow many processors of the same type
      *
      * @var bool
      */

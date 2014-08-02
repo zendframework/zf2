@@ -6,6 +6,7 @@
         "zf2",
         "xmlrpc"
     ],
+    "homepage": "https://github.com/zendframework/zf2",
     "autoload": {
         "psr-0": {
             "Zend\\XmlRpc\\": ""
@@ -17,7 +18,8 @@
         "zendframework/zend-http": "self.version",
         "zendframework/zend-math": "self.version",
         "zendframework/zend-server": "self.version",
-        "zendframework/zend-stdlib": "self.version"
+        "zendframework/zend-stdlib": "self.version",
+        "zendframework/zendxml": "1.*"
     },
     "extra": {
         "branch-alias": {

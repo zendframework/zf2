@@ -22,17 +22,17 @@ use Zend\Json\Server\Response;
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend\Http\Client\Adapter\Test
+     * @var TestAdapter
      */
     protected $httpAdapter;
 
     /**
-     * @var Zend\Http\Client
+     * @var HttpClient
      */
     protected $httpClient;
 
     /**
-     * @var Zend\Json\Server\Client
+     * @var Client
      */
     protected $jsonClient;
 
@@ -215,6 +215,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->setServerResponseTo(null);
         $this->assertNull($this->jsonClient->call('method'));
         $this->assertSame($expectedUserAgent, $this->httpClient->getHeader('User-Agent'));
+    }
+
+    /**
+     * @group 5956
+     */
+    public function testScalarServerResponseThrowsException()
+    {
+        $response = $this->makeHttpResponseFrom('false');
+        $this->httpAdapter->setResponse($response);
+        $this->setExpectedException('Zend\Json\Exception\ExceptionInterface');
+        $this->jsonClient->call('foo');
     }
 
     // Helpers
