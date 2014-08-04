@@ -17,11 +17,13 @@ use Zend\Uri\UriFactory;
  */
 class Origin implements HeaderInterface
 {
-
+    /**
+     * @var string
+     */
+    protected $value;
+    
     public static function fromString($headerLine)
     {
-        $header = new static();
-
         list($name, $value) = explode(': ', $headerLine, 2);
 
         // check to ensure proper header type for this factory
@@ -35,9 +37,12 @@ class Origin implements HeaderInterface
         }
 
         // @todo implementation details
-        $header->value = $value;
-
-        return $header;
+        return new static($value);        
+    }
+    
+    public function __construct($value = null)
+    {
+        $this->value = $value;
     }
 
     public function getFieldName()
