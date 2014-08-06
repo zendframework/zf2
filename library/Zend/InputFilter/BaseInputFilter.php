@@ -194,7 +194,7 @@ class BaseInputFilter implements
      */
     public function isValid()
     {
-        $data = $this->getRawValues();
+        $data = $this->getValues();
         if (null === $data) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: no data present to validate!',
@@ -217,7 +217,7 @@ class BaseInputFilter implements
     {
         // backwards compatibility
         if (empty($data)) {
-            $data = $this->getRawValues();
+            $data = $this->getValues();
         }
 
         $this->validInputs   = array();
