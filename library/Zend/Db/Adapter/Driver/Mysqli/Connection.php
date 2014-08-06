@@ -251,7 +251,16 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             $this->connect();
         }
 
+        if ($this->profiler) {
+            $this->profiler->profilerStart('START TRANSACTION');
+        }
+
         $this->resource->autocommit(false);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish();
+        }
+
         $this->inTransaction = true;
     }
 
@@ -276,9 +285,17 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             $this->connect();
         }
 
+        if ($this->profiler) {
+            $this->profiler->profilerStart('COMMIT');
+        }
+
         $this->resource->commit();
         $this->inTransaction = false;
         $this->resource->autocommit(true);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish();
+        }
     }
 
     /**
@@ -297,8 +314,17 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             throw new Exception\RuntimeException('Must call beginTransaction() before you can rollback.');
         }
 
+        if ($this->profiler) {
+            $this->profiler->profilerStart('ROLLBACK');
+        }
+
         $this->resource->rollback();
         $this->resource->autocommit(true);
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish();
+        }
+        
         return $this;
     }
 
