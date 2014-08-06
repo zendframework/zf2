@@ -119,14 +119,14 @@ class RedisTest extends CommonAdapterTest
     {
         // Simulate unavailable Redis server
         $portWithoutRedis = 50000;
-        $this->_options->getResourceManager()->setServer(__CLASS__, [
+        $this->_options->getResourceManager()->setServer(__CLASS__, array(
             TESTS_ZEND_CACHE_REDIS_HOST, $portWithoutRedis
-        ]);
+        ));
         $this->_storage->setOptions($this->_options);
 
         // Do not throw the exception
         $pluginOptions = new Cache\Storage\Plugin\PluginOptions(
-            ['throw_exceptions' => false]
+            array('throw_exceptions' => false)
         );
         $plugin = new Cache\Storage\Plugin\ExceptionHandler();
         $plugin->setOptions($pluginOptions);
