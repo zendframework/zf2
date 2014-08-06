@@ -1042,4 +1042,22 @@ class CollectionTest extends TestCase
 
         $this->assertCount(2, $form->get('names'));
     }
+
+    public function testCanHydrateObject()
+    {
+        $form = $this->form;
+        $data = array(
+            'colors' => array(
+                '#ffffff',
+            ),
+        );
+        $form->setData($data);
+
+        $object = new \ArrayObject();
+        
+        $form->bind($object);
+        $this->assertTrue($form->isValid());
+        $this->assertTrue(is_array($object['colors']));
+        $this->assertCount(1, $object['colors']);
+    }
 }

@@ -514,7 +514,10 @@ class Collection extends Fieldset
         foreach ($this->object as $key => $value) {
             if ($this->hydrator) {
                 $values[$key] = $this->hydrator->extract($value);
-            } elseif ($value instanceof $this->targetElement->object) {
+            } elseif (
+                $this->targetElement instanceof Fieldset &&
+                $value instanceof $this->targetElement->object
+            ) {
                 // @see https://github.com/zendframework/zf2/pull/2848
                 $targetElement = clone $this->targetElement;
                 $targetElement->object = $value;
@@ -525,6 +528,8 @@ class Collection extends Fieldset
                         $fieldset->setObject($value);
                     }
                 }
+            } else {
+                $values[$key] = $value;
             }
         }
         return $values;
