@@ -31,7 +31,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->renderer, $this->renderer->getEngine());
     }
 
-    public function testUsesTemplatePathStackAsDefaultResolver()
+    public function testUsesTemplatePathStackAsDefaultProvider()
     {
         $this->assertInstanceOf('Zend\View\Resolver\TemplatePathStack', $this->renderer->resolver());
     }

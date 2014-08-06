@@ -24,6 +24,11 @@ use Zend\Stdlib\CallbackHandler;
  */
 class EventManagerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var EventManager
+     */
+    public $events;
+
     public function setUp()
     {
         StaticEventManager::resetInstance();
@@ -669,5 +674,56 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($marker->propagationIsStopped);
         $this->assertFalse($event->propagationIsStopped());
+    }
+
+    /**
+     * @expectedException \PHPUnit_Framework_Error
+     */
+    public function testSetEventResolverMustImplementsEventProviderInterface()
+    {
+        $this->events->setEventProvider(new \ArrayObject());
+    }
+
+    public function testEventResolverAccessor()
+    {
+        $DefaultProvider = $this->events->getEventProvider();
+
+        $this->assertInstanceOf(
+            'Zend\EventManager\Provider\DefaultProvider',
+            $DefaultProvider,
+            'DefaultEventResolver is provided if no resolver is defined'
+        );
+
+        $this->assertSame(
+            $DefaultProvider,
+            $this->events->getEventProvider(),
+            'DefaultProvider is instantiated only once'
+        );
+
+        $resolver = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
+        $this->assertSame($this->events, $this->events->setEventProvider($resolver));
+        $this->assertSame($resolver, $this->events->getEventProvider());
+    }
+
+    /**
+     * @expectedException \Zend\EventManager\Exception\RuntimeException
+     */
+    public function testSetEventClassFailsIfNotAValidResolver()
+    {
+        $resolver = $this->getMock('Zend\EventManager\Provider\ProviderInterface');
+        $this->events->setEventProvider($resolver);
+        $this->events->setEventClass('Zend\EventManager\Event');
+    }
+
+    public function testSetEventClassForwardToResolver()
+    {
+        $resolver = $this->getMock('Zend\EventManager\Provider\DefaultProvider');
+        $resolver
+            ->expects($this->once())
+            ->method('setEventClass')
+            ->with($class = 'Zend\EventManager\Event');
+
+        $this->assertSame($this->events, $this->events->setEventProvider($resolver));
+        $this->events->setEventClass($class);
     }
 }

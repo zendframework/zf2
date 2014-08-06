@@ -12,6 +12,9 @@ namespace Zend\EventManager;
 use ArrayAccess;
 use ArrayObject;
 use Traversable;
+use Zend\EventManager\Exception\RuntimeException;
+use Zend\EventManager\Provider\EventClassAwareInterface;
+use Zend\EventManager\Provider\DefaultProvider;
 use Zend\Stdlib\CallbackHandler;
 use Zend\Stdlib\PriorityQueue;
 
@@ -30,11 +33,6 @@ class EventManager implements EventManagerInterface
     protected $events = array();
 
     /**
-     * @var string Class representing the event being emitted
-     */
-    protected $eventClass = 'Zend\EventManager\Event';
-
-    /**
      * Identifiers, used to pull shared signals from SharedEventManagerInterface instance
      * @var array
      */
@@ -45,6 +43,12 @@ class EventManager implements EventManagerInterface
      * @var false|null|SharedEventManagerInterface
      */
     protected $sharedManager = null;
+
+    /**
+     * Create events instances from provider
+     * @var Provider\ProviderInterface
+     */
+    protected $eventProvider;
 
     /**
      * Constructor
@@ -60,15 +64,47 @@ class EventManager implements EventManagerInterface
     }
 
     /**
-     * Set the event class to utilize
+     * Set the event class, if supported by the underlying resolver
      *
-     * @param  string $class
-     * @return EventManager
+     * @param string $class                 The class name
+     *
+     * @return EventManager                 Provides a fluent interface
+     * @throws Exception\RuntimeException   If the Resolver does not implements \Zend\EventManager\Provider\EventClassAwareInterface
      */
     public function setEventClass($class)
     {
-        $this->eventClass = $class;
+        $provider = $this->getEventProvider();
+
+        if (! $provider instanceof EventClassAwareInterface) {
+            throw new RuntimeException(sprintf(
+                'Provider of class %s does not supports eventClass assignment', get_class($provider)
+            ));
+        }
+        $provider->setEventClass($class);
+
         return $this;
+    }
+
+    /**
+     * @param Provider\ProviderInterface $eventResolver
+     * @return self
+     */
+    public function setEventProvider(Provider\ProviderInterface $eventResolver)
+    {
+        $this->eventProvider = $eventResolver;
+        return $this;
+    }
+
+    /**
+     * Get the resolver: If none provided, the default is assigned at first call
+     * @return Provider\ProviderInterface
+     */
+    public function getEventProvider()
+    {
+        if (null === $this->eventProvider) {
+            $this->setEventProvider(new DefaultProvider);
+        }
+        return $this->eventProvider;
     }
 
     /**
@@ -191,10 +227,7 @@ class EventManager implements EventManagerInterface
             $e->setName($event);
             $e->setTarget($target);
         } else {
-            $e = new $this->eventClass();
-            $e->setName($event);
-            $e->setTarget($target);
-            $e->setParams($argv);
+            $e = $this->getEventProvider()->get($event, $target, $argv);
         }
 
         if ($callback && !is_callable($callback)) {
@@ -236,10 +269,7 @@ class EventManager implements EventManagerInterface
             $e->setName($event);
             $e->setTarget($target);
         } else {
-            $e = new $this->eventClass();
-            $e->setName($event);
-            $e->setTarget($target);
-            $e->setParams($argv);
+            $e = $this->getEventProvider()->get($event, $target, $argv);
         }
 
         if (!is_callable($callback)) {
