@@ -114,33 +114,6 @@ class RedisTest extends CommonAdapterTest
         $this->assertCount(count($value), $this->_storage->getItem('key'), 'Problem with Redis serialization');
     }
 
-
-    public function testRedisGetItemIfRedisNotAvailable()
-    {
-        // Simulate unavailable Redis server
-        $portWithoutRedis = 50000;
-        $this->_options->getResourceManager()->setServer(__CLASS__, array(
-            TESTS_ZEND_CACHE_REDIS_HOST, $portWithoutRedis
-        ));
-        $this->_storage->setOptions($this->_options);
-
-        // Do not throw the exception
-        $pluginOptions = new Cache\Storage\Plugin\PluginOptions(
-            array('throw_exceptions' => false)
-        );
-        $plugin = new Cache\Storage\Plugin\ExceptionHandler();
-        $plugin->setOptions($pluginOptions);
-        $this->_storage->addPlugin($plugin);
-
-        $key = 'not_existing_key';
-        $value = $this->_storage->getItem($key, $success);
-        $this->assertSame(null, $value, 'GetItem should return null if the key is not set');
-        $this->assertFalse($success, '$success should be false, if the item cannot be retrieved');
-
-        // Prevent an exception, when tearDown() tries to flush Redis
-        $this->_storage = null;
-    }
-
     public function testRedisSetInt()
     {
         $key = 'key';
