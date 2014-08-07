@@ -117,7 +117,9 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
     {
         $this->connectionParameters = $connectionParameters;
         if (isset($connectionParameters['dsn'])) {
-            $this->driverName = substr($connectionParameters['dsn'], 0,
+            $this->driverName = substr(
+                $connectionParameters['dsn'],
+                0,
                 strpos($connectionParameters['dsn'], ':')
             );
         } elseif (isset($connectionParameters['pdodriver'])) {
@@ -486,5 +488,4 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
         return false;
     }
-
 }

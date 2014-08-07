@@ -147,7 +147,7 @@ class ParameterContainer implements Iterator, ArrayAccess, Countable
      * @param  array $data
      * @return ParameterContainer
      */
-    public function setFromArray(Array $data)
+    public function setFromArray(array $data)
     {
         foreach ($data as $n => $v) {
             $this->offsetSet($n, $v);

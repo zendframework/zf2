@@ -222,7 +222,11 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $this->profiler->profilerStart($this);
         }
 
-        set_error_handler(function () {}, E_WARNING); // suppress warnings
+        set_error_handler(
+            function () {
+            },
+            E_WARNING
+        ); // suppress warnings
         $response = db2_execute($this->resource, $this->parameterContainer->getPositionalArray());
         restore_error_handler();
 

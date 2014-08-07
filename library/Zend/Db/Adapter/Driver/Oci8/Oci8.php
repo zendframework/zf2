@@ -231,5 +231,4 @@ class Oci8 implements DriverInterface, Profiler\ProfilerAwareInterface
     {
         return $this->getConnection()->getLastGeneratedValue();
     }
-
 }

@@ -83,6 +83,4 @@ class MetadataFeature extends AbstractFeature
 
         $this->sharedData['metadata']['primaryKey'] = $primaryKey;
     }
-
-
 }

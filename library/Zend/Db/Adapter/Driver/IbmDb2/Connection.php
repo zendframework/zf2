@@ -329,7 +329,11 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
             $this->profiler->profilerStart($sql);
         }
 
-        set_error_handler(function () {}, E_WARNING); // suppress warnings
+        set_error_handler(
+            function () {
+            },
+            E_WARNING
+        ); // suppress warnings
         $resultResource = db2_exec($this->resource, $sql);
         restore_error_handler();
 
