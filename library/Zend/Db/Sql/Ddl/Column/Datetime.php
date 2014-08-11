@@ -9,7 +9,7 @@
 
 namespace Zend\Db\Sql\Ddl\Column;
 
-class Datetime extends Date
+class DateTime extends Date
 {
     /**
      * @var string
