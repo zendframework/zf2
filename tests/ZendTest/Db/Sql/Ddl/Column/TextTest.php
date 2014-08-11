@@ -22,9 +22,27 @@ class TextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 array(
-                    '%s %s',
-                    array('foo', 'TEXT NOT NULL'),
-                    array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL)
+                    '%s %s %s',
+                    array('foo', 'TEXT', 'NOT NULL'),
+                    array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL,  $column::TYPE_LITERAL)
+                )
+            ),
+            $column->getExpressionData()
+        );
+    }
+
+    /**
+     * @covers Zend\Db\Sql\Ddl\Column\Text::getExpressionData
+     */
+    public function testGetExpressionDataWithLength()
+    {
+        $column = new Text('foo', 500);
+        $this->assertEquals(
+            array(
+                array(
+                    '%s %s(%s) %s',
+                    array('foo', 'TEXT', 500, 'NOT NULL'),
+                    array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL, $column::TYPE_LITERAL,  $column::TYPE_LITERAL)
                 )
             ),
             $column->getExpressionData()

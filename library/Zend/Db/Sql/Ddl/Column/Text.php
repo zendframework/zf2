@@ -20,18 +20,43 @@ class Text extends Column
 {
 
     /**
+     * @var int
+     */
+    protected $length;
+
+    /**
      * @var string Change type to text
      */
     protected $type = 'TEXT';
 
     /**
-     * @param null  $name
-     * @param bool  $nullable
+     * @param null $name
+     * @param null|int $length
+     * @param bool $nullable
      */
-    public function __construct($name, $nullable = false)
+    public function __construct($name, $length = null, $nullable = false)
     {
         $this->setName($name);
+        $this->setLength($length);
         $this->setNullable($nullable);
+    }
+
+    /**
+     * @param  int $length
+     * @return self
+     */
+    public function setLength($length)
+    {
+        $this->length = $length;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLength()
+    {
+        return $this->length;
     }
 
     /**
@@ -44,11 +69,20 @@ class Text extends Column
         $params   = array();
         $params[] = $this->name;
         $params[] = $this->type;
-
         $types = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
 
+        // length
+        if ($this->length) {
+            $spec    .= '(%s)';
+            $params[] = $this->length;
+            $types[]  = self::TYPE_LITERAL;
+        }
+
+        // length
         if (!$this->isNullable) {
-            $params[1] .= ' NOT NULL';
+            $spec    .= ' %s';
+            $params[] = 'NOT NULL';
+            $types[]  = self::TYPE_LITERAL;
         }
 
         return array(array(
