@@ -16,7 +16,7 @@ class BlobTest extends \PHPUnit_Framework_TestCase
     /**
      * blob does not support length
      * @covers Zend\Db\Sql\Ddl\Column\Blob::setLength
-     * @deprecated
+     * @deprecated as of 2.4.X
      */
     public function testSetLength()
     {
@@ -29,7 +29,7 @@ class BlobTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Zend\Db\Sql\Ddl\Column\Blob::getLength
-     * @deprecated
+     * @deprecated as of 2.4.X
      */
     public function testGetLength()
     {
@@ -43,7 +43,7 @@ class BlobTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetExpressionData()
     {
-        $column = new Blob('foo', true);
+        $column = new Blob('foo', 1000, true);
         $this->assertEquals(
             array(array('%s %s', array('foo', 'BLOB'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
             $column->getExpressionData()
