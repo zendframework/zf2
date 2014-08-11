@@ -9,6 +9,11 @@
 
 namespace Zend\Db\Sql\Ddl\Column;
 
+/**
+ * Class Float add zerofill, unsigned attributes
+ * coming in options array
+ * @package Zend\Db\Sql\Ddl\Column
+ */
 class Float extends Column
 {
     /**
@@ -30,12 +35,17 @@ class Float extends Column
      * @param null|string $name
      * @param int $digits
      * @param int $decimal
+     * @param array|null $options
      */
-    public function __construct($name, $digits, $decimal)
+    public function __construct($name, $digits, $decimal, array $options = null)
     {
         $this->name    = $name;
         $this->digits  = $digits;
         $this->decimal = $decimal;
+        if (is_null($options)) {
+            $options = array();
+        }
+        $this->setOptions($options);
     }
 
     /**
@@ -45,11 +55,24 @@ class Float extends Column
     {
         $spec   = $this->specification;
         $params = array();
+        $options = $this->getOptions();
 
         $types      = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
         $params[]   = $this->name;
         $params[]   = $this->digits;
         $params[1] .= ', ' . $this->decimal;
+
+        if (isset($options['zerofill']) && $options['zerofill']) {
+            $spec    .= ' %s';
+            $params[] = 'ZEROFILL';
+            $types[]  = self::TYPE_LITERAL;
+        }
+
+        if (isset($options['unsigned']) && $options['unsigned']) {
+            $spec    .= ' %s';
+            $params[] = 'UNSIGNED';
+            $types[]  = self::TYPE_LITERAL;
+        }
 
         $types[]  = self::TYPE_LITERAL;
         $params[] = (!$this->isNullable) ? 'NOT NULL' : '';

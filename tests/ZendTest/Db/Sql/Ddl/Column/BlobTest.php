@@ -14,10 +14,13 @@ use Zend\Db\Sql\Ddl\Column\Blob;
 class BlobTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * blob does not support length
      * @covers Zend\Db\Sql\Ddl\Column\Blob::setLength
+     * @deprecated
      */
     public function testSetLength()
     {
+        return;
         $blob = new Blob('foo', 55);
         $this->assertEquals(55, $blob->getLength());
         $this->assertSame($blob, $blob->setLength(20));
@@ -26,9 +29,11 @@ class BlobTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Zend\Db\Sql\Ddl\Column\Blob::getLength
+     * @deprecated
      */
     public function testGetLength()
     {
+        return;
         $blob = new Blob('foo', 55);
         $this->assertEquals(55, $blob->getLength());
     }
@@ -38,9 +43,9 @@ class BlobTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetExpressionData()
     {
-        $column = new Blob('foo', 10000000);
+        $column = new Blob('foo', true);
         $this->assertEquals(
-            array(array('%s %s', array('foo', 'BLOB 10000000 NOT NULL'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            array(array('%s %s', array('foo', 'BLOB'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
             $column->getExpressionData()
         );
     }

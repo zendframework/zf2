@@ -30,7 +30,13 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Integer('foo');
         $this->assertEquals(
-            array(array('%s %s', array('foo', 'INTEGER NOT NULL'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            array(
+                array(
+                    '%s %s %s',
+                    array('foo', 'INTEGER', 'NOT NULL'),
+                    array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL, $column::TYPE_LITERAL)
+                )
+            ),
             $column->getExpressionData()
         );
     }

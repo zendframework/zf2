@@ -10,19 +10,28 @@
 namespace Zend\Db\Sql\Ddl\Column;
 
 
+/**
+ * Fix Text definitions: (as per http://dev.mysql.com/doc/refman/5.0/en/blob.html)
+ * text can not have length nor default value
+ *
+ * @package Zend\Db\Sql\Ddl\Column
+ */
 class Text extends Column
 {
-    /**
-     * @var string
-     */
-    protected $specification = '%s TEXT %s %s';
 
     /**
-     * @param null|string $name
+     * @var string Change type to blob
      */
-    public function __construct($name)
+    protected $type = 'TEXT';
+
+    /**
+     * @param null  $name
+     * @param bool  $nullable
+     */
+    public function __construct($name, $nullable = false)
     {
-        $this->name   = $name;
+        $this->setName($name);
+        $this->setNullable($nullable);
     }
 
     /**
@@ -30,17 +39,17 @@ class Text extends Column
      */
     public function getExpressionData()
     {
-        $spec   = $this->specification;
-        $params = array();
+        $spec = $this->specification;
 
-        $types    = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
+        $params   = array();
         $params[] = $this->name;
+        $params[] = $this->type;
 
-        $types[]  = self::TYPE_LITERAL;
-        $params[] = (!$this->isNullable) ? 'NOT NULL' : '';
+        $types = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
 
-        $types[]  = ($this->default !== null) ? self::TYPE_VALUE : self::TYPE_LITERAL;
-        $params[] = ($this->default !== null) ? $this->default : '';
+        if (!$this->isNullable) {
+            $params[1] .= ' NOT NULL';
+        }
 
         return array(array(
             $spec,

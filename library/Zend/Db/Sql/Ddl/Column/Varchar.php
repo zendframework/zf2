@@ -9,6 +9,10 @@
 
 namespace Zend\Db\Sql\Ddl\Column;
 
+/**
+ * Class Varchar: add null, default specifying
+ * @package Zend\Db\Sql\Ddl\Column
+ */
 class Varchar extends Column
 {
     /**
@@ -19,16 +23,20 @@ class Varchar extends Column
     /**
      * @var string
      */
-    protected $specification = '%s VARCHAR(%s) %s %s';
+    protected $specification = '%s VARCHAR(%s) %s';
 
     /**
      * @param null|string $name
      * @param int $length
+     * @param bool $nullable
+     * @param null $default
      */
-    public function __construct($name, $length)
+    public function __construct($name, $length, $nullable = false, $default = null)
     {
         $this->name   = $name;
         $this->length = $length;
+        $this->setNullable($nullable);
+        $this->setDefault($default);
     }
 
     /**
@@ -44,10 +52,14 @@ class Varchar extends Column
         $params[] = $this->length;
 
         $types[]  = self::TYPE_LITERAL;
-        $params[] = (!$this->isNullable) ? 'NOT NULL' : '';
+        $params[] = (!$this->isNullable) ? 'NOT NULL ' : '';
 
-        $types[]  = ($this->default !== null) ? self::TYPE_VALUE : self::TYPE_LITERAL;
-        $params[] = ($this->default !== null) ? $this->default : '';
+        if ($this->default !== null) {
+            // have space after not null for backwards test compatibility
+            $spec    .= 'DEFAULT %s';
+            $params[] = $this->default;
+            $types[]  = self::TYPE_VALUE;
+        }
 
         return array(array(
             $spec,

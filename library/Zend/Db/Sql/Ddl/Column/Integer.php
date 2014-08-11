@@ -29,4 +29,58 @@ class Integer extends Column
         $this->setDefault($default);
         $this->setOptions($options);
     }
+
+    /**
+     * Reload to add numeric options (zerofill, unsigned)
+     * @return array
+     */
+    public function getExpressionData()
+    {
+        $spec = $this->specification;
+        $options = $this->getOptions();
+
+        $params   = array();
+        $params[] = $this->name;
+        $params[] = $this->type;
+
+        $types = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
+
+        // length
+
+        if (isset($options['length']) && $options['length']) {
+            $spec    .= '(%s)';
+            $params[] = $options['length'];
+            $types[]  = self::TYPE_LITERAL;
+        }
+
+        if (isset($options['zerofill']) && $options['zerofill']) {
+            $spec    .= ' %s';
+            $params[] = 'ZEROFILL';
+            $types[]  = self::TYPE_LITERAL;
+        }
+
+        if (isset($options['unsigned']) && $options['unsigned']) {
+            $spec    .= ' %s';
+            $params[] = 'UNSIGNED';
+            $types[]  = self::TYPE_LITERAL;
+        }
+
+        if (!$this->isNullable) {
+            $spec    .= ' %s';
+            $params[] = 'NOT NULL';
+            $types[]  = self::TYPE_LITERAL;
+        }
+
+        if ($this->default !== null) {
+            $spec    .= ' DEFAULT %s';
+            $params[] = $this->default;
+            $types[]  = self::TYPE_VALUE;
+        }
+
+        return array(array(
+            $spec,
+            $params,
+            $types,
+        ));
+    }
 }
