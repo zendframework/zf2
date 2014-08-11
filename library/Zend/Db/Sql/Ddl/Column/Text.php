@@ -20,7 +20,7 @@ class Text extends Column
 {
 
     /**
-     * @var string Change type to blob
+     * @var string Change type to text
      */
     protected $type = 'TEXT';
 
