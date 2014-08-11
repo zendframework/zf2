@@ -24,10 +24,17 @@ class Blob extends Column
     protected $type = 'BLOB';
 
     /**
+     * Some of the parameters won't really taking part in expression (as of 2.4.X):
+     * length, default and options
+     * left for BC
+     * 
      * @param null  $name
+     * @param int|null $length
      * @param bool  $nullable
+     * @param null|string $default
+     * @param array $options
      */
-    public function __construct($name, $nullable = false)
+    public function __construct($name, $length = null, $nullable = false, $default = null, array $options = array())
     {
         $this->setName($name);
         $this->setNullable($nullable);
