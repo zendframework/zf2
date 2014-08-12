@@ -31,10 +31,10 @@ class Blob extends Column
      * Some of the parameters won't really taking part in expression (as of 2.4.X):
      * default and options
      * left for BC
-     * 
-     * @param null  $name
+     *
+     * @param null $name
      * @param int|null $length
-     * @param bool  $nullable
+     * @param bool $nullable
      * @param null|string $default
      * @param array $options
      */
@@ -70,23 +70,23 @@ class Blob extends Column
     {
         $spec = $this->specification;
 
-        $params   = array();
+        $params = array();
         $params[] = $this->name;
         $params[] = $this->type;
         $types = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
 
         // length
-        if ($this->length) {
-            $spec    .= '(%s)';
+        if($this->length) {
+            $spec .= '(%s)';
             $params[] = $this->length;
-            $types[]  = self::TYPE_LITERAL;
+            $types[] = self::TYPE_LITERAL;
         }
 
         // length
-        if (!$this->isNullable) {
-            $spec    .= ' %s';
+        if(!$this->isNullable) {
+            $spec .= ' %s';
             $params[] = 'NOT NULL';
-            $types[]  = self::TYPE_LITERAL;
+            $types[] = self::TYPE_LITERAL;
         }
 
         return array(array(
