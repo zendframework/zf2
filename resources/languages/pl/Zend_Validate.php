@@ -123,7 +123,7 @@ return array(
 
     // Zend\Validator\File\ImageSize
     "Maximum allowed width for image should be '%maxwidth%' but '%width%' detected" => "Plik ma szerokość '%width%'. Maksymalna szerokość to '%maxwidth%'",
-    "Minimum expected width for image should be '%minwidth%' but '%width%' detected" => "Plik ma szerokość '%width%'. Minimalna szerokość to '%maxwidth%'",
+    "Minimum expected width for image should be '%minwidth%' but '%width%' detected" => "Plik ma szerokość '%width%'. Minimalna szerokość to '%minwidth%'",
     "Maximum allowed height for image should be '%maxheight%' but '%height%' detected" => "Plik ma wysokość '%height%'. Maksymalna wysokość to '%maxheight%'",
     "Minimum expected height for image should be '%minheight%' but '%height%' detected" => "Plik ma wysokość '%height%'. Minimalna wysokość to '%minheight%'",
     "The size of image could not be detected" => "Nie można określić rozmiaru pliku",
@@ -185,8 +185,8 @@ return array(
     "File is not readable or does not exist" => "Plik nie istnieje lub nie można go odczytać",
 
     // Zend\Validator\GreaterThan
-    "The input is not greater than '%min%'" => "Podana wartość nie jest większe niż '%min%'",
-    "The input is not greater or equal than '%min%'" => "Podana wartość nie jest większe lub równa od '%min%'",
+    "The input is not greater than '%min%'" => "Podana wartość nie jest większa niż '%min%'",
+    "The input is not greater or equal than '%min%'" => "Podana wartość nie jest większa lub równa od '%min%'",
 
     // Zend\Validator\Hex
     "The input contains non-hexadecimal characters" => "Wartość nie jest wartością heksadecymalną",

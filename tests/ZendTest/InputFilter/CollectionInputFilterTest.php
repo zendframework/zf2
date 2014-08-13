@@ -13,6 +13,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\InputFilter\BaseInputFilter;
 use Zend\InputFilter\CollectionInputFilter;
 use Zend\InputFilter\Input;
+use Zend\InputFilter\InputFilter;
 use Zend\Validator;
 
 class CollectionInputFilterTest extends TestCase
@@ -147,6 +148,26 @@ class CollectionInputFilterTest extends TestCase
         $this->filter->setCount(3);
         $this->filter->setData($collectionData);
         $this->assertEquals(3, $this->filter->getCount());
+    }
+
+    /**
+     * @group 6160
+     */
+    public function testGetCountReturnsRightCountOnConsecutiveCallsWithDifferentData()
+    {
+        $collectionData1 = array(
+            array('foo' => 'bar'),
+            array('foo' => 'baz')
+        );
+
+        $collectionData2 = array(
+            array('foo' => 'bar')
+        );
+
+        $this->filter->setData($collectionData1);
+        $this->assertEquals(2, $this->filter->getCount());
+        $this->filter->setData($collectionData2);
+        $this->assertEquals(1, $this->filter->getCount());
     }
 
     public function testCanValidateValidData()
@@ -611,5 +632,153 @@ class CollectionInputFilterTest extends TestCase
         $inputFilter->isValid();
         $values = $inputFilter->getValues();
         $this->assertEquals($data, $values);
+    }
+
+    /**
+     * @group 6472
+     */
+    public function testNestedCollectionWhereChildDataIsNotOverwritten()
+    {
+        $items_inputfilter = new BaseInputFilter();
+        $items_inputfilter->add(new Input(), 'id')
+                          ->add(new Input(), 'type');
+        $items = new CollectionInputFilter();
+        $items->setInputFilter($items_inputfilter);
+
+        $groups_inputfilter = new BaseInputFilter();
+        $groups_inputfilter->add(new Input(), 'group_class')
+                           ->add($items, 'items');
+        $groups = new CollectionInputFilter();
+        $groups->setInputFilter($groups_inputfilter);
+
+        $inputFilter = new BaseInputFilter();
+        $inputFilter->add($groups, 'groups');
+
+        $data = array(
+            'groups' => array(
+                array(
+                    'group_class' => 'bar',
+                    'items' => array(
+                        array(
+                            'id' => 100,
+                            'type' => 'item-100',
+                        ),
+                        array(
+                            'id' => 101,
+                            'type' => 'item-101',
+                        ),
+                        array(
+                            'id' => 102,
+                            'type' => 'item-102',
+                        ),
+                        array(
+                            'id' => 103,
+                            'type' => 'item-103',
+                        ),
+                    ),
+                ),
+                array(
+                    'group_class' => 'foo',
+                    'items' => array(
+                        array(
+                            'id' => 200,
+                            'type' => 'item-200',
+                        ),
+                        array(
+                            'id' => 201,
+                            'type' => 'item-201',
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $inputFilter->setData($data);
+        $inputFilter->isValid();
+        $values = $inputFilter->getValues();
+        $this->assertEquals($data, $values);
+    }
+
+    public function dataNestingCollection()
+    {
+        return array(
+            'count not specified' => array(
+                'count' => null,
+                'isValid' => true
+            ),
+            'count = 1' =>  array(
+                'count' => 1,
+                'isValid' => true
+            ),
+            'count = 2' => array(
+                'count' => 2,
+                'isValid' => false
+            ),
+            'count = 3' => array(
+                'count' => 3,
+                'isValid' => false
+            )
+        );
+    }
+
+    /**
+     * @dataProvider dataNestingCollection
+     */
+    public function testNestingCollectionCountCached($count, $expectedIsValid)
+    {
+        $firstInputFilter = new InputFilter();
+
+        $firstCollection = new CollectionInputFilter();
+        $firstCollection->setInputFilter($firstInputFilter);
+
+        $someInput = new Input('input');
+        $secondInputFilter = new InputFilter();
+        $secondInputFilter->add($someInput, 'input');
+
+        $secondCollection = new CollectionInputFilter();
+        $secondCollection->setInputFilter($secondInputFilter);
+        if (!is_null($count)) {
+            $secondCollection->setCount($count);
+        }
+
+        $firstInputFilter->add($secondCollection, 'second_collection');
+
+        $mainInputFilter = new InputFilter();
+        $mainInputFilter->add($firstCollection, 'first_collection');
+
+        $data = array(
+            'first_collection' => array(
+                array(
+                    'second_collection' => array(
+                        array(
+                            'input' => 'some value'
+                        ),
+                        array(
+                            'input' => 'some value'
+                        )
+                    )
+                ),
+                array(
+                    'second_collection' => array(
+                        array(
+                            'input' => 'some value'
+                        ),
+                    )
+                )
+            )
+        );
+
+        $mainInputFilter->setData($data);
+        $this->assertSame($expectedIsValid, $mainInputFilter->isValid());
+    }
+
+    public function testInvalidCollectionIsNotValid()
+    {
+        $data = 1;
+
+        $this->filter->setInputFilter($this->getBaseInputFilter());
+        $this->filter->setData($data);
+
+        $this->assertFalse($this->filter->isValid());
     }
 }

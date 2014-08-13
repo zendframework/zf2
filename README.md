@@ -9,13 +9,13 @@ Develop:
 
 ## RELEASE INFORMATION
 
-*Zend Framework 2.3.2dev*
+*Zend Framework 2.3.3dev*
 
-This is the second maintenance release for the version 2.3 series.
+This is the third maintenance release for the version 2.3 series.
 
 DD MMM YYYY
 
-### UPDATES IN 2.3.2
+### UPDATES IN 2.3.3
 
 Please see [CHANGELOG.md](CHANGELOG.md).
 

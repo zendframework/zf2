@@ -128,7 +128,7 @@ class CollectionInputFilter extends InputFilter
     public function getCount()
     {
         if (null === $this->count) {
-            $this->count = count($this->data);
+            return count($this->data);
         }
 
         return $this->count;
@@ -156,11 +156,13 @@ class CollectionInputFilter extends InputFilter
             }
         }
 
-        if (count($this->data) < $this->getCount()) {
+        if (is_scalar($this->data)
+            || count($this->data) < $this->getCount()
+        ) {
             $valid = false;
         }
 
-        if (empty($this->data)) {
+        if (empty($this->data) || is_scalar($this->data)) {
             $this->clearValues();
             $this->clearRawValues();
 
