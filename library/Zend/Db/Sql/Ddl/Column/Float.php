@@ -12,7 +12,6 @@ namespace Zend\Db\Sql\Ddl\Column;
 /**
  * Class Float add zerofill, unsigned attributes
  * coming in options array
- * @package Zend\Db\Sql\Ddl\Column
  */
 class Float extends Column
 {

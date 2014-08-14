@@ -11,10 +11,8 @@ namespace Zend\Db\Sql\Ddl\Column;
 
 
 /**
- * Fix Text definitions: (as per http://dev.mysql.com/doc/refman/5.0/en/blob.html)
+ * Fix Text definitions: (as per http://dev.mysql.com/doc/refman/5.7/en/blob.html)
  * text can not have length nor default value
- *
- * @package Zend\Db\Sql\Ddl\Column
  */
 class Text extends Column
 {

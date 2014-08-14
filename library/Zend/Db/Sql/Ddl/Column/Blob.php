@@ -10,10 +10,8 @@
 namespace Zend\Db\Sql\Ddl\Column;
 
 /**
- * Fix Blob definitions: (as per http://dev.mysql.com/doc/refman/5.0/en/blob.html)
+ * Fix Blob definitions: (as per http://dev.mysql.com/doc/refman/5.7/en/blob.html)
  * blob can not have length nor default value
- *
- * @package Zend\Db\Sql\Ddl\Column
  */
 class Blob extends Column
 {
