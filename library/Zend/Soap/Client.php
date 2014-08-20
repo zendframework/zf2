@@ -270,10 +270,9 @@ class Client implements ServerClient
                     $this->setTypemap($value);
                     break;
 
-                // Not used now
-                // case 'connection_timeout':
-                //     $this->connectionTimeout = $value;
-                //    break;
+                case 'connection_timeout':
+                    $this->connectionTimeout = $value;
+                    break;
 
                 default:
                     throw new Exception\InvalidArgumentException('Unknown SOAP client option');
@@ -311,7 +310,7 @@ class Client implements ServerClient
         $options['local_cert']     = $this->getHttpsCertificate();
         $options['passphrase']     = $this->getHttpsCertPassphrase();
         $options['compression']    = $this->getCompressionOptions();
-        //$options['connection_timeout'] = $this->connectionTimeout;
+        $options['connection_timeout'] = $this->connectionTimeout;
         $options['stream_context'] = $this->getStreamContext();
         $options['cache_wsdl']     = $this->getWSDLCache();
         $options['features']       = $this->getSoapFeatures();
