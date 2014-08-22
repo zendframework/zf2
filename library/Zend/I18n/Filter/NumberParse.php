@@ -19,7 +19,8 @@ class NumberParse extends AbstractLocale
     protected $options = array(
         'locale' => null,
         'style'  => NumberFormatter::DEFAULT_STYLE,
-        'type'   => NumberFormatter::TYPE_DOUBLE
+        'type'   => NumberFormatter::TYPE_DOUBLE,
+        'decimals' => null,
     );
 
     /**
@@ -35,7 +36,8 @@ class NumberParse extends AbstractLocale
     public function __construct(
         $localeOrOptions = null,
         $style = NumberFormatter::DEFAULT_STYLE,
-        $type = NumberFormatter::TYPE_DOUBLE
+        $type = NumberFormatter::TYPE_DOUBLE,
+        $decimals = null
     ) {
         parent::__construct();
         if ($localeOrOptions !== null) {
@@ -47,6 +49,8 @@ class NumberParse extends AbstractLocale
                 $this->setLocale($localeOrOptions);
                 $this->setStyle($style);
                 $this->setType($type);
+                if($decimals !== null)
+                	$this->setDecimals($decimals);
             } else {
                 $this->setOptions($localeOrOptions);
             }
@@ -102,6 +106,24 @@ class NumberParse extends AbstractLocale
     }
 
     /**
+     * @param int|null $decimals
+     * @return NumberFormat
+     */
+    public function setDecimals($decimals)
+    {
+    	$this->options['decimals'] = $decimals;
+    	return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDecimals()
+    {
+    	return $this->options['decimals'];
+    }
+
+    /**
      * @param  NumberFormatter $formatter
      * @return NumberFormat
      */
@@ -123,6 +145,13 @@ class NumberParse extends AbstractLocale
                 throw new Exception\RuntimeException(
                     'Can not create NumberFormatter instance; ' . intl_get_error_message()
                 );
+            }
+
+            $decimals = $this->getDecimals();
+            if($decimals !== null)
+            {
+            	$formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $decimals);
+        		$formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
             }
 
             $this->formatter = $formatter;
