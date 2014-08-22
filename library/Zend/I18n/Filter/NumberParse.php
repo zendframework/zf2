@@ -49,8 +49,9 @@ class NumberParse extends AbstractLocale
                 $this->setLocale($localeOrOptions);
                 $this->setStyle($style);
                 $this->setType($type);
-                if($decimals !== null)
-                	$this->setDecimals($decimals);
+                if($decimals !== null) {
+                    $this->setDecimals($decimals);
+                }
             } else {
                 $this->setOptions($localeOrOptions);
             }
@@ -107,12 +108,12 @@ class NumberParse extends AbstractLocale
 
     /**
      * @param int|null $decimals
-     * @return NumberFormat
+     * @return self
      */
     public function setDecimals($decimals)
     {
-    	$this->options['decimals'] = $decimals;
-    	return $this;
+        $this->options['decimals'] = $decimals;
+        return $this;
     }
 
     /**
@@ -120,7 +121,7 @@ class NumberParse extends AbstractLocale
      */
     public function getDecimals()
     {
-    	return $this->options['decimals'];
+        return $this->options['decimals'];
     }
 
     /**
@@ -148,10 +149,9 @@ class NumberParse extends AbstractLocale
             }
 
             $decimals = $this->getDecimals();
-            if($decimals !== null)
-            {
-            	$formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $decimals);
-        		$formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
+            if($decimals !== null) {
+                $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $decimals);
+                $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
             }
 
             $this->formatter = $formatter;
