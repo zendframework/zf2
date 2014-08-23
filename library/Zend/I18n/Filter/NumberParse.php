@@ -150,8 +150,8 @@ class NumberParse extends AbstractLocale
 
             $decimals = $this->getDecimals();
             if ($decimals !== null) {
-                $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $decimals);
-                $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
+                $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, $decimals);
+                $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
             }
 
             $this->formatter = $formatter;
