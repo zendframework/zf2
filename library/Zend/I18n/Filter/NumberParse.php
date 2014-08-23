@@ -49,7 +49,7 @@ class NumberParse extends AbstractLocale
                 $this->setLocale($localeOrOptions);
                 $this->setStyle($style);
                 $this->setType($type);
-                if($decimals !== null) {
+                if ($decimals !== null) {
                     $this->setDecimals($decimals);
                 }
             } else {
@@ -149,7 +149,7 @@ class NumberParse extends AbstractLocale
             }
 
             $decimals = $this->getDecimals();
-            if($decimals !== null) {
+            if ($decimals !== null) {
                 $formatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $decimals);
                 $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
             }
