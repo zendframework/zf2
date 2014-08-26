@@ -205,7 +205,11 @@ class FormRow extends AbstractHelper
                 if ($label !== '' && (!$element->hasAttribute('id'))
                     || ($element instanceof LabelAwareInterface && $element->getLabelOption('always_wrap'))
                 ) {
-                    $label = '<span>' . $label . '</span>';
+                    if ($element->getLabelOption('wrap_class')) {
+                        $label = '<span class="' . $element->getLabelOption('wrap_class') . '">' . $label . '</span>';
+                    } else {
+                        $label = '<span>' . $label . '</span>';    
+                    }
                 }
 
                 // Button element is a special case, because label is always rendered inside it
