@@ -202,6 +202,31 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('123', $writer->events[0]['message']);
     }
 
+    public function provideTestPriorityFilters()
+    {
+        return array(
+            array('priority', array('priority' => Logger::DEBUG), Logger::WARN, true),
+            array('priority', array('priority' => Logger::INFO), Logger::DEBUG, false),
+            array('priority', array('priority' => Logger::NOTICE), Logger::DEBUG, false),
+            array('priority', array('priority' => Logger::WARN), Logger::CRIT, true),
+            array('priority', array('priority' => Logger::ERR), Logger::INFO, false),
+            array('priority', array('priority' => Logger::CRIT), Logger::ALERT, true),
+            array('priority', array('priority' => Logger::ALERT), Logger::ERR, false),
+        );
+    }
+
+    /**
+     * @dataProvider provideTestPriorityFilters
+     */
+    public function testLoggable($filterName, $filterOptions, $priority, $expected)
+    {
+        $writer = new MockWriter;
+        $writer->addFilter($filterName, $filterOptions);
+        $this->logger->addWriter($writer);
+
+        $this->assertEquals($expected, $this->logger->loggable($priority));
+    }
+
     public static function provideAttributes()
     {
         return array(
