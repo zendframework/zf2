@@ -247,10 +247,8 @@ abstract class AbstractWriter implements WriterInterface
      */
     public function write(array $event)
     {
-        foreach ($this->filters as $filter) {
-            if (!$filter->filter($event)) {
-                return;
-            }
+        if($this->isFiltered($event)) {
+            return;
         }
 
         $errorHandlerStarted = false;
@@ -277,6 +275,23 @@ abstract class AbstractWriter implements WriterInterface
                 throw new Exception\RuntimeException("Unable to write", 0, $error);
             }
         }
+    }
+
+    /**
+     * Check if a log message is filtered.
+     *
+     * @param array $event
+     * @return mixed
+     */
+    public function isFiltered(array $event)
+    {
+        foreach ($this->filters as $filter) {
+            if (!$filter->filter($event)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

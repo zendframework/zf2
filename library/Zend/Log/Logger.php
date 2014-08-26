@@ -401,6 +401,31 @@ class Logger implements LoggerInterface
     }
 
     /**
+     * Check if a log message with priority is loggable (ie not filtered)
+     *
+     * @param $priority
+     * @return bool
+     */
+    public function loggable($priority)
+    {
+        $event = array(
+            'timestamp'    => new DateTime(),
+            'priority'     => (int) $priority,
+            'priorityName' => $this->priorities[$priority],
+            'message'      => '',
+            'extra'        => [],
+        );
+
+        foreach ($this->writers->toArray() as $writer) {
+            if($writer->isFiltered($event)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Add a message as a log entry
      *
      * @param  int $priority
