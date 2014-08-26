@@ -403,7 +403,7 @@ class Logger implements LoggerInterface
     /**
      * Check if a log message with priority is loggable (ie not filtered)
      *
-     * @param $priority
+     * @param  int $priority
      * @return bool
      */
     public function loggable($priority)

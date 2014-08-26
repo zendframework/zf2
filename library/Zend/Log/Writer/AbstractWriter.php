@@ -278,10 +278,10 @@ abstract class AbstractWriter implements WriterInterface
     }
 
     /**
-     * Check if a log message is filtered.
+     * Check if a log message is filtered
      *
-     * @param array $event
-     * @return mixed
+     * @param  array $event
+     * @return bool
      */
     public function isFiltered(array $event)
     {
