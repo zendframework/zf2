@@ -169,15 +169,21 @@ class FileTest extends TestCase
         $this->assertTrue($uri->isValid(), var_export($parts, 1));
     }
 
-    public function testUserInfoIsAlwaysNull()
+    /**
+     * @dataProvider validUris
+     */
+    public function testUserInfoIsAlwaysNull($uri)
     {
-        $uri = new FileUri('file://user:pass@host/foo/bar');
+        $uri = new FileUri($uri);
         $this->assertNull($uri->getUserInfo());
     }
 
-    public function testFragmentIsAlwaysNull()
+    /**
+     * @dataProvider validUris
+     */
+    public function testFragmentIsAlwaysNull($uri)
     {
-        $uri = new FileUri('file:///foo/bar#fragment');
+        $uri = new FileUri($uri);
         $this->assertNull($uri->getFragment());
     }
 
