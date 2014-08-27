@@ -1355,7 +1355,7 @@ class Client implements Stdlib\DispatchableInterface
     protected function doRequest(Http $uri, $method, $secure = false, $headers = array(), $body = '')
     {
         // Open the connection, send the request and read the response
-        $this->adapter->connect($uri->getHost(), $uri->getPort(), $secure);
+        self::getAdapter()->connect($uri->getHost(), $uri->getPort(), $secure);
 
         if ($this->config['outputstream']) {
             if ($this->adapter instanceof Client\Adapter\StreamInterface) {
