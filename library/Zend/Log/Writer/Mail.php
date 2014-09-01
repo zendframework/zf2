@@ -86,6 +86,9 @@ class Mail extends AbstractWriter
             }
             $transport = isset($mail['transport']) ? $mail['transport'] : null;
             $mail      = isset($mail['mail']) ? $mail['mail'] : null;
+            if (is_array($mail)) {
+                $mail = new MailMessage($mail);
+            }
         }
 
         // Ensure we have a valid mail message
