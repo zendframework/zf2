@@ -111,4 +111,21 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $filters);
         $this->assertEquals($filter, $filters[0]);
     }
+
+    public function testConstructWithMailOptions()
+    {
+        $message = array(
+            'from'      => 'matthew@example.com',
+            'to'        => 'zf-devteam@example.com',
+            'cc'        => 'zf-contributors@example.com',
+            'bcc'       => 'zf-devteam@example.com',
+            'subject'   => 'subject',
+        );
+
+        $writer = new MailWriter(array(
+            'mail' => $message,
+        ));
+
+        $this->assertAttributeInstanceOf('Zend\Mail\Message', 'mail', $writer);
+    }
 }
