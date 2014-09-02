@@ -179,10 +179,11 @@ class Socket implements HttpAdapter, StreamInterface
      *
      * @param string  $host
      * @param int     $port
-     * @param  bool $secure
+     * @param bool    $secure
+     * @param bool    $local    Are we connecting to a local socket?
      * @throws AdapterException\RuntimeException
      */
-    public function connect($host, $port = 80, $secure = false)
+    public function connect($host, $port = 80, $secure = false, $local = false)
     {
         // If we are connected to the wrong host, disconnect first
         $connectedHost = (strpos($this->connectedTo[0], '://'))
@@ -242,9 +243,15 @@ class Socket implements HttpAdapter, StreamInterface
                 $flags |= STREAM_CLIENT_PERSISTENT;
             }
 
+            if ($local) {
+                $host = 'unix://' . $host;
+            } else {
+                $host .= ':' . $port;
+            }
+
             ErrorHandler::start();
             $this->socket = stream_socket_client(
-                $host . ':' . $port,
+                $host,
                 $errno,
                 $errstr,
                 (int) $this->config['timeout'],
@@ -316,7 +323,9 @@ class Socket implements HttpAdapter, StreamInterface
 
                 $host = $this->config['ssltransport'] . "://" . $host;
             } else {
-                $host = 'tcp://' . $host;
+                if (!$local) {
+                    $host = 'tcp://' . $host;
+                }
             }
 
             // Update connectedTo
@@ -344,7 +353,18 @@ class Socket implements HttpAdapter, StreamInterface
         }
 
         $host = $uri->getHost();
-        $host = (strtolower($uri->getScheme()) == 'https' ? $this->config['ssltransport'] : 'tcp') . '://' . $host;
+
+        switch (strtolower($uri->getScheme())) {
+            case 'https':
+                $host = 'https://' . $host;
+                break;
+            case 'unix':
+                $host = 'unix://' . $host;
+                break;
+            default:
+                $host = 'tcp://' . $host;
+        }
+
         if ($this->connectedTo[0] != $host || $this->connectedTo[1] != $uri->getPort()) {
             throw new AdapterException\RuntimeException('Trying to write but we are connected to the wrong host');
         }
