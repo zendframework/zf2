@@ -320,8 +320,8 @@ class Client implements Stdlib\DispatchableInterface
                 $this->setAuth($this->getUri()->getUser(), $this->getUri()->getPassword());
             }
 
-            // We have no ports, set the defaults
-            if (! $this->getUri()->getPort()) {
+            // We have no ports, set the defaults but not if the medium is a unix socket
+            if (! $this->getUri()->getPort() && $this->getUri()->getScheme() !== 'unix') {
                 $this->getUri()->setPort(($this->getUri()->getScheme() == 'https' ? 443 : 80));
             }
         }
@@ -847,8 +847,8 @@ class Client implements Stdlib\DispatchableInterface
                     $uri = new Http($newUri);
                 }
             }
-            // If we have no ports, set the defaults
-            if (!$uri->getPort()) {
+            // If we have no ports, set the defaults but not if the medium is a unix socket
+            if (!$uri->getPort() && $uri->getScheme() !== 'unix') {
                 $uri->setPort($uri->getScheme() == 'https' ? 443 : 80);
             }
 
@@ -1356,7 +1356,7 @@ class Client implements Stdlib\DispatchableInterface
     protected function doRequest(Http $uri, $method, $secure = false, $headers = array(), $body = '')
     {
         // Open the connection, send the request and read the response
-        $this->adapter->connect($uri->getHost(), $uri->getPort(), $secure);
+        $this->adapter->connect($uri->getHost(), $uri->getPort(), $secure, $uri->getScheme() === 'unix');
 
         if ($this->config['outputstream']) {
             if ($this->adapter instanceof Client\Adapter\StreamInterface) {
