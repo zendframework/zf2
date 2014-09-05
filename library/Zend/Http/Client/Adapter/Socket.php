@@ -245,13 +245,11 @@ class Socket implements HttpAdapter, StreamInterface
 
             if ($local) {
                 $host = 'unix://' . $host;
-            } else {
-                $host .= ':' . $port;
             }
 
             ErrorHandler::start();
             $this->socket = stream_socket_client(
-                $host,
+                $host . (($local) ? '' : ':' . $port),
                 $errno,
                 $errstr,
                 (int) $this->config['timeout'],
