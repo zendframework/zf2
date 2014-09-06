@@ -19,7 +19,8 @@ class Http extends Uri
      */
     protected static $validSchemes = array(
         'http',
-        'https'
+        'https',
+        'tcp',
     );
 
     /**
