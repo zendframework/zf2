@@ -94,7 +94,6 @@ class FormMultiCheckbox extends FormInput
      *
      * @param  ElementInterface $element
      * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
      * @return string
      */
     public function render(ElementInterface $element)
@@ -109,12 +108,6 @@ class FormMultiCheckbox extends FormInput
         $name = static::getName($element);
 
         $options = $element->getValueOptions();
-        if (empty($options)) {
-            throw new Exception\DomainException(sprintf(
-                '%s requires that the element has "value_options"; none found',
-                __METHOD__
-            ));
-        }
 
         $attributes         = $element->getAttributes();
         $attributes['name'] = $name;
