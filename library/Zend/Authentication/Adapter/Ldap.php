@@ -37,6 +37,12 @@ class Ldap extends AbstractAdapter
      * @var string
      */
     protected $authenticatedDn = null;
+    
+    protected static $failureCodes = [
+        701 => 'Account expired',
+        773 => 'Password expired',
+        775 => 'Account locked'
+    ];
 
     /**
      * Constructor
@@ -297,8 +303,16 @@ class Ldap extends AbstractAdapter
                     $messages[0] = "Account not found: $username";
                     $failedAuthorities[$dname] = $zle->getMessage();
                 } elseif ($err == LdapException::LDAP_INVALID_CREDENTIALS) {
+                    $message = 'Invalid credentials';
+                    foreach(self::$failureCodes as $failureCode => $failureMessage){
+                        if(strpos($zle->getMessage(), 'AcceptSecurityContext error, data '.$failureCode) !== false){
+                            $message = $failureMessage;
+                            break;
+                        }
+                    }
+                    
                     $code = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
-                    $messages[0] = 'Invalid credentials';
+                    $messages[0] = $message;
                     $failedAuthorities[$dname] = $zle->getMessage();
                 } else {
                     $line = $zle->getLine();
