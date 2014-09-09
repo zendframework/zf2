@@ -364,4 +364,16 @@ class InArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals($this->validator->getOption('messageTemplates'),
                                      'messageTemplates', $this->validator);
     }
+
+    public function testShouldNotAcceptBooleanTrue()
+    {
+        $validator = new InArray(
+            array(
+                'haystack' => array('a', 'b')
+            )
+        );
+        $this->assertTrue($validator->isValid('a'));
+        $this->assertTrue($validator->isValid('b'));
+        $this->assertFalse($validator->isValid(true));
+    }
 }
