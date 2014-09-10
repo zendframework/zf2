@@ -306,7 +306,7 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
     }
 
     /**
-     * @return String
+     * @return null|string
      */
     public function getValue()
     {
