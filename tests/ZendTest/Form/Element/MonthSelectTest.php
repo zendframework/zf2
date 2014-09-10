@@ -86,4 +86,11 @@ class MonthSelectTest extends TestCase
         $element->setValue(new DateTime('2012-09'));
         $this->assertEquals('2012-09', $element->getValue());
     }
+
+    public function testGetValueReturnsNullWhenEmptyAndFlagIsSet()
+    {
+        $element  = new MonthSelectElement();
+        $element->setNullWhenEmpty(true);
+        $this->assertNull($element->getValue());
+    }
 }

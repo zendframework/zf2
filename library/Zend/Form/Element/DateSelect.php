@@ -114,16 +114,17 @@ class DateSelect extends MonthSelect
         $this->dayElement->setValue($value['day']);
     }
 
-    /**
-     * @return String
-     */
     public function getValue()
     {
-        return sprintf('%s-%s-%s',
-            $this->getYearElement()->getValue(),
-            $this->getMonthElement()->getValue(),
-            $this->getDayElement()->getValue()
-        );
+        $yearValue = $this->getYearElement()->getValue();
+        $monthValue = $this->getMonthElement()->getValue();
+        $dayValue = $this->getDayElement()->getValue();
+
+        if ($this->nullWhenEmpty() && empty($yearValue) && empty($monthValue) && empty($dayValue)) {
+            return null;
+        }
+
+        return sprintf('%s-%s-%s', $yearValue, $monthValue, $dayValue);
     }
 
     /**

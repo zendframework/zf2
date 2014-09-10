@@ -64,6 +64,13 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
     protected $renderDelimiters = true;
 
     /**
+     * If set to true the element will return null when the selects are both empty
+     *
+     * @var bool
+     */
+    protected $nullWhenEmpty = false;
+
+    /**
      * @var ValidatorInterface
      */
     protected $validator;
@@ -122,6 +129,10 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
 
         if (isset($options['render_delimiters'])) {
             $this->setShouldRenderDelimiters($options['render_delimiters']);
+        }
+
+        if (isset($options['null_when_empty'])) {
+            $this->setNullWhenEmpty($options['null_when_empty']);
         }
 
         return $this;
@@ -260,6 +271,24 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
     }
 
     /**
+     * @param boolean $nullWhenEmpty
+     * @return MonthSelect
+     */
+    public function setNullWhenEmpty($nullWhenEmpty)
+    {
+        $this->nullWhenEmpty = $nullWhenEmpty;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function nullWhenEmpty()
+    {
+        return $this->nullWhenEmpty;
+    }
+
+    /**
      * @param mixed $value
      * @return void|\Zend\Form\Element
      */
@@ -281,10 +310,14 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
      */
     public function getValue()
     {
-        return sprintf('%s-%s',
-            $this->getYearElement()->getValue(),
-            $this->getMonthElement()->getValue()
-        );
+        $yearValue = $this->getYearElement()->getValue();
+        $monthValue = $this->getMonthElement()->getValue();
+
+        if ($this->nullWhenEmpty() && empty($yearValue) && empty($monthValue)) {
+            return null;
+        }
+
+        return sprintf('%s-%s', $yearValue, $monthValue);
     }
 
     /**
