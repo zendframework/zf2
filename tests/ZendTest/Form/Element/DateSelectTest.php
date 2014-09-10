@@ -68,6 +68,13 @@ class DateSelectTest extends TestCase
         $this->assertEquals('2012-09-24', $element->getValue());
     }
 
+    public function testGetValueReturnsNullWhenEmptyAndFlagIsSet()
+    {
+        $element  = new DateSelectElement();
+        $element->setNullWhenEmpty(true);
+        $this->assertNull($element->getValue());
+    }
+
     /**
      * @expectedException \Zend\Form\Exception\InvalidArgumentException
      */
