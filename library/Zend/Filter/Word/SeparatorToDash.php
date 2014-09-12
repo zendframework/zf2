@@ -18,6 +18,7 @@ class SeparatorToDash extends SeparatorToSeparator
      */
     public function __construct($searchSeparator = ' ')
     {
-        parent::__construct($searchSeparator, '-');
+        $this->setSearchSeparator($searchSeparator);
+        $this->setReplacementSeparator('-');
     }
 }

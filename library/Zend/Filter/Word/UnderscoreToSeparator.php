@@ -18,6 +18,7 @@ class UnderscoreToSeparator extends SeparatorToSeparator
      */
     public function __construct($replacementSeparator = ' ')
     {
-        parent::__construct('_', $replacementSeparator);
+        $this->setSearchSeparator('_');
+        $this->setReplacementSeparator($replacementSeparator);
     }
 }
