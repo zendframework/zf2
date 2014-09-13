@@ -22,7 +22,8 @@ class SeparatorToSeparator extends AbstractFilter
      *
      * @param  array|Traversable $options
      */
-    public function __construct($options = null) {
+    public function __construct($options = null)
+    {
         if (null !== $options) {
             $this->setOptions($options);
         }
