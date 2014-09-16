@@ -430,7 +430,7 @@ class Translator implements TranslatorInterface
         $locale,
         $textDomain = 'default'
     ) {
-        if ($message === '') {
+        if ($message === '' || $message === null) {
             return '';
         }
 
