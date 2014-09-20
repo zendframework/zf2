@@ -19,9 +19,9 @@ class Timezone extends AbstractValidator
     const INVALID_TIMEZONE_LOCATION     = 'invalidTimezoneLocation';
     const INVALID_TIMEZONE_ABBREVIATION = 'invalidTimezoneAbbreviation';
 
-    const LOCATION      = 0b01;
-    const ABBREVIATION  = 0b10;
-    const ALL           = 0b11;
+    const LOCATION      = 0x01;
+    const ABBREVIATION  = 0x02;
+    const ALL           = 0x03;
 
     /**
      * @var array
@@ -177,7 +177,6 @@ class Timezone extends AbstractValidator
 
         $type    = $this->getType();
         $this->setValue($value);
-        $object  = false;
 
         // Check in locations and abbreviations
         if (($type & self::LOCATION) && ($type & self::ABBREVIATION)) {
