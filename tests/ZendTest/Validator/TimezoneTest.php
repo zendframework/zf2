@@ -216,7 +216,7 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
      */
     protected function checkExpectedException($value)
     {
-        $this->setExpectedException('Exception\InvalidArgumentException');
+        $this->setExpectedException('\Zend\Validator\Exception\InvalidArgumentException');
         $this->validator->setType($value);
     }
 }
