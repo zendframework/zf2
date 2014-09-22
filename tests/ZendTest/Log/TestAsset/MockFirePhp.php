@@ -27,28 +27,28 @@ class MockFirePhp implements FirePhpInterface
         return $this->enabled;
     }
 
-    public function error($line)
+    public function error($line, $label = null, $options = array())
     {
-        $this->calls['error'][] = $line;
+        $this->calls['error'][] = array('line' => $line, 'label' => $label, 'options' => $options);
     }
 
-    public function warn($line)
+    public function warn($line, $label = null, $options = array())
     {
-        $this->calls['warn'][] = $line;
+        $this->calls['warn'][] = array('line' => $line, 'label' => $label, 'options' => $options);
     }
 
-    public function info($line)
+    public function info($line, $label = null, $options = array())
     {
-        $this->calls['info'][] = $line;
+        $this->calls['info'][] = array('line' => $line, 'label' => $label, 'options' => $options);
     }
 
-    public function trace($line)
+    public function trace($line, $label = null, $options = array())
     {
-        $this->calls['trace'][] = $line;
+        $this->calls['trace'][] = array('line' => $line, 'label' => $label, 'options' => $options);
     }
 
-    public function log($line)
+    public function log($line, $label = null, $options = array())
     {
-        $this->calls['log'][] = $line;
+        $this->calls['log'][] = array('line' => $line, 'label' => $label, 'options' => $options);
     }
 }
