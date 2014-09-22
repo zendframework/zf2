@@ -23,7 +23,7 @@ interface FirePhpInterface
      *
      * @param string $line
      * @param string $label
-     * @param array $options 
+     * @param array $options
      */
     public function error($line, $label = null, $options = array());
 
@@ -32,7 +32,7 @@ interface FirePhpInterface
      *
      * @param string $line
      * @param string $label
-     * @param array $options 
+     * @param array $options
      */
     public function warn($line, $label = null, $options = array());
 
@@ -41,7 +41,7 @@ interface FirePhpInterface
      *
      * @param string $line
      * @param string $label
-     * @param array $options 
+     * @param array $options
      */
     public function info($line, $label = null, $options = array());
 
@@ -50,7 +50,7 @@ interface FirePhpInterface
      *
      * @param string $line
      * @param string $label
-     * @param array $options 
+     * @param array $options
      */
     public function trace($line, $label = null, $options = array());
 
@@ -59,7 +59,7 @@ interface FirePhpInterface
      *
      * @param string $line
      * @param string $label
-     * @param array $options 
+     * @param array $options
      */
     public function log($line, $label = null, $options = array());
 }

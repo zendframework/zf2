@@ -60,7 +60,7 @@ class FirePhpTest extends \PHPUnit_Framework_TestCase
         ));
         $this->assertEquals('my msg', $this->firephp->calls['trace'][0]['line']);
     }
-    
+
     /**
      * Test write with extra parameters
      */
@@ -75,7 +75,7 @@ class FirePhpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('info message', $this->firephp->calls['info'][0]['label']);
         $this->assertEquals(array('more info'), $this->firephp->calls['info'][0]['line']);
     }
-    
+
     /**
      * Test write with FirePhp disabled
      */
