@@ -189,6 +189,34 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test pass `type` option through constructor
+     *
+     *  @return void
+     */
+    public function testTypeThroughConstructor()
+    {
+        $timezone1 = new Timezone(Timezone::LOCATION);
+        $this->assertTrue($timezone1->isValid('Asia/Dubai'));
+        $this->assertFalse($timezone1->isValid('sast'));
+
+        $timezone2 = new Timezone(1);
+        $this->assertTrue($timezone2->isValid('Asia/Dubai'));
+        $this->assertFalse($timezone2->isValid('sast'));
+
+        $timezone3 = new Timezone(Timezone::ABBREVIATION);
+        $this->assertFalse($timezone3->isValid('Asia/Dubai'));
+        $this->assertTrue($timezone3->isValid('sast'));
+
+        $timezone4 = new Timezone(2);
+        $this->assertFalse($timezone4->isValid('Asia/Dubai'));
+        $this->assertTrue($timezone4->isValid('sast'));
+
+        $timezone5 = new Timezone(3);
+        $this->assertTrue($timezone5->isValid('Asia/Dubai'));
+        $this->assertTrue($timezone5->isValid('sast'));
+    }
+
+    /**
      * Checks that the validation value matches the expected validity
      *
      * @param mixed $value Value to validate
