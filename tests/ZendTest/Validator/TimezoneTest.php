@@ -40,6 +40,19 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test locations by type is string
+     *
+     * @return void
+     *
+     * @dataProvider locationProvider
+     */
+    public function testLocationsByTypeAsString($value, $valid)
+    {
+        $this->validator->setType('location');
+        $this->checkValidationValue($value, $valid);
+    }
+
+    /**
      * Provides location values
      *
      * @return array
@@ -76,6 +89,19 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
     public function testAbbreviations($value, $valid)
     {
         $this->validator->setType(Timezone::ABBREVIATION);
+        $this->checkValidationValue($value, $valid);
+    }
+
+    /**
+     * Test abbreviations byTypeAsString
+     *
+     * @return void
+     *
+     * @dataProvider abbreviationProvider
+     */
+    public function testAbbreviationsByTypeAsString($value, $valid)
+    {
+        $this->validator->setType('abbreviation');
         $this->checkValidationValue($value, $valid);
     }
 
@@ -199,21 +225,30 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($timezone1->isValid('Asia/Dubai'));
         $this->assertFalse($timezone1->isValid('sast'));
 
-        $timezone2 = new Timezone(1);
+        $timezone2 = new Timezone('location');
         $this->assertTrue($timezone2->isValid('Asia/Dubai'));
         $this->assertFalse($timezone2->isValid('sast'));
 
-        $timezone3 = new Timezone(Timezone::ABBREVIATION);
-        $this->assertFalse($timezone3->isValid('Asia/Dubai'));
-        $this->assertTrue($timezone3->isValid('sast'));
+        $timezone3 = new Timezone(array('type' => 'location'));
+        $this->assertTrue($timezone3->isValid('Asia/Dubai'));
+        $this->assertFalse($timezone3->isValid('sast'));
 
-        $timezone4 = new Timezone(2);
+        $timezone4 = new Timezone(Timezone::ABBREVIATION);
         $this->assertFalse($timezone4->isValid('Asia/Dubai'));
         $this->assertTrue($timezone4->isValid('sast'));
 
-        $timezone5 = new Timezone(3);
-        $this->assertTrue($timezone5->isValid('Asia/Dubai'));
+        $timezone5 = new Timezone('abbreviation');
+        $this->assertFalse($timezone5->isValid('Asia/Dubai'));
         $this->assertTrue($timezone5->isValid('sast'));
+
+        $timezone6 = new Timezone(array('type' => 'abbreviation'));
+        $this->assertFalse($timezone6->isValid('Asia/Dubai'));
+        $this->assertTrue($timezone6->isValid('sast'));
+
+        // default value is all
+        $timezone7 = new Timezone();
+        $this->assertTrue($timezone7->isValid('Asia/Dubai'));
+        $this->assertTrue($timezone7->isValid('sast'));
     }
 
     /**
