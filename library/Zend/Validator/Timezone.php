@@ -95,16 +95,6 @@ class Timezone extends AbstractValidator
     }
 
     /**
-     * Returns the set types
-     *
-     * @return array
-     */
-    public function getType()
-    {
-        return $this->options['type'];
-    }
-
-    /**
      * @param array|int|string $type
      * @return int
      */
@@ -161,7 +151,7 @@ class Timezone extends AbstractValidator
             return false;
         }
 
-        $type    = $this->getType();
+        $type = $this->options['type'];
         $this->setValue($value);
 
         switch (true) {
