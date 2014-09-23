@@ -10,8 +10,6 @@
 namespace Zend\Validator;
 
 use DateTimeZone;
-use Traversable;
-use Zend\Stdlib\ArrayUtils;
 
 class Timezone extends AbstractValidator
 {
@@ -60,15 +58,11 @@ class Timezone extends AbstractValidator
     /**
      * Constructor
      *
-     * @param array|Traversable|int $options OPTIONAL
+     * @param array|int $options OPTIONAL
     */
     public function __construct($options = null)
     {
         $this->setType($this->defaultType);
-
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
 
         if (!is_array($options)) {
             $options = func_get_args();
