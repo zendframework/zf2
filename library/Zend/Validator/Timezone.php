@@ -109,10 +109,11 @@ class Timezone extends AbstractValidator
                     $detected |= array_search($value, $this->constants);
                 }
             }
+            return $detected;
+        }
 
-            $type = $detected;
-        } elseif (is_string($type) && in_array($type, $this->constants)) {
-            $type = array_search($type, $this->constants);
+        if (is_string($type) && in_array($type, $this->constants)) {
+            return array_search($type, $this->constants);
         }
 
         return $type;
