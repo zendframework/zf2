@@ -33,7 +33,7 @@ class Timezone extends AbstractValidator
      * Default value for types; value = 3
      *
      * @var array
-    */
+     */
     protected $defaultType = array(
         self::LOCATION,
         self::ABBREVIATION,
@@ -41,7 +41,7 @@ class Timezone extends AbstractValidator
 
     /**
      * @var array
-    */
+     */
     protected $messageTemplates = array(
         self::INVALID                       => 'Invalid timezone given.',
         self::INVALID_TIMEZONE_LOCATION     => 'Invalid timezone location given.',
@@ -52,46 +52,31 @@ class Timezone extends AbstractValidator
      * Options for this validator
      *
      * @var array
-    */
+     */
     protected $options = array();
 
     /**
      * Constructor
      *
      * @param array|int $options OPTIONAL
-    */
-    public function __construct($options = null)
+     */
+    public function __construct($options = array())
     {
-        $this->setType($this->defaultType);
-
-        if (!is_array($options)) {
-            $options = func_get_args();
-            $temp    = array();
-            if (!empty($options)) {
-                $temp['type'] = array_shift($options);
-            }
-
-            $options = $temp;
-        }
+        $opts['type'] = $this->defaultType;
 
         if (is_array($options)) {
-            if (!array_key_exists('type', $options)) {
-                $detected = 0;
-                $found    = false;
-                foreach ($options as $option) {
-                    if (in_array($option, $this->constants, true)) {
-                        $found = true;
-                        $detected += array_search($option, $this->constants);
-                    }
-                }
-
-                if ($found) {
-                    $options['type'] = $detected;
-                }
+            if (array_key_exists('type', $options)) {
+                $opts['type'] = $options['type'];
+            }
+        } else {
+            $options = func_get_args();
+            if (!empty($options)) {
+                $opts['type'] = array_shift($options);
             }
         }
 
-        parent::__construct($options);
+        // setType called by parent constructor then setOptions method
+        parent::__construct($opts);
     }
 
     /**
