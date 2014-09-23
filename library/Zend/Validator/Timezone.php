@@ -105,14 +105,6 @@ class Timezone extends AbstractValidator
     }
 
     /**
-     * @return int
-     */
-    public function getDefaultType()
-    {
-        return $this->calculateTypeValue($this->defaultType);
-    }
-
-    /**
      * @param array|int|string $type
      * @return int
      */
