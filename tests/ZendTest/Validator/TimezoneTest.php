@@ -159,6 +159,19 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test locations and abbreviations
+     *
+     * @return void
+     *
+     * @dataProvider locationAndAbbreviationProvider
+     */
+    public function testlocationsAndAbbreviationsWithAllTypeAsArrayWithStrings($value, $valid)
+    {
+        $this->validator->setType(array('location', 'abbreviation'));
+        $this->checkValidationValue($value, $valid);
+    }
+
+    /**
      * Provides location and abbreviation values
      *
      * @return array
@@ -245,10 +258,14 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($timezone6->isValid('Asia/Dubai'));
         $this->assertTrue($timezone6->isValid('sast'));
 
-        // default value is all
+        // default value is `all`
         $timezone7 = new Timezone();
         $this->assertTrue($timezone7->isValid('Asia/Dubai'));
         $this->assertTrue($timezone7->isValid('sast'));
+
+        $timezone8 = new Timezone(array('type' => array('location', 'abbreviation')));
+        $this->assertTrue($timezone8->isValid('Asia/Dubai'));
+        $this->assertTrue($timezone8->isValid('sast'));
     }
 
     /**
