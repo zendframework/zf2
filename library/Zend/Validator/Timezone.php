@@ -1,11 +1,11 @@
 <?php
 /**
  * Zend Framework (http://framework.zend.com/)
-*
-* @link      http://github.com/zendframework/zf2 for the canonical source repository
-* @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
-* @license   http://framework.zend.com/license/new-bsd New BSD License
-*/
+ *
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 
 namespace Zend\Validator;
 
@@ -178,35 +178,37 @@ class Timezone extends AbstractValidator
         $type    = $this->getType();
         $this->setValue($value);
 
-        // Check in locations and abbreviations
-        if (($type & self::LOCATION) && ($type & self::ABBREVIATION)) {
-            $abbrs = DateTimeZone::listAbbreviations();
-            $locations = DateTimeZone::listIdentifiers();
+        switch (true) {
+            // Check in locations and abbreviations
+            case (($type & self::LOCATION) && ($type & self::ABBREVIATION)):
+                $abbrs = DateTimeZone::listAbbreviations();
+                $locations = DateTimeZone::listIdentifiers();
 
-            if (!array_key_exists($value, $abbrs) && !in_array($value, $locations)) {
-                $this->error(self::INVALID);
-                return false;
-            }
-        } else {
+                if (!array_key_exists($value, $abbrs) && !in_array($value, $locations)) {
+                    $this->error(self::INVALID);
+                    return false;
+                }
+                break;
+
             // Check only in locations
-            if ($type & self::LOCATION) {
+            case ($type & self::LOCATION):
                 $locations = DateTimeZone::listIdentifiers();
 
                 if (!in_array($value, $locations)) {
                     $this->error(self::INVALID_TIMEZONE_LOCATION);
                     return false;
                 }
-            }
+                break;
 
             // Check only in abbreviations
-            if ($type & self::ABBREVIATION) {
+            case ($type & self::ABBREVIATION):
                 $abbrs = DateTimeZone::listAbbreviations();
 
                 if (!array_key_exists($value, $abbrs)) {
                     $this->error(self::INVALID_TIMEZONE_ABBREVIATION);
                     return false;
                 }
-            }
+                break;
         }
 
         return true;
