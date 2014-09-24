@@ -168,7 +168,7 @@ abstract class AbstractController implements
         );
 
         $interfaces = class_implements($this);
-        $interfaces = is_array($interfaces) ? $interfaces : [];
+        $interfaces = is_array($interfaces) ? $interfaces : array();
 
         $events->setIdentifiers(array_merge($identifiers, $interfaces));
         $this->events = $events;
