@@ -159,13 +159,18 @@ abstract class AbstractController implements
      */
     public function setEventManager(EventManagerInterface $events)
     {
-        $events->setIdentifiers(array(
+        $identifiers = array(
             'Zend\Stdlib\DispatchableInterface',
             __CLASS__,
             get_class($this),
             $this->eventIdentifier,
             substr(get_class($this), 0, strpos(get_class($this), '\\'))
-        ));
+        );
+
+        $interfaces = class_implements($this);
+        $interfaces = is_array($interfaces) ? $interfaces : array();
+
+        $events->setIdentifiers(array_merge($identifiers, $interfaces));
         $this->events = $events;
         $this->attachDefaultListeners();
 
