@@ -12,12 +12,14 @@ namespace ZendTest\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper;
 use Zend\View\Exception\ExceptionInterface as ViewException;
+use Zend\View\Helper\HeadMeta\Plugin\Mock as MockPlugin;
 
 /**
  * Test class for Zend\View\Helper\HeadMeta.
  *
  * @group      Zend_View
  * @group      Zend_View_Helper
+ * @group      Zend_View_Helper_HeadMeta
  */
 class HeadMetaTest extends \PHPUnit_Framework_TestCase
 {
@@ -539,5 +541,59 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 
         $this->assertContains('<!--[if ! IE]><!--><', $html);
         $this->assertContains('<!--<![endif]-->', $html);
+    }
+
+    public function testRegisteringPlugin()
+    {
+        $this->helper->registerPlugin(new Helper\HeadMeta\Plugin\OpenGraph());
+
+        $registeredPlugins = $this->helper->getRegisteredPlugins();
+        $this->assertNotEmpty($registeredPlugins);
+        $this->assertContainsOnlyInstancesOf('Zend\View\Helper\HeadMeta\Plugin\OpenGraph', $registeredPlugins);
+    }
+
+    public function testRegisteringPluginAsString()
+    {
+        $this->helper->registerPlugin('openGraph');
+
+        $registeredPlugins = $this->helper->getRegisteredPlugins();
+        $this->assertNotEmpty($registeredPlugins);
+    }
+
+    protected function _testOverloadPlugin($method, $pluginResult)
+    {
+        $this->helper->$method($pluginResult['content']);
+
+        $values = $this->helper->getArrayCopy();
+        $this->assertEquals(1, count($values));
+        $item = array_shift($values);
+
+        $this->assertObjectHasAttribute('type', $item);
+        $this->assertObjectHasAttribute('modifiers', $item);
+        $this->assertObjectHasAttribute('content', $item);
+        $this->assertObjectHasAttribute($item->type, $item);
+        $this->assertEquals($pluginResult['typeValue'], $item->{$item->type});
+        $this->assertEquals($pluginResult['content'], $item->content);
+    }
+
+    public function testCallHandledByPlugin()
+    {
+        $data = array(
+            'action'    => 'set',
+            'type'      => 'name',
+            'typeValue' => 'description',
+            'content'   => 'foo bar baz',
+            'modifiers' => array(),
+        );
+        $this->helper->registerPlugin('mock', $data);
+
+        $this->_testOverloadPlugin(MockPlugin::METHOD_NAME, $data);
+    }
+
+    public function testDefaultCallExecutedIfNoPluginCanHandleIt()
+    {
+        $this->helper->registerPlugin('mock');
+
+        $this->_testOverloadSet('name');
     }
 }

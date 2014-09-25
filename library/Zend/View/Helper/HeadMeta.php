@@ -12,6 +12,8 @@ namespace Zend\View\Helper;
 use stdClass;
 use Zend\View;
 use Zend\View\Exception;
+use Zend\View\Helper\HeadMeta\PluginManager;
+use Zend\View\Helper\HeadMeta\Plugin\PluginInterface as Plugin;
 
 /**
  * Zend\View\Helper\HeadMeta
@@ -63,6 +65,18 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     protected $regKey = 'Zend_View_Helper_HeadMeta';
 
     /**
+     * Registered plugins.
+     *
+     * @var array
+     */
+    protected $plugins = array();
+
+    /**
+     * @var Plugins
+     */
+    protected $pluginManager;
+
+    /**
      * Constructor
      *
      * Set separator to PHP_EOL
@@ -73,6 +87,58 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         parent::__construct();
 
         $this->setSeparator(PHP_EOL);
+    }
+
+    /**
+     * @param PluginManager $pluginManager
+     * @return self
+     */
+    public function setPluginManager(PluginManager $pluginManager)
+    {
+        $this->pluginManager = $pluginManager;
+        return $this;
+    }
+
+    /**
+     * @return PluginManager
+     */
+    public function getPluginManager()
+    {
+        if (null === $this->pluginManager) {
+            $this->setPluginManager(new PluginManager());
+        }
+        return $this->pluginManager;
+    }
+
+    /**
+     * Registers new plugin.
+     *
+     * @param string|Plugin $plugin
+     * @param array $options
+     * @return self
+     */
+    public function registerPlugin($plugin, array $options = array())
+    {
+        if (is_string($plugin)) {
+            $plugin = $this->getPluginManager()->get($plugin, $options);
+        } elseif (!$plugin instanceof Plugin) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Plugin must implement %s\Plugin\PluginInterface; received "%s"',
+                __NAMESPACE__,
+                is_object($plugin) ? get_class($plugin) : gettype($plugin)
+            ));
+        }
+
+        $this->plugins[] = $plugin;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRegisteredPlugins()
+    {
+        return $this->plugins;
     }
 
     /**
@@ -115,36 +181,76 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function __call($method, $args)
     {
-        if (preg_match(
-            '/^(?P<action>set|(pre|ap)pend|offsetSet)(?P<type>Name|HttpEquiv|Property|Itemprop)$/',
-            $method,
-            $matches)
-        ) {
-            $action = $matches['action'];
-            $type   = $this->normalizeType($matches['type']);
-            $argc   = count($args);
-            $index  = null;
+        $pluginResult = false;
 
-            if ('offsetSet' == $action) {
-                if (0 < $argc) {
-                    $index = array_shift($args);
-                    --$argc;
+        //Process plugins
+        $plugins = $this->getRegisteredPlugins();
+        if (!empty($plugins)) {
+            foreach ($plugins as $plugin) {
+                if (($pluginResult = $plugin->handle($method, $args)) !== false) {
+                    break;
                 }
             }
+        }
 
-            if (2 > $argc) {
-                throw new Exception\BadMethodCallException(
-                    'Too few arguments provided; requires key value, and content'
+        if ($pluginResult === false) {
+            //Default handler fallback
+
+            $matches = array();
+            if (preg_match(
+                '/^(?P<action>set|(pre|ap)pend|offsetSet)(?P<type>Name|HttpEquiv|Property|Itemprop)$/',
+                $method,
+                $matches
+            )) {
+                $action = $matches['action'];
+                $type   = $this->normalizeType($matches['type']);
+                $argc   = count($args);
+                $index  = null;
+
+                if ('offsetSet' == $action) {
+                    if (0 < $argc) {
+                        $index = array_shift($args);
+                        --$argc;
+                    }
+                }
+
+                if (2 > $argc) {
+                    throw new Exception\BadMethodCallException(
+                        'Too few arguments provided; requires key value, and content'
+                    );
+                }
+
+                if (3 > $argc) {
+                    $args[] = array();
+                }
+
+                $pluginResult = array(
+                    'action'    => $action,
+                    'type'      => $type,
+                    'typeValue' => $args[0],
+                    'content'   => $args[1],
+                    'modifiers' => $args[2],
                 );
+                if ($index !== null) {
+                    $pluginResult['offsetIndex'] = $index;
+                }
             }
+        }
 
-            if (3 > $argc) {
-                $args[] = array();
-            }
-
-            $item  = $this->createData($type, $args[0], $args[1], $args[2]);
+        if ($pluginResult) {
+            $action = $pluginResult['action'];
+            $item = $this->createData(
+                $pluginResult['type'],
+                $pluginResult['typeValue'],
+                $pluginResult['content'],
+                $pluginResult['modifiers']
+            );
 
             if ('offsetSet' == $action) {
+                if (!isset($pluginResult['offsetIndex'])) {
+                    throw new Exception\BadMethodCallException('Missing index for the offsetSet action');
+                }
+
                 return $this->offsetSet($index, $item);
             }
 
