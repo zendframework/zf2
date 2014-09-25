@@ -431,6 +431,13 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testDoctypeValidationDisabled()
+    {
+        $this->helper->setDoctypeValidationEnabled(false);
+        $this->helper->__invoke('foo', 'og:title', 'property');
+        $this->assertEquals('<meta property="og:title" content="foo" />', $this->helper->toString());
+    }
+
     /**
      * @group ZF-9743
      * @depends testPropertyIsSupportedWithRdfaDoctype

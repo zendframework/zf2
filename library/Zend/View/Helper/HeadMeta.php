@@ -65,6 +65,13 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     protected $regKey = 'Zend_View_Helper_HeadMeta';
 
     /**
+     * Whether meta object should be validated based on currently set DOCTYPE.
+     *
+     * @var bool
+     */
+    protected $doctypeValidationEnabled = true;
+
+    /**
      * Registered plugins.
      *
      * @var array
@@ -90,8 +97,26 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     }
 
     /**
+     * @return bool
+     */
+    public function getDoctypeValidationEnabled()
+    {
+        return $this->doctypeValidationEnabled;
+    }
+
+    /**
+     * @param bool $flag
+     * @return HeadMeta
+     */
+    public function setDoctypeValidationEnabled($flag)
+    {
+        $this->doctypeValidationEnabled = (bool) $flag;
+        return $this;
+    }
+
+    /**
      * @param PluginManager $pluginManager
-     * @return self
+     * @return HeadMeta
      */
     public function setPluginManager(PluginManager $pluginManager)
     {
@@ -115,7 +140,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      *
      * @param string|Plugin $plugin
      * @param array $options
-     * @return self
+     * @return HeadMeta
      */
     public function registerPlugin($plugin, array $options = array())
     {
@@ -426,25 +451,27 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
             return false;
         }
 
-        if (!isset($item->content)
-            && (! $this->view->plugin('doctype')->isHtml5()
-            || (! $this->view->plugin('doctype')->isHtml5() && $item->type !== 'charset'))
-        ) {
-            return false;
-        }
+        if ($this->doctypeValidationEnabled) {
+            if (!isset($item->content)
+                && (! $this->view->plugin('doctype')->isHtml5()
+                || (! $this->view->plugin('doctype')->isHtml5() && $item->type !== 'charset'))
+            ) {
+                return false;
+            }
 
-        // <meta itemprop= ... /> is only supported with doctype html
-        if (! $this->view->plugin('doctype')->isHtml5()
-            && $item->type === 'itemprop'
-        ) {
-            return false;
-        }
+            // <meta itemprop= ... /> is only supported with doctype html
+            if (! $this->view->plugin('doctype')->isHtml5()
+                && $item->type === 'itemprop'
+            ) {
+                return false;
+            }
 
-        // <meta property= ... /> is only supported with doctype RDFa
-        if (!$this->view->plugin('doctype')->isRdfa()
-            && $item->type === 'property'
-        ) {
-            return false;
+            // <meta property= ... /> is only supported with doctype RDFa
+            if (!$this->view->plugin('doctype')->isRdfa()
+                && $item->type === 'property'
+            ) {
+                return false;
+            }
         }
 
         return true;
