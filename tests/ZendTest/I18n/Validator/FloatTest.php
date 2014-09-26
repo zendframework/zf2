@@ -198,6 +198,14 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * This throws a warning: grapheme_substr(): grapheme_substr: start not contained in string in Zend\Stdlib\StringWrapper\Intl.php:73
+     */
+    public function testStringValidation()
+    {
+        $this->assertFalse($this->validator->isValid('a string');
+    }
+    
+    /**
      * @ZF-4352
      */
     public function testNonStringValidation()
