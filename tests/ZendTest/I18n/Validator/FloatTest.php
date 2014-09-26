@@ -202,7 +202,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function testStringValidation()
     {
-        $this->assertFalse($this->validator->isValid('a string');
+        $this->assertFalse($this->validator->isValid('a string'));
     }
     
     /**
