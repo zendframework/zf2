@@ -83,7 +83,7 @@ class FormCaptchaTest extends CommonTestCase
         $element->setCaptcha($captcha);
         $element->setAttribute('id', 'foo');
         $markup = $this->helper->render($element);
-        $this->assertContains($captcha->getLabel(), $markup);
+        $this->assertContains(strrev($captcha->getWord()), $markup);
         $this->assertRegExp('#<[^>]*(id="' . $element->getAttribute('id') . '")[^>]*(type="text")[^>]*>#', $markup);
         $this->assertRegExp('#<[^>]*(id="' . $element->getAttribute('id') . '-hidden")[^>]*(type="hidden")[^>]*>#', $markup);
     }

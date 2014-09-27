@@ -70,21 +70,4 @@ class DumbTest extends CommonWordTest
         $word = $this->captcha->getWord();
         $this->assertEquals(10, strlen($word));
     }
-
-    /**
-     * @group ZF-11522
-     */
-    public function testDefaultLabelIsUsedWhenNoAlternateLabelSet()
-    {
-        $this->assertEquals('Please type this word backwards', $this->captcha->getLabel());
-    }
-
-    /**
-     * @group ZF-11522
-     */
-    public function testChangeLabelViaSetterMethod()
-    {
-        $this->captcha->setLabel('Testing');
-        $this->assertEquals('Testing', $this->captcha->getLabel());
-    }
 }
