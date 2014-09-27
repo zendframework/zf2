@@ -57,26 +57,56 @@ class DumbTest extends CommonTestCase
         $this->assertRegExp('#(name="' . $element->getName() . '\&\#x5B\;input\&\#x5D\;").*?(type="text")#', $markup);
     }
 
-    public function testRendersLabelPriorToInputByDefault()
+    public function testRendersDefaultTemplatePriorToInputByDefault()
     {
         $element = $this->getElement();
         $markup  = $this->helper->render($element);
-        $this->assertContains($this->captcha->getLabel() . ' <b>' . strrev($this->captcha->getWord()) . '</b>' . $this->helper->getSeparator() . '<input', $markup);
+        $this->assertContains($this->helper->renderRiddle($this->helper->getDefaultTemplate(), $this->captcha->getWord()) . $this->helper->getSeparator() . '<input', $markup);
     }
 
-    public function testCanRenderLabelFollowingInput()
+    public function testRendersDefaultTemplateFollowingInput()
     {
         $this->helper->setCaptchaPosition('prepend');
         $element = $this->getElement();
         $markup  = $this->helper->render($element);
-        $this->assertContains('>' . $this->captcha->getLabel() . ' <b>' . strrev($this->captcha->getWord()) . '</b>' . $this->helper->getSeparator(), $markup);
+        $this->assertContains('>' . $this->helper->renderRiddle($this->helper->getDefaultTemplate(), $this->captcha->getWord()) . $this->helper->getSeparator(), $markup);
+    }
+    
+    public function testRenderingCustomTemplate()
+    {
+        $customTemplate = 'Type this BACKWARDS: %s';
+        
+        $element = $this->getElement();
+        $element->setLabel($customTemplate);
+        
+        $markup = $this->helper->render($element);
+        $this->assertContains($this->helper->renderRiddle($customTemplate, $this->captcha->getWord()) . $this->helper->getSeparator() . '<input', $markup);
+    }
+    
+    public function testRenderingTranslatedCustomTemplate()
+    {
+        $customTemplate = 'typeThisBackwards';
+        $translatedCustomTemplate = 'Type this BACKWARDS: %s';
+        
+        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator->expects($this->exactly(1))
+            ->method('translate')
+            ->with($customTemplate)
+            ->will($this->returnValue($translatedCustomTemplate));
+
+        $this->helper->setTranslator($mockTranslator);
+        
+        $element = $this->getElement();
+        $element->setLabel($customTemplate);
+        
+        $markup = $this->helper->render($element);
+        $this->assertContains($this->helper->renderRiddle($translatedCustomTemplate, $this->captcha->getWord()) . $this->helper->getSeparator() . '<input', $markup);
     }
 
     public function testSetCaptchaPositionWithNullRaisesException()
     {
         $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException');
         $this->helper->setCaptchaPosition(null);
-
     }
 
     public function testSetSeparator()
@@ -95,7 +125,7 @@ class DumbTest extends CommonTestCase
         $this->helper->setSeparator('<br />');
         $markup  = $this->helper->render($element);
 
-        $this->assertContains($this->captcha->getLabel() . ' <b>' . strrev($this->captcha->getWord()) . '</b>' . $this->helper->getSeparator() . '<input name="foo&#x5B;id&#x5D;" type="hidden"', $markup);
+        $this->assertContains($this->helper->renderRiddle($this->helper->getDefaultTemplate(), $this->captcha->getWord()) . $this->helper->getSeparator() . '<input name="foo&#x5B;id&#x5D;" type="hidden"', $markup);
         $this->assertNotContains($this->helper->getSeparator() . '<input name="foo[input]" type="text"', $markup);
     }
 }

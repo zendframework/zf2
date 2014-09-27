@@ -15,6 +15,18 @@ use Zend\Form\Exception;
 
 class Dumb extends AbstractWord
 {
+    protected static $defaultTemplate = 'Please type this word backwards <b>%s</b>';
+    
+    public static function setDefaultTemplate($template)
+    {
+        static::$defaultTemplate = $template;
+    }
+    
+    public static function getDefaultTemplate()
+    {
+        return static::$defaultTemplate;
+    }
+
     /**
      * Render the captcha
      *
@@ -34,12 +46,13 @@ class Dumb extends AbstractWord
         }
 
         $captcha->generate();
+        
+        $template = $element->getLabel() ?: static::getDefaultTemplate();
+        if (null !== ($translator = $this->getTranslator())) {
+            $template = $translator->translate($template, $this->getTranslatorTextDomain());
+        }
 
-        $label = sprintf(
-            '%s <b>%s</b>',
-            $captcha->getLabel(),
-            strrev($captcha->getWord())
-        );
+        $label = $this->renderRiddle($template, $captcha->getWord());
 
         $position     = $this->getCaptchaPosition();
         $separator    = $this->getSeparator();
@@ -51,5 +64,10 @@ class Dumb extends AbstractWord
         }
 
         return sprintf($pattern, $label, $separator, $captchaInput);
+    }
+    
+    public function renderRiddle($template, $word)
+    {
+        return sprintf($template, strrev($word));
     }
 }

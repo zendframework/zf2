@@ -19,30 +19,6 @@ namespace Zend\Captcha;
 class Dumb extends AbstractWord
 {
     /**
-     * CAPTCHA label
-     * @type string
-     */
-    protected $label = 'Please type this word backwards';
-
-    /**
-     * Set the label for the CAPTCHA
-     * @param string $label
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
-    }
-
-    /**
-     * Retrieve the label for the CAPTCHA
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
      * Retrieve optional view helper name to use when rendering this captcha
      *
      * @return string
