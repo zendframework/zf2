@@ -13,6 +13,9 @@ use Zend\Dom\Document;
 
 abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
 {
+    const CONTENT_CONTAINS_EXACT_MATCH = 'content_exact_match';
+    const CONTENT_CONTAINS_PARTIAL_MATCH = 'content_partial_match';
+
     /**
      * HTTP controller must not use the console request
      * @var bool
@@ -673,13 +676,14 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
     }
 
     /**
-     * Assert against DOM/XPath selection; node should contain content
+     * Assert against DOM/XPath selection; node should contain content.
      *
      * @param  string $path CSS selector path
      * @param  string $match content that should be contained in matched nodes
      * @param bool $useXpath
+     * @param string $matchType Allow to match the exact $match content, or partial content
      */
-    private function queryContentContainsAssertion($path, $match, $useXpath = false)
+    private function queryContentContainsAssertion($path, $match, $useXpath = false, $matchType = self::CONTENT_CONTAINS_EXACT_MATCH)
     {
         $result = $this->query($path, $useXpath);
         if ($result->count() == 0) {
@@ -689,9 +693,16 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
             ));
         }
         foreach ($result as $node) {
-            if ($node->nodeValue == $match) {
-                $this->assertEquals($match, $node->nodeValue);
-                return;
+            if ($matchType === self::CONTENT_CONTAINS_PARTIAL_MATCH) {
+                if (false !== strstr($node->nodeValue, $match)) {
+                    $this->assertContains($match, $node->nodeValue);
+                    return;
+                }
+            } elseif ($matchType === self::CONTENT_CONTAINS_EXACT_MATCH) {
+                if ($node->nodeValue == $match) {
+                    $this->assertContains($match, $node->nodeValue);
+                    return;
+                }
             }
         }
         throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
@@ -706,10 +717,11 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
      *
      * @param  string $path CSS selector path
      * @param  string $match content that should be contained in matched nodes
+     * @param string $matchType
      */
-    public function assertQueryContentContains($path, $match)
+    public function assertQueryContentContains($path, $match, $matchType = self::CONTENT_CONTAINS_EXACT_MATCH)
     {
-        $this->queryContentContainsAssertion($path, $match, false);
+        $this->queryContentContainsAssertion($path, $match, false, $matchType);
     }
 
     /**
@@ -717,10 +729,11 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
      *
      * @param  string $path XPath path
      * @param  string $match content that should be contained in matched nodes
+     * @param string $matchType
      */
-    public function assertXpathQueryContentContains($path, $match)
+    public function assertXpathQueryContentContains($path, $match, $matchType = self::CONTENT_CONTAINS_EXACT_MATCH)
     {
-        $this->queryContentContainsAssertion($path, $match, true);
+        $this->queryContentContainsAssertion($path, $match, true, $matchType);
     }
 
     /**
@@ -729,8 +742,9 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
      * @param  string $path CSS selector path
      * @param  string $match content that should NOT be contained in matched nodes
      * @param bool $useXpath
+     * @param string $matchType Allow to match the exact $match content, or partial content
      */
-    private function notQueryContentContainsAssertion($path, $match, $useXpath = false)
+    private function notQueryContentContainsAssertion($path, $match, $useXpath = false, $matchType = self::CONTENT_CONTAINS_EXACT_MATCH)
     {
         $result = $this->query($path, $useXpath);
         if ($result->count() == 0) {
@@ -740,12 +754,22 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
             ));
         }
         foreach ($result as $node) {
-            if ($node->nodeValue == $match) {
-                throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s DOES NOT CONTAIN content "%s"',
-                    $path,
-                    $match
-                ));
+            if ($matchType === self::CONTENT_CONTAINS_PARTIAL_MATCH) {
+                if (false !== strstr($node->nodeValue, $match)) {
+                    throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+                        'Failed asserting node DENOTED BY %s DOES NOT CONTAIN content "%s"',
+                        $path,
+                        $match
+                    ));
+                }
+            } elseif ($matchType === self::CONTENT_CONTAINS_EXACT_MATCH) {
+                if ($node->nodeValue == $match) {
+                    throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+                        'Failed asserting node DENOTED BY %s DOES NOT CONTAIN content "%s"',
+                        $path,
+                        $match
+                    ));
+                }
             }
         }
         $currentValue = $node->nodeValue;
@@ -757,10 +781,11 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
      *
      * @param  string $path CSS selector path
      * @param  string $match content that should NOT be contained in matched nodes
+     * @param string $matchType
      */
-    public function assertNotQueryContentContains($path, $match)
+    public function assertNotQueryContentContains($path, $match, $matchType = self::CONTENT_CONTAINS_EXACT_MATCH)
     {
-        $this->notQueryContentContainsAssertion($path, $match, false);
+        $this->notQueryContentContainsAssertion($path, $match, false, $matchType);
     }
 
     /**
@@ -768,10 +793,11 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
      *
      * @param  string $path XPath path
      * @param  string $match content that should NOT be contained in matched nodes
+     * @param string $matchType
      */
-    public function assertNotXpathQueryContentContains($path, $match)
+    public function assertNotXpathQueryContentContains($path, $match, $matchType = self::CONTENT_CONTAINS_EXACT_MATCH)
     {
-        $this->notQueryContentContainsAssertion($path, $match, true);
+        $this->notQueryContentContainsAssertion($path, $match, true, $matchType);
     }
 
     /**
