@@ -384,17 +384,6 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertQueryContentContains('div.top', 'bar');
     }
 
-    public function testAssertQueryContentContainsWithSecondElementPartialMatch()
-    {
-        $this->dispatch('/tests');
-        $this->assertQueryContentContains('div#content', 'fo', self::CONTENT_CONTAINS_PARTIAL_MATCH);
-
-        $this->setExpectedException(
-            'PHPUnit_Framework_ExpectationFailedException'
-        );
-        $this->assertQueryContentContains('div#content', 'ba', self::CONTENT_CONTAINS_PARTIAL_MATCH);
-    }
-
     public function testAssertXpathQueryContentContains()
     {
         $this->dispatch('/tests');
