@@ -362,6 +362,17 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertQueryContentContains('div#content', 'bar');
     }
 
+    public function testAssertQueryContentContainsPartialMatch()
+    {
+        $this->dispatch('/tests');
+        $this->assertQueryContentContains('div#content', 'fo', self::CONTENT_CONTAINS_PARTIAL_MATCH);
+
+        $this->setExpectedException(
+            'PHPUnit_Framework_ExpectationFailedException'
+        );
+        $this->assertQueryContentContains('div#content', 'ba', self::CONTENT_CONTAINS_PARTIAL_MATCH);
+    }
+
     public function testAssertQueryContentContainsWithSecondElement()
     {
         $this->dispatch('/tests');
@@ -371,6 +382,17 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
             'PHPUnit_Framework_ExpectationFailedException'
         );
         $this->assertQueryContentContains('div.top', 'bar');
+    }
+
+    public function testAssertQueryContentContainsWithSecondElementPartialMatch()
+    {
+        $this->dispatch('/tests');
+        $this->assertQueryContentContains('div#content', 'fo', self::CONTENT_CONTAINS_PARTIAL_MATCH);
+
+        $this->setExpectedException(
+            'PHPUnit_Framework_ExpectationFailedException'
+        );
+        $this->assertQueryContentContains('div#content', 'ba', self::CONTENT_CONTAINS_PARTIAL_MATCH);
     }
 
     public function testAssertXpathQueryContentContains()
@@ -391,6 +413,17 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
         $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
         $this->assertNotQueryContentContains('div#content', 'foo');
+    }
+
+    public function testAssertNotQueryContentContainsPartialMatch()
+    {
+        $this->dispatch('/tests');
+        $this->assertNotQueryContentContains('div#content', 'ba', self::CONTENT_CONTAINS_PARTIAL_MATCH);
+
+        $this->setExpectedException(
+            'PHPUnit_Framework_ExpectationFailedException'
+        );
+        $this->assertNotQueryContentContains('div#content', 'fo', self::CONTENT_CONTAINS_PARTIAL_MATCH);
     }
 
     public function testAssertNotXpathQueryContentContains()
