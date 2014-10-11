@@ -41,6 +41,7 @@
         "fabpot/php-cs-fixer": "dev-master#fcbb09b5204",
         "phpunit/PHPUnit": "3.7.*",
         "satooshi/php-coveralls": "dev-master",
+        "malkusch/bav": "~1.0",
         "sebastianbergmann/phpcov": "1.1.0"
     },
     "suggest": {
