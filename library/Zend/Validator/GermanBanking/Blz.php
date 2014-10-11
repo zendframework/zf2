@@ -14,7 +14,7 @@ use malkusch\bav\BAV;
 
 /**
  * Validator for a German bank id (Bankleitzahl).
- * 
+ *
  * This constraint depends on malkusch/bav.
  */
 class Blz extends AbstractValidator
@@ -23,35 +23,35 @@ class Blz extends AbstractValidator
      * @const string Error constants
      */
     const NO_BLZ   = 'noBlz';
-    
+
     /**
      * @var array Error message templates
      */
     protected $messageTemplates = array(
         self::NO_BLZ => "The input is not a German bank id (Bankleitzahl)",
     );
-    
+
     /**
      * @var BAV
      */
     private $bav;
-    
+
     public function __construct($options = null)
     {
         parent::__construct($options);
-        
+
         $this->bav = new BAV();
     }
-    
+
     public function isValid($value)
     {
         $this->setValue($value);
-        
+
         if (!$this->bav->isValidBank($value)) {
             $this->error(self::NO_BLZ);
             return false;
         }
-        
+
         return true;
     }
 }

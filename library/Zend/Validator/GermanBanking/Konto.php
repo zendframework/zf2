@@ -14,7 +14,7 @@ use malkusch\bav\BAV;
 
 /**
  * Validator for a German bank account.
- * 
+ *
  * This constraint depends on malkusch/bav.
  */
 class Konto extends AbstractValidator
@@ -23,14 +23,14 @@ class Konto extends AbstractValidator
      * @const string Error constants
      */
     const NO_ACCOUNT = 'noAccount';
-    
+
     /**
      * @var array Error message templates
      */
     protected $messageTemplates = array(
         self::NO_ACCOUNT => "The input is not a German bank account",
     );
-    
+
     /**
      * Options for this validator
      *
@@ -39,17 +39,17 @@ class Konto extends AbstractValidator
     protected $options = array(
         "bank" => null, // Bank id (Bankleitzahl) for validating the account.
     );
-    
+
     /**
      * @var string Bank id (Bankleitzahl)
      */
     private $bank;
-    
+
     /**
      * @var BAV
      */
     private $bav;
-    
+
     /**
      * Sets validator options
      *
@@ -66,31 +66,31 @@ class Konto extends AbstractValidator
         }
 
         parent::__construct($options);
-        
+
         $this->bav = new BAV();
     }
-    
+
     /**
      * Sets the bank id (Bankleitzahl)
-     * 
+     *
      * An account can only be validated against a bank.
-     * 
+     *
      * @param string $bank Bank id (Bankleitzahl)
      */
     public function setBank($bank)
     {
         $this->options["bank"] = $bank;
     }
-    
+
     public function isValid($value)
     {
         $this->setValue($value);
-        
+
         if (!$this->bav->isValidBankAccount($this->options["bank"], $value)) {
             $this->error(self::NO_ACCOUNT);
             return false;
         }
-        
+
         return true;
     }
 }
