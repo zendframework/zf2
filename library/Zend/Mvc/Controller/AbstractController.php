@@ -167,8 +167,7 @@ abstract class AbstractController implements
             substr(get_class($this), 0, strpos(get_class($this), '\\'))
         );
 
-        $instanceof = class_implements($this);
-        if (is_array($instanceof)) {
+        if ($instanceof = class_implements($this)) {
             $identifiers = array_merge($identifiers, array_values($instanceof));
         }
 
