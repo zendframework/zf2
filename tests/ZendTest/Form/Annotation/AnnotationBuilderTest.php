@@ -275,4 +275,13 @@ class AnnotationBuilderTest extends TestCase
         }
 
     }
+
+    public function testInputFilterAnnotationAllowsComposition()
+    {
+        $entity = new TestAsset\Annotation\EntityWithInputFilterAnnotation();
+        $builder = new Annotation\AnnotationBuilder();
+        $form = $builder->createForm($entity);
+        $inputFilter = $form->getInputFilter();
+        $this->assertCount(2, $inputFilter->get('username')->getValidatorChain());
+    }
 }
