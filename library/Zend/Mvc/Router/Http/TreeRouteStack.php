@@ -62,6 +62,35 @@ class TreeRouteStack extends SimpleRouteStack
             throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
         }
 
+        //If some hostname route is defined, adapt the others
+        //by chaining them onto the default hostname route
+        if (isset($options['routes']) && isset($options['default_hostname_route'])) {
+            if (!isset($options['route_plugins'])) {
+                throw new Exception\InvalidArgumentException('Missing "route_plugins" in options array');
+            }
+            $routePluginManager = $options['route_plugins'];
+
+            if ($options['routes'] instanceof Traversable) {
+                $options['routes'] = ArrayUtils::iteratorToArray($options['routes']);
+            }
+
+            $defaultHostnameRoute = $options['default_hostname_route'];
+
+            foreach ($options['routes'] as $name => $route) {
+                if ($route['type'] != 'hostname') {
+                    $options['routes'][$name] = array(
+                        'type' => 'chain',
+                        'options' => array(
+                            'routes' => array($defaultHostnameRoute, $route),
+                            'route_plugins' => $routePluginManager
+                        )
+                    );
+                }
+            }
+
+            unset($options['default_hostname_route']);
+        }
+
         $instance = parent::factory($options);
 
         if (isset($options['prototypes'])) {

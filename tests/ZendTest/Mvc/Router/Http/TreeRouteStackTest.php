@@ -18,6 +18,7 @@ use Zend\Uri\Http as HttpUri;
 use Zend\Mvc\Router\Http\TreeRouteStack;
 use Zend\Mvc\Router\Http\Hostname;
 use ZendTest\Mvc\Router\FactoryTester;
+use Zend\Mvc\Router\RoutePluginManager;
 
 class TreeRouteStackTest extends TestCase
 {
@@ -466,5 +467,96 @@ class TreeRouteStackTest extends TestCase
             array(),
             array()
         );
+    }
+
+    public function testNonHostnameRoutesAdaptation()
+    {
+        $options = array(
+            'default_hostname_route' => array(
+                'type' => 'hostname',
+                'options' => array(
+                    'route' => 'www.example.com',
+                ),
+            ),
+            'routes' => array(
+                'blog' => array(
+                    'type' => 'hostname',
+                    'options' => array(
+                        'route' => 'blog.example.com',
+                        'defaults' => array(
+                            'controller' => 'Application\Controller\BlogController',
+                            'action' => 'index',
+                        ),
+                    ),
+                    'may_terminate' => true,
+                    'child_routes' => array(
+                        'post' => array(
+                            'type' => 'segment',
+                            'options' => array(
+                                'route' => '/[:slug]',
+                                'constraints' => array(
+                                    'slug' => '[a-zA-Z0-9_-]+'
+                                ),
+                                'defaults' => array(
+                                    'action' => 'view'
+                                )
+                            )
+                        )
+                    )
+                ),
+                'user' => array(
+                    'may_terminate' => false,
+                    'type' => 'literal',
+                    'options' => array(
+                        'route'    => '/user',
+                        'defaults' => array(
+                            'controller' => 'Application\Controller\User',
+                        ),
+                    ),
+                    'child_routes' => array(
+                        'view' => array(
+                            'type' => 'segment',
+                            'options' => array(
+                                'route' => '/view[/:id]',
+                                'constraints' => array(
+                                    'id' => '\d+'
+                                ),
+                                'defaults' => array(
+                                    'action' => 'view',
+                                ),
+                            ),
+                        ),
+                        'edit' => array(
+                            'type' => 'segment',
+                            'options' => array(
+                                'route' => '/edit[/:id]',
+                                'constraints' => array(
+                                    'id' => '\d+'
+                                ),
+                                'defaults' => array(
+                                    'action' => 'edit',
+                                ),
+                            ),
+                        ),
+                    ),
+                )
+            ),
+            'route_plugins' => new RoutePluginManager()
+        );
+
+        $stack = TreeRouteStack::factory($options);
+        $uri = new HttpUri();
+        $uri->setScheme('http');
+        $uri->setHost('example.com');
+        $stack->setRequestUri($uri);
+
+        $blogRoute = $stack->getRoute('blog');
+        $this->assertInstanceOf('Zend\Mvc\Router\Http\Part', $blogRoute);
+
+        $userRoute = $stack->getRoute('user');
+        $this->assertInstanceOf('Zend\Mvc\Router\Http\Chain', $userRoute);
+
+        $this->assertEquals('http://blog.example.com/test', $stack->assemble(array('slug' => 'test'), array('name' => 'blog/post')));
+        $this->assertEquals('http://www.example.com/user/view/1', $stack->assemble(array('id' => 1), array('name' => 'user/view')));
     }
 }
