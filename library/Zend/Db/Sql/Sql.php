@@ -85,7 +85,7 @@ class Sql
                 $this->table
             ));
         }
-        return new Insert(($table) ?: $this->table);
+        return new Insert(($table) ?: $this->table, $this->adapter);
     }
 
     public function update($table = null)
@@ -96,7 +96,7 @@ class Sql
                 $this->table
             ));
         }
-        return new Update(($table) ?: $this->table);
+        return new Update(($table) ?: $this->table, $this->adapter);
     }
 
     public function delete($table = null)
@@ -107,7 +107,7 @@ class Sql
                 $this->table
             ));
         }
-        return new Delete(($table) ?: $this->table);
+        return new Delete(($table) ?: $this->table, $this->adapter);
     }
 
     /**

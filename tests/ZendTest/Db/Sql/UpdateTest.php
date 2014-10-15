@@ -9,9 +9,11 @@
 
 namespace ZendTest\Db\Sql;
 
+use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Expression;
+use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\TableIdentifier;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
 
@@ -319,6 +321,25 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
             ->where('x = y');
 
         $this->assertEquals('UPDATE IGNORE "sch"."foo" SET "bar" = \'baz\', "boo" = NOW(), "bam" = NULL WHERE x = y', $this->update->getSqlString(new TrustingSql92Platform()));
+    }
+
+    /**
+     * @group ZF2-4882
+     */
+    public function testPropagateAdapterWithGetSqlStringThatAlreadyBroughtBySqlObject()
+    {
+        $adapter = new Adapter(array(
+            'driver'   => 'pdo_mysql',
+            'database' => 'testdb',
+            'username' => 'test',
+            'password' => 'secret'
+        ));
+
+        $sql = new Sql($adapter);
+        $update = $sql->update('foo');
+        $update->where('x = y');
+
+        $this->assertEquals('UPDATE `foo` SET  WHERE x = y', $update->getSqlString());
     }
 }
 

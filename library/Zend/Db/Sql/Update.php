@@ -43,6 +43,11 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $table = '';
 
     /**
+     * @var AdapterInterface
+     */
+    protected $adapter = null;
+
+    /**
      * @var bool
      */
     protected $emptyWhereProtection = true;
@@ -62,11 +67,16 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  null|string|TableIdentifier $table
      */
-    public function __construct($table = null)
+    public function __construct($table = null, $adapter = null)
     {
         if ($table) {
             $this->table($table);
         }
+
+        if ($adapter !== null && $adapter instanceof AdapterInterface) {
+            $this->adapter = $adapter;
+        }
+
         $this->where = new Where();
         $this->set = new PriorityList();
         $this->set->isLIFO(false);
@@ -204,7 +214,12 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
-        $adapterPlatform = ($adapterPlatform) ?: new Sql92;
+        if ($adapterPlatform === null && $this->adapter !== null && $this->adapter instanceof AdapterInterface) {
+            $adapterPlatform = $this->adapter->getPlatform();
+        } else {
+            $adapterPlatform = ($adapterPlatform) ?: new Sql92;
+        }
+
         $table = $this->table;
         $schema = null;
 

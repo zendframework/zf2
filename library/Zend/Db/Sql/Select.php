@@ -165,11 +165,15 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      *
      * @param  null|string|array|TableIdentifier $table
      */
-    public function __construct($table = null)
+    public function __construct($table = null, $adapter = null)
     {
         if ($table) {
             $this->from($table);
             $this->tableReadOnly = true;
+        }
+
+        if ($adapter !== null && $adapter instanceof AdapterInterface) {
+            $this->adapter = $adapter;
         }
 
         $this->where = new Where;
@@ -517,8 +521,11 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
-        // get platform, or create default
-        $adapterPlatform = ($adapterPlatform) ?: new AdapterSql92Platform;
+        if ($adapterPlatform === null && $this->adapter !== null && $this->adapter instanceof AdapterInterface) {
+            $adapterPlatform = $this->adapter->getPlatform();
+        } else {
+            $adapterPlatform = ($adapterPlatform) ?: new Sql92;
+        }
 
         $sqls = array();
         $parameters = array();
