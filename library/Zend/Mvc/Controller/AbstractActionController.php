@@ -52,7 +52,7 @@ abstract class AbstractActionController extends AbstractController
         if ($response instanceof HttpResponse) {
             return $this->createHttpNotFoundModel($response);
         }
-        return $this->createConsoleNotFoundModel($response);
+        return $this->createConsoleNotFoundModel();
     }
 
     /**
@@ -104,10 +104,9 @@ abstract class AbstractActionController extends AbstractController
     /**
      * Create a console view model representing a "not found" action
      *
-     * @param  \Zend\Stdlib\ResponseInterface $response
      * @return ConsoleModel
      */
-    protected function createConsoleNotFoundModel($response)
+    protected function createConsoleNotFoundModel()
     {
         $viewModel = new ConsoleModel();
         $viewModel->setErrorLevel(1);
