@@ -74,7 +74,7 @@ class Sql
                 $this->table
             ));
         }
-        return new Select(($table) ?: $this->table);
+        return new Select(($table) ?: $this->table, $this->adapter);
     }
 
     public function insert($table = null)

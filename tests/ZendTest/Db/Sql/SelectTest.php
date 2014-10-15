@@ -9,11 +9,13 @@
 
 namespace ZendTest\Db\Sql;
 
+use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Having;
 use Zend\Db\Sql\Predicate;
+use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\Sql92;
@@ -1295,5 +1297,23 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array($select48, $sqlPrep48, array(),    $sqlStr48, $internalTests48),
             array($select49, $sqlPrep49, array(),    $sqlStr49, $internalTests49),
         );
+    }
+
+    /**
+     * @group ZF2-4882
+     */
+    public function testPropagateAdapterWithGetSqlStringThatAlreadyBroughtBySqlObject()
+    {
+        $adapter = new Adapter(array(
+            'driver'   => 'pdo_mysql',
+            'database' => 'testdb',
+            'username' => 'test',
+            'password' => 'secret'
+        ));
+
+        $sql = new Sql($adapter);
+        $select = $sql->select('foo');
+
+        $this->assertEquals('SELECT `foo`.* FROM `foo`', $select->getSqlString());
     }
 }
