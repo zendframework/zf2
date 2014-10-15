@@ -1304,16 +1304,18 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropagateAdapterWithGetSqlStringThatAlreadyBroughtBySqlObject()
     {
-        $adapter = new Adapter(array(
-            'driver'   => 'pdo_mysql',
-            'database' => 'testdb',
-            'username' => 'test',
-            'password' => 'secret'
-        ));
+        if (extension_loaded('mysqli')) {
+            $adapter = new Adapter(array(
+                'driver'   => 'mysqli',
+                'database' => 'testdb',
+                'username' => 'test',
+                'password' => 'secret'
+            ));
 
-        $sql = new Sql($adapter);
-        $select = $sql->select('foo');
+            $sql = new Sql($adapter);
+            $select = $sql->select('foo');
 
-        $this->assertEquals('SELECT `foo`.* FROM `foo`', $select->getSqlString());
+            $this->assertEquals('SELECT `foo`.* FROM `foo`', $select->getSqlString());
+        }
     }
 }

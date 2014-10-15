@@ -343,18 +343,20 @@ class InsertTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropagateAdapterWithGetSqlStringThatAlreadyBroughtBySqlObject()
     {
-        $adapter = new Adapter(array(
-            'driver'   => 'pdo_mysql',
-            'database' => 'testdb',
-            'username' => 'test',
-            'password' => 'secret'
-        ));
+        if (extension_loaded('mysqli')) {
+            $adapter = new Adapter(array(
+                'driver'   => 'mysqli',
+                'database' => 'testdb',
+                'username' => 'test',
+                'password' => 'secret'
+            ));
 
-        $sql = new Sql($adapter);
-        $insert = $sql->insert('foo');
-        $insert->values(array());
+            $sql = new Sql($adapter);
+            $insert = $sql->insert('foo');
+            $insert->values(array());
 
-        $this->assertEquals('INSERT INTO `foo` () VALUES ()', $insert->getSqlString());
+            $this->assertEquals('INSERT INTO `foo` () VALUES ()', $insert->getSqlString());
+        }
     }
 }
 

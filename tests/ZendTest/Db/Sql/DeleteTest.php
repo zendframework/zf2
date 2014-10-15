@@ -220,18 +220,20 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropagateAdapterWithGetSqlStringThatAlreadyBroughtBySqlObject()
     {
-        $adapter = new Adapter(array(
-            'driver'   => 'pdo_mysql',
-            'database' => 'testdb',
-            'username' => 'test',
-            'password' => 'secret'
-        ));
+        if (extension_loaded('mysqli')) {
+            $adapter = new Adapter(array(
+                'driver'   => 'mysqli',
+                'database' => 'testdb',
+                'username' => 'test',
+                'password' => 'secret'
+            ));
 
-        $sql = new Sql($adapter);
-        $delete = $sql->delete('foo');
-        $delete->where('x = y');
+            $sql = new Sql($adapter);
+            $delete = $sql->delete('foo');
+            $delete->where('x = y');
 
-        $this->assertEquals('DELETE FROM `foo` WHERE x = y', $delete->getSqlString());
+            $this->assertEquals('DELETE FROM `foo` WHERE x = y', $delete->getSqlString());
+        }
     }
 }
 
