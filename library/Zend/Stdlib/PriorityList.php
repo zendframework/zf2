@@ -193,6 +193,9 @@ class PriorityList implements Iterator, Countable
     public function current()
     {
         $node = current($this->items);
+        if (isset($node['data']) && is_bool($node['data'])) {
+            $node['data'] = (int) $node['data'];
+        }
         return ($node !== false ? $node['data'] : false);
     }
 
