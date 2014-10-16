@@ -73,7 +73,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
             $this->table($table);
         }
 
-        if ($adapter !== null && $adapter instanceof AdapterInterface) {
+        if ($adapter instanceof AdapterInterface) {
             $this->adapter = $adapter;
         }
 
@@ -214,7 +214,7 @@ class Update extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
-        if ($adapterPlatform === null && $this->adapter !== null && $this->adapter instanceof AdapterInterface) {
+        if ($adapterPlatform === null && $this->adapter instanceof AdapterInterface) {
             $adapterPlatform = $this->adapter->getPlatform();
         } else {
             $adapterPlatform = ($adapterPlatform) ?: new Sql92;
