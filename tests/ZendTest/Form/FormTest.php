@@ -2106,4 +2106,34 @@ class FormTest extends TestCase
 
         $this->assertEquals($data, $this->form->getData());
     }
+
+    /**
+     * @group ZF2-6769
+     */
+    public function testRemoveElementShouldRemoveTheInputFilter()
+    {
+        $this->form->add(array(
+            'name' => 'importance',
+            'type'  => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Importance',
+                'empty_option' => '',
+                'value_options' => array(
+                    'normal' => 'Normal',
+                    'important' => 'Important'
+                ),
+            ),
+        ));
+
+        $inputFilter = new BaseInputFilter();
+        $factory     = new InputFilterFactory();
+        $inputFilter->add($factory->createInput(array(
+            'name'     => 'importance',
+            'required' => true,
+        )));
+        $this->form->setInputFilter($inputFilter);
+
+        $this->form->remove('importance', true);
+        $this->assertFalse($this->form->getInputFilter()->has('importance'));
+    }
 }

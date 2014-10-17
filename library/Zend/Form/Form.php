@@ -884,4 +884,21 @@ class Form extends Fieldset implements FormInterface
 
         return $values;
     }
+
+    /**
+     * Remove a named element or fieldset with optional to remove the inputFilter
+     *
+     * @param  string $elementOrFieldset
+     * @param  bool   $removeFromInputFilter
+     *
+     * @return self
+     */
+    public function remove($elementOrFieldset, $removeFromInputFilter = false)
+    {
+        if ($this->has($elementOrFieldset) && $removeFromInputFilter) {
+            $this->getInputFilter()->remove($elementOrFieldset);
+        }
+
+        parent::remove($elementOrFieldset);
+    }
 }
