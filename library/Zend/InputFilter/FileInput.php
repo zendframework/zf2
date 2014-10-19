@@ -115,16 +115,7 @@ class FileInput extends Input
         $rawValue     = $this->getRawValue();
         $empty        = $this->isEmptyFile($rawValue);
 
-
-        if ($empty && !$this->isRequired()) {
-            return true;
-        }
-
-        if ($empty && !$this->allowEmpty()) {
-            return false;
-        }
-
-        if ($empty && !$this->continueIfEmpty()) {
+        if ($empty && $this->allowEmpty()) {
             return true;
         }
 
