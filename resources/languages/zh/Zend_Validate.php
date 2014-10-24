@@ -21,6 +21,10 @@ return array(
     "The input contains non alphabetic characters" => "输入不能为字母以外的字符",
     "The input is an empty string" => "输入不能为空",
 
+    // Zend\I18n\Validator\DateTime
+    "Invalid type given. String expected" => "输入无效， 请输入一个字符串",
+    "The input does not appear to be a valid datetime" => "请输入一个有效的时间",
+
     // Zend_I18n_Validator_Float
     "Invalid type given. String, integer or float expected" => "请输入与一个整数或小数",
     "The input does not appear to be a float" => "输入无效，请输入一个小数",
@@ -29,20 +33,30 @@ return array(
     "Invalid type given. String or integer expected" => "输入无效，请输入字符或数字",
     "The input does not appear to be an integer" => "请输入一个整数",
 
+    // Zend\I18n\Validator\PhoneNumber
+    "The input does not match a phone number format" => "无效的手机号码格式",
+    "The country provided is currently unsupported" => "暂不支持该国家",
+    "Invalid type given. String expected" => "输入无效， 请输入一个字符串",
+
     // Zend_I18n_Validator_PostCode
     "Invalid type given. String or integer expected" => "输入无效，请输入一个字符或数字",
     "The input does not appear to be a postal code" => "无效的邮政编码格式",
     "An exception has been raised while validating the input" => "验证输入时有异常发生",
 
-    // Zend_Validator_Barcode
-    "The input failed checksum validation" => "输入的条码无法通过校验",
-    "The input contains invalid characters" => "输入的条码包含无效的字符",
-    "The input should have a length of %length% characters" => "输入的条码长度应为%length%个字符",
-    "Invalid type given. String expected" => "输入无效，请输入一个字符串",
+    // Zend\Validator\Barcode
+    "The input failed checksum validation" => "校验失败",
+    "The input contains invalid characters" => "输入包含无效字符串",
+    "The input should have a length of %length% characters" => "必须输入%length%个字符",
+    "Invalid type given. String expected" => "输入无效， 请输入一个字符串",
 
     // Zend_Validator_Between
     "The input is not between '%min%' and '%max%', inclusively" => "请输入大于等于'%min%'并小于等于'%max%'的值",
     "The input is not strictly between '%min%' and '%max%'" => "请输入大于'%min%'并小于'%max%'的值",
+
+    // Zend\Validator\Bitwise
+    "The input has no common bit set with '%control%'" => "没有共同的'%control%'",
+    "The input doesn't have the same bits set as '%control%'" => "The input doesn't have the same bits set as '%control%'",
+    "The input has common bit set with '%control%'" => "The input has common bit set with '%control%'",
 
     // Zend_Validator_Callback
     "The input is not valid" => "输入无效",
