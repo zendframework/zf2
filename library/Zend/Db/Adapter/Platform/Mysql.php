@@ -39,6 +39,9 @@ class Mysql implements PlatformInterface
             || ($driver instanceof \mysqli)
             || ($driver instanceof \PDO && $driver->getAttribute(\PDO::ATTR_DRIVER_NAME) == 'mysql')
         ) {
+            if ($driver instanceof DriverInterface) {
+                $driver = $driver->getConnection()->getResource();
+            }
             $this->resource = $driver;
             return $this;
         }
@@ -110,20 +113,13 @@ class Mysql implements PlatformInterface
      */
     public function quoteValue($value)
     {
-        if ($this->resource instanceof DriverInterface) {
-            $this->resource = $this->resource->getConnection()->getResource();
+        if ($this->resource === null){
+            trigger_error(
+                'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
+                    . 'can introduce security vulnerabilities in a production environment.'
+            );
         }
-        if ($this->resource instanceof \mysqli) {
-            return '\'' . $this->resource->real_escape_string($value) . '\'';
-        }
-        if ($this->resource instanceof \PDO) {
-            return $this->resource->quote($value);
-        }
-        trigger_error(
-            'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
-                . 'can introduce security vulnerabilities in a production environment.'
-        );
-        return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
+        return $this->quoteTrustedValue($value);
     }
 
     /**
@@ -136,9 +132,6 @@ class Mysql implements PlatformInterface
      */
     public function quoteTrustedValue($value)
     {
-        if ($this->resource instanceof DriverInterface) {
-            $this->resource = $this->resource->getConnection()->getResource();
-        }
         if ($this->resource instanceof \mysqli) {
             return '\'' . $this->resource->real_escape_string($value) . '\'';
         }
