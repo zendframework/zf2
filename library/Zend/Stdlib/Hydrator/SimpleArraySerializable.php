@@ -9,7 +9,7 @@
 
 namespace Zend\Stdlib\Hydrator;
 
-class ArraySimpleSerializable implements HydratorInterface
+class SimpleArraySerializable implements HydratorInterface
 {
 
     /**

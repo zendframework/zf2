@@ -16,7 +16,7 @@ use Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator;
 use Zend\Stdlib\Hydrator\Aggregate\ExtractEvent;
 use Zend\Stdlib\Hydrator\Aggregate\HydrateEvent;
 use Zend\Stdlib\Hydrator\ArraySerializable;
-use Zend\Stdlib\Hydrator\ArraySimpleSerializable;
+use Zend\Stdlib\Hydrator\SimpleArraySerializable;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 use ZendTest\Stdlib\TestAsset\AggregateObject;
@@ -95,7 +95,7 @@ class AggregateHydratorFunctionalTest extends PHPUnit_Framework_TestCase
     {
         $this->hydrator->add(new ClassMethods());
         $this->hydrator->add(new ArraySerializable());
-        $this->hydrator->add(new ArraySimpleSerializable());
+        $this->hydrator->add(new SimpleArraySerializable());
 
         $object = new AggregateObject();
 
@@ -114,7 +114,7 @@ class AggregateHydratorFunctionalTest extends PHPUnit_Framework_TestCase
     {
         $this->hydrator->add(new ClassMethods());
         $this->hydrator->add(new ArraySerializable());
-        $this->hydrator->add(new ArraySimpleSerializable());
+        $this->hydrator->add(new SimpleArraySerializable());
 
         $object = new AggregateObject();
 

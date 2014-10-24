@@ -32,7 +32,7 @@ class HydratorPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $shared = array(
-        'arraysimpleserializable' => true,
+        'simplearrayserializable' => true,
     );
 
     /**
@@ -42,7 +42,7 @@ class HydratorPluginManager extends AbstractPluginManager
      */
     protected $invokableClasses = array(
         'arrayserializable'       => 'Zend\Stdlib\Hydrator\ArraySerializable',
-        'arraysimpleserializable' => 'Zend\Stdlib\Hydrator\ArraySerializable',
+        'simplearrayserializable' => 'Zend\Stdlib\Hydrator\SimpleArraySerializable',
         'classmethods'            => 'Zend\Stdlib\Hydrator\ClassMethods',
         'objectproperty'          => 'Zend\Stdlib\Hydrator\ObjectProperty',
         'reflection'              => 'Zend\Stdlib\Hydrator\Reflection',
