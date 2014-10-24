@@ -33,7 +33,7 @@ class Text extends Column
         $spec   = $this->specification;
         $params = array();
 
-        $types    = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
+        $types    = array(self::TYPE_IDENTIFIER);
         $params[] = $this->name;
 
         $types[]  = self::TYPE_LITERAL;
