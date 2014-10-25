@@ -368,6 +368,18 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     }
 
     /**
+     * get real field name
+     *
+     * @param string $str
+     * @return string
+     */
+    private function getRealFieldName($str)
+    {
+        $fieldName = preg_replace('/([A-Z])/', '_${1}', lcfirst($str));
+        return strtolower($fieldName);
+    }
+
+    /**
      * @return bool
      */
     public function rowExistsInDatabase()
