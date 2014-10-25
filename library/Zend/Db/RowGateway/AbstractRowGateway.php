@@ -346,18 +346,18 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
      * @param string $methodName
      * @param array $argv
      * @throws \Exception
-     * @return Ambigous <\Zend\Db\RowGateway\mixed, multitype:>|void
+     * @return mixed
      */
     public function __call($methodName, $argv)
     {
-        //get data
+        //get a value field
         if (preg_match('/^get(.*)$/', $methodName, $aTmp)) {
             if (count($argv) != 0) {
                 throw new \Exception('No parameter');
             }
             return $this->__get($this->getRealFieldName($aTmp[1]));
         }
-        //set data
+        //Set a value for the field
         if (preg_match('/^set(.*)$/', $methodName, $aTmp)) {
             if (count($argv) != 1) {
                 throw new \Exception('Only parameter');
