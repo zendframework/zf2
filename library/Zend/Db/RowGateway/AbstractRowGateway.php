@@ -351,15 +351,15 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     public function __call($methodName, $argv)
     {
         //get data
-        if(preg_match('/^get(.*)$/', $methodName, $aTmp)) {
-            if(count($argv) != 0) {
+        if (preg_match('/^get(.*)$/', $methodName, $aTmp)) {
+            if (count($argv) != 0) {
                 throw new \Exception('No parameter');
             }
             return $this->__get($this->getRealFieldName($aTmp[1]));
         }
         //set data
-        if(preg_match('/^set(.*)$/', $methodName, $aTmp)) {
-            if(count($argv) != 1) {
+        if (preg_match('/^set(.*)$/', $methodName, $aTmp)) {
+            if (count($argv) != 1) {
                 throw new \Exception('Only parameter');
             }
             return $this->__set($this->getRealFieldName($aTmp[1]), $argv[0]);
