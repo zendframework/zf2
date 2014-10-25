@@ -55,8 +55,8 @@ return array(
 
     // Zend\Validator\Bitwise
     "The input has no common bit set with '%control%'" => "没有共同的'%control%'",
-    "The input doesn't have the same bits set as '%control%'" => "The input doesn't have the same bits set as '%control%'",
-    "The input has common bit set with '%control%'" => "The input has common bit set with '%control%'",
+    "The input doesn't have the same bits set as '%control%'" => "请输入相同的'%control%'",
+    "The input has common bit set with '%control%'" => "请输入共同的'%control%'",
 
     // Zend_Validator_Callback
     "The input is not valid" => "输入无效",
@@ -82,7 +82,8 @@ return array(
     // Zend_Validator_DateStep
     "Invalid type given. String, integer, array or DateTime expected" => "输入无效，请输入字符数字或日期",
     "The input does not appear to be a valid date" => "输入的日期格式无效",
-    "The input is not a valid step" => "The input is not a valid step",
+    "The input does not fit the date format '%format%'" => "输入不符合日期格式'%format%'",
+    "The input is not a valid step" => "无效的输入步骤",
 
     // Zend_Validator_Db_AbstractDb
     "No record matching the input was found" => "没有找到匹配输入的记录",
@@ -166,7 +167,7 @@ return array(
     "File '%value%' is not readable or does not exist" => "文件'%value%'无法读取或不存在",
 
     // Zend_Validator_File_NotExists
-    "File '%value%' exists" => "文件'%value%'已经存在",
+    "File exists" => "文件已经存在",
 
     // Zend_Validator_File_Sha1
     "File '%value%' does not match the given sha1 hashes" => "文件'%value%'无法通过SHA1校验",
@@ -189,6 +190,18 @@ return array(
     "File '%value%' was illegally uploaded. This could be a possible attack" => "文件'%value%'被非法上传，这可能被判定为一次入侵",
     "File '%value%' was not found" => "文件'%value%'不存在",
     "Unknown error while uploading file '%value%'" => "文件'%value%'上传时发生了一个未知错误",
+
+    // Zend\Validator\File\UploadFile
+    "File exceeds the defined ini size" => "文件大小超过ini文件限制",
+    "File exceeds the defined form size" => "文件大小超过表单限制大小",
+    "File was only partially uploaded" => "文件只上传了一部分",
+    "File was not uploaded" => "没有上传文件",
+    "No temporary directory was found for file" => "没有发现上传临时文件夹",
+    "File can't be written" => "文件无法写入",
+    "A PHP extension returned an error while uploading the file" => "上传文件时有PHP扩展返回一个错误",
+    "File was illegally uploaded. This could be a possible attack" => "非法上传文件， 这有可能是一个攻击",
+    "File was not found" => "没有找到文件",
+    "Unknown error while uploading file" => "未知文件上传错误",
 
     // Zend_Validator_File_WordCount
     "Too much words, maximum '%max%' are allowed but '%count%' were counted" => "输入的单词过多，最多允许'%max%'个单词，输入了'%count%'个",
@@ -232,6 +245,9 @@ return array(
     // Zend_Validator_Ip
     "Invalid type given. String expected" => "输入无效，请输入一个字符串",
     "The input does not appear to be a valid IP address" => "输入的IP地址格式不正确",
+
+    // Zend\Validator\IsInstanceOf
+    "The input is not an instance of '%className%'" => "不是'%className%'的一个实例",
 
     // Zend_Validator_Isbn
     "Invalid type given. String or integer expected" => "输入无效，请输入字符或整数",
