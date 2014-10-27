@@ -32,7 +32,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
         
         $column->setDefault('default');
         $this->assertEquals(
-            array(array('%s TEXT %s %s', array('foo', 'NOT NULL', 'default'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL, $column::TYPE_VALUE))),
+            array(array('%s TEXT %s %s', array('foo', '', 'default'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL, $column::TYPE_VALUE))),
             $column->getExpressionData()
         );
     }
