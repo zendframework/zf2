@@ -26,7 +26,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
         
         $column->setNullable(true);
         $this->assertEquals(
-            array(array('%s TEXT %s %s', array('foo', '', ''), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL, , $column::TYPE_LITERAL))),
+            array(array('%s TEXT %s %s', array('foo', '', ''), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL, $column::TYPE_LITERAL))),
             $column->getExpressionData()
         );
         
