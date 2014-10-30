@@ -118,17 +118,16 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         };
         $attributes = array();
         $methods = get_class_methods($object);
+        $className = get_class($object);
 
         foreach ($methods as $method) {
-            if (
-                !$filter->filter(
-                    get_class($object) . '::' . $method
-                )
-            ) {
+            $fullMethodName = $className . '::' . $method;
+
+            if (!$filter->filter($fullMethodName)) {
                 continue;
             }
 
-            $reflectionMethod = new ReflectionMethod(get_class($object) . '::' . $method);
+            $reflectionMethod = new ReflectionMethod($fullMethodName);
             if ($reflectionMethod->getNumberOfParameters() > 0) {
                 continue;
             }
