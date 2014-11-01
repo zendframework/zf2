@@ -485,7 +485,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      */
     public function hasChildren()
     {
-        return $this->current()->hasPages();
+        return ($this->valid() && $this->current()->hasPages());
     }
 
     /**
