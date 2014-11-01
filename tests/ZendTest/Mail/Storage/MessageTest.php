@@ -436,5 +436,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $raw = file_get_contents($this->_file);
         $raw = "From foo@example.com  Sun Jan 01 00:00:00 2000\n" . $raw;
         $message = new Message(array('raw' => $raw, 'strict' => false));
+        $this->assertGreaterThan(0, $message->getHeaders()->count());
     }
 }
