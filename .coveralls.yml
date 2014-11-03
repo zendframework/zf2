@@ -1,1 +1,2 @@
 src_dir: library
+coverage_clover: build/logs/clover.xml
