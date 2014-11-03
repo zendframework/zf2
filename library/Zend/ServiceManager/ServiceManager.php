@@ -536,7 +536,7 @@ class ServiceManager implements ServiceLocatorInterface
                 ));
             }
 
-            $alternatives = [];
+            $alternatives = array();
             foreach ($this->canonicalNamesMapping as $full) {
                 $lev = levenshtein($name, $full);
                 if ($lev <= min(ceil(strlen($name) / 10), 3)) {
