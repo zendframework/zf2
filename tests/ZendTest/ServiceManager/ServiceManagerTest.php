@@ -1084,14 +1084,14 @@ class ServiceManagerTest extends TestCase
         $serviceManager->setFactory('Bar\Foo\Bar', 'ZendTest\ServiceManager\TestAsset\FooFactory');
         $serviceManager->setService('Bar\Foo\Foo', 'ZendTest\ServiceManager\TestAsset\FooFactory');
 
-        $expected = [
-            ['Bar\Foo\Baz' => 'Did you mean this: "Bar\Foo\Bar"?'],
-            ['Bar\Foo\baz' => 'Did you mean this: "Bar\Foo\Bar"?'],
-            ['Bar\Foo' => null],
-            ['Bar\Foo\Pip' => null],
-            ['Bar\Foo\foz' => 'Did you mean this: "Bar\Foo\Foo"?'],
-            ['Bar\Foo\Foz' => 'Did you mean one of these: "Bar\Foo\FooB", "Bar\Foo\Foo"?'],
-        ];
+        $expected = array(
+            array('Bar\Foo\Baz' => 'Did you mean this: "Bar\Foo\Bar"?'),
+            array('Bar\Foo\baz' => 'Did you mean this: "Bar\Foo\Bar"?'),
+            array('Bar\Foo' => null),
+            array('Bar\Foo\Pip' => null),
+            array('Bar\Foo\foz' => 'Did you mean this: "Bar\Foo\Foo"?'),
+            array('Bar\Foo\Foz' => 'Did you mean one of these: "Bar\Foo\FooB", "Bar\Foo\Foo"?'),
+        );
 
         foreach ($expected as $line) {
             foreach ($line as $name => $message) {
