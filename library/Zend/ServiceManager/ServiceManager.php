@@ -29,6 +29,13 @@ class ServiceManager implements ServiceLocatorInterface
     protected $canonicalNames = array();
 
     /**
+     * Lookup for canonicalized names.
+     *
+     * @var array
+     */
+    protected $canonicalNamesMapping = array();
+
+    /**
      * @var bool
      */
     protected $allowOverride = false;
@@ -253,6 +260,7 @@ class ServiceManager implements ServiceLocatorInterface
 
         $this->invokableClasses[$cName] = $invokableClass;
         $this->shared[$cName]           = (bool) $shared;
+        $this->canonicalNamesMapping[$cName] = $name;
 
         return $this;
     }
@@ -293,6 +301,7 @@ class ServiceManager implements ServiceLocatorInterface
 
         $this->factories[$cName] = $factory;
         $this->shared[$cName]    = (bool) $shared;
+        $this->canonicalNamesMapping[$cName] = $name;
 
         return $this;
     }
@@ -399,6 +408,7 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         $this->instances[$cName] = $service;
+        $this->canonicalNamesMapping[$cName] = $name;
 
         return $this;
     }
@@ -526,11 +536,29 @@ class ServiceManager implements ServiceLocatorInterface
                 ));
             }
 
-            throw new Exception\ServiceNotFoundException(sprintf(
+            $alternatives = [];
+            foreach ($this->canonicalNamesMapping as $full) {
+                $lev = levenshtein($name, $full);
+                if ($lev <= min(ceil(strlen($name) / 10), 3)) {
+                    $alternatives[] = $full;
+                }
+            }
+
+            $msg = sprintf(
                 '%s was unable to fetch or create an instance for %s',
-                get_class($this) . '::' . __FUNCTION__,
+                get_class($this).'::'.__FUNCTION__,
                 $name
-            ));
+            );
+            if ($alternatives) {
+                if (1 == count($alternatives)) {
+                    $msg .= '. Did you mean this: "';
+                } else {
+                    $msg .= '. Did you mean one of these: "';
+                }
+                $msg .= implode('", "', $alternatives).'"?';
+            }
+
+            throw new Exception\ServiceNotFoundException($msg);
         }
 
         if (
