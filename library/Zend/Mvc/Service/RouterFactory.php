@@ -10,6 +10,8 @@
 namespace Zend\Mvc\Service;
 
 use Zend\Console\Console;
+use Zend\Mvc\Router\Console\SimpleRouteStack;
+use Zend\Mvc\Router\Http\TreeRouteStack;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -33,7 +35,9 @@ class RouterFactory implements FactoryInterface
 
         // Defaults
         $routerClass        = 'Zend\Mvc\Router\Http\TreeRouteStack';
-        $routerConfig       = isset($config['router']) ? $config['router'] : array();
+        $routerConfig       = isset($config[TreeRouteStack::CONFIGURATION])
+            ? $config[TreeRouteStack::CONFIGURATION]
+            : array();
 
         // Console environment?
         if ($rName === 'ConsoleRouter'                       // force console router
@@ -41,7 +45,9 @@ class RouterFactory implements FactoryInterface
         ) {
             // We are in a console, use console router defaults.
             $routerClass = 'Zend\Mvc\Router\Console\SimpleRouteStack';
-            $routerConfig = isset($config['console']['router']) ? $config['console']['router'] : array();
+            $routerConfig = isset($config['console'][SimpleRouteStack::CONFIGURATION])
+                ? $config['console']['router']
+                : array();
         }
 
         // Obtain the configured router class, if any

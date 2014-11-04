@@ -23,6 +23,11 @@ use Zend\Uri\Http as HttpUri;
 class TreeRouteStack extends SimpleRouteStack
 {
     /**
+     * Configuration key for TreeRouteStack
+     */
+    const CONFIGURATION = 'router';
+
+    /**
      * Base URL.
      *
      * @var string

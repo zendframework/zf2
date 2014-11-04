@@ -18,6 +18,11 @@ use Zend\Db\ResultSet;
 class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
 {
     /**
+     * Configuration key for Adapter
+     */
+    const CONFIGURATION = 'db';
+
+    /**
      * Query Mode Constants
      */
     const QUERY_MODE_EXECUTE = 'execute';

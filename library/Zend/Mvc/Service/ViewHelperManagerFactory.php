@@ -12,6 +12,7 @@ namespace Zend\Mvc\Service;
 use Zend\Console\Console;
 use Zend\Mvc\Exception;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\View\Http\ViewManager;
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper as ViewHelper;
@@ -80,8 +81,8 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
         $plugins->setFactory('basepath', function () use ($serviceLocator) {
             $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
             $basePathHelper = new ViewHelper\BasePath;
-            if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
-                $basePathHelper->setBasePath($config['view_manager']['base_path']);
+            if (isset($config[ViewManager::CONFIGURATION]) && isset($config[ViewManager::CONFIGURATION]['base_path'])) {
+                $basePathHelper->setBasePath($config[ViewManager::CONFIGURATION]['base_path']);
             } else {
                 $request = $serviceLocator->get('Request');
                 if (is_callable(array($request, 'getBasePath'))) {
@@ -100,7 +101,7 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
          */
         $plugins->setFactory('doctype', function () use ($serviceLocator) {
             $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
-            $config = isset($config['view_manager']) ? $config['view_manager'] : array();
+            $config = isset($config[ViewManager::CONFIGURATION]) ? $config[ViewManager::CONFIGURATION] : array();
             $doctypeHelper = new ViewHelper\Doctype;
             if (isset($config['doctype']) && $config['doctype']) {
                 $doctypeHelper->setDoctype($config['doctype']);

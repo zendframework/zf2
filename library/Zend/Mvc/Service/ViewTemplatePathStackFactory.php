@@ -9,6 +9,7 @@
 
 namespace Zend\Mvc\Service;
 
+use Zend\Mvc\View\Http\ViewManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Resolver as ViewResolver;
@@ -31,8 +32,8 @@ class ViewTemplatePathStackFactory implements FactoryInterface
 
         $templatePathStack = new ViewResolver\TemplatePathStack();
 
-        if (is_array($config) && isset($config['view_manager'])) {
-            $config = $config['view_manager'];
+        if (is_array($config) && isset($config[ViewManager::CONFIGURATION])) {
+            $config = $config[ViewManager::CONFIGURATION];
             if (is_array($config)) {
                 if (isset($config['template_path_stack'])) {
                     $templatePathStack->addPaths($config['template_path_stack']);
