@@ -14,6 +14,11 @@ use Zend\ServiceManager\AbstractPluginManager;
 class ProcessorPluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for ProcessorPluginManager
+     */
+    const CONFIGURATION = 'log_processors';
+
+    /**
      * Default set of processors
      *
      * @var array

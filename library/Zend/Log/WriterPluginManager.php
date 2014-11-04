@@ -14,6 +14,11 @@ use Zend\ServiceManager\AbstractPluginManager;
 class WriterPluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for WriterPluginManager
+     */
+    const CONFIGURATION = 'log_writers';
+
+    /**
      * Default set of writers
      *
      * @var array

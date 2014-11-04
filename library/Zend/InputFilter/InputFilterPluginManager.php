@@ -22,6 +22,11 @@ use Zend\Stdlib\InitializableInterface;
 class InputFilterPluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for InputFilterPluginManager
+     */
+    const CONFIGURATION = 'input_filters';
+
+    /**
      * Default set of plugins
      *
      * @var array

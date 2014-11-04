@@ -21,6 +21,11 @@ use Zend\ServiceManager\AbstractPluginManager;
 class FilterPluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for FilterPluginManager
+     */
+    const CONFIGURATION = 'filters';
+
+    /**
      * Default set of filters
      *
      * @var array

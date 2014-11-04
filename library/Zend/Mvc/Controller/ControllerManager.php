@@ -26,6 +26,11 @@ use Zend\Stdlib\DispatchableInterface;
 class ControllerManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for ControllerManager
+     */
+    const CONFIGURATION = 'controllers';
+
+    /**
      * We do not want arbitrary classes instantiated as controllers.
      *
      * @var bool

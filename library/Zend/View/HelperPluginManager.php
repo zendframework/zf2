@@ -23,6 +23,11 @@ use Zend\ServiceManager\ConfigInterface;
 class HelperPluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for HelperPluginManager
+     */
+    const CONFIGURATION = 'view_helpers';
+
+    /**
      * Default set of helpers factories
      *
      * @var array

@@ -15,6 +15,11 @@ use Zend\ServiceManager\ConfigInterface;
 class ValidatorPluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for ValidatorPluginManager
+     */
+    const CONFIGURATION = 'validators';
+
+    /**
      * Default set of validators
      *
      * @var array

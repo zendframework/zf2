@@ -13,6 +13,10 @@ use ReflectionClass;
 
 class ServiceManager implements ServiceLocatorInterface
 {
+    /**
+     * Configuration key for ServiceManager
+     */
+    const CONFIGURATION = 'service_manager';
 
     /**@#+
      * Constants
