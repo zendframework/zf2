@@ -23,7 +23,7 @@ class FilterPluginManager extends AbstractPluginManager
     /**
      * Configuration key for FilterPluginManager
      */
-    const CONFIGURATION = 'filters';
+    const CONFIG = 'filters';
 
     /**
      * Default set of filters

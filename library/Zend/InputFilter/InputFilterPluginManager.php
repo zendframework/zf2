@@ -24,7 +24,7 @@ class InputFilterPluginManager extends AbstractPluginManager
     /**
      * Configuration key for InputFilterPluginManager
      */
-    const CONFIGURATION = 'input_filters';
+    const CONFIG = 'input_filters';
 
     /**
      * Default set of plugins

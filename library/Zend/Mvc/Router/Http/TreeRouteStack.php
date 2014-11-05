@@ -25,7 +25,7 @@ class TreeRouteStack extends SimpleRouteStack
     /**
      * Configuration key for TreeRouteStack
      */
-    const CONFIGURATION = 'router';
+    const CONFIG = 'router';
 
     /**
      * Base URL.

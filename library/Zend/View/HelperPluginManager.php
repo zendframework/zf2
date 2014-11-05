@@ -25,7 +25,7 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Configuration key for HelperPluginManager
      */
-    const CONFIGURATION = 'view_helpers';
+    const CONFIG = 'view_helpers';
 
     /**
      * Default set of helpers factories

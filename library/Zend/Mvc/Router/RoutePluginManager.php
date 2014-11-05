@@ -24,7 +24,7 @@ class RoutePluginManager extends AbstractPluginManager
     /**
      * Configuration key for RoutePluginManager
      */
-    const CONFIGURATION = 'route_manager';
+    const CONFIG = 'route_manager';
 
     /**
      * Do not share instances.

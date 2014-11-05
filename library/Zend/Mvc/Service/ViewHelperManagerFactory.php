@@ -81,8 +81,8 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
         $plugins->setFactory('basepath', function () use ($serviceLocator) {
             $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
             $basePathHelper = new ViewHelper\BasePath;
-            if (isset($config[ViewManager::CONFIGURATION]) && isset($config[ViewManager::CONFIGURATION]['base_path'])) {
-                $basePathHelper->setBasePath($config[ViewManager::CONFIGURATION]['base_path']);
+            if (isset($config[ViewManager::CONFIG]) && isset($config[ViewManager::CONFIG]['base_path'])) {
+                $basePathHelper->setBasePath($config[ViewManager::CONFIG]['base_path']);
             } else {
                 $request = $serviceLocator->get('Request');
                 if (is_callable(array($request, 'getBasePath'))) {
@@ -101,7 +101,7 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
          */
         $plugins->setFactory('doctype', function () use ($serviceLocator) {
             $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
-            $config = isset($config[ViewManager::CONFIGURATION]) ? $config[ViewManager::CONFIGURATION] : array();
+            $config = isset($config[ViewManager::CONFIG]) ? $config[ViewManager::CONFIG] : array();
             $doctypeHelper = new ViewHelper\Doctype;
             if (isset($config['doctype']) && $config['doctype']) {
                 $doctypeHelper->setDoctype($config['doctype']);

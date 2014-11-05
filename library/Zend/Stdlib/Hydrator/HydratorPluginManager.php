@@ -22,7 +22,7 @@ class HydratorPluginManager extends AbstractPluginManager
     /**
      * Configuration key for HydratorPluginManager
      */
-    const CONFIGURATION = 'hydrators';
+    const CONFIG = 'hydrators';
 
     /**
      * Whether or not to share by default

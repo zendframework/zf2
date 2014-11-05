@@ -22,7 +22,7 @@ class SimpleRouteStack extends BaseSimpleRouteStack
     /**
      * Configuration key for SimpleRouteStack
      */
-    const CONFIGURATION = 'router';
+    const CONFIG = 'router';
 
     /**
      * init(): defined by SimpleRouteStack.

@@ -28,7 +28,7 @@ class ControllerManager extends AbstractPluginManager
     /**
      * Configuration key for ControllerManager
      */
-    const CONFIGURATION = 'controllers';
+    const CONFIG = 'controllers';
 
     /**
      * We do not want arbitrary classes instantiated as controllers.

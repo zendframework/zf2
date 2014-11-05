@@ -17,7 +17,7 @@ class ValidatorPluginManager extends AbstractPluginManager
     /**
      * Configuration key for ValidatorPluginManager
      */
-    const CONFIGURATION = 'validators';
+    const CONFIG = 'validators';
 
     /**
      * Default set of validators

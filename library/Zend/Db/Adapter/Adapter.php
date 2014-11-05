@@ -20,7 +20,7 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
     /**
      * Configuration key for Adapter
      */
-    const CONFIGURATION = 'db';
+    const CONFIG = 'db';
 
     /**
      * Query Mode Constants

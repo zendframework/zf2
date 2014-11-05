@@ -78,14 +78,14 @@ class AdapterAbstractServiceFactory implements AbstractFactoryInterface
         }
 
         $config = $services->get('Config');
-        if (!isset($config[Adapter::CONFIGURATION])
-            || !is_array($config[Adapter::CONFIGURATION])
+        if (!isset($config[Adapter::CONFIG])
+            || !is_array($config[Adapter::CONFIG])
         ) {
             $this->config = array();
             return $this->config;
         }
 
-        $config = $config[Adapter::CONFIGURATION];
+        $config = $config[Adapter::CONFIG];
         if (!isset($config['adapters'])
             || !is_array($config['adapters'])
         ) {

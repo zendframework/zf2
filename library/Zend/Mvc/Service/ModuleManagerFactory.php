@@ -58,79 +58,79 @@ class ModuleManagerFactory implements FactoryInterface
 
         $serviceListener->addServiceManager(
             $serviceLocator,
-            ServiceManager::CONFIGURATION,
+            ServiceManager::CONFIG,
             'Zend\ModuleManager\Feature\ServiceProviderInterface',
             'getServiceConfig'
         );
         $serviceListener->addServiceManager(
             'ControllerLoader',
-            ControllerManager::CONFIGURATION,
+            ControllerManager::CONFIG,
             'Zend\ModuleManager\Feature\ControllerProviderInterface',
             'getControllerConfig'
         );
         $serviceListener->addServiceManager(
             'ControllerPluginManager',
-            PluginManager::CONFIGURATION,
+            PluginManager::CONFIG,
             'Zend\ModuleManager\Feature\ControllerPluginProviderInterface',
             'getControllerPluginConfig'
         );
         $serviceListener->addServiceManager(
             'ViewHelperManager',
-            HelperPluginManager::CONFIGURATION,
+            HelperPluginManager::CONFIG,
             'Zend\ModuleManager\Feature\ViewHelperProviderInterface',
             'getViewHelperConfig'
         );
         $serviceListener->addServiceManager(
             'ValidatorManager',
-            ValidatorPluginManager::CONFIGURATION,
+            ValidatorPluginManager::CONFIG,
             'Zend\ModuleManager\Feature\ValidatorProviderInterface',
             'getValidatorConfig'
         );
         $serviceListener->addServiceManager(
             'FilterManager',
-            FilterPluginManager::CONFIGURATION,
+            FilterPluginManager::CONFIG,
             'Zend\ModuleManager\Feature\FilterProviderInterface',
             'getFilterConfig'
         );
         $serviceListener->addServiceManager(
             'FormElementManager',
-            FormElementManager::CONFIGURATION,
+            FormElementManager::CONFIG,
             'Zend\ModuleManager\Feature\FormElementProviderInterface',
             'getFormElementConfig'
         );
         $serviceListener->addServiceManager(
             'RoutePluginManager',
-            RoutePluginManager::CONFIGURATION,
+            RoutePluginManager::CONFIG,
             'Zend\ModuleManager\Feature\RouteProviderInterface',
             'getRouteConfig'
         );
         $serviceListener->addServiceManager(
             'SerializerAdapterManager',
-            AdapterPluginManager::CONFIGURATION,
+            AdapterPluginManager::CONFIG,
             'Zend\ModuleManager\Feature\SerializerProviderInterface',
             'getSerializerConfig'
         );
         $serviceListener->addServiceManager(
             'HydratorManager',
-            HydratorPluginManager::CONFIGURATION,
+            HydratorPluginManager::CONFIG,
             'Zend\ModuleManager\Feature\HydratorProviderInterface',
             'getHydratorConfig'
         );
         $serviceListener->addServiceManager(
             'InputFilterManager',
-            InputFilterPluginManager::CONFIGURATION,
+            InputFilterPluginManager::CONFIG,
             'Zend\ModuleManager\Feature\InputFilterProviderInterface',
             'getInputFilterConfig'
         );
         $serviceListener->addServiceManager(
             'LogProcessorManager',
-            ProcessorPluginManager::CONFIGURATION,
+            ProcessorPluginManager::CONFIG,
             'Zend\ModuleManager\Feature\LogProcessorProviderInterface',
             'getLogProcessorConfig'
         );
         $serviceListener->addServiceManager(
             'LogWriterManager',
-            WriterPluginManager::CONFIGURATION,
+            WriterPluginManager::CONFIG,
             'Zend\ModuleManager\Feature\LogWriterProviderInterface',
             'getLogWriterConfig'
         );

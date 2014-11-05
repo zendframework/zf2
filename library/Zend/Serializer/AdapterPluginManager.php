@@ -23,7 +23,7 @@ class AdapterPluginManager extends AbstractPluginManager
     /**
      * Configuration key for AdapterPluginManager
      */
-    const CONFIGURATION = 'serializers';
+    const CONFIG = 'serializers';
 
     /**
      * Default set of adapters

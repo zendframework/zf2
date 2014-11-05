@@ -16,7 +16,7 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * Configuration key for ServiceManager
      */
-    const CONFIGURATION = 'service_manager';
+    const CONFIG = 'service_manager';
 
     /**@#+
      * Constants

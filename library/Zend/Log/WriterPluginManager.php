@@ -16,7 +16,7 @@ class WriterPluginManager extends AbstractPluginManager
     /**
      * Configuration key for WriterPluginManager
      */
-    const CONFIGURATION = 'log_writers';
+    const CONFIG = 'log_writers';
 
     /**
      * Default set of writers

@@ -29,8 +29,8 @@ class ViewTemplateMapResolverFactory implements FactoryInterface
     {
         $config = $serviceLocator->get('Config');
         $map = array();
-        if (is_array($config) && isset($config[ViewManager::CONFIGURATION])) {
-            $config = $config[ViewManager::CONFIGURATION];
+        if (is_array($config) && isset($config[ViewManager::CONFIG])) {
+            $config = $config[ViewManager::CONFIG];
             if (is_array($config) && isset($config['template_map'])) {
                 $map = $config['template_map'];
             }

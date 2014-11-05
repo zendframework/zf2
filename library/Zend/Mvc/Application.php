@@ -246,7 +246,7 @@ class Application implements
      */
     public static function init($configuration = array())
     {
-        $smConfig = isset($configuration[ServiceManager::CONFIGURATION]) ? $configuration[ServiceManager::CONFIGURATION] : array();
+        $smConfig = isset($configuration[ServiceManager::CONFIG]) ? $configuration[ServiceManager::CONFIG] : array();
         $serviceManager = new ServiceManager(new Service\ServiceManagerConfig($smConfig));
         $serviceManager->setService('ApplicationConfig', $configuration);
         $serviceManager->get('ModuleManager')->loadModules();

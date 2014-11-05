@@ -24,7 +24,7 @@ class PluginManager extends AbstractPluginManager
     /**
      * Configuration key for PluginManager
      */
-    const CONFIGURATION = 'controller_plugins';
+    const CONFIG = 'controller_plugins';
 
     /**
      * Default set of plugins factories

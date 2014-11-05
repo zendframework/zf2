@@ -21,7 +21,7 @@ class ViewManager extends BaseViewManager
     /**
      * Configuration key for ViewManager
      */
-    const CONFIGURATION = 'view_manager';
+    const CONFIG = 'view_manager';
 
     /**
      * Prepares the view layer
@@ -41,8 +41,8 @@ class ViewManager extends BaseViewManager
         $events       = $application->getEventManager();
         $sharedEvents = $events->getSharedManager();
 
-        $this->config   = isset($config[self::CONFIGURATION]) && (is_array($config[self::CONFIGURATION]) || $config[self::CONFIGURATION] instanceof ArrayAccess)
-                        ? $config[self::CONFIGURATION]
+        $this->config   = isset($config[self::CONFIG]) && (is_array($config[self::CONFIG]) || $config[self::CONFIG] instanceof ArrayAccess)
+                        ? $config[self::CONFIG]
                         : array();
         $this->services = $services;
         $this->event    = $event;

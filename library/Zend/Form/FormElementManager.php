@@ -25,7 +25,7 @@ class FormElementManager extends AbstractPluginManager
     /**
      * Configuration key for FormElementManager
      */
-    const CONFIGURATION = 'form_elements';
+    const CONFIG = 'form_elements';
 
     /**
      * Default set of helpers

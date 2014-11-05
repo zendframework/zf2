@@ -35,8 +35,8 @@ class RouterFactory implements FactoryInterface
 
         // Defaults
         $routerClass        = 'Zend\Mvc\Router\Http\TreeRouteStack';
-        $routerConfig       = isset($config[TreeRouteStack::CONFIGURATION])
-            ? $config[TreeRouteStack::CONFIGURATION]
+        $routerConfig       = isset($config[TreeRouteStack::CONFIG])
+            ? $config[TreeRouteStack::CONFIG]
             : array();
 
         // Console environment?
@@ -45,7 +45,7 @@ class RouterFactory implements FactoryInterface
         ) {
             // We are in a console, use console router defaults.
             $routerClass = 'Zend\Mvc\Router\Console\SimpleRouteStack';
-            $routerConfig = isset($config['console'][SimpleRouteStack::CONFIGURATION])
+            $routerConfig = isset($config['console'][SimpleRouteStack::CONFIG])
                 ? $config['console']['router']
                 : array();
         }

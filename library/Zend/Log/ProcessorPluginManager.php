@@ -16,7 +16,7 @@ class ProcessorPluginManager extends AbstractPluginManager
     /**
      * Configuration key for ProcessorPluginManager
      */
-    const CONFIGURATION = 'log_processors';
+    const CONFIG = 'log_processors';
 
     /**
      * Default set of processors
