@@ -118,6 +118,11 @@ class ServiceManager implements ServiceLocatorInterface
     protected $canonicalNamesReplacements = array('-' => '', '_' => '', ' ' => '', '\\' => '', '/' => '');
 
     /**
+     * @var SynchronizerInterface
+     */
+    protected $synchronizer;
+
+    /**
      * Constructor
      *
      * @param ConfigInterface $config
@@ -127,6 +132,26 @@ class ServiceManager implements ServiceLocatorInterface
         if ($config) {
             $config->configureServiceManager($this);
         }
+    }
+
+    /**
+     * @param SynchronizerInterface $synchronizer
+     */
+    public function setSynchronizer(SynchronizerInterface $synchronizer)
+    {
+        $this->synchronizer = $synchronizer;
+    }
+
+    /**
+     * @return SynchronizerInterface
+     */
+    public function getSynchronizer()
+    {
+        if (null === $this->synchronizer) {
+            $this->setSynchronizer(new ServiceLocatorSynchronizer());
+        }
+        
+        return $this->synchronizer;
     }
 
     /**
@@ -399,6 +424,9 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         $this->instances[$cName] = $service;
+
+        $synchronizer = $this->getSynchronizer();
+        $synchronizer->synchronize($cName)->notify();
 
         return $this;
     }
@@ -1030,6 +1058,10 @@ class ServiceManager implements ServiceLocatorInterface
         }
         if ($factory instanceof FactoryInterface) {
             $instance = $this->createServiceViaCallback(array($factory, 'createService'), $canonicalName, $requestedName);
+            if ($instance !== null && $factory instanceof SynchronizedFactoryInterface) {
+                $synchronizer = $this->getSynchronizer();
+                $synchronizer->attach($factory);
+            }
         } elseif (is_callable($factory)) {
             $instance = $this->createServiceViaCallback($factory, $canonicalName, $requestedName);
         } else {
@@ -1063,6 +1095,12 @@ class ServiceManager implements ServiceLocatorInterface
                     $requestedName
                 );
                 unset($this->pendingAbstractFactoryRequests[$pendingKey]);
+
+                if ($instance !== null && $abstractFactory instanceof SynchronizedFactoryInterface) {
+                    $synchronizer = $this->getSynchronizer();
+                    $synchronizer->attach($abstractFactory);
+                }
+
                 return $instance;
             } catch (\Exception $e) {
                 unset($this->pendingAbstractFactoryRequests[$pendingKey]);
