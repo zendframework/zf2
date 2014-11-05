@@ -14,7 +14,7 @@ interface SynchronizedFactoryInterface extends \SplObserver
     /**
      * Return a list of services that will be synchronized to the factory
      *
-     * @return array
+     * @return array|string
      */
-    public function getServices();
+    public function getSynchronizedServices();
 }

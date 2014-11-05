@@ -26,17 +26,14 @@ class MultipleSynchronizedFactory implements FactoryInterface, SynchronizedFacto
     /**
      * @param SplSubject|SynchronizerInterface $subject
      */
-    public function update(SplSubject $subject)
-    {
-        
-    }
+    public function update(SplSubject $subject) {}
 
     /**
      * Return a list of services that will be synchronized to the factory
      *
      * @return array
      */
-    public function getServices()
+    public function getSynchronizedServices()
     {
         return array('foo', 'bar');
     }

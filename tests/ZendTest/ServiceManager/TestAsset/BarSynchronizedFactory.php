@@ -45,7 +45,7 @@ class BarSynchronizedFactory implements FactoryInterface, SynchronizedFactoryInt
      *
      * @return array
      */
-    public function getServices()
+    public function getSynchronizedServices()
     {
         return 'foo';
     }

@@ -30,7 +30,7 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
      */
     public function attach(\SplObserver $observer)
     {
-        $services = $observer->getServices();
+        $services = $observer->getSynchronizedServices();
         if (!is_array($services)) {
             $services = array($services);
         }
@@ -47,7 +47,7 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
      */
     public function detach(\SplObserver $observer)
     {
-        $services = $observer->getServices();
+        $services = $observer->getSynchronizedServices();
         if (!is_array($services)) {
             $services = array($services);
         }
@@ -56,7 +56,7 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
                 continue;
             }
 
-            $list = [];
+            $list = array();
             $factories = $this->synchronizedServices[$service];
             foreach ($factories as $factory) {
                 if ($observer === $factory) {
