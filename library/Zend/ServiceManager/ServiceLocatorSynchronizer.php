@@ -16,7 +16,7 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
      *
      * @var string
      */
-    protected $toSynchronize;
+    protected $toSynchronize = array();
     
     /**
      * List of services that should be synchronized when a service is updated
@@ -32,11 +32,14 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
     public function attach(\SplObserver $observer)
     {
         $services = $observer->getServices();
+        if (!is_array($services)) {
+            $services = array($services);
+        }
         foreach ($services as $service) {
-            if (empty($synchronizedServices[$service])) {
-                $synchronizedServices[$service] = array();
+            if (empty($this->synchronizedServices[$service])) {
+                $this->synchronizedServices[$service] = array();
             }
-            $synchronizedServices[$service][] = $observer;
+            $this->synchronizedServices[$service][] = $observer;
         }
     }
 
@@ -46,29 +49,32 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
     public function detach(\SplObserver $observer)
     {
         $services = $observer->getServices();
+        if (!is_array($services)) {
+            $services = array($services);
+        }
         foreach ($services as $service) {
-            if (empty($synchronizedServices[$service])) {
+            if (empty($this->synchronizedServices[$service])) {
                 continue;
             }
-            
+
             $list = [];
-            $factories = $synchronizedServices[$service];
+            $factories = $this->synchronizedServices[$service];
             foreach ($factories as $factory) {
                 if ($observer === $factory) {
                     continue;
                 }
                 $list[] = $factory;
             }
-            $synchronizedServices[$service] = $list;
+            $this->synchronizedServices[$service] = $list;
         }
     }
 
     /**
      * {@inheritDoc]
      */
-    public function synchronize($service)
+    public function synchronize($name, $service)
     {
-        $this->toSynchronize = $service;
+        $this->toSynchronize = array($name, $service);
         
         return $this;
     }
@@ -78,7 +84,12 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
      */
     public function toSynchronize()
     {
-        return $this->toSynchronize;
+        if (!$this->toSynchronize) {
+            return null;
+        }
+        
+        list($name, $service) = $this->toSynchronize;
+        return $service;
     }
 
     /**
@@ -86,14 +97,23 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
      */
     public function notify()
     {
-        if (!empty($this->synchronizedServices[$this->toSynchronize])) {
+        list($name, $service) = $this->toSynchronize;
+        if (!empty($this->synchronizedServices[$name])) {
             /** @var \SplObserver[] $factories */
-            $factories = $this->synchronizedServices[$this->toSynchronize];
+            $factories = $this->synchronizedServices[$name];
             foreach ($factories as $factory) {
                 $factory->update($this);
             }
         }        
         
         $this->toSynchronize = array();
+    }
+
+    /**
+     * @return array
+     */
+    public function getSynchronizedServices()
+    {
+        return $this->synchronizedServices;
     }
 }

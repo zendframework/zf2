@@ -11,10 +11,14 @@ namespace ZendTest\ServiceManager\TestAsset;
 
 class Bar
 {
+    public $foo;
+    
     public function __construct(array $foo = null)
     {
         if (null === $foo) {
             throw new \RuntimeException();
         }
+        
+        $this->foo = $foo;
     }
 }

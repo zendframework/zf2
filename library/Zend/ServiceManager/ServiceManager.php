@@ -426,7 +426,7 @@ class ServiceManager implements ServiceLocatorInterface
         $this->instances[$cName] = $service;
 
         $synchronizer = $this->getSynchronizer();
-        $synchronizer->synchronize($cName)->notify();
+        $synchronizer->synchronize($cName, $service)->notify();
 
         return $this;
     }
