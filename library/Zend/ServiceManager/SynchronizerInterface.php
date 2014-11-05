@@ -13,7 +13,7 @@ interface SynchronizerInterface extends \SplSubject
 {
     /**
      * Set a service to synchronize
-     * 
+     *
      * @param $name
      * @param $service
      * @return self

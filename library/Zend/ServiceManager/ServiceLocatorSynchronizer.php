@@ -17,14 +17,13 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
      * @var string
      */
     protected $toSynchronize = array();
-    
+
     /**
      * List of services that should be synchronized when a service is updated
      *
      * @var array
      */
     protected $synchronizedServices = array();
-
 
     /**
      * @param SynchronizedFactoryInterface|\SplObserver $observer
@@ -75,7 +74,7 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
     public function synchronize($name, $service)
     {
         $this->toSynchronize = array($name, $service);
-        
+
         return $this;
     }
 
@@ -87,8 +86,9 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
         if (!$this->toSynchronize) {
             return null;
         }
-        
+
         list($name, $service) = $this->toSynchronize;
+
         return $service;
     }
 
@@ -104,8 +104,8 @@ class ServiceLocatorSynchronizer implements SynchronizerInterface
             foreach ($factories as $factory) {
                 $factory->update($this);
             }
-        }        
-        
+        }
+
         $this->toSynchronize = array();
     }
 

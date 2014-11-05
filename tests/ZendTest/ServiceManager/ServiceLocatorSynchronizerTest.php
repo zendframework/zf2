@@ -29,7 +29,7 @@ class ServiceLocatorSynchronizerTest extends TestCase
     {
         $synchronizer = new ServiceLocatorSynchronizer();
         $this->assertNull($synchronizer->toSynchronize());
-        
+
         $synchronizer->synchronize('foo', $obj = new \StdClass());
         $this->assertEquals($obj, $synchronizer->toSynchronize());
     }
@@ -42,7 +42,7 @@ class ServiceLocatorSynchronizerTest extends TestCase
         $synchronizer = new ServiceLocatorSynchronizer();
         $synchronizer->attach($barFactory = new BarSynchronizedFactory());
         $synchronizer->attach($multipleFactory = new MultipleSynchronizedFactory());
-        
+
         $services = $synchronizer->getSynchronizedServices();
         $this->assertEquals(array(
             'foo' => array($barFactory, $multipleFactory),

@@ -9,12 +9,11 @@
 
 namespace Zend\ServiceManager;
 
-
 interface SynchronizedFactoryInterface extends \SplObserver
 {
     /**
      * Return a list of services that will be synchronized to the factory
-     * 
+     *
      * @return array
      */
     public function getServices();
