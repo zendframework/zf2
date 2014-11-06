@@ -229,12 +229,10 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
      */
     public function rewind()
     {
-        if (!is_array($this->buffer)) {
-            if ($this->dataSource instanceof Iterator) {
-                $this->dataSource->rewind();
-            } else {
-                reset($this->dataSource);
-            }
+        if ($this->dataSource instanceof Iterator) {
+            $this->dataSource->rewind();
+        } else {
+            reset($this->dataSource);
         }
         $this->position = 0;
     }
