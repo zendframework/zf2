@@ -133,6 +133,7 @@ class CurrencyFormat extends AbstractHelper
         if ($showDecimals) {
             $this->formatters[$formatterId]->setAttribute(NumberFormatter::FRACTION_DIGITS, 2);
         } else {
+            $this->formatters[$formatterId]->setTextAttribute(NumberFormatter::CURRENCY_CODE, $currencyCode);
             $this->formatters[$formatterId]->setAttribute(NumberFormatter::FRACTION_DIGITS, 0);
         }
 
