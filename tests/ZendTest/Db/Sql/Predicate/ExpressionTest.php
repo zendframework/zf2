@@ -140,4 +140,3 @@ class ExpressionTest extends TestCase
         $this->assertEquals($expected, $test, var_export($test, 1));
     }
 }
-
