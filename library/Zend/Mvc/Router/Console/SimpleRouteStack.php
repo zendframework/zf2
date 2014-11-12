@@ -20,6 +20,11 @@ use Zend\Stdlib\ArrayUtils;
 class SimpleRouteStack extends BaseSimpleRouteStack
 {
     /**
+     * Configuration key for SimpleRouteStack
+     */
+    const CONFIG = 'router';
+
+    /**
      * init(): defined by SimpleRouteStack.
      *
      * @see    BaseSimpleRouteStack::init()

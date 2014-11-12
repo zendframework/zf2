@@ -22,6 +22,11 @@ use Zend\Stdlib\DispatchableInterface;
 class PluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for PluginManager
+     */
+    const CONFIG = 'controller_plugins';
+
+    /**
      * Default set of plugins factories
      *
      * @var array

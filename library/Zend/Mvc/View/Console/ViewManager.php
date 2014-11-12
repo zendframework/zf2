@@ -19,6 +19,11 @@ use Zend\Mvc\View\Http\ViewManager as BaseViewManager;
 class ViewManager extends BaseViewManager
 {
     /**
+     * Configuration key for ViewManager
+     */
+    const CONFIG = 'view_manager';
+
+    /**
      * Prepares the view layer
      *
      * Overriding, as several operations are omitted in the console view
@@ -36,8 +41,8 @@ class ViewManager extends BaseViewManager
         $events       = $application->getEventManager();
         $sharedEvents = $events->getSharedManager();
 
-        $this->config   = isset($config['view_manager']) && (is_array($config['view_manager']) || $config['view_manager'] instanceof ArrayAccess)
-                        ? $config['view_manager']
+        $this->config   = isset($config[self::CONFIG]) && (is_array($config[self::CONFIG]) || $config[self::CONFIG] instanceof ArrayAccess)
+                        ? $config[self::CONFIG]
                         : array();
         $this->services = $services;
         $this->event    = $event;

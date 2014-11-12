@@ -21,6 +21,11 @@ use Zend\ServiceManager\AbstractPluginManager;
 class AdapterPluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for AdapterPluginManager
+     */
+    const CONFIG = 'serializers';
+
+    /**
      * Default set of adapters
      *
      * @var array

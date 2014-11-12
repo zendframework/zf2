@@ -23,6 +23,11 @@ use Zend\Stdlib\InitializableInterface;
 class FormElementManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for FormElementManager
+     */
+    const CONFIG = 'form_elements';
+
+    /**
      * Default set of helpers
      *
      * @var array

@@ -20,6 +20,11 @@ use Zend\Stdlib\Exception;
 class HydratorPluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for HydratorPluginManager
+     */
+    const CONFIG = 'hydrators';
+
+    /**
      * Whether or not to share by default
      *
      * @var bool

@@ -22,6 +22,11 @@ use Zend\ServiceManager\AbstractPluginManager;
 class RoutePluginManager extends AbstractPluginManager
 {
     /**
+     * Configuration key for RoutePluginManager
+     */
+    const CONFIG = 'route_manager';
+
+    /**
      * Do not share instances.
      *
      * @var bool

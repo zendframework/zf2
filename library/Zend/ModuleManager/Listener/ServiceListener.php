@@ -93,7 +93,7 @@ class ServiceListener implements ServiceListenerInterface
             'configuration'          => array(),
         );
 
-        if ($key === 'service_manager' && $this->defaultServiceConfig) {
+        if ($key === ServiceManager::CONFIG && $this->defaultServiceConfig) {
             $this->serviceManagers[$smKey]['configuration']['default_config'] = $this->defaultServiceConfig;
         }
 

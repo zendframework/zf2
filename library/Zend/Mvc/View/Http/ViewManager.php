@@ -47,6 +47,11 @@ use Zend\View\View;
 class ViewManager extends AbstractListenerAggregate
 {
     /**
+     * Configuration key for ViewManager
+     */
+    const CONFIG = 'view_manager';
+
+    /**
      * @var object application configuration service
      */
     protected $config;
@@ -113,8 +118,8 @@ class ViewManager extends AbstractListenerAggregate
         $events       = $application->getEventManager();
         $sharedEvents = $events->getSharedManager();
 
-        $this->config   = isset($config['view_manager']) && (is_array($config['view_manager']) || $config['view_manager'] instanceof ArrayAccess)
-                        ? $config['view_manager']
+        $this->config   = isset($config[self::CONFIG]) && (is_array($config[self::CONFIG]) || $config[self::CONFIG] instanceof ArrayAccess)
+                        ? $config[self::CONFIG]
                         : array();
         $this->services = $services;
         $this->event    = $event;
