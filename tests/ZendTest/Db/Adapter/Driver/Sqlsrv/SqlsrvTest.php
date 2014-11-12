@@ -51,7 +51,6 @@ class SqlsrvTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv::registerResultPrototype
-     * @requires extension sqlsrv
      */
     public function testRegisterResultPrototype()
     {

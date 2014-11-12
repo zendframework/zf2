@@ -9,6 +9,8 @@
 
 namespace Zend\Db\Sql\Ddl\Column;
 
+use Zend\Db\Sql\Ddl\Constraint\ConstraintInterface;
+
 class Column implements ColumnInterface
 {
     /**
@@ -32,6 +34,11 @@ class Column implements ColumnInterface
     protected $options = array();
 
     /**
+     * @var array
+     */
+    protected $constraints = array();
+
+    /**
      * @var string
      */
     protected $specification = '%s %s';
@@ -44,9 +51,12 @@ class Column implements ColumnInterface
     /**
      * @param null|string $name
      */
-    public function __construct($name = null)
+    public function __construct($name = null, $nullable = false, $default = null, array $options = array())
     {
-        (!$name) ?: $this->setName($name);
+        $this->setName($name);
+        $this->setNullable($nullable);
+        $this->setDefault($default);
+        $this->setOptions($options);
     }
 
     /**
@@ -133,6 +143,16 @@ class Column implements ColumnInterface
     }
 
     /**
+     * @param  Constraint\ConstraintInterface $constraint
+     * @return self
+     */
+    public function addConstraint(ConstraintInterface $constraint)
+    {
+        $this->constraints[] = $constraint;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getExpressionData()
@@ -146,7 +166,7 @@ class Column implements ColumnInterface
         $types = array(self::TYPE_IDENTIFIER, self::TYPE_LITERAL);
 
         if (!$this->isNullable) {
-            $params[1] .= ' NOT NULL';
+            $spec .= ' NOT NULL';
         }
 
         if ($this->default !== null) {
@@ -155,10 +175,18 @@ class Column implements ColumnInterface
             $types[]  = self::TYPE_VALUE;
         }
 
-        return array(array(
+        $data = array(array(
             $spec,
             $params,
             $types,
         ));
+
+        /** @var $constraint ConstraintInterface */
+        foreach ($this->constraints as $constraint) {
+            $data[] = ' ';
+            $data = array_merge($data, $constraint->getExpressionData());
+        }
+
+        return $data;
     }
 }
