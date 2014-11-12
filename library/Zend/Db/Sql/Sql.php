@@ -18,12 +18,17 @@ class Sql
     /** @var AdapterInterface */
     protected $adapter = null;
 
-    /** @var string|array|TableIdentifier */
+    /** @var null|string|array|TableIdentifier */
     protected $table = null;
 
     /** @var Platform\Platform */
     protected $sqlPlatform = null;
 
+    /**
+     * @param AdapterInterface $adapter
+     * @param null|string|array|TableIdentifier $table
+     * @param null|Platform\AbstractPlatform $sqlPlatform @deprecated since version 3.0
+     */
     public function __construct(AdapterInterface $adapter, $table = null, Platform\AbstractPlatform $sqlPlatform = null)
     {
         $this->adapter = $adapter;
@@ -111,35 +116,38 @@ class Sql
     }
 
     /**
+     *
      * @param PreparableSqlInterface $sqlObject
-     * @param StatementInterface|null $statement
-     * @return StatementInterface
+     * @param StatementInterface $statement
+     * @param AdapterInterface $adapter
+     * @return mixed
      */
-    public function prepareStatementForSqlObject(PreparableSqlInterface $sqlObject, StatementInterface $statement = null)
+    public function prepareStatementForSqlObject(PreparableSqlInterface $sqlObject, StatementInterface $statement = null, AdapterInterface $adapter = null)
     {
-        $statement = ($statement) ?: $this->adapter->getDriver()->createStatement();
-
-        if ($this->sqlPlatform) {
-            $this->sqlPlatform->setSubject($sqlObject);
-            $this->sqlPlatform->prepareStatement($this->adapter, $statement);
-        } else {
-            $sqlObject->prepareStatement($this->adapter, $statement);
-        }
-
-        return $statement;
+        $adapter = $adapter ?: $this->adapter;
+        $statement = $statement ?: $adapter->getDriver()->createStatement();
+        return $this->sqlPlatform->setSubject($sqlObject)->prepareStatement($adapter, $statement);
     }
 
-    public function getSqlStringForSqlObject(SqlInterface $sqlObject, PlatformInterface $platform = null)
+    /**
+     * @param SqlInterface $sqlObject
+     * @param null|PlatformInterface|AdapterInterface $adapterOrPlatform
+     * @return string
+     * @throws Exception\InvalidArgumentException
+     */
+    public function getSqlStringForSqlObject(SqlInterface $sqlObject, $adapterOrPlatform = null)
     {
-        $platform = ($platform) ?: $this->adapter->getPlatform();
-
-        if ($this->sqlPlatform) {
-            $this->sqlPlatform->setSubject($sqlObject);
-            $sqlString = $this->sqlPlatform->getSqlString($platform);
-        } else {
-            $sqlString = $sqlObject->getSqlString($platform);
+        if ($adapterOrPlatform == null) {
+            $adapterOrPlatform = $this->adapter->getPlatform();
+        } elseif ($adapterOrPlatform instanceof AdapterInterface) {
+            $adapterOrPlatform = $adapterOrPlatform->getPlatform();
+        } elseif (!$adapterOrPlatform instanceof PlatformInterface) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '$adapterOrPlatform should be null, %s, or %s',
+                'Zend\Db\Adapter\AdapterInterface',
+                'Zend\Db\Adapter\Platform\PlatformInterface'
+            ));
         }
-
-        return $sqlString;
+        return $this->sqlPlatform->setSubject($sqlObject)->getSqlString($adapterOrPlatform);
     }
 }
