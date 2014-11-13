@@ -11,6 +11,7 @@ namespace Zend\Validator;
 
 use DateTime;
 use Traversable;
+use Zend\Stdlib\Exception\InvalidArgumentException;
 
 /**
  * Validates that a given value is a DateTime instance or can be converted into one.
@@ -24,6 +25,15 @@ class Date extends AbstractValidator
     const INVALID        = 'dateInvalid';
     const INVALID_DATE   = 'dateInvalidDate';
     const FALSEFORMAT    = 'dateFalseFormat';
+    /**#@-*/
+
+    /**#@+
+     * Type constants
+     * @var string
+     */
+    const TYPE_STRING   = 'string';
+    const TYPE_INTEGER  = 'integer';
+    const TYPE_ARRAY    = 'array';
     /**#@-*/
 
     /**
@@ -51,10 +61,14 @@ class Date extends AbstractValidator
     );
 
     /**
+     * @var array
+     */
+    protected $allowedTypes = array(self::TYPE_ARRAY, self::TYPE_INTEGER, self::TYPE_STRING);
+
+    /**
      * @var string
      */
     protected $format = self::FORMAT_DEFAULT;
-
 
     /**
      * Sets validator options
@@ -75,6 +89,46 @@ class Date extends AbstractValidator
     }
 
     /**
+     * Returns the allowed types
+     *
+     * @return array
+     */
+    public function getAllowedTypes()
+    {
+        return $this->allowedTypes;
+    }
+
+    /**
+     * Sets the allowed types option
+     *
+     * @param   string|array $types
+     * @throws  \Zend\Stdlib\Exception\InvalidArgumentException
+     * @return  Date
+     */
+    public function setAllowedTypes($type)
+    {
+        if(empty($type))
+        {
+            throw new InvalidArgumentException('Type must be a string or an array');
+        }
+
+        if(!is_array($type))
+        {
+            $type = array($type);
+        }
+
+        $defaultTypes = array(self::TYPE_ARRAY, self::TYPE_INTEGER, self::TYPE_STRING);
+
+        if(array() !== array_diff($type, $defaultTypes))
+        {
+            throw new InvalidArgumentException('Unknown type');
+        }
+
+        $this->allowedTypes = $type;
+        return $this;
+    }
+
+    /**
      * Returns the format option
      *
      * @return string|null
@@ -90,13 +144,19 @@ class Date extends AbstractValidator
      * Format cannot be null.  It will always default to 'Y-m-d', even
      * if null is provided.
      *
+     * Set the date format forces the values as strings.
+     *
      * @param  string $format
      * @return Date provides a fluent interface
      * @todo   validate the format
      */
     public function setFormat($format = self::FORMAT_DEFAULT)
     {
-        $this->format = (empty($format)) ? self::FORMAT_DEFAULT : $format;
+        if(!empty($format)) {
+            $this->format = $format;
+            $this->allowedTypes = array(self::TYPE_ARRAY, self::TYPE_STRING);
+        }
+
         return $this;
     }
 
@@ -132,7 +192,7 @@ class Date extends AbstractValidator
         }
 
         $type = gettype($param);
-        if (!in_array($type, array('string', 'integer', 'array'))) {
+        if (!in_array($type, $this->allowedTypes)) {
             if ($addErrors) {
                 $this->error(self::INVALID);
             }

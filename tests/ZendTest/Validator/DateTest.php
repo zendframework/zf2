@@ -41,47 +41,59 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function datesDataProvider()
     {
+        $array       = array(Validator\Date::TYPE_ARRAY);
+        $integer     = array(Validator\Date::TYPE_INTEGER);
+        $string      = array(Validator\Date::TYPE_STRING);
+        $stringArray = array(Validator\Date::TYPE_ARRAY, Validator\Date::TYPE_STRING);
+
         return array(
-            //    date                       format             isValid
-            array('2007-01-01',              null,              true),
-            array('2007-02-28',              null,              true),
-            array('2007-02-29',              null,              false),
-            array('2008-02-29',              null,              true),
-            array('2007-02-30',              null,              false),
-            array('2007-02-99',              null,              false),
-            array('2007-02-99',              'Y-m-d',           false),
-            array('9999-99-99',              null,              false),
-            array('9999-99-99',              'Y-m-d',           false),
-            array('Jan 1 2007',              null,              false),
-            array('Jan 1 2007',              'M j Y',           true),
-            array('asdasda',                 null,              false),
-            array('sdgsdg',                  null,              false),
-            array('2007-01-01something',     null,              false),
-            array('something2007-01-01',     null,              false),
-            array('10.01.2008',              'd.m.Y',           true),
-            array('01 2010',                 'm Y',             true),
-            array('2008/10/22',              'd/m/Y',           false),
-            array('22/10/08',                'd/m/y',           true),
-            array('22/10',                   'd/m/Y',           false),
+            //    date                       format             type          isValid
+            array('2007-01-01',              null,              null,         true),
+            array('2007-02-28',              null,              null,         true),
+            array('2007-02-29',              null,              null,         false),
+            array('2008-02-29',              null,              null,         true),
+            array('2007-02-30',              null,              null,         false),
+            array('2007-02-99',              null,              null,         false),
+            array('2007-02-99',              'Y-m-d',           null,         false),
+            array('9999-99-99',              null,              null,         false),
+            array('9999-99-99',              'Y-m-d',           null,         false),
+            array('Jan 1 2007',              null,              null,         false),
+            array('Jan 1 2007',              'M j Y',           null,         true),
+            array('asdasda',                 null,              null,         false),
+            array('sdgsdg',                  null,              null,         false),
+            array('2007-01-01something',     null,              null,         false),
+            array('something2007-01-01',     null,              null,         false),
+            array('10.01.2008',              'd.m.Y',           null,         true),
+            array('01 2010',                 'm Y',             null,         true),
+            array('2008/10/22',              'd/m/Y',           null,         false),
+            array('22/10/08',                'd/m/y',           null,         true),
+            array('22/10',                   'd/m/Y',           null,         false),
+            array('2007-01-01',              null,              $string,      true),
+            array('2007-01-01',              null,              $integer,     false),
             // time
-            array('2007-01-01T12:02:55Z',    DateTime::ISO8601, true),
-            array('12:02:55',                'H:i:s',           true),
-            array('25:02:55',                'H:i:s',           false),
+            array('2007-01-01T12:02:55Z',    DateTime::ISO8601, null,         true),
+            array('12:02:55',                'H:i:s',           null,         true),
+            array('25:02:55',                'H:i:s',           null,         false),
             // int
-            array(0,                         null,              true),
-            array(1340677235,                null,              true),
+            array(0,                         null,              null,         true),
+            array(1340677235,                null,              null,         true),
+            array(1413588686,                null,              $integer,     true),
+            array(1413588686,                null,              $stringArray, false),
             // Commenting out, as value appears to vary based on OS
             // array(999999999999,              null,              true),
             // array
-            array(array('2012', '06', '25'), null,              true),
+            array(array('2012', '06', '25'), null,              null,         true),
             // 0012-06-25 is a valid date, if you want 2012, use 'y' instead of 'Y'
-            array(array('12', '06', '25'),   null,              true),
-            array(array('2012', '06', '33'), null,              false),
-            array(array(1 => 1),             null,              false),
+            array(array('12', '06', '25'),   null,              null,         true),
+            array(array('2012', '06', '33'), null,              null,         false),
+            array(array(1 => 1),             null,              null,         false),
+            array(array('2014', '10', '18'), null,              $array,       true),
+            array(array('2014', '10', '18'), null,              $string,      false),
             // DateTime
-            array(new DateTime(),            null,              true),
+            array(new DateTime(),            null,              null,         true),
             // invalid obj
-            array(new stdClass(),           null,              false),
+            array(new stdClass(),           null,               null,         false),
+            array(new stdClass(),           null,               $string,      false),
         );
     }
 
@@ -90,9 +102,14 @@ class DateTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider datesDataProvider
      */
-    public function testBasic($input, $format, $result)
+    public function testBasic($input, $format, $type, $result)
     {
         $this->validator->setFormat($format);
+
+        if(!empty($type)) {
+            $this->validator->setAllowedTypes($type);
+        }
+
         $this->assertEquals($result, $this->validator->isValid($input));
     }
 
