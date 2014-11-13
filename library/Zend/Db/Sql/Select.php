@@ -258,7 +258,10 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
                 sprintf("join() expects '%s' as an array is a single element associative array", array_shift($name))
             );
         }
-        if (!is_array($columns)) {
+        if (empty($columns)) {
+            $columns = array();
+        }
+        else if (!is_array($columns)) {
             $columns = array($columns);
         }
         $this->joins[] = array(
