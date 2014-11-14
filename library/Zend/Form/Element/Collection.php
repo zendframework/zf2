@@ -501,32 +501,27 @@ class Collection extends Fieldset
     public function extract()
     {
 
-        if ($this->object instanceof Traversable) {
-            $this->object = ArrayUtils::iteratorToArray($this->object, false);
-        }
-
-        if (!is_array($this->object)) {
-            return array();
-        }
-
+        if( !is_array($this->object) && !$this->object instanceof \Traversable ) return array();
         $values = array();
-
+        
         foreach ($this->object as $key => $value) {
-            if ($this->hydrator) {
+            if (!$this->targetElement instanceof FieldsetInterface) {
+                $values[$key] = $value;
+                if (!$this->createNewObjects() && $this->has($key)) {
+                    $this->get($key)->setValue($value);
+                }
+            } elseif ($this->hydrator) {
                 $values[$key] = $this->hydrator->extract($value);
-            } elseif ($value instanceof $this->targetElement->object) {
-                // @see https://github.com/zendframework/zf2/pull/2848
+            } elseif ($this->targetElement->allowObjectBinding($value)) {
                 $targetElement = clone $this->targetElement;
-                $targetElement->object = $value;
+                $targetElement->setObject($value);
                 $values[$key] = $targetElement->extract();
                 if (!$this->createNewObjects() && $this->has($key)) {
-                    $fieldset = $this->get($key);
-                    if ($fieldset instanceof Fieldset && $fieldset->allowObjectBinding($value)) {
-                        $fieldset->setObject($value);
-                    }
+                    $this->get($key)->setObject($value);
                 }
             }
         }
+        
         return $values;
     }
 
