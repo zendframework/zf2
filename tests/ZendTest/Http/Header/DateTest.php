@@ -10,6 +10,7 @@
 namespace ZendTest\Http\Header;
 
 use Zend\Http\Header\Date;
+use Zend\Http\Header\Exception\InvalidArgumentException;
 use DateTime;
 use DateTimeZone;
 
@@ -27,6 +28,38 @@ class DateTest extends \PHPUnit_Framework_TestCase
         $dateHeader = Date::fromString('Date: Sun, 06 Nov 1994 08:49:37 GMT');
         $this->assertInstanceOf('Zend\Http\Header\HeaderInterface', $dateHeader);
         $this->assertInstanceOf('Zend\Http\Header\Date', $dateHeader);
+    }
+
+    public function testDateFromTimeStringCreatesValidDateHeader()
+    {
+        $dateHeader = Date::fromTimeString('+12 hours');
+        $this->assertInstanceOf('Zend\Http\Header\HeaderInterface', $dateHeader);
+        $this->assertInstanceOf('Zend\Http\Header\Date', $dateHeader);
+        $date     = new \DateTime(null, new \DateTimeZone('GMT'));
+        $interval = $dateHeader->date()->diff($date, true);
+        $this->assertSame('+12 hours 00 minutes 00 seconds', $interval->format('%R%H hours %I minutes %S seconds'));
+    }
+
+    public function testDateFromTimestampCreatesValidDateHeader()
+    {
+        $dateHeader = Date::fromTimestamp(time() + 12 * 60 * 60);
+        $this->assertInstanceOf('Zend\Http\Header\HeaderInterface', $dateHeader);
+        $this->assertInstanceOf('Zend\Http\Header\Date', $dateHeader);
+        $date     = new \DateTime(null, new \DateTimeZone('GMT'));
+        $interval = $dateHeader->date()->diff($date, true);
+        $this->assertSame('+12 hours 00 minutes 00 seconds', $interval->format('%R%H hours %I minutes %S seconds'));
+    }
+
+    public function testDateFromTimeStringDetectsBadInput()
+    {
+        $this->setExpectedException('Zend\Http\Header\Exception\InvalidArgumentException');
+        $badResult = Date::fromTimeString('3 Days of the Condor');
+    }
+
+    public function testDateFromTimestampDetectsBadInput()
+    {
+        $this->setExpectedException('Zend\Http\Header\Exception\InvalidArgumentException');
+        $badResult = Date::fromTimestamp('The Day of the Jackal');
     }
 
     public function testDateGetFieldNameReturnsHeaderName()
