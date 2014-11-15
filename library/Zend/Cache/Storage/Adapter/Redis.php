@@ -255,6 +255,7 @@ class Redis extends AbstractAdapter implements
         foreach ($normalizedKeyValuePairs as $normalizedKey => & $value) {
             $namespacedKeyValuePairs[$this->namespacePrefix . $normalizedKey] = & $value;
         }
+        unset($value);
         try {
             if ($ttl > 0) {
                 //check if ttl is supported
