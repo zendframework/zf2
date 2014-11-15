@@ -230,7 +230,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
             }
         } elseif ($method == HttpRequest::METHOD_GET) {
             $query = array_merge($query, $params);
-        } elseif ($method == HttpRequest::METHOD_PUT) {
+        } elseif ($method == HttpRequest::METHOD_PUT || $method == HttpRequest::METHOD_PATCH) {
             if (count($params) != 0) {
                 array_walk(
                     $params,
@@ -243,7 +243,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
             }
         } elseif ($params) {
             trigger_error(
-                'Additional params is only supported by GET, POST and PUT HTTP method',
+                'Additional params is only supported by GET, POST, PATCH and PUT HTTP method',
                 E_USER_NOTICE
             );
         }
