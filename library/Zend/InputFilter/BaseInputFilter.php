@@ -684,4 +684,17 @@ class BaseInputFilter implements
     {
         return $this->inputs;
     }
+
+    /**
+     * Merges the inputs from an InputFilter into the current one
+     *
+     * @param BaseInputFilter $inputFilter
+     * @return $this
+     */
+    public function merge(BaseInputFilter $inputFilter)
+    {
+        foreach ($inputFilter->getInputs() as $name => $input) {
+            $this->add($input, $name);
+        }
+    }
 }
