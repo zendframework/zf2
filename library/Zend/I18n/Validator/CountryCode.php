@@ -16,7 +16,6 @@ use Zend\Validator\AbstractValidator;
 
 class CountryCode extends AbstractValidator
 {
-
     const INVALID  = 'countryInvalid';
     const NO_MATCH = 'countryNoMatch';
 

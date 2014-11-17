@@ -9,8 +9,8 @@
 
 namespace Zend\I18n;
 
-class CountryDb {
-
+class CountryDb
+{
     /**
      * Country types defined by ISO3611-1 Alpha 2
      * @var array

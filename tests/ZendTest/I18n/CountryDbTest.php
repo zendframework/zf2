@@ -13,7 +13,6 @@ use Zend\I18n\CountryDb;
 
 class CountryDbTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testTypes()
     {
         $this->assertEquals(array(
