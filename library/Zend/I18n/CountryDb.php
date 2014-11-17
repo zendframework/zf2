@@ -757,7 +757,7 @@ class CountryDb {
      */
     public static function getTypes()
     {
-        return self::$types;
+        return static::$types;
     }
 
     /**
@@ -768,10 +768,10 @@ class CountryDb {
      */
     public static function getCountries($type = 'official')
     {
-        if (!in_array($type, self::$types)) {
+        if (!in_array($type, static::$types)) {
             throw new Exception\InvalidArgumentException('Unknown countries type: ' . $type);
         }
 
-        return self::$$type;
+        return static::$$type;
     }
 }
