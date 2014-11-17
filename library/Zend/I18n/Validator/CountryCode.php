@@ -81,7 +81,7 @@ class CountryCode extends AbstractValidator
         foreach ($countryTypes as $type) {
             $countries = array_merge($countries, CountryDb::getCountries($type));
         }
-        $this->setCountries(array_keys($countries));
+        $this->setCountries($countries);
     }
 
     /**

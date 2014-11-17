@@ -26,7 +26,7 @@ class CountryCodeTest extends \PHPUnit_Framework_TestCase
         foreach (CountryDb::getTypes() as $type) {
             $assertEqualsValue = ($type == 'official') ? true : false;
 
-            foreach (CountryDb::getCountries($type) as $country => $name) {
+            foreach (CountryDb::getCountries($type) as $country) {
                 $this->assertEquals($assertEqualsValue, $this->validator->isValid($country));
             }
         }
@@ -40,7 +40,7 @@ class CountryCodeTest extends \PHPUnit_Framework_TestCase
         foreach (CountryDb::getTypes() as $type) {
             $assertEqualsValue = (in_array($type, $types)) ? true : false;
 
-            foreach (CountryDb::getCountries($type) as $country => $name) {
+            foreach (CountryDb::getCountries($type) as $country) {
                 $this->assertEquals($assertEqualsValue, $this->validator->isValid($country));
             }
         }

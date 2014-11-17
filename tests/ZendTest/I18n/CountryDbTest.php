@@ -31,46 +31,46 @@ class CountryDbTest extends \PHPUnit_Framework_TestCase
     {
         $data = array(
             'official' => array(
-                'AD' => 'Andorra',
-                'CW' => 'Curaçao',
-                'KP' => 'Korea, Democratic People\'s Republic of',
-                'NZ' => 'New Zealand',
-                'ZW' => 'Zimbabwe',
+                'AD',
+                'CW',
+                'KP',
+                'NZ',
+                'ZW',
             ),
             'userAssigned' => array(
-                'AA' => 'user-assigned',
-                'QP' => 'user-assigned',
-                'ZZ' => 'user-assigned',
+                'AA',
+                'QP',
+                'ZZ',
             ),
             'exception' => array(
-                'EA' => 'Ceuta, Melilla',
-                'UK' => 'United Kingdom',
+                'EA',
+                'UK',
             ),
             'transition' => array(
-                'NT' => 'Neutral Zone',
-                'TP' => 'East Timor',
+                'NT',
+                'TP',
             ),
             'indeterminate' => array(
-                'DY' => 'Benin',
-                'RC' => 'China',
-                'WV' => 'Saint Vincent',
+                'DY',
+                'RC',
+                'WV',
             ),
             'notUsed' => array(
-                'BX' => 'Benelux Trademarks and Design Offices',
-                'WO' => 'World Intellectual Property Organization',
+                'BX',
+                'WO',
             ),
             'unAssigned' => array(
-                'AB' => 'un-assigned',
-                'KO' => 'un-assigned',
-                'PX' => 'un-assigned',
-                'YQ' => 'un-assigned',
+                'AB',
+                'KO',
+                'PX',
+                'YQ',
             ),
         );
 
         foreach ($data as $type => $values) {
             $countries = CountryDb::getCountries($type);
-            foreach ($values as $key => $value) {
-                $this->assertEquals($value, $countries[$key]);
+            foreach ($values as $key) {
+                $this->assertContains($key, $countries);
             }
         }
     }
