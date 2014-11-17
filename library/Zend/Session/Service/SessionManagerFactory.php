@@ -113,6 +113,12 @@ class SessionManagerFactory implements FactoryInterface
             ) {
                 $managerConfig = array_merge($managerConfig, $configService['session_manager']);
             }
+            
+            // Set config options, if any
+            if (isset($managerConfig['config'])) {
+                $manager->getConfig()->setOptions($managerConfig['config']);
+            }
+            
             // Attach validators to session manager, if any
             if (isset($managerConfig['validators'])) {
                 $chain = $manager->getValidatorChain();
