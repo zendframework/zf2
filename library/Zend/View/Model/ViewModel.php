@@ -14,7 +14,6 @@ use ArrayIterator;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Exception;
-use Zend\View\Model;
 use Zend\View\Variables as ViewVariables;
 
 class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableChildrenInterface
