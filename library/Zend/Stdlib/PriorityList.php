@@ -53,7 +53,7 @@ class PriorityList implements Iterator, Countable
      * @var bool
      */
     protected $sorted = false;
-    
+
     /**
      * Insert a new item.
      *
