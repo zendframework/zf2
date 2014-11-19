@@ -14,6 +14,7 @@ use Zend\Mvc\Exception;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\RequestInterface as Request;
 use Zend\Stdlib\ResponseInterface as Response;
+use Zend\View\Model\JsonModel;
 
 /**
  * Abstract RESTful controller
@@ -431,6 +432,10 @@ abstract class AbstractRestfulController extends AbstractController
                 $response = $e->getResponse();
                 $response->setStatusCode(405);
                 return $response;
+        }
+
+        if (is_array($return)) {
+            $return = new JsonModel($return);
         }
 
         $routeMatch->setParam('action', $action);
