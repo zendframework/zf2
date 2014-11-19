@@ -160,10 +160,10 @@ class Mysql implements PlatformInterface
             return $this->quoteValue($valueList);
         }
 
-        $value = reset($valueList);
-        do {
-            $valueList[key($valueList)] = $this->quoteValue($value);
-        } while ($value = next($valueList));
+        foreach ($valueList as $k => $v) {
+            $valueList[$k] = $this->quoteValue($v);
+        }
+
         return implode(', ', $valueList);
     }
 
