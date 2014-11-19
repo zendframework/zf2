@@ -53,7 +53,7 @@ class PriorityList implements Iterator, Countable
      * @var bool
      */
     protected $sorted = false;
-
+    
     /**
      * Insert a new item.
      *
@@ -193,9 +193,6 @@ class PriorityList implements Iterator, Countable
     public function current()
     {
         $node = current($this->items);
-        if (isset($node['data']) && is_bool($node['data'])) {
-            $node['data'] = (int) $node['data'];
-        }
         return ($node !== false ? $node['data'] : false);
     }
 
@@ -230,7 +227,7 @@ class PriorityList implements Iterator, Countable
      */
     public function valid()
     {
-        return ($this->current() !== false);
+        return (current($this->items) !== false);
     }
 
     /**
