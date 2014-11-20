@@ -263,6 +263,22 @@ class ArrayUtilsTest extends TestCase
         );
     }
 
+    public function testAllowsRemovingKeys()
+    {
+        $a = array(
+            'foo' => 'bar',
+            'bar' => 'bat'
+        );
+        $b = array(
+            'foo' => new \Zend\Stdlib\ArrayUtils\MergeRemoveKey(),
+            'baz' => new \Zend\Stdlib\ArrayUtils\MergeRemoveKey(),
+        );
+        $expected = array(
+            'bar' => 'bat'
+        );
+        $this->assertEquals($expected, ArrayUtils::merge($a, $b));
+    }
+
     public static function validIterators()
     {
         return array(
