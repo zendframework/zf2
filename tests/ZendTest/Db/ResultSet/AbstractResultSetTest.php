@@ -218,6 +218,7 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test multiple iterations with buffer
+     * @group issue-6845
      */
     public function testBufferIterations()
     {
