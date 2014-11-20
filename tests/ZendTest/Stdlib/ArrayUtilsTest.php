@@ -263,6 +263,33 @@ class ArrayUtilsTest extends TestCase
         );
     }
 
+    public function testMergeReplaceKey()
+    {
+        $expected = array(
+            'car' => array(
+                'met' => 'bet',
+            ),
+            'new' => array(
+                'foo' => 'get',
+            ),
+        );
+        $a = array(
+            'car' => array(
+                'boo' => 'foo',
+                'doo' => 'moo',
+            ),
+        );
+        $b = array(
+            'car' => new \Zend\Stdlib\ArrayUtils\MergeReplaceKey(array(
+                'met' => 'bet',
+            )),
+            'new' => new \Zend\Stdlib\ArrayUtils\MergeReplaceKey(array(
+                'foo' => 'get',
+            )),
+        );
+        $this->assertEquals($expected, ArrayUtils::merge($a, $b));
+    }
+
     public static function validIterators()
     {
         return array(
