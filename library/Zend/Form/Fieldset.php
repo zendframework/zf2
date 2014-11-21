@@ -371,8 +371,8 @@ class Fieldset extends Element implements FieldsetInterface
     {
         $name = $this->getName();
 
-        foreach ($this->byName as $elementOrFieldset) {
-            $elementOrFieldset->setName($name . '[' . $elementOrFieldset->getName() . ']');
+        foreach ($this->byName as $key => $elementOrFieldset) {
+            $elementOrFieldset->setName($name . '[' . $key . ']');
 
             // Recursively prepare elements
             if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
