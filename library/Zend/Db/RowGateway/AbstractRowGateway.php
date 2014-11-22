@@ -337,6 +337,45 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
     }
 
     /**
+     * __call
+     *
+     * @param string $methodName
+     * @param array $argv
+     * @throws \Exception
+     * @return mixed
+     */
+    public function __call($methodName, $argv)
+    {
+        //get a value field
+        if (preg_match('/^get(.*)$/', $methodName, $aTmp)) {
+            if (count($argv) != 0) {
+                throw new \Exception('No parameter');
+            }
+            return $this->__get($this->getRealFieldName($aTmp[1]));
+        }
+        //Set a value for the field
+        if (preg_match('/^set(.*)$/', $methodName, $aTmp)) {
+            if (count($argv) != 1) {
+                throw new \Exception('Only parameter');
+            }
+            return $this->__set($this->getRealFieldName($aTmp[1]), $argv[0]);
+        }
+        throw new \Exception(get_class($this) . ':' . $methodName . 'not extents');
+    }
+
+    /**
+     * get real field name
+     *
+     * @param string $str
+     * @return string
+     */
+    private function getRealFieldName($str)
+    {
+        $fieldName = preg_replace('/([A-Z])/', '_${1}', lcfirst($str));
+        return strtolower($fieldName);
+    }
+
+    /**
      * @return bool
      */
     public function rowExistsInDatabase()
