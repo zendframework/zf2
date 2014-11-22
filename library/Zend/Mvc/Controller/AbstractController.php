@@ -133,7 +133,7 @@ abstract class AbstractController implements
         if (!$this->request) {
             $this->request = new HttpRequest();
         }
-
+        
         return $this->request;
     }
 
@@ -158,14 +158,17 @@ abstract class AbstractController implements
      * @return AbstractController
      */
     public function setEventManager(EventManagerInterface $events)
-    {
+    { 
         $events->setIdentifiers(array(
             'Zend\Stdlib\DispatchableInterface',
             __CLASS__,
             get_class($this),
-            $this->eventIdentifier,
             substr(get_class($this), 0, strpos(get_class($this), '\\'))
         ));
+                
+        $eventIdentifiers = is_array($this->eventIdentifier) ? $this->eventIdentifier : array($this->eventIdentifier);
+        $events->addIdentifiers($eventIdentifiers);
+        
         $this->events = $events;
         $this->attachDefaultListeners();
 
