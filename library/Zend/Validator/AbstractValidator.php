@@ -468,9 +468,8 @@ abstract class AbstractValidator implements
      * @return void
      * @throws Exception\InvalidArgumentException
      */
-    public static function setDefaultTranslator(
-        Translator\TranslatorInterface $translator = null, $textDomain = null
-    ) {
+    public static function setDefaultTranslator(Translator\TranslatorInterface $translator = null, $textDomain = null)
+    {
         static::$defaultTranslator = $translator;
         if (null !== $textDomain) {
             self::setDefaultTranslatorTextDomain($textDomain);
@@ -574,8 +573,6 @@ abstract class AbstractValidator implements
             return $message;
         }
 
-        return $translator->translate(
-            $message, $this->getTranslatorTextDomain()
-        );
+        return $translator->translate($message, $this->getTranslatorTextDomain());
     }
 }
