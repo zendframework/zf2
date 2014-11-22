@@ -304,6 +304,23 @@ class ServiceManagerTest extends TestCase
     /**
      * @covers Zend\ServiceManager\ServiceManager::create
      */
+    public function testCreateWithInvokableClassAdvance()
+    {
+        $this->serviceManager->setInvokableClass('foo', 'ZendTest\ServiceManager\TestAsset\Foo');
+        $this->serviceManager->setInvokableClass('fooargs', array(
+            'class' => 'ZendTest\ServiceManager\TestAsset\FooArgsInConstructor',
+            'args' => array(
+                '@foo',
+                'someString',
+                1,
+            ),
+        ));
+        $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\FooArgsInConstructor', $this->serviceManager->get('fooargs'));
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::create
+     */
     public function testCreateWithFactoryInstance()
     {
         $this->serviceManager->setFactory('foo', 'ZendTest\ServiceManager\TestAsset\FooFactory');
