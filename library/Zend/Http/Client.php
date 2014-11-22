@@ -233,6 +233,7 @@ class Client implements Stdlib\DispatchableInterface
     {
         if (empty($this->request)) {
             $this->request = new Request();
+            $this->request->setAllowCustomMethods(false);
         }
         return $this->request;
     }
@@ -716,9 +717,10 @@ class Client implements Stdlib\DispatchableInterface
      */
     public function setAuth($user, $password, $type = self::AUTH_BASIC)
     {
-        if (!defined('self::AUTH_' . strtoupper($type))) {
+        if (!defined('static::AUTH_' . strtoupper($type))) {
             throw new Exception\InvalidArgumentException("Invalid or not supported authentication type: '$type'");
         }
+
         if (empty($user)) {
             throw new Exception\InvalidArgumentException("The username cannot be empty");
         }
@@ -727,7 +729,6 @@ class Client implements Stdlib\DispatchableInterface
             'user'     => $user,
             'password' => $password,
             'type'     => $type
-
         );
 
         return $this;
