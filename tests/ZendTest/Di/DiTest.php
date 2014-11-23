@@ -982,9 +982,16 @@ class DiTest extends \PHPUnit_Framework_TestCase
         // This also disables scanning of class A.
         $di->setDefinitionList(new DefinitionList(new Definition\ArrayDefinition($arrayDefinition)));
 
-        $di->instanceManager()->addSharedInstance(new $sharedInstanceClass, $sharedInstanceClass);
+        //getSharedInstance drops call time parameters, thus addSharedInstance makes no sence
+        // and we can get new instance with parameters
+        $di->instanceManager()->addSharedInstanceWithParameters(new $sharedInstanceClass, $sharedInstanceClass, array('params' => array('test')));
+        $di->instanceManager()->addSharedInstanceWithParameters(new $sharedInstanceClass, $sharedInstanceClass, array('params' => array('alter')));
         $returnedC = $di->get($retrievedInstanceClass, array('params' => array('test')));
         $this->assertInstanceOf($retrievedInstanceClass, $returnedC);
+        $this->assertEquals(array('test'), $returnedC->params);
+        $returnedAltC = $di->get($retrievedInstanceClass, array('params' => array('alter')));
+        $this->assertNotSame($returnedC, $returnedAltC);
+        $this->assertEquals(array('alter'), $returnedAltC->params);
     }
 
     public function testGetInstanceWithParamsHasSameNameAsDependencyParam()
@@ -1016,5 +1023,103 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
         $di = new Di(null, null, $config);
         $this->assertCount(1, $di->get('ZendTest\Di\TestAsset\AggregatedParamClass')->aggregator->items);
+    }
+
+    /**
+     * constructor injection consultation
+     *
+     * @group 4714
+     * @group 6388
+     */
+    public function testResolveMethodParametersDifferentParams()
+    {
+        $config = array(
+            'instance' => array(
+                'preference' => array(
+                    'ZendTest\\Di\\TestAsset\\ConstructorInjection\\A' => 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\E',
+                ),
+            ),
+        );
+        $di = new Di(null, null, new Config($config));
+        $ref = new \ReflectionObject($di);
+        $method = $ref->getMethod('resolveMethodParameters');
+        $method->setAccessible(true);
+
+        $args = array(
+            'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B',
+            '__construct',
+            array(),
+            null,
+            Di::METHOD_IS_CONSTRUCTOR,
+            true
+        );
+        $res = $method->invokeArgs($di, $args);
+        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\E', $res[0], 'the first resolved parameter for constructor type preferenced');
+
+        //user provides params
+        $args = array(
+            'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B',
+            '__construct',
+            array('a' => 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F'),
+            null,
+            Di::METHOD_IS_CONSTRUCTOR,
+            true
+        );
+        $res = $method->invokeArgs($di, $args);
+        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', $res[0], 'the first resolved parameter user provided ');
+
+        //user provides alias name
+        $im = $di->instanceManager();
+        $im->addAlias('foo', 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', array('params' => array('p' => 'v1')));
+        $im->addAlias('bar', 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', array('params' => array('p' => 'v2')));
+
+        $args = array(
+            'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B',
+            '__construct',
+            array('a' => 'foo'),
+            null,
+            Di::METHOD_IS_CONSTRUCTOR,
+            true
+        );
+        $res = $method->invokeArgs($di, $args);
+        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', $res[0], 'the first resolved parameter user provided with alias parameter');
+        $this->assertEquals('v1', $res[0]->params['p']);
+
+        $args = array(
+            'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B',
+            '__construct',
+            array('a' => 'bar'),
+            null,
+            Di::METHOD_IS_CONSTRUCTOR,
+            true
+        );
+        $res = $method->invokeArgs($di, $args);
+        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', $res[0], 'the first resolved parameter user provided with alias parameter');
+        $this->assertEquals('v2', $res[0]->params['p']);
+    }
+
+    public function testAliasesWithDeffrentParams()
+    {
+        $config = array(
+            'instance' => array(
+                'preference' => array(
+                    'ZendTest\\Di\\TestAsset\\ConstructorInjection\\A' => 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\E',
+                ),
+            ),
+        );
+        $di = new Di(null, null, new Config($config));
+        $im = $di->instanceManager();
+        $im->addAlias('foo', 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', array('params' => array('p' => 'vfoo')));
+        $im->addAlias('bar', 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', array('params' => array('p' => 'vbar')));
+
+        $pref = $di->get('ZendTest\\Di\\TestAsset\\ConstructorInjection\\B');
+        $bFoo = $di->get('ZendTest\\Di\\TestAsset\\ConstructorInjection\\B', array('a' => 'foo'));
+        $bBar = $di->get('ZendTest\\Di\\TestAsset\\ConstructorInjection\\B', array('a' => 'bar'));
+        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\E', $pref->a);
+        $this->assertNotSame($pref->a, $bFoo->a);
+        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', $bFoo->a);
+        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', $bBar->a);
+        $this->assertEquals('vfoo', $bFoo->a->params['p']);
+        $this->assertEquals('vbar', $bBar->a->params['p']);
     }
 }
