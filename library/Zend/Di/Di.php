@@ -237,11 +237,9 @@ class Di implements DependencyInjectionInterface
                 array_pop($this->instanceContext);
                 return $im->getSharedInstanceWithParameters(null, array(), $fastHash);
             }
-        }
-
-        if ($im->hasSharedInstance($name, $callParameters)) {
-            array_pop($this->instanceContext);
-            return $im->getSharedInstance($name, $callParameters);
+        } elseif ($im->hasSharedInstance($name)) {
+                array_pop($this->instanceContext);
+            return $im->getSharedInstance($name);
         }
 
 
