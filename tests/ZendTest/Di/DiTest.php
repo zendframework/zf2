@@ -1029,72 +1029,57 @@ class DiTest extends \PHPUnit_Framework_TestCase
      * constructor injection consultation
      *
      * @group 4714
-     * @group 6388
      */
     public function testResolveMethodParametersDifferentParams()
     {
-        $config = array(
-            'instance' => array(
-                'preference' => array(
-                    'ZendTest\\Di\\TestAsset\\ConstructorInjection\\A' => 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\E',
-                ),
-            ),
-        );
-        $di = new Di(null, null, new Config($config));
+        $di = new Di;
         $ref = new \ReflectionObject($di);
         $method = $ref->getMethod('resolveMethodParameters');
         $method->setAccessible(true);
 
-        $args = array(
-            'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B',
-            '__construct',
-            array(),
-            null,
-            Di::METHOD_IS_CONSTRUCTOR,
-            true
-        );
-        $res = $method->invokeArgs($di, $args);
-        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\E', $res[0], 'the first resolved parameter for constructor type preferenced');
-
-        //user provides params
-        $args = array(
-            'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B',
-            '__construct',
-            array('a' => 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F'),
-            null,
-            Di::METHOD_IS_CONSTRUCTOR,
-            true
-        );
-        $res = $method->invokeArgs($di, $args);
-        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', $res[0], 'the first resolved parameter user provided ');
+        $constructorInjectionClassName = 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B';
+        /**
+         * RuntimeDefinition get the label of Class B constructor
+         *  public function __construct(A $a)
+         */
+        $parameterName = 'a';
+        /**
+         * Class F as subclass of A gets the parameters as constructor injection
+         */
+        $paramsAwareSubClassName = 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F';
+        /**
+         * aliases having defferent parameters
+         */
+        $instanceAliasFoo = 'foo';
+        $instanceAliasBar = 'bar';
 
         //user provides alias name
         $im = $di->instanceManager();
-        $im->addAlias('foo', 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', array('params' => array('p' => 'v1')));
-        $im->addAlias('bar', 'ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', array('params' => array('p' => 'v2')));
+        $im->addAlias($instanceAliasFoo, $paramsAwareSubClassName, array('params' => array('p' => 'v1')));
+        $im->addAlias($instanceAliasBar, $paramsAwareSubClassName, array('params' => array('p' => 'v2')));
 
         $args = array(
-            'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B',
+            $constructorInjectionClassName,
             '__construct',
-            array('a' => 'foo'),
+            array($parameterName => $instanceAliasFoo),
             null,
             Di::METHOD_IS_CONSTRUCTOR,
             true
         );
         $res = $method->invokeArgs($di, $args);
-        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', $res[0], 'the first resolved parameter user provided with alias parameter');
+        $this->assertInstanceOf($paramsAwareSubClassName, $res[0], 'the first resolved parameter user provided with alias parameter');
         $this->assertEquals('v1', $res[0]->params['p']);
 
         $args = array(
-            'ZendTest\\Di\\TestAsset\\ConstructorInjection\\B',
+            $constructorInjectionClassName,
             '__construct',
-            array('a' => 'bar'),
+            array($parameterName => $instanceAliasBar),
             null,
             Di::METHOD_IS_CONSTRUCTOR,
             true
         );
         $res = $method->invokeArgs($di, $args);
-        $this->assertInstanceOf('ZendTest\\Di\\TestAsset\\ConstructorInjection\\F', $res[0], 'the first resolved parameter user provided with alias parameter');
+        $this->assertInstanceOf($paramsAwareSubClassName, $res[0], 'the first resolved parameter user provided with alias parameter');
         $this->assertEquals('v2', $res[0]->params['p']);
     }
 
