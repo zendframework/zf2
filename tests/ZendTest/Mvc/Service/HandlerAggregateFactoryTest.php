@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Crypt\Password\Factory;
+namespace ZendTest\Mvc\Service;
 
-use Zend\Crypt\Password\Factory\HandlerAggregateFactory;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Mvc\Service\CryptHandlerAggregateFactory;
 use Zend\ServiceManager\ServiceManager;
 
 /**
@@ -26,7 +26,7 @@ class HandlerAggregateFactoryTest extends TestCase
         $locator->setService('Zend\Crypt\Password\HandlerManager', $handlerManager);
         $locator->setService('Zend\Crypt\Config', array());
 
-        $factory = new HandlerAggregateFactory();
+        $factory = new CryptHandlerAggregateFactory();
         $this->assertInstanceOf('Zend\Crypt\Password\HandlerAggregate', $factory->createService($locator));
     }
 
@@ -38,7 +38,7 @@ class HandlerAggregateFactoryTest extends TestCase
         $locator->setService('Zend\Crypt\Password\HandlerManager', $handlerManager);
         $locator->setService('Zend\Crypt\Config', array('password' => array('handler_aggregate' => array())));
 
-        $factory = new HandlerAggregateFactory();
+        $factory = new CryptHandlerAggregateFactory();
         $this->assertInstanceOf('Zend\Crypt\Password\HandlerAggregate', $factory->createService($locator));
     }
 }

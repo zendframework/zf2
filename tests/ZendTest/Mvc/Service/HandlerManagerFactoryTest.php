@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\Crypt\Password\Factory;
+namespace ZendTest\Mvc\Service;
 
-use Zend\Crypt\Password\Factory\HandlerManagerFactory;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Mvc\Service\CryptHandlerManagerFactory;
 use Zend\ServiceManager\ServiceManager;
 
 /**
@@ -23,7 +23,7 @@ class HandlerManagerFactoryTest extends TestCase
         $locator = new ServiceManager();
         $locator->setService('Zend\Crypt\Config', array());
 
-        $factory = new HandlerManagerFactory();
+        $factory = new CryptHandlerManagerFactory();
         $this->assertInstanceOf('Zend\Crypt\Password\HandlerManager', $factory->createService($locator));
     }
 
@@ -32,7 +32,7 @@ class HandlerManagerFactoryTest extends TestCase
         $locator = new ServiceManager();
         $locator->setService('Zend\Crypt\Config', array('password' => array('handler_manager' => array())));
 
-        $factory = new HandlerManagerFactory();
+        $factory = new CryptHandlerManagerFactory();
         $this->assertInstanceOf('Zend\Crypt\Password\HandlerManager', $factory->createService($locator));
     }
 }
