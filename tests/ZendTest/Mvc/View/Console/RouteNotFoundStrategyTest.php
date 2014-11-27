@@ -54,8 +54,8 @@ class RouteNotFoundStrategyTest extends TestCase
 
         // 2 table columns in a 60 column terminal
         $result = $method->invokeArgs($this->strategy, array($table, 2, 60));
-        $expected = "  $route    A long explanation that will trigger a     \n" .
-                "                line break.                                \n";
+        $expected = "  $route    A long explanation that will trigger a     \n"
+                  . "                line break.                                \n";
 
         $this->assertSame($expected, $result);
     }
