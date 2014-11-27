@@ -10,6 +10,8 @@
 namespace Zend\Mvc\Controller\Plugin;
 
 use Zend\Http\Response;
+use Zend\Http\Request;
+use Zend\Http\Header\Referer;
 use Zend\Mvc\Exception;
 use Zend\Mvc\InjectApplicationEventInterface;
 use Zend\Mvc\MvcEvent;
@@ -19,19 +21,31 @@ use Zend\Mvc\MvcEvent;
  */
 class Redirect extends AbstractPlugin
 {
+    /**
+     * @var null|MvcEvent
+     */
     protected $event;
+
+    /**
+     * @var null|Response
+     */
     protected $response;
+
+    /**
+     * @var null|Request
+     */
+    protected $request;
 
     /**
      * Generates a URL based on a route
      *
-     * @param  string $route RouteInterface name
-     * @param  array $params Parameters to use in url generation, if any
-     * @param  array $options RouteInterface-specific options to use in url generation, if any
-     * @param  bool $reuseMatchedParams Whether to reuse matched parameters
+     * @param  string                    $route              RouteInterface name
+     * @param  array                     $params             Parameters to use in url generation, if any
+     * @param  array                     $options            RouteInterface-specific options to use in url generation, if any
+     * @param  bool                      $reuseMatchedParams Whether to reuse matched parameters
      * @return Response
      * @throws Exception\DomainException if composed controller does not implement InjectApplicationEventInterface, or
-     *         router cannot be found in controller event
+     *                                                      router cannot be found in controller event
      */
     public function toRoute($route = null, $params = array(), $options = array(), $reuseMatchedParams = false)
     {
@@ -52,9 +66,29 @@ class Redirect extends AbstractPlugin
     }
 
     /**
+     * Redirect to referer URL if present in header otherwise redirect to the specified url
+     * @param  string   $url URL to redirect if HTTP_REFERER is not present in request header
+     * @return Response
+     */
+    public function toReferer($defaultUrl = null)
+    {
+        $url = $this->getRequest()->getHeader('Referer', $defaultUrl);
+
+        if (!$url instanceof Referer) {
+            if ($defaultUrl === null) {
+                return $this->toRoute();
+            }
+
+            return $this->toUrl($defaultUrl);
+        }
+
+        return $this->toUrl($url->getUri());
+    }
+
+    /**
      * Redirect to the given URL
      *
-     * @param  string $url
+     * @param  string   $url
      * @return Response
      */
     public function toUrl($url)
@@ -62,6 +96,7 @@ class Redirect extends AbstractPlugin
         $response = $this->getResponse();
         $response->getHeaders()->addHeaderLine('Location', $url);
         $response->setStatusCode(302);
+
         return $response;
     }
 
@@ -73,6 +108,28 @@ class Redirect extends AbstractPlugin
     public function refresh()
     {
         return $this->toRoute(null, array(), array(), true);
+    }
+
+    /**
+     * Get the request
+     *
+     * @return Request
+     * @throws Exception\DomainException if unable to find request
+     */
+    protected function getRequest()
+    {
+        if ($this->request) {
+            return $this->request;
+        }
+
+        $event = $this->getEvent();
+        $request = $event->getRequest();
+        if (!$request instanceof Request) {
+            throw new Exception\DomainException('Redirect plugin requires event compose a request');
+        }
+        $this->request = $request;
+
+        return $this->request;
     }
 
     /**
@@ -93,6 +150,7 @@ class Redirect extends AbstractPlugin
             throw new Exception\DomainException('Redirect plugin requires event compose a response');
         }
         $this->response = $response;
+
         return $this->response;
     }
 

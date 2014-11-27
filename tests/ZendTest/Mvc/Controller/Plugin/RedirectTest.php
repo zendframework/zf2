@@ -11,6 +11,9 @@ namespace ZendTest\Mvc\Controller\Plugin;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Http\Response;
+use Zend\Http\Request;
+use Zend\Http\Headers;
+use Zend\Http\Header\Referer;
 use Zend\Mvc\Controller\Plugin\Redirect as RedirectPlugin;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\Http\Literal as LiteralRoute;
@@ -24,6 +27,10 @@ class RedirectTest extends TestCase
     public function setUp()
     {
         $this->response = new Response();
+        $this->request = new Request();
+        $this->requestHeaders = new Headers();
+
+        $this->request->setHeaders($this->requestHeaders);
 
         $router = new SimpleRouteStack;
         $router->addRoute('home', LiteralRoute::factory(array(
@@ -45,6 +52,8 @@ class RedirectTest extends TestCase
 
         $this->controller = new SampleController();
         $this->controller->setEvent($event);
+
+        $this->event->setRequest($this->request);
 
         $this->plugin = $this->controller->plugin('redirect');
     }
@@ -175,6 +184,45 @@ class RedirectTest extends TestCase
         $this->assertTrue($response->isRedirect());
         $headers = $response->getHeaders();
         $location = $headers->get('Location');
+        $this->assertEquals('/', $location->getFieldValue());
+    }
+
+    public function testPluginCanRedirectToHttpRefererWhenPresentInHeader()
+    {
+        $referer = new Referer();
+        $referer->setUri('http://origin_url/origin');
+
+        $this->requestHeaders->addHeader($referer);
+
+        $response = $this->plugin->toReferer('/default');
+        $this->assertTrue($response->isRedirect());
+        $responseHeaders = $response->getHeaders();
+
+        $location = $responseHeaders->get('Location');
+
+        $this->assertEquals('http://origin_url/origin', $location->getFieldValue());
+    }
+
+    public function testPluginCarRedirectToUrlWhenRefererNotPresentInHeader()
+    {
+        $response = $this->plugin->toReferer('/default');
+        $this->assertTrue($response->isRedirect());
+        $responseHeaders = $response->getHeaders();
+
+        $location = $responseHeaders->get('Location');
+
+        $this->assertEquals('/default', $location->getFieldValue());
+    }
+
+    public function testPluginCanRedirectToRouteWithNullAndNoReferer()
+    {
+        $this->event->setRouteMatch($this->routeMatch);
+        $response = $this->plugin->toReferer();
+        $this->assertTrue($response->isRedirect());
+        $responseHeaders = $response->getHeaders();
+
+        $location = $responseHeaders->get('Location');
+
         $this->assertEquals('/', $location->getFieldValue());
     }
 }
