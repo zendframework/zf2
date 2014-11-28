@@ -9,18 +9,19 @@
 
 namespace ModuleWithEvents;
 
+use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\Mvc\MvcEvent;
 
-class Module
+class Module implements BootstrapListenerInterface
 {
-    public function onBootstrap($e)
+    public function onBootstrap(MvcEvent $e)
     {
         $application = $e->getApplication();
         $events      = $application->getEventManager();
         $events->attach(MvcEvent::EVENT_ROUTE, array($this, 'onRoute'), -1000);
     }
 
-    public function onRoute($e)
+    public function onRoute(MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
         if ($routeMatch->getMatchedRouteName() == "myroutebis") {

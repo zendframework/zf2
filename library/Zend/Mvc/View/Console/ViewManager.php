@@ -25,10 +25,10 @@ class ViewManager extends BaseViewManager
      * algorithms, as well as to ensure we pick up the Console variants
      * of several listeners and strategies.
      *
-     * @param  $event
+     * @param MvcEvent $event
      * @return void
      */
-    public function onBootstrap($event)
+    public function onBootstrap(MvcEvent $event)
     {
         $application  = $event->getApplication();
         $services     = $application->getServiceManager();

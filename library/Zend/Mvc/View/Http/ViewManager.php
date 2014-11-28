@@ -87,10 +87,10 @@ class ViewManager extends AbstractListenerAggregate
     /**
      * Prepares the view layer
      *
-     * @param  $event
+     * @param MvcEvent $event
      * @return void
      */
-    public function onBootstrap($event)
+    public function onBootstrap(MvcEvent $event)
     {
         $application  = $event->getApplication();
         $services     = $application->getServiceManager();

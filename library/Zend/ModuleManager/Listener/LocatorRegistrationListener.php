@@ -94,10 +94,10 @@ class LocatorRegistrationListener extends AbstractListener implements
      *
      * @TODO: Check the application / locator / etc a bit better to make sure
      * the env looks how we're expecting it to?
-     * @param Event $e
+     * @param MvcEvent $e
      * @return void
      */
-    public function onBootstrap(Event $e)
+    public function onBootstrap(MvcEvent $e)
     {
         $application = $e->getApplication();
         $services    = $application->getServiceManager();

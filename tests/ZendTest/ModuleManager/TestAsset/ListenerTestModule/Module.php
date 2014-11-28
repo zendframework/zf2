@@ -10,21 +10,26 @@
 namespace ListenerTestModule;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\InitProviderInterface;
 use Zend\ModuleManager\Feature\LocatorRegisteredInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
-use Zend\EventManager\EventInterface;
+use Zend\ModuleManager\ModuleManagerInterface;
+use Zend\Mvc\MvcEvent;
 
 class Module implements
     AutoloaderProviderInterface,
-    LocatorRegisteredInterface,
-    BootstrapListenerInterface
+    BootstrapListenerInterface,
+    ConfigProviderInterface,
+    InitProviderInterface,
+    LocatorRegisteredInterface
 {
     public $initCalled = false;
     public $getConfigCalled = false;
     public $getAutoloaderConfigCalled = false;
     public $onBootstrapCalled = false;
 
-    public function init($moduleManager = null)
+    public function init(ModuleManagerInterface $moduleManager = null)
     {
         $this->initCalled = true;
     }
@@ -49,7 +54,7 @@ class Module implements
         );
     }
 
-    public function onBootstrap(EventInterface $e)
+    public function onBootstrap(MvcEvent $e)
     {
         $this->onBootstrapCalled = true;
     }

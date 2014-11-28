@@ -20,7 +20,7 @@ class MockViewManager extends AbstractListenerAggregate
         $this->listeners[] = $events->attach(MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), 10000);
     }
 
-    public function onBootstrap($e)
+    public function onBootstrap(MvcEvent $e)
     {
     }
 }
