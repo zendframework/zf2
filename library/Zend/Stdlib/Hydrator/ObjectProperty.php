@@ -10,9 +10,19 @@
 namespace Zend\Stdlib\Hydrator;
 
 use Zend\Stdlib\Exception;
+use ReflectionObject;
+use ReflectionProperty;
 
 class ObjectProperty extends AbstractHydrator
 {
+
+    /**
+     * @var array
+     */
+    protected $propertyFilterCache = array(
+        'stdClass' => array()
+    );
+
     /**
      * Extract values from an object
      *
@@ -68,8 +78,29 @@ class ObjectProperty extends AbstractHydrator
                 '%s expects the provided $object to be a PHP object)', __METHOD__
             ));
         }
+
+        $prop = &$this->propertyFilterCache[get_class($object)];
+
+        if (!isset($prop)) {
+            $reflectionObject = new ReflectionObject($object);
+            $prop = array_fill_keys(
+                array_map(
+                    function ($property) {
+                        return $property->name;
+                    },
+                    $reflectionObject->getProperties(ReflectionProperty::IS_PRIVATE + ReflectionProperty::IS_PROTECTED + ReflectionProperty::IS_STATIC)
+                ),
+                true
+            );
+        }
+
         foreach ($data as $name => $value) {
             $property = $this->hydrateName($name, $data);
+
+            if (isset($prop[$property])) {
+                continue;
+            }
+
             $object->$property = $this->hydrateValue($property, $value, $data);
         }
         return $object;
