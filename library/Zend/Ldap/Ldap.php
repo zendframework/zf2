@@ -758,6 +758,10 @@ class Ldap
     {
         $moreCreds = true;
 
+        // Security check: remove null bytes in password
+        // @see https://net.educause.edu/ir/library/pdf/csd4875.pdf
+        $password = str_replace("\0", '', $password);
+
         if ($username === null) {
             $username  = $this->getUsername();
             $password  = $this->getPassword();
@@ -863,8 +867,7 @@ class Ldap
      */
     public function search($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB, array $attributes = array(),
                            $sort = null, $collectionClass = null, $sizelimit = 0, $timelimit = 0
-    )
-    {
+    ) {
         if (is_array($filter)) {
             $options = array_change_key_case($filter, CASE_LOWER);
             foreach ($options as $key => $value) {
@@ -894,7 +897,7 @@ class Ldap
         if ($basedn === null) {
             $basedn = $this->getBaseDn();
         } elseif ($basedn instanceof Dn) {
-                $basedn = $basedn->toString();
+            $basedn = $basedn->toString();
         }
 
         if ($filter instanceof Filter\AbstractFilter) {
@@ -1156,7 +1159,7 @@ class Ldap
             if (!array_key_exists($key, $entry)) {
                 $entry[$key] = array($value);
             } elseif (!in_array($value, $entry[$key])) {
-                    $entry[$key] = array_merge(array($value), $entry[$key]);
+                $entry[$key] = array_merge(array($value), $entry[$key]);
             }
         }
         $adAttributes = array('distinguishedname', 'instancetype', 'name', 'objectcategory',

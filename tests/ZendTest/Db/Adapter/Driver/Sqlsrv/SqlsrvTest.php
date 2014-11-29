@@ -13,7 +13,6 @@ use Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv;
 
 class SqlsrvTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Sqlsrv
      */
@@ -51,7 +50,6 @@ class SqlsrvTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv::registerResultPrototype
-     * @requires extension sqlsrv
      */
     public function testRegisterResultPrototype()
     {
@@ -140,5 +138,4 @@ class SqlsrvTest extends \PHPUnit_Framework_TestCase
           'This test has not been implemented yet.'
         );
     }
-
 }

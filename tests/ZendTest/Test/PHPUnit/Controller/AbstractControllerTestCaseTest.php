@@ -77,7 +77,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public function testUseOfRouter()
     {
-       // default value
+        // default value
        $this->assertEquals(false, $this->useConsoleRequest);
     }
 
@@ -294,6 +294,26 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
     public function testPreserveContentOfPutRequest()
     {
         $this->getRequest()->setMethod('PUT');
+        $this->getRequest()->setContent('my content');
+        $this->dispatch('/tests');
+        $this->assertEquals('my content', $this->getRequest()->getContent());
+    }
+
+    /**
+     * @group 6399
+     */
+    public function testPatchRequestParams()
+    {
+        $this->dispatch('/tests', 'PATCH', array('a' => 1));
+        $this->assertEquals('a=1', $this->getRequest()->getContent());
+    }
+
+    /**
+     * @group 6399
+     */
+    public function testPreserveContentOfPatchRequest()
+    {
+        $this->getRequest()->setMethod('PATCH');
         $this->getRequest()->setContent('my content');
         $this->dispatch('/tests');
         $this->assertEquals('my content', $this->getRequest()->getContent());

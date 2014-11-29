@@ -13,7 +13,6 @@ use Zend\XmlRpc\AbstractValue;
 
 abstract class AbstractCollection extends AbstractValue
 {
-
     /**
      * Set the value of a collection type (array and struct) native types
      *
@@ -31,7 +30,6 @@ abstract class AbstractCollection extends AbstractValue
             $this->value[$key] = $value;
         }
     }
-
 
     /**
      * Return the value of this object, convert the XML-RPC native collection values into a PHP array

@@ -30,7 +30,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public function testUseOfRouter()
     {
-       $this->assertEquals(false, $this->useConsoleRequest);
+        $this->assertEquals(false, $this->useConsoleRequest);
     }
 
     public function testAssertResponseStatusCode()
@@ -637,6 +637,21 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->dispatch('/exception');
         $this->assertResponseStatusCode(500);
         $this->assertApplicationException('RuntimeException', 'Foo error');
+    }
+
+    public function testTraceErrorEnableByDefault()
+    {
+        $this->dispatch('/exception');
+        $this->assertResponseStatusCode(500);
+
+        try {
+            // force exception throwing
+            parent::tearDown();
+        } catch (\Exception $e) {
+            $this->getApplication()->getMvcEvent()->setParam('exception', null);
+            $this->setExpectedException('RuntimeException', 'Foo error');
+            throw $e;
+        }
     }
 
     public function testGetErrorWithTraceErrorEnabled()

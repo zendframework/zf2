@@ -129,6 +129,12 @@ class SqlServerTest extends \PHPUnit_Framework_TestCase
             '([foo].[bar] = [boo].[baz]) AND ([foo].[baz] = [boo].[baz])',
             $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and'))
         );
+
+        // case insensitive safe words in field
+        $this->assertEquals(
+            '([foo].[bar] = [boo].baz) AND ([foo].baz = [boo].baz)',
+            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and', 'bAz'))
+        );
     }
 
     /**
@@ -138,5 +144,14 @@ class SqlServerTest extends \PHPUnit_Framework_TestCase
     {
         $driver = new Pdo(array('pdodriver' => 'sqlsrv'));
         $this->platform->setDriver($driver);
+    }
+
+    public function testPlatformQuotesNullByteCharacter()
+    {
+        $err = set_error_handler(function () {} );
+        $string = "1\0";
+        $value = $this->platform->quoteValue($string);
+        set_error_handler($err);
+        $this->assertEquals("'1\\000'", $value);
     }
 }

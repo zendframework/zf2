@@ -17,10 +17,10 @@
         "php": ">=5.3.23",
         "zendframework/zend-stdlib": "self.version",
         "zendframework/zend-servicemanager": "self.version",
+        "zendframework/zend-serializer": "self.version",
         "zendframework/zend-eventmanager": "self.version"
     },
     "require-dev": {
-        "zendframework/zend-serializer": "self.version",
         "zendframework/zend-session": "self.version"
     },
     "suggest": {
@@ -29,7 +29,9 @@
         "ext-apc": "APC >= 3.1.6 to use the APC storage adapter",
         "ext-dba": "DBA, to use the DBA storage adapter",
         "ext-memcached": "Memcached >= 1.0.0 to use the Memcached storage adapter",
-        "ext-wincache": "WinCache, to use the WinCache storage adapter"
+        "ext-mongo": "Mongo, to use MongoDB storage adapter",
+        "ext-wincache": "WinCache, to use the WinCache storage adapter",
+        "mongofill/mongofill": "Alternative to ext-mongo - a pure PHP implementation designed as a drop in replacement"
     },
     "extra": {
         "branch-alias": {

@@ -14,7 +14,6 @@ use Zend\Db\Sql\Predicate\Operator;
 
 class OperatorTest extends TestCase
 {
-
     public function testEmptyConstructorYieldsNullLeftAndRightValues()
     {
         $operator = new Operator();
@@ -36,6 +35,13 @@ class OperatorTest extends TestCase
         $this->assertEquals(Operator::OP_GTE, $operator->getOperator());
         $this->assertEquals('bar', $operator->getLeft());
         $this->assertEquals('foo.bar', $operator->getRight());
+        $this->assertEquals(Operator::TYPE_VALUE, $operator->getLeftType());
+        $this->assertEquals(Operator::TYPE_IDENTIFIER, $operator->getRightType());
+
+        $operator = new Operator(array('bar'=>Operator::TYPE_VALUE), '>=', array('foo.bar'=>Operator::TYPE_IDENTIFIER));
+        $this->assertEquals(Operator::OP_GTE, $operator->getOperator());
+        $this->assertEquals(array('bar'=>Operator::TYPE_VALUE), $operator->getLeft());
+        $this->assertEquals(array('foo.bar'=>Operator::TYPE_IDENTIFIER), $operator->getRight());
         $this->assertEquals(Operator::TYPE_VALUE, $operator->getLeftType());
         $this->assertEquals(Operator::TYPE_IDENTIFIER, $operator->getRightType());
 

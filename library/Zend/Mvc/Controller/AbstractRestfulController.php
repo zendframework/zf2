@@ -20,11 +20,10 @@ use Zend\Stdlib\ResponseInterface as Response;
  */
 abstract class AbstractRestfulController extends AbstractController
 {
-
     const CONTENT_TYPE_JSON = 'json';
 
     /**
-     * @var string
+     * {@inheritDoc}
      */
     protected $eventIdentifier = __CLASS__;
 

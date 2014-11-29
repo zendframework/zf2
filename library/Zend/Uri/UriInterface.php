@@ -14,7 +14,6 @@ namespace Zend\Uri;
  */
 interface UriInterface
 {
-
     /**
      * Create a new URI object
      *
@@ -76,8 +75,6 @@ interface UriInterface
      * @return Uri
      */
     public function normalize();
-
-
 
     /**
      * Convert the link to a relative link by substracting a base URI

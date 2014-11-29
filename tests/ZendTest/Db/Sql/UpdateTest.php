@@ -59,7 +59,6 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     {
         $update = new Update('foo');
         $this->assertEquals('foo', $this->readAttribute($update, 'table'));
-
     }
 
     /**
@@ -236,6 +235,19 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group 6768
+     * @group 6773
+     */
+    public function testGetSqlStringForFalseUpdateValueParameter()
+    {
+        $this->update = new Update;
+        $this->update->table(new TableIdentifier('foo', 'sch'))
+            ->set(array('bar' => false, 'boo' => 'test', 'bam' => true))
+            ->where('x = y');
+        $this->assertEquals('UPDATE "sch"."foo" SET "bar" = \'\', "boo" = \'test\', "bam" = \'1\' WHERE x = y', $this->update->getSqlString(new TrustingSql92Platform()));
+    }
+
+    /**
      * @covers Zend\Db\Sql\Update::__get
      */
     public function testGetUpdate()
@@ -330,4 +342,9 @@ class UpdateIgnore extends Update
         self::SPECIFICATION_UPDATE => 'UPDATE IGNORE %1$s SET %2$s',
         self::SPECIFICATION_WHERE  => 'WHERE %1$s'
     );
+
+    protected function processupdateIgnore(\Zend\Db\Adapter\Platform\PlatformInterface $platform, \Zend\Db\Adapter\Driver\DriverInterface $driver = null, \Zend\Db\Adapter\ParameterContainer $parameterContainer = null)
+    {
+        return parent::processUpdate($platform, $driver, $parameterContainer);
+    }
 }

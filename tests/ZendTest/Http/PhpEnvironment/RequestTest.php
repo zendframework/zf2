@@ -247,10 +247,31 @@ class RequestTest extends TestCase
             ),
             array(
                 array(
+                    'HTTP_CUSTOM_COUNT'     => '0',
+                ),
+                'Custom-Count',
+                '0'
+            ),
+            array(
+                array(
                     'CONTENT_TYPE'     => 'text/html',
                 ),
                 'Content-Type',
                 'text/html'
+            ),
+            array(
+                array(
+                    'CONTENT_LENGTH'     => 0,
+                ),
+                'Content-Length',
+                0
+            ),
+            array(
+                array(
+                    'CONTENT_LENGTH'     => 0,
+                ),
+                'Content-Length',
+                0
             ),
             array(
                 array(
@@ -738,5 +759,17 @@ class RequestTest extends TestCase
         $server->set('SCRIPT_FILENAME', null);
 
         $this->assertEquals('', $request->getBaseUrl());
+    }
+
+    public function testAllowCustomMethodsFlagCanBeSetWithConstructor()
+    {
+        $_SERVER['REQUEST_METHOD'] = 'xcustomx';
+
+        $this->setExpectedException(
+            'Zend\Http\Exception\InvalidArgumentException',
+            'Invalid HTTP method passed'
+        );
+
+        $request = new Request(false);
     }
 }

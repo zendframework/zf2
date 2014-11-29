@@ -130,6 +130,12 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
             '("foo"."bar" = "boo"."baz") AND ("foo"."baz" = "boo"."baz")',
             $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and'))
         );
+
+        // case insensitive safe words in field
+        $this->assertEquals(
+            '("foo"."bar" = "boo".baz) AND ("foo".baz = "boo".baz)',
+            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and', 'bAz'))
+        );
     }
 
     /**
@@ -140,7 +146,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
     {
         // Creating the SQLite database file
         $filePath = realpath(__DIR__) . "/_files/sqlite.db";
-        if(!file_exists($filePath)) {
+        if (!file_exists($filePath)) {
             touch($filePath);
         }
 

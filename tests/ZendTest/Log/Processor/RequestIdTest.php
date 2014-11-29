@@ -16,7 +16,6 @@ use Zend\Log\Processor\RequestId;
  */
 class RequestIdTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testProcess()
     {
         $processor = new RequestId();
@@ -36,5 +35,27 @@ class RequestIdTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('requestId', $eventB['extra']);
 
         $this->assertEquals($eventA['extra']['requestId'], $eventB['extra']['requestId']);
+    }
+
+    public function testProcessDoesNotOverwriteExistingRequestId()
+    {
+        $processor = new RequestId();
+
+        $requestId = 'bar';
+
+        $event = array(
+            'timestamp'    => '',
+            'priority'     => 1,
+            'priorityName' => 'ALERT',
+            'message'      => 'foo',
+            'extra'        => array(
+                'requestId' => $requestId,
+            ),
+        );
+
+        $processedEvent = $processor->process($event);
+
+        $this->assertArrayHasKey('requestId', $processedEvent['extra']);
+        $this->assertSame($requestId, $processedEvent['extra']['requestId']);
     }
 }

@@ -20,7 +20,6 @@ use Zend\Console\RouteMatcher\DefaultRouteMatcher;
  */
 class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
 {
-
     public static function routeProvider()
     {
         return array(
@@ -321,9 +320,24 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
                 array('fooo'),
                 null
             ),
+            'mandatory-literal-colon-match' => array(
+                'foo:bar',
+                array('foo:bar'),
+                array('foo:bar' => null)
+            ),
+            'mandatory-literal-colon-match-2' => array(
+                'foo:bar baz',
+                array('foo:bar', 'baz'),
+                array('foo:bar' => null, 'baz' => null)
+            ),
             'mandatory-literal-order' => array(
                 'foo bar',
                 array('bar','foo'),
+                null
+            ),
+            'mandatory-literal-order-colon' => array(
+                'foo bar baz:inga',
+                array('bar','foo', 'baz:inga'),
                 null
             ),
             'mandatory-literal-partial-mismatch' => array(
@@ -373,9 +387,19 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
                 array('foo','bar'),
                 array('foo' => null, 'bar' => true, 'baz' => null)
             ),
+            'optional-literal-colon-match' => array(
+                'foo [bar] [baz:inga]',
+                array('foo','bar'),
+                array('foo' => null, 'bar' => true, 'baz:inga' => null)
+            ),
             'optional-literal-mismatch' => array(
                 'foo [bar] [baz]',
                 array('baz','bar'),
+                null
+            ),
+            'optional-literal-colon-mismatch' => array(
+                'foo [bar] [baz:inga]',
+                array('baz:inga','bar'),
                 null
             ),
             'optional-literal-shuffled-mismatch' => array(
@@ -1208,8 +1232,7 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
         array $aliases = array(),
         array $arguments = array(),
         array $params = null
-    )
-    {
+    ) {
         $route = new DefaultRouteMatcher($routeDefinition, array(), array(), $aliases);
         $match = $route->match($arguments);
 

@@ -185,15 +185,6 @@ class Curl implements HttpAdapter, StreamInterface
             $this->close();
         }
 
-        // If we are connected to a different server or port, disconnect first
-        if ($this->curl
-            && is_array($this->connectedTo)
-            && ($this->connectedTo[0] != $host
-            || $this->connectedTo[1] != $port)
-        ) {
-            $this->close();
-        }
-
         // Do the actual connection
         $this->curl = curl_init();
         if ($port != 80) {
@@ -201,8 +192,17 @@ class Curl implements HttpAdapter, StreamInterface
         }
 
         if (isset($this->config['timeout'])) {
-            // Set timeout
-            curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, $this->config['timeout']);
+            if (defined('CURLOPT_CONNECTTIMEOUT_MS')) {
+                curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT_MS, $this->config['timeout'] * 1000);
+            } else {
+                curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, $this->config['timeout']);
+            }
+
+            if (defined('CURLOPT_TIMEOUT_MS')) {
+                curl_setopt($this->curl, CURLOPT_TIMEOUT_MS, $this->config['timeout'] * 1000);
+            } else {
+                curl_setopt($this->curl, CURLOPT_TIMEOUT, $this->config['timeout']);
+            }
         }
 
         if (isset($this->config['maxredirects'])) {
@@ -375,7 +375,7 @@ class Curl implements HttpAdapter, StreamInterface
          * Make sure POSTFIELDS is set after $curlMethod is set:
          * @link http://de2.php.net/manual/en/function.curl-setopt.php#81161
          */
-        if ($method == 'POST') {
+        if (in_array($method, array('POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'), true)) {
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);
         } elseif ($curlMethod == CURLOPT_UPLOAD) {
             // this covers a PUT by file-handle:
@@ -385,14 +385,6 @@ class Curl implements HttpAdapter, StreamInterface
             curl_setopt($this->curl, CURLOPT_INFILESIZE, $this->config['curloptions'][CURLOPT_INFILESIZE]);
             unset($this->config['curloptions'][CURLOPT_INFILE]);
             unset($this->config['curloptions'][CURLOPT_INFILESIZE]);
-        } elseif ($method == 'PUT') {
-            // This is a PUT by a setRawData string, not by file-handle
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);
-        } elseif ($method == 'PATCH') {
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);
-        } elseif ($method == 'DELETE' && $body) {
-            // DELETE requests can also have a body
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);
         }
 
         // set additional curl options

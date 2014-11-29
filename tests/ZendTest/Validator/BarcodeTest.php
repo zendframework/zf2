@@ -33,6 +33,15 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($barcode->isValid('0075678164125'));
     }
 
+    public function testSetCustomAdapter()
+    {
+        $barcode = new Barcode(array(
+            'adapter' => $this->getMock('Zend\Validator\Barcode\AdapterInterface')
+        ));
+
+        $this->assertInstanceOf('Zend\Validator\Barcode\AdapterInterface', $barcode->getAdapter());
+    }
+
     /**
      * @ZF-4352
      */
@@ -440,7 +449,6 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($barcode->isValid('012345'));
         $this->assertTrue($barcode->isValid('ABCDEF'));
         $this->assertFalse($barcode->isValid('01234Ê'));
-
     }
 
     /**
