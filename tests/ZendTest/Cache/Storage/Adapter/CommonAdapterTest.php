@@ -32,6 +32,11 @@ use Zend\Stdlib\ErrorHandler;
 abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Zend\Cache\Storage\Adapter\AdapterOptions
+     */
+    protected $_options;
+
+    /**
      * The storage adapter
      *
      * @var StorageInterface

@@ -197,6 +197,7 @@ class PriorityList implements Iterator, Countable
      */
     public function current()
     {
+        $this->sorted || $this->sort();
         $node = current($this->items);
 
         return $node ? $node['data'] : false;
@@ -207,6 +208,7 @@ class PriorityList implements Iterator, Countable
      */
     public function key()
     {
+        $this->sorted || $this->sort();
         return key($this->items);
     }
 
@@ -226,6 +228,14 @@ class PriorityList implements Iterator, Countable
     public function valid()
     {
         return current($this->items) !== false;
+    }
+
+    /**
+     * @return self
+     */
+    public function getIterator()
+    {
+        return clone $this;
     }
 
     /**
