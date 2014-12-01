@@ -24,6 +24,14 @@ use Zend\Validator\Digits as DigitsFilter;
  */
 class LoggerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * {@inheritDoc}
+     */
     public function setUp()
     {
         $this->logger = new Logger;
@@ -446,10 +454,42 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
         $self = $this;
         register_shutdown_function(function () use ($writer, $self) {
-            $self->assertEquals($writer->events[0]['message'], 'Call to undefined method ZendTest\Log\LoggerTest::callToNonExistingMethod()');
+            $self->assertEquals(
+                'Call to undefined method ZendTest\Log\LoggerTest::callToNonExistingMethod()',
+                $writer->events[0]['message']
+            );
         });
 
         // Temporary hide errors, because we don't want the fatal error to fail the test
         @$this->callToNonExistingMethod();
+    }
+
+
+    /**
+     * @runInSeparateProcess
+     *
+     * @group 6424
+     */
+    public function testRegisterFatalErrorShutdownFunctionHandlesCompileTimeErrors()
+    {
+        $writer = new MockWriter;
+        $this->logger->addWriter($writer);
+
+        $result = Logger::registerFatalErrorShutdownFunction($this->logger);
+        $this->assertTrue($result);
+
+        // check for single error handler instance
+        $this->assertFalse(Logger::registerFatalErrorShutdownFunction($this->logger));
+
+        $self = $this;
+        register_shutdown_function(function () use ($writer, $self) {
+            $self->assertStringMatchesFormat(
+                'syntax error%A',
+                $writer->events[0]['message']
+            );
+        });
+
+        // Temporary hide errors, because we don't want the fatal error to fail the test
+        @eval('this::code::is::invalid {}');
     }
 }
