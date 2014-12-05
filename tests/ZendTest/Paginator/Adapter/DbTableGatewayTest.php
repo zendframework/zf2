@@ -11,7 +11,6 @@ namespace ZendTest\Paginator\Adapter;
 
 use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Paginator\Adapter\DbTableGateway;
-use Zend\Db\ResultSet\ResultSet;
 
 /**
  * @group Zend_Paginator
@@ -64,7 +63,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $items);
+        $this->assertEquals(array(), $items);
     }
 
     public function testCount()
@@ -97,7 +96,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $items);
+        $this->assertEquals(array(), $items);
     }
 
     public function testGetItemsWithWhereAndOrderAndGroup()
@@ -118,7 +117,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $items);
+        $this->assertEquals(array(), $items);
     }
 
     public function testGetItemsWithWhereAndOrderAndGroupAndHaving()
@@ -140,6 +139,6 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $items);
+        $this->assertEquals(array(), $items);
     }
 }
