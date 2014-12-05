@@ -228,16 +228,13 @@ class Cookies extends Headers
             switch ($retAs) {
                 case self::COOKIE_OBJECT:
                     return $cookie;
-                    break;
 
                 case self::COOKIE_STRING_ARRAY:
                 case self::COOKIE_STRING_CONCAT:
                     return $cookie->__toString();
-                    break;
 
                 default:
                     throw new Exception\InvalidArgumentException("Invalid value passed for \$retAs: {$retAs}");
-                    break;
             }
         }
 
@@ -268,16 +265,13 @@ class Cookies extends Headers
             switch ($retAs) {
                 case self::COOKIE_STRING_ARRAY:
                     return array($ptr->__toString());
-                    break;
 
                 case self::COOKIE_STRING_CONCAT:
                     return $ptr->__toString();
-                    break;
 
                 case self::COOKIE_OBJECT:
                 default:
                     return array($ptr);
-                    break;
             }
         }
 
