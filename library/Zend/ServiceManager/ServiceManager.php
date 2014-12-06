@@ -16,6 +16,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     const SCOPE_PARENT = 'parent';
     const SCOPE_CHILD = 'child';
+    const PREFIX_SERVICE_NAME = '@';
     /**@#-*/
 
     /**
@@ -225,7 +226,7 @@ class ServiceManager implements ServiceLocatorInterface
      * Set invokable class
      *
      * @param  string  $name
-     * @param  string  $invokableClass
+     * @param  string|array  $invokableClass
      * @param  bool $shared
      * @return ServiceManager
      * @throws Exception\InvalidServiceNameException
@@ -248,10 +249,61 @@ class ServiceManager implements ServiceLocatorInterface
             $shared = $this->shareByDefault;
         }
 
-        $this->invokableClasses[$cName] = $invokableClass;
-        $this->shared[$cName]           = (bool) $shared;
-
+        if (is_array($invokableClass)) {
+            $this->setFactory($cName, $this->setFactoryCallbackForInvokablesArray($invokableClass), $shared);
+        } else {
+            $this->invokableClasses[$cName] = $invokableClass;
+            $this->shared[$cName]           = (bool) $shared;
+        }
         return $this;
+    }
+
+    /**
+     * Create factory for invokables
+     *
+     * @param array $data
+     * @return callable
+     */
+    public function setFactoryCallbackForInvokablesArray(array $data)
+    {
+        return function (ServiceManager $serviceManager) use ($data) {
+            $args = array();
+
+            foreach ($data['args'] as $arg) {
+                $args[] = substr($arg, 0, 1) === self::PREFIX_SERVICE_NAME ? $serviceManager->get(substr($arg, 1)) : $arg;
+            }
+            return $serviceManager->createInstance($data['class'], $args);
+        };
+    }
+
+    /**
+     * Create class for given name and args
+     * It's absolutely ugly but necessary for performance
+     * TODO: refactor after minimal version of php >= 5.6 to `new $className(...$args)`
+     *
+     * @param string $className
+     * @param array $args
+     * @return object
+     */
+    public function createInstance($className, array $args = array())
+    {
+        switch (count($args)) {
+            case 0:
+                return new $className();
+            case 1:
+                return new $className($args[0]);
+            case 2:
+                return new $className($args[0], $args[1]);
+            case 3:
+                return new $className($args[0], $args[1], $args[2]);
+            case 4:
+                return new $className($args[0], $args[1], $args[2], $args[3]);
+            case 5:
+                return new $className($args[0], $args[1], $args[2], $args[3], $args[4]);
+            default:
+                $ref = new \ReflectionClass($className);
+                return $ref->newInstanceArgs($args);
+        }
     }
 
     /**
