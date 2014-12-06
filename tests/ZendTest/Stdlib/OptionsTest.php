@@ -11,6 +11,7 @@ namespace ZendTest\Stdlib;
 
 use ArrayObject;
 use ZendTest\Stdlib\TestAsset\TestOptions;
+use ZendTest\Stdlib\TestAsset\TestOptionsDerived;
 use ZendTest\Stdlib\TestAsset\TestOptionsNoStrict;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 
@@ -99,5 +100,51 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException');
         $options = new TestOptions;
         $options->setFromArray('asd');
+    }
+
+    public function testParentPublicProperty()
+    {
+        $options = new TestOptionsDerived(array('parent_public' => 1));
+
+        $this->assertEquals(1, $options->parent_public);
+    }
+
+    public function testParentProtectedProperty()
+    {
+        $options = new TestOptionsDerived(array('parent_protected' => 1));
+
+        $this->assertEquals(1, $options->parent_protected);
+    }
+
+    public function testParentPrivateProperty()
+    {
+        $this->setExpectedException(
+            'Zend\Stdlib\Exception\BadMethodCallException',
+            'The option "parent_private" does not have a callable "setParentPrivate" setter method which must be defined'
+        );
+        $options = new TestOptionsDerived(array('parent_private' => 1));
+    }
+
+    public function testDerivedPublicProperty()
+    {
+        $options = new TestOptionsDerived(array('derived_public' => 1));
+
+        $this->assertEquals(1, $options->derived_public);
+    }
+
+    public function testDerivedProtectedProperty()
+    {
+        $options = new TestOptionsDerived(array('derived_protected' => 1));
+
+        $this->assertEquals(1, $options->derived_protected);
+    }
+
+    public function testDerivedPrivateProperty()
+    {
+        $this->setExpectedException(
+            'Zend\Stdlib\Exception\BadMethodCallException',
+            'The option "derived_private" does not have a callable "setDerivedPrivate" setter method which must be defined'
+        );
+        $options = new TestOptionsDerived(array('derived_private' => 1));
     }
 }
