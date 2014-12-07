@@ -251,32 +251,77 @@ abstract class ArrayUtils
      * from the second array will be appended to the first array. If both values are arrays, they
      * are merged together, else the value of the second array overwrites the one of the first array.
      *
-     * @param  array $a
-     * @param  array $b
+     * @param  array $destination
+     * @param  array $origin
      * @param  bool  $preserveNumericKeys
      * @return array
      */
-    public static function merge(array $a, array $b, $preserveNumericKeys = false)
+    public static function merge(array $destination, array $origin, $preserveNumericKeys = false)
     {
-        foreach ($b as $key => $value) {
-            if ($value instanceof MergeReplaceKeyInterface) {
-                $a[$key] = $value->getData();
-            } elseif (isset($a[$key]) || array_key_exists($key, $a)) {
-                if ($value instanceof MergeRemoveKey) {
-                    unset($a[$key]);
-                } elseif (!$preserveNumericKeys && is_int($key)) {
-                    $a[] = $value;
-                } elseif (is_array($value) && is_array($a[$key])) {
-                    $a[$key] = static::merge($a[$key], $value, $preserveNumericKeys);
-                } else {
-                    $a[$key] = $value;
+        self::doMerge($destination, $origin, $preserveNumericKeys);
+
+        return $destination;
+    }
+
+    /**
+     * @param array $a
+     * @param array $b
+     * @param bool  $preserveNumericKeys
+     *
+     * @return array
+     */
+    private static function doMerge(array & $a, array & $b, $preserveNumericKeys)
+    {
+        $toRecursePointer   = -1;
+        $toRecurse          = array(
+            'a' => array(),
+            'b' => array(),
+        );
+
+        $currentReplaced    = & $a;
+        $currentReplacement = & $b;
+
+        do {
+            foreach ($currentReplacement as $newKey => & $newValue) {
+                if ($newValue instanceof MergeRemoveKey) {
+                    unset($currentReplaced[$newKey]);
+
+                    continue;
                 }
-            } else {
-                if (!$value instanceof MergeRemoveKey) {
-                    $a[$key] = $value;
+
+                if ($newValue instanceof MergeReplaceKeyInterface) {
+                    $currentReplaced[$newKey] = $newValue->getData();
+
+                    continue;
                 }
+
+                if (!(isset($currentReplaced[$newKey]) || array_key_exists($newKey, $currentReplaced))) {
+                    $currentReplaced[$newKey] = $newValue;
+
+                    continue;
+                }
+
+                if (!$preserveNumericKeys && is_int($newKey)) {
+                    $currentReplaced[] = $newValue;
+
+                    continue;
+                }
+
+                if (!(is_array($currentReplaced[$newKey]) && is_array($newValue))) {
+                    $currentReplaced[$newKey] = $newValue;
+
+                    continue;
+                }
+
+                $toRecurse['a'][] = & $currentReplaced[$newKey];
+                $toRecurse['b'][] = & $currentReplacement[$newKey];
             }
-        }
+
+            $toRecursePointer += 1;
+
+            $currentReplaced    = & $toRecurse['a'][$toRecursePointer];
+            $currentReplacement = & $toRecurse['b'][$toRecursePointer];
+        } while (isset($toRecurse['b'][$toRecursePointer]));
 
         return $a;
     }
