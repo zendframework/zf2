@@ -114,7 +114,6 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
             ));
         }
 
-        $filter = null;
         if ($object instanceof FilterProviderInterface) {
             $filter = new FilterComposite(
                 array($object->getFilter()),
