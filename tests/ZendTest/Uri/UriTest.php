@@ -1346,4 +1346,5 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($uri->getQuery());
         $this->assertNull($uri->getFragment());
     }
+
 }

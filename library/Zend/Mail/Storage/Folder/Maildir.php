@@ -91,6 +91,7 @@ class Maildir extends Storage\Maildir implements FolderInterface
         $dirs = array();
 
         while (($entry = readdir($dh)) !== false) {
+
             // maildir++ defines folders must start with .
             if ($entry[0] != '.' || $entry == '.' || $entry == '..') {
                 continue;

@@ -22,6 +22,7 @@ class WinCache extends AbstractAdapter implements
     FlushableInterface,
     TotalSpaceCapableInterface
 {
+
     /**
      * Constructor
      *

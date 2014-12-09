@@ -17,6 +17,7 @@ use Zend\Feed\Reader;
 */
 class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
 {
+
     protected $feedSamplePath = null;
 
     public function setup()
@@ -200,4 +201,5 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('UTF-8', $entry->getEncoding());
     }
+
 }

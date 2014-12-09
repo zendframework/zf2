@@ -160,6 +160,7 @@ class PredicateSet implements PredicateInterface, Countable
     {
         $parts = array();
         for ($i = 0, $count = count($this->predicates); $i < $count; $i++) {
+
             /** @var $predicate PredicateInterface */
             $predicate = $this->predicates[$i][1];
 

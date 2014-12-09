@@ -10,5 +10,4 @@
 namespace Zend\Validator\Exception;
 
 interface ExceptionInterface
-{
-}
+{}

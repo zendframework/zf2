@@ -16,6 +16,7 @@ use Zend\Cache;
  */
 class ApcTest extends CommonAdapterTest
 {
+
     /**
      * Restore 'apc.use_request_time'
      *

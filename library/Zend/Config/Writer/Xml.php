@@ -71,7 +71,7 @@ class Xml extends AbstractWriter
 
             if ($branchType === 'numeric') {
                 if (is_array($value)) {
-                    $this->addBranch($branchName, $value, $writer);
+                    $this->addBranch($value, $value, $writer);
                 } else {
                     $writer->writeElement($branchName, (string) $value);
                 }

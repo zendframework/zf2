@@ -13,6 +13,7 @@ use Zend\Http\Header\Age;
 
 class AgeTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testAgeFromStringCreatesValidAgeHeader()
     {
         $ageHeader = Age::fromString('Age: 12');

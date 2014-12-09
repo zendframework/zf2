@@ -377,4 +377,5 @@ class CallbackCheckAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->_adapter = new Adapter\DbTable\CallbackCheckAdapter($this->_db, 'users', 'username', 'password');
     }
+
 }

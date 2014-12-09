@@ -64,23 +64,19 @@ class HeadStyleTest extends \PHPUnit_Framework_TestCase
         try {
             $this->helper->append('foo');
             $this->fail('Non-style value should not append');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        } catch (View\Exception\ExceptionInterface $e) { }
         try {
             $this->helper->offsetSet(5, 'foo');
             $this->fail('Non-style value should not offsetSet');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        } catch (View\Exception\ExceptionInterface $e) { }
         try {
             $this->helper->prepend('foo');
             $this->fail('Non-style value should not prepend');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        } catch (View\Exception\ExceptionInterface $e) { }
         try {
             $this->helper->set('foo');
             $this->fail('Non-style value should not set');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        } catch (View\Exception\ExceptionInterface $e) { }
     }
 
     public function testOverloadAppendStyleAppendsStyleToStack()
@@ -258,8 +254,7 @@ class HeadStyleTest extends \PHPUnit_Framework_TestCase
         try {
             $this->helper->bogusMethod();
             $this->fail('Invalid method should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        } catch (View\Exception\ExceptionInterface $e) { }
     }
 
     public function testTooFewArgumentsRaisesException()
@@ -267,8 +262,7 @@ class HeadStyleTest extends \PHPUnit_Framework_TestCase
         try {
             $this->helper->appendStyle();
             $this->fail('Too few arguments should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        } catch (View\Exception\ExceptionInterface $e) { }
     }
 
     public function testIndentationIsHonored()
@@ -309,14 +303,14 @@ h1 {
     {
         $this->helper->__invoke()->captureStart();
         echo "Captured text";
-        try {
-            $this->helper->__invoke()->captureStart();
-            $this->helper->__invoke()->captureEnd();
-            $this->fail('Nested capturing should fail');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->helper->__invoke()->captureEnd();
-            $this->assertContains('Cannot nest', $e->getMessage());
-        }
+            try {
+                $this->helper->__invoke()->captureStart();
+                $this->helper->__invoke()->captureEnd();
+                $this->fail('Nested capturing should fail');
+            } catch (View\Exception\ExceptionInterface $e) {
+                $this->helper->__invoke()->captureEnd();
+                $this->assertContains('Cannot nest', $e->getMessage());
+            }
     }
 
     public function testMediaAttributeAsArray()
@@ -333,6 +327,7 @@ a {
         $this->assertContains('    <!--', $string);
         $this->assertContains('    a {', $string);
         $this->assertContains(' media="screen,projection"', $string);
+
     }
 
     public function testMediaAttributeAsCommaSeparatedString()
@@ -349,6 +344,7 @@ a {
         $this->assertContains('    <!--', $string);
         $this->assertContains('    a {', $string);
         $this->assertContains(' media="screen,projection"', $string);
+
     }
 
     public function testConditionalScript()
@@ -388,6 +384,7 @@ a {
      */
     public function testContainerMaintainsCorrectOrderOfItems()
     {
+
         $style1 = 'a {display: none;}';
         $this->helper->offsetSetStyle(10, $style1);
 

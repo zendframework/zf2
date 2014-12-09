@@ -14,6 +14,7 @@ use Zend\Filter\Exception;
 
 abstract class AbstractSeparator extends AbstractFilter
 {
+
     protected $separator = ' ';
 
     /**

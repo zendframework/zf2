@@ -17,6 +17,7 @@ use Zend\Filter\PregReplace as PregReplaceFilter;
  */
 class PregReplaceTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      *
      * @var PregReplaceFilter

@@ -24,6 +24,8 @@ use Zend\Http\Client;
  */
 class ProxyAdapterTest extends SocketTest
 {
+
+
     protected $host;
     protected $port;
 
@@ -36,11 +38,11 @@ class ProxyAdapterTest extends SocketTest
     {
         if (defined('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY') &&
               TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY) {
+
             list($host, $port) = explode(':', TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY, 2);
 
-            if (! $host) {
+            if (! $host)
                 $this->markTestSkipped('No valid proxy host name or address specified.');
-            }
 
             $this->host = $host;
 
@@ -48,9 +50,8 @@ class ProxyAdapterTest extends SocketTest
             if ($port == 0) {
                 $port = 8080;
             } else {
-                if (($port < 1 || $port > 65535)) {
+                if (($port < 1 || $port > 65535))
                     $this->markTestSkipped("$port is not a valid proxy port number. Should be between 1 and 65535.");
-                }
             }
 
             $this->port = $port;
@@ -58,14 +59,12 @@ class ProxyAdapterTest extends SocketTest
             $user = '';
             $pass = '';
             if (defined('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER') &&
-                TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER) {
-                $user = TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER;
-            }
+                TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER)
+                    $user = TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER;
 
             if (defined('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS') &&
-                TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS) {
-                $pass = TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS;
-            }
+                TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS)
+                    $pass = TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS;
 
 
             $this->config = array(
@@ -77,6 +76,7 @@ class ProxyAdapterTest extends SocketTest
             );
 
             parent::setUp();
+
         } else {
             $this->markTestSkipped('Zend\Http\Client proxy server tests are not enabled in TestConfiguration.php');
         }
@@ -128,4 +128,5 @@ class ProxyAdapterTest extends SocketTest
         $this->assertSame($this->host, $adapterHost);
         $this->assertSame($this->port, $adapterPort);
     }
+
 }

@@ -139,6 +139,7 @@ foreach ($l as $file) {
 }
 
 if ($appending) {
+
     $content = var_export((array) $map, true) . ';';
 
     // Fix \' strings from injected DIRECTORY_SEPARATOR usage in iterator_apply op

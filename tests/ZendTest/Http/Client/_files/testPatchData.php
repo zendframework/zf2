@@ -7,4 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-readfile("php://input");
+$putdata = fopen("php://input", "r");
+while ($data = fread($putdata, 1024)) {
+    echo $data;
+}
+
+fclose($putdata);

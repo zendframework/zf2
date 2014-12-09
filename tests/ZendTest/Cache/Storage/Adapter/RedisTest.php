@@ -14,6 +14,7 @@ use Redis as RedisResource;
 
 class RedisTest extends CommonAdapterTest
 {
+
     /**
      *
      * @var Cache\Storage\Adapter\RedisOptions
@@ -312,4 +313,5 @@ class RedisTest extends CommonAdapterTest
         $this->_options->setPassword($password);
         $this->assertEquals($password, $this->_options->getPassword(), 'Password was set incorrectly using RedisOptions');
     }
+
 }

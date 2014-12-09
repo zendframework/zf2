@@ -13,6 +13,7 @@ use Zend\Http\Header\Expect;
 
 class ExpectTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testExpectFromStringCreatesValidExpectHeader()
     {
         $expectHeader = Expect::fromString('Expect: xxx');
@@ -45,4 +46,5 @@ class ExpectTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

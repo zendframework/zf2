@@ -10,5 +10,4 @@
 namespace Zend\ProgressBar\Exception;
 
 class PhpEnvironmentException extends RuntimeException
-{
-}
+{}

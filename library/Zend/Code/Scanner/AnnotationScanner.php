@@ -223,6 +223,7 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
                 }
                 goto TOKENIZER_TOP;
             }
+
         }
 
         if ($currentChar === "\n") {

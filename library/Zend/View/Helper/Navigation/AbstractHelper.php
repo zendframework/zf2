@@ -147,8 +147,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     {
         return call_user_func_array(
             array($this->getContainer(), $method),
-            $arguments
-        );
+            $arguments);
     }
 
     /**
@@ -284,8 +283,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
         if (!$container instanceof Navigation\AbstractContainer) {
             throw new  Exception\InvalidArgumentException(
-                'Container must be a string alias or an instance of '
-                . 'Zend\Navigation\AbstractContainer'
+                'Container must be a string alias or an instance of ' .
+                    'Zend\Navigation\AbstractContainer'
             );
         }
     }
@@ -707,7 +706,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         } else {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$role must be a string, null, or an instance of '
-                . 'Zend\Permissions\Role\RoleInterface; %s given',
+                    .  'Zend\Permissions\Role\RoleInterface; %s given',
                 (is_object($role) ? get_class($role) : gettype($role))
             ));
         }

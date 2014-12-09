@@ -28,7 +28,9 @@ class Cache extends ServerCache
      */
     public static function saveSmd($filename, Server $server)
     {
-        if (!is_string($filename) || (!file_exists($filename) && !is_writable(dirname($filename)))) {
+        if (!is_string($filename)
+            || (!file_exists($filename) && !is_writable(dirname($filename))))
+        {
             return false;
         }
 
@@ -54,7 +56,10 @@ class Cache extends ServerCache
      */
     public static function getSmd($filename)
     {
-        if (!is_string($filename) || !file_exists($filename) || !is_readable($filename)) {
+        if (!is_string($filename)
+            || !file_exists($filename)
+            || !is_readable($filename))
+        {
             return false;
         }
 

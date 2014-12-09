@@ -9,6 +9,7 @@
 
 namespace Zend\Tag\Exception;
 
-class OutOfBoundsException extends \OutOfBoundsException implements ExceptionInterface
-{
-}
+class OutOfBoundsException
+    extends \OutOfBoundsException
+    implements ExceptionInterface
+{}

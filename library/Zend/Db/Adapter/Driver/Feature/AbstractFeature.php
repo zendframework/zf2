@@ -13,6 +13,7 @@ use Zend\Db\Adapter\Driver\DriverInterface;
 
 abstract class AbstractFeature
 {
+
     /**
      * @var DriverInterface
      */
@@ -35,4 +36,5 @@ abstract class AbstractFeature
      * @return string
      */
     abstract public function getName();
+
 }

@@ -200,4 +200,5 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
         $container->baz = 'qux';
         $this->assertSame(array('foo' => 'bar', 'baz' => 'qux'), $container->getArrayCopy());
     }
+
 }

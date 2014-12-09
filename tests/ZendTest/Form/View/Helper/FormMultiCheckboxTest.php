@@ -95,6 +95,7 @@ class FormMultiCheckboxTest extends CommonTestCase
             sprintf('>%s</label>', 'This is the third label'), $markup
         );
         $this->assertContains(sprintf('value="%s"', 'value3'), $markup);
+
     }
 
     public function testGenerateCheckBoxesAndHiddenElement()
@@ -384,6 +385,7 @@ class FormMultiCheckboxTest extends CommonTestCase
         ));
         $markup  = $this->helper->render($element);
         $this->assertRegexp('#disabled="disabled" value="value1"#', $markup);
+
     }
 
     public function testGetSelectedAttributeForGroupReturnTrue()
@@ -398,6 +400,7 @@ class FormMultiCheckboxTest extends CommonTestCase
         ));
         $markup  = $this->helper->render($element);
         $this->assertRegexp('#value="value1" checked="checked"#', $markup);
+
     }
 
     public function testDisableEscapeHtmlHelper()

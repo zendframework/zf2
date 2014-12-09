@@ -13,6 +13,7 @@ use Zend\Http\Header\ContentLocation;
 
 class ContentLocationTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testContentLocationFromStringCreatesValidLocationHeader()
     {
         $contentLocationHeader = ContentLocation::fromString('Content-Location: http://www.example.com/');
@@ -57,4 +58,5 @@ class ContentLocationTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($uri->isAbsolute());
         $this->assertEquals('/path/to', $contentLocationHeader->getUri());
     }
+
 }

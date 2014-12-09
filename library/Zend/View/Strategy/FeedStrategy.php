@@ -97,6 +97,7 @@ class FeedStrategy extends AbstractListenerAggregate
         $charset = '';
 
         if ($model instanceof Model\FeedModel) {
+
             $feed = $model->getFeed();
 
             $charset = '; charset=' . $feed->getEncoding() . ';';

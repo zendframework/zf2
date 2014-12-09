@@ -791,4 +791,5 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($outputGetCacheId, 'Zend_Paginator_1_' . $outputGetCacheInternalId);
     }
+
 }

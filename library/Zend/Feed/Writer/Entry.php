@@ -16,6 +16,7 @@ use Zend\Feed\Uri;
 */
 class Entry
 {
+
     /**
      * Internal array containing all data associated with this entry or item.
      *

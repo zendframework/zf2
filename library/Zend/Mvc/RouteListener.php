@@ -68,10 +68,11 @@ class RouteListener implements ListenerAggregateInterface
 
             $results = $target->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
             if (count($results)) {
-                return $results->last();
+                $return  = $results->last();
+            } else {
+                $return = $e->getParams();
             }
-
-            return $e->getParams();
+            return $return;
         }
 
         $e->setRouteMatch($routeMatch);

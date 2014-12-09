@@ -33,6 +33,7 @@ class MysqlIntegrationTest extends \PHPUnit_Framework_TestCase
         $mysql = new Mysql(new Mysqli\Mysqli(new Mysqli\Connection($this->adapters['mysqli'])));
         $value = $mysql->quoteValue('value');
         $this->assertEquals('\'value\'', $value);
+
     }
 
     public function testQuoteValueWithPdoMysql()

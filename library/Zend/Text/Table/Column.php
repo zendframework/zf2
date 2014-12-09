@@ -107,6 +107,7 @@ class Column
                 $strWrapper = StringUtils::getWrapper($inputCharset, $outputCharset);
                 $content = $strWrapper->convert($content);
             }
+
         }
 
         $this->content = $content;

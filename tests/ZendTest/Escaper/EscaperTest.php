@@ -13,6 +13,7 @@ use Zend\Escaper\Escaper;
 
 class EscaperTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * All character encodings supported by htmlspecialchars()
      */

@@ -13,6 +13,7 @@ use Zend\Db\ResultSet\HydratingResultSet;
 
 class HydratingResultSetIntegrationTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @covers Zend\Db\ResultSet\HydratingResultSet::current
      */
@@ -29,4 +30,5 @@ class HydratingResultSetIntegrationTest extends \PHPUnit_Framework_TestCase
         $obj2 = $hydratingRs->current();
         $this->assertSame($obj1, $obj2);
     }
+
 }

@@ -9,6 +9,7 @@
 
 namespace Zend\Http\Header;
 
+
 /**
  * Location Header
  *

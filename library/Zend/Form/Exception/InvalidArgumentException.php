@@ -11,5 +11,4 @@ namespace Zend\Form\Exception;
 
 class InvalidArgumentException extends \InvalidArgumentException implements
     ExceptionInterface
-{
-}
+{}

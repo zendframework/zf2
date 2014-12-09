@@ -24,18 +24,10 @@ class HtmlObject extends AbstractHtmlElement
      * @throws InvalidArgumentException
      * @return string
      */
-    public function __invoke(
-        $data = null,
-        $type = null,
-        array $attribs = array(),
-        array $params = array(),
-        $content = null
-    ) {
+    public function __invoke($data = null, $type = null, array $attribs = array(), array $params = array(), $content = null)
+    {
         if ($data == null || $type == null) {
-            throw new InvalidArgumentException(
-                'HTMLObject: missing argument. $data and $type are required in '
-                . 'htmlObject($data, $type, array $attribs = array(), array $params = array(), $content = null)'
-            );
+            throw new InvalidArgumentException('HTMLObject: missing argument. $data and $type are required in htmlObject($data, $type, array $attribs = array(), array $params = array(), $content = null)');
         }
 
         // Merge data and type

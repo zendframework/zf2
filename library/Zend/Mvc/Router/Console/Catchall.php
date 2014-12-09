@@ -27,6 +27,7 @@ use Zend\Validator\ValidatorChain;
  */
 class Catchall implements RouteInterface
 {
+
     /**
      * Parts of the route.
      *

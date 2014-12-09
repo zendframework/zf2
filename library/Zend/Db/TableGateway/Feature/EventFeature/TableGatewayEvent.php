@@ -14,6 +14,7 @@ use Zend\EventManager\EventInterface;
 
 class TableGatewayEvent implements EventInterface
 {
+
     /**
      * @var AbstractTableGateway
      */

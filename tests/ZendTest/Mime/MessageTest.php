@@ -16,6 +16,7 @@ use Zend\Mime;
  */
 class MessageTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testMultiPart()
     {
         $msg = new Mime\Message();  // No Parts

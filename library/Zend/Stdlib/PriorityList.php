@@ -12,6 +12,9 @@ namespace Zend\Stdlib;
 use Countable;
 use Iterator;
 
+/**
+ * Priority list
+ */
 class PriorityList implements Iterator, Countable
 {
     const EXTR_DATA     = 0x00000001;
@@ -20,7 +23,7 @@ class PriorityList implements Iterator, Countable
     /**
      * Internal list of all items.
      *
-     * @var array[]
+     * @var array
      */
     protected $items = array();
 
@@ -55,9 +58,8 @@ class PriorityList implements Iterator, Countable
      * Insert a new item.
      *
      * @param  string  $name
-     * @param  mixed   $value
-     * @param  int     $priority
-     *
+     * @param  mixed $value
+     * @param  int $priority
      * @return void
      */
     public function insert($name, $value, $priority = 0)
@@ -72,23 +74,13 @@ class PriorityList implements Iterator, Countable
         );
     }
 
-    /**
-     * @param string $name
-     * @param int    $priority
-     *
-     * @return $this
-     *
-     * @throws \Exception
-     */
     public function setPriority($name, $priority)
     {
         if (!isset($this->items[$name])) {
             throw new \Exception("item $name not found");
         }
-
         $this->items[$name]['priority'] = (int) $priority;
-        $this->sorted                   = false;
-
+        $this->sorted = false;
         return $this;
     }
 
@@ -100,10 +92,11 @@ class PriorityList implements Iterator, Countable
      */
     public function remove($name)
     {
-        if (isset($this->items[$name])) {
-            $this->count--;
+        if (!isset($this->items[$name])) {
+            return;
         }
 
+        $this->count--;
         unset($this->items[$name]);
     }
 
@@ -114,7 +107,7 @@ class PriorityList implements Iterator, Countable
      */
     public function clear()
     {
-        $this->items  = array();
+        $this->items = array();
         $this->serial = 0;
         $this->count  = 0;
         $this->sorted = false;
@@ -165,26 +158,25 @@ class PriorityList implements Iterator, Countable
     /**
      * Get/Set serial order mode
      *
-     * @param bool|null $flag
-     *
+     * @param bool $flag
      * @return bool
      */
     public function isLIFO($flag = null)
     {
         if ($flag !== null) {
-            $isLifo = $flag === true ? 1 : -1;
-
-            if ($isLifo !== $this->isLIFO) {
-                $this->isLIFO = $isLifo;
+            if (($flag = ($flag === true ? 1 : -1)) !== $this->isLIFO) {
+                $this->isLIFO = $flag;
                 $this->sorted = false;
             }
         }
-
-        return 1 === $this->isLIFO;
+        return $this->isLIFO === 1;
     }
 
     /**
-     * {@inheritDoc}
+     * rewind(): defined by Iterator interface.
+     *
+     * @see    Iterator::rewind()
+     * @return void
      */
     public function rewind()
     {
@@ -193,17 +185,22 @@ class PriorityList implements Iterator, Countable
     }
 
     /**
-     * {@inheritDoc}
+     * current(): defined by Iterator interface.
+     *
+     * @see    Iterator::current()
+     * @return mixed
      */
     public function current()
     {
         $node = current($this->items);
-
-        return $node ? $node['data'] : false;
+        return ($node !== false ? $node['data'] : false);
     }
 
     /**
-     * {@inheritDoc}
+     * key(): defined by Iterator interface.
+     *
+     * @see    Iterator::key()
+     * @return string
      */
     public function key()
     {
@@ -211,25 +208,33 @@ class PriorityList implements Iterator, Countable
     }
 
     /**
-     * {@inheritDoc}
+     * next(): defined by Iterator interface.
+     *
+     * @see    Iterator::next()
+     * @return mixed
      */
     public function next()
     {
         $node = next($this->items);
-
-        return $node ? $node['data'] : false;
+        return ($node !== false ? $node['data'] : false);
     }
 
     /**
-     * {@inheritDoc}
+     * valid(): defined by Iterator interface.
+     *
+     * @see    Iterator::valid()
+     * @return bool
      */
     public function valid()
     {
-        return current($this->items) !== false;
+        return ($this->current() !== false);
     }
 
     /**
-     * {@inheritDoc}
+     * count(): defined by Countable interface.
+     *
+     * @see    Countable::count()
+     * @return int
      */
     public function count()
     {
@@ -240,19 +245,16 @@ class PriorityList implements Iterator, Countable
      * Return list as array
      *
      * @param int $flag
-     *
      * @return array
      */
     public function toArray($flag = self::EXTR_DATA)
     {
         $this->sort();
-
         if ($flag == self::EXTR_BOTH) {
             return $this->items;
         }
-
         return array_map(
-            self::EXTR_PRIORITY === $flag
+            ($flag == self::EXTR_PRIORITY)
                 ? function ($item) { return $item['priority']; }
                 : function ($item) { return $item['data']; },
             $this->items

@@ -105,6 +105,7 @@ abstract class AbstractFeed
         return $type;
     }
 
+
     /**
      * Return the feed as an array
      *

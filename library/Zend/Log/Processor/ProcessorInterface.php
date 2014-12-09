@@ -18,4 +18,5 @@ interface ProcessorInterface
      * @return array
      */
     public function process(array $event);
+
 }

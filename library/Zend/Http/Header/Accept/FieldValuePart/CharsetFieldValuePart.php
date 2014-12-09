@@ -17,6 +17,7 @@ namespace Zend\Http\Header\Accept\FieldValuePart;
  */
 class CharsetFieldValuePart extends AbstractFieldValuePart
 {
+
     /**
      *
      * @return string

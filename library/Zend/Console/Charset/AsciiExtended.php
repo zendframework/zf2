@@ -16,6 +16,7 @@ namespace Zend\Console\Charset;
  */
 class AsciiExtended implements CharsetInterface
 {
+
     const ACTIVATE          = "";
     const DEACTIVATE        = "";
 

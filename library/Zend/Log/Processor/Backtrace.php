@@ -62,7 +62,7 @@ class Backtrace implements ProcessorInterface
     /**
      * Provide backtrace as slim as possible
      *
-     * @return array[]
+     * @return  array:
      */
     protected function getBacktrace()
     {
@@ -70,6 +70,10 @@ class Backtrace implements ProcessorInterface
             return debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $this->traceLimit);
         }
 
-        return debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        if (PHP_VERSION_ID >= 50306) {
+            return debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        }
+
+        return debug_backtrace();
     }
 }

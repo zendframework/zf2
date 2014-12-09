@@ -10,5 +10,4 @@
 namespace Zend\Paginator\Exception;
 
 interface ExceptionInterface
-{
-}
+{}

@@ -205,10 +205,9 @@ class Element implements
      */
     public function getAttribute($key)
     {
-        if (!isset($this->attributes[$key])) {
+        if (!array_key_exists($key, $this->attributes)) {
             return null;
         }
-
         return $this->attributes[$key];
     }
 
@@ -445,10 +444,9 @@ class Element implements
      */
     public function getLabelOption($key)
     {
-        if (!isset($this->labelOptions[$key])) {
+        if (!array_key_exists($key, $this->labelOptions)) {
             return null;
         }
-
         return $this->labelOptions[$key];
     }
 

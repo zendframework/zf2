@@ -125,6 +125,7 @@ class Reader
         static::$httpClient = $httpClient;
     }
 
+
     /**
      * Gets the HTTP client object. If none is set, a new ZendHttp\Client will be used.
      *

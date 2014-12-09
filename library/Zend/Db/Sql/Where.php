@@ -11,4 +11,5 @@ namespace Zend\Db\Sql;
 
 class Where extends Predicate\Predicate
 {
+
 }

@@ -32,14 +32,13 @@ class FormSelect extends AbstractHelper
      * @var array
      */
     protected $validSelectAttributes = array(
-        'name'         => true,
-        'autocomplete' => true,
-        'autofocus'    => true,
-        'disabled'     => true,
-        'form'         => true,
-        'multiple'     => true,
-        'required'     => true,
-        'size'         => true
+        'name'      => true,
+        'autofocus' => true,
+        'disabled'  => true,
+        'form'      => true,
+        'multiple'  => true,
+        'required'  => true,
+        'size'      => true
     );
 
     /**
@@ -69,7 +68,7 @@ class FormSelect extends AbstractHelper
     );
 
     /**
-     * @var FormHidden|null
+     * @var FromHidden|null
      */
     protected $formHiddenHelper;
 
@@ -209,8 +208,7 @@ class FormSelect extends AbstractHelper
 
             if (null !== ($translator = $this->getTranslator())) {
                 $label = $translator->translate(
-                    $label,
-                    $this->getTranslatorTextDomain()
+                    $label, $this->getTranslatorTextDomain()
                 );
             }
 

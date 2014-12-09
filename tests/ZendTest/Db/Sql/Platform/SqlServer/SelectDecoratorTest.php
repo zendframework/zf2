@@ -16,6 +16,7 @@ use Zend\Db\Adapter\Platform\SqlServer as SqlServerPlatform;
 
 class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @testdox integration test: Testing SelectDecorator will use Select an internal state to prepare a proper limit/offset sql statement
      * @covers Zend\Db\Sql\Platform\SqlServer\SelectDecorator::prepareStatement
@@ -104,4 +105,5 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
             array($select3, $expectedPrepareSql3, $expectedParams3, $expectedSql3, $expectedFormatParamCount3)
         );
     }
+
 }

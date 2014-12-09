@@ -964,4 +964,5 @@ class SimpleTest extends TestCase
 
         new Simple(new \stdClass());
     }
+
 }

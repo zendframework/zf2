@@ -16,5 +16,4 @@ use Zend\Mail\Storage\Exception;
  */
 class RuntimeException extends Exception\RuntimeException implements
     ExceptionInterface
-{
-}
+{}

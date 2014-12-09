@@ -11,6 +11,7 @@ namespace Zend\XmlRpc\Value;
 
 class Boolean extends AbstractScalar
 {
+
     /**
      * Set the value of a boolean native type
      * We hold the boolean type as an integer (0 or 1)

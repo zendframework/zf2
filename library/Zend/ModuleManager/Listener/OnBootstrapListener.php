@@ -18,6 +18,7 @@ use Zend\Mvc\MvcEvent;
  */
 class OnBootstrapListener extends AbstractListener
 {
+
     /**
      * @param  ModuleEvent $e
      * @return void

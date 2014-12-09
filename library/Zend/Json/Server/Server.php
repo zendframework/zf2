@@ -534,6 +534,7 @@ class Server extends AbstractServer
             if ('function' == $callback->getType()) {
                 $reflection = new ReflectionFunction($callback->getFunction());
             } else {
+
                 $reflection = new ReflectionMethod(
                     $callback->getClass(),
                     $callback->getMethod()

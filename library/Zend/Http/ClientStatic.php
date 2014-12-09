@@ -9,11 +9,13 @@
 
 namespace Zend\Http;
 
+
 /**
  * Http static client
  */
 class ClientStatic
 {
+
     protected static $client;
 
     /**

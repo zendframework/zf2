@@ -21,6 +21,7 @@ use ZendPdf as Pdf;
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * Stores the original set timezone
      * @var string
@@ -111,6 +112,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $renderer = Barcode\Barcode::factory($config);
         $this->assertTrue($renderer instanceof Renderer\Image);
         $this->assertTrue($renderer->getBarcode() instanceof Object\Code39);
+
     }
 
     public function testFactoryWithZendConfigAndObjectOptions()

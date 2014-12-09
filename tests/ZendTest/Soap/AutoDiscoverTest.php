@@ -25,6 +25,7 @@ use Zend\Uri\Uri;
  */
 class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var AutoDiscover
      */
@@ -218,6 +219,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetServiceName($newName, $shouldBeValid)
     {
+
         if ($shouldBeValid == false) {
             $this->setExpectedException('InvalidArgumentException');
         }
@@ -287,6 +289,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
 
     public function testClassMap()
     {
+
         $classMap = array(
             'TestClass' => 'test_class'
         );
@@ -1194,6 +1197,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
 
     public function testSetNonStringNonZendUriUriThrowsException()
     {
+
         $server = new AutoDiscover();
 
         $this->setExpectedException(
@@ -1254,7 +1258,8 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      *
      */
     public function testUsingClassWithMethodsWithMultipleDefaultParameterValues(
-    ) {
+    )
+    {
         $this->server->setClass(
             '\ZendTest\Soap\TestAsset\TestFixingMultiplePrototypes'
         );
@@ -1319,7 +1324,8 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      * @group ZF-5604
      */
     public function testReturnSameArrayOfObjectsResponseOnDifferentMethodsWhenArrayComplex(
-    ) {
+    )
+    {
         $this->server->setComplexTypeStrategy(
             new \Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeComplex
         );
@@ -1343,7 +1349,8 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      * @group ZF-5430
      */
     public function testReturnSameArrayOfObjectsResponseOnDifferentMethodsWhenArraySequence(
-    ) {
+    )
+    {
         $this->server->setComplexTypeStrategy(
             new \Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence
         );
@@ -1466,6 +1473,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      */
     public function assertSpecificNodeNumberInXPath($n, $xpath, $msg = null)
     {
+
         $nodes = $this->xpath->query($xpath);
         if (!($nodes instanceof \DOMNodeList)) {
             $this->fail('Nodes not found. Invalid XPath expression ?');
@@ -1477,6 +1485,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
 
     public function assertAttributesOfNodes($attributes, $nodeList)
     {
+
         $c = count($attributes);
 
         $keys = array_keys($attributes);

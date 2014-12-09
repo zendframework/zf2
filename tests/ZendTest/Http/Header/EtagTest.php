@@ -13,6 +13,7 @@ use Zend\Http\Header\Etag;
 
 class EtagTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testEtagFromStringCreatesValidEtagHeader()
     {
         $etagHeader = Etag::fromString('Etag: xxx');
@@ -45,4 +46,5 @@ class EtagTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

@@ -18,6 +18,7 @@ use Zend\Db\ResultSet\ResultSetInterface;
 
 class DbSelect implements AdapterInterface
 {
+
     /**
      * @var Sql
      */

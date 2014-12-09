@@ -19,6 +19,7 @@ use Zend\Db\Sql\Select as DBSelect;
  */
 class CredentialTreatmentAdapterDb2Test extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * IbmDb2 database connection
      *

@@ -13,6 +13,7 @@ use Zend\Http\Header\TE;
 
 class TETest extends \PHPUnit_Framework_TestCase
 {
+
     public function testTEFromStringCreatesValidTEHeader()
     {
         $tEHeader = TE::fromString('TE: xxx');
@@ -45,4 +46,5 @@ class TETest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

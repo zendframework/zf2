@@ -13,6 +13,7 @@ use Zend\Stdlib\ErrorHandler;
 
 class NumberFormat extends NumberParse
 {
+
     /**
      * Defined by Zend\Filter\FilterInterface
      *

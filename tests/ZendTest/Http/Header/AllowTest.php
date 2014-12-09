@@ -13,6 +13,7 @@ use Zend\Http\Header\Allow;
 
 class AllowTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testAllowFromStringCreatesValidAllowHeader()
     {
         $allowHeader = Allow::fromString('Allow: GET, POST, PUT');

@@ -13,6 +13,7 @@ use Zend\Http\Header\IfNoneMatch;
 
 class IfNoneMatchTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testIfNoneMatchFromStringCreatesValidIfNoneMatchHeader()
     {
         $ifNoneMatchHeader = IfNoneMatch::fromString('If-None-Match: xxx');
@@ -45,4 +46,5 @@ class IfNoneMatchTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

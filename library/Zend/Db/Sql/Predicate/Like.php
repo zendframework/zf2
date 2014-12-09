@@ -11,6 +11,7 @@ namespace Zend\Db\Sql\Predicate;
 
 class Like implements PredicateInterface
 {
+
     /**
      * @var string
      */

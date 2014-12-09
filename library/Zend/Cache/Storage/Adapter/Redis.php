@@ -22,6 +22,7 @@ class Redis extends AbstractAdapter implements
     FlushableInterface,
     TotalSpaceCapableInterface
 {
+
     /**
      * Has this instance be initialized
      *
@@ -172,7 +173,7 @@ class Redis extends AbstractAdapter implements
         $redis = $this->getRedisResource();
 
         $namespacedKeys = array();
-        foreach ($normalizedKeys as $normalizedKey) {
+        foreach ($normalizedKeys as & $normalizedKey) {
             $namespacedKeys[] = $this->namespacePrefix . $normalizedKey;
         }
 
@@ -252,8 +253,8 @@ class Redis extends AbstractAdapter implements
         $ttl   = $this->getOptions()->getTtl();
 
         $namespacedKeyValuePairs = array();
-        foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
-            $namespacedKeyValuePairs[$this->namespacePrefix . $normalizedKey] = $value;
+        foreach ($normalizedKeyValuePairs as $normalizedKey => & $value) {
+            $namespacedKeyValuePairs[$this->namespacePrefix . $normalizedKey] = & $value;
         }
         try {
             if ($ttl > 0) {
@@ -270,6 +271,7 @@ class Redis extends AbstractAdapter implements
             } else {
                 $success = $redis->mSet($namespacedKeyValuePairs);
             }
+
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
@@ -385,6 +387,7 @@ class Redis extends AbstractAdapter implements
         }
 
         return $info['used_memory'];
+
     }
 
     /* status */

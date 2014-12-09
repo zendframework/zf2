@@ -21,6 +21,7 @@ use Zend\Code\Reflection\ClassReflection;
  */
 class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testConstruction()
     {
         $class = new ClassGenerator();
@@ -451,6 +452,8 @@ CODE;
         $this->assertNotContains('publicClassProperty', $code);
         $this->assertNotContains('protectedClassProperty', $code);
         $this->assertNotContains('privateClassProperty', $code);
+
+
     }
 
     public function testHasMethodInsensitive()

@@ -16,6 +16,7 @@ use Zend\Crypt\Key\Derivation\SaltedS2k;
  */
 class SaltedS2kTest extends \PHPUnit_Framework_TestCase
 {
+
     /** @var string */
     public $salt;
 
@@ -56,4 +57,5 @@ class SaltedS2kTest extends \PHPUnit_Framework_TestCase
                                     'The salt size must be at least of 8 bytes');
         $password = SaltedS2k::calc('sha256', 'test', substr($this->salt,-1), 32);
     }
+
 }

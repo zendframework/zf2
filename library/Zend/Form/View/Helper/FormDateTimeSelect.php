@@ -144,8 +144,9 @@ class FormDateTimeSelect extends FormDateSelectHelper
                 $markup .= $data[$value];
             }
         }
+        $markup = trim($markup);
 
-        return trim($markup);
+        return $markup;
     }
 
     /**

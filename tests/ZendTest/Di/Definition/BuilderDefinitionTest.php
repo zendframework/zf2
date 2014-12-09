@@ -104,6 +104,7 @@ class BuilderDefinitionTest extends TestCase
             array('My\Repository::__construct:0' => array('mapper', 'My\Mapper', true, null)),
             $definition->getMethodParameters('My\Repository', '__construct')
         );
+
     }
 
     public function testCanCreateClassFromFluentInterface()

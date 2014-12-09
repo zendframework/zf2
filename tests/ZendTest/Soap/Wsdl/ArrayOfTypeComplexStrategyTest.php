@@ -21,6 +21,7 @@ use ZendTest\Soap\WsdlTestHelper;
  */
 class ArrayOfTypeComplexStrategyTest extends WsdlTestHelper
 {
+
     public function setUp()
     {
         $this->strategy = new ArrayOfTypeComplex();

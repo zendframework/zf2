@@ -25,4 +25,5 @@ interface AdapterInterface
      * @return Platform\PlatformInterface
      */
     public function getPlatform();
+
 }

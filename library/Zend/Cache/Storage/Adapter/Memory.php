@@ -227,12 +227,17 @@ class Memory extends AbstractAdapter implements
     public function setTags($key, array $tags)
     {
         $ns = $this->getOptions()->getNamespace();
-        if (!isset($this->data[$ns][$key])) {
+        if (!$this->data[$ns]) {
             return false;
         }
 
-        $this->data[$ns][$key]['tags'] = $tags;
-        return true;
+        $data = & $this->data[$ns];
+        if (isset($data[$key])) {
+            $data[$key]['tags'] = $tags;
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -244,11 +249,16 @@ class Memory extends AbstractAdapter implements
     public function getTags($key)
     {
         $ns = $this->getOptions()->getNamespace();
-        if (!isset($this->data[$ns][$key])) {
+        if (!$this->data[$ns]) {
             return false;
         }
 
-        return isset($this->data[$ns][$key]['tags']) ? $this->data[$ns][$key]['tags'] : array();
+        $data = & $this->data[$ns];
+        if (!isset($data[$key])) {
+            return false;
+        }
+
+        return isset($data[$key]['tags']) ? $data[$key]['tags'] : array();
     }
 
     /**
@@ -264,7 +274,7 @@ class Memory extends AbstractAdapter implements
     public function clearByTags(array $tags, $disjunction = false)
     {
         $ns = $this->getOptions()->getNamespace();
-        if (!isset($this->data[$ns])) {
+        if (!$this->data[$ns]) {
             return true;
         }
 
@@ -644,16 +654,16 @@ class Memory extends AbstractAdapter implements
      */
     protected function internalIncrementItem(& $normalizedKey, & $value)
     {
-        $ns = $this->getOptions()->getNamespace();
-        if (isset($this->data[$ns][$normalizedKey])) {
-            $data = & $this->data[$ns][$normalizedKey];
-            $data[0]+= $value;
-            $data[1] = microtime(true);
-            $newValue = $data[0];
+        $ns   = $this->getOptions()->getNamespace();
+        $data = & $this->data[$ns];
+        if (isset($data[$normalizedKey])) {
+            $data[$normalizedKey][0]+= $value;
+            $data[$normalizedKey][1] = microtime(true);
+            $newValue = $data[$normalizedKey][0];
         } else {
             // initial value
-            $newValue                        = $value;
-            $this->data[$ns][$normalizedKey] = array($newValue, microtime(true));
+            $newValue             = $value;
+            $data[$normalizedKey] = array($newValue, microtime(true));
         }
 
         return $newValue;
@@ -669,16 +679,16 @@ class Memory extends AbstractAdapter implements
      */
     protected function internalDecrementItem(& $normalizedKey, & $value)
     {
-        $ns = $this->getOptions()->getNamespace();
-        if (isset($this->data[$ns][$normalizedKey])) {
-            $data = & $this->data[$ns][$normalizedKey];
-            $data[0]-= $value;
-            $data[1] = microtime(true);
-            $newValue = $data[0];
+        $ns   = $this->getOptions()->getNamespace();
+        $data = & $this->data[$ns];
+        if (isset($data[$normalizedKey])) {
+            $data[$normalizedKey][0]-= $value;
+            $data[$normalizedKey][1] = microtime(true);
+            $newValue = $data[$normalizedKey][0];
         } else {
             // initial value
-            $newValue                        = -$value;
-            $this->data[$ns][$normalizedKey] = array($newValue, microtime(true));
+            $newValue             = -$value;
+            $data[$normalizedKey] = array($newValue, microtime(true));
         }
 
         return $newValue;

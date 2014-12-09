@@ -13,6 +13,7 @@ use Zend\Db\Sql\Sql;
 
 class SqlTest extends \PHPUnit_Framework_TestCase
 {
+
     protected $mockAdapter = null;
 
     /**
@@ -94,6 +95,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException',
             'This Sql object is intended to work with only the table "foo" provided at construction time.');
         $this->sql->update('bar');
+
     }
 
     /**
@@ -110,6 +112,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException',
             'This Sql object is intended to work with only the table "foo" provided at construction time.');
         $this->sql->delete('bar');
+
     }
 
     /**

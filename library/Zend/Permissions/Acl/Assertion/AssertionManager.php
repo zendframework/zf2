@@ -13,6 +13,7 @@ use Zend\Permissions\Acl\Exception\InvalidArgumentException;
 
 class AssertionManager extends AbstractPluginManager
 {
+
     protected $sharedByDefault = true;
 
     /**

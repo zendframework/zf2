@@ -14,6 +14,7 @@ namespace Zend\Barcode\Object;
  */
 class Identcode extends Code25interleaved
 {
+
     /**
      * Default options for Identcode barcode
      * @return void

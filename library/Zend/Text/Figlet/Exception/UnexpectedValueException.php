@@ -14,6 +14,7 @@ use Zend\Text\Exception;
 /**
  * Exception class for Zend\Text
  */
-class UnexpectedValueException extends Exception\UnexpectedValueException implements ExceptionInterface
-{
-}
+class UnexpectedValueException
+    extends Exception\UnexpectedValueException
+    implements ExceptionInterface
+{}

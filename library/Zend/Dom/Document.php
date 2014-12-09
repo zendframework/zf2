@@ -288,6 +288,7 @@ class Document
         $this->xpathNamespaces = $xpathNamespaces;
     }
 
+
     /**
      * Get Document's registered XPath PHP Functions
      *

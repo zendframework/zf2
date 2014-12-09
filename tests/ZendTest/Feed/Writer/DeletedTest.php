@@ -18,6 +18,7 @@ use Zend\Feed\Writer;
 */
 class DeletedTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testSetsReference()
     {
         $entry = new Writer\Deleted;

@@ -51,4 +51,5 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($filter->filter(array('priority' => 1)));
         $this->assertFalse($filter->filter(array('priority' => 3)));
     }
+
 }

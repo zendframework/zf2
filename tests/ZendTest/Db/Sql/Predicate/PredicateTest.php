@@ -16,6 +16,7 @@ use Zend\Db\Sql\Predicate\Predicate;
 
 class PredicateTest extends TestCase
 {
+
     public function testEqualToCreatesOperatorPredicate()
     {
         $predicate = new Predicate();
@@ -262,4 +263,5 @@ class PredicateTest extends TestCase
             $predicate->getExpressionData()
         );
     }
+
 }

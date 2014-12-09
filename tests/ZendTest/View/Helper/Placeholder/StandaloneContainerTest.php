@@ -20,6 +20,7 @@ use Zend\View\Renderer\PhpRenderer as View;
  */
 class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var Foo
      */
@@ -135,11 +136,8 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
 class Foo extends \Zend\View\Helper\Placeholder\Container\AbstractStandalone
 {
     protected $_regKey = 'foo';
-    public function direct()
-    {
-    }
+    public function direct() {}
 }
 
 class Bar extends \Zend\View\Helper\Placeholder\Container\AbstractContainer
-{
-}
+{}

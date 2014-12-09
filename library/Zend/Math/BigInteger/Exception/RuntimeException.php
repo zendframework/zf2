@@ -15,5 +15,4 @@ use Zend\Math\Exception;
  * Runtime exception
  */
 class RuntimeException extends Exception\RuntimeException implements ExceptionInterface
-{
-}
+{}

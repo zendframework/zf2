@@ -13,5 +13,4 @@ namespace Zend\Math\Exception;
  * Invalid argument exception
  */
 class DomainException extends \DomainException implements ExceptionInterface
-{
-}
+{}

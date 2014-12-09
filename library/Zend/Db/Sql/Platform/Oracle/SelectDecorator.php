@@ -20,6 +20,7 @@ use Zend\Db\Sql\Select;
 
 class SelectDecorator extends Select implements PlatformDecoratorInterface
 {
+
     /**
      * @var Select
      */
@@ -177,4 +178,5 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
         return array($joinSpecArgArray);
     }
+
 }

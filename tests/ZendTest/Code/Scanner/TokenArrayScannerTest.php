@@ -14,6 +14,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 class TokenArrayScannerTest extends TestCase
 {
+
     public function testScannerReturnsNamespaces()
     {
         $tokenScanner = new TokenArrayScanner(token_get_all(file_get_contents((__DIR__ . '/../TestAsset/FooClass.php'))));
@@ -81,4 +82,5 @@ class TokenArrayScannerTest extends TestCase
         $this->assertEquals('ZendTest\Code\TestAsset\Baz', $tokenScanner->getClass('ZendTest\Code\TestAsset\Baz')->getName());
         $this->assertEquals('Foo', $tokenScanner->getClass('Foo')->getName());
     }
+
 }

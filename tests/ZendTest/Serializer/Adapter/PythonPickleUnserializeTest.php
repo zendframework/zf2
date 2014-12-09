@@ -16,6 +16,7 @@ use Zend\Serializer;
  */
 class PythonPickleUnserializeTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var Serializer\Adapter\PythonPickle
      */
@@ -359,4 +360,5 @@ class PythonPickleUnserializeTest extends \PHPUnit_Framework_TestCase
                                     "Invalid or unknown opcode 'n'");
         $this->adapter->unserialize($value);
     }
+
 }

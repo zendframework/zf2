@@ -19,6 +19,7 @@ use Zend\Navigation;
  */
 class PageFactoryTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testDetectFactoryPage()
     {
         AbstractPage::addFactory(function ($page) {

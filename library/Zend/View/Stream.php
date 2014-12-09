@@ -73,8 +73,8 @@ class Stream
          * Convert <?= ?> to long-form <?php echo ?> and <?php ?> to <?php ?>
          *
          */
-        $this->data = preg_replace('/\<\?\=/', "<?php echo ", $this->data);
-        $this->data = preg_replace('/<\?(?!xml|php)/s', '<?php ', $this->data);
+        $this->data = preg_replace('/\<\?\=/',          "<?php echo ",  $this->data);
+        $this->data = preg_replace('/<\?(?!xml|php)/s', '<?php ',       $this->data);
 
         /**
          * file_get_contents() won't update PHP's stat cache, so we grab a stat
@@ -109,6 +109,7 @@ class Stream
         return $ret;
     }
 
+
     /**
      * Tells the current position in the stream.
      *
@@ -118,6 +119,7 @@ class Stream
     {
         return $this->pos;
     }
+
 
     /**
      * Tells if we are at the end of the stream.
@@ -129,6 +131,7 @@ class Stream
         return $this->pos >= strlen($this->data);
     }
 
+
     /**
      * Stream statistics.
      *
@@ -138,6 +141,7 @@ class Stream
     {
         return $this->stat;
     }
+
 
     /**
      * Seek to a specific point in the stream.

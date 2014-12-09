@@ -34,6 +34,7 @@ use Zend\Cache\StorageFactory;
  */
 class BlackHoleTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * The storage adapter
      *

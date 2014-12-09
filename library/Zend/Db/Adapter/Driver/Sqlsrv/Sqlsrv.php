@@ -15,6 +15,7 @@ use Zend\Db\Adapter\Profiler;
 
 class Sqlsrv implements DriverInterface, Profiler\ProfilerAwareInterface
 {
+
     /**
      * @var Connection
      */

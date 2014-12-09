@@ -13,5 +13,4 @@ namespace Zend\ProgressBar\Exception;
  * Exception for Zend\Progressbar component.
  */
 class RuntimeException extends \RuntimeException implements ExceptionInterface
-{
-}
+{}

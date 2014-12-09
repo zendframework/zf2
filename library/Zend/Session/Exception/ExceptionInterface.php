@@ -13,5 +13,4 @@ namespace Zend\Session\Exception;
  * Zend\Session\Exception
  */
 interface ExceptionInterface
-{
-}
+{}

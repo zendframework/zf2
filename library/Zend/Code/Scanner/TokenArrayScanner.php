@@ -480,6 +480,7 @@ class TokenArrayScanner implements ScannerInterface
 
                 // ANALYZE
                 if ($tokenType !== null) {
+
                     if ($tokenType == T_AS) {
                         $useAsContext = true;
                         goto SCANNER_USE_CONTINUE;
@@ -492,6 +493,7 @@ class TokenArrayScanner implements ScannerInterface
                             $infos[$infoIndex]['statements'][$useStatementIndex]['as'] = $tokenContent;
                         }
                     }
+
                 }
 
                 SCANNER_USE_CONTINUE:

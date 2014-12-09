@@ -111,6 +111,7 @@ class DateTimeTest extends TestCase
 
     public function testSetFormatWithOptions()
     {
+
         $format = 'Y-m-d';
         $element = new DateTimeElement('foo');
         $element->setOptions(array(

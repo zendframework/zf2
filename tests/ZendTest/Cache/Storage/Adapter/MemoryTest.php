@@ -16,6 +16,7 @@ use Zend\Cache;
  */
 class MemoryTest extends CommonAdapterTest
 {
+
     public function setUp()
     {
         // instantiate memory adapter

@@ -16,6 +16,7 @@ use ArrayObject;
 
 class ClearExpiredByFactorTest extends CommonPluginTest
 {
+
     /**
      * The storage adapter
      *

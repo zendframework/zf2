@@ -11,6 +11,7 @@ namespace Zend\XmlRpc\Value;
 
 class Base64 extends AbstractScalar
 {
+
     /**
      * Set the value of a base64 native type
      * We keep this value in base64 encoding

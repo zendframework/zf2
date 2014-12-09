@@ -16,6 +16,7 @@ use Zend\Validator\AbstractValidator;
 
 class PhoneNumber extends AbstractValidator
 {
+
     const NO_MATCH    = 'phoneNumberNoMatch';
     const UNSUPPORTED = 'phoneNumberUnsupported';
     const INVALID     = 'phoneNumberInvalid';

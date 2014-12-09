@@ -178,6 +178,7 @@ class Headers implements Countable, Iterator
             } elseif (is_string($name)) {
                 $this->addHeaderLine($name, $value);
             }
+
         }
 
         return $this;

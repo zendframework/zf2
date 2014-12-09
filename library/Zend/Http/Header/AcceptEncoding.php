@@ -18,6 +18,7 @@ use Zend\Http\Header\Accept\FieldValuePart;
  */
 class AcceptEncoding extends AbstractAccept
 {
+
     protected $regexAddType = '#^([a-zA-Z0-9+-]+|\*)$#';
 
     /**

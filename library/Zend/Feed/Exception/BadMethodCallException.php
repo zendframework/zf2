@@ -9,6 +9,7 @@
 
 namespace Zend\Feed\Exception;
 
-class BadMethodCallException extends \BadMethodCallException implements ExceptionInterface
-{
-}
+class BadMethodCallException
+    extends \BadMethodCallException
+    implements ExceptionInterface
+{}

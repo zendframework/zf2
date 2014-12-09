@@ -19,6 +19,7 @@ use Zend\Code\Generator\ValueGenerator;
  */
 class ValueGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testPropertyDefaultValueConstructor()
     {
         $valueGenerator = new ValueGenerator();
@@ -127,7 +128,7 @@ EOS;
 
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue($value);
-        $expectedSource = <<<EOS
+$expectedSource = <<<EOS
 array(
     1 => 'a',
     0 => 'b',

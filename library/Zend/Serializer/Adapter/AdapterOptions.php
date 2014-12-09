@@ -12,5 +12,4 @@ namespace Zend\Serializer\Adapter;
 use Zend\Stdlib\AbstractOptions;
 
 class AdapterOptions extends AbstractOptions
-{
-}
+{}

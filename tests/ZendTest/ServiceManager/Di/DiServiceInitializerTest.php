@@ -44,6 +44,7 @@ class DiServiceInitializerTest extends \PHPUnit_Framework_TestCase
             $this->mockServiceLocator,
             $this->mockDiInstanceManagerProxy
         );
+
     }
 
     /**
@@ -71,4 +72,5 @@ class DiServiceInitializerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($instanceManager->getAliases(), $proxy->getAliases());
     }
+
 }

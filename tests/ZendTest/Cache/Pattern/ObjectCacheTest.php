@@ -37,9 +37,8 @@ class TestObjectCache
         return call_user_func_array(array($this, 'bar'), func_get_args());
     }
 
-    public function emptyMethod()
-    {
-    }
+    public function emptyMethod() {}
+
 }
 
 /**
@@ -47,6 +46,7 @@ class TestObjectCache
  */
 class ObjectCacheTest extends CommonPatternTest
 {
+
     /**
      * @var \Zend\Cache\Storage\StorageInterface
      */

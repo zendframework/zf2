@@ -131,6 +131,7 @@ class NumberParse extends AbstractLocale
         return $this->formatter;
     }
 
+
     /**
      * Defined by Zend\Filter\FilterInterface
      *

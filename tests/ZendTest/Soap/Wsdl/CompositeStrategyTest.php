@@ -23,6 +23,7 @@ use ZendTest\Soap\WsdlTestHelper;
  */
 class CompositeStrategyTest extends WsdlTestHelper
 {
+
     public function setUp()
     {
         // override parent setup because it is needed only in one method

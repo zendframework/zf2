@@ -15,6 +15,7 @@ use Zend\Db\Sql\Predicate\PredicateSet;
 
 class PredicateSetTest extends TestCase
 {
+
     public function testEmptyConstructorYieldsCountOfZero()
     {
         $predicateSet = new PredicateSet();

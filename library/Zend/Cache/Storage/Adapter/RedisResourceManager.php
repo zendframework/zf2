@@ -189,6 +189,7 @@ class RedisResourceManager
                 $port    = isset($server['port'])    ? (int) $server['port']    : $port;
                 $timeout = isset($server['timeout']) ? (int) $server['timeout'] : $timeout;
             }
+
         } else {
             // parse server from URI host{:?port}
             $server = trim($server);

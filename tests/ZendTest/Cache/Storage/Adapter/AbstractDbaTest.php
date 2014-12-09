@@ -16,6 +16,7 @@ use Zend\Cache;
  */
 abstract class AbstractDbaTest extends CommonAdapterTest
 {
+
     protected $handler;
     protected $temporaryDbaFile;
 

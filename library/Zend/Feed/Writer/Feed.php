@@ -16,6 +16,7 @@ use Iterator;
 */
 class Feed extends AbstractFeed implements Iterator, Countable
 {
+
     /**
      * Contains all entry objects
      *

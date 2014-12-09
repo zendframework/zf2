@@ -89,12 +89,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $container->getName());
     }
 
-    public function testPassingNameStartingWithDigitToConstructorInstantiatesContainerWithThatName()
-    {
-        $container = new Container('0foo', $this->manager);
-        $this->assertEquals('0foo', $container->getName());
-    }
-
     public function testUsingOldZF1NameIsStillValid()
     {
         $container = new Container('Zend_Foo', $this->manager);
@@ -114,6 +108,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             'foo bar',
             '_foo',
             '__foo',
+            '0foo',
             '\foo',
             '\\foo'
         );

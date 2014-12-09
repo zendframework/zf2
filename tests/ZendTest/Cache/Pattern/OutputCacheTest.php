@@ -16,6 +16,7 @@ use Zend\Cache;
  */
 class OutputCacheTest extends CommonPatternTest
 {
+
     /**
      * @var \Zend\Cache\Storage\StorageInterface
      */

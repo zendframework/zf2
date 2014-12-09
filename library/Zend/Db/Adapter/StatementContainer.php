@@ -11,6 +11,7 @@ namespace Zend\Db\Adapter;
 
 class StatementContainer implements StatementContainerInterface
 {
+
     /**
      * @var string
      */

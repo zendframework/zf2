@@ -16,6 +16,7 @@ use Zend\Db\Adapter\Platform\Mysql as MysqlPlatform;
 
 class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @testdox integration test: Testing SelectDecorator will use Select an internal state to prepare a proper limit/offset sql statement
      * @covers Zend\Db\Sql\Platform\Mysql\SelectDecorator::prepareStatement
@@ -97,4 +98,5 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
             array($select2, $expectedPrepareSql2, $expectedParams2, $expectedSql2),
         );
     }
+
 }

@@ -14,6 +14,7 @@ namespace Zend\Barcode\Object;
  */
 class Postnet extends AbstractObject
 {
+
     /**
      * Coding map
      * - 0 = half bar

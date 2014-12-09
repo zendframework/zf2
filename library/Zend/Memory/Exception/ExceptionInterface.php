@@ -10,5 +10,4 @@
 namespace Zend\Memory\Exception;
 
 interface ExceptionInterface
-{
-}
+{}

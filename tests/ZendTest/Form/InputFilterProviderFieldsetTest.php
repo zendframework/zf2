@@ -39,4 +39,5 @@ class InputFilterProviderFieldsetTest extends TestCase
     {
         $this->assertEmpty($this->fieldset->getInputFilterSpecification());
     }
+
 }

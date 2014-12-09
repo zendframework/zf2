@@ -18,6 +18,7 @@ use Zend\Db\Sql\Expression;
 
 class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @testdox integration test: Testing SelectDecorator will use Select to produce properly IBM Db2 dialect prepared sql
      * @covers Zend\Db\Sql\Platform\SqlServer\SelectDecorator::prepareStatement

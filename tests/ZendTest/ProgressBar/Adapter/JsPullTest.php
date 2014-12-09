@@ -15,6 +15,7 @@ namespace ZendTest\ProgressBar\Adapter;
  */
 class JsPullTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testJson()
     {
         $adapter = new JsPullStub();

@@ -25,6 +25,7 @@ use Zend\View;
 
 class Paginator implements Countable, IteratorAggregate
 {
+
     /**
      * The cache tag prefix used to namespace Paginator results in the cache
      *

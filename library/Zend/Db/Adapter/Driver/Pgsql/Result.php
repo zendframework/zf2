@@ -14,6 +14,7 @@ use Zend\Db\Adapter\Exception;
 
 class Result implements ResultInterface
 {
+
     /**
      * @var resource
      */

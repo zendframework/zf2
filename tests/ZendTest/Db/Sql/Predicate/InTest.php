@@ -15,6 +15,7 @@ use Zend\Db\Sql\Predicate\In;
 
 class InTest extends TestCase
 {
+
     public function testEmptyConstructorYieldsNullIdentifierAndValueSet()
     {
         $in = new In();
@@ -91,4 +92,5 @@ class InTest extends TestCase
         ));
         $this->assertEquals($expected, $in->getExpressionData());
     }
+
 }

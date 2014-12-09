@@ -114,4 +114,5 @@ class MboxMessageOldTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($mail->getMessage(2)->subject, 'test2');
         $this->assertEquals($mail->getMessage(2)->getContent(), '');
     }
+
 }

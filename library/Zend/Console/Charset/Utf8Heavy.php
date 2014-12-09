@@ -16,6 +16,7 @@ namespace Zend\Console\Charset;
  */
 class Utf8Heavy extends Utf8
 {
+
     const LINE_SINGLE_EW = "━";
     const LINE_SINGLE_NS = "┃";
     const LINE_SINGLE_NW = "┏";

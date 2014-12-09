@@ -132,7 +132,9 @@ class Symbol
     public function getNullDenotation()
     {
         if ($this->nullDenotationGetter === null) {
-            throw new Exception\ParseException(sprintf('Syntax error: %s', $this->id));
+            throw new Exception\ParseException(sprintf(
+                'Syntax error: %s', $this->id
+            ));
         }
 
         /** @var callable $function  */
@@ -150,7 +152,9 @@ class Symbol
     public function getLeftDenotation($left)
     {
         if ($this->leftDenotationGetter === null) {
-            throw new Exception\ParseException(sprintf('Unknown operator: %s', $this->id));
+            throw new Exception\ParseException(sprintf(
+                'Unknown operator: %s', $this->id
+            ));
         }
 
         /** @var callable $function  */

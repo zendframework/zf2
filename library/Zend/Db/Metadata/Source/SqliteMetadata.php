@@ -260,6 +260,8 @@ class SqliteMetadata extends AbstractSource
     {
         static $re = null;
         if (null === $re) {
+            $identifier = $this->getIdentifierRegularExpression();
+            $identifierList = $this->getIdentifierListRegularExpression();
             $identifierChain = $this->getIdentifierChainRegularExpression();
             $re = $this->buildRegularExpression(array(
                 'CREATE',

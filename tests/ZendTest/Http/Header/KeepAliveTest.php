@@ -13,6 +13,7 @@ use Zend\Http\Header\KeepAlive;
 
 class KeepAliveTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testKeepAliveFromStringCreatesValidKeepAliveHeader()
     {
         $keepAliveHeader = KeepAlive::fromString('Keep-Alive: xxx');
@@ -45,4 +46,5 @@ class KeepAliveTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

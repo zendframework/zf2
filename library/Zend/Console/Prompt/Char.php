@@ -52,6 +52,7 @@ class Char extends AbstractPrompt
         $allowEmpty = false,
         $echo = true
     ) {
+
         $this->setPromptText($promptText);
         $this->setAllowEmpty($allowEmpty);
         $this->setIgnoreCase($ignoreCase);

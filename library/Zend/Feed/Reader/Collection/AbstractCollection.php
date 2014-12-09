@@ -13,6 +13,7 @@ use ArrayObject;
 
 abstract class AbstractCollection extends ArrayObject
 {
+
     /**
      * Return a simple array of the most relevant slice of
      * the collection values. For example, feed categories contain
@@ -22,4 +23,5 @@ abstract class AbstractCollection extends ArrayObject
      * @return array
      */
     abstract public function getValues();
+
 }

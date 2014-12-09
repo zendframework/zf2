@@ -17,6 +17,7 @@ use Zend\Feed\Writer;
 */
 class FeedTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testSetBlock()
     {
         $feed = new Writer\Feed;
@@ -295,4 +296,5 @@ class FeedTest extends \PHPUnit_Framework_TestCase
         $feed = new Writer\Feed;
         $feed->setItunesSummary(str_repeat('a',4001));
     }
+
 }

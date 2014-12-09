@@ -13,6 +13,7 @@ use Zend\Http\Header\ProxyAuthenticate;
 
 class ProxyAuthenticateTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testProxyAuthenticateFromStringCreatesValidProxyAuthenticateHeader()
     {
         $proxyAuthenticateHeader = ProxyAuthenticate::fromString('Proxy-Authenticate: xxx');
@@ -45,4 +46,5 @@ class ProxyAuthenticateTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

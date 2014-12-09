@@ -13,6 +13,7 @@ use Zend\Http\Header\Via;
 
 class ViaTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testViaFromStringCreatesValidViaHeader()
     {
         $viaHeader = Via::fromString('Via: xxx');
@@ -45,4 +46,5 @@ class ViaTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

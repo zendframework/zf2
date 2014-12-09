@@ -14,6 +14,7 @@ use Zend\Db\Sql\Sql;
 
 class RowGateway extends AbstractRowGateway
 {
+
     /**
      * Constructor
      *
@@ -24,6 +25,7 @@ class RowGateway extends AbstractRowGateway
      */
     public function __construct($primaryKeyColumn, $table, $adapterOrSql = null)
     {
+
         // setup primary key
         $this->primaryKeyColumn = empty($primaryKeyColumn) ? null : (array) $primaryKeyColumn;
 

@@ -54,6 +54,7 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             file_put_contents($this->tmp . '/Compress/First/zipextracted.txt', 'compress me');
             file_put_contents($this->tmp . '/Compress/zipextracted.txt', 'compress me');
         }
+
     }
 
     public function tearDown()

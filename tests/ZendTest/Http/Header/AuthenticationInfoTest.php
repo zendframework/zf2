@@ -13,6 +13,7 @@ use Zend\Http\Header\AuthenticationInfo;
 
 class AuthenticationInfoTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testAuthenticationInfoFromStringCreatesValidAuthenticationInfoHeader()
     {
         $authenticationInfoHeader = AuthenticationInfo::fromString('Authentication-Info: xxx');
@@ -45,4 +46,5 @@ class AuthenticationInfoTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

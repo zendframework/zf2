@@ -15,6 +15,7 @@ use Zend\Db\Adapter\Profiler;
 
 class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 {
+
     /**
      * @var Mysqli
      */

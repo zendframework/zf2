@@ -16,6 +16,7 @@ use Zend\Filter\File\Decrypt as FileDecrypt;
  */
 class EncryptTest extends \PHPUnit_Framework_TestCase
 {
+
     public function setUp()
     {
         if (! extension_loaded('mcrypt')) {

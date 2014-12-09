@@ -13,5 +13,4 @@ use Zend\Paginator\Exception;
 
 class RuntimeException extends Exception\RuntimeException implements
     ExceptionInterface
-{
-}
+{}

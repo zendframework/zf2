@@ -14,6 +14,7 @@ use Zend\Db\Adapter\StatementContainerInterface;
 
 interface PreparableSqlInterface
 {
+
     /**
      * @param AdapterInterface $adapter
      * @param StatementContainerInterface $statementContainer

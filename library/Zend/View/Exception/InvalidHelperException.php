@@ -12,6 +12,8 @@ namespace Zend\View\Exception;
 /**
  * Invalid helper exception
  */
-class InvalidHelperException extends \Exception implements ExceptionInterface
+class InvalidHelperException
+    extends \Exception
+    implements ExceptionInterface
 {
 }

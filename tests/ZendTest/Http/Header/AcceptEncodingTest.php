@@ -13,6 +13,7 @@ use Zend\Http\Header\AcceptEncoding;
 
 class AcceptEncodingTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testAcceptEncodingFromStringCreatesValidAcceptEncodingHeader()
     {
         $acceptEncodingHeader = AcceptEncoding::fromString('Accept-Encoding: xxx');
@@ -34,6 +35,7 @@ class AcceptEncodingTest extends \PHPUnit_Framework_TestCase
 
     public function testAcceptEncodingToStringReturnsHeaderFormattedString()
     {
+
         $acceptEncodingHeader = new AcceptEncoding();
         $acceptEncodingHeader->addEncoding('compress', 0.5)
                              ->addEncoding('gzip', 1);

@@ -37,4 +37,5 @@ class UnderscoreToSeparatorTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals($string, $filtered);
         $this->assertEquals('underscore:=:separated:=:words', $filtered);
     }
+
 }

@@ -11,6 +11,7 @@ namespace Zend\Form\Element;
 
 use DateInterval;
 use DateTimezone;
+use Zend\Form\Element;
 use Zend\Form\Element\DateTime as DateTimeElement;
 use Zend\Validator\DateStep as DateStepValidator;
 

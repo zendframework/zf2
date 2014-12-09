@@ -77,6 +77,7 @@ class ConfigTest extends TestCase
             array('mapper' => 'My\Mapper'),
             $definition->getInjectionMethodParameters('My\Repository', '__construct')
             );
+
     }
 
     public function testConfigCanConfigureRuntimeDefinitionDefaultFromIni()

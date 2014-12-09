@@ -19,6 +19,7 @@ use ZendTest\Session\TestAsset\TestManager as TestSessionManager;
  */
 class SessionTest extends CommonAdapterTest
 {
+
     public function setUp()
     {
         $_SESSION = array();

@@ -17,6 +17,7 @@ use Zend\Feed\Writer;
 */
 class EntryTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testSetBlock()
     {
         $entry = new Writer\Entry;
@@ -208,4 +209,5 @@ class EntryTest extends \PHPUnit_Framework_TestCase
         $entry = new Writer\Entry;
         $entry->setItunesSummary(str_repeat('a', 4001));
     }
+
 }

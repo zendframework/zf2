@@ -190,6 +190,7 @@ class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Counta
         $this->setNamespace($namespace);
 
         return $this;
+
     }
 
     /**

@@ -40,7 +40,7 @@ class Deleted extends Renderer\AbstractRenderer implements Renderer\RendererInte
         $this->dom->appendChild($entry);
 
         $entry->setAttribute('ref', $this->container->getReference());
-        $entry->setAttribute('when', $this->container->getWhen()->format(DateTime::ATOM));
+        $entry->setAttribute('when', $this->container->getWhen()->format(DateTime::ISO8601));
 
         $this->_setBy($this->dom, $entry);
         $this->_setComment($this->dom, $entry);

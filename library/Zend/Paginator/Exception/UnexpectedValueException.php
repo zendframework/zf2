@@ -12,5 +12,4 @@ namespace Zend\Paginator\Exception;
 class UnexpectedValueException
     extends \UnexpectedValueException
     implements ExceptionInterface
-{
-}
+{}

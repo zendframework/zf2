@@ -58,6 +58,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      */
     protected $variables = array();
 
+
     /**
      * Is this append to child  with the same capture?
      *

@@ -13,4 +13,5 @@ use Zend\Db\Sql\ExpressionInterface;
 
 interface PredicateInterface extends ExpressionInterface
 {
+
 }

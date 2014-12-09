@@ -13,6 +13,7 @@ use Zend\Http\Header\ContentMD5;
 
 class ContentMD5Test extends \PHPUnit_Framework_TestCase
 {
+
     public function testContentMD5FromStringCreatesValidContentMD5Header()
     {
         $contentMD5Header = ContentMD5::fromString('Content-MD5: xxx');
@@ -45,4 +46,5 @@ class ContentMD5Test extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

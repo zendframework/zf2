@@ -89,6 +89,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
                                     'The algorithm unknown is not supported by Zend\Crypt\Symmetric\Mcrypt');
         $result = $this->blockCipher->setCipherAlgorithm('unknown');
+
     }
 
     public function testSetHashAlgorithm()

@@ -13,6 +13,7 @@ use Zend\Db\Adapter\Driver\Oci8\Oci8;
 
 class Oci8Test extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var Oci8
      */
@@ -138,4 +139,5 @@ class Oci8Test extends \PHPUnit_Framework_TestCase
           'This test has not been implemented yet.'
         );
     }
+
 }

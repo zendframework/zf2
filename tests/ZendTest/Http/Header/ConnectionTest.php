@@ -51,5 +51,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('keep-alive', $connectionHeader->getFieldValue());
         $connectionHeader->setPersistent(false);
         $this->assertEquals('close', $connectionHeader->getFieldValue());
+
     }
+
 }

@@ -16,5 +16,4 @@ use Zend\Mail\Exception;
  */
 class OutOfBoundsException extends Exception\OutOfBoundsException implements
     ExceptionInterface
-{
-}
+{}

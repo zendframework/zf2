@@ -192,6 +192,7 @@ class ParameterScanner
                 $this->name = ltrim($token[1], '$');
                 goto SCANNER_CONTINUE;
             }
+
         }
 
         if ($this->name !== null) {

@@ -14,6 +14,7 @@ namespace Zend\Barcode\Object;
  */
 class Royalmail extends AbstractObject
 {
+
     /**
      * Coding map
      * - 0 = Tracker, Ascender and Descender

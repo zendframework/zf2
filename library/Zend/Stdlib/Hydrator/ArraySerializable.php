@@ -13,6 +13,7 @@ use Zend\Stdlib\Exception;
 
 class ArraySerializable extends AbstractHydrator
 {
+
     /**
      * Extract values from the provided object
      *

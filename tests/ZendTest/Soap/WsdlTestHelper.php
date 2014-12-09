@@ -52,6 +52,7 @@ class WsdlTestHelper extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+
         if (empty($this->strategy) OR !($this->strategy instanceof ComplexTypeStrategyInterface)) {
             $this->strategy = new Wsdl\ComplexTypeStrategy\DefaultComplexType();
         }
@@ -73,6 +74,7 @@ class WsdlTestHelper extends \PHPUnit_Framework_TestCase
      */
     public function registerNamespaces($obj, $documentNamespace = null)
     {
+
         if (empty($documentNamespace)) {
             $documentNamespace = $this->defaultServiceUri;
         }

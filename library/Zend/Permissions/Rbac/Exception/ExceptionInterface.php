@@ -10,5 +10,4 @@
 namespace Zend\Permissions\Rbac\Exception;
 
 interface ExceptionInterface
-{
-}
+{}

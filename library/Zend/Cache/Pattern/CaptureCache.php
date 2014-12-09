@@ -318,6 +318,7 @@ class CaptureCache extends AbstractPattern
                 $err = ErrorHandler::stop();
                 throw new Exception\RuntimeException("chmod('{$pathname}', 0{$oct}) failed", 0, $err);
             }
+
         } else {
             // build-in mkdir function sets permission together with current umask
             // which doesn't work well on multo threaded webservers

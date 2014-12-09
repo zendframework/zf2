@@ -54,6 +54,7 @@ class ConsoleResponseSenderTest extends TestCase
         $body = ob_get_clean();
         $this->assertEquals('', $body);
         $this->assertEquals(0, $result);
+
     }
 
     protected function getSendResponseEventMock($response)

@@ -22,6 +22,7 @@ class ZendServerDisk extends AbstractZendServer implements
     FlushableInterface,
     TotalSpaceCapableInterface
 {
+
     /**
      * Buffered total space in bytes
      *

@@ -762,6 +762,7 @@ class Http implements AdapterInterface
         if ($this->useOpaque) {
             $ret = preg_match('/opaque="([^"]+)"/', $header, $temp);
             if (!$ret || empty($temp[1])) {
+
                 // Big surprise: IE isn't RFC 2617-compliant.
                 $headers = $this->request->getHeaders();
                 if (!$headers->has('User-Agent')) {

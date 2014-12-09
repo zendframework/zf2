@@ -14,6 +14,7 @@ namespace Zend\Uri;
  */
 interface UriInterface
 {
+
     /**
      * Create a new URI object
      *

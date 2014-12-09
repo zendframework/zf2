@@ -15,5 +15,4 @@ use Zend\Http\Client\Exception;
  */
 class OutOfRangeException extends Exception\OutOfRangeException implements
     ExceptionInterface
-{
-}
+{}

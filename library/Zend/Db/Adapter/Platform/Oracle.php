@@ -11,6 +11,7 @@ namespace Zend\Db\Adapter\Platform;
 
 class Oracle implements PlatformInterface
 {
+
     /**
      * @var bool
      */
@@ -184,4 +185,5 @@ class Oracle implements PlatformInterface
         }
         return implode('', $parts);
     }
+
 }

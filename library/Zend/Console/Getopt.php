@@ -69,6 +69,7 @@ namespace Zend\Console;
  */
 class Getopt
 {
+
     /**
      * The options for a given application can be in multiple formats.
      * modeGnu is for traditional 'ab:c:' style getopt format.

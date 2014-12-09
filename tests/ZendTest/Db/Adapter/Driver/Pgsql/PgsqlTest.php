@@ -13,6 +13,7 @@ use Zend\Db\Adapter\Driver\Pgsql\Pgsql;
 
 class PgsqlTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var Pgsql
      */
@@ -150,4 +151,5 @@ class PgsqlTest extends \PHPUnit_Framework_TestCase
           'This test has not been implemented yet.'
         );
     }
+
 }

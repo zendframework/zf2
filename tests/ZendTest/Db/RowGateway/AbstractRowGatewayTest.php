@@ -13,6 +13,7 @@ use Zend\Db\RowGateway\RowGateway;
 
 class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
 {
+
     protected $mockAdapter = null;
 
     /** @var RowGateway */
@@ -107,6 +108,7 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetUnset()
     {
+
         $this->rowGateway['foo'] = 'bar';
         $this->assertEquals('bar', $this->rowGateway['foo']);
         unset($this->rowGateway['foo']);

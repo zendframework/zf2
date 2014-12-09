@@ -34,6 +34,7 @@ class ActiveDirectory extends Schema\AbstractItem implements ObjectClassInterfac
      */
     public function getOid()
     {
+
     }
 
     /**
@@ -43,6 +44,7 @@ class ActiveDirectory extends Schema\AbstractItem implements ObjectClassInterfac
      */
     public function getMustContain()
     {
+
     }
 
     /**
@@ -52,6 +54,7 @@ class ActiveDirectory extends Schema\AbstractItem implements ObjectClassInterfac
      */
     public function getMayContain()
     {
+
     }
 
     /**
@@ -61,6 +64,7 @@ class ActiveDirectory extends Schema\AbstractItem implements ObjectClassInterfac
      */
     public function getDescription()
     {
+
     }
 
     /**
@@ -70,6 +74,7 @@ class ActiveDirectory extends Schema\AbstractItem implements ObjectClassInterfac
      */
     public function getType()
     {
+
     }
 
     /**
@@ -80,5 +85,6 @@ class ActiveDirectory extends Schema\AbstractItem implements ObjectClassInterfac
      */
     public function getParentClasses()
     {
+
     }
 }

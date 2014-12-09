@@ -16,6 +16,7 @@ use Zend\Cache;
  */
 class PatternFactoryTest extends \PHPUnit_Framework_TestCase
 {
+
     public function setUp()
     {
         Cache\PatternFactory::resetPluginManager();

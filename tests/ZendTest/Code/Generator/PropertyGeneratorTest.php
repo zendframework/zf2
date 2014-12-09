@@ -18,6 +18,7 @@ use Zend\Code\Generator\PropertyValueGenerator;
  */
 class PropertyGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testPropertyConstructor()
     {
         $codeGenProperty = new PropertyGenerator();
@@ -275,4 +276,5 @@ EOS;
         $this->assertEquals($type, $property->getDefaultValue()->getType());
         $this->assertEquals($value, $property->getDefaultValue()->getValue());
     }
+
 }

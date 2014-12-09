@@ -16,6 +16,7 @@ namespace Zend\View\Model;
  */
 interface RetrievableChildrenInterface
 {
+
     /**
      * Returns an array of Viewmodels with captureTo value $capture
      *

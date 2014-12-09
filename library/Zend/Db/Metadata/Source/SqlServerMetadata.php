@@ -13,6 +13,8 @@ use Zend\Db\Adapter\Adapter;
 
 class SqlServerMetadata extends AbstractSource
 {
+
+
     protected function loadSchemaData()
     {
         if (isset($this->data['schemas'])) {

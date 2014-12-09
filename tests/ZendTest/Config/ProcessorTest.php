@@ -364,6 +364,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function testUserOnlyConstants()
     {
+
         $config = new Config($this->userConstants, true);
         $processor = new ConstantProcessor();
         $processor->process($config);
@@ -560,6 +561,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
         $data ='TeSt';
         $this->assertEquals('test', $queue->processValue($data));
+
     }
 
     /**
@@ -594,4 +596,5 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $queue->process($config);
         $this->assertEquals('THIRD  CASE ', $config->newValue);
     }
+
 }

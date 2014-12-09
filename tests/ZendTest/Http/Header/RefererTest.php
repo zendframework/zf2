@@ -13,6 +13,7 @@ use Zend\Http\Header\Referer;
 
 class RefererTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testRefererFromStringCreatesValidLocationHeader()
     {
         $refererHeader = Referer::fromString('Referer: http://www.example.com/');

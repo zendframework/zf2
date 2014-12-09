@@ -51,6 +51,7 @@ use SecurityLib\Strength;
  */
 class HashTiming implements RandomLib\Source
 {
+
     /**
      * Return an instance of Strength indicating the strength of the source
      *
@@ -99,7 +100,7 @@ class HashTiming implements RandomLib\Source
                 $t1 = microtime();
                 $seed = sha1(mt_rand());
                 for ($j = 0; $j < $rounds; $j++) {
-                    $seed = sha1($seed);
+                   $seed = sha1($seed);
                 }
                 $t2 = microtime();
                 $entropy .= $t1 . $t2;
@@ -108,4 +109,5 @@ class HashTiming implements RandomLib\Source
         }
         return substr($result, 0, $size);
     }
+
 }

@@ -248,17 +248,21 @@ abstract class AbstractValidator implements
         if (array_key_exists($property, $this->abstractOptions['messageVariables'])) {
             $result = $this->abstractOptions['messageVariables'][$property];
             if (is_array($result)) {
-                return $this->{key($result)}[current($result)];
+                $result = $this->{key($result)}[current($result)];
+            } else {
+                $result = $this->{$result};
             }
-            return $this->{$result};
+            return $result;
         }
 
         if (isset($this->messageVariables) && array_key_exists($property, $this->messageVariables)) {
             $result = $this->{$this->messageVariables[$property]};
             if (is_array($result)) {
-                return $this->{key($result)}[current($result)];
+                $result = $this->{key($result)}[current($result)];
+            } else {
+                $result = $this->{$result};
             }
-            return $this->{$result};
+            return $result;
         }
 
         throw new Exception\InvalidArgumentException("No property exists by the name '$property'");
@@ -464,7 +468,9 @@ abstract class AbstractValidator implements
      * @return void
      * @throws Exception\InvalidArgumentException
      */
-    public static function setDefaultTranslator(Translator\TranslatorInterface $translator = null, $textDomain = null)
+    public static function setDefaultTranslator(
+        Translator\TranslatorInterface $translator = null, $textDomain = null
+    )
     {
         static::$defaultTranslator = $translator;
         if (null !== $textDomain) {
@@ -569,6 +575,8 @@ abstract class AbstractValidator implements
             return $message;
         }
 
-        return $translator->translate($message, $this->getTranslatorTextDomain());
+        return $translator->translate(
+            $message, $this->getTranslatorTextDomain()
+        );
     }
 }

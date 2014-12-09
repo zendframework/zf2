@@ -448,6 +448,7 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
 
         $result = $this->driver->createResult($resultResource, $sql);
         return $result;
+
     }
 
     /**
@@ -485,4 +486,5 @@ class Connection implements ConnectionInterface, Profiler\ProfilerAwareInterface
         }
         return false;
     }
+
 }

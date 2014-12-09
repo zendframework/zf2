@@ -14,5 +14,4 @@ namespace Zend\Serializer\Exception;
  */
 class InvalidArgumentException extends \InvalidArgumentException implements
     ExceptionInterface
-{
-}
+{}

@@ -14,6 +14,7 @@ use Zend\Db\TableGateway\Exception;
 
 abstract class AbstractFeature extends AbstractTableGateway
 {
+
     /**
      * @var AbstractTableGateway
      */
@@ -54,4 +55,5 @@ abstract class AbstractFeature extends AbstractTableGateway
     public function preDelete(Delete $delete);
     public function postDelete(StatementInterface $statement, ResultInterface $result);
     */
+
 }

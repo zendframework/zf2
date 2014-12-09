@@ -17,6 +17,7 @@ use Zend\Db\Sql\TableIdentifier;
 
 class TableGateway extends AbstractTableGateway
 {
+
     /**
      * Constructor
      *

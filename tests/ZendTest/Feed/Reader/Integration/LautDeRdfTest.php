@@ -17,6 +17,7 @@ use Zend\Feed\Reader;
 */
 class LautDeRdfTest extends \PHPUnit_Framework_TestCase
 {
+
     protected $feedSamplePath = null;
 
     public function setup()
@@ -194,4 +195,5 @@ class LautDeRdfTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $this->assertEquals('ISO-8859-1', $entry->getEncoding());
     }
+
 }

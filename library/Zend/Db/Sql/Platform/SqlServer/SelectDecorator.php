@@ -55,6 +55,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         if ($statementContainer instanceof Statement) {
             $statementContainer->setPrepareOptions(array('Scrollable'=>\SQLSRV_CURSOR_STATIC));
         }
+
     }
 
     /**
@@ -141,5 +142,6 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
             $this->specifications[self::SELECT],
             $parameters[self::SELECT]
         );
+
     }
 }

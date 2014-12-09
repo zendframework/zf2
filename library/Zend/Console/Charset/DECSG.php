@@ -16,6 +16,7 @@ namespace Zend\Console\Charset;
  */
 class DECSG implements CharsetInterface
 {
+
     const ACTIVATE          = "\x1b(0";
     const DEACTIVATE        = "\x1b(B";
 

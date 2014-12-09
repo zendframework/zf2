@@ -18,6 +18,7 @@ use Zend\Feed\Writer;
  */
 class EntryTest extends \PHPUnit_Framework_TestCase
 {
+
     protected $feedSamplePath = null;
 
     public function setup()

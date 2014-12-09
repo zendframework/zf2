@@ -13,6 +13,7 @@ use Zend\XmlRpc\Exception;
 
 class Integer extends AbstractScalar
 {
+
     /**
      * Set the value of an integer native type
      *

@@ -69,4 +69,5 @@ class FigletTest extends CommonTestCase
         $markup  = $this->helper->render($element);
         $this->assertContains('><pre>', $markup);
     }
+
 }

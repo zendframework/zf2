@@ -14,6 +14,7 @@ use Zend\Db\Sql\Sql;
 
 class MasterSlaveFeature extends AbstractFeature
 {
+
     /**
      * @var AdapterInterface
      */
@@ -88,4 +89,5 @@ class MasterSlaveFeature extends AbstractFeature
     {
         $this->tableGateway->sql = $this->masterSql;
     }
+
 }

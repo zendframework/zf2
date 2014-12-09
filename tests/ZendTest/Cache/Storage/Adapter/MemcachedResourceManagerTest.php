@@ -20,6 +20,7 @@ use Zend\Cache\Storage\Adapter\MemcachedResourceManager;
  */
 class MemcachedResourceManagerTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * The resource manager
      *

@@ -14,6 +14,7 @@ namespace ZendTest\ProgressBar\Adapter;
  */
 class JsPushTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testJson()
     {
         $result = array();

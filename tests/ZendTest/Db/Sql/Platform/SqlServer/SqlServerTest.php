@@ -26,4 +26,5 @@ class SqlServerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zend\Db\Sql\Select', $type);
         $this->assertInstanceOf('Zend\Db\Sql\Platform\SqlServer\SelectDecorator', $decorator);
     }
+
 }

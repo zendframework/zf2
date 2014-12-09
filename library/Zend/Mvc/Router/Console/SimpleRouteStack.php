@@ -72,9 +72,7 @@ class SimpleRouteStack extends BaseSimpleRouteStack
         }
 
         // default to 'simple' console route
-        if (!isset($specs['type'])) {
-            $specs['type'] = 'simple';
-        }
+        if (!isset($specs['type'])) $specs['type'] = 'simple';
 
         // build route object
         $route = parent::routeFromArray($specs);

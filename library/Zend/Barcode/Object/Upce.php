@@ -16,6 +16,7 @@ use Zend\Validator\Barcode as BarcodeValidator;
  */
 class Upce extends Ean13
 {
+
     protected $parities = array(
         0 => array(
             0 => array('B','B','B','A','A','A'),
@@ -59,8 +60,8 @@ class Upce extends Ean13
     public function getText()
     {
         $text = parent::getText();
-        if ($text[0] != 1) {
-            $text[0] = 0;
+        if ($text{0} != 1) {
+            $text{0} = 0;
         }
         return $text;
     }
@@ -191,8 +192,8 @@ class Upce extends Ean13
     public function getChecksum($text)
     {
         $text = $this->addLeadingZeros($text, true);
-        if ($text[0] != 1) {
-            $text[0] = 0;
+        if ($text{0} != 1) {
+            $text{0} = 0;
         }
         return parent::getChecksum($text);
     }

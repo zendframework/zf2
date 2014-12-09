@@ -14,6 +14,7 @@ use Zend\Db\Sql\Predicate\IsNotNull;
 
 class IsNullTest extends TestCase
 {
+
     public function testEmptyConstructorYieldsNullIdentifier()
     {
         $isNotNull = new IsNotNull();

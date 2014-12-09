@@ -17,6 +17,7 @@ use Zend\Db\Adapter\Driver\Pdo;
  */
 class SqliteRowCounter extends AbstractFeature
 {
+
     /**
      * @return string
      */

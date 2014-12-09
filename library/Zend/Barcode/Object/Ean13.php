@@ -14,6 +14,7 @@ namespace Zend\Barcode\Object;
  */
 class Ean13 extends AbstractObject
 {
+
     /**
      * Coding map
      * - 0 = narrow bar

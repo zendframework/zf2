@@ -16,6 +16,7 @@ use Zend\Mail\Header;
  */
 class ReceivedTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testFromStringCreatesValidReceivedHeader()
     {
         $receivedHeader = Header\Received::fromString('Received: xxx');
@@ -48,4 +49,5 @@ class ReceivedTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implementation specific tests here */
+
 }

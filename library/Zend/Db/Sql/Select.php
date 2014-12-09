@@ -630,6 +630,7 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
         // process table columns
         $columns = array();
         foreach ($this->columns as $columnIndexOrAs => $column) {
+
             $columnName = '';
             if ($column === self::SQL_STAR) {
                 $columns[] = array($fromTable . self::SQL_STAR);

@@ -14,6 +14,7 @@ namespace Zend\Barcode\Object;
  */
 class Leitcode extends Identcode
 {
+
     /**
      * Default options for Leitcode barcode
      * @return void

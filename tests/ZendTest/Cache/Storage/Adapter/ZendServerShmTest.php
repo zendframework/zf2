@@ -17,6 +17,7 @@ use Zend\Cache\Exception;
  */
 class ZendServerShmTest extends CommonAdapterTest
 {
+
     public function setUp()
     {
         if (!defined('TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED') || !TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED) {

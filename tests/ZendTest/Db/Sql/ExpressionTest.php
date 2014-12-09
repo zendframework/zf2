@@ -19,6 +19,7 @@ use Zend\Db\Sql\Expression;
  */
 class ExpressionTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @covers Zend\Db\Sql\Expression::setExpression
      * @return Expression
@@ -136,4 +137,5 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
             $expression->getExpressionData()
         );
     }
+
 }

@@ -239,6 +239,7 @@ class Mcrypt implements SymmetricInterface
          * the others are more picky.
          */
         if (!empty($keySizes) && $keyLen < $maxKey) {
+
             if (!in_array($keyLen, $keySizes)) {
                 throw new Exception\InvalidArgumentException(
                     "The size of the key must be one of " . implode(", ", $keySizes) . " bytes or longer"

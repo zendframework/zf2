@@ -13,6 +13,7 @@ use Zend\Db\Adapter\Adapter;
 
 class PostgresqlMetadata extends AbstractSource
 {
+
     protected function loadSchemaData()
     {
         if (isset($this->data['schemas'])) {
@@ -342,4 +343,6 @@ class PostgresqlMetadata extends AbstractSource
 
         $this->data['triggers'][$schema] = $data;
     }
+
+
 }

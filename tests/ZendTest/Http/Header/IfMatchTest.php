@@ -13,6 +13,7 @@ use Zend\Http\Header\IfMatch;
 
 class IfMatchTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testIfMatchFromStringCreatesValidIfMatchHeader()
     {
         $ifMatchHeader = IfMatch::fromString('If-Match: xxx');
@@ -45,4 +46,5 @@ class IfMatchTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

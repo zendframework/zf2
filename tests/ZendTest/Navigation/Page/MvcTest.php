@@ -403,6 +403,7 @@ class MvcTest extends TestCase
                     $msg .= 'Zend\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
                 } catch (Navigation\Exception\InvalidArgumentException $e) {
+
                 }
             }
         }
@@ -436,6 +437,7 @@ class MvcTest extends TestCase
                     $msg .= 'Zend\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
                 } catch (Navigation\Exception\InvalidArgumentException $e) {
+
                 }
             }
         }
@@ -743,5 +745,6 @@ class MvcTest extends TestCase
 
         $this->assertTrue($childPage->isActive(true));
         $this->assertTrue($parentPage->isActive(true));
+
     }
 }

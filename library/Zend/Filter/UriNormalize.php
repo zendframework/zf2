@@ -101,6 +101,7 @@ class UriNormalize extends AbstractFilter
             if ($this->enforcedScheme && (!$uri->getScheme())) {
                 $this->enforceScheme($uri);
             }
+
         } catch (UriException $ex) {
             // We are unable to parse / enfore scheme with the given config and input
             return $value;

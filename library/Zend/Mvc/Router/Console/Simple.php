@@ -17,6 +17,7 @@ use Zend\Console\RouteMatcher\DefaultRouteMatcher;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Console\RouteMatcher\RouteMatcherInterface;
 use Zend\Filter\FilterChain;
+use Zend\Mvc\Exception\InvalidArgumentException;
 use Zend\Mvc\Router\Exception;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\RequestInterface as Request;
@@ -31,6 +32,7 @@ use Zend\Validator\ValidatorChain;
  */
 class Simple implements RouteInterface
 {
+
     /**
      * List of assembled parameters.
      *
@@ -67,7 +69,7 @@ class Simple implements RouteInterface
         } elseif ($routeOrRouteMatcher instanceof RouteMatcherInterface) {
             $this->matcher = $routeOrRouteMatcher;
         } else {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 "routeOrRouteMatcher should either be string, or class implementing RouteMatcherInterface. "
                 . gettype($routeOrRouteMatcher) . " was given."
             );
@@ -87,11 +89,11 @@ class Simple implements RouteInterface
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
         } elseif (!is_array($options)) {
-            throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
+            throw new InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
         }
 
         if (!isset($options['route'])) {
-            throw new Exception\InvalidArgumentException('Missing "route" in options array');
+            throw new InvalidArgumentException('Missing "route" in options array');
         }
 
         foreach (array(

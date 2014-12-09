@@ -94,7 +94,9 @@ class Form extends AbstractHelper
             $attributes = array_merge($attributes, $formAttributes);
         }
 
-        return sprintf('<form %s>', $this->createAttributesString($attributes));
+        $tag = sprintf('<form %s>', $this->createAttributesString($attributes));
+
+        return $tag;
     }
 
     /**

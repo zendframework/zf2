@@ -15,6 +15,7 @@ use Zend\Db\Adapter\Exception;
 
 class Sqlite implements PlatformInterface
 {
+
     /** @var \PDO */
     protected $resource = null;
 
@@ -207,4 +208,5 @@ class Sqlite implements PlatformInterface
         }
         return implode('', $parts);
     }
+
 }

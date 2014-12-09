@@ -13,6 +13,7 @@ namespace Zend\Db\Sql;
  */
 class TableIdentifier
 {
+
     /**
      * @var string
      */

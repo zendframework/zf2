@@ -20,6 +20,7 @@ use Zend\Code\Reflection\FileReflection;
  */
 class FileGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testConstruction()
     {
         $file = new FileGenerator();
@@ -91,6 +92,7 @@ EOS;
 
         $this->assertEquals('Zend\Code\Generator\FileGenerator', get_class($fileGenerator));
         $this->assertEquals(1, count($fileGenerator->getClasses()));
+
     }
 
     public function testFromFileReflection()

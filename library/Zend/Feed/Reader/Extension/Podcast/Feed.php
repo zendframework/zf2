@@ -93,6 +93,7 @@ class Feed extends Extension\AbstractFeed
             }
         }
 
+
         if (!$categories) {
             $categories = null;
         }

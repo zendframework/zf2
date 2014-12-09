@@ -13,6 +13,7 @@ use Zend\Http\Header\Vary;
 
 class VaryTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testVaryFromStringCreatesValidVaryHeader()
     {
         $varyHeader = Vary::fromString('Vary: xxx');
@@ -45,4 +46,5 @@ class VaryTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

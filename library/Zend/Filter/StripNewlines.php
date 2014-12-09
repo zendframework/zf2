@@ -11,6 +11,7 @@ namespace Zend\Filter;
 
 class StripNewlines extends AbstractFilter
 {
+
     /**
      * Defined by Zend\Filter\FilterInterface
      *

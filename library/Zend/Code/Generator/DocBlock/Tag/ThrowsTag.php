@@ -11,6 +11,7 @@ namespace Zend\Code\Generator\DocBlock\Tag;
 
 class ThrowsTag extends AbstractTypeableTag implements TagInterface
 {
+
     /**
      * @return string
      */

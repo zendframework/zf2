@@ -20,6 +20,7 @@ use Zend\Feed\Writer\Version;
  */
 class FeedTest extends \PHPUnit_Framework_TestCase
 {
+
     protected $feedSamplePath = null;
 
     public function setup()
@@ -203,6 +204,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDateModifiedUsesGivenUnixTimestampThatIsAVerySmallInteger()
     {
+
         $writer = new Writer\Feed;
         $writer->setDateModified(123);
         $myDate = new DateTime('@' . 123);

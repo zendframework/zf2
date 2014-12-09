@@ -12,5 +12,4 @@ namespace Zend\Text\Figlet\Exception;
 use Zend\Text\Exception\ExceptionInterface as Exception;
 
 interface ExceptionInterface extends Exception
-{
-}
+{}

@@ -315,10 +315,7 @@ class InstanceManager /* implements InstanceManagerInterface */
     {
         $classes = array();
         foreach ($this->configurations as $name => $data) {
-            if (strpos($name, 'alias') === 0) {
-                continue;
-            }
-
+            if (strpos($name, 'alias') === 0) continue;
             $classes[] = $name;
         }
 

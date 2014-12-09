@@ -27,26 +27,6 @@ use ZendTest\Mvc\TestAsset\Locator;
 
 class ForwardTest extends TestCase
 {
-    /**
-     * @var PluginManager
-     */
-    private $plugins;
-
-    /**
-     * @var ControllerManager
-     */
-    private $controllers;
-
-    /**
-     * @var SampleController
-     */
-    private $controller;
-
-    /**
-     * @var \Zend\Mvc\Controller\Plugin\Forward
-     */
-    private $plugin;
-
     public function setUp()
     {
         StaticEventManager::resetInstance();
@@ -212,13 +192,5 @@ class ForwardTest extends TestCase
         $this->assertEquals('not-found', $result['status']);
         $this->assertTrue(isset($result['params']));
         $this->assertEquals(array(), $result['params']);
-    }
-
-    /**
-     * @group 6398
-     */
-    public function testSetListenersToDetachIsFluent()
-    {
-        $this->assertSame($this->plugin, $this->plugin->setListenersToDetach(array()));
     }
 }

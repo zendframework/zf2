@@ -9,6 +9,7 @@
 
 namespace Zend\Feed\Exception;
 
-class RuntimeException extends \RuntimeException implements ExceptionInterface
-{
-}
+class RuntimeException
+    extends \RuntimeException
+    implements ExceptionInterface
+{}

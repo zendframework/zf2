@@ -13,6 +13,7 @@ use Zend\Http\Header\Refresh;
 
 class RefreshTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testRefreshFromStringCreatesValidRefreshHeader()
     {
         $refreshHeader = Refresh::fromString('Refresh: xxx');
@@ -45,4 +46,5 @@ class RefreshTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

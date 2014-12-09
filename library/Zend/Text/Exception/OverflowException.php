@@ -9,6 +9,9 @@
 
 namespace Zend\Text\Exception;
 
-class OverflowException extends \OverflowException implements ExceptionInterface
-{
-}
+use Zend\Text\Exception;
+
+class OverflowException
+    extends \OverflowException
+    implements ExceptionInterface
+{}

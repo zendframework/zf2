@@ -17,6 +17,7 @@ use Zend\Cache\Storage\Event;
  */
 class IgnoreUserAbortTest extends CommonPluginTest
 {
+
     /**
      * The storage adapter
      *

@@ -60,4 +60,5 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
         $this->connection->setConnectionParameters(array('foo' => 'bar'));
         $this->assertEquals(array('foo' => 'bar'), $this->connection->getConnectionParameters());
     }
+
 }

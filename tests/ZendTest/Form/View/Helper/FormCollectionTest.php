@@ -276,6 +276,7 @@ class FormCollectionTest extends TestCase
         $this->assertNotContains('<legend>', $markup);
         $this->assertStringStartsWith('<div>', $markup);
         $this->assertStringEndsWith('</div>', $markup);
+
     }
 
     public function testCollectionContainsTemplateAtPos3()
@@ -318,6 +319,7 @@ class FormCollectionTest extends TestCase
 
         $this->assertNotContains('<legend>', $markup);
         $this->assertRegExp('/\<div class="foo">.*?<\/div>/', $markup);
+
     }
 
     public function testCollectionRendersTemplateWithoutWrapper()

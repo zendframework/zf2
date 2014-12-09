@@ -13,6 +13,7 @@ use Zend\Db\Adapter\Driver\IbmDb2\IbmDb2;
 
 class IbmDb2Test extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var IbmDb2
      */
@@ -138,4 +139,5 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
           'This test has not been implemented yet.'
         );
     }
+
 }

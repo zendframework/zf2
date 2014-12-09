@@ -116,6 +116,7 @@ class Email extends Element implements InputProviderInterface
         return $this;
     }
 
+
     /**
      * Provide default input rules for this element
      *

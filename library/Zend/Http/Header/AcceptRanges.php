@@ -16,6 +16,7 @@ namespace Zend\Http\Header;
  */
 class AcceptRanges implements HeaderInterface
 {
+
     protected $rangeUnit;
 
     public static function fromString($headerLine)

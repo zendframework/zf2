@@ -19,8 +19,11 @@ use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
  */
 class ClassReflectionTest extends \PHPUnit_Framework_TestCase
 {
+
+
     public function testMethodReturns()
     {
+
         $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
 
         $methodByName = $reflectionClass->getMethod('getProp1');
@@ -54,6 +57,7 @@ class ClassReflectionTest extends \PHPUnit_Framework_TestCase
         $parent = $reflectionClass->getParentClass();
         $this->assertEquals('Zend\Code\Reflection\ClassReflection', get_class($parent));
         $this->assertEquals('ArrayObject', $parent->getName());
+
     }
 
     public function testInterfaceReturn()
@@ -65,6 +69,7 @@ class ClassReflectionTest extends \PHPUnit_Framework_TestCase
 
         $interface = array_shift($interfaces);
         $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClassInterface', $interface->getName());
+
     }
 
     public function testGetContentsReturnsContents()

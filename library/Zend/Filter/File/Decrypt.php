@@ -74,6 +74,7 @@ class Decrypt extends Filter\Decrypt
             $value      = $value['tmp_name'];
         }
 
+
         if (!file_exists($value)) {
             throw new Exception\InvalidArgumentException("File '$value' not found");
         }

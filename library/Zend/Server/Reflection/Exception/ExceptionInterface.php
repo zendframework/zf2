@@ -15,5 +15,4 @@ use Zend\Server\Exception\ExceptionInterface as Exception;
  * Zend\Server\Reflection exceptions
  */
 interface ExceptionInterface extends Exception
-{
-}
+{}

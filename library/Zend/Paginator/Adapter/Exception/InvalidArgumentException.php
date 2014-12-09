@@ -13,5 +13,4 @@ use Zend\Paginator\Exception;
 
 class InvalidArgumentException extends Exception\InvalidArgumentException implements
     ExceptionInterface
-{
-}
+{}

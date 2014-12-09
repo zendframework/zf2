@@ -26,6 +26,7 @@ error_reporting( E_ALL | E_STRICT ); // now required for each test suite
  */
 class JsonXmlTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * xml2json Test 1
      * It tests the conversion of a contact list xml into JSON format.
@@ -522,6 +523,7 @@ EOT;
 
         $this->assertSame("bar", $phpArray['a']['@text'], "The text element of a is not correct");
         $this->assertSame("foo", $phpArray['a']['b']['@attributes']['id'], "The id attribute of b is not correct");
+
     }
 
     /**
@@ -594,4 +596,5 @@ EOT;
 EOT;
         return array(array($xmlStringContents));
     }
+
 }

@@ -27,4 +27,5 @@ interface HelperInterface
      * @return Renderer
      */
     public function getView();
+
 }

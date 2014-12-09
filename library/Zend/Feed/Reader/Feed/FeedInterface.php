@@ -107,4 +107,5 @@ interface FeedInterface extends Iterator, Countable
      * @return \Zend\Feed\Reader\Collection\Category
      */
     public function getCategories();
+
 }

@@ -20,6 +20,7 @@ use Zend\Stdlib\ArrayUtils;
  */
 class MemcachedResourceManager
 {
+
     /**
      * Registered resources
      *
@@ -79,6 +80,7 @@ class MemcachedResourceManager
                 $port   = isset($server['port'])   ? (int) $server['port']   : $port;
                 $weight = isset($server['weight']) ? (int) $server['weight'] : $weight;
             }
+
         } else {
             // parse server from URI host{:?port}{?weight}
             $server = trim($server);

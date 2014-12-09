@@ -13,6 +13,7 @@ use Zend\Http\Header\CacheControl;
 
 class CacheControlTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testCacheControlFromStringCreatesValidCacheControlHeader()
     {
         $cacheControlHeader = CacheControl::fromString('Cache-Control: xxx');

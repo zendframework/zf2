@@ -303,6 +303,7 @@ class AbstractFeed
                 $nvalid = $validator->isValid('info@' . $matches['name']);
             }
             return $dvalid && $nvalid;
+
         }
         return false;
     }

@@ -10,5 +10,4 @@
 namespace Zend\InputFilter\Exception;
 
 interface ExceptionInterface
-{
-}
+{}

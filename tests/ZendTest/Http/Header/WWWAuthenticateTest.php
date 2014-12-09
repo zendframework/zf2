@@ -13,6 +13,7 @@ use Zend\Http\Header\WWWAuthenticate;
 
 class WWWAuthenticateTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testWWWAuthenticateFromStringCreatesValidWWWAuthenticateHeader()
     {
         $wWWAuthenticateHeader = WWWAuthenticate::fromString('WWW-Authenticate: xxx');
@@ -45,4 +46,5 @@ class WWWAuthenticateTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

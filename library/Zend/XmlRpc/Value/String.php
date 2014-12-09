@@ -11,6 +11,7 @@ namespace Zend\XmlRpc\Value;
 
 class String extends AbstractScalar
 {
+
     /**
      * Set the value of a string native type
      *

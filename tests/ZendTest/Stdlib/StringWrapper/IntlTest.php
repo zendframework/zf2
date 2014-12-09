@@ -14,6 +14,7 @@ use Zend\Stdlib\StringWrapper\Intl;
 
 class IntlTest extends CommonStringWrapperTest
 {
+
     public function setUp()
     {
         if (!extension_loaded('intl')) {

@@ -129,12 +129,13 @@ class Form extends Fieldset implements FormInterface
      */
     protected $validationGroup;
 
+
     /**
      * Set options for a form. Accepted options are:
      * - prefer_form_input_filter: is form input filter is preferred?
      *
      * @param  array|Traversable $options
-     * @return self
+     * @return Element|ElementInterface
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
@@ -163,7 +164,7 @@ class Form extends Fieldset implements FormInterface
      *
      * @param  array|Traversable|ElementInterface $elementOrFieldset
      * @param  array                              $flags
-     * @return self
+     * @return \Zend\Form\Fieldset|\Zend\Form\FieldsetInterface|\Zend\Form\FormInterface
      */
     public function add($elementOrFieldset, array $flags = array())
     {
@@ -192,7 +193,7 @@ class Form extends Fieldset implements FormInterface
      * available, and prepares any elements and/or fieldsets that require
      * preparation.
      *
-     * @return self
+     * @return Form
      */
     public function prepare()
     {
@@ -248,7 +249,7 @@ class Form extends Fieldset implements FormInterface
      * Typically, also passes data on to the composed input filter.
      *
      * @param  array|\ArrayAccess|Traversable $data
-     * @return self
+     * @return Form|FormInterface
      * @throws Exception\InvalidArgumentException
      */
     public function setData($data)
@@ -278,7 +279,7 @@ class Form extends Fieldset implements FormInterface
      *
      * @param  object $object
      * @param  int $flags
-     * @return self
+     * @return mixed|void
      * @throws Exception\InvalidArgumentException
      */
     public function bind($object, $flags = FormInterface::VALUES_NORMALIZED)
@@ -299,10 +300,7 @@ class Form extends Fieldset implements FormInterface
 
         $this->bindAs = $flags;
         $this->setObject($object);
-
-        $data = $this->extract();
-
-        $this->populateValues($data, true);
+        $this->extract();
 
         return $this;
     }
@@ -395,7 +393,7 @@ class Form extends Fieldset implements FormInterface
      * Set flag indicating whether or not to bind values on successful validation
      *
      * @param  int $bindOnValidateFlag
-     * @return self
+     * @return void|Form
      * @throws Exception\InvalidArgumentException
      */
     public function setBindOnValidate($bindOnValidateFlag)
@@ -428,7 +426,7 @@ class Form extends Fieldset implements FormInterface
      * Set the base fieldset to use when hydrating
      *
      * @param  FieldsetInterface $baseFieldset
-     * @return self
+     * @return Form
      * @throws Exception\InvalidArgumentException
      */
     public function setBaseFieldset(FieldsetInterface $baseFieldset)
@@ -482,7 +480,6 @@ class Form extends Fieldset implements FormInterface
 
         if (!is_array($this->data)) {
             $data = $this->extract();
-            $this->populateValues($data, true);
             if (!is_array($data)) {
                 throw new Exception\DomainException(sprintf(
                     '%s is unable to validate as there is no data currently set',
@@ -561,7 +558,7 @@ class Form extends Fieldset implements FormInterface
      * Typically, proxies to the composed input filter
      *
      * @throws Exception\InvalidArgumentException
-     * @return self
+     * @return Form|FormInterface
      */
     public function setValidationGroup()
     {
@@ -650,7 +647,7 @@ class Form extends Fieldset implements FormInterface
      * Set the input filter used by this form
      *
      * @param  InputFilterInterface $inputFilter
-     * @return self
+     * @return FormInterface
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
@@ -704,7 +701,7 @@ class Form extends Fieldset implements FormInterface
      * Set flag indicating whether or not to scan elements and fieldsets for defaults
      *
      * @param  bool $useInputFilterDefaults
-     * @return self
+     * @return Form
      */
     public function setUseInputFilterDefaults($useInputFilterDefaults)
     {
@@ -726,7 +723,7 @@ class Form extends Fieldset implements FormInterface
      * Set flag indicating whether or not to prefer the form input filter over element and fieldset defaults
      *
      * @param  bool $preferFormInputFilter
-     * @return self
+     * @return Form
      */
     public function setPreferFormInputFilter($preferFormInputFilter)
     {
@@ -851,7 +848,7 @@ class Form extends Fieldset implements FormInterface
      * Are the form elements/fieldsets names wrapped by the form name ?
      *
      * @param  bool $wrapElements
-     * @return self
+     * @return Form
      */
     public function setWrapElements($wrapElements)
     {
@@ -870,24 +867,7 @@ class Form extends Fieldset implements FormInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param bool $onlyBase
-     */
-    public function populateValues($data, $onlyBase = false)
-    {
-        if ($onlyBase && $this->baseFieldset !== null) {
-            $name = $this->baseFieldset->getName();
-            if (array_key_exists($name, $data)) {
-                $this->baseFieldset->populateValues($data[$name]);
-            }
-        } else {
-            parent::populateValues($data);
-        }
-    }
-
-    /**
-     * Recursively extract values for elements and sub-fieldsets
+     * Recursively extract values for elements and sub-fieldsets, and populate form values
      *
      * @return array
      */
@@ -896,8 +876,10 @@ class Form extends Fieldset implements FormInterface
         if (null !== $this->baseFieldset) {
             $name = $this->baseFieldset->getName();
             $values[$name] = $this->baseFieldset->extract();
+            $this->baseFieldset->populateValues($values[$name]);
         } else {
             $values = parent::extract();
+            $this->populateValues($values);
         }
 
         return $values;

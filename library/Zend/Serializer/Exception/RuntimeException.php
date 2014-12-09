@@ -13,5 +13,4 @@ namespace Zend\Serializer\Exception;
  * @used       RuntimeException
  */
 class RuntimeException extends \RuntimeException implements ExceptionInterface
-{
-}
+{}

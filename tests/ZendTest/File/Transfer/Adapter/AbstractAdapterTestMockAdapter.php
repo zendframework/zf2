@@ -144,4 +144,5 @@ class AbstractAdapterTestMockAdapter extends Adapter\AbstractAdapter
             )
         );
     }
+
 }

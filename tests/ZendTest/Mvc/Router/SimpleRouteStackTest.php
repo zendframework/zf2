@@ -86,6 +86,7 @@ class SimpleRouteStackTest extends TestCase
         $stack->setRoutes(new ArrayIterator(array()));
 
         $this->assertSame(null, $stack->match(new Request()));
+
     }
 
     public function testremoveRouteAsArray()

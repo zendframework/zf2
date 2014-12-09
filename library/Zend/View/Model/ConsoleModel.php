@@ -9,6 +9,7 @@
 
 namespace Zend\View\Model;
 
+
 class ConsoleModel extends ViewModel
 {
     const RESULT = 'result';

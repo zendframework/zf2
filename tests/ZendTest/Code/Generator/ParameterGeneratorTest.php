@@ -19,6 +19,7 @@ use Zend\Code\Reflection\ParameterReflection;
  */
 class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testTypeGetterAndSetterPersistValue()
     {
         $parameterGenerator = new ParameterGenerator();

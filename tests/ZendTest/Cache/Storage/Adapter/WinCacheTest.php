@@ -17,6 +17,7 @@ use Zend\Cache\Exception;
  */
 class WinCacheTest extends CommonAdapterTest
 {
+
     public function setUp()
     {
         if (!defined('TESTS_ZEND_CACHE_WINCACHE_ENABLED') || !TESTS_ZEND_CACHE_WINCACHE_ENABLED) {

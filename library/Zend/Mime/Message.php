@@ -11,6 +11,7 @@ namespace Zend\Mime;
 
 class Message
 {
+
     protected $parts = array();
     protected $mime = null;
 
@@ -224,6 +225,7 @@ class Message
 
         $res = new static();
         foreach ($parts as $part) {
+
             // now we build a new MimePart for the current Message Part:
             $properties = array();
             foreach ($part['header'] as $header) {

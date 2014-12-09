@@ -11,5 +11,4 @@ namespace Zend\Form\Exception;
 
 class UnexpectedValueException extends \UnexpectedValueException implements
     ExceptionInterface
-{
-}
+{}

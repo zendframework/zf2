@@ -13,6 +13,7 @@ use Zend\Http\Header\IfRange;
 
 class IfRangeTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testIfRangeFromStringCreatesValidIfRangeHeader()
     {
         $ifRangeHeader = IfRange::fromString('If-Range: xxx');
@@ -45,4 +46,5 @@ class IfRangeTest extends \PHPUnit_Framework_TestCase
     }
 
     /** Implmentation specific tests here */
+
 }

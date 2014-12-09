@@ -16,6 +16,7 @@ use Zend\Serializer;
  */
 class PhpSerializeTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var Serializer\Adapter\PhpSerialize
      */

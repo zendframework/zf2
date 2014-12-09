@@ -62,4 +62,5 @@ class JsonTest extends AbstractReaderTestCase
         $this->setExpectedException('Zend\Config\Exception\RuntimeException');
         $arrayIni = $this->reader->fromString($json);
     }
+
 }

@@ -22,11 +22,11 @@ class Blob extends Column
     protected $type = 'BLOB';
 
     /**
-     * @param string $name
-     * @param int    $length
-     * @param bool   $nullable
-     * @param null   $default
-     * @param array  $options
+     * @param null  $name
+     * @param int   $length
+     * @param bool  $nullable
+     * @param null  $default
+     * @param array $options
      */
     public function __construct($name, $length, $nullable = false, $default = null, array $options = array())
     {

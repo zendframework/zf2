@@ -10,5 +10,4 @@
 namespace Zend\Serializer\Exception;
 
 interface ExceptionInterface
-{
-}
+{}

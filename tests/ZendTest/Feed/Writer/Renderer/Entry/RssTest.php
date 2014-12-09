@@ -19,6 +19,7 @@ use Zend\Feed\Reader;
  */
 class RssTest extends \PHPUnit_Framework_TestCase
 {
+
     protected $validWriter = null;
     protected $validEntry = null;
 
@@ -363,4 +364,5 @@ class RssTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, (array) $entry->getCategories());
     }
+
 }

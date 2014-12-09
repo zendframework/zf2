@@ -209,18 +209,10 @@ class FaultTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class Exception extends \Exception
-{
-}
-class Exception2 extends \Exception
-{
-}
-class Exception3 extends \Exception
-{
-}
-class Exception4 extends Exception
-{
-}
+class Exception extends \Exception {}
+class Exception2 extends \Exception {}
+class Exception3 extends \Exception {}
+class Exception4 extends Exception {}
 
 class Observer
 {
