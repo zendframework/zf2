@@ -14,10 +14,10 @@ use Zend\Di\Di;
 use Zend\Mvc\Service\DiFactory;
 use Zend\ServiceManager\Di\DiAbstractServiceFactory;
 use Zend\ServiceManager\Exception;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Config;
 
+use ZendTest\ServiceManager\TestAsset\BarSynchronizedFactory;
 use ZendTest\ServiceManager\TestAsset\FooCounterAbstractFactory;
 use ZendTest\ServiceManager\TestAsset\MockSelfReturningDelegatorFactory;
 
@@ -1073,6 +1073,36 @@ class ServiceManagerTest extends TestCase
 
         $this->assertSame($delegator, $service);
         $this->assertSame($realService, $service->real);
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::getSynchronizer
+     */
+    public function testCanGetDefaultSynchronizer()
+    {
+        $serviceManager = new ServiceManager();
+        $synchronizer = $serviceManager->getSynchronizer();
+
+        $this->assertInstanceOf('Zend\ServiceManager\SynchronizerInterface', $synchronizer);
+        $this->assertInstanceOf('Zend\ServiceManager\ServiceLocatorSynchronizer', $synchronizer);
+    }
+
+    /**
+     * @covers Zend\ServiceManager\ServiceManager::setService
+     */
+    public function testCanNotifyWhenAServiceIsUpdated()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->setFactory('bar', new BarSynchronizedFactory());
+
+        $bar = $serviceManager->get('bar');
+        $this->assertEquals(array('foo'), $bar->foo);
+
+        $serviceManager->setService('foo', array('baz'));
+
+        $this->assertEquals(array('baz'), $bar->foo);
+        $bar = $serviceManager->get('bar');
+        $this->assertEquals(array('baz'), $bar->foo);
     }
 
     /**

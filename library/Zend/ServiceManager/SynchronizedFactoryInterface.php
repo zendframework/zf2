@@ -7,18 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\ServiceManager\TestAsset;
+namespace Zend\ServiceManager;
 
-class Bar
+interface SynchronizedFactoryInterface extends \SplObserver
 {
-    public $foo;
-    
-    public function __construct(array $foo = null)
-    {
-        if (null === $foo) {
-            throw new \RuntimeException();
-        }
-        
-        $this->foo = $foo;
-    }
+    /**
+     * Return a list of services that will be synchronized to the factory
+     *
+     * @return array|string
+     */
+    public function getSynchronizedServices();
 }
