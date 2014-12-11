@@ -117,7 +117,7 @@ class MongoDB extends AbstractAdapter implements FlushableInterface
         $success = false;
 
         if (null === $result) {
-            return null;
+            return;
         }
 
         if (isset($result['expires'])) {
@@ -134,7 +134,7 @@ class MongoDB extends AbstractAdapter implements FlushableInterface
             if ($result['expires']->sec < time()) {
                 $this->internalRemoveItem($key);
 
-                return null;
+                return;
             }
         }
 
