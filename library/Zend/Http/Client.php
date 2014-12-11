@@ -1406,6 +1406,6 @@ class Client implements Stdlib\DispatchableInterface
 
         }
 
-        return null;
+        return;
     }
 }
