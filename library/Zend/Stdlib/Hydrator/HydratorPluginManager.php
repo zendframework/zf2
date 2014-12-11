@@ -27,15 +27,25 @@ class HydratorPluginManager extends AbstractPluginManager
     protected $shareByDefault = false;
 
     /**
+     * Default set of shared plugins
+     *
+     * @var array
+     */
+    protected $shared = array(
+        'simplearrayserializable' => true,
+    );
+
+    /**
      * Default set of adapters
      *
      * @var array
      */
     protected $invokableClasses = array(
-        'arrayserializable' => 'Zend\Stdlib\Hydrator\ArraySerializable',
-        'classmethods'      => 'Zend\Stdlib\Hydrator\ClassMethods',
-        'objectproperty'    => 'Zend\Stdlib\Hydrator\ObjectProperty',
-        'reflection'        => 'Zend\Stdlib\Hydrator\Reflection'
+        'arrayserializable'       => 'Zend\Stdlib\Hydrator\ArraySerializable',
+        'simplearrayserializable' => 'Zend\Stdlib\Hydrator\SimpleArraySerializable',
+        'classmethods'            => 'Zend\Stdlib\Hydrator\ClassMethods',
+        'objectproperty'          => 'Zend\Stdlib\Hydrator\ObjectProperty',
+        'reflection'              => 'Zend\Stdlib\Hydrator\Reflection',
     );
 
     /**
