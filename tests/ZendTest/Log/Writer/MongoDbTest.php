@@ -12,12 +12,12 @@ namespace ZendTest\Log\Writer;
 
 use DateTime;
 use MongoDate;
-use Zend\Log\Writer\MongoDB as MongoDBWriter;
+use Zend\Log\Writer\MongoDb as MongoDbWriter;
 
 /**
  * @group      Zend_Log
  */
-class MongoDBTest extends \PHPUnit_Framework_TestCase
+class MongoDbTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -48,7 +48,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
 
     public function testFormattingIsNotSupported()
     {
-        $writer = new MongoDBWriter($this->mongo, $this->database, $this->collection);
+        $writer = new MongoDbWriter($this->mongo, $this->database, $this->collection);
 
         $writer->setFormatter($this->getMock('Zend\Log\Formatter\FormatterInterface'));
         $this->assertAttributeEmpty('formatter', $writer);
@@ -62,7 +62,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
             ->method('save')
             ->with($event, array());
 
-        $writer = new MongoDBWriter($this->mongo, $this->database, $this->collection);
+        $writer = new MongoDbWriter($this->mongo, $this->database, $this->collection);
 
         $writer->write($event);
     }
@@ -76,7 +76,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
             ->method('save')
             ->with($event, $saveOptions);
 
-        $writer = new MongoDBWriter($this->mongo, $this->database, $this->collection, $saveOptions);
+        $writer = new MongoDbWriter($this->mongo, $this->database, $this->collection, $saveOptions);
 
         $writer->write($event);
     }
@@ -90,7 +90,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
             ->method('save')
             ->with($this->contains(new MongoDate($date->getTimestamp()), false));
 
-        $writer = new MongoDBWriter($this->mongo, $this->database, $this->collection);
+        $writer = new MongoDbWriter($this->mongo, $this->database, $this->collection);
 
         $writer->write($event);
     }

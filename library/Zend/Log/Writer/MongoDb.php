@@ -20,9 +20,9 @@ use Zend\Log\Formatter\FormatterInterface;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * MongoDB log writer.
+ * MongoDb log writer.
  */
-class MongoDB extends AbstractWriter
+class MongoDb extends AbstractWriter
 {
     /**
      * MongoCollection instance
@@ -42,7 +42,7 @@ class MongoDB extends AbstractWriter
      * Constructor
      *
      * @param Mongo|MongoClient|array|Traversable $mongo
-     * @param string|MongoDB $database
+     * @param string|MongoDb $database
      * @param string $collection
      * @param array $saveOptions
      * @throws Exception\InvalidArgumentException

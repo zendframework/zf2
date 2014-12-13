@@ -14,9 +14,9 @@ use Zend\Session\Exception\InvalidArgumentException;
 use Zend\Stdlib\AbstractOptions;
 
 /**
- * MongoDB session save handler Options
+ * MongoDb session save handler Options
  */
-class MongoDBOptions extends AbstractOptions
+class MongoDbOptions extends AbstractOptions
 {
     /**
      * Database name
@@ -85,7 +85,7 @@ class MongoDBOptions extends AbstractOptions
      * Set database name
      *
      * @param string $database
-     * @return MongoDBOptions
+     * @return MongoDbOptions
      * @throws InvalidArgumentException
      */
     public function setDatabase($database)
@@ -112,7 +112,7 @@ class MongoDBOptions extends AbstractOptions
      * Set collection name
      *
      * @param string $collection
-     * @return MongoDBOptions
+     * @return MongoDbOptions
      * @throws InvalidArgumentException
      */
     public function setCollection($collection)
@@ -140,7 +140,7 @@ class MongoDBOptions extends AbstractOptions
      *
      * @see http://php.net/manual/en/mongocollection.save.php
      * @param array $saveOptions
-     * @return MongoDBOptions
+     * @return MongoDbOptions
      */
     public function setSaveOptions(array $saveOptions)
     {
@@ -162,7 +162,7 @@ class MongoDBOptions extends AbstractOptions
      * Set name field
      *
      * @param string $nameField
-     * @return MongoDBOptions
+     * @return MongoDbOptions
      * @throws InvalidArgumentException
      */
     public function setNameField($nameField)
@@ -189,7 +189,7 @@ class MongoDBOptions extends AbstractOptions
      * Set data field
      *
      * @param string $dataField
-     * @return MongoDBOptions
+     * @return MongoDbOptions
      * @throws InvalidArgumentException
      */
     public function setDataField($dataField)
@@ -216,7 +216,7 @@ class MongoDBOptions extends AbstractOptions
      * Set lifetime field
      *
      * @param string $lifetimeField
-     * @return MongoDBOptions
+     * @return MongoDbOptions
      * @throws InvalidArgumentException
      */
     public function setLifetimeField($lifetimeField)
@@ -243,7 +243,7 @@ class MongoDBOptions extends AbstractOptions
      * Set Modified Field
      *
      * @param string $modifiedField
-     * @return MongoDBOptions
+     * @return MongoDbOptions
      * @throws InvalidArgumentException
      */
     public function setModifiedField($modifiedField)

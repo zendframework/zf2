@@ -10,16 +10,16 @@
 
 namespace ZendTest\Session\SaveHandler;
 
-use Zend\Session\SaveHandler\MongoDBOptions;
+use Zend\Session\SaveHandler\MongoDbOptions;
 
 /**
  * @group      Zend_Session
  */
-class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
+class MongoDbOptionsTest extends \PHPUnit_Framework_TestCase
 {
     public function testDefaults()
     {
-        $options = new MongoDBOptions();
+        $options = new MongoDbOptions();
         $this->assertNull($options->getDatabase());
         $this->assertNull($options->getCollection());
         $defaultSaveOptions = version_compare(phpversion('mongo'), '1.3.0', '<') ? array('safe' => true) : array('w' => 1);
@@ -32,7 +32,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSetConstructor()
     {
-        $options = new MongoDBOptions(array(
+        $options = new MongoDbOptions(array(
             'database' => 'testDatabase',
             'collection' => 'testCollection',
             'saveOptions' => array('w' => 2),
@@ -53,7 +53,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSetters()
     {
-        $options = new MongoDBOptions();
+        $options = new MongoDbOptions();
         $options->setDatabase('testDatabase')
                 ->setCollection('testCollection')
                 ->setSaveOptions(array('w' => 2))
@@ -76,7 +76,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDatabase()
     {
-        $options = new MongoDBOptions(array(
+        $options = new MongoDbOptions(array(
             'database' => null,
         ));
     }
@@ -86,7 +86,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCollection()
     {
-        $options = new MongoDBOptions(array(
+        $options = new MongoDbOptions(array(
             'collection' => null,
         ));
     }
@@ -96,7 +96,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidSaveOptions()
     {
-        $options = new MongoDBOptions(array(
+        $options = new MongoDbOptions(array(
             'saveOptions' => null,
         ));
     }
@@ -106,7 +106,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidNameField()
     {
-        $options = new MongoDBOptions(array(
+        $options = new MongoDbOptions(array(
             'nameField' => null,
         ));
     }
@@ -116,7 +116,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidModifiedField()
     {
-        $options = new MongoDBOptions(array(
+        $options = new MongoDbOptions(array(
             'modifiedField' => null,
         ));
     }
@@ -126,7 +126,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidLifetimeField()
     {
-        $options = new MongoDBOptions(array(
+        $options = new MongoDbOptions(array(
             'lifetimeField' => null,
         ));
     }
@@ -136,7 +136,7 @@ class MongoDBOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDataField()
     {
-        $options = new MongoDBOptions(array(
+        $options = new MongoDbOptions(array(
             'dataField' => null,
         ));
     }

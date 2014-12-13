@@ -15,9 +15,9 @@ use MongoDate;
 use Zend\Session\Exception\InvalidArgumentException;
 
 /**
- * MongoDB session save handler
+ * MongoDb session save handler
  */
-class MongoDB implements SaveHandlerInterface
+class MongoDb implements SaveHandlerInterface
 {
     /**
      * MongoCollection instance
@@ -41,8 +41,8 @@ class MongoDB implements SaveHandlerInterface
     protected $lifetime;
 
     /**
-     * MongoDB session save handler options
-     * @var MongoDBOptions
+     * MongoDb session save handler options
+     * @var MongoDbOptions
      */
     protected $options;
 
@@ -50,10 +50,10 @@ class MongoDB implements SaveHandlerInterface
      * Constructor
      *
      * @param Mongo|MongoClient $mongo
-     * @param MongoDBOptions $options
+     * @param MongoDbOptions $options
      * @throws InvalidArgumentException
      */
-    public function __construct($mongo, MongoDBOptions $options)
+    public function __construct($mongo, MongoDbOptions $options)
     {
         if (!($mongo instanceof \MongoClient || $mongo instanceof \Mongo)) {
             throw new InvalidArgumentException(
@@ -180,7 +180,7 @@ class MongoDB implements SaveHandlerInterface
     /**
      * Garbage collection
      *
-     * Note: MongoDB 2.2+ supports TTL collections, which may be used in place
+     * Note: MongoDb 2.2+ supports TTL collections, which may be used in place
      * of this method by indexing the "modified" field with an
      * "expireAfterSeconds" option. Regardless of whether TTL collections are
      * used, consider indexing this field to make the remove query more

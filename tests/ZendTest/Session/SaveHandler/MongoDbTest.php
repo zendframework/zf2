@@ -10,13 +10,13 @@
 namespace ZendTest\Session\SaveHandler;
 
 use Mongo;
-use Zend\Session\SaveHandler\MongoDB;
-use Zend\Session\SaveHandler\MongoDBOptions;
+use Zend\Session\SaveHandler\MongoDb;
+use Zend\Session\SaveHandler\MongoDbOptions;
 
 /**
  * @group      Zend_Session
  */
-class MongoDBTest extends \PHPUnit_Framework_TestCase
+class MongoDbTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Mongo|MongoClient
@@ -31,7 +31,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
     protected $mongoCollection;
 
     /**
-     * @var MongoDBOptions
+     * @var MongoDbOptions
      */
     protected $options;
 
@@ -43,10 +43,10 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         if (!extension_loaded('mongo')) {
-            $this->markTestSkipped('Zend\Session\SaveHandler\MongoDB tests are not enabled due to missing Mongo extension');
+            $this->markTestSkipped('Zend\Session\SaveHandler\MongoDb tests are not enabled due to missing Mongo extension');
         }
 
-        $this->options = new MongoDBOptions(array(
+        $this->options = new MongoDbOptions(array(
             'database' => 'zf2_tests',
             'collection' => 'sessions',
         ));
@@ -71,7 +71,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
 
     public function testReadWrite()
     {
-        $saveHandler = new MongoDB($this->mongo, $this->options);
+        $saveHandler = new MongoDb($this->mongo, $this->options);
         $this->assertTrue($saveHandler->open('savepath', 'sessionname'));
 
         $id = '242';
@@ -95,7 +95,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
         $oldMaxlifetime = ini_get('session.gc_maxlifetime');
         ini_set('session.gc_maxlifetime', 0);
 
-        $saveHandler = new MongoDB($this->mongo, $this->options);
+        $saveHandler = new MongoDb($this->mongo, $this->options);
         $this->assertTrue($saveHandler->open('savepath', 'sessionname'));
 
         $id = '242';
@@ -113,7 +113,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
 
     public function testGarbageCollection()
     {
-        $saveHandler = new MongoDB($this->mongo, $this->options);
+        $saveHandler = new MongoDb($this->mongo, $this->options);
         $this->assertTrue($saveHandler->open('savepath', 'sessionname'));
 
         $data = array('foo' => 'bar');
@@ -137,7 +137,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
      */
     public function testWriteExceptionEdgeCaseForChangedSessionName()
     {
-        $saveHandler = new MongoDB($this->mongo, $this->options);
+        $saveHandler = new MongoDb($this->mongo, $this->options);
         $this->assertTrue($saveHandler->open('savepath', 'sessionname'));
 
         $id = '242';
