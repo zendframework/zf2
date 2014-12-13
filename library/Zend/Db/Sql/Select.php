@@ -111,6 +111,11 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $table = null;
 
     /**
+     * @var AdapterInterface
+     */
+    protected $adapter;
+
+    /**
      * @var null|string|Expression
      */
     protected $quantifier = null;
@@ -164,15 +169,16 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Constructor
      *
      * @param  null|string|array|TableIdentifier $table
+     * @param  null|AdapterInterface $adapter
      */
-    public function __construct($table = null, $adapter = null)
+    public function __construct($table = null, AdapterInterface $adapter = null)
     {
         if ($table) {
             $this->from($table);
             $this->tableReadOnly = true;
         }
 
-        if ($adapter instanceof AdapterInterface) {
+        if ($adapter) {
             $this->adapter = $adapter;
         }
 
@@ -514,18 +520,29 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
     }
 
     /**
-     * Get SQL string for statement
+     * Get adapter platform
      *
-     * @param  null|PlatformInterface $adapterPlatform If null, defaults to Sql92
+     * @param  null|PlatformInterface $adapterPlatform
+     * @return PlatformInterface
+     */
+    private function getAdapterPlatForm(PlatformInterface $adapterPlatform = null)
+    {
+        if (! $adapterPlatform) {
+            $adapterPlatform = $this->adapter ? $this->adapter->getPlatform() : new Sql92();
+        }
+
+        return $adapterPlatform;
+    }
+
+    /**
+     * Get SQL string for this statement
+     *
+     * @param  null|PlatformInterface $adapterPlatform Defaults to Sql92 if none provided
      * @return string
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
-        if ($adapterPlatform === null && $this->adapter instanceof AdapterInterface) {
-            $adapterPlatform = $this->adapter->getPlatform();
-        } else {
-            $adapterPlatform = ($adapterPlatform) ?: new Sql92;
-        }
+        $adapterPlatform = $this->getAdapterPlatForm($adapterPlatform);
 
         $sqls = array();
         $parameters = array();
