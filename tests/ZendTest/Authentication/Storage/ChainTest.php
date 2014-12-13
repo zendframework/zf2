@@ -12,7 +12,6 @@ namespace ZendTest\Authentication\Storage;
 use Zend\Authentication\Storage\Chain,
     Zend\Authentication\Storage\StorageInterface,
     Zend\Authentication\Storage\NonPersistent;
-
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
