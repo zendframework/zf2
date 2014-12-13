@@ -1066,7 +1066,7 @@ class ServiceManagerTest extends TestCase
             return $delegator;
         };
 
-        $this->serviceManager->setFactory('foo-service', function () use ($realService) { return $realService; } );
+        $this->serviceManager->setFactory('foo-service', function () use ($realService) { return $realService; });
         $this->serviceManager->addDelegator('foo-service', $delegatorFactoryCallback);
 
         $service = $this->serviceManager->create('foo-service');
