@@ -42,7 +42,7 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $table = '';
 
     /**
-     * @var AdapterInterface
+     * @var null|AdapterInterface
      */
     protected $adapter;
 

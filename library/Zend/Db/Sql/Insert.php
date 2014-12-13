@@ -42,7 +42,7 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $table            = null;
 
     /**
-     * @var AdapterInterface
+     * @var null|AdapterInterface
      */
     protected $adapter;
 
