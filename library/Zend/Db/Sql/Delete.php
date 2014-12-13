@@ -42,6 +42,11 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
     protected $table = '';
 
     /**
+     * @var null|AdapterInterface
+     */
+    protected $adapter;
+
+    /**
      * @var bool
      */
     protected $emptyWhereProtection = true;
@@ -60,12 +65,18 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Constructor
      *
      * @param  null|string|TableIdentifier $table
+     * @param  null|AdapterInterface       $adapter
      */
-    public function __construct($table = null)
+    public function __construct($table = null, AdapterInterface $adapter = null)
     {
         if ($table) {
             $this->from($table);
         }
+
+        if ($adapter) {
+            $this->adapter = $adapter;
+        }
+
         $this->where = new Where();
     }
 
@@ -153,16 +164,30 @@ class Delete extends AbstractSql implements SqlInterface, PreparableSqlInterface
     }
 
     /**
-     * Get the SQL string, based on the platform
-     *
-     * Platform defaults to Sql92 if none provided
+     * Get adapter platform
      *
      * @param  null|PlatformInterface $adapterPlatform
+     * @return PlatformInterface
+     */
+    private function getAdapterPlatForm(PlatformInterface $adapterPlatform = null)
+    {
+        if (! $adapterPlatform) {
+            $adapterPlatform = $this->adapter ? $this->adapter->getPlatform() : new Sql92();
+        }
+
+        return $adapterPlatform;
+    }
+
+    /**
+     * Get SQL string for this statement
+     *
+     * @param  null|PlatformInterface $adapterPlatform Defaults to Sql92 if none provided
      * @return string
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
-        $adapterPlatform = ($adapterPlatform) ?: new Sql92;
+        $adapterPlatform = $this->getAdapterPlatForm($adapterPlatform);
+
         $table = $this->table;
         $schema = null;
 

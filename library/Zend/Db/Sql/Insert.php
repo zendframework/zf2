@@ -40,6 +40,12 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * @var string|TableIdentifier
      */
     protected $table            = null;
+
+    /**
+     * @var null|AdapterInterface
+     */
+    protected $adapter;
+
     protected $columns          = array();
 
     /**
@@ -51,11 +57,16 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      * Constructor
      *
      * @param  null|string|TableIdentifier $table
+     * @param  null|AdapterInterface       $adapter
      */
-    public function __construct($table = null)
+    public function __construct($table = null, AdapterInterface $adapter = null)
     {
         if ($table) {
             $this->into($table);
+        }
+
+        if ($adapter) {
+            $this->adapter = $adapter;
         }
     }
 
@@ -241,6 +252,21 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
     }
 
     /**
+     * Get adapter platform
+     *
+     * @param  null|PlatformInterface $adapterPlatform
+     * @return PlatformInterface
+     */
+    private function getAdapterPlatForm(PlatformInterface $adapterPlatform = null)
+    {
+        if (! $adapterPlatform) {
+            $adapterPlatform = $this->adapter ? $this->adapter->getPlatform() : new Sql92();
+        }
+
+        return $adapterPlatform;
+    }
+
+    /**
      * Get SQL string for this statement
      *
      * @param  null|PlatformInterface $adapterPlatform Defaults to Sql92 if none provided
@@ -248,7 +274,8 @@ class Insert extends AbstractSql implements SqlInterface, PreparableSqlInterface
      */
     public function getSqlString(PlatformInterface $adapterPlatform = null)
     {
-        $adapterPlatform = ($adapterPlatform) ?: new Sql92;
+        $adapterPlatform = $this->getAdapterPlatForm($adapterPlatform);
+
         $table = $this->table;
         $schema = null;
 

@@ -9,8 +9,10 @@
 
 namespace ZendTest\Db\Sql;
 
+use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Predicate\IsNotNull;
+use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Sql\Where;
 
@@ -211,6 +213,27 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
         $deleteIgnore->from(new TableIdentifier('foo', 'sch'))
             ->where('x = y');
         $this->assertEquals('DELETE IGNORE FROM "sch"."foo" WHERE x = y', $deleteIgnore->getSqlString());
+    }
+
+    /**
+     * @group ZF2-4882
+     */
+    public function testPropagateAdapterWithGetSqlStringThatAlreadyBroughtBySqlObject()
+    {
+        if (extension_loaded('mysqli')) {
+            $adapter = new Adapter(array(
+                'driver'   => 'mysqli',
+                'database' => 'testdb',
+                'username' => 'test',
+                'password' => 'secret'
+            ));
+
+            $sql = new Sql($adapter);
+            $delete = $sql->delete('foo');
+            $delete->where('x = y');
+
+            $this->assertEquals('DELETE FROM `foo` WHERE x = y', $delete->getSqlString());
+        }
     }
 }
 

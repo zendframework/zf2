@@ -9,9 +9,11 @@
 
 namespace ZendTest\Db\Sql;
 
+use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
+use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\TableIdentifier;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
 
@@ -333,6 +335,27 @@ class InsertTest extends \PHPUnit_Framework_TestCase
             ->values(array('bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null));
 
         $this->assertEquals('REPLACE INTO "sch"."foo" ("bar", "boo", "bam") VALUES (\'baz\', NOW(), NULL)', $replace->getSqlString(new TrustingSql92Platform()));
+    }
+
+    /**
+     * @group ZF2-4882
+     */
+    public function testPropagateAdapterWithGetSqlStringThatAlreadyBroughtBySqlObject()
+    {
+        if (extension_loaded('mysqli')) {
+            $adapter = new Adapter(array(
+                'driver'   => 'mysqli',
+                'database' => 'testdb',
+                'username' => 'test',
+                'password' => 'secret'
+            ));
+
+            $sql = new Sql($adapter);
+            $insert = $sql->insert('foo');
+            $insert->values(array());
+
+            $this->assertEquals('INSERT INTO `foo` () VALUES ()', $insert->getSqlString());
+        }
     }
 }
 
