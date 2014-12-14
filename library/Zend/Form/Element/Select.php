@@ -295,7 +295,11 @@ class Select extends Element implements InputProviderInterface
         if ($this->useHiddenElement() && $this->isMultiple()) {
             $unselectedValue = $this->getUnselectedValue();
 
-            $spec['allow_empty'] = true;
+            if ($unselectedValue == '') {
+                $spec['allow_empty'] = true;
+            } else {
+                $spec['allow_empty'] = false;
+            }
             $spec['continue_if_empty'] = true;
             $spec['filters'] = array(array(
                 'name'    => 'Callback',
