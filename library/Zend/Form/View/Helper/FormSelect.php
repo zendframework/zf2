@@ -69,7 +69,7 @@ class FormSelect extends AbstractHelper
     );
 
     /**
-     * @var FromHidden|null
+     * @var FormHidden|null
      */
     protected $formHiddenHelper;
 
@@ -209,7 +209,8 @@ class FormSelect extends AbstractHelper
 
             if (null !== ($translator = $this->getTranslator())) {
                 $label = $translator->translate(
-                    $label, $this->getTranslatorTextDomain()
+                    $label,
+                    $this->getTranslatorTextDomain()
                 );
             }
 

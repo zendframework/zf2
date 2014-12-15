@@ -318,6 +318,7 @@ class InstanceManager /* implements InstanceManagerInterface */
             if (strpos($name, 'alias') === 0) {
                 continue;
             }
+
             $classes[] = $name;
         }
 
