@@ -36,6 +36,7 @@ $config->fixers(
         'function_declaration',
         'indentation',
         'linefeed',
+        'method_argument_space',
         'php_closing_tag',
         'psr0',
         'short_tag',
