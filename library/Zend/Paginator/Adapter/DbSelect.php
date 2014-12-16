@@ -10,11 +10,11 @@
 namespace Zend\Paginator\Adapter;
 
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\Sql\Sql;
-use Zend\Db\Sql\Expression;
-use Zend\Db\Sql\Select;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\ResultSet\ResultSetInterface;
+use Zend\Db\Sql\Expression;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Sql;
 
 class DbSelect implements AdapterInterface
 {

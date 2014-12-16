@@ -11,10 +11,10 @@ namespace Zend\Mvc\Controller\Plugin;
 
 use Zend\Http\Header\Accept\FieldValuePart\AbstractFieldValuePart;
 use Zend\Http\Request;
-use Zend\Mvc\InjectApplicationEventInterface;
-use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Exception\DomainException;
 use Zend\Mvc\Exception\InvalidArgumentException;
+use Zend\Mvc\InjectApplicationEventInterface;
+use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ModelInterface;
 
 /**

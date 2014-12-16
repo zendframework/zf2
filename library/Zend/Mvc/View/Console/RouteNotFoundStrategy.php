@@ -11,13 +11,13 @@ namespace Zend\Mvc\View\Console;
 
 use Zend\Console\Adapter\AdapterInterface as ConsoleAdapter;
 use Zend\Console\ColorInterface;
-use Zend\Console\Response as ConsoleResponse;
 use Zend\Console\Request as ConsoleRequest;
+use Zend\Console\Response as ConsoleResponse;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
-use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\Mvc\Application;
 use Zend\Mvc\Exception\RuntimeException;
 use Zend\Mvc\MvcEvent;

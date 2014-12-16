@@ -11,9 +11,9 @@ namespace Zend\Console\Adapter;
 
 use ReflectionClass;
 use Zend\Console\Charset;
-use Zend\Console\Exception;
 use Zend\Console\Color\Xterm256;
 use Zend\Console\ColorInterface as Color;
+use Zend\Console\Exception;
 
 /**
  * @todo Add GNU readline support

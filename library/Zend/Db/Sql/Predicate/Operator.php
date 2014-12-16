@@ -9,8 +9,8 @@
 
 namespace Zend\Db\Sql\Predicate;
 
-use Zend\Db\Sql\Exception;
 use Zend\Db\Sql\AbstractExpression;
+use Zend\Db\Sql\Exception;
 
 class Operator extends AbstractExpression implements PredicateInterface
 {

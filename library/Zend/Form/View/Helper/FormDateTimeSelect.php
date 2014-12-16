@@ -11,8 +11,8 @@ namespace Zend\Form\View\Helper;
 
 use DateTime;
 use IntlDateFormatter;
-use Zend\Form\ElementInterface;
 use Zend\Form\Element\DateTimeSelect as DateTimeSelectElement;
+use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 use Zend\Form\View\Helper\FormDateSelect as FormDateSelectHelper;
 

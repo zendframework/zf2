@@ -10,8 +10,8 @@
 namespace Zend\Paginator\Adapter\Service;
 
 use Zend\Paginator\Adapter\DbTableGateway;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class DbTableGatewayFactory implements

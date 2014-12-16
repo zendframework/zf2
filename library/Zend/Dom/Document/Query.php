@@ -9,8 +9,8 @@
 
 namespace Zend\Dom\Document;
 
-use Zend\Dom\DOMXPath;
 use Zend\Dom\Document;
+use Zend\Dom\DOMXPath;
 
 /**
  * Query object executable in a Zend\Dom\Document

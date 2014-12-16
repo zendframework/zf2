@@ -9,9 +9,9 @@
 
 namespace Zend\Db\TableGateway\Feature;
 
-use Zend\Db\Sql\Insert;
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\Adapter\Driver\StatementInterface;
+use Zend\Db\Sql\Insert;
 
 class SequenceFeature extends AbstractFeature
 {

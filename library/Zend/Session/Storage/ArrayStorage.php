@@ -9,8 +9,8 @@
 
 namespace Zend\Session\Storage;
 
-use Zend\Stdlib\ArrayObject;
 use Zend\Session\Exception;
+use Zend\Stdlib\ArrayObject;
 
 /**
  * Array session storage

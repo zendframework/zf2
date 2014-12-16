@@ -11,8 +11,8 @@ namespace Zend\Form\View\Helper;
 
 use RuntimeException;
 use Zend\Form\Element;
-use Zend\Form\ElementInterface;
 use Zend\Form\Element\Collection as CollectionElement;
+use Zend\Form\ElementInterface;
 use Zend\Form\FieldsetInterface;
 use Zend\Form\LabelAwareInterface;
 use Zend\View\Helper\AbstractHelper as BaseAbstractHelper;

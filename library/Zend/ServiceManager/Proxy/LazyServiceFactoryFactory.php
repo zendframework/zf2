@@ -12,9 +12,9 @@ namespace Zend\ServiceManager\Proxy;
 use ProxyManager\Configuration;
 use ProxyManager\Factory\LazyLoadingValueHolderFactory;
 use ProxyManager\GeneratorStrategy\EvaluatingGeneratorStrategy;
+use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\Exception;
 
 /**
  * Service factory responsible of instantiating {@see \Zend\ServiceManager\Proxy\LazyServiceFactory}

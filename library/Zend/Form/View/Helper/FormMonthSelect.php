@@ -12,8 +12,8 @@ namespace Zend\Form\View\Helper;
 use DateTime;
 use IntlDateFormatter;
 use Locale;
-use Zend\Form\ElementInterface;
 use Zend\Form\Element\MonthSelect as MonthSelectElement;
+use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 
 class FormMonthSelect extends AbstractHelper

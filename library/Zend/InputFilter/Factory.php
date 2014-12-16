@@ -12,10 +12,10 @@ namespace Zend\InputFilter;
 use Traversable;
 use Zend\Filter\Exception;
 use Zend\Filter\FilterChain;
-use Zend\Stdlib\ArrayUtils;
-use Zend\Validator\ValidatorInterface;
-use Zend\Validator\ValidatorChain;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\ValidatorChain;
+use Zend\Validator\ValidatorInterface;
 
 class Factory
 {

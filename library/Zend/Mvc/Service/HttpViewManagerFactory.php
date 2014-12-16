@@ -9,9 +9,9 @@
 
 namespace Zend\Mvc\Service;
 
+use Zend\Mvc\View\Http\ViewManager as HttpViewManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Mvc\View\Http\ViewManager as HttpViewManager;
 
 class HttpViewManagerFactory implements FactoryInterface
 {

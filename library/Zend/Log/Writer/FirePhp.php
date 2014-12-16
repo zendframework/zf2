@@ -9,12 +9,12 @@
 
 namespace Zend\Log\Writer;
 
-use Traversable;
 use FirePHP as FirePHPService;
+use FirePhp\FirePhpInterface;
+use Traversable;
 use Zend\Log\Exception;
 use Zend\Log\Formatter\FirePhp as FirePhpFormatter;
 use Zend\Log\Logger;
-use FirePhp\FirePhpInterface;
 
 class FirePhp extends AbstractWriter
 {

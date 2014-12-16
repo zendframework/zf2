@@ -13,8 +13,8 @@
 namespace Zend\Mvc\Router\Console;
 
 use Traversable;
-use Zend\Console\RouteMatcher\DefaultRouteMatcher;
 use Zend\Console\Request as ConsoleRequest;
+use Zend\Console\RouteMatcher\DefaultRouteMatcher;
 use Zend\Console\RouteMatcher\RouteMatcherInterface;
 use Zend\Filter\FilterChain;
 use Zend\Mvc\Router\Exception;

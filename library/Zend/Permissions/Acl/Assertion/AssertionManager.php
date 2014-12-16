@@ -8,8 +8,8 @@
  */
 namespace Zend\Permissions\Acl\Assertion;
 
-use Zend\ServiceManager\AbstractPluginManager;
 use Zend\Permissions\Acl\Exception\InvalidArgumentException;
+use Zend\ServiceManager\AbstractPluginManager;
 
 class AssertionManager extends AbstractPluginManager
 {

@@ -9,8 +9,8 @@
 
 namespace Zend\XmlRpc\Request;
 
-use Zend\XmlRpc\Request as XmlRpcRequest;
 use Zend\XmlRpc\Fault;
+use Zend\XmlRpc\Request as XmlRpcRequest;
 
 /**
  * XmlRpc Request object -- Request via STDIN

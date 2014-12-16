@@ -10,13 +10,13 @@
 namespace Zend\Filter\Encrypt;
 
 use Traversable;
+use Zend\Crypt\BlockCipher as CryptBlockCipher;
+use Zend\Crypt\Exception as CryptException;
+use Zend\Crypt\Symmetric\Exception as SymmetricException;
 use Zend\Filter\Compress;
 use Zend\Filter\Decompress;
 use Zend\Filter\Exception;
 use Zend\Stdlib\ArrayUtils;
-use Zend\Crypt\BlockCipher as CryptBlockCipher;
-use Zend\Crypt\Exception as CryptException;
-use Zend\Crypt\Symmetric\Exception as SymmetricException;
 
 /**
  * Encryption adapter for Zend\Crypt\BlockCipher

@@ -9,8 +9,8 @@
 
 namespace Zend\I18n\Validator;
 
-use Locale;
 use IntlDateFormatter;
+use Locale;
 use Traversable;
 use Zend\I18n\Exception as I18nException;
 use Zend\Validator\AbstractValidator;

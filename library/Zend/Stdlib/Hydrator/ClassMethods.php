@@ -10,8 +10,8 @@
 namespace Zend\Stdlib\Hydrator;
 
 use Traversable;
-use Zend\Stdlib\Exception;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Stdlib\Exception;
 use Zend\Stdlib\Hydrator\Filter\FilterComposite;
 use Zend\Stdlib\Hydrator\Filter\FilterProviderInterface;
 use Zend\Stdlib\Hydrator\Filter\GetFilter;

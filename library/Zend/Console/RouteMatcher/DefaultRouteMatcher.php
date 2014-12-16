@@ -10,8 +10,8 @@
 namespace Zend\Console\RouteMatcher;
 
 use Zend\Console\Exception;
-use Zend\Validator\ValidatorInterface;
 use Zend\Filter\FilterInterface;
+use Zend\Validator\ValidatorInterface;
 
 class DefaultRouteMatcher implements RouteMatcherInterface
 {

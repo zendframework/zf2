@@ -10,8 +10,8 @@
 namespace Zend\Mail\Storage;
 
 use RecursiveIterator;
-use Zend\Mail\Headers;
 use Zend\Mail\Header\HeaderInterface;
+use Zend\Mail\Headers;
 use Zend\Mime;
 
 class Part implements RecursiveIterator, Part\PartInterface

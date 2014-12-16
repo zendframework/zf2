@@ -12,8 +12,8 @@ namespace Zend\Dom;
 use ArrayAccess;
 use Countable;
 use DOMDocument;
-use DOMNodeList;
 use DOMNode;
+use DOMNodeList;
 use Iterator;
 
 /**

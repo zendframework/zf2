@@ -9,9 +9,9 @@
 
 namespace Zend\Stdlib\Hydrator\Strategy;
 
-use Zend\Stdlib\Exception\InvalidArgumentException;
 use Zend\Serializer\Adapter\AdapterInterface as SerializerAdapter;
 use Zend\Serializer\Serializer as SerializerFactory;
+use Zend\Stdlib\Exception\InvalidArgumentException;
 
 class SerializableStrategy implements StrategyInterface
 {
