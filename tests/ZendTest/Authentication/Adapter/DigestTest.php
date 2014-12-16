@@ -9,8 +9,8 @@
 
 namespace ZendTest\Authentication\Adapter;
 
-use Zend\Authentication\Adapter;
 use Zend\Authentication;
+use Zend\Authentication\Adapter;
 
 /**
  * @group      Zend_Auth

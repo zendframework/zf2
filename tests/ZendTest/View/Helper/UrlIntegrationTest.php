@@ -10,9 +10,9 @@
 namespace ZendTest\View\Helper;
 
 use Zend\Console\Console;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\Mvc\Service\ServiceListenerFactory;
+use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * url() helper test -- tests integration with MVC

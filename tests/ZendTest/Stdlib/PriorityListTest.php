@@ -9,8 +9,8 @@
 
 namespace ZendTest\Stdlib;
 
-use Zend\Stdlib\PriorityList;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Stdlib\PriorityList;
 
 class PriorityListTest extends TestCase
 {

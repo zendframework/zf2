@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Adapter\Driver\Sqlsrv;
 
-use Zend\Db\Adapter\Driver\Sqlsrv\Statement;
 use Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv;
+use Zend\Db\Adapter\Driver\Sqlsrv\Statement;
 use Zend\Db\Adapter\ParameterContainer;
 
 class StatementTest extends \PHPUnit_Framework_TestCase

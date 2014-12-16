@@ -10,8 +10,8 @@
 namespace ZendTest\I18n\View\Helper;
 
 use DateTime;
-use Locale;
 use IntlDateFormatter;
+use Locale;
 use Zend\I18n\View\Helper\DateFormat as DateFormatHelper;
 
 /**

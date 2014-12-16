@@ -9,12 +9,12 @@
 
 namespace ZendTest\Db\Sql\Platform\IbmDb2;
 
-use Zend\Db\Sql\Platform\IbmDb2\SelectDecorator;
-use Zend\Db\Sql\Select;
-use Zend\Db\Sql\Where;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\IbmDb2 as IbmDb2Platform;
 use Zend\Db\Sql\Expression;
+use Zend\Db\Sql\Platform\IbmDb2\SelectDecorator;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Where;
 
 class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
 {

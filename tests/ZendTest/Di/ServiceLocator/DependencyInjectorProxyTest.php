@@ -9,10 +9,10 @@
 
 namespace ZendTest\Di\ServiceLocator;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Di\Di;
 use Zend\Di\ServiceLocator\DependencyInjectorProxy;
 use ZendTest\Di\TestAsset\SetterInjection\A;
-use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * Tests used to verify DependencyInjectorProxy functionality

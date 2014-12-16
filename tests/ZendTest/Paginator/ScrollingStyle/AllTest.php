@@ -9,8 +9,8 @@
 
 namespace ZendTest\Paginator\ScrollingStyle;
 
-use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Paginator\Paginator;
 
 /**
  * @group      Zend_Paginator

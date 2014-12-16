@@ -9,13 +9,13 @@
 
 namespace ZendTest\Log;
 
-use Exception;
 use ErrorException;
+use Exception;
+use Zend\Log\Filter\Mock as MockFilter;
 use Zend\Log\Logger;
 use Zend\Log\Processor\Backtrace;
 use Zend\Log\Writer\Mock as MockWriter;
 use Zend\Log\Writer\Stream as StreamWriter;
-use Zend\Log\Filter\Mock as MockFilter;
 use Zend\Stdlib\SplPriorityQueue;
 use Zend\Validator\Digits as DigitsFilter;
 

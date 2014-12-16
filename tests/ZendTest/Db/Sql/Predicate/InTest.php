@@ -10,8 +10,8 @@
 namespace ZendTest\Db\Sql\Predicate;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Predicate\In;
+use Zend\Db\Sql\Select;
 
 class InTest extends TestCase
 {

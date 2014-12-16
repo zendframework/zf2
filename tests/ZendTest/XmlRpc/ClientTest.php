@@ -9,13 +9,13 @@
 
 namespace ZendTest\XmlRpc;
 
-use Zend\Http\Client\Adapter;
 use Zend\Http;
+use Zend\Http\Client\Adapter;
 use Zend\Http\Response as HttpResponse;
-use Zend\XmlRpc\Client;
-use Zend\XmlRpc\AbstractValue;
-use Zend\XmlRpc\Value;
 use Zend\XmlRpc;
+use Zend\XmlRpc\AbstractValue;
+use Zend\XmlRpc\Client;
+use Zend\XmlRpc\Value;
 
 /**
  * @group      Zend_XmlRpc

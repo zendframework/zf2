@@ -9,8 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Zend\View\Helper\Placeholder.

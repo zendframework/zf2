@@ -9,8 +9,8 @@
 
 namespace ZendTest\Filter;
 
-use Zend\Filter\StaticFilter;
 use Zend\Filter\FilterPluginManager;
+use Zend\Filter\StaticFilter;
 
 /**
  * @group      Zend_Filter

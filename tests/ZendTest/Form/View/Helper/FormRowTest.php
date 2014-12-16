@@ -12,8 +12,8 @@ namespace ZendTest\Form\View\Helper;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element;
 use Zend\Form\Element\Captcha;
-use Zend\Form\View\HelperConfig;
 use Zend\Form\View\Helper\FormRow as FormRowHelper;
+use Zend\Form\View\HelperConfig;
 use Zend\View\Renderer\PhpRenderer;
 
 class FormRowTest extends TestCase

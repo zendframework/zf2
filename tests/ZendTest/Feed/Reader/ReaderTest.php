@@ -9,10 +9,10 @@
 
 namespace ZendTest\Feed\Reader;
 
+use Zend\Feed\Reader;
 use Zend\Http\Client as HttpClient;
 use Zend\Http\Client\Adapter\Test as TestAdapter;
 use Zend\Http\Response as HttpResponse;
-use Zend\Feed\Reader;
 
 /**
 * @group Zend_Feed

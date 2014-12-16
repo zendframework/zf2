@@ -10,8 +10,8 @@
 namespace ZendTest\Db\Adapter\Driver\Pdo;
 
 use Zend\Db\Adapter\Driver\Pdo\Connection;
-use Zend\Db\Adapter\Driver\Pdo\Statement;
 use Zend\Db\Adapter\Driver\Pdo\Pdo;
+use Zend\Db\Adapter\Driver\Pdo\Statement;
 use Zend\Db\Adapter\ParameterContainer;
 
 class StatementTest extends \PHPUnit_Framework_TestCase

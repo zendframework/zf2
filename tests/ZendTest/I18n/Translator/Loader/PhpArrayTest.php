@@ -9,8 +9,8 @@
 
 namespace ZendTest\I18n\Translator\Loader;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use Locale;
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\I18n\Translator\Loader\PhpArray as PhpArrayLoader;
 
 class PhpArrayTest extends TestCase

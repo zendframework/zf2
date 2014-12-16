@@ -10,12 +10,12 @@
 namespace ZendTest\ModuleManager\Listener;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Loader\ModuleAutoloader;
 use Zend\Loader\AutoloaderFactory;
+use Zend\Loader\ModuleAutoloader;
 use Zend\ModuleManager\Listener\AutoloaderListener;
 use Zend\ModuleManager\Listener\ModuleResolverListener;
-use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\ModuleManager;
 
 class AutoloaderListenerTest extends TestCase
 {

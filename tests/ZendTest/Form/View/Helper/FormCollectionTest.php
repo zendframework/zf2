@@ -10,13 +10,13 @@
 namespace ZendTest\Form\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Form\View\HelperConfig;
 use Zend\Form\View\Helper\FormCollection as FormCollectionHelper;
+use Zend\Form\View\HelperConfig;
 use Zend\View\Helper\Doctype;
 use Zend\View\Renderer\PhpRenderer;
-use ZendTest\Form\TestAsset\FormCollection;
-use ZendTest\Form\TestAsset\CustomViewHelper;
 use ZendTest\Form\TestAsset\CustomFieldsetHelper;
+use ZendTest\Form\TestAsset\CustomViewHelper;
+use ZendTest\Form\TestAsset\FormCollection;
 
 class FormCollectionTest extends TestCase
 {

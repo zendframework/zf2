@@ -9,9 +9,9 @@
 
 namespace ZendTest\Http;
 
-use Zend\Http\Request;
-use Zend\Http\Headers;
 use Zend\Http\Header\GenericHeader;
+use Zend\Http\Headers;
+use Zend\Http\Request;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {

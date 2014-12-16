@@ -9,8 +9,8 @@
 
 namespace ZendTest\Stdlib\Hydrator;
 
-use Zend\Stdlib\Hydrator\ObjectProperty;
 use Zend\Stdlib\Exception\BadMethodCallException;
+use Zend\Stdlib\Hydrator\ObjectProperty;
 use ZendTest\Stdlib\TestAsset\ClassWithPublicStaticProperties;
 use ZendTest\Stdlib\TestAsset\ObjectProperty as ObjectPropertyTestAsset;
 

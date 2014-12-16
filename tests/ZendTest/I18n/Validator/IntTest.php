@@ -9,8 +9,8 @@
 
 namespace ZendTest\I18n\Validator;
 
-use Zend\I18n\Validator\Int as IntValidator;
 use Locale;
+use Zend\I18n\Validator\Int as IntValidator;
 
 /**
  * @group      Zend_Validator

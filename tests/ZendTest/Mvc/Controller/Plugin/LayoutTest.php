@@ -12,8 +12,8 @@ namespace ZendTest\Mvc\Controller\Plugin;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Mvc\Controller\Plugin\Layout as LayoutPlugin;
 use Zend\Mvc\MvcEvent;
-use ZendTest\Mvc\Controller\TestAsset\SampleController;
 use Zend\View\Model\ViewModel;
+use ZendTest\Mvc\Controller\TestAsset\SampleController;
 
 class LayoutTest extends TestCase
 {

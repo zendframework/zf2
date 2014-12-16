@@ -9,8 +9,8 @@
 
 namespace ZendTest\Memory;
 
-use Zend\Cache\StorageFactory as CacheFactory;
 use Zend\Cache\Storage\Adapter\AdapterInterface as CacheAdapter;
+use Zend\Cache\StorageFactory as CacheFactory;
 use Zend\Memory;
 use Zend\Memory\Container;
 

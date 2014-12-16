@@ -9,8 +9,8 @@
 
 namespace ZendTest\Di\Definition;
 
-use Zend\Di\Definition\ArrayDefinition;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Di\Definition\ArrayDefinition;
 
 class ArrayDefinitionTest extends TestCase
 {

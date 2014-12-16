@@ -9,11 +9,11 @@
 
 namespace ZendTest\Paginator;
 
-use Zend\Stdlib\CallbackHandler;
 use Zend\Db\Adapter\Platform\Sql92;
+use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\Paginator\AdapterPluginManager;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\Stdlib\CallbackHandler;
 
 /**
  * @group      Zend_Paginator

@@ -9,10 +9,10 @@
 
 namespace ZendTest\Db\Sql\Platform\Oracle;
 
-use Zend\Db\Sql\Platform\Oracle\SelectDecorator;
-use Zend\Db\Sql\Select;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\Oracle as OraclePlatform;
+use Zend\Db\Sql\Platform\Oracle\SelectDecorator;
+use Zend\Db\Sql\Select;
 
 class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
 {

@@ -9,9 +9,9 @@
 
 namespace ZendTest\View\Helper;
 
+use Zend\View\Exception\ExceptionInterface as ViewException;
 use Zend\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Exception\ExceptionInterface as ViewException;
 
 /**
  * Test class for Zend\View\Helper\HeadLink.

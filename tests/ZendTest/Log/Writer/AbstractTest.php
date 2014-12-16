@@ -10,10 +10,10 @@
 namespace ZendTest\Log\Writer;
 
 use ReflectionObject;
+use Zend\Log\Filter\Regex as RegexFilter;
+use Zend\Log\Formatter\Simple as SimpleFormatter;
 use ZendTest\Log\TestAsset\ConcreteWriter;
 use ZendTest\Log\TestAsset\ErrorGeneratingWriter;
-use Zend\Log\Formatter\Simple as SimpleFormatter;
-use Zend\Log\Filter\Regex as RegexFilter;
 
 /**
  * @group      Zend_Log

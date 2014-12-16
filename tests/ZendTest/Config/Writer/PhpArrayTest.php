@@ -9,8 +9,8 @@
 
 namespace ZendTest\Config\Writer;
 
-use Zend\Config\Writer\PhpArray;
 use Zend\Config\Config;
+use Zend\Config\Writer\PhpArray;
 use ZendTest\Config\Writer\TestAssets\PhpReader;
 
 /**

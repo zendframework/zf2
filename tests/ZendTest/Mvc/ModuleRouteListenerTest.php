@@ -12,8 +12,8 @@ namespace ZendTest\Mvc;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
 use Zend\Http\PhpEnvironment\Request;
-use Zend\Mvc\MvcEvent;
 use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
 use Zend\Mvc\RouteListener;
 use Zend\Mvc\Router;
 

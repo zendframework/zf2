@@ -9,9 +9,9 @@
 
 namespace ZendTest\Form\Element;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use ArrayIterator;
 use ArrayObject;
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Captcha;
 use Zend\Form\Element\Captcha as CaptchaElement;
 use Zend\Form\Factory;

@@ -9,8 +9,8 @@
 
 namespace ZendTest\Stdlib;
 
-use Zend\Stdlib\Hydrator\HydratorInterface;
 use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Stdlib\Hydrator\HydratorInterface;
 
 /**
  * @group      Zend_Stdlib

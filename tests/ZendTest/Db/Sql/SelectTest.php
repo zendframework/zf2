@@ -9,14 +9,14 @@
 
 namespace ZendTest\Db\Sql;
 
-use Zend\Db\Sql\Select;
-use Zend\Db\Sql\Expression;
-use Zend\Db\Sql\Where;
-use Zend\Db\Sql\Having;
-use Zend\Db\Sql\Predicate;
-use Zend\Db\Sql\TableIdentifier;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\Sql92;
+use Zend\Db\Sql\Expression;
+use Zend\Db\Sql\Having;
+use Zend\Db\Sql\Predicate;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\TableIdentifier;
+use Zend\Db\Sql\Where;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
 
 class SelectTest extends \PHPUnit_Framework_TestCase

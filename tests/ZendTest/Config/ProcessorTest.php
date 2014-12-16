@@ -10,16 +10,16 @@
 namespace ZendTest\Config;
 
 use Zend\Config\Config;
+use Zend\Config\Processor\Constant as ConstantProcessor;
+use Zend\Config\Processor\Filter as FilterProcessor;
+use Zend\Config\Processor\Queue as Queue;
 use Zend\Config\Processor\Token as TokenProcessor;
 use Zend\Config\Processor\Translator as TranslatorProcessor;
-use Zend\Config\Processor\Filter as FilterProcessor;
-use Zend\Config\Processor\Constant as ConstantProcessor;
-use Zend\Config\Processor\Queue as Queue;
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\Loader\PhpArray;
+use Zend\Filter\PregReplace;
 use Zend\Filter\StringToLower;
 use Zend\Filter\StringToUpper;
-use Zend\Filter\PregReplace;
+use Zend\I18n\Translator\Loader\PhpArray;
+use Zend\I18n\Translator\Translator;
 
 /**
  * @group      Zend_Config

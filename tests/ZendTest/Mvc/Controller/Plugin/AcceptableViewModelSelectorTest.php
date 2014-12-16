@@ -9,10 +9,10 @@
 
 namespace ZendTest\Mvc\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AcceptableViewModelSelector;
-use Zend\Http\Request;
-use Zend\Mvc\MvcEvent;
 use Zend\Http\Header\Accept;
+use Zend\Http\Request;
+use Zend\Mvc\Controller\Plugin\AcceptableViewModelSelector;
+use Zend\Mvc\MvcEvent;
 use ZendTest\Mvc\Controller\TestAsset\SampleController;
 
 class AcceptableViewModelSelectorTest extends \PHPUnit_Framework_TestCase

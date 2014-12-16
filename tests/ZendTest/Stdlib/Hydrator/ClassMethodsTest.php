@@ -10,10 +10,10 @@
 namespace ZendTest\Stdlib\Hydrator;
 
 use Zend\Stdlib\Hydrator\ClassMethods;
+use ZendTest\Stdlib\TestAsset\ArraySerializable;
+use ZendTest\Stdlib\TestAsset\ClassMethodsCamelCase;
 use ZendTest\Stdlib\TestAsset\ClassMethodsCamelCaseMissing;
 use ZendTest\Stdlib\TestAsset\ClassMethodsOptionalParameters;
-use ZendTest\Stdlib\TestAsset\ClassMethodsCamelCase;
-use ZendTest\Stdlib\TestAsset\ArraySerializable;
 
 /**
  * Unit tests for {@see \Zend\Stdlib\Hydrator\ClassMethods}

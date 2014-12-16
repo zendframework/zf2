@@ -9,8 +9,8 @@
 
 namespace ZendTest\I18n\Translator\Loader;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use Locale;
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\I18n\Translator\Loader\PhpMemoryArray as PhpMemoryArrayLoader;
 
 class PhpMemoryArrayTest extends TestCase

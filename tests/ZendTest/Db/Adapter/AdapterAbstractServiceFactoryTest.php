@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Adapter;
 
-use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\ServiceManager\ServiceManager;
 
 class AdapterAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
 {

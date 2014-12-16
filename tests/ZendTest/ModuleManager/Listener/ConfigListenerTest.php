@@ -15,10 +15,10 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Loader\AutoloaderFactory;
 use Zend\Loader\ModuleAutoloader;
 use Zend\ModuleManager\Listener\ConfigListener;
-use Zend\ModuleManager\Listener\ModuleResolverListener;
 use Zend\ModuleManager\Listener\ListenerOptions;
-use Zend\ModuleManager\ModuleManager;
+use Zend\ModuleManager\Listener\ModuleResolverListener;
 use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\ModuleManager;
 
 class ConfigListenerTest extends TestCase
 {

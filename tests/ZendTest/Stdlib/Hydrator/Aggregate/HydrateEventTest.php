@@ -10,8 +10,8 @@
 namespace ZendTest\Stdlib\Hydrator\Aggregate;
 
 use PHPUnit_Framework_TestCase;
-use Zend\Stdlib\Hydrator\Aggregate\HydrateEvent;
 use stdClass;
+use Zend\Stdlib\Hydrator\Aggregate\HydrateEvent;
 
 /**
  * Unit tests for {@see \Zend\Stdlib\Hydrator\Aggregate\HydrateEvent}

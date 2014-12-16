@@ -9,9 +9,9 @@
 
 namespace ZendTest\Http\Header;
 
-use Zend\Http\Header\Date;
 use DateTime;
 use DateTimeZone;
+use Zend\Http\Header\Date;
 
 class DateTest extends \PHPUnit_Framework_TestCase
 {

@@ -9,10 +9,10 @@
 
 namespace ZendTest\Mvc\Router;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Di\Di;
 use Zend\Mvc\Router\RoutePluginManager;
 use Zend\ServiceManager\Di\DiAbstractServiceFactory;
-use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * @group      Zend_Router

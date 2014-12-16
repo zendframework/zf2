@@ -10,8 +10,8 @@
 namespace ZendTest\Log;
 
 use Zend\Log\ProcessorPluginManager;
-use Zend\Log\WriterPluginManager;
 use Zend\Log\Writer\Db as DbWriter;
+use Zend\Log\WriterPluginManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 

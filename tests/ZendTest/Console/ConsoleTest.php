@@ -9,8 +9,8 @@
 
 namespace ZendTest\Console;
 
-use Zend\Console\Console;
 use Zend\Console\Adapter;
+use Zend\Console\Console;
 
 /**
  * @group      Zend_Console

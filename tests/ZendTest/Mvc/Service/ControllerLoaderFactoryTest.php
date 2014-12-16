@@ -11,16 +11,16 @@ namespace ZendTest\Mvc\Service;
 
 use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Mvc\Exception;
 use Zend\Mvc\Service\ControllerLoaderFactory;
 use Zend\Mvc\Service\ControllerPluginManagerFactory;
-use Zend\Mvc\Service\DiFactory;
-use Zend\Mvc\Service\DiStrictAbstractServiceFactoryFactory;
 use Zend\Mvc\Service\DiAbstractServiceFactoryFactory;
+use Zend\Mvc\Service\DiFactory;
 use Zend\Mvc\Service\DiServiceInitializerFactory;
+use Zend\Mvc\Service\DiStrictAbstractServiceFactoryFactory;
 use Zend\Mvc\Service\EventManagerFactory;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Exception;
 
 class ControllerLoaderFactoryTest extends TestCase
 {

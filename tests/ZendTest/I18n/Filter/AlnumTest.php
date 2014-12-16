@@ -9,8 +9,8 @@
 
 namespace ZendTest\I18n\Filter;
 
-use Zend\I18n\Filter\Alnum as AlnumFilter;
 use Locale;
+use Zend\I18n\Filter\Alnum as AlnumFilter;
 
 /**
  * @group      Zend_Filter

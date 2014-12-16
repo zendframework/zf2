@@ -10,10 +10,10 @@
 namespace ZendTest\Form\View\Helper;
 
 use Zend\Form\Element\Submit;
-use ZendTest\Form\TestAsset\CityFieldset;
 use Zend\Form\Form;
 use Zend\Form\View\Helper\Form as FormHelper;
 use Zend\View\Helper\Doctype;
+use ZendTest\Form\TestAsset\CityFieldset;
 
 class FormTest extends CommonTestCase
 {

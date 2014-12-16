@@ -9,11 +9,11 @@
 
 namespace ZendTest\I18n\Translator;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use Locale;
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventInterface;
-use Zend\I18n\Translator\Translator;
 use Zend\I18n\Translator\TextDomain;
+use Zend\I18n\Translator\Translator;
 use ZendTest\I18n\Translator\TestAsset\Loader as TestLoader;
 
 class TranslatorTest extends TestCase

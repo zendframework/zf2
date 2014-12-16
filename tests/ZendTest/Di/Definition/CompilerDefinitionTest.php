@@ -9,10 +9,10 @@
 
 namespace ZendTest\Di\Definition;
 
-use Zend\Di\Definition\CompilerDefinition;
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Code\Scanner\DirectoryScanner;
 use Zend\Code\Scanner\FileScanner;
-use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Di\Definition\CompilerDefinition;
 
 class CompilerDefinitionTest extends TestCase
 {

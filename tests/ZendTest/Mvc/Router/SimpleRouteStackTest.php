@@ -9,11 +9,11 @@
 
 namespace ZendTest\Mvc\Router;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use ArrayIterator;
-use Zend\Stdlib\Request;
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Mvc\Router\RoutePluginManager;
 use Zend\Mvc\Router\SimpleRouteStack;
+use Zend\Stdlib\Request;
 
 class SimpleRouteStackTest extends TestCase
 {

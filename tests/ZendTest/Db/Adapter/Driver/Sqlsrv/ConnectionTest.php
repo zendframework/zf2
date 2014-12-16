@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Adapter\Driver\Sqlsrv;
 
-use Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv;
 use Zend\Db\Adapter\Driver\Sqlsrv\Connection;
+use Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv;
 
 class ConnectionTest extends \PHPUnit_Framework_TestCase
 {

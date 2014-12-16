@@ -11,9 +11,9 @@ namespace ZendTest\Soap\Wsdl;
 
 use Zend\Soap\Wsdl\ComplexTypeStrategy;
 use Zend\Soap\Wsdl\ComplexTypeStrategy\AnyType;
-use Zend\Soap\Wsdl\ComplexTypeStrategy\Composite;
 use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeComplex;
 use Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence;
+use Zend\Soap\Wsdl\ComplexTypeStrategy\Composite;
 use Zend\Soap\Wsdl\ComplexTypeStrategy\DefaultComplexType;
 use ZendTest\Soap\WsdlTestHelper;
 

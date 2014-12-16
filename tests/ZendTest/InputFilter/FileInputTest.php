@@ -9,8 +9,8 @@
 
 namespace ZendTest\InputFilter;
 
-use Zend\InputFilter\FileInput;
 use Zend\Filter;
+use Zend\InputFilter\FileInput;
 use Zend\Validator;
 
 class FileInputTest extends InputTest

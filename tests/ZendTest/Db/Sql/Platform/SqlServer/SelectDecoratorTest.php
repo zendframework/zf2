@@ -9,10 +9,10 @@
 
 namespace ZendTest\Db\Sql\Platform\SqlServer;
 
-use Zend\Db\Sql\Platform\SqlServer\SelectDecorator;
-use Zend\Db\Sql\Select;
 use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Adapter\Platform\SqlServer as SqlServerPlatform;
+use Zend\Db\Sql\Platform\SqlServer\SelectDecorator;
+use Zend\Db\Sql\Select;
 
 class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
 {

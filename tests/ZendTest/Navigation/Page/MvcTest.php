@@ -10,15 +10,15 @@
 namespace ZendTest\Navigation\Page;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\Http\Regex as RegexRoute;
-use Zend\Mvc\Router\Http\Literal as LiteralRoute;
-use Zend\Mvc\Router\Http\Segment as SegmentRoute;
-use Zend\Mvc\Router\Http\TreeRouteStack;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use Zend\Navigation\Page;
+use Zend\Mvc\Router\Http\Literal as LiteralRoute;
+use Zend\Mvc\Router\Http\Regex as RegexRoute;
+use Zend\Mvc\Router\Http\Segment as SegmentRoute;
+use Zend\Mvc\Router\Http\TreeRouteStack;
+use Zend\Mvc\Router\RouteMatch;
 use Zend\Navigation;
+use Zend\Navigation\Page;
 use ZendTest\Navigation\TestAsset;
 
 /**

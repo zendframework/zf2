@@ -10,8 +10,8 @@
 namespace ZendTest\Stdlib\Hydrator\Aggregate;
 
 use PHPUnit_Framework_TestCase;
-use Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator;
 use stdClass;
+use Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator;
 
 /**
  * Unit tests for {@see \Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator}

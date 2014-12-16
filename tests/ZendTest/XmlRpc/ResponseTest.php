@@ -9,8 +9,8 @@
 
 namespace ZendTest\XmlRpc;
 
-use Zend\XmlRpc\Response;
 use Zend\XmlRpc\AbstractValue;
+use Zend\XmlRpc\Response;
 
 /**
  * @group      Zend_XmlRpc

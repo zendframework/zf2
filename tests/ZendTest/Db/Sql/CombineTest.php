@@ -10,10 +10,10 @@
 namespace ZendTest\Db\Sql;
 
 use Zend\Db\Adapter\ParameterContainer;
-use Zend\Db\Sql\Combine;
-use Zend\Db\Sql\Select;
-use Zend\Db\Sql\Predicate\Expression;
 use Zend\Db\Adapter\StatementContainer;
+use Zend\Db\Sql\Combine;
+use Zend\Db\Sql\Predicate\Expression;
+use Zend\Db\Sql\Select;
 
 class CombineTest extends \PHPUnit_Framework_TestCase
 {

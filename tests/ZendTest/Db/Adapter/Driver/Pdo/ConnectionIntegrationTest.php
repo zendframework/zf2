@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Adapter\Driver\Pdo;
 
-use Zend\Db\Adapter\Driver\Pdo\Pdo;
 use Zend\Db\Adapter\Driver\Pdo\Connection;
+use Zend\Db\Adapter\Driver\Pdo\Pdo;
 
 /**
  * @group integration

@@ -9,9 +9,9 @@
 
 namespace ZendTest\Validator;
 
-use Zend\Validator;
-use DateTime;
 use DateInterval;
+use DateTime;
+use Zend\Validator;
 
 /**
  * @group      Zend_Validator

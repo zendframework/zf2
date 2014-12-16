@@ -14,10 +14,10 @@ use stdClass;
 use Zend\View\Helper\ViewModel as ViewModelHelper;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Resolver\AggregateResolver;
 use Zend\View\Resolver\RelativeFallbackResolver;
 use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Resolver\TemplatePathStack;
-use Zend\View\Resolver\AggregateResolver;
 
 /**
  * @covers \Zend\View\Resolver\RelativeFallbackResolver

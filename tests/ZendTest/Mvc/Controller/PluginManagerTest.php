@@ -10,11 +10,11 @@
 namespace ZendTest\Mvc\Controller;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use ZendTest\Mvc\Controller\TestAsset\SampleController;
-use ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePlugin;
-use ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructor;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\ServiceManager\ServiceManager;
+use ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePlugin;
+use ZendTest\Mvc\Controller\Plugin\TestAsset\SamplePluginWithConstructor;
+use ZendTest\Mvc\Controller\TestAsset\SampleController;
 
 class PluginManagerTest extends TestCase
 {

@@ -9,10 +9,10 @@
 
 namespace ZendTest\Di;
 
+use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Config\Factory as ConfigFactory;
 use Zend\Di\Config;
 use Zend\Di\Di;
-use Zend\Config\Factory as ConfigFactory;
-use PHPUnit_Framework_TestCase as TestCase;
 
 class ConfigTest extends TestCase
 {

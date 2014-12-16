@@ -9,15 +9,15 @@
 
 namespace ZendTest\ModuleManager;
 
+use InvalidArgumentException;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
 use Zend\EventManager\EventManager;
 use Zend\Loader\AutoloaderFactory;
-use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\ModuleManager\Listener\DefaultListenerAggregate;
+use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\ModuleManager\ModuleEvent;
 use Zend\ModuleManager\ModuleManager;
-use InvalidArgumentException;
 
 class ModuleManagerTest extends TestCase
 {

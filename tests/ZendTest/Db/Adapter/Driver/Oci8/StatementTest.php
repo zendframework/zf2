@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Adapter\Driver\Oci8;
 
-use Zend\Db\Adapter\Driver\Oci8\Statement;
 use Zend\Db\Adapter\Driver\Oci8\Oci8;
+use Zend\Db\Adapter\Driver\Oci8\Statement;
 use Zend\Db\Adapter\ParameterContainer;
 
 class StatementTest extends \PHPUnit_Framework_TestCase

@@ -10,8 +10,8 @@
 namespace ZendTest\Mvc\Router\Http;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\I18n\Translator\Translator;
 use Zend\Http\Request as Request;
+use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Router\Http\TranslatorAwareTreeRouteStack;
 use Zend\Uri\Http as HttpUri;
 

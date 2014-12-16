@@ -9,9 +9,9 @@
 
 namespace ZendTest\Http\Header;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Http\Header\Exception\InvalidArgumentException;
 use Zend\Http\Header\GenericHeader;
-use PHPUnit_Framework_TestCase as TestCase;
 
 class GenericHeaderTest extends TestCase
 {

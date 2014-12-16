@@ -9,12 +9,12 @@
 
 namespace ZendTest\Log\Formatter;
 
-use DateTime;
-use stdClass;
-use EmptyIterator;
 use ArrayIterator;
-use ZendTest\Log\TestAsset\StringObject;
+use DateTime;
+use EmptyIterator;
+use stdClass;
 use Zend\Log\Formatter\Base as BaseFormatter;
+use ZendTest\Log\TestAsset\StringObject;
 
 /**
  * @group      Zend_Log

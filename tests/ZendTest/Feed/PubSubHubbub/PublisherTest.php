@@ -9,10 +9,10 @@
 
 namespace ZendTest\Feed\PubSubHubbub;
 
-use Zend\Http\Client as HttpClient;
-use Zend\Http\Response as HttpResponse;
 use Zend\Feed\PubSubHubbub\Publisher;
 use Zend\Feed\PubSubHubbub\PubSubHubbub;
+use Zend\Http\Client as HttpClient;
+use Zend\Http\Response as HttpResponse;
 
 /**
  * @group      Zend_Feed

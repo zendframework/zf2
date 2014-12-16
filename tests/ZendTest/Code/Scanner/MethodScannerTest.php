@@ -9,8 +9,8 @@
 
 namespace ZendTest\Code\Scanner;
 
-use Zend\Code\Scanner\FileScanner;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Code\Scanner\FileScanner;
 
 class MethodScannerTest extends TestCase
 {

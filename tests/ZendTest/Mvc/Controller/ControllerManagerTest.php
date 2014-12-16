@@ -10,12 +10,12 @@
 namespace ZendTest\Mvc\Controller;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Console\Adapter\Virtual as ConsoleAdapter;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\SharedEventManager;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Console\Adapter\Virtual as ConsoleAdapter;
 
 class ControllerManagerTest extends TestCase
 {

@@ -10,8 +10,8 @@
 namespace ZendTest\Dom;
 
 use Zend\Dom\Document;
-use Zend\Dom\NodeList;
 use Zend\Dom\Exception\ExceptionInterface as DOMException;
+use Zend\Dom\NodeList;
 
 /**
  * Test class for Zend\Dom\Document.

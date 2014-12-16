@@ -12,8 +12,8 @@ namespace ZendTest\Form\View\Helper;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Captcha;
 use Zend\Form\Element;
-use Zend\Form\View\HelperConfig;
 use Zend\Form\View\Helper\FormElement as FormElementHelper;
+use Zend\Form\View\HelperConfig;
 use Zend\View\Helper\Doctype;
 use Zend\View\Renderer\PhpRenderer;
 

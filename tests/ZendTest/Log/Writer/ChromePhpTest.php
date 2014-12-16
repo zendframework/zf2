@@ -9,10 +9,10 @@
 
 namespace ZendTest\Log\Writer;
 
-use ZendTest\Log\TestAsset\MockChromePhp;
+use Zend\Log\Logger;
 use Zend\Log\Writer\ChromePhp;
 use Zend\Log\Writer\ChromePhp\ChromePhpInterface;
-use Zend\Log\Logger;
+use ZendTest\Log\TestAsset\MockChromePhp;
 
 /**
  * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)

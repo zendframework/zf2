@@ -13,8 +13,8 @@ use Zend\Config;
 use Zend\Navigation\Page\AbstractPage;
 use Zend\Navigation\Page\Uri as UriPage;
 use Zend\Permissions\Acl;
-use Zend\Permissions\Acl\Role;
 use Zend\Permissions\Acl\Resource;
+use Zend\Permissions\Acl\Role;
 use Zend\View;
 use Zend\View\Helper\Navigation;
 

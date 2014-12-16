@@ -11,8 +11,8 @@ namespace ZendTest\Barcode;
 
 use ReflectionClass;
 use Zend\Barcode;
-use Zend\Barcode\Renderer;
 use Zend\Barcode\Object;
+use Zend\Barcode\Renderer;
 use Zend\Config\Config;
 use ZendPdf as Pdf;
 

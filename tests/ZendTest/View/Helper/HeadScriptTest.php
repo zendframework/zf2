@@ -9,8 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper;
 use Zend\View;
+use Zend\View\Helper;
 
 /**
  * Test class for Zend\View\Helper\HeadScript.

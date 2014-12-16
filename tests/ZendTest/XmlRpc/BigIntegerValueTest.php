@@ -10,9 +10,9 @@
 namespace ZendTest\XmlRpc;
 
 use Zend\XmlRpc\AbstractValue;
-use Zend\XmlRpc\Value\BigInteger;
 use Zend\XmlRpc\Exception;
 use Zend\XmlRpc\Generator\GeneratorInterface as Generator;
+use Zend\XmlRpc\Value\BigInteger;
 
 /**
  * @group      Zend_XmlRpc

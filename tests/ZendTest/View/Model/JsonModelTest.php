@@ -10,8 +10,8 @@
 namespace ZendTest\View\Model;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
+use Zend\View\Model\JsonModel;
 
 class JsonModelTest extends TestCase
 {

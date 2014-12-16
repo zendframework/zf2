@@ -10,6 +10,7 @@
 namespace ZendTest\Mvc\View\Console;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Console\Request as ConsoleRequest;
 use Zend\Console\Response as ConsoleResponse;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\SharedEventManager;
@@ -18,7 +19,6 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Service\ConsoleViewManagerFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Console\Request as ConsoleRequest;
 
 /**
  * Tests for {@see \Zend\Mvc\View\Console\ViewManager}

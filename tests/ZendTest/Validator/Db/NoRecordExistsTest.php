@@ -9,9 +9,9 @@
 
 namespace ZendTest\Validator\Db;
 
-use Zend\Validator\Db\NoRecordExists;
-use Zend\Db\Adapter\ParameterContainer;
 use ArrayObject;
+use Zend\Db\Adapter\ParameterContainer;
+use Zend\Validator\Db\NoRecordExists;
 
 /**
  * @group      Zend_Validator

@@ -8,8 +8,8 @@
  */
 namespace ZendTest\Permissions\Acl\Assertion;
 
-use Zend\Permissions\Acl\Assertion\AssertionAggregate;
 use Zend\Di\Exception\UndefinedReferenceException;
+use Zend\Permissions\Acl\Assertion\AssertionAggregate;
 
 class AssertionAggregateTest extends \PHPUnit_Framework_TestCase
 {

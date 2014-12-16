@@ -9,9 +9,9 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Doctype;
 use Zend\View\Helper\HtmlObject;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * @group      Zend_View

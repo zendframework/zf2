@@ -9,8 +9,8 @@
 
 namespace ZendTest\Cache\Storage\Adapter;
 
-use Zend\Cache;
 use Redis as RedisResource;
+use Zend\Cache;
 
 class RedisTest extends CommonAdapterTest
 {

@@ -9,9 +9,9 @@
 
 namespace ZendTest\Db\Sql\Platform\SqlServer\Ddl;
 
+use Zend\Db\Sql\Ddl\Column\Column;
 use Zend\Db\Sql\Ddl\CreateTable;
 use Zend\Db\Sql\Platform\SqlServer\Ddl\CreateTableDecorator;
-use Zend\Db\Sql\Ddl\Column\Column;
 
 class CreateTableDecoratorTest extends \PHPUnit_Framework_TestCase
 {

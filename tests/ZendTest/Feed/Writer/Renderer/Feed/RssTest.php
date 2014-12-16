@@ -10,10 +10,10 @@
 namespace ZendTest\Feed\Writer\Renderer\Feed;
 
 use DateTime;
+use Zend\Feed\Reader;
 use Zend\Feed\Writer;
 use Zend\Feed\Writer\Renderer;
 use Zend\Feed\Writer\Version;
-use Zend\Feed\Reader;
 
 /**
  * @group      Zend_Feed

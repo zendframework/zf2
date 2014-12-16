@@ -9,8 +9,8 @@
 
 namespace ZendTest\View;
 
-use Zend\View\Variables;
 use Zend\Config\Config;
+use Zend\View\Variables;
 
 /**
  * @group      Zend_View
