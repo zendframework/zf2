@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <ruleset>
     <rule ref="PSR2" />
+    <exclude-pattern>resources/*</exclude-pattern>
     <exclude-pattern>tests/ZendTest/Code/Generator/TestAsset/*</exclude-pattern>
     <exclude-pattern>tests/ZendTest/Code/Reflection/FunctionReflectionTest.php</exclude-pattern>
     <exclude-pattern>tests/ZendTest/Code/Reflection/TestAsset/*</exclude-pattern>
     <exclude-pattern>tests/ZendTest/Code/TestAsset/*</exclude-pattern>
-    <exclude-pattern>ZendTest/Validator/_files/*</exclude-pattern>
-    <exclude-pattern>ZendTest/Loader/_files/*</exclude-pattern>
-    <exclude-pattern>ZendTest/Loader/TestAsset/*</exclude-pattern>
-    <exclude-pattern>resources/*</exclude-pattern>
+    <exclude-pattern>tests/ZendTest/Loader/_files/*</exclude-pattern>
+    <exclude-pattern>tests/ZendTest/Loader/TestAsset/*</exclude-pattern>
+    <exclude-pattern>tests/ZendTest/Validator/_files/*</exclude-pattern>
     <exclude-pattern>vendor/*</exclude-pattern>
 </ruleset>
