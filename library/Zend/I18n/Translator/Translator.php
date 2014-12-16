@@ -558,9 +558,12 @@ class Translator implements TranslatorInterface
             $cacheId = 'Zend_I18n_Translator_Messages_' . md5($textDomain . $locale);
 
             if (null !== ($result = $cache->getItem($cacheId))) {
-                $this->messages[$textDomain][$locale] = $result;
+                $messages = unserialize($result);
+                if(false !== $messages) {
+                    $this->messages[$textDomain][$locale] = $messages;
 
-                return;
+                    return;
+                }
             }
         }
 
@@ -594,7 +597,7 @@ class Translator implements TranslatorInterface
         }
 
         if ($messagesLoaded && $cache !== null) {
-            $cache->setItem($cacheId, $this->messages[$textDomain][$locale]);
+            $cache->setItem($cacheId, serialize($this->messages[$textDomain][$locale]));
         }
     }
 
