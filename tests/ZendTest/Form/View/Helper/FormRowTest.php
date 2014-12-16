@@ -429,4 +429,25 @@ class FormRowTest extends TestCase
         $markup = $this->helper->render($element);
         $this->assertRegexp('#^<label><span>baz</span><input name="foo" id="bar" type="text" value=""\/?></label>$#', $markup);
     }
+
+    public function testLabelOptionWrapClassDefaultsToFalse()
+    {
+        $element = new Element('foo');
+        $this->assertEmpty($element->getLabelOption('wrap_class'));
+    }
+
+    public function testCanSetOptionToAddClassToWrapElementInLabel()
+    {
+        $element = new Element('foo', array(
+            'label_options' => array(
+                'always_wrap' => true,
+                'wrap_class' => 'fooclass',
+            )
+        ));
+        $element->setAttribute('id', 'bar');
+        $element->setLabel('baz');
+
+        $markup = $this->helper->render($element);
+        $this->assertRegexp('#^<label><span class="fooclass">baz</span><input name="foo" id="bar" type="text" value=""\/?></label>$#', $markup);
+    }
 }
