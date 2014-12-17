@@ -35,7 +35,7 @@ class RouteNotFoundStrategyTest extends TestCase
         $this->assertSame('', $result);
     }
 
-	/**
+    /**
      * Test that the renderTable() method will display a nicely formatted table
      * when using the posix console adapter and colorized strings.
      * 
