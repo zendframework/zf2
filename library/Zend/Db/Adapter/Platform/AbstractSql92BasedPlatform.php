@@ -9,58 +9,23 @@
 
 namespace Zend\Db\Adapter\Platform;
 
-use Zend\Db\Adapter\Driver\DriverInterface;
-use Zend\Db\Adapter\Driver\Pdo;
-use Zend\Db\Adapter\Exception;
-
-class SqlServer extends AbstractSql92BasedPlatform
+abstract class AbstractSql92BasedPlatform implements PlatformInterface
 {
-    /** @var resource|\PDO */
-    protected $resource = null;
-
-    public function __construct($driver = null)
-    {
-        if ($driver) {
-            $this->setDriver($driver);
-        }
-    }
-
-    /**
-     * @param \Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv|\Zend\Db\Adapter\Driver\Pdo\Pdo||resource|\PDO $driver
-     * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
-     * @return $this
-     */
-    public function setDriver($driver)
-    {
-        // handle Zend\Db drivers
-        if (($driver instanceof Pdo\Pdo && in_array($driver->getDatabasePlatformName(), array('SqlServer', 'Dblib')))
-            || (($driver instanceof \PDO && in_array($driver->getAttribute(\PDO::ATTR_DRIVER_NAME), array('sqlsrv', 'dblib'))))
-        ) {
-            $this->resource = $driver;
-            return $this;
-        }
-
-        throw new Exception\InvalidArgumentException('$driver must be a Sqlsrv PDO Zend\Db\Adapter\Driver or Sqlsrv PDO instance');
-    }
-
     /**
      * Get name
      *
      * @return string
      */
-    public function getName()
-    {
-        return 'SQLServer';
-    }
+    abstract public function getName();
 
     /**
-     * Get quote identifier symbol
+     * Get quote indentifier symbol
      *
      * @return string
      */
     public function getQuoteIdentifierSymbol()
     {
-        return array('[', ']');
+        return '"';
     }
 
     /**
@@ -71,7 +36,8 @@ class SqlServer extends AbstractSql92BasedPlatform
      */
     public function quoteIdentifier($identifier)
     {
-        return '[' . $identifier . ']';
+        $quote = $this->getQuoteIdentifierSymbol();
+        return $quote . str_replace($quote, '\\' . $quote, $identifier) . $quote;
     }
 
     /**
@@ -82,10 +48,21 @@ class SqlServer extends AbstractSql92BasedPlatform
      */
     public function quoteIdentifierChain($identifierChain)
     {
+        $identifierChain = str_replace('"', '\\"', $identifierChain);
         if (is_array($identifierChain)) {
-            $identifierChain = implode('].[', $identifierChain);
+            $identifierChain = implode('"."', $identifierChain);
         }
-        return '[' . $identifierChain . ']';
+        return '"' . $identifierChain . '"';
+    }
+
+    /**
+     * Get quote value symbol
+     *
+     * @return string
+     */
+    public function getQuoteValueSymbol()
+    {
+        return '\'';
     }
 
     /**
@@ -96,18 +73,11 @@ class SqlServer extends AbstractSql92BasedPlatform
      */
     public function quoteValue($value)
     {
-        if ($this->resource instanceof DriverInterface) {
-            $this->resource = $this->resource->getConnection()->getResource();
-        }
-        if ($this->resource instanceof \PDO) {
-            return $this->resource->quote($value);
-        }
         trigger_error(
-            'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
-                . 'can introduce security vulnerabilities in a production environment.'
+            'Attempting to quote a value in ' . get_class($this) .
+            ' without extension/driver support can introduce security vulnerabilities in a production environment'
         );
-        $value = addcslashes($value, "\000\032");
-        return '\'' . str_replace('\'', '\'\'', $value) . '\'';
+        return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
     }
 
     /**
@@ -120,13 +90,36 @@ class SqlServer extends AbstractSql92BasedPlatform
      */
     public function quoteTrustedValue($value)
     {
-        if ($this->resource instanceof DriverInterface) {
-            $this->resource = $this->resource->getConnection()->getResource();
+        return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
+    }
+
+    /**
+     * Quote value list
+     *
+     * @param string|string[] $valueList
+     * @return string
+     */
+    public function quoteValueList($valueList)
+    {
+        if (!is_array($valueList)) {
+            return $this->quoteValue($valueList);
         }
-        if ($this->resource instanceof \PDO) {
-            return $this->resource->quote($value);
-        }
-        return '\'' . str_replace('\'', '\'\'', $value) . '\'';
+
+        $value = reset($valueList);
+        do {
+            $valueList[key($valueList)] = $this->quoteValue($value);
+        } while ($value = next($valueList));
+        return implode(', ', $valueList);
+    }
+
+    /**
+     * Get identifier separator
+     *
+     * @return string
+     */
+    public function getIdentifierSeparator()
+    {
+        return '.';
     }
 
     /**
@@ -158,7 +151,7 @@ class SqlServer extends AbstractSql92BasedPlatform
                 case 'as':
                     break;
                 default:
-                    $parts[$i] = '[' . $part . ']';
+                    $parts[$i] = '"' . str_replace('"', '\\' . '"', $part) . '"';
             }
         }
 

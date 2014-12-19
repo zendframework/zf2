@@ -14,7 +14,7 @@ use Zend\Db\Adapter\Driver\Mysqli;
 use Zend\Db\Adapter\Driver\Pdo;
 use Zend\Db\Adapter\Exception;
 
-class Mysql implements PlatformInterface
+class Mysql extends AbstractSql92BasedPlatform
 {
     /** @var \mysqli|\PDO */
     protected $resource = null;
@@ -93,16 +93,6 @@ class Mysql implements PlatformInterface
     }
 
     /**
-     * Get quote value symbol
-     *
-     * @return string
-     */
-    public function getQuoteValueSymbol()
-    {
-        return '\'';
-    }
-
-    /**
      * Quote value
      *
      * @param  string $value
@@ -119,11 +109,7 @@ class Mysql implements PlatformInterface
         if ($this->resource instanceof \PDO) {
             return $this->resource->quote($value);
         }
-        trigger_error(
-            'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
-                . 'can introduce security vulnerabilities in a production environment.'
-        );
-        return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
+        return parent::quoteValue($value);
     }
 
     /**
@@ -145,36 +131,7 @@ class Mysql implements PlatformInterface
         if ($this->resource instanceof \PDO) {
             return $this->resource->quote($value);
         }
-        return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
-    }
-
-    /**
-     * Quote value list
-     *
-     * @param string|string[] $valueList
-     * @return string
-     */
-    public function quoteValueList($valueList)
-    {
-        if (!is_array($valueList)) {
-            return $this->quoteValue($valueList);
-        }
-
-        $value = reset($valueList);
-        do {
-            $valueList[key($valueList)] = $this->quoteValue($value);
-        } while ($value = next($valueList));
-        return implode(', ', $valueList);
-    }
-
-    /**
-     * Get identifier separator
-     *
-     * @return string
-     */
-    public function getIdentifierSeparator()
-    {
-        return '.';
+        return parent::quoteTrustedValue($value);
     }
 
     /**
@@ -209,6 +166,7 @@ class Mysql implements PlatformInterface
                     $parts[$i] = '`' . str_replace('`', '``', $part) . '`';
             }
         }
+
         return implode('', $parts);
     }
 }
