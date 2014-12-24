@@ -91,6 +91,14 @@ class SessionManager extends AbstractManager
             // register the session handler with ext/session
             $this->registerSaveHandler($saveHandler);
         }
+        
+        
+        // Ensure we have a valid cookie string for the PHPSESSID 
+        if(!is_string($_COOKIE['PHPSESSID'])) {
+            
+            // Throw a new RuntimeException if the cookie is not a string
+            throw new Exception\RuntimeException('Cookie value must be of type "string"');
+        }
 
         session_start();
 
