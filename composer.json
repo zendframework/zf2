@@ -38,10 +38,10 @@
         "ircmaxell/random-lib": "dev-master",
         "ircmaxell/security-lib": "dev-master",
         "mikey179/vfsStream": "1.2.*",
-        "fabpot/php-cs-fixer": "1.*",
         "phpunit/PHPUnit": "3.7.*",
         "satooshi/php-coveralls": "dev-master",
-        "sebastianbergmann/phpcov": "1.1.0"
+        "sebastianbergmann/phpcov": "1.1.0",
+        "squizlabs/php_codesniffer": "2.0.0"
     },
     "suggest": {
         "ext-intl": "ext/intl for i18n features (included in default builds of PHP)",

@@ -74,7 +74,7 @@ repository.
 ### Pre-Commit Hook (Optional)
 
 The ZF2 Travis-CI will confirm that code style standards are met
-by using ```php-cs-fixer``` (https://github.com/fabpot/PHP-CS-Fixer) during its build runs.
+by using ```phpcs``` (https://github.com/squizlabs/PHP_CodeSniffer) during its build runs.
 
 To reduce the number of red Travis-CI builds, the following Git pre-commit hook
 can help catch code style issues before committing. Save it as
@@ -89,7 +89,7 @@ can help catch code style issues before committing. Save it as
  * This pre-commit hooks will check for PHP errors (lint), and make sure the
  * code is PSR-2 compliant.
  *
- * Dependency: PHP-CS-Fixer (https://github.com/fabpot/PHP-CS-Fixer)
+ * Dependency: PHP_CodeSniffer (https://github.com/squizlabs/PHP_CodeSniffer)
  *
  * @author  Mardix  http://github.com/mardix
  * @author  Matthew Weier O'Phinney http://mwop.net/
@@ -136,11 +136,11 @@ foreach ($output as $file) {
     }
 
     /*
-     * PHP-CS-Fixer
+     * PHP_CodeSniffer
      */
     $output = array();
     $return = null;
-    exec("php-cs-fixer fix --dry-run --level=psr2 " . escapeshellarg($fileName), $output, $return);
+    exec("vendor/bin/phpcs --standard=./phpcs.xml -np" . escapeshellarg($fileName), $output, $return);
     if ($return != 0 || !empty($output)) {
         echo "PHP file contains CS issues: " . $fileName . ":" . PHP_EOL;
         echo implode(PHP_EOL, $output) . PHP_EOL;
