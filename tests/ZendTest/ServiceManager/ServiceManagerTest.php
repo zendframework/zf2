@@ -17,7 +17,6 @@ use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Config;
-
 use ZendTest\ServiceManager\TestAsset\FooCounterAbstractFactory;
 use ZendTest\ServiceManager\TestAsset\MockSelfReturningDelegatorFactory;
 
@@ -1066,7 +1065,7 @@ class ServiceManagerTest extends TestCase
             return $delegator;
         };
 
-        $this->serviceManager->setFactory('foo-service', function () use ($realService) { return $realService; } );
+        $this->serviceManager->setFactory('foo-service', function () use ($realService) { return $realService; });
         $this->serviceManager->addDelegator('foo-service', $delegatorFactoryCallback);
 
         $service = $this->serviceManager->create('foo-service');

@@ -9,11 +9,12 @@
 
 namespace ZendTest\Stdlib;
 
+use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use ArrayObject;
-use Zend\Stdlib\ArrayUtils;
 use Zend\Config\Config;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Stdlib\ArrayUtils\MergeRemoveKey;
 
 class ArrayUtilsTest extends TestCase
 {
@@ -261,6 +262,56 @@ class ArrayUtilsTest extends TestCase
                 )
             ),
         );
+    }
+
+    /**
+     * @group 6903
+     */
+    public function testMergeReplaceKey()
+    {
+        $expected = array(
+            'car' => array(
+                'met' => 'bet',
+            ),
+            'new' => array(
+                'foo' => 'get',
+            ),
+        );
+        $a = array(
+            'car' => array(
+                'boo' => 'foo',
+                'doo' => 'moo',
+            ),
+        );
+        $b = array(
+            'car' => new \Zend\Stdlib\ArrayUtils\MergeReplaceKey(array(
+                'met' => 'bet',
+            )),
+            'new' => new \Zend\Stdlib\ArrayUtils\MergeReplaceKey(array(
+                'foo' => 'get',
+            )),
+        );
+        $this->assertInstanceOf('Zend\Stdlib\ArrayUtils\MergeReplaceKeyInterface', $b['car']);
+        $this->assertEquals($expected, ArrayUtils::merge($a, $b));
+    }
+
+    /**
+     * @group 6899
+     */
+    public function testAllowsRemovingKeys()
+    {
+        $a = array(
+            'foo' => 'bar',
+            'bar' => 'bat'
+        );
+        $b = array(
+            'foo' => new MergeRemoveKey(),
+            'baz' => new MergeRemoveKey(),
+        );
+        $expected = array(
+            'bar' => 'bat'
+        );
+        $this->assertEquals($expected, ArrayUtils::merge($a, $b));
     }
 
     public static function validIterators()

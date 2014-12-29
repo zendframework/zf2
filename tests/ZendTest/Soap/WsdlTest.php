@@ -8,8 +8,8 @@
  */
 
 namespace ZendTest\Soap;
-use Zend\Soap\Wsdl;
 
+use Zend\Soap\Wsdl;
 use Zend\Uri\Uri;
 
 /**
@@ -455,7 +455,7 @@ class WsdlTest extends WsdlTestHelper
             'operation1',
             array('use' => 'encoded', 'encodingStyle' => $actualUrl),
             array('use' => 'encoded', 'encodingStyle' => $actualUrl),
-            array('name' => 'MyFault','use' => 'encoded', 'encodingStyle' => $actualUrl)
+            array('name' => 'MyFault', 'use' => 'encoded', 'encodingStyle' => $actualUrl)
         );
 
         $nodes = $this->xpath->query('//wsdl:binding[@type="myPortType" and @name="MyServiceBinding"]/wsdl:operation[@name="operation1"]/wsdl:input/soap:body');

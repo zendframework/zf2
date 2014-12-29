@@ -105,7 +105,7 @@ class FileReflection implements ReflectionInterface
      */
     public static function export()
     {
-        return null;
+        return;
     }
 
     /**
@@ -115,8 +115,7 @@ class FileReflection implements ReflectionInterface
      */
     public function getFileName()
     {
-        // @todo get file name from path
-        return $this->filePath;
+        return basename($this->filePath);
     }
 
     /**
@@ -175,7 +174,7 @@ class FileReflection implements ReflectionInterface
     public function getNamespace()
     {
         if (count($this->namespaces) == 0) {
-            return null;
+            return;
         }
 
         return $this->namespaces[0];

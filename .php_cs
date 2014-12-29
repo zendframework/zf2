@@ -1,5 +1,6 @@
 <?php
 $finder = Symfony\CS\Finder\DefaultFinder::create()
+    ->notPath('Zend/Db/Sql/Select.php')
     ->notPath('Zend/View/Stream.php')
     ->notPath('ZendTest/Code/Generator/TestAsset')
     ->notPath('ZendTest/Code/Reflection/FunctionReflectionTest.php')
@@ -29,18 +30,29 @@ $config = Symfony\CS\Config\Config::create();
 $config->level(null);
 $config->fixers(
     array(
-        'indentation',
-        'linefeed',
-        'trailing_spaces',
-        'short_tag',
-        'visibility',
-        'php_closing_tag',
         'braces',
-        'function_declaration',
-        'psr0',
         'elseif',
+        'empty_return',
+        'encoding',
         'eof_ending',
+        'function_call_space',
+        'function_declaration',
+        'indentation',
+        'join_function',
+        'line_after_namespace',
+        'linefeed',
+        'parenthesis',
+        'multiple_use',
+        'method_argument_space',
+        'php_closing_tag',
+        'psr0',
+        'remove_lines_between_uses',
+        'short_tag',
+        'standardize_not_equal',
+        'trailing_spaces',
         'unused_use',
+        'visibility',
+        'whitespacy_lines',
     )
 );
 $config->finder($finder);

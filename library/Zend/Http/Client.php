@@ -233,6 +233,7 @@ class Client implements Stdlib\DispatchableInterface
     {
         if (empty($this->request)) {
             $this->request = new Request();
+            $this->request->setAllowCustomMethods(false);
         }
         return $this->request;
     }
@@ -715,18 +716,18 @@ class Client implements Stdlib\DispatchableInterface
      */
     public function setAuth($user, $password, $type = self::AUTH_BASIC)
     {
-        if (!defined('self::AUTH_' . strtoupper($type))) {
+        if (!defined('static::AUTH_' . strtoupper($type))) {
             throw new Exception\InvalidArgumentException("Invalid or not supported authentication type: '$type'");
         }
+
         if (empty($user)) {
             throw new Exception\InvalidArgumentException("The username cannot be empty");
         }
 
-        $this->auth = array (
+        $this->auth = array(
             'user'     => $user,
             'password' => $password,
             'type'     => $type
-
         );
 
         return $this;
@@ -823,7 +824,6 @@ class Client implements Stdlib\DispatchableInterface
         }
 
         $this->redirectCounter = 0;
-        $response = null;
 
         $adapter = $this->getAdapter();
 
@@ -1389,8 +1389,6 @@ class Client implements Stdlib\DispatchableInterface
      */
     public static function encodeAuthHeader($user, $password, $type = self::AUTH_BASIC)
     {
-        $authHeader = null;
-
         switch ($type) {
             case self::AUTH_BASIC:
                 // In basic authentication, the user name cannot contain ":"
@@ -1398,8 +1396,7 @@ class Client implements Stdlib\DispatchableInterface
                     throw new Client\Exception\InvalidArgumentException("The user name cannot contain ':' in 'Basic' HTTP authentication");
                 }
 
-                $authHeader = 'Basic ' . base64_encode($user . ':' . $password);
-                break;
+                return 'Basic ' . base64_encode($user . ':' . $password);
 
             //case self::AUTH_DIGEST:
                 /**
@@ -1411,6 +1408,7 @@ class Client implements Stdlib\DispatchableInterface
                 throw new Client\Exception\InvalidArgumentException("Not a supported HTTP authentication type: '$type'");
 
         }
-        return $authHeader;
+
+        return;
     }
 }
