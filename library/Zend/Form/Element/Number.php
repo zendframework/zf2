@@ -10,6 +10,7 @@
 namespace Zend\Form\Element;
 
 use Zend\Form\Element;
+use Zend\I18n\Filter\NumberParse;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\GreaterThan as GreaterThanValidator;
 use Zend\Validator\LessThan as LessThanValidator;
@@ -31,6 +32,11 @@ class Number extends Element implements InputProviderInterface
      * @var array
      */
     protected $validators;
+
+    /**
+     * @var array
+     */
+    protected $filters;
 
     /**
      * Get validator
@@ -81,6 +87,30 @@ class Number extends Element implements InputProviderInterface
         return $this->validators;
     }
 
+    protected function getFilters()
+    {
+        if ($this->filters) {
+            return $this->filters;
+        }
+
+        $filters = array();
+
+        if (isset($this->options['format'])) {
+            $filters[] =  array(
+                'name' => 'NumberParse',
+                'options' => array(
+                    'locale' => 'en',
+                    'type' => $this->options['format']
+                )
+            );
+        }
+
+        $filters[] = array('name' => 'StringTrim');
+
+        $this->filters = $filters;
+        return $this->filters;
+    }
+
     /**
      * Provide default input rules for this element
      *
@@ -93,9 +123,7 @@ class Number extends Element implements InputProviderInterface
         return array(
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim')
-            ),
+            'filters' => $this->getFilters(),
             'validators' => $this->getValidators(),
         );
     }
