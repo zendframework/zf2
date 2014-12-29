@@ -86,7 +86,7 @@ class Number extends Element implements InputProviderInterface
         $this->validators = $validators;
         return $this->validators;
     }
-
+    
     protected function getFilters()
     {
         if ($this->filters) {
@@ -96,7 +96,7 @@ class Number extends Element implements InputProviderInterface
         $filters = array();
 
         if (isset($this->options['format'])) {
-            $filters[] =  array(
+            $filters[] = array(
                 'name' => 'NumberParse',
                 'options' => array(
                     'locale' => 'en',
