@@ -31,12 +31,12 @@ class Number extends Element implements InputProviderInterface
     /**
      * @var array
      */
-    protected $validators;
+    protected $validators = array();
 
     /**
      * @var array
      */
-    protected $filters;
+    protected $filters = array();
 
     /**
      * Get validator
@@ -84,7 +84,7 @@ class Number extends Element implements InputProviderInterface
         }
 
         $this->validators = $validators;
-        
+
         return $this->validators;
     }
 
