@@ -84,6 +84,7 @@ class Number extends Element implements InputProviderInterface
         }
 
         $this->validators = $validators;
+        
         return $this->validators;
     }
 
@@ -113,6 +114,7 @@ class Number extends Element implements InputProviderInterface
         $filters[] = array('name' => 'StringTrim');
 
         $this->filters = $filters;
+
         return $this->filters;
     }
 
