@@ -86,7 +86,12 @@ class Number extends Element implements InputProviderInterface
         $this->validators = $validators;
         return $this->validators;
     }
-    
+
+    /**
+     * Get Filter Specification
+     *
+     * @return array
+     */
     protected function getFilters()
     {
         if ($this->filters) {
