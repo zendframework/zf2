@@ -151,7 +151,7 @@ class NumberTest extends TestCase
         $inputSpec = $element->getInputSpecification();
 
         /** @var NumberParse $filter */
-        $filter = $inputSpec['filters'][0];
+        $filter = $inputSpec['filters'][1];
 
         $this->assertInstanceOf('Zend\I18n\Filter\NumberParse', $filter);
         $this->assertSame(NumberFormatter::TYPE_DOUBLE, $filter->getType());

@@ -102,7 +102,9 @@ class Number extends Element implements InputProviderInterface
             return $this->filters;
         }
 
-        $filters = array();
+        $filters = array(
+            new StringTrim()
+        );
 
         if (isset($this->options['format'])) {
             $filters[] = new NumberParse(array(
@@ -110,8 +112,6 @@ class Number extends Element implements InputProviderInterface
                 'type' => $this->options['format']
             ));
         }
-
-        $filters[] = new StringTrim();
 
         $this->filters = $filters;
 
