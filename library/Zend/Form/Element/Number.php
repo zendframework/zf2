@@ -64,7 +64,7 @@ class Number extends Element implements InputProviderInterface
         }
 
         if (isset($this->attributes['min'])) {
-            $validators[] = new GreaterThanValidator(array(
+            $this->validators[] = new GreaterThanValidator(array(
                 'min' => $this->attributes['min'],
                 'inclusive' => $inclusive
             ));
