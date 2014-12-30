@@ -57,9 +57,9 @@ class NumberTest extends TestCase
         $element = new NumberElement();
         $element->setAttributes(array(
             'inclusive' => true,
-            'min'       => 5,
-            'max'       => 10,
-            'step'      => 1,
+            'min' => 5,
+            'max' => 10,
+            'step' => 1,
         ));
 
         $inputSpec = $element->getInputSpecification();
@@ -98,7 +98,7 @@ class NumberTest extends TestCase
         $element = new NumberElement();
         $element->setAttributes(array(
             'inclusive' => false,
-            'min'       => 5,
+            'min' => 5,
         ));
 
         $inputSpec = $element->getInputSpecification();
@@ -114,7 +114,7 @@ class NumberTest extends TestCase
     {
         $element = new NumberElement();
         $element->setAttributes(array(
-            'min'       => 5,
+            'min' => 5,
         ));
 
         $inputSpec = $element->getInputSpecification();
@@ -157,6 +157,13 @@ class NumberTest extends TestCase
         $this->assertSame(NumberFormatter::TYPE_DOUBLE, $filter->getType());
         $this->assertSame('en', $filter->getLocale());
         $this->assertSame(1.1, $filter->filter('1.1'));
-        $this->assertSame((double) 1, $filter->filter('1'));
+        $this->assertSame((double)1, $filter->filter('1'));
+    }
+
+    public function testReturningSameSpecOnConsecutiveCalls()
+    {
+        $element = new NumberElement();
+
+        $this->assertSame($element->getInputSpecification(), $element->getInputSpecification());
     }
 }
