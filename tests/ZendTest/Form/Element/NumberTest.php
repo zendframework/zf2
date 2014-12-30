@@ -142,6 +142,9 @@ class NumberTest extends TestCase
         }
     }
 
+    /**
+     * @group 7084
+     */
     public function testCanRetrieveNumberParseFilter()
     {
         $element = new NumberElement(null, array(
@@ -160,6 +163,9 @@ class NumberTest extends TestCase
         $this->assertSame((double)1, $filter->filter('1'));
     }
 
+    /**
+     * @group 7084
+     */
     public function testReturningSameSpecOnConsecutiveCalls()
     {
         $element = new NumberElement();
