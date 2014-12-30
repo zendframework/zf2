@@ -52,12 +52,11 @@ class Number extends Element implements InputProviderInterface
             return $this->validators;
         }
 
-        $validators = array();
         // HTML5 always transmits values in the format "1000.01", without a
         // thousand separator. The prior use of the i18n Float validator
         // allowed the thousand separator, which resulted in wrong numbers
         // when casting to float.
-        $validators[] = new RegexValidator('(^-?\d*(\.\d+)?$)');
+        $this->validators[] = new RegexValidator('(^-?\d*(\.\d+)?$)');
 
         $inclusive = true;
         if (isset($this->attributes['inclusive'])) {
@@ -71,7 +70,7 @@ class Number extends Element implements InputProviderInterface
             ));
         }
         if (isset($this->attributes['max'])) {
-            $validators[] = new LessThanValidator(array(
+            $this->validators[] = new LessThanValidator(array(
                 'max' => $this->attributes['max'],
                 'inclusive' => $inclusive
             ));
@@ -80,13 +79,11 @@ class Number extends Element implements InputProviderInterface
         if ( ! isset($this->attributes['step'])
             || 'any' !== $this->attributes['step']
         ) {
-            $validators[] = new StepValidator(array(
+            $this->validators[] = new StepValidator(array(
                 'baseValue' => (isset($this->attributes['min'])) ? $this->attributes['min'] : 0,
                 'step' => (isset($this->attributes['step'])) ? $this->attributes['step'] : 1,
             ));
         }
-
-        $this->validators = $validators;
 
         return $this->validators;
     }
@@ -102,18 +99,16 @@ class Number extends Element implements InputProviderInterface
             return $this->filters;
         }
 
-        $filters = array(
+        $this->filters = array(
             new StringTrim()
         );
 
         if (isset($this->options['format'])) {
-            $filters[] = new NumberParse(array(
+            $this->filters[] = new NumberParse(array(
                 'locale' => 'en',
                 'type' => $this->options['format']
             ));
         }
-
-        $this->filters = $filters;
 
         return $this->filters;
     }
