@@ -16,14 +16,14 @@
     "require": {
         "php": ">=5.3.23",
         "zendframework/zend-inputfilter": "self.version",
-        "zendframework/zend-stdlib": "self.version"
+        "zendframework/zend-stdlib": "self.version",
+        "zendframework/zend-i18n": "self.version"
     },
     "require-dev": {
         "zendframework/zend-captcha": "self.version",
         "zendframework/zend-code": "self.version",
         "zendframework/zend-eventmanager": "self.version",
         "zendframework/zend-filter": "self.version",
-        "zendframework/zend-i18n": "self.version",
         "zendframework/zend-servicemanager": "self.version",
         "zendframework/zend-validator": "self.version",
         "zendframework/zend-view": "self.version",
