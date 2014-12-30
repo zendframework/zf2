@@ -9,6 +9,7 @@
 
 namespace Zend\Form\Element;
 
+use Zend\Filter\StringTrim;
 use Zend\Form\Element;
 use Zend\I18n\Filter\NumberParse;
 use Zend\InputFilter\InputProviderInterface;
@@ -74,12 +75,12 @@ class Number extends Element implements InputProviderInterface
             ));
         }
 
-        if (!isset($this->attributes['step'])
+        if ( ! isset($this->attributes['step'])
             || 'any' !== $this->attributes['step']
         ) {
             $validators[] = new StepValidator(array(
-                'baseValue' => (isset($this->attributes['min']))  ? $this->attributes['min'] : 0,
-                'step'      => (isset($this->attributes['step'])) ? $this->attributes['step'] : 1,
+                'baseValue' => (isset($this->attributes['min'])) ? $this->attributes['min'] : 0,
+                'step' => (isset($this->attributes['step'])) ? $this->attributes['step'] : 1,
             ));
         }
 
@@ -102,16 +103,13 @@ class Number extends Element implements InputProviderInterface
         $filters = array();
 
         if (isset($this->options['format'])) {
-            $filters[] = array(
-                'name' => 'NumberParse',
-                'options' => array(
-                    'locale' => 'en',
-                    'type' => $this->options['format']
-                )
-            );
+            $filters[] = new NumberParse(array(
+                'locale' => 'en',
+                'type' => $this->options['format']
+            ));
         }
 
-        $filters[] = array('name' => 'StringTrim');
+        $filters[] = new StringTrim();
 
         $this->filters = $filters;
 

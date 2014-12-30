@@ -20,15 +20,21 @@ class NumberTest extends TestCase
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
+        $this->assertArrayHasKey('filters', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
+        $this->assertInternalType('array', $inputSpec['filters']);
 
-        $expectedClasses = array(
+        $expectedValidatorClasses = array(
             'Zend\Validator\Regex',
             'Zend\Validator\Step',
         );
+        $expectedFilterClasses    = array(
+            'Zend\Filter\StringTrim',
+        );
+
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
-            $this->assertTrue(in_array($class, $expectedClasses), $class);
+            $this->assertTrue(in_array($class, $expectedValidatorClasses), $class);
             switch ($class) {
                 case 'Zend\Validator\Step':
                     $this->assertEquals(1, $validator->getStep());
@@ -36,6 +42,11 @@ class NumberTest extends TestCase
                 default:
                     break;
             }
+        }
+
+        foreach ($inputSpec['filters'] as $filter) {
+            $class = get_class($filter);
+            $this->assertTrue(in_array($class, $expectedFilterClasses), $class);
         }
     }
 
