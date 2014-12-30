@@ -44,6 +44,19 @@ class Xml implements ReaderInterface
     );
 
     /**
+     * Get reader
+     *
+     * @return XMLReader
+     */
+    public function getReader()
+    {
+        if ($this->reader === null) {
+            $this->reader = new XMLReader();
+        }
+        return $this->reader;
+    }
+
+    /**
      * fromFile(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromFile()
@@ -59,7 +72,6 @@ class Xml implements ReaderInterface
                 $filename
             ));
         }
-
         $this->reader = new XMLReader();
         $this->reader->open($filename, null, LIBXML_XINCLUDE);
 
@@ -76,6 +88,7 @@ class Xml implements ReaderInterface
         );
         $return = $this->process();
         restore_error_handler();
+        $this->reader->close();
 
         return $return;
     }
@@ -110,6 +123,7 @@ class Xml implements ReaderInterface
         );
         $return = $this->process();
         restore_error_handler();
+        $this->reader->close();
 
         return $return;
     }
