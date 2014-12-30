@@ -9,6 +9,7 @@
 
 namespace Zend\Form\Element;
 
+use Zend\Filter\FilterInterface;
 use Zend\Filter\StringTrim;
 use Zend\Form\Element;
 use Zend\I18n\Filter\NumberParse;
@@ -17,6 +18,7 @@ use Zend\Validator\GreaterThan as GreaterThanValidator;
 use Zend\Validator\LessThan as LessThanValidator;
 use Zend\Validator\Regex as RegexValidator;
 use Zend\Validator\Step as StepValidator;
+use Zend\Validator\ValidatorInterface;
 
 class Number extends Element implements InputProviderInterface
 {
@@ -30,19 +32,19 @@ class Number extends Element implements InputProviderInterface
     );
 
     /**
-     * @var array
+     * @var array|null
      */
-    protected $validators = array();
+    protected $validators;
 
     /**
-     * @var array
+     * @var array|null
      */
-    protected $filters = array();
+    protected $filters;
 
     /**
      * Get validator
      *
-     * @return \Zend\Validator\ValidatorInterface[]
+     * @return ValidatorInterface[]
      */
     protected function getValidators()
     {
@@ -92,7 +94,7 @@ class Number extends Element implements InputProviderInterface
     /**
      * Get Filter Specification
      *
-     * @return array
+     * @return FilterInterface[]
      */
     protected function getFilters()
     {

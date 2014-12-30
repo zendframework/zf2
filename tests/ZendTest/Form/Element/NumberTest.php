@@ -11,6 +11,8 @@ namespace ZendTest\Form\Element;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element\Number as NumberElement;
+use Zend\I18n\Filter\NumberParse;
+use NumberFormatter;
 
 class NumberTest extends TestCase
 {
@@ -138,5 +140,23 @@ class NumberTest extends TestCase
                 break;
             }
         }
+    }
+
+    public function testCanRetrieveNumberParseFilter()
+    {
+        $element = new NumberElement(null, array(
+            'format' => NumberFormatter::TYPE_DOUBLE
+        ));
+
+        $inputSpec = $element->getInputSpecification();
+
+        /** @var NumberParse $filter */
+        $filter = $inputSpec['filters'][0];
+
+        $this->assertInstanceOf('Zend\I18n\Filter\NumberParse', $filter);
+        $this->assertSame(NumberFormatter::TYPE_DOUBLE, $filter->getType());
+        $this->assertSame('en', $filter->getLocale());
+        $this->assertSame(1.1, $filter->filter('1.1'));
+        $this->assertSame((double) 1, $filter->filter('1'));
     }
 }
