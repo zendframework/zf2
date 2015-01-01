@@ -37,7 +37,9 @@ class ServiceListenerFactory implements FactoryInterface
         'invokables' => array(
             'DispatchListener'     => 'Zend\Mvc\DispatchListener',
             'RouteListener'        => 'Zend\Mvc\RouteListener',
-            'SendResponseListener' => 'Zend\Mvc\SendResponseListener'
+            'SendResponseListener' => 'Zend\Mvc\SendResponseListener',
+            'ViewJsonRenderer'     => 'Zend\View\Renderer\JsonRenderer',
+            'ViewFeedRenderer'     => 'Zend\View\Renderer\FeedRenderer',
         ),
         'factories' => array(
             'Application'                    => 'Zend\Mvc\Service\ApplicationFactory',
@@ -68,14 +70,13 @@ class ServiceListenerFactory implements FactoryInterface
             'SerializerAdapterManager'       => 'Zend\Mvc\Service\SerializerAdapterPluginManagerFactory',
             'ValidatorManager'               => 'Zend\Mvc\Service\ValidatorManagerFactory',
             'ViewHelperManager'              => 'Zend\Mvc\Service\ViewHelperManagerFactory',
-            'ViewFeedRenderer'               => 'Zend\Mvc\Service\ViewFeedRendererFactory',
             'ViewFeedStrategy'               => 'Zend\Mvc\Service\ViewFeedStrategyFactory',
-            'ViewJsonRenderer'               => 'Zend\Mvc\Service\ViewJsonRendererFactory',
             'ViewJsonStrategy'               => 'Zend\Mvc\Service\ViewJsonStrategyFactory',
             'ViewManager'                    => 'Zend\Mvc\Service\ViewManagerFactory',
             'ViewResolver'                   => 'Zend\Mvc\Service\ViewResolverFactory',
             'ViewTemplateMapResolver'        => 'Zend\Mvc\Service\ViewTemplateMapResolverFactory',
             'ViewTemplatePathStack'          => 'Zend\Mvc\Service\ViewTemplatePathStackFactory',
+            'ViewPrefixPathStackResolver'    => 'Zend\Mvc\Service\ViewPrefixPathStackResolverFactory',
         ),
         'aliases' => array(
             'Configuration'                          => 'Config',

@@ -106,6 +106,9 @@ class AnnotationBuilderTest extends TestCase
         $test  = $form->getIterator()->getIterator()->current();
         $this->assertSame($email, $test, 'Test is element ' . $test->getName());
 
+        $test  = $form->getIterator()->current();
+        $this->assertSame($email, $test, 'Test is element ' . $test->getName());
+
         $hydrator = $form->getHydrator();
         $this->assertInstanceOf('Zend\Stdlib\Hydrator\ObjectProperty', $hydrator);
     }
@@ -253,9 +256,9 @@ class AnnotationBuilderTest extends TestCase
         $fieldset = $form->get('object');
         /* @var $fieldset Zend\Form\Fieldset */
 
-        $this->assertInstanceOf('Zend\Form\Fieldset',$fieldset);
-        $this->assertInstanceOf('ZendTest\Form\TestAsset\Annotation\Entity',$fieldset->getObject());
-        $this->assertInstanceOf("Zend\Stdlib\Hydrator\ClassMethods",$fieldset->getHydrator());
+        $this->assertInstanceOf('Zend\Form\Fieldset', $fieldset);
+        $this->assertInstanceOf('ZendTest\Form\TestAsset\Annotation\Entity', $fieldset->getObject());
+        $this->assertInstanceOf("Zend\Stdlib\Hydrator\ClassMethods", $fieldset->getHydrator());
         $this->assertFalse($fieldset->getHydrator()->getUnderscoreSeparatedKeys());
     }
 

@@ -335,7 +335,7 @@ class Dba extends AbstractAdapter implements
 
         if ($value === false) {
             $success = false;
-            return null;
+            return;
         }
 
         $success = true;
