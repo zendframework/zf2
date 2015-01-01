@@ -661,7 +661,7 @@ class BaseInputFilterTest extends TestCase
     {
         $filter = new InputFilter();
 
-        $data = array (
+        $data = array(
             'allowEmpty' => $allowEmpty,
             'blankIsValid' => $blankIsValid,
         );
@@ -911,5 +911,30 @@ class BaseInputFilterTest extends TestCase
         $filter = new InputFilter();
         $filter->add($arrayInput, 'arrayInput');
         $filter->setData(array('foo' => 'bar'));
+    }
+
+    /**
+     * @group 6431
+     */
+    public function testMerge()
+    {
+        $inputFilter       = new InputFilter();
+        $originInputFilter = new InputFilter();
+
+        $inputFilter->add(new Input(), 'foo');
+        $inputFilter->add(new Input(), 'bar');
+
+        $originInputFilter->add(new Input(), 'baz');
+
+        $inputFilter->merge($originInputFilter);
+
+        $this->assertEquals(
+            array(
+                'foo',
+                'bar',
+                'baz'
+            ),
+            array_keys($inputFilter->getInputs())
+        );
     }
 }

@@ -394,7 +394,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         // Define some values we'll be using
         $poem = array(
-            'poem' => array (
+            'poem' => array(
                 'line 1' => 'Roses are red, bacon is also red,',
                 'line 2' => 'Poems are hard,',
                 'line 3' => 'Bacon.',
@@ -588,7 +588,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testZF6995_toArrayDoesNotDisturbInternalIterator()
     {
-        $config = new Config(range(1,10));
+        $config = new Config(range(1, 10));
         $config->rewind();
         $this->assertEquals(1, $config->current());
 
