@@ -12,6 +12,7 @@ namespace Zend\I18n\Validator;
 use Locale;
 use IntlDateFormatter;
 use Traversable;
+use IntlException;
 use Zend\I18n\Exception as I18nException;
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception as ValidatorException;
@@ -263,15 +264,26 @@ class DateTime extends AbstractValidator
         }
 
         $this->setValue($value);
-        $formatter = $this->getIntlDateFormatter();
 
-        if (intl_is_failure($formatter->getErrorCode())) {
-            throw new ValidatorException\InvalidArgumentException($formatter->getErrorMessage());
+        try {
+            $formatter = $this->getIntlDateFormatter();
+
+            if (intl_is_failure($formatter->getErrorCode())) {
+                throw new ValidatorException\InvalidArgumentException($formatter->getErrorMessage());
+            }
+        } catch(IntlException $e) {
+            throw new ValidatorException\InvalidArgumentException($e->getMessage());
         }
 
-        $timestamp = $formatter->parse($value);
 
-        if (intl_is_failure($formatter->getErrorCode()) || $timestamp === false) {
+        try {
+            $timestamp = $formatter->parse($value);
+
+            if (intl_is_failure($formatter->getErrorCode()) || $timestamp === false) {
+                $this->error(self::INVALID_DATETIME);
+                return false;
+            }
+        } catch(IntlException $e) {
             $this->error(self::INVALID_DATETIME);
             return false;
         }
