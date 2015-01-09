@@ -237,7 +237,7 @@ class AnnotationScanner extends AnnotationCollection implements ScannerInterface
             goto TOKENIZER_TOP;
         }
 
-        if ($currentChar === ' ') {
+        if ($currentChar === ' ' || $currentChar === "\t") {
             $MACRO_TOKEN_SET_TYPE(($MACRO_HAS_CONTEXT($CONTEXT_ASTERISK)) ? 'ANNOTATION_WHITESPACE' : 'ANNOTATION_WHITESPACE_INDENT');
             $MACRO_TOKEN_APPEND_WORD();
             $MACRO_TOKEN_ADVANCE();
