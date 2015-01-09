@@ -28,7 +28,8 @@ class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
 
         $docComment = '/**' . "\n"
             . ' * @Test\Foo(\'anything I want()' . "\n" . ' * to be\')' . "\n"
-            . ' * @Test\Bar' . "\n */";
+            . ' * @Test\Bar' . "\n"
+            . "\t" . ' * @Test\Bar' . "\n */";
 
         $nameInfo = new NameInformation();
         $nameInfo->addUse('ZendTest\Code\Scanner\TestAsset\Annotation', 'Test');
