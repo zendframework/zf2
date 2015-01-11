@@ -299,13 +299,6 @@ class TokenArrayScanner implements ScannerInterface
         }
 
         /**
-         * Define PHP 5.4 'trait' token constant.
-         */
-        if (!defined('T_TRAIT')) {
-            define('T_TRAIT', 42001);
-        }
-
-        /**
          * Variables & Setup
          */
 
