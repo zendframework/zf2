@@ -87,8 +87,7 @@ class Escaper
 
     /**
      * Constructor: Single parameter allows setting of global encoding for use by
-     * the current object. If PHP 5.4 is detected, additional ENT_SUBSTITUTE flag
-     * is set for htmlspecialchars() calls.
+     * the current object.
      *
      * @param string $encoding
      * @throws Exception\InvalidArgumentException
