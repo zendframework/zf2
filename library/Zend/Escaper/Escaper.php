@@ -41,13 +41,11 @@ class Escaper
 
     /**
      * Holds the value of the special flags passed as second parameter to
-     * htmlspecialchars(). We modify these for PHP 5.4 to take advantage
-     * of the new ENT_SUBSTITUTE flag for correctly dealing with invalid
-     * UTF-8 sequences.
+     * htmlspecialchars().
      *
      * @var string
      */
-    protected $htmlSpecialCharsFlags = ENT_QUOTES;
+    protected $htmlSpecialCharsFlags;
 
     /**
      * Static Matcher which escapes characters for HTML Attribute contexts
@@ -116,9 +114,8 @@ class Escaper
             $this->encoding = $encoding;
         }
 
-        if (defined('ENT_SUBSTITUTE')) {
-            $this->htmlSpecialCharsFlags|= ENT_SUBSTITUTE;
-        }
+        // We take advantage of ENT_SUBSTITUTE flag to correctly deal with invalid UTF-8 sequences.
+        $this->htmlSpecialCharsFlags = ENT_QUOTES | ENT_SUBSTITUTE;
 
         // set matcher callbacks
         $this->htmlAttrMatcher = array($this, 'htmlAttrMatcher');
