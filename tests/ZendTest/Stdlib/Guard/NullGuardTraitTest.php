@@ -13,7 +13,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use ZendTest\Stdlib\TestAsset\GuardedObject;
 
 /**
- * @requires PHP 5.4
  * @covers   Zend\Stdlib\Guard\NullGuardTrait
  */
 class NullGuardTraitTest extends TestCase

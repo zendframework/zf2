@@ -14,7 +14,6 @@ use ZendTest\Stdlib\TestAsset\GuardedObject;
 use Zend\Stdlib\ArrayObject;
 
 /**
- * @requires PHP 5.4
  * @covers   Zend\Stdlib\Guard\ArrayOrTraversableGuardTrait
  */
 class ArrayOrTraversableGuardTraitTest extends TestCase

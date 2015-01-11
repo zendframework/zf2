@@ -12,9 +12,6 @@ namespace ZendTest\EventManager;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
 
-/**
- * @requires PHP 5.4
- */
 class EventManagerAwareTraitTest extends TestCase
 {
     public function testSetEventManager()

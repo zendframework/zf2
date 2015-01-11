@@ -12,9 +12,6 @@ namespace ZendTest\Form;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Factory;
 
-/**
- * @requires PHP 5.4
- */
 class FormFactoryAwareTraitTest extends TestCase
 {
     public function testSetFormFactory()

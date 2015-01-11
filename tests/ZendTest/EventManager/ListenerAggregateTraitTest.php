@@ -11,9 +11,6 @@ namespace ZendTest\EventManager;
 
 use ZendTest\EventManager\TestAsset\MockListenerAggregateTrait;
 
-/**
- * @requires PHP 5.4
- */
 class ListenerAggregateTraitTest extends \PHPUnit_Framework_TestCase
 {
     /**
