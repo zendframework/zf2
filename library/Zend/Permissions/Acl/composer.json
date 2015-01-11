@@ -14,7 +14,7 @@
     },
     "target-dir": "Zend/Permissions/Acl",
     "require": {
-        "php": ">=5.3.23"
+        "php": ">=5.4"
     },
     "suggest": {
         "zendframework/zend-servicemanager": "To support Zend\\Permissions\\Acl\\Assertion\\AssertionManager plugin manager usage"
