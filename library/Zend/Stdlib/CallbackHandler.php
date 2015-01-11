@@ -106,16 +106,11 @@ class CallbackHandler
             case 0:
                 return $callback();
             case 1:
-                return $callback(array_shift($args));
+                return $callback($args[0]);
             case 2:
-                $arg1 = array_shift($args);
-                $arg2 = array_shift($args);
-                return $callback($arg1, $arg2);
+                return $callback($args[0], $args[1]);
             case 3:
-                $arg1 = array_shift($args);
-                $arg2 = array_shift($args);
-                $arg3 = array_shift($args);
-                return $callback($arg1, $arg2, $arg3);
+                return $callback($args[0], $args[1], $args[2]);
             default:
                 return call_user_func_array($callback, $args);
         }
