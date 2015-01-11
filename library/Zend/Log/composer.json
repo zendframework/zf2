@@ -15,7 +15,7 @@
     },
     "target-dir": "Zend/Log",
     "require": {
-        "php": ">=5.3.23",
+        "php": ">=5.4",
         "zendframework/zend-servicemanager": "self.version",
         "zendframework/zend-stdlib": "self.version"
     },

@@ -14,8 +14,8 @@
     },
     "target-dir": "Zend/Test",
     "require": {
-        "php": ">=5.3.23",
-        "phpunit/PHPUnit": "3.7.*",
+        "php": ">=5.4",
+        "phpunit/PHPUnit": "~4.0",
         "zendframework/zend-console": "self.version",
         "zendframework/zend-dom": "self.version",
         "zendframework/zend-eventmanager": "self.version",

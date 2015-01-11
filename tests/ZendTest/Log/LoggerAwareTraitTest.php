@@ -12,9 +12,6 @@ namespace ZendTest\Log;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Log\Logger;
 
-/**
- * @requires PHP 5.4
- */
 class LoggerAwareTraitTest extends TestCase
 {
     public function testSetLogger()

@@ -14,18 +14,10 @@ use ZendTest\Stdlib\TestAsset\GuardedObject;
 use Zend\Stdlib\ArrayObject;
 
 /**
- * @requires PHP 5.4
  * @covers   Zend\Stdlib\Guard\ArrayOrTraversableGuardTrait
  */
 class ArrayOrTraversableGuardTraitTest extends TestCase
 {
-    public function setUp()
-    {
-        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            $this->markTestSkipped('Only valid for php >= 5.4');
-        }
-    }
-
     public function testGuardForArrayOrTraversableThrowsException()
     {
         $object = new GuardedObject;

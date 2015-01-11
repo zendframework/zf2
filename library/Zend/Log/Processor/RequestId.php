@@ -21,7 +21,7 @@ class RequestId implements ProcessorInterface
     protected $identifier;
 
     /**
-     * Adds an identifier for the request to the log.
+     * Adds an identifier for the request to the log, unless one has already been set.
      *
      * This enables to filter the log for messages belonging to a specific request
      *
@@ -30,6 +30,10 @@ class RequestId implements ProcessorInterface
      */
     public function process(array $event)
     {
+        if (isset($event['extra']['requestId'])) {
+            return $event;
+        }
+
         if (!isset($event['extra'])) {
             $event['extra'] = array();
         }
@@ -49,9 +53,7 @@ class RequestId implements ProcessorInterface
             return $this->identifier;
         }
 
-        $requestTime = (PHP_VERSION_ID >= 50400)
-                     ? $_SERVER['REQUEST_TIME_FLOAT']
-                     : $_SERVER['REQUEST_TIME'];
+        $requestTime = $_SERVER['REQUEST_TIME_FLOAT'];
 
         if (Console::isConsole()) {
             $this->identifier = md5($requestTime);

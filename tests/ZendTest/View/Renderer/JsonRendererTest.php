@@ -125,9 +125,6 @@ class JsonRendererTest extends TestCase
 
     public function testRendersJsonSerializableModelsAsJson()
     {
-        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            $this->markTestSkipped('Can only test JsonSerializable models in PHP 5.4.0 and up');
-        }
         $model        = new TestAsset\JsonModel;
         $model->value = array('foo' => 'bar');
         $expected     = json_encode($model->value);
@@ -198,9 +195,6 @@ class JsonRendererTest extends TestCase
 
     public function testRendersJsonSerializableModelsAsJsonWithJsonpCallback()
     {
-        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            $this->markTestSkipped('Can only test JsonSerializable models in PHP 5.4.0 and up');
-        }
         $model        = new TestAsset\JsonModel;
         $model->value = array('foo' => 'bar');
         $expected     = 'callback(' . json_encode($model->value) . ');';

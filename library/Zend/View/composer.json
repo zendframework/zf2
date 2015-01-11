@@ -14,7 +14,7 @@
     },
     "target-dir": "Zend/View",
     "require": {
-        "php": ">=5.3.23",
+        "php": ">=5.4",
         "zendframework/zend-eventmanager": "self.version",
         "zendframework/zend-loader": "self.version",
         "zendframework/zend-stdlib": "self.version"
