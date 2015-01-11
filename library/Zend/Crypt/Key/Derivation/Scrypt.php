@@ -325,7 +325,7 @@ abstract class Scrypt
      * @param  string $hex
      * @return string
      *
-     * @deprecated since PHP 5.4, hex2bin is available
+     * @deprecated since 2.4, PHP 5.4 provides hex2bin
      */
     protected static function hex2bin($hex)
     {

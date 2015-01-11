@@ -15,6 +15,8 @@ namespace Zend\Stdlib\JsonSerializable;
  * JsonSerializable was introduced in PHP 5.4.0.
  *
  * @see http://php.net/manual/class.jsonserializable.php
+ *
+ * @deprecated since 2.4
  */
 interface PhpLegacyCompatibility
 {
