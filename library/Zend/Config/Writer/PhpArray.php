@@ -20,6 +20,8 @@ class PhpArray extends AbstractWriter
 
     /**
      * @var bool
+     *
+     * @todo set default to `true` as soon as https://github.com/zendframework/zf2/issues/5480 is merged
      */
     protected $useBracketArraySyntax = false;
 
