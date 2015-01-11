@@ -461,10 +461,6 @@ class JsonTest extends \PHPUnit_Framework_TestCase
 
     public function testJsonSerializableWithBuiltinImplementation()
     {
-        if (version_compare(PHP_VERSION, '5.4.0', 'lt')) {
-            $this->markTestSkipped('JsonSerializable does not exist in PHP <5.4.0.');
-        }
-
         $encoded = Json\Encoder::encode(
             new TestAsset\JsonSerializableBuiltinImpl()
         );
