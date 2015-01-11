@@ -14,7 +14,7 @@
     },
     "target-dir": "Zend/XmlRpc",
     "require": {
-        "php": ">=5.3.23",
+        "php": ">=5.4",
         "zendframework/zend-http": "self.version",
         "zendframework/zend-math": "self.version",
         "zendframework/zend-server": "self.version",
