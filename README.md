@@ -19,6 +19,8 @@ DD MMM YYY
 
 ### UPDATES IN 2.4.0
 
+- [#7095](https://github.com/zendframework/zf2/issues/7095) drops support for
+ PHP 5.3
 - [#6154](https://github.com/zendframework/zf2/pull/6154) updates
   `Zend\InputFilter\BaseInputFilter::isValid()` to accept an optional `$context`
   parameter; if used, this value will be passed to all composed inputs as
@@ -30,8 +32,10 @@ Please see [CHANGELOG.md](CHANGELOG.md).
 
 ### SYSTEM REQUIREMENTS
 
-Zend Framework 2 requires PHP 5.3.23 or later; we recommend using the
-latest PHP version whenever possible.
+Zend Framework 2 requires PHP 5.4 or later.
+Please be wary that the minimum PHP version may be bumped in subsequent
+framework releases; we hence encourage to use [Composer][composer] to ensure 
+that your application environment satisfies the requirements.
 
 ### INSTALLATION
 
