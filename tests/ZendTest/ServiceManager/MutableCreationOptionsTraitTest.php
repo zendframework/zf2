@@ -11,9 +11,6 @@ namespace ZendTest\ServiceManager;
 
 use PHPUnit_Framework_TestCase as TestCase;
 
-/**
- * @requires PHP 5.4.0
- */
 class MutableCreationOptionsTraitTest extends TestCase
 {
     protected $stub;

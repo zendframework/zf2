@@ -14,8 +14,6 @@ use JsonSerializable;
 
 /**
  * Implementation of the built-in JsonSerializable interface.
- *
- * This asset will not work in PHP <5.4.0.
  */
 class JsonSerializableBuiltinImpl implements JsonSerializable
 {
