@@ -124,16 +124,16 @@ class SessionManager extends AbstractManager
      */
     protected function initializeValidatorChain()
     {
-        $validatorChain = $this->getValidatorChain();
-        foreach ($this->validators as $validator) {
-            $validatorValues = $this->getStorage()->getMetadata('_VALID');
+        $validatorChain  = $this->getValidatorChain();
+        $validatorValues = $this->getStorage()->getMetadata('_VALID');
 
+        foreach ($this->validators as $validator) {
             $referenceValue = null;
             if (is_array($validatorValues) && array_key_exists($validator, $validatorValues)) {
                 $referenceValue = $validatorValues[$validator];
             }
 
-            $validator      = new $validator($referenceValue);
+            $validator = new $validator($referenceValue);
             $validatorChain->attach('session.validate', array($validator, 'isValid'));
         }
     }
