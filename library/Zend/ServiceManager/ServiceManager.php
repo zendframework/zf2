@@ -1142,9 +1142,10 @@ class ServiceManager implements ServiceLocatorInterface
      */
     protected function createDelegatorFromFactory($canonicalName, $requestedName)
     {
+        $serviceManager = $this;
         $delegatorsCount    = count($this->delegators[$canonicalName]);
-        $creationCallback   = function () use ($requestedName, $canonicalName) {
-            return $this->doCreate($requestedName, $canonicalName);
+        $creationCallback   = function () use ($serviceManager, $requestedName, $canonicalName) {
+            return $serviceManager->doCreate($requestedName, $canonicalName);
         };
 
         for ($i = 0; $i < $delegatorsCount; $i += 1) {
