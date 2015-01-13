@@ -92,10 +92,9 @@ class DotNetTest extends PHPUnit_Framework_TestCase
      */
     public function testDefaultSoapClientRequestIsDoneWhenNotUsingNtlmAuthentication()
     {
-        $unitTest = $this;
         $soapClient = new Common(
-            function (Common $client, $request, $location, $action, $version, $oneWay = null) use ($unitTest) {
-                $unitTest->assertEquals('http://unit/test#TestMethod', $action);
+            function (Common $client, $request, $location, $action, $version, $oneWay = null) {
+                $this->assertEquals('http://unit/test#TestMethod', $action);
                 $result = '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">'
                     . '<s:Body>';
 

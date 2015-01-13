@@ -27,13 +27,12 @@ class SendmailTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->transport = new Sendmail();
-        $self = $this;
-        $this->transport->setCallable(function ($to, $subject, $message, $additional_headers, $additional_parameters = null) use ($self) {
-            $self->to                    = $to;
-            $self->subject               = $subject;
-            $self->message               = $message;
-            $self->additional_headers    = $additional_headers;
-            $self->additional_parameters = $additional_parameters;
+        $this->transport->setCallable(function ($to, $subject, $message, $additional_headers, $additional_parameters = null) {
+            $this->to                    = $to;
+            $this->subject               = $subject;
+            $this->message               = $message;
+            $this->additional_headers    = $additional_headers;
+            $this->additional_parameters = $additional_parameters;
         });
         $this->operating_system      = strtoupper(substr(PHP_OS, 0, 3));
     }

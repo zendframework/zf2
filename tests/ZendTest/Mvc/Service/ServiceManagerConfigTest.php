@@ -150,11 +150,10 @@ class ServiceManagerConfigTest extends TestCase
      */
     public function testCanOverrideServiceManager()
     {
-        $test           = $this;
         $serviceManager = new ServiceManager(new ServiceManagerConfig(array(
             'factories' => array(
-                'ServiceManager' => function () use ($test) {
-                    return $test;
+                'ServiceManager' => function () {
+                    return $this;
                 }
             ),
         )));

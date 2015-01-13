@@ -131,9 +131,8 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
         $this->update->where($where);
         $this->assertSame($where, $this->update->where);
 
-        $test = $this;
-        $this->update->where(function ($what) use ($test, $where) {
-            $test->assertSame($where, $what);
+        $this->update->where(function ($what) use ($where) {
+            $this->assertSame($where, $what);
         });
 
         $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', 'Predicate cannot be null');
