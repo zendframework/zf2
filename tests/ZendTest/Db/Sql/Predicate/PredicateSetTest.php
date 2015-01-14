@@ -122,9 +122,8 @@ class PredicateSetTest extends TestCase
         $this->assertEquals('AND', $predicates[6][0]);
         $this->assertInstanceOf('Zend\Db\Sql\Predicate\IsNotNull', $predicates[6][1]);
 
-        $test = $this;
-        $predicateSet->addPredicates(function ($what) use ($test, $predicateSet) {
-            $test->assertSame($predicateSet, $what);
+        $predicateSet->addPredicates(function ($what) use ($predicateSet) {
+            $this->assertSame($predicateSet, $what);
         });
 
         $this->setExpectedException('Zend\Db\Sql\Exception\InvalidArgumentException', 'Predicate cannot be null');

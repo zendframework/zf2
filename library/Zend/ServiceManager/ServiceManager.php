@@ -605,12 +605,10 @@ class ServiceManager implements ServiceLocatorInterface
      */
     private function createDelegatorCallback($delegatorFactory, $rName, $cName, $creationCallback)
     {
-        $serviceManager  = $this;
-
-        return function () use ($serviceManager, $delegatorFactory, $rName, $cName, $creationCallback) {
+        return function () use ($delegatorFactory, $rName, $cName, $creationCallback) {
             return $delegatorFactory instanceof DelegatorFactoryInterface
-                ? $delegatorFactory->createDelegatorWithName($serviceManager, $cName, $rName, $creationCallback)
-                : $delegatorFactory($serviceManager, $cName, $rName, $creationCallback);
+                ? $delegatorFactory->createDelegatorWithName($this, $cName, $rName, $creationCallback)
+                : $delegatorFactory($this, $cName, $rName, $creationCallback);
         };
     }
 
@@ -1144,7 +1142,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     protected function createDelegatorFromFactory($canonicalName, $requestedName)
     {
-        $serviceManager     = $this;
+        $serviceManager = $this;
         $delegatorsCount    = count($this->delegators[$canonicalName]);
         $creationCallback   = function () use ($serviceManager, $requestedName, $canonicalName) {
             return $serviceManager->doCreate($requestedName, $canonicalName);

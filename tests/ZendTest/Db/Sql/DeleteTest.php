@@ -100,9 +100,8 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
         $this->delete->where($where);
         $this->assertSame($where, $this->delete->where);
 
-        $test = $this;
-        $this->delete->where(function ($what) use ($test, $where) {
-            $test->assertSame($where, $what);
+        $this->delete->where(function ($what) use ($where) {
+            $this->assertSame($where, $what);
         });
     }
 
