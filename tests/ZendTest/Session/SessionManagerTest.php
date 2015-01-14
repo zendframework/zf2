@@ -90,6 +90,19 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($saveHandler, $manager->getSaveHandler());
     }
 
+    /**
+     * @group 6366
+     */
+    public function testCanPassValidatorsToConstructor()
+    {
+        $validators = array(
+            'foo',
+            'bar',
+        );
+        $manager = new SessionManager(null, null, null, $validators);
+        $this->assertAttributeEquals($validators, 'validators', $manager);
+    }
+
     // Session-related functionality
 
     /**
