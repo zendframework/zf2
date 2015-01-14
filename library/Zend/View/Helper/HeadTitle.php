@@ -9,8 +9,8 @@
 
 namespace Zend\View\Helper;
 
-use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Zend\View\Exception;
 
 /**

@@ -9,8 +9,8 @@
 
 namespace ZendTest\Filter;
 
-use Zend\Filter\Inflector as InflectorFilter;
 use Zend\Filter\FilterPluginManager;
+use Zend\Filter\Inflector as InflectorFilter;
 
 /**
  * Test class for Zend\Filter\Inflector.

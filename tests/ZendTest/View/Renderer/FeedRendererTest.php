@@ -10,8 +10,8 @@
 namespace ZendTest\View\Renderer;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Model\FeedModel;
+use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\FeedRenderer;
 

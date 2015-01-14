@@ -11,8 +11,8 @@ namespace Zend\Cache\Pattern;
 
 use Traversable;
 use Zend\Cache\Exception;
-use Zend\Cache\StorageFactory;
 use Zend\Cache\Storage\StorageInterface as Storage;
+use Zend\Cache\StorageFactory;
 use Zend\Stdlib\AbstractOptions;
 
 class PatternOptions extends AbstractOptions

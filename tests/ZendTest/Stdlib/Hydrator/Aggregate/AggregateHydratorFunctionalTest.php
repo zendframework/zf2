@@ -11,6 +11,7 @@ namespace ZendTest\Stdlib\Hydrator\Aggregate;
 
 use ArrayObject;
 use PHPUnit_Framework_TestCase;
+use stdClass;
 use Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator;
 use Zend\Stdlib\Hydrator\Aggregate\ExtractEvent;
 use Zend\Stdlib\Hydrator\Aggregate\HydrateEvent;
@@ -18,7 +19,6 @@ use Zend\Stdlib\Hydrator\ArraySerializable;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 use ZendTest\Stdlib\TestAsset\AggregateObject;
-use stdClass;
 
 /**
  * Integration tests {@see \Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator}

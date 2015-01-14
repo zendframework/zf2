@@ -8,9 +8,9 @@
  */
 namespace ZendTest\Di\Definition;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Di\Definition\ClassDefinition;
 use Zend\Di\Di;
-use PHPUnit_Framework_TestCase as TestCase;
 
 class ClassDefinitionTest extends TestCase
 {

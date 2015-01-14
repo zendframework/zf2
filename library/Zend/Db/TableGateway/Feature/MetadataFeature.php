@@ -11,8 +11,8 @@ namespace Zend\Db\TableGateway\Feature;
 
 use Zend\Db\Metadata\Metadata;
 use Zend\Db\Metadata\MetadataInterface;
-use Zend\Db\TableGateway\Exception;
 use Zend\Db\Metadata\Object\TableObject;
+use Zend\Db\TableGateway\Exception;
 
 class MetadataFeature extends AbstractFeature
 {

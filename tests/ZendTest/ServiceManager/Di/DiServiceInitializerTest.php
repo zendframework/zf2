@@ -9,8 +9,8 @@
 
 namespace ZendTest\ServiceManager\Di;
 
-use Zend\ServiceManager\Di\DiServiceInitializer;
 use Zend\ServiceManager\Di\DiInstanceManagerProxy;
+use Zend\ServiceManager\Di\DiServiceInitializer;
 
 /**
  * @group Zend_ServiceManager

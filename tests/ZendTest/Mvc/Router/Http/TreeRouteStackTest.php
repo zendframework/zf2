@@ -9,14 +9,14 @@
 
 namespace ZendTest\Mvc\Router\Http;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use ArrayIterator;
-use Zend\Http\Request as Request;
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Http\PhpEnvironment\Request as PhpRequest;
+use Zend\Http\Request as Request;
+use Zend\Mvc\Router\Http\Hostname;
+use Zend\Mvc\Router\Http\TreeRouteStack;
 use Zend\Stdlib\Request as BaseRequest;
 use Zend\Uri\Http as HttpUri;
-use Zend\Mvc\Router\Http\TreeRouteStack;
-use Zend\Mvc\Router\Http\Hostname;
 use ZendTest\Mvc\Router\FactoryTester;
 
 class TreeRouteStackTest extends TestCase

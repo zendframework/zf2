@@ -10,8 +10,8 @@
 namespace ZendTest\InputFilter;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\InputFilter\Input;
 use Zend\Filter;
+use Zend\InputFilter\Input;
 use Zend\Validator;
 
 class InputTest extends TestCase

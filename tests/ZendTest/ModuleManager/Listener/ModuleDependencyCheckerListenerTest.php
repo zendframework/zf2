@@ -11,8 +11,8 @@ namespace ZendTest\ModuleManager\Listener;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\ModuleManager\Listener\ModuleDependencyCheckerListener;
-use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\ModuleManager;
 
 class ModuleDependencyCheckerListenerTest extends TestCase
 {

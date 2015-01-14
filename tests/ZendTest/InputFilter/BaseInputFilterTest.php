@@ -11,10 +11,10 @@ namespace ZendTest\InputFilter;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use Zend\InputFilter\Input;
-use Zend\InputFilter\FileInput;
-use Zend\InputFilter\BaseInputFilter as InputFilter;
 use Zend\Filter;
+use Zend\InputFilter\BaseInputFilter as InputFilter;
+use Zend\InputFilter\FileInput;
+use Zend\InputFilter\Input;
 use Zend\Validator;
 
 class BaseInputFilterTest extends TestCase

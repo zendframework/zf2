@@ -9,11 +9,11 @@
 
 namespace ZendTest\XmlRpc;
 
-use stdClass;
 use DateTime;
+use stdClass;
 use Zend\XmlRpc\AbstractValue;
-use Zend\XmlRpc\Value;
 use Zend\XmlRpc\Generator\GeneratorInterface as Generator;
+use Zend\XmlRpc\Value;
 
 /**
  * Test case for Value

@@ -10,8 +10,8 @@
 namespace ZendTest\I18n\Translator;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\I18n\Translator\TextDomain;
 use Zend\I18n\Translator\Plural\Rule as PluralRule;
+use Zend\I18n\Translator\TextDomain;
 
 class TextDomainTest extends TestCase
 {

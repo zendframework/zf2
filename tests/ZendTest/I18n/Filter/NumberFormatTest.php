@@ -9,9 +9,9 @@
 
 namespace ZendTest\I18n\Filter;
 
+use NumberFormatter;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\I18n\Filter\NumberFormat as NumberFormatFilter;
-use NumberFormatter;
 
 class NumberFormatTest extends TestCase
 {

@@ -9,8 +9,8 @@
 
 namespace Zend\Form\View\Helper;
 
-use Zend\Form\ElementInterface;
 use Zend\Form\Element\Checkbox as CheckboxElement;
+use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 
 class FormCheckbox extends FormInput

@@ -9,12 +9,12 @@
 
 namespace ZendTest\Mail\Storage;
 
-use Zend\Mime;
-use Zend\Mime\Exception as MimeException;
 use Zend\Mail\Exception as MailException;
 use Zend\Mail\Storage;
 use Zend\Mail\Storage\Exception;
 use Zend\Mail\Storage\Message;
+use Zend\Mime;
+use Zend\Mime\Exception as MimeException;
 
 /**
  * @group      Zend_Mail

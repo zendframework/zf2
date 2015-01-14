@@ -13,9 +13,9 @@ use Redis as RedisResource;
 use RedisException as RedisResourceException;
 use stdClass;
 use Traversable;
-use Zend\Cache\Storage\ClearByPrefixInterface;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
+use Zend\Cache\Storage\ClearByPrefixInterface;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 

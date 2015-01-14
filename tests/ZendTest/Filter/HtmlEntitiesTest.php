@@ -9,8 +9,8 @@
 
 namespace ZendTest\Filter;
 
-use Zend\Filter\HtmlEntities as HtmlEntitiesFilter;
 use Zend\Filter\Exception;
+use Zend\Filter\HtmlEntities as HtmlEntitiesFilter;
 use Zend\Stdlib\ErrorHandler;
 
 /**

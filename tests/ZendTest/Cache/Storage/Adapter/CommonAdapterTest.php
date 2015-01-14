@@ -10,14 +10,14 @@
 namespace ZendTest\Cache\Storage\Adapter;
 
 use Zend\Cache\Storage\AvailableSpaceCapableInterface;
-use Zend\Cache\Storage\IterableInterface;
-use Zend\Cache\Storage\IteratorInterface;
-use Zend\Cache\Storage\StorageInterface;
-use Zend\Cache\Storage\ClearExpiredInterface;
 use Zend\Cache\Storage\ClearByNamespaceInterface;
 use Zend\Cache\Storage\ClearByPrefixInterface;
+use Zend\Cache\Storage\ClearExpiredInterface;
 use Zend\Cache\Storage\FlushableInterface;
+use Zend\Cache\Storage\IterableInterface;
+use Zend\Cache\Storage\IteratorInterface;
 use Zend\Cache\Storage\OptimizableInterface;
+use Zend\Cache\Storage\StorageInterface;
 use Zend\Cache\Storage\TaggableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 use Zend\Stdlib\ErrorHandler;

@@ -10,8 +10,8 @@
 namespace Zend\Form\View\Helper;
 
 use Zend\Form\Element\Hidden;
-use Zend\Form\ElementInterface;
 use Zend\Form\Element\Select as SelectElement;
+use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 use Zend\Stdlib\ArrayUtils;
 

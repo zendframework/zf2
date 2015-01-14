@@ -9,10 +9,10 @@
 
 namespace ZendTest\Di\Definition;
 
-use Zend\Di\Definition\BuilderDefinition;
-use Zend\Di\Definition\Builder;
-use Zend\Config\Factory as ConfigFactory;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Config\Factory as ConfigFactory;
+use Zend\Di\Definition\Builder;
+use Zend\Di\Definition\BuilderDefinition;
 
 class BuilderDefinitionTest extends TestCase
 {

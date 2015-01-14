@@ -9,11 +9,11 @@
 
 namespace ZendTest\Navigation\Page;
 
+use Zend\Config;
+use Zend\Navigation;
 use Zend\Navigation\Page\AbstractPage;
 use Zend\Navigation\Page\Mvc;
 use Zend\Navigation\Page\Uri;
-use Zend\Navigation;
-use Zend\Config;
 
 /**
  * Tests the class Zend_Navigation_Page

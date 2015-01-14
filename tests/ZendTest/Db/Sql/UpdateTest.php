@@ -9,10 +9,10 @@
 
 namespace ZendTest\Db\Sql;
 
-use Zend\Db\Sql\Update;
-use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\TableIdentifier;
+use Zend\Db\Sql\Update;
+use Zend\Db\Sql\Where;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
 
 class UpdateTest extends \PHPUnit_Framework_TestCase

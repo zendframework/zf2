@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Sql;
 
-use Zend\Db\Sql;
 use Zend\Db\Adapter;
+use Zend\Db\Sql;
 use ZendTest\Db\TestAsset;
 
 /**

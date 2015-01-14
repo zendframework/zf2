@@ -9,9 +9,9 @@
 
 namespace ZendTest\Session\SaveHandler;
 
-use Zend\Session\SaveHandler\Cache;
-use Zend\Cache\StorageFactory as CacheFactory;
 use Zend\Cache\Storage\Adapter\AdapterInterface as CacheAdapter;
+use Zend\Cache\StorageFactory as CacheFactory;
+use Zend\Session\SaveHandler\Cache;
 
 /**
  * Unit testing for DbTable include all tests for

@@ -9,10 +9,10 @@
 
 namespace ZendTest\Barcode\Renderer;
 
-use ZendTest\Barcode\Object\TestAsset as TestAsset;
 use Zend\Barcode;
 use Zend\Barcode\Object;
 use Zend\Config;
+use ZendTest\Barcode\Object\TestAsset as TestAsset;
 
 abstract class TestCommon extends \PHPUnit_Framework_TestCase
 {

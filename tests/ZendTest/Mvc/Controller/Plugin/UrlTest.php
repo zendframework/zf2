@@ -11,8 +11,8 @@ namespace ZendTest\Mvc\Controller\Plugin;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Mvc\Controller\Plugin\Url as UrlPlugin;
-use Zend\Mvc\MvcEvent;
 use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\Http\Literal as LiteralRoute;
 use Zend\Mvc\Router\Http\Segment as SegmentRoute;
 use Zend\Mvc\Router\RouteMatch;

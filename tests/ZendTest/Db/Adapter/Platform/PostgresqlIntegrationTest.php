@@ -9,9 +9,9 @@
 
 namespace ZendTest\Db\Adapter\Platform;
 
-use Zend\Db\Adapter\Platform\Postgresql;
-use Zend\Db\Adapter\Driver\Pgsql;
 use Zend\Db\Adapter\Driver\Pdo;
+use Zend\Db\Adapter\Driver\Pgsql;
+use Zend\Db\Adapter\Platform\Postgresql;
 
 /**
  * @group integration

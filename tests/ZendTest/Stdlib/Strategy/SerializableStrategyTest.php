@@ -10,8 +10,8 @@
 namespace ZendTest\Stdlib\Strategy;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Stdlib\Hydrator\Strategy\SerializableStrategy;
 use Zend\Serializer\Serializer;
+use Zend\Stdlib\Hydrator\Strategy\SerializableStrategy;
 
 class SerializableStrategyTest extends TestCase
 {

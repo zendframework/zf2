@@ -10,10 +10,10 @@
 namespace Zend\Authentication\Adapter;
 
 use Zend\Authentication;
+use Zend\Crypt\Utils as CryptUtils;
 use Zend\Http\Request as HTTPRequest;
 use Zend\Http\Response as HTTPResponse;
 use Zend\Uri\UriFactory;
-use Zend\Crypt\Utils as CryptUtils;
 
 /**
  * HTTP Authentication Adapter

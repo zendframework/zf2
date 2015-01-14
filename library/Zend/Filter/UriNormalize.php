@@ -10,8 +10,8 @@
 namespace Zend\Filter;
 
 use Zend\Uri\Exception\ExceptionInterface as UriException;
-use Zend\Uri\UriFactory;
 use Zend\Uri\Uri;
+use Zend\Uri\UriFactory;
 
 class UriNormalize extends AbstractFilter
 {

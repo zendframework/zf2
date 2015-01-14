@@ -9,10 +9,10 @@
 
 namespace ZendTest\Log\Writer;
 
-use ZendTest\Log\TestAsset\MockFirePhp;
+use Zend\Log\Logger;
 use Zend\Log\Writer\FirePhp;
 use Zend\Log\Writer\FirePhp\FirePhpInterface;
-use Zend\Log\Logger;
+use ZendTest\Log\TestAsset\MockFirePhp;
 
 /**
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)

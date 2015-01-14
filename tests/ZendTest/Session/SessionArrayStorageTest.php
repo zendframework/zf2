@@ -9,9 +9,9 @@
 
 namespace ZendTest\Session;
 
-use Zend\Session\Storage\SessionArrayStorage;
-use Zend\Session\SessionManager;
 use Zend\Session\Container;
+use Zend\Session\SessionManager;
+use Zend\Session\Storage\SessionArrayStorage;
 
 /**
  * @group      Zend_Session

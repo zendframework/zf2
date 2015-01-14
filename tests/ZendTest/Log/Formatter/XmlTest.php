@@ -10,8 +10,8 @@
 namespace ZendTest\Log\Formatter;
 
 use DateTime;
-use ZendTest\Log\TestAsset\SerializableObject;
 use Zend\Log\Formatter\Xml as XmlFormatter;
+use ZendTest\Log\TestAsset\SerializableObject;
 
 /**
  * @group      Zend_Log

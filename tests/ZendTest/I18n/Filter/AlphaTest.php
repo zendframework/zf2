@@ -9,8 +9,8 @@
 
 namespace ZendTest\I18n\Filter;
 
-use Zend\I18n\Filter\Alpha as AlphaFilter;
 use Locale;
+use Zend\I18n\Filter\Alpha as AlphaFilter;
 
 /**
  * @group      Zend_Filter

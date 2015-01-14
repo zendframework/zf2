@@ -10,8 +10,8 @@
 namespace ZendTest\Crypt;
 
 use Zend\Crypt\BlockCipher;
-use Zend\Crypt\Symmetric\Mcrypt;
 use Zend\Crypt\Symmetric\Exception;
+use Zend\Crypt\Symmetric\Mcrypt;
 
 /**
  * @group      Zend_Crypt

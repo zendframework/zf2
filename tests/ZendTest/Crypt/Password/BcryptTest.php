@@ -9,8 +9,8 @@
 
 namespace ZendTest\Crypt\Password;
 
-use Zend\Crypt\Password\Bcrypt;
 use Zend\Config\Config;
+use Zend\Crypt\Password\Bcrypt;
 use Zend\Crypt\Password\Exception;
 
 /**

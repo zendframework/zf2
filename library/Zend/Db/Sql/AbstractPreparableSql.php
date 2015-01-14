@@ -9,9 +9,9 @@
 
 namespace Zend\Db\Sql;
 
-use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\ParameterContainer;
+use Zend\Db\Adapter\StatementContainerInterface;
 
 abstract class AbstractPreparableSql extends AbstractSql implements PreparableSqlInterface
 {

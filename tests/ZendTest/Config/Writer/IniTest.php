@@ -9,9 +9,9 @@
 
 namespace ZendTest\Config\Writer;
 
-use Zend\Config\Writer\Ini as IniWriter;
 use Zend\Config\Config;
 use Zend\Config\Reader\Ini as IniReader;
+use Zend\Config\Writer\Ini as IniWriter;
 
 /**
  * @group      Zend_Config

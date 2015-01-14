@@ -10,11 +10,11 @@
 namespace Zend\Log\Writer;
 
 use Traversable;
-use Zend\Log\Writer\ChromePhp\ChromePhpBridge;
-use Zend\Log\Writer\ChromePhp\ChromePhpInterface;
+use Zend\Log\Exception;
 use Zend\Log\Formatter\ChromePhp as ChromePhpFormatter;
 use Zend\Log\Logger;
-use Zend\Log\Exception;
+use Zend\Log\Writer\ChromePhp\ChromePhpBridge;
+use Zend\Log\Writer\ChromePhp\ChromePhpInterface;
 
 class ChromePhp extends AbstractWriter
 {

@@ -10,9 +10,9 @@
 namespace ZendTest\Crypt;
 
 use Zend\Crypt\FileCipher;
-use Zend\Crypt\Symmetric\Mcrypt;
-use Zend\Crypt\Symmetric\Exception;
 use Zend\Crypt\Hmac;
+use Zend\Crypt\Symmetric\Exception;
+use Zend\Crypt\Symmetric\Mcrypt;
 use Zend\Math\Rand;
 
 /**

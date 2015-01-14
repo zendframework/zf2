@@ -9,9 +9,9 @@
 
 namespace ZendTest\Feed\Writer\Renderer\Entry;
 
-use Zend\Feed\Writer\Renderer;
-use Zend\Feed\Writer;
 use Zend\Feed\Reader;
+use Zend\Feed\Writer;
+use Zend\Feed\Writer\Renderer;
 
 /**
  * @group      Zend_Feed

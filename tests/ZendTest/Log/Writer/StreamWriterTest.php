@@ -9,8 +9,8 @@
 
 namespace ZendTest\Log\Writer;
 
-use Zend\Log\Writer\Stream as StreamWriter;
 use Zend\Log\Formatter\Simple as SimpleFormatter;
+use Zend\Log\Writer\Stream as StreamWriter;
 
 /**
  * @group      Zend_Log

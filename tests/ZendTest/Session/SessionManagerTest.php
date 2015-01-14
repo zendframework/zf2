@@ -9,8 +9,8 @@
 
 namespace ZendTest\Session;
 
-use Zend\Session\SessionManager;
 use Zend\Session;
+use Zend\Session\SessionManager;
 
 /**
  * @group      Zend_Session

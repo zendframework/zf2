@@ -9,13 +9,13 @@
 
 namespace ZendTest\Db\Sql;
 
+use Zend\Db\Adapter\Driver\DriverInterface;
+use Zend\Db\Adapter\ParameterContainer;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\ExpressionInterface;
-use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Sql\Predicate;
 use Zend\Db\Sql\Select;
 use ZendTest\Db\TestAsset\TrustingSql92Platform;
-use Zend\Db\Adapter\ParameterContainer;
 
 class AbstractSqlTest extends \PHPUnit_Framework_TestCase
 {

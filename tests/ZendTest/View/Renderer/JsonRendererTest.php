@@ -12,9 +12,9 @@ namespace ZendTest\View\Renderer;
 use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use Zend\View\Renderer\JsonRenderer;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use Zend\View\Renderer\JsonRenderer;
 
 /**
  * @group      Zend_View

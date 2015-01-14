@@ -9,12 +9,12 @@
 
 namespace ZendTest\Feed\PubSubHubbub\Subscriber;
 
+use ArrayObject;
 use DateInterval;
 use DateTime;
 use Zend\Feed\PubSubHubbub\HttpResponse;
 use Zend\Feed\PubSubHubbub\Model;
 use Zend\Feed\PubSubHubbub\Subscriber\Callback as CallbackSubscriber;
-use ArrayObject;
 
 /**
  * @group      Zend_Feed

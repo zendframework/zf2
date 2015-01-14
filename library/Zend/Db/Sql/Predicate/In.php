@@ -9,9 +9,9 @@
 
 namespace Zend\Db\Sql\Predicate;
 
+use Zend\Db\Sql\AbstractExpression;
 use Zend\Db\Sql\Exception;
 use Zend\Db\Sql\Select;
-use Zend\Db\Sql\AbstractExpression;
 
 class In extends AbstractExpression implements PredicateInterface
 {

@@ -10,8 +10,8 @@
 namespace ZendTest\Stdlib\Guard;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use ZendTest\Stdlib\TestAsset\GuardedObject;
 use Zend\Stdlib\ArrayObject;
+use ZendTest\Stdlib\TestAsset\GuardedObject;
 
 /**
  * @requires PHP 5.4

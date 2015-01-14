@@ -14,8 +14,8 @@ use Zend\Loader\AutoloaderFactory;
 use Zend\Loader\ModuleAutoloader;
 use Zend\ModuleManager\Listener\InitTrigger;
 use Zend\ModuleManager\Listener\ModuleResolverListener;
-use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\ModuleManager;
 
 class InitTriggerTest extends TestCase
 {

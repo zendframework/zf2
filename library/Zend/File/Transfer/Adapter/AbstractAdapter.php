@@ -14,8 +14,8 @@ use Zend\File\Transfer;
 use Zend\File\Transfer\Exception;
 use Zend\Filter;
 use Zend\Filter\Exception as FilterException;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Zend\Stdlib\ErrorHandler;
 use Zend\Validator;
 

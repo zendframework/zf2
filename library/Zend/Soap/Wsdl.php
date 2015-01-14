@@ -9,10 +9,10 @@
 
 namespace Zend\Soap;
 
-use DOMNode;
 use DOMDocument;
 use DOMDocumentFragment;
 use DOMElement;
+use DOMNode;
 use DOMXPath;
 use Zend\Soap\Wsdl\ComplexTypeStrategy\ComplexTypeStrategyInterface as ComplexTypeStrategy;
 use Zend\Uri\Uri;

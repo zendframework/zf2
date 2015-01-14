@@ -10,12 +10,12 @@
 namespace ZendTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\Controller\Plugin\FlashMessenger as PluginFlashMessenger;
+use Zend\Mvc\Controller\PluginManager;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
 use Zend\View\Helper\FlashMessenger;
+use Zend\View\HelperPluginManager;
 use ZendTest\Session\TestAsset\TestManager as SessionManager;
 
 /**

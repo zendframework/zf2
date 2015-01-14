@@ -13,13 +13,13 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
 use Zend\Http\Request as HttpRequest;
 use Zend\Http\Response as HttpResponse;
-use Zend\View\Model\ModelInterface as Model;
+use Zend\Stdlib\Parameters;
 use Zend\View\Model\JsonModel;
+use Zend\View\Model\ModelInterface as Model;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\JsonRenderer;
 use Zend\View\Strategy\JsonStrategy;
 use Zend\View\ViewEvent;
-use Zend\Stdlib\Parameters;
 
 class JsonStrategyTest extends TestCase
 {

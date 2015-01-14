@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Adapter\Platform;
 
-use Zend\Db\Adapter\Platform\Sqlite;
 use Zend\Db\Adapter\Driver\Pdo;
+use Zend\Db\Adapter\Platform\Sqlite;
 
 /**
  * @group integration

@@ -9,10 +9,10 @@
 
 namespace Zend\Mvc\Controller\Plugin\Service;
 
+use Zend\Mvc\Controller\Plugin\Forward;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Mvc\Controller\Plugin\Forward;
 
 class ForwardFactory implements FactoryInterface
 {

@@ -9,10 +9,10 @@
 
 namespace Zend\View\Helper;
 
+use Zend\I18n\View\Helper\AbstractTranslatorHelper;
 use Zend\Mvc\Controller\Plugin\FlashMessenger as PluginFlashMessenger;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\I18n\View\Helper\AbstractTranslatorHelper;
 
 /**
  * Helper to proxy the plugin flash messenger

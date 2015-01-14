@@ -9,11 +9,11 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper\Url as UrlHelper;
-use Zend\Mvc\MvcEvent;
 use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\SimpleRouteStack as Router;
+use Zend\View\Helper\Url as UrlHelper;
 
 /**
  * Zend\View\Helper\Url Test

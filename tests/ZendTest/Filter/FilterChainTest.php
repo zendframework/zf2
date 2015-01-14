@@ -9,8 +9,8 @@
 
 namespace ZendTest\Filter;
 
-use Zend\Filter\FilterChain;
 use Zend\Filter\AbstractFilter;
+use Zend\Filter\FilterChain;
 
 /**
  * @group      Zend_Filter

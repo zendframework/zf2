@@ -10,8 +10,8 @@
 namespace ZendTest\Log\Formatter;
 
 use DateTime;
-use Zend\Log\Formatter\Simple;
 use RuntimeException;
+use Zend\Log\Formatter\Simple;
 
 /**
  * @group      Zend_Log

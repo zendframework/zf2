@@ -9,6 +9,7 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
+use ArrayObject;
 use Exception as BaseException;
 use GlobIterator;
 use stdClass;
@@ -25,7 +26,6 @@ use Zend\Cache\Storage\OptimizableInterface;
 use Zend\Cache\Storage\TaggableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 use Zend\Stdlib\ErrorHandler;
-use ArrayObject;
 
 class Filesystem extends AbstractAdapter implements
     AvailableSpaceCapableInterface,

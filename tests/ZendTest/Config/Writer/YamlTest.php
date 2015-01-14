@@ -9,9 +9,9 @@
 
 namespace ZendTest\Config\Writer;
 
-use Zend\Config\Writer\Yaml as YamlWriter;
 use Zend\Config\Config;
 use Zend\Config\Reader\Yaml as YamlReader;
+use Zend\Config\Writer\Yaml as YamlWriter;
 
 /**
  * @group      Zend_Config

@@ -12,8 +12,8 @@ namespace Zend\Mvc\View\Http;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface as Events;
 use Zend\Filter\Word\CamelCaseToDash as CamelCaseToDashFilter;
-use Zend\Mvc\MvcEvent;
 use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ModelInterface as ViewModel;
 
 class InjectTemplateListener extends AbstractListenerAggregate

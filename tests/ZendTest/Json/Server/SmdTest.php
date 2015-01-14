@@ -9,11 +9,11 @@
 
 namespace ZendTest\Json\Server;
 
-use Zend\Json\Server\Smd;
+use Zend\Json;
 use Zend\Json\Server;
 use Zend\Json\Server\Exception\InvalidArgumentException;
 use Zend\Json\Server\Exception\RuntimeException;
-use Zend\Json;
+use Zend\Json\Server\Smd;
 
 /**
  * Test class for Zend\JSON\Server\Smd

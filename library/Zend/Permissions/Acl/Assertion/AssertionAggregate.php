@@ -9,10 +9,10 @@
 namespace Zend\Permissions\Acl\Assertion;
 
 use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Role\RoleInterface;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Zend\Permissions\Acl\Exception\InvalidArgumentException;
 use Zend\Permissions\Acl\Exception\RuntimeException;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Zend\Permissions\Acl\Role\RoleInterface;
 
 class AssertionAggregate implements AssertionInterface
 {

@@ -8,8 +8,8 @@
  */
 namespace Zend\Test\PHPUnit\Controller;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_ExpectationFailedException;
+use PHPUnit_Framework_TestCase;
 use Zend\Console\Console;
 use Zend\EventManager\StaticEventManager;
 use Zend\Http\Request as HttpRequest;

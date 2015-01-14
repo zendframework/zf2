@@ -9,8 +9,8 @@
 
 namespace Zend\Form\View\Helper;
 
-use Zend\Form\ElementInterface;
 use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement;
+use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 use Zend\Form\LabelAwareInterface;
 

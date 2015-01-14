@@ -9,8 +9,8 @@
 
 namespace ZendTest\Filter;
 
-use Zend\Filter\DateTimeFormatter;
 use DateTime;
+use Zend\Filter\DateTimeFormatter;
 
 /**
  * @group      Zend_Filter

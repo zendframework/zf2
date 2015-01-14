@@ -12,11 +12,11 @@ namespace ZendTest\ServiceManager;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Di\Di;
 use Zend\Mvc\Service\DiFactory;
+use Zend\ServiceManager\Config;
 use Zend\ServiceManager\Di\DiAbstractServiceFactory;
 use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\Config;
 use ZendTest\ServiceManager\TestAsset\FooCounterAbstractFactory;
 use ZendTest\ServiceManager\TestAsset\MockSelfReturningDelegatorFactory;
 

@@ -12,8 +12,8 @@ namespace Zend\Authentication\Validator;
 use Traversable;
 use Zend\Authentication\Adapter\ValidatableAdapterInterface;
 use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Result;
 use Zend\Authentication\Exception;
+use Zend\Authentication\Result;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Validator\AbstractValidator;
 

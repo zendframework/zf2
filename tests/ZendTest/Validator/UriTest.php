@@ -9,8 +9,8 @@
 
 namespace ZendTest\Validator;
 
-use Zend\Validator;
 use Zend\Uri\Exception\InvalidArgumentException;
+use Zend\Validator;
 
 /**
  * @group      Zend_Validator

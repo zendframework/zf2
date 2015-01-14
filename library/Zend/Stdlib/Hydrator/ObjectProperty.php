@@ -9,9 +9,9 @@
 
 namespace Zend\Stdlib\Hydrator;
 
-use Zend\Stdlib\Exception;
 use ReflectionClass;
 use ReflectionProperty;
+use Zend\Stdlib\Exception;
 
 class ObjectProperty extends AbstractHydrator
 {

@@ -10,8 +10,8 @@
 namespace ZendTest\Navigation\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\ServiceManager\ServiceManager;
 use Zend\Navigation\View\HelperConfig;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests the class Zend_Navigation_Page_Mvc

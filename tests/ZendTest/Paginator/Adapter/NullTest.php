@@ -9,8 +9,8 @@
 
 namespace ZendTest\Paginator\Adapter;
 
-use Zend\Paginator\Adapter;
 use Zend\Paginator;
+use Zend\Paginator\Adapter;
 
 /**
  * @group      Zend_Paginator

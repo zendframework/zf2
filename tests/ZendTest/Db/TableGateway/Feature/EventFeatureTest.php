@@ -10,8 +10,8 @@
 namespace ZendTest\Db\TableGateway\Feature;
 
 use PHPUnit_Framework_TestCase;
-use Zend\EventManager\EventManager;
 use Zend\Db\TableGateway\Feature\EventFeature;
+use Zend\EventManager\EventManager;
 
 class EventFeatureTest extends PHPUnit_Framework_TestCase
 {

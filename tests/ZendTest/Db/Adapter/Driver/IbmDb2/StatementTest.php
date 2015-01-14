@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Adapter\Driver\IbmDb2;
 
-use Zend\Db\Adapter\Driver\IbmDb2\Statement;
 use Zend\Db\Adapter\Driver\IbmDb2\IbmDb2;
+use Zend\Db\Adapter\Driver\IbmDb2\Statement;
 use Zend\Db\Adapter\ParameterContainer;
 
 class StatementTest extends \PHPUnit_Framework_TestCase

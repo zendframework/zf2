@@ -9,10 +9,10 @@
 
 namespace ZendTest\Di;
 
-use Zend\Di\DefinitionList;
-use Zend\Di\Definition\ClassDefinition;
-use Zend\Di\Definition\BuilderDefinition;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Di\Definition\BuilderDefinition;
+use Zend\Di\Definition\ClassDefinition;
+use Zend\Di\DefinitionList;
 
 class DefinitionListTest extends TestCase
 {

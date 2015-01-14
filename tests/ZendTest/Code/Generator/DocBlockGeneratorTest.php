@@ -9,8 +9,8 @@
 
 namespace ZendTest\Code\Generator;
 
-use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\DocBlock\Tag;
+use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Reflection\DocBlockReflection;
 
 /**

@@ -9,13 +9,13 @@
 
 namespace Zend\Soap;
 
-use SoapServer;
-use SoapFault;
-use Traversable;
 use DOMDocument;
 use DOMNode;
-use SimpleXMLElement;
 use ReflectionClass;
+use SimpleXMLElement;
+use SoapFault;
+use SoapServer;
+use Traversable;
 use Zend\Server\Server as ZendServerServer;
 use Zend\Stdlib\ArrayUtils;
 

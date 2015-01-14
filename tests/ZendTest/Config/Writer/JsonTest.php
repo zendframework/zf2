@@ -9,9 +9,9 @@
 
 namespace ZendTest\Config\Writer;
 
-use Zend\Config\Writer\Json as JsonWriter;
 use Zend\Config\Config;
 use Zend\Config\Reader\Json as JsonReader;
+use Zend\Config\Writer\Json as JsonWriter;
 
 /**
  * @group      Zend_Config

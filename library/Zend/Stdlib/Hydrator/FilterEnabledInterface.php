@@ -9,8 +9,8 @@
 
 namespace Zend\Stdlib\Hydrator;
 
-use Zend\Stdlib\Hydrator\Filter\FilterInterface;
 use Zend\Stdlib\Hydrator\Filter\FilterComposite;
+use Zend\Stdlib\Hydrator\Filter\FilterInterface;
 use Zend\Stdlib\Hydrator\Filter\FilterProviderInterface;
 
 interface FilterEnabledInterface extends FilterProviderInterface

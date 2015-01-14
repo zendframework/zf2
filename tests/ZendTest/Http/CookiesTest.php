@@ -9,10 +9,10 @@
 
 namespace ZendTest\Http;
 
-use Zend\Http\Header\SetCookie;
-use Zend\Http\Response;
-use Zend\Http\Headers;
 use Zend\Http\Cookies;
+use Zend\Http\Header\SetCookie;
+use Zend\Http\Headers;
+use Zend\Http\Response;
 
 class CookiesTest extends \PHPUnit_Framework_TestCase
 {

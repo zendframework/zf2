@@ -11,13 +11,13 @@ namespace ZendTest\Form;
 
 use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\Service\FormElementManagerFactory;
-use Zend\Mvc\Service\DiFactory;
+use Zend\Form\FormElementManager;
 use Zend\Mvc\Service\DiAbstractServiceFactoryFactory;
+use Zend\Mvc\Service\DiFactory;
 use Zend\Mvc\Service\DiServiceInitializerFactory;
+use Zend\Mvc\Service\FormElementManagerFactory;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Form\FormElementManager;
 use Zend\Session\Container as SessionContainer;
 use Zend\Validator\Csrf;
 

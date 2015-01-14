@@ -11,8 +11,8 @@ namespace ZendTest\Log\Formatter;
 
 use DateTime;
 use Zend\Log\Formatter\ErrorHandler;
-use ZendTest\Log\TestAsset\StringObject;
 use ZendTest\Log\TestAsset\NotStringObject;
+use ZendTest\Log\TestAsset\StringObject;
 
 /**
  * @group      Zend_Log

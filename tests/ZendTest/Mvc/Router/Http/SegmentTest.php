@@ -13,8 +13,8 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Http\Request;
 use Zend\I18n\Translator\TextDomain;
 use Zend\I18n\Translator\Translator;
-use Zend\Stdlib\Request as BaseRequest;
 use Zend\Mvc\Router\Http\Segment;
+use Zend\Stdlib\Request as BaseRequest;
 use ZendTest\I18n\Translator\TestAsset\Loader as TestLoader;
 use ZendTest\Mvc\Router\FactoryTester;
 

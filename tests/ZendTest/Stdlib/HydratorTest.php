@@ -9,25 +9,25 @@
 
 namespace ZendTest\Stdlib;
 
-use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\Stdlib\Hydrator\Reflection;
-use Zend\Stdlib\Hydrator\ObjectProperty;
 use Zend\Stdlib\Hydrator\ArraySerializable;
+use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Stdlib\Hydrator\Filter\FilterComposite;
-use ZendTest\Stdlib\TestAsset\ClassMethodsCamelCase;
-use ZendTest\Stdlib\TestAsset\ClassMethodsTitleCase;
-use ZendTest\Stdlib\TestAsset\ClassMethodsFilterProviderInterface;
-use ZendTest\Stdlib\TestAsset\ClassMethodsMagicMethodSetter;
-use ZendTest\Stdlib\TestAsset\ClassMethodsProtectedSetter;
-use ZendTest\Stdlib\TestAsset\ClassMethodsUnderscore;
-use ZendTest\Stdlib\TestAsset\ClassMethodsCamelCaseMissing;
-use ZendTest\Stdlib\TestAsset\ClassMethodsInvalidParameter;
-use ZendTest\Stdlib\TestAsset\Reflection as ReflectionAsset;
-use ZendTest\Stdlib\TestAsset\ReflectionFilter;
-use ZendTest\Stdlib\TestAsset\ObjectProperty as ObjectPropertyAsset;
-use ZendTest\Stdlib\TestAsset\ArraySerializable as ArraySerializableAsset;
+use Zend\Stdlib\Hydrator\ObjectProperty;
+use Zend\Stdlib\Hydrator\Reflection;
 use Zend\Stdlib\Hydrator\Strategy\DefaultStrategy;
 use Zend\Stdlib\Hydrator\Strategy\SerializableStrategy;
+use ZendTest\Stdlib\TestAsset\ArraySerializable as ArraySerializableAsset;
+use ZendTest\Stdlib\TestAsset\ClassMethodsCamelCase;
+use ZendTest\Stdlib\TestAsset\ClassMethodsCamelCaseMissing;
+use ZendTest\Stdlib\TestAsset\ClassMethodsFilterProviderInterface;
+use ZendTest\Stdlib\TestAsset\ClassMethodsInvalidParameter;
+use ZendTest\Stdlib\TestAsset\ClassMethodsMagicMethodSetter;
+use ZendTest\Stdlib\TestAsset\ClassMethodsProtectedSetter;
+use ZendTest\Stdlib\TestAsset\ClassMethodsTitleCase;
+use ZendTest\Stdlib\TestAsset\ClassMethodsUnderscore;
+use ZendTest\Stdlib\TestAsset\ObjectProperty as ObjectPropertyAsset;
+use ZendTest\Stdlib\TestAsset\Reflection as ReflectionAsset;
+use ZendTest\Stdlib\TestAsset\ReflectionFilter;
 
 
 /**

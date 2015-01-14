@@ -9,8 +9,8 @@
 
 namespace ZendTest\Json\Server;
 
-use Zend\Json\Server;
 use Zend\Json;
+use Zend\Json\Server;
 
 /**
  * Test class for Zend\JSON\Server\Response

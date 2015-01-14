@@ -9,9 +9,9 @@
 
 namespace ZendTest\Db\Adapter\Platform;
 
-use Zend\Db\Adapter\Platform\Mysql;
 use Zend\Db\Adapter\Driver\Mysqli;
 use Zend\Db\Adapter\Driver\Pdo;
+use Zend\Db\Adapter\Platform\Mysql;
 
 /**
  * @group integration

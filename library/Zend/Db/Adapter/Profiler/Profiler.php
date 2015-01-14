@@ -9,8 +9,8 @@
 
 namespace Zend\Db\Adapter\Profiler;
 
-use Zend\Db\Adapter\StatementContainerInterface;
 use Zend\Db\Adapter\Exception;
+use Zend\Db\Adapter\StatementContainerInterface;
 
 class Profiler implements ProfilerInterface
 {

@@ -9,10 +9,10 @@
 
 namespace ZendTest\Crypt\Symmetric;
 
+use Zend\Config\Config;
 use Zend\Crypt\Symmetric\Exception;
 use Zend\Crypt\Symmetric\Mcrypt;
 use Zend\Crypt\Symmetric\Padding\PKCS7;
-use Zend\Config\Config;
 
 /**
  * @group      Zend_Crypt

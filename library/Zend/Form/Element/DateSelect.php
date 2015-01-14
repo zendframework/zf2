@@ -10,11 +10,11 @@
 namespace Zend\Form\Element;
 
 use DateTime as PhpDateTime;
+use Exception;
 use Zend\Form\Exception\InvalidArgumentException;
 use Zend\Form\FormInterface;
-use Zend\Validator\ValidatorInterface;
 use Zend\Validator\Date as DateValidator;
-use Exception;
+use Zend\Validator\ValidatorInterface;
 
 class DateSelect extends MonthSelect
 {

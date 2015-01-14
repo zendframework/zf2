@@ -9,9 +9,9 @@
 
 namespace ZendTest\Feed\PubSubHubbub;
 
-use Zend\Feed\PubSubHubbub\Subscriber;
-use Zend\Feed\PubSubHubbub\PubSubHubbub;
 use Zend\Feed\PubSubHubbub\Model\Subscription;
+use Zend\Feed\PubSubHubbub\PubSubHubbub;
+use Zend\Feed\PubSubHubbub\Subscriber;
 use Zend\Http\Client as HttpClient;
 
 /**

@@ -9,9 +9,9 @@
 
 namespace ZendTest\Config\Writer;
 
-use Zend\Config\Writer\Xml as XmlWriter;
 use Zend\Config\Config;
 use Zend\Config\Reader\Xml as XmlReader;
+use Zend\Config\Writer\Xml as XmlWriter;
 
 /**
  * @group      Zend_Config

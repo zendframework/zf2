@@ -9,9 +9,9 @@
 
 namespace ZendTest\I18n\Validator;
 
-use Zend\I18n\Validator\Float as FloatValidator;
 use Locale;
 use NumberFormatter;
+use Zend\I18n\Validator\Float as FloatValidator;
 
 /**
  * @group      Zend_Validator

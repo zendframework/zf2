@@ -9,9 +9,9 @@
 
 namespace ZendTest\Math\BigInteger;
 
-use Zend\Math\BigInteger\BigInteger as BigInt;
 use Zend\Math\BigInteger\Adapter;
 use Zend\Math\BigInteger\Adapter\AdapterInterface;
+use Zend\Math\BigInteger\BigInteger as BigInt;
 
 /**
  * @group      Zend_Math

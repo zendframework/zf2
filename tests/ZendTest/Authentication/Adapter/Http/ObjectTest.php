@@ -9,9 +9,9 @@
 
 namespace ZendTest\Authentication\Adapter\Http;
 
-use Zend\Authentication\Adapter\Http;
-use Zend\Authentication\Adapter;
 use Zend\Authentication;
+use Zend\Authentication\Adapter;
+use Zend\Authentication\Adapter\Http;
 use Zend\Http\Headers;
 use Zend\Http\Request;
 use Zend\Http\Response;

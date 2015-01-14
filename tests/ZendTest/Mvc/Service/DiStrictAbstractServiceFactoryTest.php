@@ -9,10 +9,10 @@
 
 namespace ZendTest\Mvc\Service;
 
+use Zend\Di\Config;
+use Zend\Di\Di;
 use Zend\Mvc\Service\DiStrictAbstractServiceFactory;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Di\Di;
-use Zend\Di\Config;
 
 class DiStrictAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
 {

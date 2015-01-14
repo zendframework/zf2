@@ -9,15 +9,15 @@
 
 namespace ZendTest\Http;
 
-use Zend\Uri\Http;
 use Zend\Http\Client;
+use Zend\Http\Client\Adapter\Test;
 use Zend\Http\Cookies;
 use Zend\Http\Exception;
 use Zend\Http\Header\AcceptEncoding;
 use Zend\Http\Header\SetCookie;
 use Zend\Http\Request;
 use Zend\Http\Response;
-use Zend\Http\Client\Adapter\Test;
+use Zend\Uri\Http;
 use ZendTest\Http\TestAsset\ExtendedClient;
 
 

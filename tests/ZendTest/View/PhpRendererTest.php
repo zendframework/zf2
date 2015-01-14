@@ -9,12 +9,12 @@
 
 namespace ZendTest\View;
 
-use Zend\View\Renderer\PhpRenderer;
+use Zend\Filter\FilterChain;
 use Zend\View\Model\ViewModel;
+use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
-use Zend\Filter\FilterChain;
 
 /**
  * @group      Zend_View

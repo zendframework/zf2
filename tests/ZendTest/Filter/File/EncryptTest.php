@@ -8,8 +8,8 @@
  */
 namespace ZendTest\Filter\File;
 
-use Zend\Filter\File\Encrypt as FileEncrypt;
 use Zend\Filter\File\Decrypt as FileDecrypt;
+use Zend\Filter\File\Encrypt as FileEncrypt;
 
 /**
  * @group Zend_Filter

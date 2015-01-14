@@ -11,8 +11,8 @@ namespace ZendTest\Mvc\Router\Http;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Http\Request as Request;
-use Zend\Mvc\Router\RoutePluginManager;
 use Zend\Mvc\Router\Http\Chain;
+use Zend\Mvc\Router\RoutePluginManager;
 use ZendTest\Mvc\Router\FactoryTester;
 
 class ChainTest extends TestCase

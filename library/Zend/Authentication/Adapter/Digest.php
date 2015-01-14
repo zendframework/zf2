@@ -10,8 +10,8 @@
 namespace Zend\Authentication\Adapter;
 
 use Zend\Authentication\Result as AuthenticationResult;
-use Zend\Stdlib\ErrorHandler;
 use Zend\Crypt\Utils as CryptUtils;
+use Zend\Stdlib\ErrorHandler;
 
 class Digest extends AbstractAdapter
 {

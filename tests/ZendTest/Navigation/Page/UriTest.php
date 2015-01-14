@@ -9,9 +9,9 @@
 
 namespace ZendTest\Navigation\Page;
 
-use Zend\Navigation\Page;
-use Zend\Navigation;
 use Zend\Http\Request;
+use Zend\Navigation;
+use Zend\Navigation\Page;
 
 /**
  * Tests the class Zend_Navigation_Page_Uri

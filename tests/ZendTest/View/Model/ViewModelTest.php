@@ -10,8 +10,8 @@
 namespace ZendTest\View\Model;
 
 use ArrayObject;
-use stdClass;
 use PHPUnit_Framework_TestCase as TestCase;
+use stdClass;
 use Zend\View\Model\ViewModel;
 use Zend\View\Variables as ViewVariables;
 use ZendTest\View\Model\TestAsset\Variable;

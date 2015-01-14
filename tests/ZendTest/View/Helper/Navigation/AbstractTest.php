@@ -9,15 +9,15 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
-use Zend\Navigation\Navigation;
 use Zend\Config\Factory as ConfigFactory;
+use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\Navigation\Navigation;
 use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\Permissions\Acl\Resource\GenericResource;
+use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\ServiceManager\ServiceManager;
-use Zend\I18n\Translator\Translator;
 use Zend\View\Renderer\PhpRenderer;
 use ZendTest\View\Helper\TestAsset;
 

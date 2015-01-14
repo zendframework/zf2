@@ -9,9 +9,9 @@
 
 namespace ZendTest\Loader;
 
-use Zend\Loader\StandardAutoloader;
-use Zend\Loader\Exception\InvalidArgumentException;
 use ReflectionClass;
+use Zend\Loader\Exception\InvalidArgumentException;
+use Zend\Loader\StandardAutoloader;
 
 /**
  * @group      Loader

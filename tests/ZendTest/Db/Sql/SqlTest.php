@@ -9,9 +9,9 @@
 
 namespace ZendTest\Db\Sql;
 
+use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;
 use ZendTest\Db\TestAsset;
-use Zend\Db\Adapter\Adapter;
 
 class SqlTest extends \PHPUnit_Framework_TestCase
 {

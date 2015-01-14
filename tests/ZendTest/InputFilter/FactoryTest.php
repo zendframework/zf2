@@ -14,9 +14,9 @@ use Zend\Filter;
 use Zend\InputFilter\Factory;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
-use Zend\Validator;
 use Zend\InputFilter\InputFilterPluginManager;
 use Zend\ServiceManager;
+use Zend\Validator;
 
 class FactoryTest extends TestCase
 {

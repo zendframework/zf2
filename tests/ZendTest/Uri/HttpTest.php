@@ -9,8 +9,8 @@
 
 namespace ZendTest\Uri;
 
-use Zend\Uri\Http as HttpUri;
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Uri\Http as HttpUri;
 
 /**
  * @group      Zend_Uri

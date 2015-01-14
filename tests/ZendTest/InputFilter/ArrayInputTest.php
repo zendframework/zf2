@@ -9,8 +9,8 @@
 
 namespace ZendTest\InputFilter;
 
-use Zend\InputFilter\ArrayInput;
 use Zend\Filter;
+use Zend\InputFilter\ArrayInput;
 use Zend\Validator;
 
 class ArrayInputTest extends InputTest

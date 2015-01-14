@@ -10,8 +10,8 @@
 namespace ZendTest\Permissions\Acl;
 
 use Zend\Permissions\Acl;
-use Zend\Permissions\Acl\Role;
 use Zend\Permissions\Acl\Resource;
+use Zend\Permissions\Acl\Role;
 
 /**
  * @group      Zend_Acl

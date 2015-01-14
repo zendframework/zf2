@@ -9,8 +9,8 @@
 
 namespace ZendTest\Db\Adapter\Driver\IbmDb2;
 
-use Zend\Db\Adapter\Driver\IbmDb2\IbmDb2;
 use Zend\Db\Adapter\Driver\IbmDb2\Connection;
+use Zend\Db\Adapter\Driver\IbmDb2\IbmDb2;
 
 class ConnectionTest extends \PHPUnit_Framework_TestCase
 {

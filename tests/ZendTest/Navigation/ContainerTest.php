@@ -9,9 +9,9 @@
 
 namespace ZendTest\Navigation;
 
+use Zend\Config;
 use Zend\Navigation;
 use Zend\Navigation\Page;
-use Zend\Config;
 
 /**
  * Tests the class Zend_Navigation_Container
