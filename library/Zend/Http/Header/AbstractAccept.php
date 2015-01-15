@@ -168,7 +168,7 @@ abstract class AbstractAccept implements HeaderInterface
 
             foreach ($paramsStrings as $param) {
                 // Prevents none well formated param
-                if(strstr($param, '=') === false) {
+                if (strstr($param, '=') === false) {
                     continue;
                 }
                 
