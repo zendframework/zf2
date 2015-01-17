@@ -9,6 +9,11 @@
 
 namespace Zend\ServiceManager\Exception;
 
-class CircularReferenceException extends RuntimeException
+use RuntimeException;
+
+/**
+ * InvalidFactoryException
+ */
+class InvalidFactoryException extends RuntimeException implements ExceptionInterface
 {
 }
