@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -24,7 +24,6 @@ require_once __DIR__ . '/TestAsset/FooFunc.php';
  */
 class ServerTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
@@ -331,19 +330,19 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams( array(
+                ->setParams(array(
                     'three' => 3,
                     'two'   => 2,
                     'one'   => 1
                 ))
-                ->setId( 'foo' );
+                ->setId('foo');
         $response = $this->server->handle();
         $result = $response->getResult();
 
-        $this->assertTrue( is_array( $result ) );
-        $this->assertEquals( 1, $result[0] );
-        $this->assertEquals( 2, $result[1] );
-        $this->assertEquals( 3, $result[2] );
+        $this->assertTrue(is_array($result));
+        $this->assertEquals(1, $result[0]);
+        $this->assertEquals(2, $result[1]);
+        $this->assertEquals(3, $result[2]);
     }
 
     public function testHandleShouldAllowNamedParamsInAnyOrder2()
@@ -352,19 +351,19 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams( array(
+                ->setParams(array(
                     'three' => 3,
                     'one'   => 1,
                     'two'   => 2,
-                ) )
-                ->setId( 'foo' );
+                ))
+                ->setId('foo');
         $response = $this->server->handle();
         $result = $response->getResult();
 
-        $this->assertTrue( is_array( $result ) );
-        $this->assertEquals( 1, $result[0] );
-        $this->assertEquals( 2, $result[1] );
-        $this->assertEquals( 3, $result[2] );
+        $this->assertTrue(is_array($result));
+        $this->assertEquals(1, $result[0]);
+        $this->assertEquals(2, $result[1]);
+        $this->assertEquals(3, $result[2]);
     }
 
     public function testHandleValidWithoutRequiredParamShouldReturnError()
@@ -373,11 +372,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams( array(
+                ->setParams(array(
                     'three' => 3,
                     'two'   => 2,
-                 ) )
-                ->setId( 'foo' );
+                 ))
+                ->setId('foo');
         $response = $this->server->handle();
 
         $this->assertTrue($response instanceof Response);
@@ -492,7 +491,6 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $response = $this->server->getResponse();
         $this->assertEquals($response->getResult(), $decoded['result']);
         $this->assertEquals($response->getId(), $decoded['id']);
-
     }
 
     /**
@@ -504,18 +502,18 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams( array(
+                ->setParams(array(
                     'two'   => 2,
                     'one'   => 1,
-                ) )
-                ->setId( 'foo' );
+                ))
+                ->setId('foo');
         $response = $this->server->handle();
         $result = $response->getResult();
 
-        $this->assertTrue( is_array( $result ) );
-        $this->assertEquals( 1, $result[0] );
-        $this->assertEquals( 2, $result[1] );
-        $this->assertEquals( null, $result[2] );
+        $this->assertTrue(is_array($result));
+        $this->assertEquals(1, $result[0]);
+        $this->assertEquals(2, $result[1]);
+        $this->assertEquals(null, $result[2]);
     }
 
     /**
@@ -527,17 +525,17 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams( array(
+                ->setParams(array(
                     'three' => 3,
                     'one'   => 1,
-                ) )
-                ->setId( 'foo' );
+                ))
+                ->setId('foo');
         $response = $this->server->handle();
         $result = $response->getResult();
 
-        $this->assertTrue( is_array( $result ) );
-        $this->assertEquals( 1, $result[0] );
-        $this->assertEquals( 'two', $result[1] );
-        $this->assertEquals( 3, $result[2] );
+        $this->assertTrue(is_array($result));
+        $this->assertEquals(1, $result[0]);
+        $this->assertEquals('two', $result[1]);
+        $this->assertEquals(3, $result[2]);
     }
 }

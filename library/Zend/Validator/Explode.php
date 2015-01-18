@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -185,8 +185,6 @@ class Explode extends AbstractValidator implements ValidatorPluginManagerAwareIn
             $values = array($value);
         }
 
-        $retval    = true;
-        $messages  = array();
         $validator = $this->getValidator();
 
         if (!$validator) {
@@ -198,17 +196,14 @@ class Explode extends AbstractValidator implements ValidatorPluginManagerAwareIn
 
         foreach ($values as $value) {
             if (!$validator->isValid($value)) {
-                $messages[] = $validator->getMessages();
-                $retval = false;
+                $this->abstractOptions['messages'][] = $validator->getMessages();
 
                 if ($this->isBreakOnFirstFailure()) {
-                    break;
+                    return false;
                 }
             }
         }
 
-        $this->abstractOptions['messages'] = $messages;
-
-        return $retval;
+        return count($this->abstractOptions['messages']) == 0;
     }
 }

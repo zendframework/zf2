@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -97,7 +97,7 @@ class MboxMessageOldTest extends \PHPUnit_Framework_TestCase
         $mail = new MboxOldMessage(array('filename' => $this->_mboxFile));
 
         $content = $mail->getMessage(3)->getContent();
-        list($content, ) = explode("\n", $content, 2);
+        list($content) = explode("\n", $content, 2);
         $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
     }
 
@@ -114,5 +114,4 @@ class MboxMessageOldTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($mail->getMessage(2)->subject, 'test2');
         $this->assertEquals($mail->getMessage(2)->getContent(), '');
     }
-
 }

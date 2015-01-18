@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -277,7 +277,6 @@ class Client implements ServerClient
 
                 default:
                     throw new Exception\InvalidArgumentException('Unknown SOAP client option');
-                    break;
             }
         }
 
@@ -985,7 +984,7 @@ class Client implements ServerClient
      * @param  int    $oneWay
      * @return mixed
      */
-    public function _doRequest(Client\Common $client, $request, $location,$action, $version, $oneWay = null)
+    public function _doRequest(Client\Common $client, $request, $location, $action, $version, $oneWay = null)
     {
         // Perform request as is
         if ($oneWay === null) {

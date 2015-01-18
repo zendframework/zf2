@@ -3,13 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Db\Sql\Ddl;
 
 use Zend\Db\Sql\Ddl\Column\Column;
+use Zend\Db\Sql\Ddl\Constraint;
 use Zend\Db\Sql\Ddl\CreateTable;
 
 class CreateTableTest extends \PHPUnit_Framework_TestCase
@@ -124,17 +125,32 @@ class CreateTableTest extends \PHPUnit_Framework_TestCase
     public function testGetSqlString()
     {
         $ct = new CreateTable('foo');
-        $this->assertEquals("CREATE TABLE \"foo\" (\n)", $ct->getSqlString());
+        $this->assertEquals("CREATE TABLE \"foo\" ( \n)", $ct->getSqlString());
 
         $ct = new CreateTable('foo', true);
-        $this->assertEquals("CREATE TEMPORARY TABLE \"foo\" (\n)", $ct->getSqlString());
+        $this->assertEquals("CREATE TEMPORARY TABLE \"foo\" ( \n)", $ct->getSqlString());
 
         $ct = new CreateTable('foo');
         $ct->addColumn(new Column('bar'));
-        $this->assertEquals("CREATE TABLE \"foo\" (\n    \"bar\" INTEGER NOT NULL\n)", $ct->getSqlString());
+        $this->assertEquals("CREATE TABLE \"foo\" ( \n    \"bar\" INTEGER NOT NULL \n)", $ct->getSqlString());
 
         $ct = new CreateTable('foo', true);
         $ct->addColumn(new Column('bar'));
-        $this->assertEquals("CREATE TEMPORARY TABLE \"foo\" (\n    \"bar\" INTEGER NOT NULL\n)", $ct->getSqlString());
+        $this->assertEquals("CREATE TEMPORARY TABLE \"foo\" ( \n    \"bar\" INTEGER NOT NULL \n)", $ct->getSqlString());
+
+        $ct = new CreateTable('foo', true);
+        $ct->addColumn(new Column('bar'));
+        $ct->addColumn(new Column('baz'));
+        $this->assertEquals("CREATE TEMPORARY TABLE \"foo\" ( \n    \"bar\" INTEGER NOT NULL,\n    \"baz\" INTEGER NOT NULL \n)", $ct->getSqlString());
+
+        $ct = new CreateTable('foo');
+        $ct->addColumn(new Column('bar'));
+        $ct->addConstraint(new Constraint\PrimaryKey('bat'));
+        $this->assertEquals("CREATE TABLE \"foo\" ( \n    \"bar\" INTEGER NOT NULL , \n    PRIMARY KEY (\"bat\") \n)", $ct->getSqlString());
+
+        $ct = new CreateTable('foo');
+        $ct->addConstraint(new Constraint\PrimaryKey('bar'));
+        $ct->addConstraint(new Constraint\PrimaryKey('bat'));
+        $this->assertEquals("CREATE TABLE \"foo\" ( \n    PRIMARY KEY (\"bar\"),\n    PRIMARY KEY (\"bat\") \n)", $ct->getSqlString());
     }
 }

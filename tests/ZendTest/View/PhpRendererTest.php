@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -376,7 +376,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         try {
             $this->renderer->render('invalid');
             $caught = false;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $caught = $e;
         }
 
@@ -420,5 +420,26 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->renderer->setResolver($resolver);
         $test = $this->renderer->render($model);
         $this->assertContains('BAR-BAZ-BAT', $test);
+    }
+
+    /**
+     * @group ZF2-4221
+     */
+    public function testSharedInstanceHelper()
+    {
+        $helpers = $this->renderer->getHelperPluginManager();
+        $helpers->setInvokableClass('sharedinstance', 'ZendTest\View\TestAsset\SharedInstance');
+
+        $helpers->setShared('sharedinstance', false);
+        // new instance always created when shared = false
+        $this->assertEquals(1, $this->renderer->sharedinstance());
+        $this->assertEquals(1, $this->renderer->sharedinstance());
+        $this->assertEquals(1, $this->renderer->sharedinstance());
+
+        $helpers->setShared('sharedinstance', true);
+        // use shared instance when shared = true
+        $this->assertEquals(1, $this->renderer->sharedinstance());
+        $this->assertEquals(2, $this->renderer->sharedinstance());
+        $this->assertEquals(3, $this->renderer->sharedinstance());
     }
 }

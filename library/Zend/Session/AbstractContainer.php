@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -63,7 +63,7 @@ abstract class AbstractContainer extends ArrayObject
      */
     public function __construct($name = 'Default', Manager $manager = null)
     {
-        if (!preg_match('/^[a-z][a-z0-9_\\\]+$/i', $name)) {
+        if (!preg_match('/^[a-z0-9][a-z0-9_\\\\]+$/i', $name)) {
             throw new Exception\InvalidArgumentException(
                 'Name passed to container is invalid; must consist of alphanumerics, backslashes and underscores only'
             );
@@ -425,7 +425,7 @@ abstract class AbstractContainer extends ArrayObject
     public function offsetGet($key)
     {
         if (!$this->offsetExists($key)) {
-            return null;
+            return;
         }
         $storage = $this->getStorage();
         $name = $this->getName();
@@ -528,7 +528,7 @@ abstract class AbstractContainer extends ArrayObject
 
             // Map item keys => timestamp
             $expires   = array_flip($expires);
-            $expires   = array_map(function ($value) use ($ts) {
+            $expires   = array_map(function () use ($ts) {
                 return $ts;
             }, $expires);
 
@@ -579,7 +579,7 @@ abstract class AbstractContainer extends ArrayObject
 
             // Map item keys => timestamp
             $expires   = array_flip($expires);
-            $expires   = array_map(function ($value) use ($hops, $ts) {
+            $expires   = array_map(function () use ($hops, $ts) {
                 return array('hops' => $hops, 'ts' => $ts);
             }, $expires);
 

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -24,6 +24,14 @@ use Zend\Validator\Digits as DigitsFilter;
  */
 class LoggerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * {@inheritDoc}
+     */
     public function setUp()
     {
         $this->logger = new Logger;
@@ -105,9 +113,9 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
     public function testAddWriterWithPriority()
     {
         $writer1 = $this->logger->writerPlugin('mock');
-        $this->logger->addWriter($writer1,1);
+        $this->logger->addWriter($writer1, 1);
         $writer2 = $this->logger->writerPlugin('null');
-        $this->logger->addWriter($writer2,2);
+        $this->logger->addWriter($writer2, 2);
         $writers = $this->logger->getWriters();
 
         $this->assertInstanceOf('Zend\Stdlib\SplPriorityQueue', $writers);
@@ -115,15 +123,14 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($writer instanceof \Zend\Log\Writer\Null);
         $writer = $writers->extract();
         $this->assertTrue($writer instanceof \Zend\Log\Writer\Mock);
-
     }
 
     public function testAddWithSamePriority()
     {
         $writer1 = $this->logger->writerPlugin('mock');
-        $this->logger->addWriter($writer1,1);
+        $this->logger->addWriter($writer1, 1);
         $writer2 = $this->logger->writerPlugin('null');
-        $this->logger->addWriter($writer2,1);
+        $this->logger->addWriter($writer2, 1);
         $writers = $this->logger->getWriters();
 
         $this->assertInstanceOf('Zend\Stdlib\SplPriorityQueue', $writers);
@@ -447,10 +454,42 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
         $self = $this;
         register_shutdown_function(function () use ($writer, $self) {
-            $self->assertEquals($writer->events[0]['message'], 'Call to undefined method ZendTest\Log\LoggerTest::callToNonExistingMethod()');
+            $self->assertEquals(
+                'Call to undefined method ZendTest\Log\LoggerTest::callToNonExistingMethod()',
+                $writer->events[0]['message']
+            );
         });
 
         // Temporary hide errors, because we don't want the fatal error to fail the test
         @$this->callToNonExistingMethod();
+    }
+
+
+    /**
+     * @runInSeparateProcess
+     *
+     * @group 6424
+     */
+    public function testRegisterFatalErrorShutdownFunctionHandlesCompileTimeErrors()
+    {
+        $writer = new MockWriter;
+        $this->logger->addWriter($writer);
+
+        $result = Logger::registerFatalErrorShutdownFunction($this->logger);
+        $this->assertTrue($result);
+
+        // check for single error handler instance
+        $this->assertFalse(Logger::registerFatalErrorShutdownFunction($this->logger));
+
+        $self = $this;
+        register_shutdown_function(function () use ($writer, $self) {
+            $self->assertStringMatchesFormat(
+                'syntax error%A',
+                $writer->events[0]['message']
+            );
+        });
+
+        // Temporary hide errors, because we don't want the fatal error to fail the test
+        @eval('this::code::is::invalid {}');
     }
 }

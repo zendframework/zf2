@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -316,6 +316,56 @@ class PartialLoopTest extends TestCase
                 $this->assertContains('This is an iteration: ' . $value, $result, var_export($value, 1));
             }
         }
+    }
+
+    /**
+     * @group 7093
+     */
+    public function testNestedCallsShouldNotOverrideObjectKey()
+    {
+        $data = array();
+        for ($i = 0; $i < 3; $i++) {
+            $obj = new \stdClass();
+            $obj->helper = $this->helper;
+            $obj->objectKey = "foo" . $i;
+            $obj->message = "bar";
+            $obj->data = array(
+                $obj
+            );
+            $data[] = $obj;
+        }
+
+        $view = new View();
+        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
+        $this->helper->setView($view);
+
+        $this->helper->setObjectKey('obj');
+        $result = $this->helper->__invoke('partialLoopParentObject.phtml', $data);
+
+        foreach ($data as $item) {
+            $string = 'This is an iteration with objectKey: ' . $item->objectKey;
+            $this->assertContains($string, $result, $result);
+        }
+    }
+
+    public function testPartialLoopWithInvalidValuesWillRaiseException()
+    {
+        $this->setExpectedException(
+            'Zend\View\Exception\InvalidArgumentException',
+            'PartialLoop helper requires iterable data, string given'
+        );
+
+        $this->helper->__invoke('partialLoopParentObject.phtml', 'foo');
+    }
+
+    public function testPartialLoopWithInvalidObjectValuesWillRaiseException()
+    {
+        $this->setExpectedException(
+            'Zend\View\Exception\InvalidArgumentException',
+            'PartialLoop helper requires iterable data, stdClass given'
+        );
+
+        $this->helper->__invoke('partialLoopParentObject.phtml', new \stdClass());
     }
 }
 

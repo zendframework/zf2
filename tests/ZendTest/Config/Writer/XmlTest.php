@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -42,7 +42,6 @@ class XmlTest extends AbstractWriterTestCase
 
 ECS;
 
-        $expected = str_replace("\r\n", "\n", $expected);
         $this->assertEquals($expected, $configString);
     }
 
@@ -80,6 +79,28 @@ ECS;
 ECS;
 
         $expected = str_replace("\r\n", "\n", $expected);
+        $this->assertEquals($expected, $configString);
+    }
+
+    /**
+     * @group 6797
+     */
+    public function testAddBranchProperyConstructsSubBranchesOfTypeNumeric()
+    {
+        $config = new Config(array(), true);
+        $config->production = array(array('foo'), array('bar'));
+
+        $configString = $this->writer->toString($config);
+
+        $expected = <<<ECS
+<?xml version="1.0" encoding="UTF-8"?>
+<zend-config>
+    <production>foo</production>
+    <production>bar</production>
+</zend-config>
+
+ECS;
+
         $this->assertEquals($expected, $configString);
     }
 }

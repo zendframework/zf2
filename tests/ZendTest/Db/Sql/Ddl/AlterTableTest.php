@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -96,14 +96,17 @@ class AlterTableTest extends \PHPUnit_Framework_TestCase
         $at->dropConstraint('my_index');
         $expected =<<<EOS
 ALTER TABLE "foo"
-ADD COLUMN "another" VARCHAR(255) NOT NULL ,
-CHANGE COLUMN "name" "new_name" VARCHAR(50) NOT NULL ,
-DROP COLUMN "foo",
-ADD CONSTRAINT "my_fk" FOREIGN KEY ("other_id") REFERENCES "other_table" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-DROP CONSTRAINT "my_index"
+ ADD COLUMN "another" VARCHAR(255) NOT NULL,
+ CHANGE COLUMN "name" "new_name" VARCHAR(50) NOT NULL,
+ DROP COLUMN "foo",
+ ADD CONSTRAINT "my_fk" FOREIGN KEY ("other_id") REFERENCES "other_table" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+ DROP CONSTRAINT "my_index"
 EOS;
 
-        $expected = str_replace("\r\n", "\n", $expected);
-        $this->assertEquals($expected, $at->getSqlString());
+        $actual = $at->getSqlString();
+        $this->assertEquals(
+            str_replace(array("\r", "\n"), "", $expected),
+            str_replace(array("\r", "\n"), "", $actual)
+        );
     }
 }

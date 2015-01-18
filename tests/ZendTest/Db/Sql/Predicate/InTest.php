@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -15,7 +15,6 @@ use Zend\Db\Sql\Predicate\In;
 
 class InTest extends TestCase
 {
-
     public function testEmptyConstructorYieldsNullIdentifierAndValueSet()
     {
         $in = new In();
@@ -55,6 +54,20 @@ class InTest extends TestCase
             array(In::TYPE_IDENTIFIER, In::TYPE_VALUE, In::TYPE_VALUE, In::TYPE_VALUE),
         ));
         $this->assertEquals($expected, $in->getExpressionData());
+
+        $in->setIdentifier('foo.bar')
+            ->setValueSet(array(
+                array(1=>In::TYPE_LITERAL),
+                array(2=>In::TYPE_VALUE),
+                array(3=>In::TYPE_LITERAL),
+            ));
+        $expected = array(array(
+            '%s IN (%s, %s, %s)',
+            array('foo.bar', 1, 2, 3),
+            array(In::TYPE_IDENTIFIER, In::TYPE_LITERAL, In::TYPE_VALUE, In::TYPE_LITERAL),
+        ));
+        $qqq = $in->getExpressionData();
+        $this->assertEquals($expected, $in->getExpressionData());
     }
 
     public function testGetExpressionDataWithSubselect()
@@ -92,5 +105,4 @@ class InTest extends TestCase
         ));
         $this->assertEquals($expected, $in->getExpressionData());
     }
-
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -55,7 +55,6 @@ class DefaultComplexType extends AbstractComplexTypeStrategy
 
         foreach ($class->getProperties() as $property) {
             if ($property->isPublic() && preg_match_all('/@var\s+([^\s]+)/m', $property->getDocComment(), $matches)) {
-
                 /**
                  * @todo check if 'xsd:element' must be used here (it may not be
                  * compatible with using 'complexType' node for describing other

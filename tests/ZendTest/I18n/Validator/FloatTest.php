@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -219,5 +219,17 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     {
         $validator = $this->validator;
         $this->assertAttributeEquals($validator->getOption('messageTemplates'), 'messageTemplates', $validator);
+    }
+
+    /**
+     * @group 6647
+     * @group 6648
+     */
+    public function testNotFloat()
+    {
+        $this->assertFalse($this->validator->isValid('2.000.000,00'));
+
+        $message = $this->validator->getMessages();
+        $this->assertContains('does not appear to be a float', $message['notFloat']);
     }
 }

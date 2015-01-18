@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -39,7 +39,7 @@ class Forward extends AbstractPlugin
     protected $numNestedForwards = 0;
 
     /**
-     * @var array
+     * @var array[]|null
      */
     protected $listenersToDetach = null;
 
@@ -55,11 +55,12 @@ class Forward extends AbstractPlugin
      * Set maximum number of nested forwards allowed
      *
      * @param  int $maxNestedForwards
-     * @return Forward
+     * @return self
      */
     public function setMaxNestedForwards($maxNestedForwards)
     {
         $this->maxNestedForwards = (int) $maxNestedForwards;
+
         return $this;
     }
 
@@ -94,11 +95,14 @@ class Forward extends AbstractPlugin
      * Set information on listeners that need to be detached before dispatching.
      *
      * @param  array $listeners Listener information; see getListenersToDetach() for details on format.
-     * @return void
+     *
+     * @return self
      */
     public function setListenersToDetach($listeners)
     {
         $this->listenersToDetach = $listeners;
+
+        return $this;
     }
 
     /**

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 namespace Zend\Permissions\Acl\Assertion;
@@ -16,7 +16,6 @@ use Zend\Permissions\Acl\Exception\RuntimeException;
 
 class AssertionAggregate implements AssertionInterface
 {
-
     const MODE_ALL = 'all';
 
     const MODE_AT_LEAST_ONE = 'at_least_one';
@@ -134,7 +133,6 @@ class AssertionAggregate implements AssertionInterface
         }
 
         foreach ($this->assertions as $assertion) {
-
             // jit assertion mloading
             if (! $assertion instanceof AssertionInterface) {
                 if (class_exists($assertion)) {

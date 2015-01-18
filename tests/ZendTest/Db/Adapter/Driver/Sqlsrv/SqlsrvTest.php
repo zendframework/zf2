@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -13,7 +13,6 @@ use Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv;
 
 class SqlsrvTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Sqlsrv
      */
@@ -51,7 +50,6 @@ class SqlsrvTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv::registerResultPrototype
-     * @requires extension sqlsrv
      */
     public function testRegisterResultPrototype()
     {
@@ -140,5 +138,4 @@ class SqlsrvTest extends \PHPUnit_Framework_TestCase
           'This test has not been implemented yet.'
         );
     }
-
 }

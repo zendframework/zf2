@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -180,17 +180,14 @@ class Digest extends AbstractAdapter
             }
             if (substr($line, 0, $idLength) === $id) {
                 if (CryptUtils::compareStrings(substr($line, -32), md5("$this->identity:$this->realm:$this->credential"))) {
-                    $result['code'] = AuthenticationResult::SUCCESS;
-                } else {
-                    $result['code'] = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
-                    $result['messages'][] = 'Password incorrect';
+                    return new AuthenticationResult(AuthenticationResult::SUCCESS, $result['identity'], $result['messages']);
                 }
-                return new AuthenticationResult($result['code'], $result['identity'], $result['messages']);
+                $result['messages'][] = 'Password incorrect';
+                return new AuthenticationResult(AuthenticationResult::FAILURE_CREDENTIAL_INVALID, $result['identity'], $result['messages']);
             }
         }
 
-        $result['code'] = AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND;
         $result['messages'][] = "Username '$this->identity' and realm '$this->realm' combination not found";
-        return new AuthenticationResult($result['code'], $result['identity'], $result['messages']);
+        return new AuthenticationResult(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND, $result['identity'], $result['messages']);
     }
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -247,7 +247,7 @@ class BaseInputFilter implements
                 && $input->isRequired()
                 && $input->allowEmpty()
             ) {
-                if (!($input instanceOf EmptyContextInterface && $input->continueIfEmpty())) {
+                if (!($input instanceof EmptyContextInterface && $input->continueIfEmpty())) {
                     $this->validInputs[$name] = $input;
                     continue;
                 }
@@ -380,7 +380,7 @@ class BaseInputFilter implements
     {
         if ($name === self::VALIDATE_ALL) {
             $this->validationGroup = null;
-            foreach($this->getInputs() as $input) {
+            foreach ($this->getInputs() as $input) {
                 if ($input instanceof InputFilterInterface) {
                     $input->setValidationGroup(self::VALIDATE_ALL);
                 }
@@ -683,5 +683,19 @@ class BaseInputFilter implements
     public function getInputs()
     {
         return $this->inputs;
+    }
+
+    /**
+     * Merges the inputs from an InputFilter into the current one
+     *
+     * @param BaseInputFilter $inputFilter
+     *
+     * @return self
+     */
+    public function merge(BaseInputFilter $inputFilter)
+    {
+        foreach ($inputFilter->getInputs() as $name => $input) {
+            $this->add($input, $name);
+        }
     }
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -163,7 +163,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->fail('no exception raised while using invalid mail handler');
-
     }
 
     public function testMissingId()
@@ -177,7 +176,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->fail('no exception raised while mail handler without id');
-
     }
 
     public function testIterator()
@@ -294,10 +292,10 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $message = new Message(array('headers' => array('subject' => 'foo')));
 
-        $this->assertTrue( $message->getHeaders()->has('subject'));
-        $this->assertTrue( isset($message->subject) );
-        $this->assertTrue( $message->getHeaders()->has('SuBject'));
-        $this->assertTrue( isset($message->suBjeCt) );
+        $this->assertTrue($message->getHeaders()->has('subject'));
+        $this->assertTrue(isset($message->subject));
+        $this->assertTrue($message->getHeaders()->has('SuBject'));
+        $this->assertTrue(isset($message->suBjeCt));
         $this->assertFalse($message->getHeaders()->has('From'));
     }
 

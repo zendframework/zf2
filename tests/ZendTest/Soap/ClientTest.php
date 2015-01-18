@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -24,7 +24,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         if (!extension_loaded('soap')) {
-           $this->markTestSkipped('SOAP Extension is not loaded');
+            $this->markTestSkipped('SOAP Extension is not loaded');
         }
     }
 
@@ -300,7 +300,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $count = 0;
         foreach ($typesArray as $element) {
-            if (strpos($element, 'struct AutoDiscoverTestClass1') === 0 OR strpos($element, 'AutoDiscoverTestClass1 ArrayOfAutoDiscoverTestClass1') === 0) {
+            if (strpos($element, 'struct AutoDiscoverTestClass1') === 0 or strpos($element, 'AutoDiscoverTestClass1 ArrayOfAutoDiscoverTestClass1') === 0) {
                 $count++;
             }
         }

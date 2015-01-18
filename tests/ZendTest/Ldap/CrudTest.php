@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -168,7 +168,6 @@ class CrudTest extends AbstractOnlineTestCase
             }
             $this->fail($e->getMessage());
         }
-
     }
 
     public function testPrepareLDAPEntryArray()
@@ -379,7 +378,6 @@ class CrudTest extends AbstractOnlineTestCase
             $entry = $this->getLdap()->getEntry($dn);
             $this->getLdap()->delete($dn);
             $this->assertEquals(array('TestCreated'), $entry['ou']);
-
         } catch (Exception\LdapException $e) {
             if ($this->getLdap()->exists($dn)) {
                 $this->getLdap()->delete($dn);
@@ -403,7 +401,6 @@ class CrudTest extends AbstractOnlineTestCase
             $entry = $this->getLdap()->getEntry($dn);
             $this->getLdap()->delete($dn);
             $this->assertEquals(array('TestCreated', 'SecondOu'), $entry['ou']);
-
         } catch (Exception\LdapException $e) {
             if ($this->getLdap()->exists($dn)) {
                 $this->getLdap()->delete($dn);
@@ -427,7 +424,6 @@ class CrudTest extends AbstractOnlineTestCase
             $entry = $this->getLdap()->getEntry($dn);
             $this->getLdap()->delete($dn);
             $this->assertEquals(array('TestCreated', 'SecondOu'), $entry['ou']);
-
         } catch (Exception\LdapException $e) {
             if ($this->getLdap()->exists($dn)) {
                 $this->getLdap()->delete($dn);
@@ -455,7 +451,6 @@ class CrudTest extends AbstractOnlineTestCase
             $entry = $this->getLdap()->getEntry($dn);
             $this->getLdap()->delete($dn);
             $this->assertEquals(array('TestCreated', 'SecondOu'), $entry['ou']);
-
         } catch (Exception\LdapException $e) {
             if ($this->getLdap()->exists($dn)) {
                 $this->getLdap()->delete($dn);
@@ -483,7 +478,6 @@ class CrudTest extends AbstractOnlineTestCase
             $entry = $this->getLdap()->getEntry($dn);
             $this->getLdap()->delete($dn);
             $this->assertEquals(array('TestCreated', 'SecondOu'), $entry['ou']);
-
         } catch (Exception\LdapException $e) {
             if ($this->getLdap()->exists($dn)) {
                 $this->getLdap()->delete($dn);

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 namespace ZendTest\Test\PHPUnit\Controller;
@@ -30,7 +30,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public function testUseOfRouter()
     {
-       $this->assertEquals(false, $this->useConsoleRequest);
+        $this->assertEquals(false, $this->useConsoleRequest);
     }
 
     public function testAssertResponseStatusCode()
@@ -647,7 +647,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         try {
             // force exception throwing
             parent::tearDown();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->getApplication()->getMvcEvent()->setParam('exception', null);
             $this->setExpectedException('RuntimeException', 'Foo error');
             throw $e;

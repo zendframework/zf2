@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -12,6 +12,7 @@ namespace Zend\I18n\Validator;
 use Locale;
 use NumberFormatter;
 use Traversable;
+use IntlException;
 use Zend\I18n\Exception as I18nException;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\StringUtils;
@@ -122,8 +123,12 @@ class Float extends AbstractValidator
         // Need to check if this is scientific formatted string. If not, switch to decimal.
         $formatter = new NumberFormatter($this->getLocale(), NumberFormatter::SCIENTIFIC);
 
-        if (intl_is_failure($formatter->getErrorCode())) {
-            throw new Exception\InvalidArgumentException($formatter->getErrorMessage());
+        try {
+            if (intl_is_failure($formatter->getErrorCode())) {
+                throw new Exception\InvalidArgumentException($formatter->getErrorMessage());
+            }
+        } catch (IntlException $intlException) {
+            throw new Exception\InvalidArgumentException($e->getMessage(), 0, $intlException);
         }
 
         if (StringUtils::hasPcreUnicodeSupport()) {
@@ -162,6 +167,8 @@ class Float extends AbstractValidator
 
         //We have seperators, and they are flipped. i.e. 2.000,000 for en-US
         if ($groupSeparatorPosition && $decSeparatorPosition && $groupSeparatorPosition > $decSeparatorPosition) {
+            $this->error(self::NOT_FLOAT);
+
             return false;
         }
 
@@ -236,6 +243,8 @@ class Float extends AbstractValidator
         ) {
             return true;
         }
+
+        $this->error(self::NOT_FLOAT);
 
         return false;
     }

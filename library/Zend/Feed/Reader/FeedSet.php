@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -17,7 +17,6 @@ use Zend\Feed\Uri;
 */
 class FeedSet extends ArrayObject
 {
-
     public $rss = null;
 
     public $rdf = null;
@@ -116,7 +115,7 @@ class FeedSet extends ArrayObject
     {
         if ($offset == 'feed' && !$this->offsetExists('feed')) {
             if (!$this->offsetExists('href')) {
-                return null;
+                return;
             }
             $feed = Reader::import($this->offsetGet('href'));
             $this->offsetSet('feed', $feed);

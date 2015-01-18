@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -45,6 +45,8 @@ class PluginManager extends AbstractPluginManager
         'postredirectget'             => 'Zend\Mvc\Controller\Plugin\PostRedirectGet',
         'redirect'                    => 'Zend\Mvc\Controller\Plugin\Redirect',
         'url'                         => 'Zend\Mvc\Controller\Plugin\Url',
+        'createhttpnotfoundmodel'     => 'Zend\Mvc\Controller\Plugin\CreateHttpNotFoundModel',
+        'createconsolenotfoundmodel'  => 'Zend\Mvc\Controller\Plugin\CreateConsoleNotFoundModel',
     );
 
     /**

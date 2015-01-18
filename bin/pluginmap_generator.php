@@ -7,7 +7,7 @@
  * @category   Zend
  * @package    Zend_Loader
  * @subpackage Exception
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -139,7 +139,6 @@ foreach ($l as $file) {
 }
 
 if ($appending) {
-
     $content = var_export((array) $map, true) . ';';
 
     // Fix \' strings from injected DIRECTORY_SEPARATOR usage in iterator_apply op

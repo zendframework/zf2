@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -50,7 +50,6 @@ class MimeTest extends \PHPUnit_Framework_TestCase
         $myBoundary = 'mySpecificBoundary';
         $m3         = new Mime\Mime($myBoundary);
         $this->assertEquals($m3->boundary(), $myBoundary);
-
     }
 
     public function testIsPrintable_notPrintable()
@@ -195,13 +194,13 @@ n in das Wasser, Schw=C3=A4nzchen in die H=C3=B6h!'),
     {
         $subject = "Alle meine Entchen schwimmen in dem See, schwimmen in dem See, Köpfchen in das Wasser, Schwänzchen in die Höh!";
         $encoded = Mime\Mime::encodeQuotedPrintableHeader($subject, "UTF-8", 100);
-        foreach (explode(Mime\Mime::LINEEND, $encoded) AS $line) {
+        foreach (explode(Mime\Mime::LINEEND, $encoded) as $line) {
             if (strlen($line) > 100) {
                 $this->fail("Line '" . $line . "' is " . strlen($line) . " chars long, only 100 allowed.");
             }
         }
         $encoded = Mime\Mime::encodeQuotedPrintableHeader($subject, "UTF-8", 40);
-        foreach (explode(Mime\Mime::LINEEND, $encoded) AS $line) {
+        foreach (explode(Mime\Mime::LINEEND, $encoded) as $line) {
             if (strlen($line) > 40) {
                 $this->fail("Line '" . $line . "' is " . strlen($line) . " chars long, only 40 allowed.");
             }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -34,7 +34,7 @@ class Entry extends Extension\AbstractEntry
             return $authors[$index];
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -138,7 +138,9 @@ class Entry extends Extension\AbstractEntry
      */
     protected function collectXhtml($xhtml, $prefix)
     {
-        if (!empty($prefix)) $prefix = $prefix . ':';
+        if (!empty($prefix)) {
+            $prefix = $prefix . ':';
+        }
         $matches = array(
             "/<\?xml[^<]*>[^<]*<" . $prefix . "div[^<]*/",
             "/<\/" . $prefix . "div>\s*$/"
@@ -327,7 +329,7 @@ class Entry extends Extension\AbstractEntry
             return $this->data['links'][$index];
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -586,7 +588,7 @@ class Entry extends Extension\AbstractEntry
         }
 
         if (empty($author)) {
-            return null;
+            return;
         }
         return $author;
     }

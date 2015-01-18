@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -303,7 +303,6 @@ class AbstractFeed
                 $nvalid = $validator->isValid('info@' . $matches['name']);
             }
             return $dvalid && $nvalid;
-
         }
         return false;
     }
@@ -532,7 +531,7 @@ class AbstractFeed
             return $this->data['authors'][$index];
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -543,7 +542,7 @@ class AbstractFeed
     public function getAuthors()
     {
         if (!array_key_exists('authors', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['authors'];
     }
@@ -556,7 +555,7 @@ class AbstractFeed
     public function getCopyright()
     {
         if (!array_key_exists('copyright', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['copyright'];
     }
@@ -569,7 +568,7 @@ class AbstractFeed
     public function getDateCreated()
     {
         if (!array_key_exists('dateCreated', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['dateCreated'];
     }
@@ -582,7 +581,7 @@ class AbstractFeed
     public function getDateModified()
     {
         if (!array_key_exists('dateModified', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['dateModified'];
     }
@@ -595,7 +594,7 @@ class AbstractFeed
     public function getLastBuildDate()
     {
         if (!array_key_exists('lastBuildDate', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['lastBuildDate'];
     }
@@ -608,7 +607,7 @@ class AbstractFeed
     public function getDescription()
     {
         if (!array_key_exists('description', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['description'];
     }
@@ -621,7 +620,7 @@ class AbstractFeed
     public function getGenerator()
     {
         if (!array_key_exists('generator', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['generator'];
     }
@@ -634,7 +633,7 @@ class AbstractFeed
     public function getId()
     {
         if (!array_key_exists('id', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['id'];
     }
@@ -647,7 +646,7 @@ class AbstractFeed
     public function getImage()
     {
         if (!array_key_exists('image', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['image'];
     }
@@ -660,7 +659,7 @@ class AbstractFeed
     public function getLanguage()
     {
         if (!array_key_exists('language', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['language'];
     }
@@ -673,7 +672,7 @@ class AbstractFeed
     public function getLink()
     {
         if (!array_key_exists('link', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['link'];
     }
@@ -686,7 +685,7 @@ class AbstractFeed
     public function getFeedLinks()
     {
         if (!array_key_exists('feedLinks', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['feedLinks'];
     }
@@ -699,7 +698,7 @@ class AbstractFeed
     public function getTitle()
     {
         if (!array_key_exists('title', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['title'];
     }
@@ -725,7 +724,7 @@ class AbstractFeed
     public function getBaseUrl()
     {
         if (!array_key_exists('baseUrl', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['baseUrl'];
     }
@@ -738,7 +737,7 @@ class AbstractFeed
     public function getHubs()
     {
         if (!array_key_exists('hubs', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['hubs'];
     }
@@ -751,7 +750,7 @@ class AbstractFeed
     public function getCategories()
     {
         if (!array_key_exists('categories', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['categories'];
     }

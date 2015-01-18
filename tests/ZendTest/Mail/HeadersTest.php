@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -46,6 +46,9 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo-bar', $header->getFieldValue());
     }
 
+    /**
+     * @group 6657
+     */
     public function testHeadersFromStringFactoryCreatesSingleObjectWithContinuationLine()
     {
         $headers = Mail\Headers::fromString("Fake: foo-bar,\r\n      blah-blah");
@@ -54,7 +57,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $header = $headers->get('fake');
         $this->assertInstanceOf('Zend\Mail\Header\GenericHeader', $header);
         $this->assertEquals('Fake', $header->getFieldName());
-        $this->assertEquals('foo-bar,blah-blah', $header->getFieldValue());
+        $this->assertEquals('foo-bar, blah-blah', $header->getFieldValue());
     }
 
     public function testHeadersFromStringFactoryCreatesSingleObjectWithHeaderBreakLine()

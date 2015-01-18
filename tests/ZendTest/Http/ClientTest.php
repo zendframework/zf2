@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -26,7 +26,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testIfCookiesAreSticky()
     {
         $initialCookies = array(
-            new SetCookie('foo', 'far', null, '/', 'www.domain.com' ),
+            new SetCookie('foo', 'far', null, '/', 'www.domain.com'),
             new SetCookie('bar', 'biz', null, '/', 'www.domain.com')
         );
 
@@ -44,7 +44,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $cookies->addCookiesFromResponse($client->getResponse(), $client->getUri());
 
-        $client->addCookie( $cookies->getMatchingCookies($client->getUri()) );
+        $client->addCookie($cookies->getMatchingCookies($client->getUri()));
 
         $this->assertEquals(4, count($client->getCookies()));
     }
@@ -359,15 +359,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $prepareHeadersReflection->setAccessible(true);
 
         $request= new Request();
-        $request->getHeaders()->addHeaderLine('content-type','application/json');
-        $request->getHeaders()->addHeaderLine('content-length',strlen($body));
+        $request->getHeaders()->addHeaderLine('content-type', 'application/json');
+        $request->getHeaders()->addHeaderLine('content-length', strlen($body));
         $client->setRequest($request);
 
         $client->setEncType('application/json');
 
-        $this->assertSame($client->getRequest(),$request);
+        $this->assertSame($client->getRequest(), $request);
 
-        $headers = $prepareHeadersReflection->invoke($client,$body,new Http('http://localhost:5984'));
+        $headers = $prepareHeadersReflection->invoke($client, $body, new Http('http://localhost:5984'));
 
         $this->assertArrayNotHasKey('content-type', $headers);
         $this->assertArrayHasKey('Content-Type', $headers);
@@ -386,7 +386,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->setAuth('username', 'password', ExtendedClient::AUTH_CUSTOM);
 
         $this->assertAttributeEquals(
-            array (
+            array(
                 'user'     => 'username',
                 'password' => 'password',
                 'type'     => ExtendedClient::AUTH_CUSTOM,
@@ -394,5 +394,53 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'auth',
             $client
         );
+    }
+
+    /**
+     * @group 6231
+     */
+    public function testHttpQueryParametersCastToString()
+    {
+        $client = new Client();
+
+        /* @var $adapter \PHPUnit_Framework_MockObject_MockObject|\Zend\Http\Client\Adapter\AdapterInterface */
+        $adapter = $this->getMock('Zend\Http\Client\Adapter\AdapterInterface');
+
+        $client->setAdapter($adapter);
+
+        $request = new Request();
+
+        $request->setUri('http://example.com/');
+        $request->getQuery()->set('foo', 'bar');
+
+        $response = new Response();
+
+        $adapter
+            ->expects($this->once())
+            ->method('write')
+            ->with(Request::METHOD_GET, 'http://example.com/?foo=bar');
+
+        $adapter
+            ->expects($this->any())
+            ->method('read')
+            ->will($this->returnValue($response->toString()));
+
+        $client->send($request);
+    }
+
+    /**
+     * @group 6959
+     */
+    public function testClientRequestMethod()
+    {
+        $request = new Request;
+        $request->setMethod(Request::METHOD_POST);
+        $request->getPost()->set('data', 'random');
+
+        $client = new Client;
+        $client->setAdapter('Zend\Http\Client\Adapter\Test');
+        $client->send($request);
+
+        $this->assertSame(Client::ENC_URLENCODED, $client->getEncType());
     }
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -16,7 +16,6 @@ use Zend\Db\Adapter\Profiler;
 
 class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 {
-
     /**
      * @var \PDO
      */
@@ -203,7 +202,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
     }
 
     /**
-     * @param mixed $parameters
+     * @param null|array|ParameterContainer $parameters
      * @throws Exception\InvalidQueryException
      * @return Result
      */
@@ -293,7 +292,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $parameter = is_int($name) ? ($name + 1) : $name;
             $this->resource->bindParam($parameter, $value, $type);
         }
-
     }
 
     /**
@@ -308,6 +306,5 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
         if ($this->parameterContainer) {
             $this->parameterContainer = clone $this->parameterContainer;
         }
-
     }
 }

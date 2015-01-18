@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -76,17 +76,20 @@ class Encrypt extends AbstractFilter
             $adapter = 'Zend\Filter\Encrypt\\' . ucfirst($adapter);
         } elseif (!class_exists($adapter)) {
             throw new Exception\DomainException(
-                sprintf('%s expects a valid registry class name; received "%s", which did not resolve',
+                sprintf(
+                    '%s expects a valid registry class name; received "%s", which did not resolve',
                     __METHOD__,
                     $adapter
-            ));
+                )
+            );
         }
 
         $this->adapter = new $adapter($options);
         if (!$this->adapter instanceof Encrypt\EncryptionAlgorithmInterface) {
             throw new Exception\InvalidArgumentException(
                 "Encoding adapter '" . $adapter
-                . "' does not implement Zend\\Filter\\Encrypt\\EncryptionAlgorithmInterface");
+                . "' does not implement Zend\\Filter\\Encrypt\\EncryptionAlgorithmInterface"
+            );
         }
 
         return $this;
@@ -120,7 +123,7 @@ class Encrypt extends AbstractFilter
      */
     public function filter($value)
     {
-        if (!is_string($value)) {
+        if (!is_string($value) && !is_numeric($value)) {
             return $value;
         }
 

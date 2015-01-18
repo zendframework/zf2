@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -12,6 +12,7 @@ namespace Zend\I18n\Validator;
 use Locale;
 use IntlDateFormatter;
 use Traversable;
+use IntlException;
 use Zend\I18n\Exception as I18nException;
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception as ValidatorException;
@@ -263,15 +264,26 @@ class DateTime extends AbstractValidator
         }
 
         $this->setValue($value);
-        $formatter = $this->getIntlDateFormatter();
 
-        if (intl_is_failure($formatter->getErrorCode())) {
-            throw new ValidatorException\InvalidArgumentException($formatter->getErrorMessage());
+        try {
+            $formatter = $this->getIntlDateFormatter();
+
+            if (intl_is_failure($formatter->getErrorCode())) {
+                throw new ValidatorException\InvalidArgumentException($formatter->getErrorMessage());
+            }
+        } catch (IntlException $intlException) {
+            throw new ValidatorException\InvalidArgumentException($e->getMessage(), 0, $intlException);
         }
 
-        $timestamp = $formatter->parse($value);
 
-        if (intl_is_failure($formatter->getErrorCode()) || $timestamp === false) {
+        try {
+            $timestamp = $formatter->parse($value);
+
+            if (intl_is_failure($formatter->getErrorCode()) || $timestamp === false) {
+                $this->error(self::INVALID_DATETIME);
+                return false;
+            }
+        } catch (IntlException $intlException) {
             $this->error(self::INVALID_DATETIME);
             return false;
         }

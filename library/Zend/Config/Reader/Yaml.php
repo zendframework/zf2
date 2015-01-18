@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -92,7 +92,7 @@ class Yaml implements ReaderInterface
         }
 
         if (null === $this->getYamlDecoder()) {
-             throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
+            throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
         }
 
         $this->directory = dirname($filename);
@@ -116,7 +116,7 @@ class Yaml implements ReaderInterface
     public function fromString($string)
     {
         if (null === $this->getYamlDecoder()) {
-             throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
+            throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
         }
         if (empty($string)) {
             return array();

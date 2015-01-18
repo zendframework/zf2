@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -19,11 +19,8 @@ use ZendTest\Code\Reflection\TestAsset\InjectableClassReflection;
  */
 class ClassReflectionTest extends \PHPUnit_Framework_TestCase
 {
-
-
     public function testMethodReturns()
     {
-
         $reflectionClass = new ClassReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
 
         $methodByName = $reflectionClass->getMethod('getProp1');
@@ -57,7 +54,6 @@ class ClassReflectionTest extends \PHPUnit_Framework_TestCase
         $parent = $reflectionClass->getParentClass();
         $this->assertEquals('Zend\Code\Reflection\ClassReflection', get_class($parent));
         $this->assertEquals('ArrayObject', $parent->getName());
-
     }
 
     public function testInterfaceReturn()
@@ -69,7 +65,6 @@ class ClassReflectionTest extends \PHPUnit_Framework_TestCase
 
         $interface = array_shift($interfaces);
         $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClassInterface', $interface->getName());
-
     }
 
     public function testGetContentsReturnsContents()

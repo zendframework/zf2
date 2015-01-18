@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -13,7 +13,6 @@ use Zend\Crypt\Key\Derivation\Pbkdf2;
 
 class Pbkdf2Test extends \PHPUnit_Framework_TestCase
 {
-
     /** @var string */
     public $salt;
 
@@ -43,7 +42,7 @@ class Pbkdf2Test extends \PHPUnit_Framework_TestCase
      */
     public static function provideTestVectors()
     {
-        return array (
+        return array(
             array('sha1', 'password', 'salt', 1, 20, '0c60c80f961f0e71f3a9b524af6012062fe037a6'),
             array('sha1', 'password', 'salt', 2, 20, 'ea6c014dc72d6f8ccd1ed92ace1d41f0d8de8957'),
             array('sha1', 'password', 'salt', 4096, 20, '4b007901b765489abead49d926f721d065a429c1'),

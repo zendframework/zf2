@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -79,16 +79,19 @@ class FormButton extends FormInput
         if (null === $buttonContent) {
             $buttonContent = $element->getLabel();
             if (null === $buttonContent) {
-                throw new Exception\DomainException(sprintf(
-                    '%s expects either button content as the second argument, ' .
+                throw new Exception\DomainException(
+                    sprintf(
+                        '%s expects either button content as the second argument, ' .
                         'or that the element provided has a label value; neither found',
-                    __METHOD__
-                ));
+                        __METHOD__
+                    )
+                );
             }
 
             if (null !== ($translator = $this->getTranslator())) {
                 $buttonContent = $translator->translate(
-                    $buttonContent, $this->getTranslatorTextDomain()
+                    $buttonContent,
+                    $this->getTranslatorTextDomain()
                 );
             }
         }

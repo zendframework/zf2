@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -27,6 +27,26 @@ use ZendTest\Mvc\TestAsset\Locator;
 
 class ForwardTest extends TestCase
 {
+    /**
+     * @var PluginManager
+     */
+    private $plugins;
+
+    /**
+     * @var ControllerManager
+     */
+    private $controllers;
+
+    /**
+     * @var SampleController
+     */
+    private $controller;
+
+    /**
+     * @var \Zend\Mvc\Controller\Plugin\Forward
+     */
+    private $plugin;
+
     public function setUp()
     {
         StaticEventManager::resetInstance();
@@ -192,5 +212,13 @@ class ForwardTest extends TestCase
         $this->assertEquals('not-found', $result['status']);
         $this->assertTrue(isset($result['params']));
         $this->assertEquals(array(), $result['params']);
+    }
+
+    /**
+     * @group 6398
+     */
+    public function testSetListenersToDetachIsFluent()
+    {
+        $this->assertSame($this->plugin, $this->plugin->setListenersToDetach(array()));
     }
 }

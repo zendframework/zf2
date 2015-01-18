@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -14,6 +14,7 @@ use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilter;
+use Zend\Stdlib\Hydrator;
 
 class FieldsetTest extends TestCase
 {
@@ -498,6 +499,31 @@ class FieldsetTest extends TestCase
         $this->assertEquals('notModified', $object->disabled);
     }
 
+    /**
+     * @group 7109
+     */
+    public function testBindValuesDoesNotSkipElementsWithFalsyDisabledValues()
+    {
+        $object = new \stdClass();
+        $object->disabled = 'notModified';
+        $object->not_disabled = 'notModified';
+
+        $textInput = new Element\Text('not_disabled');
+        $disabledInput = new Element\Text('disabled');
+        $disabledInput->setAttribute('disabled', '');
+
+        $form = new Form();
+        $form->add($textInput);
+        $form->add($disabledInput);
+
+        $form->setObject($object);
+        $form->setHydrator(new \Zend\Stdlib\Hydrator\ObjectProperty());
+        $form->bindValues(array('not_disabled' => 'modified', 'disabled' => 'modified'));
+
+        $this->assertEquals('modified', $object->not_disabled);
+        $this->assertEquals('modified', $object->disabled);
+    }
+
     public function testSetObjectWithStringRaisesException()
     {
         $this->setExpectedException('Zend\Form\Exception\InvalidArgumentException');
@@ -522,4 +548,28 @@ class FieldsetTest extends TestCase
         $this->assertTrue($allowed);
     }
 
+    /**
+     * @group 6585
+     * @group 6614
+     */
+    public function testBindValuesPreservesNewValueAfterValidation()
+    {
+        $form = new Form();
+        $form->add(new Element('foo'));
+        $form->setHydrator(new Hydrator\ObjectProperty);
+
+        $object      = new \stdClass();
+        $object->foo = 'Initial value';
+        $form->bind($object);
+
+        $form->setData(array(
+            'foo' => 'New value'
+        ));
+
+        $this->assertSame('New value', $form->get('foo')->getValue());
+
+        $form->isValid();
+
+        $this->assertSame('New value', $form->get('foo')->getValue());
+    }
 }

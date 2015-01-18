@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -68,15 +68,15 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
     public function testCanForceInstance()
     {
-       $console = Console::getInstance('Posix');
-       $this->assertTrue($console instanceof Adapter\AdapterInterface);
-       $this->assertTrue($console instanceof Adapter\Posix);
+        $console = Console::getInstance('Posix');
+        $this->assertTrue($console instanceof Adapter\AdapterInterface);
+        $this->assertTrue($console instanceof Adapter\Posix);
 
-       Console::overrideIsConsole(null);
-       Console::resetInstance();
+        Console::overrideIsConsole(null);
+        Console::resetInstance();
 
-       $console = Console::getInstance('Windows');
-       $this->assertTrue($console instanceof Adapter\AdapterInterface);
-       $this->assertTrue($console instanceof Adapter\Windows);
+        $console = Console::getInstance('Windows');
+        $this->assertTrue($console instanceof Adapter\AdapterInterface);
+        $this->assertTrue($console instanceof Adapter\Windows);
     }
 }

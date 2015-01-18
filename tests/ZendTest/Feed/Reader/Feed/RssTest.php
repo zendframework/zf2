@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -18,7 +18,6 @@ use Zend\Feed\Reader;
 */
 class RssTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $feedSamplePath = null;
 
     protected $expectedCats = array();
@@ -380,10 +379,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/rss20.xml')
         );
         $this->assertEquals(array(
-            array('email'=>'joe@example.com','name'=>'Joe Bloggs'),
-            array('email'=>'jane@example.com','name'=>'Jane Bloggs')
+            array('email'=>'joe@example.com', 'name'=>'Joe Bloggs'),
+            array('email'=>'jane@example.com', 'name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss094()
@@ -392,10 +391,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/rss094.xml')
         );
         $this->assertEquals(array(
-            array('email'=>'joe@example.com','name'=>'Joe Bloggs'),
-            array('email'=>'jane@example.com','name'=>'Jane Bloggs')
+            array('email'=>'joe@example.com', 'name'=>'Joe Bloggs'),
+            array('email'=>'jane@example.com', 'name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss093()
@@ -404,10 +403,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/rss093.xml')
         );
         $this->assertEquals(array(
-            array('email'=>'joe@example.com','name'=>'Joe Bloggs'),
-            array('email'=>'jane@example.com','name'=>'Jane Bloggs')
+            array('email'=>'joe@example.com', 'name'=>'Joe Bloggs'),
+            array('email'=>'jane@example.com', 'name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss092()
@@ -416,10 +415,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/rss092.xml')
         );
         $this->assertEquals(array(
-            array('email'=>'joe@example.com','name'=>'Joe Bloggs'),
-            array('email'=>'jane@example.com','name'=>'Jane Bloggs')
+            array('email'=>'joe@example.com', 'name'=>'Joe Bloggs'),
+            array('email'=>'jane@example.com', 'name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss091()
@@ -428,10 +427,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/rss091.xml')
         );
         $this->assertEquals(array(
-            array('email'=>'joe@example.com','name'=>'Joe Bloggs'),
-            array('email'=>'jane@example.com','name'=>'Jane Bloggs')
+            array('email'=>'joe@example.com', 'name'=>'Joe Bloggs'),
+            array('email'=>'jane@example.com', 'name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss10()
@@ -440,10 +439,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/rss10.xml')
         );
         $this->assertEquals(array(
-            array('email'=>'joe@example.com','name'=>'Joe Bloggs'),
-            array('email'=>'jane@example.com','name'=>'Jane Bloggs')
+            array('email'=>'joe@example.com', 'name'=>'Joe Bloggs'),
+            array('email'=>'jane@example.com', 'name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss090()
@@ -452,10 +451,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/rss090.xml')
         );
         $this->assertEquals(array(
-            array('email'=>'joe@example.com','name'=>'Joe Bloggs'),
-            array('email'=>'jane@example.com','name'=>'Jane Bloggs')
+            array('email'=>'joe@example.com', 'name'=>'Joe Bloggs'),
+            array('email'=>'jane@example.com', 'name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     // DC 1.0
@@ -468,7 +467,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss094_Dc10()
@@ -479,7 +478,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss093_Dc10()
@@ -490,7 +489,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss092_Dc10()
@@ -501,7 +500,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss091_Dc10()
@@ -512,7 +511,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss10_Dc10()
@@ -523,7 +522,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss090_Dc10()
@@ -534,7 +533,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     // DC 1.1
@@ -547,7 +546,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss094_Dc11()
@@ -558,7 +557,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss093_Dc11()
@@ -569,7 +568,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss092_Dc11()
@@ -580,7 +579,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss091_Dc11()
@@ -591,7 +590,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss10_Dc11()
@@ -602,7 +601,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss090_Dc11()
@@ -613,7 +612,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     // Atom 1.0
@@ -626,7 +625,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss094_Atom10()
@@ -637,7 +636,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss093_Atom10()
@@ -648,7 +647,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss092_Atom10()
@@ -659,7 +658,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss091_Atom10()
@@ -670,7 +669,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss10_Atom10()
@@ -681,7 +680,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     public function testGetsAuthorArrayFromRss090_Atom10()
@@ -692,7 +691,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('name'=>'Joe Bloggs'), array('name'=>'Jane Bloggs')
         ), (array) $feed->getAuthors());
-        $this->assertEquals(array('Joe Bloggs','Jane Bloggs'), $feed->getAuthors()->getValues());
+        $this->assertEquals(array('Joe Bloggs', 'Jane Bloggs'), $feed->getAuthors()->getValues());
     }
 
     // Missing Authors
@@ -761,7 +760,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath.'/author/plain/rss20.xml')
         );
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com'), $feed->getAuthor());
     }
 
     public function testGetsSingleAuthorFromRss094()
@@ -769,7 +768,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath.'/author/plain/rss094.xml')
         );
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com'), $feed->getAuthor());
     }
 
     public function testGetsSingleAuthorFromRss093()
@@ -777,7 +776,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath.'/author/plain/rss093.xml')
         );
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com'), $feed->getAuthor());
     }
 
     public function testGetsSingleAuthorFromRss092()
@@ -785,7 +784,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath.'/author/plain/rss092.xml')
         );
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com'), $feed->getAuthor());
     }
 
     public function testGetsSingleAuthorFromRss091()
@@ -793,7 +792,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath.'/author/plain/rss091.xml')
         );
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com'), $feed->getAuthor());
     }
 
     public function testGetsSingleAuthorFromRss10()
@@ -801,7 +800,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath.'/author/plain/rss10.xml')
         );
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com'), $feed->getAuthor());
     }
 
     public function testGetsSingleAuthorFromRss090()
@@ -809,7 +808,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath.'/author/plain/rss090.xml')
         );
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com'), $feed->getAuthor());
     }
 
     // DC 1.0
@@ -2290,7 +2289,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/rss20.xml')
         );
         $this->assertEquals($this->expectedCats, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     // DC 1.0
@@ -2301,7 +2300,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc10/rss090.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss091_Dc10()
@@ -2310,7 +2309,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc10/rss091.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss092_Dc10()
@@ -2319,7 +2318,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc10/rss092.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss093_Dc10()
@@ -2328,7 +2327,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc10/rss093.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss094_Dc10()
@@ -2337,7 +2336,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc10/rss094.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss10_Dc10()
@@ -2346,7 +2345,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc10/rss10.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     // DC 1.1
@@ -2357,7 +2356,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc11/rss090.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss091_Dc11()
@@ -2366,7 +2365,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc11/rss091.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss092_Dc11()
@@ -2375,7 +2374,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc11/rss092.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss093_Dc11()
@@ -2384,7 +2383,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc11/rss093.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss094_Dc11()
@@ -2393,7 +2392,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc11/rss094.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss10_Dc11()
@@ -2402,7 +2401,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc11/rss10.xml')
         );
         $this->assertEquals($this->expectedCatsRdf, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     // Atom 1.0
@@ -2413,7 +2412,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/atom10/rss090.xml')
         );
         $this->assertEquals($this->expectedCatsAtom, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss091_Atom10()
@@ -2422,7 +2421,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/atom10/rss091.xml')
         );
         $this->assertEquals($this->expectedCatsAtom, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss092_Atom10()
@@ -2431,7 +2430,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/atom10/rss092.xml')
         );
         $this->assertEquals($this->expectedCatsAtom, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss093_Atom10()
@@ -2440,7 +2439,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/atom10/rss093.xml')
         );
         $this->assertEquals($this->expectedCatsAtom, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss094_Atom10()
@@ -2449,7 +2448,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/atom10/rss094.xml')
         );
         $this->assertEquals($this->expectedCatsAtom, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromRss10_Atom10()
@@ -2458,7 +2457,7 @@ class RssTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/atom10/rss10.xml')
         );
         $this->assertEquals($this->expectedCatsAtom, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
 
     // No Categories In Entry
@@ -2692,5 +2691,4 @@ class RssTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals(null, $feed->getImage());
     }
-
 }

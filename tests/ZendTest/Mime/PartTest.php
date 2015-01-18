@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -74,7 +74,7 @@ class PartTest extends \PHPUnit_Framework_TestCase
         $original = file_get_contents($testfile);
 
         // Test Base64
-        $fp = fopen($testfile,'rb');
+        $fp = fopen($testfile, 'rb');
         $this->assertTrue(is_resource($fp));
         $part = new Mime\Part($fp);
         $part->encoding = Mime\Mime::ENCODING_BASE64;
@@ -85,7 +85,7 @@ class PartTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(base64_decode($encoded), $original);
 
         // test QuotedPrintable
-        $fp = fopen($testfile,'rb');
+        $fp = fopen($testfile, 'rb');
         $this->assertTrue(is_resource($fp));
         $part = new Mime\Part($fp);
         $part->encoding = Mime\Mime::ENCODING_QUOTEDPRINTABLE;
@@ -113,7 +113,7 @@ class PartTest extends \PHPUnit_Framework_TestCase
         $testfile = realpath(__FILE__);
         $original = file_get_contents($testfile);
 
-        $fp = fopen($testfile,'rb');
+        $fp = fopen($testfile, 'rb');
         $part = new Mime\Part($fp);
         $part->encoding = Mime\Mime::ENCODING_BASE64;
         $contentEncodedFirstTime  = $part->getContent();
@@ -121,7 +121,7 @@ class PartTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($contentEncodedFirstTime, $contentEncodedSecondTime);
         fclose($fp);
 
-        $fp = fopen($testfile,'rb');
+        $fp = fopen($testfile, 'rb');
         $part = new Mime\Part($fp);
         $part->encoding = Mime\Mime::ENCODING_QUOTEDPRINTABLE;
         $contentEncodedFirstTime  = $part->getContent();

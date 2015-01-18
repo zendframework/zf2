@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -11,13 +11,21 @@ namespace ZendTest\Form\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element;
+use Zend\Form\Element\Captcha;
 use Zend\Form\View\HelperConfig;
 use Zend\Form\View\Helper\FormRow as FormRowHelper;
 use Zend\View\Renderer\PhpRenderer;
 
 class FormRowTest extends TestCase
 {
+    /**
+     * @var FormRowHelper
+     */
     protected $helper;
+
+    /**
+     * @var PhpRenderer
+     */
     protected $renderer;
 
     public function setUp()
@@ -479,5 +487,23 @@ class FormRowTest extends TestCase
 
         $markup = $this->helper->render($element);
         $this->assertRegexp('#^<label><span>baz</span><input name="foo" id="bar" type="text" value=""\/?></label>$#', $markup);
+    }
+
+    /**
+     * @group 7030
+     */
+    public function testWrapFieldsetAroundCaptchaWithLabel()
+    {
+        $this->assertRegexp(
+            '#^<fieldset><legend>baz<\/legend>'
+            . 'Please type this word backwards <b>[a-z0-9]{8}<\/b>'
+            . '<input name="captcha&\#x5B;id&\#x5D;" type="hidden" value="[a-z0-9]{32}"\/?>'
+            . '<input name="captcha&\#x5B;input&\#x5D;" type="text"\/?>'
+            . '<\/fieldset>$#',
+            $this->helper->render(new Captcha('captcha', array(
+                'captcha' => array('class' => 'dumb'),
+                'label' => 'baz'
+            )))
+        );
     }
 }

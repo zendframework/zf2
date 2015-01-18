@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -14,7 +14,6 @@ use Redis as RedisResource;
 
 class RedisTest extends CommonAdapterTest
 {
-
     /**
      *
      * @var Cache\Storage\Adapter\RedisOptions
@@ -313,5 +312,4 @@ class RedisTest extends CommonAdapterTest
         $this->_options->setPassword($password);
         $this->assertEquals($password, $this->_options->getPassword(), 'Password was set incorrectly using RedisOptions');
     }
-
 }

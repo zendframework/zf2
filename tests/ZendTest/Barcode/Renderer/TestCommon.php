@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -16,7 +16,6 @@ use Zend\Config;
 
 abstract class TestCommon extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var \Zend\Barcode\Renderer
      */
@@ -85,7 +84,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
 
     public function testGoodHorizontalPosition()
     {
-        foreach (array('left' , 'center' , 'right') as $position) {
+        foreach (array('left', 'center', 'right') as $position) {
             $this->renderer->setHorizontalPosition($position);
             $this->assertSame($position,
                     $this->renderer->getHorizontalPosition());
@@ -100,7 +99,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
 
     public function testGoodVerticalPosition()
     {
-        foreach (array('top' , 'middle' , 'bottom') as $position) {
+        foreach (array('top', 'middle', 'bottom') as $position) {
             $this->renderer->setVerticalPosition($position);
             $this->assertSame($position,
                     $this->renderer->getVerticalPosition());
@@ -146,7 +145,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testConstructorWithArray()
     {
         $renderer = $this->getRendererObject(
-                array('automaticRenderError' => true ,
+                array('automaticRenderError' => true,
                         'unkownProperty' => 'aValue'));
         $this->assertEquals(true, $renderer->getAutomaticRenderError());
     }
@@ -154,7 +153,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testConstructorWithZendConfig()
     {
         $config = new Config\Config(
-                array('automaticRenderError' => true ,
+                array('automaticRenderError' => true,
                         'unkownProperty' => 'aValue'));
         $renderer = $this->getRendererObject($config);
         $this->assertEquals(true, $renderer->getAutomaticRenderError());
@@ -164,7 +163,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(false, $this->renderer->getAutomaticRenderError());
         $this->renderer->setOptions(
-                array('automaticRenderError' => true ,
+                array('automaticRenderError' => true,
                         'unkownProperty' => 'aValue'));
         $this->assertEquals(true, $this->renderer->getAutomaticRenderError());
     }

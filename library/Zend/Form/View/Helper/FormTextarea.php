@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -20,18 +20,19 @@ class FormTextarea extends AbstractHelper
      * @var array
      */
     protected $validTagAttributes = array(
-        'autofocus'   => true,
-        'cols'        => true,
-        'dirname'     => true,
-        'disabled'    => true,
-        'form'        => true,
-        'maxlength'   => true,
-        'name'        => true,
-        'placeholder' => true,
-        'readonly'    => true,
-        'required'    => true,
-        'rows'        => true,
-        'wrap'        => true,
+        'autocomplete' => true,
+        'autofocus'    => true,
+        'cols'         => true,
+        'dirname'      => true,
+        'disabled'     => true,
+        'form'         => true,
+        'maxlength'    => true,
+        'name'         => true,
+        'placeholder'  => true,
+        'readonly'     => true,
+        'required'     => true,
+        'rows'         => true,
+        'wrap'         => true,
     );
 
     /**

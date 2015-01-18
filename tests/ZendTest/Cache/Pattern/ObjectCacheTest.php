@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -37,8 +37,9 @@ class TestObjectCache
         return call_user_func_array(array($this, 'bar'), func_get_args());
     }
 
-    public function emptyMethod() {}
-
+    public function emptyMethod()
+    {
+    }
 }
 
 /**
@@ -46,7 +47,6 @@ class TestObjectCache
  */
 class ObjectCacheTest extends CommonPatternTest
 {
-
     /**
      * @var \Zend\Cache\Storage\StorageInterface
      */
@@ -132,6 +132,21 @@ class ObjectCacheTest extends CommonPatternTest
     {
         unset($this->_pattern->property);
         $this->assertFalse(isset($this->_pattern->property));
+    }
+
+    /**
+     * @group 7039
+     */
+    public function testEmptyObjectKeys()
+    {
+        $this->_options->setObjectKey('0');
+        $this->assertSame('0', $this->_options->getObjectKey(), "Can't set string '0' as object key");
+
+        $this->_options->setObjectKey('');
+        $this->assertSame('', $this->_options->getObjectKey(), "Can't set an empty string as object key");
+
+        $this->_options->setObjectKey(null);
+        $this->assertSame(get_class($this->_options->getObject()), $this->_options->getObjectKey());
     }
 
     protected function _testCall($method, array $args)

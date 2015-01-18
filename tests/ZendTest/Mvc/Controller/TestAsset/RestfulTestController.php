@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -15,6 +15,11 @@ class RestfulTestController extends AbstractRestfulController
 {
     public $entities = array();
     public $entity   = array();
+
+    /**
+     * @var \Zend\Stdlib\ResponseInterface|null
+     */
+    public $headResponse;
 
     /**
      * Create a new resource
@@ -82,6 +87,10 @@ class RestfulTestController extends AbstractRestfulController
     {
         if ($id) {
             $this->getResponse()->getHeaders()->addHeaderLine('X-ZF2-Id', $id);
+        }
+
+        if ($this->headResponse) {
+            return $this->headResponse;
         }
     }
 

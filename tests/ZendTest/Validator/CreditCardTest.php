@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -171,6 +171,44 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
                 'service' => array('ZendTest\Validator\CreditCardTest', 'staticCallback')
             )
         );
+
+        $this->assertEquals($expected, $validator->isValid($input));
+    }
+
+    /**
+     * Data provider
+     *
+     * @return string[][]|bool[][]
+     */
+    public function jcbValues()
+    {
+        return array(
+            array('3566003566003566', true),
+            array('3528000000000007', true),
+            array('3528000000000007', true),
+            array('3528000000000007', true),
+            array('3088185545477406', false),
+            array('3158854390756173', false),
+            array('3088936920428541', false),
+            array('213193692042852', true),
+            array('180012362524156', true),
+        );
+    }
+
+    /**
+     * Test JCB number validity
+     *
+     * @dataProvider jcbValues
+     *
+     * @param string $input
+     * @param bool   $expected
+     *
+     * @group 6278
+     * @group 6927
+     */
+    public function testJcbCard($input, $expected)
+    {
+        $validator = new CreditCard(array('type' => CreditCard::JCB));
 
         $this->assertEquals($expected, $validator->isValid($input));
     }

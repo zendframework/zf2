@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -109,5 +109,36 @@ class GettextTest extends TestCase
 
         $this->assertEquals('Message 1 (en)', $textDomain['Message 1']);
         $this->assertEquals('Message 4 (en)', $textDomain['Message 4']);
+    }
+
+    /**
+     * @group 6762
+     * @group 6765
+     */
+    public function testLoaderLoadsPlural()
+    {
+        $loader = new GettextLoader();
+
+        $loader->setUseIncludePath(true);
+
+        $textDomain = $loader->load('en_EN', $this->testFilesDir . '/translation_en.mo');
+
+        $this->assertEquals(
+            array(
+                'Message A (en) Plural 0',
+                'Message A (en) Plural 1',
+                'Message A (en) Plural 2',
+            ),
+            $textDomain['Message A']
+        );
+
+        $this->assertEquals(
+            array(
+                'Message B (en) Plural 0',
+                'Message B (en) Plural 1',
+                'Message B (en) Plural 2',
+            ),
+            $textDomain['Message B']
+        );
     }
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -80,7 +80,6 @@ class CurlTest extends CommonHttpTests
      */
     public function testConfigSetAsZendConfig()
     {
-
         $config = new Config(array(
             'timeout'  => 400,
             'nested'   => array(
@@ -170,8 +169,8 @@ class CurlTest extends CommonHttpTests
         $this->client->setUri($this->baseuri . 'testRedirections.php');
 
         //  Set some parameters
-        $this->client->setParameterGet(array ('swallow' => 'african'));
-        $this->client->setParameterPost(array ('Camelot' => 'A silly place'));
+        $this->client->setParameterGet(array('swallow' => 'african'));
+        $this->client->setParameterPost(array('Camelot' => 'A silly place'));
         $this->client->setMethod('POST');
         $this->setExpectedException(
             'Zend\Http\Client\Adapter\Exception\RuntimeException',

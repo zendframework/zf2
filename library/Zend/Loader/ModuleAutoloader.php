@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -159,7 +159,7 @@ class ModuleAutoloader implements SplAutoloader
                     continue;
                 }
 
-                $moduleNameBuffer = str_replace($namespace . "\\", "", $moduleName );
+                $moduleNameBuffer = str_replace($namespace . "\\", "", $moduleName);
                 $path .= DIRECTORY_SEPARATOR . $moduleNameBuffer . DIRECTORY_SEPARATOR;
 
                 $classLoaded = $this->loadModuleFromDir($path, $class);
@@ -173,7 +173,6 @@ class ModuleAutoloader implements SplAutoloader
                 }
             }
         }
-
 
         $moduleClassPath   = str_replace('\\', DIRECTORY_SEPARATOR, $moduleName);
 
@@ -369,7 +368,7 @@ class ModuleAutoloader implements SplAutoloader
             ));
         }
         if ($moduleName) {
-            if (in_array( substr($moduleName, -2), array('\\*', '\\%'))) {
+            if (in_array(substr($moduleName, -2), array('\\*', '\\%'))) {
                 $this->namespacedPaths[substr($moduleName, 0, -2)] = static::normalizePath($path);
             } else {
                 $this->explicitPaths[$moduleName] = static::normalizePath($path);

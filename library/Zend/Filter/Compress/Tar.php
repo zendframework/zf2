@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -45,7 +45,8 @@ class Tar extends AbstractCompressionAlgorithm
         if (!class_exists('Archive_Tar')) {
             throw new Exception\ExtensionNotLoadedException(
                 'This filter needs PEAR\'s Archive_Tar component. '
-                . 'Ensure loading Archive_Tar (registering autoload or require_once)');
+                . 'Ensure loading Archive_Tar (registering autoload or require_once)'
+            );
         }
 
         parent::__construct($options);
@@ -171,10 +172,9 @@ class Tar extends AbstractCompressionAlgorithm
         if (is_dir($content)) {
             // collect all file infos
             foreach (new RecursiveIteratorIterator(
-                        new RecursiveDirectoryIterator($content, RecursiveDirectoryIterator::KEY_AS_PATHNAME),
-                        RecursiveIteratorIterator::SELF_FIRST
-                    ) as $directory => $info
-            ) {
+                new RecursiveDirectoryIterator($content, RecursiveDirectoryIterator::KEY_AS_PATHNAME),
+                RecursiveIteratorIterator::SELF_FIRST
+            ) as $directory => $info) {
                 if ($info->isFile()) {
                     $file[] = $directory;
                 }

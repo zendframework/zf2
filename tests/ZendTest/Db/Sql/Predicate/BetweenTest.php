@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -125,6 +125,15 @@ class BetweenTest extends TestCase
             array(Between::TYPE_IDENTIFIER, Between::TYPE_VALUE, Between::TYPE_VALUE),
         ));
         $this->assertEquals($expected, $this->between->getExpressionData());
-    }
 
+        $this->between->setIdentifier(array(10=>Between::TYPE_VALUE))
+                      ->setMinValue(array('foo.bar'=>Between::TYPE_IDENTIFIER))
+                      ->setMaxValue(array('foo.baz'=>Between::TYPE_IDENTIFIER));
+        $expected = array(array(
+            $this->between->getSpecification(),
+            array(10, 'foo.bar', 'foo.baz'),
+            array(Between::TYPE_VALUE, Between::TYPE_IDENTIFIER, Between::TYPE_IDENTIFIER),
+        ));
+        $this->assertEquals($expected, $this->between->getExpressionData());
+    }
 }

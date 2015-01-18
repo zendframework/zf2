@@ -4,7 +4,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -126,7 +126,6 @@ class FilePostRedirectGet extends AbstractPlugin
         $post          = $container->post;
         $errors        = $container->errors;
         $isValid       = $container->isValid;
-        $previousFiles = ($container->files) ?: array();
         unset($container->post);
         unset($container->errors);
         unset($container->isValid);
@@ -257,7 +256,7 @@ class FilePostRedirectGet extends AbstractPlugin
                         return $value;
                     }
                 }
-                return null;
+                return;
             }
         );
     }
@@ -278,13 +277,13 @@ class FilePostRedirectGet extends AbstractPlugin
                 $messages = $input->getMessages();
                 if (is_array($value) && $input instanceof FileInput && empty($messages)) {
                     $rawValue = $input->getRawValue();
-                    if (   (isset($rawValue['error'])    && $rawValue['error']    === UPLOAD_ERR_NO_FILE)
+                    if ((isset($rawValue['error'])    && $rawValue['error']    === UPLOAD_ERR_NO_FILE)
                         || (isset($rawValue[0]['error']) && $rawValue[0]['error'] === UPLOAD_ERR_NO_FILE)
                     ) {
                         return $value;
                     }
                 }
-                return null;
+                return;
             }
         );
     }

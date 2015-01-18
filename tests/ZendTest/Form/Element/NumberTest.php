@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -89,7 +89,7 @@ class NumberTest extends TestCase
         ));
 
         $inputSpec = $element->getInputSpecification();
-        foreach($inputSpec['validators'] as $validator) {
+        foreach ($inputSpec['validators'] as $validator) {
             if (get_class($validator) == 'Zend\Validator\GreaterThan') {
                 $this->assertFalse($validator->getInclusive());
                 break;
@@ -105,7 +105,7 @@ class NumberTest extends TestCase
         ));
 
         $inputSpec = $element->getInputSpecification();
-        foreach($inputSpec['validators'] as $validator) {
+        foreach ($inputSpec['validators'] as $validator) {
             if (get_class($validator) == 'Zend\Validator\GreaterThan') {
                 $this->assertTrue($validator->getInclusive());
                 break;
@@ -118,7 +118,7 @@ class NumberTest extends TestCase
         $element = new NumberElement();
 
         $inputSpec = $element->getInputSpecification();
-        foreach($inputSpec['validators'] as $validator) {
+        foreach ($inputSpec['validators'] as $validator) {
             if (get_class($validator) == 'Zend\Validator\Regex') {
                 $this->assertFalse($validator->isValid('1,000.01'));
                 $this->assertFalse($validator->isValid('-1,000.01'));

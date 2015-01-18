@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -163,7 +163,9 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
             array('id' => 3, 'name' => 'three'),
         )));
         $this->assertTrue($resultSet->valid());
-        $resultSet->next(); $resultSet->next(); $resultSet->next();
+        $resultSet->next();
+        $resultSet->next();
+        $resultSet->next();
         $this->assertFalse($resultSet->valid());
     }
 
@@ -214,5 +216,36 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
             ),
             $resultSet->toArray()
         );
+    }
+
+    /**
+     * Test multiple iterations with buffer
+     * @group issue-6845
+     */
+    public function testBufferIterations()
+    {
+        $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
+        $resultSet->initialize(new \ArrayIterator(array(
+            array('id' => 1, 'name' => 'one'),
+            array('id' => 2, 'name' => 'two'),
+            array('id' => 3, 'name' => 'three'),
+        )));
+        $resultSet->buffer();
+
+        $data = $resultSet->current();
+        $this->assertEquals(1, $data['id']);
+        $resultSet->next();
+        $data = $resultSet->current();
+        $this->assertEquals(2, $data['id']);
+
+        $resultSet->rewind();
+        $data = $resultSet->current();
+        $this->assertEquals(1, $data['id']);
+        $resultSet->next();
+        $data = $resultSet->current();
+        $this->assertEquals(2, $data['id']);
+        $resultSet->next();
+        $data = $resultSet->current();
+        $this->assertEquals(3, $data['id']);
     }
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -17,7 +17,6 @@ class Result implements
     Iterator,
     ResultInterface
 {
-
     /**
      * @var \mysqli|\mysqli_result|\mysqli_stmt
      */
@@ -188,7 +187,6 @@ class Result implements
      */
     protected function loadDataFromMysqliStatement()
     {
-        $data = null;
         // build the default reference based bind structure, if it does not already exist
         if ($this->statementBindValues['keys'] === null) {
             $this->statementBindValues['keys'] = array();

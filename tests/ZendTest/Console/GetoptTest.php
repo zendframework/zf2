@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -291,7 +291,6 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
             $message = preg_replace('/ /', '_', $message);
             $this->assertEquals($message,
                 "Usage:_<progname>_[_options_]\n--apple|-a_[_<string>_]_________________apple\n--banana1|--banana2|--banana3|--banana4_banana\n--pear_<string>_________________________pear\n");
-
         }
     }
 
@@ -342,7 +341,6 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         $message = preg_replace('/ /', '_', $message);
         $this->assertEquals($message,
             "Usage:_<progname>_[_options_]\n-a___________________apple\n-b___________________banana\n-p_<string>__________pear\n");
-
     }
 
     public function testGetoptSetHelpInvalid()
@@ -408,7 +406,6 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
         $opts->setArguments(array('-k', 'string'));
         $this->assertEquals('string', $opts->k);
-
     }
 
     /**

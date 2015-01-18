@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -18,6 +18,12 @@ use Zend\EventManager\EventManagerInterface;
  */
 class ModuleManager implements ModuleManagerInterface
 {
+    /**#@+
+     * Reference to Zend\Mvc\MvcEvent::EVENT_BOOTSTRAP
+     */
+    const EVENT_BOOTSTRAP = 'bootstrap';
+    /**#@-*/
+
     /**
      * @var array An array of Module classes of loaded modules
      */
@@ -151,7 +157,7 @@ class ModuleManager implements ModuleManagerInterface
          * loadModule() call, and use the original event otherwise.
          */
         if (!isset($this->loadFinished)) {
-             $this->loadFinished = 0;
+            $this->loadFinished = 0;
         }
 
         $event = ($this->loadFinished > 0) ? clone $this->getEvent() : $this->getEvent();
@@ -219,7 +225,7 @@ class ModuleManager implements ModuleManagerInterface
     public function getModule($moduleName)
     {
         if (!isset($this->loadedModules[$moduleName])) {
-            return null;
+            return;
         }
         return $this->loadedModules[$moduleName];
     }
@@ -246,10 +252,13 @@ class ModuleManager implements ModuleManagerInterface
         if (is_array($modules) || $modules instanceof Traversable) {
             $this->modules = $modules;
         } else {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Parameter to %s\'s %s method must be an array or implement the Traversable interface',
-                __CLASS__, __METHOD__
-            ));
+            throw new Exception\InvalidArgumentException(
+                sprintf(
+                    'Parameter to %s\'s %s method must be an array or implement the Traversable interface',
+                    __CLASS__,
+                    __METHOD__
+                )
+            );
         }
         return $this;
     }

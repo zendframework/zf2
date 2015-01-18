@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -13,7 +13,6 @@ use Zend\Db\Sql\Predicate\Like;
 
 class LikeTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testConstructEmptyArgs()
     {
         $like = new Like();
@@ -48,6 +47,14 @@ class LikeTest extends \PHPUnit_Framework_TestCase
             ),
             $like->getExpressionData()
         );
+
+        $like = new Like(array('Foo%'=>$like::TYPE_VALUE), array('bar'=>$like::TYPE_IDENTIFIER));
+        $this->assertEquals(
+            array(
+                array('%1$s LIKE %2$s', array('Foo%', 'bar'), array($like::TYPE_VALUE, $like::TYPE_IDENTIFIER))
+            ),
+            $like->getExpressionData()
+        );
     }
 
     public function testInstanceOfPerSetters()
@@ -57,5 +64,4 @@ class LikeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Db\Sql\Predicate\Like', $like->setSpecification('%1$s LIKE %2$s'));
         $this->assertInstanceOf('Zend\Db\Sql\Predicate\Like', $like->setLike('foo%'));
     }
-
 }

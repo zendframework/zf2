@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -160,7 +160,7 @@ class Element implements
     public function getOption($option)
     {
         if (!isset($this->options[$option])) {
-            return null;
+            return;
         }
 
         return $this->options[$option];
@@ -205,9 +205,10 @@ class Element implements
      */
     public function getAttribute($key)
     {
-        if (!array_key_exists($key, $this->attributes)) {
-            return null;
+        if (!isset($this->attributes[$key])) {
+            return;
         }
+
         return $this->attributes[$key];
     }
 
@@ -444,9 +445,10 @@ class Element implements
      */
     public function getLabelOption($key)
     {
-        if (!array_key_exists($key, $this->labelOptions)) {
-            return null;
+        if (!isset($this->labelOptions[$key])) {
+            return;
         }
+
         return $this->labelOptions[$key];
     }
 

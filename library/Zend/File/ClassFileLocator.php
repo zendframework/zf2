@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -116,6 +116,10 @@ class ClassFileLocator extends FilterIterator
                     break;
                 case $t_trait:
                 case T_CLASS:
+                    // ignore T_CLASS after T_DOUBLE_COLON to allow PHP >=5.5 FQCN scalar resolution
+                    if ($i > 0 && is_array($tokens[$i-1]) && $tokens[$i-1][0] === T_DOUBLE_COLON) {
+                        break;
+                    }
                 case T_INTERFACE:
                     // Abstract class, class, interface or trait found
 
@@ -135,7 +139,6 @@ class ClassFileLocator extends FilterIterator
                                 } else {
                                     $namespace = null;
                                 }
-
                             }
                             $class = (null === $namespace) ? $content : $namespace . '\\' . $content;
                             $file->addClass($class);

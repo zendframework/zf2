@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -106,6 +106,9 @@ class AnnotationBuilderTest extends TestCase
         $test  = $form->getIterator()->getIterator()->current();
         $this->assertSame($email, $test, 'Test is element ' . $test->getName());
 
+        $test  = $form->getIterator()->current();
+        $this->assertSame($email, $test, 'Test is element ' . $test->getName());
+
         $hydrator = $form->getHydrator();
         $this->assertInstanceOf('Zend\Stdlib\Hydrator\ObjectProperty', $hydrator);
     }
@@ -184,6 +187,35 @@ class AnnotationBuilderTest extends TestCase
         $this->assertTrue($target->has('password'));
     }
 
+    /**
+     * @dataProvider provideOptionsAnnotationAndComposedObjectAnnotation
+     * @param string $childName
+     *
+     * @group 7108
+     */
+    public function testOptionsAnnotationAndComposedObjectAnnotation($childName)
+    {
+        $entity  = new TestAsset\Annotation\EntityUsingComposedObjectAndOptions();
+        $builder = new Annotation\AnnotationBuilder();
+        $form    = $builder->createForm($entity);
+
+        $child = $form->get($childName);
+
+        $target = $child->getTargetElement();
+        $this->assertInstanceOf('Zend\Form\FieldsetInterface', $target);
+        $this->assertEquals('My label', $child->getLabel());
+    }
+
+    /**
+     * Data provider
+     *
+     * @return string[][]
+     */
+    public function provideOptionsAnnotationAndComposedObjectAnnotation()
+    {
+        return array(array('child'), array('childTheSecond'));
+    }
+
     public function testCanHandleOptionsAnnotation()
     {
         $entity  = new TestAsset\Annotation\EntityUsingOptions();
@@ -253,9 +285,9 @@ class AnnotationBuilderTest extends TestCase
         $fieldset = $form->get('object');
         /* @var $fieldset Zend\Form\Fieldset */
 
-        $this->assertInstanceOf('Zend\Form\Fieldset',$fieldset);
-        $this->assertInstanceOf('ZendTest\Form\TestAsset\Annotation\Entity',$fieldset->getObject());
-        $this->assertInstanceOf("Zend\Stdlib\Hydrator\ClassMethods",$fieldset->getHydrator());
+        $this->assertInstanceOf('Zend\Form\Fieldset', $fieldset);
+        $this->assertInstanceOf('ZendTest\Form\TestAsset\Annotation\Entity', $fieldset->getObject());
+        $this->assertInstanceOf("Zend\Stdlib\Hydrator\ClassMethods", $fieldset->getHydrator());
         $this->assertFalse($fieldset->getHydrator()->getUnderscoreSeparatedKeys());
     }
 
@@ -273,6 +305,17 @@ class AnnotationBuilderTest extends TestCase
         ) {
             $this->assertInstanceOf($expectedInstance, $inputFilter->get('input'));
         }
+    }
 
+    /**
+     * @group 6753
+     */
+    public function testInputFilterAnnotationAllowsComposition()
+    {
+        $entity = new TestAsset\Annotation\EntityWithInputFilterAnnotation();
+        $builder = new Annotation\AnnotationBuilder();
+        $form = $builder->createForm($entity);
+        $inputFilter = $form->getInputFilter();
+        $this->assertCount(2, $inputFilter->get('username')->getValidatorChain());
     }
 }

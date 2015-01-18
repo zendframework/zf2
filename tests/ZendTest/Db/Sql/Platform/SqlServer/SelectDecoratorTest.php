@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -16,7 +16,6 @@ use Zend\Db\Adapter\Platform\SqlServer as SqlServerPlatform;
 
 class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @testdox integration test: Testing SelectDecorator will use Select an internal state to prepare a proper limit/offset sql statement
      * @covers Zend\Db\Sql\Platform\SqlServer\SelectDecorator::prepareStatement
@@ -105,5 +104,4 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
             array($select3, $expectedPrepareSql3, $expectedParams3, $expectedSql3, $expectedFormatParamCount3)
         );
     }
-
 }

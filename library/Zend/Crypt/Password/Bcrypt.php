@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -33,11 +33,6 @@ class Bcrypt implements PasswordInterface
      * @var string
      */
     protected $salt;
-
-    /**
-     * @var bool
-     */
-    protected $backwardCompatibility = false;
 
     /**
      * Constructor
@@ -87,19 +82,7 @@ class Bcrypt implements PasswordInterface
          * Check for security flaw in the bcrypt implementation used by crypt()
          * @see http://php.net/security/crypt_blowfish.php
          */
-        if ((PHP_VERSION_ID >= 50307) && !$this->backwardCompatibility) {
-            $prefix = '$2y$';
-        } else {
-            $prefix = '$2a$';
-            // check if the password contains 8-bit character
-            if (preg_match('/[\x80-\xFF]/', $password)) {
-                throw new Exception\RuntimeException(
-                    'The bcrypt implementation used by PHP can contain a security flaw ' .
-                    'using password with 8-bit character. ' .
-                    'We suggest to upgrade to PHP 5.3.7+ or use passwords with only 7-bit characters'
-                );
-            }
-        }
+        $prefix = '$2y$';
         $hash = crypt($password, $prefix . $this->cost . '$' . $salt64);
         if (strlen($hash) < 13) {
             throw new Exception\RuntimeException('Error during the bcrypt generation');
@@ -186,22 +169,23 @@ class Bcrypt implements PasswordInterface
     /**
      * Set the backward compatibility $2a$ instead of $2y$ for PHP 5.3.7+
      *
+     * @deprecated since zf 2.3 requires PHP >= 5.3.23
      * @param bool $value
      * @return Bcrypt
      */
     public function setBackwardCompatibility($value)
     {
-        $this->backwardCompatibility = (bool) $value;
         return $this;
     }
 
     /**
      * Get the backward compatibility
      *
+     * @deprecated since zf 2.3 requires PHP >= 5.3.23
      * @return bool
      */
     public function getBackwardCompatibility()
     {
-        return $this->backwardCompatibility;
+        return false;
     }
 }

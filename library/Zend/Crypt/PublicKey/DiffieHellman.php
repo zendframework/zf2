@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -414,14 +414,11 @@ class DiffieHellman
         switch ($outputFormat) {
             case self::FORMAT_BINARY:
                 return $this->math->intToBin($number);
-                break;
             case self::FORMAT_BTWOC:
                 return $this->math->intToBin($number, true);
-                break;
             case self::FORMAT_NUMBER:
             default:
                 return $number;
-                break;
         }
     }
 

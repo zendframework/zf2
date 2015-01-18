@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -63,10 +63,10 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
         $this->callableMethodFilter = new OptionalParametersFilter();
 
-        $this->filterComposite->addFilter("is", new IsFilter());
-        $this->filterComposite->addFilter("has", new HasFilter());
-        $this->filterComposite->addFilter("get", new GetFilter());
-        $this->filterComposite->addFilter("parameter", new OptionalParametersFilter(), FilterComposite::CONDITION_AND);
+        $this->filterComposite->addFilter('is', new IsFilter());
+        $this->filterComposite->addFilter('has', new HasFilter());
+        $this->filterComposite->addFilter('get', new GetFilter());
+        $this->filterComposite->addFilter('parameter', new OptionalParametersFilter(), FilterComposite::CONDITION_AND);
     }
 
     /**
@@ -149,7 +149,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
             if ($object instanceof FilterProviderInterface) {
                 $filter = new FilterComposite(
                     array($object->getFilter()),
-                    array(new MethodMatchFilter("getFilter"))
+                    array(new MethodMatchFilter('getFilter'))
                 );
             }
 

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -125,7 +125,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testWriteUsesOptionalCustomColumnNames()
     {
         $this->writer = new DbWriter($this->db, $this->tableName, array(
-            'message' => 'new-message-field' ,
+            'message' => 'new-message-field',
             'priority' => 'new-priority-field'
         ));
 
@@ -152,7 +152,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testWriteUsesParamsWithArray()
     {
         $this->writer = new DbWriter($this->db, $this->tableName, array(
-            'message' => 'new-message-field' ,
+            'message' => 'new-message-field',
             'priority' => 'new-priority-field',
             'events' => array(
                 'line' => 'new-line',

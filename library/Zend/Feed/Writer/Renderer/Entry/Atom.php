@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -137,7 +137,7 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\RendererInterfa
         $updated = $dom->createElement('updated');
         $root->appendChild($updated);
         $text = $dom->createTextNode(
-            $this->getDataContainer()->getDateModified()->format(DateTime::ISO8601)
+            $this->getDataContainer()->getDateModified()->format(DateTime::ATOM)
         );
         $updated->appendChild($text);
     }
@@ -157,7 +157,7 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\RendererInterfa
         $el = $dom->createElement('published');
         $root->appendChild($el);
         $text = $dom->createTextNode(
-            $this->getDataContainer()->getDateCreated()->format(DateTime::ISO8601)
+            $this->getDataContainer()->getDateCreated()->format(DateTime::ATOM)
         );
         $el->appendChild($text);
     }
@@ -307,7 +307,6 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\RendererInterfa
                 $nvalid = $validator->isValid('info@' . $matches['name']);
             }
             return $dvalid && $nvalid;
-
         }
         return false;
     }

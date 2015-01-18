@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -82,14 +82,14 @@ class Scheme implements RouteInterface
     public function match(Request $request)
     {
         if (!method_exists($request, 'getUri')) {
-            return null;
+            return;
         }
 
         $uri    = $request->getUri();
         $scheme = $uri->getScheme();
 
         if ($scheme !== $this->scheme) {
-            return null;
+            return;
         }
 
         return new RouteMatch($this->defaults);

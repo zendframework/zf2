@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -60,14 +60,11 @@ abstract class Factory
         switch (true) {
             case (in_array('Zend\Session\Storage\AbstractSessionArrayStorage', class_parents($type))):
                 return static::createSessionArrayStorage($type, $options);
-                break;
             case ($type === 'Zend\Session\Storage\ArrayStorage'):
             case (in_array('Zend\Session\Storage\ArrayStorage', class_parents($type))):
                 return static::createArrayStorage($type, $options);
-                break;
             case (in_array('Zend\Session\Storage\StorageInterface', class_implements($type))):
                 return new $type($options);
-                break;
             default:
                 throw new Exception\InvalidArgumentException(sprintf(
                     'Unrecognized type "%s" provided; expects a class implementing %s\StorageInterface',

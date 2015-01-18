@@ -3,14 +3,13 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace Zend\Form\Annotation;
 
 use ArrayObject;
-use ReflectionClass;
 use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Annotation\Parser;
@@ -215,6 +214,8 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
 
         if (!isset($formSpec['input_filter'])) {
             $formSpec['input_filter'] = $filterSpec;
+        } elseif (is_array($formSpec['input_filter'])) {
+            $formSpec['input_filter'] = ArrayUtils::merge($filterSpec->getArrayCopy(), $formSpec['input_filter']);
         }
 
         return $formSpec;
@@ -335,7 +336,7 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
             : 'Zend\Form\Element';
 
         // Compose as a fieldset or an element, based on specification type
-        if (static::isSubclassOf($type, 'Zend\Form\FieldsetInterface')) {
+        if (is_subclass_of($type, 'Zend\Form\FieldsetInterface')) {
             if (!isset($formSpec['fieldsets'])) {
                 $formSpec['fieldsets'] = array();
             }
@@ -388,22 +389,14 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
      * @see https://bugs.php.net/bug.php?id=53727
      * @see https://github.com/zendframework/zf2/pull/1807
      *
+     * @deprecated since zf 2.3 requires PHP >= 5.3.23
+     *
      * @param string $className
      * @param string $type
      * @return bool
      */
     protected static function isSubclassOf($className, $type)
     {
-        if (is_subclass_of($className, $type)) {
-            return true;
-        }
-        if (PHP_VERSION_ID >= 50307) {
-            return false;
-        }
-        if (!interface_exists($type)) {
-            return false;
-        }
-        $r = new ReflectionClass($className);
-        return $r->implementsInterface($type);
+        return is_subclass_of($className, $type);
     }
 }

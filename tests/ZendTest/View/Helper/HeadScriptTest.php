@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -65,19 +65,23 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
         try {
             $this->helper->append('foo');
             $this->fail('Append should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) { }
+        } catch (View\Exception\ExceptionInterface $e) {
+        }
         try {
             $this->helper->offsetSet(1, 'foo');
             $this->fail('OffsetSet should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) { }
+        } catch (View\Exception\ExceptionInterface $e) {
+        }
         try {
             $this->helper->prepend('foo');
             $this->fail('Prepend should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) { }
+        } catch (View\Exception\ExceptionInterface $e) {
+        }
         try {
             $this->helper->set('foo');
             $this->fail('Set should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) { }
+        } catch (View\Exception\ExceptionInterface $e) {
+        }
     }
 
     protected function _inflectAction($type)
@@ -403,7 +407,6 @@ document.write(bar.strlen());');
      */
     public function testContainerMaintainsCorrectOrderOfItems()
     {
-
         $this->helper->offsetSetFile(1, 'test1.js');
         $this->helper->offsetSetFile(20, 'test2.js');
         $this->helper->offsetSetFile(10, 'test3.js');
@@ -456,4 +459,16 @@ document.write(bar.strlen());');
         $this->assertNotContains('//-->', $test);
     }
 
+    /**
+     * @group 6634
+     */
+    public function testSupportsCrossOriginAttribute()
+    {
+        $this->helper->__invoke()->appendScript(
+            '// some script' . PHP_EOL, 'text/javascript', array('crossorigin' => true)
+        );
+        $test = $this->helper->__invoke()->toString();
+
+        $this->assertContains('crossorigin="', $test);
+    }
 }

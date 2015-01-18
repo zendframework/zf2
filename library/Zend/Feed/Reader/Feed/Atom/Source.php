@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -18,7 +18,6 @@ use Zend\Feed\Reader\Feed;
 */
 class Source extends Feed\Atom
 {
-
     /**
      * Constructor: Create a Source object which is largely just a normal
      * Zend\Feed\Reader\AbstractFeed object only designed to retrieve feed level
@@ -60,35 +59,49 @@ class Source extends Feed\Atom
     /**
      * @return void
      */
-    public function count() {}
+    public function count()
+    {
+    }
 
     /**
      * @return void
      */
-    public function current() {}
+    public function current()
+    {
+    }
 
     /**
      * @return void
      */
-    public function key() {}
+    public function key()
+    {
+    }
 
     /**
      * @return void
      */
-    public function next() {}
+    public function next()
+    {
+    }
 
     /**
      * @return void
      */
-    public function rewind() {}
+    public function rewind()
+    {
+    }
 
     /**
      * @return void
      */
-    public function valid() {}
+    public function valid()
+    {
+    }
 
     /**
      * @return void
      */
-    protected function indexEntries() {}
+    protected function indexEntries()
+    {
+    }
 }

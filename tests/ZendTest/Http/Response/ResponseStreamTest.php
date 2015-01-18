@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -13,11 +13,10 @@ use Zend\Http\Response\Stream;
 
 class ResponseStreamTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testResponseFactoryFromStringCreatesValidResponse()
     {
         $string = 'HTTP/1.0 200 OK' . "\r\n\r\n".'Foo Bar'."\r\n";
-        $stream = fopen('php://temp','rb+');
+        $stream = fopen('php://temp', 'rb+');
         fwrite($stream, 'Bar Foo');
         rewind($stream);
 
@@ -33,7 +32,7 @@ class ResponseStreamTest extends \PHPUnit_Framework_TestCase
      */
     public function testResponseFactoryFromEmptyStringCreatesValidResponse()
     {
-        $stream = fopen('php://temp','rb+');
+        $stream = fopen('php://temp', 'rb+');
         fwrite($stream, 'HTTP/1.0 200 OK' . "\r\n\r\n".'Foo Bar'."\r\n".'Bar Foo');
         rewind($stream);
 
@@ -44,7 +43,7 @@ class ResponseStreamTest extends \PHPUnit_Framework_TestCase
 
     public function testGzipResponse()
     {
-        $stream = fopen(__DIR__ . '/../_files/response_gzip','rb');
+        $stream = fopen(__DIR__ . '/../_files/response_gzip', 'rb');
 
         $headers = '';
         while (false!== ($newLine = fgets($stream))) {
@@ -104,7 +103,6 @@ class ResponseStreamTest extends \PHPUnit_Framework_TestCase
      */
     protected function readResponse($response)
     {
-
         $stream = fopen(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . $response, 'rb');
 
         $data = '';

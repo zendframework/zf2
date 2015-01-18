@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -159,7 +159,6 @@ abstract class AbstractAdapter implements AdapterInterface
         // Determine charset and dimensions
         $charset = $this->getCharset();
         $width   = $x2 - $x1 + 1;
-        $height  = $y2 - $y1 + 1;
 
         if ($width <= 2) {
             $lineStyle = static::LINE_NONE;
@@ -194,7 +193,6 @@ abstract class AbstractAdapter implements AdapterInterface
         // Draw vertical lines and fill
         if (is_numeric($fillStyle)
             && $fillStyle !== static::FILL_NONE) {
-
             switch ($fillStyle) {
                 case static::FILL_SHADE_LIGHT:
                     $fillChar = $charset::SHADE_LIGHT;
@@ -210,7 +208,6 @@ abstract class AbstractAdapter implements AdapterInterface
                     $fillChar = $charset::BLOCK;
                     break;
             }
-
         } elseif ($fillStyle) {
             $fillChar = StringUtils::getWrapper()->substr($fillStyle, 0, 1);
         } else {

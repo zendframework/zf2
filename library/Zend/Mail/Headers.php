@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -70,15 +70,16 @@ class Headers implements Countable, Iterator
         // iterate the header lines, some might be continuations
         foreach (explode($EOL, $string) as $line) {
             // check if a header name is present
-            if (preg_match('/^(?P<name>[\x21-\x39\x3B-\x7E]+):.*$/', $line, $matches)) {
+            if (preg_match('/^[\x21-\x39\x3B-\x7E]+:.*$/', $line)) {
                 if ($currentLine) {
                     // a header name was present, then store the current complete line
                     $headers->addHeaderLine($currentLine);
                 }
                 $currentLine = trim($line);
-            } elseif (preg_match('/^\s+.*$/', $line, $matches)) {
+            } elseif (preg_match('/^\s+.*$/', $line)) {
                 // continuation: append to current line
-                $currentLine .= trim($line);
+                // recover the whitespace that break the line (unfolding, rfc2822#section-2.2.3)
+                $currentLine .= ' ' . trim($line);
             } elseif (preg_match('/^\s*$/', $line)) {
                 // empty line indicates end of headers
                 break;
@@ -178,7 +179,6 @@ class Headers implements Countable, Iterator
             } elseif (is_string($name)) {
                 $this->addHeaderLine($name, $value);
             }
-
         }
 
         return $this;
@@ -251,8 +251,8 @@ class Headers implements Countable, Iterator
 
         if (!empty($indexes)) {
             foreach ($indexes as $index) {
-                unset ($this->headersKeys[$index]);
-                unset ($this->headers[$index]);
+                unset($this->headersKeys[$index]);
+                unset($this->headers[$index]);
             }
             return true;
         }
@@ -303,6 +303,7 @@ class Headers implements Countable, Iterator
                 } else {
                     return $results[0];
                 }
+                //fall-trough
             default:
                 return new ArrayIterator($results);
         }

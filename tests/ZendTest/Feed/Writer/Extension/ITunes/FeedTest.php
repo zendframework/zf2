@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -17,7 +17,6 @@ use Zend\Feed\Writer;
 */
 class FeedTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testSetBlock()
     {
         $feed = new Writer\Feed;
@@ -254,15 +253,15 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testAddOwner()
     {
         $feed = new Writer\Feed;
-        $feed->addItunesOwner(array('name'=>'joe','email'=>'joe@example.com'));
-        $this->assertEquals(array(array('name'=>'joe','email'=>'joe@example.com')), $feed->getItunesOwners());
+        $feed->addItunesOwner(array('name'=>'joe', 'email'=>'joe@example.com'));
+        $this->assertEquals(array(array('name'=>'joe', 'email'=>'joe@example.com')), $feed->getItunesOwners());
     }
 
     public function testAddOwners()
     {
         $feed = new Writer\Feed;
-        $feed->addItunesOwners(array(array('name'=>'joe','email'=>'joe@example.com')));
-        $this->assertEquals(array(array('name'=>'joe','email'=>'joe@example.com')), $feed->getItunesOwners());
+        $feed->addItunesOwners(array(array('name'=>'joe', 'email'=>'joe@example.com')));
+        $this->assertEquals(array(array('name'=>'joe', 'email'=>'joe@example.com')), $feed->getItunesOwners());
     }
 
     public function testSetSubtitle()
@@ -294,7 +293,6 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testSetSummaryThrowsExceptionWhenValueExceeds4000Chars()
     {
         $feed = new Writer\Feed;
-        $feed->setItunesSummary(str_repeat('a',4001));
+        $feed->setItunesSummary(str_repeat('a', 4001));
     }
-
 }

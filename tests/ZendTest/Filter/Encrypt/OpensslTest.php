@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -12,7 +12,7 @@ namespace ZendTest\Filter\Encrypt;
 use Zend\Filter\Encrypt\Openssl as OpensslEncryption;
 
 /**
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Filter
  */
@@ -137,7 +137,6 @@ bK22CwD/l7SMBOz4M9XH0Jb0OhNxLza4XMDu0ANMIpnkn1KOcmQ4gB8fmAbBt';
 
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'not valid');
         $filter->setPublicKey(123);
-
     }
 
     /**
@@ -170,7 +169,6 @@ d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
 
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'not valid');
         $filter->setPrivateKey(123);
-
     }
 
     /**

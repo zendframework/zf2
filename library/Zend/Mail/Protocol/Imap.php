@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -299,7 +299,7 @@ class Imap
         } elseif ($tokens[0] == 'NO') {
             return false;
         }
-        return null;
+        return;
     }
 
     /**
@@ -389,7 +389,6 @@ class Imap
         $result = array();
         foreach ($list as $v) {
             if (!is_array($v)) {
-//              $result[] = $this->escapeString($v);
                 $result[] = $v;
                 continue;
             }
@@ -429,7 +428,6 @@ class Imap
         }
         return $result;
     }
-
 
     /**
      * Get capabilities from IMAP server
@@ -587,7 +585,8 @@ class Imap
             // if we want only one message we can ignore everything else and just return
             if ($to === null && !is_array($from) && $tokens[0] == $from) {
                 // we still need to read all lines
-                while (!$this->readLine($tokens, $tag));
+                while (!$this->readLine($tokens, $tag)) {
+                }
                 return $data;
             }
             $result[$tokens[0]] = $data;

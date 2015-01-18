@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -385,9 +385,9 @@ class SegmentTest extends TestCase
     public function testEncodeCache()
     {
         $params1 = array('p1' => 6.123, 'p2' => 7);
-        $uri1 = 'example.com/'.join('/', $params1);
+        $uri1 = 'example.com/'.implode('/', $params1);
         $params2 = array('p1' => 6, 'p2' => 'test');
-        $uri2 = 'example.com/'.join('/', $params2);
+        $uri2 = 'example.com/'.implode('/', $params2);
 
         $route = new Segment('example.com/:p1/:p2');
         $request = new Request();

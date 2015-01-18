@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -58,7 +58,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('"identifier"', $this->platform->quoteIdentifierChain('identifier'));
         $this->assertEquals('"identifier"', $this->platform->quoteIdentifierChain(array('identifier')));
-        $this->assertEquals('"schema"."identifier"', $this->platform->quoteIdentifierChain(array('schema','identifier')));
+        $this->assertEquals('"schema"."identifier"', $this->platform->quoteIdentifierChain(array('schema', 'identifier')));
     }
 
     /**
@@ -130,6 +130,12 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
             '("foo"."bar" = "boo"."baz") AND ("foo"."baz" = "boo"."baz")',
             $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and'))
         );
+
+        // case insensitive safe words in field
+        $this->assertEquals(
+            '("foo"."bar" = "boo".baz) AND ("foo".baz = "boo".baz)',
+            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and', 'bAz'))
+        );
     }
 
     /**
@@ -140,7 +146,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
     {
         // Creating the SQLite database file
         $filePath = realpath(__DIR__) . "/_files/sqlite.db";
-        if(!file_exists($filePath)) {
+        if (!file_exists($filePath)) {
             touch($filePath);
         }
 

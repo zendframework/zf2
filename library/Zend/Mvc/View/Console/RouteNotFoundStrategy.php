@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -125,14 +125,14 @@ class RouteNotFoundStrategy extends AbstractListenerAggregate
 
         // Try to fetch module manager
         $mm = null;
-        try{
+        try {
             $mm = $sm->get('ModuleManager');
         } catch (ServiceNotFoundException $exception) {
             // The application does not have or use module manager, so we cannot use it
         }
 
         // Try to fetch current console adapter
-        try{
+        try {
             $console = $sm->get('console');
             if (!$console instanceof ConsoleAdapter) {
                 throw new ServiceNotFoundException();

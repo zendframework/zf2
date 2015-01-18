@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -13,7 +13,6 @@ use Zend\Http\Header\AcceptEncoding;
 
 class AcceptEncodingTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testAcceptEncodingFromStringCreatesValidAcceptEncodingHeader()
     {
         $acceptEncodingHeader = AcceptEncoding::fromString('Accept-Encoding: xxx');
@@ -35,7 +34,6 @@ class AcceptEncodingTest extends \PHPUnit_Framework_TestCase
 
     public function testAcceptEncodingToStringReturnsHeaderFormattedString()
     {
-
         $acceptEncodingHeader = new AcceptEncoding();
         $acceptEncodingHeader->addEncoding('compress', 0.5)
                              ->addEncoding('gzip', 1);

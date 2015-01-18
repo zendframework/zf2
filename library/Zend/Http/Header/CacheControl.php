@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -179,11 +179,9 @@ class CacheControl implements HeaderInterface
             case 0:
                 $directive = $lastMatch;
                 goto state_value;
-                break;
 
             default:
                 throw new Exception\InvalidArgumentException('expected DIRECTIVE');
-                break;
         }
 
         state_value:
@@ -191,32 +189,26 @@ class CacheControl implements HeaderInterface
             case 0:
                 $directives[$directive] = substr($lastMatch, 2, -1);
                 goto state_separator;
-                break;
 
             case 1:
                 $directives[$directive] = rtrim(substr($lastMatch, 1));
                 goto state_separator;
-                break;
 
             default:
                 $directives[$directive] = true;
                 goto state_separator;
-                break;
         }
 
         state_separator:
         switch (static::match(array('\s*,\s*', '$'), $value, $lastMatch)) {
             case 0:
                 goto state_directive;
-                break;
 
             case 1:
                 return $directives;
-                break;
 
             default:
                 throw new Exception\InvalidArgumentException('expected SEPARATOR or END');
-                break;
 
         }
     }

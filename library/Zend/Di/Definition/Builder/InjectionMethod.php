@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -98,22 +98,16 @@ class InjectionMethod
                 case "require":
                 case "required":
                     return Di::METHOD_IS_REQUIRED;
-                    break;
                 case "aware":
                     return Di::METHOD_IS_AWARE;
-                    break;
                 case "optional":
                     return Di::METHOD_IS_OPTIONAL;
-                    break;
                 case "constructor":
                     return Di::METHOD_IS_CONSTRUCTOR;
-                    break;
                 case "instantiator":
                     return Di::METHOD_IS_INSTANTIATOR;
-                    break;
                 case "eager":
                     return Di::METHOD_IS_EAGER;
-                    break;
             }
         }
         return 0;

@@ -3,15 +3,15 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link           http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright      Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright      Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license        http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Stdlib;
 
-use Zend\Stdlib\Hydrator\Filter\HasFilter,
-    Zend\Stdlib\Hydrator\Filter\IsFilter,
-    Zend\Stdlib\Hydrator\Filter\GetFilter;
+use Zend\Stdlib\Hydrator\Filter\HasFilter;
+use Zend\Stdlib\Hydrator\Filter\IsFilter;
+use Zend\Stdlib\Hydrator\Filter\GetFilter;
 
 class FilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,5 +50,4 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($hasValidation->filter('Bar::ISFoo'));
         $this->assertFalse($hasValidation->filter(get_class($this).'::ISFoo'));
     }
-
 }

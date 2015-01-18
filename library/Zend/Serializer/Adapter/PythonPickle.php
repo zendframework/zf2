@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -1035,25 +1035,22 @@ class PythonPickle extends AbstractAdapter
 
         if ($uniCode < 0x80) { // 1Byte
             $utf8Char = chr($uniCode);
-
         } elseif ($uniCode < 0x800) { // 2Byte
             $utf8Char = chr(0xC0 | $uniCode >> 6)
                       . chr(0x80 | $uniCode & 0x3F);
-
         } elseif ($uniCode < 0x10000) { // 3Byte
             $utf8Char = chr(0xE0 | $uniCode >> 12)
                       . chr(0x80 | $uniCode >> 6 & 0x3F)
                       . chr(0x80 | $uniCode & 0x3F);
-
         } elseif ($uniCode < 0x110000) { // 4Byte
             $utf8Char  = chr(0xF0 | $uniCode >> 18)
                        . chr(0x80 | $uniCode >> 12 & 0x3F)
                        . chr(0x80 | $uniCode >> 6 & 0x3F)
                        . chr(0x80 | $uniCode & 0x3F);
         } else {
-            throw new Exception\RuntimeException(sprintf(
-                'Unsupported unicode character found "%s"', dechex($uniCode)
-            ));
+            throw new Exception\RuntimeException(
+                sprintf('Unsupported unicode character found "%s"', dechex($uniCode))
+            );
         }
 
         return $utf8Char;
