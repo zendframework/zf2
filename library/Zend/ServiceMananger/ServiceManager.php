@@ -120,7 +120,7 @@ class ServiceManager implements ServiceLocatorInterface
         }
 
         foreach ($this->initializers as $initializer) {
-            $initializer($object);
+            $initializer($this->creationContext, $object);
         }
 
         return $object;

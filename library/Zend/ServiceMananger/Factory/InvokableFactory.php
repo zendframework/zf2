@@ -14,7 +14,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * Factory to create newable objects
  */
-class InvokableFactory implements FactoryInterface
+final class InvokableFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
