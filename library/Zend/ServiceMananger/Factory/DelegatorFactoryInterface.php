@@ -22,7 +22,8 @@ interface DelegatorFactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @param  string                  $name
      * @param  callable                $callback
+     * @param  array                   $options
      * @return object
      */
-    public function __invoke(ServiceLocatorInterface $serviceLocator, $name, callable $callback);
+    public function __invoke(ServiceLocatorInterface $serviceLocator, $name, callable $callback, array $options = []);
 }

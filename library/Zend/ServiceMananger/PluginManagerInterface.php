@@ -9,7 +9,7 @@
 
 namespace Zend\ServiceManager;
 
-use Zend\ServiceManager\Exception\InvalidObjectException;
+use Zend\ServiceManager\Exception\InvalidServiceException;
 
 /**
  * Interface for a plugin manager
@@ -23,7 +23,7 @@ interface PluginManagerInterface extends ServiceLocatorInterface
      *
      * @param  string $object
      * @return void
-     * @throws InvalidObjectException
+     * @throws InvalidServiceException
      */
     public function validate($object);
 }

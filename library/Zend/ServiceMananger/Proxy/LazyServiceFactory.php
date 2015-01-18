@@ -63,7 +63,7 @@ final class LazyServiceFactory implements DelegatorFactoryInterface
             return $this->proxyFactory->createProxy($this->servicesMap[$name], $initializer);
         }
 
-        throw new Exception\InvalidFactoryException(
+        throw new Exception\ServiceNotFoundException(
             sprintf('The requested service "%s" was not found in the provided services map', $name)
         );
     }

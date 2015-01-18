@@ -44,6 +44,15 @@ abstract class AbstractAliasedPluginManager extends AbstractPluginManager
     }
 
     /**
+     * {@inheritDoc}
+     */
+    protected function configure(array $config)
+    {
+        parent::configure($config);
+        $this->aliases = isset($config['aliases']) ? $config['aliases'] : [];
+    }
+
+    /**
      * Recursively resolve an alias name to a service name
      *
      * @param  string $alias

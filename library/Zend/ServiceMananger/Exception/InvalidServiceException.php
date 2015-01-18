@@ -12,8 +12,11 @@ namespace Zend\ServiceManager\Exception;
 use RuntimeException;
 
 /**
- * InvalidObjectException
+ * InvalidServiceException
+ *
+ * This exception is triggered by plugin managers when the created object does not match
+ * the plugin manager's conditions
  */
-class InvalidObjectException extends RuntimeException implements ExceptionInterface
+class InvalidServiceException extends RuntimeException implements ExceptionInterface
 {
 }

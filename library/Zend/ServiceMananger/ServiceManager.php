@@ -9,9 +9,12 @@
 
 namespace Zend\ServiceManager;
 
+use Exception;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
-use Zend\ServiceManager\Exception\InvalidFactoryException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Initializer\InitializerInterface;
 
 /**
  * Service Manager
@@ -34,6 +37,11 @@ class ServiceManager implements ServiceLocatorInterface
      * @var string[]|DelegatorFactoryInterface[]
      */
     protected $delegators = [];
+
+    /**
+     * @var InitializerInterface[]
+     */
+    protected $initializers = [];
 
     /**
      * A list of already loaded services (this act as a local cache)
@@ -71,46 +79,10 @@ class ServiceManager implements ServiceLocatorInterface
     /**
      * @param array $config
      */
-    public function __construct(array $config = [])
+    public function __construct(array $config)
     {
         $this->creationContext = $this;
-
-        if (!empty($config)) {
-            $this->configure($config);
-        }
-    }
-
-    /**
-     * Configure the service manager
-     *
-     * Note that configuration never overwrite previous configuration, but is merged with it. If you need
-     * to clear a service manager configuration, you need to create a different service manager
-     *
-     * Valid top keys are:
-     *
-     *      - factories: a list of key value that map a service name with a factory
-     *      - abstract_factories: a list of object or string of abstract factories
-     *      - shared: a list of key value that map a service name to a boolean
-     *      - shared_by_default: boolean
-     *
-     * @param  array $config
-     * @return void
-     */
-    public function configure(array $config)
-    {
-        // @TODO: for PHP7, we will be able to use coalesce operator
-
-        $this->factories = array_merge($this->factories, isset($config['factories']) ? $config['factories'] : []);
-        $this->shared    = array_merge($this->shared, isset($config['shared']) ? $config['shared'] : []);
-
-        $this->sharedByDefault = isset($config['shared_by_default']) ? $config['shared_by_default'] : $this->sharedByDefault;
-
-        // For abstract factories, we always directly instantiate them to avoid checks during construction
-        if (isset($config['abstract_factories'])) {
-            foreach ($config['abstract_factories'] as $abstractFactory) {
-                $this->abstractFactories[] = is_string($abstractFactory) ? new $abstractFactory() : $abstractFactory;
-            }
-        }
+        $this->configure($config);
     }
 
     /**
@@ -128,15 +100,27 @@ class ServiceManager implements ServiceLocatorInterface
         // Let's create the service by fetching the factory
         $factory = $this->getFactory($name);
 
-        if (!isset($this->delegators[$name])) {
-            $object = $factory($this->creationContext, $name, $options);
-        } else {
-            $object = $this->createDelegatorFromFactory($name, $options);
+        try {
+            if (!isset($this->delegators[$name])) {
+                $object = $factory($this->creationContext, $name, $options);
+            } else {
+                $object = $this->createDelegatorFromFactory($name, $options);
+            }
+        } catch (Exception $exception) {
+            throw new ServiceNotCreatedException(sprintf(
+                'Service with name "%s" could not be created',
+                $exception->getCode(),
+                $exception
+            ));
         }
 
         if (($this->sharedByDefault && !isset($this->shared[$name]))
             || (isset($this->shared[$name]) && $this->shared[$name])) {
             $this->services[$name] = $object;
+        }
+
+        foreach ($this->initializers as $initializer) {
+            $initializer($object);
         }
 
         return $object;
@@ -168,7 +152,7 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @param  string $name
      * @return callable
-     * @throws InvalidFactoryException
+     * @throws ServiceNotFoundException
      */
     protected function getFactory($name)
     {
@@ -190,7 +174,7 @@ class ServiceManager implements ServiceLocatorInterface
             }
         }
 
-        throw new InvalidFactoryException(sprintf(
+        throw new ServiceNotFoundException(sprintf(
             'An invalid or missing factory was given for creating service "%s". Did you make sure you added the service
              into the service manager configuration?',
             $name
@@ -206,19 +190,57 @@ class ServiceManager implements ServiceLocatorInterface
     {
         $delegatorsCount  = count($this->delegators[$name]);
         $creationCallback = function() use ($name, $options) {
-            return $this->get($name, $options);
+            // Code is inline for performance reason, instead of abstracting the creation
+            $factory = $this->getFactory($name);
+            return $factory($this->creationContext, $name, $options);
         };
 
-        for ($i = 0 ; $i < $delegatorsCount ; $i += 1) {
+        for ($i = 0 ; $i < $delegatorsCount ; ++$i) {
             $delegatorFactory = $this->delegators[$name][$i];
 
             if (is_string($delegatorFactory)) {
                 $delegatorFactory = $this->delegators[$name][$i] = new $delegatorFactory();
             }
 
-            $creationCallback = function () use ($delegatorFactory, $name, $creationCallback) {
-                return $delegatorFactory($this->creationContext, $name, $creationCallback);
+            $creationCallback = function() use ($delegatorFactory, $name, $creationCallback, $options) {
+                return $delegatorFactory($this->creationContext, $name, $creationCallback, $options);
             };
+        }
+
+        return $creationCallback($this->creationContext, $name, $creationCallback, $options);
+    }
+
+    /**
+     * Configure the service manager
+     *
+     * Valid top keys are:
+     *
+     *      - factories: a list of key value that map a service name with a factory
+     *      - abstract_factories: a list of object or string of abstract factories
+     *      - shared: a list of key value that map a service name to a boolean
+     *      - shared_by_default: boolean
+     *
+     * @param  array $config
+     * @return void
+     */
+    protected function configure(array $config)
+    {
+        $this->factories       = isset($config['factories']) ? $config['factories'] : [];
+        $this->delegators      = isset($config['delegators']) ? $config['delegators'] : [];
+        $this->shared          = isset($config['shared']) ? $config['shared'] : [];
+        $this->sharedByDefault = isset($config['shared_by_default']) ? $config['shared_by_default'] : $this->sharedByDefault;
+
+        // For abstract factories and initializers, we always directly instantiate them to avoid checks during construction
+        if (isset($config['abstract_factories'])) {
+            foreach ($config['abstract_factories'] as $abstractFactory) {
+                $this->abstractFactories[] = is_string($abstractFactory) ? new $abstractFactory() : $abstractFactory;
+            }
+        }
+
+        if (isset($config['initializers'])) {
+            foreach ($config['initializers'] as $initializer) {
+                $this->initializers[] = is_string($initializer) ? new $initializer() : $initializer;
+            }
         }
     }
 }

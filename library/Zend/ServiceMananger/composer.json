@@ -1,0 +1,42 @@
+{
+  "name": "zendframework/zend-servicemanager",
+  "type": "library",
+  "license": "MIT",
+  "description": "Service Manager component for Zend Framework",
+  "keywords": [
+    "zend framework",
+    "service manager",
+    "ioc"
+  ],
+  "homepage": "https://github.com/zendframework/service-manager",
+  "authors": [
+    {
+      "name": "Michaël Gallego",
+      "email": "mic.gallego@gmail.com",
+      "homepage": "http://www.michaelgallego.fr"
+    }
+  ],
+  "require": {
+    "php": ">=5.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.4",
+    "ocramius/proxy-manager": "~1.0"
+  },
+  "suggest": {
+    "ocramius/proxy-manager": "ProxyManager 1.* to handle lazy initialization of services"
+  },
+  "autoload": {
+    "psr-4": {
+      "Zend\\ServiceManager\\": "src/"
+    },
+    "classmap": [
+      "./"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ZendTest\\ServiceManager\\": "tests/"
+    }
+  }
+}
