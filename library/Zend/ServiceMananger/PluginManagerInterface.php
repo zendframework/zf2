@@ -19,11 +19,11 @@ use Zend\ServiceManager\Exception\InvalidServiceException;
 interface PluginManagerInterface extends ServiceLocatorInterface
 {
     /**
-     * Validate an object
+     * Validate an instance
      *
-     * @param  string $object
+     * @param  object $instance
      * @return void
      * @throws InvalidServiceException
      */
-    public function validate($object);
+    public function validate($instance);
 }

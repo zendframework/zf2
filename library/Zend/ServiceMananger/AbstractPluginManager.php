@@ -9,11 +9,20 @@
 
 namespace Zend\ServiceManager;
 
+use Zend\ServiceManager\Exception\InvalidServiceException;
+
 /**
  * Abstract plugin manager
  */
 abstract class AbstractPluginManager extends ServiceManager implements PluginManagerInterface
 {
+    /**
+     * An object type that the created instance must be instanced of
+     *
+     * @var string
+     */
+    protected $instanceOf = null;
+
     /**
      * @param ServiceLocatorInterface $parentLocator
      * @param array                   $config
@@ -22,5 +31,22 @@ abstract class AbstractPluginManager extends ServiceManager implements PluginMan
     {
         parent::__construct($config);
         $this->creationContext = $parentLocator;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function validate($instance)
+    {
+        if (empty($this->instanceOf) || $instance instanceof $this->instanceOf) {
+            return;
+        }
+
+        throw new InvalidServiceException(sprintf(
+            'Plugin manager "%s" expected an instance of type "%s", but "%s" was received',
+            __CLASS__,
+            $this->instanceOf,
+            is_object($instance) ? get_class($instance) : gettype($instance)
+        ));
     }
 }
