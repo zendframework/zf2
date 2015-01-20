@@ -63,8 +63,8 @@ abstract class AbstractAliasedPluginManager extends AbstractPluginManager
         $name = $alias;
 
         do {
-            $canBeResolved = isset($this->aliases[$alias]);
-            $name          = $canBeResolved ? $this->aliases[$alias] : $name;
+            $canBeResolved = isset($this->aliases[$name]);
+            $name          = $canBeResolved ? $this->aliases[$name] : $name;
         } while ($canBeResolved);
 
         return $name;
