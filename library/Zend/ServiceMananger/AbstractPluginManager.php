@@ -18,7 +18,7 @@ abstract class AbstractPluginManager extends ServiceManager implements PluginMan
      * @param ServiceLocatorInterface $parentLocator
      * @param array                   $config
      */
-    public function __construct(ServiceLocatorInterface $parentLocator, array $config = [])
+    public function __construct(ServiceLocatorInterface $parentLocator, array $config)
     {
         parent::__construct($config);
         $this->creationContext = $parentLocator;
