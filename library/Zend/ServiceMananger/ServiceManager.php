@@ -10,6 +10,7 @@
 namespace Zend\ServiceManager;
 
 use Exception;
+use Zend\ServiceManager\Exception\InvalidArgumentException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
@@ -158,12 +159,11 @@ class ServiceManager implements ServiceLocatorInterface
     {
         $factory = isset($this->factories[$name]) ? $this->factories[$name] : null;
 
-        if (is_callable($factory)) {
-            return $factory;
-        }
-
         if (is_string($factory)) {
             $this->factories[$name] = $factory = new $factory();
+        }
+
+        if (is_callable($factory)) {
             return $factory;
         }
 
@@ -190,7 +190,7 @@ class ServiceManager implements ServiceLocatorInterface
     {
         $delegatorsCount  = count($this->delegators[$name]);
         $creationCallback = function() use ($name, $options) {
-            // Code is inline for performance reason, instead of abstracting the creation
+            // Code is inlined for performance reason, instead of abstracting the creation
             $factory = $this->getFactory($name);
             return $factory($this->creationContext, $name, $options);
         };
@@ -233,13 +233,41 @@ class ServiceManager implements ServiceLocatorInterface
         // For abstract factories and initializers, we always directly instantiate them to avoid checks during construction
         if (isset($config['abstract_factories'])) {
             foreach ($config['abstract_factories'] as $abstractFactory) {
-                $this->abstractFactories[] = is_string($abstractFactory) ? new $abstractFactory() : $abstractFactory;
+                if (is_string($abstractFactory)) {
+                    $abstractFactory = new $abstractFactory();
+                }
+
+                if (is_callable($abstractFactory)) {
+                    $this->abstractFactories[] = $abstractFactory;
+                    continue;
+                }
+
+                throw new InvalidArgumentException(sprintf(
+                    'An invalid abstract factory was registered. A callable or an instance of "%s" was expected, but
+                    "%s" was received',
+                    AbstractFactoryInterface::class,
+                    is_object($abstractFactory) ? get_class($abstractFactory) : gettype($abstractFactory)
+                ));
             }
         }
 
         if (isset($config['initializers'])) {
             foreach ($config['initializers'] as $initializer) {
-                $this->initializers[] = is_string($initializer) ? new $initializer() : $initializer;
+                if (is_string($initializer)) {
+                    $initializer = new $initializer();
+                }
+
+                if (is_callable($initializer)) {
+                    $this->initializers[] = $initializer;
+                    continue;
+                }
+
+                throw new InvalidArgumentException(sprintf(
+                    'An invalid initializer was registered. A callable or an instance of "%s" was expected, but
+                    "%s" was received',
+                    InitializerInterface::class,
+                    is_object($initializer) ? get_class($initializer) : gettype($initializer)
+                ));
             }
         }
     }
