@@ -30,4 +30,12 @@ interface ListenerAggregateInterface
      * @return void
      */
     static public function attachAggregate(EventManagerInterface $eventManager);
+
+    /**
+     * Detach one or many events from the event manager
+     *
+     * @param  EventManagerInterface $eventManager
+     * @return bool
+     */
+    static public function detachAggregate(EventManagerInterface $eventManager);
 }
