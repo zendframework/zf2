@@ -27,14 +27,7 @@ use Zend\ServiceManager\Exception;
 class ListenerPluginManager extends AbstractPluginManager
 {
     /**
-     * {@inheritDoc}
+     * @var string
      */
-    public function validatePlugin($plugin)
-    {
-        if ($plugin instanceof ListenerAggregateInterface) {
-            return;
-        }
-
-        // @TODO: throw exception
-    }
+    protected $instanceOf = ListenerAggregateInterface::class;
 }

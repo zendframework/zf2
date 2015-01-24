@@ -63,6 +63,36 @@ class EventManager implements EventManagerInterface
     /**
      * {@inheritDoc}
      */
+    public function detach($eventName, $callbackOrSpec = null)
+    {
+        if (!isset($this->events[$eventName])) {
+            return false;
+        }
+
+        // If no callback or spec, we remove all the listeners from a given event name
+        if (null === $callbackOrSpec) {
+            unset($this->events[$eventName]);
+            return true;
+        }
+
+        // Otherwise, the operation is a bit more heavy
+        $found = false;
+
+        foreach ($this->events[$eventName] as &$listenersByPriority) {
+            $key = array_search($callbackOrSpec, $listenersByPriority, true);
+
+            if ($key !== false) {
+                unset($listenersByPriority[$key]);
+                $found = true;
+            }
+        }
+
+        return $found;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function trigger($eventName, EventInterface $event)
     {
         $responses = [];
@@ -109,7 +139,8 @@ class EventManager implements EventManagerInterface
             isset($this->events['*']) ? $this->events['*'] : []
         );
 
-        // @TODO: consider caching the sort for performance
+        // @TODO: consider caching the sort for performance. However, as events are typically triggered only
+        // one or two times, the extra work of caching may not be worth the work, especially on small datasets
         krsort($listeners, SORT_NUMERIC);
 
         foreach ($listeners as $priority => $listenersByPriority) {

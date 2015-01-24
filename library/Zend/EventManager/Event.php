@@ -19,54 +19,65 @@
 namespace Zend\EventManager;
 
 /**
- * EventInterface
+ * Base Event
  */
-interface EventInterface 
+class Event implements EventInterface
 {
     /**
-     * Set a list of params
-     *
-     * @param  array $params
-     * @return void
+     * @var bool
      */
-    public function setParams(array $params);
+    protected $stopPropagation = false;
 
     /**
-     * Get a list of params
-     *
-     * @return array
+     * @var array
      */
-    public function getParams();
+    protected $params = [];
 
     /**
-     * Set a single param
-     *
-     * @param  string $key
-     * @param  mixed  $value
-     * @return void
+     * {@inheritDoc}
      */
-    public function setParam($key, $value);
+    public function setParams(array $params)
+    {
+        $this->params = $params;
+    }
 
     /**
-     * Get a single param
-     *
-     * @param  string $key
-     * @param  mixed  $defaultValue
-     * @return mixed
+     * {@inheritDoc}
      */
-    public function getParam($key, $defaultValue = null);
+    public function getParams()
+    {
+        return $this->params;
+    }
 
     /**
-     * Stop the propagation of the event
-     *
-     * @return void
+     * {@inheritDoc}
      */
-    public function stopPropagation();
+    public function setParam($key, $value)
+    {
+        $this->params[$key] = $value;
+    }
 
     /**
-     * Is the propagation stopped?
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isPropagationStopped();
+    public function getParam($key, $defaultValue = null)
+    {
+        return isset($this->params[$key]) ? $this->params[$key] : $defaultValue;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function stopPropagation()
+    {
+        $this->stopPropagation = true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isPropagationStopped()
+    {
+        return $this->stopPropagation;
+    }
 }

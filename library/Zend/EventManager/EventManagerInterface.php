@@ -34,6 +34,15 @@ interface EventManagerInterface
     public function attach($eventName, $callbackOrSpec, $priority = 1);
 
     /**
+     * Detach a listener for an event name (or all listeners if no $callbackOrSpec is passed)
+     *
+     * @param  string $eventName
+     * @param  mixed  $callbackOrSpec
+     * @return bool True if was detached, false otherwise
+     */
+    public function detach($eventName, $callbackOrSpec = null);
+
+    /**
      * Trigger an event
      *
      * @param  string         $eventName

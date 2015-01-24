@@ -26,6 +26,7 @@ interface ListenerAggregateInterface
     /**
      * Attach one or many events to the event manager
      *
+     * @param  EventManagerInterface $eventManager
      * @return void
      */
     static public function attachAggregate(EventManagerInterface $eventManager);
