@@ -21,7 +21,7 @@ namespace Zend\EventManager;
 /**
  * EventInterface
  */
-interface EventInterface 
+interface EventInterface
 {
     /**
      * Set a list of params
