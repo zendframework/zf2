@@ -734,7 +734,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('Zend\Mail\AddressList', $value);
             $this->assertEquals(1, count($value));
             $this->assertTrue($value->has($options[$key]));
-
         }
     }
 
@@ -775,7 +774,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('Zend\Mail\AddressList', $value);
             $this->assertEquals(1, count($value));
             $this->assertTrue($value->has($options[$key]));
-
         }
     }
 }
