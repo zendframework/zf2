@@ -717,7 +717,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('UTF-8',   $message->getEncoding());
         $this->assertEquals('subject', $message->getSubject());
         $this->assertEquals('body',    $message->getBody());
-        
         $this->assertInstanceOf('Zend\Mail\Address', $message->getSender());
         $this->assertEquals($options['sender'], $message->getSender()->getEmail());
 
