@@ -34,7 +34,7 @@ class ListenerPluginManagerFactory implements FactoryInterface
     {
         // @TODO: ZF3 should have a Config accessible through FQCN
         $config = $serviceLocator->get('Config');
-        
+
         return new ListenerPluginManager($serviceLocator, isset($config['listeners']) ? $config['listeners'] : []);
     }
 }
