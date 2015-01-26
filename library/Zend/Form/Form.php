@@ -813,6 +813,19 @@ class Form extends Fieldset implements FormInterface
                     } else {
                         if ($fieldset instanceof Collection && $inputFilter instanceof CollectionInputFilter) {
                             continue;
+                        } elseif (
+                            $childFieldset instanceof Collection
+                            && $childFieldset->getTargetElement() instanceof FieldsetInterface
+                        ) {
+                            $childFilter = new InputFilter();
+                            $this->attachInputFilterDefaults($childFilter, $childFieldset->getTargetElement());
+
+                            $collectionFilter = new CollectionInputFilter();
+                            $collectionFilter->setInputFilter($childFilter);
+
+                            $inputFilter->add($collectionFilter, $name);
+
+                            continue;
                         } else {
                             $inputFilter->add(new InputFilter(), $name);
                         }
