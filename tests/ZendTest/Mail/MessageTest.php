@@ -696,7 +696,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $this->message->getBodyText());
     }
 
-    public function testSetOptionsInConstructor()
+    public function testConstructorWithOptions()
     {
         $options = array(
             'encoding'  => 'UTF-8',
