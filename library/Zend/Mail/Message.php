@@ -53,7 +53,7 @@ class Message
      * @return self
      * @throws Exception\InvalidArgumentException
      */
-    public function setOptions($options)
+    private function setOptions($options)
     {
         if (!is_array($options) && !$options instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
