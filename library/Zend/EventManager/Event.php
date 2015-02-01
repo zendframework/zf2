@@ -62,7 +62,7 @@ class Event implements EventInterface
      */
     public function getParam($key, $defaultValue = null)
     {
-        return isset($this->params[$key]) ? $this->params[$key] : $defaultValue;
+        return array_key_exists($key, $this->params) ? $this->params[$key] : $defaultValue;
     }
 
     /**
