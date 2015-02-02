@@ -14,19 +14,19 @@ use Zend\Filter\Exception;
 
 class SeparatorToSeparator extends AbstractFilter
 {
-    protected $searchSeparator = null;
-    protected $replacementSeparator = null;
+    protected $searchSeparator = ' ';
+    protected $replacementSeparator = '-';
 
     /**
      * Constructor
      *
-     * @param  string $searchSeparator      Separator to search for
-     * @param  string $replacementSeparator Separator to replace with
+     * @param  array|Traversable $options
      */
-    public function __construct($searchSeparator = ' ', $replacementSeparator = '-')
+    public function __construct($options = null)
     {
-        $this->setSearchSeparator($searchSeparator);
-        $this->setReplacementSeparator($replacementSeparator);
+        if (null !== $options) {
+            $this->setOptions($options);
+        }
     }
 
     /**
