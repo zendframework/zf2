@@ -45,6 +45,15 @@ class EventManager implements EventManagerInterface
      */
     public function __construct(callable $listenerInstantiator = null)
     {
+        // If null, this means that lazy listener won't work, so we set it to a callable that trigger an exception
+        if (null === $listenerInstantiator) {
+            $this->listenerInstantiator = function() {
+                throw new RuntimeException(
+                    'Trying to create a lazy listener, but no instantiator was specified in the event manager'
+                );
+            };
+        }
+
         $this->listenerInstantiator = $listenerInstantiator;
     }
 
@@ -149,7 +158,7 @@ class EventManager implements EventManagerInterface
 
         foreach ($listeners as $priority => $listenersByPriority) {
             foreach ($listenersByPriority as list($listener, $isLazy)) {
-                if ($listenerInstantiator && $isLazy) {
+                if ($isLazy) {
                     $listener[0] = $listenerInstantiator($listener[0]);
 
                     // @TODO: to benchmark: should we pass listenersByPriority be reference, and modify the "isLazy"
