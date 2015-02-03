@@ -31,20 +31,21 @@ class EventManager implements EventManagerInterface
     private $events = [];
 
     /**
-     * @var ListenerPluginManager
+     * @var callable
      */
-    private $listenerPluginManager;
+    private $listenerInstantiator;
 
     /**
-     * @param ListenerPluginManager $listenerPluginManager
+     * Constructor
+     *
+     * The instantiator is used to create listeners lazily. It can be used with ZF3 service manager factories,
+     * are those are callable by default, to achieve a native integration with service manager
+     *
+     * @param callable $listenerInstantiator
      */
-    public function __construct(ListenerPluginManager $listenerPluginManager = null)
+    public function __construct(callable $listenerInstantiator = null)
     {
-        if (null === $listenerPluginManager) {
-            $listenerPluginManager = new ListenerPluginManager();
-        }
-
-        $this->listenerPluginManager = $listenerPluginManager;
+        $this->listenerInstantiator = $listenerInstantiator;
     }
 
     /**
@@ -144,10 +145,12 @@ class EventManager implements EventManagerInterface
         // one or two times, the extra work of caching may not be worth the work, especially on small datasets
         krsort($listeners, SORT_NUMERIC);
 
+        $listenerInstantiator = $this->listenerInstantiator;
+
         foreach ($listeners as $priority => $listenersByPriority) {
             foreach ($listenersByPriority as list($listener, $isLazy)) {
-                if ($isLazy) {
-                    $listener[0] = $this->listenerPluginManager->get($listener[0]);
+                if ($listenerInstantiator && $isLazy) {
+                    $listener[0] = $listenerInstantiator($listener[0]);
 
                     // @TODO: to benchmark: should we pass listenersByPriority be reference, and modify the "isLazy"
                     // to false to avoid a new call to plugin manager later?

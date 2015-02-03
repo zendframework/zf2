@@ -13,11 +13,13 @@
         }
     },
     "require": {
-        "php": ">=5.5",
-        "zendframework/zend-servicemanager": ">=3.0,<4.0"
+        "php": ">=5.5"
     },
     "require-dev": {
         "zendframework/zend-servicemanager": ">=3.0,<4.0"
+    },
+    "suggest": {
+        "zendframework/zend-servicemanager": "If you want integration with the service manager for lazy listeners"
     },
     "extra": {
         "branch-alias": {
