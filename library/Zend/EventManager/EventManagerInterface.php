@@ -29,7 +29,7 @@ interface EventManagerInterface
      * @param  string         $eventName
      * @param  callable|array $callbackOrSpec
      * @param  int            $priority
-     * @return void
+     * @return callable|array
      */
     public function attach($eventName, $callbackOrSpec, $priority = 1);
 

@@ -55,9 +55,10 @@ class EventManager implements EventManagerInterface
         // Each listener is encoded within an array, where the first parameter is the callback or spec,
         // and second parameter is a marker that is "true" if it is a lazy event, or false otherwise. The '.0'
         // is a hack so that array_merge_recursive preserve the keys
-        $this->events[$eventName][((int) $priority) . '.0'][] = [
-            [$callbackOrSpec, is_array($callbackOrSpec) && is_string($callbackOrSpec[0])]
-        ];
+        $this->events[$eventName][((int) $priority) . '.0'][] =
+            [$callbackOrSpec, is_array($callbackOrSpec) && is_string($callbackOrSpec[0])];
+
+        return $callbackOrSpec;
     }
 
     /**
