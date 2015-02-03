@@ -26,4 +26,14 @@ use RuntimeException as BaseRuntimeException;
  */
 class RuntimeException extends BaseRuntimeException implements ExceptionInterface
 {
+    /**
+     * @param string $name
+     */
+    public static function missingInstantiatorException($name)
+    {
+        throw new RuntimeException(sprintf(
+            'Trying to create a lazy listener for "%s", but no instantiator was specified in the event manager',
+            is_array($name) ? implode(', ', $name) : $name
+        ));
+    }
 }

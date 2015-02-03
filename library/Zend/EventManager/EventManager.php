@@ -45,16 +45,9 @@ class EventManager implements EventManagerInterface
      */
     public function __construct(callable $listenerInstantiator = null)
     {
-        // If null, this means that lazy listener won't work, so we set it to a callable that trigger an exception
-        if (null === $listenerInstantiator) {
-            $listenerInstantiator = function() {
-                throw new RuntimeException(
-                    'Trying to create a lazy listener, but no instantiator was specified in the event manager'
-                );
-            };
-        }
-
-        $this->listenerInstantiator = $listenerInstantiator;
+        $this->listenerInstantiator = $listenerInstantiator ?: function($name) {
+            RuntimeException::missingInstantiatorException($name);
+        };
     }
 
     /**
