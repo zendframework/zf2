@@ -78,12 +78,13 @@ abstract class AutoloaderFactory
 
         foreach ($options as $class => $autoloaderOptions) {
             if (!isset(static::$loaders[$class])) {
-                $autoloader = static::getStandardAutoloader();
-                if (!class_exists($class) && !$autoloader->autoload($class)) {
-                    require_once 'Exception/InvalidArgumentException.php';
-                    throw new Exception\InvalidArgumentException(
-                        sprintf('Autoloader class "%s" not loaded', $class)
-                    );
+                if (!class_exists($class)) {
+                    if (!static::getStandardAutoloader()->autoload($class)) {
+                        require_once 'Exception/InvalidArgumentException.php';
+                        throw new Exception\InvalidArgumentException(
+                            sprintf('Autoloader class "%s" not loaded', $class)
+                        );
+                    }
                 }
 
                 if (!is_subclass_of($class, 'Zend\Loader\SplAutoloader')) {
@@ -94,6 +95,7 @@ abstract class AutoloaderFactory
                 }
 
                 if ($class === static::STANDARD_AUTOLOADER) {
+                    $autoloader = static::getStandardAutoloader();
                     $autoloader->setOptions($autoloaderOptions);
                 } else {
                     $autoloader = new $class($autoloaderOptions);
