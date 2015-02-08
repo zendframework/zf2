@@ -62,10 +62,10 @@ class ComposerAutoloaderTest extends \PHPUnit_Framework_TestCase
     {
         $options = array(
             'namespaces' => array(
-                'Zend\\'   => dirname(__DIR__) . DIRECTORY_SEPARATOR,
+                'Zend\\' => array(dirname(__DIR__) . DIRECTORY_SEPARATOR),
             ),
             'psr4'   => array(
-                'Foo\\' => '/path/to/module/Foo/src',
+                'Foo\\' => array('/path/to/module/Foo/src'),
             ),
             'classmap' => array(
                 'Foo/Service/Bar' => '/path/to/module/Foo/src/Service/Bar.php',
@@ -82,26 +82,26 @@ class ComposerAutoloaderTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingTraversableOptionsPopulatesProperties()
     {
-        $namespaces = new \ArrayObject(array(
-            'Zend\\'   => dirname(__DIR__) . DIRECTORY_SEPARATOR,
-        ));
-        $namespacesPsr4 = new \ArrayObject(array(
-            'Foo' => '/path/to/module/Foo/src',
-        ));
-        $classmap = new \ArrayObject(array(
+        $namespaces = array(
+            'Zend\\' => array(dirname(__DIR__) . DIRECTORY_SEPARATOR),
+        );
+        $namespacesPsr4 = array(
+            'Foo\\' => array('/path/to/module/Foo/src'),
+        );
+        $classmap = array(
             'Foo/Service/Bar' => '/path/to/module/Foo/src/Service/Bar.php',
-        ));
+        );
         $options = new \ArrayObject(array(
             'namespaces' => $namespaces,
             'psr4'   => $namespacesPsr4,
             'classmap' => $classmap,
         ));
 
-        $autoloader = new TestAsset\ComposerAutoloader();
+        $autoloader = new TestAsset\ComposerAutoloader(new ClassLoader());
         $autoloader->setOptions($options);
 
-        $this->assertEquals((array) $options['namespaces'], $autoloader->getNamespaces());
-        $this->assertEquals((array) $options['psr4'], $autoloader->getNamespacesPsr4());
+        $this->assertEquals($options['namespaces'], $autoloader->getNamespaces());
+        $this->assertEquals($options['psr4'], $autoloader->getNamespacesPsr4());
         $this->assertEquals((array) $options['classmap'], $autoloader->getClassMap());
     }
 }
