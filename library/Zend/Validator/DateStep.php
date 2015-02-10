@@ -169,7 +169,13 @@ class DateStep extends Date
             $date = new DateTime;
             $date->setISODate($matches[1], $matches[2]);
         } else {
-            $date = DateTime::createFromFormat($this->format, $value, $this->timezone);
+            $format = $this->format;
+
+            if(stripos($format, '!') === false) {
+                $format = '!' . $format;
+            }
+
+            $date = DateTime::createFromFormat($format, $value, $this->timezone);
         }
 
         // Invalid dates can show up as warnings (ie. "2007-02-99")
