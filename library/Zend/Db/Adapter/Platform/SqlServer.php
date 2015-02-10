@@ -13,7 +13,7 @@ use Zend\Db\Adapter\Driver\DriverInterface;
 use Zend\Db\Adapter\Driver\Pdo;
 use Zend\Db\Adapter\Exception;
 
-class SqlServer implements PlatformInterface
+class SqlServer extends AbstractSql92BasedPlatform
 {
     /** @var resource|\PDO */
     protected $resource = null;
@@ -89,16 +89,6 @@ class SqlServer implements PlatformInterface
     }
 
     /**
-     * Get quote value symbol
-     *
-     * @return string
-     */
-    public function getQuoteValueSymbol()
-    {
-        return '\'';
-    }
-
-    /**
      * Quote value
      *
      * @param  string $value
@@ -140,34 +130,6 @@ class SqlServer implements PlatformInterface
     }
 
     /**
-     * Quote value list
-     *
-     * @param string|string[] $valueList
-     * @return string
-     */
-    public function quoteValueList($valueList)
-    {
-        if (!is_array($valueList)) {
-            return $this->quoteValue($valueList);
-        }
-        $value = reset($valueList);
-        do {
-            $valueList[key($valueList)] = $this->quoteValue($value);
-        } while ($value = next($valueList));
-        return implode(', ', $valueList);
-    }
-
-    /**
-     * Get identifier separator
-     *
-     * @return string
-     */
-    public function getIdentifierSeparator()
-    {
-        return '.';
-    }
-
-    /**
      * Quote identifier in fragment
      *
      * @param  string $identifier
@@ -185,6 +147,7 @@ class SqlServer implements PlatformInterface
             if ($safeWords && isset($safeWords[strtolower($part)])) {
                 continue;
             }
+
             switch ($part) {
                 case ' ':
                 case '.':
@@ -198,6 +161,7 @@ class SqlServer implements PlatformInterface
                     $parts[$i] = '[' . $part . ']';
             }
         }
+
         return implode('', $parts);
     }
 }
