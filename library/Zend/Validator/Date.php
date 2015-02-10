@@ -162,7 +162,13 @@ class Date extends AbstractValidator
      */
     protected function convertString($value, $addErrors = true)
     {
-        $date = DateTime::createFromFormat($this->format, $value);
+        $format = $this->format;
+        
+        if(stripos($format, '!') === false) {
+            $format = '!' . $format;
+        }
+        
+        $date = DateTime::createFromFormat($format, $value);
 
         // Invalid dates can show up as warnings (ie. "2007-02-99")
         // and still return a DateTime object.
