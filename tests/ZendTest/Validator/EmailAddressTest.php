@@ -691,7 +691,9 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
             'bob+jones@nic.us',
             'bob+jones@dailymail.co.uk',
             'bob@teaparty.uk.com',
-            'bob@thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com'
+            'bob@thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com',
+            'иван@письмо.рф',
+            'xn--@-7sbfxdyelgv5j.xn--p1ai'
         );
 
         foreach ($emailAddresses as $input) {
