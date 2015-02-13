@@ -280,7 +280,15 @@ abstract class AbstractTableGateway implements TableGatewayInterface
     protected function executeInsert(Insert $insert)
     {
         $insertState = $insert->getRawState();
-        if ($insertState['table'] != $this->table) {
+        
+        // Make sure both variables are strings
+        $tableInsert = $insertState['table'] instanceof \Zend\Db\Sql\TableIdentifier ?
+            $insertState['table']->getTable() : $insertState['table'];
+        
+        $tableThis   = $this->table instanceof \Zend\Db\Sql\TableIdentifier ? 
+            $this->table->getTable() : $this->table;
+        
+        if ($tableInsert != $tableThis) {
             throw new Exception\RuntimeException('The table name of the provided Insert object must match that of the table');
         }
 
