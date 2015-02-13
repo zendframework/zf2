@@ -28,7 +28,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      *
      * Can emulate triggerUntil() if the last argument provided is a callback.
      *
-     * @param  string $event
+     * @param  string|EventInterface $event
      * @param  object|string $target
      * @param  array|object $argv
      * @param  null|callable $callback
