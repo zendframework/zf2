@@ -122,6 +122,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
     /**
      * Render Messages
      *
+     * @param  string $namespace
      * @param  array $messages
      * @param  array $classes
      * @return string
