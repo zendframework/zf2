@@ -14,12 +14,12 @@
     },
     "target-dir": "Zend/Code",
     "require": {
-        "php": ">=5.3.23",
-        "zendframework/zend-eventmanager": "self.version"
+        "php": ">=5.3.23"
     },
     "require-dev": {
         "doctrine/common": ">=2.1",
-        "zendframework/zend-stdlib": "self.version"
+        "zendframework/zend-stdlib": "self.version",
+        "zendframework/zend-eventmanager": "self.version"
     },
     "suggest": {
         "doctrine/common": "Doctrine\\Common >=2.1 for annotation features",
