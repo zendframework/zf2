@@ -95,6 +95,12 @@ class CredentialTreatmentAdapter extends AbstractAdapter
             ->columns(array('*', $credentialExpression))
             ->where(new SqlOp($this->identityColumn, '=', $this->identity));
 
+        if ($this->getAmbiguityIdentity()) {
+            $dbSelect->order(array(
+                'zend_auth_credential_match' => 'DESC'
+            ));
+        }
+
         return $dbSelect;
     }
 
