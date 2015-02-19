@@ -1385,7 +1385,7 @@ class Ldap
         if (!function_exists('ldap_rename')) {
             $emulate = true;
         } elseif ($recursively) {
-            $emulate = true;
+            $emulate = false;
         }
 
         if ($emulate === false) {
