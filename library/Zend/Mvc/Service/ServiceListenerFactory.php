@@ -59,6 +59,7 @@ class ServiceListenerFactory implements FactoryInterface
             'InputFilterManager'             => 'Zend\Mvc\Service\InputFilterManagerFactory',
             'LogProcessorManager'            => 'Zend\Mvc\Service\LogProcessorManagerFactory',
             'LogWriterManager'               => 'Zend\Mvc\Service\LogWriterManagerFactory',
+            'TranslatorPluginManager'        => 'Zend\Mvc\Service\TranslatorPluginManagerFactory',
             'MvcTranslator'                  => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'PaginatorPluginManager'         => 'Zend\Mvc\Service\PaginatorPluginManagerFactory',
             'Request'                        => 'Zend\Mvc\Service\RequestFactory',
