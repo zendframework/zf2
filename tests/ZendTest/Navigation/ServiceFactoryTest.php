@@ -253,4 +253,15 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $container = $this->serviceManager->get('Navigation');
         $this->assertEquals(3, $container->count());
     }
+
+    /**
+     * @covers \Zend\Navigation\Service\NameNavigationFactory
+     */
+    public function testNameFactory()
+    {
+        $this->serviceManager->setFactory('Navigation', new \Zend\Navigation\Service\NameNavigationFactory('default'));
+
+        $container = $this->serviceManager->get('Navigation');
+        $this->assertEquals(3, $container->count());
+    }
 }
