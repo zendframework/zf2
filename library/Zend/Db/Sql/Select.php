@@ -778,7 +778,8 @@ class Select extends AbstractSql implements SqlInterface, PreparableSqlInterface
         if ($parameterContainer) {
             $parameterContainer->merge($whereParts->getParameterContainer());
         }
-        return array($whereParts->getSql());
+        $whereSql = $whereParts->getSql();
+        return ($whereSql == '()') ? null : array($whereSql);
     }
 
     protected function processGroup(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
