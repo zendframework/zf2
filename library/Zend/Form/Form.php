@@ -12,6 +12,7 @@ namespace Zend\Form;
 use Traversable;
 use Zend\Form\Element\Collection;
 use Zend\InputFilter\CollectionInputFilter;
+use Zend\InputFilter\InputInterface;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
@@ -497,6 +498,12 @@ class Form extends Fieldset implements FormInterface
             ));
         }
 
+        foreach ($filter->getInputs() as $input) {
+            if (method_exists($input, 'getName') && !$this->has($input->getName())) {
+                $filter->remove($input->getName());
+            }
+        }
+
         $filter->setData($this->data);
         $filter->setValidationGroup(InputFilterInterface::VALIDATE_ALL);
 
@@ -883,22 +890,5 @@ class Form extends Fieldset implements FormInterface
         }
 
         return $values;
-    }
-
-    /**
-     * Remove a named element or fieldset with optional to remove the inputFilter
-     *
-     * @param  string $elementOrFieldset
-     * @param  bool   $removeFromInputFilter
-     *
-     * @return self
-     */
-    public function remove($elementOrFieldset, $removeFromInputFilter = false)
-    {
-        if ($this->has($elementOrFieldset) && $removeFromInputFilter) {
-            $this->getInputFilter()->remove($elementOrFieldset);
-        }
-
-        parent::remove($elementOrFieldset);
     }
 }

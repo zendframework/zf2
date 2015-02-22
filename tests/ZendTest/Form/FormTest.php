@@ -2116,7 +2116,7 @@ class FormTest extends TestCase
             'name' => 'importance',
             'type'  => 'Zend\Form\Element\Select',
             'options' => array(
-                'label' => 'Importance',
+                'label' => 'Importance_need',
                 'empty_option' => '',
                 'value_options' => array(
                     'normal' => 'Normal',
@@ -2128,12 +2128,15 @@ class FormTest extends TestCase
         $inputFilter = new BaseInputFilter();
         $factory     = new InputFilterFactory();
         $inputFilter->add($factory->createInput(array(
-            'name'     => 'importance',
+            'name'     => 'Importance_need',
             'required' => true,
         )));
         $this->form->setInputFilter($inputFilter);
 
-        $this->form->remove('importance', true);
-        $this->assertFalse($this->form->getInputFilter()->has('importance'));
+        $this->form->remove('Importance_need');
+        $this->form->setData(array());
+        $this->form->isValid();
+
+        $this->assertFalse($this->form->getInputFilter()->has('Importance_need'));
     }
 }
