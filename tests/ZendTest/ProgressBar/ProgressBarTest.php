@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -14,7 +14,6 @@ namespace ZendTest\ProgressBar;
  */
 class ProgressBarTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testGreaterMin()
     {
         $this->setExpectedException('Zend\ProgressBar\Exception\OutOfRangeException', '$max must be greater than $min');
@@ -150,7 +149,6 @@ class MockUp extends \Zend\ProgressBar\Adapter\AbstractAdapter
 
     public function finish()
     {
-
     }
 
     public function getCurrent()

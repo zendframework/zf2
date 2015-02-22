@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -24,10 +24,18 @@ class HtmlObject extends AbstractHtmlElement
      * @throws InvalidArgumentException
      * @return string
      */
-    public function __invoke($data = null, $type = null, array $attribs = array(), array $params = array(), $content = null)
-    {
+    public function __invoke(
+        $data = null,
+        $type = null,
+        array $attribs = array(),
+        array $params = array(),
+        $content = null
+    ) {
         if ($data == null || $type == null) {
-            throw new InvalidArgumentException('HTMLObject: missing argument. $data and $type are required in htmlObject($data, $type, array $attribs = array(), array $params = array(), $content = null)');
+            throw new InvalidArgumentException(
+                'HTMLObject: missing argument. $data and $type are required in '
+                . 'htmlObject($data, $type, array $attribs = array(), array $params = array(), $content = null)'
+            );
         }
 
         // Merge data and type

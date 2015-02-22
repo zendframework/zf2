@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -129,20 +129,20 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         //Console UTF8 - Text utf8
         $this->adapter->setTestUtf8(true);
         $encodedText = $this->adapter->encodeText($text);
-        $this->assertEquals($text,$encodedText);
+        $this->assertEquals($text, $encodedText);
 
         //Console UTF8 - Text not utf8
         $encodedText = $this->adapter->encodeText(utf8_decode($text));
-        $this->assertEquals($text,$encodedText);
+        $this->assertEquals($text, $encodedText);
 
         //Console not UTF8 - Text utf8
         $this->adapter->setTestUtf8(false);
         $encodedText = $this->adapter->encodeText($text);
-        $this->assertEquals(utf8_decode($text),$encodedText);
+        $this->assertEquals(utf8_decode($text), $encodedText);
 
         //Console not UTF8 - Text not utf8
         $encodedText = $this->adapter->encodeText(utf8_decode($text));
-        $this->assertEquals(utf8_decode($text),$encodedText);
+        $this->assertEquals(utf8_decode($text), $encodedText);
     }
 
     public function testWriteTextBlockSameAsWidth()

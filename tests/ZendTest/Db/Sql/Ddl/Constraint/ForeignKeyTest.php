@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -67,7 +67,7 @@ class ForeignKeyTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetReferenceColumn(ForeignKey $fk)
     {
-        $this->assertEquals('xxxx', $fk->getReferenceColumn());
+        $this->assertEquals(array('xxxx'), $fk->getReferenceColumn());
     }
 
     /**
@@ -116,7 +116,7 @@ class ForeignKeyTest extends \PHPUnit_Framework_TestCase
         $fk = new ForeignKey('foo', 'bar', 'baz', 'bam', 'CASCADE', 'SET NULL');
         $this->assertEquals(
             array(array(
-                'CONSTRAINT %1$s FOREIGN KEY (%2$s) REFERENCES %3$s (%4$s) ON DELETE %5$s ON UPDATE %6$s',
+                'CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s) ON DELETE %s ON UPDATE %s',
                 array('foo', 'bar', 'baz', 'bam', 'CASCADE', 'SET NULL'),
                 array($fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_LITERAL, $fk::TYPE_LITERAL)
             )),

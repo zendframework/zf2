@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -27,7 +27,6 @@ use Zend\Http\Client as HttpClient;
  */
 class SubscriberHttpTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var Subscriber */
     protected $subscriber = null;
 
@@ -58,7 +57,6 @@ class SubscriberHttpTest extends \PHPUnit_Framework_TestCase
 
             $this->storage = $this->_getCleanMock('\Zend\Feed\PubSubHubbub\Model\Subscription');
             $this->subscriber->setStorage($this->storage);
-
         } else {
             // Skip tests
             $this->markTestSkipped('Zend\Feed\PubSubHubbub\Subscriber dynamic tests are not enabled in TestConfiguration.php');
@@ -115,5 +113,4 @@ class SubscriberHttpTest extends \PHPUnit_Framework_TestCase
         );
         return $mocked;
     }
-
 }

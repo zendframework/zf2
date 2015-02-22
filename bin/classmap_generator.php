@@ -4,7 +4,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -220,6 +220,9 @@ $content = str_replace('\\\\', '\\', $content);
 // Exchange "array (" width "array("
 $content = str_replace('array (', 'array(', $content);
 
+// Identing array content
+$content = preg_replace('(\n  )', "\n    ", $content);
+
 // Align "=>" operators to match coding standard
 preg_match_all('(\n\s+([^=]+)=>)', $content, $matches, PREG_SET_ORDER);
 $maxWidth = 0;
@@ -228,13 +231,11 @@ foreach ($matches as $match) {
     $maxWidth = max($maxWidth, strlen($match[1]));
 }
 
-$content = preg_replace_callback(
-    '(\n\s+([^=]+)=>)',
-    function ($match) use ($maxWidth) {
-        return "\n  " . $match[1] . str_repeat(" ", $maxWidth - strlen($match[1])) . '=>';
-    },
-    $content
-);
+$content = preg_replace_callback('(\n\s+([^=]+)=>)', function ($matches) {
+    global $maxWidth;
+
+    return str_replace(' =>', str_repeat(' ', $maxWidth - strlen($matches[1])) . ' =>', $matches[0]);
+}, $content);
 
 // Make the file end by EOL
 $content = rtrim($content, "\n") . "\n";

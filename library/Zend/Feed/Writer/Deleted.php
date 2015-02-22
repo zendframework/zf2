@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -16,7 +16,6 @@ use Zend\Feed\Uri;
 */
 class Deleted
 {
-
     /**
      * Internal array containing all data associated with this entry or item.
      *
@@ -125,7 +124,7 @@ class Deleted
     public function getReference()
     {
         if (!array_key_exists('reference', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['reference'];
     }
@@ -158,7 +157,7 @@ class Deleted
     public function getWhen()
     {
         if (!array_key_exists('when', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['when'];
     }
@@ -209,7 +208,7 @@ class Deleted
     public function getBy()
     {
         if (!array_key_exists('by', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['by'];
     }
@@ -230,7 +229,7 @@ class Deleted
     public function getComment()
     {
         if (!array_key_exists('comment', $this->data)) {
-            return null;
+            return;
         }
         return $this->data['comment'];
     }

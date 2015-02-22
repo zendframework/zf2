@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -39,10 +39,10 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
         $client = new Client($wsdl);
         $ret = $client->request($b);
 
-        $this->assertTrue( is_array($ret) );
-        $this->assertEquals(1, count($ret) );
-        $this->assertTrue( is_array($ret[0]->baz) );
-        $this->assertEquals(3, count($ret[0]->baz) );
+        $this->assertTrue(is_array($ret));
+        $this->assertEquals(1, count($ret));
+        $this->assertTrue(is_array($ret[0]->baz));
+        $this->assertEquals(3, count($ret[0]->baz));
 
         $baz = $ret[0]->baz;
         $this->assertEquals("bar",  $baz[0]->bar);
@@ -60,7 +60,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
         $client = new Client($wsdl);
         $ret = $client->request("test", "test");
 
-        $this->assertTrue( ($ret instanceof \stdClass) );
+        $this->assertTrue(($ret instanceof \stdClass));
         $this->assertEquals("test", $ret->foo);
         $this->assertEquals("test", $ret->bar);
     }

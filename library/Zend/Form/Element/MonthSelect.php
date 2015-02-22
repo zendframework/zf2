@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -67,7 +67,6 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
      * @var ValidatorInterface
      */
     protected $validator;
-
 
     /**
      * Constructor. Add two selects elements
@@ -141,6 +140,16 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
     public function getYearElement()
     {
         return $this->yearElement;
+    }
+
+    /**
+     * Get both the year and month elements
+     *
+     * @return array
+     */
+    public function getElements()
+    {
+        return array($this->monthElement, $this->yearElement);
     }
 
     /**
@@ -281,7 +290,8 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
      */
     public function getValue()
     {
-        return sprintf('%s-%s',
+        return sprintf(
+            '%s-%s',
             $this->getYearElement()->getValue(),
             $this->getMonthElement()->getValue()
         );

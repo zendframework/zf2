@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -16,7 +16,6 @@ use Zend\Crypt\Key\Derivation\SaltedS2k;
  */
 class SaltedS2kTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var string */
     public $salt;
 
@@ -55,7 +54,6 @@ class SaltedS2kTest extends \PHPUnit_Framework_TestCase
         }
         $this->setExpectedException('Zend\Crypt\Key\Derivation\Exception\InvalidArgumentException',
                                     'The salt size must be at least of 8 bytes');
-        $password = SaltedS2k::calc('sha256', 'test', substr($this->salt,-1), 32);
+        $password = SaltedS2k::calc('sha256', 'test', substr($this->salt, -1), 32);
     }
-
 }

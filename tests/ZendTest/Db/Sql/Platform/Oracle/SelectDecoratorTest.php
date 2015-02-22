@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -16,7 +16,6 @@ use Zend\Db\Adapter\Platform\Oracle as OraclePlatform;
 
 class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @testdox integration test: Testing SelectDecorator will use Select to produce properly Oracle dialect prepared sql
      * @covers Zend\Db\Sql\Platform\SqlServer\SelectDecorator::prepareStatement
@@ -90,5 +89,4 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
             array($select1, $expectedSql1, array(), $expectedSql1, $expectedFormatParamCount1),
         );
     }
-
 }

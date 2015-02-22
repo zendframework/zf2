@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -34,7 +34,6 @@ class InArray extends AbstractValidator
      * This will be wanted when comparing "0" against int 0
      */
     const COMPARE_NOT_STRICT = -1;
-
 
     /**
      * @var array
@@ -182,13 +181,10 @@ class InArray extends AbstractValidator
             $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($haystack));
             foreach ($iterator as $element) {
                 if (self::COMPARE_STRICT == $this->strict) {
-
                     if ($element === $value) {
                         return true;
                     }
-
                 } else {
-
                     // add protection to prevent string to int vuln's
                     $el = $element;
                     if (self::COMPARE_NOT_STRICT_AND_PREVENT_STR_TO_INT_VULNERABILITY == $this->strict
@@ -200,11 +196,9 @@ class InArray extends AbstractValidator
                     if ($el == $value) {
                         return true;
                     }
-
                 }
             }
         } else {
-
             /**
              * If the check is not strict, then, to prevent "asdf" being converted to 0
              * and returning a false positive if 0 is in haystack, we type cast

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -23,14 +23,12 @@ class Smtp extends AbstractProtocol
      */
     protected $transport = 'tcp';
 
-
     /**
      * Indicates that a session is requested to be secure
      *
      * @var string
      */
     protected $secure;
-
 
     /**
      * Indicates an smtp session has been started by the HELO command
@@ -39,14 +37,12 @@ class Smtp extends AbstractProtocol
      */
     protected $sess = false;
 
-
     /**
      * Indicates an smtp AUTH has been issued and authenticated
      *
      * @var bool
      */
     protected $auth = false;
-
 
     /**
      * Indicates a MAIL command has been issued
@@ -55,7 +51,6 @@ class Smtp extends AbstractProtocol
      */
     protected $mail = false;
 
-
     /**
      * Indicates one or more RCTP commands have been issued
      *
@@ -63,14 +58,12 @@ class Smtp extends AbstractProtocol
      */
     protected $rcpt = false;
 
-
     /**
      * Indicates that DATA has been issued and sent
      *
      * @var bool
      */
     protected $data = null;
-
 
     /**
      * Constructor.
@@ -131,7 +124,6 @@ class Smtp extends AbstractProtocol
 
                 default:
                     throw new Exception\InvalidArgumentException($config['ssl'] . ' is unsupported SSL type');
-                    break;
             }
         }
 
@@ -254,7 +246,6 @@ class Smtp extends AbstractProtocol
      */
     public function rcpt($to)
     {
-
         if ($this->mail !== true) {
             throw new Exception\RuntimeException('No sender reverse path has been supplied');
         }
@@ -283,9 +274,7 @@ class Smtp extends AbstractProtocol
         $this->_expect(354, 120); // Timeout set for 2 minutes as per RFC 2821 4.5.3.2
 
         // Ensure newlines are CRLF (\r\n)
-        if (PHP_EOL === "\n") {
-            $data = str_replace("\n", "\r\n", str_replace("\r", '', $data));
-        }
+        $data = str_replace("\n", "\r\n", str_replace("\r", '', $data));
 
         foreach (explode(self::EOL, $data) as $line) {
             if (strpos($line, '.') === 0) {
@@ -318,7 +307,6 @@ class Smtp extends AbstractProtocol
         $this->data = false;
     }
 
-
     /**
      * Issues the NOOP command end validates answer
      *
@@ -330,7 +318,6 @@ class Smtp extends AbstractProtocol
         $this->_send('NOOP');
         $this->_expect(250, 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
     }
-
 
     /**
      * Issues the VRFY command end validates answer
@@ -344,7 +331,6 @@ class Smtp extends AbstractProtocol
         $this->_send('VRFY ' . $user);
         $this->_expect(array(250, 251, 252), 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
     }
-
 
     /**
      * Issues the QUIT command and clears the current session
@@ -360,7 +346,6 @@ class Smtp extends AbstractProtocol
         }
     }
 
-
     /**
      * Default authentication method
      *
@@ -374,7 +359,6 @@ class Smtp extends AbstractProtocol
             throw new Exception\RuntimeException('Already authenticated for this session');
         }
     }
-
 
     /**
      * Closes connection
@@ -403,7 +387,6 @@ class Smtp extends AbstractProtocol
     {
         $this->sess = true;
     }
-
 
     /**
      * Stop mail session

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -63,7 +63,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromIniFiles()
     {
-        $files = array (
+        $files = array(
             __DIR__ . '/TestAssets/Ini/include-base.ini',
             __DIR__ . '/TestAssets/Ini/include-base2.ini'
         );
@@ -75,7 +75,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromXmlFiles()
     {
-        $files = array (
+        $files = array(
             __DIR__ . '/TestAssets/Xml/include-base.xml',
             __DIR__ . '/TestAssets/Xml/include-base2.xml'
         );
@@ -87,7 +87,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromPhpFiles()
     {
-        $files = array (
+        $files = array(
             __DIR__ . '/TestAssets/Php/include-base.php',
             __DIR__ . '/TestAssets/Php/include-base2.php'
         );
@@ -99,7 +99,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromIniAndXmlAndPhpFiles()
     {
-        $files = array (
+        $files = array(
             __DIR__ . '/TestAssets/Ini/include-base.ini',
             __DIR__ . '/TestAssets/Xml/include-base2.xml',
             __DIR__ . '/TestAssets/Php/include-base3.php',
@@ -113,7 +113,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromIniAndXmlAndPhpFilesFromIncludePath()
     {
-        $files = array (
+        $files = array(
             'Ini/include-base.ini',
             'Xml/include-base2.xml',
             'Php/include-base3.php',
@@ -127,7 +127,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnsConfigObjectIfRequestedAndArrayOtherwise()
     {
-        $files = array (
+        $files = array(
             __DIR__ . '/TestAssets/Ini/include-base.ini',
         );
 

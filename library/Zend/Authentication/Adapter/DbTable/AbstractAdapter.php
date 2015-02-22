@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -195,7 +195,6 @@ abstract class AbstractAdapter extends BaseAdapter
         $returnObject = new stdClass();
 
         if (null !== $returnColumns) {
-
             $availableColumns = array_keys($this->resultRow);
             foreach ((array) $returnColumns as $returnColumn) {
                 if (in_array($returnColumn, $availableColumns)) {
@@ -203,9 +202,7 @@ abstract class AbstractAdapter extends BaseAdapter
                 }
             }
             return $returnObject;
-
         } elseif (null !== $omitColumns) {
-
             $omitColumns = (array) $omitColumns;
             foreach ($this->resultRow as $resultColumn => $resultValue) {
                 if (!in_array($resultColumn, $omitColumns)) {
@@ -213,7 +210,6 @@ abstract class AbstractAdapter extends BaseAdapter
                 }
             }
             return $returnObject;
-
         }
 
         foreach ($this->resultRow as $resultColumn => $resultValue) {
@@ -352,7 +348,6 @@ abstract class AbstractAdapter extends BaseAdapter
      */
     protected function authenticateValidateResultSet(array $resultIdentities)
     {
-
         if (count($resultIdentities) < 1) {
             $this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND;
             $this->authenticateResultInfo['messages'][] = 'A record with the supplied identity could not be found.';

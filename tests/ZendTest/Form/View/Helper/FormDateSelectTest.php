@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -93,5 +93,22 @@ class FormDateSelectTest extends CommonTestCase
         $element = new DateSelect('foo');
         $this->helper->render($element);
         $this->assertEquals(31, count($element->getDayElement()->getValueOptions()));
+    }
+
+    /**
+     * @group 6656
+     */
+    public function testGetElements()
+    {
+        $element = new DateSelect('foo');
+        $this->helper->render($element);
+        $elements = $element->getElements();
+        $this->assertEquals(3, count($elements));
+
+        foreach ($elements as $subElement) {
+            $this->assertInstanceOf('Zend\Form\Element\Select', $subElement);
+        }
+
+        $this->assertEquals(31, count($elements[0]->getValueOptions()));
     }
 }

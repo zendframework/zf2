@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -192,7 +192,7 @@ class MaildirTest extends \PHPUnit_Framework_TestCase
         $mail = new Storage\Maildir(array('dirname' => $this->_maildir));
 
         $content = $mail->getMessage(3)->getContent();
-        list($content, ) = explode("\n", $content, 2);
+        list($content) = explode("\n", $content, 2);
         $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
     }
 
@@ -253,7 +253,7 @@ class MaildirTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($id, $should_ids[$num]);
 
             if ($mail->getNumberByUniqueId($id) != $num) {
-                    $this->fail('reverse lookup failed');
+                $this->fail('reverse lookup failed');
             }
         }
     }
@@ -287,7 +287,7 @@ class MaildirTest extends \PHPUnit_Framework_TestCase
         }
 
         if (!$check) {
-           $this->fail('no exception while loading invalid dir with ' . $dir . ' as file');
+            $this->fail('no exception while loading invalid dir with ' . $dir . ' as file');
         }
     }
 
@@ -322,7 +322,7 @@ class MaildirTest extends \PHPUnit_Framework_TestCase
         chmod($this->_maildir . '/' . $dir, $stat['mode']);
 
         if (!$check) {
-           $this->fail('no exception while loading invalid dir with ' . $dir . ' not readable');
+            $this->fail('no exception while loading invalid dir with ' . $dir . ' not readable');
         }
     }
 
@@ -379,5 +379,4 @@ class MaildirTest extends \PHPUnit_Framework_TestCase
         $size = $mail->getSize(2);
         $this->assertEquals(456, $size);
     }
-
 }

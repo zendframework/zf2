@@ -3,13 +3,13 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Soap;
-use Zend\Soap\Wsdl;
 
+use Zend\Soap\Wsdl;
 use Zend\Uri\Uri;
 
 /**
@@ -20,7 +20,6 @@ use Zend\Uri\Uri;
  **/
 class WsdlTest extends WsdlTestHelper
 {
-
     public function testConstructor()
     {
         $this->assertEquals(Wsdl::WSDL_NS_URI,              $this->dom->lookupNamespaceUri(null));
@@ -71,7 +70,6 @@ class WsdlTest extends WsdlTestHelper
 
         $this->assertEquals($expectedUri, $this->dom->lookupNamespaceUri('tns'));
         $this->assertEquals($expectedUri, $this->dom->documentElement->getAttribute('targetNamespace'));
-
     }
 
     /**
@@ -88,7 +86,6 @@ class WsdlTest extends WsdlTestHelper
 
         $this->assertEquals($expectedUri, $dom->lookupNamespaceUri('tns'));
         $this->assertEquals($expectedUri, $dom->documentElement->getAttribute('targetNamespace'));
-
     }
 
     /**
@@ -141,7 +138,6 @@ class WsdlTest extends WsdlTestHelper
             $part = $this->xpath->query('wsdl:part[@name="'.$parameterName.'"]', $messageNodes->item(0));
             $this->assertEquals($parameterType, $part->item(0)->getAttribute('type'));
         }
-
     }
 
     /**
@@ -173,7 +169,6 @@ class WsdlTest extends WsdlTestHelper
             $this->assertEquals($parameterDefinition['type'], $part->item(0)->getAttribute('type'));
             $this->assertEquals($parameterDefinition['name'], $part->item(0)->getAttribute('name'));
         }
-
     }
 
     /**
@@ -225,7 +220,7 @@ class WsdlTest extends WsdlTestHelper
         $operationNodes = $this->xpath->query('wsdl:operation[@name="'.$operationName.'"]', $portTypeNodes->item(0));
         $this->assertGreaterThan(0, $operationNodes->length);
 
-        if (empty($inputRequest) AND empty($outputResponse) AND empty($fail)) {
+        if (empty($inputRequest) and empty($outputResponse) and empty($fail)) {
             $this->assertFalse($operationNodes->item(0)->hasChildNodes());
         } else {
             $this->assertTrue($operationNodes->item(0)->hasChildNodes());
@@ -274,7 +269,6 @@ class WsdlTest extends WsdlTestHelper
 
         $this->assertEquals('MyServiceBinding',     $bindingNodes->item(0)->getAttribute('name'));
         $this->assertEquals('myPortType',           $bindingNodes->item(0)->getAttribute('type'));
-
     }
 
     /**
@@ -297,17 +291,17 @@ class WsdlTest extends WsdlTestHelper
         $binding = $this->wsdl->addBinding('MyServiceBinding', 'myPortType');
 
         $inputArray = array();
-        if (!empty($input) AND !empty($inputEncoding)) {
+        if (!empty($input) and !empty($inputEncoding)) {
             $inputArray = array('use' => $input,     'encodingStyle' => $inputEncoding);
         }
 
         $outputArray = array();
-        if (!empty($output) AND !empty($outputEncoding)) {
+        if (!empty($output) and !empty($outputEncoding)) {
             $outputArray = array('use' => $output, 'encodingStyle' => $outputEncoding);
         }
 
         $faultArray = array();
-        if (!empty($fault) AND !empty($faultEncoding) AND !empty($faultName)) {
+        if (!empty($fault) and !empty($faultEncoding) and !empty($faultName)) {
             $faultArray = array('use' => $fault,     'encodingStyle' => $faultEncoding,     'name'=>$faultName);
         }
 
@@ -330,7 +324,7 @@ class WsdlTest extends WsdlTestHelper
         $operationNodes = $this->xpath->query('wsdl:operation[@name="'.$operationName.'"]', $bindingNodes->item(0));
         $this->assertEquals(1, $operationNodes->length, 'Missing operation node in definition.');
 
-        if (empty($inputArray) AND empty($outputArray) AND empty($faultArray)) {
+        if (empty($inputArray) and empty($outputArray) and empty($faultArray)) {
             $this->assertFalse($operationNodes->item(0)->hasChildNodes());
         }
 
@@ -339,7 +333,6 @@ class WsdlTest extends WsdlTestHelper
             '//wsdl:output/soap:body'   => $outputArray,
             '//wsdl:fault'              => $faultArray
                  ) as $query => $ar) {
-
             if (!empty($ar)) {
                 $nodes = $this->xpath->query($query);
 
@@ -355,7 +348,6 @@ class WsdlTest extends WsdlTestHelper
 
     public function dataProviderForAddBindingOperation()
     {
-
         $enc = 'http://schemas.xmlsoap.org/soap/encoding/';
 
         return array(
@@ -455,7 +447,6 @@ class WsdlTest extends WsdlTestHelper
      */
     public function testAddBindingOperationWithAmpersandInUrl($actualUrl, $expectedUrl)
     {
-
         $this->wsdl->addPortType('myPortType');
         $binding = $this->wsdl->addBinding('MyServiceBinding', 'myPortType');
 
@@ -464,7 +455,7 @@ class WsdlTest extends WsdlTestHelper
             'operation1',
             array('use' => 'encoded', 'encodingStyle' => $actualUrl),
             array('use' => 'encoded', 'encodingStyle' => $actualUrl),
-            array('name' => 'MyFault','use' => 'encoded', 'encodingStyle' => $actualUrl)
+            array('name' => 'MyFault', 'use' => 'encoded', 'encodingStyle' => $actualUrl)
         );
 
         $nodes = $this->xpath->query('//wsdl:binding[@type="myPortType" and @name="MyServiceBinding"]/wsdl:operation[@name="operation1"]/wsdl:input/soap:body');
@@ -535,7 +526,6 @@ class WsdlTest extends WsdlTestHelper
         $nodes = $this->wsdl->toDomDocument()->childNodes;
         $this->assertEquals(1, $nodes->length);
         $this->assertEquals($doc, $nodes->item(0)->nodeValue);
-
     }
 
     public function testAddDocumentationToSomeElmenet()
@@ -566,7 +556,6 @@ class WsdlTest extends WsdlTestHelper
 
         $nodes = $this->xpath->query('//wsdl:message[@name="myMessage"]/*[1]');
         $this->assertEquals('documentation', $nodes->item(0)->nodeName);
-
     }
 
     public function testDumpToFile()
@@ -796,7 +785,6 @@ class WsdlTest extends WsdlTestHelper
 
         $nodes = $this->xpath->query('//wsdl:types/xsd:schema/xsd:complexType[@name="ArrayOfInt"]');
         $this->assertEquals(1, $nodes->length,  "ArrayOfInt should appear only once.");
-
     }
 
     public function testClassMap()
@@ -845,6 +833,4 @@ class WsdlTest extends WsdlTestHelper
 
         $this->assertEquals(count($element['sequence']), $n);
     }
-
-
 }

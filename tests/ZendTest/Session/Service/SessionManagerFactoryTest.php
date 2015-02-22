@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -86,5 +86,19 @@ class SessionManagerFactoryTest extends \PHPUnit_Framework_TestCase
         $manager = $this->services->get('Zend\Session\ManagerInterface');
 
         $this->assertEquals(1, $manager->getValidatorChain()->getListeners('session.validate')->count());
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testStartingSessionManagerFromFactoryDoesNotTriggerUndefinedVariable()
+    {
+        $storage = new ArrayStorage();
+        $this->services->setService('Zend\Session\Storage\StorageInterface', $storage);
+
+        $manager = $this->services->get('Zend\Session\ManagerInterface');
+        $manager->start();
+
+        $this->assertSame($storage, $manager->getStorage());
     }
 }

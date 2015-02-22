@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -14,7 +14,6 @@ use Zend\Http\Header\Accept;
 
 class AcceptTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testInvalidHeaderLine()
     {
         $this->setExpectedException('Zend\Http\Header\Exception\InvalidArgumentException');
@@ -60,7 +59,6 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException('Zend\Http\Header\Exception\InvalidArgumentException');
         $acceptHeader->addMediaType('\\', 0.9);
-
     }
 
 
@@ -111,7 +109,7 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
         $header = Accept::fromString('Accept: text/*;q=0.3, text/html;q=0.7, text/html;level=1,'
                                      .'text/html;level=2;q=0.4, */*;q=0.5');
 
-        $expected = array (
+        $expected = array(
             'text/html;level=1',
             'text/html;q=0.7',
             '*/*;q=0.5',
@@ -265,7 +263,6 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
         foreach ($expected as $key => $value) {
             $this->assertEquals($value, $res->$key);
         }
-
     }
 
     public function testWildcardWithDifferentParamsAndRanges()
@@ -403,7 +400,6 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
         foreach ($expected as $key => $value) {
             $this->assertEquals($value, $res->$key);
         }
-
     }
 
     public function testPrioritizing_2()
@@ -459,5 +455,4 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $acceptHdr->match('image'));
         //  $this->assertEquals($expected, $this->_handler->match('text'));
     }
-
 }

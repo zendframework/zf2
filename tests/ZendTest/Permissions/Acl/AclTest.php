@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -1053,7 +1053,6 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->_acl->isAllowed('marketing', 'latest', 'publish'));
         $this->assertTrue($this->_acl->isAllowed('marketing', 'latest', 'edit'));
         $this->assertTrue($this->_acl->isAllowed('marketing', 'latest'));
-
     }
 
     /**
@@ -1137,7 +1136,6 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($acl->isAllowed($user, $blogPost, 'modify'));
 
         $this->assertEquals('publisher', $assertion->lastAssertRole->getRoleId());
-
     }
 
     /**
@@ -1167,7 +1165,6 @@ class AclTest extends \PHPUnit_Framework_TestCase
         // check to see if the last assertion has the proper objects
         $this->assertInstanceOf('ZendTest\Permissions\Acl\TestAsset\UseCase1\User', $assertion->lastAssertRole, 'Assertion did not receive proper role object');
         $this->assertInstanceOf('ZendTest\Permissions\Acl\TestAsset\UseCase1\BlogPost', $assertion->lastAssertResource, 'Assertion did not receive proper resource object');
-
     }
 
     /**
@@ -1193,7 +1190,7 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $acl->addRole(new Role\GenericRole('test2'));
         $acl->addResource(new Resource\GenericResource('Test'));
 
-        $acl->allow(null,'Test','xxx');
+        $acl->allow(null, 'Test', 'xxx');
 
         // error test
         $acl->removeRole('test0');
@@ -1220,13 +1217,13 @@ class AclTest extends \PHPUnit_Framework_TestCase
     public function testRoleObjectImplementsToString()
     {
         $role = new Role\GenericRole('_fooBar_');
-        $this->assertEquals('_fooBar_',(string) $role);
+        $this->assertEquals('_fooBar_', (string) $role);
     }
 
     public function testResourceObjectImplementsToString()
     {
         $resource = new Resource\GenericResource('_fooBar_');
-        $this->assertEquals('_fooBar_',(string) $resource);
+        $this->assertEquals('_fooBar_', (string) $resource);
     }
 
     /**
@@ -1240,7 +1237,7 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $acl->addRole('role');
         $acl->addResource('resource');
         $acl->allow('role', null, null, $assertion);
-        $allowed = $acl->isAllowed('role','resource','privilege', $assertion);
+        $allowed = $acl->isAllowed('role', 'resource', 'privilege', $assertion);
 
         $this->assertTrue($allowed);
     }

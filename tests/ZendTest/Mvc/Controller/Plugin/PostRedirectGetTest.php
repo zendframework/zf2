@@ -4,7 +4,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -217,7 +217,7 @@ class PostRedirectGetTest extends TestCase
 
         $this->assertInstanceOf('Zend\Http\Response', $prgResultRoute);
         $this->assertTrue($prgResultRoute->getHeaders()->has('Location'));
-        $this->assertEquals($expects, $prgResultRoute->getHeaders()->get('Location')->getUri() , 'expects to redirect for the same url');
+        $this->assertEquals($expects, $prgResultRoute->getHeaders()->get('Location')->getUri(), 'expects to redirect for the same url');
         $this->assertEquals(303, $prgResultRoute->getStatusCode());
     }
 
@@ -241,7 +241,7 @@ class PostRedirectGetTest extends TestCase
 
         $this->assertInstanceOf('Zend\Http\Response', $prgResultRoute);
         $this->assertTrue($prgResultRoute->getHeaders()->has('Location'));
-        $this->assertEquals($expects . '?id=123', $prgResultRoute->getHeaders()->get('Location')->getUri() , 'expects to redirect for the same url');
+        $this->assertEquals($expects . '?id=123', $prgResultRoute->getHeaders()->get('Location')->getUri(), 'expects to redirect for the same url');
         $this->assertEquals(303, $prgResultRoute->getStatusCode());
     }
 }

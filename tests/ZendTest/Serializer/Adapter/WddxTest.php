@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -28,7 +28,8 @@ class WddxTest extends \PHPUnit_Framework_TestCase
             try {
                 new Serializer\Adapter\Wddx();
                 $this->fail("Zend\\Serializer\\Adapter\\Wddx needs missing ext/wddx but did't throw exception");
-            } catch (ExtensionNotLoadedException $e) {}
+            } catch (ExtensionNotLoadedException $e) {
+            }
             $this->markTestSkipped('Zend\\Serializer\\Adapter\\Wddx needs ext/wddx');
         }
         $this->adapter = new Serializer\Adapter\Wddx();

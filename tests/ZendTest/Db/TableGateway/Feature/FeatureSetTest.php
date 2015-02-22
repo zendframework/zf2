@@ -3,11 +3,12 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Db\TableGateway\Feature;
+
 use Zend\Db\TableGateway\Feature\FeatureSet;
 use Zend\Db\TableGateway\Feature\MasterSlaveFeature;
 use Zend\Db\TableGateway\Feature\MetadataFeature;
@@ -21,10 +22,7 @@ class FeatureSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddFeatureThatFeatureDoesnotHasTableGatewayButFeatureSetHas()
     {
-       $mockMasterAdapter = $this->getMock(
-            'Zend\Db\Adapter\AdapterInterface',
-            array('getDriver', 'getPlatform')
-        );
+        $mockMasterAdapter = $this->getMock('Zend\Db\Adapter\AdapterInterface');
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
@@ -34,10 +32,7 @@ class FeatureSetTest extends \PHPUnit_Framework_TestCase
         $mockMasterAdapter->expects($this->any())->method('getDriver')->will($this->returnValue($mockDriver));
         $mockMasterAdapter->expects($this->any())->method('getPlatform')->will($this->returnValue(new \Zend\Db\Adapter\Platform\Sql92()));
 
-        $mockSlaveAdapter = $this->getMock(
-            'Zend\Db\Adapter\AdapterInterface',
-            array('getDriver', 'getPlatform')
-        );
+        $mockSlaveAdapter = $this->getMock('Zend\Db\Adapter\AdapterInterface');
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');

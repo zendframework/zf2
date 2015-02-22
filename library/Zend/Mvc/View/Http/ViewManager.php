@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -82,21 +82,6 @@ class ViewManager extends AbstractListenerAggregate
     public function attach(EventManagerInterface $events)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), 10000);
-    }
-
-    /**
-     * Detach aggregate listeners from the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
     }
 
     /**
@@ -245,11 +230,11 @@ class ViewManager extends AbstractListenerAggregate
      */
     public function getLayoutTemplate()
     {
-        $layout = 'layout/layout';
         if (isset($this->config['layout'])) {
-            $layout = $this->config['layout'];
+            return $this->config['layout'];
         }
-        return $layout;
+
+        return 'layout/layout';
     }
 
     /**
@@ -347,11 +332,7 @@ class ViewManager extends AbstractListenerAggregate
 
     public function getInjectTemplateListener()
     {
-        $listener = new InjectTemplateListener();
-        if (isset($this->config['controller_map'])) {
-            $listener->setControllerMap($this->config['controller_map']);
-        }
-        return $listener;
+        return $this->services->get('Zend\Mvc\View\Http\InjectTemplateListener');
     }
 
     /**
@@ -379,6 +360,9 @@ class ViewManager extends AbstractListenerAggregate
      * is a ListenerAggregate, attach it to the view, at priority 100. This
      * latter allows each to trigger before the default mvc rendering strategy,
      * and for them to trigger in the order they are registered.
+     *
+     * @param EventManagerInterface $events
+     * @return void
      */
     protected function registerMvcRenderingStrategies(EventManagerInterface $events)
     {

@@ -3,14 +3,13 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Di\Definition;
 
 use PHPUnit_Framework_TestCase as TestCase;
-
 use Zend\Di\Definition\RuntimeDefinition;
 
 class RuntimeDefinitionTest extends TestCase
@@ -73,13 +72,13 @@ class RuntimeDefinitionTest extends TestCase
                     true,
                     null,
                 ),
-                'RecursiveIteratorIterator::__construct:1' => Array (
+                'RecursiveIteratorIterator::__construct:1' => array(
                     'mode',
                     null,
                     true,
                     null,
                 ),
-                'RecursiveIteratorIterator::__construct:2' => Array (
+                'RecursiveIteratorIterator::__construct:2' => array(
                     'flags',
                     null,
                     true,

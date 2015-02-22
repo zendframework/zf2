@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -28,12 +28,10 @@ class ServerProxy
      */
     private $namespace = '';
 
-
     /**
      * @var array of \Zend\XmlRpc\Client\ServerProxy
      */
     private $cache = array();
-
 
     /**
      * Class constructor
@@ -46,7 +44,6 @@ class ServerProxy
         $this->client    = $client;
         $this->namespace = $namespace;
     }
-
 
     /**
      * Get the next successive namespace
@@ -62,7 +59,6 @@ class ServerProxy
         }
         return $this->cache[$namespace];
     }
-
 
     /**
      * Call a method in this namespace.

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -83,7 +83,7 @@ class PriorityListTest extends TestCase
         $this->list->insert('foobar', new \stdClass());
         $this->list->insert('barbaz', new \stdClass());
 
-        $order = array();
+        $orders = array();
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
@@ -129,7 +129,7 @@ class PriorityListTest extends TestCase
         $this->list->insert('bar', new \stdClass(), 0);
         $this->list->insert('baz', new \stdClass(), 1);
 
-        $order = array();
+        $orders = array();
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
@@ -147,7 +147,7 @@ class PriorityListTest extends TestCase
         $this->list->insert('foobar', new \stdClass());
         $this->list->insert('barbaz', new \stdClass());
 
-        $order = array();
+        $orders = array();
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
@@ -162,7 +162,7 @@ class PriorityListTest extends TestCase
         $this->list->insert('bar', new \stdClass(), 1);
         $this->list->insert('baz', new \stdClass(), -1);
 
-        $order = array();
+        $orders = array();
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
@@ -213,6 +213,36 @@ class PriorityListTest extends TestCase
                 'baz' => array('data' => 'baz_value', 'priority' => -1, 'serial' => 2),
             ),
             $this->list->toArray(PriorityList::EXTR_BOTH)
+        );
+    }
+
+    /**
+     * @group 6768
+     * @group 6773
+     */
+    public function testBooleanValuesAreValid()
+    {
+        $this->list->insert('null', null, null);
+        $this->list->insert('false', false, null);
+        $this->list->insert('string', 'test', 1);
+        $this->list->insert('true', true, -1);
+
+        $orders1 = array();
+        $orders2 = array();
+
+        foreach ($this->list as $key => $value) {
+            $orders1[$this->list->key()] = $this->list->current();
+            $orders2[$key] = $value;
+        }
+        $this->assertEquals($orders1, $orders2);
+        $this->assertEquals(
+            array(
+                'null'   => null,
+                'false'  => false,
+                'string' => 'test',
+                'true'   => true,
+            ),
+            $orders2
         );
     }
 }

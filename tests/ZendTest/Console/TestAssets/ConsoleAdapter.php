@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -38,7 +38,7 @@ class ConsoleAdapter extends AbstractAdapter
             rewind($this->stream);
         }
         $line = stream_get_line($this->stream, $maxLength, PHP_EOL);
-        return rtrim($line,"\n\r");
+        return rtrim($line,PHP_EOL);
     }
 
     /**

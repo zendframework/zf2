@@ -3,12 +3,11 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\View\Helper\Placeholder;
-
 
 /**
  * Test class for Zend\View\Helper\Placeholder\Container.
@@ -124,13 +123,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrependImplementsFluentInterface()
     {
-        $result = $this->container->prepend( 'test' );
+        $result = $this->container->prepend('test');
         $this->assertSame($this->container, $result);
     }
 
     public function testAppendImplementsFluentInterface()
     {
-        $result = $this->container->append( 'test' );
+        $result = $this->container->append('test');
         $this->assertSame($this->container, $result);
     }
 
@@ -139,7 +138,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetImplementsFluentInterface()
     {
-        $result = $this->container->set( 'test' );
+        $result = $this->container->set('test');
         $this->assertSame($this->container, $result);
     }
 
@@ -310,8 +309,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $caught = false;
         try {
             $this->container->captureStart('SET');
-                $this->container->captureStart('SET');
-                $this->container->captureEnd();
+            $this->container->captureStart('SET');
+            $this->container->captureEnd();
             $this->container->captureEnd();
         } catch (\Exception $e) {
             $this->container->captureEnd();

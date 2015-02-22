@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -18,7 +18,6 @@ use Zend\Feed\Reader;
 */
 class AtomTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $feedSamplePath = null;
 
     protected $expectedCats = array();
@@ -91,7 +90,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/datecreated/plain/atom03.xml')
         );
         $entry = $feed->current();
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = DateTime::createFromFormat(DateTime::ATOM, '2009-03-07T08:03:50Z');
         $this->assertEquals($edate, $entry->getDateCreated());
     }
 
@@ -101,7 +100,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/datecreated/plain/atom10.xml')
         );
         $entry = $feed->current();
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = DateTime::createFromFormat(DateTime::ATOM, '2009-03-07T08:03:50Z');
         $this->assertEquals($edate, $entry->getDateCreated());
     }
 
@@ -111,7 +110,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/datecreated/plain/fractional.xml')
         );
         $entry = $feed->current();
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = new DateTime('2009-03-07T08:03:50.80Z');
         $this->assertEquals($edate, $entry->getDateCreated());
     }
 
@@ -124,7 +123,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/datemodified/plain/atom03.xml')
         );
         $entry = $feed->current();
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = DateTime::createFromFormat(DateTime::ATOM, '2009-03-07T08:03:50Z');
         $this->assertEquals($edate, $entry->getDateModified());
     }
 
@@ -134,7 +133,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/datemodified/plain/atom10.xml')
         );
         $entry = $feed->current();
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = DateTime::createFromFormat(DateTime::ATOM, '2009-03-07T08:03:50Z');
         $this->assertEquals($edate, $entry->getDateModified());
     }
 
@@ -144,7 +143,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/datemodified/plain/fractional.xml')
         );
         $entry = $feed->current();
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = new DateTime('2009-03-07T08:03:50.80Z');
         $this->assertEquals($edate, $entry->getDateModified());
     }
 
@@ -219,7 +218,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/author/plain/atom03.xml')
         );
         $entry = $feed->current();
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com','uri'=>'http://www.example.com'), $entry->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com', 'uri'=>'http://www.example.com'), $entry->getAuthor());
     }
 
     public function testGetsAuthorFromAtom10()
@@ -228,7 +227,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/author/plain/atom10.xml')
         );
         $entry = $feed->current();
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com','uri'=>'http://www.example.com'), $entry->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com', 'uri'=>'http://www.example.com'), $entry->getAuthor());
     }
 
     /**
@@ -452,7 +451,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         );
         $entry = $feed->current();
         $this->assertEquals($this->expectedCats, (array) $entry->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($entry->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($entry->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromAtom03_Atom10Extension()
@@ -462,7 +461,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         );
         $entry = $feed->current();
         $this->assertEquals($this->expectedCats, (array) $entry->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($entry->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($entry->getCategories()->getValues()));
     }
 
     // DC 1.0/1.1 for Atom 0.3
@@ -474,7 +473,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         );
         $entry = $feed->current();
         $this->assertEquals($this->expectedCatsDc, (array) $entry->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($entry->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($entry->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromAtom03_Dc11()
@@ -484,7 +483,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         );
         $entry = $feed->current();
         $this->assertEquals($this->expectedCatsDc, (array) $entry->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($entry->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($entry->getCategories()->getValues()));
     }
 
     // No Categories In Entry
@@ -508,5 +507,4 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), (array) $entry->getCategories());
         $this->assertEquals(array(), array_values($entry->getCategories()->getValues()));
     }
-
 }

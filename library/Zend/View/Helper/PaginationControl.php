@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -42,10 +42,17 @@ class PaginationControl extends AbstractHelper
      * @throws Exception\InvalidArgumentException if partial is invalid array
      * @return string
      */
-    public function __invoke(Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
-    {
+    public function __invoke(
+        Paginator\Paginator $paginator = null,
+        $scrollingStyle = null,
+        $partial = null,
+        $params = null
+    ) {
         if ($paginator === null) {
-            if (isset($this->view->paginator) and $this->view->paginator !== null and $this->view->paginator instanceof Paginator\Paginator) {
+            if (isset($this->view->paginator)
+                && $this->view->paginator !== null
+                && $this->view->paginator instanceof Paginator\Paginator
+            ) {
                 $paginator = $this->view->paginator;
             } else {
                 throw new Exception\RuntimeException('No paginator instance provided or incorrect type');

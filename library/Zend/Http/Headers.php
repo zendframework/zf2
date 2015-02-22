@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -56,7 +56,6 @@ class Headers implements Countable, Iterator
 
         // iterate the header lines, some might be continuations
         foreach (explode("\r\n", $string) as $line) {
-
             // check if a header name is present
             if (preg_match('/^(?P<name>[^()><@,;:\"\\/\[\]?=}{ \t]+):.*$/', $line, $matches)) {
                 if ($current) {
@@ -146,7 +145,6 @@ class Headers implements Countable, Iterator
             } elseif (is_string($name)) {
                 $this->addHeaderLine($name, $value);
             }
-
         }
 
         return $this;

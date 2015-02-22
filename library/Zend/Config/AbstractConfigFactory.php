@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -84,7 +84,7 @@ class AbstractConfigFactory implements ServiceManager\AbstractFactoryInterface
 
         $config = $serviceLocator->get('Config');
         $this->configs[$requestedName] = $this->configs[$key] = $config[$key];
-        return $config;
+        return $config[$key];
     }
 
     /**
@@ -167,6 +167,6 @@ class AbstractConfigFactory implements ServiceManager\AbstractFactoryInterface
                 return $matches[1];
             }
         }
-        return null;
+        return;
     }
 }

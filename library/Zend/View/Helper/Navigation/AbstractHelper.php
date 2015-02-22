@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -147,7 +147,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     {
         return call_user_func_array(
             array($this->getContainer(), $method),
-            $arguments);
+            $arguments
+        );
     }
 
     /**
@@ -283,8 +284,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
         if (!$container instanceof Navigation\AbstractContainer) {
             throw new  Exception\InvalidArgumentException(
-                'Container must be a string alias or an instance of ' .
-                    'Zend\Navigation\AbstractContainer'
+                'Container must be a string alias or an instance of '
+                . 'Zend\Navigation\AbstractContainer'
             );
         }
     }
@@ -706,7 +707,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         } else {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$role must be a string, null, or an instance of '
-                    .  'Zend\Permissions\Role\RoleInterface; %s given',
+                . 'Zend\Permissions\Role\RoleInterface; %s given',
                 (is_object($role) ? get_class($role) : gettype($role))
             ));
         }
@@ -802,7 +803,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     public function getTranslator()
     {
         if (! $this->isTranslatorEnabled()) {
-            return null;
+            return;
         }
 
         return $this->translator;

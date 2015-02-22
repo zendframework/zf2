@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -156,12 +156,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $mName = $mCall->appendChild($dom->createElement('methodName', 'do.Something'));
         $params = $mCall->appendChild($dom->createElement('params'));
         $param1 = $params->appendChild($dom->createElement('param'));
-            $value1 = $param1->appendChild($dom->createElement('value'));
-            $value1->appendChild($dom->createElement('string', 'string1'));
+        $value1 = $param1->appendChild($dom->createElement('value'));
+        $value1->appendChild($dom->createElement('string', 'string1'));
 
         $param2 = $params->appendChild($dom->createElement('param'));
-            $value2 = $param2->appendChild($dom->createElement('value'));
-            $value2->appendChild($dom->createElement('boolean', 1));
+        $value2 = $param2->appendChild($dom->createElement('value'));
+        $value2->appendChild($dom->createElement('boolean', 1));
 
 
         $xml = $dom->saveXml();
@@ -258,14 +258,14 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $result = $sx->xpath('//methodName');
         $count = 0;
-        while (list( , $node) = each($result)) {
+        while (list(, $node) = each($result)) {
             ++$count;
         }
         $this->assertEquals(1, $count, $xml);
 
         $result = $sx->xpath('//params');
         $count = 0;
-        while (list( , $node) = each($result)) {
+        while (list(, $node) = each($result)) {
             ++$count;
         }
         $this->assertEquals(1, $count, $xml);

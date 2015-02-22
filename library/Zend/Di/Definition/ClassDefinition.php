@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -79,7 +79,7 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
      */
     public function addMethod($method, $isRequired = null)
     {
-       if ($isRequired === null) {
+        if ($isRequired === null) {
             if ($method === '__construct') {
                 $methodRequirementType = Di::METHOD_IS_CONSTRUCTOR;
             } else {
@@ -162,7 +162,7 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
     public function getInstantiator($class)
     {
         if ($this->class !== $class) {
-            return null;
+            return;
         }
         return $this->instantiator;
     }
@@ -192,14 +192,14 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
     public function hasMethod($class, $method)
     {
         if ($this->class !== $class) {
-            return null;
+            return;
         }
 
         if (is_array($this->methods)) {
             return array_key_exists($method, $this->methods);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -219,13 +219,13 @@ class ClassDefinition implements DefinitionInterface, PartialMarker
     public function getMethodParameters($class, $method)
     {
         if ($this->class !== $class) {
-            return null;
+            return;
         }
 
         if (array_key_exists($method, $this->methodParameters)) {
             return $this->methodParameters[$method];
         }
 
-        return null;
+        return;
     }
 }

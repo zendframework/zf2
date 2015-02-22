@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -82,5 +82,15 @@ class DateSelectTest extends TestCase
         $sut = new DateSelectElement('dateSelect', array('day_attributes' => array('class' => 'test')));
         $dayAttributes = $sut->getDayAttributes();
         $this->assertEquals('test', $dayAttributes['class']);
+    }
+
+    /**
+     * @group 7114
+     */
+    public function testValueSetterReturnsSameObjectType()
+    {
+        $element = new DateSelectElement();
+
+        $this->assertSame($element, $element->setValue('2014-01-01'));
     }
 }

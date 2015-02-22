@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -23,7 +23,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
 
     protected function loadInstructionsFile($fileName)
     {
-        return include_once (__DIR__ . "/TestAsset/$fileName.php");
+        return include_once(__DIR__ . "/TestAsset/$fileName.php");
     }
 
     public function setUp()
@@ -59,7 +59,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testConstructorWithArray()
     {
         $object = $this->getBarcodeObject(
-                array('barHeight' => 150 ,
+                array('barHeight' => 150,
                         'unkownProperty' => 'aValue'));
         $this->assertEquals(150, $object->getBarHeight());
     }
@@ -67,7 +67,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testConstructorWithZendConfig()
     {
         $config = new Config\Config(
-                array('barHeight' => 150 ,
+                array('barHeight' => 150,
                         'unkownProperty' => 'aValue'));
         $object = $this->getBarcodeObject($config);
         $this->assertEquals(150, $object->getBarHeight());
@@ -76,7 +76,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testSetOptions()
     {
         $this->object->setOptions(
-                array('barHeight' => 150 ,
+                array('barHeight' => 150,
                         'unkownProperty' => 'aValue'));
         $this->assertEquals(150, $this->object->getBarHeight());
     }

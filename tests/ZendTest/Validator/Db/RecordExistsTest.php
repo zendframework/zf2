@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -236,7 +236,7 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
                                       'field1', null, $this->getMockHasResult());
         $table = $validator->getSelect()->getRawState('table');
         $this->assertInstanceOf('Zend\Db\Sql\TableIdentifier', $table);
-        $this->assertEquals(array('users','my'), $table->getTableAndSchema());
+        $this->assertEquals(array('users', 'my'), $table->getTableAndSchema());
     }
 
     public function testEqualsMessageTemplates()

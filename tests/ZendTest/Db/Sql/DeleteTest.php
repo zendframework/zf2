@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -222,4 +222,9 @@ class DeleteIgnore extends Delete
         self::SPECIFICATION_DELETE => 'DELETE IGNORE FROM %1$s',
         self::SPECIFICATION_WHERE  => 'WHERE %1$s',
     );
+
+    protected function processdeleteIgnore(\Zend\Db\Adapter\Platform\PlatformInterface $platform, \Zend\Db\Adapter\Driver\DriverInterface $driver = null, \Zend\Db\Adapter\ParameterContainer $parameterContainer = null)
+    {
+        return parent::processDelete($platform, $driver, $parameterContainer);
+    }
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -401,7 +401,7 @@ class ClassScanner implements ScannerInterface
     /**
      * Return a list of properties
      *
-     * @return PropertyScanner
+     * @return PropertyScanner[]
      */
     public function getProperties()
     {
@@ -554,6 +554,7 @@ class ClassScanner implements ScannerInterface
             // @todo find a way to test this
             die('Massive Failure, test this');
         }
+
         $m = new MethodScanner(
             array_slice($this->tokens, $info['tokenStart'], $info['tokenEnd'] - $info['tokenStart'] + 1),
             $this->nameInformation
@@ -768,7 +769,6 @@ class ClassScanner implements ScannerInterface
         }
 
         if ($tokenType === null && $tokenContent === '{' && $braceCount === 0) {
-
             $braceCount++;
             if ($MACRO_TOKEN_ADVANCE() === false) {
                 goto SCANNER_END;
@@ -849,6 +849,10 @@ class ClassScanner implements ScannerInterface
                                 //goto no break needed
                             case '}':
                                 $braceCount--;
+                                goto SCANNER_CLASS_BODY_MEMBER_CONTINUE;
+
+                            case ';':
+                                $infos[$infoIndex]['tokenEnd'] = $tokenIndex;
                                 goto SCANNER_CLASS_BODY_MEMBER_CONTINUE;
                         }
                     }
@@ -931,7 +935,6 @@ class ClassScanner implements ScannerInterface
             SCANNER_CLASS_BODY_END:
 
             goto SCANNER_CONTINUE;
-
         }
 
         SCANNER_CONTINUE:

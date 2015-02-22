@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -173,7 +173,7 @@ class RenameUpload extends AbstractFilter
             $isFileUpload = true;
             $uploadData = $value;
             $sourceFile = $value['tmp_name'];
-        } else{
+        } else {
             $uploadData = array(
                 'tmp_name' => $value,
                 'name'     => $value,
@@ -218,7 +218,8 @@ class RenameUpload extends AbstractFilter
         if (!$result || null !== $warningException) {
             throw new Exception\RuntimeException(
                 sprintf("File '%s' could not be renamed. An error occurred while processing the file.", $sourceFile),
-                0, $warningException
+                0,
+                $warningException
             );
         }
 

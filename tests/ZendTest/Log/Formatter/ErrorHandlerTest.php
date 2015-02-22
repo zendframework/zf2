@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -28,7 +28,7 @@ class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
             'message'      => 'test',
             'priority'     => 1,
             'priorityName' => 'CRIT',
-            'extra' => array (
+            'extra' => array(
                 'errno' => 1,
                 'file'  => 'test.php',
                 'line'  => 1,
@@ -78,6 +78,4 @@ class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
         $output = $formatter->format($event);
         $this->assertEquals($stringObject->__toString() .' %extra[context][object2]% test1 %extra[context][array]% test2', $output);
     }
-
-
 }

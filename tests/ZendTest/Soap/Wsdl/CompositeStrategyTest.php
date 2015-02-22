@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -23,7 +23,6 @@ use ZendTest\Soap\WsdlTestHelper;
  */
 class CompositeStrategyTest extends WsdlTestHelper
 {
-
     public function setUp()
     {
         // override parent setup because it is needed only in one method
@@ -37,8 +36,8 @@ class CompositeStrategyTest extends WsdlTestHelper
         $bookStrategy = $strategy->getStrategyOfType('Book');
         $cookieStrategy = $strategy->getStrategyOfType('Cookie');
 
-        $this->assertTrue( $bookStrategy instanceof ArrayOfTypeComplex );
-        $this->assertTrue( $cookieStrategy instanceof ArrayOfTypeSequence );
+        $this->assertTrue($bookStrategy instanceof ArrayOfTypeComplex);
+        $this->assertTrue($cookieStrategy instanceof ArrayOfTypeSequence);
     }
 
     public function testConstructorTypeMapSyntax()
@@ -52,8 +51,8 @@ class CompositeStrategyTest extends WsdlTestHelper
         $bookStrategy = $strategy->getStrategyOfType('Book');
         $cookieStrategy = $strategy->getStrategyOfType('Cookie');
 
-        $this->assertTrue( $bookStrategy instanceof ArrayOfTypeComplex );
-        $this->assertTrue( $cookieStrategy instanceof ArrayOfTypeSequence );
+        $this->assertTrue($bookStrategy instanceof ArrayOfTypeComplex);
+        $this->assertTrue($cookieStrategy instanceof ArrayOfTypeSequence);
     }
 
     public function testCompositeThrowsExceptionOnInvalidType()

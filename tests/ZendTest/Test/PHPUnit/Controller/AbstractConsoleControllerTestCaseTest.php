@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 namespace ZendTest\Test\PHPUnit\Controller;
@@ -25,7 +25,7 @@ class AbstractConsoleControllerTestCaseTest extends AbstractConsoleControllerTes
 
     public function testUseOfRouter()
     {
-       $this->assertEquals(true, $this->useConsoleRequest);
+        $this->assertEquals(true, $this->useConsoleRequest);
     }
 
     public function testAssertResponseStatusCode()
@@ -98,6 +98,26 @@ class AbstractConsoleControllerTestCaseTest extends AbstractConsoleControllerTes
         $this->assertEquals("2013-03-07 00:00:00", $routeMatch->getParam('date'));
         $this->assertEquals("10", $routeMatch->getParam('id'));
         $this->assertEquals("custom text", $routeMatch->getParam('text'));
+    }
+
+    /**
+     * @group 6837
+     */
+    public function testAssertMatchedArgumentsWithMandatoryValue()
+    {
+        $this->dispatch("foo --bar='FOO' --baz='ARE'");
+        /** @var \Zend\Mvc\Router\Console\RouteMatch $routeMatch */
+        $routeMatch = $this->getApplication()->getMvcEvent()->getRouteMatch();
+        $this->assertNotNull($routeMatch);
+        $this->assertEquals('arguments-mandatory', $routeMatch->getMatchedRouteName());
+
+        $this->reset();
+
+        $this->dispatch('foo --bar="FOO" --baz="ARE"');
+        /** @var \Zend\Mvc\Router\Console\RouteMatch $routeMatch */
+        $routeMatch = $this->getApplication()->getMvcEvent()->getRouteMatch();
+        $this->assertNotNull($routeMatch);
+        $this->assertEquals('arguments-mandatory', $routeMatch->getMatchedRouteName());
     }
 
     public function testAssertMatchedArgumentsWithValueWithoutEqualsSign()

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -72,7 +72,7 @@ class Ini implements ReaderInterface
         $this->directory = dirname($filename);
 
         set_error_handler(
-            function ($error, $message = '', $file = '', $line = 0) use ($filename) {
+            function ($error, $message = '') use ($filename) {
                 throw new Exception\RuntimeException(
                     sprintf('Error reading INI file "%s": %s', $filename, $message),
                     $error
@@ -101,7 +101,7 @@ class Ini implements ReaderInterface
         $this->directory = null;
 
         set_error_handler(
-            function ($error, $message = '', $file = '', $line = 0) {
+            function ($error, $message = '') {
                 throw new Exception\RuntimeException(
                     sprintf('Error reading INI string: %s', $message),
                     $error

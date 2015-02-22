@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -66,7 +66,6 @@ class Converter
         return $string;
     }
 
-
     /**
      * Convert any value to an LDAP-compatible value.
      *
@@ -86,10 +85,8 @@ class Converter
             switch ($type) {
                 case self::BOOLEAN:
                     return static::toldapBoolean($value);
-                    break;
                 case self::GENERALIZED_TIME:
                     return static::toLdapDatetime($value);
-                    break;
                 default:
                     if (is_string($value)) {
                         return $value;
@@ -107,10 +104,9 @@ class Converter
                         return static::toLdapSerialize($value);
                     } elseif (is_resource($value) && get_resource_type($value) === 'stream') {
                         return stream_get_contents($value);
-                    } else {
-                        return null;
                     }
-                    break;
+
+                    return;
             }
         } catch (\Exception $e) {
             throw new Exception\ConverterException($e->getMessage(), $e->getCode(), $e);
@@ -203,10 +199,8 @@ class Converter
         switch ($type) {
             case self::BOOLEAN:
                 return static::fromldapBoolean($value);
-                break;
             case self::GENERALIZED_TIME:
                 return static::fromLdapDateTime($value);
-                break;
             default:
                 if (is_numeric($value)) {
                     // prevent numeric values to be treated as date/time
@@ -335,9 +329,6 @@ class Converter
         }
 
         // Raw-Data is present, so lets create a DateTime-Object from it.
-        $offset     = $time['offdir']
-                      . str_pad($time['offsethours'], 2, '0', STR_PAD_LEFT)
-                      . str_pad($time['offsetminutes'], 2, '0', STR_PAD_LEFT);
         $timestring = $time['year'] . '-'
                       . str_pad($time['month'], 2, '0', STR_PAD_LEFT) . '-'
                       . str_pad($time['day'], 2, '0', STR_PAD_LEFT) . ' '

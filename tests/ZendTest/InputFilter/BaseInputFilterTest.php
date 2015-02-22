@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -661,7 +661,7 @@ class BaseInputFilterTest extends TestCase
     {
         $filter = new InputFilter();
 
-        $data = array (
+        $data = array(
             'allowEmpty' => $allowEmpty,
             'blankIsValid' => $blankIsValid,
         );
@@ -911,5 +911,30 @@ class BaseInputFilterTest extends TestCase
         $filter = new InputFilter();
         $filter->add($arrayInput, 'arrayInput');
         $filter->setData(array('foo' => 'bar'));
+    }
+
+    /**
+     * @group 6431
+     */
+    public function testMerge()
+    {
+        $inputFilter       = new InputFilter();
+        $originInputFilter = new InputFilter();
+
+        $inputFilter->add(new Input(), 'foo');
+        $inputFilter->add(new Input(), 'bar');
+
+        $originInputFilter->add(new Input(), 'baz');
+
+        $inputFilter->merge($originInputFilter);
+
+        $this->assertEquals(
+            array(
+                'foo',
+                'bar',
+                'baz'
+            ),
+            array_keys($inputFilter->getInputs())
+        );
     }
 }

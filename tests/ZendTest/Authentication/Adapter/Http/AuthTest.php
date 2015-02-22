@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -303,6 +303,22 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         );
 
         $data = $this->_doAuth($bad, 'digest');
+        $this->_checkBadRequest($data);
+    }
+
+    /**
+     * check if response is validated
+     * @group PR6983
+     */
+    public function testBadDigestResponse()
+    {
+        $bad = $this->_digestReply('Bryce', 'ThisIsNotMyPassword');
+        $bad = preg_replace(
+            '/response="([^"]+)"/',  // cut out the realm
+            'response="foobar"', $bad
+        );
+
+        $data = $this->_doAuth($bad, 'both');
         $this->_checkBadRequest($data);
     }
 

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -11,7 +11,7 @@ namespace ZendTest\Json;
 
 use Zend\Json;
 
-error_reporting( E_ALL | E_STRICT ); // now required for each test suite
+error_reporting(E_ALL | E_STRICT); // now required for each test suite
 
 /**
  * Zend_JSON
@@ -26,7 +26,6 @@ error_reporting( E_ALL | E_STRICT ); // now required for each test suite
  */
 class JsonXmlTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * xml2json Test 1
      * It tests the conversion of a contact list xml into JSON format.
@@ -523,7 +522,6 @@ EOT;
 
         $this->assertSame("bar", $phpArray['a']['@text'], "The text element of a is not correct");
         $this->assertSame("foo", $phpArray['a']['b']['@attributes']['id'], "The id attribute of b is not correct");
-
     }
 
     /**
@@ -596,5 +594,4 @@ EOT;
 EOT;
         return array(array($xmlStringContents));
     }
-
 }

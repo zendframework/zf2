@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -100,7 +100,6 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
                                     'The algorithm unknown is not supported by Zend\Crypt\Symmetric\Mcrypt');
         $this->fileCipher->setCipherAlgorithm('unknown');
-
     }
 
     public function testGetCipherSupportedAlgorithms()
@@ -116,9 +115,9 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
 
     public function testSetWrongHashAlgorithm()
     {
-         $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
                                      'The specified hash algorithm \'unknown\' is not supported by Zend\Crypt\Hash');
-         $this->fileCipher->setHashAlgorithm('unknown');
+        $this->fileCipher->setHashAlgorithm('unknown');
     }
 
     public function testSetPbkdf2HashAlgorithm()
@@ -159,9 +158,9 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(filesize($fileIn), filesize($decryptFile));
             $this->assertEquals(file_get_contents($fileIn), file_get_contents($decryptFile));
 
-            unlink ($fileIn);
-            unlink ($fileOut);
-            unlink ($decryptFile);
+            unlink($fileIn);
+            unlink($fileOut);
+            unlink($decryptFile);
         }
     }
 
@@ -175,7 +174,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
 
         $fileOut2 = $this->fileIn . '.dec';
         $this->assertTrue($this->fileCipher->decrypt($this->fileOut, $fileOut2, false));
-        unlink ($fileOut2);
+        unlink($fileOut2);
 
         // Tampering of the encrypted file
         $ciphertext = file_get_contents($this->fileOut);

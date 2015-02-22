@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -65,15 +65,15 @@ class Maildir extends AbstractStorage
         }
 
         $flags = array_flip($flags);
-           foreach ($this->files as $file) {
-               foreach ($flags as $flag => $v) {
-                   if (!isset($file['flaglookup'][$flag])) {
-                       continue 2;
-                   }
-               }
-               ++$count;
-           }
-           return $count;
+        foreach ($this->files as $file) {
+            foreach ($flags as $flag => $v) {
+                if (!isset($file['flaglookup'][$flag])) {
+                    continue 2;
+                }
+            }
+            ++$count;
+        }
+        return $count;
     }
 
     /**
@@ -121,8 +121,6 @@ class Maildir extends AbstractStorage
 
         return $result;
     }
-
-
 
     /**
      * Fetch a message
@@ -330,7 +328,6 @@ class Maildir extends AbstractStorage
         }
     }
 
-
     /**
      * Close resource for mail lib. If you need to control, when the resource
      * is closed. Otherwise the destructor would call this.
@@ -341,7 +338,6 @@ class Maildir extends AbstractStorage
         $this->files = array();
     }
 
-
     /**
      * Waste some CPU cycles doing nothing.
      *
@@ -351,7 +347,6 @@ class Maildir extends AbstractStorage
     {
         return true;
     }
-
 
     /**
      * stub for not supported message deletion

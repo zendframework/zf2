@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -184,7 +184,7 @@ class Sendmail implements TransportInterface
     {
         $headers = $message->getHeaders();
         if (!$headers->has('subject')) {
-            return null;
+            return;
         }
         $header = $headers->get('subject');
         return $header->getFieldValue(HeaderInterface::FORMAT_ENCODED);
@@ -241,7 +241,7 @@ class Sendmail implements TransportInterface
     protected function prepareParameters(Mail\Message $message)
     {
         if ($this->isWindowsOs()) {
-            return null;
+            return;
         }
 
         $parameters = (string) $this->parameters;

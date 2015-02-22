@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -25,6 +25,7 @@ class File extends Part
      * - file     filename or open file handler with message content (required)
      * - startPos start position of message or part in file (default: current position)
      * - endPos   end position of message or part in file (default: end of file)
+     * - EOL      end of Line for messages
      *
      * @param   array $params  full message with or without headers
      * @throws Exception\RuntimeException
@@ -53,7 +54,11 @@ class File extends Part
             $header .= $line;
         }
 
-        $this->headers = Headers::fromString($header);
+        if (isset($params['EOL'])) {
+            $this->headers = Headers::fromString($header, $params['EOL']);
+        } else {
+            $this->headers = Headers::fromString($header);
+        }
 
         $this->contentPos[0] = ftell($this->fh);
         if ($endPos !== null) {
@@ -101,9 +106,7 @@ class File extends Part
             }
         }
         $this->countParts = count($this->partPos);
-
     }
-
 
     /**
      * Body of part

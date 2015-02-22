@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -13,7 +13,6 @@ use Zend\Http\Header\RetryAfter;
 
 class RetryAfterTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testRetryAfterFromStringCreatesValidRetryAfterHeader()
     {
         $retryAfterHeader = RetryAfter::fromString('Retry-After: 10');
@@ -52,6 +51,5 @@ class RetryAfterTest extends \PHPUnit_Framework_TestCase
 
         $retryAfterHeader->setDate('Sun, 06 Nov 1994 08:49:37 GMT');
         $this->assertEquals('Retry-After: Sun, 06 Nov 1994 08:49:37 GMT', $retryAfterHeader->toString());
-
     }
 }

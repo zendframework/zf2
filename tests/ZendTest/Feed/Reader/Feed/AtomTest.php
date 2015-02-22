@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -18,7 +18,6 @@ use Zend\Feed\Reader;
 */
 class AtomTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $feedSamplePath = null;
 
     protected $options = array();
@@ -130,7 +129,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/atom03.xml')
         );
 
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com','uri'=>'http://www.example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com', 'uri'=>'http://www.example.com'), $feed->getAuthor());
     }
 
     public function testGetsSingleAuthorFromAtom10()
@@ -139,7 +138,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/author/plain/atom10.xml')
         );
 
-        $this->assertEquals(array('name'=>'Joe Bloggs','email'=>'joe@example.com','uri'=>'http://www.example.com'), $feed->getAuthor());
+        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com', 'uri'=>'http://www.example.com'), $feed->getAuthor());
     }
 
     /**
@@ -150,7 +149,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath . '/datecreated/plain/atom03.xml')
         );
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = DateTime::createFromFormat(DateTime::ATOM, '2009-03-07T08:03:50Z');
         $this->assertEquals($edate, $feed->getDateCreated());
     }
 
@@ -159,7 +158,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath . '/datecreated/plain/atom10.xml')
         );
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = DateTime::createFromFormat(DateTime::ATOM, '2009-03-07T08:03:50Z');
         $this->assertEquals($edate, $feed->getDateCreated());
     }
 
@@ -171,7 +170,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath . '/datemodified/plain/atom03.xml')
         );
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = DateTime::createFromFormat(DateTime::ATOM, '2009-03-07T08:03:50Z');
         $this->assertEquals($edate, $feed->getDateModified());
     }
 
@@ -180,7 +179,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath . '/datemodified/plain/atom10.xml')
         );
-        $edate = DateTime::createFromFormat(DateTime::ISO8601, '2009-03-07T08:03:50Z');
+        $edate = DateTime::createFromFormat(DateTime::ATOM, '2009-03-07T08:03:50Z');
         $this->assertEquals($edate, $feed->getDateModified());
     }
 
@@ -422,7 +421,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/atom10.xml')
         );
         $this->assertEquals($this->expectedCats, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromAtom03_Atom10Extension()
@@ -431,7 +430,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/atom03.xml')
         );
         $this->assertEquals($this->expectedCats, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','Cat & Dog'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($feed->getCategories()->getValues()));
     }
 
     // DC 1.0/1.1 for Atom 0.3
@@ -442,7 +441,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc10/atom03.xml')
         );
         $this->assertEquals($this->expectedCatsDc, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     public function testGetsCategoriesFromAtom03_Dc11()
@@ -451,7 +450,7 @@ class AtomTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/plain/dc11/atom03.xml')
         );
         $this->assertEquals($this->expectedCatsDc, (array) $feed->getCategories());
-        $this->assertEquals(array('topic1','topic2'), array_values($feed->getCategories()->getValues()));
+        $this->assertEquals(array('topic1', 'topic2'), array_values($feed->getCategories()->getValues()));
     }
 
     // No Categories In Entry

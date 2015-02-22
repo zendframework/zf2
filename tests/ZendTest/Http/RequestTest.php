@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -15,14 +15,14 @@ use Zend\Http\Header\GenericHeader;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testRequestFromStringFactoryCreatesValidRequest()
     {
-        $string = "GET /foo HTTP/1.1\r\n\r\nSome Content";
+        $string = "GET /foo?myparam=myvalue HTTP/1.1\r\n\r\nSome Content";
         $request = Request::fromString($string);
 
         $this->assertEquals(Request::METHOD_GET, $request->getMethod());
-        $this->assertEquals('/foo', $request->getUri());
+        $this->assertEquals('/foo?myparam=myvalue', $request->getUri());
+        $this->assertEquals('myvalue', $request->getQuery()->get('myparam'));
         $this->assertEquals(Request::VERSION_11, $request->getVersion());
         $this->assertEquals('Some Content', $request->getContent());
     }
@@ -67,7 +67,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('bar', $request->getFiles('foo'));
 
         $headers = new Headers();
-        $h = new GenericHeader('foo','bar');
+        $h = new GenericHeader('foo', 'bar');
         $headers->addHeader($h);
 
         $request->setHeaders($headers);

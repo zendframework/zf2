@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -80,13 +80,26 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
         $plugins->setFactory('basepath', function () use ($serviceLocator) {
             $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
             $basePathHelper = new ViewHelper\BasePath;
+
+            if (Console::isConsole()
+                && isset($config['view_manager'])
+                && isset($config['view_manager']['base_path_console'])
+            ) {
+                $basePathHelper->setBasePath($config['view_manager']['base_path_console']);
+
+                return $basePathHelper;
+            }
+
             if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
                 $basePathHelper->setBasePath($config['view_manager']['base_path']);
-            } else {
-                $request = $serviceLocator->get('Request');
-                if (is_callable(array($request, 'getBasePath'))) {
-                    $basePathHelper->setBasePath($request->getBasePath());
-                }
+
+                return $basePathHelper;
+            }
+
+            $request = $serviceLocator->get('Request');
+
+            if (is_callable(array($request, 'getBasePath'))) {
+                $basePathHelper->setBasePath($request->getBasePath());
             }
 
             return $basePathHelper;

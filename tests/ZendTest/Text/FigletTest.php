@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -17,7 +17,6 @@ use Zend\Text\Figlet;
  */
 class FigletTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testStandardAlignLeft()
     {
         $figlet = new Figlet\Figlet();
@@ -103,7 +102,6 @@ class FigletTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Zend\Text\Figlet\Exception\RuntimeException', 'not found');
         $figlet = new Figlet\Figlet(array('font' => __DIR__ . '/Figlet/NonExistentFont.flf'));
-
     }
 
     public function testInvalidFont()

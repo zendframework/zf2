@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -20,7 +20,6 @@ use Zend\Code\Reflection\FileReflection;
  */
 class FileGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testConstruction()
     {
         $file = new FileGenerator();
@@ -92,7 +91,6 @@ EOS;
 
         $this->assertEquals('Zend\Code\Generator\FileGenerator', get_class($fileGenerator));
         $this->assertEquals(1, count($fileGenerator->getClasses()));
-
     }
 
     public function testFromFileReflection()
@@ -309,7 +307,7 @@ EOS;
     {
         $g = new \Zend\Code\Generator\FileGenerator();
         $g = $g->fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
-        $g->setFilename('/tmp/result_class.php');
+        $g->setFilename(sys_get_temp_dir() . '/result_class.php');
         $g->getClass()->addMethod('added');
         $g->write();
 
@@ -320,7 +318,7 @@ EOS;
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source
  * repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc.
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc.
  * (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
@@ -343,7 +341,7 @@ class ClassWithUses
 
 
 CODE;
-        $actual = file_get_contents('/tmp/result_class.php');
+        $actual = file_get_contents(sys_get_temp_dir() . '/result_class.php');
         $this->assertEquals($expected, $actual);
     }
 
@@ -354,7 +352,7 @@ CODE;
     {
         $g = new \Zend\Code\Generator\FileGenerator();
         $g = $g->fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
-        $g->setFilename('/tmp/result_class.php');
+        $g->setFilename(sys_get_temp_dir() . '/result_class.php');
         $g->getClass()->addMethod('added');
         $g->setBody("\$foo->bar();");
         $g->write();
@@ -366,7 +364,7 @@ CODE;
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source
  * repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc.
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc.
  * (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
@@ -390,7 +388,7 @@ class ClassWithUses
 
 $foo->bar();
 CODE;
-        $actual = file_get_contents('/tmp/result_class.php');
+        $actual = file_get_contents(sys_get_temp_dir() . '/result_class.php');
         $this->assertEquals($expected, $actual);
     }
 }

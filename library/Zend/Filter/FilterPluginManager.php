@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -20,6 +20,15 @@ use Zend\ServiceManager\AbstractPluginManager;
  */
 class FilterPluginManager extends AbstractPluginManager
 {
+    /**
+     * Default set of plugins factories
+     *
+     * @var array
+     */
+    protected $factories = array(
+        'wordseparatortoseparator' => 'Zend\Filter\Word\Service\SeparatorToSeparatorFactory',
+    );
+
     /**
      * Default set of filters
      *
@@ -75,7 +84,6 @@ class FilterPluginManager extends AbstractPluginManager
         'worddashtounderscore'       => 'Zend\Filter\Word\DashToUnderscore',
         'wordseparatortocamelcase'   => 'Zend\Filter\Word\SeparatorToCamelCase',
         'wordseparatortodash'        => 'Zend\Filter\Word\SeparatorToDash',
-        'wordseparatortoseparator'   => 'Zend\Filter\Word\SeparatorToSeparator',
         'wordunderscoretocamelcase'  => 'Zend\Filter\Word\UnderscoreToCamelCase',
         'wordunderscoretostudlycase' => 'Zend\Filter\Word\UnderscoreToStudlyCase',
         'wordunderscoretodash'       => 'Zend\Filter\Word\UnderscoreToDash',

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 namespace Zend\Test\PHPUnit\Controller;
@@ -208,7 +208,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
     {
         $request = $this->getRequest();
         if ($this->useConsoleRequest) {
-            preg_match_all('/(--\S+[= ]"\S*\s*\S*")|(--\S+=\S+|--\S+\s\S+|\S+)/', $url, $matches);
+            preg_match_all('/(--\S+[= ]"[^\s"]*\s*[^\s"]*")|(--\S+=\S+|--\S+\s\S+|\S+)/', $url, $matches);
             $params = str_replace(array(' "', '"'), array('=', ''), $matches[0]);
             $request->params()->exchangeArray($params);
 
@@ -230,20 +230,14 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
             }
         } elseif ($method == HttpRequest::METHOD_GET) {
             $query = array_merge($query, $params);
-        } elseif ($method == HttpRequest::METHOD_PUT) {
+        } elseif ($method == HttpRequest::METHOD_PUT || $method == HttpRequest::METHOD_PATCH) {
             if (count($params) != 0) {
-                array_walk(
-                    $params,
-                    function (&$item, $key) {
-                        $item = $key . '=' . $item;
-                    }
-                );
-                $content = implode('&', $params);
+                $content = http_build_query($params);
                 $request->setContent($content);
             }
         } elseif ($params) {
             trigger_error(
-                'Additional params is only supported by GET, POST and PUT HTTP method',
+                'Additional params is only supported by GET, POST, PUT and PATCH HTTP method',
                 E_USER_NOTICE
             );
         }
@@ -270,9 +264,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
      */
     public function dispatch($url, $method = null, $params = array(), $isXmlHttpRequest = false)
     {
-        if ( !isset($method) &&
-             $this->getRequest() instanceof HttpRequest &&
-             $requestMethod = $this->getRequest()->getMethod()
+        if (!isset($method)
+            && $this->getRequest() instanceof HttpRequest
+            && $requestMethod = $this->getRequest()->getMethod()
         ) {
             $method = $requestMethod;
         } elseif (!isset($method)) {
@@ -354,9 +348,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $modulesLoaded = $moduleManager->getModules();
         $list          = array_diff($modules, $modulesLoaded);
         if ($list) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Several modules are not loaded "%s"', implode(', ', $list)
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Several modules are not loaded "%s"', implode(', ', $list))
+            );
         }
         $this->assertEquals(count($list), 0);
     }
@@ -372,9 +366,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $modulesLoaded = $moduleManager->getModules();
         $list          = array_intersect($modules, $modulesLoaded);
         if ($list) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Several modules WAS not loaded "%s"', implode(', ', $list)
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Several modules WAS not loaded "%s"', implode(', ', $list))
+            );
         }
         $this->assertEquals(count($list), 0);
     }
@@ -415,10 +409,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         }
         $match = $this->getResponseStatusCode();
         if ($code != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting response code "%s", actual status code is "%s"',
-                $code, $match
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting response code "%s", actual status code is "%s"', $code, $match)
+            );
         }
         $this->assertEquals($code, $match);
     }
@@ -439,10 +432,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         }
         $match = $this->getResponseStatusCode();
         if ($code == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting response code was NOT "%s"',
-                $code
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting response code was NOT "%s"', $code)
+            );
         }
         $this->assertNotEquals($code, $match);
     }
@@ -496,10 +488,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match           = strtolower($match);
         $module          = strtolower($module);
         if ($module != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting module name "%s", actual module name is "%s"',
-                $module, $match
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting module name "%s", actual module name is "%s"', $module, $match)
+            );
         }
         $this->assertEquals($module, $match);
     }
@@ -516,10 +507,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match           = strtolower($match);
         $module          = strtolower($module);
         if ($module == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting module was NOT "%s"',
-                $module
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting module was NOT "%s"', $module)
+            );
         }
         $this->assertNotEquals($module, $match);
     }
@@ -536,10 +526,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match           = strtolower($match);
         $controller      = strtolower($controller);
         if ($controller != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting controller class "%s", actual controller class is "%s"',
-                $controller, $match
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting controller class "%s", actual controller class is "%s"', $controller, $match)
+            );
         }
         $this->assertEquals($controller, $match);
     }
@@ -556,10 +545,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match           = strtolower($match);
         $controller      = strtolower($controller);
         if ($controller == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting controller class was NOT "%s"',
-                $controller
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting controller class was NOT "%s"', $controller)
+            );
         }
         $this->assertNotEquals($controller, $match);
     }
@@ -576,10 +564,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match      = strtolower($match);
         $controller = strtolower($controller);
         if ($controller != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting controller name "%s", actual controller name is "%s"',
-                $controller, $match
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting controller name "%s", actual controller name is "%s"', $controller, $match)
+            );
         }
         $this->assertEquals($controller, $match);
     }
@@ -596,10 +583,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match      = strtolower($match);
         $controller = strtolower($controller);
         if ($controller == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting controller name was NOT "%s"',
-                $controller
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting controller name was NOT "%s"', $controller)
+            );
         }
         $this->assertNotEquals($controller, $match);
     }
@@ -616,10 +602,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match      = strtolower($match);
         $action     = strtolower($action);
         if ($action != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting action name "%s", actual action name is "%s"',
-                $action, $match
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting action name "%s", actual action name is "%s"', $action, $match)
+            );
         }
         $this->assertEquals($action, $match);
     }
@@ -636,10 +621,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match      = strtolower($match);
         $action     = strtolower($action);
         if ($action == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting action name was NOT "%s"',
-                $action
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting action name was NOT "%s"', $action)
+            );
         }
         $this->assertNotEquals($action, $match);
     }
@@ -656,10 +640,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match      = strtolower($match);
         $route      = strtolower($route);
         if ($route != $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting matched route name was "%s", actual matched route name is "%s"',
-                $route, $match
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting matched route name was "%s", actual matched route name is "%s"', $route, $match)
+            );
         }
         $this->assertEquals($route, $match);
     }
@@ -676,9 +659,9 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
         $match      = strtolower($match);
         $route      = strtolower($route);
         if ($route == $match) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting route matched was NOT "%s"', $route
-            ));
+            throw new PHPUnit_Framework_ExpectationFailedException(
+                sprintf('Failed asserting route matched was NOT "%s"', $route)
+            );
         }
         $this->assertNotEquals($route, $match);
     }

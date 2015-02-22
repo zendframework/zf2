@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -190,7 +190,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
             'extra'        => array()
         );
         $expected = '<logEntry><timestamp>2001-01-01T12:00:00-06:00</timestamp><message>test</message><priority>1</priority><priorityName>CRIT</priorityName></logEntry>';
-        $expected .= PHP_EOL . PHP_EOL;
+        $expected .= "\n" . PHP_EOL;
         $this->assertEquals($expected, $formatter->format($event));
     }
 
@@ -211,7 +211,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = '<logEntry><timestamp>2001-01-01T12:00:00-06:00</timestamp><message>test</message><priority>1</priority><priorityName>CRIT</priorityName><extra><test>one</test><bar>foo</bar></extra></logEntry>';
-        $expected .= PHP_EOL . PHP_EOL;
+        $expected .= "\n" . PHP_EOL;
         $this->assertEquals($expected, $formatter->format($event));
     }
 
@@ -249,8 +249,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
             )
         );
         $expected = '<logEntry><timestamp>2001-01-01T12:00:00-06:00</timestamp><message>test</message><priority>1</priority><priorityName>CRIT</priorityName><extra><test><one/><two><three><four>four</four></three><five/></two></test><test_null/><test_int>14</test_int><test_object>"Object" of type stdClass does not support __toString() method</test_object><serializable_object>ZendTest\Log\TestAsset\SerializableObject</serializable_object><test_empty_array/><bar>foo</bar><foobar/></extra></logEntry>';
-        $expected .= PHP_EOL . PHP_EOL;
+        $expected .= "\n" . PHP_EOL;
         $this->assertEquals($expected, $formatter->format($event));
     }
-
 }

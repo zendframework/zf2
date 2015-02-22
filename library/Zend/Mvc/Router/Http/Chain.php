@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -102,7 +102,7 @@ class Chain extends TreeRouteStack implements RouteInterface
     public function match(Request $request, $pathOffset = null, array $options = array())
     {
         if (!method_exists($request, 'getUri')) {
-            return null;
+            return;
         }
 
         if ($pathOffset === null) {
@@ -125,7 +125,7 @@ class Chain extends TreeRouteStack implements RouteInterface
             $subMatch = $route->match($request, $pathOffset, $options);
 
             if ($subMatch === null) {
-                return null;
+                return;
             }
 
             $match->merge($subMatch);
@@ -133,7 +133,7 @@ class Chain extends TreeRouteStack implements RouteInterface
         }
 
         if ($mustTerminate && $pathOffset !== $pathLength) {
-            return null;
+            return;
         }
 
         return $match;
@@ -149,7 +149,7 @@ class Chain extends TreeRouteStack implements RouteInterface
      */
     public function assemble(array $params = array(), array $options = array())
     {
-       if ($this->chainRoutes !== null) {
+        if ($this->chainRoutes !== null) {
             $this->addRoutes($this->chainRoutes);
             $this->chainRoutes = null;
         }

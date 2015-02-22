@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -56,6 +56,8 @@ class Between extends AbstractValidator
      *   'inclusive' => boolean, inclusive border values
      *
      * @param  array|Traversable $options
+     *
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct($options = null)
     {
@@ -76,8 +78,10 @@ class Between extends AbstractValidator
             $options = $temp;
         }
 
-        if (!array_key_exists('min', $options) || !array_key_exists('max', $options)) {
-//            throw new Exception\InvalidArgumentException("Missing option. 'min' and 'max' has to be given");
+        if (count($options) !== 2
+            && (!array_key_exists('min', $options) || !array_key_exists('max', $options))
+        ) {
+            throw new Exception\InvalidArgumentException("Missing option. 'min' and 'max' have to be given");
         }
 
         parent::__construct($options);

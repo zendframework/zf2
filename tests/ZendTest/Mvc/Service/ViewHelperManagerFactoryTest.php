@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -60,5 +60,25 @@ class ViewHelperManagerFactoryTest extends TestCase
 
         $basePath = $manager->get('basepath');
         $this->assertInstanceof('Zend\View\Helper\BasePath', $basePath);
+    }
+
+    /**
+     * @group 6247
+     */
+    public function testConsoleRequestWithBasePathConsole()
+    {
+        $this->services->setService('Config',
+            array(
+                'view_manager' => array(
+                    'base_path_console' => 'http://test.com'
+                )
+            )
+        );
+        $this->services->setService('Request', new ConsoleRequest());
+
+        $manager = $this->factory->createService($this->services);
+
+        $basePath = $manager->get('basepath');
+        $this->assertEquals('http://test.com', $basePath());
     }
 }

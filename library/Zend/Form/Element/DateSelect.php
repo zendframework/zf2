@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -65,6 +65,16 @@ class DateSelect extends MonthSelect
     }
 
     /**
+     * Get both the year and month elements
+     *
+     * @return array
+     */
+    public function getElements()
+    {
+        return array_merge(array($this->dayElement), parent::getElements());
+    }
+
+    /**
      * Set the day attributes
      *
      * @param  array $dayAttributes
@@ -89,7 +99,7 @@ class DateSelect extends MonthSelect
     /**
      * @param  string|array|\ArrayAccess|PhpDateTime $value
      * @throws \Zend\Form\Exception\InvalidArgumentException
-     * @return void|\Zend\Form\Element
+     * @return self Provides a fluent interface
      */
     public function setValue($value)
     {
@@ -112,6 +122,8 @@ class DateSelect extends MonthSelect
         $this->yearElement->setValue($value['year']);
         $this->monthElement->setValue($value['month']);
         $this->dayElement->setValue($value['day']);
+
+        return $this;
     }
 
     /**
@@ -119,7 +131,8 @@ class DateSelect extends MonthSelect
      */
     public function getValue()
     {
-        return sprintf('%s-%s-%s',
+        return sprintf(
+            '%s-%s-%s',
             $this->getYearElement()->getValue(),
             $this->getMonthElement()->getValue(),
             $this->getDayElement()->getValue()

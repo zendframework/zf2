@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -20,7 +20,6 @@ use Zend\View\Renderer\PhpRenderer as View;
  */
 class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Foo
      */
@@ -136,8 +135,11 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
 class Foo extends \Zend\View\Helper\Placeholder\Container\AbstractStandalone
 {
     protected $_regKey = 'foo';
-    public function direct() {}
+    public function direct()
+    {
+    }
 }
 
 class Bar extends \Zend\View\Helper\Placeholder\Container\AbstractContainer
-{}
+{
+}

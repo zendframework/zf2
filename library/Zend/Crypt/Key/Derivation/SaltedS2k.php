@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -14,7 +14,8 @@ namespace Zend\Crypt\Key\Derivation;
  */
 class SaltedS2k
 {
-    protected static $supportedMhashAlgos = array (
+    protected static $supportedMhashAlgos = array(
+        'adler32'    => MHASH_ADLER32,
         'md2'        => MHASH_MD2,
         'md4'        => MHASH_MD4,
         'md5'        => MHASH_MD5,
@@ -26,13 +27,21 @@ class SaltedS2k
         'ripemd128'  => MHASH_RIPEMD128,
         'ripemd256'  => MHASH_RIPEMD256,
         'ripemd320'  => MHASH_RIPEMD320,
-        'haval128,3' => MHASH_HAVAL128,
-        'haval160,3' => MHASH_HAVAL160,
-        'haval192,3' => MHASH_HAVAL192,
-        'haval224,3' => MHASH_HAVAL224,
-        'haval256,3' => MHASH_HAVAL256,
-        'tiger128,3' => MHASH_TIGER128,
-        'riger160,3' => MHASH_TIGER160,
+        'haval128,3' => MHASH_HAVAL128, // @deprecated use haval128 instead
+        'haval128'   => MHASH_HAVAL128,
+        'haval160,3' => MHASH_HAVAL160, // @deprecated use haval160 instead
+        'haval160'   => MHASH_HAVAL160,
+        'haval192,3' => MHASH_HAVAL192, // @deprecated use haval192 instead
+        'haval192'   => MHASH_HAVAL192,
+        'haval224,3' => MHASH_HAVAL224, // @deprecated use haval224 instead
+        'haval224'   => MHASH_HAVAL224,
+        'haval256,3' => MHASH_HAVAL256, // @deprecated use haval256 instead
+        'haval256'   => MHASH_HAVAL256,
+        'tiger'      => MHASH_TIGER,
+        'tiger128,3' => MHASH_TIGER128, // @deprecated use tiger128 instead
+        'tiger128'   => MHASH_TIGER128,
+        'tiger160,3' => MHASH_TIGER160, // @deprecated use tiger160 instead
+        'tiger160'   => MHASH_TIGER160,
         'whirpool'   => MHASH_WHIRLPOOL,
         'snefru256'  => MHASH_SNEFRU256,
         'gost'       => MHASH_GOST,

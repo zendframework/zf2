@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -13,11 +13,10 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\Metadata\Source\SqliteMetadata;
 
 /**
- * @requires extension sqlite
+ * @requires extension pdo_sqlite
  */
 class SqliteMetadataTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var SqliteMetadata
      */
@@ -42,7 +41,6 @@ class SqliteMetadataTest extends \PHPUnit_Framework_TestCase
             'dsn' => 'sqlite::memory:'
         ));
         $this->metadata = new SqliteMetadata($this->adapter);
-
     }
 
     public function testGetSchemas()

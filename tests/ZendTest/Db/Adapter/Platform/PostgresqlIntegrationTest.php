@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -19,7 +19,6 @@ use Zend\Db\Adapter\Driver\Pdo;
  */
 class PostgresqlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
-
     public $adapters = array();
 
     public function testQuoteValueWithPgsql()
@@ -34,7 +33,6 @@ class PostgresqlIntegrationTest extends \PHPUnit_Framework_TestCase
         $pgsql = new Postgresql(new Pgsql\Pgsql(new Pgsql\Connection($this->adapters['pgsql'])));
         $value = $pgsql->quoteValue('value');
         $this->assertEquals('\'value\'', $value);
-
     }
 
     public function testQuoteValueWithPdoPgsql()
@@ -50,5 +48,4 @@ class PostgresqlIntegrationTest extends \PHPUnit_Framework_TestCase
         $value = $pgsql->quoteValue('value');
         $this->assertEquals('\'value\'', $value);
     }
-
 }

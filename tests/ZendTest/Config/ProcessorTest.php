@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -364,7 +364,6 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function testUserOnlyConstants()
     {
-
         $config = new Config($this->userConstants, true);
         $processor = new ConstantProcessor();
         $processor->process($config);
@@ -561,7 +560,6 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
         $data ='TeSt';
         $this->assertEquals('test', $queue->processValue($data));
-
     }
 
     /**
@@ -596,5 +594,4 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $queue->process($config);
         $this->assertEquals('THIRD  CASE ', $config->newValue);
     }
-
 }

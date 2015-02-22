@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -73,7 +73,7 @@ class Decode
     {
         $parts = static::splitMime($message, $boundary);
         if (count($parts) <= 0) {
-            return null;
+            return;
         }
         $result = array();
         $headers = null; // "Declare" variable before the first usage "for reading"
@@ -188,7 +188,7 @@ class Decode
                 }
                 return substr($matches[2][$key], 1, -1);
             }
-            return null;
+            return;
         }
 
         $split = array();

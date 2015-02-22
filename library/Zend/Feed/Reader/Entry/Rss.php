@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -17,7 +17,6 @@ use Zend\Feed\Reader\Exception;
 
 class Rss extends AbstractEntry implements EntryInterface
 {
-
     /**
      * XPath query for RDF
      *
@@ -77,7 +76,7 @@ class Rss extends AbstractEntry implements EntryInterface
             return $authors[$index];
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -110,8 +109,6 @@ class Rss extends AbstractEntry implements EntryInterface
         if ($list->length) {
             foreach ($list as $author) {
                 $string = trim($author->nodeValue);
-                $email = null;
-                $name = null;
                 $data = array();
                 // Pretty rough parsing - but it's a catchall
                 if (preg_match("/^.*@[^ ]*/", $string, $matches)) {
@@ -189,7 +186,6 @@ class Rss extends AbstractEntry implements EntryInterface
             return $this->data['datemodified'];
         }
 
-        $dateModified = null;
         $date = null;
 
         if ($this->getType() !== Reader\Reader::TYPE_RSS_10
@@ -367,7 +363,7 @@ class Rss extends AbstractEntry implements EntryInterface
             return $this->data['links'][$index];
         }
 
-        return null;
+        return;
     }
 
     /**

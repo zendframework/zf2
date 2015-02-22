@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 namespace Zend\Permissions\Acl\Assertion;
@@ -13,7 +13,6 @@ use Zend\Permissions\Acl\Exception\InvalidArgumentException;
 
 class AssertionManager extends AbstractPluginManager
 {
-
     protected $sharedByDefault = true;
 
     /**
@@ -29,9 +28,12 @@ class AssertionManager extends AbstractPluginManager
     public function validatePlugin($plugin)
     {
         if (! $plugin instanceof AssertionInterface) {
-            throw new InvalidArgumentException(sprintf('Plugin of type %s is invalid; must implement
-                Zend\Permissions\Acl\Assertion\AssertionInterface',
-                (is_object($plugin) ? get_class($plugin) : gettype($plugin))));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Plugin of type %s is invalid; must implement Zend\Permissions\Acl\Assertion\AssertionInterface',
+                    (is_object($plugin) ? get_class($plugin) : gettype($plugin))
+                )
+            );
         }
 
         return true;

@@ -3,15 +3,15 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Paginator\Adapter;
 
 use Zend\Db\Adapter\Platform\Sql92;
+use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Adapter\DbTableGateway;
-use Zend\Db\ResultSet\ResultSet;
 
 /**
  * @group Zend_Paginator
@@ -64,7 +64,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $items);
+        $this->assertEquals(array(), $items);
     }
 
     public function testCount()
@@ -74,7 +74,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
         $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
         $mockResult->expects($this->any())
                    ->method('current')
-                   ->will($this->returnValue(array('c' => 10)));
+                   ->will($this->returnValue(array(DbSelect::ROW_COUNT_COLUMN_NAME => 10)));
 
         $this->mockStatement->expects($this->any())
              ->method('execute')
@@ -97,7 +97,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $items);
+        $this->assertEquals(array(), $items);
     }
 
     public function testGetItemsWithWhereAndOrderAndGroup()
@@ -118,7 +118,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $items);
+        $this->assertEquals(array(), $items);
     }
 
     public function testGetItemsWithWhereAndOrderAndGroupAndHaving()
@@ -140,6 +140,6 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertInstanceOf('Zend\Db\ResultSet\ResultSet', $items);
+        $this->assertEquals(array(), $items);
     }
 }

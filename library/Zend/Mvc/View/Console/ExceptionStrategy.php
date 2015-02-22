@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -187,7 +187,7 @@ EOT;
                 } elseif ($this->displayExceptions && $exception instanceof \Exception) {
                     $previous = '';
                     $previousException = $exception->getPrevious();
-                    while($previousException) {
+                    while ($previousException) {
                         $previous .= str_replace(
                             array(
                                 ':className',
@@ -196,7 +196,8 @@ EOT;
                                 ':file',
                                 ':line',
                                 ':stack',
-                            ),array(
+                            ),
+                            array(
                                 get_class($previousException),
                                 $previousException->getMessage(),
                                 $previousException->getCode(),
@@ -219,7 +220,7 @@ EOT;
                             ':line',
                             ':stack',
                             ':previous',
-                        ),array(
+                        ), array(
                             get_class($exception),
                             $exception->getMessage(),
                             $exception->getCode(),
@@ -240,7 +241,7 @@ EOT;
                             ':line',
                             ':stack',
                             ':previous',
-                        ),array(
+                        ), array(
                             '',
                             '',
                             '',

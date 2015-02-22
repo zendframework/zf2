@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -133,6 +133,19 @@ class ActionControllerTest extends TestCase
         $response->setContent('short circuited!');
         $events = new SharedEventManager();
         $events->attach(get_class($this->controller), MvcEvent::EVENT_DISPATCH, function ($e) use ($response) {
+            return $response;
+        }, 10);
+        $this->controller->getEventManager()->setSharedManager($events);
+        $result = $this->controller->dispatch($this->request, $this->response);
+        $this->assertSame($response, $result);
+    }
+
+    public function testEventManagerListensOnInterfaceName()
+    {
+        $response = new Response();
+        $response->setContent('short circuited!');
+        $events = new SharedEventManager();
+        $events->attach('ZendTest\\Mvc\\Controller\\TestAsset\\SampleInterface', MvcEvent::EVENT_DISPATCH, function ($e) use ($response) {
             return $response;
         }, 10);
         $this->controller->getEventManager()->setSharedManager($events);

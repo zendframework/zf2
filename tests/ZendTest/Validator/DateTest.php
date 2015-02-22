@@ -3,13 +3,14 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Validator;
 
 use DateTime;
+use DateTimeImmutable;
 use stdClass;
 use Zend\Validator;
 
@@ -94,6 +95,15 @@ class DateTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator->setFormat($format);
         $this->assertEquals($result, $this->validator->isValid($input));
+    }
+
+    public function testDateTimeImmutable()
+    {
+        if (PHP_VERSION_ID < 50500) {
+            $this->markTestSkipped('`DateTimeImmutable` is only supported in PHP >=5.5.0');
+        }
+
+        $this->assertTrue($this->validator->isValid(new DateTimeImmutable()));
     }
 
     /**

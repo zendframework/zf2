@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -252,7 +252,8 @@ class DateTimeSelect extends DateSelect
      */
     public function getValue()
     {
-        return sprintf('%s-%s-%s %s:%s:%s',
+        return sprintf(
+            '%s-%s-%s %s:%s:%s',
             $this->getYearElement()->getValue(),
             $this->getMonthElement()->getValue(),
             $this->getDayElement()->getValue(),
@@ -313,9 +314,14 @@ class DateTimeSelect extends DateSelect
                                 if (!isset($date['second'])) {
                                     $date['second'] = '00';
                                 }
-                                $date = sprintf('%s-%s-%s %s:%s:%s',
-                                    $date['year'], $date['month'], $date['day'],
-                                    $date['hour'], $date['minute'], $date['second']
+                                $date = sprintf(
+                                    '%s-%s-%s %s:%s:%s',
+                                    $date['year'],
+                                    $date['month'],
+                                    $date['day'],
+                                    $date['hour'],
+                                    $date['minute'],
+                                    $date['second']
                                 );
                             }
 

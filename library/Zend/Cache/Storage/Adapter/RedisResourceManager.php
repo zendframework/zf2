@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -189,7 +189,6 @@ class RedisResourceManager
                 $port    = isset($server['port'])    ? (int) $server['port']    : $port;
                 $timeout = isset($server['timeout']) ? (int) $server['timeout'] : $timeout;
             }
-
         } else {
             // parse server from URI host{:?port}
             $server = trim($server);
@@ -234,14 +233,14 @@ class RedisResourceManager
         }
 
         if (! is_string($serverUri)) {
-            return null;
+            return;
         }
 
         // parse server from URI host{:?port}
         $server = trim($serverUri);
 
         if (strpos($server, '/') === 0) {
-            return null;
+            return;
         }
 
         //non unix domain socket connection

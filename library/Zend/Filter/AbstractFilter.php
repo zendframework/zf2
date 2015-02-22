@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -52,10 +52,14 @@ abstract class AbstractFilter implements FilterInterface
             } elseif (array_key_exists($key, $this->options)) {
                 $this->options[$key] = $value;
             } else {
-                throw new Exception\InvalidArgumentException(sprintf(
-                    'The option "%s" does not have a matching %s setter method or options[%s] array key',
-                    $key, $setter, $key
-                ));
+                throw new Exception\InvalidArgumentException(
+                    sprintf(
+                        'The option "%s" does not have a matching %s setter method or options[%s] array key',
+                        $key,
+                        $setter,
+                        $key
+                    )
+                );
             }
         }
         return $this;

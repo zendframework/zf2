@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -38,5 +38,45 @@ class FilterPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->filters->setInvokableClass('test', get_class($this));
         $this->setExpectedException('Zend\Filter\Exception\RuntimeException');
         $this->filters->get('test');
+    }
+
+    /**
+     * @group 7169
+     */
+    public function testFilterSuccessfullyConstructed()
+    {
+        $search_separator = ';';
+        $replacement_separator = '|';
+        $options = array(
+            'search_separator'      => $search_separator,
+            'replacement_separator' => $replacement_separator,
+        );
+        $filter = $this->filters->get('wordseparatortoseparator', $options);
+        $this->assertInstanceOf('Zend\Filter\Word\SeparatorToSeparator', $filter);
+        $this->assertEquals(';', $filter->getSearchSeparator());
+        $this->assertEquals('|', $filter->getReplacementSeparator());
+    }
+
+    /**
+     * @group 7169
+     */
+    public function testFiltersConstructedAreDifferent()
+    {
+        $filterOne = $this->filters->get(
+            'wordseparatortoseparator',
+            array(
+                'search_separator'      => ';',
+                'replacement_separator' => '|',
+            )
+        );
+        $filterTwo = $this->filters->get(
+            'wordseparatortoseparator',
+            array(
+                'search_separator'      => '.',
+                'replacement_separator' => ',',
+            )
+        );
+
+        $this->assertNotEquals($filterOne, $filterTwo);
     }
 }

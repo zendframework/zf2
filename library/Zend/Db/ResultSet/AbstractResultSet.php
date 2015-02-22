@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -50,7 +50,7 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
     /**
      * Set the data source for the result set
      *
-     * @param  Iterator|IteratorAggregate|ResultInterface $dataSource
+     * @param  array|Iterator|IteratorAggregate|ResultInterface $dataSource
      * @return ResultSet
      * @throws Exception\InvalidArgumentException
      */
@@ -171,7 +171,9 @@ abstract class AbstractResultSet implements Iterator, ResultSetInterface
         if ($this->buffer === null) {
             $this->buffer = -2; // implicitly disable buffering from here on
         }
-        $this->dataSource->next();
+        if (!is_array($this->buffer) || $this->position == $this->dataSource->key()) {
+            $this->dataSource->next();
+        }
         $this->position++;
     }
 

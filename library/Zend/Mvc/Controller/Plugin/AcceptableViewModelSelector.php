@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -134,7 +134,7 @@ class AcceptableViewModelSelector extends AbstractPlugin
         $headers        = $request->getHeaders();
 
         if ((!$matchAgainst && !$this->defaultMatchAgainst) || !$headers->has('accept')) {
-            return null;
+            return;
         }
 
         if (!$matchAgainst) {
@@ -151,7 +151,7 @@ class AcceptableViewModelSelector extends AbstractPlugin
         /** @var $accept \Zend\Http\Header\Accept */
         $accept = $headers->get('Accept');
         if (($res = $accept->match($matchAgainstString)) === false) {
-            return null;
+            return;
         }
 
         return $res;

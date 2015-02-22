@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -71,7 +71,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that parseScheme throws an exception in case of invalid input
-
+     *
      * @param  mixed $input
      * @dataProvider notStringInputProvider
      */
@@ -1346,5 +1346,4 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($uri->getQuery());
         $this->assertNull($uri->getFragment());
     }
-
 }

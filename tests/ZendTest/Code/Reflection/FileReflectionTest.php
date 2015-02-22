@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -69,7 +69,7 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         try {
             new FileReflection('a_second_empty_file.php', true);
             set_include_path($oldIncludePath);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             set_include_path($oldIncludePath);
             throw $e;
         }
@@ -91,7 +91,6 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         $reflectionFile = new FileReflection($fileToReflect);
         $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClass', $reflectionFile->getClass()->getName());
     }
-
 
     public function testFileGetClassThrowsExceptionOnNonExistentClassName()
     {
@@ -118,8 +117,7 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         require_once 'Zend/Version/Version.php';
         $reflectionFile = new FileReflection('Zend/Version/Version.php');
 
-        // Make sure this test works on all platforms
-        $this->assertRegExp('#^.*Zend.Version.Version.php$#i', $reflectionFile->getFileName());
+        $this->assertEquals('Version.php', $reflectionFile->getFileName());
     }
 
     public function testFileGetLineNumbersWorks()

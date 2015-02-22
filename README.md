@@ -1,11 +1,13 @@
-### Welcome to the *Zend Framework 2.4* Release!
+![Logo](https://raw.githubusercontent.com/zendframework/zf2/234b554f2ca202095aea32e4fa557553f8849664/resources/ZendFramework-logo.png)
+
+# Welcome to the *Zend Framework 2.4* Release!
 
 Master:
-[![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?branch=master)](http://travis-ci.org/zendframework/zf2)
-[![Coverage Status](https://coveralls.io/repos/zendframework/zf2/badge.png?branch=master)](https://coveralls.io/r/zendframework/zf2)
+[![Build Status](https://secure.travis-ci.org/zendframework/zf2.svg?branch=master)](http://travis-ci.org/zendframework/zf2)
+[![Coverage Status](https://coveralls.io/repos/zendframework/zf2/badge.svg?branch=master)](https://coveralls.io/r/zendframework/zf2)
 Develop:
-[![Build Status](https://secure.travis-ci.org/zendframework/zf2.png?branch=develop)](http://travis-ci.org/zendframework/zf2)
-[![Coverage Status](https://coveralls.io/repos/zendframework/zf2/badge.png?branch=develop)](https://coveralls.io/r/zendframework/zf2)
+[![Build Status](https://secure.travis-ci.org/zendframework/zf2.svg?branch=develop)](http://travis-ci.org/zendframework/zf2)
+[![Coverage Status](https://coveralls.io/repos/zendframework/zf2/badge.svg?branch=develop)](https://coveralls.io/r/zendframework/zf2)
 
 ## RELEASE INFORMATION
 
@@ -18,11 +20,18 @@ DD MMM YYY
 ### UPDATES IN 2.4.0
 
 - [#6154](https://github.com/zendframework/zf2/pull/6154) updates
+  `Zend\InputFilter\BaseInputFilter::isValid()` to accept an optional `$context`
+  parameter; if used, this value will be passed to all composed inputs as
+  context, instead of the value provided to `setData()`. For classes overriding
+  the `isValid()` method of an InputFilter, you will need to add
+  `$context = null` as an argument.
 
-DD MMM YYYY
+This release contains security updates:
 
-### UPDATES IN 2.3.3
->>>>>>> version/bump
+- **ZF2015-02:** `Zend\Db\Adapter\Platform\Postgresql` was incorrectly using
+  `\\` to escape double quotes in identifiers and values, which could lead to
+  SQL injection vectors. We have provided patches that use proper escaping. If
+  you use Postgresql with Zend Framework 2, we recommend upgrading immediately.
 
 Please see [CHANGELOG.md](CHANGELOG.md).
 

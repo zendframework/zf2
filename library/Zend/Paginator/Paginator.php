@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -25,7 +25,6 @@ use Zend\View;
 
 class Paginator implements Countable, IteratorAggregate
 {
-
     /**
      * The cache tag prefix used to namespace Paginator results in the cache
      *
@@ -141,7 +140,7 @@ class Paginator implements Countable, IteratorAggregate
     /**
      * Pages
      *
-     * @var array
+     * @var \stdClass
      */
     protected $pages = null;
 
@@ -524,8 +523,9 @@ class Paginator implements Countable, IteratorAggregate
         $itemNumber = $this->normalizeItemNumber($itemNumber);
 
         if ($itemNumber > $itemCount) {
-            throw new Exception\InvalidArgumentException('Page ' . $pageNumber . ' does not'
-                                             . ' contain item number ' . $itemNumber);
+            throw new Exception\InvalidArgumentException(
+                "Page {$pageNumber} does not contain item number {$itemNumber}"
+            );
         }
 
         return $page[$itemNumber - 1];
@@ -665,7 +665,7 @@ class Paginator implements Countable, IteratorAggregate
      * Returns the page collection.
      *
      * @param  string $scrollingStyle Scrolling style
-     * @return array
+     * @return \stdClass
      */
     public function getPages($scrollingStyle = null)
     {
@@ -917,10 +917,13 @@ class Paginator implements Countable, IteratorAggregate
         // Item numbers
         if ($this->getCurrentItems() !== null) {
             $pages->currentItemCount = $this->getCurrentItemCount();
-            $pages->itemCountPerPage = $this->getItemCountPerPage();
             $pages->totalItemCount   = $this->getTotalItemCount();
-            $pages->firstItemNumber  = (($currentPageNumber - 1) * $this->getItemCountPerPage()) + 1;
-            $pages->lastItemNumber   = $pages->firstItemNumber + $pages->currentItemCount - 1;
+            $pages->firstItemNumber  = $pages->totalItemCount
+                ? (($currentPageNumber - 1) * $pages->itemCountPerPage) + 1
+                : 0;
+            $pages->lastItemNumber   = $pages->totalItemCount
+                ? $pages->firstItemNumber + $pages->currentItemCount - 1
+                : 0;
         }
 
         return $pages;

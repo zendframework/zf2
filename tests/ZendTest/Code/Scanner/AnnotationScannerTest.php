@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -16,8 +16,10 @@ use Zend\Code\Annotation\Parser\GenericAnnotationParser;
 
 class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testScannerWorks()
+    /**
+     * @dataProvider scannerWorksDataProvider
+     */
+    public function testScannerWorks($newLine)
     {
         $annotationManager = new AnnotationManager();
         $parser = new GenericAnnotationParser();
@@ -27,9 +29,10 @@ class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
         ));
         $annotationManager->attach($parser);
 
-        $docComment = '/**' . "\n"
-            . ' * @Test\Foo(\'anything I want()' . "\n" . ' * to be\')' . "\n"
-            . ' * @Test\Bar' . "\n */";
+        $docComment = '/**' . $newLine
+            . ' * @Test\Foo(\'anything I want()' . $newLine
+            . ' * to be\')' . $newLine
+            . ' * @Test\Bar' . $newLine . " */";
 
         $nameInfo = new NameInformation();
         $nameInfo->addUse('ZendTest\Code\Scanner\TestAsset\Annotation', 'Test');
@@ -40,4 +43,12 @@ class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(get_class($bar), get_class($annotationScanner[1]));
     }
 
+    public function scannerWorksDataProvider()
+    {
+        return array(
+            array("\n"),
+            array("\r"),
+            array("\r\n"),
+        );
+    }
 }

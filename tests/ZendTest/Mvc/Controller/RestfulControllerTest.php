@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -182,6 +182,24 @@ class RestfulControllerTest extends TestCase
         $this->assertArrayHasKey('type', $test);
         $this->assertEquals('standard', $test['type']);
         $this->assertEquals('patch', $this->routeMatch->getParam('action'));
+    }
+
+    /**
+     * @group 7086
+     */
+    public function testOnDispatchHonorsStatusCodeWithHeadMethod()
+    {
+        $this->controller->headResponse = new Response();
+        $this->controller->headResponse->setStatusCode(418);
+        $this->controller->headResponse->getHeaders()->addHeaderLine('Custom-Header', 'Header Value');
+        $this->routeMatch->setParam('id', 1);
+        $this->request->setMethod('HEAD');
+        $result = $this->controller->dispatch($this->request, $this->response);
+
+        $this->assertEquals(418, $result->getStatusCode());
+        $this->assertEquals('', $result->getContent());
+        $this->assertEquals('head', $this->routeMatch->getParam('action'));
+        $this->assertEquals('Header Value', $result->getHeaders()->get('Custom-Header')->getFieldValue());
     }
 
     public function testDispatchInvokesHeadMethodWhenNoActionPresentAndHeadInvokedWithoutIdentifier()

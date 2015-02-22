@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -87,5 +87,14 @@ class ContentTransferEncodingTest extends \PHPUnit_Framework_TestCase
         $contentTransferEncodingHeader = new ContentTransferEncoding();
         $contentTransferEncodingHeader->setTransferEncoding($encoding);
         $this->assertEquals("Content-Transfer-Encoding: ".$encoding, $contentTransferEncodingHeader->toString());
+    }
+
+    public function testProvidingParametersIntroducesHeaderFolding()
+    {
+        $header = new ContentTransferEncoding();
+        $header->setTransferEncoding('quoted-printable');
+        $string = $header->toString();
+
+        $this->assertContains("Content-Transfer-Encoding: quoted-printable", $string);
     }
 }

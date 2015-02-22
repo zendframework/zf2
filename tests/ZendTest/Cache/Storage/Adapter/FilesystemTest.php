@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -18,7 +18,6 @@ use Zend\Cache\Storage\Plugin\PluginOptions;
  */
 class FilesystemTest extends CommonAdapterTest
 {
-
     protected $_tmpCacheDir;
     protected $_umask;
 
@@ -130,7 +129,9 @@ class FilesystemTest extends CommonAdapterTest
 
         // create a not writable temporaty directory
         $testDir = tempnam(sys_get_temp_dir(), 'ZendTest');
-        unlink($testDir); mkdir($testDir); chmod($testDir, 0557);
+        unlink($testDir);
+        mkdir($testDir);
+        chmod($testDir, 0557);
 
         try {
             $this->_options->setCacheDir($testDir);
@@ -157,7 +158,9 @@ class FilesystemTest extends CommonAdapterTest
 
         // create a not readable temporaty directory
         $testDir = tempnam(sys_get_temp_dir(), 'ZendTest');
-        unlink($testDir); mkdir($testDir); chmod($testDir, 0337);
+        unlink($testDir);
+        mkdir($testDir);
+        chmod($testDir, 0337);
 
         try {
             $this->_options->setCacheDir($testDir);

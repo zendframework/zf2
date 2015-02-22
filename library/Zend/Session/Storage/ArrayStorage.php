@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -87,14 +87,14 @@ class ArrayStorage extends ArrayObject implements StorageInterface
     public function offsetSet($key, $value)
     {
         if ($this->isImmutable()) {
-            throw new Exception\RuntimeException(sprintf(
-                'Cannot set key "%s" as storage is marked isImmutable', $key
-            ));
+            throw new Exception\RuntimeException(
+                sprintf('Cannot set key "%s" as storage is marked isImmutable', $key)
+            );
         }
         if ($this->isLocked($key)) {
-            throw new Exception\RuntimeException(sprintf(
-                'Cannot set key "%s" due to locking', $key
-            ));
+            throw new Exception\RuntimeException(
+                sprintf('Cannot set key "%s" due to locking', $key)
+            );
         }
 
         parent::offsetSet($key, $value);
@@ -232,9 +232,9 @@ class ArrayStorage extends ArrayObject implements StorageInterface
     public function setMetadata($key, $value, $overwriteArray = false)
     {
         if ($this->isImmutable) {
-            throw new Exception\RuntimeException(sprintf(
-                'Cannot set key "%s" as storage is marked isImmutable', $key
-            ));
+            throw new Exception\RuntimeException(
+                sprintf('Cannot set key "%s" as storage is marked isImmutable', $key)
+            );
         }
 
         if (!isset($this['__ZF'])) {

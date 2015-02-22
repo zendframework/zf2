@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -50,7 +50,7 @@ class PropertyScannerTest extends TestCase
      */
     public function testPropertyScannerReturnsProperValue()
     {
-$class = <<<'CLASS'
+        $class = <<<'CLASS'
 <?php
 class Foo
 {
@@ -69,7 +69,7 @@ CLASS;
         foreach ($fooClass->getProperties() as $property) {
             $value = $property->getValue();
             $valueType = $property->getValueType();
-            switch($property->getName()) {
+            switch ($property->getName()) {
                 case "empty":
                     $this->assertNull($value);
                     $this->assertEquals('unknown', $valueType);

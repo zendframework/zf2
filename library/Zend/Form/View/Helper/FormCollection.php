@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -113,7 +113,7 @@ class FormCollection extends AbstractHelper
 
         foreach ($element->getIterator() as $elementOrFieldset) {
             if ($elementOrFieldset instanceof FieldsetInterface) {
-                $markup .= $fieldsetHelper($elementOrFieldset);
+                $markup .= $fieldsetHelper($elementOrFieldset, $this->shouldWrap());
             } elseif ($elementOrFieldset instanceof ElementInterface) {
                 $markup .= $elementHelper($elementOrFieldset);
             }
@@ -178,13 +178,13 @@ class FormCollection extends AbstractHelper
         $elementOrFieldset = $collection->getTemplateElement();
 
         if ($elementOrFieldset instanceof FieldsetInterface) {
-            $templateMarkup .= $fieldsetHelper($elementOrFieldset);
+            $templateMarkup .= $fieldsetHelper($elementOrFieldset, $this->shouldWrap());
         } elseif ($elementOrFieldset instanceof ElementInterface) {
             $templateMarkup .= $elementHelper($elementOrFieldset);
         }
 
         return sprintf(
-            $this->templateWrapper,
+            $this->getTemplateWrapper(),
             $escapeHtmlAttribHelper($templateMarkup)
         );
     }

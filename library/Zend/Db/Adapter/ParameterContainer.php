@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -15,7 +15,6 @@ use Iterator;
 
 class ParameterContainer implements Iterator, ArrayAccess, Countable
 {
-
     const TYPE_AUTO    = 'auto';
     const TYPE_NULL    = 'null';
     const TYPE_DOUBLE  = 'double';
@@ -42,6 +41,13 @@ class ParameterContainer implements Iterator, ArrayAccess, Countable
      * @var array
      */
     protected $errata = array();
+
+    /**
+     * Max length
+     *
+     * @var array
+     */
+    protected $maxLength = array();
 
     /**
      * Constructor
@@ -92,8 +98,10 @@ class ParameterContainer implements Iterator, ArrayAccess, Countable
      * @param string|int $name
      * @param mixed $value
      * @param mixed $errata
+     * @param mixed $maxLength
+     * @throws Exception\InvalidArgumentException
      */
-    public function offsetSet($name, $value, $errata = null)
+    public function offsetSet($name, $value, $errata = null, $maxLength = null)
     {
         $position = false;
 
@@ -122,6 +130,10 @@ class ParameterContainer implements Iterator, ArrayAccess, Countable
 
         if ($errata) {
             $this->offsetSetErrata($name, $errata);
+        }
+
+        if ($maxLength) {
+            $this->offsetSetMaxLength($name, $maxLength);
         }
     }
 
@@ -152,6 +164,79 @@ class ParameterContainer implements Iterator, ArrayAccess, Countable
             $this->offsetSet($n, $v);
         }
         return $this;
+    }
+
+    /**
+     * Offset set max length
+     *
+     * @param string|int $name
+     * @param mixed $maxLength
+     */
+    public function offsetSetMaxLength($name, $maxLength)
+    {
+        if (is_int($name)) {
+            $name = $this->positions[$name];
+        }
+        $this->maxLength[$name] = $maxLength;
+    }
+
+    /**
+     * Offset get max length
+     *
+     * @param  string|int $name
+     * @throws Exception\InvalidArgumentException
+     * @return mixed
+     */
+    public function offsetGetMaxLength($name)
+    {
+        if (is_int($name)) {
+            $name = $this->positions[$name];
+        }
+        if (!array_key_exists($name, $this->data)) {
+            throw new Exception\InvalidArgumentException('Data does not exist for this name/position');
+        }
+        return $this->maxLength[$name];
+    }
+
+    /**
+     * Offset has max length
+     *
+     * @param  string|int $name
+     * @return bool
+     */
+    public function offsetHasMaxLength($name)
+    {
+        if (is_int($name)) {
+            $name = $this->positions[$name];
+        }
+        return (isset($this->maxLength[$name]));
+    }
+
+    /**
+     * Offset unset max length
+     *
+     * @param string|int $name
+     * @throws Exception\InvalidArgumentException
+     */
+    public function offsetUnsetMaxLength($name)
+    {
+        if (is_int($name)) {
+            $name = $this->positions[$name];
+        }
+        if (!array_key_exists($name, $this->maxLength)) {
+            throw new Exception\InvalidArgumentException('Data does not exist for this name/position');
+        }
+        $this->maxLength[$name] = null;
+    }
+
+    /**
+     * Get max length iterator
+     *
+     * @return \ArrayIterator
+     */
+    public function getMaxLengthIterator()
+    {
+        return new \ArrayIterator($this->maxLength);
     }
 
     /**
