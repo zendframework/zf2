@@ -12,7 +12,6 @@ namespace Zend\Form;
 use Traversable;
 use Zend\Form\Element\Collection;
 use Zend\InputFilter\CollectionInputFilter;
-use Zend\InputFilter\InputInterface;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
