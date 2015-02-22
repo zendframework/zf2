@@ -2113,7 +2113,7 @@ class FormTest extends TestCase
     public function testRemoveElementShouldRemoveTheInputFilter()
     {
         $this->form->add(array(
-            'name' => 'importance',
+            'name' => 'Importance_need',
             'type'  => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Importance_need',
