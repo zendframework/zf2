@@ -381,9 +381,12 @@ class Part implements RecursiveIterator, Part\PartInterface
      */
     public function __isset($name)
     {
+        $headers = $this->getHeaders();
+        if (empty($headers) || !is_object($headers)) {
+            return false;
+        }
         return $this->getHeaders()->has($name);
     }
-
     /**
      * magic method to get content of part
      *
