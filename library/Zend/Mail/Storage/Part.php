@@ -102,10 +102,14 @@ class Part implements RecursiveIterator, Part\PartInterface
                 $this->headers = new Headers();
                 $this->headers->addHeaders($params['headers']);
             } else {
-                if (empty($params['noToplines'])) {
-                    Mime\Decode::splitMessage($params['headers'], $this->headers, $this->topLines);
+                if ($params['headers'] instanceof \Zend\Mail\Headers) {
+                    $this->headers = $params['headers'];
                 } else {
-                    $this->headers = Headers::fromString($params['headers']);
+                    if (empty($params['noToplines'])) {
+                        Mime\Decode::splitMessage($params['headers'], $this->headers, $this->topLines);
+                    } else {
+                        $this->headers = Headers::fromString($params['headers']);
+                    }
                 }
             }
 
