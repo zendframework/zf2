@@ -122,6 +122,10 @@ class Part implements RecursiveIterator, Part\PartInterface
      */
     public function isMultipart()
     {
+        if (!isset($this->contentType)) {
+            return false;
+        }
+
         try {
             return stripos($this->contentType, 'multipart/') === 0;
         } catch (Exception\ExceptionInterface $e) {
