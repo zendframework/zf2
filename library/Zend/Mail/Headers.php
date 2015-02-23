@@ -78,7 +78,7 @@ class Headers implements Countable, Iterator
                 $currentLine = trim($line);
             } elseif (preg_match('/^\s+.*$/', $line, $matches)) {
                 // continuation: append to current line
-                $currentLine .= trim($line);
+                $currentLine .= $line;
             } elseif (preg_match('/^\s*$/', $line)) {
                 // empty line indicates end of headers
                 break;
