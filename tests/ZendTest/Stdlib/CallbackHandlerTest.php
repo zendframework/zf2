@@ -95,26 +95,12 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = new CallbackHandler('ZendTest\\Stdlib\\SignalHandlers\\InstanceMethod::handler');
 
-        if (version_compare(PHP_VERSION, '5.4.0rc1', '>=')) {
-            $this->setExpectedException('Zend\Stdlib\Exception\InvalidCallbackException');
-            $handler->call();
-        } else {
-            $error   = false;
-            set_error_handler(function ($errno, $errstr) use (&$error) {
-                $error = true;
-            }, E_STRICT);
-            $handler->call();
-            restore_error_handler();
-            $this->assertTrue($error);
-        }
+        $this->setExpectedException('Zend\Stdlib\Exception\InvalidCallbackException');
+        $handler->call();
     }
 
     public function testStringStaticCallbackForPhp54()
     {
-        if (version_compare(PHP_VERSION, '5.4.0rc1', '<=')) {
-            $this->markTestSkipped('Requires PHP 5.4');
-        }
-
         $handler = new CallbackHandler('ZendTest\\Stdlib\\SignalHandlers\\InstanceMethod::staticHandler');
         $error   = false;
         set_error_handler(function ($errno, $errstr) use (&$error) {
@@ -128,10 +114,6 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testStringStaticCallbackForPhp54WithMoreThan3Args()
     {
-        if (version_compare(PHP_VERSION, '5.4.0rc1', '<=')) {
-            $this->markTestSkipped('Requires PHP 5.4');
-        }
-
         $handler = new CallbackHandler('ZendTest\\Stdlib\\SignalHandlers\\InstanceMethod::staticHandler');
         $error   = false;
         set_error_handler(function ($errno, $errstr) use (&$error) {

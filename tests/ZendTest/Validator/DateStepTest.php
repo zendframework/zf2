@@ -20,7 +20,7 @@ class DateStepTest extends \PHPUnit_Framework_TestCase
 {
     public function stepTestsDataProvider()
     {
-        $data = array(
+        return array(
             //    interval format            baseValue               value                  isValid
             array('PT1S', DateTime::ISO8601, '1970-01-01T00:00:00Z', '1970-01-01T00:00:00Z', true ),
             array('PT1S', DateTime::ISO8601, '1970-01-01T00:00:00Z', '1970-01-03T00:00:00Z', true ),
@@ -70,17 +70,12 @@ class DateStepTest extends \PHPUnit_Framework_TestCase
             // complex
             array('P2M2DT12H', DateTime::ISO8601, '1970-01-01T00:00:00Z', '1970-03-03T12:00:00Z', true ),
             array('P2M2DT12M', DateTime::ISO8601, '1970-01-01T00:00:00Z', '1970-03-03T12:00:00Z', false),
+            array('P2W',  'Y-\WW',           '1970-W01',             '1973-W16',             true ),
+            array('P2W',  'Y-\WW',           '1970-W01',             '1973-W17',             false),
             // long interval
             array('PT1M20S', DateTime::ISO8601, '1970-01-01T00:00:00Z', '2020-09-13T12:26:40Z', true), // 20,000,000 steps
             array('PT1M20S', DateTime::ISO8601, '1970-01-01T00:00:00Z', '2020-09-13T12:26:41Z', false),
         );
-
-        // bug in DateTime fixed in 5.3.7
-        if (version_compare(PHP_VERSION, '5.3.7', '>=')) {
-            $data[] = array('P2W',  'Y-\WW',           '1970-W01',             '1973-W16',             true );
-            $data[] = array('P2W',  'Y-\WW',           '1970-W01',             '1973-W17',             false);
-        }
-        return $data;
     }
 
     /**

@@ -317,9 +317,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select = new Select;
         $where = $select->getRawState('where');
 
-        $test = $this;
-        $select->where(function ($what) use ($test, $where) {
-            $test->assertSame($where, $what);
+        $select->where(function ($what) use ($where) {
+            $this->assertSame($where, $what);
         });
     }
 

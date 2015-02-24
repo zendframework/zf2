@@ -93,9 +93,8 @@ class LocatorRegistrationListenerTest extends TestCase
 
         $locatorRegistrationListener = new LocatorRegistrationListener;
         $this->moduleManager->getEventManager()->attachAggregate($locatorRegistrationListener);
-        $test = $this;
-        $this->moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE, function ($e) use ($test) {
-            $test->module = $e->getModule();
+        $this->moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE, function ($e) {
+            $this->module = $e->getModule();
         }, -1000);
         $this->moduleManager->loadModules();
 

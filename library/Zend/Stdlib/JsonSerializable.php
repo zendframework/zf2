@@ -9,13 +9,6 @@
 
 namespace Zend\Stdlib;
 
-if (PHP_VERSION_ID < 50400) {
-    class_alias(
-        'Zend\Stdlib\JsonSerializable\PhpLegacyCompatibility',
-        'JsonSerializable'
-    );
-}
-
 /**
  * Polyfill for JsonSerializable
  *

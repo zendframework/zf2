@@ -518,12 +518,9 @@ abstract class AbstractContainer extends ArrayObject
             $this->expireKeys(); // first we need to expire global key, since it can already be expired
             $data = array('EXPIRE' => $ts);
         } elseif (is_array($vars)) {
-            // Cannot pass "$this" to a lambda
-            $container = $this;
-
             // Filter out any items not in our container
-            $expires   = array_filter($vars, function ($value) use ($container) {
-                return $container->offsetExists($value);
+            $expires   = array_filter($vars, function ($value) {
+                return $this->offsetExists($value);
             });
 
             // Map item keys => timestamp
@@ -569,12 +566,9 @@ abstract class AbstractContainer extends ArrayObject
             $this->expireKeys(); // first we need to expire global key, since it can already be expired
             $data = array('EXPIRE_HOPS' => array('hops' => $hops, 'ts' => $ts));
         } elseif (is_array($vars)) {
-            // Cannot pass "$this" to a lambda
-            $container = $this;
-
             // FilterInterface out any items not in our container
-            $expires   = array_filter($vars, function ($value) use ($container) {
-                return $container->offsetExists($value);
+            $expires   = array_filter($vars, function ($value) {
+                return $this->offsetExists($value);
             });
 
             // Map item keys => timestamp

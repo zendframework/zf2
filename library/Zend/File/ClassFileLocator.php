@@ -77,7 +77,6 @@ class ClassFileLocator extends FilterIterator
         $contents = file_get_contents($file->getRealPath());
         $tokens   = token_get_all($contents);
         $count    = count($tokens);
-        $t_trait  = defined('T_TRAIT') ? T_TRAIT : -1; // For preserve PHP 5.3 compatibility
         for ($i = 0; $i < $count; $i++) {
             $token = $tokens[$i];
             if (!is_array($token)) {
@@ -114,7 +113,7 @@ class ClassFileLocator extends FilterIterator
                         $savedNamespace = $namespace;
                     }
                     break;
-                case $t_trait:
+                case T_TRAIT:
                 case T_CLASS:
                     // ignore T_CLASS after T_DOUBLE_COLON to allow PHP >=5.5 FQCN scalar resolution
                     if ($i > 0 && is_array($tokens[$i-1]) && $tokens[$i-1][0] === T_DOUBLE_COLON) {

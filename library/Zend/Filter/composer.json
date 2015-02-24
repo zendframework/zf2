@@ -14,7 +14,7 @@
     },
     "target-dir": "Zend/Filter",
     "require": {
-        "php": ">=5.3.23",
+        "php": ">=5.4",
         "zendframework/zend-stdlib": "self.version"
     },
     "require-dev": {

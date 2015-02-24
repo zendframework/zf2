@@ -605,12 +605,10 @@ class ServiceManager implements ServiceLocatorInterface
      */
     private function createDelegatorCallback($delegatorFactory, $rName, $cName, $creationCallback)
     {
-        $serviceManager  = $this;
-
-        return function () use ($serviceManager, $delegatorFactory, $rName, $cName, $creationCallback) {
+        return function () use ($delegatorFactory, $rName, $cName, $creationCallback) {
             return $delegatorFactory instanceof DelegatorFactoryInterface
-                ? $delegatorFactory->createDelegatorWithName($serviceManager, $cName, $rName, $creationCallback)
-                : $delegatorFactory($serviceManager, $cName, $rName, $creationCallback);
+                ? $delegatorFactory->createDelegatorWithName($this, $cName, $rName, $creationCallback)
+                : $delegatorFactory($this, $cName, $rName, $creationCallback);
         };
     }
 
@@ -622,10 +620,8 @@ class ServiceManager implements ServiceLocatorInterface
      *
      * @return bool|mixed|null|object
      * @throws Exception\ServiceNotFoundException
-     *
-     * @internal this method is internal because of PHP 5.3 compatibility - do not explicitly use it
      */
-    public function doCreate($rName, $cName)
+    protected function doCreate($rName, $cName)
     {
         $instance = null;
 
@@ -1146,7 +1142,7 @@ class ServiceManager implements ServiceLocatorInterface
      */
     protected function createDelegatorFromFactory($canonicalName, $requestedName)
     {
-        $serviceManager     = $this;
+        $serviceManager = $this;
         $delegatorsCount    = count($this->delegators[$canonicalName]);
         $creationCallback   = function () use ($serviceManager, $requestedName, $canonicalName) {
             return $serviceManager->doCreate($requestedName, $canonicalName);

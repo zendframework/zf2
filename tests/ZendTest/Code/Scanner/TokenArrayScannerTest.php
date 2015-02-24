@@ -48,9 +48,6 @@ class TokenArrayScannerTest extends TestCase
      */
     public function testScannerReturnsClassNamesForTraits()
     {
-        if (version_compare(PHP_VERSION, '5.4', 'lt')) {
-            $this->markTestSkipped('Skipping; PHP 5.4 or greater is needed');
-        }
         $tokenScanner = new TokenArrayScanner(token_get_all(file_get_contents((__DIR__ . '/../TestAsset/FooTrait.php'))));
         $classes = $tokenScanner->getClassNames();
         $this->assertInternalType('array', $classes);

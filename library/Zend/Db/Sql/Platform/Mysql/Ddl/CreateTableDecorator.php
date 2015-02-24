@@ -162,14 +162,12 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
     }
 
     /**
-     * @internal @private this method is only public for PHP 5.3 compatibility purposes.
-     *
      * @param string $columnA
      * @param string $columnB
      *
      * @return int
      */
-    public function compareColumnOptions($columnA, $columnB)
+    private function compareColumnOptions($columnA, $columnB)
     {
         $columnA = $this->normalizeColumnOption($columnA);
         $columnA = isset($this->columnOptionSortOrder[$columnA])

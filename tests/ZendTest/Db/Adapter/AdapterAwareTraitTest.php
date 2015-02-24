@@ -12,9 +12,6 @@ namespace ZendTest\Db\Adapter;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Db\Adapter\Adapter;
 
-/**
- * @requires PHP 5.4
- */
 class AdapterAwareTraitTest extends TestCase
 {
     public function testSetDbAdapter()

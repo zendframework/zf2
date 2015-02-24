@@ -715,15 +715,13 @@ class ServiceManagerTest extends TestCase
 
     public function duplicateService()
     {
-        $self = $this;
-
         return array(
             array(
                 'setFactory',
-                function ($services) use ($self) {
-                    return $self;
+                function ($services) {
+                    return $this;
                 },
-                $self,
+                $this,
                 'assertSame',
             ),
             array(
@@ -734,8 +732,8 @@ class ServiceManagerTest extends TestCase
             ),
             array(
                 'setService',
-                $self,
-                $self,
+                $this,
+                $this,
                 'assertSame',
             ),
         );
