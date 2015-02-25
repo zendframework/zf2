@@ -237,8 +237,7 @@ class Response extends AbstractMessage implements ResponseInterface
      */
     public function setStatusCode($code)
     {
-        $const = get_class($this) . '::STATUS_CODE_' . $code;
-        if (!is_numeric($code) || !defined($const)) {
+        if (!$this->isStatusCode($code)) {
             $code = is_scalar($code) ? $code : gettype($code);
             throw new Exception\InvalidArgumentException(sprintf(
                 'Invalid status code provided: "%s"',
@@ -247,6 +246,17 @@ class Response extends AbstractMessage implements ResponseInterface
         }
         $this->statusCode = (int) $code;
         return $this;
+    }
+
+    /**
+     * Check is correct status code
+     *
+     * @param int $code
+     * @return bool
+     */
+    public function isStatusCode($code)
+    {
+        return is_numeric($code) && defined(get_class($this) . '::STATUS_CODE_' . $code);
     }
 
     /**

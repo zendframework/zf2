@@ -386,6 +386,16 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that given status code is one of defined in response
+     */
+    public function testIsStatusCode()
+    {
+        $response = new Response();
+        $this->assertTrue($response->isStatusCode(Response::STATUS_CODE_200));
+        $this->assertFalse($response->isStatusCode(2001));
+    }
+
+    /**
      * Helper function: read test response from file
      *
      * @param string $response
