@@ -48,7 +48,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, substr_count($text, '0) [X] foo'));
         $this->assertSame(1, substr_count($text, '0) [ ] foo'));
         $this->assertSame(2, substr_count($text, '1) [ ] bar'));
-        $this->assertEquals(['0' => 'foo'], $response);
+        $this->assertEquals(array('0' => 'foo'), $response);
     }
 
     public function testCanUncheckOneOption()
