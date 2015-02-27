@@ -334,7 +334,7 @@ class EmailAddress extends AbstractValidator
         // atext: ALPHA / DIGIT / and "!", "#", "$", "%", "&", "'", "*",
         //        "+", "-", "/", "=", "?", "^", "_", "`", "{", "|", "}", "~"
         $atext = 'a-zA-Z0-9\x21\x23\x24\x25\x26\x27\x2a\x2b\x2d\x2f\x3d\x3f\x5e\x5f\x60\x7b\x7c\x7d\x7e';
-        if (preg_match('/^[' . $atext . ']+(\x2e+[' . $atext . ']+)*$/', idn_to_ascii($this->localPart))) {
+        if (preg_match('/^[' . $atext . ']+(\x2e+[' . $atext . ']+)*$/', $this->idnToAscii($this->localPart))) {
             $result = true;
         } else {
             // Try quoted string format (RFC 5321 Chapter 4.1.2)
@@ -373,7 +373,7 @@ class EmailAddress extends AbstractValidator
     {
         $mxHosts = array();
         $weight  = array();
-        $result = getmxrr(idn_to_ascii($this->hostname), $mxHosts, $weight);
+        $result = getmxrr($this->idnToAscii($this->hostname), $mxHosts, $weight);
         if (!empty($mxHosts) && !empty($weight)) {
             $this->mxRecord = array_combine($mxHosts, $weight);
         } else {
@@ -487,14 +487,11 @@ class EmailAddress extends AbstractValidator
             return false;
         }
 
-        $value = idn_to_utf8($value);
-
-
         $length  = true;
-        $this->setValue($value);
+        $this->setValue($this->idnToUtf8($value));
 
         // Split email address up and disallow '..'
-        if (!$this->splitEmailParts($value)) {
+        if (!$this->splitEmailParts($this->getValue())) {
             $this->error(self::INVALID_FORMAT);
             return false;
         }
@@ -520,4 +517,31 @@ class EmailAddress extends AbstractValidator
 
         return false;
     }
+
+    /**
+     * Safely convert UTF-8 encoded domain name to ASCII
+     * @param string $email  the UTF-8 encoded email
+     * @return string
+     */
+    protected function idnToAscii($email)
+    {
+        if (extension_loaded('intl')) {
+            return idn_to_ascii($email);
+        }
+        return $email;
+    }
+
+    /**
+     * Safely convert ASCII encoded domain name to UTF-8
+     * @param string $email the ASCII encoded email
+     * @return string
+     */
+    protected function idnToUtf8($email)
+    {
+        if (extension_loaded('intl')) {
+            return idn_to_utf8($email);
+        }
+        return $email;
+    }
+
 }

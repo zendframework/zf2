@@ -671,8 +671,10 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group ZF2-130
+     * @dataProvider validMxEmailsProvider
+     * @param $email
      */
-    public function testUseMxCheckBasicValid()
+    public function testUseMxCheckBasicValid($email)
     {
         $this->skipIfOnlineTestsDisabled();
 
@@ -681,58 +683,72 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
             'useDeepMxCheck'    => true
         ));
 
-        $emailAddresses = array(
-            'bob@gmail.com',
-            'bob.jones@bbc.co.uk',
-            'bob.jones.smythe@bbc.co.uk',
-            'BoB@aol.com',
-            'bobjones@nist.gov',
-            "B.O'Callaghan@usmc.mil",
-            'bob+jones@nic.us',
-            'bob+jones@dailymail.co.uk',
-            'bob@teaparty.uk.com',
-            'bob@thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com',
-            'иван@письмо.рф',
-            'xn--@-7sbfxdyelgv5j.xn--p1ai'
-        );
-
-        foreach ($emailAddresses as $input) {
-            $this->assertTrue($validator->isValid($input), "$input failed to pass validation:\n"
-                            . implode("\n", $validator->getMessages()));
-        }
+        $this->assertTrue($validator->isValid($email), "$email failed to pass validation:\n"
+                        . implode("\n", $validator->getMessages()));
     }
+
+
+    public function validMxEmailsProvider()
+    {
+        $emailAddresses = [
+            ['bob@gmail.com'],
+            ['bob.jones@bbc.co.uk'],
+            ['bob.jones.smythe@bbc.co.uk'],
+            ['BoB@aol.com'],
+            ['bobjones@nist.gov'],
+            ["B.O'Callaghan@usmc.mil"],
+            ['bob+jones@nic.us'],
+            ['bob+jones@dailymail.co.uk'],
+            ['bob@teaparty.uk.com'],
+            ['bob@thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com'],
+        ];
+        if (extension_loaded('intl')) {
+            $emailAddresses[] = ['иван@письмо.рф'];
+            $emailAddresses[] = ['xn--@-7sbfxdyelgv5j.xn--p1ai'];
+        }
+        return $emailAddresses;
+    }
+
 
     /**
      * @group ZF2-130
+     * @dataProvider invalidMxEmailsProvider
+     * @param $email
      */
-    public function testUseMxRecordsBasicInvalid()
+    public function testUseMxRecordsBasicInvalid($email)
     {
         $validator = new EmailAddress(array(
             'useMxCheck'        => true,
             'useDeepMxCheck'    => true
         ));
+        $this->assertFalse($validator->isValid($email), implode("\n", $this->validator->getMessages()) . $email);
+    }
 
-        $emailAddresses = array(
-            '',
-            'bob
+    public function invalidMxEmailsProvider()
+    {
+        $emailAddresses = [
+            [''],
+            ['bob
 
-            @domain.com',
-            'bob jones@domain.com',
-            '.bobJones@studio24.com',
-            'bobJones.@studio24.com',
-            'bob.Jones.@studio24.com',
-            '"bob%jones@domain.com',
-            'bob@verylongdomainsupercalifragilisticexpialidociousaspoonfulofsugar.com',
-            'bob+domain.com',
-            'bob.domain.com',
-            'bob @domain.com',
-            'bob@ domain.com',
-            'bob @ domain.com',
-            'Abc..123@example.com'
-            );
-        foreach ($emailAddresses as $input) {
-            $this->assertFalse($validator->isValid($input), implode("\n", $this->validator->getMessages()) . $input);
+            @domain.com'],
+            ['bob jones@domain.com'],
+            ['.bobJones@studio24.com'],
+            ['bobJones.@studio24.com'],
+            ['bob.Jones.@studio24.com'],
+            ['"bob%jones@domain.com'],
+            ['bob@verylongdomainsupercalifragilisticexpialidociousaspoonfulofsugar.com'],
+            ['bob+domain.com'],
+            ['bob.domain.com'],
+            ['bob @domain.com'],
+            ['bob@ domain.com'],
+            ['bob @ domain.com'],
+            ['Abc..123@example.com'],
+        ];
+        if (!extension_loaded('intl')) {
+            $emailAddresses[] = ['иван@письмо.рф'];
+            $emailAddresses[] = ['xn--@-7sbfxdyelgv5j.xn--p1ai'];
         }
+        return $emailAddresses;
     }
 
     /**
