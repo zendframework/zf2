@@ -690,21 +690,21 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
 
     public function validMxEmailsProvider()
     {
-        $emailAddresses = [
-            ['bob@gmail.com'],
-            ['bob.jones@bbc.co.uk'],
-            ['bob.jones.smythe@bbc.co.uk'],
-            ['BoB@aol.com'],
-            ['bobjones@nist.gov'],
-            ["B.O'Callaghan@usmc.mil"],
-            ['bob+jones@nic.us'],
-            ['bob+jones@dailymail.co.uk'],
-            ['bob@teaparty.uk.com'],
-            ['bob@thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com'],
-        ];
+        $emailAddresses = array(
+            array('bob@gmail.com'),
+            array('bob.jones@bbc.co.uk'),
+            array('bob.jones.smythe@bbc.co.uk'),
+            array('BoB@aol.com'),
+            array('bobjones@nist.gov'),
+            array("B.O'Callaghan@usmc.mil"),
+            array('bob+jones@nic.us'),
+            array('bob+jones@dailymail.co.uk'),
+            array('bob@teaparty.uk.com'),
+            array('bob@thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com'),
+        );
         if (extension_loaded('intl')) {
-            $emailAddresses[] = ['иван@письмо.рф'];
-            $emailAddresses[] = ['xn--@-7sbfxdyelgv5j.xn--p1ai'];
+            $emailAddresses[] = array('иван@письмо.рф');
+            $emailAddresses[] = array('xn--@-7sbfxdyelgv5j.xn--p1ai');
         }
         return $emailAddresses;
     }
@@ -726,27 +726,27 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
 
     public function invalidMxEmailsProvider()
     {
-        $emailAddresses = [
-            [''],
-            ['bob
+        $emailAddresses = array(
+            array(''),
+            array('bob
 
-            @domain.com'],
-            ['bob jones@domain.com'],
-            ['.bobJones@studio24.com'],
-            ['bobJones.@studio24.com'],
-            ['bob.Jones.@studio24.com'],
-            ['"bob%jones@domain.com'],
-            ['bob@verylongdomainsupercalifragilisticexpialidociousaspoonfulofsugar.com'],
-            ['bob+domain.com'],
-            ['bob.domain.com'],
-            ['bob @domain.com'],
-            ['bob@ domain.com'],
-            ['bob @ domain.com'],
-            ['Abc..123@example.com'],
-        ];
+            @domain.com'),
+            array('bob jones@domain.com'),
+            array('.bobJones@studio24.com'),
+            array('bobJones.@studio24.com'),
+            array('bob.Jones.@studio24.com'),
+            array('"bob%jones@domain.com'),
+            array('bob@verylongdomainsupercalifragilisticexpialidociousaspoonfulofsugar.com'),
+            array('bob+domain.com'),
+            array('bob.domain.com'),
+            array('bob @domain.com'),
+            array('bob@ domain.com'),
+            array('bob @ domain.com'),
+            array('Abc..123@example.com'),
+        );
         if (!extension_loaded('intl')) {
-            $emailAddresses[] = ['иван@письмо.рф'];
-            $emailAddresses[] = ['xn--@-7sbfxdyelgv5j.xn--p1ai'];
+            $emailAddresses[] = array('иван@письмо.рф');
+            $emailAddresses[] = array('xn--@-7sbfxdyelgv5j.xn--p1ai');
         }
         return $emailAddresses;
     }
