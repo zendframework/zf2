@@ -693,10 +693,13 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
             'bob@teaparty.uk.com',
             'bob@thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com'
         );
-
+        if (extension_loaded('intl')) {
+            $emailAddresses[] = 'иван@письмо.рф';
+            $emailAddresses[] = 'xn--@-7sbfxdyelgv5j.xn--p1ai';
+        }
         foreach ($emailAddresses as $input) {
             $this->assertTrue($validator->isValid($input), "$input failed to pass validation:\n"
-                            . implode("\n", $validator->getMessages()));
+                . implode("\n", $validator->getMessages()));
         }
     }
 
@@ -727,7 +730,11 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
             'bob@ domain.com',
             'bob @ domain.com',
             'Abc..123@example.com'
-            );
+        );
+        if (!extension_loaded('intl')) {
+            $emailAddresses[] = 'иван@письмо.рф';
+            $emailAddresses[] = 'xn--@-7sbfxdyelgv5j.xn--p1ai';
+        }
         foreach ($emailAddresses as $input) {
             $this->assertFalse($validator->isValid($input), implode("\n", $this->validator->getMessages()) . $input);
         }
