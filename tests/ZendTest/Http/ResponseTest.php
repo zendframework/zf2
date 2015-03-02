@@ -390,9 +390,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsStatusCode()
     {
-        $response = new Response();
-        $this->assertTrue($response->isStatusCode(Response::STATUS_CODE_200));
-        $this->assertFalse($response->isStatusCode(2001));
+        $this->assertTrue(Response::isStatusCode(Response::STATUS_CODE_200));
+        $this->assertFalse(Response::isStatusCode(2001));
     }
 
     /**
