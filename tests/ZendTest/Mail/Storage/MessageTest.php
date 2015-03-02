@@ -431,7 +431,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $message = new Message(array('raw' => $raw, 'strict' => true));
     }
 
-    public function testParseMessageWithBadFirstLine()
+    public function testNonStrictParseMessageWithBadFirstLine()
     {
         $raw = file_get_contents($this->_file);
         $raw = "From foo@example.com  Sun Jan 01 00:00:00 2000\n" . $raw;
