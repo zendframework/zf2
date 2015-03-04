@@ -19,7 +19,7 @@ class Expression extends BaseExpression implements PredicateInterface
      * @param string $expression
      * @param int|float|bool|string|array $valueParameter
      */
-    public function __construct($expression = null, $valueParameter = null /*[, $valueParameter, ... ]*/)
+    public function __construct($expression = null, $valueParameter = array() /*[, $valueParameter, ... ]*/)
     {
         if ($expression) {
             $this->setExpression($expression);
