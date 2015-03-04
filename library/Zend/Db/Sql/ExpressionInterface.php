@@ -33,4 +33,9 @@ interface ExpressionInterface
      *
      */
     public function getExpressionData();
+    
+    /**
+     * @return string
+     */
+    public function getExpression();
 }
