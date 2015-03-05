@@ -16,20 +16,20 @@ use Zend\Code\Annotation\Parser\GenericAnnotationParser;
 
 class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testScannerWorks()
+    /**
+     * @dataProvider provideDocComment
+     *
+     * @param string $docComment
+     */
+    public function testScannerWorks($docComment)
     {
         $annotationManager = new AnnotationManager();
         $parser = new GenericAnnotationParser();
-        $parser->registerAnnotations(array(
+        $parser->registerAnnotations([
             $foo = new TestAsset\Annotation\Foo(),
             $bar = new TestAsset\Annotation\Bar()
-        ));
+        ]);
         $annotationManager->attach($parser);
-
-        $docComment = '/**' . "\n"
-            . ' * @Test\Foo(\'anything I want()' . "\n" . ' * to be\')' . "\n"
-            . ' * @Test\Bar' . "\n"
-            . "\t" . ' * @Test\Bar' . "\n */";
 
         $nameInfo = new NameInformation();
         $nameInfo->addUse('ZendTest\Code\Scanner\TestAsset\Annotation', 'Test');
@@ -38,5 +38,30 @@ class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(get_class($foo), get_class($annotationScanner[0]));
         $this->assertEquals("'anything I want()\n to be'", $annotationScanner[0]->getContent());
         $this->assertEquals(get_class($bar), get_class($annotationScanner[1]));
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function provideDocComment()
+    {
+        return array(
+            array(
+                'usingTab' => '/**' . "\n"
+                . ' * @Test\Foo(\'anything I want()' . "\n" . ' * to be\')' . "\n"
+                . "\t" . ' * @Test\Bar' . "\n */"
+            ),
+            array(
+                'usingSpace' => '/**' . "\n"
+                . ' * @Test\Foo(\'anything I want()' . "\n" . ' * to be\')' . "\n"
+                . ' * @Test\Bar' . "\n */"
+            ),
+            array(
+                'mixedTabAndSpace' => '/**' . "\n"
+                    . ' * @Test\Foo(\'anything I want()' . "\n" . ' * to be\')' . "\n"
+                    . ' * @Test\Bar' . "\n"
+                    . "\t" . ' * @Test\Bar' . "\n */"
+            ),
+        );
     }
 }
