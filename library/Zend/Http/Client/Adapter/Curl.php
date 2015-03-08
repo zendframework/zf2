@@ -82,14 +82,11 @@ class Curl implements HttpAdapter, StreamInterface
             CURLOPT_HEADER,
             CURLOPT_RETURNTRANSFER,
             CURLOPT_HTTPHEADER,
-            CURLOPT_POSTFIELDS,
             CURLOPT_INFILE,
             CURLOPT_INFILESIZE,
             CURLOPT_PORT,
             CURLOPT_MAXREDIRS,
             CURLOPT_CONNECTTIMEOUT,
-            CURL_HTTP_VERSION_1_1,
-            CURL_HTTP_VERSION_1_0,
         );
     }
 
@@ -120,6 +117,11 @@ class Curl implements HttpAdapter, StreamInterface
         if (isset($options['proxyuser']) && isset($options['proxypass'])) {
             $this->setCurlOption(CURLOPT_PROXYUSERPWD, $options['proxyuser'] . ":" . $options['proxypass']);
             unset($options['proxyuser'], $options['proxypass']);
+        }
+
+        if (isset($options['sslverifypeer'])) {
+            $this->setCurlOption(CURLOPT_SSL_VERIFYPEER, $options['sslverifypeer']);
+            unset($options['sslverifypeer']);
         }
 
         foreach ($options as $k => $v) {
@@ -182,15 +184,6 @@ class Curl implements HttpAdapter, StreamInterface
     {
         // If we're already connected, disconnect first
         if ($this->curl) {
-            $this->close();
-        }
-
-        // If we are connected to a different server or port, disconnect first
-        if ($this->curl
-            && is_array($this->connectedTo)
-            && ($this->connectedTo[0] != $host
-            || $this->connectedTo[1] != $port)
-        ) {
             $this->close();
         }
 

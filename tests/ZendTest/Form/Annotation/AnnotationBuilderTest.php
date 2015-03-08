@@ -106,8 +106,34 @@ class AnnotationBuilderTest extends TestCase
         $test  = $form->getIterator()->getIterator()->current();
         $this->assertSame($email, $test, 'Test is element ' . $test->getName());
 
+        $test  = $form->getIterator()->current();
+        $this->assertSame($email, $test, 'Test is element ' . $test->getName());
+
         $hydrator = $form->getHydrator();
         $this->assertInstanceOf('Zend\Stdlib\Hydrator\ObjectProperty', $hydrator);
+    }
+
+    public function testFieldsetOrder()
+    {
+        $entity  = new TestAsset\Annotation\FieldsetOrderEntity();
+        $builder = new Annotation\AnnotationBuilder();
+        $form    = $builder->createForm($entity);
+
+        $element = $form->get('element');
+        $first  = $form->getIterator()->getIterator()->current();
+        $this->assertSame($element, $first, 'Test is element ' . $first->getName());
+    }
+
+    public function testFieldsetOrderWithPreserve()
+    {
+        $entity  = new TestAsset\Annotation\FieldsetOrderEntity();
+        $builder = new Annotation\AnnotationBuilder();
+        $builder->setPreserveDefinedOrder(true);
+        $form    = $builder->createForm($entity);
+
+        $fieldset = $form->get('fieldset');
+        $first  = $form->getIterator()->getIterator()->current();
+        $this->assertSame($fieldset, $first, 'Test is element ' . $first->getName());
     }
 
     public function testCanRetrieveOnlyFormSpecification()
@@ -263,6 +289,17 @@ class AnnotationBuilderTest extends TestCase
         $this->assertTrue($sampleinput->allowEmpty());
     }
 
+    public function testContinueIfEmptyInput()
+    {
+        $entity  = new TestAsset\Annotation\SampleEntity();
+        $builder = new Annotation\AnnotationBuilder();
+        $form    = $builder->createForm($entity);
+
+        $inputFilter = $form->getInputFilter();
+        $sampleinput = $inputFilter->get('sampleinput');
+        $this->assertTrue($sampleinput->continueIfEmpty());
+    }
+
     public function testInputNotRequiredByDefault()
     {
         $entity = new TestAsset\Annotation\SampleEntity();
@@ -282,9 +319,9 @@ class AnnotationBuilderTest extends TestCase
         $fieldset = $form->get('object');
         /* @var $fieldset Zend\Form\Fieldset */
 
-        $this->assertInstanceOf('Zend\Form\Fieldset',$fieldset);
-        $this->assertInstanceOf('ZendTest\Form\TestAsset\Annotation\Entity',$fieldset->getObject());
-        $this->assertInstanceOf("Zend\Stdlib\Hydrator\ClassMethods",$fieldset->getHydrator());
+        $this->assertInstanceOf('Zend\Form\Fieldset', $fieldset);
+        $this->assertInstanceOf('ZendTest\Form\TestAsset\Annotation\Entity', $fieldset->getObject());
+        $this->assertInstanceOf("Zend\Stdlib\Hydrator\ClassMethods", $fieldset->getHydrator());
         $this->assertFalse($fieldset->getHydrator()->getUnderscoreSeparatedKeys());
     }
 
@@ -302,5 +339,17 @@ class AnnotationBuilderTest extends TestCase
         ) {
             $this->assertInstanceOf($expectedInstance, $inputFilter->get('input'));
         }
+    }
+
+    /**
+     * @group 6753
+     */
+    public function testInputFilterAnnotationAllowsComposition()
+    {
+        $entity = new TestAsset\Annotation\EntityWithInputFilterAnnotation();
+        $builder = new Annotation\AnnotationBuilder();
+        $form = $builder->createForm($entity);
+        $inputFilter = $form->getInputFilter();
+        $this->assertCount(2, $inputFilter->get('username')->getValidatorChain());
     }
 }
