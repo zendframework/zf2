@@ -352,4 +352,30 @@ class AnnotationBuilderTest extends TestCase
         $inputFilter = $form->getInputFilter();
         $this->assertCount(2, $inputFilter->get('username')->getValidatorChain());
     }
+
+    public function testCacheSave()
+    {
+        $cache = $this->getMock('Zend\Cache\Storage\StorageInterface');
+        $cache->expects($this->once())->method('hasItem')->willReturn(false);
+        $cache->expects($this->once())->method('setItem');
+
+        $entity  = new TestAsset\Annotation\Entity();
+        $builder = new Annotation\AnnotationBuilder();
+        $builder->setCache($cache);
+        $builder->getFormSpecification($entity);
+    }
+
+    public function testCacheLoad()
+    {
+        $cache = $this->getMock('Zend\Cache\Storage\StorageInterface');
+        $cache->expects($this->once())->method('hasItem')->willReturn(true);
+        $cache->expects($this->once())->method('getItem')->willReturn(['formSpec']);
+
+        $entity  = new TestAsset\Annotation\Entity();
+        $builder = new Annotation\AnnotationBuilder();
+        $builder->setCache($cache);
+        $spec = $builder->getFormSpecification($entity);
+
+        $this->assertEquals(['formSpec'], $spec);
+    }
 }

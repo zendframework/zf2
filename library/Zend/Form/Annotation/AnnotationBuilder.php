@@ -10,6 +10,7 @@
 namespace Zend\Form\Annotation;
 
 use ArrayObject;
+use Zend\Cache\Storage\StorageInterface;
 use Zend\Code\Annotation\AnnotationCollection;
 use Zend\Code\Annotation\AnnotationManager;
 use Zend\Code\Annotation\Parser;
@@ -55,6 +56,11 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
     protected $entity;
 
     /**
+     * @var StorageInterface
+     */
+    protected $cache;
+
+    /**
      * @var array Default annotations to register
      */
     protected $defaultAnnotations = array(
@@ -82,6 +88,19 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
      * @var bool
      */
     protected $preserveDefinedOrder = false;
+
+    public function setCache(StorageInterface $cache)
+    {
+        $this->cache = $cache;
+    }
+
+    /**
+     * @return \Zend\Cache\Storage\StorageInterface
+     */
+    public function getCache()
+    {
+        return $this->cache;
+    }
 
     /**
      * Set form factory to use when building form from annotations
@@ -203,6 +222,17 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
             }
         }
 
+        if (is_object($entity)) {
+            $cacheKey = 'FormAnnotationBuilder-' . get_class($entity);
+        } else {
+            $cacheKey = 'FormAnnotationBuilder-' . $entity;
+        }
+
+
+        if ($this->getCache() !== null && $this->getCache()->hasItem($cacheKey)) {
+            return $this->getCache()->getItem($cacheKey);
+        }
+
         $this->entity      = $entity;
         $annotationManager = $this->getAnnotationManager();
         $formSpec          = new ArrayObject();
@@ -227,6 +257,10 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
             $formSpec['input_filter'] = $filterSpec;
         } elseif (is_array($formSpec['input_filter'])) {
             $formSpec['input_filter'] = ArrayUtils::merge($filterSpec->getArrayCopy(), $formSpec['input_filter']);
+        }
+
+        if ($this->getCache() !== null) {
+            $this->getCache()->setItem($cacheKey, $formSpec);
         }
 
         return $formSpec;
