@@ -369,13 +369,13 @@ class AnnotationBuilderTest extends TestCase
     {
         $cache = $this->getMock('Zend\Cache\Storage\StorageInterface');
         $cache->expects($this->once())->method('hasItem')->willReturn(true);
-        $cache->expects($this->once())->method('getItem')->willReturn(['formSpec']);
+        $cache->expects($this->once())->method('getItem')->willReturn(array('formSpec'));
 
         $entity  = new TestAsset\Annotation\Entity();
         $builder = new Annotation\AnnotationBuilder();
         $builder->setCache($cache);
         $spec = $builder->getFormSpecification($entity);
 
-        $this->assertEquals(['formSpec'], $spec);
+        $this->assertEquals(array('formSpec'), $spec);
     }
 }
