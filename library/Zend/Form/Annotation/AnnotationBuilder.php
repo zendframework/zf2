@@ -89,13 +89,16 @@ class AnnotationBuilder implements EventManagerAwareInterface, FormFactoryAwareI
      */
     protected $preserveDefinedOrder = false;
 
+    /**
+     * @param StorageInterface $cache
+     */
     public function setCache(StorageInterface $cache)
     {
         $this->cache = $cache;
     }
 
     /**
-     * @return \Zend\Cache\Storage\StorageInterface
+     * @return StorageInterface
      */
     public function getCache()
     {
