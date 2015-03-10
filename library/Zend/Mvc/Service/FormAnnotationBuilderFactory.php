@@ -50,6 +50,11 @@ class FormAnnotationBuilderFactory implements FactoryInterface
                     $listener->attach($annotationBuilder->getEventManager());
                 }
             }
+
+            if (isset($config['cache'])) {
+                $cache = $serviceLocator->get($config['cache']);
+                $annotationBuilder->setCache($cache);
+            }
         }
 
         return $annotationBuilder;
