@@ -80,7 +80,7 @@ class Message implements MessageInterface
     /**
      * Set message content
      *
-     * @param  mixed $value
+     * @param  string $value
      * @return Message
      */
     public function setContent($value)
@@ -92,7 +92,7 @@ class Message implements MessageInterface
     /**
      * Get message content
      *
-     * @return mixed
+     * @return string
      */
     public function getContent()
     {
