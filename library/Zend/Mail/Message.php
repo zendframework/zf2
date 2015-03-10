@@ -36,6 +36,44 @@ class Message
     protected $encoding = 'ASCII';
 
     /**
+     * Constructor.
+     *
+     * @param null|array|Traversable $options (Optional) Options to set
+     * @param array|Traversable $options
+     */
+    public function __construct($options = null)
+    {
+        if (null !== $options) {
+            $this->setOptions($options);
+        }
+    }
+
+    /**
+     * @param  array|Traversable $options         Options to set
+     * @return self
+     * @throws Exception\InvalidArgumentException
+     */
+    private function setOptions($options)
+    {
+        if (!is_array($options) && !$options instanceof Traversable) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '"%s" expects an array or Traversable; received "%s"',
+                __METHOD__,
+                (is_object($options) ? get_class($options) : gettype($options))
+            ));
+        }
+
+        foreach ($options as $key => $value) {
+            $setter = 'set' . str_replace(' ', '', ucwords(str_replace('-', ' ', str_replace('_', ' ', $key))));
+            if (method_exists($this, $setter)) {
+                $this->{$setter}($value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Is the message valid?
      *
      * If we don't any From addresses, we're invalid, according to RFC2822.

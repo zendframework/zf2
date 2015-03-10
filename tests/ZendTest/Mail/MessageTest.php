@@ -695,4 +695,43 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->message->setBody($mimeMessage);
         $this->assertEquals('', $this->message->getBodyText());
     }
+
+    public function testConstructorWithOptions()
+    {
+        $options = array(
+            'encoding'  => 'UTF-8',
+            'from'      => 'matthew@example.com',
+            'to'        => 'zf-devteam@example.com',
+            'cc'        => 'zf-contributors@example.com',
+            'bcc'       => 'zf-devteam@example.com',
+            'reply-to'  => 'matthew@example.com',
+            'sender'    => 'matthew@example.com',
+            'subject'   => 'subject',
+            'body'      => 'body',
+            'ignore'    => 'ignore options',
+        );
+
+        $message = new Message(new \ArrayObject($options));
+
+        $this->assertEquals('UTF-8',   $message->getEncoding());
+        $this->assertEquals('subject', $message->getSubject());
+        $this->assertEquals('body',    $message->getBody());
+        $this->assertInstanceOf('Zend\Mail\Address', $message->getSender());
+        $this->assertEquals($options['sender'], $message->getSender()->getEmail());
+
+        $getMethods = array(
+            'from'      => 'getFrom',
+            'to'        => 'getTo',
+            'cc'        => 'getCc',
+            'bcc'       => 'getBcc',
+            'reply-to'  => 'getReplyTo',
+        );
+
+        foreach ($getMethods as $key => $method) {
+            $value = $message->{$method}();
+            $this->assertInstanceOf('Zend\Mail\AddressList', $value);
+            $this->assertEquals(1, count($value));
+            $this->assertTrue($value->has($options[$key]));
+        }
+    }
 }
