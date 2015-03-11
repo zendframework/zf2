@@ -14,7 +14,7 @@ use Zend\Stdlib\StringWrapper\StringWrapperInterface as StringWrapper;
 
 class StringLength extends AbstractValidator
 {
-    const INVALID   = 'stringLengthInvalid';
+    const INVALID   = 'stringTypeInvalid';
     const TOO_SHORT = 'stringLengthTooShort';
     const TOO_LONG  = 'stringLengthTooLong';
 
