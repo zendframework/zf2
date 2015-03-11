@@ -26,13 +26,6 @@ use Zend\Stdlib\DispatchableInterface;
 class ControllerManager extends AbstractPluginManager
 {
     /**
-     * We do not want arbitrary classes instantiated as controllers.
-     *
-     * @var bool
-     */
-    protected $autoAddInvokableClass = false;
-
-    /**
      * Constructor
      *
      * After invoking parent constructor, add an initializer to inject the
