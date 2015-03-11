@@ -114,35 +114,32 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
         ));
     }
 
-	public function testIssetFailsWhenNoGetter()
-	{
-		$options = new TestOptionsWithoutGetter(array('foo' => 'bar'));
-		$this->assertFalse(isset($options->foo));
+    public function testIssetFailsWhenNoGetter()
+    {
+        $options = new TestOptionsWithoutGetter(array('foo' => 'bar'));
+        $this->assertFalse(isset($options->foo));
+    }
 
-	}
+    public function testIssetDoesNotThrowExceptionWhenNoGetter()
+    {
+        $options = new TestOptionsWithoutGetter();
+        $ex = null;
 
-	public function testIssetDoesNotThrowExceptionWhenNoGetter()
-	{
-		$options = new TestOptionsWithoutGetter();
-
-		$ex = null;
-
-		try {
-			isset($options->foo);
-		} catch (\BadMethodCallException $ex) {}
-
-		$this->assertNull($ex, 'Unexpected BadMethodCallException');
-	}
+        try {
+            isset($options->foo);
+        } catch (\BadMethodCallException $ex) {}
+	
+	//check that the exception was not thrown.
+        $this->assertNull($ex, 'Unexpected BadMethodCallException');
+    }
 
 
-	public function testIssetPassesWithValidData()
-	{
+    public function testIssetPassesWithValidData()
+    {
 
 		$options = new TestOptions(array('test_field' => 1));
 
 		$this->assertTrue(isset($options->testField));
 
-	}
-
-
+    }
 }
