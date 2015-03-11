@@ -83,18 +83,14 @@ class FormCheckboxTest extends CommonTestCase
         $this->assertContains('name="0"', $markup);
     }
 
-	public function testDisabledOptionIssetOnHiddenElement()
-	{
-		$element = new Element\Checkbox('foo');
-		$element->setUseHiddenElement(true);
-		$element->setAttribute('disabled', true);
-
-
-		$markup = $this->helper->__invoke($element);
-		$this->assertRegexp('#type="checkbox".*?(disabled="disabled")#', $markup);
-
-
-	}
+    public function testDisabledOptionIssetOnHiddenElement()
+    {
+        $element = new Element\Checkbox('foo');
+        $element->setUseHiddenElement(true);
+        $element->setAttribute('disabled', true);
+        $markup = $this->helper->__invoke($element);
+        $this->assertRegexp('#type="checkbox".*?(disabled="disabled")#', $markup);
+    }
 
 
     /**
