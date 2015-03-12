@@ -28,7 +28,6 @@ class Escaper
     protected static $htmlNamedEntityMap = array(
         34 => 'quot',
         38 => 'amp',
-        39 => 'apos',
         60 => 'lt',
         62 => 'gt',
         160 => 'nbsp',
