@@ -164,7 +164,7 @@ class Escaper
             return $string;
         }
 
-        $result = preg_replace_callback('/[^a-z0-9,\.\-_]/iSu', $this->htmlAttrMatcher, $string);
+        $result = preg_replace_callback('/[^a-z0-9À-ÿ,\.\-_]/iSu', $this->htmlAttrMatcher, $string);
         return $this->fromUtf8($result);
     }
 
