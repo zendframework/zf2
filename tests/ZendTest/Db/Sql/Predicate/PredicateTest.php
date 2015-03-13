@@ -227,6 +227,14 @@ class PredicateTest extends TestCase
             array(array('foo = %s', array(0), array(Expression::TYPE_VALUE))),
             $predicate->getExpressionData()
         );
+
+        //test with no parameters
+        $predicate = new Predicate;
+        $this->assertSame($predicate, $predicate->expression('foo = bar'));
+        $this->assertEquals(
+            array(array('foo = bar', array(), array())),
+            $predicate->getExpressionData()
+        );
     }
 
     /**
