@@ -13,6 +13,7 @@ use ArrayObject;
 use ZendTest\Stdlib\TestAsset\TestOptions;
 use ZendTest\Stdlib\TestAsset\TestOptionsNoStrict;
 use Zend\Stdlib\Exception\InvalidArgumentException;
+use ZendTest\Stdlib\TestAsset\TestOptionsWithoutGetter;
 
 class OptionsTest extends \PHPUnit_Framework_TestCase
 {
@@ -111,5 +112,34 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
         new TestOptions(array(
             'foo bar' => 'baz',
         ));
+    }
+
+    public function testIssetFailsWhenNoGetter()
+    {
+        $options = new TestOptionsWithoutGetter(array('foo' => 'bar'));
+        $this->assertFalse(isset($options->foo));
+    }
+
+    public function testIssetDoesNotThrowExceptionWhenNoGetter()
+    {
+        $options = new TestOptionsWithoutGetter();
+        $ex = null;
+
+        try {
+            isset($options->foo);
+        } catch (\BadMethodCallException $ex) {}
+	
+	//check that the exception was not thrown.
+        $this->assertNull($ex, 'Unexpected BadMethodCallException');
+    }
+
+
+    public function testIssetPassesWithValidData()
+    {
+
+		$options = new TestOptions(array('test_field' => 1));
+
+		$this->assertTrue(isset($options->testField));
+
     }
 }
