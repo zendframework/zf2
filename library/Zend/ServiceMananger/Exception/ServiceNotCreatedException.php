@@ -9,6 +9,11 @@
 
 namespace Zend\ServiceManager\Exception;
 
-class CircularDependencyFoundException extends RuntimeException
+use RuntimeException;
+
+/**
+ * ServiceNotCreatedException
+ */
+class ServiceNotCreatedException extends RuntimeException implements ExceptionInterface
 {
 }

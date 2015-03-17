@@ -7,15 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\ServiceManager;
+namespace Zend\ServiceManager\Exception;
 
-interface FactoryInterface
+use InvalidArgumentException as BaseInvalidArgumentException;
+
+/**
+ * InvalidFactoryException
+ */
+class InvalidArgumentException extends BaseInvalidArgumentException implements ExceptionInterface
 {
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator);
 }

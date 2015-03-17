@@ -9,6 +9,14 @@
 
 namespace Zend\ServiceManager\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
+use RuntimeException;
+
+/**
+ * InvalidServiceException
+ *
+ * This exception is triggered by plugin managers when the created object does not match
+ * the plugin manager's conditions
+ */
+class InvalidServiceException extends RuntimeException implements ExceptionInterface
 {
 }

@@ -9,6 +9,9 @@
 
 namespace Zend\ServiceManager\Exception;
 
-class CircularReferenceException extends RuntimeException
+/**
+ * Base exception
+ */
+interface ExceptionInterface 
 {
 }
