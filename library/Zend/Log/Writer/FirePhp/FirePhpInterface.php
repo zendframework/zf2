@@ -22,34 +22,44 @@ interface FirePhpInterface
      * Log an error message
      *
      * @param string $line
+     * @param string $label
+     * @param array $options
      */
-    public function error($line);
+    public function error($line, $label = null, $options = array());
 
     /**
      * Log a warning
      *
      * @param string $line
+     * @param string $label
+     * @param array $options
      */
-    public function warn($line);
+    public function warn($line, $label = null, $options = array());
 
     /**
      * Log informational message
      *
      * @param string $line
+     * @param string $label
+     * @param array $options
      */
-    public function info($line);
+    public function info($line, $label = null, $options = array());
 
     /**
      * Log a trace
      *
      * @param string $line
+     * @param string $label
+     * @param array $options
      */
-    public function trace($line);
+    public function trace($line, $label = null, $options = array());
 
     /**
      * Log a message
      *
      * @param string $line
+     * @param string $label
+     * @param array $options
      */
-    public function log($line);
+    public function log($line, $label = null, $options = array());
 }

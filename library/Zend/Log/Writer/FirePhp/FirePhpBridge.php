@@ -56,9 +56,9 @@ class FirePhpBridge implements FirePhpInterface
      * @param  string $line
      * @return void
      */
-    public function error($line)
+    public function error($line, $label = null, $options = array())
     {
-        return $this->firephp->error($line);
+        return $this->firephp->error($line, $label, $options);
     }
 
     /**
@@ -67,9 +67,9 @@ class FirePhpBridge implements FirePhpInterface
      * @param  string $line
      * @return void
      */
-    public function warn($line)
+    public function warn($line, $label = null, $options = array())
     {
-        return $this->firephp->warn($line);
+        return $this->firephp->warn($line, $label, $options);
     }
 
     /**
@@ -78,9 +78,9 @@ class FirePhpBridge implements FirePhpInterface
      * @param  string $line
      * @return void
      */
-    public function info($line)
+    public function info($line, $label = null, $options = array())
     {
-        return $this->firephp->info($line);
+        return $this->firephp->info($line, $label, $options);
     }
 
     /**
@@ -89,9 +89,9 @@ class FirePhpBridge implements FirePhpInterface
      * @param  string $line
      * @return void
      */
-    public function trace($line)
+    public function trace($line, $label = null, $options = array())
     {
-        return $this->firephp->trace($line);
+        return $this->firephp->trace($line, $label, $options);
     }
 
     /**
@@ -100,8 +100,8 @@ class FirePhpBridge implements FirePhpInterface
      * @param  string $line
      * @return void
      */
-    public function log($line)
+    public function log($line, $label = null, $options = array())
     {
-        return $this->firephp->trace($line);
+        return $this->firephp->trace($line, $label, $options);
     }
 }
