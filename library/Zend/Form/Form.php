@@ -756,92 +756,91 @@ class Form extends Fieldset implements FormInterface
     {
         $formFactory  = $this->getFormFactory();
         $inputFactory = $formFactory->getInputFilterFactory();
-
-        if ($fieldset instanceof Collection && $fieldset->getTargetElement() instanceof FieldsetInterface) {
-            $elements = $fieldset->getTargetElement()->getElements();
-        } else {
-            $elements = $fieldset->getElements();
+    
+        // For collections, we need to populate the input filter used to loop the data
+        $useInputFilterProvider = ($fieldset === $this);
+        if ($fieldset instanceof Collection && $inputFilter instanceof CollectionInputFilter) {
+            $inputFilter = $inputFilter->getInputFilter();
+            $fieldset = $fieldset->getTargetElement();
+            $useInputFilterProvider = true;
         }
+    
+        foreach ($fieldset->getElements() as $element) {
+            $name = $element->getName();
 
-        if (!$fieldset instanceof Collection || !$fieldset->getTargetElement() instanceof FieldsetInterface || $inputFilter instanceof CollectionInputFilter) {
-            foreach ($elements as $element) {
-                $name = $element->getName();
+            if ($this->preferFormInputFilter && $inputFilter->has($name)) {
+                continue;
+            }
 
-                if ($this->preferFormInputFilter && $inputFilter->has($name)) {
+            if (!$element instanceof InputProviderInterface) {
+                if ($inputFilter->has($name)) {
                     continue;
                 }
+                // Create a new empty default input for this element
+                $isRequired = (boolean) $element->getAttribute('required');
+                $spec  = array('name' => $name, 'required' => $isRequired, 'allow_empty' => !$isRequired);
+                $input = $inputFactory->createInput($spec);
+            } else {
+                // Create an input based on the specification returned from the element
+                $spec  = $element->getInputSpecification();
+                $input = $inputFactory->createInput($spec);
 
-                if (!$element instanceof InputProviderInterface) {
-                    if ($inputFilter->has($name)) {
-                        continue;
-                    }
-                    // Create a new empty default input for this element
-                    $spec  = array('name' => $name, 'required' => false);
-                    $input = $inputFactory->createInput($spec);
-                } else {
-                    // Create an input based on the specification returned from the element
-                    $spec  = $element->getInputSpecification();
-                    $input = $inputFactory->createInput($spec);
-
-                    if ($inputFilter->has($name) && $inputFilter instanceof ReplaceableInputInterface) {
-                        $input->merge($inputFilter->get($name));
-                        $inputFilter->replace($input, $name);
-                        continue;
-                    }
-                }
-
-                $inputFilter->add($input, $name);
-            }
-
-            if ($fieldset === $this && $fieldset instanceof InputFilterProviderInterface) {
-                foreach ($fieldset->getInputFilterSpecification() as $name => $spec) {
-                    $input = $inputFactory->createInput($spec);
-                    $inputFilter->add($input, $name);
+                if ($inputFilter->has($name) && $inputFilter instanceof ReplaceableInputInterface) {
+                    $input->merge($inputFilter->get($name));
+                    $inputFilter->replace($input, $name);
+                    continue;
                 }
             }
+
+            $inputFilter->add($input, $name);
         }
 
+        if ($useInputFilterProvider && $fieldset instanceof InputFilterProviderInterface) {
+            foreach ($fieldset->getInputFilterSpecification() as $name => $spec) {
+                $input = $inputFactory->createInput($spec);
+                $inputFilter->add($input, $name);
+            }
+        }
+    
         foreach ($fieldset->getFieldsets() as $childFieldset) {
             $name = $childFieldset->getName();
-
+    
             if (!$childFieldset instanceof InputFilterProviderInterface) {
                 if (!$inputFilter->has($name)) {
                     // Add a new empty input filter if it does not exist (or the fieldset's object input filter),
                     // so that elements of nested fieldsets can be recursively added
                     if ($childFieldset->getObject() instanceof InputFilterAwareInterface) {
                         $inputFilter->add($childFieldset->getObject()->getInputFilter(), $name);
+                    } elseif ($childFieldset instanceof Collection && $childFieldset->getTargetElement() instanceof FieldsetInterface) {
+                        $inputFilter->add(new CollectionInputFilter(), $name);
                     } else {
-                        if ($fieldset instanceof Collection && $inputFilter instanceof CollectionInputFilter) {
-                            continue;
-                        } else {
-                            $inputFilter->add(new InputFilter(), $name);
-                        }
+                        $inputFilter->add(new InputFilter(), $name);
                     }
                 }
-
+    
                 $fieldsetFilter = $inputFilter->get($name);
-
+    
                 if (!$fieldsetFilter instanceof InputFilterInterface) {
                     // Input attached for fieldset, not input filter; nothing more to do.
                     continue;
                 }
-
+    
                 // Traverse the elements of the fieldset, and attach any
                 // defaults to the fieldset's input filter
                 $this->attachInputFilterDefaults($fieldsetFilter, $childFieldset);
                 continue;
             }
-
+    
             if ($inputFilter->has($name)) {
                 // if we already have an input/filter by this name, use it
                 continue;
             }
-
+    
             // Create an input filter based on the specification returned from the fieldset
             $spec   = $childFieldset->getInputFilterSpecification();
             $filter = $inputFactory->createInputFilter($spec);
             $inputFilter->add($filter, $name);
-
+    
             // Recursively attach sub filters
             $this->attachInputFilterDefaults($filter, $childFieldset);
         }

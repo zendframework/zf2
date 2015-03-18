@@ -306,7 +306,7 @@ class FilePostRedirectGetTest extends TestCase
         $this->assertEquals(303, $prgResultUrl->getStatusCode());
 
         $this->assertCount(count($params['links']),  $this->form->get('links')->getFieldsets());
-        $this->assertCount(count($this->form->get('links')->getFieldsets()),  $this->form->getInputFilter()->get('links')->getInputs());
+        $this->assertCount(count($this->form->get('links')->getFieldsets()),  $this->form->getInputFilter()->get('links')->getValidInput());  // #6497
 
         // GET
         $this->request = new Request();
@@ -324,7 +324,7 @@ class FilePostRedirectGetTest extends TestCase
 
         $this->assertEquals($params, $prgResult);
         $this->assertCount(count($params['links']),  $form->get('links')->getFieldsets());
-        $this->assertCount(count( $form->get('links')->getFieldsets()), $form->getInputFilter()->get('links')->getInputs());
+        $this->assertCount(count( $form->get('links')->getFieldsets()), $form->getInputFilter()->get('links')->getValidInput());  // #6497
     }
 
     public function testCollectionInputFilterIsInitializedBeforePluginRetrievesIt()
@@ -448,7 +448,7 @@ class FilePostRedirectGetTest extends TestCase
                     ),
                 ),
                 1 => array(
-                    'text' => null,
+                    'text' => '',  // #6497: Input is present but empty
                     'file' => null,
                 )
             )
@@ -460,6 +460,8 @@ class FilePostRedirectGetTest extends TestCase
 
         $messages = $form->getMessages();
         $this->assertTrue(isset($messages['collection'][1]['text'][NotEmpty::IS_EMPTY]));
-        $this->assertTrue(isset($messages['collection'][1]['file'][NotEmpty::IS_EMPTY]));
+
+        // #6497: NotEmpty validator does not apply for file inputs
+        $this->assertFalse(isset($messages['collection'][1]['file'][NotEmpty::IS_EMPTY]));
     }
 }
