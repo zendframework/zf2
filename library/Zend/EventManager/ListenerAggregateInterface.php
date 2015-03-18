@@ -1,42 +1,41 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
+/*
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the MIT license.
  */
 
 namespace Zend\EventManager;
 
 /**
- * Interface for self-registering event listeners.
- *
- * Classes implementing this interface may be registered by name or instance
- * with an EventManager, without an event name. The {@link attach()} method will
- * then be called with the current EventManager instance, allowing the class to
- * wire up one or more listeners.
+ * ListenerAggregateInterface
  */
-interface ListenerAggregateInterface
+interface ListenerAggregateInterface 
 {
     /**
-     * Attach one or more listeners
+     * Attach one or many events to the event manager
      *
-     * Implementors may add an optional $priority argument; the EventManager
-     * implementation will pass this to the aggregate.
-     *
-     * @param EventManagerInterface $events
-     *
+     * @param  EventManagerInterface $eventManager
      * @return void
      */
-    public function attach(EventManagerInterface $events);
+    static public function attachAggregate(EventManagerInterface $eventManager);
 
     /**
-     * Detach all previously attached listeners
+     * Detach one or many events from the event manager
      *
-     * @param EventManagerInterface $events
-     *
-     * @return void
+     * @param  EventManagerInterface $eventManager
+     * @return bool
      */
-    public function detach(EventManagerInterface $events);
+    static public function detachAggregate(EventManagerInterface $eventManager);
 }

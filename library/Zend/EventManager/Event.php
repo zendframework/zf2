@@ -1,115 +1,48 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
+/*
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the MIT license.
  */
 
 namespace Zend\EventManager;
 
-use ArrayAccess;
-
 /**
- * Representation of an event
- *
- * Encapsulates the target context and parameters passed, and provides some
- * behavior for interacting with the event manager.
+ * Base Event
  */
 class Event implements EventInterface
 {
     /**
-     * @var string Event name
-     */
-    protected $name;
-
-    /**
-     * @var string|object The event target
-     */
-    protected $target;
-
-    /**
-     * @var array|ArrayAccess|object The event parameters
-     */
-    protected $params = array();
-
-    /**
-     * @var bool Whether or not to stop propagation
+     * @var bool
      */
     protected $stopPropagation = false;
 
     /**
-     * Constructor
-     *
-     * Accept a target and its parameters.
-     *
-     * @param  string $name Event name
-     * @param  string|object $target
-     * @param  array|ArrayAccess $params
+     * @var array
      */
-    public function __construct($name = null, $target = null, $params = null)
-    {
-        if (null !== $name) {
-            $this->setName($name);
-        }
-
-        if (null !== $target) {
-            $this->setTarget($target);
-        }
-
-        if (null !== $params) {
-            $this->setParams($params);
-        }
-    }
+    protected $params = [];
 
     /**
-     * Get event name
-     *
-     * @return string
+     * {@inheritDoc}
      */
-    public function getName()
+    public function setParams(array $params)
     {
-        return $this->name;
-    }
-
-    /**
-     * Get the event target
-     *
-     * This may be either an object, or the name of a static method.
-     *
-     * @return string|object
-     */
-    public function getTarget()
-    {
-        return $this->target;
-    }
-
-    /**
-     * Set parameters
-     *
-     * Overwrites parameters
-     *
-     * @param  array|ArrayAccess|object $params
-     * @return Event
-     * @throws Exception\InvalidArgumentException
-     */
-    public function setParams($params)
-    {
-        if (!is_array($params) && !is_object($params)) {
-            throw new Exception\InvalidArgumentException(
-                sprintf('Event parameters must be an array or object; received "%s"', gettype($params))
-            );
-        }
-
         $this->params = $params;
-        return $this;
     }
 
     /**
-     * Get all parameters
-     *
-     * @return array|object|ArrayAccess
+     * {@inheritDoc}
      */
     public function getParams()
     {
@@ -117,92 +50,33 @@ class Event implements EventInterface
     }
 
     /**
-     * Get an individual parameter
-     *
-     * If the parameter does not exist, the $default value will be returned.
-     *
-     * @param  string|int $name
-     * @param  mixed $default
-     * @return mixed
+     * {@inheritDoc}
      */
-    public function getParam($name, $default = null)
+    public function setParam($key, $value)
     {
-        // Check in params that are arrays or implement array access
-        if (is_array($this->params) || $this->params instanceof ArrayAccess) {
-            if (!isset($this->params[$name])) {
-                return $default;
-            }
-
-            return $this->params[$name];
-        }
-
-        // Check in normal objects
-        if (!isset($this->params->{$name})) {
-            return $default;
-        }
-        return $this->params->{$name};
+        $this->params[$key] = $value;
     }
 
     /**
-     * Set the event name
-     *
-     * @param  string $name
-     * @return Event
+     * {@inheritDoc}
      */
-    public function setName($name)
+    public function getParam($key, $defaultValue = null)
     {
-        $this->name = (string) $name;
-        return $this;
+        return array_key_exists($key, $this->params) ? $this->params[$key] : $defaultValue;
     }
 
     /**
-     * Set the event target/context
-     *
-     * @param  null|string|object $target
-     * @return Event
+     * {@inheritDoc}
      */
-    public function setTarget($target)
+    public function stopPropagation()
     {
-        $this->target = $target;
-        return $this;
+        $this->stopPropagation = true;
     }
 
     /**
-     * Set an individual parameter to a value
-     *
-     * @param  string|int $name
-     * @param  mixed $value
-     * @return Event
+     * {@inheritDoc}
      */
-    public function setParam($name, $value)
-    {
-        if (is_array($this->params) || $this->params instanceof ArrayAccess) {
-            // Arrays or objects implementing array access
-            $this->params[$name] = $value;
-        } else {
-            // Objects
-            $this->params->{$name} = $value;
-        }
-        return $this;
-    }
-
-    /**
-     * Stop further event propagation
-     *
-     * @param  bool $flag
-     * @return void
-     */
-    public function stopPropagation($flag = true)
-    {
-        $this->stopPropagation = (bool) $flag;
-    }
-
-    /**
-     * Is propagation stopped?
-     *
-     * @return bool
-     */
-    public function propagationIsStopped()
+    public function isPropagationStopped()
     {
         return $this->stopPropagation;
     }

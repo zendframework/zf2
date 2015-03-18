@@ -18,55 +18,16 @@
 
 namespace Zend\EventManager;
 
+use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Exception;
+
 /**
- * EventInterface
+ * ListenerPluginManager
  */
-interface EventInterface
+class ListenerPluginManager extends AbstractPluginManager
 {
     /**
-     * Set a list of params
-     *
-     * @param  array $params
-     * @return void
+     * @var string
      */
-    public function setParams(array $params);
-
-    /**
-     * Get a list of params
-     *
-     * @return array
-     */
-    public function getParams();
-
-    /**
-     * Set a single param
-     *
-     * @param  string $key
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setParam($key, $value);
-
-    /**
-     * Get a single param
-     *
-     * @param  string $key
-     * @param  mixed  $defaultValue
-     * @return mixed
-     */
-    public function getParam($key, $defaultValue = null);
-
-    /**
-     * Stop the propagation of the event
-     *
-     * @return void
-     */
-    public function stopPropagation();
-
-    /**
-     * Is the propagation stopped?
-     *
-     * @return bool
-     */
-    public function isPropagationStopped();
+    protected $instanceOf = ListenerAggregateInterface::class;
 }

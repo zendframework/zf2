@@ -1,26 +1,30 @@
 {
     "name": "zendframework/zend-eventmanager",
-    "description": " ",
+    "description": "Event Manager component for Zend Framework",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
-        "eventmanager"
+        "zf3",
+        "event manager"
     ],
     "homepage": "https://github.com/zendframework/zf2",
     "autoload": {
-        "psr-0": {
-            "Zend\\EventManager\\": ""
+        "psr-4": {
+            "Zend\\EventManager\\": "src"
         }
     },
-    "target-dir": "Zend/EventManager",
     "require": {
-        "php": ">=5.3.23",
-        "zendframework/zend-stdlib": "self.version"
+        "php": ">=5.5"
+    },
+    "require-dev": {
+        "zendframework/zend-servicemanager": ">=3.0,<4.0"
+    },
+    "suggest": {
+        "zendframework/zend-servicemanager": "If you want integration with the service manager for lazy listeners"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.3-dev",
-            "dev-develop": "2.4-dev"
+            "dev-master": "3.0-dev",
+            "dev-develop": "3.1-dev"
         }
     }
 }

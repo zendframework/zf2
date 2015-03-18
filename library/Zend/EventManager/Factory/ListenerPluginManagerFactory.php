@@ -16,57 +16,25 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zend\EventManager;
+namespace Zend\EventManager\Factory;
+
+use Zend\Di\ServiceLocatorInterface;
+use Zend\EventManager\ListenerPluginManager;
+use Zend\ServiceManager\FactoryInterface;
 
 /**
- * EventInterface
+ * ListenerPluginManagerFactory
  */
-interface EventInterface
+class ListenerPluginManagerFactory implements FactoryInterface
 {
     /**
-     * Set a list of params
-     *
-     * @param  array $params
-     * @return void
+     * {@inheritDoc}
      */
-    public function setParams(array $params);
+    public function __invoke(ServiceLocatorInterface $serviceLocator, $className, array $options = [])
+    {
+        // @TODO: ZF3 should have a Config accessible through FQCN
+        $config = $serviceLocator->get('Config');
 
-    /**
-     * Get a list of params
-     *
-     * @return array
-     */
-    public function getParams();
-
-    /**
-     * Set a single param
-     *
-     * @param  string $key
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setParam($key, $value);
-
-    /**
-     * Get a single param
-     *
-     * @param  string $key
-     * @param  mixed  $defaultValue
-     * @return mixed
-     */
-    public function getParam($key, $defaultValue = null);
-
-    /**
-     * Stop the propagation of the event
-     *
-     * @return void
-     */
-    public function stopPropagation();
-
-    /**
-     * Is the propagation stopped?
-     *
-     * @return bool
-     */
-    public function isPropagationStopped();
+        return new ListenerPluginManager($serviceLocator, isset($config['listeners']) ? $config['listeners'] : []);
+    }
 }

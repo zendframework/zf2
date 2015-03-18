@@ -1,7 +1,7 @@
-EventManager Component from ZF2
-===============================
+Event Manager Component from ZF2
+================================
 
-This is the EventManager component for ZF2.
+This is the Event Manager component for ZF2.
 
 - File issues at https://github.com/zendframework/zf2/issues
 - Create pull requests against https://github.com/zendframework/zf2

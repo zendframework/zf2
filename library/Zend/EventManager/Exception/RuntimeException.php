@@ -18,55 +18,22 @@
 
 namespace Zend\EventManager;
 
+use RuntimeException as BaseRuntimeException;
+
 /**
- * EventInterface
+ * @author  Michaël Gallego <mic.gallego@gmail.com>
+ * @licence MIT
  */
-interface EventInterface
+class RuntimeException extends BaseRuntimeException implements ExceptionInterface
 {
     /**
-     * Set a list of params
-     *
-     * @param  array $params
-     * @return void
+     * @param string $name
      */
-    public function setParams(array $params);
-
-    /**
-     * Get a list of params
-     *
-     * @return array
-     */
-    public function getParams();
-
-    /**
-     * Set a single param
-     *
-     * @param  string $key
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setParam($key, $value);
-
-    /**
-     * Get a single param
-     *
-     * @param  string $key
-     * @param  mixed  $defaultValue
-     * @return mixed
-     */
-    public function getParam($key, $defaultValue = null);
-
-    /**
-     * Stop the propagation of the event
-     *
-     * @return void
-     */
-    public function stopPropagation();
-
-    /**
-     * Is the propagation stopped?
-     *
-     * @return bool
-     */
-    public function isPropagationStopped();
+    public static function missingInstantiatorException($name)
+    {
+        throw new RuntimeException(sprintf(
+            'Trying to create a lazy listener for "%s", but no instantiator was specified in the event manager',
+            is_array($name) ? implode(', ', $name) : $name
+        ));
+    }
 }

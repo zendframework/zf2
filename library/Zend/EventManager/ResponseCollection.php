@@ -9,45 +9,44 @@
 
 namespace Zend\EventManager;
 
-use SplStack;
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 
 /**
  * Collection of signal handler return values
  */
-class ResponseCollection extends SplStack
+final class ResponseCollection implements Countable, IteratorAggregate
 {
-    protected $stopped = false;
+    /**
+     * @var array
+     */
+    private $responses = [];
 
     /**
-     * Did the last response provided trigger a short circuit of the stack?
-     *
-     * @return bool
+     * @param array $responses
      */
-    public function stopped()
+    public function __construct(array $responses = [])
     {
-        return $this->stopped;
-    }
-
-    /**
-     * Mark the collection as stopped (or its opposite)
-     *
-     * @param  bool $flag
-     * @return ResponseCollection
-     */
-    public function setStopped($flag)
-    {
-        $this->stopped = (bool) $flag;
-        return $this;
+        $this->responses = $responses;
     }
 
     /**
      * Convenient access to the first handler return value.
      *
+     * If the collection is empty, returns null. Otherwise, returns value
+     * returned by first handler.
+     *
      * @return mixed The first handler return value
      */
     public function first()
     {
-        return parent::bottom();
+        if (empty($this->responses)) {
+            return null;
+        }
+
+        reset($this->responses);
+        return current($this->responses);
     }
 
     /**
@@ -60,10 +59,11 @@ class ResponseCollection extends SplStack
      */
     public function last()
     {
-        if (count($this) === 0) {
+        if (empty($this->responses)) {
             return null;
         }
-        return parent::top();
+
+        return end($this->responses);
     }
 
     /**
@@ -74,11 +74,22 @@ class ResponseCollection extends SplStack
      */
     public function contains($value)
     {
-        foreach ($this as $response) {
-            if ($response === $value) {
-                return true;
-            }
-        }
-        return false;
+        return in_array($value, $this->responses, true);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function count()
+    {
+        return count($this->responses);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->responses);
     }
 }
