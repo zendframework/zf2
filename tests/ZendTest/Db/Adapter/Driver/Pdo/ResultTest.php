@@ -51,7 +51,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests whether the fetch mode was set properly and
+     * Tests whether the fetch mode was set properly and verify the return instance type
      */
     public function testFetchModeAnonymousObject()
     {
