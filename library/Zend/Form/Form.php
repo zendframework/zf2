@@ -500,6 +500,12 @@ class Form extends Fieldset implements FormInterface
             ));
         }
 
+        foreach ($filter->getInputs() as $input) {
+            if (method_exists($input, 'getName') && !$this->has($input->getName())) {
+                $filter->remove($input->getName());
+            }
+        }
+
         $filter->setData($this->data);
         $filter->setValidationGroup(InputFilterInterface::VALIDATE_ALL);
 
