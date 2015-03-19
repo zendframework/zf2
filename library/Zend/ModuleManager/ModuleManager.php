@@ -59,9 +59,9 @@ class ModuleManager implements ModuleManagerInterface
     protected $childsModules = array();
 
     /**
-     * @var ModuleEvent
+     * @var string
      */
-    protected $loadEvent;
+    protected $parentModule;
 
     /**
      * True if modules have already been loaded
@@ -119,16 +119,14 @@ class ModuleManager implements ModuleManagerInterface
      */
     public function onLoadChildsModules(ModuleEvent $e)
     {
-        $parentModule = $this->loadEvent->getModuleName();
-
-        if (!isset($this->childsModules[$parentModule])) {
+        if (!$this->parentModule || !isset($this->childsModules[$this->parentModule])) {
             return;
         }
 
-        foreach($this->childsModules[$parentModule] as $module) {
+        foreach ($this->childsModules[$this->parentModule] as $module) {
             $this->loadModule($module);
         }
-        unset($this->childsModules[$parentModule]);
+        unset($this->childsModules[$this->parentModule]);
     }
 
     /**
@@ -189,12 +187,11 @@ class ModuleManager implements ModuleManagerInterface
          * loadModule() call, and use the original event otherwise.
          */
 
-        if ($this->loadFinished > 0 && $this->loadEvent && $afterCurrent) {
-            $parentModule = $this->loadEvent->getModuleName();
+        if ($this->loadFinished > 0 && $this->parentModule && $afterCurrent) {
             $childModule = is_object($module)
                     ? array($moduleName=>$module)
                     : $moduleName;
-            $this->childsModules[$parentModule][] = $childModule;
+            $this->childsModules[$this->parentModule][] = $childModule;
             return;
         }
         $event = ($this->loadFinished > 0) ? clone $this->getEvent() : $this->getEvent();
@@ -208,7 +205,7 @@ class ModuleManager implements ModuleManagerInterface
         $event->setModule($module);
 
         $this->loadedModules[$moduleName] = $module;
-        $this->loadEvent = $event;
+        $this->parentModule = $event->getModuleName();
         $this->getEventManager()->trigger(ModuleEvent::EVENT_LOAD_MODULE, $this, $event);
 
         $this->loadFinished--;
