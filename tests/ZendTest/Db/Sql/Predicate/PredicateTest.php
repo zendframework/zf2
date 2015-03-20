@@ -227,15 +227,20 @@ class PredicateTest extends TestCase
             array(array('foo = %s', array(0), array(Expression::TYPE_VALUE))),
             $predicate->getExpressionData()
         );
-
-        //test with no parameters
-        $predicate = new Predicate;
-        $this->assertSame($predicate, $predicate->expression('foo = bar'));
-        $this->assertEquals(
-            array(array('foo = bar', array(), array())),
-            $predicate->getExpressionData()
-        );
     }
+
+    /**
+    * @group 7293
+    */
+   public function testExpressionParametersDefaultToArray()
+   {
+       $predicate = new Predicate;
+       $this->assertSame($predicate, $predicate->expression('foo = bar'));
+       $this->assertEquals(
+           array(array('foo = bar', array(), array())),
+           $predicate->getExpressionData()
+       );
+   }
 
     /**
      * @testdox Unit test: Test literal() is chainable, returns proper values, and is backwards compatible with 2.0.*
