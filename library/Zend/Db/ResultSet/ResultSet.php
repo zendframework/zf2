@@ -46,7 +46,7 @@ class ResultSet extends AbstractResultSet
      */
     public function __construct($returnType = self::TYPE_ARRAYOBJECT, $arrayObjectPrototype = null)
     {
-        $this->returnType = (self::TYPE_ARRAY === $returnType) ? $returnType : self::TTYPE_ARRAYOBJECT;
+        $this->returnType = (self::TYPE_ARRAY === $returnType) ? $returnType : self::TYPE_ARRAYOBJECT;
         if ($this->returnType === self::TYPE_ARRAYOBJECT) {
             $this->setArrayObjectPrototype(($arrayObjectPrototype) ?: new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS));
         }
