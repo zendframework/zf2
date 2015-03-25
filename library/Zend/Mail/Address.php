@@ -30,6 +30,19 @@ class Address implements Address\AddressInterface
         if (null !== $name && !is_string($name)) {
             throw new Exception\InvalidArgumentException('Name must be a string');
         }
+        if (strlen($email) > 254) {
+            // see http://www.rfc-editor.org/errata_search.php?eid=1690
+            throw new Exception\InvalidArgumentException('Email max size is 254 chars');
+        }
+        $arr = explode('@', $email);
+        if (isset($arr[0]) && strlen($arr[0]) > 64) {
+            // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.1
+            throw new Exception\InvalidArgumentException('Email local part max size is 64 chars');
+        }
+        if (isset($arr[1]) && strlen($arr[1]) > 255) {
+            // http://tools.ietf.org/html/rfc5321#section-4.5.3.1.2
+            throw new Exception\InvalidArgumentException('Email domain part max size is 255 chars');
+        }
 
         $this->email = $email;
         $this->name  = $name;
