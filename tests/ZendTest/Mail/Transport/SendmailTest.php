@@ -126,6 +126,6 @@ class SendmailTest extends \PHPUnit_Framework_TestCase
         $message = $this->getMessage();
         $message->setEncoding('UTF-8');
         $this->transport->send($message);
-        $this->assertEquals('=?UTF-8?Q?Testing=20Zend\Mail\Transport\Sendmail?=', $this->subject);
+        $this->assertEquals('=?UTF-8?B?VGVzdGluZyBaZW5kXE1haWxcVHJhbnNwb3J0XFNlbmRtYWls?=', $this->subject);
     }
 }

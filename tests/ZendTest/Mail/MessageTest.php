@@ -637,23 +637,23 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
         $test = $this->message->getHeaders()->toString();
 
-        $expected = '=?UTF-8?Q?ZF=20DevTeam?=';
+        $expected = '=?UTF-8?B?WkYgRGV2VGVhbQ==?=';
         $this->assertContains($expected, $test);
         $this->assertContains('<zf-devteam@example.com>', $test);
 
-        $expected = "=?UTF-8?Q?Matthew=20Weier=20O'Phinney?=";
+        $expected = "=?UTF-8?B?TWF0dGhldyBXZWllciBPJ1BoaW5uZXk=?=";
         $this->assertContains($expected, $test, $test);
         $this->assertContains('<matthew@example.com>', $test);
 
-        $expected = '=?UTF-8?Q?ZF=20Contributors=20List?=';
+        $expected = '=?UTF-8?B?WkYgQ29udHJpYnV0b3JzIExpc3Q=?=';
         $this->assertContains($expected, $test);
         $this->assertContains('<zf-contributors@example.com>', $test);
 
-        $expected = '=?UTF-8?Q?ZF=20CR=20Team?=';
+        $expected = '=?UTF-8?B?WkYgQ1IgVGVhbQ==?=';
         $this->assertContains($expected, $test);
         $this->assertContains('<zf-crteam@example.com>', $test);
 
-        $expected = 'Subject: =?UTF-8?Q?This=20is=20a=20subject?=';
+        $expected = 'Subject: =?UTF-8?B?VGhpcyBpcyBhIHN1YmplY3Q=?=';
         $this->assertContains($expected, $test);
     }
 
