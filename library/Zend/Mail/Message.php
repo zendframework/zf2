@@ -83,7 +83,6 @@ class Message
     public function setHeaders(Headers $headers)
     {
         $this->headers = $headers;
-        $headers->setEncoding($this->getEncoding());
         return $this;
     }
 
