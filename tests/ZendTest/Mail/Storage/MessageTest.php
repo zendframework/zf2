@@ -222,7 +222,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $header = 'Test: test';
         $body   = 'body';
-        $newlines = array("\r\n", "\n\r", "\n", "\r");
+        $newlines = array("\r\n", "\n", "\r");
 
         $decoded_body    = null; // "Declare" variable before first "read" usage to avoid IDEs warning
         $decoded_headers = null; // "Declare" variable before first "read" usage to avoid IDEs warning
