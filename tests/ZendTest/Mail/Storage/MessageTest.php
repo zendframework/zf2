@@ -422,10 +422,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      */
     public function testStrictParseMessage()
     {
-        $this->setExpectedException('Zend\\Mail\\Exception\\RuntimeException');
-
+        //when doing strict parsing, if first line isn't an header,
+        //we consider that it's only a body
         $raw = file_get_contents($this->_file);
         $raw = "From foo@example.com  Sun Jan 01 00:00:00 2000\n" . $raw;
         $message = new Message(array('raw' => $raw, 'strict' => true));
+        $this->assertEquals($raw, $message->getContent());
     }
 }
