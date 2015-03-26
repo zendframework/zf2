@@ -58,25 +58,24 @@ class Headers implements Countable, Iterator
      * will be lazy loaded)
      *
      * @param  string $string
-     * @param  string $EOL EOL string; defaults to {@link EOL}
      * @throws Exception\RuntimeException
      * @return Headers
      */
-    public static function fromString($string, $EOL = self::EOL)
+    public static function fromString($string)
     {
         $headers     = new static();
         $currentLine = '';
 
         // iterate the header lines, some might be continuations
-        foreach (explode($EOL, $string) as $line) {
+        foreach (preg_split('/\R/', $string) as $line) {
             // check if a header name is present
-            if (preg_match('/^[\x21-\x39\x3B-\x7E]+:.*$/', $line)) {
+            if (preg_match('/^[!-9;-~]+:/', $line)) {
                 if ($currentLine) {
                     // a header name was present, then store the current complete line
                     $headers->addHeaderLine($currentLine);
                 }
                 $currentLine = trim($line);
-            } elseif (preg_match('/^\s+.*$/', $line)) {
+            } elseif (preg_match('/^\s+[^\s]/', $line)) {
                 // continuation: append to current line
                 // recover the whitespace that break the line (unfolding, rfc2822#section-2.2.3)
                 $currentLine .= ' ' . trim($line);
