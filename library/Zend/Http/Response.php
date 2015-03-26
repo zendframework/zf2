@@ -400,6 +400,16 @@ class Response extends AbstractMessage implements ResponseInterface
     }
 
     /**
+     * Does the status code indicate the resource is gone?
+     *
+     * @return bool
+     */
+    public function isGone()
+    {
+        return (410 === $this->getStatusCode());
+    }
+
+    /**
      * Do we have a normal, OK response?
      *
      * @return bool
