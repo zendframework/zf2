@@ -21,7 +21,7 @@ class MessageId implements HeaderInterface
         list($name, $value) = GenericHeader::splitHeaderLine($headerLine);
 
         // check to ensure proper header type for this factory
-        if (strtolower($name) !== 'message-id') {
+        if (strtolower(str_replace(array('_', '-'), '', $name)) !== 'messageid') {
             throw new Exception\InvalidArgumentException('Invalid header line for Message-ID string');
         }
 
