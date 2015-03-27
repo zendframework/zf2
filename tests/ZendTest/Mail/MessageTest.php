@@ -695,4 +695,21 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->message->setBody($mimeMessage);
         $this->assertEquals('', $this->message->getBodyText());
     }
+
+    public function testParseUglyHeaderMail()
+    {
+        $message1 = Message::fromString(file_get_contents(__DIR__ . '/_files/mail2.txt'));
+        $this->assertEquals(3, $message1->getTo()->count(), "There is 3 email addresses in the two 'To' headers");
+        $this->assertEquals(0, $message1->getCc()->count(), "There is no email address in the empty 'Cc' header");
+        $this->assertEquals("text/plain", $message1->getHeaders()->get('Content-Type')->getFieldValue());
+    }
+
+    public function testStableParsing()
+    {
+        $message1 = Message::fromString(file_get_contents(__DIR__ . '/_files/mail2.txt'));
+        $raw1 = $message1->toString();
+        $message2 = Message::fromString($raw1);
+        $raw2 = $message2->toString();
+        $this->assertEquals($raw1, $raw2, "Parsing isn't stable, we should be able to parse Message->toString() output and get same result");
+    }
 }
