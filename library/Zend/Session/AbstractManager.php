@@ -54,19 +54,26 @@ abstract class AbstractManager implements Manager
     protected $validators;
 
     /**
+     * @var array
+     */
+    protected $validatorServices;
+
+    /**
      * Constructor
      *
      * @param  Config|null      $config
      * @param  Storage|null     $storage
      * @param  SaveHandler|null $saveHandler
      * @param  array            $validators
+     * @param  array            $validatorServices
      * @throws Exception\RuntimeException
      */
     public function __construct(
         Config $config = null,
         Storage $storage = null,
         SaveHandler $saveHandler = null,
-        array $validators = array()
+        array $validators = array(),
+        array $validatorServices = array()
     ) {
         // init config
         if ($config === null) {
@@ -118,6 +125,7 @@ abstract class AbstractManager implements Manager
         }
 
         $this->validators = $validators;
+        $this->validatorServices = $validatorServices;
     }
 
     /**

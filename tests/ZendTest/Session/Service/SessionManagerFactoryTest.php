@@ -166,4 +166,85 @@ class SessionManagerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $manager->getValidatorChain()->getListeners('session.validate')->count());
     }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testFactoryWillInjectValidatorServices()
+    {
+        $config = array(
+            'session_manager' => array(
+                'validators' => array(
+                    'services' => array(
+                        'ValidatorService',
+                    ),
+                ),
+            ),
+        );
+        $this->services->setService('Config', $config);
+
+        $validator = $this->getMock('Zend\Session\Validator\ValidatorServiceInterface');
+
+        $validator->method('getName')
+            ->willReturn('ValidatorService');
+
+        $validator->expects($this->once())
+            ->method('isValid');
+
+        $validator->expects($this->never())
+            ->method('setData');
+
+        $this->services->setFactory('ValidatorService', function ($sm) use ($validator) {
+            return $validator;
+        });
+
+        $manager = $this->services->get('Zend\Session\ManagerInterface');
+
+        $manager->start();
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testValidatorServicesAreInjectedWithReferenceValue()
+    {
+        $storage = new ArrayStorage();
+        $storage->setMetadata('_VALID', array(
+            'MyCustomValidatorName' => 'reference value',
+        ));
+        $this->services->setService('Zend\Session\Storage\StorageInterface', $storage);
+
+        $config = array(
+            'session_manager' => array(
+                'validators' => array(
+                    'services' => array(
+                        'ValidatorService',
+                    ),
+                ),
+            ),
+        );
+        $this->services->setService('Config', $config);
+
+        $validator = $this->getMock('Zend\Session\Validator\ValidatorServiceInterface');
+
+        $validator->method('getName')
+            ->willReturn('MyCustomValidatorName');
+
+        $validator->expects($this->once())
+            ->method('isValid');
+
+        $validator->expects($this->once())
+            ->method('setData')
+            ->with('reference value');
+
+        $this->services->setFactory('ValidatorService', function ($sm) use ($validator) {
+            return $validator;
+        });
+
+        $manager = $this->services->get('Zend\Session\ManagerInterface');
+
+        $manager->start();
+
+        $this->assertEquals(1, $manager->getValidatorChain()->getListeners('session.validate')->count());
+    }
 }
