@@ -119,7 +119,7 @@ class RedisResourceManager
             //in case new server was set then connect
             if (!$resource['initialized']) {
                 $this->connect($resource);
-                
+
                 $info = $resource['resource']->info();
                 $resource['version'] = $info['redis_version'];
             }
