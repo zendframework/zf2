@@ -505,8 +505,26 @@ class Response extends AbstractMessage implements ResponseInterface
             );
         }
 
+        $i = 10;
+        $flag = ord(substr($body, 3, 1));
+        if ($flag > 0) {
+            if (($flag & 4) !== 0) {
+                list($xlen) = unpack('v', substr($body, $i, 2));
+                $i += 2 + $xlen;
+            }
+            if (($flag & 8) !== 0) {
+                $i = strpos($body, "\0", $i) + 1;
+            }
+            if (($flag & 16) !== 0) {
+                $i = strpos($body, "\0", $i) + 1;
+            }
+            if (($flag & 2) !== 0) {
+                $i += 2;
+            }
+        }
+
         ErrorHandler::start();
-        $return = gzinflate(substr($body, 10));
+        $return = gzinflate(substr($body, $i, -8));
         $test = ErrorHandler::stop();
         if ($test) {
             throw new Exception\RuntimeException(
