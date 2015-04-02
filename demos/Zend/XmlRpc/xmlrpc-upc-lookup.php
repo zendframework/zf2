@@ -11,7 +11,12 @@ use Zend\Loader\StandardAutoloader;
 use Zend\XmlRpc\Client;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/library/Zend/Loader/StandardAutoloader.php';
-$loader = new StandardAutoloader(array('autoregister_zf' => true));
+$loader = new StandardAutoloader(array(
+    'autoregister_zf' => true,
+    'namespaces' => array(
+        'ZendXml' => dirname(dirname(dirname(__DIR__))) . '/vendor/zendframework/zendxml/library/ZendXml',
+    ),
+));
 $loader->register();
 
 $server = new Client('http://www.upcdatabase.com/xmlrpc');
