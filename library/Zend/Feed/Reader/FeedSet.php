@@ -67,18 +67,17 @@ class FeedSet extends ArrayObject
     protected function absolutiseUri($link, $uri = null)
     {
         $linkUri = Uri::factory($link);
-        if (!$linkUri->isAbsolute() or !$linkUri->isValid()) {
-            if ($uri !== null) {
-                $uri = Uri::factory($uri);
+        if (!$linkUri->isAbsolute() or !$linkUri->isValid() && $uri !== null) {
+            $uri = Uri::factory($uri);
 
-                if ($link[0] !== '/') {
-                    $link = $uri->getPath() . '/' . $link;
-                }
+            if ($link[0] !== '/') {
+                $link = $uri->getPath() . '/' . $link;
+            }
 
-                $link = $uri->getScheme() . '://' . $uri->getHost() . '/' . $this->canonicalizePath($link);
-                if (!Uri::factory($link)->isValid()) {
-                    $link = null;
-                }
+            $scheme = ($uri->getScheme() === null) ? 'http' : $uri->getScheme();
+            $link   = $scheme . '://' . $uri->getHost() . '/' . $this->canonicalizePath($link);
+            if (!Uri::factory($link)->isValid()) {
+                $link = null;
             }
         }
         return $link;
