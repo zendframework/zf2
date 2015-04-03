@@ -10,7 +10,7 @@
 namespace ZendTest\Feed\Reader;
 
 use PHPUnit_Framework_TestCase;
-use ReflectionClass;
+use ReflectionMethod;
 use Zend\Feed\Reader\FeedSet;
 
 class FeedSetTest extends PHPUnit_Framework_TestCase
@@ -30,8 +30,7 @@ class FeedSetTest extends PHPUnit_Framework_TestCase
      */
     public function testAbsolutiseUri($link, $uri)
     {
-        $class = new ReflectionClass('Zend\Feed\Reader\FeedSet');
-        $method = $class->getMethod('absolutiseUri');
+        $method = new ReflectionMethod('Zend\Feed\Reader\FeedSet', 'absolutiseUri');
         $method->setAccessible(true);
 
         $this->assertEquals('http://example.com/feed', $method->invokeArgs($this->feedSet, array($link, $uri)));
