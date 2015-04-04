@@ -54,6 +54,9 @@
     "autoload": {
         "psr-0": {
             "Zend\\": "library/"
+        },
+        "psr-4": {
+          "Zend\\ServiceManager\\": "library/Zend/ServiceManager"
         }
     },
     "autoload-dev": {
