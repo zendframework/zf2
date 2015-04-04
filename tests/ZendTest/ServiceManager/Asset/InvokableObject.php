@@ -7,9 +7,20 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\ServiceManager\TestAsset;
+namespace ZendTest\ServiceManager\Asset;
 
-
-class FooException extends \Exception
+class InvokableObject
 {
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @param array $options
+     */
+    public function __construct(array $options = [])
+    {
+        $this->options = $options;
+    }
 }

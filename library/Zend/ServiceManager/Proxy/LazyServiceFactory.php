@@ -53,8 +53,7 @@ final class LazyServiceFactory implements DelegatorFactoryInterface
     {
         $initializer = function (&$wrappedInstance, LazyLoadingInterface $proxy) use ($callback) {
             $proxy->setProxyInitializer(null);
-
-            $wrappedInstance = call_user_func($callback);
+            $wrappedInstance = $callback();
 
             return true;
         };

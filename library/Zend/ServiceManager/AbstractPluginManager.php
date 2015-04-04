@@ -36,6 +36,17 @@ abstract class AbstractPluginManager extends ServiceManager implements PluginMan
     /**
      * {@inheritDoc}
      */
+    public function get($name, array $options = [])
+    {
+        $instance = parent::get($name, $options);
+        $this->validate($instance);
+
+        return $instance;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function validate($instance)
     {
         if (empty($this->instanceOf) || $instance instanceof $this->instanceOf) {

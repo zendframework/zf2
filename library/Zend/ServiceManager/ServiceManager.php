@@ -109,19 +109,19 @@ class ServiceManager implements ServiceLocatorInterface
             }
         } catch (Exception $exception) {
             throw new ServiceNotCreatedException(sprintf(
-                'Service with name "%s" could not be created',
-                $exception->getCode(),
-                $exception
+                'Service with name "%s" could not be created. Reason: %s',
+                $name,
+                $exception->getMessage()
             ));
+        }
+
+        foreach ($this->initializers as $initializer) {
+            $initializer($this->creationContext, $object);
         }
 
         if (($this->sharedByDefault && !isset($this->shared[$name]))
             || (isset($this->shared[$name]) && $this->shared[$name])) {
             $this->services[$name] = $object;
-        }
-
-        foreach ($this->initializers as $initializer) {
-            $initializer($this->creationContext, $object);
         }
 
         return $object;
