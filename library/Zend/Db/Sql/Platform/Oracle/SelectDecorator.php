@@ -85,15 +85,17 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         ));
 
         if ($parameterContainer) {
+            $this->processInfo['subselectCount']++;  
+            $number = $this->processInfo['subselectCount'];
             if ($this->limit === null) {
-                array_push($sqls, ') b ) WHERE b_rownum > (:offset)');
-                $parameterContainer->offsetSet('offset', $this->offset, $parameterContainer::TYPE_INTEGER);
+                array_push($sqls, ') b ) WHERE b_rownum > (:offset'.$number.')');
+                $parameterContainer->offsetSet('offset'.$number, $this->offset, $parameterContainer::TYPE_INTEGER);
             } else {
                 // create bottom part of query, with offset and limit using row_number
-                array_push($sqls, ') b WHERE rownum <= (:offset+:limit)) WHERE b_rownum >= (:offset + 1)');
-                $parameterContainer->offsetSet('offset', $this->offset, $parameterContainer::TYPE_INTEGER);
-                $parameterContainer->offsetSet('limit', $this->limit, $parameterContainer::TYPE_INTEGER);
-            }
+                array_push($sqls, ') b WHERE rownum <= (:offset'.$number.'+:limit'.$number.')) WHERE b_rownum >= (:offset'.$number.' + 1)');
+                $parameterContainer->offsetSet('offset'.$number, $this->offset, $parameterContainer::TYPE_INTEGER);
+                $parameterContainer->offsetSet('limit'.$number, $this->limit, $parameterContainer::TYPE_INTEGER);
+            }                                  
         } else {
             if ($this->limit === null) {
                 array_push($sqls, ') b ) WHERE b_rownum > ('. (int) $this->offset. ')'
