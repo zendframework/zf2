@@ -9,95 +9,126 @@
 
 namespace Zend\Db\Adapter\Driver\Oci8;
 
-use Iterator;
-use Zend\Db\Adapter\Driver\ResultInterface;
+use Zend\Db\Adapter\Driver\StatementInterface;
 use Zend\Db\Adapter\Exception;
+use Zend\Db\Adapter\ParameterContainer;
+use Zend\Db\Adapter\Profiler;
 
-class Result implements Iterator, ResultInterface
+class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 {
+    /**
+     * @var resource
+     */
+    protected $oci8 = null;
+
+    /**
+     * @var Oci8
+     */
+    protected $driver = null;
+
+    /**
+     * @var Profiler\ProfilerInterface
+     */
+    protected $profiler = null;
+
+    /**
+     * @var string
+     */
+    protected $sql = '';
+
+    /**
+     * Parameter container
+     *
+     * @var ParameterContainer
+     */
+    protected $parameterContainer = null;
+
     /**
      * @var resource
      */
     protected $resource = null;
 
     /**
-     * @var null
-     */
-    protected $rowCount = null;
-
-    /**
-     * Cursor position
-     * @var int
-     */
-    protected $position = 0;
-
-    /**
-     * Number of known rows
-     * @var int
-     */
-    protected $numberOfRows = -1;
-
-    /**
-     * Is the current() operation already complete for this pointer position?
-     * @var bool
-     */
-    protected $currentComplete = false;
-
-    /**
-     * @var bool
-     */
-    protected $currentData = false;
-
-    /**
+     * Is prepared
      *
-     * @var array
+     * @var bool
      */
-    protected $statementBindValues = array('keys' => null, 'values' => array());
+    protected $isPrepared = false;
 
     /**
-     * @var mixed
+     * @var bool
      */
-    protected $generatedValue = null;
+    protected $bufferResults = false;
 
     /**
-     * Initialize
-     * @param resource $resource
-     * @return Result
+     * Set driver
+     *
+     * @param  Oci8 $driver
+     * @return Statement
      */
-    public function initialize($resource, $generatedValue, $rowCount = null)
+    public function setDriver($driver)
     {
-        if (!is_resource($resource) && get_resource_type($resource) !== 'oci8 statement') {
-            throw new Exception\InvalidArgumentException('Invalid resource provided.');
-        }
-        $this->resource = $resource;
-        $this->rowCount = $rowCount;
+        $this->driver = $driver;
         return $this;
     }
 
     /**
-     * Force buffering at driver level
-     *
-     * Oracle does not support this, to my knowledge (@ralphschindler)
-     *
-     * @throws Exception\RuntimeException
+     * @param Profiler\ProfilerInterface $profiler
+     * @return Statement
      */
-    public function buffer()
+    public function setProfiler(Profiler\ProfilerInterface $profiler)
     {
-        return;
+        $this->profiler = $profiler;
+        return $this;
     }
 
     /**
-     * Is the result buffered?
-     *
-     * @return bool
+     * @return null|Profiler\ProfilerInterface
      */
-    public function isBuffered()
+    public function getProfiler()
     {
-        return false;
+        return $this->profiler;
     }
 
     /**
-     * Return the resource
+     * Initialize
+     *
+     * @param  resource $oci8
+     * @return Statement
+     */
+    public function initialize($oci8)
+    {
+        $this->oci8 = $oci8;
+        return $this;
+    }
+
+    /**
+     * Set sql
+     *
+     * @param  string $sql
+     * @return Statement
+     */
+    public function setSql($sql)
+    {
+        $this->sql = $sql;
+        return $this;
+    }
+
+    /**
+     * Set Parameter container
+     *
+     * @param ParameterContainer $parameterContainer
+     * @return Statement
+     */
+    public function setParameterContainer(ParameterContainer $parameterContainer)
+    {
+        $this->parameterContainer = $parameterContainer;
+        return $this;
+    }
+
+    /**
+     * Get resource
+     *
      * @return mixed
      */
     public function getResource()
@@ -106,126 +137,180 @@ class Result implements Iterator, ResultInterface
     }
 
     /**
-     * Is query result?
+     * Set resource
      *
+     * @param  resource $oci8Statement
+     * @return Statement
+     */
+    public function setResource($oci8Statement)
+    {
+        $type = oci_statement_type($oci8Statement);
+        if (false === $type || 'UNKNOWN' == $type) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Invalid statement provided to %s',
+                __METHOD__
+            ));
+        }
+        $this->resource = $oci8Statement;
+        $this->isPrepared = true;
+        return $this;
+    }
+
+    /**
+     * Get sql
+     *
+     * @return string
+     */
+    public function getSql()
+    {
+        return $this->sql;
+    }
+
+    /**
+     * @return ParameterContainer
+     */
+    public function getParameterContainer()
+    {
+        return $this->parameterContainer;
+    }
+
+    /**
      * @return bool
      */
-    public function isQueryResult()
+    public function isPrepared()
     {
-        return (oci_num_fields($this->resource) > 0);
+        return $this->isPrepared;
     }
 
     /**
-     * Get affected rows
-     * @return int
+     * @param string $sql
+     * @return Statement
      */
-    public function getAffectedRows()
+    public function prepare($sql = null)
     {
-        return oci_num_rows($this->resource);
+        if ($this->isPrepared) {
+            throw new Exception\RuntimeException('This statement has already been prepared');
+        }
+
+        $sql = ($sql) ?: $this->sql;
+
+        // get oci8 statement resource
+        $this->resource = oci_parse($this->oci8, $sql);
+
+        if (!$this->resource) {
+            $e = oci_error($this->oci8);
+            throw new Exception\InvalidQueryException(
+                'Statement couldn\'t be produced with sql: ' . $sql,
+                null,
+                new Exception\ErrorException($e['message'], $e['code'])
+            );
+        }
+
+        $this->isPrepared = true;
+        return $this;
     }
 
     /**
-     * Current
+     * Execute
+     *
+     * @param null|array|ParameterContainer $parameters
      * @return mixed
      */
-    public function current()
+    public function execute($parameters = null)
     {
-        if ($this->currentComplete == false) {
-            if ($this->loadData() === false) {
-                return false;
+        if (!$this->isPrepared) {
+            $this->prepare();
+        }
+
+        /** START Standard ParameterContainer Merging Block */
+        if (!$this->parameterContainer instanceof ParameterContainer) {
+            if ($parameters instanceof ParameterContainer) {
+                $this->parameterContainer = $parameters;
+                $parameters = null;
+            } else {
+                $this->parameterContainer = new ParameterContainer();
             }
         }
 
-        return $this->currentData;
+        if (is_array($parameters)) {
+            $this->parameterContainer->setFromArray($parameters);
+        }
+
+        if ($this->parameterContainer->count() > 0) {
+            $this->bindParametersFromContainer();
+        }
+        /** END Standard ParameterContainer Merging Block */
+
+        if ($this->profiler) {
+            $this->profiler->profilerStart($this);
+        }
+
+        if ($this->driver->getConnection()->inTransaction()) {
+            $ret = @oci_execute($this->resource, OCI_NO_AUTO_COMMIT);
+        } else {
+            $ret = @oci_execute($this->resource, OCI_COMMIT_ON_SUCCESS);
+        }
+
+        if ($this->profiler) {
+            $this->profiler->profilerFinish();
+        }
+
+        if ($ret === false) {
+            $e = oci_error($this->resource);
+            throw new Exception\RuntimeException($e['message'], $e['code']);
+        }
+
+        $result = $this->driver->createResult($this->resource);
+        return $result;
     }
 
     /**
-     * Load from oci8 result
+     * Bind parameters from container
      *
-     * @return bool
+     * @param ParameterContainer $pContainer
      */
-    protected function loadData()
+    protected function bindParametersFromContainer()
     {
-        $this->currentComplete = true;
-        $this->currentData = oci_fetch_assoc($this->resource);
+        $parameters = $this->parameterContainer->getNamedArray();
 
-        if ($this->currentData !== false) {
-            $this->position++;
-            return true;
+        foreach ($parameters as $name => &$value) {
+            if ($this->parameterContainer->offsetHasErrata($name)) {
+                switch ($this->parameterContainer->offsetGetErrata($name)) {
+                    case ParameterContainer::TYPE_NULL:
+                        $type = null;
+                        $value = null;
+                        break;
+                    case ParameterContainer::TYPE_DOUBLE:
+                    case ParameterContainer::TYPE_INTEGER:
+                        $type = SQLT_INT;
+                        if (is_string($value)) {
+                            $value = (int) $value;
+                        }
+                        break;
+                    case ParameterContainer::TYPE_BINARY:
+                        $type = SQLT_BIN;
+                        break;
+                    case ParameterContainer::TYPE_LOB:
+                        $type = OCI_B_CLOB;
+                        $clob = oci_new_descriptor($this->driver->getConnection()->getResource(), OCI_DTYPE_LOB);
+                        $clob->writetemporary($value, OCI_TEMP_CLOB);
+                        $value = $clob;
+                        break;
+                    case ParameterContainer::TYPE_STRING:
+                    default:
+                        $type = SQLT_CHR;
+                        break;
+                }
+            } else {
+                $type = SQLT_CHR;
+            }
+
+            $maxLength = -1;
+            if ($this->parameterContainer->offsetHasMaxLength($name)) {
+                $maxLength = $this->parameterContainer->offsetGetMaxLength($name);
+            }
+
+            oci_bind_by_name($this->resource, $name, $value, $maxLength, $type);
         }
-        return false;
-    }
-
-    /**
-     * Next
-     */
-    public function next()
-    {
-        return $this->loadData();
-    }
-
-    /**
-     * Key
-     * @return mixed
-     */
-    public function key()
-    {
-        return $this->position;
-    }
-
-    /**
-     * Rewind
-     */
-    public function rewind()
-    {
-        if ($this->position > 0) {
-            throw new Exception\RuntimeException('Oci8 results cannot be rewound for multiple iterations');
-        }
-    }
-
-    /**
-     * Valid
-     * @return bool
-     */
-    public function valid()
-    {
-        if ($this->currentComplete) {
-            return ($this->currentData !== false);
-        }
-
-        return $this->loadData();
-    }
-
-    /**
-     * Count
-     * @return int
-     */
-    public function count()
-    {
-        if (is_int($this->rowCount)) {
-            return $this->rowCount;
-        }
-        if ($this->rowCount instanceof \Closure) {
-            $this->rowCount = (int) call_user_func($this->rowCount);
-            return $this->rowCount;
-        }
-        return null;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFieldCount()
-    {
-        return oci_num_fields($this->resource);
-    }
-
-    /**
-     * @return mixed|null
-     */
-    public function getGeneratedValue()
-    {
-        // @todo OCI8 generated value in Driver Result
-        return;
     }
 }
