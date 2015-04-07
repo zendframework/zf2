@@ -42,7 +42,7 @@ class DefaultRenderingStrategy extends AbstractListenerAggregate
         // marshal arguments
         $response  = $e->getResponse();
 
-        if (empty($result)) {
+        if (empty($result) || $result === true) {
             // There is absolutely no result, so there's nothing to display.
             // We will return an empty response object
             return $response;
