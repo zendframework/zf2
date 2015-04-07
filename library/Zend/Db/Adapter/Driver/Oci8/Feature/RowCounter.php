@@ -55,7 +55,6 @@ class RowCounter extends AbstractFeature
         if (stripos(strtolower($sql), 'select') === false) {       
             return null;
         }    
-        debug($sql);
         $countSql = 'SELECT COUNT(*) as "count" FROM (' . $sql . ')';        
         $result = $this->driver->getConnection()->execute($countSql);
         $countRow = $result->current();        
