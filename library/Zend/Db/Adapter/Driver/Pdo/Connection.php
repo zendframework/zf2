@@ -252,6 +252,7 @@ class Connection extends AbstractConnection
         try {
             $this->resource = new \PDO($dsn, $username, $password, $options);
             $this->resource->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->resource->setAttribute(\PDO::ATTR_CASE, \PDO::CASE_LOWER);
             if (isset($charset) && $pdoDriver == 'pgsql') {
                 $this->resource->exec('SET NAMES ' . $this->resource->quote($charset));
             }
