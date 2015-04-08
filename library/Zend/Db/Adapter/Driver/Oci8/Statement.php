@@ -271,8 +271,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      */
     protected function bindParametersFromContainer()
     {
-        $parameters = $this->parameterContainer->getNamedArray();
-
+        $parameters = $this->parameterContainer->getNamedArray();        
         foreach ($parameters as $name => &$value) {
             if ($this->parameterContainer->offsetHasErrata($name)) {
                 switch ($this->parameterContainer->offsetGetErrata($name)) {
@@ -308,9 +307,24 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $maxLength = -1;
             if ($this->parameterContainer->offsetHasMaxLength($name)) {
                 $maxLength = $this->parameterContainer->offsetGetMaxLength($name);
-            }
-
+            }            
             oci_bind_by_name($this->resource, $name, $value, $maxLength, $type);
         }
     }
+    
+    /**
+     * Perform a deep clone
+     * @return Statement A cloned statement
+     */
+    public function __clone()
+    {
+        $this->isPrepared = false;
+        $this->parametersBound = false;
+        $this->resource = null;
+        if ($this->parameterContainer) {
+            $this->parameterContainer = clone $this->parameterContainer;
+        }
+
+    }
+
 }
