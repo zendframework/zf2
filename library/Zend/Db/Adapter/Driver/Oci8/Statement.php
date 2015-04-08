@@ -260,7 +260,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             throw new Exception\RuntimeException($e['message'], $e['code']);
         }
 
-        $result = $this->driver->createResult($this->resource);
+        $result = $this->driver->createResult($this->resource, $this);
         return $result;
     }
 
