@@ -695,4 +695,17 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->message->setBody($mimeMessage);
         $this->assertEquals('', $this->message->getBodyText());
     }
+
+    public function testHeadersShouldBeSanitized()
+    {
+        $subject = array(
+            'test1',
+            'Content-Type: text/html; charset = "iso-8859-1"',
+            '',
+            '<html><body><iframe src="http://example.com/"></iframe></body></html> <!--',
+        );
+        $this->message->setSubject(implode(Headers::EOL, $subject));
+
+        $this->assertNotContains(Headers::EOL . Headers::EOL, $this->message->getHeaders()->toString());
+    }
 }
