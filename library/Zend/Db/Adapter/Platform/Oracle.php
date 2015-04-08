@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -17,7 +18,7 @@ use Zend\Db\Adapter\Driver\Pdo;
 class Oracle extends AbstractPlatform
 {
 
-	/** @var resource|\PDO */
+    /** @var resource|\PDO */
     protected $resource = null;
 
     /**
@@ -26,31 +27,25 @@ class Oracle extends AbstractPlatform
      */
     public function __construct($driver = null, $options = array())
     {
-        if (isset($options['quote_identifiers'])
-            && ($options['quote_identifiers'] == false
-            || $options['quote_identifiers'] === 'false')
+        if (isset($options['quote_identifiers']) && ($options['quote_identifiers'] == false || $options['quote_identifiers'] === 'false')
         ) {
             $this->quoteIdentifiers = false;
         }
-        
+
         if ($driver) {
             $this->setDriver($driver);
         }
     }
 
-	/**
+    /**
      * @param \Zend\Db\Adapter\Driver\Pdo\Pdo||\PDO $driver
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
      * @return $this
      */
     public function setDriver($driver)
-    {        
-        if ($driver instanceof Oci8\Oci8
-            || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Oracle')
-            || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Sqlite')
-            || ($driver instanceof \oci8)
-            || ($driver instanceof \PDO && $driver->getAttribute(\PDO::ATTR_DRIVER_NAME) == 'oci')
-        ) {            
+    {
+        if ($driver instanceof Oci8\Oci8 || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Oracle') || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Sqlite') || ($driver instanceof \oci8) || ($driver instanceof \PDO && $driver->getAttribute(\PDO::ATTR_DRIVER_NAME) == 'oci')
+        ) {
             $this->resource = $driver;
             return $this;
         }
@@ -83,23 +78,20 @@ class Oracle extends AbstractPlatform
     public function quoteValue($value)
     {
         if ($this->resource instanceof DriverInterface) {
-            $this->resource = $this->resource->getConnection()->getResource();   
-        }        
-        
-        if($this->resource){
-            // @todo check extension/driver security
-            if ($this->resource instanceof \PDO || 
-                    get_resource_type($this->resource) == 'oci8 connection' || 
-                    get_resource_type($this->resource) == 'oci8 persistent connection') {
-                return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
+            $this->resource = $this->resource->getConnection()->getResource();
+        }
+
+        if ($this->resource) {
+            if ($this->resource instanceof \PDO) {
+                return $this->resource->quote($value);
             }
         }
-        
+
         trigger_error(
             'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
                 . 'can introduce security vulnerabilities in a production environment.'
         );
-        return '\'' . addcslashes($value, "\x00\n\r\\'\"\x1a") . '\'';
+        return '\'' . addcslashes(str_replace('\'', '\'\'', $value), "\x00\n\r\"\x1a") . '\'';                
     }
 
     /**
@@ -109,6 +101,5 @@ class Oracle extends AbstractPlatform
     {
         return '\'' . addcslashes(str_replace('\'', '\'\'', $value), "\x00\n\r\"\x1a") . '\'';
     }
-    
-    
+
 }
