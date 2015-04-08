@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -13,6 +14,7 @@ use Zend\Db\Adapter\Platform\Oracle;
 
 class OracleTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var Oracle
      */
@@ -50,7 +52,7 @@ class OracleTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('"identifier"', $this->platform->quoteIdentifier('identifier'));
 
-        $platform = new Oracle(array('quote_identifiers' => false));
+        $platform = new Oracle(null, array('quote_identifiers' => false));
         $this->assertEquals('identifier', $platform->quoteIdentifier('identifier'));
     }
 
@@ -63,7 +65,7 @@ class OracleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('"identifier"', $this->platform->quoteIdentifierChain(array('identifier')));
         $this->assertEquals('"schema"."identifier"', $this->platform->quoteIdentifierChain(array('schema', 'identifier')));
 
-        $platform = new Oracle(array('quote_identifiers' => false));
+        $platform = new Oracle(null, array('quote_identifiers' => false));
         $this->assertEquals('identifier', $platform->quoteIdentifierChain('identifier'));
         $this->assertEquals('identifier', $platform->quoteIdentifierChain(array('identifier')));
         $this->assertEquals('schema.identifier', $platform->quoteIdentifierChain(array('schema', 'identifier')));
@@ -83,8 +85,7 @@ class OracleTest extends \PHPUnit_Framework_TestCase
     public function testQuoteValueRaisesNoticeWithoutPlatformSupport()
     {
         $this->setExpectedException(
-            'PHPUnit_Framework_Error_Notice',
-            'Attempting to quote a value in Zend\Db\Adapter\Platform\Oracle without extension/driver support can introduce security vulnerabilities in a production environment'
+                'PHPUnit_Framework_Error_Notice', 'Attempting to quote a value in Zend\Db\Adapter\Platform\Oracle without extension/driver support can introduce security vulnerabilities in a production environment'
         );
         $this->platform->quoteValue('value');
     }
@@ -119,8 +120,7 @@ class OracleTest extends \PHPUnit_Framework_TestCase
     public function testQuoteValueList()
     {
         $this->setExpectedException(
-            'PHPUnit_Framework_Error',
-            'Attempting to quote a value in Zend\Db\Adapter\Platform\Oracle without extension/driver support can introduce security vulnerabilities in a production environment'
+                'PHPUnit_Framework_Error', 'Attempting to quote a value in Zend\Db\Adapter\Platform\Oracle without extension/driver support can introduce security vulnerabilities in a production environment'
         );
         $this->assertEquals("'Foo O''Bar'", $this->platform->quoteValueList("Foo O'Bar"));
     }
@@ -141,7 +141,7 @@ class OracleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('"foo"."bar"', $this->platform->quoteIdentifierInFragment('foo.bar'));
         $this->assertEquals('"foo" as "bar"', $this->platform->quoteIdentifierInFragment('foo as bar'));
 
-        $platform = new Oracle(array('quote_identifiers' => false));
+        $platform = new Oracle(null, array('quote_identifiers' => false));
         $this->assertEquals('foo.bar', $platform->quoteIdentifierInFragment('foo.bar'));
         $this->assertEquals('foo as bar', $platform->quoteIdentifierInFragment('foo as bar'));
 
@@ -150,14 +150,13 @@ class OracleTest extends \PHPUnit_Framework_TestCase
 
         // case insensitive safe words
         $this->assertEquals(
-            '("foo"."bar" = "boo"."baz") AND ("foo"."baz" = "boo"."baz")',
-            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and'))
+                '("foo"."bar" = "boo"."baz") AND ("foo"."baz" = "boo"."baz")', $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and'))
         );
 
         // case insensitive safe words in field
         $this->assertEquals(
-            '("foo"."bar" = "boo".baz) AND ("foo".baz = "boo".baz)',
-            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and', 'bAz'))
+                '("foo"."bar" = "boo".baz) AND ("foo".baz = "boo".baz)', $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and', 'bAz'))
         );
     }
+
 }
