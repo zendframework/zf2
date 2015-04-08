@@ -11,6 +11,8 @@ namespace ZendTest\Form\Element;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Form\Element\Number as NumberElement;
+use Zend\I18n\Filter\NumberParse;
+use NumberFormatter;
 
 class NumberTest extends TestCase
 {
@@ -20,15 +22,21 @@ class NumberTest extends TestCase
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
+        $this->assertArrayHasKey('filters', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
+        $this->assertInternalType('array', $inputSpec['filters']);
 
-        $expectedClasses = array(
+        $expectedValidatorClasses = array(
             'Zend\Validator\Regex',
             'Zend\Validator\Step',
         );
+        $expectedFilterClasses    = array(
+            'Zend\Filter\StringTrim',
+        );
+
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
-            $this->assertTrue(in_array($class, $expectedClasses), $class);
+            $this->assertTrue(in_array($class, $expectedValidatorClasses), $class);
             switch ($class) {
                 case 'Zend\Validator\Step':
                     $this->assertEquals(1, $validator->getStep());
@@ -37,6 +45,11 @@ class NumberTest extends TestCase
                     break;
             }
         }
+
+        foreach ($inputSpec['filters'] as $filter) {
+            $class = get_class($filter);
+            $this->assertTrue(in_array($class, $expectedFilterClasses), $class);
+        }
     }
 
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes()
@@ -44,9 +57,9 @@ class NumberTest extends TestCase
         $element = new NumberElement();
         $element->setAttributes(array(
             'inclusive' => true,
-            'min'       => 5,
-            'max'       => 10,
-            'step'      => 1,
+            'min' => 5,
+            'max' => 10,
+            'step' => 1,
         ));
 
         $inputSpec = $element->getInputSpecification();
@@ -85,7 +98,7 @@ class NumberTest extends TestCase
         $element = new NumberElement();
         $element->setAttributes(array(
             'inclusive' => false,
-            'min'       => 5,
+            'min' => 5,
         ));
 
         $inputSpec = $element->getInputSpecification();
@@ -101,7 +114,7 @@ class NumberTest extends TestCase
     {
         $element = new NumberElement();
         $element->setAttributes(array(
-            'min'       => 5,
+            'min' => 5,
         ));
 
         $inputSpec = $element->getInputSpecification();
@@ -127,5 +140,36 @@ class NumberTest extends TestCase
                 break;
             }
         }
+    }
+
+    /**
+     * @group 7084
+     */
+    public function testCanRetrieveNumberParseFilter()
+    {
+        $element = new NumberElement(null, array(
+            'format' => NumberFormatter::TYPE_DOUBLE
+        ));
+
+        $inputSpec = $element->getInputSpecification();
+
+        /** @var NumberParse $filter */
+        $filter = $inputSpec['filters'][1];
+
+        $this->assertInstanceOf('Zend\I18n\Filter\NumberParse', $filter);
+        $this->assertSame(NumberFormatter::TYPE_DOUBLE, $filter->getType());
+        $this->assertSame('en', $filter->getLocale());
+        $this->assertSame(1.1, $filter->filter('1.1'));
+        $this->assertSame((double)1, $filter->filter('1'));
+    }
+
+    /**
+     * @group 7084
+     */
+    public function testReturningSameSpecOnConsecutiveCalls()
+    {
+        $element = new NumberElement();
+
+        $this->assertSame($element->getInputSpecification(), $element->getInputSpecification());
     }
 }

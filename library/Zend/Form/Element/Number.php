@@ -9,12 +9,16 @@
 
 namespace Zend\Form\Element;
 
+use Zend\Filter\FilterInterface;
+use Zend\Filter\StringTrim;
 use Zend\Form\Element;
+use Zend\I18n\Filter\NumberParse;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\GreaterThan as GreaterThanValidator;
 use Zend\Validator\LessThan as LessThanValidator;
 use Zend\Validator\Regex as RegexValidator;
 use Zend\Validator\Step as StepValidator;
+use Zend\Validator\ValidatorInterface;
 
 class Number extends Element implements InputProviderInterface
 {
@@ -28,14 +32,19 @@ class Number extends Element implements InputProviderInterface
     );
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $validators;
 
     /**
+     * @var array|null
+     */
+    protected $filters;
+
+    /**
      * Get validator
      *
-     * @return \Zend\Validator\ValidatorInterface[]
+     * @return ValidatorInterface[]
      */
     protected function getValidators()
     {
@@ -43,12 +52,11 @@ class Number extends Element implements InputProviderInterface
             return $this->validators;
         }
 
-        $validators = array();
         // HTML5 always transmits values in the format "1000.01", without a
         // thousand separator. The prior use of the i18n Float validator
         // allowed the thousand separator, which resulted in wrong numbers
         // when casting to float.
-        $validators[] = new RegexValidator('(^-?\d*(\.\d+)?$)');
+        $this->validators[] = new RegexValidator('(^-?\d*(\.\d+)?$)');
 
         $inclusive = true;
         if (isset($this->attributes['inclusive'])) {
@@ -56,29 +64,53 @@ class Number extends Element implements InputProviderInterface
         }
 
         if (isset($this->attributes['min'])) {
-            $validators[] = new GreaterThanValidator(array(
+            $this->validators[] = new GreaterThanValidator(array(
                 'min' => $this->attributes['min'],
                 'inclusive' => $inclusive
             ));
         }
         if (isset($this->attributes['max'])) {
-            $validators[] = new LessThanValidator(array(
+            $this->validators[] = new LessThanValidator(array(
                 'max' => $this->attributes['max'],
                 'inclusive' => $inclusive
             ));
         }
 
-        if (!isset($this->attributes['step'])
+        if ( ! isset($this->attributes['step'])
             || 'any' !== $this->attributes['step']
         ) {
-            $validators[] = new StepValidator(array(
-                'baseValue' => (isset($this->attributes['min']))  ? $this->attributes['min'] : 0,
-                'step'      => (isset($this->attributes['step'])) ? $this->attributes['step'] : 1,
+            $this->validators[] = new StepValidator(array(
+                'baseValue' => (isset($this->attributes['min'])) ? $this->attributes['min'] : 0,
+                'step' => (isset($this->attributes['step'])) ? $this->attributes['step'] : 1,
             ));
         }
 
-        $this->validators = $validators;
         return $this->validators;
+    }
+
+    /**
+     * Get Filter Specification
+     *
+     * @return FilterInterface[]
+     */
+    protected function getFilters()
+    {
+        if ($this->filters) {
+            return $this->filters;
+        }
+
+        $this->filters = array(
+            new StringTrim()
+        );
+
+        if (isset($this->options['format'])) {
+            $this->filters[] = new NumberParse(array(
+                'locale' => 'en',
+                'type' => $this->options['format']
+            ));
+        }
+
+        return $this->filters;
     }
 
     /**
@@ -93,9 +125,7 @@ class Number extends Element implements InputProviderInterface
         return array(
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim')
-            ),
+            'filters' => $this->getFilters(),
             'validators' => $this->getValidators(),
         );
     }
