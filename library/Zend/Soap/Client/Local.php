@@ -9,8 +9,8 @@
 
 namespace Zend\Soap\Client;
 
-use Zend\Soap\Client as SOAPClient;
-use Zend\Soap\Server as SOAPServer;
+use Zend\Soap\Client as SoapClient;
+use Zend\Soap\Server as SoapServer;
 
 /**
  * Class is intended to be used as local SOAP client which works
@@ -18,22 +18,22 @@ use Zend\Soap\Server as SOAPServer;
  *
  * Could be used for development or testing purposes.
  */
-class Local extends SOAPClient
+class Local extends SoapClient
 {
     /**
      * Server object
-     * @var SOAPServer
+     * @var SoapServer
      */
     protected $server;
 
     /**
      * Local client constructor
      *
-     * @param SOAPServer $server
+     * @param SoapServer $server
      * @param string $wsdl
      * @param array $options
      */
-    public function __construct(SOAPServer $server, $wsdl, $options = null)
+    public function __construct(SoapServer $server, $wsdl, $options = null)
     {
         $this->server = $server;
 
