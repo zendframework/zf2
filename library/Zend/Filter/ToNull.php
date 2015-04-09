@@ -167,7 +167,7 @@ class ToNull extends AbstractFilter
         // BOOLEAN (false)
         if ($type >= self::TYPE_BOOLEAN) {
             $type -= self::TYPE_BOOLEAN;
-            if (is_bool($value) && ($value == false)) {
+            if (is_bool($value) && ($value === false)) {
                 return;
             }
         }

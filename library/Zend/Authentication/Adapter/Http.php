@@ -201,7 +201,7 @@ class Http implements AdapterInterface
             }
 
             // We use the opaque value unless explicitly told not to
-            if (isset($config['use_opaque']) && false == (bool) $config['use_opaque']) {
+            if (isset($config['use_opaque']) && false === (bool) $config['use_opaque']) {
                 $this->useOpaque = false;
             }
 
@@ -211,7 +211,7 @@ class Http implements AdapterInterface
         }
 
         // Don't be a proxy unless explicitly told to do so
-        if (isset($config['proxy_auth']) && true == (bool) $config['proxy_auth']) {
+        if (isset($config['proxy_auth']) && true === (bool) $config['proxy_auth']) {
             $this->imaProxy = true;  // I'm a Proxy
         }
     }

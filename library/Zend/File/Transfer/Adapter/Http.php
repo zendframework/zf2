@@ -31,7 +31,7 @@ class Http extends AbstractAdapter
      */
     public function __construct($options = array())
     {
-        if (ini_get('file_uploads') == false) {
+        if (ini_get('file_uploads') === false) {
             throw new Exception\PhpEnvironmentException('File uploads are not allowed in your php config!');
         }
 

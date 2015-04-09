@@ -212,7 +212,7 @@ class Code128 extends AbstractAdapter
             $sum = 104;
         } elseif ($char == '‰') {
             $sum = 105;
-        } elseif ($usecheck == true) {
+        } elseif ($usecheck === true) {
             // no start value, unable to detect a proper checksum
             return false;
         }

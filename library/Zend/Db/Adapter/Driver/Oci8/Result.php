@@ -129,7 +129,7 @@ class Result implements Iterator, ResultInterface
      */
     public function current()
     {
-        if ($this->currentComplete == false) {
+        if ($this->currentComplete === false) {
             if ($this->loadData() === false) {
                 return false;
             }

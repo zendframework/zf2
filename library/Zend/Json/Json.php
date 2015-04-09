@@ -109,12 +109,12 @@ class Json
         // Pre-encoding look for Zend\Json\Expr objects and replacing by tmp ids
         $javascriptExpressions = array();
         if (isset($options['enableJsonExprFinder'])
-           && ($options['enableJsonExprFinder'] == true)
+           && ($options['enableJsonExprFinder'] === true)
         ) {
             $valueToEncode = static::_recursiveJsonExprFinder($valueToEncode, $javascriptExpressions);
         }
 
-        $prettyPrint = (isset($options['prettyPrint']) && ($options['prettyPrint'] == true));
+        $prettyPrint = (isset($options['prettyPrint']) && ($options['prettyPrint'] === true));
 
         // Encoding
         if (function_exists('json_encode') && static::$useBuiltinEncoderDecoder !== true) {

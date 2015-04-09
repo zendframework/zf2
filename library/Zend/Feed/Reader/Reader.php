@@ -510,7 +510,7 @@ class Reader implements ReaderImportInterface
         }
 
         if ($xpath->query('//atom:entry')->length) {
-            if ($specOnly == true) {
+            if ($specOnly === true) {
                 return self::TYPE_ATOM_10;
             } else {
                 return self::TYPE_ATOM_10_ENTRY;

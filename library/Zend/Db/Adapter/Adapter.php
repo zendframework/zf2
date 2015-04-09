@@ -355,7 +355,7 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
         if ($parameters['profiler'] instanceof Profiler\ProfilerInterface) {
             $profiler = $parameters['profiler'];
         } elseif (is_bool($parameters['profiler'])) {
-            $profiler = ($parameters['profiler'] == true) ? new Profiler\Profiler : null;
+            $profiler = ($parameters['profiler'] === true) ? new Profiler\Profiler : null;
         } else {
             throw new Exception\InvalidArgumentException(
                 '"profiler" parameter must be an instance of ProfilerInterface or a boolean'

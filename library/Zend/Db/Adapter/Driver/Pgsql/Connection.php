@@ -58,7 +58,7 @@ class Connection extends AbstractConnection
         }
 
         $result = pg_query($this->resource, 'SELECT CURRENT_SCHEMA AS "currentschema"');
-        if ($result == false) {
+        if ($result === false) {
             return;
         }
 

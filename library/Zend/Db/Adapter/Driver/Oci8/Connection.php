@@ -114,9 +114,9 @@ class Connection extends AbstractConnection
         $isUnique = $findParameterValue(array('unique'));
         $isPersistent = $findParameterValue(array('persistent'));
 
-        if ($isUnique == true) {
+        if ($isUnique === true) {
             $this->resource = oci_new_connect($username, $password, $connectionString, $characterSet, $sessionMode);
-        } elseif ($isPersistent == true) {
+        } elseif ($isPersistent === true) {
             $this->resource = oci_pconnect($username, $password, $connectionString, $characterSet, $sessionMode);
         } else {
             $this->resource = oci_connect($username, $password, $connectionString, $characterSet, $sessionMode);

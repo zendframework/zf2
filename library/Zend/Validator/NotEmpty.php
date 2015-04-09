@@ -291,7 +291,7 @@ class NotEmpty extends AbstractValidator
 
         // BOOLEAN (false)
         if ($type & self::BOOLEAN) {
-            if (is_bool($value) && ($value == false)) {
+            if (is_bool($value) && ($value === false)) {
                 $this->error(self::IS_EMPTY);
                 return false;
             }

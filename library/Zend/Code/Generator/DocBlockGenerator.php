@@ -258,7 +258,7 @@ class DocBlockGenerator extends AbstractGenerator
     {
         $indent  = $this->getIndentation();
         $output  = $indent . '/**' . self::LINE_FEED;
-        $content = $this->getWordWrap() == true ? wordwrap($content, 80, self::LINE_FEED) : $content;
+        $content = $this->getWordWrap() === true ? wordwrap($content, 80, self::LINE_FEED) : $content;
         $lines   = explode(self::LINE_FEED, $content);
         foreach ($lines as $line) {
             $output .= $indent . ' *';

@@ -275,12 +275,12 @@ class CreditCard extends AbstractValidator
             }
         }
 
-        if ($foundp == false) {
+        if ($foundp === false) {
             $this->error(self::PREFIX, $value);
             return false;
         }
 
-        if ($foundl == false) {
+        if ($foundl === false) {
             $this->error(self::LENGTH, $value);
             return false;
         }
