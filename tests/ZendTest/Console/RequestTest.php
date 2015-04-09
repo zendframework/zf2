@@ -18,7 +18,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        if (ini_get('register_argc_argv') == false) {
+        if (ini_get('register_argc_argv') === false) {
             $this->markTestSkipped("Cannot Test Zend\\Console\\Getopt without 'register_argc_argv' ini option true.");
         }
     }

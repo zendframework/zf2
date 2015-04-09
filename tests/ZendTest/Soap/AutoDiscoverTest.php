@@ -218,7 +218,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetServiceName($newName, $shouldBeValid)
     {
-        if ($shouldBeValid == false) {
+        if ($shouldBeValid === false) {
             $this->setExpectedException('InvalidArgumentException');
         }
 

@@ -211,7 +211,7 @@ class RuntimeDefinition implements DefinitionInterface
         $def = &$this->classes[$className]; // localize for brevity
 
         // class annotations?
-        if ($strategy->getUseAnnotations() == true) {
+        if ($strategy->getUseAnnotations() === true) {
             $annotations = $rClass->getAnnotations($strategy->getAnnotationManager());
 
             if (($annotations instanceof AnnotationCollection)
@@ -251,7 +251,7 @@ class RuntimeDefinition implements DefinitionInterface
                 continue;
             }
 
-            if ($strategy->getUseAnnotations() == true) {
+            if ($strategy->getUseAnnotations() === true) {
                 $annotations = $rMethod->getAnnotations($strategy->getAnnotationManager());
 
                 if (($annotations instanceof AnnotationCollection)

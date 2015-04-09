@@ -546,7 +546,7 @@ class Di implements DependencyInjectionInterface
     {
         $methodClass = ($methodClass) ?: $this->getClass($instance);
         $callParameters = $this->resolveMethodParameters($methodClass, $method, $params, $alias, $methodRequirementType);
-        if ($callParameters == false) {
+        if ($callParameters === false) {
             return false;
         }
         if ($callParameters !== array_fill(0, count($callParameters), null)) {

@@ -1375,7 +1375,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
         $result = file_put_contents($tempFile, 'TEST');
         ErrorHandler::stop();
 
-        if ($result == false) {
+        if ($result === false) {
             return false;
         }
 
@@ -1383,7 +1383,7 @@ abstract class AbstractAdapter implements TranslatorAwareInterface
         $result = unlink($tempFile);
         ErrorHandler::stop();
 
-        if ($result == false) {
+        if ($result === false) {
             return false;
         }
 

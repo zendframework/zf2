@@ -486,7 +486,7 @@ class TokenArrayScanner implements ScannerInterface
                     }
 
                     if ($tokenType == T_NS_SEPARATOR || $tokenType == T_STRING) {
-                        if ($useAsContext == false) {
+                        if ($useAsContext === false) {
                             $infos[$infoIndex]['statements'][$useStatementIndex]['use'] .= $tokenContent;
                         } else {
                             $infos[$infoIndex]['statements'][$useStatementIndex]['as'] = $tokenContent;

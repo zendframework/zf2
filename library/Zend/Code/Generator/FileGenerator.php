@@ -417,7 +417,7 @@ class FileGenerator extends AbstractGenerator
         $body = $this->getBody();
 
         // start with the body (if there), or open tag
-        if (preg_match('#(?:\s*)<\?php#', $body) == false) {
+        if (preg_match('#(?:\s*)<\?php#', $body) === false) {
             $output = '<?php' . self::LINE_FEED;
         }
 

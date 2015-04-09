@@ -98,7 +98,7 @@ abstract class AbstractRowGateway implements ArrayAccess, Countable, RowGatewayI
         $this->initialize();
 
         $this->data = $rowData;
-        if ($rowExistsInDatabase == true) {
+        if ($rowExistsInDatabase === true) {
             $this->processPrimaryKeyData();
         } else {
             $this->primaryKeyData = null;

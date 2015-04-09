@@ -17,7 +17,7 @@ class Oracle extends AbstractPlatform
     public function __construct($options = array())
     {
         if (isset($options['quote_identifiers'])
-            && ($options['quote_identifiers'] == false
+            && ($options['quote_identifiers'] === false
             || $options['quote_identifiers'] === 'false')
         ) {
             $this->quoteIdentifiers = false;

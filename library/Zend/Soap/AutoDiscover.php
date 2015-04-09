@@ -493,7 +493,7 @@ class AutoDiscover
 
         $isOneWayMessage = $this->discoveryStrategy->isFunctionOneWay($function, $prototype);
 
-        if ($isOneWayMessage == false) {
+        if ($isOneWayMessage === false) {
             // Add the output message (return value)
             $args = array();
             if ($this->bindingStyle['style'] == 'document') {
@@ -524,7 +524,7 @@ class AutoDiscover
         }
 
         // Add the portType operation
-        if ($isOneWayMessage == false) {
+        if ($isOneWayMessage === false) {
             $portOperation = $wsdl->addPortOperation(
                 $port,
                 $functionName,
@@ -551,7 +551,7 @@ class AutoDiscover
         }
 
         // Add the binding operation
-        if ($isOneWayMessage == false) {
+        if ($isOneWayMessage === false) {
             $operation = $wsdl->addBindingOperation($binding, $functionName, $operationBodyStyle, $operationBodyStyle);
         } else {
             $operation = $wsdl->addBindingOperation($binding, $functionName, $operationBodyStyle);

@@ -139,7 +139,7 @@ class InjectTemplateListener extends AbstractListenerAggregate
             if (
                 // Allow disabling rule by setting value to false since config
                 // merging have no feature to remove entries
-                false == $replacement
+                false === $replacement
                 // Match full class or full namespace
                 || !($controller === $namespace || strpos($controller, $namespace . '\\') === 0)
             ) {

@@ -284,7 +284,7 @@ class Socket implements HttpAdapter, StreamInterface
                     // Error handling is kind of difficult when it comes to SSL
                     $errorString = '';
                     if (extension_loaded('openssl')) {
-                        while (($sslError = openssl_error_string()) != false) {
+                        while (($sslError = openssl_error_string()) !== false) {
                             $errorString .= "; SSL error: $sslError";
                         }
                     }
