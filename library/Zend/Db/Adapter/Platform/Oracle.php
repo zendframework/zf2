@@ -21,10 +21,10 @@ class Oracle extends AbstractPlatform
     protected $resource = null;
 
     /**
-     * @param null|\Zend\Db\Adapter\Driver\Oci8\Oci8|\Zend\Db\Adapter\Driver\Pdo\Pdo $driver $driver 
      * @param array $options
+     * @param null|\Zend\Db\Adapter\Driver\Oci8\Oci8|\Zend\Db\Adapter\Driver\Pdo\Pdo $driver $driver 
      */
-    public function __construct($driver = null, $options = array())
+    public function __construct($options = array(), $driver = null)
     {
         if (isset($options['quote_identifiers'])
             && ($options['quote_identifiers'] == false
