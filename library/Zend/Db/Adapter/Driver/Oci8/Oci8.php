@@ -192,7 +192,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
     /**
      * Get feature
      *
-     * @param $name
+     * @param string $name
      * @return AbstractFeature|false
      */
     public function getFeature($name)
