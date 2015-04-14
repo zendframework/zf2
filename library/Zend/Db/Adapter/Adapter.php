@@ -334,7 +334,6 @@ class Adapter implements AdapterInterface, Profiler\ProfilerAwareInterface
                 return new Platform\SqlServer(($this->driver instanceof Driver\Pdo\Pdo) ? $this->driver : null);
             case 'Oracle':
                 $driver = ($this->driver instanceof Driver\Oci8\Oci8 || $this->driver instanceof Driver\Pdo\Pdo) ? $this->driver : null;
-                // oracle does not accept a driver as an option, no driver specific quoting available
                 return new Platform\Oracle($driver, $options);
             case 'Sqlite':
                 // PDO is only supported driver for quoting values in this platform
