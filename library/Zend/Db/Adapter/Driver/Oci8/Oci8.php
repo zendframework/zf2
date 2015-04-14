@@ -45,9 +45,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
     /**
      * @var array
      */
-    protected $options = array(
-
-    );
+    protected $options = array();
     
     /**
      * @var array
@@ -185,7 +183,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
      */
     public function setupDefaultFeatures()
     {        
-        $this->addFeature(null, new Feature\RowCounter);
+        $this->addFeature(null, new Feature\RowCounter());
         return $this;
     }
 
