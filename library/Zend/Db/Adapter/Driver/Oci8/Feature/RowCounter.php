@@ -47,7 +47,7 @@ class RowCounter extends AbstractFeature
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      * @return null|int
      */
     public function getCountForSql($sql)
@@ -62,7 +62,7 @@ class RowCounter extends AbstractFeature
     }
 
     /**
-     * @param $context
+     * @param \Zend\Db\Adapter\Driver\Oci8\Statement|string $context
      * @return closure
      */
     public function getRowCountClosure($context)
