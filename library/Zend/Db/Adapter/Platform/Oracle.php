@@ -26,7 +26,9 @@ class Oracle extends AbstractPlatform
      */
     public function __construct($driver = null, $options = array())
     {
-        if (isset($options['quote_identifiers']) && ($options['quote_identifiers'] == false || $options['quote_identifiers'] === 'false')
+        if (isset($options['quote_identifiers'])
+            && ($options['quote_identifiers'] == false
+            || $options['quote_identifiers'] === 'false')
         ) {
             $this->quoteIdentifiers = false;
         }
@@ -37,13 +39,16 @@ class Oracle extends AbstractPlatform
     }
 
     /**
-     * @param \Zend\Db\Adapter\Driver\Pdo\Pdo||\PDO $driver
+     * @param \Zend\Db\Adapter\Driver\Pdo\Pdo||\PDO||\Zend\Db\Adapter\Driver\Oci8\Oci8||\Oci8 $driver
      * @throws \Zend\Db\Adapter\Exception\InvalidArgumentException
      * @return $this
      */
     public function setDriver($driver)
     {
-        if ($driver instanceof Oci8\Oci8 || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Oracle') || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Sqlite') || ($driver instanceof \oci8) || ($driver instanceof \PDO && $driver->getAttribute(\PDO::ATTR_DRIVER_NAME) == 'oci')
+        if ($driver instanceof Oci8\Oci8
+            || ($driver instanceof Pdo\Pdo && $driver->getDatabasePlatformName() == 'Oracle')
+            || ($driver instanceof \oci8)
+            || ($driver instanceof \PDO && $driver->getAttribute(\PDO::ATTR_DRIVER_NAME) == 'oci')
         ) {
             $this->resource = $driver;
             return $this;
@@ -90,7 +95,7 @@ class Oracle extends AbstractPlatform
             'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
                 . 'can introduce security vulnerabilities in a production environment.'
         );
-        return '\'' . addcslashes(str_replace('\'', '\'\'', $value), "\x00\n\r\"\x1a") . '\'';                
+        return '\'' . addcslashes(str_replace('\'', '\'\'', $value), "\x00\n\r\"\x1a") . '\'';
     }
 
     /**
