@@ -314,7 +314,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
     
     /**
      * Perform a deep clone
-     * @return Statement A cloned statement
      */
     public function __clone()
     {
