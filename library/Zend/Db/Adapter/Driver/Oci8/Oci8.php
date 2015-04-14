@@ -166,7 +166,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
      *
      * @param string $name
      * @param AbstractFeature $feature
-     * @return Pdo
+     * @return self
      */
     public function addFeature($name, $feature)
     {
@@ -181,7 +181,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
     /**
      * Setup the default features for Pdo
      *
-     * @return Pdo
+     * @return self
      */
     public function setupDefaultFeatures()
     {        
