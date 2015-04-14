@@ -42,7 +42,6 @@ class RowCounter extends AbstractFeature
         $countStmt->prepare($countSql);        
         $result = $countStmt->execute();
         $countRow = $result->current();
-        unset($statement, $result);
         return $countRow['count'];
     }
 
