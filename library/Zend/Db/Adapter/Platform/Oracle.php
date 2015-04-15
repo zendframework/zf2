@@ -22,7 +22,7 @@ class Oracle extends AbstractPlatform
 
     /**
      * @param array $options
-     * @param null|\Zend\Db\Adapter\Driver\Oci8\Oci8|\Zend\Db\Adapter\Driver\Pdo\Pdo $driver 
+     * @param null|\Zend\Db\Adapter\Driver\Oci8\Oci8|\Zend\Db\Adapter\Driver\Pdo\Pdo $driver
      */
     public function __construct($options = array(), $driver = null)
     {
