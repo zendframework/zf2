@@ -229,6 +229,6 @@ class Result implements Iterator, ResultInterface
     public function getGeneratedValue()
     {
         // @todo OCI8 generated value in Driver Result
-        return;
+        return null;
     }
 }
