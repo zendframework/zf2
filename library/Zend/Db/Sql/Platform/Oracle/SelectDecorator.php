@@ -84,7 +84,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
             array('SELECT %1$s FROM (SELECT b.%1$s, rownum b_rownum FROM (' => current($this->specifications[self::SELECT])), $selectParameters
         ));
 
-        if ($parameterContainer) {            
+        if ($parameterContainer) {
             $number = $this->processInfo['subselectCount'] ? $this->processInfo['subselectCount'] : '';
             if ($this->limit === null) {
                 array_push($sqls, ') b ) WHERE b_rownum > (:offset'.$number.')');
@@ -95,20 +95,12 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
                 $parameterContainer->offsetSet('offset'.$number, $this->offset, $parameterContainer::TYPE_INTEGER);
                 $parameterContainer->offsetSet('limit'.$number, $this->limit, $parameterContainer::TYPE_INTEGER);
             }    
-            $this->processInfo['subselectCount']++;  
+            $this->processInfo['subselectCount']++;
         } else {
             if ($this->limit === null) {
-                array_push($sqls, ') b ) WHERE b_rownum > ('. (int) $this->offset. ')'
-                );
+                array_push($sqls, ') b ) WHERE b_rownum > ('. (int) $this->offset. ')');
             } else {
-                array_push($sqls, ') b WHERE rownum <= ('
-                        . (int) $this->offset
-                        . '+'
-                        . (int) $this->limit
-                        . ')) WHERE b_rownum >= ('
-                        . (int) $this->offset
-                        . ' + 1)'
-                );
+                array_push($sqls, ') b WHERE rownum <= ('. (int) $this->offset. '+'. (int) $this->limit. ')) WHERE b_rownum >= ('. (int) $this->offset. ' + 1)');
             }
         }
 
