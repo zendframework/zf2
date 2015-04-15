@@ -84,7 +84,7 @@ class OracleTest extends \PHPUnit_Framework_TestCase
     public function testQuoteValueRaisesNoticeWithoutPlatformSupport()
     {
         $this->setExpectedException(
-                'PHPUnit_Framework_Error_Notice', 
+                'PHPUnit_Framework_Error_Notice',
                 'Attempting to quote a value in Zend\Db\Adapter\Platform\Oracle without extension/driver support can introduce security vulnerabilities in a production environment'
         );
         $this->platform->quoteValue('value');
