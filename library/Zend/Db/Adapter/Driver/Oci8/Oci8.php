@@ -41,7 +41,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
      * @var Profiler\ProfilerInterface
      */
     protected $profiler = null;
-
+    
     /**
      * @var array
      */
@@ -63,9 +63,8 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
         if (!$connection instanceof Connection) {
             $connection = new Connection($connection);
         }
-
-        $options = array_intersect_key(array_merge($this->options, $options), $this->options);
         
+        $options = array_intersect_key(array_merge($this->options, $options), $this->options);
         $this->registerConnection($connection);
         $this->registerStatementPrototype(($statementPrototype) ?: new Statement());
         $this->registerResultPrototype(($resultPrototype) ?: new Result());
@@ -79,7 +78,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
             $this->setupDefaultFeatures();
         }
     }
-
+    
     /**
      * @param Profiler\ProfilerInterface $profiler
      * @return Oci8
@@ -263,16 +262,14 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
     {
         $result = clone $this->resultPrototype;
         $rowCount = null;
-
         // special feature, oracle Oci counter
         if ($context && ($rowCounter = $this->getFeature('RowCounter')) && oci_num_fields($resource) > 0) {
             $rowCount = $rowCounter->getRowCountClosure($context);
         }
-        
         $result->initialize($resource, $this->connection->getLastGeneratedValue(), $rowCount);
         return $result;
     }
-
+    
     /**
      * @return array
      */
