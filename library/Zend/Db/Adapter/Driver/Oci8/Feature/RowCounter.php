@@ -35,7 +35,7 @@ class RowCounter extends AbstractFeature
         $countStmt = clone $statement;
         $sql = $statement->getSql();
         if ($sql == '' || stripos(strtolower($sql), 'select') === false) {
-            return null;
+            return;
         }
         $countSql = 'SELECT COUNT(*) as "count" FROM (' . $sql . ')';
         $countStmt->prepare($countSql);
@@ -51,7 +51,7 @@ class RowCounter extends AbstractFeature
     public function getCountForSql($sql)
     {
         if (stripos(strtolower($sql), 'select') === false) {
-            return null;
+            return;
         }
         $countSql = 'SELECT COUNT(*) as "count" FROM (' . $sql . ')';
         $result = $this->driver->getConnection()->execute($countSql);
