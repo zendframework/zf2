@@ -65,10 +65,10 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
         }
 
         $options = array_intersect_key(array_merge($this->options, $options), $this->options);
-
+        
         $this->registerConnection($connection);
-        $this->registerStatementPrototype(($statementPrototype) ?: new Statement());
-        $this->registerResultPrototype(($resultPrototype) ?: new Result());
+        $this->registerStatementPrototype($statementPrototype ?: new Statement());
+        $this->registerResultPrototype($resultPrototype ?: new Result());
         
         if (is_array($features)) {
             foreach ($features as $name => $feature) {
@@ -266,8 +266,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
         $rowCount = null;
 
         // special feature, oracle Oci counter
-        if ($context && ($rowCounter = $this->getFeature('RowCounter'))
-            && oci_num_fields($resource) > 0 ) {
+        if ($context && ($rowCounter = $this->getFeature('RowCounter')) && oci_num_fields($resource) > 0 ) {
             $rowCount = $rowCounter->getRowCountClosure($context);
         }
         
