@@ -33,7 +33,6 @@ class RowCounter extends AbstractFeature
     public function getCountForStatement(Statement $statement)
     {
         $countStmt = clone $statement;
-        
         $sql = $statement->getSql();
         if ($sql == '' || stripos(strtolower($sql), 'select') === false) {
             return null;
@@ -50,7 +49,7 @@ class RowCounter extends AbstractFeature
      * @return null|int
      */
     public function getCountForSql($sql)
-    {              
+    {
         if (stripos(strtolower($sql), 'select') === false) {
             return null;
         }
