@@ -307,7 +307,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $maxLength = -1;
             if ($this->parameterContainer->offsetHasMaxLength($name)) {
                 $maxLength = $this->parameterContainer->offsetGetMaxLength($name);
-            }            
+            }
             oci_bind_by_name($this->resource, $name, $value, $maxLength, $type);
         }
     }
@@ -323,7 +323,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
         if ($this->parameterContainer) {
             $this->parameterContainer = clone $this->parameterContainer;
         }
-
     }
 
 }
