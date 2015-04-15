@@ -65,7 +65,9 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
         $starSuffix = $platform->getIdentifierSeparator() . self::SQL_STAR;
         foreach ($selectParameters[0] as $i => $columnParameters) {
-            if ($columnParameters[0] == self::SQL_STAR || (isset($columnParameters[1]) && $columnParameters[1] == self::SQL_STAR) || strpos($columnParameters[0], $starSuffix)) {
+            if ($columnParameters[0] == self::SQL_STAR ||
+                (isset($columnParameters[1]) && $columnParameters[1] == self::SQL_STAR) ||
+                strpos($columnParameters[0], $starSuffix)) {
                 $selectParameters[0] = array(array(self::SQL_STAR));
                 break;
             }
@@ -94,7 +96,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
                 array_push($sqls, ') b WHERE rownum <= (:offset'.$number.'+:limit'.$number.')) WHERE b_rownum >= (:offset'.$number.' + 1)');
                 $parameterContainer->offsetSet('offset'.$number, $this->offset, $parameterContainer::TYPE_INTEGER);
                 $parameterContainer->offsetSet('limit'.$number, $this->limit, $parameterContainer::TYPE_INTEGER);
-            }    
+            }
             $this->processInfo['subselectCount']++;
         } else {
             if ($this->limit === null) {
