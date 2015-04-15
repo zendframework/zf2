@@ -106,5 +106,4 @@ class Oracle extends AbstractPlatform
     {
         return '\'' . addcslashes(str_replace('\'', '\'\'', $value), "\x00\n\r\"\x1a") . '\'';
     }
-
 }
