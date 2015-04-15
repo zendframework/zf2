@@ -182,7 +182,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
      * @return self
      */
     public function setupDefaultFeatures()
-    {        
+    {
         $this->addFeature(null, new Feature\RowCounter());
         return $this;
     }
@@ -267,8 +267,8 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
 
         // special feature, oracle Oci counter
         if ($context && ($rowCounter = $this->getFeature('RowCounter'))
-         && oci_num_fields($resource) > 0 ) {       
-            $rowCount = $rowCounter->getRowCountClosure($context);                     
+         && oci_num_fields($resource) > 0 ) {
+            $rowCount = $rowCounter->getRowCountClosure($context);
         }
         
         $result->initialize($resource, $this->connection->getLastGeneratedValue(), $rowCount);
