@@ -201,7 +201,7 @@ class Result implements Iterator, ResultInterface
 
     /**
      * Count
-     * @return int
+     * @return null|int
      */
     public function count()
     {
