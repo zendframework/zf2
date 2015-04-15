@@ -22,7 +22,7 @@ class Oracle extends AbstractPlatform
 
     /**
      * @param array $options
-     * @param null|\Zend\Db\Adapter\Driver\Oci8\Oci8|\Zend\Db\Adapter\Driver\Pdo\Pdo $driver $driver 
+     * @param null|\Zend\Db\Adapter\Driver\Oci8\Oci8|\Zend\Db\Adapter\Driver\Pdo\Pdo $driver 
      */
     public function __construct($options = array(), $driver = null)
     {
@@ -93,8 +93,8 @@ class Oracle extends AbstractPlatform
         }
 
         trigger_error(
-            'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '
-                . 'can introduce security vulnerabilities in a production environment.'
+            'Attempting to quote a value in ' . __CLASS__ . ' without extension/driver support '.
+            'can introduce security vulnerabilities in a production environment.'
         );
         return '\'' . addcslashes(str_replace('\'', '\'\'', $value), "\x00\n\r\"\x1a") . '\'';
     }
