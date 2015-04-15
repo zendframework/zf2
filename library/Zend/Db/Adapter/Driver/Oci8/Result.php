@@ -224,11 +224,11 @@ class Result implements Iterator, ResultInterface
     }
 
     /**
-     * @return mixed|null
+     * @return null
      */
     public function getGeneratedValue()
     {
         // @todo OCI8 generated value in Driver Result
-        return null;
+        return;
     }
 }
