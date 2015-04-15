@@ -324,4 +324,5 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             $this->parameterContainer = clone $this->parameterContainer;
         }
     }
+
 }
