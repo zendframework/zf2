@@ -107,5 +107,5 @@ class RowCounterTest extends PHPUnit_Framework_TestCase
 
         return $driver;
     }
-    
+
 }
