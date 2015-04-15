@@ -31,7 +31,7 @@ class RowCounter extends AbstractFeature
      * @return int
      */
     public function getCountForStatement(Statement $statement)
-    {        
+    {
         $countStmt = clone $statement;
         
         $sql = $statement->getSql();
@@ -39,7 +39,7 @@ class RowCounter extends AbstractFeature
             return null;
         }
         $countSql = 'SELECT COUNT(*) as "count" FROM (' . $sql . ')';
-        $countStmt->prepare($countSql);        
+        $countStmt->prepare($countSql);
         $result = $countStmt->execute();
         $countRow = $result->current();
         return $countRow['count'];
@@ -51,12 +51,12 @@ class RowCounter extends AbstractFeature
      */
     public function getCountForSql($sql)
     {              
-        if (stripos(strtolower($sql), 'select') === false) {       
+        if (stripos(strtolower($sql), 'select') === false) {
             return null;
-        }    
-        $countSql = 'SELECT COUNT(*) as "count" FROM (' . $sql . ')';        
+        }
+        $countSql = 'SELECT COUNT(*) as "count" FROM (' . $sql . ')';
         $result = $this->driver->getConnection()->execute($countSql);
-        $countRow = $result->current();        
+        $countRow = $result->current();
         return $countRow['count'];
     }
 
@@ -65,10 +65,10 @@ class RowCounter extends AbstractFeature
      * @return closure
      */
     public function getRowCountClosure($context)
-    {        
-        $rowCounter = $this;         
-        return function () use ($rowCounter, $context) {              
-            /** @var $rowCounter RowCounter */         
+    {
+        $rowCounter = $this;
+        return function () use ($rowCounter, $context) {
+            /** @var $rowCounter RowCounter */
             return ($context instanceof Statement)
                 ? $rowCounter->getCountForStatement($context)
                 : $rowCounter->getCountForSql($context);
