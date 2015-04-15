@@ -271,7 +271,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
      */
     protected function bindParametersFromContainer()
     {
-        $parameters = $this->parameterContainer->getNamedArray();        
+        $parameters = $this->parameterContainer->getNamedArray();
         foreach ($parameters as $name => &$value) {
             if ($this->parameterContainer->offsetHasErrata($name)) {
                 switch ($this->parameterContainer->offsetGetErrata($name)) {
