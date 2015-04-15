@@ -267,7 +267,7 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
 
         // special feature, oracle Oci counter
         if ($context && ($rowCounter = $this->getFeature('RowCounter'))
-         && oci_num_fields($resource) > 0 ) {
+            && oci_num_fields($resource) > 0 ) {
             $rowCount = $rowCounter->getRowCountClosure($context);
         }
         
