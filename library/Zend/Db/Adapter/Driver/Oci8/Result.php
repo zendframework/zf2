@@ -212,7 +212,7 @@ class Result implements Iterator, ResultInterface
             $this->rowCount = (int) call_user_func($this->rowCount);
             return $this->rowCount;
         }
-        return null;
+        return;
     }
 
     /**
