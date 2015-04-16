@@ -311,7 +311,6 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
             oci_bind_by_name($this->resource, $name, $value, $maxLength, $type);
         }
     }
-    
     /**
      * Perform a deep clone
      */
