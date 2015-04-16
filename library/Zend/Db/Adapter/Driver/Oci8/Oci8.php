@@ -61,7 +61,6 @@ class Oci8 implements DriverInterface, DriverFeatureInterface, Profiler\Profiler
         if (!$connection instanceof Connection) {
             $connection = new Connection($connection);
         }
-        
         $options = array_intersect_key(array_merge($this->options, $options), $this->options);
         $this->registerConnection($connection);
         $this->registerStatementPrototype(($statementPrototype) ?: new Statement());
