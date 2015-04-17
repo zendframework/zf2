@@ -90,8 +90,7 @@ class Oracle extends AbstractPlatform
             if ($this->resource instanceof \PDO) {
                 return $this->resource->quote($value);
             }
-            if (get_resource_type($this->resource) == 'oci8 connection' 
-                || get_resource_type($this->resource) == 'oci8 persistent connection') {
+            if (get_resource_type($this->resource) == 'oci8 connection' || get_resource_type($this->resource) == 'oci8 persistent connection') {
                 return '\'' . addcslashes(str_replace('\'', '\'\'', $value), "\x00\n\r\"\x1a") . '\'';
             }
         }
