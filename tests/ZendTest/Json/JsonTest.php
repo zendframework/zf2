@@ -973,6 +973,27 @@ EOB;
         $this->assertSame($expected, $pretty);
     }
 
+    public function testNativeJSONEncoderWillKeepUnicodeCharactersUnescaped()
+    {
+        $value = array(
+            'hÃ©llÃ¶ wÃ¸rÅ‚d' => true
+        );
+        $expected = '{"hÃ©llÃ¶ wÃ¸rÅ‚d":true}';
+
+        $this->assertEquals($expected, Json\Json::encode($value, false, array('unescapedUnicode' => true)));
+    }
+
+    public function testBuiltinJSONEncoderWillKeepUnicodeCharactersUnescaped()
+    {
+        $value = array(
+            'hÃ©llÃ¶ wÃ¸rÅ‚d' => true
+        );
+        $expected = '{"hÃ©llÃ¶ wÃ¸rÅ‚d":true}';
+
+        Json\Json::$useBuiltinEncoderDecoder = true;
+        $this->assertEquals($expected, Json\Json::encode($value, false, array('unescapedUnicode' => true)));
+    }
+
     /**
      * @group ZF-11167
      */

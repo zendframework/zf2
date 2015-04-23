@@ -255,7 +255,9 @@ class Encoder
         // 0x08 => \b
         // 0x0c => \f
         $string = str_replace(array(chr(0x08), chr(0x0C)), array('\b', '\f'), $string);
-        $string = self::encodeUnicodeString($string);
+        if (!isset($this->options['unescapedUnicode']) || $this->options['unescapedUnicode'] != true) {
+            $string = self::encodeUnicodeString($string);
+        }
 
         return '"' . $string . '"';
     }

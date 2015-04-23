@@ -115,6 +115,7 @@ class Json
         }
 
         $prettyPrint = (isset($options['prettyPrint']) && ($options['prettyPrint'] == true));
+        $unescapedUnicode = (isset($options['unescapedUnicode']) && ($options['unescapedUnicode'] == true));
 
         // Encoding
         if (function_exists('json_encode') && static::$useBuiltinEncoderDecoder !== true) {
@@ -125,10 +126,19 @@ class Json
                 $prettyPrint = false;
             }
 
+            if ($unescapedUnicode && defined('JSON_UNESCAPED_UNICODE')) {
+                $encodeOptions |= JSON_UNESCAPED_UNICODE;
+                $unescapedUnicode = false;
+            }
+
             $encodedResult = json_encode(
                 $valueToEncode,
                 $encodeOptions
             );
+
+            if ($unescapedUnicode) {
+                $encodedResult = Decoder::decodeUnicodeString($encodedResult);
+            }
         } else {
             $encodedResult = Encoder::encode($valueToEncode, $cycleCheck, $options);
         }
