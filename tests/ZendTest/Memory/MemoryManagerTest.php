@@ -14,7 +14,6 @@ use Zend\Cache\Storage\Adapter\AdapterInterface as CacheAdapter;
 use Zend\Memory;
 use Zend\Memory\Container;
 
-
 /**
  * @group      Zend_Memory
  */
