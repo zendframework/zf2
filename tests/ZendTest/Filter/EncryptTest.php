@@ -88,8 +88,7 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
         $filter->setPublicKey(__DIR__ . '/_files/publickey.pem');
         $key = $filter->getPublicKey();
         $this->assertEquals(
-            array(__DIR__ . '/_files/publickey.pem' =>
-                  '-----BEGIN CERTIFICATE-----
+            array(__DIR__ . '/_files/publickey.pem' => '-----BEGIN CERTIFICATE-----
 MIIC3jCCAkegAwIBAgIBADANBgkqhkiG9w0BAQQFADCBtDELMAkGA1UEBhMCTkwx
 FjAUBgNVBAgTDU5vb3JkLUhvbGxhbmQxEDAOBgNVBAcTB1phYW5kYW0xFzAVBgNV
 BAoTDk1vYmlsZWZpc2guY29tMR8wHQYDVQQLExZDZXJ0aWZpY2F0aW9uIFNlcnZp

@@ -591,8 +591,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
                 'instantiator' => '__construct',
                 'methods' => array('__construct' => 3),
                 'parameters' => array(
-                    '__construct' =>
-                    array(
+                    '__construct' => array(
                         'ZendTest\Di\TestAsset\ConstructorInjection\D::__construct:0' => array(
                             0 => 'd',
                             1 => 'ZendTest\Di\TestAsset\DummyInterface',

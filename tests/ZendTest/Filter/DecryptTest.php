@@ -84,8 +84,7 @@ bK22CwD/l7SMBOz4M9XH0Jb0OhNxLza4XMDu0ANMIpnkn1KOcmQ4gB8fmAbBt');
 
         $key = $filter->getPrivateKey();
         $this->assertEquals(
-            array(__DIR__ . '/_files/privatekey.pem' =>
-                  '-----BEGIN RSA PRIVATE KEY-----
+            array(__DIR__ . '/_files/privatekey.pem' => '-----BEGIN RSA PRIVATE KEY-----
 MIICXgIBAAKBgQDKTIp7FntJt1BioBZ0lmWBE8CyzngeGCHNMcAC4JLbi1Y0LwT4
 CSaQarbvAqBRmc+joHX+rcURm89wOibRaThrrZcvgl2pomzu7shJc0ObiRZC8H7p
 xTkZ1HHjN8cRSQlOHkcdtE9yoiSGSO+zZ9K5ReU1DOsFFDD4V7XpcNU63QIDAQAB

@@ -134,75 +134,46 @@ abstract class CommonStringWrapperTest extends TestCase
     {
         return array(
             // Standard cut tests
-            'cut-single-line' =>
-                array('utf-8', 'äbüöcß', 2, ' ', true, 'äb üö cß'),
-            'cut-multi-line' =>
-                array('utf-8', 'äbüöc ß äbüöcß', 2, ' ', true, 'äb üö c ß äb üö cß'),
-            'cut-multi-line-short-words' =>
-                array('utf-8', 'Ä very long wöööööööööööörd.', 8, "\n", true,
+            'cut-single-line' => array('utf-8', 'äbüöcß', 2, ' ', true, 'äb üö cß'),
+            'cut-multi-line' => array('utf-8', 'äbüöc ß äbüöcß', 2, ' ', true, 'äb üö c ß äb üö cß'),
+            'cut-multi-line-short-words' => array('utf-8', 'Ä very long wöööööööööööörd.', 8, "\n", true,
                       "Ä very\nlong\nwööööööö\nööööörd."),
-            'cut-multi-line-with-previous-new-lines' =>
-                array('utf-8', "Ä very\nlong wöööööööööööörd.", 8, "\n", false,
+            'cut-multi-line-with-previous-new-lines' => array('utf-8', "Ä very\nlong wöööööööööööörd.", 8, "\n", false,
                       "Ä very\nlong\nwöööööööööööörd."),
-            'long-break' =>
-                array('utf-8', "Ä very<br>long wöö<br>öööööööö<br>öörd.", 8, '<br>', false,
+            'long-break' => array('utf-8', "Ä very<br>long wöö<br>öööööööö<br>öörd.", 8, '<br>', false,
                       "Ä very<br>long wöö<br>öööööööö<br>öörd."),
 
             // Alternative cut tests
-            'cut-beginning-single-space' =>
-                array('utf-8', ' äüöäöü', 3, ' ', true, ' äüö äöü'),
-            'cut-ending-single-space' =>
-                array('utf-8', 'äüöäöü ', 3, ' ', true, 'äüö äöü '),
-            'cut-ending-single-space-with-non-space-divider' =>
-                array('utf-8', 'äöüäöü ', 3, '-', true, 'äöü-äöü-'),
-            'cut-ending-two-spaces' =>
-                array('utf-8', 'äüöäöü  ', 3, ' ', true, 'äüö äöü  '),
-            'no-cut-ending-single-space' =>
-                array('utf-8', '12345 ', 5, '-', false, '12345-'),
-            'no-cut-ending-two-spaces' =>
-                array('utf-8', '12345  ', 5, '-', false, '12345- '),
-            'cut-ending-three-spaces' =>
-                array('utf-8', 'äüöäöü  ', 3, ' ', true, 'äüö äöü  '),
-            'cut-ending-two-breaks' =>
-                array('utf-8', 'äüöäöü--', 3, '-', true, 'äüö-äöü--'),
-            'cut-tab' =>
-                array('utf-8', "äbü\töcß", 3, ' ', true, "äbü \töc ß"),
-            'cut-new-line-with-space' =>
-                array('utf-8', "äbü\nößt", 3, ' ', true, "äbü \nöß t"),
-            'cut-new-line-with-new-line' =>
-                array('utf-8', "äbü\nößte", 3, "\n", true, "äbü\nößt\ne"),
+            'cut-beginning-single-space' => array('utf-8', ' äüöäöü', 3, ' ', true, ' äüö äöü'),
+            'cut-ending-single-space' => array('utf-8', 'äüöäöü ', 3, ' ', true, 'äüö äöü '),
+            'cut-ending-single-space-with-non-space-divider' => array('utf-8', 'äöüäöü ', 3, '-', true, 'äöü-äöü-'),
+            'cut-ending-two-spaces' => array('utf-8', 'äüöäöü  ', 3, ' ', true, 'äüö äöü  '),
+            'no-cut-ending-single-space' => array('utf-8', '12345 ', 5, '-', false, '12345-'),
+            'no-cut-ending-two-spaces' => array('utf-8', '12345  ', 5, '-', false, '12345- '),
+            'cut-ending-three-spaces' => array('utf-8', 'äüöäöü  ', 3, ' ', true, 'äüö äöü  '),
+            'cut-ending-two-breaks' => array('utf-8', 'äüöäöü--', 3, '-', true, 'äüö-äöü--'),
+            'cut-tab' => array('utf-8', "äbü\töcß", 3, ' ', true, "äbü \töc ß"),
+            'cut-new-line-with-space' => array('utf-8', "äbü\nößt", 3, ' ', true, "äbü \nöß t"),
+            'cut-new-line-with-new-line' => array('utf-8', "äbü\nößte", 3, "\n", true, "äbü\nößt\ne"),
 
             // Break cut tests
-            'cut-break-before' =>
-                array('ascii', 'foobar-foofoofoo', 8, '-', true, 'foobar-foofoofo-o'),
-            'cut-break-with' =>
-                array('ascii', 'foobar-foobar', 6, '-', true, 'foobar-foobar'),
-            'cut-break-within' =>
-                array('ascii', 'foobar-foobar', 7, '-', true, 'foobar-foobar'),
-            'cut-break-within-end' =>
-                array('ascii', 'foobar-', 7, '-', true, 'foobar-'),
-            'cut-break-after' =>
-                array('ascii', 'foobar-foobar', 5, '-', true, 'fooba-r-fooba-r'),
+            'cut-break-before' => array('ascii', 'foobar-foofoofoo', 8, '-', true, 'foobar-foofoofo-o'),
+            'cut-break-with' => array('ascii', 'foobar-foobar', 6, '-', true, 'foobar-foobar'),
+            'cut-break-within' => array('ascii', 'foobar-foobar', 7, '-', true, 'foobar-foobar'),
+            'cut-break-within-end' => array('ascii', 'foobar-', 7, '-', true, 'foobar-'),
+            'cut-break-after' => array('ascii', 'foobar-foobar', 5, '-', true, 'fooba-r-fooba-r'),
 
             // Standard no-cut tests
-            'no-cut-single-line' =>
-                array('utf-8', 'äbüöcß', 2, ' ', false, 'äbüöcß'),
-            'no-cut-multi-line' =>
-                array('utf-8', 'äbüöc ß äbüöcß', 2, "\n", false, "äbüöc\nß\näbüöcß"),
-            'no-cut-multi-word' =>
-                array('utf-8', 'äöü äöü äöü', 5, "\n", false, "äöü\näöü\näöü"),
+            'no-cut-single-line' => array('utf-8', 'äbüöcß', 2, ' ', false, 'äbüöcß'),
+            'no-cut-multi-line' => array('utf-8', 'äbüöc ß äbüöcß', 2, "\n", false, "äbüöc\nß\näbüöcß"),
+            'no-cut-multi-word' => array('utf-8', 'äöü äöü äöü', 5, "\n", false, "äöü\näöü\näöü"),
 
             // Break no-cut tests
-            'no-cut-break-before' =>
-                array('ascii', 'foobar-foofoofoo', 8, '-', false, 'foobar-foofoofoo'),
-            'no-cut-break-with' =>
-                array('ascii', 'foobar-foobar', 6, '-', false, 'foobar-foobar'),
-            'no-cut-break-within' =>
-                array('ascii', 'foobar-foobar', 7, '-', false, 'foobar-foobar'),
-            'no-cut-break-within-end' =>
-                array('ascii', 'foobar-', 7, '-', false, 'foobar-'),
-            'no-cut-break-after' =>
-                array('ascii', 'foobar-foobar', 5, '-', false, 'foobar-foobar'),
+            'no-cut-break-before' => array('ascii', 'foobar-foofoofoo', 8, '-', false, 'foobar-foofoofoo'),
+            'no-cut-break-with' => array('ascii', 'foobar-foobar', 6, '-', false, 'foobar-foobar'),
+            'no-cut-break-within' => array('ascii', 'foobar-foobar', 7, '-', false, 'foobar-foobar'),
+            'no-cut-break-within-end' => array('ascii', 'foobar-', 7, '-', false, 'foobar-'),
+            'no-cut-break-after' => array('ascii', 'foobar-foobar', 5, '-', false, 'foobar-foobar'),
         );
     }
 
@@ -244,28 +215,19 @@ abstract class CommonStringWrapperTest extends TestCase
     {
         return array(
             // single-byte
-            'left-padding_single-byte' =>
-                array('ascii', 'aaa', 5, 'o', STR_PAD_LEFT, 'ooaaa'),
-            'center-padding_single-byte' =>
-                array('ascii', 'aaa', 6, 'o', STR_PAD_BOTH, 'oaaaoo'),
-            'right-padding_single-byte' =>
-                array('ascii', 'aaa', 5, 'o', STR_PAD_RIGHT, 'aaaoo'),
+            'left-padding_single-byte' => array('ascii', 'aaa', 5, 'o', STR_PAD_LEFT, 'ooaaa'),
+            'center-padding_single-byte' => array('ascii', 'aaa', 6, 'o', STR_PAD_BOTH, 'oaaaoo'),
+            'right-padding_single-byte' => array('ascii', 'aaa', 5, 'o', STR_PAD_RIGHT, 'aaaoo'),
 
             // multi-byte
-            'left-padding_multi-byte' =>
-                array('utf-8', 'äää', 5, 'ö', STR_PAD_LEFT, 'ööäää'),
-            'center-padding_multi-byte' =>
-                array('utf-8', 'äää', 6, 'ö', STR_PAD_BOTH, 'öäääöö'),
-            'right-padding_multi-byte' =>
-                array('utf-8', 'äää', 5, 'ö', STR_PAD_RIGHT, 'äääöö'),
+            'left-padding_multi-byte' => array('utf-8', 'äää', 5, 'ö', STR_PAD_LEFT, 'ööäää'),
+            'center-padding_multi-byte' => array('utf-8', 'äää', 6, 'ö', STR_PAD_BOTH, 'öäääöö'),
+            'right-padding_multi-byte' => array('utf-8', 'äää', 5, 'ö', STR_PAD_RIGHT, 'äääöö'),
 
             // ZF-12186
-            'input-longer-than-pad-length' =>
-                array('utf-8', 'äääöö', 2, 'ö', STR_PAD_RIGHT, 'äääöö'),
-            'input-same-as-pad-length' =>
-                array('utf-8', 'äääöö', 5, 'ö', STR_PAD_RIGHT, 'äääöö'),
-            'negative-pad-length' =>
-                array('utf-8', 'äääöö', -2, 'ö', STR_PAD_RIGHT, 'äääöö'),
+            'input-longer-than-pad-length' => array('utf-8', 'äääöö', 2, 'ö', STR_PAD_RIGHT, 'äääöö'),
+            'input-same-as-pad-length' => array('utf-8', 'äääöö', 5, 'ö', STR_PAD_RIGHT, 'äääöö'),
+            'negative-pad-length' => array('utf-8', 'äääöö', -2, 'ö', STR_PAD_RIGHT, 'äääöö'),
         );
     }
 

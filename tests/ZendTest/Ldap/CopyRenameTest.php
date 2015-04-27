@@ -58,23 +58,17 @@ class CopyRenameTest extends AbstractOnlineTestCase
                                          "ou"          => "OrgTest"),
             $this->orgSubTreeDn => array("objectClass" => "organizationalUnit",
                                          "ou"          => "OrgSubtree"),
-            'ou=Subtree1,' . $this->orgSubTreeDn              =>
-            array("objectClass" => "organizationalUnit",
+            'ou=Subtree1,' . $this->orgSubTreeDn              => array("objectClass" => "organizationalUnit",
                   "ou"          => "Subtree1"),
-            'ou=Subtree11,ou=Subtree1,' . $this->orgSubTreeDn =>
-            array("objectClass" => "organizationalUnit",
+            'ou=Subtree11,ou=Subtree1,' . $this->orgSubTreeDn => array("objectClass" => "organizationalUnit",
                   "ou"          => "Subtree11"),
-            'ou=Subtree12,ou=Subtree1,' . $this->orgSubTreeDn =>
-            array("objectClass" => "organizationalUnit",
+            'ou=Subtree12,ou=Subtree1,' . $this->orgSubTreeDn => array("objectClass" => "organizationalUnit",
                   "ou"          => "Subtree12"),
-            'ou=Subtree13,ou=Subtree1,' . $this->orgSubTreeDn =>
-            array("objectClass" => "organizationalUnit",
+            'ou=Subtree13,ou=Subtree1,' . $this->orgSubTreeDn => array("objectClass" => "organizationalUnit",
                   "ou"          => "Subtree13"),
-            'ou=Subtree2,' . $this->orgSubTreeDn              =>
-            array("objectClass" => "organizationalUnit",
+            'ou=Subtree2,' . $this->orgSubTreeDn              => array("objectClass" => "organizationalUnit",
                   "ou"          => "Subtree2"),
-            'ou=Subtree3,' . $this->orgSubTreeDn              =>
-            array("objectClass" => "organizationalUnit",
+            'ou=Subtree3,' . $this->orgSubTreeDn              => array("objectClass" => "organizationalUnit",
                   "ou"          => "Subtree3"),
             $this->targetSubTreeDn => array("objectClass" => "organizationalUnit",
                                             "ou"          => "Target")

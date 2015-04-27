@@ -345,8 +345,7 @@ class InArrayTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new InArray(
             array(
-                 'haystack'  =>
-                 array(
+                 'haystack'  => array(
                      'firstDimension'  => array('test', 0, 'A'),
                      'secondDimension' => array('value', 2, 'a'),
                  ),
