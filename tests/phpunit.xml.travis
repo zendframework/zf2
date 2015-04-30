@@ -35,7 +35,7 @@
         <!--
           Zend\Auth\Adapter\DbTable tests
         -->
-        <const name="TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED" value="false"/>
+        <const name="TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED" value="true"/>
         <const name="TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_DATABASE" value=":memory:"/>
         <const name="TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_ENABLED" value="false"/>
         <const name="TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_HOSTNAME" value="127.0.0.1"/>
@@ -64,25 +64,25 @@
         <!--
           Zend\Cache\Storage\Adapter
         -->
-        <const name="TESTS_ZEND_CACHE_APC_ENABLED" value="false"/>
-        <const name="TESTS_ZEND_CACHE_XCACHE_ENABLED" value="false"/>
+        <const name="TESTS_ZEND_CACHE_APC_ENABLED" value="true"/>
+        <const name="TESTS_ZEND_CACHE_XCACHE_ENABLED" value="true"/>
         <const name="TESTS_ZEND_CACHE_XCACHE_ADMIN_AUTH" value="false"/>
         <const name="TESTS_ZEND_CACHE_XCACHE_ADMIN_USER" value=""/>
         <const name="TESTS_ZEND_CACHE_XCACHE_ADMIN_PASS" value=""/>
-        <const name="TESTS_ZEND_CACHE_PLATFORM_ENABLED" value="false"/>
-        <const name="TESTS_ZEND_CACHE_WINCACHE_ENABLED" value="false"/>
-        <const name="TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED" value="false"/>
-        <const name="TESTS_ZEND_CACHE_MEMCACHED_ENABLED" value="false"/>
+        <const name="TESTS_ZEND_CACHE_PLATFORM_ENABLED" value="true"/>
+        <const name="TESTS_ZEND_CACHE_WINCACHE_ENABLED" value="true"/>
+        <const name="TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED" value="true"/>
+        <const name="TESTS_ZEND_CACHE_MEMCACHED_ENABLED" value="true"/>
         <const name="TESTS_ZEND_CACHE_MEMCACHED_HOST" value="127.0.0.1"/>
         <const name="TESTS_ZEND_CACHE_MEMCACHED_PORT" value="11211"/>
-        <const name="TESTS_ZEND_CACHE_MEMCACHE_ENABLED" value="false"/>
+        <const name="TESTS_ZEND_CACHE_MEMCACHE_ENABLED" value="true"/>
         <const name="TESTS_ZEND_CACHE_MEMCACHE_HOST" value="127.0.0.1"/>
         <const name="TESTS_ZEND_CACHE_MEMCACHE_PORT" value="11211"/>
         <const name="TESTS_ZEND_CACHE_MONGODB_ENABLED" value="false"/>
         <const name="TESTS_ZEND_CACHE_MONGODB_COLLECTION" value="cache"/>
         <const name="TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING" value="mongodb://localhost/"/>
         <const name="TESTS_ZEND_CACHE_MONGODB_DATABASE" value="zend_test"/>
-        <const name="TESTS_ZEND_CACHE_REDIS_ENABLED" value="false"/>
+        <const name="TESTS_ZEND_CACHE_REDIS_ENABLED" value="true"/>
         <const name="TESTS_ZEND_CACHE_REDIS_HOST" value="127.0.0.1"/>
         <const name="TESTS_ZEND_CACHE_REDIS_PORT" value="6379"/>
         <const name="TESTS_ZEND_CACHE_REDIS_PASSWORD" value=""/>
@@ -109,7 +109,7 @@
           Enable this if you have installed Doctrine\Common on the include_path or via
           Composer.
         -->
-        <const name="TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="false"/>
+        <const name="TESTS_ZEND_CODE_ANNOTATION_DOCTRINE_SUPPORT" value="true"/>
 
         <!--
           Zend\Config
@@ -148,7 +148,7 @@
           Enable this if you have installed Doctrine\Common on the include_path or via
           composer.
         -->
-        <const name="TESTS_ZEND_FORM_ANNOTATION_SUPPORT" value="false"/>
+        <const name="TESTS_ZEND_FORM_ANNOTATION_SUPPORT" value="true"/>
 
         <!--
           Enable this if you have installed ZendService\ReCaptcha on the include_path or via
@@ -169,7 +169,7 @@
         -->
         <const name="TESTS_ZEND_HTTP_CLIENT_BASEURI" value="false"/>
 
-        <const name="TESTS_ZEND_HTTP_CLIENT_ONLINE" value="false"/>
+        <const name="TESTS_ZEND_HTTP_CLIENT_ONLINE" value="true"/>
 
         <!--
           Zend\Http\Client\Adapter\Proxy tests

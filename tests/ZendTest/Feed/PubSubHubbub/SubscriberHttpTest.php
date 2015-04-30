@@ -17,7 +17,7 @@ use Zend\Http\Client as HttpClient;
  * Note that $this->_baseuri must point to a directory on a web server
  * containing all the files under the files directory. You should symlink
  * or copy these files and set '_baseuri' properly using the constant in
- * TestConfiguration.php (based on TestConfiguration.php.dist)
+ * phpunit.xml (based on phpunit.xml.dist)
  *
  * You can also set the proper constant in your test configuration file to
  * point to the right place.
@@ -59,7 +59,7 @@ class SubscriberHttpTest extends \PHPUnit_Framework_TestCase
             $this->subscriber->setStorage($this->storage);
         } else {
             // Skip tests
-            $this->markTestSkipped('Zend\Feed\PubSubHubbub\Subscriber dynamic tests are not enabled in TestConfiguration.php');
+            $this->markTestSkipped('Zend\Feed\PubSubHubbub\Subscriber dynamic tests are not enabled in phpunit.xml');
         }
     }
 

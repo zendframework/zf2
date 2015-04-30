@@ -37,7 +37,7 @@ abstract class CommonHttpTests extends \PHPUnit_Framework_TestCase
 {
     /**
      * The bast URI for this test, containing all files in the files directory
-     * Should be set in TestConfiguration.php or TestConfiguration.php.dist
+     * Should be set in phpunit.xml or phpunit.xml.dist
      *
      * @var string
      */
@@ -91,7 +91,7 @@ abstract class CommonHttpTests extends \PHPUnit_Framework_TestCase
             $this->client->setAdapter($this->_adapter);
         } else {
             // Skip tests
-            $this->markTestSkipped("Zend_Http_Client dynamic tests are not enabled in TestConfiguration.php");
+            $this->markTestSkipped("Zend_Http_Client dynamic tests are not enabled in phpunit.xml");
         }
     }
 

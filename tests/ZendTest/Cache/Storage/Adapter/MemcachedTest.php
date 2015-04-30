@@ -19,7 +19,7 @@ class MemcachedTest extends CommonAdapterTest
     public function setUp()
     {
         if (!defined('TESTS_ZEND_CACHE_MEMCACHED_ENABLED') || !TESTS_ZEND_CACHE_MEMCACHED_ENABLED) {
-            $this->markTestSkipped("Skipped by TestConfiguration (TESTS_ZEND_CACHE_MEMCACHED_ENABLED)");
+            $this->markTestSkipped('Enable TESTS_ZEND_CACHE_MEMCACHED_ENABLED to run this test');
         }
 
         if (!extension_loaded('memcached')) {
