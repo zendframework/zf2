@@ -82,14 +82,6 @@ if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true) {
     unset($codeCoverageFilter);
 }
 
-
-/**
- * Start output buffering, if enabled
- */
-if (defined('TESTS_ZEND_OB_ENABLED') && constant('TESTS_ZEND_OB_ENABLED')) {
-    ob_start();
-}
-
 /*
  * Unset global variables that are no longer needed.
  */
