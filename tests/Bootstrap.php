@@ -60,28 +60,6 @@ if (is_readable($zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php')) {
     require_once $zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php.dist';
 }
 
-if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true) {
-    $codeCoverageFilter = new PHP_CodeCoverage_Filter();
-
-    $lastArg = end($_SERVER['argv']);
-    if (is_dir($zfCoreTests . '/' . $lastArg)) {
-        $codeCoverageFilter->addDirectoryToWhitelist($zfCoreLibrary . '/' . $lastArg);
-    } elseif (is_file($zfCoreTests . '/' . $lastArg)) {
-        $codeCoverageFilter->addDirectoryToWhitelist(dirname($zfCoreLibrary . '/' . $lastArg));
-    } else {
-        $codeCoverageFilter->addDirectoryToWhitelist($zfCoreLibrary);
-    }
-
-    /*
-     * Omit from code coverage reports the contents of the tests directory
-     */
-    $codeCoverageFilter->addDirectoryToBlacklist($zfCoreTests, '');
-    $codeCoverageFilter->addDirectoryToBlacklist(PEAR_INSTALL_DIR, '');
-    $codeCoverageFilter->addDirectoryToBlacklist(PHP_LIBDIR, '');
-
-    unset($codeCoverageFilter);
-}
-
 /*
  * Unset global variables that are no longer needed.
  */
