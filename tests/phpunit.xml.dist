@@ -270,7 +270,7 @@
         <!--<const name="TESTS_ZEND_LDAP_USE_SSL" value="false"/>-->
         <const name="TESTS_ZEND_LDAP_USERNAME" value="CN=someUser,DC=example,DC=com"/>
         <const name="TESTS_ZEND_LDAP_PRINCIPAL_NAME" value="someUser@example.com"/>
-        <const name="TESTS_ZEND_LDAP_PASSWORD" value="null"/>
+        <const name="TESTS_ZEND_LDAP_PASSWORD" value=""/>
         <const name="TESTS_ZEND_LDAP_BIND_REQUIRES_DN" value="true"/>
         <const name="TESTS_ZEND_LDAP_BASE_DN" value="OU=Sales,DC=example,DC=com"/>
         <!--<const name="TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT" value="(&amp;(objectClass=posixAccount)(uid=%s))"/>-->
@@ -278,7 +278,7 @@
         <const name="TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT" value="EXAMPLE"/>
         <const name="TESTS_ZEND_LDAP_ALT_USERNAME" value="anotherUser"/>
         <const name="TESTS_ZEND_LDAP_ALT_DN" value="CN=Another User,OU=Sales,DC=example,DC=com"/>
-        <const name="TESTS_ZEND_LDAP_ALT_PASSWORD" value="null"/> <!--Used in Zend\Auth\Adapter\Ldap tests-->
+        <const name="TESTS_ZEND_LDAP_ALT_PASSWORD" value=""/> <!--Used in Zend\Auth\Adapter\Ldap tests-->
         <!--<const name="TESTS_ZEND_LDAP_WRITEABLE_SUBTREE" value="OU=Test,OU=Sales,DC=example,DC=com"/>-->
 
         <!--
@@ -293,9 +293,9 @@
           TESTS_ZEND_MAIL_TEMPDIR is used for testing write operations in local storages. If not set (== null)
           tempnam() is used.
         -->
-        <const name="TESTS_ZEND_MAIL_SERVER_TESTDIR" value="null"/>
+        <const name="TESTS_ZEND_MAIL_SERVER_TESTDIR" value=""/>
         <const name="TESTS_ZEND_MAIL_SERVER_FORMAT" value="mbox"/>
-        <const name="TESTS_ZEND_MAIL_TEMPDIR" value="null"/>
+        <const name="TESTS_ZEND_MAIL_TEMPDIR" value=""/>
 
         <!--
           Zend\Mail\Storage\Pop3 / Zend\Mail\Transport\Pop3
