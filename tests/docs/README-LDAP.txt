@@ -65,19 +65,19 @@ also:
 
 phpunit.xml values:
 
-    <const name="TESTS_ZEND_LDAP_HOST" value="localhost"/>
-    //<const name="TESTS_ZEND_LDAP_PORT" value="389"/>
-    <const name="TESTS_ZEND_LDAP_USE_START_TLS" value="false"/>
-    //<const name="TESTS_ZEND_LDAP_USE_SSL" value="false"/>
-    <const name="TESTS_ZEND_LDAP_USERNAME" value="cn=Manager,dc=example,dc=com"/>
-    <const name="TESTS_ZEND_LDAP_PRINCIPAL_NAME" value="Manager@example.com"/>
-    <const name="TESTS_ZEND_LDAP_PASSWORD" value="insecure"/>
-    <const name="TESTS_ZEND_LDAP_BIND_REQUIRES_DN" value="true"/>
-    <const name="TESTS_ZEND_LDAP_BASE_DN" value="dc=example,dc=com"/>
-    <const name="TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT" value="(&(objectClass=account)(uid=%s))"/>
-    <const name="TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME" value="example.com"/>
-    <const name="TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT" value="EXAMPLE"/>
-    <const name="TESTS_ZEND_LDAP_ALT_USERNAME" value="user1"/>
-    <const name="TESTS_ZEND_LDAP_ALT_DN" value="uid=user1,dc=example,dc=com"/>
-    <const name="TESTS_ZEND_LDAP_ALT_PASSWORD" value="user1"/>
-    <const name="TESTS_ZEND_LDAP_WRITEABLE_SUBTREE" value="ou=test,dc=example,dc=com"/>
+    <env name="TESTS_ZEND_LDAP_HOST" value="localhost"/>
+    //<env name="TESTS_ZEND_LDAP_PORT" value="389"/>
+    <env name="TESTS_ZEND_LDAP_USE_START_TLS" value="false"/>
+    //<env name="TESTS_ZEND_LDAP_USE_SSL" value="false"/>
+    <env name="TESTS_ZEND_LDAP_USERNAME" value="cn=Manager,dc=example,dc=com"/>
+    <env name="TESTS_ZEND_LDAP_PRINCIPAL_NAME" value="Manager@example.com"/>
+    <env name="TESTS_ZEND_LDAP_PASSWORD" value="insecure"/>
+    <env name="TESTS_ZEND_LDAP_BIND_REQUIRES_DN" value="true"/>
+    <env name="TESTS_ZEND_LDAP_BASE_DN" value="dc=example,dc=com"/>
+    <env name="TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT" value="(&(objectClass=account)(uid=%s))"/>
+    <env name="TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME" value="example.com"/>
+    <env name="TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT" value="EXAMPLE"/>
+    <env name="TESTS_ZEND_LDAP_ALT_USERNAME" value="user1"/>
+    <env name="TESTS_ZEND_LDAP_ALT_DN" value="uid=user1,dc=example,dc=com"/>
+    <env name="TESTS_ZEND_LDAP_ALT_PASSWORD" value="user1"/>
+    <env name="TESTS_ZEND_LDAP_WRITEABLE_SUBTREE" value="ou=test,dc=example,dc=com"/>

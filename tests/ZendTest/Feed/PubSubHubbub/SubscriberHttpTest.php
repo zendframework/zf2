@@ -40,7 +40,7 @@ class SubscriberHttpTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->baseuri = constant('TESTS_ZEND_FEED_PUBSUBHUBBUB_BASEURI');
+        $this->baseuri = getenv('TESTS_ZEND_FEED_PUBSUBHUBBUB_BASEURI');
         if ($this->baseuri) {
             if (substr($this->baseuri, -1) != '/') {
                 $this->baseuri .= '/';

@@ -60,7 +60,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchLatestVersion()
     {
-        if (!constant('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
             $this->markTestSkipped('Version online tests are not enabled');
         }
         if (!extension_loaded('openssl')) {
@@ -79,7 +79,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchLatestGithubVersion()
     {
-        if (!constant('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
             $this->markTestSkipped('Version online tests are not enabled');
         }
         if (!extension_loaded('openssl')) {
@@ -98,7 +98,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchLatestVersionWarnsIfAllowUrlFopenIsDisabled()
     {
-        if (!constant('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
             $this->markTestSkipped('Version online tests are not enabled');
         }
         if (ini_get('allow_url_fopen')) {
@@ -117,7 +117,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchLatestVersionWarnsIfBadServiceIsPassed()
     {
-        if (!constant('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
             $this->markTestSkipped('Version online tests are not enabled');
         }
 
@@ -133,7 +133,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchLatestVersionUsesSuppliedZendHttpClient()
     {
-        if (!constant('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
             $this->markTestSkipped('Version online tests are not enabled');
         }
         if (!extension_loaded('openssl')) {
@@ -161,7 +161,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchLatestVersionDoesNotThrowZendHttpClientException()
     {
-        if (!constant('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_VERSION_ONLINE_ENABLED')) {
             $this->markTestSkipped('Version online tests are not enabled');
         }
         if (!extension_loaded('openssl')) {

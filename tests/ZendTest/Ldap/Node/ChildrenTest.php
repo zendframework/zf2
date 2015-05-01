@@ -57,7 +57,7 @@ class ChildrenTest extends TestLdap\AbstractOnlineTestCase
 
     public function testHasChildrenOnAttachedNode()
     {
-        $node = $this->getLDAP()->getNode(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE);
+        $node = $this->getLDAP()->getNode(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'));
         $this->assertTrue($node->hasChildren());
         $this->assertTrue($node->hasChildren());
 
@@ -76,7 +76,7 @@ class ChildrenTest extends TestLdap\AbstractOnlineTestCase
 
     public function testHasChildrenOnDetachedNodeWithoutPriorGetChildren()
     {
-        $node = $this->getLDAP()->getNode(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE);
+        $node = $this->getLDAP()->getNode(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'));
         $node->detachLDAP();
         $this->assertFalse($node->hasChildren());
 
@@ -95,7 +95,7 @@ class ChildrenTest extends TestLdap\AbstractOnlineTestCase
 
     public function testHasChildrenOnDetachedNodeWithPriorGetChildren()
     {
-        $node = $this->getLDAP()->getNode(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE);
+        $node = $this->getLDAP()->getNode(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'));
         $node->getChildren();
         $node->detachLDAP();
         $this->assertTrue($node->hasChildren());

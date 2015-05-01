@@ -60,7 +60,7 @@ class ChildrenIterationTest extends TestLdap\AbstractOnlineTestCase
             $dn  = $n->getDn()->toString(Ldap\Dn::ATTR_CASEFOLD_LOWER);
             $rdn = Ldap\Dn::implodeRdn($n->getRdnArray(), Ldap\Dn::ATTR_CASEFOLD_LOWER);
             if ($i == 0) {
-                $this->assertEquals(Ldap\Dn::fromString(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE)
+                $this->assertEquals(Ldap\Dn::fromString(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'))
                         ->toString(Ldap\Dn::ATTR_CASEFOLD_LOWER), $dn
                 );
             } elseif ($i == 1) {
@@ -72,7 +72,7 @@ class ChildrenIterationTest extends TestLdap\AbstractOnlineTestCase
                     $base = $this->createDn('ou=Node,');
                 } else {
                     $j    = $i - 3;
-                    $base = Ldap\Dn::fromString(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE)
+                    $base = Ldap\Dn::fromString(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'))
                         ->toString(Ldap\Dn::ATTR_CASEFOLD_LOWER);
                 }
                 $this->assertEquals('ou=Test' . $j, $rdn);

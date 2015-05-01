@@ -25,8 +25,8 @@ class MboxTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         if ($this->_tmpdir == null) {
-            if (TESTS_ZEND_MAIL_TEMPDIR != null) {
-                $this->_tmpdir = TESTS_ZEND_MAIL_TEMPDIR;
+            if (getenv('TESTS_ZEND_MAIL_TEMPDIR') != null) {
+                $this->_tmpdir = getenv('TESTS_ZEND_MAIL_TEMPDIR');
             } else {
                 $this->_tmpdir = __DIR__ . '/../_files/test.tmp/';
             }

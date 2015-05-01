@@ -68,20 +68,20 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     public function testOptionsGetter()
     {
         $options = array(
-            'host'     => TESTS_ZEND_LDAP_HOST,
-            'username' => TESTS_ZEND_LDAP_USERNAME,
-            'password' => TESTS_ZEND_LDAP_PASSWORD,
-            'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
+            'host'     => getenv('TESTS_ZEND_LDAP_HOST'),
+            'username' => getenv('TESTS_ZEND_LDAP_USERNAME'),
+            'password' => getenv('TESTS_ZEND_LDAP_PASSWORD'),
+            'baseDn'   => getenv('TESTS_ZEND_LDAP_BASE_DN'),
         );
         $ldap    = new Ldap\Ldap($options);
         $this->assertEquals(array(
-                                 'host'                   => TESTS_ZEND_LDAP_HOST,
+                                 'host'                   => getenv('TESTS_ZEND_LDAP_HOST'),
                                  'port'                   => 0,
                                  'useSsl'                 => false,
-                                 'username'               => TESTS_ZEND_LDAP_USERNAME,
-                                 'password'               => TESTS_ZEND_LDAP_PASSWORD,
+                                 'username'               => getenv('TESTS_ZEND_LDAP_USERNAME'),
+                                 'password'               => getenv('TESTS_ZEND_LDAP_PASSWORD'),
                                  'bindRequiresDn'         => false,
-                                 'baseDn'                 => TESTS_ZEND_LDAP_BASE_DN,
+                                 'baseDn'                 => getenv('TESTS_ZEND_LDAP_BASE_DN'),
                                  'accountCanonicalForm'   => null,
                                  'accountDomainName'      => null,
                                  'accountDomainNameShort' => null,
@@ -98,20 +98,20 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     public function testConfigObject()
     {
         $config = new Config\Config(array(
-                                         'host'     => TESTS_ZEND_LDAP_HOST,
-                                         'username' => TESTS_ZEND_LDAP_USERNAME,
-                                         'password' => TESTS_ZEND_LDAP_PASSWORD,
-                                         'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
+                                         'host'     => getenv('TESTS_ZEND_LDAP_HOST'),
+                                         'username' => getenv('TESTS_ZEND_LDAP_USERNAME'),
+                                         'password' => getenv('TESTS_ZEND_LDAP_PASSWORD'),
+                                         'baseDn'   => getenv('TESTS_ZEND_LDAP_BASE_DN'),
                                     ));
         $ldap   = new Ldap\Ldap($config);
         $this->assertEquals(array(
-                                 'host'                   => TESTS_ZEND_LDAP_HOST,
+                                 'host'                   => getenv('TESTS_ZEND_LDAP_HOST'),
                                  'port'                   => 0,
                                  'useSsl'                 => false,
-                                 'username'               => TESTS_ZEND_LDAP_USERNAME,
-                                 'password'               => TESTS_ZEND_LDAP_PASSWORD,
+                                 'username'               => getenv('TESTS_ZEND_LDAP_USERNAME'),
+                                 'password'               => getenv('TESTS_ZEND_LDAP_PASSWORD'),
                                  'bindRequiresDn'         => false,
-                                 'baseDn'                 => TESTS_ZEND_LDAP_BASE_DN,
+                                 'baseDn'                 => getenv('TESTS_ZEND_LDAP_BASE_DN'),
                                  'accountCanonicalForm'   => null,
                                  'accountDomainName'      => null,
                                  'accountDomainNameShort' => null,

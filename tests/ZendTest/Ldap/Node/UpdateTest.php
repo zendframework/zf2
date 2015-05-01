@@ -26,7 +26,7 @@ class UpdateTest extends TestLdap\AbstractOnlineTestCase
 
     protected function tearDown()
     {
-        if (!constant('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
             return;
         }
 

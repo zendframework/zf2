@@ -143,7 +143,7 @@ class FactoryTest extends TestCase
 
     public function testCanCreateReCaptcha()
     {
-        if (!constant('TESTS_ZEND_CAPTCHA_RECAPTCHA_SUPPORT')) {
+        if (!getenv('TESTS_ZEND_CAPTCHA_RECAPTCHA_SUPPORT')) {
             $this->markTestSkipped('Enable TESTS_ZEND_CAPTCHA_RECAPTCHA_SUPPORT to test PDF render');
         }
 
@@ -158,7 +158,7 @@ class FactoryTest extends TestCase
 
     public function testCanCreateReCaptchaUsingShortName()
     {
-        if (!constant('TESTS_ZEND_CAPTCHA_RECAPTCHA_SUPPORT')) {
+        if (!getenv('TESTS_ZEND_CAPTCHA_RECAPTCHA_SUPPORT')) {
             $this->markTestSkipped('Enable TESTS_ZEND_CAPTCHA_RECAPTCHA_SUPPORT to test PDF render');
         }
 

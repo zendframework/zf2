@@ -20,7 +20,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_CACHE_MONGODB_ENABLED') || !TESTS_ZEND_CACHE_MONGODB_ENABLED) {
+        if (!getenv('TESTS_ZEND_CACHE_MONGODB_ENABLED')) {
             $this->markTestSkipped('Enable TESTS_ZEND_CACHE_MONGODB_ENABLED to run this test');
         }
 
@@ -39,8 +39,8 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
         $id = 'foo';
 
         $clientClass = (version_compare(phpversion('mongo'), '1.3.0', '<')) ? '\Mongo' : '\MongoClient';
-        $client = new $clientClass(TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING);
-        $resource = $client->selectCollection(TESTS_ZEND_CACHE_MONGODB_DATABASE, TESTS_ZEND_CACHE_MONGODB_COLLECTION);
+        $client = new $clientClass(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
+        $resource = $client->selectCollection(getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE'), getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION'));
 
         $this->object->setResource($id, $resource);
 
@@ -99,8 +99,8 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
         $id = 'foo';
 
         $clientClass = (version_compare(phpversion('mongo'), '1.3.0', '<')) ? '\Mongo' : '\MongoClient';
-        $client = new $clientClass(TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING);
-        $resource = $client->selectCollection(TESTS_ZEND_CACHE_MONGODB_DATABASE, TESTS_ZEND_CACHE_MONGODB_COLLECTION);
+        $client = new $clientClass(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
+        $resource = $client->selectCollection(getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE'), getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION'));
 
         $this->object->setResource($id, $resource);
 
@@ -110,10 +110,10 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetResourceNewResource()
     {
         $id                = 'foo';
-        $server            = TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING;
+        $server            = getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING');
         $connectionOptions = array('connectTimeoutMS' => 5);
-        $database          = TESTS_ZEND_CACHE_MONGODB_DATABASE;
-        $collection        = TESTS_ZEND_CACHE_MONGODB_COLLECTION;
+        $database          = getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE');
+        $collection        = getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION');
 
         $this->object->setServer($id, $server);
         $this->object->setConnectionOptions($id, $connectionOptions);
@@ -128,8 +128,8 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
         $id                = 'foo';
         $server            = 'mongodb://unknown.unknown';
         $connectionOptions = array('connectTimeoutMS' => 5);
-        $database          = TESTS_ZEND_CACHE_MONGODB_DATABASE;
-        $collection        = TESTS_ZEND_CACHE_MONGODB_COLLECTION;
+        $database          = getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE');
+        $collection        = getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION');
 
         $this->object->setServer($id, $server);
         $this->object->setConnectionOptions($id, $connectionOptions);

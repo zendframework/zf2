@@ -820,7 +820,7 @@ class EmailAddressTest extends \PHPUnit_Framework_TestCase
      */
     private function skipIfOnlineTestsDisabled()
     {
-        if (! (defined('TESTS_ZEND_VALIDATOR_ONLINE_ENABLED') && \TESTS_ZEND_VALIDATOR_ONLINE_ENABLED)) {
+        if (!getenv('TESTS_ZEND_VALIDATOR_ONLINE_ENABLED')) {
             $this->markTestSkipped('Testing MX records has been disabled');
         }
     }

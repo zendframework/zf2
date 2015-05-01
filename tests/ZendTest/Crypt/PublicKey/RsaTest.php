@@ -53,8 +53,8 @@ class RsaTest extends \PHPUnit_Framework_TestCase
             $openSslConf = $_ENV['OPENSSL_CONF'];
         } elseif (isset($_ENV['SSLEAY_CONF'])) {
             $openSslConf = $_ENV['SSLEAY_CONF'];
-        } elseif (constant('TESTS_ZEND_CRYPT_OPENSSL_CONF')) {
-            $openSslConf = constant('TESTS_ZEND_CRYPT_OPENSSL_CONF');
+        } elseif (getenv('TESTS_ZEND_CRYPT_OPENSSL_CONF')) {
+            $openSslConf = getenv('TESTS_ZEND_CRYPT_OPENSSL_CONF');
         }
         $this->openSslConf = $openSslConf;
 

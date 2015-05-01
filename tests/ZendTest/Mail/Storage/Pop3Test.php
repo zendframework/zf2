@@ -22,26 +22,26 @@ class Pop3Test extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!constant('TESTS_ZEND_MAIL_POP3_ENABLED')) {
+        if (!getenv('TESTS_ZEND_MAIL_POP3_ENABLED')) {
             $this->markTestSkipped('Zend_Mail POP3 tests are not enabled');
         }
 
-        $this->_params = array('host'     => TESTS_ZEND_MAIL_POP3_HOST,
-                               'user'     => TESTS_ZEND_MAIL_POP3_USER,
-                               'password' => TESTS_ZEND_MAIL_POP3_PASSWORD);
+        $this->_params = array('host'     => getenv('TESTS_ZEND_MAIL_POP3_HOST'),
+                               'user'     => getenv('TESTS_ZEND_MAIL_POP3_USER'),
+                               'password' => getenv('TESTS_ZEND_MAIL_POP3_PASSWORD'));
 
-        if (defined('TESTS_ZEND_MAIL_SERVER_TESTDIR') && TESTS_ZEND_MAIL_SERVER_TESTDIR) {
-            if (!file_exists(TESTS_ZEND_MAIL_SERVER_TESTDIR . DIRECTORY_SEPARATOR . 'inbox')
-             && !file_exists(TESTS_ZEND_MAIL_SERVER_TESTDIR . DIRECTORY_SEPARATOR . 'INBOX')) {
+        if (getenv('TESTS_ZEND_MAIL_SERVER_TESTDIR') && getenv('TESTS_ZEND_MAIL_SERVER_TESTDIR')) {
+            if (!file_exists(getenv('TESTS_ZEND_MAIL_SERVER_TESTDIR') . DIRECTORY_SEPARATOR . 'inbox')
+             && !file_exists(getenv('TESTS_ZEND_MAIL_SERVER_TESTDIR') . DIRECTORY_SEPARATOR . 'INBOX')) {
                 $this->markTestSkipped('There is no file name "inbox" or "INBOX" in '
-                                       . TESTS_ZEND_MAIL_SERVER_TESTDIR . '. I won\'t use it for testing. '
+                                       . getenv('TESTS_ZEND_MAIL_SERVER_TESTDIR') . '. I won\'t use it for testing. '
                                        . 'This is you safety net. If you think it is the right directory just '
                                        . 'create an empty file named INBOX or remove/deactived this message.');
             }
 
-            $this->_cleanDir(TESTS_ZEND_MAIL_SERVER_TESTDIR);
-            $this->_copyDir(__DIR__ . '/../_files/test.' . TESTS_ZEND_MAIL_SERVER_FORMAT,
-                            TESTS_ZEND_MAIL_SERVER_TESTDIR);
+            $this->_cleanDir(getenv('TESTS_ZEND_MAIL_SERVER_TESTDIR'));
+            $this->_copyDir(__DIR__ . '/../_files/test.' . getenv('TESTS_ZEND_MAIL_SERVER_FORMAT'),
+                            getenv('TESTS_ZEND_MAIL_SERVER_TESTDIR'));
         }
     }
 
@@ -109,7 +109,7 @@ class Pop3Test extends \PHPUnit_Framework_TestCase
 
     public function testConnectSSL()
     {
-        if (!TESTS_ZEND_MAIL_POP3_SSL) {
+        if (!getenv('TESTS_ZEND_MAIL_POP3_SSL')) {
             return;
         }
 
@@ -120,7 +120,7 @@ class Pop3Test extends \PHPUnit_Framework_TestCase
 
     public function testConnectTLS()
     {
-        if (!TESTS_ZEND_MAIL_POP3_TLS) {
+        if (!getenv('TESTS_ZEND_MAIL_POP3_TLS')) {
             return;
         }
 
@@ -131,7 +131,7 @@ class Pop3Test extends \PHPUnit_Framework_TestCase
 
     public function testInvalidService()
     {
-        $this->_params['port'] = TESTS_ZEND_MAIL_POP3_INVALID_PORT;
+        $this->_params['port'] = getenv('TESTS_ZEND_MAIL_POP3_INVALID_PORT');
 
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
         new Storage\Pop3($this->_params);
@@ -139,7 +139,7 @@ class Pop3Test extends \PHPUnit_Framework_TestCase
 
     public function testWrongService()
     {
-        $this->_params['port'] = TESTS_ZEND_MAIL_POP3_WRONG_PORT;
+        $this->_params['port'] = getenv('TESTS_ZEND_MAIL_POP3_WRONG_PORT');
 
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
         new Storage\Pop3($this->_params);

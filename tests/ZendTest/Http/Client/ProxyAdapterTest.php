@@ -34,9 +34,9 @@ class ProxyAdapterTest extends SocketTest
      */
     protected function setUp()
     {
-        if (defined('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY') &&
-              TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY) {
-            list($host, $port) = explode(':', TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY, 2);
+        if (getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY') &&
+              getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY')) {
+            list($host, $port) = explode(':', getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY'), 2);
 
             if (! $host) {
                 $this->markTestSkipped('No valid proxy host name or address specified.');
@@ -57,14 +57,14 @@ class ProxyAdapterTest extends SocketTest
 
             $user = '';
             $pass = '';
-            if (defined('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER') &&
-                TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER) {
-                $user = TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER;
+            if (getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER') &&
+                getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER')) {
+                $user = getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_USER');
             }
 
-            if (defined('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS') &&
-                TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS) {
-                $pass = TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS;
+            if (getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS') &&
+                getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS')) {
+                $pass = getenv('TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY_PASS');
             }
 
 

@@ -28,7 +28,7 @@ class RedisTest extends CommonAdapterTest
 
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_CACHE_REDIS_ENABLED') || !TESTS_ZEND_CACHE_REDIS_ENABLED) {
+        if (!getenv('TESTS_ZEND_CACHE_REDIS_ENABLED')) {
             $this->markTestSkipped('Enable TESTS_ZEND_CACHE_REDIS_ENABLED to run this test');
         }
 
@@ -40,25 +40,25 @@ class RedisTest extends CommonAdapterTest
             'resource_id' => __CLASS__,
         ));
 
-        if (defined('TESTS_ZEND_CACHE_REDIS_HOST') && defined('TESTS_ZEND_CACHE_REDIS_PORT')) {
+        if (getenv('TESTS_ZEND_CACHE_REDIS_HOST') && getenv('TESTS_ZEND_CACHE_REDIS_PORT')) {
             $this->_options->getResourceManager()->setServer(__CLASS__, array(
-                TESTS_ZEND_CACHE_REDIS_HOST, TESTS_ZEND_CACHE_REDIS_PORT, 1
+                getenv('TESTS_ZEND_CACHE_REDIS_HOST'), getenv('TESTS_ZEND_CACHE_REDIS_PORT'), 1
             ));
-        } elseif (defined('TESTS_ZEND_CACHE_REDIS_HOST')) {
+        } elseif (getenv('TESTS_ZEND_CACHE_REDIS_HOST')) {
             $this->_options->getResourceManager()->setServer(__CLASS__, array(
-                TESTS_ZEND_CACHE_REDIS_HOST
+                getenv('TESTS_ZEND_CACHE_REDIS_HOST')
             ));
         }
 
-        if (defined('TESTS_ZEND_CACHE_REDIS_DATABASE')) {
+        if (getenv('TESTS_ZEND_CACHE_REDIS_DATABASE')) {
             $this->_options->getResourceManager()->setDatabase(__CLASS__,
-                TESTS_ZEND_CACHE_REDIS_DATABASE
+                getenv('TESTS_ZEND_CACHE_REDIS_DATABASE')
             );
         }
 
-        if (defined('TESTS_ZEND_CACHE_REDIS_PASSWORD')) {
+        if (getenv('TESTS_ZEND_CACHE_REDIS_PASSWORD')) {
             $this->_options->getResourceManager()->setPassword(__CLASS__,
-                TESTS_ZEND_CACHE_REDIS_PASSWORD
+                getenv('TESTS_ZEND_CACHE_REDIS_PASSWORD')
             );
         }
         $this->_storage = new Cache\Storage\Adapter\Redis();
@@ -145,8 +145,8 @@ class RedisTest extends CommonAdapterTest
 
     public function testGetCapabilitiesTtl()
     {
-        $host = defined('TESTS_ZEND_CACHE_REDIS_HOST') ? TESTS_ZEND_CACHE_REDIS_HOST : '127.0.0.1';
-        $port = defined('TESTS_ZEND_CACHE_REDIS_PORT') ? TESTS_ZEND_CACHE_REDIS_PORT : 6379;
+        $host = getenv('TESTS_ZEND_CACHE_REDIS_HOST') ? : '127.0.0.1';
+        $port = getenv('TESTS_ZEND_CACHE_REDIS_PORT') ? : 6379;
         $redisResource = new RedisResource();
         $redisResource->connect($host, $port);
         $info = $redisResource->info();

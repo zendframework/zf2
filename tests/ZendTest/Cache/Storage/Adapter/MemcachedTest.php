@@ -18,7 +18,7 @@ class MemcachedTest extends CommonAdapterTest
 {
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_CACHE_MEMCACHED_ENABLED') || !TESTS_ZEND_CACHE_MEMCACHED_ENABLED) {
+        if (!getenv('TESTS_ZEND_CACHE_MEMCACHED_ENABLED')) {
             $this->markTestSkipped('Enable TESTS_ZEND_CACHE_MEMCACHED_ENABLED to run this test');
         }
 
@@ -30,13 +30,13 @@ class MemcachedTest extends CommonAdapterTest
             'resource_id' => __CLASS__
         ));
 
-        if (defined('TESTS_ZEND_CACHE_MEMCACHED_HOST') && defined('TESTS_ZEND_CACHE_MEMCACHED_PORT')) {
+        if (getenv('TESTS_ZEND_CACHE_MEMCACHED_HOST') && getenv('TESTS_ZEND_CACHE_MEMCACHED_PORT')) {
             $this->_options->getResourceManager()->setServers(__CLASS__, array(
-                array(TESTS_ZEND_CACHE_MEMCACHED_HOST, TESTS_ZEND_CACHE_MEMCACHED_PORT)
+                array(getenv('TESTS_ZEND_CACHE_MEMCACHED_HOST'), getenv('TESTS_ZEND_CACHE_MEMCACHED_PORT'))
             ));
-        } elseif (defined('TESTS_ZEND_CACHE_MEMCACHED_HOST')) {
+        } elseif (getenv('TESTS_ZEND_CACHE_MEMCACHED_HOST')) {
             $this->_options->getResourceManager()->setServers(__CLASS__, array(
-                array(TESTS_ZEND_CACHE_MEMCACHED_HOST)
+                array(getenv('TESTS_ZEND_CACHE_MEMCACHED_HOST'))
             ));
         }
 

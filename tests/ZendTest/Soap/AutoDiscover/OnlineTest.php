@@ -22,10 +22,10 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_SOAP_AUTODISCOVER_ONLINE_SERVER_BASEURI') || constant('TESTS_ZEND_SOAP_AUTODISCOVER_ONLINE_SERVER_BASEURI') == false) {
-            $this->markTestSkipped('The constant TESTS_ZEND_SOAP_AUTODISCOVER_ONLINE_SERVER_BASEURI has to be defined to allow the Online test to work.');
+        if (!getenv('TESTS_ZEND_SOAP_AUTODISCOVER_ONLINE_SERVER_BASEURI')) {
+            $this->markTestSkipped('Enable TESTS_ZEND_SOAP_AUTODISCOVER_ONLINE_SERVER_BASEURI to allow the Online test to work.');
         }
-        $this->baseuri = TESTS_ZEND_SOAP_AUTODISCOVER_ONLINE_SERVER_BASEURI;
+        $this->baseuri = getenv('TESTS_ZEND_SOAP_AUTODISCOVER_ONLINE_SERVER_BASEURI');
     }
 
     public function testNestedObjectArrayResponse()

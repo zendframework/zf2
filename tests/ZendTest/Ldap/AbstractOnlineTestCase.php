@@ -36,36 +36,36 @@ abstract class AbstractOnlineTestCase extends AbstractTestCase
 
     protected function setUp()
     {
-        if (!constant('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
             $this->markTestSkipped("Zend_Ldap online tests are not enabled");
         }
 
         $options = array(
-            'host'     => TESTS_ZEND_LDAP_HOST,
-            'username' => TESTS_ZEND_LDAP_USERNAME,
-            'password' => TESTS_ZEND_LDAP_PASSWORD,
-            'baseDn'   => TESTS_ZEND_LDAP_WRITEABLE_SUBTREE,
+            'host'     => getenv('TESTS_ZEND_LDAP_HOST'),
+            'username' => getenv('TESTS_ZEND_LDAP_USERNAME'),
+            'password' => getenv('TESTS_ZEND_LDAP_PASSWORD'),
+            'baseDn'   => getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'),
         );
-        if (defined('TESTS_ZEND_LDAP_PORT') && TESTS_ZEND_LDAP_PORT != 389) {
-            $options['port'] = TESTS_ZEND_LDAP_PORT;
+        if (getenv('TESTS_ZEND_LDAP_PORT') && getenv('TESTS_ZEND_LDAP_PORT') != 389) {
+            $options['port'] = getenv('TESTS_ZEND_LDAP_PORT');
         }
-        if (defined('TESTS_ZEND_LDAP_USE_START_TLS')) {
-            $options['useStartTls'] = TESTS_ZEND_LDAP_USE_START_TLS;
+        if (getenv('TESTS_ZEND_LDAP_USE_START_TLS')) {
+            $options['useStartTls'] = getenv('TESTS_ZEND_LDAP_USE_START_TLS');
         }
-        if (defined('TESTS_ZEND_LDAP_USE_SSL')) {
-            $options['useSsl'] = TESTS_ZEND_LDAP_USE_SSL;
+        if (getenv('TESTS_ZEND_LDAP_USE_SSL')) {
+            $options['useSsl'] = getenv('TESTS_ZEND_LDAP_USE_SSL');
         }
-        if (defined('TESTS_ZEND_LDAP_BIND_REQUIRES_DN')) {
-            $options['bindRequiresDn'] = TESTS_ZEND_LDAP_BIND_REQUIRES_DN;
+        if (getenv('TESTS_ZEND_LDAP_BIND_REQUIRES_DN')) {
+            $options['bindRequiresDn'] = getenv('TESTS_ZEND_LDAP_BIND_REQUIRES_DN');
         }
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT')) {
-            $options['accountFilterFormat'] = TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT;
+        if (getenv('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT')) {
+            $options['accountFilterFormat'] = getenv('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT');
         }
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME')) {
-            $options['accountDomainName'] = TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME;
+        if (getenv('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME')) {
+            $options['accountDomainName'] = getenv('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME');
         }
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT')) {
-            $options['accountDomainNameShort'] = TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT;
+        if (getenv('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT')) {
+            $options['accountDomainNameShort'] = getenv('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT');
         }
 
         $this->ldap = new Ldap\Ldap($options);
@@ -85,7 +85,7 @@ abstract class AbstractOnlineTestCase extends AbstractTestCase
         if (substr($dn, -1) !== ',') {
             $dn .= ',';
         }
-        $dn = $dn . TESTS_ZEND_LDAP_WRITEABLE_SUBTREE;
+        $dn = $dn . getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE');
 
         return Ldap\Dn::fromString($dn)->toString(Ldap\Dn::ATTR_CASEFOLD_LOWER);
     }
@@ -133,7 +133,7 @@ abstract class AbstractOnlineTestCase extends AbstractTestCase
 
     protected function cleanupLDAPServer()
     {
-        if (!constant('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
             return;
         }
         $ldap = $this->ldap->getResource();

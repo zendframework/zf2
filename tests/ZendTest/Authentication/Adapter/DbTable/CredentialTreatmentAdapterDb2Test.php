@@ -35,30 +35,21 @@ class CredentialTreatmentAdapterDb2Test extends \PHPUnit_Framework_TestCase
     /**
      * Database adapter configuration
      */
-    protected $dbAdapterParams = array(
-        'driver'           => 'IbmDb2',
-        'dbname'           => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_DATABASE,
-        'username'         => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_USERNAME,
-        'password'         => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_PASSWORD,
-        'platform_options' => array('quote_identifiers' => false),
-        'driver_options'   => array(),
-    );
+    protected $dbAdapterParams;
 
     /**
      * DB2 table to use for testing
      *
      * @var string in the format 'LIBRARY_NAME.TABLE_NAME' or
      */
-    protected $tableName = TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_CREDENTIAL_TABLE;
+    protected $tableName;
 
     /**
      * Set up test configuration
      */
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_ENABLED')
-            || constant('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_ENABLED') === false
-        ) {
+        if (!getenv('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_ENABLED')) {
             $this->markTestSkipped('Tests are not enabled in phpunit.xml');
         }
 
@@ -66,8 +57,17 @@ class CredentialTreatmentAdapterDb2Test extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('ibm_db2 extension is not loaded');
         }
 
+        $this->dbAdapterParams = array(
+            'driver'           => 'IbmDb2',
+            'dbname'           => getenv('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_DATABASE'),
+            'username'         => getenv('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_USERNAME'),
+            'password'         => getenv('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_PASSWORD'),
+            'platform_options' => array('quote_identifiers' => false),
+            'driver_options'   => array(),
+        );
         $this->dbAdapterParams['driver_options']['i5_commit'] = constant('DB2_I5_TXN_NO_COMMIT');
         $this->dbAdapterParams['driver_options']['i5_naming'] = constant('DB2_I5_NAMING_OFF');
+        $this->tableName = getenv('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_CREDENTIAL_TABLE');
 
         $this->setupDbAdapter();
         $this->setupAuthAdapter();
