@@ -141,20 +141,20 @@ class Application implements
 
         $listeners = array_unique(array_merge($this->defaultListeners, $listeners));
 
+        // Setup MVC Event
+        $this->event = new MvcEvent();
+        $this->event->setTarget($this);
+        $this->event->setApplication($this)
+                    ->setRequest($this->request)
+                    ->setResponse($this->response)
+                    ->setRouter($serviceManager->get('Router'));
+
         foreach ($listeners as $listener) {
             $events->attach($serviceManager->get($listener));
         }
 
-        // Setup MVC Event
-        $this->event = $event  = new MvcEvent();
-        $event->setTarget($this);
-        $event->setApplication($this)
-              ->setRequest($this->request)
-              ->setResponse($this->response)
-              ->setRouter($serviceManager->get('Router'));
-
         // Trigger bootstrap events
-        $events->trigger(MvcEvent::EVENT_BOOTSTRAP, $event);
+        $events->trigger(MvcEvent::EVENT_BOOTSTRAP, $this->event);
         return $this;
     }
 
