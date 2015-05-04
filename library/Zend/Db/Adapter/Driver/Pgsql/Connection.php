@@ -57,9 +57,16 @@ class Connection extends AbstractConnection
      */
     public function setType($type)
     {
-        if ($type !== PGSQL_CONNECT_FORCE_NEW && $type !== PGSQL_CONNECT_ASYNC) {
-            throw new Exception\InvalidArgumentException('Connection type is not valid. (See: http://php.net/manual/en/function.pg-connect.php)');
+        if (version_compare(PHP_VERSION, '5.6', 'lt')) {
+            throw new Exception\RuntimeException('Connection type cannot be set on versions < 5.6');
         }
+
+        if ($type !== PGSQL_CONNECT_FORCE_NEW && $type !== PGSQL_CONNECT_ASYNC) {
+            throw new Exception\InvalidArgumentException(
+                'Connection type is not valid. (See: http://php.net/manual/en/function.pg-connect.php)'
+            );
+        }
+
         $this->type = $type;
         return $this;
     }
@@ -97,7 +104,9 @@ class Connection extends AbstractConnection
         $connection = $this->getConnectionString();
         set_error_handler(function ($number, $string) {
             throw new Exception\RuntimeException(
-                __METHOD__ . ': Unable to connect to database', null, new Exception\ErrorException($string, $number)
+                __METHOD__ . ': Unable to connect to database',
+                null,
+                new Exception\ErrorException($string, $number)
             );
         });
         $this->resource = pg_connect($connection);
@@ -228,7 +237,10 @@ class Connection extends AbstractConnection
         if ($name === null) {
             return;
         }
-        $result = pg_query($this->resource, 'SELECT CURRVAL(\'' . str_replace('\'', '\\\'', $name) . '\') as "currval"');
+        $result = pg_query(
+            $this->resource,
+            'SELECT CURRVAL(\'' . str_replace('\'', '\\\'', $name) . '\') as "currval"'
+        );
 
         return pg_fetch_result($result, 0, 'currval');
     }
