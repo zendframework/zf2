@@ -170,6 +170,12 @@ class SegmentTest extends TestCase
                 null,
                 array('foo' => 'foo bar')
             ),
+            'urlencoded-backslash' => array(
+                new Segment('/:slashparam', array('slashparam' => '[a-zA-Z\\\\]*')),
+                '/Zend%5CBackslash',
+                null,
+                array('slashparam' => 'Zend\Backslash')
+            ),
             'urlencode-flaws-corrected' => array(
                 new Segment('/:foo'),
                 "/!$&'()*,-.:;=@_~+",
