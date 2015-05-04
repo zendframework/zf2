@@ -86,9 +86,14 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetConnectionTypeException()
     {
+        if (version_compare(PHP_VERSION, '5.6', 'lt')) {
+            $this->markTestSkipped('Functionality under test only works in 5.6 and above');
+        }
+
         if (! extension_loaded('pgsql')) {
             $this->markTestSkipped('pgsql extension not loaded');
         }
+
         $this->connection->setType(3);
     }
 
@@ -97,9 +102,14 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetConnectionType()
     {
+        if (version_compare(PHP_VERSION, '5.6', 'lt')) {
+            $this->markTestSkipped('Functionality under test only works in 5.6 and above');
+        }
+
         if (! extension_loaded('pgsql')) {
             $this->markTestSkipped('pgsql extension not loaded');
         }
+
         $type = PGSQL_CONNECT_FORCE_NEW;
         $this->connection->setType($type);
         $this->assertEquals($type, self::readAttribute($this->connection, 'type'));
