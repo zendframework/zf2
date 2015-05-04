@@ -51,4 +51,13 @@ class JsonModelTest extends TestCase
         $model = new JsonModel($array, array('prettyPrint' => true));
         $this->assertEquals(Json::encode($array, false, array('prettyPrint' => true)), $model->serialize());
     }
+
+    public function testUnescapedUnicode()
+    {
+        $array = array(
+            'руссиш' => 'руссиш',
+        );
+        $model = new JsonModel($array, array('unescapedUnicode' => true));
+        $this->assertEquals(Json::encode($array, false, array('unescapedUnicode' => true)), $model->serialize());
+    }
 }

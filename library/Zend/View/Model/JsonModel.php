@@ -63,6 +63,7 @@ class JsonModel extends ViewModel
 
         $options = array(
             'prettyPrint' => $this->getOption('prettyPrint'),
+            'unescapedUnicode' => $this->getOption('unescapedUnicode'),
         );
 
         if (null !== $this->jsonpCallback) {
