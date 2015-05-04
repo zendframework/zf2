@@ -10,10 +10,7 @@
 namespace Zend\Soap\Client;
 
 use SoapClient;
-
-if (! extension_loaded('soap')) {
-    return;
-}
+use Zend\Soap\Exception\ExtensionNotLoadedException;
 
 class Common extends SoapClient
 {
@@ -33,6 +30,10 @@ class Common extends SoapClient
      */
     public function __construct($doRequestCallback, $wsdl, $options)
     {
+        if (!extension_loaded('soap')) {
+            throw new ExtensionNotLoadedException('SOAP extension is not loaded.');
+        }
+
         $this->doRequestCallback = $doRequestCallback;
         parent::__construct($wsdl, $options);
     }

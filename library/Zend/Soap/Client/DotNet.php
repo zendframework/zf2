@@ -11,7 +11,7 @@ namespace Zend\Soap\Client;
 
 use Zend\Http\Client\Adapter\Curl as CurlClient;
 use Zend\Http\Response as HttpResponse;
-use Zend\Soap\Client as SOAPClient;
+use Zend\Soap\Client as SoapClient;
 use Zend\Soap\Client\Common as CommonClient;
 use Zend\Soap\Exception;
 use Zend\Uri\Http as HttpUri;
@@ -21,7 +21,7 @@ use Zend\Uri\Http as HttpUri;
  *
  * Class is intended to be used with .NET Web Services.
  */
-class DotNet extends SOAPClient
+class DotNet extends SoapClient
 {
     /**
      * Curl HTTP client adapter.
