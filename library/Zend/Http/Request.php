@@ -68,6 +68,16 @@ class Request extends AbstractMessage implements RequestInterface
     protected $fileParams = null;
 
     /**
+     * Configuration array, set using ::setOptions()
+     *
+     * @var array
+     */
+    protected $config = array(
+        'argseparator'    => null,
+        'rfc3986strict'   => false
+    );
+
+    /**
      * A factory that produces a Request object from a well-formed Http Request string
      *
      * @param  string $string
@@ -163,6 +173,55 @@ class Request extends AbstractMessage implements RequestInterface
         }
 
         return $request;
+    }
+
+    /**
+     * Set configuration parameters for this HTTP request
+     *
+     * @param  array|Traversable $options
+     * @return Request
+     * @throws Request\Exception\InvalidArgumentException
+     */
+    public function setOptions($options = array())
+    {
+        if ($options instanceof Traversable) {
+            $options = ArrayUtils::iteratorToArray($options);
+        }
+        if (!is_array($options)) {
+            throw new Request\Exception\InvalidArgumentException('Config parameter is not valid');
+        }
+        /** Config Key Normalization */
+        foreach ($options as $k => $v) {
+            $this->config[str_replace(array('-', '_', ' ', '.'), '', strtolower($k))] = $v; // replace w/ normalized
+        }
+        return $this;
+    }
+
+    /**
+     * Set the query string argument separator
+     *
+     * @param string $argSeparator
+     * @return Request
+     */
+    public function setArgSeparator($argSeparator)
+    {
+        $this->setOptions(array("argseparator" => $argSeparator));
+        return $this;
+    }
+
+    /**
+     * Get the query string argument separator
+     *
+     * @return string
+     */
+    public function getArgSeparator()
+    {
+        $argSeparator = $this->config['argseparator'];
+        if (empty($argSeparator)) {
+            $argSeparator = ini_get('arg_separator.output');
+            $this->setArgSeparator($argSeparator);
+        }
+        return $argSeparator;
     }
 
     /**
@@ -521,13 +580,60 @@ class Request extends AbstractMessage implements RequestInterface
     }
 
     /**
+     * Return the formatted query string for this http request
+     *
+     * @return string
+     */
+    public function renderQueryString()
+    {
+        $query = $this->getQuery();
+        if (!empty($query)) {
+            $queryArray = $query->toArray();
+            if (!empty($queryArray)) {
+                $queryString = http_build_query($queryArray, null, $this->getArgSeparator());
+                if ($this->config['rfc3986strict']) {
+                    $queryString = str_replace('+', '%20', $queryString);
+                }
+                return $queryString;
+            }
+        }
+    }
+
+    /**
+     * Return the formatted URI for this http request
+     *
+     * @return HttpUri
+     */
+    public function renderUri()
+    {
+        // uri
+        $uri = $this->getUri();
+        // query
+        $queryString = $this->renderQueryString();
+        if (!empty($queryString)) {
+            $newUri = $uri->toString();
+            if (strpos($newUri, '?') !== false) {
+                $newUri .= $this->getArgSeparator() . $queryString;
+            } else {
+                $newUri .= '?' . $queryString;
+            }
+            $uri = new HttpUri($newUri);
+        }
+        // If we have no ports, set the defaults
+        if ($uri->isAbsolute() && !$uri->getPort()) {
+            $uri->setPort($uri->getScheme() == 'https' ? 443 : 80);
+        }
+        return $uri;
+    }
+
+    /**
      * Return the formatted request line (first line) for this http request
      *
      * @return string
      */
     public function renderRequestLine()
     {
-        return $this->method . ' ' . (string) $this->uri . ' HTTP/' . $this->version;
+        return $this->method . ' ' . (string) $this->renderUri() . ' HTTP/' . $this->version;
     }
 
     /**

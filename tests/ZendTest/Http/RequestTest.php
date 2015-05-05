@@ -332,4 +332,85 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             "GET /foo HTTP/1.1\r\nHost: example.com\r\nX-Foo: This\ris\r\n\r\nCRLF\nInjection"
         );
     }
+
+    public function testArgSeparatorDefaultsToIniSetting()
+    {
+        $argSeparator = ini_get('arg_separator.output');
+        $request = new Request();
+        $this->assertEquals($argSeparator, $request->getArgSeparator());
+    }
+
+    public function testCanOverrideArgSeparator()
+    {
+        $request = new Request();
+        $request->setArgSeparator(';');
+        $this->assertEquals(';', $request->getArgSeparator());
+    }
+
+    public function testRenderRequestQueryStringHonorsQueryParams()
+    {
+        $request = new Request();
+        $p = new \Zend\Stdlib\Parameters(array(
+            'foo' => 'bar'
+        ));
+        $request->setMethod(Request::METHOD_GET);
+        $request->setQuery($p);
+        $this->assertEquals("foo=bar", $request->renderQueryString());
+
+        $request = new Request();
+        $p = new \Zend\Stdlib\Parameters(array(
+            'foo' => 'bar',
+            'bar' => 'baz'
+        ));
+        $request->setMethod(Request::METHOD_GET);
+        $request->setQuery($p);
+        $argSeparator = $request->getArgSeparator();
+        $this->assertEquals("foo=bar".$argSeparator."bar=baz", $request->renderQueryString());
+    }
+
+    public function testRenderRequestUriHonorsQueryParams()
+    {
+        $request = new Request();
+        $p = new \Zend\Stdlib\Parameters(array(
+            'foo' => 'bar'
+        ));
+        $request->setMethod(Request::METHOD_GET);
+        $request->setUri('/');
+        $request->setQuery($p);
+        $this->assertEquals("/?foo=bar", $request->renderUri());
+
+        $request = new Request();
+        $p = new \Zend\Stdlib\Parameters(array(
+            'foo' => 'bar',
+            'bar' => 'baz'
+        ));
+        $request->setMethod(Request::METHOD_GET);
+        $request->setUri('/');
+        $request->setQuery($p);
+        $argSeparator = $request->getArgSeparator();
+        $this->assertEquals("/?foo=bar".$argSeparator."bar=baz", $request->renderUri());
+    }
+
+    public function testRenderRequestLineHonorsQueryParams()
+    {
+        $request = new Request();
+        $p = new \Zend\Stdlib\Parameters(array(
+            'foo' => 'bar'
+        ));
+        $request->setMethod(Request::METHOD_GET);
+        $request->setUri('/');
+        $request->setQuery($p);
+        $this->assertEquals("GET /?foo=bar HTTP/1.1", $request->renderRequestLine());
+
+        $request = new Request();
+        $p = new \Zend\Stdlib\Parameters(array(
+            'foo' => 'bar',
+            'bar' => 'baz'
+        ));
+        $request->setMethod(Request::METHOD_GET);
+        $request->setUri('/');
+        $request->setQuery($p);
+        $argSeparator = $request->getArgSeparator();
+        $this->assertEquals("GET /?foo=bar".$argSeparator."bar=baz HTTP/1.1", $request->renderRequestLine());
+    }
 }
