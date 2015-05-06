@@ -39,8 +39,8 @@ class HeaderWrapTest extends \PHPUnit_Framework_TestCase
         $header->expects($this->any())
             ->method('getEncoding')
             ->will($this->returnValue('UTF-8'));
-        $expected = "=?UTF-8?Q?foobarblahblahblah=20baz=20batfoobarblahblahblah=20baz=20?=\r\n"
-                    . " =?UTF-8?Q?batfoobarblahblahblah=20baz=20bat?=";
+        $expected = "=?UTF-8?B?Zm9vYmFyYmxhaGJsYWhibGFoIGJheiBiYXRmb29iYXJibGFoYmxhaGJsYWggYmF6?=\r\n"
+                    . " =?UTF-8?B?IGJhdGZvb2JhcmJsYWhibGFoYmxhaCBiYXogYmF0?=";
 
         $test = HeaderWrap::wrap($string, $header);
         $this->assertEquals($expected, $test);
@@ -53,7 +53,7 @@ class HeaderWrapTest extends \PHPUnit_Framework_TestCase
     public function testMimeEncoding()
     {
         $string   = 'Umlauts: ä';
-        $expected = '=?UTF-8?Q?Umlauts:=20=C3=A4?=';
+        $expected = '=?UTF-8?B?VW1sYXV0czogw6Q=?=';
 
         $test = HeaderWrap::mimeEncodeValue($string, 'UTF-8', 78);
         $this->assertEquals($expected, $test);

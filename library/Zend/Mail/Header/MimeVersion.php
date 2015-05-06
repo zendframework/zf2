@@ -21,7 +21,7 @@ class MimeVersion implements HeaderInterface
         list($name, $value) = GenericHeader::splitHeaderLine($headerLine);
 
         // check to ensure proper header type for this factory
-        if (strtolower($name) !== 'mime-version') {
+        if (strtolower(str_replace(array('_', '-'), '', $name)) !== 'mimeversion') {
             throw new Exception\InvalidArgumentException('Invalid header line for MIME-Version string');
         }
 

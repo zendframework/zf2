@@ -83,7 +83,6 @@ class Message
     public function setHeaders(Headers $headers)
     {
         $this->headers = $headers;
-        $headers->setEncoding($this->getEncoding());
         return $this;
     }
 
@@ -476,6 +475,19 @@ class Message
     protected function getAddressListFromHeader($headerName, $headerClass)
     {
         $header = $this->getHeaderByName($headerName, $headerClass);
+        if ($header instanceof \ArrayIterator) {
+            //Merge address list
+            $arr = $header->getArrayCopy();
+            /* @var $header Header\AbstractAddressList */
+            $header = array_shift($arr);
+            $adl = $header->getAddressList();
+            /* @var $h Header\AbstractAddressList */
+            foreach ($arr as $h) {
+                $adl->merge($h->getAddressList());
+            }
+            $this->getHeaders()->removeHeader($headerName);
+            $this->getHeaders()->addHeader($header);
+        }
         if (!$header instanceof Header\AbstractAddressList) {
             throw new Exception\DomainException(sprintf(
                 'Cannot grab address list from header of type "%s"; not an AbstractAddressList implementation',

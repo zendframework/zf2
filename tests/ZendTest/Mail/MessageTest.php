@@ -637,23 +637,23 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
         $test = $this->message->getHeaders()->toString();
 
-        $expected = '=?UTF-8?Q?ZF=20DevTeam?=';
+        $expected = '=?UTF-8?B?WkYgRGV2VGVhbQ==?=';
         $this->assertContains($expected, $test);
         $this->assertContains('<zf-devteam@example.com>', $test);
 
-        $expected = "=?UTF-8?Q?Matthew=20Weier=20O'Phinney?=";
+        $expected = "=?UTF-8?B?TWF0dGhldyBXZWllciBPJ1BoaW5uZXk=?=";
         $this->assertContains($expected, $test, $test);
         $this->assertContains('<matthew@example.com>', $test);
 
-        $expected = '=?UTF-8?Q?ZF=20Contributors=20List?=';
+        $expected = '=?UTF-8?B?WkYgQ29udHJpYnV0b3JzIExpc3Q=?=';
         $this->assertContains($expected, $test);
         $this->assertContains('<zf-contributors@example.com>', $test);
 
-        $expected = '=?UTF-8?Q?ZF=20CR=20Team?=';
+        $expected = '=?UTF-8?B?WkYgQ1IgVGVhbQ==?=';
         $this->assertContains($expected, $test);
         $this->assertContains('<zf-crteam@example.com>', $test);
 
-        $expected = 'Subject: =?UTF-8?Q?This=20is=20a=20subject?=';
+        $expected = 'Subject: =?UTF-8?B?VGhpcyBpcyBhIHN1YmplY3Q=?=';
         $this->assertContains($expected, $test);
     }
 
@@ -694,5 +694,22 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
         $this->message->setBody($mimeMessage);
         $this->assertEquals('', $this->message->getBodyText());
+    }
+
+    public function testParseUglyHeaderMail()
+    {
+        $message1 = Message::fromString(file_get_contents(__DIR__ . '/_files/mail2.txt'));
+        $this->assertEquals(3, $message1->getTo()->count(), "There is 3 email addresses in the two 'To' headers");
+        $this->assertEquals(0, $message1->getCc()->count(), "There is no email address in the empty 'Cc' header");
+        $this->assertEquals("text/plain", $message1->getHeaders()->get('Content-Type')->getFieldValue());
+    }
+
+    public function testStableParsing()
+    {
+        $message1 = Message::fromString(file_get_contents(__DIR__ . '/_files/mail2.txt'));
+        $raw1 = $message1->toString();
+        $message2 = Message::fromString($raw1);
+        $raw2 = $message2->toString();
+        $this->assertEquals($raw1, $raw2, "Parsing isn't stable, we should be able to parse Message->toString() output and get same result");
     }
 }

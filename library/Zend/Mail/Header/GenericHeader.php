@@ -88,15 +88,15 @@ class GenericHeader implements HeaderInterface, UnstructuredInterface
             throw new Exception\InvalidArgumentException('Header name must be a string');
         }
 
-        // Pre-filter to normalize valid characters, change underscore to dash
-        $fieldName = str_replace(' ', '-', ucwords(str_replace(array('_', '-'), ' ', $fieldName)));
-
         // Validate what we have
-        if (!preg_match('/^[\x21-\x39\x3B-\x7E]*$/', $fieldName)) {
+        if (!preg_match('/^[!-9;-~]+$/', $fieldName)) {
             throw new Exception\InvalidArgumentException(
                 'Header name must be composed of printable US-ASCII characters, except colon.'
             );
         }
+
+        // change underscore to dash
+        $fieldName = ucwords(str_replace('_', '-', $fieldName));
 
         $this->fieldName = $fieldName;
         return $this;

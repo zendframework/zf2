@@ -41,33 +41,33 @@ abstract class AbstractAddressList implements HeaderInterface
 
     public static function fromString($headerLine)
     {
-        $decodedLine = iconv_mime_decode($headerLine, ICONV_MIME_DECODE_CONTINUE_ON_ERROR, 'UTF-8');
-        // split into name/value
-        list($fieldName, $fieldValue) = GenericHeader::splitHeaderLine($decodedLine);
+        list($fieldName, $fieldValue) = GenericHeader::splitHeaderLine($headerLine);
 
-        if (strtolower($fieldName) !== static::$type) {
+        if (strtolower(str_replace('_', '-', $fieldName)) !== static::$type) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Invalid header line for "%s" string',
                 __CLASS__
             ));
         }
         $header = new static();
-        if ($decodedLine != $headerLine) {
-            $header->setEncoding('UTF-8');
-        }
-        // split value on ","
+
+        //TODO: haven't we already unfolded the string when we get here?
         $fieldValue = str_replace(Headers::FOLDING, ' ', $fieldValue);
+        // split value on ","
         $values     = str_getcsv($fieldValue, ',');
-        array_walk(
-            $values,
-            function (&$value) {
-                $value = trim($value);
-            }
-        );
 
         $addressList = $header->getAddressList();
         foreach ($values as $address) {
-            $addressList->addFromString($address);
+            $address = trim($address);
+            //we should not error when we have an empty header like 'Reply-To: '
+            if (empty($address)) {
+                continue;
+            }
+            $decoded = iconv_mime_decode($address, ICONV_MIME_DECODE_CONTINUE_ON_ERROR, 'UTF-8');
+            if ($decoded != $address) {
+                $header->setEncoding('UTF-8');
+            }
+            $addressList->addFromString($decoded);
         }
         return $header;
     }
@@ -87,14 +87,12 @@ abstract class AbstractAddressList implements HeaderInterface
             if (empty($name)) {
                 $emails[] = $email;
             } else {
-                if (false !== strstr($name, ',')) {
-                    $name = sprintf('"%s"', $name);
-                }
-
                 if ($format == HeaderInterface::FORMAT_ENCODED
                     && 'ASCII' !== $encoding
                 ) {
                     $name = HeaderWrap::mimeEncodeValue($name, $encoding);
+                } elseif (false !== strpos($name, ',')) {
+                    $name = sprintf('"%s"', $name);
                 }
                 $emails[] = sprintf('%s <%s>', $name, $email);
             }

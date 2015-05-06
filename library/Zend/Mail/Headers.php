@@ -58,25 +58,24 @@ class Headers implements Countable, Iterator
      * will be lazy loaded)
      *
      * @param  string $string
-     * @param  string $EOL EOL string; defaults to {@link EOL}
      * @throws Exception\RuntimeException
      * @return Headers
      */
-    public static function fromString($string, $EOL = self::EOL)
+    public static function fromString($string)
     {
         $headers     = new static();
         $currentLine = '';
 
         // iterate the header lines, some might be continuations
-        foreach (explode($EOL, $string) as $line) {
+        foreach (preg_split('/\R/', $string) as $line) {
             // check if a header name is present
-            if (preg_match('/^[\x21-\x39\x3B-\x7E]+:.*$/', $line)) {
+            if (preg_match('/^[!-9;-~]+:/', $line)) {
                 if ($currentLine) {
                     // a header name was present, then store the current complete line
                     $headers->addHeaderLine($currentLine);
                 }
                 $currentLine = trim($line);
-            } elseif (preg_match('/^\s+.*$/', $line)) {
+            } elseif (preg_match('/^\s+[^\s]/', $line)) {
                 // continuation: append to current line
                 // recover the whitespace that break the line (unfolding, rfc2822#section-2.2.3)
                 $currentLine .= ' ' . trim($line);
@@ -199,19 +198,26 @@ class Headers implements Countable, Iterator
     {
         if (!is_string($headerFieldNameOrLine)) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s expects its first argument to be a string; received "%s"',
+                'addHeaderLine expects its first argument to be a string; received "%s"',
                 (is_object($headerFieldNameOrLine) ? get_class($headerFieldNameOrLine) : gettype($headerFieldNameOrLine))
             ));
         }
 
         if ($fieldValue === null) {
-            $this->addHeader(Header\GenericHeader::fromString($headerFieldNameOrLine));
+            list($fieldName, $fieldValue) = Header\GenericHeader::splitHeaderLine($headerFieldNameOrLine);
+            $norm = $this->normalizeFieldName($fieldName);
+            $this->headersKeys[] = $norm;
+            $this->headers[] = $headerFieldNameOrLine;
         } elseif (is_array($fieldValue)) {
+            $norm = $this->normalizeFieldName($headerFieldNameOrLine);
             foreach ($fieldValue as $i) {
-                $this->addHeader(new Header\GenericMultiHeader($headerFieldNameOrLine, $i));
+                $this->headersKeys[] = $norm;
+                $this->headers[] = $headerFieldNameOrLine.": ".$i;
             }
         } else {
-            $this->addHeader(new Header\GenericHeader($headerFieldNameOrLine, $fieldValue));
+            $norm = $this->normalizeFieldName($headerFieldNameOrLine);
+            $this->headersKeys[] = $norm;
+            $this->headers[] = $headerFieldNameOrLine.": ".$fieldValue;
         }
 
         return $this;
@@ -287,7 +293,7 @@ class Headers implements Countable, Iterator
         $results = array();
 
         foreach (array_keys($this->headersKeys, $key) as $index) {
-            if ($this->headers[$index] instanceof Header\GenericHeader) {
+            if (is_string($this->headers[$index])) {
                 $results[] = $this->lazyLoadHeader($index);
             } else {
                 $results[] = $this->headers[$index];
@@ -367,7 +373,7 @@ class Headers implements Countable, Iterator
     public function current()
     {
         $current = current($this->headers);
-        if ($current instanceof Header\GenericHeader) {
+        if (is_string($current)) {
             $current = $this->lazyLoadHeader(key($this->headers));
         }
         return $current;
@@ -414,7 +420,7 @@ class Headers implements Countable, Iterator
     {
         $headers = array();
         /* @var $header Header\HeaderInterface */
-        foreach ($this->headers as $header) {
+        foreach ($this as $header) {
             if ($header instanceof Header\MultipleHeadersInterface) {
                 $name = $header->getFieldName();
                 if (!isset($headers[$name])) {
@@ -453,14 +459,11 @@ class Headers implements Countable, Iterator
         /* @var $class Header\HeaderInterface */
         $class = ($this->getPluginClassLoader()->load($key)) ?: 'Zend\Mail\Header\GenericHeader';
 
-        $encoding = $current->getEncoding();
-        $headers  = $class::fromString($current->toString());
+        $headers  = $class::fromString($current);
         if (is_array($headers)) {
             $current = array_shift($headers);
-            $current->setEncoding($encoding);
             $this->headers[$index] = $current;
             foreach ($headers as $header) {
-                $header->setEncoding($encoding);
                 $this->headersKeys[] = $key;
                 $this->headers[]     = $header;
             }
@@ -468,7 +471,6 @@ class Headers implements Countable, Iterator
         }
 
         $current = $headers;
-        $current->setEncoding($encoding);
         $this->headers[$index] = $current;
         return $current;
     }

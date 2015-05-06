@@ -268,6 +268,7 @@ class Mime
         $lineLength = self::LINELENGTH,
         $lineEnd = self::LINEEND)
     {
+        $lineLength = $lineLength - ($lineLength % 4);
         return rtrim(chunk_split(base64_encode($str), $lineLength, $lineEnd));
     }
 

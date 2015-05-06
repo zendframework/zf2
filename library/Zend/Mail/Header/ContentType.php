@@ -29,7 +29,7 @@ class ContentType implements HeaderInterface
         list($name, $value) = GenericHeader::splitHeaderLine($headerLine);
 
         // check to ensure proper header type for this factory
-        if (strtolower($name) !== 'content-type') {
+        if (strtolower(str_replace(array('_', '-'), '', $name)) !== 'contenttype') {
             throw new Exception\InvalidArgumentException('Invalid header line for Content-Type string');
         }
 

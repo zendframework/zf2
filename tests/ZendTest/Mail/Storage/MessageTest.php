@@ -57,7 +57,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $message = new Message(array('file' => $this->_file));
 
-        $this->assertEquals('Peter Müller <peter-mueller@example.com>', $message->from);
+        $this->assertEquals('"Peter Müller" <peter-mueller@example.com>', $message->from);
     }
 
     public function testGetHeaderAsArray()
@@ -222,7 +222,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $header = 'Test: test';
         $body   = 'body';
-        $newlines = array("\r\n", "\n\r", "\n", "\r");
+        $newlines = array("\r\n", "\n", "\r");
 
         $decoded_body    = null; // "Declare" variable before first "read" usage to avoid IDEs warning
         $decoded_headers = null; // "Declare" variable before first "read" usage to avoid IDEs warning
@@ -422,10 +422,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      */
     public function testStrictParseMessage()
     {
-        $this->setExpectedException('Zend\\Mail\\Exception\\RuntimeException');
-
+        //when doing strict parsing, if first line isn't an header,
+        //we consider that it's only a body
         $raw = file_get_contents($this->_file);
         $raw = "From foo@example.com  Sun Jan 01 00:00:00 2000\n" . $raw;
         $message = new Message(array('raw' => $raw, 'strict' => true));
+        $this->assertEquals($raw, $message->getContent());
     }
 }

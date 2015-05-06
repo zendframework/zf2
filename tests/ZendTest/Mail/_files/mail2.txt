@@ -1,0 +1,16 @@
+To: =?utf-8?B?QUFBLCB0ZXN0IHdpdGggw6nDoCTDuQ==?= <aaaa@bbbb.com>,,
+ foo@example.com,
+To: bar@example.com
+Cc: 
+Subject: ugly headers
+Date: Sun, 01 Jan 2000 00:00:00 +0000
+From: baz@example.com
+ContENTtype: text/plain
+Message-ID: <aaaaa@mail.example.com>
+
+We should support:
+Duplicated mail headers (see To)
+Too many commas in headers (see To)
+Comma in encoded word (see To)
+Empty mail headers (see Cc)
+Malformatted headers (see ContENTtype)

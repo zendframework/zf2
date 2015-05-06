@@ -44,7 +44,7 @@ class ContentTransferEncoding implements HeaderInterface
         list($name, $value) = GenericHeader::splitHeaderLine($headerLine);
 
         // check to ensure proper header type for this factory
-        if (strtolower($name) !== 'content-transfer-encoding') {
+        if (strtolower(str_replace(array('_', '-'), '', $name)) !== 'contenttransferencoding') {
             throw new Exception\InvalidArgumentException('Invalid header line for Content-Transfer-Encoding string');
         }
 

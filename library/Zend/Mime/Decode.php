@@ -10,7 +10,6 @@
 namespace Zend\Mime;
 
 use Zend\Mail\Headers;
-use Zend\Stdlib\ErrorHandler;
 
 class Decode
 {
@@ -102,43 +101,31 @@ class Decode
     public static function splitMessage($message, &$headers, &$body, $EOL = Mime::LINEEND, $strict = false)
     {
         if ($message instanceof Headers) {
-            $message = $message->toString();
-        }
-        // check for valid header at first line
-        $firstline = strtok($message, "\n");
-        if (!preg_match('%^[^\s]+[^:]*:%', $firstline)) {
-            $headers = array();
-            // TODO: we're ignoring \r for now - is this function fast enough and is it safe to assume noone needs \r?
-            $body = str_replace(array("\r", "\n"), array('', $EOL), $message);
+            $headers = $message;
+            $body = null;
             return;
         }
 
-        // see @ZF2-372, pops the first line off a message if it doesn't contain a header
-        if (!$strict) {
-            $parts = explode(':', $firstline, 2);
-            if (count($parts) != 2) {
-                $message = substr($message, strpos($message, $EOL)+1);
+        // check for valid header at first line
+        if (!preg_match('%^[!-9;-~]+:%', $message)) {
+            //check for valid header at second line for @ZF2-372
+            if (!$strict && preg_match('%^.*\R[!-9;-~]+:%', $message)) {
+                //drop first line for @ZF2-372
+                $message = substr($message, strpos($message, "\n")+1);
+            } else {
+                //There is no headers
+                $headers = new Headers();
+                $body = $message;
+                return;
             }
         }
 
-        // find an empty line between headers and body
-        // default is set new line
-        if (strpos($message, $EOL . $EOL)) {
-            list($headers, $body) = explode($EOL . $EOL, $message, 2);
-        // next is the standard new line
-        } elseif ($EOL != "\r\n" && strpos($message, "\r\n\r\n")) {
-            list($headers, $body) = explode("\r\n\r\n", $message, 2);
-        // next is the other "standard" new line
-        } elseif ($EOL != "\n" && strpos($message, "\n\n")) {
-            list($headers, $body) = explode("\n\n", $message, 2);
-        // at last resort find anything that looks like a new line
-        } else {
-            ErrorHandler::start(E_NOTICE|E_WARNING);
-            list($headers, $body) = preg_split("%([\r\n]+)\\1%U", $message, 2);
-            ErrorHandler::stop();
+        $arr = preg_split("%\R\R%", $message, 2);
+        unset($message);
+        $headers = Headers::fromString(array_shift($arr));
+        if (isset($arr[0])) {
+            $body = $arr[0];
         }
-
-        $headers = Headers::fromString($headers, $EOL);
     }
 
     /**
