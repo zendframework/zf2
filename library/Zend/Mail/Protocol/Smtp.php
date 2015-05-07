@@ -299,8 +299,17 @@ class Smtp extends AbstractProtocol
     public function rset()
     {
         $this->_send('RSET');
-        // MS ESMTP doesn't follow RFC, see [ZF-1377]
-        $this->_expect(array(250, 220));
+
+        try {
+            // MS ESMTP doesn't follow RFC, see [ZF-1377]
+            $this->_expect(array(250, 220));
+        } catch (Exception\RuntimeException $e) {
+            if (strpos($e->getMessage(), 'timeout exceeded') !== false) {
+                $this->auth = false;
+                $this->_stopSession();
+            }
+            throw $e;
+        }
 
         $this->mail = false;
         $this->rcpt = false;
