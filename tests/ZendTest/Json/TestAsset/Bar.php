@@ -27,7 +27,7 @@ class Bar
      */
     public function foo($one, $two = 'two', $three = null)
     {
-        return array($one, $two, $three, $this->val);
+        return [$one, $two, $three, $this->val];
     }
 
     /**

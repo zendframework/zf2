@@ -16,7 +16,7 @@ use Zend\Feed\Reader\Reader;
  */
 
 require_once dirname(dirname(dirname(__DIR__))).'/library/Zend/Loader/StandardAutoloader.php';
-$loader = new StandardAutoloader(array('autoregister_zf' => true));
+$loader = new StandardAutoloader(['autoregister_zf' => true]);
 $loader->register();
 
 

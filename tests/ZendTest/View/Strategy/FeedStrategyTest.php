@@ -130,7 +130,7 @@ class FeedStrategyTest extends TestCase
 
     protected function getFeedData($type)
     {
-        return array(
+        return [
             'copyright' => date('Y'),
             'date_created' => time(),
             'date_modified' => time(),
@@ -138,16 +138,16 @@ class FeedStrategyTest extends TestCase
             'description' => __CLASS__,
             'id' => 'http://framework.zend.com/',
             'language' => 'en_US',
-            'feed_link' => array(
+            'feed_link' => [
                 'link' => 'http://framework.zend.com/feed.xml',
                 'type' => $type,
-            ),
+            ],
             'link' => 'http://framework.zend.com/feed.xml',
             'title' => 'Testing',
             'encoding' => 'UTF-8',
             'base_url' => 'http://framework.zend.com/',
-            'entries' => array(
-                array(
+            'entries' => [
+                [
                     'content' => 'test content',
                     'date_created' => time(),
                     'date_modified' => time(),
@@ -155,8 +155,8 @@ class FeedStrategyTest extends TestCase
                     'id' => 'http://framework.zend.com/1',
                     'link' => 'http://framework.zend.com/1',
                     'title' => 'Test 1',
-                ),
-                array(
+                ],
+                [
                     'content' => 'test content',
                     'date_created' => time(),
                     'date_modified' => time(),
@@ -164,9 +164,9 @@ class FeedStrategyTest extends TestCase
                     'id' => 'http://framework.zend.com/2',
                     'link' => 'http://framework.zend.com/2',
                     'title' => 'Test 2',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     public function testMatchingRendererAndFeedResultInjectsResponse()
@@ -215,9 +215,9 @@ class FeedStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (['renderer' => 'selectRenderer', 'response' => 'injectResponse'] as $event => $method) {
             $listeners        = $events->getListeners($event);
-            $expectedCallback = array($this->strategy, $method);
+            $expectedCallback = [$this->strategy, $method];
             $expectedPriority = 1;
             $found            = false;
             foreach ($listeners as $listener) {
@@ -238,9 +238,9 @@ class FeedStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy, 100);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (['renderer' => 'selectRenderer', 'response' => 'injectResponse'] as $event => $method) {
             $listeners        = $events->getListeners($event);
-            $expectedCallback = array($this->strategy, $method);
+            $expectedCallback = [$this->strategy, $method];
             $expectedPriority = 100;
             $found            = false;
             foreach ($listeners as $listener) {

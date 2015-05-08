@@ -41,7 +41,7 @@ class ParameterGenerator extends AbstractGenerator
     /**
      * @var array
      */
-    protected static $simple = array('int', 'bool', 'string', 'float', 'resource', 'mixed', 'object');
+    protected static $simple = ['int', 'bool', 'string', 'float', 'resource', 'mixed', 'object'];
 
     /**
      * @param  ParameterReflection $reflectionParameter
@@ -109,7 +109,7 @@ class ParameterGenerator extends AbstractGenerator
         $param = new static($array['name']);
         foreach ($array as $name => $value) {
             // normalize key
-            switch (strtolower(str_replace(array('.', '-', '_'), '', $name))) {
+            switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'type':
                     $param->setType($value);
                     break;

@@ -43,17 +43,17 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->mockAdapter = $this->getMockForAbstractClass(
             'Zend\Db\Adapter\Adapter',
-            array($mockDriver, $mockPlatform)
+            [$mockDriver, $mockPlatform]
         );
     }
 
     public function testCanRetrieveAdapterPlugin()
     {
-        $plugin = $this->adapaterPluginManager->get('array', array(1, 2, 3));
+        $plugin = $this->adapaterPluginManager->get('array', [1, 2, 3]);
         $this->assertInstanceOf('Zend\Paginator\Adapter\ArrayAdapter', $plugin);
         $plugin = $this->adapaterPluginManager->get('iterator', new \ArrayIterator(range(1, 101)));
         $this->assertInstanceOf('Zend\Paginator\Adapter\Iterator', $plugin);
-        $plugin = $this->adapaterPluginManager->get('dbselect', array($this->mockSelect, $this->mockAdapter));
+        $plugin = $this->adapaterPluginManager->get('dbselect', [$this->mockSelect, $this->mockAdapter]);
         $this->assertInstanceOf('Zend\Paginator\Adapter\DbSelect', $plugin);
         $plugin = $this->adapaterPluginManager->get('null', 101);
         $this->assertInstanceOf('Zend\Paginator\Adapter\NullFill', $plugin);
@@ -69,11 +69,11 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0));
         $mockAdapter = $this->getMockForAbstractClass(
             'Zend\Db\Adapter\Adapter',
-            array($mockDriver, new Sql92())
+            [$mockDriver, new Sql92()]
         );
         $mockTableGateway = $this->getMockForAbstractClass(
             'Zend\Db\TableGateway\TableGateway',
-            array('foobar', $mockAdapter)
+            ['foobar', $mockAdapter]
         );
         $where  = "foo = bar";
         $order  = "foo";
@@ -81,31 +81,31 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
         $having = "count(foo)>0";
         $plugin = $this->adapaterPluginManager->get(
             'dbtablegateway',
-            array($mockTableGateway, $where, $order, $group, $having)
+            [$mockTableGateway, $where, $order, $group, $having]
         );
         $this->assertInstanceOf('Zend\Paginator\Adapter\DbTableGateway', $plugin);
 
         //test callback
         $itemsCallback = new CallbackHandler(function () {
-            return array();
+            return [];
         });
         $countCallback = new CallbackHandler(function () {
             return 0;
         });
-        $plugin = $this->adapaterPluginManager->get('callback', array($itemsCallback, $countCallback));
+        $plugin = $this->adapaterPluginManager->get('callback', [$itemsCallback, $countCallback]);
         $this->assertInstanceOf('Zend\Paginator\Adapter\Callback', $plugin);
     }
 
     public function testCanRetrievePluginManagerWithServiceManager()
     {
         $sm = $this->serviceManager = new ServiceManager(
-            new ServiceManagerConfig(array(
-                'factories' => array(
+            new ServiceManagerConfig([
+                'factories' => [
                     'PaginatorPluginManager'  => 'Zend\Mvc\Service\PaginatorPluginManagerFactory',
-                ),
-            ))
+                ],
+            ])
         );
-        $sm->setService('Config', array());
+        $sm->setService('Config', []);
         $adapterPluginManager = $sm->get('PaginatorPluginManager');
         $this->assertInstanceOf('Zend\Paginator\AdapterPluginManager', $adapterPluginManager);
     }

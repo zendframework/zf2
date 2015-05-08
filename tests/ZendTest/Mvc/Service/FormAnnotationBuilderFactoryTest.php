@@ -21,7 +21,7 @@ class FormAnnotationBuilderFactoryTest extends TestCase
 
         $serviceLocator = new ServiceManager();
         $serviceLocator->setService('FormElementManager', $mockElementManager);
-        $serviceLocator->setService('Config', array());
+        $serviceLocator->setService('Config', []);
 
         $sut = new FormAnnotationBuilderFactory();
 
@@ -34,7 +34,7 @@ class FormAnnotationBuilderFactoryTest extends TestCase
 
         $serviceLocator = new ServiceManager();
         $serviceLocator->setService('FormElementManager', $mockElementManager);
-        $config = array('form_annotation_builder' => array('preserve_defined_order' => true));
+        $config = ['form_annotation_builder' => ['preserve_defined_order' => true]];
         $serviceLocator->setService('Config', $config);
 
         $sut = new FormAnnotationBuilderFactory();

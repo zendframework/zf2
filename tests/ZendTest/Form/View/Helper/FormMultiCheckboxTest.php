@@ -24,11 +24,11 @@ class FormMultiCheckboxTest extends CommonTestCase
     public function getElement()
     {
         $element = new MultiCheckboxElement('foo');
-        $options = array(
+        $options = [
             'value1' => 'This is the first label',
             'value2' => 'This is the second label',
             'value3' => 'This is the third label',
-        );
+        ];
         $element->setValueOptions($options);
         return $element;
     }
@@ -36,17 +36,17 @@ class FormMultiCheckboxTest extends CommonTestCase
     public function getElementWithOptionSpec()
     {
         $element = new MultiCheckboxElement('foo');
-        $options = array(
+        $options = [
             'value1' => 'This is the first label',
-            1 => array(
+            1 => [
                 'value'           => 'value2',
                 'label'           => 'This is the second label (overridden)',
                 'disabled'        => false,
-                'label_attributes' => array('class' => 'label-class'),
-                'attributes'      => array('class' => 'input-class'),
-            ),
+                'label_attributes' => ['class' => 'label-class'],
+                'attributes'      => ['class' => 'input-class'],
+            ],
             'value3' => 'This is the third label',
-        );
+        ];
         $element->setValueOptions($options);
         return $element;
     }
@@ -121,7 +121,7 @@ class FormMultiCheckboxTest extends CommonTestCase
     public function testUsesElementValueToDetermineCheckboxStatus()
     {
         $element = $this->getElement();
-        $element->setAttribute('value', array('value1', 'value3'));
+        $element->setAttribute('value', ['value1', 'value3']);
         $markup  = $this->helper->render($element);
 
         $this->assertRegexp('#value="value1"\s+checked="checked"#', $markup);
@@ -159,7 +159,7 @@ class FormMultiCheckboxTest extends CommonTestCase
         $element = $this->getElement();
 
         $markup  = $this->helper
-            ->setLabelAttributes(array('class' => 'checkbox'))
+            ->setLabelAttributes(['class' => 'checkbox'])
             ->render($element);
 
         $this->assertEquals(3, substr_count($markup, '<label class="checkbox"'));
@@ -168,7 +168,7 @@ class FormMultiCheckboxTest extends CommonTestCase
     public function testAllowsSpecifyingLabelAttributesInElementAttributes()
     {
         $element = $this->getElement();
-        $element->setLabelAttributes(array('class' => 'checkbox'));
+        $element->setLabelAttributes(['class' => 'checkbox']);
         $markup  = $this->helper->render($element);
 
         $this->assertEquals(3, substr_count($markup, '<label class="checkbox"'));
@@ -207,16 +207,16 @@ class FormMultiCheckboxTest extends CommonTestCase
     {
         $element = new MultiCheckboxElement();
         $element->setName('codeType');
-        $element->setOptions(array('label' => 'Code Type'));
-        $element->setAttributes(array(
+        $element->setOptions(['label' => 'Code Type']);
+        $element->setAttributes([
             'type' => 'radio',
-            'value' => array('markdown'),
-        ));
-        $element->setValueOptions(array(
+            'value' => ['markdown'],
+        ]);
+        $element->setValueOptions([
             'Markdown' => 'markdown',
             'HTML'     => 'html',
             'Wiki'     => 'wiki',
-        ));
+        ]);
 
         $markup = $this->helper->render($element);
         $this->assertNotContains('type="hidden"', $markup);
@@ -226,12 +226,12 @@ class FormMultiCheckboxTest extends CommonTestCase
     public function testCanTranslateContent()
     {
         $element = new MultiCheckboxElement('foo');
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup = $this->helper->render($element);
 
         $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
@@ -278,18 +278,18 @@ class FormMultiCheckboxTest extends CommonTestCase
     public function testCanMarkSingleOptionAsSelected()
     {
         $element = new MultiCheckboxElement('foo');
-        $options = array(
+        $options = [
             'value1' => 'This is the first label',
-            1 => array(
+            1 => [
                 'value'           => 'value2',
                 'label'           => 'This is the second label (overridden)',
                 'disabled'        => false,
                 'selected'         => true,
-                'label_attributes' => array('class' => 'label-class'),
-                'attributes'      => array('class' => 'input-class'),
-            ),
+                'label_attributes' => ['class' => 'label-class'],
+                'attributes'      => ['class' => 'input-class'],
+            ],
             'value3' => 'This is the third label',
-        );
+        ];
         $element->setValueOptions($options);
 
         $markup  = $this->helper->render($element);
@@ -301,12 +301,12 @@ class FormMultiCheckboxTest extends CommonTestCase
     public function testInvokeSetLabelPositionToAppend()
     {
         $element = new MultiCheckboxElement('foo');
-        $element->setValueOptions(array(
-                                       array(
+        $element->setValueOptions([
+                                       [
                                            'label' => 'label1',
                                            'value' => 'value1',
-                                       ),
-                                  ));
+                                       ],
+                                  ]);
         $this->helper->__invoke($element, 'append');
 
         $this->assertSame('append', $this->helper->getLabelPosition());
@@ -320,8 +320,8 @@ class FormMultiCheckboxTest extends CommonTestCase
 
     public function testSetLabelAttributes()
     {
-        $this->helper->setLabelAttributes(array('foo', 'bar'));
-        $this->assertEquals(array(0 => 'foo', 1 => 'bar'), $this->helper->getLabelAttributes());
+        $this->helper->setLabelAttributes(['foo', 'bar']);
+        $this->assertEquals([0 => 'foo', 1 => 'bar'], $this->helper->getLabelAttributes());
     }
 
     public function testGetUseHiddenElementReturnsDefaultFalse()
@@ -368,12 +368,12 @@ class FormMultiCheckboxTest extends CommonTestCase
     {
         $element = new MultiCheckboxElement('foo');
         $element->setAttribute('disabled', 'true');
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup  = $this->helper->render($element);
         $this->assertRegexp('#disabled="disabled" value="value1"#', $markup);
     }
@@ -382,12 +382,12 @@ class FormMultiCheckboxTest extends CommonTestCase
     {
         $element = new MultiCheckboxElement('foo');
         $element->setAttribute('selected', 'true');
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup  = $this->helper->render($element);
         $this->assertRegexp('#value="value1" checked="checked"#', $markup);
     }
@@ -395,15 +395,15 @@ class FormMultiCheckboxTest extends CommonTestCase
     public function testDisableEscapeHtmlHelper()
     {
         $element = new MultiCheckboxElement('foo');
-        $element->setLabelOptions(array(
+        $element->setLabelOptions([
             'disable_html_escape' => true,
-        ));
-        $element->setValueOptions(array(
-            array(
+        ]);
+        $element->setValueOptions([
+            [
                 'label' => '<span>label1</span>',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup  = $this->helper->render($element);
         $this->assertRegexp('#<span>label1</span>#', $markup);
     }

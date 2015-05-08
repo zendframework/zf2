@@ -48,10 +48,10 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
      *
      * @var string[]
      */
-    protected $_phpDatatypes = array(
+    protected $_phpDatatypes = [
         'NULL', 'boolean', 'integer', 'double',
         'string', 'array', 'object', 'resource'
-    );
+    ];
 
     public function setUp()
     {
@@ -257,10 +257,10 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->_storage->setItem('key1', 'value1'));
         $this->assertTrue($this->_storage->setItem('key2', 'value2'));
 
-        $result = $this->_storage->hasItems(array('missing', 'key1', 'key2'));
+        $result = $this->_storage->hasItems(['missing', 'key1', 'key2']);
         sort($result);
 
-        $exprectedResult = array('key1', 'key2');
+        $exprectedResult = ['key1', 'key2'];
         $this->assertEquals($exprectedResult, $result);
     }
 
@@ -269,7 +269,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->_storage->setItem('key', 'value'));
 
         $this->_options->setReadable(false);
-        $this->assertEquals(array(), $this->_storage->hasItems(array('key')));
+        $this->assertEquals([], $this->_storage->hasItems(['key']));
     }
 
     public function testGetItemReturnsNullOnMissingItem()
@@ -330,13 +330,13 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->_storage->setItem('key1', 'value1'));
         $this->assertTrue($this->_storage->setItem('key2', 'value2'));
 
-        $result = $this->_storage->getItems(array('missing', 'key1', 'key2'));
+        $result = $this->_storage->getItems(['missing', 'key1', 'key2']);
         ksort($result);
 
-        $exprectedResult = array(
+        $exprectedResult = [
             'key1' => 'value1',
             'key2' => 'value2',
-        );
+        ];
         $this->assertEquals($exprectedResult, $result);
     }
 
@@ -345,7 +345,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_options->setReadable(false);
 
         $this->assertTrue($this->_storage->setItem('key', 'value'));
-        $this->assertEquals(array(), $this->_storage->getItems(array('key')));
+        $this->assertEquals([], $this->_storage->getItems(['key']));
     }
 
     public function testGetMetadata()
@@ -380,11 +380,11 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $capabilities       = $this->_storage->getCapabilities();
         $supportedMetadatas = $capabilities->getSupportedMetadata();
 
-        $items = array(
+        $items = [
             'key1' => 'value1',
             'key2' => 'value2'
-        );
-        $this->assertSame(array(), $this->_storage->setItems($items));
+        ];
+        $this->assertSame([], $this->_storage->setItems($items));
 
         $metadatas = $this->_storage->getMetadatas(array_keys($items));
         $this->assertInternalType('array', $metadatas);
@@ -412,7 +412,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_options->setReadable(false);
 
         $this->assertTrue($this->_storage->setItem('key', 'value'));
-        $this->assertEquals(array(), $this->_storage->getMetadatas(array('key')));
+        $this->assertEquals([], $this->_storage->getMetadatas(['key']));
     }
 
     public function testSetGetHasAndRemoveItemWithoutNamespace()
@@ -432,13 +432,13 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->_storage->getOptions()->setNamespace('');
 
-        $items = array(
+        $items = [
             'key1' => 'value1',
             'key2' => 'value2',
             'key3' => 'value3',
-        );
+        ];
 
-        $this->assertSame(array(), $this->_storage->setItems($items));
+        $this->assertSame([], $this->_storage->setItems($items));
 
         $rs = $this->_storage->getItems(array_keys($items));
         $this->assertInternalType('array', $rs);
@@ -454,7 +454,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($key, $rs);
         }
 
-        $this->assertSame(array('missing'), $this->_storage->removeItems(array('missing', 'key1', 'key3')));
+        $this->assertSame(['missing'], $this->_storage->removeItems(['missing', 'key1', 'key3']));
         unset($items['key1'], $items['key3']);
 
         $rs = $this->_storage->getItems(array_keys($items));
@@ -504,17 +504,17 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetHasAndRemoveItemsWithNamespace()
     {
-        $items = array(
+        $items = [
             'key1' => 'value1',
             'key2' => 'value2',
             'key3' => 'value3',
-        );
+        ];
 
         $this->_options->setNamespace('defaultns1');
-        $this->assertSame(array(), $this->_storage->setItems($items));
+        $this->assertSame([], $this->_storage->setItems($items));
 
         $this->_options->setNamespace('defaultns2');
-        $this->assertSame(array(),  $this->_storage->hasItems(array_keys($items)));
+        $this->assertSame([],  $this->_storage->hasItems(array_keys($items)));
 
         $this->_options->setNamespace('defaultns1');
         $rs = $this->_storage->getItems(array_keys($items));
@@ -532,7 +532,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         }
 
         // remove the first and the last item
-        $this->assertSame(array('missing'), $this->_storage->removeItems(array('missing', 'key1', 'key3')));
+        $this->assertSame(['missing'], $this->_storage->removeItems(['missing', 'key1', 'key3']));
         unset($items['key1'], $items['key3']);
 
         $rs = $this->_storage->getItems(array_keys($items));
@@ -594,27 +594,27 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         }
 
         // item definition
-        $itemsHigh = array(
+        $itemsHigh = [
             'keyHigh1' => 'valueHigh1',
             'keyHigh2' => 'valueHigh2',
             'keyHigh3' => 'valueHigh3'
-        );
-        $itemsLow = array(
+        ];
+        $itemsLow = [
             'keyLow1' => 'valueLow1',
             'keyLow2' => 'valueLow2',
             'keyLow3' => 'valueLow3'
-        );
+        ];
         $items = $itemsHigh + $itemsLow;
 
         // set items with high TTL
         $this->_options->setTtl(123456);
-        $this->assertSame(array(), $this->_storage->setItems($itemsHigh));
+        $this->assertSame([], $this->_storage->setItems($itemsHigh));
 
         // set items with low TTL
         $ttl = $capabilities->getTtlPrecision();
         $this->_options->setTtl($ttl);
         $this->waitForFullSecond();
-        $this->assertSame(array(), $this->_storage->setItems($itemsLow));
+        $this->assertSame([], $this->_storage->setItems($itemsLow));
 
         // wait until expired
         $wait = $ttl + $capabilities->getTtlPrecision();
@@ -627,7 +627,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             // if item expiration will be done on read there is no difference
             // between the previos set items in TTL.
             // -> all items will be expired
-            $this->assertEquals(array(), $rs);
+            $this->assertEquals([], $rs);
 
             // after disabling TTL all items will be available
             $this->_options->setTtl(0);
@@ -647,16 +647,16 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $capabilities = $this->_storage->getCapabilities();
 
-        $types = array(
+        $types = [
             'NULL'     => null,
             'boolean'  => true,
             'integer'  => 12345,
             'double'   => 123.45,
             'string'   => 'string', // already tested
-            'array'    => array('one', 'tow' => 'two', 'three' => array('four' => 'four')),
+            'array'    => ['one', 'tow' => 'two', 'three' => ['four' => 'four']],
             'object'   => new \stdClass(),
             'resource' => fopen(__FILE__, 'r'),
-        );
+        ];
         $types['object']->one = 'one';
         $types['object']->two = new \stdClass();
         $types['object']->two->three = 'three';
@@ -710,12 +710,12 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->_storage->setItem('key1', 'value1'));
 
-        $failedKeys = $this->_storage->addItems(array(
+        $failedKeys = $this->_storage->addItems([
             'key1' => 'XYZ',
             'key2' => 'value2',
-        ));
+        ]);
 
-        $this->assertSame(array('key1'), $failedKeys);
+        $this->assertSame(['key1'], $failedKeys);
         $this->assertSame('value1', $this->_storage->getItem('key1'));
         $this->assertTrue($this->_storage->hasItem('key2'));
     }
@@ -745,12 +745,12 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->_storage->setItem('key1', 'value1'));
 
-        $failedKeys = $this->_storage->replaceItems(array(
+        $failedKeys = $this->_storage->replaceItems([
             'key1' => 'XYZ',
             'key2' => 'value2',
-        ));
+        ]);
 
-        $this->assertSame(array('key2'), $failedKeys);
+        $this->assertSame(['key2'], $failedKeys);
         $this->assertSame('XYZ', $this->_storage->getItem('key1'));
         $this->assertFalse($this->_storage->hasItem('key2'));
     }
@@ -763,7 +763,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     public function testRemoveItemsReturnsMissingKeys()
     {
         $this->_storage->setItem('key', 'value');
-        $this->assertSame(array('missing'), $this->_storage->removeItems(array('key', 'missing')));
+        $this->assertSame(['missing'], $this->_storage->removeItems(['key', 'missing']));
     }
 
     public function testCheckAndSetItem()
@@ -806,16 +806,16 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->_storage->setItem('key1', 10));
 
-        $result = $this->_storage->incrementItems(array(
+        $result = $this->_storage->incrementItems([
             'key1' => 10,
             'key2' => 10,
-        ));
+        ]);
         ksort($result);
 
-        $this->assertSame(array(
+        $this->assertSame([
             'key1' => 20,
             'key2' => 10,
-        ), $result);
+        ], $result);
     }
 
     public function testIncrementItemsReturnsEmptyArrayIfNonWritable()
@@ -823,7 +823,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_storage->setItem('key', 10);
         $this->_options->setWritable(false);
 
-        $this->assertSame(array(), $this->_storage->incrementItems(array('key' => 5)));
+        $this->assertSame([], $this->_storage->incrementItems(['key' => 5]));
         $this->assertEquals(10, $this->_storage->getItem('key'));
     }
 
@@ -854,7 +854,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_storage->setItem('key', 10);
         $this->_options->setWritable(false);
 
-        $this->assertSame(array(), $this->_storage->decrementItems(array('key' => 5)));
+        $this->assertSame([], $this->_storage->decrementItems(['key' => 5]));
         $this->assertEquals(10, $this->_storage->getItem('key'));
     }
 
@@ -900,7 +900,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     public function testTouchItemsReturnsGivenKeysIfNonWritable()
     {
         $this->_options->setWritable(false);
-        $this->assertSame(array('key'), $this->_storage->touchItems(array('key')));
+        $this->assertSame(['key'], $this->_storage->touchItems(['key']));
     }
 
     public function testOptimize()
@@ -918,11 +918,11 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped("Storage doesn't implement IterableInterface");
         }
 
-        $items = array(
+        $items = [
             'key1' => 'value1',
             'key2' => 'value2',
-        );
-        $this->assertSame(array(), $this->_storage->setItems($items));
+        ];
+        $this->assertSame([], $this->_storage->setItems($items));
 
         // check iterator aggregate
         $iterator = $this->_storage->getIterator();
@@ -950,10 +950,10 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped("Storage doesn't implement OptimizableInterface");
         }
 
-        $this->assertSame(array(), $this->_storage->setItems(array(
+        $this->assertSame([], $this->_storage->setItems([
            'key1' => 'value1',
            'key2' => 'value2',
-        )));
+        ]));
 
         $this->assertTrue($this->_storage->flush());
         $this->assertFalse($this->_storage->hasItem('key1'));
@@ -966,11 +966,11 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped("Storage doesn't implement ClearByPrefixInterface");
         }
 
-        $this->assertSame(array(), $this->_storage->setItems(array(
+        $this->assertSame([], $this->_storage->setItems([
             'key1' => 'value1',
             'key2' => 'value2',
             'test' => 'value',
-        )));
+        ]));
 
         $this->assertTrue($this->_storage->clearByPrefix('key'));
         $this->assertFalse($this->_storage->hasItem('key1'));
@@ -1057,7 +1057,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         if ($capabilities->getUseRequestTime()) {
             $this->assertTrue($this->_storage->hasItem('key1'));
         } else {
-            $this->assertFalse($this->_storage->hasItem('key1', array('ttl' => 0)));
+            $this->assertFalse($this->_storage->hasItem('key1', ['ttl' => 0]));
         }
 
         $this->assertTrue($this->_storage->hasItem('key2'));
@@ -1070,37 +1070,37 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         }
 
         // store 3 items and register the current default namespace
-        $this->assertSame(array(), $this->_storage->setItems(array(
+        $this->assertSame([], $this->_storage->setItems([
             'key1' => 'value1',
             'key2' => 'value2',
             'key3' => 'value3',
-        )));
+        ]));
 
-        $this->assertTrue($this->_storage->setTags('key1', array('tag1a', 'tag1b')));
-        $this->assertTrue($this->_storage->setTags('key2', array('tag2a', 'tag2b')));
-        $this->assertTrue($this->_storage->setTags('key3', array('tag3a', 'tag3b')));
-        $this->assertFalse($this->_storage->setTags('missing', array('tag')));
+        $this->assertTrue($this->_storage->setTags('key1', ['tag1a', 'tag1b']));
+        $this->assertTrue($this->_storage->setTags('key2', ['tag2a', 'tag2b']));
+        $this->assertTrue($this->_storage->setTags('key3', ['tag3a', 'tag3b']));
+        $this->assertFalse($this->_storage->setTags('missing', ['tag']));
 
         // return tags
         $tags = $this->_storage->getTags('key1');
         $this->assertInternalType('array', $tags);
         sort($tags);
-        $this->assertSame(array('tag1a', 'tag1b'), $tags);
+        $this->assertSame(['tag1a', 'tag1b'], $tags);
 
         // this should remove nothing
-        $this->assertTrue($this->_storage->clearByTags(array('tag1a', 'tag2a')));
+        $this->assertTrue($this->_storage->clearByTags(['tag1a', 'tag2a']));
         $this->assertTrue($this->_storage->hasItem('key1'));
         $this->assertTrue($this->_storage->hasItem('key2'));
         $this->assertTrue($this->_storage->hasItem('key3'));
 
         // this should remove key1 and key2
-        $this->assertTrue($this->_storage->clearByTags(array('tag1a', 'tag2b'), true));
+        $this->assertTrue($this->_storage->clearByTags(['tag1a', 'tag2b'], true));
         $this->assertFalse($this->_storage->hasItem('key1'));
         $this->assertFalse($this->_storage->hasItem('key2'));
         $this->assertTrue($this->_storage->hasItem('key3'));
 
         // this should remove key3
-        $this->assertTrue($this->_storage->clearByTags(array('tag3a', 'tag3b'), true));
+        $this->assertTrue($this->_storage->clearByTags(['tag3a', 'tag3b'], true));
         $this->assertFalse($this->_storage->hasItem('key1'));
         $this->assertFalse($this->_storage->hasItem('key2'));
         $this->assertFalse($this->_storage->hasItem('key3'));
@@ -1115,9 +1115,9 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped("Storage doesn't implement TaggableInterface");
         }
 
-        $this->assertFalse($this->_storage->setTags('unknown', array('no')));
+        $this->assertFalse($this->_storage->setTags('unknown', ['no']));
         $this->assertFalse($this->_storage->getTags('unknown'));
-        $this->assertTrue($this->_storage->clearByTags(array('unknown')));
+        $this->assertTrue($this->_storage->clearByTags(['unknown']));
     }
 
     public function testGetTotalSpace()

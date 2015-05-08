@@ -53,16 +53,16 @@ class SendmailTest extends \PHPUnit_Framework_TestCase
         $message->addTo('zf-devteam@zend.com', 'ZF DevTeam')
                 ->addCc('matthew@zend.com')
                 ->addBcc('zf-crteam@lists.zend.com', 'CR-Team, ZF Project')
-                ->addFrom(array(
+                ->addFrom([
                     'zf-devteam@zend.com',
                     'matthew@zend.com' => 'Matthew',
-                ))
+                ])
                 ->setSender('ralph.schindler@zend.com', 'Ralph Schindler')
                 ->setSubject('Testing Zend\Mail\Transport\Sendmail')
                 ->setBody('This is only a test.');
-        $message->getHeaders()->addHeaders(array(
+        $message->getHeaders()->addHeaders([
             'X-Foo-Bar' => 'Matthew',
-        ));
+        ]);
         return $message;
     }
 

@@ -36,7 +36,7 @@ class LicenseTag implements TagInterface
      */
     public function initialize($tagDocblockLine)
     {
-        $match = array();
+        $match = [];
 
         if (!preg_match('#^([\S]*)(?:\s+(.*))?$#m', $tagDocblockLine, $match)) {
             return;

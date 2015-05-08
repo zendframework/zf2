@@ -32,11 +32,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
 
-        $this->assertSame($resultSet, $resultSet->initialize(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $this->assertSame($resultSet, $resultSet->initialize([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
 
         $this->setExpectedException(
             'Zend\Db\ResultSet\Exception\InvalidArgumentException',
@@ -54,11 +54,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($resultSet, $resultSet->buffer());
 
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-                array('id' => 1, 'name' => 'one'),
-                array('id' => 2, 'name' => 'two'),
-                array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+                ['id' => 1, 'name' => 'one'],
+                ['id' => 2, 'name' => 'two'],
+                ['id' => 3, 'name' => 'three'],
+        ]));
         $resultSet->next(); // start iterator
         $this->setExpectedException(
             'Zend\Db\ResultSet\Exception\RuntimeException',
@@ -84,11 +84,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testGetDataSource()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
         $this->assertInstanceOf('\ArrayIterator', $resultSet->getDataSource());
     }
 
@@ -98,9 +98,9 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testGetFieldCount()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+        ]));
         $this->assertEquals(2, $resultSet->getFieldCount());
     }
 
@@ -110,11 +110,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testNext()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
         $this->assertNull($resultSet->next());
     }
 
@@ -124,11 +124,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testKey()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
         $resultSet->next();
         $this->assertEquals(1, $resultSet->key());
         $resultSet->next();
@@ -143,12 +143,12 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testCurrent()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
-        $this->assertEquals(array('id' => 1, 'name' => 'one'), $resultSet->current());
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
+        $this->assertEquals(['id' => 1, 'name' => 'one'], $resultSet->current());
     }
 
     /**
@@ -157,11 +157,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testValid()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
         $this->assertTrue($resultSet->valid());
         $resultSet->next();
         $resultSet->next();
@@ -175,11 +175,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testRewind()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
         $this->assertNull($resultSet->rewind());
     }
 
@@ -189,11 +189,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testCount()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
         $this->assertEquals(3, $resultSet->count());
     }
 
@@ -203,17 +203,17 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testToArray()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
         $this->assertEquals(
-            array(
-                array('id' => 1, 'name' => 'one'),
-                array('id' => 2, 'name' => 'two'),
-                array('id' => 3, 'name' => 'three'),
-            ),
+            [
+                ['id' => 1, 'name' => 'one'],
+                ['id' => 2, 'name' => 'two'],
+                ['id' => 3, 'name' => 'three'],
+            ],
             $resultSet->toArray()
         );
     }
@@ -225,11 +225,11 @@ class AbstractResultSetTest extends \PHPUnit_Framework_TestCase
     public function testBufferIterations()
     {
         $resultSet = $this->getMockForAbstractClass('Zend\Db\ResultSet\AbstractResultSet');
-        $resultSet->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-            array('id' => 3, 'name' => 'three'),
-        )));
+        $resultSet->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+            ['id' => 3, 'name' => 'three'],
+        ]));
         $resultSet->buffer();
 
         $data = $resultSet->current();

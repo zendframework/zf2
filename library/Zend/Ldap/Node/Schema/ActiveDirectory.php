@@ -23,13 +23,13 @@ class ActiveDirectory extends Node\Schema
      *
      * @var array
      */
-    protected $attributeTypes = array();
+    protected $attributeTypes = [];
     /**
      * The object classes
      *
      * @var array
      */
-    protected $objectClasses = array();
+    protected $objectClasses = [];
 
     /**
      * Parses the schema

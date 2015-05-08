@@ -28,11 +28,11 @@ class Tar extends AbstractCompressionAlgorithm
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'archive'  => null,
         'target'   => '.',
         'mode'     => null,
-    );
+    ];
 
     /**
      * Class constructor
@@ -70,7 +70,7 @@ class Tar extends AbstractCompressionAlgorithm
      */
     public function setArchive($archive)
     {
-        $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $archive);
+        $archive = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, (string) $archive);
         $this->options['archive'] = $archive;
 
         return $this;
@@ -99,7 +99,7 @@ class Tar extends AbstractCompressionAlgorithm
             throw new Exception\InvalidArgumentException("The directory '$target' does not exist");
         }
 
-        $target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $target);
+        $target = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, (string) $target);
         $this->options['target'] = $target;
         return $this;
     }
@@ -206,7 +206,7 @@ class Tar extends AbstractCompressionAlgorithm
             throw new Exception\RuntimeException('Tar Archive not found');
         }
 
-        $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
+        $archive = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, realpath($content));
         $archive = new Archive_Tar($archive, $this->getMode());
         $target  = $this->getTarget();
         if (!is_dir($target)) {

@@ -20,26 +20,26 @@ use Zend\ServiceManager\AbstractPluginManager;
  */
 class FilterPluginManager extends AbstractPluginManager
 {
-    protected $aliases = array(
+    protected $aliases = [
         'Zend\Filter\Int'            => 'Zend\Filter\ToInt',
         'Zend\Filter\Null'           => 'Zend\Filter\ToNull',
-    );
+    ];
 
     /**
      * Default set of plugins factories
      *
      * @var array
      */
-    protected $factories = array(
+    protected $factories = [
         'wordseparatortoseparator' => 'Zend\Filter\Word\Service\SeparatorToSeparatorFactory',
-    );
+    ];
 
     /**
      * Default set of filters
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'alnum'                      => 'Zend\I18n\Filter\Alnum',
         'alpha'                      => 'Zend\I18n\Filter\Alpha',
         'basename'                   => 'Zend\Filter\BaseName',
@@ -101,7 +101,7 @@ class FilterPluginManager extends AbstractPluginManager
         'wordunderscoretostudlycase' => 'Zend\Filter\Word\UnderscoreToStudlyCase',
         'wordunderscoretodash'       => 'Zend\Filter\Word\UnderscoreToDash',
         'wordunderscoretoseparator'  => 'Zend\Filter\Word\UnderscoreToSeparator',
-    );
+    ];
 
     /**
      * Whether or not to share by default; default to false

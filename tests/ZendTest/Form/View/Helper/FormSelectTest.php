@@ -24,23 +24,23 @@ class FormSelectTest extends CommonTestCase
     public function getElement()
     {
         $element = new SelectElement('foo');
-        $options = array(
-            array(
+        $options = [
+            [
                 'label' => 'This is the first label',
                 'value' => 'value1',
-            ),
-            array(
+            ],
+            [
                 'label' => 'This is the second label',
                 'value' => 'value2',
-            ),
-            array(
+            ],
+            [
                 'label' => 'This is the third label',
                 'value' => 'value3',
-                'attributes' => array(
+                'attributes' => [
                     'class' => 'test-class',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $element->setValueOptions($options);
         return $element;
     }
@@ -79,7 +79,7 @@ class FormSelectTest extends CommonTestCase
     public function testCanOnlyMarkSingleOptionAsSelectedIfMultipleAttributeIsDisabled()
     {
         $element = $this->getElement();
-        $element->setAttribute('value', array('value1', 'value2'));
+        $element->setAttribute('value', ['value1', 'value2']);
 
         $this->setExpectedException('Zend\Form\Exception\ExceptionInterface', 'multiple');
         $markup = $this->helper->render($element);
@@ -89,7 +89,7 @@ class FormSelectTest extends CommonTestCase
     {
         $element = $this->getElement();
         $element->setAttribute('multiple', true);
-        $element->setAttribute('value', array('value1', 'value2'));
+        $element->setAttribute('value', ['value1', 'value2']);
         $markup = $this->helper->render($element);
 
         $this->assertRegexp('#select .*?multiple="multiple"#', $markup);
@@ -124,12 +124,12 @@ class FormSelectTest extends CommonTestCase
     {
         $element = $this->getElement();
         $options = $element->getValueOptions('options');
-        $options[1]['options'] = array(
-            array(
+        $options[1]['options'] = [
+            [
                 'label' => 'foo',
                 'value' => 'bar',
-            )
-        );
+            ]
+        ];
         $element->setValueOptions($options);
 
         $markup = $this->helper->render($element);
@@ -141,12 +141,12 @@ class FormSelectTest extends CommonTestCase
         $element = $this->getElement();
         $options = $element->getValueOptions('options');
         $options[1]['disabled'] = true;
-        $options[1]['options']  = array(
-            array(
+        $options[1]['options']  = [
+            [
                 'label' => 'foo',
                 'value' => 'bar',
-            )
-        );
+            ]
+        ];
         $element->setValueOptions($options);
 
         $markup = $this->helper->render($element);
@@ -181,25 +181,25 @@ class FormSelectTest extends CommonTestCase
     {
         $element = $this->getElement();
         $element->setAttribute('multiple', true);
-        $element->setAttribute('value', array('value1', 'value2'));
+        $element->setAttribute('value', ['value1', 'value2']);
         $markup = $this->helper->render($element);
         $this->assertRegexp('#<select[^>]*?(name="foo\&\#x5B\;\&\#x5D\;")#', $markup);
     }
 
     public function getScalarOptionsDataProvider()
     {
-        return array(
-            array(array('value' => 'string')),
-            array(array(1       => 'int')),
-            array(array(-1      => 'int-neg')),
-            array(array(0x1A    => 'hex')),
-            array(array(0123    => 'oct')),
-            array(array(2.1     => 'float')),
-            array(array(1.2e3   => 'float-e')),
-            array(array(7E-10   => 'float-E')),
-            array(array(true    => 'bool-t')),
-            array(array(false   => 'bool-f')),
-        );
+        return [
+            [['value' => 'string']],
+            [[1       => 'int']],
+            [[-1      => 'int-neg']],
+            [[0x1A    => 'hex']],
+            [[0123    => 'oct']],
+            [[2.1     => 'float']],
+            [[1.2e3   => 'float-e']],
+            [[7E-10   => 'float-E']],
+            [[true    => 'bool-t']],
+            [[false   => 'bool-f']],
+        ];
     }
 
     /**
@@ -224,12 +224,12 @@ class FormSelectTest extends CommonTestCase
     public function testCanTranslateContent()
     {
         $element = new SelectElement('foo');
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup = $this->helper->render($element);
 
         $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
@@ -247,15 +247,15 @@ class FormSelectTest extends CommonTestCase
     public function testCanTranslateOptGroupLabel()
     {
         $element = new SelectElement('test');
-        $element->setValueOptions(array(
-            'optgroup' => array(
+        $element->setValueOptions([
+            'optgroup' => [
                 'label' => 'translate me',
-                'options' => array(
+                'options' => [
                     '0' => 'foo',
                     '1' => 'bar',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
         $mockTranslator->expects($this->at(0))
@@ -309,12 +309,12 @@ class FormSelectTest extends CommonTestCase
     {
         $element = new SelectElement('foo');
         $element->setEmptyOption('empty');
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup = $this->helper->render($element);
 
         $this->assertContains('<option value="">empty</option>', $markup);
@@ -324,12 +324,12 @@ class FormSelectTest extends CommonTestCase
     {
         $element = new SelectElement('foo');
         $element->setEmptyOption('');
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup = $this->helper->render($element);
 
         $this->assertContains('<option value=""></option>', $markup);
@@ -338,12 +338,12 @@ class FormSelectTest extends CommonTestCase
     public function testDoesNotRenderEmptyOptionByDefault()
     {
         $element = new SelectElement('foo');
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup = $this->helper->render($element);
 
         $this->assertNotContains('<option value=""></option>', $markup);
@@ -353,12 +353,12 @@ class FormSelectTest extends CommonTestCase
     {
         $element = new SelectElement('foo');
         $element->setEmptyOption(null);
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup = $this->helper->render($element);
 
         $this->assertNotContains('<option value=""></option>', $markup);
@@ -368,10 +368,10 @@ class FormSelectTest extends CommonTestCase
     {
         $element = new SelectElement('foo');
         $element->setEmptyOption('empty');
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             0 => 'label0',
             1 => 'label1',
-        ));
+        ]);
 
         $element->setValue('');
         $markup = $this->helper->render($element);

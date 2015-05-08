@@ -54,7 +54,7 @@ class DateTimeSelect extends DateSelect
      * @param  null|int|string  $name    Optional name for the element
      * @param  array            $options Optional options for the element
      */
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         parent::__construct($name, $options);
 
@@ -234,14 +234,14 @@ class DateTimeSelect extends DateSelect
         }
 
         if ($value instanceof PhpDateTime) {
-            $value = array(
+            $value = [
                 'year'   => $value->format('Y'),
                 'month'  => $value->format('m'),
                 'day'    => $value->format('d'),
                 'hour'   => $value->format('H'),
                 'minute' => $value->format('i'),
                 'second' => $value->format('s')
-            );
+            ];
         }
 
         if (! isset($value['second'])) {
@@ -298,7 +298,7 @@ class DateTimeSelect extends DateSelect
     protected function getValidator()
     {
         if (null === $this->validator) {
-            $this->validator = new DateValidator(array('format' => 'Y-m-d H:i:s'));
+            $this->validator = new DateValidator(['format' => 'Y-m-d H:i:s']);
         }
 
         return $this->validator;
@@ -312,16 +312,16 @@ class DateTimeSelect extends DateSelect
      */
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => false,
-            'filters' => array(
-                array('name' => 'DateTimeSelect')
-            ),
-            'validators' => array(
+            'filters' => [
+                ['name' => 'DateTimeSelect']
+            ],
+            'validators' => [
                 $this->getValidator(),
-            ),
-        );
+            ],
+        ];
     }
 
     /**

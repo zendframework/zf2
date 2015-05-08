@@ -74,7 +74,7 @@ class FilterChain extends AbstractFilter implements Countable
                 case 'filters':
                     foreach ($value as $spec) {
                         $name     = isset($spec['name'])     ? $spec['name']     : false;
-                        $options  = isset($spec['options'])  ? $spec['options']  : array();
+                        $options  = isset($spec['options'])  ? $spec['options']  : [];
                         $priority = isset($spec['priority']) ? $spec['priority'] : static::DEFAULT_PRIORITY;
                         if ($name) {
                             $this->attachByName($name, $options, $priority);
@@ -132,7 +132,7 @@ class FilterChain extends AbstractFilter implements Countable
      * @param  array $options
      * @return FilterInterface
      */
-    public function plugin($name, array $options = array())
+    public function plugin($name, array $options = [])
     {
         $plugins = $this->getPluginManager();
         return $plugins->get($name, $options);
@@ -155,7 +155,7 @@ class FilterChain extends AbstractFilter implements Countable
                     (is_object($callback) ? get_class($callback) : gettype($callback))
                 ));
             }
-            $callback = array($callback, 'filter');
+            $callback = [$callback, 'filter'];
         }
         $this->filters->insert($callback, $priority);
         return $this;
@@ -172,7 +172,7 @@ class FilterChain extends AbstractFilter implements Countable
      * @param  int $priority Priority at which to enqueue filter; defaults to 1000 (higher executes earlier)
      * @return self
      */
-    public function attachByName($name, $options = array(), $priority = self::DEFAULT_PRIORITY)
+    public function attachByName($name, $options = [], $priority = self::DEFAULT_PRIORITY)
     {
         if (!is_array($options)) {
             $options = (array) $options;
@@ -246,6 +246,6 @@ class FilterChain extends AbstractFilter implements Countable
      */
     public function __sleep()
     {
-        return array('filters');
+        return ['filters'];
     }
 }

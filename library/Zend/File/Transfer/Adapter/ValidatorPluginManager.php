@@ -13,7 +13,7 @@ use Zend\Validator\ValidatorPluginManager as BaseManager;
 
 class ValidatorPluginManager extends BaseManager
 {
-    protected $aliases = array(
+    protected $aliases = [
         'count'            => 'filecount',
         'crc32'            => 'filecrc32',
         'excludeextension' => 'fileexcludeextension',
@@ -32,5 +32,5 @@ class ValidatorPluginManager extends BaseManager
         'size'             => 'filesize',
         'upload'           => 'fileupload',
         'wordcount'        => 'filewordcount',
-    );
+    ];
 }

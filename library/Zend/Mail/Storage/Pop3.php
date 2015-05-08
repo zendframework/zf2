@@ -61,8 +61,8 @@ class Pop3 extends AbstractStorage
         $bodyLines = 0;
         $message = $this->protocol->top($id, $bodyLines, true);
 
-        return new $this->messageClass(array('handler' => $this, 'id' => $id, 'headers' => $message,
-                                              'noToplines' => $bodyLines < 1));
+        return new $this->messageClass(['handler' => $this, 'id' => $id, 'headers' => $message,
+                                              'noToplines' => $bodyLines < 1]);
     }
 
     /*
@@ -200,7 +200,7 @@ class Pop3 extends AbstractStorage
             }
             $count = $this->countMessages();
             if ($count < 1) {
-                return array();
+                return [];
             }
             $range = range(1, $count);
             return array_combine($range, $range);

@@ -16,7 +16,7 @@ class MethodTag implements TagInterface, PhpDocTypedTagInterface
      *
      * @var array
      */
-    protected $types = array();
+    protected $types = [];
 
     /**
      * @var string
@@ -50,7 +50,7 @@ class MethodTag implements TagInterface, PhpDocTypedTagInterface
      */
     public function initialize($tagDocblockLine)
     {
-        $match = array();
+        $match = [];
 
         if (!preg_match('#^(static[\s]+)?(.+[\s]+)?(.+\(\))[\s]*(.*)$#m', $tagDocblockLine, $match)) {
             return;

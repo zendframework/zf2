@@ -26,9 +26,9 @@ class OptimizeByFactorTest extends CommonPluginTest
     public function setUp()
     {
         $this->_adapter = new OptimizableMockAdapter();
-        $this->_options = new Cache\Storage\Plugin\PluginOptions(array(
+        $this->_options = new Cache\Storage\Plugin\PluginOptions([
             'optimizing_factor' => 1,
-        ));
+        ]);
         $this->_plugin  = new Cache\Storage\Plugin\OptimizeByFactor();
         $this->_plugin->setOptions($this->_options);
     }
@@ -38,10 +38,10 @@ class OptimizeByFactorTest extends CommonPluginTest
         $this->_adapter->addPlugin($this->_plugin);
 
         // check attached callbacks
-        $expectedListeners = array(
+        $expectedListeners = [
             'removeItem.post'  => 'optimizeByFactor',
             'removeItems.post' => 'optimizeByFactor',
-        );
+        ];
         foreach ($expectedListeners as $eventName => $expectedCallbackMethod) {
             $listeners = $this->_adapter->getEventManager()->getListeners($eventName);
 
@@ -68,7 +68,7 @@ class OptimizeByFactorTest extends CommonPluginTest
 
     public function testOptimizeByFactor()
     {
-        $adapter = $this->getMock(get_class($this->_adapter), array('optimize'));
+        $adapter = $this->getMock(get_class($this->_adapter), ['optimize']);
 
         // test optimize will be called
         $adapter
@@ -77,9 +77,9 @@ class OptimizeByFactorTest extends CommonPluginTest
 
         // call event callback
         $result = true;
-        $event = new PostEvent('removeItem.post', $adapter, new ArrayObject(array(
-            'options' => array()
-        )), $result);
+        $event = new PostEvent('removeItem.post', $adapter, new ArrayObject([
+            'options' => []
+        ]), $result);
 
         $this->_plugin->optimizeByFactor($event);
 

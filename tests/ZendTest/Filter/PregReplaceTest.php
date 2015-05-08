@@ -89,17 +89,17 @@ class PregReplaceTest extends \PHPUnit_Framework_TestCase
         $filter = $this->filter;
         $filter->setPattern('#^controller/(?P<action>[a-z_-]+)#')->setReplacement('foo/bar');
 
-        $input = array(
+        $input = [
             'controller/action',
             'This should stay the same'
-        );
+        ];
 
         $filtered = $filter($input);
         $this->assertNotEquals($input, $filtered);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo/bar',
             'This should stay the same'
-        ), $filtered);
+        ], $filtered);
     }
 
     public function testFilterThrowsExceptionWhenNoMatchPatternPresent()
@@ -120,10 +120,10 @@ class PregReplaceTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass())
-        );
+        return [
+            [null],
+            [new \stdClass()]
+        ];
     }
 
     /**

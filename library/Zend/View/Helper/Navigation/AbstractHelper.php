@@ -143,10 +143,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * @return mixed
      * @throws Navigation\Exception\ExceptionInterface
      */
-    public function __call($method, array $arguments = array())
+    public function __call($method, array $arguments = [])
     {
         return call_user_func_array(
-            array($this->getContainer(), $method),
+            [$this->getContainer(), $method],
             $arguments
         );
     }
@@ -241,10 +241,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         }
 
         if ($found) {
-            return array('page' => $found, 'depth' => $foundDepth);
+            return ['page' => $found, 'depth' => $foundDepth];
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -324,7 +324,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         } elseif ($this->getUseAcl()) {
             $acl = $this->getAcl();
             $role = $this->getRole();
-            $params = array('acl' => $acl, 'page' => $page, 'role' => $role);
+            $params = ['acl' => $acl, 'page' => $page, 'role' => $role];
             $accept = $this->isAllowed($params);
         }
 
@@ -401,13 +401,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         $title = $this->translate($page->getTitle(), $page->getTextDomain());
 
         // get attribs for anchor element
-        $attribs = array(
+        $attribs = [
             'id'     => $page->getId(),
             'title'  => $title,
             'class'  => $page->getClass(),
             'href'   => $page->getHref(),
             'target' => $page->getTarget()
-        );
+        ];
 
         /** @var \Zend\View\Helper\EscapeHtml $escaper */
         $escaper = $this->view->plugin('escapeHtml');
@@ -511,10 +511,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     public function setEventManager(EventManagerInterface $events)
     {
-        $events->setIdentifiers(array(
+        $events->setIdentifiers([
             __CLASS__,
             get_called_class(),
-        ));
+        ]);
 
         $this->events = $events;
 
@@ -940,7 +940,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         $this->getEventManager()->getSharedManager()->attach(
             'Zend\View\Helper\Navigation\AbstractHelper',
             'isAllowed',
-            array('Zend\View\Helper\Navigation\Listener\AclListener', 'accept')
+            ['Zend\View\Helper\Navigation\Listener\AclListener', 'accept']
         );
     }
 }

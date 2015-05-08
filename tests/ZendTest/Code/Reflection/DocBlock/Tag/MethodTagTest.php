@@ -36,7 +36,7 @@ class MethodTagTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test()', $tag->getMethodName());
         $this->assertFalse($tag->isStatic());
         $this->assertEquals('string', $tag->getReturnType());
-        $this->assertEquals(array('string', 'null'), $tag->getTypes());
+        $this->assertEquals(['string', 'null'], $tag->getTypes());
         $this->assertNull($tag->getDescription());
     }
 

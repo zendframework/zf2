@@ -178,7 +178,7 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
         $setCookieHeader->setHttponly(true);
 
         $appendCookie = new SetCookie('othername', 'othervalue');
-        $headerLine = $setCookieHeader->toStringMultipleHeaders(array($appendCookie));
+        $headerLine = $setCookieHeader->toStringMultipleHeaders([$appendCookie]);
 
         $target = 'Set-Cookie: myname=myvalue; Expires=Wed, 13-Jan-2021 22:23:01 GMT;'
             . ' Domain=docs.foo.com; Path=/accounts;'
@@ -398,7 +398,7 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
     public function testSetJsonValue()
     {
         $cookieName ="fooCookie";
-        $jsonData = json_encode(array('foo'=>'bar'));
+        $jsonData = json_encode(['foo'=>'bar']);
 
         $cookie= new SetCookie($cookieName, $jsonData);
 
@@ -406,7 +406,7 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp($regExp, $cookie->getFieldValue());
 
         $cookieName ="fooCookie";
-        $jsonData = json_encode(array('foo'=>'bar'));
+        $jsonData = json_encode(['foo'=>'bar']);
 
         $cookie= new SetCookie($cookieName, $jsonData);
         $cookie->setDomain('example.org');
@@ -437,11 +437,11 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
 
     public function setterInjections()
     {
-        return array(
-            'name'   => array('setName', "\r\nThis\rIs\nThe\r\nName"),
-            'domain' => array('setDomain', "\r\nexample\r.\nco\r\n.uk"),
-            'path'   => array('setPath', "\r\n/\rbar\n/foo\r\n/baz"),
-        );
+        return [
+            'name'   => ['setName', "\r\nThis\rIs\nThe\r\nName"],
+            'domain' => ['setDomain', "\r\nexample\r.\nco\r\n.uk"],
+            'path'   => ['setPath', "\r\n/\rbar\n/foo\r\n/baz"],
+        ];
     }
 
     /**
@@ -466,10 +466,10 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
         $now = time();
         $yesterday = $now - (3600 * 24);
 
-        return array(
-            array(
+        return [
+            [
                 'Set-Cookie: justacookie=foo; domain=example.com',
-                array(
+                [
                     'name'    => 'justacookie',
                     'value'   => 'foo',
                     'domain'  => 'example.com',
@@ -477,12 +477,12 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
                     'expires' => null,
                     'secure'  => false,
                     'httponly'=> false
-                ),
+                ],
                 'justacookie=foo; Domain=example.com'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: expires=tomorrow; secure; path=/Space Out/; expires=Tue, 21-Nov-2006 08:33:44 GMT; domain=.example.com',
-                array(
+                [
                     'name'    => 'expires',
                     'value'   => 'tomorrow',
                     'domain'  => '.example.com',
@@ -490,12 +490,12 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
                     'expires' => strtotime('Tue, 21-Nov-2006 08:33:44 GMT'),
                     'secure'  => true,
                     'httponly'=> false
-                ),
+                ],
                 'expires=tomorrow; Expires=Tue, 21-Nov-2006 08:33:44 GMT; Domain=.example.com; Path=/Space Out/; Secure'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: domain=unittests; expires=' . gmdate('D, d-M-Y H:i:s', $now) . ' GMT; domain=example.com; path=/some%20value/',
-                array(
+                [
                     'name'    => 'domain',
                     'value'   => 'unittests',
                     'domain'  => 'example.com',
@@ -503,12 +503,12 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
                     'expires' => $now,
                     'secure'  => false,
                     'httponly'=> false
-                ),
+                ],
                 'domain=unittests; Expires=' . gmdate('D, d-M-Y H:i:s', $now) . ' GMT; Domain=example.com; Path=/some%20value/'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: path=indexAction; path=/; domain=.foo.com; expires=' . gmdate('D, d-M-Y H:i:s', $yesterday) . ' GMT',
-                array(
+                [
                     'name'    => 'path',
                     'value'   => 'indexAction',
                     'domain'  => '.foo.com',
@@ -516,13 +516,13 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
                     'expires' => $yesterday,
                     'secure'  => false,
                     'httponly'=> false
-                ),
+                ],
                 'path=indexAction; Expires=' . gmdate('D, d-M-Y H:i:s', $yesterday) . ' GMT; Domain=.foo.com; Path=/'
-            ),
+            ],
 
-            array(
+            [
                 'Set-Cookie: secure=sha1; secure; SECURE; domain=some.really.deep.domain.com',
-                array(
+                [
                     'name'    => 'secure',
                     'value'   => 'sha1',
                     'domain'  => 'some.really.deep.domain.com',
@@ -530,12 +530,12 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
                     'expires' => null,
                     'secure'  => true,
                     'httponly'=> false
-                ),
+                ],
                 'secure=sha1; Domain=some.really.deep.domain.com; Secure'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: justacookie=foo; domain=example.com; httpOnly',
-                array(
+                [
                     'name'    => 'justacookie',
                     'value'   => 'foo',
                     'domain'  => 'example.com',
@@ -543,12 +543,12 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
                     'expires' => null,
                     'secure'  => false,
                     'httponly'=> true
-                ),
+                ],
                 'justacookie=foo; Domain=example.com; HttpOnly'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: PHPSESSID=123456789+abcd%2Cef; secure; domain=.localdomain; path=/foo/baz; expires=Tue, 21-Nov-2006 08:33:44 GMT;',
-                array(
+                [
                     'name'    => 'PHPSESSID',
                     'value'   => '123456789+abcd%2Cef',
                     'domain'  => '.localdomain',
@@ -556,12 +556,12 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
                     'expires' => 'Tue, 21-Nov-2006 08:33:44 GMT',
                     'secure'  => true,
                     'httponly'=> false
-                ),
+                ],
                 'PHPSESSID=123456789+abcd%2Cef; Expires=Tue, 21-Nov-2006 08:33:44 GMT; Domain=.localdomain; Path=/foo/baz; Secure'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: myname=myvalue; Domain=docs.foo.com; Path=/accounts; Expires=Wed, 13-Jan-2021 22:23:01 GMT; Secure; HttpOnly',
-                array(
+                [
                     'name'    => 'myname',
                     'value'   => 'myvalue',
                     'domain'  => 'docs.foo.com',
@@ -569,55 +569,55 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
                     'expires' => 'Wed, 13-Jan-2021 22:23:01 GMT',
                     'secure'  => true,
                     'httponly'=> true
-                ),
+                ],
                 'myname=myvalue; Expires=Wed, 13-Jan-2021 22:23:01 GMT; Domain=docs.foo.com; Path=/accounts; Secure; HttpOnly'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie:',
-                array(),
+                [],
                 ''
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: ',
-                array(),
+                [],
                 ''
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: emptykey=    ; Domain=docs.foo.com;',
-                array(
+                [
                     'name'    => 'myname',
                     'value'   => '',
                     'domain'  => 'docs.foo.com',
-                ),
+                ],
                 'emptykey=; Domain=docs.foo.com'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: emptykey= ; Domain=docs.foo.com;',
-                array(
+                [
                     'name'    => 'myname',
                     'value'   => '',
                     'domain'  => 'docs.foo.com',
-                ),
+                ],
                 'emptykey=; Domain=docs.foo.com'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: emptykey=; Domain=docs.foo.com;',
-                array(
+                [
                     'name'    => 'myname',
                     'value'   => '',
                     'domain'  => 'docs.foo.com',
-                ),
+                ],
                 'emptykey=; Domain=docs.foo.com'
-            ),
-            array(
+            ],
+            [
                 'Set-Cookie: emptykey; Domain=docs.foo.com;',
-                array(
+                [
                     'name'    => 'myname',
                     'value'   => '',
                     'domain'  => 'docs.foo.com',
-                ),
+                ],
                 'emptykey=; Domain=docs.foo.com'
-            ),
-        );
+            ],
+        ];
     }
 }

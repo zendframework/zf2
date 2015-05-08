@@ -33,7 +33,7 @@ class SvgTest extends TestCommon
         $svgCompare = file_get_contents(__DIR__ . '/_files/svg_transparency.xml');
 
         Barcode\Barcode::setBarcodeFont(__DIR__ . '/../Object/_fonts/Vera.ttf');
-        $barcode = new Code39(array('text' => '0123456789'));
+        $barcode = new Code39(['text' => '0123456789']);
         $this->renderer->setBarcode($barcode);
 
         $this->assertFalse($this->renderer->getTransparentBackground());
@@ -51,7 +51,7 @@ class SvgTest extends TestCommon
         $svgCompare = file_get_contents(__DIR__ . '/_files/svg_transparency.xml');
 
         Barcode\Barcode::setBarcodeFont(__DIR__ . '/../Object/_fonts/Vera.ttf');
-        $barcode = new Code39(array('text' => '0123456789'));
+        $barcode = new Code39(['text' => '0123456789']);
         $this->renderer->setBarcode($barcode);
         $this->renderer->setTransparentBackground(true);
         $this->assertTrue($this->renderer->getTransparentBackground());
@@ -103,7 +103,7 @@ class SvgTest extends TestCommon
     public function testDrawReturnResource()
     {
         Barcode\Barcode::setBarcodeFont(__DIR__ . '/../Object/_fonts/Vera.ttf');
-        $barcode = new Code39(array('text' => '0123456789'));
+        $barcode = new Code39(['text' => '0123456789']);
         $this->renderer->setBarcode($barcode);
         $resource = $this->renderer->draw();
         $this->assertInstanceOf('DOMDocument', $resource);
@@ -113,7 +113,7 @@ class SvgTest extends TestCommon
     public function testDrawWithExistantResourceReturnResource()
     {
         Barcode\Barcode::setBarcodeFont(__DIR__ . '/../Object/_fonts/Vera.ttf');
-        $barcode = new Code39(array('text' => '0123456789'));
+        $barcode = new Code39(['text' => '0123456789']);
         $this->renderer->setBarcode($barcode);
         $svgResource = new \DOMDocument();
         $rootElement = $svgResource->createElement('svg');

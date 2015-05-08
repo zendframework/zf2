@@ -37,11 +37,11 @@ class HelperConfigTest extends TestCase
     public function testConfigureServiceManagerWithConfig()
     {
         $replacedMenuClass = 'Zend\View\Helper\Navigation\Links';
-        $this->serviceManager->setService('config', array('navigation_helpers' => array(
-            'invokables' => array(
+        $this->serviceManager->setService('config', ['navigation_helpers' => [
+            'invokables' => [
                 'menu' => $replacedMenuClass
-             )
-        )));
+             ]
+        ]]);
         $this->helperConfig->configureServiceManager($this->pluginManager);
 
         $menu = $this->pluginManager->get('navigation')->findHelper('menu');

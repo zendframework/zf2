@@ -119,52 +119,52 @@ class SenderTest extends \PHPUnit_Framework_TestCase
 
     public function validSenderDataProvider()
     {
-        return array(
+        return [
             // Description => [sender address, sender name, getFieldValue, encoded version, encoding],
-            'ASCII address' => array(
+            'ASCII address' => [
                 'foo@bar',
                 null,
                 '<foo@bar>',
                 '<foo@bar>',
                 'ASCII'
-            ),
-            'ASCII name' => array(
+            ],
+            'ASCII name' => [
                 'foo@bar',
                 'foo',
                 'foo <foo@bar>',
                 'foo <foo@bar>',
                 'ASCII'
-            ),
-            'UTF-8 name' => array(
+            ],
+            'UTF-8 name' => [
                 'foo@bar',
                 'ázÁZ09',
                 'ázÁZ09 <foo@bar>',
                 '=?UTF-8?Q?=C3=A1z=C3=81Z09?= <foo@bar>',
                 'UTF-8'
-            ),
-        );
+            ],
+        ];
     }
 
     public function invalidSenderDataProvider()
     {
         $mailInvalidArgumentException = 'Zend\Mail\Exception\InvalidArgumentException';
 
-        return array(
+        return [
             // Description => [sender address, sender name, exception class, exception message],
-            'Empty' => array('', null, $mailInvalidArgumentException, null),
-            'any ASCII' => array('azAZ09-_', null, $mailInvalidArgumentException, null),
-            'any UTF-8' => array('ázÁZ09-_', null, $mailInvalidArgumentException, null),
+            'Empty' => ['', null, $mailInvalidArgumentException, null],
+            'any ASCII' => ['azAZ09-_', null, $mailInvalidArgumentException, null],
+            'any UTF-8' => ['ázÁZ09-_', null, $mailInvalidArgumentException, null],
 
             // CRLF @group ZF2015-04 cases
-            array("foo@bar\n", null, $mailInvalidArgumentException, null),
-            array("foo@bar\r", null, $mailInvalidArgumentException, null),
-            array("foo@bar\r\n", null, $mailInvalidArgumentException, null),
-            array("foo@bar", "\r", $mailInvalidArgumentException, null),
-            array("foo@bar", "\n", $mailInvalidArgumentException, null),
-            array("foo@bar", "\r\n", $mailInvalidArgumentException, null),
-            array("foo@bar", "foo\r\nevilBody", $mailInvalidArgumentException, null),
-            array("foo@bar", "\r\nevilBody", $mailInvalidArgumentException, null),
-        );
+            ["foo@bar\n", null, $mailInvalidArgumentException, null],
+            ["foo@bar\r", null, $mailInvalidArgumentException, null],
+            ["foo@bar\r\n", null, $mailInvalidArgumentException, null],
+            ["foo@bar", "\r", $mailInvalidArgumentException, null],
+            ["foo@bar", "\n", $mailInvalidArgumentException, null],
+            ["foo@bar", "\r\n", $mailInvalidArgumentException, null],
+            ["foo@bar", "foo\r\nevilBody", $mailInvalidArgumentException, null],
+            ["foo@bar", "\r\nevilBody", $mailInvalidArgumentException, null],
+        ];
     }
 
     public function invalidSenderEncodedDataProvider()
@@ -172,22 +172,22 @@ class SenderTest extends \PHPUnit_Framework_TestCase
         $mailInvalidArgumentException = 'Zend\Mail\Exception\InvalidArgumentException';
         $headerInvalidArgumentException = 'Zend\Mail\Header\Exception\InvalidArgumentException';
 
-        return array(
+        return [
             // Description => [decoded format, exception class, exception message],
-            'Empty' => array('', $mailInvalidArgumentException, null),
-            'any ASCII' => array('azAZ09-_', $mailInvalidArgumentException, null),
-            'any UTF-8' => array('ázÁZ09-_', $mailInvalidArgumentException, null),
-            array("xxx yyy\n", $mailInvalidArgumentException, null),
-            array("xxx yyy\r\n", $mailInvalidArgumentException, null),
-            array("xxx yyy\r\n\r\n", $mailInvalidArgumentException, null),
-            array("xxx\r\ny\r\nyy", $mailInvalidArgumentException, null),
-            array("foo\r\n@\r\nbar", $mailInvalidArgumentException, null),
+            'Empty' => ['', $mailInvalidArgumentException, null],
+            'any ASCII' => ['azAZ09-_', $mailInvalidArgumentException, null],
+            'any UTF-8' => ['ázÁZ09-_', $mailInvalidArgumentException, null],
+            ["xxx yyy\n", $mailInvalidArgumentException, null],
+            ["xxx yyy\r\n", $mailInvalidArgumentException, null],
+            ["xxx yyy\r\n\r\n", $mailInvalidArgumentException, null],
+            ["xxx\r\ny\r\nyy", $mailInvalidArgumentException, null],
+            ["foo\r\n@\r\nbar", $mailInvalidArgumentException, null],
 
-            array("ázÁZ09 <foo@bar>", $headerInvalidArgumentException, null),
-            'newline' => array("<foo@bar>\n", $headerInvalidArgumentException, null),
-            'cr-lf' => array("<foo@bar>\r\n", $headerInvalidArgumentException, null),
-            'cr-lf-wsp' => array("<foo@bar>\r\n\r\n", $headerInvalidArgumentException, null),
-            'multiline' => array("<foo\r\n@\r\nbar>", $headerInvalidArgumentException, null),
-        );
+            ["ázÁZ09 <foo@bar>", $headerInvalidArgumentException, null],
+            'newline' => ["<foo@bar>\n", $headerInvalidArgumentException, null],
+            'cr-lf' => ["<foo@bar>\r\n", $headerInvalidArgumentException, null],
+            'cr-lf-wsp' => ["<foo@bar>\r\n\r\n", $headerInvalidArgumentException, null],
+            'multiline' => ["<foo\r\n@\r\nbar>", $headerInvalidArgumentException, null],
+        ];
     }
 }

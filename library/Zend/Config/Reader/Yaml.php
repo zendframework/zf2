@@ -119,7 +119,7 @@ class Yaml implements ReaderInterface
             throw new Exception\RuntimeException("You didn't specify a Yaml callback decoder");
         }
         if (empty($string)) {
-            return array();
+            return [];
         }
 
         $this->directory = null;

@@ -26,10 +26,10 @@ class ContentSecurityPolicyTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertInstanceOf('Zend\Http\Header\HeaderInterface', $csp);
         $this->assertInstanceOf('Zend\Http\Header\ContentSecurityPolicy', $csp);
-        $directives = array('default-src' => "'none'",
+        $directives = ['default-src' => "'none'",
                             'script-src'  => "'self'",
                             'img-src'     => "'self'",
-                            'style-src'   => "'self'");
+                            'style-src'   => "'self'"];
         $this->assertEquals($directives, $csp->getDirectives());
     }
 
@@ -55,9 +55,9 @@ class ContentSecurityPolicyTest extends \PHPUnit_Framework_TestCase
     public function testContentSecurityPolicySetDirective()
     {
         $csp = new ContentSecurityPolicy();
-        $csp->setDirective('default-src', array('https://*.google.com', 'http://foo.com'))
-            ->setDirective('img-src', array("'self'"))
-            ->setDirective('script-src', array('https://*.googleapis.com', 'https://*.bar.com'));
+        $csp->setDirective('default-src', ['https://*.google.com', 'http://foo.com'])
+            ->setDirective('img-src', ["'self'"])
+            ->setDirective('script-src', ['https://*.googleapis.com', 'https://*.bar.com']);
         $header = "Content-Security-Policy: default-src https://*.google.com http://foo.com; "
                 . "img-src 'self'; script-src https://*.googleapis.com https://*.bar.com;";
         $this->assertEquals($header, $csp->toString());
@@ -66,9 +66,9 @@ class ContentSecurityPolicyTest extends \PHPUnit_Framework_TestCase
     public function testContentSecurityPolicySetDirectiveWithEmptySourcesDefaultsToNone()
     {
         $csp = new ContentSecurityPolicy();
-        $csp->setDirective('default-src', array("'self'"))
-            ->setDirective('img-src', array('*'))
-            ->setDirective('script-src', array());
+        $csp->setDirective('default-src', ["'self'"])
+            ->setDirective('img-src', ['*'])
+            ->setDirective('script-src', []);
         $this->assertEquals(
             "Content-Security-Policy: default-src 'self'; img-src *; script-src 'none';",
             $csp->toString()
@@ -79,14 +79,14 @@ class ContentSecurityPolicyTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Zend\Http\Header\Exception\InvalidArgumentException');
         $csp = new ContentSecurityPolicy();
-        $csp->setDirective('foo', array());
+        $csp->setDirective('foo', []);
     }
 
     public function testContentSecurityPolicyGetFieldValueReturnsProperValue()
     {
         $csp = new ContentSecurityPolicy();
-        $csp->setDirective('default-src', array("'self'"))
-            ->setDirective('img-src', array('https://*.github.com'));
+        $csp->setDirective('default-src', ["'self'"])
+            ->setDirective('img-src', ['https://*.github.com']);
         $this->assertEquals("default-src 'self'; img-src https://*.github.com;", $csp->getFieldValue());
     }
 
@@ -108,6 +108,6 @@ class ContentSecurityPolicyTest extends \PHPUnit_Framework_TestCase
     {
         $header = new ContentSecurityPolicy();
         $this->setExpectedException('Zend\Http\Header\Exception\InvalidArgumentException');
-        $header->setDirective('default-src', array("\rsome\r\nCRLF\ninjection"));
+        $header->setDirective('default-src', ["\rsome\r\nCRLF\ninjection"]);
     }
 }

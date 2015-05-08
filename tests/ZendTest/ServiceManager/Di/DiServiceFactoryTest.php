@@ -36,14 +36,14 @@ class DiServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $instanceManager->addSharedInstanceWithParameters(
             $this->fooInstance = new \stdClass(),
             'foo',
-            array('bar' => 'baz')
+            ['bar' => 'baz']
         );
-        $this->mockDi = $this->getMock('Zend\Di\Di', array(), array(null, $instanceManager));
+        $this->mockDi = $this->getMock('Zend\Di\Di', [], [null, $instanceManager]);
         $this->mockServiceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $this->diServiceFactory = new DiServiceFactory(
             $this->mockDi,
             'foo',
-            array('bar' => 'baz')
+            ['bar' => 'baz']
         );
     }
 
@@ -55,7 +55,7 @@ class DiServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $instance = new DiServiceFactory(
             $this->getMock('Zend\Di\Di'),
             'string',
-            array('foo' => 'bar')
+            ['foo' => 'bar']
         );
         $this->assertInstanceOf('Zend\ServiceManager\Di\DiServiceFactory', $instance);
     }

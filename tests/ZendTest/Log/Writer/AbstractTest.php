@@ -49,7 +49,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testAddRegexFilterWithParamsByName()
     {
-        $instance = $this->_writer->addFilter('regex', array( 'regex' => '/mess/' ));
+        $instance = $this->_writer->addFilter('regex', [ 'regex' => '/mess/' ]);
         $this->assertInstanceOf('ZendTest\Log\TestAsset\ConcreteWriter', $instance);
     }
 
@@ -68,30 +68,30 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $writer = new ErrorGeneratingWriter();
         $this->setExpectedException('Zend\Log\Exception\RuntimeException');
-        $writer->write(array('message' => 'test'));
+        $writer->write(['message' => 'test']);
 
         $writer->setConvertWriteErrorsToExceptions(false);
         $this->setExpectedException('PHPUnit_Framework_Error_Warning');
-        $writer->write(array('message' => 'test'));
+        $writer->write(['message' => 'test']);
     }
 
     public function testConstructorWithOptions()
     {
-        $options = array('filters' => array(
-                             array(
+        $options = ['filters' => [
+                             [
                                  'name' => 'mock',
-                             ),
-                             array(
+                             ],
+                             [
                                  'name' => 'priority',
-                                 'options' => array(
+                                 'options' => [
                                      'priority' => 3,
-                                 ),
-                             ),
-                         ),
-                        'formatter' => array(
+                                 ],
+                             ],
+                         ],
+                        'formatter' => [
                              'name' => 'base',
-                         ),
-                    );
+                         ],
+                    ];
 
         $writer = new ConcreteWriter($options);
 
@@ -107,14 +107,14 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     public function testConstructorWithPriorityFilter()
     {
         // Accept an int as a PriorityFilter
-        $writer = new ConcreteWriter(array('filters' => 3));
+        $writer = new ConcreteWriter(['filters' => 3]);
         $filters = $this->readAttribute($writer, 'filters');
         $this->assertCount(1, $filters);
         $this->assertInstanceOf('Zend\Log\Filter\Priority', $filters[0]);
         $this->assertEquals(3, $this->readAttribute($filters[0], 'priority'));
 
         // Accept an int in an array of filters as a PriorityFilter
-        $options = array('filters' => array(3, array('name' => 'mock')));
+        $options = ['filters' => [3, ['name' => 'mock']]];
 
         $writer = new ConcreteWriter($options);
         $filters = $this->readAttribute($writer, 'filters');

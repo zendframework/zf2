@@ -13,10 +13,10 @@ use Traversable;
 
 class PregReplace extends AbstractFilter
 {
-    protected $options = array(
+    protected $options = [
         'pattern'     => null,
         'replacement' => '',
-    );
+    ];
 
     /**
      * Constructor

@@ -19,9 +19,9 @@ class Week extends DateTime
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'week',
-    );
+    ];
 
     /**
      * Retrieves a Date Validator configured for a Week Input type
@@ -46,10 +46,10 @@ class Week extends DateTime
         $baseValue = (isset($this->attributes['min']))
                      ? $this->attributes['min'] : '1970-W01';
 
-        return new DateStepValidator(array(
+        return new DateStepValidator([
             'format'    => 'Y-\WW',
             'baseValue' => $baseValue,
             'step'      => new \DateInterval("P{$stepValue}W"),
-        ));
+        ]);
     }
 }

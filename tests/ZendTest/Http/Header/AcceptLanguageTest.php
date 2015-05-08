@@ -53,13 +53,13 @@ class AcceptLanguageTest extends \PHPUnit_Framework_TestCase
     public function testPrioritizesValuesBasedOnQParameter()
     {
         $header   = AcceptLanguage::fromString('Accept-Language: da;q=0.8, en-gb, *;q=0.4');
-        $expected = array(
+        $expected = [
             'en-gb',
             'da',
             '*'
-        );
+        ];
 
-        $test = array();
+        $test = [];
         foreach ($header->getPrioritized() as $type) {
             $this->assertEquals(array_shift($expected), $type->typeString);
         }

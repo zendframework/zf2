@@ -47,7 +47,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     public function testCanSetTranslator()
     {
         $this->testTranslatorNullByDefault();
-        set_error_handler(array($this, 'errorHandlerIgnore'));
+        set_error_handler([$this, 'errorHandlerIgnore']);
         $translator = new TestAsset\Translator();
         restore_error_handler();
         $this->validator->setTranslator($translator);
@@ -57,7 +57,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     public function testCanSetTranslatorToNull()
     {
         $this->testCanSetTranslator();
-        set_error_handler(array($this, 'errorHandlerIgnore'));
+        set_error_handler([$this, 'errorHandlerIgnore']);
         $this->validator->setTranslator(null);
         restore_error_handler();
         $this->assertNull($this->validator->getTranslator());
@@ -75,9 +75,9 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         }
 
         $loader = new TestAsset\ArrayTranslator();
-        $loader->translations = array(
+        $loader->translations = [
             '%value% was passed' => 'This is the translated message for %value%',
-        );
+        ];
         $translator = new TestAsset\Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
@@ -127,7 +127,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testTranslatorEnabledPerDefault()
     {
-        set_error_handler(array($this, 'errorHandlerIgnore'));
+        set_error_handler([$this, 'errorHandlerIgnore']);
         $translator = new TestAsset\Translator();
         $this->validator->setTranslator($translator);
         $this->assertTrue($this->validator->isTranslatorEnabled());
@@ -140,9 +140,9 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         }
 
         $loader = new TestAsset\ArrayTranslator();
-        $loader->translations = array(
+        $loader->translations = [
             '%value% was passed' => 'This is the translated message for %value%',
-        );
+        ];
         $translator = new TestAsset\Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
@@ -168,12 +168,12 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $messages = $this->validator->getMessageTemplates();
         $this->assertEquals(
-            array('fooMessage' => '%value% was passed',
-                  'barMessage' => '%value% was wrong'), $messages);
+            ['fooMessage' => '%value% was passed',
+                  'barMessage' => '%value% was wrong'], $messages);
 
         $this->assertEquals(
-            array(TestAsset\ConcreteValidator::FOO_MESSAGE => '%value% was passed',
-                  TestAsset\ConcreteValidator::BAR_MESSAGE => '%value% was wrong'),
+            [TestAsset\ConcreteValidator::FOO_MESSAGE => '%value% was passed',
+                  TestAsset\ConcreteValidator::BAR_MESSAGE => '%value% was wrong'],
             $messages
             );
     }
@@ -222,7 +222,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $r = new ReflectionMethod($this->validator, 'createMessage');
         $r->setAccessible(true);
 
-        $message = $r->invoke($this->validator, 'fooMessage', array('foo' => array('bar' => 'baz')));
+        $message = $r->invoke($this->validator, 'fooMessage', ['foo' => ['bar' => 'baz']]);
         $this->assertContains('foo', $message);
         $this->assertContains('bar', $message);
         $this->assertContains('baz', $message);
@@ -235,10 +235,10 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $messages = $this->validator->getMessages();
 
         $this->assertCount(2, $messages);
-        $this->assertEquals(array(
+        $this->assertEquals([
             TestAsset\ConcreteValidator::FOO_MESSAGE => 'invalid was passed',
             TestAsset\ConcreteValidator::BAR_MESSAGE => 'invalid was wrong'
-        ), $messages);
+        ], $messages);
     }
 
     public function testIdenticalMessagesNotReturned()
@@ -263,10 +263,10 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey(Hostname::UNKNOWN_TLD, $validator->getMessages());
         $this->assertArrayHasKey(Hostname::LOCAL_NAME_NOT_ALLOWED, $validator->getMessages());
 
-        $validator->setMessages(array(
+        $validator->setMessages([
             EmailAddress::INVALID_HOSTNAME => 'This is the same error message',
             Hostname::UNKNOWN_TLD => 'This is the same error message'
-        ));
+        ]);
 
         $this->assertFalse($validator->isValid('invalid@email.coma'));
         $this->assertCount(2, $validator->getMessages());

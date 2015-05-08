@@ -20,7 +20,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Text('foo');
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'TEXT'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'TEXT'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
     }

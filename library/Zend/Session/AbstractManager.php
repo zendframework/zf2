@@ -66,7 +66,7 @@ abstract class AbstractManager implements Manager
         Config $config = null,
         Storage $storage = null,
         SaveHandler $saveHandler = null,
-        array $validators = array()
+        array $validators = []
     ) {
         // init config
         if ($config === null) {

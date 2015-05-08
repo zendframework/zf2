@@ -16,16 +16,16 @@ class ElementWithFilter extends Element implements InputProviderInterface
 {
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim'),
-            ),
-            'validators' => array(
-                array('name' => 'Zend\Validator\NotEmpty'),
-                array('name' => 'Zend\I18n\Validator\Alnum'),
-            ),
-        );
+            'filters' => [
+                ['name' => 'Zend\Filter\StringTrim'],
+            ],
+            'validators' => [
+                ['name' => 'Zend\Validator\NotEmpty'],
+                ['name' => 'Zend\I18n\Validator\Alnum'],
+            ],
+        ];
     }
 }

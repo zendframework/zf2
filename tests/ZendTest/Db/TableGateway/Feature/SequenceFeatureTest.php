@@ -36,22 +36,22 @@ class SequenceFeatureTest extends PHPUnit_Framework_TestCase
      */
     public function testNextSequenceId($platformName, $statementSql)
     {
-        $platform = $this->getMockForAbstractClass('Zend\Db\Adapter\Platform\PlatformInterface', array('getName'));
+        $platform = $this->getMockForAbstractClass('Zend\Db\Adapter\Platform\PlatformInterface', ['getName']);
         $platform->expects($this->any())
             ->method('getName')
             ->will($this->returnValue($platformName));
         $platform->expects($this->any())
             ->method('quoteIdentifier')
             ->will($this->returnValue($this->sequenceName));
-        $adapter = $this->getMock('Zend\Db\Adapter\Adapter', array('getPlatform', 'createStatement'), array(), '', false);
+        $adapter = $this->getMock('Zend\Db\Adapter\Adapter', ['getPlatform', 'createStatement'], [], '', false);
         $adapter->expects($this->any())
             ->method('getPlatform')
             ->will($this->returnValue($platform));
-        $result = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\ResultInterface', array(), '', false, true, true, array('current'));
+        $result = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\ResultInterface', [], '', false, true, true, ['current']);
         $result->expects($this->any())
             ->method('current')
-            ->will($this->returnValue(array('nextval' => 2)));
-        $statement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\StatementInterface', array(), '', false, true, true, array('prepare', 'execute'));
+            ->will($this->returnValue(['nextval' => 2]));
+        $statement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\StatementInterface', [], '', false, true, true, ['prepare', 'execute']);
         $statement->expects($this->any())
             ->method('execute')
             ->will($this->returnValue($result));
@@ -61,14 +61,14 @@ class SequenceFeatureTest extends PHPUnit_Framework_TestCase
         $adapter->expects($this->once())
             ->method('createStatement')
             ->will($this->returnValue($statement));
-        $this->tableGateway = $this->getMockForAbstractClass('Zend\Db\TableGateway\TableGateway', array('table', $adapter), '', true);
+        $this->tableGateway = $this->getMockForAbstractClass('Zend\Db\TableGateway\TableGateway', ['table', $adapter], '', true);
         $this->feature->setTableGateway($this->tableGateway);
         $this->feature->nextSequenceId();
     }
 
     public function nextSequenceIdProvider()
     {
-        return array(array('PostgreSQL', 'SELECT NEXTVAL(\'"' . $this->sequenceName . '"\')'),
-            array('Oracle', 'SELECT ' . $this->sequenceName . '.NEXTVAL as "nextval" FROM dual'));
+        return [['PostgreSQL', 'SELECT NEXTVAL(\'"' . $this->sequenceName . '"\')'],
+            ['Oracle', 'SELECT ' . $this->sequenceName . '.NEXTVAL as "nextval" FROM dual']];
     }
 }

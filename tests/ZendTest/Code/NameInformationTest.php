@@ -25,32 +25,32 @@ class NameInformationTest extends \PHPUnit_Framework_TestCase
 
     public function testNamespaceResolverPersistsUseRules()
     {
-        $nr = new NameInformation('Foo\Bar', array('Aaa\Bbb\Ccc' => 'C'));
-        $this->assertEquals(array('Aaa\Bbb\Ccc' => 'C'), $nr->getUses());
+        $nr = new NameInformation('Foo\Bar', ['Aaa\Bbb\Ccc' => 'C']);
+        $this->assertEquals(['Aaa\Bbb\Ccc' => 'C'], $nr->getUses());
 
         $nr = new NameInformation();
-        $nr->setUses(array('Aaa\Bbb\Ccc'));
-        $this->assertEquals(array('Aaa\Bbb\Ccc' => 'Ccc'), $nr->getUses());
+        $nr->setUses(['Aaa\Bbb\Ccc']);
+        $this->assertEquals(['Aaa\Bbb\Ccc' => 'Ccc'], $nr->getUses());
 
-        $nr->setUses(array('ArrayObject'));
-        $this->assertEquals(array('ArrayObject' => 'ArrayObject'), $nr->getUses());
+        $nr->setUses(['ArrayObject']);
+        $this->assertEquals(['ArrayObject' => 'ArrayObject'], $nr->getUses());
 
-        $nr->setUses(array('ArrayObject' => 'AO'));
-        $this->assertEquals(array('ArrayObject' => 'AO'), $nr->getUses());
+        $nr->setUses(['ArrayObject' => 'AO']);
+        $this->assertEquals(['ArrayObject' => 'AO'], $nr->getUses());
 
-        $nr->setUses(array('\Aaa\Bbb\Ccc' => 'Ccc'));
-        $this->assertEquals(array('Aaa\Bbb\Ccc' => 'Ccc'), $nr->getUses());
+        $nr->setUses(['\Aaa\Bbb\Ccc' => 'Ccc']);
+        $this->assertEquals(['Aaa\Bbb\Ccc' => 'Ccc'], $nr->getUses());
     }
 
     public function testNamespaceResolverCorrectlyResolvesNames()
     {
         $nr = new NameInformation;
         $nr->setNamespace('Zend\MagicComponent');
-        $nr->setUses(array(
+        $nr->setUses([
             'ArrayObject',
             'Zend\OtherMagicComponent\Foo',
             'Zend\SuperMagic' => 'SM',
-        ));
+        ]);
 
         // test against namespace
         $this->assertEquals('Zend\MagicComponent\Bar', $nr->resolveName('Bar'));

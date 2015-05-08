@@ -38,7 +38,7 @@ class AggregateDirectoryScanner extends DirectoryScanner
 
     public function getClasses($returnScannerClass = false, $returnDerivedScannerClass = false)
     {
-        $classes = array();
+        $classes = [];
         foreach ($this->directories as $scanner) {
             $classes += $scanner->getClasses();
         }
@@ -102,7 +102,7 @@ class AggregateDirectoryScanner extends DirectoryScanner
         $this->scan();
 
         if (!$returnScannerClass) {
-            $functions = array();
+            $functions = [];
             foreach ($this->infos as $info) {
                 if ($info['type'] == 'function') {
                     $functions[] = $info['name'];

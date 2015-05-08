@@ -71,73 +71,73 @@ class FactoryTest extends TestCase
 
     public function testCanCreateDumbCaptcha()
     {
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class' => 'Zend\Captcha\Dumb',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Captcha\Dumb', $captcha);
     }
 
     public function testCanCreateDumbCaptchaUsingShortName()
     {
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class' => 'dumb',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Captcha\Dumb', $captcha);
     }
 
     public function testCanCreateFigletCaptcha()
     {
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class' => 'Zend\Captcha\Figlet',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Captcha\Figlet', $captcha);
     }
 
     public function testCanCreateFigletCaptchaUsingShortName()
     {
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class' => 'figlet',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Captcha\Figlet', $captcha);
     }
 
     public function testCanCreateImageCaptcha()
     {
         $this->setUpImageTest();
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class' => 'Zend\Captcha\Image',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
                 'imgDir'       => $this->testDir,
                 'font'         => __DIR__. '/../Pdf/_fonts/Vera.ttf',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Captcha\Image', $captcha);
     }
 
     public function testCanCreateImageCaptchaUsingShortName()
     {
         $this->setUpImageTest();
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class' => 'image',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
                 'imgDir'       => $this->testDir,
                 'font'         => __DIR__. '/../Pdf/_fonts/Vera.ttf',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Captcha\Image', $captcha);
     }
 
@@ -147,12 +147,12 @@ class FactoryTest extends TestCase
             $this->markTestSkipped('Enable TESTS_ZEND_CAPTCHA_RECAPTCHA_SUPPORT to test PDF render');
         }
 
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class' => 'Zend\Captcha\ReCaptcha',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Captcha\ReCaptcha', $captcha);
     }
 
@@ -162,23 +162,23 @@ class FactoryTest extends TestCase
             $this->markTestSkipped('Enable TESTS_ZEND_CAPTCHA_RECAPTCHA_SUPPORT to test PDF render');
         }
 
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class' => 'recaptcha',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Captcha\ReCaptcha', $captcha);
     }
 
     public function testOptionsArePassedToCaptchaAdapter()
     {
-        $captcha = Captcha\Factory::factory(array(
+        $captcha = Captcha\Factory::factory([
             'class'   => 'ZendTest\Captcha\TestAsset\MockCaptcha',
-            'options' => array(
+            'options' => [
                 'foo' => 'bar',
-            ),
-        ));
-        $this->assertEquals(array('foo' => 'bar'), $captcha->options);
+            ],
+        ]);
+        $this->assertEquals(['foo' => 'bar'], $captcha->options);
     }
 }

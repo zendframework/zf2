@@ -76,7 +76,7 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
      * @param  null|int|string  $name    Optional name for the element
      * @param  array            $options Optional options for the element
      */
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         $this->minYear = date('Y') - 100;
         $this->maxYear = date('Y');
@@ -158,7 +158,7 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
      */
     public function getElements()
     {
-        return array($this->monthElement, $this->yearElement);
+        return [$this->monthElement, $this->yearElement];
     }
 
     /**
@@ -284,10 +284,10 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
     public function setValue($value)
     {
         if ($value instanceof PhpDateTime) {
-            $value = array(
+            $value = [
                 'year'  => $value->format('Y'),
                 'month' => $value->format('m')
-            );
+            ];
         }
 
         $this->yearElement->setValue($value['year']);
@@ -338,16 +338,16 @@ class MonthSelect extends Element implements InputProviderInterface, ElementPrep
      */
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => false,
-            'filters' => array(
-                array('name' => 'MonthSelect'),
-            ),
-            'validators' => array(
+            'filters' => [
+                ['name' => 'MonthSelect'],
+            ],
+            'validators' => [
                 $this->getValidator(),
-            ),
-        );
+            ],
+        ];
     }
 
     /**

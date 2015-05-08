@@ -40,7 +40,7 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanExtractFromMethodsWithOptionalParameters()
     {
-        $this->assertSame(array('foo' => 'bar'), $this->hydrator->extract(new ClassMethodsOptionalParameters()));
+        $this->assertSame(['foo' => 'bar'], $this->hydrator->extract(new ClassMethodsOptionalParameters()));
     }
 
     /**
@@ -50,26 +50,26 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
     {
         /* @var $classMethodsCamelCase ClassMethodsCamelCase */
         $classMethodsCamelCase = $this->hydrator->hydrate(
-            array('fooBar' => 'baz-tab'),
+            ['fooBar' => 'baz-tab'],
             new ClassMethodsCamelCase()
         );
         /* @var $classMethodsCamelCaseMissing ClassMethodsCamelCaseMissing */
         $classMethodsCamelCaseMissing = $this->hydrator->hydrate(
-            array('fooBar' => 'baz-tab'),
+            ['fooBar' => 'baz-tab'],
             new ClassMethodsCamelCaseMissing()
         );
         /* @var $arraySerializable ArraySerializable */
-        $arraySerializable = $this->hydrator->hydrate(array('fooBar' => 'baz-tab'), new ArraySerializable());
+        $arraySerializable = $this->hydrator->hydrate(['fooBar' => 'baz-tab'], new ArraySerializable());
 
         $this->assertSame('baz-tab', $classMethodsCamelCase->getFooBar());
         $this->assertSame('baz-tab', $classMethodsCamelCaseMissing->getFooBar());
         $this->assertSame(
-            array(
+            [
                 "foo" => "bar",
                 "bar" => "foo",
                 "blubb" => "baz",
                 "quo" => "blubb"
-            ),
+            ],
             $arraySerializable->getArrayCopy()
         );
     }

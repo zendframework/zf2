@@ -71,7 +71,7 @@ final class ExplodeStrategy implements StrategyInterface
     public function hydrate($value)
     {
         if (null === $value) {
-            return array();
+            return [];
         }
 
         if (!(is_string($value) || is_numeric($value))) {

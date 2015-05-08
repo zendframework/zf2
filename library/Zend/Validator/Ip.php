@@ -19,22 +19,22 @@ class Ip extends AbstractValidator
     /**
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID        => 'Invalid type given. String expected',
         self::NOT_IP_ADDRESS => "The input does not appear to be a valid IP address",
-    );
+    ];
 
     /**
      * Internal options
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'allowipv4'      => true, // Enable IPv4 Validation
         'allowipv6'      => true, // Enable IPv6 Validation
         'allowipvfuture' => false, // Enable IPvFuture Validation
         'allowliteral'   => true, // Enable IPs in literal format (only IPv6 and IPvFuture)
-    );
+    ];
 
     /**
      * Sets the options for this validator
@@ -43,7 +43,7 @@ class Ip extends AbstractValidator
      * @throws Exception\InvalidArgumentException If there is any kind of IP allowed or $options is not an array or Traversable.
      * @return AbstractValidator
      */
-    public function setOptions($options = array())
+    public function setOptions($options = [])
     {
         parent::setOptions($options);
 

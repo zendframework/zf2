@@ -48,155 +48,155 @@ class MemcachedResourceManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function validResourceProvider()
     {
-        $data = array(
+        $data = [
             // empty resource
-            array(
+            [
                 'testEmptyResource',
-                array(),
+                [],
                 '',
-                array(),
-                array(),
-            ),
+                [],
+                [],
+            ],
 
             // stringify persistent id
-            array(
+            [
                 'testStringifyPersistentId',
-                array('persistent_id' => 1234),
+                ['persistent_id' => 1234],
                 '1234',
-                array(),
-                array(),
-            ),
+                [],
+                [],
+            ],
 
             // servers given as string
-            array(
+            [
                 'testServersGivenAsString',
-                array(
+                [
                     'servers' => '127.0.0.1:1234,127.0.0.1,192.1.0.1?weight=3,localhost,127.0.0.1:11211?weight=0',
-                ),
+                ],
                 '',
-                array(
-                    array('host' => '127.0.0.1', 'port' => 1234,  'weight' => 0),
-                    array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 0),
-                    array('host' => '192.1.0.1', 'port' => 11211, 'weight' => 3),
-                    array('host' => 'localhost', 'port' => 11211, 'weight' => 0),
-                ),
-                array(),
-            ),
+                [
+                    ['host' => '127.0.0.1', 'port' => 1234,  'weight' => 0],
+                    ['host' => '127.0.0.1', 'port' => 11211, 'weight' => 0],
+                    ['host' => '192.1.0.1', 'port' => 11211, 'weight' => 3],
+                    ['host' => 'localhost', 'port' => 11211, 'weight' => 0],
+                ],
+                [],
+            ],
 
             // servers given as list of strings
-            array(
+            [
                 'testServersGivenAsListOfStrings',
-                array(
-                    'servers' => array(
+                [
+                    'servers' => [
                         '127.0.0.1:1234',
                         '127.0.0.1',
                         '192.1.0.1?weight=3',
                         'localhost',
                         '127.0.0.1:11211?weight=0'
-                    ),
-                ),
+                    ],
+                ],
                 '',
-                array(
-                    array('host' => '127.0.0.1', 'port' => 1234,  'weight' => 0),
-                    array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 0),
-                    array('host' => '192.1.0.1', 'port' => 11211, 'weight' => 3),
-                    array('host' => 'localhost', 'port' => 11211, 'weight' => 0),
-                ),
-                array(),
-            ),
+                [
+                    ['host' => '127.0.0.1', 'port' => 1234,  'weight' => 0],
+                    ['host' => '127.0.0.1', 'port' => 11211, 'weight' => 0],
+                    ['host' => '192.1.0.1', 'port' => 11211, 'weight' => 3],
+                    ['host' => 'localhost', 'port' => 11211, 'weight' => 0],
+                ],
+                [],
+            ],
 
             // servers given as list of arrays
-            array(
+            [
                 'testServersGivenAsListOfArrays',
-                array(
-                    'servers' => array(
-                        array('127.0.0.1', 1234),
-                        array('127.0.0.1'),
-                        array('192.1.0.1', 11211, 3),
-                        array('localhost'),
-                        array('127.0.0.1', 11211, 0),
-                    ),
-                ),
+                [
+                    'servers' => [
+                        ['127.0.0.1', 1234],
+                        ['127.0.0.1'],
+                        ['192.1.0.1', 11211, 3],
+                        ['localhost'],
+                        ['127.0.0.1', 11211, 0],
+                    ],
+                ],
                 '',
-                array(
-                    array('host' => '127.0.0.1', 'port' => 1234,  'weight' => 0),
-                    array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 0),
-                    array('host' => '192.1.0.1', 'port' => 11211, 'weight' => 3),
-                    array('host' => 'localhost', 'port' => 11211, 'weight' => 0),
-                ),
-                array(),
-            ),
+                [
+                    ['host' => '127.0.0.1', 'port' => 1234,  'weight' => 0],
+                    ['host' => '127.0.0.1', 'port' => 11211, 'weight' => 0],
+                    ['host' => '192.1.0.1', 'port' => 11211, 'weight' => 3],
+                    ['host' => 'localhost', 'port' => 11211, 'weight' => 0],
+                ],
+                [],
+            ],
 
             // servers given as list of assoc arrays
-            array(
+            [
                 'testServersGivenAsListOfAssocArrays',
-                array(
-                    'servers' => array(
-                        array(
+                [
+                    'servers' => [
+                        [
                            'host' => '127.0.0.1',
                            'port' => 1234,
-                        ),
-                        array(
+                        ],
+                        [
                            'host' => '127.0.0.1',
-                        ),
-                        array(
+                        ],
+                        [
                             'host'   => '192.1.0.1',
                             'weight' => 3,
-                        ),
-                        array(
+                        ],
+                        [
                             'host' => 'localhost',
-                        ),
-                        array(
+                        ],
+                        [
                             'host' => '127.0.0.1',
                             'port' => 11211,
                             'weight' => 0,
-                        ),
-                    ),
-                ),
+                        ],
+                    ],
+                ],
                 '',
-                array(
-                    array('host' => '127.0.0.1', 'port' => 1234,  'weight' => 0),
-                    array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 0),
-                    array('host' => '192.1.0.1', 'port' => 11211, 'weight' => 3),
-                    array('host' => 'localhost', 'port' => 11211, 'weight' => 0),
-                ),
-                array(),
-            ),
+                [
+                    ['host' => '127.0.0.1', 'port' => 1234,  'weight' => 0],
+                    ['host' => '127.0.0.1', 'port' => 11211, 'weight' => 0],
+                    ['host' => '192.1.0.1', 'port' => 11211, 'weight' => 3],
+                    ['host' => 'localhost', 'port' => 11211, 'weight' => 0],
+                ],
+                [],
+            ],
 
             // lib options given as name
-            array(
+            [
                 'testLibOptionsGivenAsName',
-                array(
-                    'lib_options' => array(
+                [
+                    'lib_options' => [
                         'COMPRESSION' => false,
                         'PREFIX_KEY'  => 'test_',
-                    ),
-                ),
+                    ],
+                ],
                 '',
-                array(),
-                class_exists('Memcached', false) ? array(
+                [],
+                class_exists('Memcached', false) ? [
                     \Memcached::OPT_COMPRESSION => false,
                     \Memcached::OPT_PREFIX_KEY  => 'test_',
-                ) : array(),
-            ),
+                ] : [],
+            ],
 
             // lib options given as constant value
-            array(
+            [
                 'testLibOptionsGivenAsName',
-                array(
-                    'lib_options' => class_exists('Memcached', false) ? array(
+                [
+                    'lib_options' => class_exists('Memcached', false) ? [
                         \Memcached::OPT_COMPRESSION => false,
                         \Memcached::OPT_PREFIX_KEY  => 'test_',
-                    ) : array(),
-                ),
+                    ] : [],
+                ],
                 '',
-                array(),
-                class_exists('Memcached', false) ? array(
+                [],
+                class_exists('Memcached', false) ? [
                     \Memcached::OPT_COMPRESSION => false,
                     \Memcached::OPT_PREFIX_KEY  => 'test_',
-                ) : array(),
-            ),
-        );
+                ] : [],
+            ],
+        ];
 
         return $data;
     }
@@ -233,9 +233,9 @@ class MemcachedResourceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $memcachedInstalled = class_exists('Memcached', false);
 
-        $libOptions = array('compression' => false);
+        $libOptions = ['compression' => false];
         $resourceId = 'testResourceId';
-        $resourceMock = $this->getMock('Memcached', array('setOptions'));
+        $resourceMock = $this->getMock('Memcached', ['setOptions']);
 
         if (!$memcachedInstalled) {
             $this->setExpectedException('Zend\Cache\Exception\InvalidArgumentException');

@@ -20,7 +20,7 @@ class Serializer extends AbstractPlugin
     /**
      * @var array
      */
-    protected $capabilities = array();
+    protected $capabilities = [];
 
     /**
      * {@inheritDoc}
@@ -33,30 +33,30 @@ class Serializer extends AbstractPlugin
         $postPriority = -$priority;
 
         // read
-        $this->listeners[] = $events->attach('getItem.post', array($this, 'onReadItemPost'), $postPriority);
-        $this->listeners[] = $events->attach('getItems.post', array($this, 'onReadItemsPost'), $postPriority);
+        $this->listeners[] = $events->attach('getItem.post', [$this, 'onReadItemPost'], $postPriority);
+        $this->listeners[] = $events->attach('getItems.post', [$this, 'onReadItemsPost'], $postPriority);
 
         // write
-        $this->listeners[] = $events->attach('setItem.pre', array($this, 'onWriteItemPre'), $prePriority);
-        $this->listeners[] = $events->attach('setItems.pre', array($this, 'onWriteItemsPre'), $prePriority);
+        $this->listeners[] = $events->attach('setItem.pre', [$this, 'onWriteItemPre'], $prePriority);
+        $this->listeners[] = $events->attach('setItems.pre', [$this, 'onWriteItemsPre'], $prePriority);
 
-        $this->listeners[] = $events->attach('addItem.pre', array($this, 'onWriteItemPre'), $prePriority);
-        $this->listeners[] = $events->attach('addItems.pre', array($this, 'onWriteItemsPre'), $prePriority);
+        $this->listeners[] = $events->attach('addItem.pre', [$this, 'onWriteItemPre'], $prePriority);
+        $this->listeners[] = $events->attach('addItems.pre', [$this, 'onWriteItemsPre'], $prePriority);
 
-        $this->listeners[] = $events->attach('replaceItem.pre', array($this, 'onWriteItemPre'), $prePriority);
-        $this->listeners[] = $events->attach('replaceItems.pre', array($this, 'onWriteItemsPre'), $prePriority);
+        $this->listeners[] = $events->attach('replaceItem.pre', [$this, 'onWriteItemPre'], $prePriority);
+        $this->listeners[] = $events->attach('replaceItems.pre', [$this, 'onWriteItemsPre'], $prePriority);
 
-        $this->listeners[] = $events->attach('checkAndSetItem.pre', array($this, 'onWriteItemPre'), $prePriority);
+        $this->listeners[] = $events->attach('checkAndSetItem.pre', [$this, 'onWriteItemPre'], $prePriority);
 
         // increment / decrement item(s)
-        $this->listeners[] = $events->attach('incrementItem.pre', array($this, 'onIncrementItemPre'), $prePriority);
-        $this->listeners[] = $events->attach('incrementItems.pre', array($this, 'onIncrementItemsPre'), $prePriority);
+        $this->listeners[] = $events->attach('incrementItem.pre', [$this, 'onIncrementItemPre'], $prePriority);
+        $this->listeners[] = $events->attach('incrementItems.pre', [$this, 'onIncrementItemsPre'], $prePriority);
 
-        $this->listeners[] = $events->attach('decrementItem.pre', array($this, 'onDecrementItemPre'), $prePriority);
-        $this->listeners[] = $events->attach('decrementItems.pre', array($this, 'onDecrementItemsPre'), $prePriority);
+        $this->listeners[] = $events->attach('decrementItem.pre', [$this, 'onDecrementItemPre'], $prePriority);
+        $this->listeners[] = $events->attach('decrementItems.pre', [$this, 'onDecrementItemsPre'], $prePriority);
 
         // overwrite capabilities
-        $this->listeners[] = $events->attach('getCapabilities.post', array($this, 'onGetCapabilitiesPost'), $postPriority);
+        $this->listeners[] = $events->attach('getCapabilities.post', [$this, 'onGetCapabilitiesPost'], $postPriority);
     }
 
     /**
@@ -240,7 +240,7 @@ class Serializer extends AbstractPlugin
             $this->capabilities[$index] = new Capabilities(
                 $baseCapabilities->getAdapter(),
                 new stdClass(), // marker
-                array('supportedDatatypes' => array(
+                ['supportedDatatypes' => [
                     'NULL'     => true,
                     'boolean'  => true,
                     'integer'  => true,
@@ -249,7 +249,7 @@ class Serializer extends AbstractPlugin
                     'array'    => true,
                     'object'   => 'object',
                     'resource' => false,
-                )),
+                ]],
                 $baseCapabilities
             );
         }

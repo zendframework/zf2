@@ -147,7 +147,7 @@ class Digest extends AbstractAdapter
      */
     public function authenticate()
     {
-        $optionsRequired = array('filename', 'realm', 'identity', 'credential');
+        $optionsRequired = ['filename', 'realm', 'identity', 'credential'];
         foreach ($optionsRequired as $optionRequired) {
             if (null === $this->$optionRequired) {
                 throw new Exception\RuntimeException("Option '$optionRequired' must be set before authentication");
@@ -164,14 +164,14 @@ class Digest extends AbstractAdapter
         $id       = "$this->identity:$this->realm";
         $idLength = strlen($id);
 
-        $result = array(
+        $result = [
             'code'  => AuthenticationResult::FAILURE,
-            'identity' => array(
+            'identity' => [
                 'realm'    => $this->realm,
                 'username' => $this->identity,
-            ),
-            'messages' => array()
-        );
+            ],
+            'messages' => []
+        ];
 
         while (($line = fgets($fileHandle)) !== false) {
             $line = trim($line);

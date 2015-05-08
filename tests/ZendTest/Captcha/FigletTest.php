@@ -32,9 +32,9 @@ class FigletTest extends CommonWordTest
             unset($this->word);
         }
 
-        $this->captcha = new FigletCaptcha(array(
+        $this->captcha = new FigletCaptcha([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer'
-        ));
+        ]);
     }
 
     public function testTimeoutPopulatedByDefault()
@@ -105,7 +105,7 @@ class FigletTest extends CommonWordTest
     public function testWordValidates()
     {
         $this->captcha->generate();
-        $input = array('id' => $this->captcha->getId() , 'input' => $this->captcha->getWord());
+        $input = ['id' => $this->captcha->getId() , 'input' => $this->captcha->getWord()];
         $this->assertTrue($this->captcha->isValid($input));
     }
 
@@ -113,15 +113,15 @@ class FigletTest extends CommonWordTest
     {
         $this->captcha->generate();
         $this->assertFalse($this->captcha->isValid(''));
-        $this->assertFalse($this->captcha->isValid(array()));
-        $input = array('input' => 'blah');
+        $this->assertFalse($this->captcha->isValid([]));
+        $input = ['input' => 'blah'];
         $this->assertFalse($this->captcha->isValid($input));
     }
 
     public function testWrongWordNotValid()
     {
         $this->captcha->generate();
-        $input = array("id" => $this->captcha->getId(), "input" => "blah");
+        $input = ["id" => $this->captcha->getId(), "input" => "blah"];
         $this->assertFalse($this->captcha->isValid($input));
     }
 
@@ -132,12 +132,12 @@ class FigletTest extends CommonWordTest
 
     public function testCaptchaShouldBeConfigurableViaTraversableObject()
     {
-        $options = array(
+        $options = [
             'name'         => 'foo',
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
             'wordLen'      => 6,
             'timeout'      => 300,
-        );
+        ];
         $config  = new ArrayObject($options);
         $captcha = new FigletCaptcha($config);
         $test = $captcha->getOptions();
@@ -166,7 +166,7 @@ class FigletTest extends CommonWordTest
         $this->captcha->setName('foo')
                       ->setWordLen(6)
                       ->setTimeout(300);
-        $empty = array($this->captcha->getName() => array('id' => $id, 'input' => ''));
+        $empty = [$this->captcha->getName() => ['id' => $id, 'input' => '']];
         $this->assertEquals(false, $this->captcha->isValid(null, $empty));
     }
 
@@ -181,7 +181,7 @@ class FigletTest extends CommonWordTest
         $session = new SessionContainer('captcha');
         $this->captcha->setSession($session);
         $this->captcha->generate();
-        $input = array("id" => $this->captcha->getId(), "input" => $this->captcha->getWord());
+        $input = ["id" => $this->captcha->getId(), "input" => $this->captcha->getWord()];
         $this->assertTrue($this->captcha->isValid($input));
         $this->assertEquals($session->word, $this->captcha->getWord());
     }

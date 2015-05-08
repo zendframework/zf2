@@ -20,15 +20,15 @@ class AbstractConfigFactory implements ServiceManager\AbstractFactoryInterface
     /**
      * @var array
      */
-    protected $configs = array();
+    protected $configs = [];
 
     /**
      * @var string[]
      */
-    protected $defaultPatterns = array(
+    protected $defaultPatterns = [
         '#config[\._-](.*)$#i',
         '#^(.*)[\\\\\._-]config$#i'
-    );
+    ];
 
     /**
      * @var string[]

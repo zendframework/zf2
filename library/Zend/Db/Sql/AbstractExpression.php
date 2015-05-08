@@ -14,12 +14,12 @@ abstract class AbstractExpression implements ExpressionInterface
     /**
      * @var string[]
      */
-    protected $allowedTypes = array(
+    protected $allowedTypes = [
         self::TYPE_IDENTIFIER,
         self::TYPE_LITERAL,
         self::TYPE_SELECT,
         self::TYPE_VALUE,
-    );
+    ];
 
     /**
      * Normalize Argument
@@ -85,9 +85,9 @@ abstract class AbstractExpression implements ExpressionInterface
             ));
         }
 
-        return array(
+        return [
             $argument,
             $argumentType,
-        );
+        ];
     }
 }

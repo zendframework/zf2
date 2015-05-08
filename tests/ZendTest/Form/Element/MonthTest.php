@@ -17,23 +17,23 @@ class MonthTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes()
     {
         $element = new MonthElement('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'inclusive' => true,
             'min'       => '2000-01',
             'max'       => '2001-01',
             'step'      => '1',
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Regex',
             'Zend\Validator\GreaterThan',
             'Zend\Validator\LessThan',
             'Zend\Validator\DateStep',
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -58,16 +58,16 @@ class MonthTest extends TestCase
 
     public function monthValuesDataProvider()
     {
-        return array(
+        return [
             //    value         expected
-            array('2012-01',    true),
-            array('2012-12',    true),
-            array('2012-13',    false),
-            array('2012-12-01', false),
-            array('12-2012',    false),
-            array('2012-1',     false),
-            array('12-01',      false),
-        );
+            ['2012-01',    true],
+            ['2012-12',    true],
+            ['2012-13',    false],
+            ['2012-12-01', false],
+            ['12-2012',    false],
+            ['2012-1',     false],
+            ['12-01',      false],
+        ];
     }
 
     /**

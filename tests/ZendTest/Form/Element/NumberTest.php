@@ -22,10 +22,10 @@ class NumberTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Regex',
             'Zend\Validator\Step',
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -42,23 +42,23 @@ class NumberTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes()
     {
         $element = new NumberElement();
-        $element->setAttributes(array(
+        $element->setAttributes([
             'inclusive' => true,
             'min'       => 5,
             'max'       => 10,
             'step'      => 1,
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\GreaterThan',
             'Zend\Validator\LessThan',
             'Zend\Validator\Regex',
             'Zend\Validator\Step',
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -83,10 +83,10 @@ class NumberTest extends TestCase
     public function testFalseInclusiveValidatorBasedOnAttributes()
     {
         $element = new NumberElement();
-        $element->setAttributes(array(
+        $element->setAttributes([
             'inclusive' => false,
             'min'       => 5,
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         foreach ($inputSpec['validators'] as $validator) {
@@ -100,9 +100,9 @@ class NumberTest extends TestCase
     public function testDefaultInclusiveTrueatValidatorWhenInclusiveIsNotSetOnAttributes()
     {
         $element = new NumberElement();
-        $element->setAttributes(array(
+        $element->setAttributes([
             'min'       => 5,
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         foreach ($inputSpec['validators'] as $validator) {

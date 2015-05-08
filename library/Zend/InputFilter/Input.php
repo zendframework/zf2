@@ -321,7 +321,7 @@ class Input implements
     public function isValid($context = null)
     {
         $value           = $this->getValue();
-        $empty           = ($value === null || $value === '' || $value === array());
+        $empty           = ($value === null || $value === '' || $value === []);
         $required        = $this->isRequired();
         $allowEmpty      = $this->allowEmpty();
         $continueIfEmpty = $this->continueIfEmpty();
@@ -362,7 +362,7 @@ class Input implements
         }
 
         if ($this->hasFallback()) {
-            return array();
+            return [];
         }
 
         $validator = $this->getValidatorChain();
@@ -391,7 +391,7 @@ class Input implements
         $this->notEmptyValidator = true;
 
         if (class_exists('Zend\ServiceManager\AbstractPluginManager')) {
-            $chain->prependByName('NotEmpty', array(), true);
+            $chain->prependByName('NotEmpty', [], true);
 
             return;
         }

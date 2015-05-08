@@ -113,12 +113,12 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
      */
     public function testAttachToInvalidLDAP()
     {
-        $data = array(
+        $data = [
             'dn'          => 'ou=name,dc=example,dc=org',
-            'ou'          => array('name'),
-            'l'           => array('a', 'b', 'c'),
-            'objectClass' => array('organizationalUnit', 'top'),
-        );
+            'ou'          => ['name'],
+            'l'           => ['a', 'b', 'c'],
+            'objectClass' => ['organizationalUnit', 'top'],
+        ];
         $node = Ldap\Node::fromArray($data);
         $this->assertFalse($node->isAttached());
         $node->attachLDAP($this->getLDAP());
@@ -126,12 +126,12 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
 
     public function testAttachToValidLDAP()
     {
-        $data = array(
+        $data = [
             'dn'          => $this->createDn('ou=name,'),
-            'ou'          => array('name'),
-            'l'           => array('a', 'b', 'c'),
-            'objectClass' => array('organizationalUnit', 'top'),
-        );
+            'ou'          => ['name'],
+            'l'           => ['a', 'b', 'c'],
+            'objectClass' => ['organizationalUnit', 'top'],
+        ];
         $node = Ldap\Node::fromArray($data);
         $this->assertFalse($node->isAttached());
         $node->attachLDAP($this->getLDAP());
@@ -140,12 +140,12 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
 
     public function testExistsDn()
     {
-        $data  = array(
+        $data  = [
             'dn'          => $this->createDn('ou=name,'),
-            'ou'          => array('name'),
-            'l'           => array('a', 'b', 'c'),
-            'objectClass' => array('organizationalUnit', 'top'),
-        );
+            'ou'          => ['name'],
+            'l'           => ['a', 'b', 'c'],
+            'objectClass' => ['organizationalUnit', 'top'],
+        ];
         $node1 = Ldap\Node::fromArray($data);
         $node1->attachLDAP($this->getLDAP());
         $this->assertFalse($node1->exists());
@@ -195,16 +195,16 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
     {
         $node  = $this->getLDAP()->getNode($this->createDn('ou=Node,'));
         $items = $node->searchSubtree('(objectClass=organizationalUnit)', Ldap\Ldap::SEARCH_SCOPE_SUB,
-            array(), 'ou'
+            [], 'ou'
         );
         $this->assertInstanceOf('Zend\Ldap\Node\Collection', $items);
         $this->assertEquals(3, $items->count());
 
         $i   = 0;
-        $dns = array(
+        $dns = [
             $this->createDn('ou=Node,'),
             $this->createDn('ou=Test1,ou=Node,'),
-            $this->createDn('ou=Test2,ou=Node,'));
+            $this->createDn('ou=Test2,ou=Node,')];
         foreach ($items as $key => $node) {
             $key = Ldap\Dn::fromString($key)->toString(Ldap\Dn::ATTR_CASEFOLD_LOWER);
             $this->assertEquals($dns[$i], $key);
@@ -239,9 +239,9 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
     public function testSearchChildren()
     {
         $node = $this->getLDAP()->getNode($this->createDn('ou=Node,'));
-        $this->assertEquals(2, $node->searchChildren('(objectClass=*)', array(), 'ou')->count());
+        $this->assertEquals(2, $node->searchChildren('(objectClass=*)', [], 'ou')->count());
         $node = $this->getLDAP()->getNode(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE);
-        $this->assertEquals(6, $node->searchChildren('(objectClass=*)', array(), 'ou')->count());
+        $this->assertEquals(6, $node->searchChildren('(objectClass=*)', [], 'ou')->count());
     }
 
     public function testGetParent()

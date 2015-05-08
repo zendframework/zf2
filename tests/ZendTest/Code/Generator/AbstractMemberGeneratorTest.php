@@ -27,10 +27,10 @@ class AbstractMemberGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testSetFlagsWithArray()
     {
         $this->fixture->setFlags(
-            array(
+            [
                 AbstractMemberGenerator::FLAG_FINAL,
                 AbstractMemberGenerator::FLAG_PUBLIC,
-            )
+            ]
         );
 
         $this->assertEquals(AbstractMemberGenerator::VISIBILITY_PUBLIC, $this->fixture->getVisibility());

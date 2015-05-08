@@ -83,20 +83,20 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @var array
      */
-    protected $optionalAttributes = array(
+    protected $optionalAttributes = [
         'charset',
         'crossorigin',
         'defer',
         'language',
         'src',
-    );
+    ];
 
     /**
      * Required attributes for script tag
      *
      * @var string
      */
-    protected $requiredAttributes = array('type');
+    protected $requiredAttributes = ['type'];
 
     /**
      * Whether or not to format scripts using CDATA; used only if doctype
@@ -135,7 +135,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $mode = self::FILE,
         $spec = null,
         $placement = 'APPEND',
-        array $attrs = array(),
+        array $attrs = [],
         $type = 'text/javascript'
     ) {
         if ((null !== $spec) && is_string($spec)) {
@@ -178,7 +178,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
             $action  = $matches['action'];
             $mode    = strtolower($matches['mode']);
             $type    = 'text/javascript';
-            $attrs   = array();
+            $attrs   = [];
 
             if ('offsetSet' == $action) {
                 $index = array_shift($args);
@@ -249,7 +249,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $escapeStart = ($useCdata) ? '//<![CDATA[' : '//<!--';
         $escapeEnd   = ($useCdata) ? '//]]>' : '//-->';
 
-        $items = array();
+        $items = [];
         $this->getContainer()->ksort();
         foreach ($this as $item) {
             if (!$this->isValid($item)) {
@@ -274,7 +274,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     public function captureStart(
         $captureType = Placeholder\Container\AbstractContainer::APPEND,
         $type = 'text/javascript',
-        $attrs = array()
+        $attrs = []
     ) {
         if ($this->captureLock) {
             throw new Exception\RuntimeException('Cannot nest headScript captures');
@@ -387,7 +387,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         if (!empty($item->attributes)) {
             foreach ($item->attributes as $key => $value) {
                 if ((!$this->arbitraryAttributesAllowed() && !in_array($key, $this->optionalAttributes))
-                    || in_array($key, array('conditional', 'noescape'))) {
+                    || in_array($key, ['conditional', 'noescape'])) {
                     continue;
                 }
                 if ('defer' == $key) {

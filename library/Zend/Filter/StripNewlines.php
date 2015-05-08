@@ -24,6 +24,6 @@ class StripNewlines extends AbstractFilter
         if (!is_scalar($value) && !is_array($value)) {
             return $value;
         }
-        return str_replace(array("\n", "\r"), '', $value);
+        return str_replace(["\n", "\r"], '', $value);
     }
 }

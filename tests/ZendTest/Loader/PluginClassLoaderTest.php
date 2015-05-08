@@ -82,18 +82,18 @@ class PluginClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function invalidMaps()
     {
-        return array(
-            array(null),
-            array(true),
-            array(1),
-            array(1.0),
-            array(new \stdClass),
-        );
+        return [
+            [null],
+            [true],
+            [1],
+            [1.0],
+            [new \stdClass],
+        ];
     }
 
     public function testCallingRegisterPluginsWithArrayRegistersMap()
     {
-        $map = array('test' => __CLASS__);
+        $map = ['test' => __CLASS__];
         $this->loader->registerPlugins($map);
         $test = $this->loader->getRegisteredPlugins();
         $this->assertEquals($map, $test);
@@ -155,7 +155,7 @@ class PluginClassLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $map = new TestAsset\TestPluginMap();
         $this->loader->registerPlugins($map);
-        $test = array();
+        $test = [];
         foreach ($this->loader as $name => $class) {
             $test[$name] = $class;
         }
@@ -165,27 +165,27 @@ class PluginClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testPluginRegistrationIsCaseInsensitive()
     {
-        $map = array(
+        $map = [
             'foo' => __CLASS__,
             'FOO' => __NAMESPACE__ . '\TestAsset\TestPluginMap',
-        );
+        ];
         $this->loader->registerPlugins($map);
         $this->assertEquals($map['FOO'], $this->loader->getClassName('foo'));
     }
 
     public function testAddingStaticMapDoesNotAffectExistingInstances()
     {
-        PluginClassLoader::addStaticMap(array(
+        PluginClassLoader::addStaticMap([
             'test' => __CLASS__,
-        ));
+        ]);
         $this->assertFalse($this->loader->getClassName('test'));
     }
 
     public function testAllowsSettingStaticMapForSeedingInstance()
     {
-        PluginClassLoader::addStaticMap(array(
+        PluginClassLoader::addStaticMap([
             'test' => __CLASS__,
-        ));
+        ]);
         $loader = new PluginClassLoader();
         $this->assertEquals(__CLASS__, $loader->getClassName('test'));
     }
@@ -200,9 +200,9 @@ class PluginClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testAllowsPassingTraversableObjectToStaticMap()
     {
-        $map = new \ArrayObject(array(
+        $map = new \ArrayObject([
             'test' => __CLASS__,
-        ));
+        ]);
         PluginClassLoader::addStaticMap($map);
         $loader = new PluginClassLoader();
         $this->assertEquals(__CLASS__, $loader->getClassName('test'));
@@ -210,12 +210,12 @@ class PluginClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testMultipleCallsToAddStaticMapMergeMap()
     {
-        PluginClassLoader::addStaticMap(array(
+        PluginClassLoader::addStaticMap([
             'test' => __CLASS__,
-        ));
-        PluginClassLoader::addStaticMap(array(
+        ]);
+        PluginClassLoader::addStaticMap([
             'loader' => 'Zend\Loader\PluginClassLoader',
-        ));
+        ]);
         $loader = new PluginClassLoader();
         $this->assertEquals(__CLASS__, $loader->getClassName('test'));
         $this->assertEquals('Zend\Loader\PluginClassLoader', $loader->getClassName('loader'));
@@ -223,7 +223,7 @@ class PluginClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testStaticMapUsesLateStaticBinding()
     {
-        TestAsset\ExtendedPluginClassLoader::addStaticMap(array('test' => __CLASS__));
+        TestAsset\ExtendedPluginClassLoader::addStaticMap(['test' => __CLASS__]);
         $loader = new PluginClassLoader();
         $this->assertFalse($loader->getClassName('test'));
         $loader = new TestAsset\ExtendedPluginClassLoader();
@@ -235,11 +235,11 @@ class PluginClassLoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new TestAsset\ExtendedPluginClassLoader();
         $this->assertEquals('Zend\Loader\PluginClassLoader', $loader->getClassName('loader'));
 
-        TestAsset\ExtendedPluginClassLoader::addStaticMap(array('loader' => __CLASS__));
+        TestAsset\ExtendedPluginClassLoader::addStaticMap(['loader' => __CLASS__]);
         $loader = new TestAsset\ExtendedPluginClassLoader();
         $this->assertEquals(__CLASS__, $loader->getClassName('loader'));
 
-        $loader = new TestAsset\ExtendedPluginClassLoader(array('loader' => 'ZendTest\Loader\TestAsset\ExtendedPluginClassLoader'));
+        $loader = new TestAsset\ExtendedPluginClassLoader(['loader' => 'ZendTest\Loader\TestAsset\ExtendedPluginClassLoader']);
         $this->assertEquals('ZendTest\Loader\TestAsset\ExtendedPluginClassLoader', $loader->getClassName('loader'));
 
         $loader->registerPlugin('loader', __CLASS__);
@@ -249,14 +249,14 @@ class PluginClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function testRegisterPluginsCanAcceptArrayElementWithClassNameProvidingAMap()
     {
         $pluginMap = new TestAsset\TestPluginMap;
-        $this->loader->registerPlugins(array('ZendTest\Loader\TestAsset\TestPluginMap'));
+        $this->loader->registerPlugins(['ZendTest\Loader\TestAsset\TestPluginMap']);
         $this->assertEquals($pluginMap->map, $this->loader->getRegisteredPlugins());
     }
 
     public function testRegisterPluginsCanAcceptArrayElementWithObjectProvidingAMap()
     {
         $pluginMap = new TestAsset\TestPluginMap;
-        $this->loader->registerPlugins(array($pluginMap));
+        $this->loader->registerPlugins([$pluginMap]);
         $this->assertEquals($pluginMap->map, $this->loader->getRegisteredPlugins());
     }
 }

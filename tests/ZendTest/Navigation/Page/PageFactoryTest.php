@@ -29,88 +29,88 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             }
         });
 
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\Uri', AbstractPage::factory(array(
+        $this->assertInstanceOf('Zend\\Navigation\\Page\\Uri', AbstractPage::factory([
             'label' => 'URI Page',
             'factory_uri' => '#'
-        )));
+        ]));
 
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\Mvc', AbstractPage::factory(array(
+        $this->assertInstanceOf('Zend\\Navigation\\Page\\Mvc', AbstractPage::factory([
             'label' => 'URI Page',
             'factory_mvc' => '#'
-        )));
+        ]));
     }
 
     public function testDetectMvcPage()
     {
-        $pages = array(
-            AbstractPage::factory(array(
+        $pages = [
+            AbstractPage::factory([
                 'label' => 'MVC Page',
                 'action' => 'index'
-            )),
-            AbstractPage::factory(array(
+            ]),
+            AbstractPage::factory([
                 'label' => 'MVC Page',
                 'controller' => 'index'
-            )),
-            AbstractPage::factory(array(
+            ]),
+            AbstractPage::factory([
                 'label' => 'MVC Page',
                 'route' => 'home'
-            ))
-        );
+            ])
+        ];
 
         $this->assertContainsOnly('Zend\Navigation\Page\Mvc', $pages);
     }
 
     public function testDetectUriPage()
     {
-        $page = AbstractPage::factory(array(
+        $page = AbstractPage::factory([
             'label' => 'URI Page',
             'uri' => '#'
-        ));
+        ]);
 
         $this->assertInstanceOf('Zend\\Navigation\\Page\\Uri', $page);
     }
 
     public function testMvcShouldHaveDetectionPrecedence()
     {
-        $page = AbstractPage::factory(array(
+        $page = AbstractPage::factory([
             'label' => 'MVC Page',
             'action' => 'index',
             'controller' => 'index',
             'uri' => '#'
-        ));
+        ]);
 
         $this->assertInstanceOf('Zend\\Navigation\\Page\\Mvc', $page);
     }
 
     public function testSupportsMvcShorthand()
     {
-        $mvcPage = AbstractPage::factory(array(
+        $mvcPage = AbstractPage::factory([
             'type' => 'mvc',
             'label' => 'MVC Page',
             'action' => 'index',
             'controller' => 'index'
-        ));
+        ]);
 
         $this->assertInstanceOf('Zend\\Navigation\\Page\\Mvc', $mvcPage);
     }
 
     public function testSupportsUriShorthand()
     {
-        $uriPage = AbstractPage::factory(array(
+        $uriPage = AbstractPage::factory([
             'type' => 'uri',
             'label' => 'URI Page',
             'uri' => 'http://www.example.com/'
-        ));
+        ]);
 
         $this->assertInstanceOf('Zend\\Navigation\\Page\\Uri', $uriPage);
     }
 
     public function testSupportsCustomPageTypes()
     {
-        $page = AbstractPage::factory(array(
+        $page = AbstractPage::factory([
             'type' => 'ZendTest\Navigation\TestAsset\Page',
             'label' => 'My Custom Page'
-        ));
+        ]);
 
         return $this->assertInstanceOf('ZendTest\\Navigation\\TestAsset\\Page', $page);
     }
@@ -118,10 +118,10 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
     public function testShouldFailForInvalidType()
     {
         try {
-            $page = AbstractPage::factory(array(
+            $page = AbstractPage::factory([
                 'type' => 'ZendTest\Navigation\TestAsset\InvalidPage',
                 'label' => 'My Invalid Page'
-            ));
+            ]);
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             return;
         }
@@ -131,10 +131,10 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldFailForNonExistantType()
     {
-        $pageConfig = array(
+        $pageConfig = [
             'type' => 'My_NonExistent_Page',
             'label' => 'My non-existent Page'
-        );
+        ];
 
         try {
             $page = AbstractPage::factory($pageConfig);
@@ -149,9 +149,9 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
     public function testShouldFailIfUnableToDetermineType()
     {
         try {
-            $page = AbstractPage::factory(array(
+            $page = AbstractPage::factory([
                 'label' => 'My Invalid Page'
-            ));
+            ]);
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             return;
         }

@@ -44,7 +44,7 @@ class Feed extends Extension\AbstractFeed
             return $this->data['authors'];
         }
 
-        $authors = array();
+        $authors = [];
         $list    = $this->getXpath()->query('//dc11:creator');
 
         if (!$list->length) {
@@ -60,9 +60,9 @@ class Feed extends Extension\AbstractFeed
 
         if ($list->length) {
             foreach ($list as $author) {
-                $authors[] = array(
+                $authors[] = [
                     'name' => $author->nodeValue
-                );
+                ];
             }
             $authors = new Collection\Author(
                 Reader\Reader::arrayUnique($authors)
@@ -249,11 +249,11 @@ class Feed extends Extension\AbstractFeed
         if ($list->length) {
             $categoryCollection = new Collection\Category;
             foreach ($list as $category) {
-                $categoryCollection[] = array(
+                $categoryCollection[] = [
                     'term' => $category->nodeValue,
                     'scheme' => null,
                     'label' => $category->nodeValue,
-                );
+                ];
             }
         } else {
             $categoryCollection = new Collection\Category;

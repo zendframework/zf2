@@ -292,7 +292,7 @@ class Filesystem extends AbstractAdapter implements
         }
 
         $filespec = $this->getFileSpec($key);
-        $tags     = array();
+        $tags     = [];
         if (file_exists($filespec . '.tag')) {
             $tags = explode("\n", $this->getFileContent($filespec . '.tag'));
         }
@@ -545,7 +545,7 @@ class Filesystem extends AbstractAdapter implements
     protected function internalGetItems(array & $normalizedKeys)
     {
         $keys    = $normalizedKeys; // Don't change argument passed by reference
-        $result  = array();
+        $result  = [];
         while ($keys) {
             // LOCK_NB if more than one items have to read
             $nonBlocking = count($keys) > 1;
@@ -672,7 +672,7 @@ class Filesystem extends AbstractAdapter implements
      * @param array $options
      * @return array Associative array of keys and metadata
      */
-    public function getMetadatas(array $keys, array $options = array())
+    public function getMetadatas(array $keys, array $options = [])
     {
         $options = $this->getOptions();
         if ($options->getReadable() && $options->getClearStatCache()) {
@@ -698,10 +698,10 @@ class Filesystem extends AbstractAdapter implements
         $filespec = $this->getFileSpec($normalizedKey);
         $file     = $filespec . '.dat';
 
-        $metadata = array(
+        $metadata = [
             'filespec' => $filespec,
             'mtime'    => filemtime($file)
-        );
+        ];
 
         if (!$options->getNoCtime()) {
             $metadata['ctime'] = filectime($file);
@@ -724,16 +724,16 @@ class Filesystem extends AbstractAdapter implements
     protected function internalGetMetadatas(array & $normalizedKeys)
     {
         $options = $this->getOptions();
-        $result  = array();
+        $result  = [];
 
         foreach ($normalizedKeys as $normalizedKey) {
             $filespec = $this->getFileSpec($normalizedKey);
             $file     = $filespec . '.dat';
 
-            $metadata = array(
+            $metadata = [
                 'filespec' => $filespec,
                 'mtime'    => filemtime($file),
-            );
+            ];
 
             if (!$options->getNoCtime()) {
                 $metadata['ctime'] = filectime($file);
@@ -917,7 +917,7 @@ class Filesystem extends AbstractAdapter implements
     protected function internalSetItems(array & $normalizedKeyValuePairs)
     {
         // create an associated array of files and contents to write
-        $contents = array();
+        $contents = [];
         foreach ($normalizedKeyValuePairs as $key => & $value) {
             $filespec = $this->getFileSpec($key);
             $this->prepareDirectoryStructure($filespec);
@@ -943,7 +943,7 @@ class Filesystem extends AbstractAdapter implements
         }
 
         // return OK
-        return array();
+        return [];
     }
 
     /**
@@ -1139,7 +1139,7 @@ class Filesystem extends AbstractAdapter implements
             $options = $this->getOptions();
 
             // detect metadata
-            $metadata = array('mtime', 'filespec');
+            $metadata = ['mtime', 'filespec'];
             if (!$options->getNoAtime()) {
                 $metadata[] = 'atime';
             }
@@ -1150,8 +1150,8 @@ class Filesystem extends AbstractAdapter implements
             $capabilities = new Capabilities(
                 $this,
                 $marker,
-                array(
-                    'supportedDatatypes' => array(
+                [
+                    'supportedDatatypes' => [
                         'NULL'     => 'string',
                         'boolean'  => 'string',
                         'integer'  => 'string',
@@ -1160,7 +1160,7 @@ class Filesystem extends AbstractAdapter implements
                         'array'    => false,
                         'object'   => false,
                         'resource' => false,
-                    ),
+                    ],
                     'supportedMetadata'  => $metadata,
                     'minTtl'             => 1,
                     'maxTtl'             => 0,
@@ -1170,7 +1170,7 @@ class Filesystem extends AbstractAdapter implements
                     'maxKeyLength'       => 251, // 255 - strlen(.dat | .tag)
                     'namespaceIsPrefix'  => true,
                     'namespaceSeparator' => $options->getNamespaceSeparator(),
-                )
+                ]
             );
 
             // update capabilities on change options
@@ -1436,7 +1436,7 @@ class Filesystem extends AbstractAdapter implements
             // -> create directories one by one and set permissions
 
             // find existing path and missing path parts
-            $parts = array();
+            $parts = [];
             $path  = $pathname;
             while (!file_exists($path)) {
                 array_unshift($parts, basename($path));

@@ -18,7 +18,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructMessageWithOptions()
     {
-        $options = array(
+        $options = [
             'encoding'  => 'UTF-8',
             'from'      => 'matthew@example.com',
             'to'        => 'zf-devteam@example.com',
@@ -28,7 +28,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
             'sender'    => 'matthew@example.com',
             'subject'   => 'subject',
             'body'      => 'body',
-        );
+        ];
 
         $message = MessageFactory::getInstance($options);
 
@@ -39,13 +39,13 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Mail\Address', $message->getSender());
         $this->assertEquals($options['sender'], $message->getSender()->getEmail());
 
-        $getMethods = array(
+        $getMethods = [
             'from'      => 'getFrom',
             'to'        => 'getTo',
             'cc'        => 'getCc',
             'bcc'       => 'getBcc',
             'reply-to'  => 'getReplyTo',
-        );
+        ];
 
         foreach ($getMethods as $key => $method) {
             $value = $message->{$method}();
@@ -57,13 +57,13 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCanCreateMessageWithMultipleRecipientsViaArrayValue()
     {
-        $options = array(
-            'from' => array('matthew@example.com' => 'Matthew'),
-            'to'   => array(
+        $options = [
+            'from' => ['matthew@example.com' => 'Matthew'],
+            'to'   => [
                 'zf-devteam@example.com',
                 'zf-contributors@example.com',
-            ),
-        );
+            ],
+        ];
 
         $message = MessageFactory::getInstance($options);
 
@@ -82,33 +82,33 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testIgnoresUnreconizedOptions()
     {
-        $options = array(
+        $options = [
             'foo' => 'bar',
-        );
+        ];
         $mail = MessageFactory::getInstance($options);
         $this->assertInstanceOf('Zend\Mail\Message', $mail);
     }
 
     public function testEmptyOption()
     {
-        $options = array();
+        $options = [];
         $mail = MessageFactory::getInstance();
         $this->assertInstanceOf('Zend\Mail\Message', $mail);
     }
 
     public function invalidMessageOptions()
     {
-        return array(
-            'null' => array(null),
-            'bool' => array(true),
-            'int' => array(1),
-            'float' => array(1.1),
-            'string' => array('not-an-array'),
-            'plain-object' => array((object) array(
+        return [
+            'null' => [null],
+            'bool' => [true],
+            'int' => [1],
+            'float' => [1.1],
+            'string' => ['not-an-array'],
+            'plain-object' => [(object) [
                 'from' => 'matthew@example.com',
                 'to'   => 'foo@example.com',
-            )),
-        );
+            ]],
+        ];
     }
 
     /**

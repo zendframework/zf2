@@ -25,62 +25,62 @@ class AbstractAdapterTestMockAdapter extends Adapter\AbstractAdapter
     public function __construct()
     {
         $testfile = __DIR__ . '/_files/test.txt';
-        $this->files = array(
-            'foo' => array(
+        $this->files = [
+            'foo' => [
                 'name'      => 'foo.jpg',
                 'type'      => 'image/jpeg',
                 'size'      => 126976,
                 'tmp_name'  => '/tmp/489127ba5c89c',
-                'options'   => array('ignoreNoFile' => false, 'useByteString' => true, 'detectInfos' => true),
+                'options'   => ['ignoreNoFile' => false, 'useByteString' => true, 'detectInfos' => true],
                 'validated' => false,
                 'received'  => false,
                 'filtered'  => false,
-            ),
-            'bar' => array(
+            ],
+            'bar' => [
                 'name'     => 'bar.png',
                 'type'     => 'image/png',
                 'size'     => 91136,
                 'tmp_name' => '/tmp/489128284b51f',
-                'options'  => array('ignoreNoFile' => false, 'useByteString' => true),
+                'options'  => ['ignoreNoFile' => false, 'useByteString' => true],
                 'validated' => false,
                 'received'  => false,
                 'filtered'  => false,
-            ),
-            'baz' => array(
+            ],
+            'baz' => [
                 'name'     => 'baz.text',
                 'type'     => 'text/plain',
                 'size'     => 1172,
                 'tmp_name' => $testfile,
-                'options'  => array('ignoreNoFile' => false, 'useByteString' => true),
+                'options'  => ['ignoreNoFile' => false, 'useByteString' => true],
                 'validated' => false,
                 'received'  => false,
                 'filtered'  => false,
-            ),
-            'file_0_' => array(
+            ],
+            'file_0_' => [
                 'name'      => 'foo.jpg',
                 'type'      => 'image/jpeg',
                 'size'      => 126976,
                 'tmp_name'  => '/tmp/489127ba5c89c',
-                'options'   => array('ignoreNoFile' => false, 'useByteString' => true),
+                'options'   => ['ignoreNoFile' => false, 'useByteString' => true],
                 'validated' => false,
                 'received'  => false,
                 'filtered'  => false,
-            ),
-            'file_1_' => array(
+            ],
+            'file_1_' => [
                 'name'     => 'baz.text',
                 'type'     => 'text/plain',
                 'size'     => 1172,
                 'tmp_name' => $testfile,
-                'options'  => array('ignoreNoFile' => false, 'useByteString' => true),
+                'options'  => ['ignoreNoFile' => false, 'useByteString' => true],
                 'validated' => false,
                 'received'  => false,
                 'filtered'  => false,
-            ),
-            'file' => array(
+            ],
+            'file' => [
                 'name'      => 'foo.jpg',
-                'multifiles' => array(0 => 'file_0_', 1 => 'file_1_')
-            ),
-        );
+                'multifiles' => [0 => 'file_0_', 1 => 'file_1_']
+            ],
+        ];
     }
 
     public function send($options = null)
@@ -131,17 +131,17 @@ class AbstractAdapterTestMockAdapter extends Adapter\AbstractAdapter
 
     public function addInvalidFile()
     {
-        $this->files += array(
-            'test' => array(
+        $this->files += [
+            'test' => [
                 'name'      => 'test.txt',
                 'type'      => 'image/jpeg',
                 'size'      => 0,
                 'tmp_name'  => '',
-                'options'   => array('ignoreNoFile' => true, 'useByteString' => true),
+                'options'   => ['ignoreNoFile' => true, 'useByteString' => true],
                 'validated' => false,
                 'received'  => false,
                 'filtered'  => false,
-            )
-        );
+            ]
+        ];
     }
 }

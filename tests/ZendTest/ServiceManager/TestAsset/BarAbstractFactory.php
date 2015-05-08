@@ -24,6 +24,6 @@ class BarAbstractFactory implements AbstractFactoryInterface
 
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        return new Bar(array());
+        return new Bar([]);
     }
 }

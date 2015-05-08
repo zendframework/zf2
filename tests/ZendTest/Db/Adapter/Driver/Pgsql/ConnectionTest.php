@@ -66,14 +66,14 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConnectionStringEncodeSpecialSymbol()
     {
-        $connectionParameters = array(
+        $connectionParameters = [
             'driver'    => 'pgsql',
             'host' => 'localhost',
             'post' => '5432',
             'dbname' => 'test',
             'username'  => 'test',
             'password'  => 'test123!',
-        );
+        ];
 
         $this->connection->setConnectionParameters($connectionParameters);
 

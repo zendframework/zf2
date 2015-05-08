@@ -24,7 +24,7 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->ibmdb2 = new IbmDb2(array());
+        $this->ibmdb2 = new IbmDb2([]);
     }
 
     /**
@@ -32,7 +32,7 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterConnection()
     {
-        $mockConnection = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\IbmDb2\Connection', array(array()), '', true, true, true, array('setDriver'));
+        $mockConnection = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\IbmDb2\Connection', [[]], '', true, true, true, ['setDriver']);
         $mockConnection->expects($this->once())->method('setDriver')->with($this->equalTo($this->ibmdb2));
         $this->assertSame($this->ibmdb2, $this->ibmdb2->registerConnection($mockConnection));
     }
@@ -42,8 +42,8 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterStatementPrototype()
     {
-        $this->ibmdb2 = new IbmDb2(array());
-        $mockStatement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\IbmDb2\Statement', array(), '', true, true, true, array('setDriver'));
+        $this->ibmdb2 = new IbmDb2([]);
+        $mockStatement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\IbmDb2\Statement', [], '', true, true, true, ['setDriver']);
         $mockStatement->expects($this->once())->method('setDriver')->with($this->equalTo($this->ibmdb2));
         $this->assertSame($this->ibmdb2, $this->ibmdb2->registerStatementPrototype($mockStatement));
     }
@@ -53,8 +53,8 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterResultPrototype()
     {
-        $this->ibmdb2 = new IbmDb2(array());
-        $mockStatement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\IbmDb2\Result', array(), '', true, true, true, array('setDriver'));
+        $this->ibmdb2 = new IbmDb2([]);
+        $mockStatement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\IbmDb2\Result', [], '', true, true, true, ['setDriver']);
         $this->assertSame($this->ibmdb2, $this->ibmdb2->registerResultPrototype($mockStatement));
     }
 
@@ -63,7 +63,7 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
      */
     public function testGetDatabasePlatformName()
     {
-        $this->ibmdb2 = new IbmDb2(array());
+        $this->ibmdb2 = new IbmDb2([]);
         $this->assertEquals('IbmDb2', $this->ibmdb2->getDatabasePlatformName());
         $this->assertEquals('IBM DB2', $this->ibmdb2->getDatabasePlatformName(IbmDb2::NAME_FORMAT_NATURAL));
     }
@@ -74,7 +74,7 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
      */
     public function testGetConnection($mockConnection)
     {
-        $conn = new \Zend\Db\Adapter\Driver\IbmDb2\Connection(array());
+        $conn = new \Zend\Db\Adapter\Driver\IbmDb2\Connection([]);
         $this->ibmdb2->registerConnection($conn);
         $this->assertSame($conn, $this->ibmdb2->getConnection());
     }

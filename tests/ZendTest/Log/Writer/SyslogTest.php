@@ -21,10 +21,10 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
 {
     public function testWrite()
     {
-        $fields = array(
+        $fields = [
             'message' => 'foo',
             'priority' => LOG_NOTICE
-        );
+        ];
         $writer = new SyslogWriter();
         $writer->write($fields);
     }
@@ -69,7 +69,7 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
      */
     public function testPastFacilityViaConstructor()
     {
-        $writer = new CustomSyslogWriter(array('facility' => LOG_USER));
+        $writer = new CustomSyslogWriter(['facility' => LOG_USER]);
         $this->assertEquals(LOG_USER, $writer->getFacility());
     }
 
@@ -78,10 +78,10 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
      */
     public function testWriteWithFormatter()
     {
-        $event = array(
+        $event = [
             'message' => 'tottakai',
             'priority' => Logger::ERR
-        );
+        ];
 
         $writer = new SyslogWriter();
         $formatter = new SimpleFormatter('%message% (this is a test)');
@@ -95,7 +95,7 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
      */
     public function testPassApplicationNameViaConstructor()
     {
-        $writer   = new CustomSyslogWriter(array('application' => 'test_app'));
+        $writer   = new CustomSyslogWriter(['application' => 'test_app']);
         $this->assertEquals('test_app', $writer->getApplicationName());
     }
 
@@ -103,11 +103,11 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new \Zend\Log\Formatter\Simple();
         $filter    = new \Zend\Log\Filter\Mock();
-        $writer = new CustomSyslogWriter(array(
+        $writer = new CustomSyslogWriter([
                 'filters'   => $filter,
                 'formatter' => $formatter,
                 'application'  => 'test_app',
-        ));
+        ]);
         $this->assertEquals('test_app', $writer->getApplicationName());
         $this->assertAttributeEquals($formatter, 'formatter', $writer);
 
@@ -118,7 +118,7 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
 
     public function testDefaultFormatter()
     {
-        $writer   = new CustomSyslogWriter(array('application' => 'test_app'));
+        $writer   = new CustomSyslogWriter(['application' => 'test_app']);
         $this->assertAttributeInstanceOf('Zend\Log\Formatter\Simple', 'formatter', $writer);
     }
 }

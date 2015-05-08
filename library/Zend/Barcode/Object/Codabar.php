@@ -20,7 +20,7 @@ class Codabar extends AbstractObject
      * - 1 = bar
      * @var array
      */
-    protected $codingMap = array(
+    protected $codingMap = [
         '0' => "101010011",     '1' => "101011001",     '2' => "101001011",
         '3' => "110010101",     '4' => "101101001",     '5' => "110101001",
         '6' => "100101011",     '7' => "100101101",     '8' => "100110101",
@@ -28,7 +28,7 @@ class Codabar extends AbstractObject
         ':' => "1101011011",    '/' => "1101101011",    '.' => "1101101101",
         '+' => "1011011011",    'A' => "1011001001",    'B' => "1010010011",
         'C' => "1001001011",    'D' => "1010011001"
-    );
+    ];
 
     /**
      * Width of the barcode (in pixels)
@@ -63,14 +63,14 @@ class Codabar extends AbstractObject
     protected function prepareBarcode()
     {
         $text = str_split($this->getText());
-        $barcodeTable = array();
+        $barcodeTable = [];
         foreach ($text as $char) {
             $barcodeChar = str_split($this->codingMap[$char]);
             foreach ($barcodeChar as $c) {
                 // visible, width, top, length
-                $barcodeTable[] = array($c, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [$c, $this->barThinWidth, 0, 1];
             }
-            $barcodeTable[] = array(0, $this->barThinWidth);
+            $barcodeTable[] = [0, $this->barThinWidth];
         }
         return $barcodeTable;
     }

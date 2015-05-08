@@ -24,34 +24,34 @@ class Sha1Test extends \PHPUnit_Framework_TestCase
     public function basicBehaviorDataProvider()
     {
         $testFile   = __DIR__ . '/_files/picture.jpg';
-        $pictureTests = array(
+        $pictureTests = [
             //    Options, isValid Param, Expected value, Expected message
-            array('b2a5334847b4328e7d19d9b41fd874dffa911c98', $testFile, true,  ''),
-            array('52a5334847b4328e7d19d9b41fd874dffa911c98', $testFile, false, 'fileSha1DoesNotMatch'),
-            array(
-                array('42a5334847b4328e7d19d9b41fd874dffa911c98', 'b2a5334847b4328e7d19d9b41fd874dffa911c98'),
+            ['b2a5334847b4328e7d19d9b41fd874dffa911c98', $testFile, true,  ''],
+            ['52a5334847b4328e7d19d9b41fd874dffa911c98', $testFile, false, 'fileSha1DoesNotMatch'],
+            [
+                ['42a5334847b4328e7d19d9b41fd874dffa911c98', 'b2a5334847b4328e7d19d9b41fd874dffa911c98'],
                 $testFile, true, ''
-            ),
-            array(
-                array('42a5334847b4328e7d19d9b41fd874dffa911c98', '72a5334847b4328e7d19d9b41fd874dffa911c98'),
+            ],
+            [
+                ['42a5334847b4328e7d19d9b41fd874dffa911c98', '72a5334847b4328e7d19d9b41fd874dffa911c98'],
                 $testFile, false, 'fileSha1DoesNotMatch'
-            ),
-        );
+            ],
+        ];
 
         $testFile   = __DIR__ . '/_files/nofile.mo';
-        $noFileTests = array(
+        $noFileTests = [
             //    Options, isValid Param, Expected value, message
-            array('b2a5334847b4328e7d19d9b41fd874dffa911c98', $testFile, false, 'fileSha1NotFound'),
-        );
+            ['b2a5334847b4328e7d19d9b41fd874dffa911c98', $testFile, false, 'fileSha1NotFound'],
+        ];
 
         // Dupe data in File Upload format
         $testData = array_merge($pictureTests, $noFileTests);
         foreach ($testData as $data) {
-            $fileUpload = array(
+            $fileUpload = [
                 'tmp_name' => $data[1], 'name' => basename($data[1]),
                 'size' => 200, 'error' => 0, 'type' => 'text'
-            );
-            $testData[] = array($data[0], $fileUpload, $data[2], $data[3]);
+            ];
+            $testData[] = [$data[0], $fileUpload, $data[2], $data[3]];
         }
         return $testData;
     }
@@ -96,10 +96,10 @@ class Sha1Test extends \PHPUnit_Framework_TestCase
     public function testgetSha1()
     {
         $validator = new File\Sha1('12345');
-        $this->assertEquals(array('12345' => 'sha1'), $validator->getSha1());
+        $this->assertEquals(['12345' => 'sha1'], $validator->getSha1());
 
-        $validator = new File\Sha1(array('12345', '12333', '12344'));
-        $this->assertEquals(array('12345' => 'sha1', '12333' => 'sha1', '12344' => 'sha1'), $validator->getSha1());
+        $validator = new File\Sha1(['12345', '12333', '12344']);
+        $this->assertEquals(['12345' => 'sha1', '12333' => 'sha1', '12344' => 'sha1'], $validator->getSha1());
     }
 
     /**
@@ -110,10 +110,10 @@ class Sha1Test extends \PHPUnit_Framework_TestCase
     public function testgetHash()
     {
         $validator = new File\Sha1('12345');
-        $this->assertEquals(array('12345' => 'sha1'), $validator->getHash());
+        $this->assertEquals(['12345' => 'sha1'], $validator->getHash());
 
-        $validator = new File\Sha1(array('12345', '12333', '12344'));
-        $this->assertEquals(array('12345' => 'sha1', '12333' => 'sha1', '12344' => 'sha1'), $validator->getHash());
+        $validator = new File\Sha1(['12345', '12333', '12344']);
+        $this->assertEquals(['12345' => 'sha1', '12333' => 'sha1', '12344' => 'sha1'], $validator->getHash());
     }
 
     /**
@@ -125,10 +125,10 @@ class Sha1Test extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Sha1('12345');
         $validator->setSha1('12333');
-        $this->assertEquals(array('12333' => 'sha1'), $validator->getSha1());
+        $this->assertEquals(['12333' => 'sha1'], $validator->getSha1());
 
-        $validator->setSha1(array('12321', '12121'));
-        $this->assertEquals(array('12321' => 'sha1', '12121' => 'sha1'), $validator->getSha1());
+        $validator->setSha1(['12321', '12121']);
+        $this->assertEquals(['12321' => 'sha1', '12121' => 'sha1'], $validator->getSha1());
     }
 
     /**
@@ -140,10 +140,10 @@ class Sha1Test extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Sha1('12345');
         $validator->setHash('12333');
-        $this->assertEquals(array('12333' => 'sha1'), $validator->getSha1());
+        $this->assertEquals(['12333' => 'sha1'], $validator->getSha1());
 
-        $validator->setHash(array('12321', '12121'));
-        $this->assertEquals(array('12321' => 'sha1', '12121' => 'sha1'), $validator->getSha1());
+        $validator->setHash(['12321', '12121']);
+        $this->assertEquals(['12321' => 'sha1', '12121' => 'sha1'], $validator->getSha1());
     }
 
     /**
@@ -155,10 +155,10 @@ class Sha1Test extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Sha1('12345');
         $validator->addSha1('12344');
-        $this->assertEquals(array('12345' => 'sha1', '12344' => 'sha1'), $validator->getSha1());
+        $this->assertEquals(['12345' => 'sha1', '12344' => 'sha1'], $validator->getSha1());
 
-        $validator->addSha1(array('12321', '12121'));
-        $this->assertEquals(array('12345' => 'sha1', '12344' => 'sha1', '12321' => 'sha1', '12121' => 'sha1'), $validator->getSha1());
+        $validator->addSha1(['12321', '12121']);
+        $this->assertEquals(['12345' => 'sha1', '12344' => 'sha1', '12321' => 'sha1', '12121' => 'sha1'], $validator->getSha1());
     }
 
     /**
@@ -170,10 +170,10 @@ class Sha1Test extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Sha1('12345');
         $validator->addHash('12344');
-        $this->assertEquals(array('12345' => 'sha1', '12344' => 'sha1'), $validator->getSha1());
+        $this->assertEquals(['12345' => 'sha1', '12344' => 'sha1'], $validator->getSha1());
 
-        $validator->addHash(array('12321', '12121'));
-        $this->assertEquals(array('12345' => 'sha1', '12344' => 'sha1', '12321' => 'sha1', '12121' => 'sha1'), $validator->getSha1());
+        $validator->addHash(['12321', '12121']);
+        $this->assertEquals(['12345' => 'sha1', '12344' => 'sha1', '12321' => 'sha1', '12121' => 'sha1'], $validator->getSha1());
     }
 
     /**
@@ -194,13 +194,13 @@ class Sha1Test extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid(''));
         $this->assertArrayHasKey(File\Sha1::NOT_FOUND, $validator->getMessages());
 
-        $filesArray = array(
+        $filesArray = [
             'name'      => '',
             'size'      => 0,
             'tmp_name'  => '',
             'error'     => UPLOAD_ERR_NO_FILE,
             'type'      => '',
-        );
+        ];
 
         $this->assertFalse($validator->isValid($filesArray));
         $this->assertArrayHasKey(File\Sha1::NOT_FOUND, $validator->getMessages());

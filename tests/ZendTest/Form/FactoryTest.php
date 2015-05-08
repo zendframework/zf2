@@ -33,14 +33,14 @@ class FactoryTest extends TestCase
 
     public function testCanCreateElements()
     {
-        $element = $this->factory->createElement(array(
+        $element = $this->factory->createElement([
             'name'       => 'foo',
-            'attributes' => array(
+            'attributes' => [
                 'type'         => 'text',
                 'class'        => 'foo-class',
                 'data-js-type' => 'my.form.text',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\ElementInterface', $element);
         $this->assertEquals('foo', $element->getName());
         $this->assertEquals('text', $element->getAttribute('type'));
@@ -50,15 +50,15 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFieldsets()
     {
-        $fieldset = $this->factory->createFieldset(array(
+        $fieldset = $this->factory->createFieldset([
             'name'       => 'foo',
             'object'     => 'ZendTest\Form\TestAsset\Model',
-            'attributes' => array(
+            'attributes' => [
                 'type'         => 'fieldset',
                 'class'        => 'foo-class',
                 'data-js-type' => 'my.form.fieldset',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\FieldsetInterface', $fieldset);
         $this->assertEquals('foo', $fieldset->getName());
         $this->assertEquals('fieldset', $fieldset->getAttribute('type'));
@@ -69,47 +69,47 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFieldsetsWithElements()
     {
-        $fieldset = $this->factory->createFieldset(array(
+        $fieldset = $this->factory->createFieldset([
             'name'       => 'foo',
-            'elements' => array(
-                array(
-                    'flags' => array(
+            'elements' => [
+                [
+                    'flags' => [
                         'name' => 'bar',
-                    ),
-                    'spec' => array(
-                        'attributes' => array(
+                    ],
+                    'spec' => [
+                        'attributes' => [
                             'type' => 'text',
-                        ),
-                    ),
-                ),
-                array(
-                    'flags' => array(
+                        ],
+                    ],
+                ],
+                [
+                    'flags' => [
                         'name' => 'baz',
-                    ),
-                    'spec' => array(
-                        'attributes' => array(
+                    ],
+                    'spec' => [
+                        'attributes' => [
                             'type' => 'radio',
-                            'options' => array(
+                            'options' => [
                                 'foo' => 'Foo Bar',
                                 'bar' => 'Bar Baz',
-                            ),
-                        ),
-                    ),
-                ),
-                array(
-                    'flags' => array(
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'flags' => [
                         'priority' => 10,
-                    ),
-                    'spec' => array(
+                    ],
+                    'spec' => [
                         'name'       => 'bat',
-                        'attributes' => array(
+                        'attributes' => [
                             'type' => 'textarea',
                             'content' => 'Type here...',
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                        ],
+                    ],
+                ],
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\FieldsetInterface', $fieldset);
         $elements = $fieldset->getElements();
         $this->assertEquals(3, count($elements));
@@ -122,10 +122,10 @@ class FactoryTest extends TestCase
 
         $element = $fieldset->get('baz');
         $this->assertEquals('radio', $element->getAttribute('type'));
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'Foo Bar',
             'bar' => 'Bar Baz',
-        ), $element->getAttribute('options'));
+        ], $element->getAttribute('options'));
 
         $element = $fieldset->get('bat');
         $this->assertEquals('textarea', $element->getAttribute('type'));
@@ -142,54 +142,54 @@ class FactoryTest extends TestCase
 
     public function testCanCreateNestedFieldsets()
     {
-        $masterFieldset = $this->factory->createFieldset(array(
+        $masterFieldset = $this->factory->createFieldset([
             'name'       => 'foo',
-            'fieldsets'  => array(
-                array(
-                    'flags' => array('name' => 'bar'),
-                    'spec'  => array(
-                        'elements' => array(
-                            array(
-                                'flags' => array(
+            'fieldsets'  => [
+                [
+                    'flags' => ['name' => 'bar'],
+                    'spec'  => [
+                        'elements' => [
+                            [
+                                'flags' => [
                                     'name' => 'bar',
-                                ),
-                                'spec' => array(
-                                    'attributes' => array(
+                                ],
+                                'spec' => [
+                                    'attributes' => [
                                         'type' => 'text',
-                                    ),
-                                ),
-                            ),
-                            array(
-                                'flags' => array(
+                                    ],
+                                ],
+                            ],
+                            [
+                                'flags' => [
                                     'name' => 'baz',
-                                ),
-                                'spec' => array(
-                                    'attributes' => array(
+                                ],
+                                'spec' => [
+                                    'attributes' => [
                                         'type' => 'radio',
-                                        'options' => array(
+                                        'options' => [
                                             'foo' => 'Foo Bar',
                                             'bar' => 'Bar Baz',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                            array(
-                                'flags' => array(
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            [
+                                'flags' => [
                                     'priority' => 10,
-                                ),
-                                'spec' => array(
+                                ],
+                                'spec' => [
                                     'name'       => 'bat',
-                                    'attributes' => array(
+                                    'attributes' => [
                                         'type' => 'textarea',
                                         'content' => 'Type here...',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    )
-                )
-            )
-        ));
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ]
+                ]
+            ]
+        ]);
         $this->assertInstanceOf('Zend\Form\FieldsetInterface', $masterFieldset);
         $fieldsets = $masterFieldset->getFieldsets();
         $this->assertEquals(1, count($fieldsets));
@@ -203,10 +203,10 @@ class FactoryTest extends TestCase
 
         $element = $fieldset->get('baz');
         $this->assertEquals('radio', $element->getAttribute('type'));
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'Foo Bar',
             'bar' => 'Bar Baz',
-        ), $element->getAttribute('options'));
+        ], $element->getAttribute('options'));
 
         $element = $fieldset->get('bat');
         $this->assertEquals('textarea', $element->getAttribute('type'));
@@ -223,13 +223,13 @@ class FactoryTest extends TestCase
 
     public function testCanCreateForms()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'       => 'foo',
             'object'     => 'ZendTest\Form\TestAsset\Model',
-            'attributes' => array(
+            'attributes' => [
                 'method' => 'get',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $this->assertEquals('foo', $form->getName());
         $this->assertEquals('get', $form->getAttribute('method'));
@@ -238,10 +238,10 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFormsWithNamedInputFilters()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'         => 'foo',
             'input_filter' => 'ZendTest\Form\TestAsset\InputFilter',
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $filter = $form->getInputFilter();
         $this->assertInstanceOf('ZendTest\Form\TestAsset\InputFilter', $filter);
@@ -249,46 +249,46 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFormsWithInputFilterSpecifications()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'         => 'foo',
-            'input_filter' => array(
-                'foo' => array(
+            'input_filter' => [
+                'foo' => [
                     'name'       => 'foo',
                     'required'   => false,
-                    'validators' => array(
-                        array(
+                    'validators' => [
+                        [
                             'name' => 'not_empty',
-                        ),
-                        array(
+                        ],
+                        [
                             'name' => 'string_length',
-                            'options' => array(
+                            'options' => [
                                 'min' => 3,
                                 'max' => 5,
-                            ),
-                        ),
-                    ),
-                ),
-                'bar' => array(
+                            ],
+                        ],
+                    ],
+                ],
+                'bar' => [
                     'allow_empty' => true,
-                    'filters'     => array(
-                        array(
+                    'filters'     => [
+                        [
                             'name' => 'string_trim',
-                        ),
-                        array(
+                        ],
+                        [
                             'name' => 'string_to_lower',
-                            'options' => array(
+                            'options' => [
                                 'encoding' => 'ISO-8859-1',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $filter = $form->getInputFilter();
         $this->assertInstanceOf('Zend\InputFilter\InputFilterInterface', $filter);
         $this->assertEquals(2, count($filter));
-        foreach (array('foo', 'bar') as $name) {
+        foreach (['foo', 'bar'] as $name) {
             $input = $filter->get($name);
 
             switch ($name) {
@@ -311,10 +311,10 @@ class FactoryTest extends TestCase
     public function testCanCreateFormsWithInputFilterInstances()
     {
         $filter = new TestAsset\InputFilter();
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'         => 'foo',
             'input_filter' => $filter,
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $test = $form->getInputFilter();
         $this->assertSame($filter, $test);
@@ -322,10 +322,10 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFormsAndSpecifyHydrator()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'     => 'foo',
             'hydrator' => 'Zend\Stdlib\Hydrator\ObjectProperty',
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $hydrator = $form->getHydrator();
         $this->assertInstanceOf('Zend\Stdlib\Hydrator\ObjectProperty', $hydrator);
@@ -338,10 +338,10 @@ class FactoryTest extends TestCase
         $hydrators->setServiceLocator($services);
         $services->setService('HydratorManager', new HydratorPluginManager());
 
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'     => 'foo',
             'hydrator' => 'ObjectProperty',
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $hydrator = $form->getHydrator();
         $this->assertInstanceOf('Zend\Stdlib\Hydrator\ObjectProperty', $hydrator);
@@ -349,13 +349,13 @@ class FactoryTest extends TestCase
 
     public function testCanCreateHydratorFromArray()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name' => 'foo',
-            'hydrator' => array(
+            'hydrator' => [
                 'type' => 'Zend\Stdlib\Hydrator\ClassMethods',
-                'options' => array('underscoreSeparatedKeys' => false),
-            ),
-        ));
+                'options' => ['underscoreSeparatedKeys' => false],
+            ],
+        ]);
 
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $hydrator = $form->getHydrator();
@@ -365,10 +365,10 @@ class FactoryTest extends TestCase
 
     public function testCanCreateHydratorFromConcreteClass()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name' => 'foo',
             'hydrator' => new \Zend\Stdlib\Hydrator\ObjectProperty()
-        ));
+        ]);
 
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $hydrator = $form->getHydrator();
@@ -377,10 +377,10 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFormsAndSpecifyFactory()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'    => 'foo',
             'factory' => 'Zend\Form\Factory',
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $factory = $form->getFormFactory();
         $this->assertInstanceOf('Zend\Form\Factory', $factory);
@@ -388,12 +388,12 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFactoryFromArray()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'    => 'foo',
-            'factory' => array(
+            'factory' => [
                 'type' => 'Zend\Form\Factory',
-            ),
-        ));
+            ],
+        ]);
 
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $factory = $form->getFormFactory();
@@ -403,10 +403,10 @@ class FactoryTest extends TestCase
     public function testCanCreateFactoryFromConcreteClass()
     {
         $factory = new \Zend\Form\Factory();
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'    => 'foo',
             'factory' => $factory,
-        ));
+        ]);
 
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $test = $form->getFormFactory();
@@ -427,21 +427,21 @@ class FactoryTest extends TestCase
         $factory = new FormFactory();
         $factory->setInputFilterFactory($inputFilterFactory);
 
-        $form = $factory->createForm(array(
+        $form = $factory->createForm([
             'name'         => 'foo',
             'factory'      => $factory,
-            'input_filter' => array(
-                'bar' => array(
+            'input_filter' => [
+                'bar' => [
                     'name'       => 'bar',
                     'required'   => true,
-                    'validators' => array(
-                        array(
+                    'validators' => [
+                        [
                             'name' => 'baz',
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                        ],
+                    ],
+                ],
+            ],
+        ]);
 
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
 
@@ -470,94 +470,94 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFormWithHydratorAndInputFilterAndElementsAndFieldsets()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name'       => 'foo',
-            'elements' => array(
-                array(
-                    'flags' => array(
+            'elements' => [
+                [
+                    'flags' => [
                         'name' => 'bar',
-                    ),
-                    'spec' => array(
-                        'attributes' => array(
+                    ],
+                    'spec' => [
+                        'attributes' => [
                             'type' => 'text',
-                        ),
-                    ),
-                ),
-                array(
-                    'flags' => array(
+                        ],
+                    ],
+                ],
+                [
+                    'flags' => [
                         'name' => 'baz',
-                    ),
-                    'spec' => array(
-                        'attributes' => array(
+                    ],
+                    'spec' => [
+                        'attributes' => [
                             'type' => 'radio',
-                            'options' => array(
+                            'options' => [
                                 'foo' => 'Foo Bar',
                                 'bar' => 'Bar Baz',
-                            ),
-                        ),
-                    ),
-                ),
-                array(
-                    'flags' => array(
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'flags' => [
                         'priority' => 10,
-                    ),
-                    'spec' => array(
+                    ],
+                    'spec' => [
                         'name'       => 'bat',
-                        'attributes' => array(
+                        'attributes' => [
                             'type' => 'textarea',
                             'content' => 'Type here...',
-                        ),
-                    ),
-                ),
-            ),
-            'fieldsets'  => array(
-                array(
-                    'flags' => array('name' => 'foobar'),
-                    'spec'  => array(
-                        'elements' => array(
-                            array(
-                                'flags' => array(
+                        ],
+                    ],
+                ],
+            ],
+            'fieldsets'  => [
+                [
+                    'flags' => ['name' => 'foobar'],
+                    'spec'  => [
+                        'elements' => [
+                            [
+                                'flags' => [
                                     'name' => 'bar',
-                                ),
-                                'spec' => array(
-                                    'attributes' => array(
+                                ],
+                                'spec' => [
+                                    'attributes' => [
                                         'type' => 'text',
-                                    ),
-                                ),
-                            ),
-                            array(
-                                'flags' => array(
+                                    ],
+                                ],
+                            ],
+                            [
+                                'flags' => [
                                     'name' => 'baz',
-                                ),
-                                'spec' => array(
-                                    'attributes' => array(
+                                ],
+                                'spec' => [
+                                    'attributes' => [
                                         'type' => 'radio',
-                                        'options' => array(
+                                        'options' => [
                                             'foo' => 'Foo Bar',
                                             'bar' => 'Bar Baz',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                            array(
-                                'flags' => array(
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            [
+                                'flags' => [
                                     'priority' => 10,
-                                ),
-                                'spec' => array(
+                                ],
+                                'spec' => [
                                     'name'       => 'bat',
-                                    'attributes' => array(
+                                    'attributes' => [
                                         'type' => 'textarea',
                                         'content' => 'Type here...',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'input_filter' => 'ZendTest\Form\TestAsset\InputFilter',
             'hydrator'     => 'Zend\Stdlib\Hydrator\ObjectProperty',
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
 
         $elements = $form->getElements();
@@ -571,10 +571,10 @@ class FactoryTest extends TestCase
 
         $element = $form->get('baz');
         $this->assertEquals('radio', $element->getAttribute('type'));
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'Foo Bar',
             'bar' => 'Bar Baz',
-        ), $element->getAttribute('options'));
+        ], $element->getAttribute('options'));
 
         $element = $form->get('bat');
         $this->assertEquals('textarea', $element->getAttribute('type'));
@@ -601,10 +601,10 @@ class FactoryTest extends TestCase
 
         $element = $fieldset->get('baz');
         $this->assertEquals('radio', $element->getAttribute('type'));
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'Foo Bar',
             'bar' => 'Bar Baz',
-        ), $element->getAttribute('options'));
+        ], $element->getAttribute('options'));
 
         $element = $fieldset->get('bat');
         $this->assertEquals('textarea', $element->getAttribute('type'));
@@ -629,13 +629,13 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFormUsingCreate()
     {
-        $form = $this->factory->create(array(
+        $form = $this->factory->create([
             'type'       => 'Zend\Form\Form',
             'name'       => 'foo',
-            'attributes' => array(
+            'attributes' => [
                 'method' => 'get',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
         $this->assertEquals('foo', $form->getName());
         $this->assertEquals('get', $form->getAttribute('method'));
@@ -643,15 +643,15 @@ class FactoryTest extends TestCase
 
     public function testCanCreateFieldsetUsingCreate()
     {
-        $fieldset = $this->factory->create(array(
+        $fieldset = $this->factory->create([
             'type'       => 'Zend\Form\Fieldset',
             'name'       => 'foo',
-            'attributes' => array(
+            'attributes' => [
                 'type'         => 'fieldset',
                 'class'        => 'foo-class',
                 'data-js-type' => 'my.form.fieldset',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\FieldsetInterface', $fieldset);
         $this->assertEquals('foo', $fieldset->getName());
         $this->assertEquals('fieldset', $fieldset->getAttribute('type'));
@@ -661,14 +661,14 @@ class FactoryTest extends TestCase
 
     public function testCanCreateElementUsingCreate()
     {
-        $element = $this->factory->create(array(
+        $element = $this->factory->create([
             'name'       => 'foo',
-            'attributes' => array(
+            'attributes' => [
                 'type'         => 'text',
                 'class'        => 'foo-class',
                 'data-js-type' => 'my.form.text',
-            ),
-        ));
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\ElementInterface', $element);
         $this->assertEquals('foo', $element->getName());
         $this->assertEquals('text', $element->getAttribute('type'));
@@ -678,14 +678,14 @@ class FactoryTest extends TestCase
 
     public function testAutomaticallyAddFieldsetTypeWhenCreateFieldset()
     {
-        $fieldset = $this->factory->createFieldset(array('name' => 'myFieldset'));
+        $fieldset = $this->factory->createFieldset(['name' => 'myFieldset']);
         $this->assertInstanceOf('Zend\Form\Fieldset', $fieldset);
         $this->assertEquals('myFieldset', $fieldset->getName());
     }
 
     public function testAutomaticallyAddFormTypeWhenCreateForm()
     {
-        $form = $this->factory->createForm(array('name' => 'myForm'));
+        $form = $this->factory->createForm(['name' => 'myForm']);
         $this->assertInstanceOf('Zend\Form\Form', $form);
         $this->assertEquals('myForm', $form->getName());
     }
@@ -695,24 +695,24 @@ class FactoryTest extends TestCase
         $serviceLocator = $this->factory->getFormElementManager()->getServiceLocator();
         $serviceLocator->setInvokableClass('MyHydrator', 'Zend\Stdlib\Hydrator\ObjectProperty');
 
-        $fieldset = $this->factory->createFieldset(array(
+        $fieldset = $this->factory->createFieldset([
             'hydrator' => 'MyHydrator',
             'name' => 'fieldset',
-            'elements' => array(
-                array(
-                    'flags' => array(
+            'elements' => [
+                [
+                    'flags' => [
                         'name' => 'bar',
-                    ),
-                )
-            )
-        ));
+                    ],
+                ]
+            ]
+        ]);
 
         $this->assertInstanceOf('Zend\Stdlib\Hydrator\ObjectProperty', $fieldset->getHydrator());
     }
 
     public function testCreatedFieldsetsHaveFactoryAndFormElementManagerInjected()
     {
-        $fieldset = $this->factory->createFieldset(array('name' => 'myFieldset'));
+        $fieldset = $this->factory->createFieldset(['name' => 'myFieldset']);
         $this->assertAttributeInstanceOf('Zend\Form\Factory', 'factory', $fieldset);
         $this->assertSame($fieldset->getFormFactory()->getFormElementManager(), $this->factory->getFormElementManager());
     }
@@ -722,30 +722,30 @@ class FactoryTest extends TestCase
      */
     public function testPrepareAndInjectWillThrowAndException()
     {
-        $fieldset = $this->factory->createFieldset(array('name' => 'myFieldset'));
+        $fieldset = $this->factory->createFieldset(['name' => 'myFieldset']);
 
         $this->setExpectedException('Zend\Form\Exception\DomainException');
-        $this->factory->configureFieldset($fieldset, array('hydrator' => 0));
+        $this->factory->configureFieldset($fieldset, ['hydrator' => 0]);
     }
 
     public function testCanCreateFormWithNullElements()
     {
-        $form = $this->factory->createForm(array(
+        $form = $this->factory->createForm([
             'name' => 'foo',
-            'elements' => array(
-                'bar' => array(
-                    'spec' => array(
+            'elements' => [
+                'bar' => [
+                    'spec' => [
                         'name' => 'bar',
-                    ),
-                ),
+                    ],
+                ],
                 'baz' => null,
-                'bat' => array(
-                    'spec' => array(
+                'bat' => [
+                    'spec' => [
                         'name' => 'bat',
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
         $this->assertInstanceOf('Zend\Form\FormInterface', $form);
 
         $elements = $form->getElements();

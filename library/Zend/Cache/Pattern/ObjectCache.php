@@ -40,7 +40,7 @@ class ObjectCache extends CallbackCache
      * @throws Exception\RuntimeException
      * @throws \Exception
      */
-    public function call($method, array $args = array())
+    public function call($method, array $args = [])
     {
         $options = $this->getOptions();
         $object  = $options->getObject();
@@ -65,10 +65,10 @@ class ObjectCache extends CallbackCache
                 // remove cached __get and __isset
                 $removeKeys = null;
                 if (method_exists($object, '__get')) {
-                    $removeKeys[] = $this->generateKey('__get', array($property));
+                    $removeKeys[] = $this->generateKey('__get', [$property]);
                 }
                 if (method_exists($object, '__isset')) {
-                    $removeKeys[] = $this->generateKey('__isset', array($property));
+                    $removeKeys[] = $this->generateKey('__isset', [$property]);
                 }
                 if ($removeKeys) {
                     $options->getStorage()->removeItems($removeKeys);
@@ -87,7 +87,7 @@ class ObjectCache extends CallbackCache
                 }
 
                 array_unshift($args, $property);
-                return parent::call(array($object, '__get'), $args);
+                return parent::call([$object, '__get'], $args);
 
             case '__isset':
                 $property = array_shift($args);
@@ -100,7 +100,7 @@ class ObjectCache extends CallbackCache
                     return isset($object->{$property});
                 }
 
-                return parent::call(array($object, '__isset'), array($property));
+                return parent::call([$object, '__isset'], [$property]);
 
             case '__unset':
                 $property = array_shift($args);
@@ -118,10 +118,10 @@ class ObjectCache extends CallbackCache
                 // remove previous cached __get and __isset calls
                 $removeKeys = null;
                 if (method_exists($object, '__get')) {
-                    $removeKeys[] = $this->generateKey('__get', array($property));
+                    $removeKeys[] = $this->generateKey('__get', [$property]);
                 }
                 if (method_exists($object, '__isset')) {
-                    $removeKeys[] = $this->generateKey('__isset', array($property));
+                    $removeKeys[] = $this->generateKey('__isset', [$property]);
                 }
                 if ($removeKeys) {
                     $options->getStorage()->removeItems($removeKeys);
@@ -138,12 +138,12 @@ class ObjectCache extends CallbackCache
 
         if (!$cache) {
             if ($args) {
-                return call_user_func_array(array($object, $method), $args);
+                return call_user_func_array([$object, $method], $args);
             }
             return $object->{$method}();
         }
 
-        return parent::call(array($object, $method), $args);
+        return parent::call([$object, $method], $args);
     }
 
     /**
@@ -155,10 +155,10 @@ class ObjectCache extends CallbackCache
      * @return string
      * @throws Exception\RuntimeException
      */
-    public function generateKey($method, array $args = array())
+    public function generateKey($method, array $args = [])
     {
         return $this->generateCallbackKey(
-            array($this->getOptions()->getObject(), $method),
+            [$this->getOptions()->getObject(), $method],
             $args
         );
     }
@@ -172,7 +172,7 @@ class ObjectCache extends CallbackCache
      * @return string
      * @throws Exception\RuntimeException
      */
-    protected function generateCallbackKey($callback, array $args = array())
+    protected function generateCallbackKey($callback, array $args = [])
     {
         $callbackKey = md5($this->getOptions()->getObjectKey() . '::' . strtolower($callback[1]));
         $argumentKey = $this->generateArgumentsKey($args);
@@ -208,7 +208,7 @@ class ObjectCache extends CallbackCache
      */
     public function __set($name, $value)
     {
-        return $this->call('__set', array($name, $value));
+        return $this->call('__set', [$name, $value]);
     }
 
     /**
@@ -224,7 +224,7 @@ class ObjectCache extends CallbackCache
      */
     public function __get($name)
     {
-        return $this->call('__get', array($name));
+        return $this->call('__get', [$name]);
     }
 
     /**
@@ -240,7 +240,7 @@ class ObjectCache extends CallbackCache
      */
     public function __isset($name)
     {
-        return $this->call('__isset', array($name));
+        return $this->call('__isset', [$name]);
     }
 
     /**
@@ -257,7 +257,7 @@ class ObjectCache extends CallbackCache
      */
     public function __unset($name)
     {
-        return $this->call('__unset', array($name));
+        return $this->call('__unset', [$name]);
     }
 
     /**

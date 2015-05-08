@@ -37,11 +37,11 @@ class PriorityQueueTest extends \PHPUnit_Framework_TestCase
         $count = count($this->queue);
         $this->assertSame($count, count($unserialized), 'Expected count ' . $count . '; received ' . count($unserialized));
 
-        $expected = array();
+        $expected = [];
         foreach ($this->queue as $item) {
             $expected[] = $item;
         }
-        $test = array();
+        $test = [];
         foreach ($unserialized as $item) {
             $test[] = $item;
         }
@@ -50,46 +50,46 @@ class PriorityQueueTest extends \PHPUnit_Framework_TestCase
 
     public function testRetrievingQueueAsArrayReturnsDataOnlyByDefault()
     {
-        $expected = array(
+        $expected = [
             'foo',
             'bar',
             'baz',
             'bat',
-        );
+        ];
         $test     = $this->queue->toArray();
         $this->assertSame($expected, $test, var_export($test, 1));
     }
 
     public function testCanCastToArrayOfPrioritiesOnly()
     {
-        $expected = array(
+        $expected = [
             3,
             4,
             2,
             1,
-        );
+        ];
         $test     = $this->queue->toArray(PriorityQueue::EXTR_PRIORITY);
         $this->assertSame($expected, $test, var_export($test, 1));
     }
 
     public function testCanCastToArrayOfDataPriorityPairs()
     {
-        $expected = array(
-            array('data' => 'foo', 'priority' => 3),
-            array('data' => 'bar', 'priority' => 4),
-            array('data' => 'baz', 'priority' => 2),
-            array('data' => 'bat', 'priority' => 1),
-        );
+        $expected = [
+            ['data' => 'foo', 'priority' => 3],
+            ['data' => 'bar', 'priority' => 4],
+            ['data' => 'baz', 'priority' => 2],
+            ['data' => 'bat', 'priority' => 1],
+        ];
         $test     = $this->queue->toArray(PriorityQueue::EXTR_BOTH);
         $this->assertSame($expected, $test, var_export($test, 1));
     }
 
     public function testCanIterateMultipleTimesAndReceiveSameResults()
     {
-        $expected = array('bar', 'foo', 'baz', 'bat');
+        $expected = ['bar', 'foo', 'baz', 'bat'];
 
         for ($i = 1; $i < 3; $i++) {
-            $test = array();
+            $test = [];
             foreach ($this->queue as $item) {
                 $test[] = $item;
             }
@@ -100,8 +100,8 @@ class PriorityQueueTest extends \PHPUnit_Framework_TestCase
     public function testCanRemoveItemFromQueue()
     {
         $this->queue->remove('baz');
-        $expected = array('bar', 'foo', 'bat');
-        $test = array();
+        $expected = ['bar', 'foo', 'bat'];
+        $test = [];
         foreach ($this->queue as $item) {
             $test[] = $item;
         }

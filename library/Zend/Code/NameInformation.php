@@ -19,13 +19,13 @@ class NameInformation
     /**
      * @var array
      */
-    protected $uses = array();
+    protected $uses = [];
 
     /**
      * @param  string $namespace
      * @param  array $uses
      */
-    public function __construct($namespace = null, array $uses = array())
+    public function __construct($namespace = null, array $uses = [])
     {
         if ($namespace) {
             $this->setNamespace($namespace);
@@ -67,7 +67,7 @@ class NameInformation
      */
     public function setUses(array $uses)
     {
-        $this->uses = array();
+        $this->uses = [];
         $this->addUses($uses);
 
         return $this;

@@ -21,14 +21,14 @@ class Entry
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Registered extensions
      *
      * @var array
      */
-    protected $extensions = array();
+    protected $extensions = [];
 
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
@@ -311,12 +311,12 @@ class Entry
         if (!isset($link['uri']) || !is_string($link['uri']) || !Uri::factory($link['uri'])->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter: "link" must be a non-empty string and valid URI/IRI');
         }
-        if (!isset($link['type']) || !in_array($link['type'], array('atom', 'rss', 'rdf'))) {
+        if (!isset($link['type']) || !in_array($link['type'], ['atom', 'rss', 'rdf'])) {
             throw new Exception\InvalidArgumentException('Invalid parameter: "type" must be one'
             . ' of "atom", "rss" or "rdf"');
         }
         if (!isset($this->data['commentFeedLinks'])) {
-            $this->data['commentFeedLinks'] = array();
+            $this->data['commentFeedLinks'] = [];
         }
         $this->data['commentFeedLinks'][] = $link;
 
@@ -552,7 +552,7 @@ class Entry
             }
         }
         if (!isset($this->data['categories'])) {
-            $this->data['categories'] = array();
+            $this->data['categories'] = [];
         }
         $this->data['categories'][] = $category;
 
@@ -698,7 +698,7 @@ class Entry
     {
         foreach ($this->extensions as $extension) {
             try {
-                return call_user_func_array(array($extension, $method), $args);
+                return call_user_func_array([$extension, $method], $args);
             } catch (\BadMethodCallException $e) {
             }
         }

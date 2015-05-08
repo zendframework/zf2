@@ -83,7 +83,7 @@ class Timestamp implements FilterInterface
             $operator = '<=';
         } elseif (!in_array(
             $operator,
-            array('<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>')
+            ['<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>']
         )) {
             throw new Exception\InvalidArgumentException(
                 "Unsupported comparison operator: '$operator'"

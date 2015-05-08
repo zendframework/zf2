@@ -37,15 +37,15 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testNotPassingDbToConstructorThrowsException()
     {
         $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'Adapter');
-        $writer = new DbWriter(array());
+        $writer = new DbWriter([]);
     }
 
     public function testPassingTableNameAsArgIsOK()
     {
-        $options = array(
+        $options = [
             'db'    => $this->db,
             'table' => $this->tableName,
-        );
+        ];
         $writer = new DbWriter($options);
         $this->assertInstanceOf('Zend\Log\Writer\Db', $writer);
         $this->assertAttributeEquals($this->tableName, 'tableName', $writer);
@@ -54,10 +54,10 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testWriteWithDefaults()
     {
         // log to the mock db adapter
-        $fields = array(
+        $fields = [
             'message'  => 'foo',
             'priority' => 42
-        );
+        ];
 
         $this->writer->write($fields);
 
@@ -66,7 +66,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($this->db->calls['query']));
         $this->assertContains('execute', array_keys($this->db->calls));
         $this->assertEquals(1, count($this->db->calls['execute']));
-        $this->assertEquals(array($fields), $this->db->calls['execute'][0]);
+        $this->assertEquals([$fields], $this->db->calls['execute'][0]);
     }
 
     public function testWriteWithDefaultsUsingArray()
@@ -74,25 +74,25 @@ class DbTest extends \PHPUnit_Framework_TestCase
         // log to the mock db adapter
         $message  = 'message-to-log';
         $priority = 2;
-        $events = array(
+        $events = [
             'file' => 'test',
             'line' => 1
-        );
-        $this->writer->write(array(
+        ];
+        $this->writer->write([
             'message'  => $message,
             'priority' => $priority,
             'events'   => $events
-        ));
+        ]);
         $this->assertContains('query', array_keys($this->db->calls));
         $this->assertEquals(1, count($this->db->calls['query']));
 
-        $binds = array(
+        $binds = [
             'message' => $message,
             'priority' => $priority,
             'events_line' => $events['line'],
             'events_file' => $events['file']
-        );
-        $this->assertEquals(array($binds), $this->db->calls['execute'][0]);
+        ];
+        $this->assertEquals([$binds], $this->db->calls['execute'][0]);
     }
 
     public function testWriteWithDefaultsUsingArrayAndSeparator()
@@ -102,141 +102,141 @@ class DbTest extends \PHPUnit_Framework_TestCase
         // log to the mock db adapter
         $message  = 'message-to-log';
         $priority = 2;
-        $events = array(
+        $events = [
             'file' => 'test',
             'line' => 1
-        );
-        $this->writer->write(array(
+        ];
+        $this->writer->write([
             'message'  => $message,
             'priority' => $priority,
             'events'   => $events
-        ));
+        ]);
         $this->assertContains('query', array_keys($this->db->calls));
         $this->assertEquals(1, count($this->db->calls['query']));
 
-        $binds = array(
+        $binds = [
             'message' => $message,
             'priority' => $priority,
             'events-line' => $events['line'],
             'events-file' => $events['file']
-        );
-        $this->assertEquals(array($binds), $this->db->calls['execute'][0]);
+        ];
+        $this->assertEquals([$binds], $this->db->calls['execute'][0]);
     }
 
     public function testWriteUsesOptionalCustomColumnNames()
     {
-        $this->writer = new DbWriter($this->db, $this->tableName, array(
+        $this->writer = new DbWriter($this->db, $this->tableName, [
             'message' => 'new-message-field',
             'priority' => 'new-priority-field'
-        ));
+        ]);
 
         // log to the mock db adapter
         $message  = 'message-to-log';
         $priority = 2;
-        $this->writer->write(array(
+        $this->writer->write([
             'message' => $message,
             'priority' => $priority
-        ));
+        ]);
 
         // insert should be called once...
         $this->assertContains('query', array_keys($this->db->calls));
         $this->assertEquals(1, count($this->db->calls['query']));
 
         // ...with the correct table and binds for the database
-        $binds = array(
+        $binds = [
             'new-message-field' => $message,
             'new-priority-field' => $priority
-        );
-        $this->assertEquals(array($binds), $this->db->calls['execute'][0]);
+        ];
+        $this->assertEquals([$binds], $this->db->calls['execute'][0]);
     }
 
     public function testWriteUsesParamsWithArray()
     {
-        $this->writer = new DbWriter($this->db, $this->tableName, array(
+        $this->writer = new DbWriter($this->db, $this->tableName, [
             'message' => 'new-message-field',
             'priority' => 'new-priority-field',
-            'events' => array(
+            'events' => [
                 'line' => 'new-line',
                 'file' => 'new-file'
-            )
-        ));
+            ]
+        ]);
 
         // log to the mock db adapter
         $message  = 'message-to-log';
         $priority = 2;
-        $events = array(
+        $events = [
             'file' => 'test',
             'line' => 1
-        );
-        $this->writer->write(array(
+        ];
+        $this->writer->write([
             'message'  => $message,
             'priority' => $priority,
             'events'   => $events
-        ));
+        ]);
         $this->assertContains('query', array_keys($this->db->calls));
         $this->assertEquals(1, count($this->db->calls['query']));
         // ...with the correct table and binds for the database
-        $binds = array(
+        $binds = [
             'new-message-field' => $message,
             'new-priority-field' => $priority,
             'new-line' => $events['line'],
             'new-file' => $events['file']
-        );
-        $this->assertEquals(array($binds), $this->db->calls['execute'][0]);
+        ];
+        $this->assertEquals([$binds], $this->db->calls['execute'][0]);
     }
 
     public function testShutdownRemovesReferenceToDatabaseInstance()
     {
-        $this->writer->write(array('message' => 'this should not fail'));
+        $this->writer->write(['message' => 'this should not fail']);
         $this->writer->shutdown();
 
         $this->setExpectedException('Zend\Log\Exception\RuntimeException', 'Database adapter is null');
-        $this->writer->write(array('message' => 'this should fail'));
+        $this->writer->write(['message' => 'this should fail']);
     }
 
     public function testWriteDateTimeAsTimestamp()
     {
         $date = new DateTime();
-        $event = array('timestamp'=> $date);
+        $event = ['timestamp'=> $date];
         $this->writer->write($event);
 
         $this->assertContains('query', array_keys($this->db->calls));
         $this->assertEquals(1, count($this->db->calls['query']));
 
-        $this->assertEquals(array(array(
+        $this->assertEquals([[
             'timestamp' => $date->format(FormatterInterface::DEFAULT_DATETIME_FORMAT)
-        )), $this->db->calls['execute'][0]);
+        ]], $this->db->calls['execute'][0]);
     }
 
     public function testWriteDateTimeAsExtraValue()
     {
         $date = new DateTime();
-        $event = array(
-            'extra'=> array(
+        $event = [
+            'extra'=> [
                 'request_time' => $date
-            )
-        );
+            ]
+        ];
         $this->writer->write($event);
 
         $this->assertContains('query', array_keys($this->db->calls));
         $this->assertEquals(1, count($this->db->calls['query']));
 
-        $this->assertEquals(array(array(
+        $this->assertEquals([[
             'extra_request_time' => $date->format(FormatterInterface::DEFAULT_DATETIME_FORMAT)
-        )), $this->db->calls['execute'][0]);
+        ]], $this->db->calls['execute'][0]);
     }
 
     public function testConstructWithOptions()
     {
         $formatter = new \Zend\Log\Formatter\Simple();
         $filter    = new \Zend\Log\Filter\Mock();
-        $writer = new DbWriter(array(
+        $writer = new DbWriter([
             'filters'   => $filter,
             'formatter' => $formatter,
             'table'     => $this->tableName,
             'db'        => $this->db,
 
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Log\Writer\Db', $writer);
         $this->assertAttributeEquals($this->tableName, 'tableName', $writer);
 
@@ -256,38 +256,38 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testMapEventIntoColumnDoesNotTriggerArrayToStringConversion()
     {
-        $this->writer = new DbWriter($this->db, $this->tableName, array(
+        $this->writer = new DbWriter($this->db, $this->tableName, [
             'priority' => 'new-priority-field',
             'message'  => 'new-message-field',
-            'extra'    => array(
+            'extra'    => [
                 'file'  => 'new-file',
                 'line'  => 'new-line',
                 'trace' => 'new-trace',
-            )
-        ));
+            ]
+        ]);
 
         // log to the mock db adapter
         $priority = 2;
         $message  = 'message-to-log';
-        $extra    = array(
+        $extra    = [
             'file'  => 'test.php',
             'line'  => 1,
-            'trace' => array(
-                array(
+            'trace' => [
+                [
                     'function' => 'Bar',
                     'class'    => 'Foo',
                     'type'     => '->',
-                    'args'     => array(
+                    'args'     => [
                         'baz',
-                    ),
-                ),
-            ),
-        );
-        $this->writer->write(array(
+                    ],
+                ],
+            ],
+        ];
+        $this->writer->write([
             'priority' => $priority,
             'message'  => $message,
             'extra'    => $extra,
-        ));
+        ]);
 
         $this->assertContains('query', array_keys($this->db->calls));
         $this->assertEquals(1, count($this->db->calls['query']));
@@ -303,33 +303,33 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function testMapEventIntoColumnMustReturnScalarValues()
     {
-        $event = array(
+        $event = [
             'priority' => 2,
             'message'  => 'message-to-log',
-            'extra'    => array(
+            'extra'    => [
                 'file'  => 'test.php',
                 'line'  => 1,
-                'trace' => array(
-                    array(
+                'trace' => [
+                    [
                         'function' => 'Bar',
                         'class'    => 'Foo',
                         'type'     => '->',
-                        'args'     => array(
+                        'args'     => [
                             'baz',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $columnMap = array(
+        $columnMap = [
             'priority' => 'new-priority-field',
             'message'  => 'new-message-field' ,
-            'extra'    => array(
+            'extra'    => [
                 'file'  => 'new-file',
                 'line'  => 'new-line',
                 'trace' => 'new-trace',
-        ));
+        ]];
 
         $method = new ReflectionMethod($this->writer, 'mapEventIntoColumn');
         $method->setAccessible(true);
@@ -345,24 +345,24 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     public function testEventIntoColumnMustReturnScalarValues()
     {
-        $event = array(
+        $event = [
             'priority' => 2,
             'message'  => 'message-to-log',
-            'extra'    => array(
+            'extra'    => [
                 'file'  => 'test.php',
                 'line'  => 1,
-                'trace' => array(
-                    array(
+                'trace' => [
+                    [
                         'function' => 'Bar',
                         'class'    => 'Foo',
                         'type'     => '->',
-                        'args'     => array(
+                        'args'     => [
                             'baz',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $method = new ReflectionMethod($this->writer, 'eventIntoColumn');
         $method->setAccessible(true);

@@ -120,28 +120,28 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
         }
 
         $declaringClass = $this->getDeclaringClass();
-        $prototype = array(
+        $prototype = [
             'namespace'  => $declaringClass->getNamespaceName(),
             'class'      => substr($declaringClass->getName(), strlen($declaringClass->getNamespaceName()) + 1),
             'name'       => $this->getName(),
             'visibility' => ($this->isPublic() ? 'public' : ($this->isPrivate() ? 'private' : 'protected')),
             'return'     => $returnType,
-            'arguments'  => array(),
-        );
+            'arguments'  => [],
+        ];
 
         $parameters = $this->getParameters();
         foreach ($parameters as $parameter) {
-            $prototype['arguments'][$parameter->getName()] = array(
+            $prototype['arguments'][$parameter->getName()] = [
                 'type'     => $parameter->getType(),
                 'required' => !$parameter->isOptional(),
                 'by_ref'   => $parameter->isPassedByReference(),
                 'default'  => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
-            );
+            ];
         }
 
         if ($format == MethodReflection::PROTOTYPE_AS_STRING) {
             $line = $prototype['visibility'] . ' ' . $prototype['return'] . ' ' . $prototype['name'] . '(';
-            $args = array();
+            $args = [];
             foreach ($prototype['arguments'] as $name => $argument) {
                 $argsLine = ($argument['type'] ? $argument['type'] . ' ' : '') . ($argument['by_ref'] ? '&' : '') . '$' . $name;
                 if (!$argument['required']) {
@@ -166,10 +166,10 @@ class MethodReflection extends PhpReflectionMethod implements ReflectionInterfac
     public function getParameters()
     {
         $phpReflections  = parent::getParameters();
-        $zendReflections = array();
+        $zendReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new ParameterReflection(
-                array($this->getDeclaringClass()->getName(), $this->getName()),
+                [$this->getDeclaringClass()->getName(), $this->getName()],
                 $phpReflection->getName()
             );
             $zendReflections[] = $instance;

@@ -20,14 +20,14 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructionWithArray()
     {
-        $options = new TestOptions(array('test_field' => 1));
+        $options = new TestOptions(['test_field' => 1]);
 
         $this->assertEquals(1, $options->test_field);
     }
 
     public function testConstructionWithTraversable()
     {
-        $config = new ArrayObject(array('test_field' => 1));
+        $config = new ArrayObject(['test_field' => 1]);
         $options = new TestOptions($config);
 
         $this->assertEquals(1, $options->test_field);
@@ -35,7 +35,7 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructionWithOptions()
     {
-        $options = new TestOptions(new TestOptions(array('test_field' => 1)));
+        $options = new TestOptions(new TestOptions(['test_field' => 1]));
 
         $this->assertEquals(1, $options->test_field);
     }
@@ -44,14 +44,14 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('BadMethodCallException');
 
-        new TestOptions(array('foo' => 'bar'));
+        new TestOptions(['foo' => 'bar']);
     }
 
     public function testNonStrictOptionsDoesNotThrowException()
     {
         $this->assertInstanceOf(
             'ZendTest\Stdlib\TestAsset\TestOptionsNoStrict',
-            new TestOptionsNoStrict(array('foo' => 'bar'))
+            new TestOptionsNoStrict(['foo' => 'bar'])
         );
     }
 
@@ -62,7 +62,7 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testUnsetting()
     {
-        $options = new TestOptions(array('test_field' => 1));
+        $options = new TestOptions(['test_field' => 1]);
 
         $this->assertEquals(true, isset($options->test_field));
         unset($options->testField);
@@ -89,7 +89,7 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSetFromArrayAcceptsArray()
     {
-        $array = array('test_field' => 3);
+        $array = ['test_field' => 3];
         $options = new TestOptions();
 
         $this->assertSame($options, $options->setFromArray($array));
@@ -105,14 +105,14 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testParentPublicProperty()
     {
-        $options = new TestOptionsDerived(array('parent_public' => 1));
+        $options = new TestOptionsDerived(['parent_public' => 1]);
 
         $this->assertEquals(1, $options->parent_public);
     }
 
     public function testParentProtectedProperty()
     {
-        $options = new TestOptionsDerived(array('parent_protected' => 1));
+        $options = new TestOptionsDerived(['parent_protected' => 1]);
 
         $this->assertEquals(1, $options->parent_protected);
     }
@@ -125,19 +125,19 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
             . ' setter method which must be defined'
         );
 
-        new TestOptionsDerived(array('parent_private' => 1));
+        new TestOptionsDerived(['parent_private' => 1]);
     }
 
     public function testDerivedPublicProperty()
     {
-        $options = new TestOptionsDerived(array('derived_public' => 1));
+        $options = new TestOptionsDerived(['derived_public' => 1]);
 
         $this->assertEquals(1, $options->derived_public);
     }
 
     public function testDerivedProtectedProperty()
     {
-        $options = new TestOptionsDerived(array('derived_protected' => 1));
+        $options = new TestOptionsDerived(['derived_protected' => 1]);
 
         $this->assertEquals(1, $options->derived_protected);
     }
@@ -150,7 +150,7 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
             .' setter method which must be defined'
         );
 
-        new TestOptionsDerived(array('derived_private' => 1));
+        new TestOptionsDerived(['derived_private' => 1]);
     }
 
     public function testExceptionMessageContainsActualUsedSetter()
@@ -161,9 +161,9 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
             . ' setter method which must be defined'
         );
 
-        new TestOptions(array(
+        new TestOptions([
             'foo bar' => 'baz',
-        ));
+        ]);
     }
 
     /**
@@ -171,9 +171,9 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIssetReturnsFalseWhenMatchingGetterDoesNotExist()
     {
-        $options = new TestOptionsWithoutGetter(array(
+        $options = new TestOptionsWithoutGetter([
             'foo' => 'bar',
-        ));
+        ]);
         $this->assertFalse(isset($options->foo));
     }
 
@@ -196,9 +196,9 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIssetReturnsTrueWithValidDataWhenMatchingGetterDoesNotExist()
     {
-        $options = new TestOptions(array(
+        $options = new TestOptions([
             'test_field' => 1,
-        ));
+        ]);
         $this->assertTrue(isset($options->testField));
     }
 }

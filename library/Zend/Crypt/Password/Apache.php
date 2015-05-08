@@ -26,12 +26,12 @@ class Apache implements PasswordInterface
     /**
      * @var array
      */
-    protected $supportedFormat = array(
+    protected $supportedFormat = [
         'crypt',
         'sha1',
         'md5',
         'digest',
-    );
+    ];
 
     /**
      * @var string
@@ -54,7 +54,7 @@ class Apache implements PasswordInterface
      * @param  array|Traversable $options
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (empty($options)) {
             return;

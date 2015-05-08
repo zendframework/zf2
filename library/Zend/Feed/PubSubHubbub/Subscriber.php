@@ -23,7 +23,7 @@ class Subscriber
      *
      * @var array
      */
-    protected $hubUrls = array();
+    protected $hubUrls = [];
 
     /**
      * An array of optional parameters to be included in any
@@ -31,7 +31,7 @@ class Subscriber
      *
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * The URL of the topic (Rss or Atom feed) which is the subject of
@@ -76,7 +76,7 @@ class Subscriber
      *
      * @var array
      */
-    protected $errors = array();
+    protected $errors = [];
 
     /**
      * An array of Hub Server URLs for Hubs operating at this time in
@@ -84,7 +84,7 @@ class Subscriber
      *
      * @var array
      */
-    protected $asyncHubs = array();
+    protected $asyncHubs = [];
 
     /**
      * An instance of Zend\Feed\Pubsubhubbub\Model\SubscriptionPersistence used to background
@@ -101,7 +101,7 @@ class Subscriber
      *
      * @var array
      */
-    protected $authentications = array();
+    protected $authentications = [];
 
     /**
      * Tells the Subscriber to append any subscription identifier to the path
@@ -610,8 +610,8 @@ class Subscriber
             throw new Exception\RuntimeException('No Hub Server URLs'
                 . ' have been set so no subscriptions can be attempted');
         }
-        $this->errors = array();
-        $this->asyncHubs = array();
+        $this->errors = [];
+        $this->asyncHubs = [];
         foreach ($hubs as $url) {
             if (array_key_exists($url, $this->authentications)) {
                 $auth = $this->authentications[$url];
@@ -623,10 +623,10 @@ class Subscriber
             if ($response->getStatusCode() !== 204
                 && $response->getStatusCode() !== 202
             ) {
-                $this->errors[] = array(
+                $this->errors[] = [
                     'response' => $response,
                     'hubUrl'   => $url,
-                );
+                ];
             /**
              * At first I thought it was needed, but the backend storage will
              * allow tracking async without any user interference. It's left
@@ -635,10 +635,10 @@ class Subscriber
              * move these to asynchronous processes.
              */
             } elseif ($response->getStatusCode() == 202) {
-                $this->asyncHubs[] = array(
+                $this->asyncHubs[] = [
                     'response' => $response,
                     'hubUrl'   => $url,
-                );
+                ];
             }
         }
     }
@@ -652,8 +652,8 @@ class Subscriber
     {
         $client = PubSubHubbub::getHttpClient();
         $client->setMethod(HttpRequest::METHOD_POST);
-        $client->setOptions(array('useragent' => 'Zend_Feed_Pubsubhubbub_Subscriber/'
-            . Version::VERSION));
+        $client->setOptions(['useragent' => 'Zend_Feed_Pubsubhubbub_Subscriber/'
+            . Version::VERSION]);
         return $client;
     }
 
@@ -668,30 +668,30 @@ class Subscriber
      */
     protected function _getRequestParameters($hubUrl, $mode)
     {
-        if (!in_array($mode, array('subscribe', 'unsubscribe'))) {
+        if (!in_array($mode, ['subscribe', 'unsubscribe'])) {
             throw new Exception\InvalidArgumentException('Invalid mode specified: "'
                 . $mode . '" which should have been "subscribe" or "unsubscribe"');
         }
 
-        $params = array(
+        $params = [
             'hub.mode'  => $mode,
             'hub.topic' => $this->getTopicUrl(),
-        );
+        ];
 
         if ($this->getPreferredVerificationMode()
                 == PubSubHubbub::VERIFICATION_MODE_SYNC
         ) {
-            $vmodes = array(
+            $vmodes = [
                 PubSubHubbub::VERIFICATION_MODE_SYNC,
                 PubSubHubbub::VERIFICATION_MODE_ASYNC,
-            );
+            ];
         } else {
-            $vmodes = array(
+            $vmodes = [
                 PubSubHubbub::VERIFICATION_MODE_ASYNC,
                 PubSubHubbub::VERIFICATION_MODE_SYNC,
-            );
+            ];
         }
-        $params['hub.verify'] = array();
+        $params['hub.verify'] = [];
         foreach ($vmodes as $vmode) {
             $params['hub.verify'][] = $vmode;
         }
@@ -729,7 +729,7 @@ class Subscriber
             $expires = $now->add(new DateInterval('PT' . $params['hub.lease_seconds'] . 'S'))
                 ->format('Y-m-d H:i:s');
         }
-        $data = array(
+        $data = [
             'id'                 => $key,
             'topic_url'          => $params['hub.topic'],
             'hub_url'            => $hubUrl,
@@ -739,7 +739,7 @@ class Subscriber
             'secret'             => null,
             'expiration_time'    => $expires,
             'subscription_state' => ($mode == 'unsubscribe')? PubSubHubbub::SUBSCRIPTION_TODELETE : PubSubHubbub::SUBSCRIPTION_NOTVERIFIED,
-        );
+        ];
         $this->getStorage()->setSubscription($data);
 
         return $this->_toByteValueOrderedString(
@@ -786,11 +786,11 @@ class Subscriber
      */
     protected function _urlEncode(array $params)
     {
-        $encoded = array();
+        $encoded = [];
         foreach ($params as $key => $value) {
             if (is_array($value)) {
                 $ekey = PubSubHubbub::urlencode($key);
-                $encoded[$ekey] = array();
+                $encoded[$ekey] = [];
                 foreach ($value as $duplicateKey) {
                     $encoded[$ekey][]
                         = PubSubHubbub::urlencode($duplicateKey);
@@ -811,7 +811,7 @@ class Subscriber
      */
     protected function _toByteValueOrderedString(array $params)
     {
-        $return = array();
+        $return = [];
         uksort($params, 'strnatcmp');
         foreach ($params as $key => $value) {
             if (is_array($value)) {

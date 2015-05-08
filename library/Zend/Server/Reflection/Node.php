@@ -24,7 +24,7 @@ class Node
      * Array of child nodes (if any)
      * @var array
      */
-    protected $children = array();
+    protected $children = [];
 
     /**
      * Parent node (if any)
@@ -158,7 +158,7 @@ class Node
      */
     public function getEndPoints()
     {
-        $endPoints = array();
+        $endPoints = [];
         if (!$this->hasChildren()) {
             return $endPoints;
         }

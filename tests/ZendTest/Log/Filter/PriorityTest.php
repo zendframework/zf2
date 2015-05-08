@@ -21,9 +21,9 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
         // accept at or below priority 2
         $filter = new Priority(2);
 
-        $this->assertTrue($filter->filter(array('priority' => 2)));
-        $this->assertTrue($filter->filter(array('priority' => 1)));
-        $this->assertFalse($filter->filter(array('priority' => 3)));
+        $this->assertTrue($filter->filter(['priority' => 2]));
+        $this->assertTrue($filter->filter(['priority' => 1]));
+        $this->assertFalse($filter->filter(['priority' => 3]));
     }
 
     public function testComparisonOperatorCanBeChanged()
@@ -31,9 +31,9 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
         // accept above priority 2
         $filter = new Priority(2, '>');
 
-        $this->assertTrue($filter->filter(array('priority' => 3)));
-        $this->assertFalse($filter->filter(array('priority' => 2)));
-        $this->assertFalse($filter->filter(array('priority' => 1)));
+        $this->assertTrue($filter->filter(['priority' => 3]));
+        $this->assertFalse($filter->filter(['priority' => 2]));
+        $this->assertFalse($filter->filter(['priority' => 1]));
     }
 
     public function testConstructorThrowsOnInvalidPriority()
@@ -47,8 +47,8 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
         // accept at or below priority '2'
         $filter = new Priority('2');
 
-        $this->assertTrue($filter->filter(array('priority' => 2)));
-        $this->assertTrue($filter->filter(array('priority' => 1)));
-        $this->assertFalse($filter->filter(array('priority' => 3)));
+        $this->assertTrue($filter->filter(['priority' => 2]));
+        $this->assertTrue($filter->filter(['priority' => 1]));
+        $this->assertFalse($filter->filter(['priority' => 3]));
     }
 }

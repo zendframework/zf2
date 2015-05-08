@@ -51,12 +51,12 @@ class DefaultRendereringStrategyTest extends TestCase
     {
         $evm = new EventManager();
         $evm->attachAggregate($this->strategy);
-        $events = array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR);
+        $events = [MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR];
 
         foreach ($events as $event) {
             $listeners = $evm->getListeners($event);
 
-            $expectedCallback = array($this->strategy, 'render');
+            $expectedCallback = [$this->strategy, 'render'];
             $expectedPriority = -10000;
             $found            = false;
             foreach ($listeners as $listener) {
@@ -88,14 +88,14 @@ class DefaultRendereringStrategyTest extends TestCase
         $this->view->addRenderingStrategy(function ($e) use ($renderer) {
             return $renderer;
         }, 100);
-        $model = new ViewModel(array('foo' => 'bar'));
+        $model = new ViewModel(['foo' => 'bar']);
         $model->setOption('template', 'content');
         $this->event->setResult($model);
 
         $result = $this->strategy->render($this->event);
         $this->assertSame($this->response, $result);
 
-        $expected = sprintf('content (%s): %s', json_encode(array('template' => 'content')), json_encode(array('foo' => 'bar')));
+        $expected = sprintf('content (%s): %s', json_encode(['template' => 'content']), json_encode(['foo' => 'bar']));
     }
 
     public function testLayoutTemplateIsLayoutByDefault()
@@ -115,7 +115,7 @@ class DefaultRendereringStrategyTest extends TestCase
         $this->view->addRenderingStrategy(function ($e) use ($renderer) {
             return $renderer;
         }, 100);
-        $model = new ViewModel(array('foo' => 'bar'));
+        $model = new ViewModel(['foo' => 'bar']);
         $model->setOption('template', 'content');
         $this->event->setViewModel($model);
         $this->event->setResult($this->response);
@@ -148,10 +148,10 @@ class DefaultRendereringStrategyTest extends TestCase
             return $events;
         }, false);
 
-        $application = new Application(array(), $services);
+        $application = new Application([], $services);
         $this->event->setApplication($application);
 
-        $test = (object) array('flag' => false);
+        $test = (object) ['flag' => false];
         $application->getEventManager()->attach(MvcEvent::EVENT_RENDER_ERROR, function ($e) use ($test) {
             $test->flag      = true;
             $test->error     = $e->getError();

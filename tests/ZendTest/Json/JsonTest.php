@@ -34,13 +34,13 @@ class JsonTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('JSON extension is not loaded');
         }
         Json\Json::$useBuiltinEncoderDecoder = false;
-        $this->_testJSON(array('string', 327, true, null));
+        $this->_testJSON(['string', 327, true, null]);
     }
 
     public function testJSONWithBuiltins()
     {
         Json\Json::$useBuiltinEncoderDecoder = true;
-        $this->_testJSON(array('string', 327, true, null));
+        $this->_testJSON(['string', 327, true, null]);
     }
 
     /**
@@ -58,7 +58,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testNull()
     {
-        $this->_testEncodeDecode(array(null));
+        $this->_testEncodeDecode([null]);
     }
 
 
@@ -77,8 +77,8 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testInteger()
     {
-        $this->_testEncodeDecode(array(-2));
-        $this->_testEncodeDecode(array(-1));
+        $this->_testEncodeDecode([-2]);
+        $this->_testEncodeDecode([-1]);
 
         $zero = Json\Decoder::decode(Json\Encoder::encode(0));
         $this->assertEquals(0, $zero, 'Failed 0 integer test. Encoded: ' . serialize(Json\Encoder::encode(0)));
@@ -90,7 +90,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testFloat()
     {
-        $this->_testEncodeDecode(array(-2.1, 1.2));
+        $this->_testEncodeDecode([-2.1, 1.2]);
     }
 
     /**
@@ -98,7 +98,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testString()
     {
-        $this->_testEncodeDecode(array('string'));
+        $this->_testEncodeDecode(['string']);
         $this->assertEquals('', Json\Decoder::decode(Json\Encoder::encode('')), 'Empty string encoded: ' . serialize(Json\Encoder::encode('')));
     }
 
@@ -190,7 +190,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testArray()
     {
-        $array = array(1, 'one', 2, 'two');
+        $array = [1, 'one', 2, 'two'];
         $encoded = Json\Encoder::encode($array);
         $this->assertSame($array, Json\Decoder::decode($encoded), 'Decoded array does not match: ' . serialize($encoded));
     }
@@ -200,7 +200,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testAssocArray()
     {
-        $this->_testEncodeDecode(array(array('one' => 1, 'two' => 2)));
+        $this->_testEncodeDecode([['one' => 1, 'two' => 2]]);
     }
 
     /**
@@ -208,7 +208,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testAssocArray2()
     {
-        $this->_testEncodeDecode(array(array('one' => 1, 2 => 2)));
+        $this->_testEncodeDecode([['one' => 1, 2 => 2]]);
     }
 
     /**
@@ -216,7 +216,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testAssocArray3()
     {
-        $this->_testEncodeDecode(array(array(1 => 'one', 2 => 'two')));
+        $this->_testEncodeDecode([[1 => 'one', 2 => 'two']]);
     }
 
     /**
@@ -228,7 +228,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         $value->one = 1;
         $value->two = 2;
 
-        $array = array('__className' => 'stdClass', 'one' => 1, 'two' => 2);
+        $array = ['__className' => 'stdClass', 'one' => 1, 'two' => 2];
 
         $encoded = Json\Encoder::encode($value);
         $this->assertSame($array, Json\Decoder::decode($encoded, Json\Json::TYPE_ARRAY));
@@ -256,7 +256,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     public function testDecodeArrayOfObjects()
     {
         $value = '[{"id":1},{"foo":2}]';
-        $expect = array(array('id' => 1), array('foo' => 2));
+        $expect = [['id' => 1], ['foo' => 2]];
         $this->assertEquals($expect, Json\Decoder::decode($value, Json\Json::TYPE_ARRAY));
     }
 
@@ -266,15 +266,15 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     public function testDecodeObjectOfArrays()
     {
         $value = '{"codeDbVar" : {"age" : ["int", 5], "prenom" : ["varchar", 50]}, "234" : [22, "jb"], "346" : [64, "francois"], "21" : [12, "paul"]}';
-        $expect = array(
-            'codeDbVar' => array(
-                'age'   => array('int', 5),
-                'prenom' => array('varchar', 50),
-            ),
-            234 => array(22, 'jb'),
-            346 => array(64, 'francois'),
-            21  => array(12, 'paul')
-        );
+        $expect = [
+            'codeDbVar' => [
+                'age'   => ['int', 5],
+                'prenom' => ['varchar', 50],
+            ],
+            234 => [22, 'jb'],
+            346 => [64, 'francois'],
+            21  => [12, 'paul']
+        ];
         $this->assertEquals($expect, Json\Decoder::decode($value, Json\Json::TYPE_ARRAY));
     }
 
@@ -301,7 +301,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
             return $value;
         }
 
-        $array = array();
+        $array = [];
         foreach ((array) $value as $k => $v) {
             $array[$k] = $this->_toArray($v);
         }
@@ -316,7 +316,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     {
         $value = '4.10';
 
-        $this->_testEncodeDecode(array($value));
+        $this->_testEncodeDecode([$value]);
     }
 
     /**
@@ -325,7 +325,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testEarlyLineBreak()
     {
-        $expected = array('data' => array(1, 2, 3, 4));
+        $expected = ['data' => [1, 2, 3, 4]];
 
         $json = '{"data":[1,2,3,4' . "\n]}";
         $this->assertEquals($expected, Json\Decoder::decode($json, Json\Json::TYPE_ARRAY));
@@ -339,7 +339,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncodeEmptyArrayAsStruct()
     {
-        $this->assertSame('[]', Json\Encoder::encode(array()));
+        $this->assertSame('[]', Json\Encoder::encode([]));
     }
 
     /**
@@ -378,8 +378,8 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     {
         $item1 = new Item();
         $item2 = new Item();
-        $everything = array();
-        $everything['allItems'] = array($item1, $item2);
+        $everything = [];
+        $everything['allItems'] = [$item1, $item2];
         $everything['currentItem'] = $item1;
 
         // should not fail
@@ -400,11 +400,11 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     {
         $item1 = new Item();
         $item2 = new Item();
-        $everything = array();
-        $everything['allItems'] = array($item1, $item2);
+        $everything = [];
+        $everything['allItems'] = [$item1, $item2];
         $everything['currentItem'] = $item1;
 
-        $options = array('silenceCyclicalExceptions'=>true);
+        $options = ['silenceCyclicalExceptions'=>true];
 
         Json\Json::$useBuiltinEncoderDecoder = true;
         $encoded = Json\Json::encode($everything, true, $options);
@@ -443,7 +443,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
 
     public function testEncodeClasses()
     {
-        $encoded = Json\Encoder::encodeClasses(array('ZendTest\Json\Object', 'Zend\Json\Json'));
+        $encoded = Json\Encoder::encodeClasses(['ZendTest\Json\Object', 'Zend\Json\Json']);
 
         $this->assertContains("Class.create('ZendTest\\Json\\Object'", $encoded);
         $this->assertContains("Class.create('Zend\\Json\\Json'", $encoded);
@@ -488,8 +488,8 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     public function testEncodingArrayWithExpr()
     {
         $expr = new Json\Expr('window.alert("Zend JSON Expr")');
-        $array = array('expr'=>$expr, 'int'=>9, 'string'=>'text');
-        $result = Json\Json::encode($array, false, array('enableJsonExprFinder' => true));
+        $array = ['expr'=>$expr, 'int'=>9, 'string'=>'text'];
+        $result = Json\Json::encode($array, false, ['enableJsonExprFinder' => true]);
         $expected = '{"expr":window.alert("Zend JSON Expr"),"int":9,"string":"text"}';
         $this->assertEquals($expected, $result);
     }
@@ -508,7 +508,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         $obj->expr = $expr;
         $obj->int = 9;
         $obj->string = 'text';
-        $result = Json\Json::encode($obj, false, array('enableJsonExprFinder' => true));
+        $result = Json\Json::encode($obj, false, ['enableJsonExprFinder' => true]);
         $expected = '{"__className":"stdClass","expr":window.alert("Zend JSON Expr"),"int":9,"string":"text"}';
         $this->assertEquals($expected, $result);
     }
@@ -531,7 +531,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         $obj->expr = $expr;
         $obj->int = 9;
         $obj->string = 'text';
-        $result = Json\Json::encode($obj, false, array('enableJsonExprFinder' => true));
+        $result = Json\Json::encode($obj, false, ['enableJsonExprFinder' => true]);
         $expected = '{"expr":window.alert("Zend JSON Expr"),"int":9,"string":"text"}';
         $this->assertEquals($expected, $result);
     }
@@ -546,7 +546,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         Json\Json::$useBuiltinEncoderDecoder = true;
 
         $obj = new ToJSONWithExpr();
-        $result = Json\Json::encode($obj, false, array('enableJsonExprFinder' => true));
+        $result = Json\Json::encode($obj, false, ['enableJsonExprFinder' => true]);
         $expected = '{"expr":window.alert("Zend JSON Expr"),"int":9,"string":"text"}';
         $this->assertEquals($expected, $result);
     }
@@ -558,21 +558,21 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncodingMultipleNestedSwitchingSameNameKeysWithDifferentJSONExprSettings()
     {
-        $data = array(
-            0 => array(
+        $data = [
+            0 => [
                 "alpha" => new Json\Expr("function () {}"),
                 "beta"  => "gamma",
-            ),
-            1 => array(
+            ],
+            1 => [
                 "alpha" => "gamma",
                 "beta"  => new Json\Expr("function () {}"),
-            ),
-            2 => array(
+            ],
+            2 => [
                 "alpha" => "gamma",
                 "beta" => "gamma",
-            )
-        );
-        $result = Json\Json::encode($data, false, array('enableJsonExprFinder' => true));
+            ]
+        ];
+        $result = Json\Json::encode($data, false, ['enableJsonExprFinder' => true]);
 
         $this->assertEquals(
             '[{"alpha":function () {},"beta":"gamma"},{"alpha":"gamma","beta":function () {}},{"alpha":"gamma","beta":"gamma"}]',
@@ -587,24 +587,24 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncodingMultipleNestedIteratedSameNameKeysWithDifferentJSONExprSettings()
     {
-        $data = array(
-            0 => array(
+        $data = [
+            0 => [
                 "alpha" => "alpha"
-            ),
-            1 => array(
+            ],
+            1 => [
                 "alpha" => "beta",
-            ),
-            2 => array(
+            ],
+            2 => [
                 "alpha" => new Json\Expr("gamma"),
-            ),
-            3 => array(
+            ],
+            3 => [
                 "alpha" => "delta",
-            ),
-            4 => array(
+            ],
+            4 => [
                 "alpha" => new Json\Expr("epsilon"),
-            )
-        );
-        $result = Json\Json::encode($data, false, array('enableJsonExprFinder' => true));
+            ]
+        ];
+        $result = Json\Json::encode($data, false, ['enableJsonExprFinder' => true]);
 
         $this->assertEquals('[{"alpha":"alpha"},{"alpha":"beta"},{"alpha":gamma},{"alpha":"delta"},{"alpha":epsilon}]', $result);
     }
@@ -613,12 +613,12 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     {
         Json\Json::$useBuiltinEncoderDecoder = true;
 
-        $data = array(
-            0 => array(
+        $data = [
+            0 => [
                 "alpha" => new Json\Expr("function () {}"),
                 "beta"  => "gamma",
-            ),
-        );
+            ],
+        ];
         $result = Json\Json::encode($data);
 
         $this->assertEquals(
@@ -632,7 +632,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncodeWithUtf8IsTransformedToPackedSyntax()
     {
-        $data = array("Отмена");
+        $data = ["Отмена"];
         $result = Json\Encoder::encode($data);
 
         $this->assertEquals('["\u041e\u0442\u043c\u0435\u043d\u0430"]', $result);
@@ -719,14 +719,14 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testUtf8JSONExprFinder()
     {
-        $data = array("Отмена" => new Json\Expr("foo"));
+        $data = ["Отмена" => new Json\Expr("foo")];
 
         Json\Json::$useBuiltinEncoderDecoder = true;
-        $result = Json\Json::encode($data, false, array('enableJsonExprFinder' => true));
+        $result = Json\Json::encode($data, false, ['enableJsonExprFinder' => true]);
         $this->assertEquals('{"\u041e\u0442\u043c\u0435\u043d\u0430":foo}', $result);
         Json\Json::$useBuiltinEncoderDecoder = false;
 
-        $result = Json\Json::encode($data, false, array('enableJsonExprFinder' => true));
+        $result = Json\Json::encode($data, false, ['enableJsonExprFinder' => true]);
         $this->assertEquals('{"\u041e\u0442\u043c\u0435\u043d\u0430":foo}', $result);
     }
 
@@ -741,16 +741,16 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         }
         Json\Json::$useBuiltinEncoderDecoder = true;
 
-        $actual = Json\Encoder::encode(array(floatval(1.20), floatval(1.68)));
+        $actual = Json\Encoder::encode([floatval(1.20), floatval(1.68)]);
         $this->assertEquals('[1.2,1.68]', $actual);
     }
 
     public function testEncodeObjectImplementingIterator()
     {
-        $iterator = new \ArrayIterator(array(
+        $iterator = new \ArrayIterator([
             'foo' => 'bar',
             'baz' => 5
-        ));
+        ]);
         $target = '{"__className":"ArrayIterator","foo":"bar","baz":5}';
 
         Json\Json::$useBuiltinEncoderDecoder = true;
@@ -831,7 +831,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testIteratorWithoutDefinedKey()
     {
-        $inputValue = new \ArrayIterator(array('foo'));
+        $inputValue = new \ArrayIterator(['foo']);
         $encoded = Json\Encoder::encode($inputValue);
         $expectedDecoding = '{"__className":"ArrayIterator",0:"foo"}';
         $this->assertEquals($expectedDecoding, $encoded);
@@ -858,19 +858,19 @@ class JsonTest extends \PHPUnit_Framework_TestCase
 
         // The escaped double-quote in item 'stringwithjsonchars' ensures that
         // escaped double-quotes don't throw off prettyPrint's string literal detection
-        $test = array(
+        $test = [
             'simple'=>'simple test string',
             'stringwithjsonchars'=>'\"[1,2]',
-            'complex'=>array(
+            'complex'=>[
                 'foo'=>'bar',
                 'far'=>'boo',
-                'faz'=>array(
+                'faz'=>[
                     'obj'=>$o
-                ),
-                'fay'=>array('foo', 'bar')
-            )
-        );
-        $pretty = Json\Json::prettyPrint(Json\Json::encode($test), array("indent"  => " "));
+                ],
+                'fay'=>['foo', 'bar']
+            ]
+        ];
+        $pretty = Json\Json::prettyPrint(Json\Json::encode($test), ["indent"  => " "]);
         $expected = <<<EOB
 {
  "simple": "simple test string",
@@ -898,12 +898,12 @@ EOB;
     {
         $this->assertEquals(
             "[\n    1,\n    \"\\\\\",\n    3\n]",
-            Json\Json::prettyPrint(Json\Json::encode(array(1, '\\', 3)))
+            Json\Json::prettyPrint(Json\Json::encode([1, '\\', 3]))
         );
 
         $this->assertEquals(
             "{\n    \"a\": \"\\\\\"\n}",
-           Json\Json::prettyPrint(Json\Json::encode(array('a' => '\\')))
+           Json\Json::prettyPrint(Json\Json::encode(['a' => '\\']))
         );
     }
 
@@ -928,7 +928,7 @@ EOB;
 
         $this->assertSame(
             $expected,
-            Json\Json::prettyPrint($expected, array("indent"  => " "))
+            Json\Json::prettyPrint($expected, ["indent"  => " "])
         );
     }
 
@@ -940,18 +940,18 @@ EOB;
 
         // The escaped double-quote in item 'stringwithjsonchars' ensures that
         // escaped double-quotes don't throw off prettyPrint's string literal detection
-        $test = array(
+        $test = [
             'simple'=>'simple test string',
             'stringwithjsonchars'=>'\"[1,2]',
-            'complex'=>array(
+            'complex'=>[
                 'foo'=>'bar',
                 'far'=>'boo',
-                'faz'=>array(
+                'faz'=>[
                     'obj'=>$o
-                )
-            )
-        );
-        $pretty = Json\Json::encode($test, false, array("prettyPrint" => true));
+                ]
+            ]
+        ];
+        $pretty = Json\Json::encode($test, false, ["prettyPrint" => true]);
 
         $expected = <<<EOB
 {
@@ -1000,7 +1000,7 @@ EOB;
      */
     public function testWillEncodeArrayOfObjectsEachWithToJsonMethod()
     {
-        $array = array('one'=>new ToJsonClass());
+        $array = ['one'=>new ToJsonClass()];
         $expected = '{"one":{"__className":"ZendTest\\\\Json\\\\ToJSONClass","firstName":"John","lastName":"Doe","email":"john@doe.com"}}';
 
         Json\Json::$useBuiltinEncoderDecoder = true;
@@ -1064,11 +1064,11 @@ class ToJSONClass
 
     public function toJSON()
     {
-        $data = array(
+        $data = [
             'firstName' => $this->_firstName,
             'lastName'  => $this->_lastName,
             'email'     => $this->_email
-        );
+        ];
 
         return Json\Json::encode($data);
     }
@@ -1088,11 +1088,11 @@ class ZF11167_ToArrayClass
 
     public function toArray()
     {
-        $data = array(
+        $data = [
             'firstName' => $this->_firstName,
             'lastName'  => $this->_lastName,
             'email'     => $this->_email
-        );
+        ];
         return $data;
     }
 }
@@ -1120,12 +1120,12 @@ class ToJSONWithExpr
 
     public function toJSON()
     {
-        $data = array(
+        $data = [
             'expr'   => new Json\Expr($this->_expr),
             'int'    => $this->_int,
             'string' => $this->_string
-        );
+        ];
 
-        return Json\Json::encode($data, false, array('enableJsonExprFinder' => true));
+        return Json\Json::encode($data, false, ['enableJsonExprFinder' => true]);
     }
 }

@@ -27,12 +27,12 @@ class Socket implements HttpAdapter, StreamInterface
      *
      * @var array
      */
-    protected static $sslCryptoTypes = array(
+    protected static $sslCryptoTypes = [
         'ssl'   => STREAM_CRYPTO_METHOD_SSLv23_CLIENT,
         'sslv2' => STREAM_CRYPTO_METHOD_SSLv2_CLIENT,
         'sslv3' => STREAM_CRYPTO_METHOD_SSLv3_CLIENT,
         'tls'   => STREAM_CRYPTO_METHOD_TLS_CLIENT,
-    );
+    ];
 
     /**
      * The socket for server connection
@@ -46,7 +46,7 @@ class Socket implements HttpAdapter, StreamInterface
      *
      * @var array
      */
-    protected $connectedTo = array(null, null);
+    protected $connectedTo = [null, null];
 
     /**
      * Stream for storing output
@@ -60,7 +60,7 @@ class Socket implements HttpAdapter, StreamInterface
      *
      * @var array
      */
-    protected $config = array(
+    protected $config = [
         'persistent'            => false,
         'ssltransport'          => 'ssl',
         'sslcert'               => null,
@@ -70,7 +70,7 @@ class Socket implements HttpAdapter, StreamInterface
         'sslcapath'             => null,
         'sslallowselfsigned'    => false,
         'sslusecontext'         => false,
-    );
+    ];
 
     /**
      * Request method - will be set by write() and might be used by read()
@@ -100,7 +100,7 @@ class Socket implements HttpAdapter, StreamInterface
      * @param  array|Traversable $options
      * @throws AdapterException\InvalidArgumentException
      */
-    public function setOptions($options = array())
+    public function setOptions($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -318,7 +318,7 @@ class Socket implements HttpAdapter, StreamInterface
             }
 
             // Update connectedTo
-            $this->connectedTo = array($host, $port);
+            $this->connectedTo = [$host, $port];
         }
     }
 
@@ -334,7 +334,7 @@ class Socket implements HttpAdapter, StreamInterface
      * @throws AdapterException\RuntimeException
      * @return string Request as string
      */
-    public function write($method, $uri, $httpVer = '1.1', $headers = array(), $body = '')
+    public function write($method, $uri, $httpVer = '1.1', $headers = [], $body = '')
     {
         // Make sure we're properly connected
         if (! $this->socket) {
@@ -581,7 +581,7 @@ class Socket implements HttpAdapter, StreamInterface
             ErrorHandler::stop();
         }
         $this->socket = null;
-        $this->connectedTo = array(null, null);
+        $this->connectedTo = [null, null];
     }
 
     /**

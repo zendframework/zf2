@@ -339,8 +339,8 @@ class Factory
                 continue;
             }
 
-            $flags = isset($elementSpecification['flags']) ? $elementSpecification['flags'] : array();
-            $spec  = isset($elementSpecification['spec'])  ? $elementSpecification['spec']  : array();
+            $flags = isset($elementSpecification['flags']) ? $elementSpecification['flags'] : [];
+            $spec  = isset($elementSpecification['spec'])  ? $elementSpecification['spec']  : [];
 
             if (!isset($spec['type'])) {
                 $spec['type'] = 'Zend\Form\Element';
@@ -364,8 +364,8 @@ class Factory
         $fieldsets = $this->validateSpecification($fieldsets, $method);
 
         foreach ($fieldsets as $fieldsetSpecification) {
-            $flags = isset($fieldsetSpecification['flags']) ? $fieldsetSpecification['flags'] : array();
-            $spec  = isset($fieldsetSpecification['spec'])  ? $fieldsetSpecification['spec']  : array();
+            $flags = isset($fieldsetSpecification['flags']) ? $fieldsetSpecification['flags'] : [];
+            $spec  = isset($fieldsetSpecification['spec'])  ? $fieldsetSpecification['spec']  : [];
 
             $fieldset = $this->createFieldset($spec);
             $masterFieldset->add($fieldset, $flags);
@@ -432,10 +432,10 @@ class Factory
                     $method
                 ));
             }
-            $hydratorOptions = (isset($hydratorOrName['options'])) ? $hydratorOrName['options'] : array();
+            $hydratorOptions = (isset($hydratorOrName['options'])) ? $hydratorOrName['options'] : [];
             $hydratorOrName = $hydratorOrName['type'];
         } else {
-            $hydratorOptions = array();
+            $hydratorOptions = [];
         }
 
         if (is_string($hydratorOrName)) {

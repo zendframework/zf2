@@ -26,9 +26,9 @@ class RelativeFallbackResolverTest extends TestCase
 {
     public function testReturnsResourceFromTheSameNameSpaceWithMapResolver()
     {
-        $tplMapResolver = new TemplateMapResolver(array(
+        $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
-        ));
+        ]);
         $resolver = new RelativeFallbackResolver($tplMapResolver);
         $renderer = new PhpRenderer();
         $view = new ViewModel();
@@ -59,10 +59,10 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testReturnsResourceFromTopLevelIfExistsInsteadOfTheSameNameSpace()
     {
-        $tplMapResolver = new TemplateMapResolver(array(
+        $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
             'bar' => 'baz',
-        ));
+        ]);
         $resolver = new AggregateResolver();
         $resolver->attach($tplMapResolver);
         $resolver->attach(new RelativeFallbackResolver($tplMapResolver));
@@ -98,7 +98,7 @@ class RelativeFallbackResolverTest extends TestCase
         /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
         $renderer     = $this->getMock(
             'Zend\View\Renderer\RendererInterface',
-            array('getEngine', 'setResolver', 'plugin', 'render')
+            ['getEngine', 'setResolver', 'plugin', 'render']
         );
 
         $baseResolver->expects($this->never())->method('resolve');
@@ -116,7 +116,7 @@ class RelativeFallbackResolverTest extends TestCase
         /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
         $renderer     = $this->getMock(
             'Zend\View\Renderer\RendererInterface',
-            array('getEngine', 'setResolver', 'plugin', 'render')
+            ['getEngine', 'setResolver', 'plugin', 'render']
         );
 
         $baseResolver->expects($this->never())->method('resolve');

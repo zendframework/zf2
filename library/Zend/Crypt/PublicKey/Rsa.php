@@ -325,7 +325,7 @@ class Rsa
      * @return Rsa
      * @throws Rsa\Exception\RuntimeException
      */
-    public function generateKeys(array $opensslConfig = array())
+    public function generateKeys(array $opensslConfig = [])
     {
         $this->options->generateKeys($opensslConfig);
         return $this;

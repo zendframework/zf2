@@ -19,7 +19,7 @@ abstract class AbstractFilter implements FilterInterface
      *
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * @return bool

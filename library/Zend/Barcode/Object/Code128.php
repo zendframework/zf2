@@ -24,9 +24,9 @@ class Code128 extends AbstractObject
     /**
      * @var array
      */
-    protected $convertedText = array();
+    protected $convertedText = [];
 
-    protected $codingMap = array(
+    protected $codingMap = [
                  0 => "11011001100",   1 => "11001101100",   2 => "11001100110",
                  3 => "10010011000",   4 => "10010001100",   5 => "10001001100",
                  6 => "10011001000",   7 => "10011000100",   8 => "10001100100",
@@ -63,14 +63,14 @@ class Code128 extends AbstractObject
                 99 => "10111011110", 100 => "10111101110", 101 => "11101011110",
                102 => "11110101110",
                103 => "11010000100", 104 => "11010010000", 105 => "11010011100",
-               106 => "1100011101011");
+               106 => "1100011101011"];
 
     /**
     * Character sets ABC
     * @var array
     */
-    protected $charSets = array(
-        'A' => array(
+    protected $charSets = [
+        'A' => [
             ' ', '!', '"', '#', '$', '%', '&', "'",
             '(', ')', '*', '+', ',', '-', '.', '/',
             '0', '1', '2', '3', '4', '5', '6', '7',
@@ -84,8 +84,8 @@ class Code128 extends AbstractObject
             0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
             0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F,
             'FNC3', 'FNC2', 'SHIFT', 'Code C', 'Code B', 'FNC4', 'FNC1',
-            'START A', 'START B', 'START C', 'STOP'),
-        'B' => array(
+            'START A', 'START B', 'START C', 'STOP'],
+        'B' => [
             ' ', '!', '"', '#', '$', '%', '&', "'",
             '(', ')', '*', '+', ',', '-', '.', '/',
             '0', '1', '2', '3', '4', '5', '6', '7',
@@ -99,8 +99,8 @@ class Code128 extends AbstractObject
             'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
             'x', 'y', 'z', '{', '|', '}', '~', 0x7F,
             'FNC3', 'FNC2', 'SHIFT', 'Code C', 'FNC4', 'Code A', 'FNC1',
-            'START A', 'START B', 'START C', 'STOP',),
-        'C' => array(
+            'START A', 'START B', 'START C', 'STOP',],
+        'C' => [
             '00', '01', '02', '03', '04', '05', '06', '07', '08', '09',
             '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
             '20', '21', '22', '23', '24', '25', '26', '27', '28', '29',
@@ -111,7 +111,7 @@ class Code128 extends AbstractObject
             '70', '71', '72', '73', '74', '75', '76', '77', '78', '79',
             '80', '81', '82', '83', '84', '85', '86', '87', '88', '89',
             '90', '91', '92', '93', '94', '95', '96', '97', '98', '99',
-            'Code B', 'Code A', 'FNC1', 'START A', 'START B', 'START C', 'STOP'));
+            'Code B', 'Code A', 'FNC1', 'START A', 'START B', 'START C', 'STOP']];
 
     /**
      * Width of the barcode (in pixels)
@@ -147,7 +147,7 @@ class Code128 extends AbstractObject
      */
     protected function prepareBarcode()
     {
-        $barcodeTable = array();
+        $barcodeTable = [];
 
         $convertedChars = $this->convertToBarcodeChars($this->getText());
 
@@ -161,7 +161,7 @@ class Code128 extends AbstractObject
         foreach ($convertedChars as $barcodeChar) {
             $barcodePattern = $this->codingMap[$barcodeChar];
             foreach (str_split($barcodePattern) as $c) {
-                $barcodeTable[] = array($c, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [$c, $this->barThinWidth, 0, 1];
             }
         }
         return $barcodeTable;
@@ -198,7 +198,7 @@ class Code128 extends AbstractObject
     {
         $string = (string) $string;
         if (!strlen($string)) {
-            return array();
+            return [];
         }
 
         if (isset($this->convertedText[md5($string)])) {
@@ -206,7 +206,7 @@ class Code128 extends AbstractObject
         }
 
         $currentCharset = null;
-        $result = array();
+        $result = [];
 
         $strlen = strlen($string);
         for ($pos = 0; $pos < $strlen; $pos++) {

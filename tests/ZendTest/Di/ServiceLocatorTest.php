@@ -86,7 +86,7 @@ class ServiceLocatorTest extends TestCase
             return $object;
         });
 
-        $params = array('foo', 'bar');
+        $params = ['foo', 'bar'];
         $test = $this->services->get('foo', $params);
         $this->assertEquals($params, $test->params);
     }
@@ -101,7 +101,7 @@ class ServiceLocatorTest extends TestCase
     public function testProxiedMethodsReceiveParametersPassedToGet()
     {
         $sc = new TestAsset\ContainerExtension();
-        $params = array('foo' => 'FOO');
+        $params = ['foo' => 'FOO'];
         $test = $sc->get('params', $params);
         $this->assertEquals($params, $test);
         $this->assertEquals($params, $sc->params);

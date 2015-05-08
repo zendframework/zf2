@@ -40,7 +40,7 @@ class HtmlEntities extends AbstractFilter
      *
      * @param array|Traversable $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);

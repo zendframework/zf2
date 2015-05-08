@@ -17,7 +17,7 @@ class GlobalAdapterFeature extends AbstractFeature
     /**
      * @var Adapter[]
      */
-    protected static $staticAdapters = array();
+    protected static $staticAdapters = [];
 
     /**
      * Set static adapter

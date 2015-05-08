@@ -25,7 +25,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->connection = new Connection(array());
+        $this->connection = new Connection([]);
     }
 
     /**
@@ -41,7 +41,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDriver()
     {
-        $this->assertEquals($this->connection, $this->connection->setDriver(new IbmDb2(array())));
+        $this->assertEquals($this->connection, $this->connection->setDriver(new IbmDb2([])));
     }
 
     /**
@@ -49,7 +49,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetConnectionParameters()
     {
-        $this->assertEquals($this->connection, $this->connection->setConnectionParameters(array()));
+        $this->assertEquals($this->connection, $this->connection->setConnectionParameters([]));
     }
 
     /**
@@ -57,7 +57,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConnectionParameters()
     {
-        $this->connection->setConnectionParameters(array('foo' => 'bar'));
-        $this->assertEquals(array('foo' => 'bar'), $this->connection->getConnectionParameters());
+        $this->connection->setConnectionParameters(['foo' => 'bar']);
+        $this->assertEquals(['foo' => 'bar'], $this->connection->getConnectionParameters());
     }
 }

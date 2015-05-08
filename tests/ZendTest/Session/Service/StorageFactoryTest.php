@@ -24,48 +24,48 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function sessionStorageConfig()
     {
-        return array(
-            'array-storage-short' => array(array(
-                'session_storage' => array(
+        return [
+            'array-storage-short' => [[
+                'session_storage' => [
                     'type' => 'ArrayStorage',
-                    'options' => array(
-                        'input' => array(
+                    'options' => [
+                        'input' => [
                             'foo' => 'bar',
-                        ),
-                    ),
-                ),
-            ), 'Zend\Session\Storage\ArrayStorage'),
-            'array-storage-fqcn' => array(array(
-                'session_storage' => array(
+                        ],
+                    ],
+                ],
+            ], 'Zend\Session\Storage\ArrayStorage'],
+            'array-storage-fqcn' => [[
+                'session_storage' => [
                     'type' => 'Zend\Session\Storage\ArrayStorage',
-                    'options' => array(
-                        'input' => array(
+                    'options' => [
+                        'input' => [
                             'foo' => 'bar',
-                        ),
-                    ),
-                ),
-            ), 'Zend\Session\Storage\ArrayStorage'),
-            'session-array-storage-short' => array(array(
-                'session_storage' => array(
+                        ],
+                    ],
+                ],
+            ], 'Zend\Session\Storage\ArrayStorage'],
+            'session-array-storage-short' => [[
+                'session_storage' => [
                     'type' => 'SessionArrayStorage',
-                    'options' => array(
-                        'input' => array(
+                    'options' => [
+                        'input' => [
                             'foo' => 'bar',
-                        ),
-                    ),
-                ),
-            ), 'Zend\Session\Storage\SessionArrayStorage'),
-            'session-array-storage-fqcn' => array(array(
-                'session_storage' => array(
+                        ],
+                    ],
+                ],
+            ], 'Zend\Session\Storage\SessionArrayStorage'],
+            'session-array-storage-fqcn' => [[
+                'session_storage' => [
                     'type' => 'Zend\Session\Storage\SessionArrayStorage',
-                    'options' => array(
-                        'input' => array(
+                    'options' => [
+                        'input' => [
                             'foo' => 'bar',
-                        ),
-                    ),
-                ),
-            ), 'Zend\Session\Storage\SessionArrayStorage'),
-        );
+                        ],
+                    ],
+                ],
+            ], 'Zend\Session\Storage\SessionArrayStorage'],
+        ];
     }
 
     /**
@@ -82,34 +82,34 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function invalidSessionStorageConfig()
     {
-        return array(
-            'unknown-class-short' => array(array(
-                'session_storage' => array(
+        return [
+            'unknown-class-short' => [[
+                'session_storage' => [
                     'type' => 'FooStorage',
-                    'options' => array(),
-                ),
-            )),
-            'unknown-class-fqcn' => array(array(
-                'session_storage' => array(
+                    'options' => [],
+                ],
+            ]],
+            'unknown-class-fqcn' => [[
+                'session_storage' => [
                     'type' => 'Foo\Bar\Baz\Bat',
-                    'options' => array(),
-                ),
-            )),
-            'bad-class' => array(array(
-                'session_storage' => array(
+                    'options' => [],
+                ],
+            ]],
+            'bad-class' => [[
+                'session_storage' => [
                     'type' => 'Zend\Session\Config\StandardConfig',
-                    'options' => array(),
-                ),
-            )),
-            'good-class-invalid-options' => array(array(
-                'session_storage' => array(
+                    'options' => [],
+                ],
+            ]],
+            'good-class-invalid-options' => [[
+                'session_storage' => [
                     'type' => 'ArrayStorage',
-                    'options' => array(
+                    'options' => [
                         'input' => 'this is invalid',
-                    ),
-                ),
-            )),
-        );
+                    ],
+                ],
+            ]],
+        ];
     }
 
     /**

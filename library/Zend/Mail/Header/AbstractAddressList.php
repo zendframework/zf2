@@ -80,7 +80,7 @@ abstract class AbstractAddressList implements HeaderInterface
 
     public function getFieldValue($format = HeaderInterface::FORMAT_RAW)
     {
-        $emails   = array();
+        $emails   = [];
         $encoding = $this->getEncoding();
 
         foreach ($this->getAddressList() as $address) {

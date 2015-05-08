@@ -47,7 +47,7 @@ class Regex implements RouteInterface
      *
      * @var array
      */
-    protected $assembledParams = array();
+    protected $assembledParams = [];
 
     /**
      * Create a new regex route.
@@ -56,7 +56,7 @@ class Regex implements RouteInterface
      * @param  string $spec
      * @param  array  $defaults
      */
-    public function __construct($regex, $spec, array $defaults = array())
+    public function __construct($regex, $spec, array $defaults = [])
     {
         $this->regex    = $regex;
         $this->spec     = $spec;
@@ -71,7 +71,7 @@ class Regex implements RouteInterface
      * @return Regex
      * @throws \Zend\Mvc\Router\Exception\InvalidArgumentException
      */
-    public static function factory($options = array())
+    public static function factory($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -88,7 +88,7 @@ class Regex implements RouteInterface
         }
 
         if (!isset($options['defaults'])) {
-            $options['defaults'] = array();
+            $options['defaults'] = [];
         }
 
         return new static($options['regex'], $options['spec'], $options['defaults']);
@@ -141,11 +141,11 @@ class Regex implements RouteInterface
      * @param  array $options
      * @return mixed
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
         $url                   = $this->spec;
         $mergedParams          = array_merge($this->defaults, $params);
-        $this->assembledParams = array();
+        $this->assembledParams = [];
 
         foreach ($mergedParams as $key => $value) {
             $spec = '%' . $key . '%';

@@ -17,7 +17,7 @@ class Module
     {
         $application = $e->getApplication();
         $events      = $application->getEventManager();
-        $events->attach(MvcEvent::EVENT_ROUTE, array($this, 'onRoute'), -1000);
+        $events->attach(MvcEvent::EVENT_ROUTE, [$this, 'onRoute'], -1000);
     }
 
     public function onRoute($e)

@@ -16,6 +16,6 @@ class TestArrayAggregate implements Paginator\AdapterAggregateInterface
 {
     public function getPaginatorAdapter()
     {
-        return new Adapter\ArrayAdapter(array(1, 2, 3, 4));
+        return new Adapter\ArrayAdapter([1, 2, 3, 4]);
     }
 }

@@ -176,7 +176,7 @@ EOS;
         $returnTag = $docblockReflection->getTag('return');
         $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ReturnTag', $returnTag);
         $this->assertEquals('int[]', $returnTag->getType());
-        $this->assertEquals(array('int[]', 'null'), $returnTag->getTypes());
+        $this->assertEquals(['int[]', 'null'], $returnTag->getTypes());
         $this->assertEquals('Description', $returnTag->getDescription());
 
         $throwsTag = $docblockReflection->getTag('throws');
@@ -194,6 +194,6 @@ EOS;
         $paramTag = $paramTags[2];
         $this->assertInstanceOf('Zend\Code\Reflection\DocBlock\Tag\ParamTag', $paramTag);
         $this->assertEquals('string', $paramTag->getType());
-        $this->assertEquals(array('string', 'null'), $paramTag->getTypes());
+        $this->assertEquals(['string', 'null'], $paramTag->getTypes());
     }
 }

@@ -27,10 +27,10 @@ class Zip extends AbstractCompressionAlgorithm
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'archive' => null,
         'target'  => null,
-    );
+    ];
 
     /**
      * Class constructor
@@ -64,7 +64,7 @@ class Zip extends AbstractCompressionAlgorithm
      */
     public function setArchive($archive)
     {
-        $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $archive);
+        $archive = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, (string) $archive);
         $this->options['archive'] = $archive;
 
         return $this;
@@ -93,7 +93,7 @@ class Zip extends AbstractCompressionAlgorithm
             throw new Exception\InvalidArgumentException("The directory '$target' does not exist");
         }
 
-        $target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, (string) $target);
+        $target = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, (string) $target);
         $this->options['target'] = $target;
         return $this;
     }
@@ -115,15 +115,15 @@ class Zip extends AbstractCompressionAlgorithm
         }
 
         if (file_exists($content)) {
-            $content  = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
+            $content  = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, realpath($content));
             $basename = substr($content, strrpos($content, DIRECTORY_SEPARATOR) + 1);
             if (is_dir($content)) {
                 $index    = strrpos($content, DIRECTORY_SEPARATOR) + 1;
                 $content .= DIRECTORY_SEPARATOR;
-                $stack    = array($content);
+                $stack    = [$content];
                 while (!empty($stack)) {
                     $current = array_pop($stack);
-                    $files   = array();
+                    $files   = [];
 
                     $dir = dir($current);
                     while (false !== ($node = $dir->read())) {
@@ -184,7 +184,7 @@ class Zip extends AbstractCompressionAlgorithm
      */
     public function decompress($content)
     {
-        $archive = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, realpath($content));
+        $archive = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, realpath($content));
 
         if (empty($archive) || !file_exists($archive)) {
             throw new Exception\RuntimeException('ZIP Archive not found');

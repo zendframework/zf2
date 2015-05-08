@@ -24,9 +24,9 @@ class DateTimeSelectTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Date'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -44,18 +44,18 @@ class DateTimeSelectTest extends TestCase
     {
         $element = new DateTimeSelectElement('test');
         $factory = new InputFilterFactory();
-        $inputFilter = $factory->createInputFilter(array(
+        $inputFilter = $factory->createInputFilter([
             'test' => $element->getInputSpecification(),
-        ));
-        $inputFilter->setData(array(
-            'test' => array(
+        ]);
+        $inputFilter->setData([
+            'test' => [
                 'year' => '2013',
                 'month' => '02',
                 'day' => '07',
                 'hour' => '03',
                 'minute' => '14'
-            ),
-        ));
+            ],
+        ]);
         $this->assertTrue($inputFilter->isValid());
     }
 
@@ -105,13 +105,13 @@ class DateTimeSelectTest extends TestCase
     public function testUseDefaultValueForSecondsIfNotProvided()
     {
         $element  = new DateTimeSelectElement();
-        $element->setValue(array(
+        $element->setValue([
             'year' => '2012',
             'month' => '09',
             'day' => '24',
             'hour' => '03',
             'minute' => '04'
-        ));
+        ]);
 
         $this->assertEquals('2012', $element->getYearElement()->getValue());
         $this->assertEquals('09', $element->getMonthElement()->getValue());

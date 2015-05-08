@@ -20,248 +20,248 @@ class ArrayUtilsTest extends TestCase
 {
     public static function validHashTables()
     {
-        return array(
-            array(array(
+        return [
+            [[
                 'foo' => 'bar'
-            )),
-            array(array(
+            ]],
+            [[
                 '15',
                 'foo' => 'bar',
-                'baz' => array('baz')
-            )),
-            array(array(
+                'baz' => ['baz']
+            ]],
+            [[
                 0 => false,
                 2 => null
-            )),
-            array(array(
+            ]],
+            [[
                 -100 => 'foo',
                 100  => 'bar'
-            )),
-            array(array(
+            ]],
+            [[
                 1 => 0
-            )),
-        );
+            ]],
+        ];
     }
 
     public static function validLists()
     {
-        return array(
-            array(array(null)),
-            array(array(true)),
-            array(array(false)),
-            array(array(0)),
-            array(array(-0.9999)),
-            array(array('string')),
-            array(array(new stdClass)),
-            array(array(
+        return [
+            [[null]],
+            [[true]],
+            [[false]],
+            [[0]],
+            [[-0.9999]],
+            [['string']],
+            [[new stdClass]],
+            [[
                 0 => 'foo',
                 1 => 'bar',
                 2 => false,
                 3 => null,
-                4 => array(),
+                4 => [],
                 5 => new stdClass()
-            ))
-        );
+            ]]
+        ];
     }
 
     public static function validArraysWithStringKeys()
     {
-        return array(
-            array(array(
+        return [
+            [[
                 'foo' => 'bar',
-            )),
-            array(array(
+            ]],
+            [[
                 'bar',
                 'foo' => 'bar',
                 'baz',
-            )),
-        );
+            ]],
+        ];
     }
 
     public static function validArraysWithNumericKeys()
     {
-        return array(
-            array(array(
+        return [
+            [[
                 'foo',
                 'bar'
-            )),
-            array(array(
+            ]],
+            [[
                 '0' => 'foo',
                 '1' => 'bar',
-            )),
-            array(array(
+            ]],
+            [[
                 'bar',
                 '1' => 'bar',
                  3  => 'baz'
-            )),
-            array(array(
+            ]],
+            [[
                 -10000   => null,
                 '-10000' => null,
-            )),
-            array(array(
+            ]],
+            [[
                 '-00000.00009' => 'foo'
-            )),
-            array(array(
+            ]],
+            [[
                 1 => 0
-            )),
-        );
+            ]],
+        ];
     }
 
     public static function validArraysWithIntegerKeys()
     {
-        return array(
-            array(array(
+        return [
+            [[
                 'foo',
                 'bar,'
-            )),
-            array(array(
+            ]],
+            [[
                 100 => 'foo',
                 200 => 'bar'
-            )),
-            array(array(
+            ]],
+            [[
                 -100 => 'foo',
                 0    => 'bar',
                 100  => 'baz'
-            )),
-            array(array(
+            ]],
+            [[
                 'foo',
                 'bar',
                 1000 => 'baz'
-            )),
-        );
+            ]],
+        ];
     }
 
     public static function invalidArrays()
     {
-        return array(
-            array(new stdClass()),
-            array(15),
-            array('foo'),
-            array(new ArrayObject()),
-        );
+        return [
+            [new stdClass()],
+            [15],
+            ['foo'],
+            [new ArrayObject()],
+        ];
     }
 
     public static function mergeArrays()
     {
-        return array(
-            'merge-integer-and-string-keys' => array(
-                array(
+        return [
+            'merge-integer-and-string-keys' => [
+                [
                     'foo',
                     3     => 'bar',
                     'baz' => 'baz',
-                    4     => array(
+                    4     => [
                         'a',
                         1 => 'b',
                         'c',
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'baz',
-                    4 => array(
+                    4 => [
                         'd' => 'd',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-                array(
+                [
                     0     => 'foo',
                     3     => 'bar',
                     'baz' => 'baz',
-                    4     => array(
+                    4     => [
                         'a',
                         1 => 'b',
                         'c',
-                    ),
+                    ],
                     5     => 'baz',
-                    6     => array(
+                    6     => [
                         'd' => 'd',
-                    ),
-                )
-            ),
-            'merge-integer-and-string-keys-preserve-numeric' => array(
-                array(
+                    ],
+                ]
+            ],
+            'merge-integer-and-string-keys-preserve-numeric' => [
+                [
                     'foo',
                     3     => 'bar',
                     'baz' => 'baz',
-                    4     => array(
+                    4     => [
                         'a',
                         1 => 'b',
                         'c',
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'baz',
-                    4 => array(
+                    4 => [
                         'd' => 'd',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-                array(
+                [
                     0     => 'baz',
                     3     => 'bar',
                     'baz' => 'baz',
-                    4 => array(
+                    4 => [
                         'a',
                         1 => 'b',
                         'c',
                         'd' => 'd',
-                    ),
-                )
-            ),
-            'merge-arrays-recursively' => array(
-                array(
-                    'foo' => array(
+                    ],
+                ]
+            ],
+            'merge-arrays-recursively' => [
+                [
+                    'foo' => [
                         'baz'
-                    )
-                ),
-                array(
-                    'foo' => array(
+                    ]
+                ],
+                [
+                    'foo' => [
                         'baz'
-                    )
-                ),
+                    ]
+                ],
                 false,
-                array(
-                    'foo' => array(
+                [
+                    'foo' => [
                         0 => 'baz',
                         1 => 'baz'
-                    )
-                )
-            ),
-            'replace-string-keys' => array(
-                array(
+                    ]
+                ]
+            ],
+            'replace-string-keys' => [
+                [
                     'foo' => 'bar',
-                    'bar' => array()
-                ),
-                array(
+                    'bar' => []
+                ],
+                [
                     'foo' => 'baz',
                     'bar' => 'bat'
-                ),
+                ],
                 false,
-                array(
+                [
                     'foo' => 'baz',
                     'bar' => 'bat'
-                )
-            ),
-            'merge-with-null' => array(
-                array(
+                ]
+            ],
+            'merge-with-null' => [
+                [
                     'foo' => null,
                     null  => 'rod',
                     'cat' => 'bar',
                     'god' => 'rad'
-                ),
-                array(
+                ],
+                [
                     'foo' => 'baz',
                     null  => 'zad',
                     'god' => null
-                ),
+                ],
                 false,
-                array(
+                [
                     'foo' => 'baz',
                     null  => 'zad',
                     'cat' => 'bar',
                     'god' => null
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**
@@ -269,28 +269,28 @@ class ArrayUtilsTest extends TestCase
      */
     public function testMergeReplaceKey()
     {
-        $expected = array(
-            'car' => array(
+        $expected = [
+            'car' => [
                 'met' => 'bet',
-            ),
-            'new' => array(
+            ],
+            'new' => [
                 'foo' => 'get',
-            ),
-        );
-        $a = array(
-            'car' => array(
+            ],
+        ];
+        $a = [
+            'car' => [
                 'boo' => 'foo',
                 'doo' => 'moo',
-            ),
-        );
-        $b = array(
-            'car' => new \Zend\Stdlib\ArrayUtils\MergeReplaceKey(array(
+            ],
+        ];
+        $b = [
+            'car' => new \Zend\Stdlib\ArrayUtils\MergeReplaceKey([
                 'met' => 'bet',
-            )),
-            'new' => new \Zend\Stdlib\ArrayUtils\MergeReplaceKey(array(
+            ]),
+            'new' => new \Zend\Stdlib\ArrayUtils\MergeReplaceKey([
                 'foo' => 'get',
-            )),
-        );
+            ]),
+        ];
         $this->assertInstanceOf('Zend\Stdlib\ArrayUtils\MergeReplaceKeyInterface', $b['car']);
         $this->assertEquals($expected, ArrayUtils::merge($a, $b));
     }
@@ -300,78 +300,78 @@ class ArrayUtilsTest extends TestCase
      */
     public function testAllowsRemovingKeys()
     {
-        $a = array(
+        $a = [
             'foo' => 'bar',
             'bar' => 'bat'
-        );
-        $b = array(
+        ];
+        $b = [
             'foo' => new MergeRemoveKey(),
             'baz' => new MergeRemoveKey(),
-        );
-        $expected = array(
+        ];
+        $expected = [
             'bar' => 'bat'
-        );
+        ];
         $this->assertEquals($expected, ArrayUtils::merge($a, $b));
     }
 
     public static function validIterators()
     {
-        return array(
-            array(array(
+        return [
+            [[
                 'foo' => 'bar',
-            ), array(
+            ], [
                 'foo' => 'bar',
-            )),
-            array(new Config(array(
-                'foo' => array(
-                    'bar' => array(
-                        'baz' => array(
+            ]],
+            [new Config([
+                'foo' => [
+                    'bar' => [
+                        'baz' => [
                             'baz' => 'bat',
-                        ),
-                    ),
-                ),
-            )), array(
-                'foo' => array(
-                    'bar' => array(
-                        'baz' => array(
+                        ],
+                    ],
+                ],
+            ]), [
+                'foo' => [
+                    'bar' => [
+                        'baz' => [
                             'baz' => 'bat',
-                        ),
-                    ),
-                ),
-            )),
-            array(new ArrayObject(array(
-                'foo' => array(
-                    'bar' => array(
-                        'baz' => array(
+                        ],
+                    ],
+                ],
+            ]],
+            [new ArrayObject([
+                'foo' => [
+                    'bar' => [
+                        'baz' => [
                             'baz' => 'bat',
-                        ),
-                    ),
-                ),
-            )), array(
-                'foo' => array(
-                    'bar' => array(
-                        'baz' => array(
+                        ],
+                    ],
+                ],
+            ]), [
+                'foo' => [
+                    'bar' => [
+                        'baz' => [
                             'baz' => 'bat',
-                        ),
-                    ),
-                ),
-            )),
-        );
+                        ],
+                    ],
+                ],
+            ]],
+        ];
     }
 
     public static function invalidIterators()
     {
-        return array(
-            array(null),
-            array(true),
-            array(false),
-            array(0),
-            array(1),
-            array(0.0),
-            array(1.0),
-            array('string'),
-            array(new stdClass),
-        );
+        return [
+            [null],
+            [true],
+            [false],
+            [0],
+            [1],
+            [0.0],
+            [1.0],
+            ['string'],
+            [new stdClass],
+        ];
     }
 
     /**
@@ -439,7 +439,7 @@ class ArrayUtilsTest extends TestCase
 
     public function testEmptyArrayReturnsTrue()
     {
-        $test = array();
+        $test = [];
         $this->assertTrue(ArrayUtils::hasStringKeys($test, true));
         $this->assertTrue(ArrayUtils::hasIntegerKeys($test, true));
         $this->assertTrue(ArrayUtils::hasNumericKeys($test, true));
@@ -449,7 +449,7 @@ class ArrayUtilsTest extends TestCase
 
     public function testEmptyArrayReturnsFalse()
     {
-        $test = array();
+        $test = [];
         $this->assertFalse(ArrayUtils::hasStringKeys($test, false));
         $this->assertFalse(ArrayUtils::hasIntegerKeys($test, false));
         $this->assertFalse(ArrayUtils::hasNumericKeys($test, false));
@@ -485,9 +485,9 @@ class ArrayUtilsTest extends TestCase
 
     public function filterArrays()
     {
-        return array(
-            array(
-                array('foo' => 'bar', 'fiz' => 'buz'),
+        return [
+            [
+                ['foo' => 'bar', 'fiz' => 'buz'],
                 function ($value) {
                     if ($value == 'bar') {
                         return false;
@@ -495,10 +495,10 @@ class ArrayUtilsTest extends TestCase
                     return true;
                 },
                 null,
-                array('fiz' => 'buz')
-            ),
-            array(
-                array('foo' => 'bar', 'fiz' => 'buz'),
+                ['fiz' => 'buz']
+            ],
+            [
+                ['foo' => 'bar', 'fiz' => 'buz'],
                 function ($value, $key) {
                     if ($value == 'buz') {
                         return false;
@@ -511,10 +511,10 @@ class ArrayUtilsTest extends TestCase
                     return true;
                 },
                 ArrayUtils::ARRAY_FILTER_USE_BOTH,
-                array()
-            ),
-            array(
-                array('foo' => 'bar', 'fiz' => 'buz'),
+                []
+            ],
+            [
+                ['foo' => 'bar', 'fiz' => 'buz'],
                 function ($key) {
                     if ($key == 'foo') {
                         return false;
@@ -522,9 +522,9 @@ class ArrayUtilsTest extends TestCase
                     return true;
                 },
                 ArrayUtils::ARRAY_FILTER_USE_KEY,
-                array('fiz' => 'buz')
-            ),
-        );
+                ['fiz' => 'buz']
+            ],
+        ];
     }
 
     /**
@@ -540,6 +540,6 @@ class ArrayUtilsTest extends TestCase
      */
     public function testInvalidCallableRaiseInvalidArgumentException()
     {
-        ArrayUtils::filter(array(), "INVALID");
+        ArrayUtils::filter([], "INVALID");
     }
 }

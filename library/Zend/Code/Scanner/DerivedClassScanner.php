@@ -26,12 +26,12 @@ class DerivedClassScanner extends ClassScanner
     /**
      * @var array
      */
-    protected $parentClassScanners = array();
+    protected $parentClassScanners = [];
 
     /**
      * @var array
      */
-    protected $interfaceClassScanners = array();
+    protected $interfaceClassScanners = [];
 
     /**
      * @param ClassScanner $classScanner

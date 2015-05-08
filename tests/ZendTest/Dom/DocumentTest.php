@@ -116,7 +116,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
     public function testQueryingInvalidDocumentShouldThrowException()
     {
-        set_error_handler(array($this, 'handleError'));
+        set_error_handler([$this, 'handleError']);
         $this->document = new Document('some bogus string', Document::DOC_XML);
         try {
             $result = Document\Query::execute('.foo', $this->document, Document\Query::TYPE_CSS);

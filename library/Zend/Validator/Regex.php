@@ -22,18 +22,18 @@ class Regex extends AbstractValidator
     /**
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID   => "Invalid type given. String, integer or float expected",
         self::NOT_MATCH => "The input does not match against pattern '%pattern%'",
         self::ERROROUS  => "There was an internal error while using the pattern '%pattern%'",
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $messageVariables = array(
+    protected $messageVariables = [
         'pattern' => 'pattern'
-    );
+    ];
 
     /**
      * Regular expression pattern
@@ -52,7 +52,7 @@ class Regex extends AbstractValidator
     {
         if (is_string($pattern)) {
             $this->setPattern($pattern);
-            parent::__construct(array());
+            parent::__construct([]);
             return;
         }
 

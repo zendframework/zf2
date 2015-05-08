@@ -58,7 +58,7 @@ class ConsoleResponseSenderTest extends TestCase
 
     protected function getSendResponseEventMock($response)
     {
-        $mockSendResponseEvent = $this->getMock('Zend\Mvc\ResponseSender\SendResponseEvent', array('getResponse', 'contentSent', 'setContentSent'));
+        $mockSendResponseEvent = $this->getMock('Zend\Mvc\ResponseSender\SendResponseEvent', ['getResponse', 'contentSent', 'setContentSent']);
         $mockSendResponseEvent->expects($this->any())->method('getResponse')->will($this->returnValue($response));
         return $mockSendResponseEvent;
     }

@@ -43,7 +43,7 @@ class Acl implements AclInterface
      *
      * @var array
      */
-    protected $resources = array();
+    protected $resources = [];
 
     /**
      * @var Role\RoleInterface
@@ -65,19 +65,19 @@ class Acl implements AclInterface
      *
      * @var array
      */
-    protected $rules = array(
-        'allResources' => array(
-            'allRoles' => array(
-                'allPrivileges' => array(
+    protected $rules = [
+        'allResources' => [
+            'allRoles' => [
+                'allPrivileges' => [
                     'type'   => self::TYPE_DENY,
                     'assert' => null
-                ),
-                'byPrivilegeId' => array()
-            ),
-            'byRoleId' => array()
-        ),
-        'byResourceId' => array()
-    );
+                ],
+                'byPrivilegeId' => []
+            ],
+            'byRoleId' => []
+        ],
+        'byResourceId' => []
+    ];
 
     /**
      * Adds a Role having an identifier unique to the registry
@@ -261,11 +261,11 @@ class Acl implements AclInterface
             $this->resources[$resourceParentId]['children'][$resourceId] = $resource;
         }
 
-        $this->resources[$resourceId] = array(
+        $this->resources[$resourceId] = [
             'instance' => $resource,
             'parent'   => $resourceParent,
-            'children' => array()
-        );
+            'children' => []
+        ];
 
         return $this;
     }
@@ -375,7 +375,7 @@ class Acl implements AclInterface
             throw new Exception\InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
         }
 
-        $resourcesRemoved = array($resourceId);
+        $resourcesRemoved = [$resourceId];
         if (null !== ($resourceParent = $this->resources[$resourceId]['parent'])) {
             unset($this->resources[$resourceParent->getResourceId()]['children'][$resourceId]);
         }
@@ -412,7 +412,7 @@ class Acl implements AclInterface
             }
         }
 
-        $this->resources = array();
+        $this->resources = [];
 
         return $this;
     }
@@ -541,12 +541,12 @@ class Acl implements AclInterface
 
         // ensure that all specified Roles exist; normalize input to array of Role objects or null
         if (!is_array($roles)) {
-            $roles = array($roles);
+            $roles = [$roles];
         } elseif (0 === count($roles)) {
-            $roles = array(null);
+            $roles = [null];
         }
         $rolesTemp = $roles;
-        $roles = array();
+        $roles = [];
         foreach ($rolesTemp as $role) {
             if (null !== $role) {
                 $roles[] = $this->getRoleRegistry()->get($role);
@@ -565,13 +565,13 @@ class Acl implements AclInterface
                     array_unshift($resources, null);
                 }
             } else {
-                $resources = array($resources);
+                $resources = [$resources];
             }
         } elseif (0 === count($resources)) {
-            $resources = array(null);
+            $resources = [null];
         }
         $resourcesTemp = $resources;
-        $resources = array();
+        $resources = [];
         foreach ($resourcesTemp as $resource) {
             if (null !== $resource) {
                 $resourceObj = $this->getResource($resource);
@@ -587,9 +587,9 @@ class Acl implements AclInterface
 
         // normalize privileges to array
         if (null === $privileges) {
-            $privileges = array();
+            $privileges = [];
         } elseif (!is_array($privileges)) {
-            $privileges = array($privileges);
+            $privileges = [$privileges];
         }
 
         switch ($operation) {
@@ -602,7 +602,7 @@ class Acl implements AclInterface
                             $rules['allPrivileges']['type']   = $type;
                             $rules['allPrivileges']['assert'] = $assert;
                             if (!isset($rules['byPrivilegeId'])) {
-                                $rules['byPrivilegeId'] = array();
+                                $rules['byPrivilegeId'] = [];
                             }
                         } else {
                             foreach ($privileges as $privilege) {
@@ -625,13 +625,13 @@ class Acl implements AclInterface
                         if (0 === count($privileges)) {
                             if (null === $resource && null === $role) {
                                 if ($type === $rules['allPrivileges']['type']) {
-                                    $rules = array(
-                                        'allPrivileges' => array(
+                                    $rules = [
+                                        'allPrivileges' => [
                                             'type'   => self::TYPE_DENY,
                                             'assert' => null
-                                        ),
-                                        'byPrivilegeId' => array()
-                                    );
+                                        ],
+                                        'byPrivilegeId' => []
+                                    ];
                                 }
                                 continue;
                             }
@@ -669,7 +669,7 @@ class Acl implements AclInterface
      */
     protected function getChildResources(Resource\ResourceInterface $resource)
     {
-        $return = array();
+        $return = [];
         $id = $resource->getResourceId();
 
         $children = $this->resources[$id]['children'];
@@ -811,10 +811,10 @@ class Acl implements AclInterface
      */
     protected function roleDFSAllPrivileges(Role\RoleInterface $role, Resource\ResourceInterface $resource = null)
     {
-        $dfs = array(
-            'visited' => array(),
-            'stack'   => array()
-        );
+        $dfs = [
+            'visited' => [],
+            'stack'   => []
+        ];
 
         if (null !== ($result = $this->roleDFSVisitAllPrivileges($role, $resource, $dfs))) {
             return $result;
@@ -890,10 +890,10 @@ class Acl implements AclInterface
             throw new Exception\RuntimeException('$privilege parameter may not be null');
         }
 
-        $dfs = array(
-            'visited' => array(),
-            'stack'   => array()
-        );
+        $dfs = [
+            'visited' => [],
+            'stack'   => []
+        ];
 
         if (null !== ($result = $this->roleDFSVisitOnePrivilege($role, $resource, $privilege, $dfs))) {
             return $result;
@@ -1053,7 +1053,7 @@ class Acl implements AclInterface
                 if (!$create) {
                     return $nullRef;
                 }
-                $this->rules['byResourceId'][$resourceId] = array();
+                $this->rules['byResourceId'][$resourceId] = [];
             }
             $visitor =& $this->rules['byResourceId'][$resourceId];
         } while (false);
@@ -1064,7 +1064,7 @@ class Acl implements AclInterface
                 if (!$create) {
                     return $nullRef;
                 }
-                $visitor['allRoles']['byPrivilegeId'] = array();
+                $visitor['allRoles']['byPrivilegeId'] = [];
             }
             return $visitor['allRoles'];
         }
@@ -1073,7 +1073,7 @@ class Acl implements AclInterface
             if (!$create) {
                 return $nullRef;
             }
-            $visitor['byRoleId'][$roleId]['byPrivilegeId'] = array();
+            $visitor['byRoleId'][$roleId]['byPrivilegeId'] = [];
         }
         return $visitor['byRoleId'][$roleId];
     }

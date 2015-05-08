@@ -35,12 +35,12 @@ class Image extends AbstractWord
 
         $captcha->generate();
 
-        $imgAttributes = array(
+        $imgAttributes = [
             'width'  => $captcha->getWidth(),
             'height' => $captcha->getHeight(),
             'alt'    => $captcha->getImgAlt(),
             'src'    => $captcha->getImgUrl() . $captcha->getId() . $captcha->getSuffix(),
-        );
+        ];
 
         if ($element->hasAttribute('id')) {
             $imgAttributes['id'] = $element->getAttribute('id') . '-image';

@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-return array(
+return [
     'code' => '852',
-    'patterns' => array(
-        'national' => array(
+    'patterns' => [
+        'national' => [
             'general' => '/^[235-7]\\d{7}|8\\d{7,8}|9\\d{4,10}$/',
             'fixed' => '/^(?:[23]\\d|5[78])\\d{6}$/',
             'mobile' => '/^(?:5[1-69]\\d|6\\d{2}|9(?:0[1-9]|[1-8]\\d))\\d{5}$/',
@@ -19,8 +19,8 @@ return array(
             'premium' => '/^900(?:[0-24-9]\\d{7}|3\\d{1,4})$/',
             'personal' => '/^8[1-3]\\d{6}$/',
             'emergency' => '/^112|99[29]$/',
-        ),
-        'possible' => array(
+        ],
+        'possible' => [
             'general' => '/^\\d{5,11}$/',
             'fixed' => '/^\\d{8}$/',
             'mobile' => '/^\\d{8}$/',
@@ -29,6 +29,6 @@ return array(
             'premium' => '/^\\d{5,11}$/',
             'personal' => '/^\\d{8}$/',
             'emergency' => '/^\\d{3}$/',
-        ),
-    ),
-);
+        ],
+    ],
+];

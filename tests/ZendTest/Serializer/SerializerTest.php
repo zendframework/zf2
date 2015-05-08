@@ -82,7 +82,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
 
     public function testFactoryPassesAdapterOptions()
     {
-        $options = new Adapter\PythonPickleOptions(array('protocol' => 2));
+        $options = new Adapter\PythonPickleOptions(['protocol' => 2]);
         /** @var Adapter\PythonPickle $adapter  */
         $adapter = Serializer::factory('pythonpickle', $options);
         $this->assertInstanceOf('Zend\Serializer\Adapter\PythonPickle', $adapter);

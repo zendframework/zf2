@@ -516,13 +516,13 @@ class SessionConfigTest extends \PHPUnit_Framework_TestCase
 
     public function cacheLimiters()
     {
-        return array(
-            array(''),
-            array('nocache'),
-            array('public'),
-            array('private'),
-            array('private_no_expire'),
-        );
+        return [
+            [''],
+            ['nocache'],
+            ['public'],
+            ['private'],
+            ['private_no_expire'],
+        ];
     }
 
     public function testCacheLimiterDefaultsToIniSettings()
@@ -610,10 +610,10 @@ class SessionConfigTest extends \PHPUnit_Framework_TestCase
 
     public function hashFunctions()
     {
-        $hashFunctions = array(0, 1) + hash_algos();
-        $provider      = array();
+        $hashFunctions = [0, 1] + hash_algos();
+        $provider      = [];
         foreach ($hashFunctions as $function) {
-            $provider[] = array($function);
+            $provider[] = [$function];
         }
         return $provider;
     }
@@ -651,11 +651,11 @@ class SessionConfigTest extends \PHPUnit_Framework_TestCase
 
     public function hashBitsPerCharacters()
     {
-        return array(
-            array(4),
-            array(5),
-            array(6),
-        );
+        return [
+            [4],
+            [5],
+            [6],
+        ];
     }
 
     public function testHashBitsPerCharacterDefaultsToIniSettings()
@@ -763,7 +763,7 @@ class SessionConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetOptionsTranslatesUnderscoreSeparatedKeys($option, $getter, $value)
     {
-        $options = array($option => $value);
+        $options = [$option => $value];
         $this->config->setOptions($options);
         if ('getOption' == $getter) {
             $this->assertSame($value, $this->config->getOption($option));
@@ -774,122 +774,122 @@ class SessionConfigTest extends \PHPUnit_Framework_TestCase
 
     public function optionsProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'save_path',
                 'getSavePath',
                 __DIR__,
-            ),
-            array(
+            ],
+            [
                 'name',
                 'getName',
                 'FOOBAR',
-            ),
-            array(
+            ],
+            [
                 'save_handler',
                 'getOption',
                 'user',
-            ),
-            array(
+            ],
+            [
                 'gc_probability',
                 'getGcProbability',
                 42,
-            ),
-            array(
+            ],
+            [
                 'gc_divisor',
                 'getGcDivisor',
                 3,
-            ),
-            array(
+            ],
+            [
                 'gc_maxlifetime',
                 'getGcMaxlifetime',
                 180,
-            ),
-            array(
+            ],
+            [
                 'serialize_handler',
                 'getSerializeHandler',
                 'php_binary',
-            ),
-            array(
+            ],
+            [
                 'cookie_lifetime',
                 'getCookieLifetime',
                 180,
-            ),
-            array(
+            ],
+            [
                 'cookie_path',
                 'getCookiePath',
                 '/foo/bar',
-            ),
-            array(
+            ],
+            [
                 'cookie_domain',
                 'getCookieDomain',
                 'framework.zend.com',
-            ),
-            array(
+            ],
+            [
                 'cookie_secure',
                 'getCookieSecure',
                 true,
-            ),
-            array(
+            ],
+            [
                 'cookie_httponly',
                 'getCookieHttpOnly',
                 true,
-            ),
-            array(
+            ],
+            [
                 'use_cookies',
                 'getUseCookies',
                 false,
-            ),
-            array(
+            ],
+            [
                 'use_only_cookies',
                 'getUseOnlyCookies',
                 true,
-            ),
-            array(
+            ],
+            [
                 'referer_check',
                 'getRefererCheck',
                 'foobar',
-            ),
-            array(
+            ],
+            [
                 'entropy_file',
                 'getEntropyFile',
                 __FILE__,
-            ),
-            array(
+            ],
+            [
                 'entropy_length',
                 'getEntropyLength',
                 42,
-            ),
-            array(
+            ],
+            [
                 'cache_limiter',
                 'getCacheLimiter',
                 'private',
-            ),
-            array(
+            ],
+            [
                 'cache_expire',
                 'getCacheExpire',
                 42,
-            ),
-            array(
+            ],
+            [
                 'use_trans_sid',
                 'getUseTransSid',
                 true,
-            ),
-            array(
+            ],
+            [
                 'hash_function',
                 'getHashFunction',
                 'md5',
-            ),
-            array(
+            ],
+            [
                 'hash_bits_per_character',
                 'getOption',
                 5,
-            ),
-            array(
+            ],
+            [
                 'url_rewriter_tags',
                 'getUrlRewriterTags',
                 'a=href',
-            ),
-        );
+            ],
+        ];
     }
 }

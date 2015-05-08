@@ -63,8 +63,8 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptySet()
     {
-        $this->adapter = new Adapter\ArrayAdapter(array());
+        $this->adapter = new Adapter\ArrayAdapter([]);
         $actual = $this->adapter->getItems(0, 10);
-        $this->assertEquals(array(), $actual);
+        $this->assertEquals([], $actual);
     }
 }

@@ -23,16 +23,16 @@ class AbstractResponseSenderTest extends TestCase
         if (!function_exists('xdebug_get_headers')) {
             $this->markTestSkipped('Xdebug extension needed, skipped test');
         }
-        $headers = array(
+        $headers = [
             'Content-Length: 2000',
             'Transfer-Encoding: chunked'
-        );
+        ];
         $response = new Response();
         $response->getHeaders()->addHeaders($headers);
 
         $mockSendResponseEvent = $this->getMock(
             'Zend\Mvc\ResponseSender\SendResponseEvent',
-            array('getResponse')
+            ['getResponse']
         );
         $mockSendResponseEvent->expects(
             $this->any())
@@ -54,7 +54,7 @@ class AbstractResponseSenderTest extends TestCase
             $this->assertEquals(0, count($diff));
         }
 
-        $expected = array();
+        $expected = [];
         if (version_compare(phpversion('xdebug'), '2.2.0', '>=')) {
             $expected = xdebug_get_headers();
         }
@@ -76,7 +76,7 @@ class AbstractResponseSenderTest extends TestCase
         $mockResponse->expects($this->once())->method('getHeaders')->will($this->returnValue(Headers::fromString('Location: example.com')));
         $mockResponse->expects($this->once())->method('renderStatusLine')->will($this->returnValue('X-Test: HTTP/1.1 202 Accepted'));
 
-        $mockSendResponseEvent = $this->getMock('Zend\Mvc\ResponseSender\SendResponseEvent', array('getResponse'));
+        $mockSendResponseEvent = $this->getMock('Zend\Mvc\ResponseSender\SendResponseEvent', ['getResponse']);
         $mockSendResponseEvent->expects($this->any())->method('getResponse')->will($this->returnValue($mockResponse));
 
         $responseSender = $this->getMockForAbstractClass('Zend\Mvc\ResponseSender\AbstractResponseSender');

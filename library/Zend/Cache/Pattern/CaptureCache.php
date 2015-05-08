@@ -324,7 +324,7 @@ class CaptureCache extends AbstractPattern
             // -> create directories one by one and set permissions
 
             // find existing path and missing path parts
-            $parts = array();
+            $parts = [];
             $path  = $pathname;
             while (!file_exists($path)) {
                 array_unshift($parts, basename($path));

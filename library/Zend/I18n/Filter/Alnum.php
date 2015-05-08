@@ -17,10 +17,10 @@ class Alnum extends AbstractLocale
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'locale'            => null,
         'allow_white_space' => false,
-    );
+    ];
 
     /**
      * Sets default option values for this instance

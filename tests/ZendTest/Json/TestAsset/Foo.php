@@ -24,7 +24,7 @@ class Foo
      */
     public function bar($one, $two = 'two', $three = null)
     {
-        return array($one, $two, $three);
+        return [$one, $two, $three];
     }
 
     /**

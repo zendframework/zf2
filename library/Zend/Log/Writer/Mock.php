@@ -16,7 +16,7 @@ class Mock extends AbstractWriter
      *
      * @var array
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * shutdown called?

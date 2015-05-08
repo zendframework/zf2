@@ -19,7 +19,7 @@ abstract class AbstractFeature extends AbstractTableGateway
      */
     protected $tableGateway = null;
 
-    protected $sharedData = array();
+    protected $sharedData = [];
 
     public function getName()
     {
@@ -38,7 +38,7 @@ abstract class AbstractFeature extends AbstractTableGateway
 
     public function getMagicMethodSpecifications()
     {
-        return array();
+        return [];
     }
 
 

@@ -64,10 +64,10 @@ class LicenseTagTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorWithOptions()
     {
-        $this->tag->setOptions(array(
+        $this->tag->setOptions([
             'url' => 'foo',
             'licenseName' => 'bar',
-        ));
+        ]);
         $tagWithOptionsFromConstructor = new LicenseTag('foo', 'bar');
         $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }

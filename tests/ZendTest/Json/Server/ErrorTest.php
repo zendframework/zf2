@@ -54,7 +54,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 
     public function testCodeShouldBeLimitedToStandardIntegers()
     {
-        foreach (array(null, true, 'foo', array(), new \stdClass, 2.0) as $code) {
+        foreach ([null, true, 'foo', [], new \stdClass, 2.0] as $code) {
             $this->error->setCode($code);
             $this->assertEquals(Server\Error::ERROR_OTHER, $this->error->getCode());
         }
@@ -70,11 +70,11 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 
     public function arbitraryErrorCodes()
     {
-        return array(
-            '1000'  => array(1000),
-            '404'   => array(404),
-            '-3000' => array(-3000),
-        );
+        return [
+            '1000'  => [1000],
+            '404'   => [404],
+            '-3000' => [-3000],
+        ];
     }
 
     /**
@@ -93,7 +93,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 
     public function testSetMessageShouldCastToString()
     {
-        foreach (array(true, 2.0, 25) as $message) {
+        foreach ([true, 2.0, 25] as $message) {
             $this->error->setMessage($message);
             $this->assertEquals((string) $message, $this->error->getMessage());
         }
@@ -101,7 +101,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 
     public function testSetMessageToNonScalarShouldSilentlyFail()
     {
-        foreach (array(array(), new \stdClass) as $message) {
+        foreach ([[], new \stdClass] as $message) {
             $this->error->setMessage($message);
             $this->assertNull($this->error->getMessage());
         }
@@ -114,7 +114,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldAllowArbitraryData()
     {
-        foreach (array(true, 'foo', 2, 2.0, array(), new \stdClass) as $datum) {
+        foreach ([true, 'foo', 2, 2.0, [], new \stdClass] as $datum) {
             $this->error->setData($datum);
             $this->assertEquals($datum, $this->error->getData());
         }
@@ -145,7 +145,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
     {
         $this->error->setCode(Server\Error::ERROR_OTHER)
                     ->setMessage('Unknown Error')
-                    ->setData(array('foo' => 'bar'));
+                    ->setData(['foo' => 'bar']);
     }
 
     public function validateArray($error)

@@ -43,9 +43,9 @@ class InputFilterTest extends TestCase
 
     public function testCanAddUsingSpecification()
     {
-        $this->filter->add(array(
+        $this->filter->add([
             'name' => 'foo',
-        ));
+        ]);
         $this->assertTrue($this->filter->has('foo'));
         $foo = $this->filter->get('foo');
         $this->assertInstanceOf('Zend\InputFilter\InputInterface', $foo);
@@ -63,11 +63,11 @@ class InputFilterTest extends TestCase
 
         $this->filter->add($inputFilter, 'people');
 
-        $data = array(
-            'people' => array(
+        $data = [
+            'people' => [
                  'name' => 'Wanderson'
-            )
-        );
+            ]
+        ];
 
         $this->filter->setData($data);
         $this->assertTrue($this->filter->isValid());
@@ -89,13 +89,13 @@ class InputFilterTest extends TestCase
 
         $this->filter->add($collection, 'people');
 
-        $data = array(
-            'people' => array(
-                array(
+        $data = [
+            'people' => [
+                [
                     'name' => 'Wanderson',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $this->filter->setData($data);
 
         $this->assertTrue($this->filter->isvalid());
@@ -111,7 +111,7 @@ class InputFilterTest extends TestCase
         $input->expects($this->any())->method('getRawValue')->will($this->returnValue('Mwop'));
 
         $this->filter->add($input, 'username');
-        $this->filter->setData(array('username' => 'Mwop'));
+        $this->filter->setData(['username' => 'Mwop']);
 
         $this->filter->isValid($context);
     }

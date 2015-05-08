@@ -17,7 +17,7 @@ class TextDomainTest extends TestCase
 {
     public function testInstantiation()
     {
-        $domain = new TextDomain(array('foo' => 'bar'));
+        $domain = new TextDomain(['foo' => 'bar']);
         $this->assertEquals('bar', $domain['foo']);
     }
 
@@ -45,8 +45,8 @@ class TextDomainTest extends TestCase
 
     public function testMerging()
     {
-        $domainA = new TextDomain(array('foo' => 'bar', 'bar' => 'baz'));
-        $domainB = new TextDomain(array('baz' => 'bat', 'bar' => 'bat'));
+        $domainA = new TextDomain(['foo' => 'bar', 'bar' => 'baz']);
+        $domainB = new TextDomain(['baz' => 'bat', 'bar' => 'bat']);
         $domainA->merge($domainB);
 
         $this->assertEquals('bar', $domainA['foo']);

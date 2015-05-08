@@ -29,7 +29,7 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithOptions($dateTimeFormat)
     {
-        $options = array('dateTimeFormat' => $dateTimeFormat, 'format' => '%timestamp%');
+        $options = ['dateTimeFormat' => $dateTimeFormat, 'format' => '%timestamp%'];
         $formatter = new Simple($options);
 
         $this->assertEquals($dateTimeFormat, $formatter->getDateTimeFormat());
@@ -39,13 +39,13 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
     public function testDefaultFormat()
     {
         $date = new DateTime('2012-08-28T18:15:00Z');
-        $fields = array(
+        $fields = [
             'timestamp'    => $date,
             'message'      => 'foo',
             'priority'     => 42,
             'priorityName' => 'bar',
-            'extra'        => array()
-        );
+            'extra'        => []
+        ];
 
         $outputExpected = '2012-08-28T18:15:00+00:00 bar (42): foo';
         $formatter = new Simple();
@@ -59,7 +59,7 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
     public function testCustomDateTimeFormat($dateTimeFormat)
     {
         $date = new DateTime();
-        $event = array('timestamp' => $date);
+        $event = ['timestamp' => $date];
         $formatter = new Simple('%timestamp%', $dateTimeFormat);
 
         $this->assertEquals($date->format($dateTimeFormat), $formatter->format($event));
@@ -71,7 +71,7 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
     public function testSetDateTimeFormat($dateTimeFormat)
     {
         $date = new DateTime();
-        $event = array('timestamp' => $date);
+        $event = ['timestamp' => $date];
         $formatter = new Simple('%timestamp%');
 
         $this->assertSame($formatter, $formatter->setDateTimeFormat($dateTimeFormat));
@@ -81,10 +81,10 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
 
     public function provideDateTimeFormats()
     {
-        return array(
-            array('r'),
-            array('U'),
-        );
+        return [
+            ['r'],
+            ['U'],
+        ];
     }
 
     /**
@@ -94,13 +94,13 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
     {
         $message = 'custom message';
         $exception = new RuntimeException($message);
-        $event = array(
+        $event = [
             'timestamp'    => new DateTime(),
             'message'      => 'Application error',
             'priority'     => 2,
             'priorityName' => 'CRIT',
-            'extra'        => array($exception),
-        );
+            'extra'        => [$exception],
+        ];
 
         $formatter = new Simple();
         $output = $formatter->format($event);
@@ -112,6 +112,6 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
     {
         $format = '[%timestamp%] %message%';
         $formatter = new Simple($format);
-        $this->assertEquals($format, $formatter->format(array()));
+        $this->assertEquals($format, $formatter->format([]));
     }
 }

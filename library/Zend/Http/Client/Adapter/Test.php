@@ -28,7 +28,7 @@ class Test implements AdapterInterface
      *
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * Buffer of responses to be returned by the read() method.  Can be
@@ -36,7 +36,7 @@ class Test implements AdapterInterface
      *
      * @var array
      */
-    protected $responses = array("HTTP/1.1 400 Bad Request\r\n\r\n");
+    protected $responses = ["HTTP/1.1 400 Bad Request\r\n\r\n"];
 
     /**
      * Current position in the response buffer
@@ -78,7 +78,7 @@ class Test implements AdapterInterface
      * @param  array|Traversable $options
      * @throws Exception\InvalidArgumentException
      */
-    public function setOptions($options = array())
+    public function setOptions($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -122,7 +122,7 @@ class Test implements AdapterInterface
      * @param string        $body
      * @return string Request as string
      */
-    public function write($method, $uri, $httpVer = '1.1', $headers = array(), $body = '')
+    public function write($method, $uri, $httpVer = '1.1', $headers = [], $body = '')
     {
         // Build request headers
         $path = $uri->getPath();

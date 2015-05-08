@@ -64,10 +64,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $r = new Request();
         $this->assertEquals('', $r->getMethod());
-        $this->assertEquals(array(), $r->getParams());
+        $this->assertEquals([], $r->getParams());
 
         $method = 'foo.bar';
-        $params = array('baz', 1, array('foo' => 'bar'));
+        $params = ['baz', 1, ['foo' => 'bar']];
         $r = new Request($method, $params);
         $this->assertEquals($method, $r->getMethod());
         $this->assertEquals($params, $r->getParams());
@@ -116,32 +116,32 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetParams()
     {
-        $params = array(
+        $params = [
             'string1',
             true,
-            array('one', 'two')
-        );
+            ['one', 'two']
+        ];
         $this->request->setParams($params);
         $returned = $this->request->getParams();
         $this->assertSame($params, $returned);
 
-        $params = array(
+        $params = [
             'string2',
-            array('two', 'one')
-        );
+            ['two', 'one']
+        ];
         $this->request->setParams($params);
         $returned = $this->request->getParams();
         $this->assertSame($params, $returned);
 
-        $params = array(array('value' => 'foobar'));
+        $params = [['value' => 'foobar']];
         $this->request->setParams($params);
-        $this->assertSame(array('foobar'), $this->request->getParams());
-        $this->assertSame(array('string'), $this->request->getTypes());
+        $this->assertSame(['foobar'], $this->request->getParams());
+        $this->assertSame(['string'], $this->request->getTypes());
 
         $null = new Value\Nil();
         $this->request->setParams('foo', 1, $null);
-        $this->assertSame(array('foo', 1, $null), $this->request->getParams());
-        $this->assertSame(array('string', 'int', 'nil'), $this->request->getTypes());
+        $this->assertSame(['foo', 1, $null], $this->request->getParams());
+        $this->assertSame(['string', 'int', 'nil'], $this->request->getTypes());
 
         $this->assertNull($this->request->setParams(), 'Call without argument returns null');
     }
@@ -171,7 +171,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($parsed, $xml);
 
         $this->assertEquals('do.Something', $this->request->getMethod());
-        $test = array('string1', true);
+        $test = ['string1', true];
         $params = $this->request->getParams();
         $this->assertSame($test, $params);
 
@@ -277,10 +277,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $count, $xml);
 
         $methodName = (string) $sx->methodName;
-        $params = array(
+        $params = [
             (string) $sx->params->param[0]->value->string,
             (bool) $sx->params->param[1]->value->boolean
-        );
+        ];
 
         $this->assertEquals('do.Something', $methodName);
         $this->assertSame($argv, $params, $xml);
@@ -291,7 +291,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testSaveXML()
     {
-        $argv = array('string', true);
+        $argv = ['string', true];
         $this->request->setMethod('do.Something');
         $this->request->setParams($argv);
         $xml = $this->request->saveXml();
@@ -303,7 +303,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testCastToString()
     {
-        $argv = array('string', true);
+        $argv = ['string', true];
         $this->request->setMethod('do.Something');
         $this->request->setParams($argv);
         $xml = $this->request->__toString();

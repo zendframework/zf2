@@ -19,10 +19,10 @@ class RandTest extends \PHPUnit_Framework_TestCase
 {
     public static function provideRandInt()
     {
-        return array(
-            array(2, 1, 10000, 100, 0.9, 1.1, false),
-            array(2, 1, 10000, 100, 0.8, 1.2, true)
-        );
+        return [
+            [2, 1, 10000, 100, 0.9, 1.1, false],
+            [2, 1, 10000, 100, 0.8, 1.2, true]
+        ];
     }
 
     public function testRandBytes()
@@ -47,7 +47,7 @@ class RandTest extends \PHPUnit_Framework_TestCase
      */
     public function testRandIntegerRangeTest($min, $max, $cycles)
     {
-        $counter = array();
+        $counter = [];
         for ($i = $min; $i <= $max; $i++) {
             $counter[$i] = 0;
         }
@@ -70,14 +70,14 @@ class RandTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProviderForTestRandIntegerRangeTest()
     {
-        return array(
-            array(0, 100, 10000),
-            array(-100, 100, 10000),
-            array(-100, 50, 10000),
-            array(0, 63, 10000),
-            array(0, 64, 10000),
-            array(0, 65, 10000),
-        );
+        return [
+            [0, 100, 10000],
+            [-100, 100, 10000],
+            [-100, 50, 10000],
+            [0, 63, 10000],
+            [0, 64, 10000],
+            [0, 65, 10000],
+        ];
     }
 
     /**

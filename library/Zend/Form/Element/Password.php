@@ -20,9 +20,9 @@ class Password extends Element implements ElementPrepareAwareInterface
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'password',
-    );
+    ];
 
     /**
      * Remove the password before rendering if the form fails in order to avoid any security issue

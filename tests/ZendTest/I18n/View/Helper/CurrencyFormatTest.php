@@ -40,30 +40,30 @@ class CurrencyFormatTest extends \PHPUnit_Framework_TestCase
 
     public function currencyProvider()
     {
-        return array(
+        return [
             //    locale   currency     show decimals       number      currencyPattern             expected
-            array('de_AT', 'EUR',       true,               1234.56,    null,                       '€ 1.234,56'),
-            array('de_AT', 'EUR',       true,               0.123,      null,                       '€ 0,12'),
-            array('de_AT', 'EUR',       true,               0.123,      '#,##0.00 ¤',               '0,12 €'),
-            array('de_AT', 'EUR',       true,               -0.123,     '#,##0.00 ¤; ¤ - #,##0.00', ' € - 0,12'),
-            array('de_AT', 'EUR',       true,               -0.123,     '¤ #,##0.00; - ¤ #,##0.00', '- € 0,12'),
-            array('de_DE', 'EUR',       true, 1234567.891234567890000,  null,                       '1.234.567,89 €'),
-            array('de_DE', 'RUR',       true, 1234567.891234567890000,  null,                       '1.234.567,89 RUR'),
-            array('ru_RU', 'EUR',       true, 1234567.891234567890000,  null,                       '1 234 567,89 €'),
-            array('ru_RU', 'RUR',       true, 1234567.891234567890000,  null,                       '1 234 567,89 р.'),
-            array('en_US', 'EUR',       true, 1234567.891234567890000,  null,                       '€1,234,567.89'),
-            array('en_US', 'RUR',       true, 1234567.891234567890000,  null,                       'RUR1,234,567.89'),
-            array('en_US', 'USD',       true, 1234567.891234567890000,  null,                       '$1,234,567.89'),
-            array('de_AT', 'EUR',       false, 1234.56,                 null,                       '€ 1.235'),
-            array('de_AT', 'EUR',       false, 0.123,                   null,                       '€ 0'),
-            array('de_DE', 'EUR',       false, 1234567.891234567890000, null,                       '1.234.568 €'),
-            array('de_DE', 'RUB',       false, 1234567.891234567890000, null,                       '1.234.567,89 RUB'),
+            ['de_AT', 'EUR',       true,               1234.56,    null,                       '€ 1.234,56'],
+            ['de_AT', 'EUR',       true,               0.123,      null,                       '€ 0,12'],
+            ['de_AT', 'EUR',       true,               0.123,      '#,##0.00 ¤',               '0,12 €'],
+            ['de_AT', 'EUR',       true,               -0.123,     '#,##0.00 ¤; ¤ - #,##0.00', ' € - 0,12'],
+            ['de_AT', 'EUR',       true,               -0.123,     '¤ #,##0.00; - ¤ #,##0.00', '- € 0,12'],
+            ['de_DE', 'EUR',       true, 1234567.891234567890000,  null,                       '1.234.567,89 €'],
+            ['de_DE', 'RUR',       true, 1234567.891234567890000,  null,                       '1.234.567,89 RUR'],
+            ['ru_RU', 'EUR',       true, 1234567.891234567890000,  null,                       '1 234 567,89 €'],
+            ['ru_RU', 'RUR',       true, 1234567.891234567890000,  null,                       '1 234 567,89 р.'],
+            ['en_US', 'EUR',       true, 1234567.891234567890000,  null,                       '€1,234,567.89'],
+            ['en_US', 'RUR',       true, 1234567.891234567890000,  null,                       'RUR1,234,567.89'],
+            ['en_US', 'USD',       true, 1234567.891234567890000,  null,                       '$1,234,567.89'],
+            ['de_AT', 'EUR',       false, 1234.56,                 null,                       '€ 1.235'],
+            ['de_AT', 'EUR',       false, 0.123,                   null,                       '€ 0'],
+            ['de_DE', 'EUR',       false, 1234567.891234567890000, null,                       '1.234.568 €'],
+            ['de_DE', 'RUB',       false, 1234567.891234567890000, null,                       '1.234.567,89 RUB'],
             //array('ru_RU', 'EUR',     false,             1234567.891234567890000,  null, '1 234 568 €'),
             //array('ru_RU', 'RUR',     false,             1234567.891234567890000,  null, '1 234 567 р.'),
             //array('en_US', 'EUR',     false,             1234567.891234567890000,  null, '€1,234,568'),
             //array('en_US', 'EUR',     false,             1234567.891234567890000,  null, '€1,234,568'),
-            array('en_US', 'USD',       false, 1234567.891234567890000, null,                       '$1,234,568'),
-        );
+            ['en_US', 'USD',       false, 1234567.891234567890000, null,                       '$1,234,568'],
+        ];
     }
 
     /**
@@ -120,8 +120,8 @@ class CurrencyFormatTest extends \PHPUnit_Framework_TestCase
 
     public function assertMbStringEquals($expected, $test, $message = '')
     {
-        $expected = str_replace(array("\xC2\xA0", ' '), '', $expected);
-        $test = str_replace(array("\xC2\xA0", ' '), '', $test);
+        $expected = str_replace(["\xC2\xA0", ' '], '', $expected);
+        $test = str_replace(["\xC2\xA0", ' '], '', $test);
         $this->assertEquals($expected, $test, $message);
     }
 }

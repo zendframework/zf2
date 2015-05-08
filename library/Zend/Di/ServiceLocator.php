@@ -33,14 +33,14 @@ class ServiceLocator implements ServiceLocatorInterface
      *
      * @var array
      */
-    protected $map = array();
+    protected $map = [];
 
     /**
      * Registered services and cached values
      *
      * @var array
      */
-    protected $services = array();
+    protected $services = [];
 
     /**
      * {@inheritDoc}
@@ -70,7 +70,7 @@ class ServiceLocator implements ServiceLocatorInterface
      * @param  array  $params
      * @return mixed
      */
-    public function get($name, array $params = array())
+    public function get($name, array $params = [])
     {
         if (!isset($this->services[$name])) {
             if (!isset($this->map[$name])) {

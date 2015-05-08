@@ -16,16 +16,16 @@ class Callback extends AbstractFilter
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'callback'        => null,
-        'callback_params' => array()
-    );
+        'callback_params' => []
+    ];
 
     /**
      * @param callable|array|Traversable $callbackOrOptions
      * @param array $callbackParams
      */
-    public function __construct($callbackOrOptions, $callbackParams = array())
+    public function __construct($callbackOrOptions, $callbackParams = [])
     {
         if (is_callable($callbackOrOptions)) {
             $this->setCallback($callbackOrOptions);

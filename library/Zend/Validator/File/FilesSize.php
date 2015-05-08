@@ -30,11 +30,11 @@ class FilesSize extends Size
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::TOO_BIG      => "All files in sum should have a maximum size of '%max%' but '%size%' were detected",
         self::TOO_SMALL    => "All files in sum should have a minimum size of '%min%' but '%size%' were detected",
         self::NOT_READABLE => "One or more files can not be read",
-    );
+    ];
 
     /**
      * Internal file array
@@ -54,13 +54,13 @@ class FilesSize extends Size
      */
     public function __construct($options = null)
     {
-        $this->files = array();
+        $this->files = [];
         $this->setSize(0);
 
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
         } elseif (is_scalar($options)) {
-            $options = array('max' => $options);
+            $options = ['max' => $options];
         } elseif (!is_array($options)) {
             throw new Exception\InvalidArgumentException('Invalid options to validator provided');
         }
@@ -88,9 +88,9 @@ class FilesSize extends Size
     public function isValid($value, $file = null)
     {
         if (is_string($value)) {
-            $value = array($value);
+            $value = [$value];
         } elseif (is_array($value) && isset($value['tmp_name'])) {
-            $value = array($value);
+            $value = [$value];
         }
 
         $min  = $this->getMin(true);

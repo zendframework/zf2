@@ -32,13 +32,13 @@ class ApcProgress extends AbstractUploadHandler
             return false;
         }
 
-        $status  = array(
+        $status  = [
             'total'    => 0,
             'current'  => 0,
             'rate'     => 0,
             'message'  => '',
             'done'     => false
-        );
+        ];
         $status = $uploadInfo + $status;
         if (!empty($status['cancel_upload'])) {
             $status['done'] = true;

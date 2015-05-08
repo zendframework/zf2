@@ -11,7 +11,7 @@ namespace Zend\Feed\Reader;
 
 class StandaloneExtensionManager implements ExtensionManagerInterface
 {
-    private $extensions = array(
+    private $extensions = [
         'Atom\Entry'            => 'Zend\Feed\Reader\Extension\Atom\Entry',
         'Atom\Feed'             => 'Zend\Feed\Reader\Extension\Atom\Feed',
         'Content\Entry'         => 'Zend\Feed\Reader\Extension\Content\Entry',
@@ -25,7 +25,7 @@ class StandaloneExtensionManager implements ExtensionManagerInterface
         'Syndication\Feed'      => 'Zend\Feed\Reader\Extension\Syndication\Feed',
         'Thread\Entry'          => 'Zend\Feed\Reader\Extension\Thread\Entry',
         'WellFormedWeb\Entry'   => 'Zend\Feed\Reader\Extension\WellFormedWeb\Entry',
-    );
+    ];
 
     /**
      * Do we have the extension?

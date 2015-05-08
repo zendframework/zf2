@@ -42,10 +42,10 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->locale = Locale::getDefault();
         $this->timezone = date_default_timezone_get();
 
-        $this->validator = new DateTimeValidator(array(
+        $this->validator = new DateTimeValidator([
             'locale' => 'en',
             'timezone' => 'Europe/Amsterdam'
-        ));
+        ]);
     }
 
     public function tearDown()
@@ -64,7 +64,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
      * @param boolean $expected expected result of assertion
      * @param array   $options  fed into the validator before validation
      */
-    public function testBasic($value, $expected, $options = array())
+    public function testBasic($value, $expected, $options = [])
     {
         $this->validator->setOptions($options);
 
@@ -88,49 +88,49 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
             if (version_compare(PHPUnit_Runner_Version::id(), '3.8.0-dev') === 1) {
                 $this->markTestSkipped('ext/intl not enabled');
             } else {
-                return array(
-                    array()
-                );
+                return [
+                    []
+                ];
             }
         }
 
-        $trueArray      = array();
+        $trueArray      = [];
         $testingDate    = new DateTime();
-        $testingLocales = array('en', 'de', 'zh-TW', 'ja', 'ar', 'ru', 'si', 'ml-IN', 'hi');
-        $testingFormats = array(
+        $testingLocales = ['en', 'de', 'zh-TW', 'ja', 'ar', 'ru', 'si', 'ml-IN', 'hi'];
+        $testingFormats = [
             IntlDateFormatter::FULL,
             IntlDateFormatter::LONG,
             IntlDateFormatter::MEDIUM,
             IntlDateFormatter::SHORT,
             IntlDateFormatter::NONE
-        );
+        ];
 
         //Loop locales and formats for a more thorough set of "true" test data
         foreach ($testingLocales as $locale) {
             foreach ($testingFormats as $dateFormat) {
                 foreach ($testingFormats as $timeFormat) {
                     if (($timeFormat !== IntlDateFormatter::NONE) || ($dateFormat !== IntlDateFormatter::NONE)) {
-                        $trueArray[] = array(
+                        $trueArray[] = [
                             IntlDateFormatter::create($locale, $dateFormat, $timeFormat)->format($testingDate),
                             true,
-                            array('locale' => $locale, 'dateType' => $dateFormat, 'timeType' => $timeFormat)
-                        );
+                            ['locale' => $locale, 'dateType' => $dateFormat, 'timeType' => $timeFormat]
+                        ];
                     }
                 }
             }
         }
 
-        $falseArray = array(
-            array(
+        $falseArray = [
+            [
                 'May 38, 2013',
                 false,
-                array(
+                [
                     'locale' => 'en',
                     'dateType' => IntlDateFormatter::FULL,
                     'timeType' => IntlDateFormatter::NONE
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
         return array_merge($trueArray, $falseArray);
     }
@@ -142,7 +142,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     /**
@@ -196,7 +196,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
      */
     public function testOptionPattern()
     {
-        $this->validator->setOptions(array('pattern'=>'hh:mm'));
+        $this->validator->setOptions(['pattern'=>'hh:mm']);
 
         $this->assertTrue($this->validator->isValid('02:00'));
         $this->assertEquals('hh:mm', $this->validator->getPattern());

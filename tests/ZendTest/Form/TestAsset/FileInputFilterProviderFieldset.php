@@ -14,35 +14,35 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 class FileInputFilterProviderFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         parent::__construct($name, $options);
 
-        $this->add(array(
+        $this->add([
             'type' => 'file',
             'name' => 'file_field',
-            'options' => array(
+            'options' => [
                 'label' => 'File Label',
-            ),
-        ));
+            ],
+        ]);
 
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'file_field' => array(
+        return [
+            'file_field' => [
                 'type'     => 'Zend\InputFilter\FileInput',
-                'filters'  => array(
-                    array(
+                'filters'  => [
+                    [
                         'name' => 'filerenameupload',
-                        'options' => array(
+                        'options' => [
                             'target'    => __FILE__,
                             'randomize' => true,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 }

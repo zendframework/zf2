@@ -25,10 +25,10 @@ class SimpleDecoderTest extends TestLdap\AbstractTestCase
 dn: cn=test3,ou=example,dc=cno
 objectclass: oc1
 attr3: foo";
-        $expected = array(
+        $expected = [
             'dn'          => 'cn=test3,ou=example,dc=cno',
-            'objectclass' => array('oc1'),
-            'attr3'       => array('foo'));
+            'objectclass' => ['oc1'],
+            'attr3'       => ['foo']];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -47,17 +47,17 @@ cn: test blabla
 verylong: fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8
  h6ttttttttt3489t57nhvgh4788trhg8999vnhtgthgui65hgb
  5789thvngwr789cghm738";
-        $expected = array(
+        $expected = [
             'dn'          => 'cn=test blabla,ou=example,dc=cno',
-            'objectclass' => array('oc2'),
-            'attr1'       => array('12345'),
-            'attr2'       => array('1234', 'baz'),
-            'attr3'       => array('foo', 'bar'),
-            'cn'          => array('test blabla'),
-            'verylong'    => array('fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8'
+            'objectclass' => ['oc2'],
+            'attr1'       => ['12345'],
+            'attr2'       => ['1234', 'baz'],
+            'attr3'       => ['foo', 'bar'],
+            'cn'          => ['test blabla'],
+            'verylong'    => ['fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8'
                                  . 'h6ttttttttt3489t57nhvgh4788trhg8999vnhtgthgui65hgb'
-                                 . '5789thvngwr789cghm738'),
-        );
+                                 . '5789thvngwr789cghm738'],
+        ];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -77,17 +77,17 @@ attr5:: ZW5kc3BhY2Ug
 attr6:: OmJhZGluaXRjaGFy
 attr6:: PGJhZGluaXRjaGFy
 cn:: dGVzdCDDtsOkw7w=";
-        $expected = array(
+        $expected = [
             'dn'          => 'cn=test blabla,ou=example,dc=cno',
-            'objectclass' => array('oc3'),
-            'attr1'       => array('12345'),
-            'attr2'       => array('1234', 'baz'),
-            'attr3'       => array('foo', 'bar'),
-            'attr4'       => array('öäü'),
-            'attr5'       => array('endspace '),
-            'attr6'       => array(':badinitchar', '<badinitchar'),
-            'cn'          => array('test öäü'),
-        );
+            'objectclass' => ['oc3'],
+            'attr1'       => ['12345'],
+            'attr2'       => ['1234', 'baz'],
+            'attr3'       => ['foo', 'bar'],
+            'attr4'       => ['öäü'],
+            'attr5'       => ['endspace '],
+            'attr6'       => [':badinitchar', '<badinitchar'],
+            'cn'          => ['test öäü'],
+        ];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -103,13 +103,13 @@ attr2: 1234
 attr2: baz
 attr3: foo
 attr3: bar";
-        $expected = array(
+        $expected = [
             'dn'          => 'cn=test blabla,ou=example,dc=cno',
-            'objectclass' => array('oc3'),
-            'attr1'       => array('12345'),
-            'attr2'       => array('1234', 'baz'),
-            'attr3'       => array('foo', 'bar'),
-        );
+            'objectclass' => ['oc3'],
+            'attr1'       => ['12345'],
+            'attr2'       => ['1234', 'baz'],
+            'attr3'       => ['foo', 'bar'],
+        ];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -137,24 +137,24 @@ objectclass: organizationalPerson
 cn: Bjorn Jensen
 sn: Jensen
 telephonenumber: +1 408 555 1212";
-        $expected = array(
-            array(
+        $expected = [
+            [
                 'dn'              => 'cn=Barbara Jensen, ou=Product Development, dc=airius, dc=com',
-                'objectclass'     => array('top', 'person', 'organizationalPerson'),
-                'cn'              => array('Barbara Jensen', 'Barbara J Jensen', 'Babs Jensen'),
-                'sn'              => array('Jensen'),
-                'uid'             => array('bjensen'),
-                'telephonenumber' => array('+1 408 555 1212'),
-                'description'     => array('A big sailing fan.'),
-            ),
-            array(
+                'objectclass'     => ['top', 'person', 'organizationalPerson'],
+                'cn'              => ['Barbara Jensen', 'Barbara J Jensen', 'Babs Jensen'],
+                'sn'              => ['Jensen'],
+                'uid'             => ['bjensen'],
+                'telephonenumber' => ['+1 408 555 1212'],
+                'description'     => ['A big sailing fan.'],
+            ],
+            [
                 'dn'              => 'cn=Bjorn Jensen, ou=Accounting, dc=airius, dc=com',
-                'objectclass'     => array('top', 'person', 'organizationalPerson'),
-                'cn'              => array('Bjorn Jensen'),
-                'sn'              => array('Jensen'),
-                'telephonenumber' => array('+1 408 555 1212'),
-            ),
-        );
+                'objectclass'     => ['top', 'person', 'organizationalPerson'],
+                'cn'              => ['Bjorn Jensen'],
+                'sn'              => ['Jensen'],
+                'telephonenumber' => ['+1 408 555 1212'],
+            ],
+        ];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -176,17 +176,17 @@ telephonenumber:+1 408 555 1212
 description:Babs is a big sailing fan, and travels extensively in sea
  rch of perfect sailing conditions.
 title:Product Manager, Rod and Reel Division";
-        $expected = array(
+        $expected = [
             'dn'                => 'cn=Barbara Jensen, ou=Product Development, dc=airius, dc=com',
-            'objectclass'       => array('top', 'person', 'organizationalPerson'),
-            'cn'                => array('Barbara Jensen', 'Barbara J Jensen', 'Babs Jensen'),
-            'sn'                => array('Jensen'),
-            'uid'               => array('bjensen'),
-            'telephonenumber'   => array('+1 408 555 1212'),
-            'description'       => array('Babs is a big sailing fan, and travels extensively'
-                                       . ' in search of perfect sailing conditions.'),
-            'title'             => array('Product Manager, Rod and Reel Division'),
-        );
+            'objectclass'       => ['top', 'person', 'organizationalPerson'],
+            'cn'                => ['Barbara Jensen', 'Barbara J Jensen', 'Babs Jensen'],
+            'sn'                => ['Jensen'],
+            'uid'               => ['bjensen'],
+            'telephonenumber'   => ['+1 408 555 1212'],
+            'description'       => ['Babs is a big sailing fan, and travels extensively'
+                                       . ' in search of perfect sailing conditions.'],
+            'title'             => ['Product Manager, Rod and Reel Division'],
+        ];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -208,18 +208,18 @@ description:: V2hhdCBhIGNhcmVmdWwgcmVhZGVyIHlvdSBhcmUhICBUaGlzIHZhbHVl
  IGlzIGJhc2UtNjQtZW5jb2RlZCBiZWNhdXNlIGl0IGhhcyBhIGNvbnRyb2wgY2hhcmFjdG
  VyIGluIGl0IChhIENSKS4NICBCeSB0aGUgd2F5LCB5b3Ugc2hvdWxkIHJlYWxseSBnZXQg
  b3V0IG1vcmUu";
-        $expected = array(
+        $expected = [
             'dn'              => 'cn=Gern Jensen, ou=Product Testing, dc=airius, dc=com',
-            'objectclass'     => array('top', 'person', 'organizationalPerson'),
-            'cn'              => array('Gern Jensen', 'Gern O Jensen'),
-            'sn'              => array('Jensen'),
-            'uid'             => array('gernj'),
-            'telephonenumber' => array('+1 408 555 1212'),
-            'description'     => array('What a careful reader you are!'
+            'objectclass'     => ['top', 'person', 'organizationalPerson'],
+            'cn'              => ['Gern Jensen', 'Gern O Jensen'],
+            'sn'              => ['Jensen'],
+            'uid'             => ['gernj'],
+            'telephonenumber' => ['+1 408 555 1212'],
+            'description'     => ['What a careful reader you are!'
                                      . '  This value is base-64-encoded because it has a '
                                      . 'control character in it (a CR).' . "\r"
-                                     . '  By the way, you should really get out more.'),
-        );
+                                     . '  By the way, you should really get out more.'],
+        ];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -284,7 +284,7 @@ title;lang-en: Sales, Director";
         $actual = Ldif\Encoder::decode($data);
 
         $this->assertEquals('ou=営業部,o=Airius', $actual[0]['dn']);
-        $this->assertEquals(array('top', 'organizationalUnit'), $actual[0]['objectclass']);
+        $this->assertEquals(['top', 'organizationalUnit'], $actual[0]['objectclass']);
         $this->assertEquals('営業部', $actual[0]['ou'][0]);
         $this->assertEquals('営業部', $actual[0]['ou;lang-ja'][0]);
         $this->assertEquals('えいぎょうぶ', $actual[0]['ou;lang-ja;phonetic'][0]);
@@ -293,7 +293,7 @@ title;lang-en: Sales, Director";
 
         $this->assertEquals('uid=rogasawara,ou=営業部,o=Airius', $actual[1]['dn']);
         $this->assertEquals('{SHA}O3HSv1MusyL4kTjP+HKI5uxuNoM=', $actual[1]['userpassword'][0]);
-        $this->assertEquals(array('top', 'person', 'organizationalPerson', 'inetOrgPerson'),
+        $this->assertEquals(['top', 'person', 'organizationalPerson', 'inetOrgPerson'],
             $actual[1]['objectclass']
         );
         $this->assertEquals('rogasawara', $actual[1]['uid'][0]);
@@ -343,17 +343,17 @@ verylong: fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8
  h6ttttttttt3489t57nhvgh4788trhg8999vnhtgthgui65hgb
 
  5789thvngwr789cghm738";
-        $expected = array(
+        $expected = [
             'dn'          => 'cn=test blabla,ou=example,dc=cno',
-            'objectclass' => array('top', 'person', 'organizationalPerson'),
-            'description' => array('What a careful reader you are!'
+            'objectclass' => ['top', 'person', 'organizationalPerson'],
+            'description' => ['What a careful reader you are!'
                                  . '  This value is base-64-encoded because it has a '
                                  . 'control character in it (a CR).' . "\r"
-                                 . '  By the way, you should really get out more.'),
-            'verylong'    => array('fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8'
+                                 . '  By the way, you should really get out more.'],
+            'verylong'    => ['fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8'
                                  . 'h6ttttttttt3489t57nhvgh4788trhg8999vnhtgthgui65hgb'
-                                 . '5789thvngwr789cghm738'),
-        );
+                                 . '5789thvngwr789cghm738'],
+        ];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -363,7 +363,7 @@ verylong: fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8
         $node     = $this->createTestNode();
         $ldif     = $node->toLdif();
         $data     = Ldif\Encoder::decode($ldif);
-        $expected = array_merge(array('dn' => $node->getDnString()), $node->getData(false));
+        $expected = array_merge(['dn' => $node->getDnString()], $node->getData(false));
         $this->assertEquals($expected, $data);
     }
 
@@ -374,10 +374,10 @@ verylong: fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8
 dn: cn=test3,ou=example,dc=cno
 objectclass: oc1
 memberurl: ldap:///(&(cn=myName)(uid=something))";
-        $expected = array(
+        $expected = [
             'dn'          => 'cn=test3,ou=example,dc=cno',
-            'objectclass' => array('oc1'),
-            'memberurl'   => array('ldap:///(&(cn=myName)(uid=something))'));
+            'objectclass' => ['oc1'],
+            'memberurl'   => ['ldap:///(&(cn=myName)(uid=something))']];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual);
     }
@@ -397,10 +397,10 @@ dn: cn=test4,ou=example,dc=cno
 objectclass: oc1
 attr3:: w7bDpMO8";
 
-        $expected = array(
+        $expected = [
             'dn'          => 'cn=test3,ou=example,dc=cno',
-            'objectclass' => array('oc1'),
-            'attr3'       => array('öäü'));
+            'objectclass' => ['oc1'],
+            'attr3'       => ['öäü']];
         $actual   = Ldif\Encoder::decode($data);
         $this->assertEquals($expected, $actual[0]);
     }

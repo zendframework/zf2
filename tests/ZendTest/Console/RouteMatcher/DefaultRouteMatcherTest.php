@@ -22,534 +22,534 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
 {
     public static function routeProvider()
     {
-        return array(
+        return [
             // -- mandatory long flags
-            'mandatory-long-flag-no-match' => array(
+            'mandatory-long-flag-no-match' => [
                 '--foo --bar',
-                array('a','b','--baz'),
+                ['a','b','--baz'],
                 null
-            ),
-            'mandatory-long-flag-no-partial-match' => array(
+            ],
+            'mandatory-long-flag-no-partial-match' => [
                 '--foo --bar',
-                array('--foo','--baz'),
+                ['--foo','--baz'],
                 null
-            ),
-            'mandatory-long-flag-match' => array(
+            ],
+            'mandatory-long-flag-match' => [
                 '--foo --bar',
-                array('--foo','--bar'),
-                array('foo' => true, 'bar' => true)
-            ),
-            'mandatory-long-flag-match-with-zero-value' => array(
+                ['--foo','--bar'],
+                ['foo' => true, 'bar' => true]
+            ],
+            'mandatory-long-flag-match-with-zero-value' => [
                 '--foo=',
-                array('--foo=0'),
-                array('foo' => 0)
-            ),
-            'mandatory-long-flag-mixed-order-match' => array(
+                ['--foo=0'],
+                ['foo' => 0]
+            ],
+            'mandatory-long-flag-mixed-order-match' => [
                 '--foo --bar',
-                array('--bar','--foo'),
-                array('foo' => true, 'bar' => true)
-            ),
-            'mandatory-long-flag-whitespace-in-definition' => array(
+                ['--bar','--foo'],
+                ['foo' => true, 'bar' => true]
+            ],
+            'mandatory-long-flag-whitespace-in-definition' => [
                 '      --foo   --bar ',
-                array('--bar','--foo'),
-                array(
+                ['--bar','--foo'],
+                [
                     'foo' => true,
                     'bar' => true,
                     'baz' => null,
-                )
-            ),
-            'mandatory-long-flag-alternative1' => array(
+                ]
+            ],
+            'mandatory-long-flag-alternative1' => [
                 ' ( --foo | --bar )',
-                array('--foo'),
-                array(
+                ['--foo'],
+                [
                     'foo' => true,
                     'bar' => false,
                     'baz' => null,
-                )
-            ),
-            'mandatory-long-flag-alternative2' => array(
+                ]
+            ],
+            'mandatory-long-flag-alternative2' => [
                 ' ( --foo | --bar )',
-                array('--bar'),
-                array(
+                ['--bar'],
+                [
                     'foo' => false,
                     'bar' => true,
                     'baz' => null,
-                )
-            ),
-            'mandatory-long-flag-alternative3' => array(
+                ]
+            ],
+            'mandatory-long-flag-alternative3' => [
                 ' ( --foo | --bar )',
-                array('--baz'),
+                ['--baz'],
                 null
-            ),
+            ],
 
             // -- mandatory short flags
-            'mandatory-short-flag-no-match' => array(
+            'mandatory-short-flag-no-match' => [
                 '-f -b',
-                array('a','b','-f'),
+                ['a','b','-f'],
                 null
-            ),
-            'mandatory-short-flag-no-partial-match' => array(
+            ],
+            'mandatory-short-flag-no-partial-match' => [
                 '-f -b',
-                array('-f','-z'),
+                ['-f','-z'],
                 null
-            ),
-            'mandatory-short-flag-match' => array(
+            ],
+            'mandatory-short-flag-match' => [
                 '-f -b',
-                array('-f','-b'),
-                array('f' => true, 'b' => true)
-            ),
-            'mandatory-short-flag-mixed-order-match' => array(
+                ['-f','-b'],
+                ['f' => true, 'b' => true]
+            ],
+            'mandatory-short-flag-mixed-order-match' => [
                 '-f -b',
-                array('-b','-f'),
-                array('f' => true, 'b' => true)
-            ),
-            'mandatory-short-flag-whitespace-in-definition' => array(
+                ['-b','-f'],
+                ['f' => true, 'b' => true]
+            ],
+            'mandatory-short-flag-whitespace-in-definition' => [
                 '      -f   -b ',
-                array('-b','-f'),
-                array(
+                ['-b','-f'],
+                [
                     'f' => true,
                     'b' => true,
                     'baz' => null,
-                )
-            ),
-            'mandatory-short-flag-alternative1' => array(
+                ]
+            ],
+            'mandatory-short-flag-alternative1' => [
                 ' ( -f | -b )',
-                array('-f'),
-                array(
+                ['-f'],
+                [
                     'f' => true,
                     'b' => false,
                     'baz' => null,
-                )
-            ),
-            'mandatory-short-flag-alternative2' => array(
+                ]
+            ],
+            'mandatory-short-flag-alternative2' => [
                 ' ( -f | -b )',
-                array('-b'),
-                array(
+                ['-b'],
+                [
                     'f' => false,
                     'b' => true,
                     'baz' => null,
-                )
-            ),
-            'mandatory-short-flag-alternative3' => array(
+                ]
+            ],
+            'mandatory-short-flag-alternative3' => [
                 ' ( -f | -b )',
-                array('--baz'),
+                ['--baz'],
                 null
-            ),
+            ],
 
             // -- optional long flags
-            'optional-long-flag-non-existent' => array(
+            'optional-long-flag-non-existent' => [
                 '--foo [--bar]',
-                array('--foo'),
-                array(
+                ['--foo'],
+                [
                     'foo' => true,
                     'bar' => null,
                     'baz' => null,
-                )
-            ),
-            'literal-optional-long-flag' => array(
+                ]
+            ],
+            'literal-optional-long-flag' => [
                 'foo [--bar]',
-                array('foo', '--bar'),
-                array(
+                ['foo', '--bar'],
+                [
                     'foo' => null,
                     'bar' => true,
-                )
-            ),
-            'optional-long-flag-partial-mismatch' => array(
+                ]
+            ],
+            'optional-long-flag-partial-mismatch' => [
                 '--foo [--bar]',
-                array('--foo', '--baz'),
+                ['--foo', '--baz'],
                 null
-            ),
-            'optional-long-flag-match' => array(
+            ],
+            'optional-long-flag-match' => [
                 '--foo [--bar]',
-                array('--foo','--bar'),
-                array(
+                ['--foo','--bar'],
+                [
                     'foo' => true,
                     'bar' => true
-                )
-            ),
-            'optional-long-value-flag-non-existent' => array(
+                ]
+            ],
+            'optional-long-value-flag-non-existent' => [
                 '--foo [--bar=]',
-                array('--foo'),
-                array(
+                ['--foo'],
+                [
                     'foo' => true,
                     'bar' => false
-                )
-            ),
-            'optional-long-flag-match-with-zero-value' => array(
+                ]
+            ],
+            'optional-long-flag-match-with-zero-value' => [
                 '[--foo=]',
-                array('--foo=0'),
-                array('foo' => 0)
-            ),
-            'optional-long-value-flag' => array(
+                ['--foo=0'],
+                ['foo' => 0]
+            ],
+            'optional-long-value-flag' => [
                 '--foo [--bar=]',
-                array('--foo', '--bar=4'),
-                array(
+                ['--foo', '--bar=4'],
+                [
                     'foo' => true,
                     'bar' => 4
-                )
-            ),
-            'optional-long-value-flag-non-existent-mixed-case' => array(
+                ]
+            ],
+            'optional-long-value-flag-non-existent-mixed-case' => [
                 '--foo [--barBaz=]',
-                array('--foo', '--barBaz=4'),
-                array(
+                ['--foo', '--barBaz=4'],
+                [
                     'foo'    => true,
                     'barBaz' => 4
-                )
-            ),
-            'value-optional-long-value-flag' => array(
+                ]
+            ],
+            'value-optional-long-value-flag' => [
                 '<foo> [--bar=]',
-                array('value', '--bar=4'),
-                array(
+                ['value', '--bar=4'],
+                [
                     'foo' => 'value',
                     'bar' => 4
-                )
-            ),
-            'literal-optional-long-value-flag' => array(
+                ]
+            ],
+            'literal-optional-long-value-flag' => [
                 'foo [--bar=]',
-                array('foo', '--bar=4'),
-                array(
+                ['foo', '--bar=4'],
+                [
                     'foo' => null,
                     'bar' => 4,
-                )
-            ),
-            'optional-long-flag-mixed-order-match' => array(
+                ]
+            ],
+            'optional-long-flag-mixed-order-match' => [
                 '--foo --bar',
-                array('--bar','--foo'),
-                array('foo' => true, 'bar' => true)
-            ),
-            'optional-long-flag-whitespace-in-definition' => array(
+                ['--bar','--foo'],
+                ['foo' => true, 'bar' => true]
+            ],
+            'optional-long-flag-whitespace-in-definition' => [
                 '      --foo   [--bar] ',
-                array('--bar','--foo'),
-                array(
+                ['--bar','--foo'],
+                [
                     'foo' => true,
                     'bar' => true,
                     'baz' => null,
-                )
-            ),
-            'optional-long-flag-whitespace-in-definition2' => array(
+                ]
+            ],
+            'optional-long-flag-whitespace-in-definition2' => [
                 '      --foo     [--bar      ] ',
-                array('--bar','--foo'),
-                array(
+                ['--bar','--foo'],
+                [
                     'foo' => true,
                     'bar' => true,
                     'baz' => null,
-                )
-            ),
-            'optional-long-flag-whitespace-in-definition3' => array(
+                ]
+            ],
+            'optional-long-flag-whitespace-in-definition3' => [
                 '      --foo   [   --bar     ] ',
-                array('--bar','--foo'),
-                array(
+                ['--bar','--foo'],
+                [
                     'foo' => true,
                     'bar' => true,
                     'baz' => null,
-                )
-            ),
+                ]
+            ],
 
 
             // -- value flags
-            'mandatory-value-flag-syntax-1' => array(
+            'mandatory-value-flag-syntax-1' => [
                 '--foo=s',
-                array('--foo','bar'),
-                array(
+                ['--foo','bar'],
+                [
                     'foo' => 'bar',
                     'bar' => null
-                )
-            ),
-            'mandatory-value-flag-syntax-2' => array(
+                ]
+            ],
+            'mandatory-value-flag-syntax-2' => [
                 '--foo=',
-                array('--foo','bar'),
-                array(
+                ['--foo','bar'],
+                [
                     'foo' => 'bar',
                     'bar' => null
-                )
-            ),
-            'mandatory-value-flag-syntax-3' => array(
+                ]
+            ],
+            'mandatory-value-flag-syntax-3' => [
                 '--foo=anystring',
-                array('--foo','bar'),
-                array(
+                ['--foo','bar'],
+                [
                     'foo' => 'bar',
                     'bar' => null
-                )
-            ),
+                ]
+            ],
 
             // -- edge cases for value flags values
-            'mandatory-value-flag-equals-complex-1' => array(
+            'mandatory-value-flag-equals-complex-1' => [
                 '--foo=',
-                array('--foo=SomeComplexValue=='),
-                array('foo' => 'SomeComplexValue==')
-            ),
-            'mandatory-value-flag-equals-complex-2' => array(
+                ['--foo=SomeComplexValue=='],
+                ['foo' => 'SomeComplexValue==']
+            ],
+            'mandatory-value-flag-equals-complex-2' => [
                 '--foo=',
-                array('--foo=...,</\/\\//""\'\'\'"\"'),
-                array('foo' => '...,</\/\\//""\'\'\'"\"')
-            ),
-            'mandatory-value-flag-equals-complex-3' => array(
+                ['--foo=...,</\/\\//""\'\'\'"\"'],
+                ['foo' => '...,</\/\\//""\'\'\'"\"']
+            ],
+            'mandatory-value-flag-equals-complex-3' => [
                 '--foo=',
-                array('--foo====--'),
-                array('foo' => '===--')
-            ),
-            'mandatory-value-flag-space-complex-1' => array(
+                ['--foo====--'],
+                ['foo' => '===--']
+            ],
+            'mandatory-value-flag-space-complex-1' => [
                 '--foo=',
-                array('--foo','SomeComplexValue=='),
-                array('foo' => 'SomeComplexValue==')
-            ),
-            'mandatory-value-flag-space-complex-2' => array(
+                ['--foo','SomeComplexValue=='],
+                ['foo' => 'SomeComplexValue==']
+            ],
+            'mandatory-value-flag-space-complex-2' => [
                 '--foo=',
-                array('--foo','...,</\/\\//""\'\'\'"\"'),
-                array('foo' => '...,</\/\\//""\'\'\'"\"')
-            ),
-            'mandatory-value-flag-space-complex-3' => array(
+                ['--foo','...,</\/\\//""\'\'\'"\"'],
+                ['foo' => '...,</\/\\//""\'\'\'"\"']
+            ],
+            'mandatory-value-flag-space-complex-3' => [
                 '--foo=',
-                array('--foo','===--'),
-                array('foo' => '===--')
-            ),
+                ['--foo','===--'],
+                ['foo' => '===--']
+            ],
 
             // -- required literal params
-            'mandatory-literal-match-1' => array(
+            'mandatory-literal-match-1' => [
                 'foo',
-                array('foo'),
-                array('foo' => null)
-            ),
-            'mandatory-literal-match-2' => array(
+                ['foo'],
+                ['foo' => null]
+            ],
+            'mandatory-literal-match-2' => [
                 'foo bar baz',
-                array('foo','bar','baz'),
-                array('foo' => null, 'bar' => null, 'baz' => null, 'bazinga' => null)
-            ),
-            'mandatory-literal-mismatch' => array(
+                ['foo','bar','baz'],
+                ['foo' => null, 'bar' => null, 'baz' => null, 'bazinga' => null]
+            ],
+            'mandatory-literal-mismatch' => [
                 'foo',
-                array('fooo'),
+                ['fooo'],
                 null
-            ),
-            'mandatory-literal-colon-match' => array(
+            ],
+            'mandatory-literal-colon-match' => [
                 'foo:bar',
-                array('foo:bar'),
-                array('foo:bar' => null)
-            ),
-            'mandatory-literal-colon-match-2' => array(
+                ['foo:bar'],
+                ['foo:bar' => null]
+            ],
+            'mandatory-literal-colon-match-2' => [
                 'foo:bar baz',
-                array('foo:bar', 'baz'),
-                array('foo:bar' => null, 'baz' => null)
-            ),
-            'mandatory-literal-order' => array(
+                ['foo:bar', 'baz'],
+                ['foo:bar' => null, 'baz' => null]
+            ],
+            'mandatory-literal-order' => [
                 'foo bar',
-                array('bar','foo'),
+                ['bar','foo'],
                 null
-            ),
-            'mandatory-literal-order-colon' => array(
+            ],
+            'mandatory-literal-order-colon' => [
                 'foo bar baz:inga',
-                array('bar','foo', 'baz:inga'),
+                ['bar','foo', 'baz:inga'],
                 null
-            ),
-            'mandatory-literal-partial-mismatch' => array(
+            ],
+            'mandatory-literal-partial-mismatch' => [
                 'foo bar baz',
-                array('foo','bar'),
+                ['foo','bar'],
                 null
-            ),
-            'mandatory-literal-alternative-match-1' => array(
+            ],
+            'mandatory-literal-alternative-match-1' => [
                 'foo ( bar | baz )',
-                array('foo','bar'),
-                array('foo' => null, 'bar' => true, 'baz' => false)
-            ),
-            'mandatory-literal-alternative-match-2' => array(
+                ['foo','bar'],
+                ['foo' => null, 'bar' => true, 'baz' => false]
+            ],
+            'mandatory-literal-alternative-match-2' => [
                 'foo (bar|baz)',
-                array('foo','bar'),
-                array('foo' => null, 'bar' => true, 'baz' => false)
-            ),
-            'mandatory-literal-alternative-match-3' => array(
+                ['foo','bar'],
+                ['foo' => null, 'bar' => true, 'baz' => false]
+            ],
+            'mandatory-literal-alternative-match-3' => [
                 'foo ( bar    |   baz )',
-                array('foo','baz'),
-                array('foo' => null, 'bar' => false, 'baz' => true)
-            ),
-            'mandatory-literal-alternative-mismatch' => array(
+                ['foo','baz'],
+                ['foo' => null, 'bar' => false, 'baz' => true]
+            ],
+            'mandatory-literal-alternative-mismatch' => [
                 'foo ( bar |   baz )',
-                array('foo','bazinga'),
+                ['foo','bazinga'],
                 null
-            ),
-            'mandatory-literal-namedAlternative-match-1' => array(
+            ],
+            'mandatory-literal-namedAlternative-match-1' => [
                 'foo ( bar | baz ):altGroup',
-                array('foo','bar'),
-                array('foo' => null, 'altGroup'=>'bar', 'bar' => true, 'baz' => false)
-            ),
-            'mandatory-literal-namedAlternative-match-2' => array(
+                ['foo','bar'],
+                ['foo' => null, 'altGroup'=>'bar', 'bar' => true, 'baz' => false]
+            ],
+            'mandatory-literal-namedAlternative-match-2' => [
                 'foo ( bar |   baz   ):altGroup9',
-                array('foo','baz'),
-                array('foo' => null, 'altGroup9'=>'baz', 'bar' => false, 'baz' => true)
-            ),
-            'mandatory-literal-namedAlternative-mismatch' => array(
+                ['foo','baz'],
+                ['foo' => null, 'altGroup9'=>'baz', 'bar' => false, 'baz' => true]
+            ],
+            'mandatory-literal-namedAlternative-mismatch' => [
                 'foo ( bar |   baz   ):altGroup9',
-                array('foo','bazinga'),
+                ['foo','bazinga'],
                 null
-            ),
+            ],
 
             // -- optional literal params
-            'optional-literal-match' => array(
+            'optional-literal-match' => [
                 'foo [bar] [baz]',
-                array('foo','bar'),
-                array('foo' => null, 'bar' => true, 'baz' => null)
-            ),
-            'optional-literal-colon-match' => array(
+                ['foo','bar'],
+                ['foo' => null, 'bar' => true, 'baz' => null]
+            ],
+            'optional-literal-colon-match' => [
                 'foo [bar] [baz:inga]',
-                array('foo','bar'),
-                array('foo' => null, 'bar' => true, 'baz:inga' => null)
-            ),
-            'optional-literal-mismatch' => array(
+                ['foo','bar'],
+                ['foo' => null, 'bar' => true, 'baz:inga' => null]
+            ],
+            'optional-literal-mismatch' => [
                 'foo [bar] [baz]',
-                array('baz','bar'),
+                ['baz','bar'],
                 null
-            ),
-            'optional-literal-colon-mismatch' => array(
+            ],
+            'optional-literal-colon-mismatch' => [
                 'foo [bar] [baz:inga]',
-                array('baz:inga','bar'),
+                ['baz:inga','bar'],
                 null
-            ),
-            'optional-literal-shuffled-mismatch' => array(
+            ],
+            'optional-literal-shuffled-mismatch' => [
                 'foo [bar] [baz]',
-                array('foo','baz','bar'),
+                ['foo','baz','bar'],
                 null
-            ),
-            'optional-literal-alternative-match' => array(
+            ],
+            'optional-literal-alternative-match' => [
                 'foo [bar | baz]',
-                array('foo','baz'),
-                array('foo' => null, 'baz' => true, 'bar' => false)
-            ),
-            'optional-literal-alternative-mismatch' => array(
+                ['foo','baz'],
+                ['foo' => null, 'baz' => true, 'bar' => false]
+            ],
+            'optional-literal-alternative-mismatch' => [
                 'foo [bar | baz]',
-                array('foo'),
-                array('foo' => null, 'baz' => false, 'bar' => false)
-            ),
-            'optional-literal-namedAlternative-match-1' => array(
+                ['foo'],
+                ['foo' => null, 'baz' => false, 'bar' => false]
+            ],
+            'optional-literal-namedAlternative-match-1' => [
                 'foo [bar | baz]:altGroup1',
-                array('foo','baz'),
-                array('foo' => null, 'altGroup1' => 'baz', 'baz' => true, 'bar' => false)
-            ),
-            'optional-literal-namedAlternative-match-2' => array(
+                ['foo','baz'],
+                ['foo' => null, 'altGroup1' => 'baz', 'baz' => true, 'bar' => false]
+            ],
+            'optional-literal-namedAlternative-match-2' => [
                 'foo [bar | baz | bazinga]:altGroup100',
-                array('foo','bazinga'),
-                array('foo' => null, 'altGroup100' => 'bazinga', 'bazinga' => true, 'baz' => false, 'bar' => false)
-            ),
-            'optional-literal-namedAlternative-match-3' => array(
+                ['foo','bazinga'],
+                ['foo' => null, 'altGroup100' => 'bazinga', 'bazinga' => true, 'baz' => false, 'bar' => false]
+            ],
+            'optional-literal-namedAlternative-match-3' => [
                 'foo [ bar ]:altGroup100',
-                array('foo','bar'),
-                array('foo' => null, 'altGroup100' => 'bar', 'bar' => true, 'baz' => null)
-            ),
-            'optional-literal-namedAlternative-mismatch' => array(
+                ['foo','bar'],
+                ['foo' => null, 'altGroup100' => 'bar', 'bar' => true, 'baz' => null]
+            ],
+            'optional-literal-namedAlternative-mismatch' => [
                 'foo [ bar | baz ]:altGroup9',
-                array('foo'),
-                array('foo' => null, 'altGroup9'=> null, 'bar' => false, 'baz' => false)
-            ),
+                ['foo'],
+                ['foo' => null, 'altGroup9'=> null, 'bar' => false, 'baz' => false]
+            ],
 
             // -- value params
-            'mandatory-value-param-syntax-1' => array(
+            'mandatory-value-param-syntax-1' => [
                 'FOO',
-                array('bar'),
-                array(
+                ['bar'],
+                [
                     'foo' => 'bar',
                     'bar' => null
-                )
-            ),
-            'mandatory-value-param-syntax-2' => array(
+                ]
+            ],
+            'mandatory-value-param-syntax-2' => [
                 '<foo>',
-                array('bar'),
-                array(
+                ['bar'],
+                [
                     'foo' => 'bar',
                     'bar' => null
-                )
-            ),
-            'mandatory-value-param-mixed-with-literal' => array(
+                ]
+            ],
+            'mandatory-value-param-mixed-with-literal' => [
                 'a b <foo> c',
-                array('a','b','bar','c'),
-                array(
+                ['a','b','bar','c'],
+                [
                     'a' => null,
                     'b' => null,
                     'foo' => 'bar',
                     'bar' => null,
                     'c' => null,
-                ),
-            ),
-            'optional-value-param-1' => array(
+                ],
+            ],
+            'optional-value-param-1' => [
                 'a b [<c>]',
-                array('a','b','bar'),
-                array(
+                ['a','b','bar'],
+                [
                     'a'   => null,
                     'b'   => null,
                     'c'   => 'bar',
                     'bar' => null,
-                ),
-            ),
-            'optional-value-param-2' => array(
+                ],
+            ],
+            'optional-value-param-2' => [
                 'a b [<c>]',
-                array('a','b'),
-                array(
+                ['a','b'],
+                [
                     'a'   => null,
                     'b'   => null,
                     'c'   => null,
                     'bar' => null,
-                ),
-            ),
-            'optional-value-param-3' => array(
+                ],
+            ],
+            'optional-value-param-3' => [
                 'a b [<c>]',
-                array('a','b','--c'),
+                ['a','b','--c'],
                 null
-            ),
+            ],
 
             // -- combinations
-            'mandatory-long-short-alternative-1' => array(
+            'mandatory-long-short-alternative-1' => [
                 ' ( --foo | -f )',
-                array('--foo'),
-                array(
+                ['--foo'],
+                [
                     'foo' => true,
                     'f'   => false,
                     'baz' => null,
-                )
-            ),
-            'mandatory-long-short-alternative-2' => array(
+                ]
+            ],
+            'mandatory-long-short-alternative-2' => [
                 ' ( --foo | -f )',
-                array('-f'),
-                array(
+                ['-f'],
+                [
                     'foo' => false,
                     'f'   => true,
                     'baz' => null,
-                )
-            ),
-            'optional-long-short-alternative-1' => array(
+                ]
+            ],
+            'optional-long-short-alternative-1' => [
                 'a <b> [ --foo | -f ]',
-                array('a','bar'),
-                array(
+                ['a','bar'],
+                [
                     'a'   => null,
                     'b'   => 'bar',
                     'foo' => false,
                     'f'   => false,
                     'baz' => null,
-                )
-            ),
-            'optional-long-short-alternative-2' => array(
+                ]
+            ],
+            'optional-long-short-alternative-2' => [
                 'a <b> [ --foo | -f ]',
-                array('a','bar', '-f'),
-                array(
+                ['a','bar', '-f'],
+                [
                     'a'   => null,
                     'b'   => 'bar',
                     'foo' => false,
                     'f'   => true,
                     'baz' => null,
-                )
-            ),
-            'optional-long-short-alternative-3' => array(
+                ]
+            ],
+            'optional-long-short-alternative-3' => [
                 'a <b> [ --foo | -f ]',
-                array('a','--foo', 'bar'),
-                array(
+                ['a','--foo', 'bar'],
+                [
                     'a'   => null,
                     'b'   => 'bar',
                     'foo' => true,
                     'f'   => false,
                     'baz' => null,
-                )
-            ),
+                ]
+            ],
 
 
-            'mandatory-and-optional-value-params-with-flags-1' => array(
+            'mandatory-and-optional-value-params-with-flags-1' => [
                 'a b <c> [<d>] [--eee|-e] [--fff|-f]',
-                array('a','b','foo','bar'),
-                array(
+                ['a','b','foo','bar'],
+                [
                     'a'   => null,
                     'b'   => null,
                     'c'   => 'foo',
@@ -558,12 +558,12 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
                     'eee' => false,
                     'fff' => false,
                     'f'   => false,
-                ),
-            ),
-            'mandatory-and-optional-value-params-with-flags-2' => array(
+                ],
+            ],
+            'mandatory-and-optional-value-params-with-flags-2' => [
                 'a b <c> [<d>] [--eee|-e] [--fff|-f]',
-                array('a','b','--eee', 'foo','bar'),
-                array(
+                ['a','b','--eee', 'foo','bar'],
+                [
                     'a'   => null,
                     'b'   => null,
                     'c'   => 'foo',
@@ -572,365 +572,365 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
                     'eee' => true,
                     'fff' => false,
                     'f'   => false,
-                ),
-            ),
+                ],
+            ],
 
 
             // -- overflows
-            'too-many-arguments1' => array(
+            'too-many-arguments1' => [
                 'foo bar',
-                array('foo','bar','baz'),
+                ['foo','bar','baz'],
                 null
-            ),
-            'too-many-arguments2' => array(
+            ],
+            'too-many-arguments2' => [
                 'foo bar [baz]',
-                array('foo','bar','baz','woo'),
+                ['foo','bar','baz','woo'],
                 null,
-            ),
-            'too-many-arguments3' => array(
+            ],
+            'too-many-arguments3' => [
                 'foo bar [--baz]',
-                array('foo','bar','--baz','woo'),
+                ['foo','bar','--baz','woo'],
                 null,
-            ),
-            'too-many-arguments4' => array(
+            ],
+            'too-many-arguments4' => [
                 'foo bar [--baz] woo',
-                array('foo','bar','woo'),
-                array(
+                ['foo','bar','woo'],
+                [
                     'foo' => null,
                     'bar' => null,
                     'baz' => false,
                     'woo' => null
-                )
-            ),
-            'too-many-arguments5' => array(
+                ]
+            ],
+            'too-many-arguments5' => [
                 '--foo --bar [--baz] woo',
-                array('--bar','--foo','woo'),
-                array(
+                ['--bar','--foo','woo'],
+                [
                     'foo' => true,
                     'bar' => true,
                     'baz' => false,
                     'woo' => null
-                )
-            ),
-            'too-many-arguments6' => array(
+                ]
+            ],
+            'too-many-arguments6' => [
                 '--foo --bar [--baz]',
-                array('--bar','--foo','woo'),
+                ['--bar','--foo','woo'],
                 null
-            ),
+            ],
 
             // other (combination)
-            'combined-1' => array(
+            'combined-1' => [
                 'literal <bar> [--foo=] --baz',
-                array('literal', 'oneBar', '--foo=4', '--baz'),
-                array(
+                ['literal', 'oneBar', '--foo=4', '--baz'],
+                [
                     'literal' => null,
                     'bar' => 'oneBar',
                     'foo' => 4,
                     'baz' => true
-                )
-            ),
+                ]
+            ],
             // group with group name diferent than options (short)
-            'group-1' => array(
+            'group-1' => [
                 'group [-t|--test]:testgroup',
-                array('group', '-t'),
-                array(
+                ['group', '-t'],
+                [
                     'group' => null,
                     'testgroup' => true,
-                )
-            ),
+                ]
+            ],
             // group with group name diferent than options (long)
-            'group-2' => array(
+            'group-2' => [
                 'group [-t|--test]:testgroup',
-                array('group', '--test'),
-                array(
+                ['group', '--test'],
+                [
                     'group' => null,
                     'testgroup' => true,
-                )
-            ),
+                ]
+            ],
             // group with same name as option (short)
-            'group-3' => array(
+            'group-3' => [
                 'group [-t|--test]:test',
-                array('group', '-t'),
-                array(
+                ['group', '-t'],
+                [
                     'group' => null,
                     'test' => true,
-                )
-            ),
+                ]
+            ],
             // group with same name as option (long)
-            'group-4' => array(
+            'group-4' => [
                 'group [-t|--test]:test',
-                array('group', '--test'),
-                array(
+                ['group', '--test'],
+                [
                     'group' => null,
                     'test' => true,
-                )
-            ),
-            'group-5' => array(
+                ]
+            ],
+            'group-5' => [
                 'group (-t | --test ):test',
-                array('group', '--test'),
-                array(
+                ['group', '--test'],
+                [
                     'group' => null,
                     'test' => true,
-                ),
-            ),
-            'group-6' => array(
+                ],
+            ],
+            'group-6' => [
                 'group (-t | --test ):test',
-                array('group', '-t'),
-                array(
+                ['group', '-t'],
+                [
                     'group' => null,
                     'test' => true,
-                ),
-            ),
-            'group-7' => array(
+                ],
+            ],
+            'group-7' => [
                 'group [-x|-y|-z]:test',
-                array('group', '-y'),
-                array(
+                ['group', '-y'],
+                [
                     'group' => null,
                     'test' => true,
-                ),
-            ),
-            'group-8' => array(
+                ],
+            ],
+            'group-8' => [
                 'group [--foo|--bar|--baz]:test',
-                array('group', '--foo'),
-                array(
+                ['group', '--foo'],
+                [
                     'group' => null,
                     'test' => true,
-                ),
-            ),
-            'group-9' => array(
+                ],
+            ],
+            'group-9' => [
                 'group (--foo|--bar|--baz):test',
-                array('group', '--foo'),
-                array(
+                ['group', '--foo'],
+                [
                     'group' => null,
                     'test' => true,
-                ),
-            ),
+                ],
+            ],
 
             /**
              * @bug ZF2-4315
              * @link https://github.com/zendframework/zf2/issues/4315
              */
-            'literal-with-dashes' => array(
+            'literal-with-dashes' => [
                 'foo-bar-baz [--bar=]',
-                array('foo-bar-baz',),
-                array(
+                ['foo-bar-baz',],
+                [
                     'foo-bar-baz' => null,
                     'foo'         => null,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
+                ]
+            ],
 
-            'literal-optional-with-dashes' => array(
+            'literal-optional-with-dashes' => [
                 '[foo-bar-baz] [--bar=]',
-                array('foo-bar-baz'),
-                array(
+                ['foo-bar-baz'],
+                [
                     'foo-bar-baz' => true,
                     'foo'         => null,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-optional-with-dashes2' => array(
+                ]
+            ],
+            'literal-optional-with-dashes2' => [
                 'foo [foo-bar-baz] [--bar=]',
-                array('foo'),
-                array(
+                ['foo'],
+                [
                     'foo-bar-baz' => false,
                     'foo'         => null,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-alternative-with-dashes' => array(
+                ]
+            ],
+            'literal-alternative-with-dashes' => [
                 '(foo-bar|foo-baz) [--bar=]',
-                array('foo-bar',),
-                array(
+                ['foo-bar',],
+                [
                     'foo-bar'     => true,
                     'foo-baz'     => false,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-optional-alternative-with-dashes' => array(
+                ]
+            ],
+            'literal-optional-alternative-with-dashes' => [
                 '[foo-bar|foo-baz] [--bar=]',
-                array('foo-baz',),
-                array(
+                ['foo-baz',],
+                [
                     'foo-bar'     => false,
                     'foo-baz'     => true,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-optional-alternative-with-dashes2' => array(
+                ]
+            ],
+            'literal-optional-alternative-with-dashes2' => [
                 'foo [foo-bar|foo-baz] [--bar=]',
-                array('foo',),
-                array(
+                ['foo',],
+                [
                     'foo'         => null,
                     'foo-bar'     => false,
                     'foo-baz'     => false,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-flag-with-dashes' => array(
+                ]
+            ],
+            'literal-flag-with-dashes' => [
                 'foo --bar-baz',
-                array('foo','--bar-baz'),
-                array(
+                ['foo','--bar-baz'],
+                [
                     'foo'         => null,
                     'bar-baz'     => true,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-optional-flag-with-dashes' => array(
+                ]
+            ],
+            'literal-optional-flag-with-dashes' => [
                 'foo [--bar-baz]',
-                array('foo','--bar-baz'),
-                array(
+                ['foo','--bar-baz'],
+                [
                     'foo'         => null,
                     'bar-baz'     => true,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-optional-flag-with-dashes2' => array(
+                ]
+            ],
+            'literal-optional-flag-with-dashes2' => [
                 'foo [--bar-baz]',
-                array('foo'),
-                array(
+                ['foo'],
+                [
                     'foo'         => null,
                     'bar-baz'     => false,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-optional-flag-alternative-with-dashes' => array(
+                ]
+            ],
+            'literal-optional-flag-alternative-with-dashes' => [
                 'foo [--foo-bar|--foo-baz]',
-                array('foo','--foo-baz'),
-                array(
+                ['foo','--foo-baz'],
+                [
                     'foo'         => null,
                     'foo-bar'     => false,
                     'foo-baz'     => true,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'literal-optional-flag-alternative-with-dashes2' => array(
+                ]
+            ],
+            'literal-optional-flag-alternative-with-dashes2' => [
                 'foo [--foo-bar|--foo-baz]',
-                array('foo'),
-                array(
+                ['foo'],
+                [
                     'foo'         => null,
                     'foo-bar'     => false,
                     'foo-baz'     => false,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'value-with-dashes' => array(
+                ]
+            ],
+            'value-with-dashes' => [
                 '<foo-bar-baz> [--bar=]',
-                array('abc',),
-                array(
+                ['abc',],
+                [
                     'foo-bar-baz' => 'abc',
                     'foo'         => null,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
+                ]
+            ],
 
-            'value-optional-with-dashes' => array(
+            'value-optional-with-dashes' => [
                 '[<foo-bar-baz>] [--bar=]',
-                array('abc'),
-                array(
+                ['abc'],
+                [
                     'foo-bar-baz' => 'abc',
                     'foo'         => null,
                     'bar'         => null,
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'value-optional-with-dashes2' => array(
+                ]
+            ],
+            'value-optional-with-dashes2' => [
                 '[<foo-bar-baz>] [--bar=]',
-                array('--bar','abc'),
-                array(
+                ['--bar','abc'],
+                [
                     'foo-bar-baz' => null,
                     'foo'         => null,
                     'bar'         => 'abc',
                     'baz'         => null,
                     'something'   => null,
-                )
-            ),
-            'value-optional-with-mixed-case' => array(
+                ]
+            ],
+            'value-optional-with-mixed-case' => [
                 '[<mixedCaseParam>] [--bar=]',
-                array('aBc', '--bar','abc'),
-                array(
+                ['aBc', '--bar','abc'],
+                [
                     'mixedCaseParam' => 'aBc',
                     'foo'            => null,
                     'bar'            => 'abc',
                     'baz'            => null,
                     'something'      => null,
-                )
-            ),
-            'value-optional-with-upper-case' => array(
+                ]
+            ],
+            'value-optional-with-upper-case' => [
                 '[<UPPERCASEPARAM>] [--bar=]',
-                array('aBc', '--bar', 'abc'),
-                array(
+                ['aBc', '--bar', 'abc'],
+                [
                     'UPPERCASEPARAM' => 'aBc',
                     'foo'            => null,
                     'bar'            => 'abc',
                     'baz'            => null,
                     'something'      => null,
-                )
-            ),
+                ]
+            ],
             /**
              * @bug ZF2-5671
              * @link https://github.com/zendframework/zf2/issues/5671
              */
-            'mandatory-literal-camel-case' => array(
+            'mandatory-literal-camel-case' => [
                 'FooBar',
-                array('FooBar'),
-                array('FooBar' => null),
-            ),
-            'mandatory-literal-camel-case-no-match' => array(
+                ['FooBar'],
+                ['FooBar' => null],
+            ],
+            'mandatory-literal-camel-case-no-match' => [
                 'FooBar',
-                array('foobar'),
+                ['foobar'],
                 null,
-            ),
-            'optional-literal-camel-case' => array(
+            ],
+            'optional-literal-camel-case' => [
                 '[FooBar]',
-                array('FooBar'),
-                array('FooBar' => true),
-            ),
-            'optional-literal-camel-case-no-match' => array(
+                ['FooBar'],
+                ['FooBar' => true],
+            ],
+            'optional-literal-camel-case-no-match' => [
                 '[FooBar]',
-                array('foobar'),
+                ['foobar'],
                 null,
-            ),
-            'optional-literal-alternative-camel-case' => array(
+            ],
+            'optional-literal-alternative-camel-case' => [
                 '[ FooBar | FoozBar ]',
-                array('FooBar'),
-                array('FooBar' => true),
-            ),
-            'mandatory-literal-alternative-camel-case' => array(
+                ['FooBar'],
+                ['FooBar' => true],
+            ],
+            'mandatory-literal-alternative-camel-case' => [
                 '( FooBar | FoozBar )',
-                array('FooBar'),
-                array('FooBar' => true),
-            ),
-            'mandatory-literal-alternative-camel-case-no-match' => array(
+                ['FooBar'],
+                ['FooBar' => true],
+            ],
+            'mandatory-literal-alternative-camel-case-no-match' => [
                 '( FooBar | FoozBar )',
-                array('baz'),
+                ['baz'],
                 null,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -939,7 +939,7 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
      * @param        array          $arguments
      * @param        array|null     $params
      */
-    public function testMatching($routeDefinition, array $arguments = array(), array $params = null)
+    public function testMatching($routeDefinition, array $arguments = [], array $params = null)
     {
         $route = new DefaultRouteMatcher($routeDefinition);
         $match = $route->match($arguments);
@@ -962,7 +962,7 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotMatchWithEmptyMandatoryParam()
     {
-        $arguments = array('--foo=');
+        $arguments = ['--foo='];
         $route = new DefaultRouteMatcher('--foo=');
         $match = $route->match($arguments);
         $this->assertEquals(null, $match);
@@ -970,74 +970,74 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
 
     public static function routeDefaultsProvider()
     {
-        return array(
-            'required-literals-no-defaults' => array(
+        return [
+            'required-literals-no-defaults' => [
                 'create controller',
-                array(),
-                array('create', 'controller'),
-                array('create' => null, 'controller' => null),
-            ),
-            'required-literals-defaults' => array(
+                [],
+                ['create', 'controller'],
+                ['create' => null, 'controller' => null],
+            ],
+            'required-literals-defaults' => [
                 'create controller',
-                array('controller' => 'value'),
-                array('create', 'controller'),
-                array('create' => null, 'controller' => 'value'),
-            ),
-            'value-param-no-defaults' => array(
+                ['controller' => 'value'],
+                ['create', 'controller'],
+                ['create' => null, 'controller' => 'value'],
+            ],
+            'value-param-no-defaults' => [
                 'create controller <controller>',
-                array(),
-                array('create', 'controller', 'foo'),
-                array('create' => null, 'controller' => 'foo'),
-            ),
-            'value-param-defaults-overridden' => array(
+                [],
+                ['create', 'controller', 'foo'],
+                ['create' => null, 'controller' => 'foo'],
+            ],
+            'value-param-defaults-overridden' => [
                 'create controller <controller>',
-                array('controller' => 'defaultValue'),
-                array('create', 'controller', 'foo'),
-                array('create' => null, 'controller' => 'foo'),
-            ),
-            'optional-value-param-defaults' => array(
+                ['controller' => 'defaultValue'],
+                ['create', 'controller', 'foo'],
+                ['create' => null, 'controller' => 'foo'],
+            ],
+            'optional-value-param-defaults' => [
                 'create controller [<controller>]',
-                array('controller' => 'defaultValue'),
-                array('create', 'controller'),
-                array('create' => null, 'controller' => 'defaultValue'),
-            ),
-            'alternative-literal-non-present' => array(
+                ['controller' => 'defaultValue'],
+                ['create', 'controller'],
+                ['create' => null, 'controller' => 'defaultValue'],
+            ],
+            'alternative-literal-non-present' => [
                 '(foo | bar)',
-                array('bar' => 'something'),
-                array('foo'),
-                array('foo' => true, 'bar' => false),
-            ),
-            'alternative-literal-present' => array(
+                ['bar' => 'something'],
+                ['foo'],
+                ['foo' => true, 'bar' => false],
+            ],
+            'alternative-literal-present' => [
                 '(foo | bar)',
-                array('bar' => 'something'),
-                array('bar'),
-                array('foo' => false, 'bar' => 'something'),
-            ),
-            'alternative-flag-non-present' => array(
+                ['bar' => 'something'],
+                ['bar'],
+                ['foo' => false, 'bar' => 'something'],
+            ],
+            'alternative-flag-non-present' => [
                 '(--foo | --bar)',
-                array('bar' => 'something'),
-                array('--foo'),
-                array('foo' => true, 'bar' => false),
-            ),
-            'alternative-flag-present' => array(
+                ['bar' => 'something'],
+                ['--foo'],
+                ['foo' => true, 'bar' => false],
+            ],
+            'alternative-flag-present' => [
                 '(--foo | --bar)',
-                array('bar' => 'something'),
-                array('--bar'),
-                array('foo' => false, 'bar' => 'something'),
-            ),
-            'optional-literal-non-present' => array(
+                ['bar' => 'something'],
+                ['--bar'],
+                ['foo' => false, 'bar' => 'something'],
+            ],
+            'optional-literal-non-present' => [
                 'foo [bar]',
-                array('bar' => 'something'),
-                array('foo'),
-                array('foo' => null, 'bar' => false),
-            ),
-            'optional-literal-present' => array(
+                ['bar' => 'something'],
+                ['foo'],
+                ['foo' => null, 'bar' => false],
+            ],
+            'optional-literal-present' => [
                 'foo [bar]',
-                array('bar' => 'something'),
-                array('foo', 'bar'),
-                array('foo' => null, 'bar' => 'something'),
-            ),
-        );
+                ['bar' => 'something'],
+                ['foo', 'bar'],
+                ['foo' => null, 'bar' => 'something'],
+            ],
+        ];
     }
 
     /**
@@ -1049,11 +1049,11 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchingWithDefaults(
         $routeDefinition,
-        array $defaults = array(),
-        array $arguments = array(),
+        array $defaults = [],
+        array $arguments = [],
         array $params = null
     ) {
-        $route = new DefaultRouteMatcher($routeDefinition, array(), $defaults);
+        $route = new DefaultRouteMatcher($routeDefinition, [], $defaults);
         $match = $route->match($arguments);
 
         if ($params === null) {
@@ -1073,70 +1073,70 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
 
     public static function routeConstraintsProvider()
     {
-        return array(
-            'simple-constraints' => array(
+        return [
+            'simple-constraints' => [
                 '<numeric> <alpha>',
-                array(
+                [
                     'numeric' => '/^[0-9]+$/',
                     'alpha'   => '/^[a-zA-Z]+$/',
-                ),
-                array('1234', 'test'),
+                ],
+                ['1234', 'test'],
                 true
-            ),
-            'constraints-on-optional-param' => array(
+            ],
+            'constraints-on-optional-param' => [
                 '<alpha> [<numeric>]',
-                array(
+                [
                     'numeric' => '/^[0-9]+$/',
                     'alpha'   => '/^[a-zA-Z]+$/',
-                ),
-                array('test', '1234'),
+                ],
+                ['test', '1234'],
                 true
-            ),
-            'optional-empty-param' => array(
+            ],
+            'optional-empty-param' => [
                 '<alpha> [<numeric>]',
-                array(
+                [
                     'numeric' => '/^[0-9]+$/',
                     'alpha'   => '/^[a-zA-Z]+$/',
-                ),
-                array('test'),
+                ],
+                ['test'],
                 true
-            ),
-            'named-param' => array(
+            ],
+            'named-param' => [
                 '--foo=',
-                array(
+                [
                     'foo' => '/^bar$/'
-                ),
-                array('--foo=bar'),
+                ],
+                ['--foo=bar'],
                 true,
-            ),
-            'failing-param' => array(
+            ],
+            'failing-param' => [
                 '<good1> <good2> <bad>',
-                array(
+                [
                     'good1'   => '/^[a-zA-Z]+$/',
                     'good2'   => '/^[a-zA-Z]+$/',
                     'bad'   => '/^[a-zA-Z]+$/',
-                ),
-                array('foo', 'bar', 'foo123bar'),
+                ],
+                ['foo', 'bar', 'foo123bar'],
                 false
-            ),
-            'failing-optional-param' => array(
+            ],
+            'failing-optional-param' => [
                 '<good> [<bad>]',
-                array(
+                [
                     'good2'   => '/^(foo|bar)$/',
                     'bad'   => '/^(foo|bar)$/',
-                ),
-                array('foo', 'baz'),
+                ],
+                ['foo', 'baz'],
                 false
-            ),
-            'failing-named-param' => array(
+            ],
+            'failing-named-param' => [
                 '--foo=',
-                array(
+                [
                     'foo' => '/^bar$/'
-                ),
-                array('--foo=baz'),
+                ],
+                ['--foo=baz'],
                 false,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -1148,8 +1148,8 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchingWithConstraints(
         $routeDefinition,
-        array $constraints = array(),
-        array $arguments = array(),
+        array $constraints = [],
+        array $arguments = [],
         $shouldMatch = true
     ) {
         $route = new DefaultRouteMatcher($routeDefinition, $constraints);
@@ -1164,60 +1164,60 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
 
     public static function routeAliasesProvider()
     {
-        return array(
-            'simple-alias' => array(
+        return [
+            'simple-alias' => [
                 '--user=',
-                array(
+                [
                     'username' => 'user'
-                ),
-                array('--username=JohnDoe'),
-                array(
+                ],
+                ['--username=JohnDoe'],
+                [
                     'user' => 'JohnDoe'
-                )
-            ),
-            'multiple-aliases' => array(
+                ]
+            ],
+            'multiple-aliases' => [
                 '--name= --email=',
-                array(
+                [
                     'username' => 'name',
                     'useremail' => 'email'
-                ),
-                array('--username=JohnDoe', '--useremail=johndoe@domain.com'),
-                array(
+                ],
+                ['--username=JohnDoe', '--useremail=johndoe@domain.com'],
+                [
                     'name' => 'JohnDoe',
                     'email' => 'johndoe@domain.com',
-                )
-            ),
-            'flags' => array(
+                ]
+            ],
+            'flags' => [
                 'foo --bar',
-                array(
+                [
                     'baz' => 'bar'
-                ),
-                array('foo', '--baz'),
-                array(
+                ],
+                ['foo', '--baz'],
+                [
                     'bar' => true
-                )
-            ),
-            'with-alternatives' => array(
+                ]
+            ],
+            'with-alternatives' => [
                 'do-something (--remove|--update)',
-                array(
+                [
                     'delete' => 'remove'
-                ),
-                array('do-something', '--delete'),
-                array(
+                ],
+                ['do-something', '--delete'],
+                [
                     'remove' => true,
-                )
-            ),
-            'with-alternatives-2' => array(
+                ]
+            ],
+            'with-alternatives-2' => [
                 'do-something (--update|--remove)',
-                array(
+                [
                     'delete' => 'remove'
-                ),
-                array('do-something', '--delete'),
-                array(
+                ],
+                ['do-something', '--delete'],
+                [
                     'remove' => true,
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -1229,11 +1229,11 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchingWithAliases(
         $routeDefinition,
-        array $aliases = array(),
-        array $arguments = array(),
+        array $aliases = [],
+        array $arguments = [],
         array $params = null
     ) {
-        $route = new DefaultRouteMatcher($routeDefinition, array(), array(), $aliases);
+        $route = new DefaultRouteMatcher($routeDefinition, [], [], $aliases);
         $match = $route->match($arguments);
 
         if ($params === null) {
@@ -1253,36 +1253,36 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
 
     public function routeValidatorsProvider()
     {
-        return array(
-            'validators-valid' => array(
+        return [
+            'validators-valid' => [
                 '<string> <number>',
-                array(
-                    'string' => new \Zend\Validator\StringLength(array('min' => 5, 'max' => 12)),
+                [
+                    'string' => new \Zend\Validator\StringLength(['min' => 5, 'max' => 12]),
                     'number' => new \Zend\Validator\Digits()
-                ),
-                array('foobar', '12345'),
+                ],
+                ['foobar', '12345'],
                 true
-            ),
-            'validators-invalid' => array(
+            ],
+            'validators-invalid' => [
                 '<string> <number>',
-                array(
-                    'string' => new \Zend\Validator\StringLength(array('min' => 5, 'max' => 12)),
+                [
+                    'string' => new \Zend\Validator\StringLength(['min' => 5, 'max' => 12]),
                     'number' => new \Zend\Validator\Digits()
-                ),
-                array('foo', '12345'),
+                ],
+                ['foo', '12345'],
                 false
-            ),
-            'validators-invalid2' => array(
+            ],
+            'validators-invalid2' => [
                 '<number> <string>',
-                array(
-                    'string' => new \Zend\Validator\StringLength(array('min' => 5, 'max' => 12)),
+                [
+                    'string' => new \Zend\Validator\StringLength(['min' => 5, 'max' => 12]),
                     'number' => new \Zend\Validator\Digits()
-                ),
-                array('foozbar', 'not_digits'),
+                ],
+                ['foozbar', 'not_digits'],
                 false
-            ),
+            ],
 
-        );
+        ];
     }
 
     /**
@@ -1294,7 +1294,7 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
      */
     public function testParamsCanBeValidated($routeDefinition, $validators, $arguments, $shouldMatch)
     {
-        $matcher = new DefaultRouteMatcher($routeDefinition, array(), array(), array(), null, $validators);
+        $matcher = new DefaultRouteMatcher($routeDefinition, [], [], [], null, $validators);
         $match = $matcher->match($arguments);
         if ($shouldMatch === false) {
             $this->assertNull($match, "The route must not match");
@@ -1305,44 +1305,44 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
 
     public function routeFiltersProvider()
     {
-        $genericFilter = $this->getMock('Zend\Filter\FilterInterface', array('filter'));
+        $genericFilter = $this->getMock('Zend\Filter\FilterInterface', ['filter']);
         $genericFilter->expects($this->once())->method('filter')
             ->with('foobar')->will($this->returnValue('foobaz'));
 
-        return array(
-            'filters-generic' => array(
+        return [
+            'filters-generic' => [
                 '<param>',
-                array(
+                [
                     'param' => $genericFilter
-                ),
-                array('foobar'),
-                array(
+                ],
+                ['foobar'],
+                [
                     'param' => 'foobaz'
-                )
-            ),
-            'filters-single' => array(
+                ]
+            ],
+            'filters-single' => [
                 '<number>',
-                array(
+                [
                     'number' => new \Zend\Filter\ToInt()
-                ),
-                array('123four'),
-                array(
+                ],
+                ['123four'],
+                [
                     'number' => 123
-                )
-            ),
-            'filters-multiple' => array(
+                ]
+            ],
+            'filters-multiple' => [
                 '<number> <strtolower>',
-                array(
+                [
                     'number' => new \Zend\Filter\ToInt(),
                     'strtolower' => new \Zend\Filter\StringToLower(),
-                ),
-                array('nan', 'FOOBAR'),
-                array(
+                ],
+                ['nan', 'FOOBAR'],
+                [
                     'number' => 0,
                     'strtolower' => 'foobar'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**
@@ -1354,7 +1354,7 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
      */
     public function testParamsCanBeFiltered($routeDefinition, $filters, $arguments, $params)
     {
-        $matcher = new DefaultRouteMatcher($routeDefinition, array(), array(), array(), $filters);
+        $matcher = new DefaultRouteMatcher($routeDefinition, [], [], [], $filters);
         $match = $matcher->match($arguments);
 
         if (null === $match) {
@@ -1375,16 +1375,16 @@ class DefaultRouteMatcherTest extends \PHPUnit_Framework_TestCase
     public function testConstructorDoesNotAcceptInvalidFilters()
     {
         $this->setExpectedException('Zend\Console\Exception\InvalidArgumentException');
-        new DefaultRouteMatcher('<foo>', array(), array(), array(), array(
+        new DefaultRouteMatcher('<foo>', [], [], [], [
             new \stdClass()
-        ));
+        ]);
     }
 
     public function testConstructorDoesNotAcceptInvalidValidators()
     {
         $this->setExpectedException('Zend\Console\Exception\InvalidArgumentException');
-        new DefaultRouteMatcher('<foo>', array(), array(), array(), array(), array(
+        new DefaultRouteMatcher('<foo>', [], [], [], [], [
             new \stdClass()
-        ));
+        ]);
     }
 }

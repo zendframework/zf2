@@ -29,16 +29,16 @@ class LessThanTest extends \PHPUnit_Framework_TestCase
          *      - expected validation result
          *      - array of test input values
          */
-        $valuesExpected = array(
-            array(100, true, array(-1, 0, 0.01, 1, 99.999)),
-            array(100, false, array(100, 100.0, 100.01)),
-            array('a', false, array('a', 'b', 'c', 'd')),
-            array('z', true, array('x', 'y')),
-            array(array('max' => 100, 'inclusive' => true), true, array(-1, 0, 0.01, 1, 99.999, 100, 100.0)),
-            array(array('max' => 100, 'inclusive' => true), false, array(100.01)),
-            array(array('max' => 100, 'inclusive' => false), true, array(-1, 0, 0.01, 1, 99.999)),
-            array(array('max' => 100, 'inclusive' => false), false, array(100, 100.0, 100.01))
-        );
+        $valuesExpected = [
+            [100, true, [-1, 0, 0.01, 1, 99.999]],
+            [100, false, [100, 100.0, 100.01]],
+            ['a', false, ['a', 'b', 'c', 'd']],
+            ['z', true, ['x', 'y']],
+            [['max' => 100, 'inclusive' => true], true, [-1, 0, 0.01, 1, 99.999, 100, 100.0]],
+            [['max' => 100, 'inclusive' => true], false, [100.01]],
+            [['max' => 100, 'inclusive' => false], true, [-1, 0, 0.01, 1, 99.999]],
+            [['max' => 100, 'inclusive' => false], false, [100, 100.0, 100.01]]
+        ];
 
         foreach ($valuesExpected as $element) {
             $validator = new LessThan($element[0]);
@@ -56,7 +56,7 @@ class LessThanTest extends \PHPUnit_Framework_TestCase
     public function testGetMessages()
     {
         $validator = new LessThan(10);
-        $this->assertEquals(array(), $validator->getMessages());
+        $this->assertEquals([], $validator->getMessages());
     }
 
     /**

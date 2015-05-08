@@ -22,7 +22,7 @@ class InjectViewModelListenerTest extends TestCase
     {
         $this->listener   = new InjectViewModelListener();
         $this->event      = new MvcEvent();
-        $this->routeMatch = new RouteMatch(array());
+        $this->routeMatch = new RouteMatch([]);
         $this->event->setRouteMatch($this->routeMatch);
     }
 
@@ -66,7 +66,7 @@ class InjectViewModelListenerTest extends TestCase
         $events->attachAggregate($this->listener);
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
 
-        $expectedCallback = array($this->listener, 'injectViewModel');
+        $expectedCallback = [$this->listener, 'injectViewModel'];
         $expectedPriority = -100;
         $found            = false;
         foreach ($listeners as $listener) {

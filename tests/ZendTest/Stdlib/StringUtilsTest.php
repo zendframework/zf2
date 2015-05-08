@@ -22,27 +22,27 @@ class StringUtilsTest extends TestCase
 
     public function getSingleByEncodings()
     {
-        return array(
+        return [
             // case-mix to check case-insensitivity
-            array('AscII'),
-            array('7bIt'),
-            array('8Bit'),
-            array('ISo-8859-1'),
-            array('ISo-8859-2'),
-            array('ISo-8859-3'),
-            array('ISo-8859-4'),
-            array('ISo-8859-5'),
-            array('ISo-8859-6'),
-            array('ISo-8859-7'),
-            array('ISo-8859-8'),
-            array('ISo-8859-9'),
-            array('ISo-8859-10'),
-            array('ISo-8859-11'),
-            array('ISo-8859-13'),
-            array('ISo-8859-14'),
-            array('ISo-8859-15'),
-            array('ISo-8859-16'),
-        );
+            ['AscII'],
+            ['7bIt'],
+            ['8Bit'],
+            ['ISo-8859-1'],
+            ['ISo-8859-2'],
+            ['ISo-8859-3'],
+            ['ISo-8859-4'],
+            ['ISo-8859-5'],
+            ['ISo-8859-6'],
+            ['ISo-8859-7'],
+            ['ISo-8859-8'],
+            ['ISo-8859-9'],
+            ['ISo-8859-10'],
+            ['ISo-8859-11'],
+            ['ISo-8859-13'],
+            ['ISo-8859-14'],
+            ['ISo-8859-15'],
+            ['ISo-8859-16'],
+        ];
     }
 
     /**
@@ -56,12 +56,12 @@ class StringUtilsTest extends TestCase
 
     public function getNonSingleByteEncodings()
     {
-        return array(
-            array('UTf-8'),
-            array('UTf-16'),
-            array('usC-2'),
-            array('CESU-8'),
-        );
+        return [
+            ['UTf-8'],
+            ['UTf-16'],
+            ['usC-2'],
+            ['CESU-8'],
+        ];
     }
 
     /**
@@ -118,24 +118,24 @@ class StringUtilsTest extends TestCase
 
     public function getUtf8StringValidity()
     {
-        return array(
+        return [
             // valid
-            array('', true),
-            array("\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F"
+            ['', true],
+            ["\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F"
                 . "\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F"
                 . ' !"#$%&\'()*+,-./0123456789:;<=>?'
                 . '@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_'
                 . '`abcdefghijklmnopqrstuvwxyz{|}~',
                 true
-            ),
+            ],
 
             // invalid
-            array(true, false),
-            array(123, false),
-            array(123.45, false),
-            array("\xFF", false),
-            array("\x90a", false),
-        );
+            [true, false],
+            [123, false],
+            [123.45, false],
+            ["\xFF", false],
+            ["\x90a", false],
+        ];
     }
 
     /**

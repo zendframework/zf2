@@ -97,10 +97,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         //$this->setExpectedException('XXX', 'xxx');
         $this->_server->addFunction(
-            array(
+            [
                 'ZendTest\\XmlRpc\\testFunction',
                 'ZendTest\\XmlRpc\\testFunction2',
-            ),
+            ],
             'zsr'
         );
     }
@@ -155,9 +155,9 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $response = $this->_server->handle($request);
         $this->assertNotInstanceOf('Zend\\XmlRpc\\Fault', $response);
         $this->assertSame(
-            array('test1' => 'argv-argument',
+            ['test1' => 'argv-argument',
                 'test2' => null,
-                'arg' => array('argv-argument')),
+                'arg' => ['argv-argument']],
             $response->getReturnValue());
     }
 
@@ -169,10 +169,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
         $request = new Request();
         $request->setMethod('test.test4');
-        $request->setParams(array('foo'));
+        $request->setParams(['foo']);
         $response = $this->_server->handle($request);
         $this->assertNotInstanceOf('Zend\\XmlRpc\\Fault', $response);
-        $this->assertSame(array('test1' => 'a1', 'test2' => 'a2', 'arg' => array('foo')), $response->getReturnValue());
+        $this->assertSame(['test1' => 'a1', 'test2' => 'a2', 'arg' => ['foo']], $response->getReturnValue());
     }
 
     /**
@@ -349,16 +349,16 @@ class ServerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMulticall()
     {
-        $struct = array(
-            array(
+        $struct = [
+            [
                 'methodName' => 'system.listMethods',
-                'params' => array()
-            ),
-            array(
+                'params' => []
+            ],
+            [
                 'methodName' => 'system.methodHelp',
-                'params' => array('system.multicall')
-            )
-        );
+                'params' => ['system.multicall']
+            ]
+        ];
         $request = new Request();
         $request->setMethod('system.multicall');
         $request->addParam($struct);
@@ -377,16 +377,16 @@ class ServerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMulticallHandlesFaults()
     {
-        $struct = array(
-            array(
+        $struct = [
+            [
                 'methodName' => 'system.listMethods',
-                'params' => array()
-            ),
-            array(
+                'params' => []
+            ],
+            [
                 'methodName' => 'undefined',
-                'params' => array()
-            )
-        );
+                'params' => []
+            ]
+        ];
         $request = new Request();
         $request->setMethod('system.multicall');
         $request->addParam($struct);
@@ -397,8 +397,8 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $returns);
         $this->assertEquals(2, count($returns), var_export($returns, 1));
         $this->assertInternalType('array', $returns[0], var_export($returns[0], 1));
-        $this->assertSame(array(
-            'faultCode' => 620, 'faultString' => 'Method "undefined" does not exist'),
+        $this->assertSame([
+            'faultCode' => 620, 'faultString' => 'Method "undefined" does not exist'],
             $returns[1], var_export($returns[1], 1));
     }
 
@@ -469,7 +469,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testLoadFunctionsThrowsExceptionsWithBadData3()
     {
         $o = new \stdClass();
-        $o = array($o);
+        $o = [$o];
 
         $this->setExpectedException('Zend\Server\Exception\InvalidArgumentException', 'Invalid method provided');
         $this->_server->loadFunctions($o);
@@ -477,12 +477,12 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadFunctionsReadsMethodsFromServerDefinitionObjects()
     {
-        $mockedMethod = $this->getMock('Zend\\Server\\Method\\Definition', array(), array(), '', false,
+        $mockedMethod = $this->getMock('Zend\\Server\\Method\\Definition', [], [], '', false,
             false);
-        $mockedDefinition = $this->getMock('Zend\\Server\\Definition', array(), array(), '', false, false);
+        $mockedDefinition = $this->getMock('Zend\\Server\\Definition', [], [], '', false, false);
         $mockedDefinition->expects($this->once())
                          ->method('getMethods')
-                         ->will($this->returnValue(array('bar' => $mockedMethod)));
+                         ->will($this->returnValue(['bar' => $mockedMethod]));
         $this->_server->loadFunctions($mockedDefinition);
     }
 
@@ -530,7 +530,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->_server->setClass('ZendTest\\XmlRpc\\TestClass');
         $request = new Request();
         $request->setMethod('test2');
-        $request->addParam(array('value1', 'value2'));
+        $request->addParam(['value1', 'value2']);
         $response = $this->_server->handle($request);
         $this->assertNotInstanceOf('Zend\XmlRpc\Fault', $response);
         $this->assertEquals('value1; value2', $response->getReturnValue());
@@ -541,7 +541,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->_server->addFunction('ZendTest\\XmlRpc\\testFunction');
         $request = new Request();
         $request->setMethod('ZendTest\\XmlRpc\\testFunction');
-        $request->setParams(array(array('value1'), 'key'));
+        $request->setParams([['value1'], 'key']);
         $response = $this->_server->handle($request);
         $this->assertNotInstanceOf('Zend\XmlRpc\Fault', $response);
         $this->assertEquals('key: value1', $response->getReturnValue());
@@ -550,23 +550,23 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testMulticallReturnsFaultsWithBadData()
     {
         // bad method array
-        $try = array(
+        $try = [
             'system.listMethods',
-            array(
+            [
                 'name' => 'system.listMethods'
-            ),
-            array(
+            ],
+            [
                 'methodName' => 'system.listMethods'
-            ),
-            array(
+            ],
+            [
                 'methodName' => 'system.listMethods',
                 'params'     => ''
-            ),
-            array(
+            ],
+            [
                 'methodName' => 'system.multicall',
-                'params'     => array()
-            )
-        );
+                'params'     => []
+            ]
+        ];
         $returned = $this->_server->multicall($try);
         $this->assertInternalType('array', $returned);
         $this->assertEquals(5, count($returned));
@@ -604,8 +604,8 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $this->_server->setClass('ZendTest\\XmlRpc\\TestClass', 'test');
         $data    = base64_encode('this is the payload');
-        $param   = array('type' => 'base64', 'value' => $data);
-        $request = new Request('test.base64', array($param));
+        $param   = ['type' => 'base64', 'value' => $data];
+        $request = new Request('test.base64', [$param]);
 
         $response = $this->_server->handle($request);
         $this->assertNotInstanceOf('Zend\XmlRpc\Fault', $response);
@@ -744,7 +744,7 @@ class TestClass
      */
     public function test4($arg)
     {
-        return array('test1' => $this->_value1, 'test2' => $this->_value2, 'arg' => func_get_args());
+        return ['test1' => $this->_value1, 'test2' => $this->_value2, 'arg' => func_get_args()];
     }
 
     /**

@@ -15,16 +15,16 @@ class SampleController extends AbstractActionController implements SampleInterfa
 {
     public function testAction()
     {
-        return array('content' => 'test');
+        return ['content' => 'test'];
     }
 
     public function testSomeStrangelySeparatedWordsAction()
     {
-        return array('content' => 'Test Some Strangely Separated Words');
+        return ['content' => 'Test Some Strangely Separated Words'];
     }
 
     public function testCircularAction()
     {
-        return $this->forward()->dispatch('sample', array('action' => 'test-circular'));
+        return $this->forward()->dispatch('sample', ['action' => 'test-circular']);
     }
 }

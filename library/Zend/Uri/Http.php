@@ -17,18 +17,18 @@ class Http extends Uri
     /**
      * @see Uri::$validSchemes
      */
-    protected static $validSchemes = array(
+    protected static $validSchemes = [
         'http',
         'https'
-    );
+    ];
 
     /**
      * @see Uri::$defaultPorts
      */
-    protected static $defaultPorts = array(
+    protected static $defaultPorts = [
         'http'  => 80,
         'https' => 443,
-    );
+    ];
 
     /**
      * @see Uri::$validHostTypes

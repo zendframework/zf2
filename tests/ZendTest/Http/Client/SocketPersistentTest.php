@@ -32,9 +32,9 @@ class SocketPersistentTest extends SocketTest
      *
      * @var array
      */
-    protected $config = array(
+    protected $config = [
         'adapter'    => 'Zend\Http\Client\Adapter\Socket',
         'persistent' => true,
         'keepalive'  => true
-    );
+    ];
 }

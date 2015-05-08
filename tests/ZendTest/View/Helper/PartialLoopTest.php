@@ -61,12 +61,12 @@ class PartialLoopTest extends TestCase
      */
     public function testPartialLoopIteratesOverArray()
     {
-        $data = array(
-            array('message' => 'foo'),
-            array('message' => 'bar'),
-            array('message' => 'baz'),
-            array('message' => 'bat'),
-        );
+        $data = [
+            ['message' => 'foo'],
+            ['message' => 'bar'],
+            ['message' => 'baz'],
+            ['message' => 'bat'],
+        ];
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -84,12 +84,12 @@ class PartialLoopTest extends TestCase
      */
     public function testPartialLoopIteratesOverIterator()
     {
-        $data = array(
-            array('message' => 'foo'),
-            array('message' => 'bar'),
-            array('message' => 'baz'),
-            array('message' => 'bat')
-        );
+        $data = [
+            ['message' => 'foo'],
+            ['message' => 'bar'],
+            ['message' => 'baz'],
+            ['message' => 'bat']
+        ];
         $o = new IteratorTest($data);
 
         $view = new View();
@@ -110,9 +110,9 @@ class PartialLoopTest extends TestCase
     {
         $rIterator = new RecursiveIteratorTest();
         for ($i = 0; $i < 5; ++$i) {
-            $data = array(
+            $data = [
                 'message' => 'foo' . $i,
-            );
+            ];
             $rIterator->addItem(new IteratorTest($data));
         }
 
@@ -133,12 +133,12 @@ class PartialLoopTest extends TestCase
      */
     public function testPartialLoopThrowsExceptionWithBadIterator()
     {
-        $data = array(
-            array('message' => 'foo'),
-            array('message' => 'bar'),
-            array('message' => 'baz'),
-            array('message' => 'bat')
-        );
+        $data = [
+            ['message' => 'foo'],
+            ['message' => 'bar'],
+            ['message' => 'baz'],
+            ['message' => 'bat']
+        ];
         $o = new BogusIteratorTest($data);
 
         $view = new View();
@@ -173,12 +173,12 @@ class PartialLoopTest extends TestCase
 
     public function testShouldAllowIteratingOverTraversableObjects()
     {
-        $data = array(
-            array('message' => 'foo'),
-            array('message' => 'bar'),
-            array('message' => 'baz'),
-            array('message' => 'bat')
-        );
+        $data = [
+            ['message' => 'foo'],
+            ['message' => 'bar'],
+            ['message' => 'baz'],
+            ['message' => 'bat']
+        ];
         $o = new ArrayObject($data);
 
         $view = new View();
@@ -194,12 +194,12 @@ class PartialLoopTest extends TestCase
 
     public function testShouldAllowIteratingOverObjectsImplementingToArray()
     {
-        $data = array(
-            array('message' => 'foo'),
-            array('message' => 'bar'),
-            array('message' => 'baz'),
-            array('message' => 'bat')
-        );
+        $data = [
+            ['message' => 'foo'],
+            ['message' => 'bar'],
+            ['message' => 'baz'],
+            ['message' => 'bat']
+        ];
         $o = new ToArrayTest($data);
 
         $view = new View();
@@ -219,12 +219,12 @@ class PartialLoopTest extends TestCase
      */
     public function testShouldNotCastToArrayIfObjectIsTraversable()
     {
-        $data = array(
-            new IteratorWithToArrayTestContainer(array('message' => 'foo')),
-            new IteratorWithToArrayTestContainer(array('message' => 'bar')),
-            new IteratorWithToArrayTestContainer(array('message' => 'baz')),
-            new IteratorWithToArrayTestContainer(array('message' => 'bat')),
-        );
+        $data = [
+            new IteratorWithToArrayTestContainer(['message' => 'foo']),
+            new IteratorWithToArrayTestContainer(['message' => 'bar']),
+            new IteratorWithToArrayTestContainer(['message' => 'baz']),
+            new IteratorWithToArrayTestContainer(['message' => 'bat']),
+        ];
         $o = new IteratorWithToArrayTest($data);
 
         $view = new View();
@@ -248,7 +248,7 @@ class PartialLoopTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
-        $this->helper->__invoke('partialLoop.phtml', array());
+        $this->helper->__invoke('partialLoop.phtml', []);
     }
 
     /**
@@ -256,12 +256,12 @@ class PartialLoopTest extends TestCase
      */
     public function testPartialLoopIncrementsPartialCounter()
     {
-        $data = array(
-            array('message' => 'foo'),
-            array('message' => 'bar'),
-            array('message' => 'baz'),
-            array('message' => 'bat')
-        );
+        $data = [
+            ['message' => 'foo'],
+            ['message' => 'bar'],
+            ['message' => 'baz'],
+            ['message' => 'bat']
+        ];
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -276,12 +276,12 @@ class PartialLoopTest extends TestCase
      */
     public function testPartialLoopPartialCounterResets()
     {
-        $data = array(
-            array('message' => 'foo'),
-            array('message' => 'bar'),
-            array('message' => 'baz'),
-            array('message' => 'bat')
-        );
+        $data = [
+            ['message' => 'foo'],
+            ['message' => 'bar'],
+            ['message' => 'baz'],
+            ['message' => 'bat']
+        ];
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -298,9 +298,9 @@ class PartialLoopTest extends TestCase
     {
         $rIterator = new RecursiveIteratorTest();
         for ($i = 0; $i < 5; ++$i) {
-            $data = array(
+            $data = [
                 'message' => 'foo' . $i,
-            );
+            ];
             $rIterator->addItem(new IteratorTest($data));
         }
 
@@ -323,15 +323,15 @@ class PartialLoopTest extends TestCase
      */
     public function testNestedCallsShouldNotOverrideObjectKey()
     {
-        $data = array();
+        $data = [];
         for ($i = 0; $i < 3; $i++) {
             $obj = new \stdClass();
             $obj->helper = $this->helper;
             $obj->objectKey = "foo" . $i;
             $obj->message = "bar";
-            $obj->data = array(
+            $obj->data = [
                 $obj
-            );
+            ];
             $data[] = $obj;
         }
 
@@ -353,15 +353,15 @@ class PartialLoopTest extends TestCase
      */
     public function testNestedPartialLoopsNestedArray()
     {
-        $data = array(array(
-            'obj' => array(
+        $data = [[
+            'obj' => [
                 'helper' => $this->helper,
                 'message' => 'foo1',
-                'data' => array(array(
+                'data' => [[
                     'message' => 'foo2'
-                ))
-            )
-        ));
+                ]]
+            ]
+        ]];
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -439,7 +439,7 @@ class RecursiveIteratorTest implements Iterator
 
     public function __construct()
     {
-        $this->items = array();
+        $this->items = [];
     }
 
     public function addItem(Iterator $iterator)

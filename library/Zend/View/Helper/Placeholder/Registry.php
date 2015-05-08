@@ -35,7 +35,7 @@ class Registry
      *
      * @var array
      */
-    protected $items = array();
+    protected $items = [];
 
     /**
      * Retrieve or create registry instance
@@ -118,7 +118,7 @@ class Registry
      * @param  array  $value
      * @return Container\AbstractContainer
      */
-    public function createContainer($key, array $value = array())
+    public function createContainer($key, array $value = [])
     {
         $key = (string) $key;
 

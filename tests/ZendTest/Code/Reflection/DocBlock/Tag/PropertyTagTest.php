@@ -34,7 +34,7 @@ class PropertyTagTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('$test', $tag->getPropertyName());
         $this->assertNull($tag->getDescription());
         $this->assertEquals('string', $tag->getType());
-        $this->assertEquals(array('string', 'null'), $tag->getTypes());
+        $this->assertEquals(['string', 'null'], $tag->getTypes());
     }
 
     public function testParseNameAndDescription()

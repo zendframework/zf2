@@ -18,7 +18,7 @@ class Intl extends AbstractStringWrapper
      *
      * @var string[]
      */
-    protected static $encodings = array('UTF-8');
+    protected static $encodings = ['UTF-8'];
 
     /**
      * Get a list of supported character encodings

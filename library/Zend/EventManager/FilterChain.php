@@ -40,7 +40,7 @@ class FilterChain implements Filter\FilterInterface
      * @param  mixed $argv Associative array of arguments
      * @return mixed
      */
-    public function run($context, array $argv = array())
+    public function run($context, array $argv = [])
     {
         $chain = clone $this->getFilters();
 
@@ -69,7 +69,7 @@ class FilterChain implements Filter\FilterInterface
         if (empty($callback)) {
             throw new Exception\InvalidCallbackException('No callback provided');
         }
-        $filter = new CallbackHandler($callback, array('priority' => $priority));
+        $filter = new CallbackHandler($callback, ['priority' => $priority]);
         $this->filters->insert($filter, $priority);
         return $filter;
     }

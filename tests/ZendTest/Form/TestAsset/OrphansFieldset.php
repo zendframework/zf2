@@ -16,27 +16,27 @@ use ZendTest\Form\TestAsset\Entity\Orphan;
 
 class OrphansFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    public function __construct( $name = null, $options = array() )
+    public function __construct( $name = null, $options = [] )
     {
         parent::__construct( $name, $options );
 
         $this->setHydrator(new ArraySerializable())
                 ->setObject(new Orphan());
 
-        $this->add(array(
+        $this->add([
                         'name' => 'name',
-                        'options' => array('label' => 'Name field'),
-                   ));
+                        'options' => ['label' => 'Name field'],
+                   ]);
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'name' => array(
+        return [
+            'name' => [
                 'required' => false,
-                'filters' => array(),
-                'validators' => array(),
-            )
-        );
+                'filters' => [],
+                'validators' => [],
+            ]
+        ];
     }
 }

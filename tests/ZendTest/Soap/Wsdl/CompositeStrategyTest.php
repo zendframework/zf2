@@ -30,7 +30,7 @@ class CompositeStrategyTest extends WsdlTestHelper
 
     public function testCompositeApiAddingStragiesToTypes()
     {
-        $strategy = new Composite(array(), new ArrayOfTypeSequence);
+        $strategy = new Composite([], new ArrayOfTypeSequence);
         $strategy->connectTypeToStrategy('Book', new ArrayOfTypeComplex);
 
         $bookStrategy = $strategy->getStrategyOfType('Book');
@@ -42,7 +42,7 @@ class CompositeStrategyTest extends WsdlTestHelper
 
     public function testConstructorTypeMapSyntax()
     {
-        $typeMap = array('Book' => '\Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeComplex');
+        $typeMap = ['Book' => '\Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeComplex'];
 
         $strategy = new ComplexTypeStrategy\Composite($typeMap,
             new ArrayOfTypeSequence
@@ -62,12 +62,12 @@ class CompositeStrategyTest extends WsdlTestHelper
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException',
             'Invalid type given to Composite Type Map'
         );
-        $strategy->connectTypeToStrategy(array(), 'strategy');
+        $strategy->connectTypeToStrategy([], 'strategy');
     }
 
     public function testCompositeThrowsExceptionOnInvalidStrategy()
     {
-        $strategy = new ComplexTypeStrategy\Composite(array(), 'invalid');
+        $strategy = new ComplexTypeStrategy\Composite([], 'invalid');
         $strategy->connectTypeToStrategy('Book', 'strategy');
 
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException',
@@ -78,7 +78,7 @@ class CompositeStrategyTest extends WsdlTestHelper
 
     public function testCompositeThrowsExceptionOnInvalidStrategyPart2()
     {
-        $strategy = new ComplexTypeStrategy\Composite(array(), 'invalid');
+        $strategy = new ComplexTypeStrategy\Composite([], 'invalid');
         $strategy->connectTypeToStrategy('Book', 'strategy');
 
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException',
@@ -89,7 +89,7 @@ class CompositeStrategyTest extends WsdlTestHelper
 
     public function testCompositeDelegatesAddingComplexTypesToSubStrategies()
     {
-        $this->strategy = new ComplexTypeStrategy\Composite(array(), new AnyType);
+        $this->strategy = new ComplexTypeStrategy\Composite([], new AnyType);
         $this->strategy->connectTypeToStrategy('\ZendTest\Soap\TestAsset\Book',
             new ArrayOfTypeComplex
         );
@@ -118,7 +118,7 @@ class CompositeStrategyTest extends WsdlTestHelper
     {
         $strategyClass =  'Zend\Soap\Wsdl\ComplexTypeStrategy\AnyType';
 
-        $strategy = new Composite(array(), $strategyClass);
+        $strategy = new Composite([], $strategyClass);
 
         $this->assertEquals($strategyClass, get_class($strategy->getDefaultStrategy()));
     }

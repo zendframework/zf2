@@ -30,20 +30,20 @@ class Alnum extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID      => "Invalid type given. String, integer or float expected",
         self::NOT_ALNUM    => "The input contains characters which are non alphabetic and no digits",
         self::STRING_EMPTY => "The input is an empty string",
-    );
+    ];
 
     /**
      * Options for this validator
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'allowWhiteSpace' => false,  // Whether to allow white space characters; off by default
-    );
+    ];
 
     /**
      * Sets default option values for this instance

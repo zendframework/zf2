@@ -58,7 +58,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterShouldAllowAddingValidatorInstance()
     {
-        $validator = new FileValidator\Count(array('min' => 1, 'max' => 1));
+        $validator = new FileValidator\Count(['min' => 1, 'max' => 1]);
         $this->adapter->addValidator($validator);
         $test = $this->adapter->getValidator('Zend\Validator\File\Count');
         $this->assertSame($validator, $test);
@@ -66,7 +66,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterShouldAllowAddingValidatorViaPluginManager()
     {
-        $this->adapter->addValidator('Count', false, array('min' => 1, 'max' => 1));
+        $this->adapter->addValidator('Count', false, ['min' => 1, 'max' => 1]);
         $test = $this->adapter->getValidator('Count');
         $this->assertInstanceOf('Zend\Validator\File\Count', $test);
     }
@@ -79,15 +79,15 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterShouldAllowAddingMultipleValidatorsAtOnceUsingBothInstancesAndPluginLoader()
     {
-        $validators = array(
-            'count' => array('min' => 1, 'max' => 1),
+        $validators = [
+            'count' => ['min' => 1, 'max' => 1],
             'Exists' => 'C:\temp',
-            array(
+            [
                 'validator' => 'Upload',
-                'options' => array(realpath(__FILE__))
-            ),
+                'options' => [realpath(__FILE__)]
+            ],
             new FileValidator\Extension('jpg'),
-        );
+        ];
         $this->adapter->addValidators($validators);
         $test = $this->adapter->getValidators();
         $this->assertInternalType('array', $test);
@@ -111,7 +111,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterShouldAllowPullingValidatorsByFile()
     {
-        $this->adapter->addValidator('Between', false, array('min' => 1, 'max' => 5), 'foo');
+        $this->adapter->addValidator('Between', false, ['min' => 1, 'max' => 5], 'foo');
         $validators = $this->adapter->getValidators('foo');
         $this->assertEquals(1, count($validators));
         $validator = array_shift($validators);
@@ -121,10 +121,10 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     public function testCallingSetValidatorsOnAdapterShouldOverwriteExistingValidators()
     {
         $this->testAdapterShouldAllowAddingMultipleValidatorsAtOnceUsingBothInstancesAndPluginLoader();
-        $validators = array(
+        $validators = [
             new FileValidator\Count(1),
             new FileValidator\Extension('jpg'),
-        );
+        ];
         $this->adapter->setValidators($validators);
         $test = $this->adapter->getValidators();
         $this->assertSame($validators, array_values($test));
@@ -193,7 +193,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testValidationShouldReturnTrueForValidTransfer()
     {
-        $this->adapter->addValidator('Count', false, array(1, 3), 'foo');
+        $this->adapter->addValidator('Count', false, [1, 3], 'foo');
         $this->assertTrue($this->adapter->isValid('foo'));
     }
 
@@ -273,14 +273,14 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterShouldAllowAddingMultipleFiltersAtOnceUsingBothInstancesAndPluginLoader()
     {
-        $filters = array(
-            'Word\SeparatorToCamelCase' => array('separator' => ' '),
-            array(
+        $filters = [
+            'Word\SeparatorToCamelCase' => ['separator' => ' '],
+            [
                 'filter' => 'Boolean',
                 'casting' => true
-            ),
+            ],
             new Filter\BaseName(),
-        );
+        ];
         $this->adapter->addFilters($filters);
         $test = $this->adapter->getFilters();
         $this->assertInternalType('array', $test);
@@ -311,10 +311,10 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     public function testCallingSetFiltersOnAdapterShouldOverwriteExistingFilters()
     {
         $this->testAdapterShouldAllowAddingMultipleFiltersAtOnceUsingBothInstancesAndPluginLoader();
-        $filters = array(
+        $filters = [
             new Filter\StringToUpper(),
             new Filter\Boolean(),
-        );
+        ];
         $this->adapter->setFilters($filters);
         $test = $this->adapter->getFilters();
         $this->assertSame($filters, array_values($test));
@@ -401,11 +401,11 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     public function testAdapterShouldAllowRetrievingDestinationsForAnArrayOfSpecifiedFiles()
     {
         $this->adapter->setDestination(__DIR__);
-        $destinations = $this->adapter->getDestination(array('bar', 'baz'));
+        $destinations = $this->adapter->getDestination(['bar', 'baz']);
         $this->assertInternalType('array', $destinations);
         $directory = __DIR__;
         foreach ($destinations as $file => $destination) {
-            $this->assertContains($file, array('bar', 'baz'));
+            $this->assertContains($file, ['bar', 'baz']);
             $this->assertEquals($directory, $destination);
         }
     }
@@ -413,33 +413,33 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     public function testSettingAndRetrievingOptions()
     {
         $this->assertEquals(
-            array(
-                'bar' => array('ignoreNoFile' => false, 'useByteString' => true),
-                'baz' => array('ignoreNoFile' => false, 'useByteString' => true),
-                'foo' => array('ignoreNoFile' => false, 'useByteString' => true, 'detectInfos' => true),
-                'file_0_' => array('ignoreNoFile' => false, 'useByteString' => true),
-                'file_1_' => array('ignoreNoFile' => false, 'useByteString' => true),
-            ), $this->adapter->getOptions());
+            [
+                'bar' => ['ignoreNoFile' => false, 'useByteString' => true],
+                'baz' => ['ignoreNoFile' => false, 'useByteString' => true],
+                'foo' => ['ignoreNoFile' => false, 'useByteString' => true, 'detectInfos' => true],
+                'file_0_' => ['ignoreNoFile' => false, 'useByteString' => true],
+                'file_1_' => ['ignoreNoFile' => false, 'useByteString' => true],
+            ], $this->adapter->getOptions());
 
-        $this->adapter->setOptions(array('ignoreNoFile' => true));
+        $this->adapter->setOptions(['ignoreNoFile' => true]);
         $this->assertEquals(
-            array(
-                'bar' => array('ignoreNoFile' => true, 'useByteString' => true),
-                'baz' => array('ignoreNoFile' => true, 'useByteString' => true),
-                'foo' => array('ignoreNoFile' => true, 'useByteString' => true, 'detectInfos' => true),
-                'file_0_' => array('ignoreNoFile' => true, 'useByteString' => true),
-                'file_1_' => array('ignoreNoFile' => true, 'useByteString' => true),
-            ), $this->adapter->getOptions());
+            [
+                'bar' => ['ignoreNoFile' => true, 'useByteString' => true],
+                'baz' => ['ignoreNoFile' => true, 'useByteString' => true],
+                'foo' => ['ignoreNoFile' => true, 'useByteString' => true, 'detectInfos' => true],
+                'file_0_' => ['ignoreNoFile' => true, 'useByteString' => true],
+                'file_1_' => ['ignoreNoFile' => true, 'useByteString' => true],
+            ], $this->adapter->getOptions());
 
-        $this->adapter->setOptions(array('ignoreNoFile' => false), 'foo');
+        $this->adapter->setOptions(['ignoreNoFile' => false], 'foo');
         $this->assertEquals(
-            array(
-                'bar' => array('ignoreNoFile' => true, 'useByteString' => true),
-                'baz' => array('ignoreNoFile' => true, 'useByteString' => true),
-                'foo' => array('ignoreNoFile' => false, 'useByteString' => true, 'detectInfos' => true),
-                'file_0_' => array('ignoreNoFile' => true, 'useByteString' => true),
-                'file_1_' => array('ignoreNoFile' => true, 'useByteString' => true),
-            ), $this->adapter->getOptions());
+            [
+                'bar' => ['ignoreNoFile' => true, 'useByteString' => true],
+                'baz' => ['ignoreNoFile' => true, 'useByteString' => true],
+                'foo' => ['ignoreNoFile' => false, 'useByteString' => true, 'detectInfos' => true],
+                'file_0_' => ['ignoreNoFile' => true, 'useByteString' => true],
+                'file_1_' => ['ignoreNoFile' => true, 'useByteString' => true],
+            ], $this->adapter->getOptions());
     }
 
     public function testGetAllAdditionalFileInfos()
@@ -508,7 +508,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $this->adapter->addInvalidFile();
         $return = $this->adapter->getHash('crc32', 'test');
-        $this->assertEquals(array(), $return);
+        $this->assertEquals([], $return);
     }
 
     public function testEmptyTempDirectoryDetection()
@@ -541,7 +541,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $this->adapter->addInvalidFile();
         $return = $this->adapter->getFileSize('test');
-        $this->assertEquals(array(), $return);
+        $this->assertEquals([], $return);
     }
 
     public function testFileSizeByTmpName()
@@ -550,7 +550,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $options = $this->adapter->getOptions();
         $this->assertTrue($options['baz']['useByteString']);
         $this->assertEquals($expectedSize, $this->adapter->getFileSize('baz.text'));
-        $this->adapter->setOptions(array('useByteString' => false));
+        $this->adapter->setOptions(['useByteString' => false]);
         $options = $this->adapter->getOptions();
         $this->assertFalse($options['baz']['useByteString']);
         $this->assertEquals(1172, $this->adapter->getFileSize('baz.text'));
@@ -566,7 +566,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $this->adapter->addInvalidFile();
         $return = $this->adapter->getMimeType('test');
-        $this->assertEquals(array(), $return);
+        $this->assertEquals([], $return);
     }
 
     public function testMimeTypeByTmpName()
@@ -576,7 +576,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testSetOwnErrorMessage()
     {
-        $this->adapter->addValidator('Count', false, array('min' => 5, 'max' => 5, 'messages' => array(FileValidator\Count::TOO_FEW => 'Zu wenige')));
+        $this->adapter->addValidator('Count', false, ['min' => 5, 'max' => 5, 'messages' => [FileValidator\Count::TOO_FEW => 'Zu wenige']]);
         $this->assertFalse($this->adapter->isValid('foo'));
         $message = $this->adapter->getMessages();
         $this->assertContains('Zu wenige', $message);
@@ -600,11 +600,11 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettingMagicFile()
     {
-        $this->adapter->setOptions(array('magicFile' => 'test/file'));
+        $this->adapter->setOptions(['magicFile' => 'test/file']);
         $this->assertEquals(
-            array(
-                'bar' => array('magicFile' => 'test/file', 'ignoreNoFile' => false, 'useByteString' => true),
-            ), $this->adapter->getOptions('bar'));
+            [
+                'bar' => ['magicFile' => 'test/file', 'ignoreNoFile' => false, 'useByteString' => true],
+            ], $this->adapter->getOptions('bar'));
     }
 
     /**
@@ -612,12 +612,12 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdapterShouldAllowAddingMultipleValidatorsAtOnceUsingBothInstancesAndPluginLoaderForDifferentFiles()
     {
-        $validators = array(
-            array('MimeType', true, array('image/jpeg')), // no files
-            array('FilesSize', true, array('max' => '1MB', 'message' => 'файл больше 1MБ')), // no files
-            array('Count', true, array('min' => 1, 'max' => '1', 'message' => 'файл не 1'), 'bar'), // 'bar' from config
-            array('MimeType', true, array('image/jpeg'), 'bar'), // 'bar' from config
-        );
+        $validators = [
+            ['MimeType', true, ['image/jpeg']], // no files
+            ['FilesSize', true, ['max' => '1MB', 'message' => 'файл больше 1MБ']], // no files
+            ['Count', true, ['min' => 1, 'max' => '1', 'message' => 'файл не 1'], 'bar'], // 'bar' from config
+            ['MimeType', true, ['image/jpeg'], 'bar'], // 'bar' from config
+        ];
 
         $this->adapter->addValidators($validators, 'foo'); // set validators to 'foo'
 
@@ -648,16 +648,16 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettingAndRetrievingDetectInfosOption()
     {
-        $this->assertEquals(array(
-            'foo' => array(
+        $this->assertEquals([
+            'foo' => [
                 'ignoreNoFile' => false,
                 'useByteString' => true,
-                'detectInfos' => true)), $this->adapter->getOptions('foo'));
-        $this->adapter->setOptions(array('detectInfos' => false));
-        $this->assertEquals(array(
-            'foo' => array(
+                'detectInfos' => true]], $this->adapter->getOptions('foo'));
+        $this->adapter->setOptions(['detectInfos' => false]);
+        $this->assertEquals([
+            'foo' => [
                 'ignoreNoFile' => false,
                 'useByteString' => true,
-                'detectInfos' => false)), $this->adapter->getOptions('foo'));
+                'detectInfos' => false]], $this->adapter->getOptions('foo'));
     }
 }

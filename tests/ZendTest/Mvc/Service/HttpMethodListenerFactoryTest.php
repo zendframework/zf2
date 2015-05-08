@@ -39,10 +39,10 @@ class HttpMethodListenerFactoryTest extends TestCase
 
     public function testCreateWithConfig()
     {
-        $config['http_methods_listener'] = array(
+        $config['http_methods_listener'] = [
             'enabled' => false,
-            'allowed_methods' => array('FOO', 'BAR')
-        );
+            'allowed_methods' => ['FOO', 'BAR']
+        ];
 
         $this->serviceLocator->expects($this->atLeastOnce())
             ->method('get')

@@ -19,38 +19,38 @@ class LiteralTest extends TestCase
 {
     public static function routeProvider()
     {
-        return array(
-            'simple-match' => array(
+        return [
+            'simple-match' => [
                 new Literal('/foo'),
                 '/foo',
                 null,
                 true
-            ),
-            'no-match-without-leading-slash' => array(
+            ],
+            'no-match-without-leading-slash' => [
                 new Literal('foo'),
                 '/foo',
                 null,
                 false
-            ),
-            'no-match-with-trailing-slash' => array(
+            ],
+            'no-match-with-trailing-slash' => [
                 new Literal('/foo'),
                 '/foo/',
                 null,
                 false
-            ),
-            'offset-skips-beginning' => array(
+            ],
+            'offset-skips-beginning' => [
                 new Literal('foo'),
                 '/foo',
                 1,
                 true
-            ),
-            'offset-enables-partial-matching' => array(
+            ],
+            'offset-enables-partial-matching' => [
                 new Literal('/foo'),
                 '/foo/bar',
                 0,
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -111,9 +111,9 @@ class LiteralTest extends TestCase
     public function testGetAssembledParams()
     {
         $route = new Literal('/foo');
-        $route->assemble(array('foo' => 'bar'));
+        $route->assemble(['foo' => 'bar']);
 
-        $this->assertEquals(array(), $route->getAssembledParams());
+        $this->assertEquals([], $route->getAssembledParams());
     }
 
     public function testFactory()
@@ -121,12 +121,12 @@ class LiteralTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Literal',
-            array(
+            [
                 'route' => 'Missing "route" in options array'
-            ),
-            array(
+            ],
+            [
                 'route' => '/foo'
-            )
+            ]
         );
     }
 

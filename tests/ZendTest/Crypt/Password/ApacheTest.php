@@ -27,9 +27,9 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
-        $this->apache = new Apache(array(
+        $this->apache = new Apache([
             'format' => 'crypt'
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Crypt\Password\Apache', $this->apache);
     }
 
@@ -46,9 +46,9 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
      */
     public function testWrongParamConstruct()
     {
-        $this->apache = new Apache(array(
+        $this->apache = new Apache([
             'format' => 'crypto'
-        ));
+        ]);
     }
 
     public function testSetUserName()
@@ -149,14 +149,14 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
      */
     public static function provideTestVectors()
     {
-        return array(
+        return [
             // openssl passwd -apr1 -salt z0Hhe5Lq myPassword
-            array('myPassword', '$apr1$z0Hhe5Lq$6YdJKbkrJg77Dvw2gpuSA1'),
+            ['myPassword', '$apr1$z0Hhe5Lq$6YdJKbkrJg77Dvw2gpuSA1'],
             // openssl passwd -crypt -salt z0Hhe5Lq myPassword
-            array('myPassword', 'z0yXKQm465G4o'),
+            ['myPassword', 'z0yXKQm465G4o'],
             // htpasswd -nbs myName myPassword
-            array('myPassword', '{SHA}VBPuJHI7uixaa6LQGWx4s+5GKNE=')
-        );
+            ['myPassword', '{SHA}VBPuJHI7uixaa6LQGWx4s+5GKNE=']
+        ];
     }
 
     /**

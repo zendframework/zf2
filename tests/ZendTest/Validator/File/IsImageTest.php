@@ -43,23 +43,23 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
     public function basicBehaviorDataProvider()
     {
         $testFile = __DIR__ . '/_files/picture.jpg';
-        $fileUpload = array(
+        $fileUpload = [
             'tmp_name' => $testFile, 'name' => basename($testFile),
             'size' => 200, 'error' => 0, 'type' => 'image/jpeg'
-        );
-        return array(
+        ];
+        return [
             //    Options, isValid Param, Expected value
-            array(null,                              $fileUpload, true),
-            array('jpeg',                            $fileUpload, true),
-            array('test/notype',                     $fileUpload, false),
-            array('image/gif, image/jpeg',           $fileUpload, true),
-            array(array('image/vasa', 'image/jpeg'), $fileUpload, true),
-            array(array('image/jpeg', 'gif'),        $fileUpload, true),
-            array(array('image/gif', 'gif'),         $fileUpload, false),
-            array('image/jp',                        $fileUpload, false),
-            array('image/jpg2000',                   $fileUpload, false),
-            array('image/jpeg2000',                  $fileUpload, false),
-        );
+            [null,                              $fileUpload, true],
+            ['jpeg',                            $fileUpload, true],
+            ['test/notype',                     $fileUpload, false],
+            ['image/gif, image/jpeg',           $fileUpload, true],
+            [['image/vasa', 'image/jpeg'], $fileUpload, true],
+            [['image/jpeg', 'gif'],        $fileUpload, true],
+            [['image/gif', 'gif'],         $fileUpload, false],
+            ['image/jp',                        $fileUpload, false],
+            ['image/jpg2000',                   $fileUpload, false],
+            ['image/jpeg2000',                  $fileUpload, false],
+        ];
     }
 
     /**
@@ -100,11 +100,11 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
         $validator = new File\IsImage('image/gif');
         $this->assertEquals('image/gif', $validator->getMimeType());
 
-        $validator = new File\IsImage(array('image/gif', 'video', 'text/test'));
+        $validator = new File\IsImage(['image/gif', 'video', 'text/test']);
         $this->assertEquals('image/gif,video,text/test', $validator->getMimeType());
 
-        $validator = new File\IsImage(array('image/gif', 'video', 'text/test'));
-        $this->assertEquals(array('image/gif', 'video', 'text/test'), $validator->getMimeType(true));
+        $validator = new File\IsImage(['image/gif', 'video', 'text/test']);
+        $this->assertEquals(['image/gif', 'video', 'text/test'], $validator->getMimeType(true));
     }
 
     /**
@@ -117,15 +117,15 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
         $validator = new File\IsImage('image/gif');
         $validator->setMimeType('image/jpeg');
         $this->assertEquals('image/jpeg', $validator->getMimeType());
-        $this->assertEquals(array('image/jpeg'), $validator->getMimeType(true));
+        $this->assertEquals(['image/jpeg'], $validator->getMimeType(true));
 
         $validator->setMimeType('image/gif, text/test');
         $this->assertEquals('image/gif,text/test', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text/test'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text/test'], $validator->getMimeType(true));
 
-        $validator->setMimeType(array('video/mpeg', 'gif'));
+        $validator->setMimeType(['video/mpeg', 'gif']);
         $this->assertEquals('video/mpeg,gif', $validator->getMimeType());
-        $this->assertEquals(array('video/mpeg', 'gif'), $validator->getMimeType(true));
+        $this->assertEquals(['video/mpeg', 'gif'], $validator->getMimeType(true));
     }
 
     /**
@@ -138,19 +138,19 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
         $validator = new File\IsImage('image/gif');
         $validator->addMimeType('text');
         $this->assertEquals('image/gif,text', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text'], $validator->getMimeType(true));
 
         $validator->addMimeType('jpg, to');
         $this->assertEquals('image/gif,text,jpg,to', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to'], $validator->getMimeType(true));
 
-        $validator->addMimeType(array('zip', 'ti'));
+        $validator->addMimeType(['zip', 'ti']);
         $this->assertEquals('image/gif,text,jpg,to,zip,ti', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to', 'zip', 'ti'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to', 'zip', 'ti'], $validator->getMimeType(true));
 
         $validator->addMimeType('');
         $this->assertEquals('image/gif,text,jpg,to,zip,ti', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to', 'zip', 'ti'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to', 'zip', 'ti'], $validator->getMimeType(true));
     }
 
     /**
@@ -158,13 +158,13 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testErrorMessages()
     {
-        $files = array(
+        $files = [
             'name'     => 'picture.jpg',
             'type'     => 'image/jpeg',
             'size'     => 200,
             'tmp_name' => __DIR__ . '/_files/picture.jpg',
             'error'    => 0
-        );
+        ];
 
         $validator = new File\IsImage('test/notype');
         $validator->enableHeaderCheck();
@@ -180,11 +180,11 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
         }
 
         $magicFile = $this->getMagicMime();
-        $validator = new File\IsImage(array(
+        $validator = new File\IsImage([
             'image/gif',
             'image/jpg',
             'magicFile'   => $magicFile,
-            'enableHeaderCheck' => true));
+            'enableHeaderCheck' => true]);
 
         $this->assertEquals($magicFile, $validator->getMagicFile());
         $this->assertTrue($validator->getHeaderCheck());
@@ -193,9 +193,9 @@ class IsImageTest extends \PHPUnit_Framework_TestCase
 
     public function testNonMimeOptionsAtConstructorStillSetsDefaults()
     {
-        $validator = new File\IsImage(array(
+        $validator = new File\IsImage([
             'enableHeaderCheck' => true,
-        ));
+        ]);
 
         $this->assertNotEmpty($validator->getMimeType());
     }

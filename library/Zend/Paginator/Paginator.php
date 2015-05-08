@@ -288,7 +288,7 @@ class Paginator implements Countable, IteratorAggregate
         $config = static::$config;
 
         if (!empty($config)) {
-            $setupMethods = array('ItemCountPerPage', 'PageRange');
+            $setupMethods = ['ItemCountPerPage', 'PageRange'];
 
             foreach ($setupMethods as $setupMethod) {
                 $key   = strtolower($setupMethod);
@@ -684,7 +684,7 @@ class Paginator implements Countable, IteratorAggregate
         $lowerBound = $this->normalizePageNumber($lowerBound);
         $upperBound = $this->normalizePageNumber($upperBound);
 
-        $pages = array();
+        $pages = [];
 
         for ($pageNumber = $lowerBound; $pageNumber <= $upperBound; $pageNumber++) {
             $pages[$pageNumber] = $pageNumber;
@@ -700,7 +700,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     public function getPageItemCache()
     {
-        $data = array();
+        $data = [];
         if ($this->cacheEnabled()) {
             $prefixLength  = strlen(self::CACHE_TAG_PREFIX);
             $cacheIterator = static::$cache->getIterator();
@@ -858,10 +858,10 @@ class Paginator implements Countable, IteratorAggregate
      */
     protected function _getCacheInternalId()
     {
-        return md5(serialize(array(
+        return md5(serialize([
             spl_object_hash($this->getAdapter()),
             $this->getItemCountPerPage()
-        )));
+        ]));
     }
 
     /**

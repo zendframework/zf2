@@ -29,7 +29,7 @@ class Boolean extends AbstractFilter
     /**
      * @var array
      */
-    protected $constants = array(
+    protected $constants = [
         self::TYPE_BOOLEAN       => 'boolean',
         self::TYPE_INTEGER       => 'integer',
         self::TYPE_FLOAT         => 'float',
@@ -41,16 +41,16 @@ class Boolean extends AbstractFilter
         self::TYPE_FALSE_STRING  => 'false',
         self::TYPE_LOCALIZED     => 'localized',
         self::TYPE_ALL           => 'all',
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'type'         => self::TYPE_PHP,
         'casting'      => true,
-        'translations' => array(),
-    );
+        'translations' => [],
+    ];
 
     /**
      * Constructor
@@ -59,7 +59,7 @@ class Boolean extends AbstractFilter
      * @param bool  $casting
      * @param array $translations
      */
-    public function __construct($typeOrOptions = null, $casting = true, $translations = array())
+    public function __construct($typeOrOptions = null, $casting = true, $translations = [])
     {
         if ($typeOrOptions !== null) {
             if ($typeOrOptions instanceof Traversable) {
@@ -228,7 +228,7 @@ class Boolean extends AbstractFilter
         // EMPTY_ARRAY (array())
         if ($type >= self::TYPE_EMPTY_ARRAY) {
             $type -= self::TYPE_EMPTY_ARRAY;
-            if (is_array($value) && ($value == array())) {
+            if (is_array($value) && ($value == [])) {
                 return false;
             }
         }

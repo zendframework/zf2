@@ -47,7 +47,7 @@ class Mvc extends AbstractPage
      * @see getHref()
      * @var array
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * RouteInterface name to use when assembling URL
@@ -122,7 +122,7 @@ class Mvc extends AbstractPage
     public function isActive($recursive = false)
     {
         if (!$this->active) {
-            $reqParams = array();
+            $reqParams = [];
             if ($this->routeMatch instanceof RouteMatch) {
                 $reqParams  = $this->routeMatch->getParams();
 
@@ -245,7 +245,7 @@ class Mvc extends AbstractPage
                 throw new Exception\DomainException('No route name could be found');
         }
 
-        $options = array('name' => $name);
+        $options = ['name' => $name];
 
         // Add the fragment identifier if it is set
         $fragment = $this->getFragment();
@@ -366,7 +366,7 @@ class Mvc extends AbstractPage
      */
     public function setParams(array $params = null)
     {
-        $this->params = empty($params) ? array() : $params;
+        $this->params = empty($params) ? [] : $params;
         $this->hrefCache = null;
         return $this;
     }
@@ -541,14 +541,14 @@ class Mvc extends AbstractPage
     {
         return array_merge(
             parent::toArray(),
-            array(
+            [
                  'action'     => $this->getAction(),
                  'controller' => $this->getController(),
                  'params'     => $this->getParams(),
                  'route'      => $this->getRoute(),
                  'router'     => $this->getRouter(),
                  'route_match' => $this->getRouteMatch(),
-            )
+            ]
         );
     }
 }

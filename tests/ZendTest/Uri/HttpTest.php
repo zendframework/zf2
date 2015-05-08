@@ -30,40 +30,40 @@ class HttpTest extends TestCase
      */
     public function validSchemeProvider()
     {
-        return array(
-            array('http'),
-            array('https'),
-            array('HTTP'),
-            array('Https'),
-        );
+        return [
+            ['http'],
+            ['https'],
+            ['HTTP'],
+            ['Https'],
+        ];
     }
 
     public function validHostProvider()
     {
-        return array(
-            array('',                                   false),
-            array('http',                               true),
-            array('http:',                              false),
-            array('http:/',                             false),
-            array('http://',                            false),
-            array('http:///',                           false),
-            array('http://www.example.org/',            false),
-            array('www.example.org:80',                 false),
-            array('www.example.org',                    true),
-            array('plekitööd.ee',                       true),
-            array('http://foo',                         false),
-            array('foo',                                true),
-            array('ftp://user:pass@example.org/',       false),
-            array('www.fi/',                            false),
-            array('http://1.1.1.1/',                    false),
-            array('1.1.1.1',                            true),
-            array('1.256.1.1',                          true), // Hostnames can be only numbers
-            array('http://[::1]/',                      false),
-            array('[::1]',                              true),
-            array('http://[2620:0:1cfe:face:b00c::3]/', false),
-            array('[2620:0:1cfe:face:b00c::3]:80',      false),
-            array('[2620:0:1cfe:face:b00c::3]',         true),
-        );
+        return [
+            ['',                                   false],
+            ['http',                               true],
+            ['http:',                              false],
+            ['http:/',                             false],
+            ['http://',                            false],
+            ['http:///',                           false],
+            ['http://www.example.org/',            false],
+            ['www.example.org:80',                 false],
+            ['www.example.org',                    true],
+            ['plekitööd.ee',                       true],
+            ['http://foo',                         false],
+            ['foo',                                true],
+            ['ftp://user:pass@example.org/',       false],
+            ['www.fi/',                            false],
+            ['http://1.1.1.1/',                    false],
+            ['1.1.1.1',                            true],
+            ['1.256.1.1',                          true], // Hostnames can be only numbers
+            ['http://[::1]/',                      false],
+            ['[::1]',                              true],
+            ['http://[2620:0:1cfe:face:b00c::3]/', false],
+            ['[2620:0:1cfe:face:b00c::3]:80',      false],
+            ['[2620:0:1cfe:face:b00c::3]',         true],
+        ];
     }
 
     /**
@@ -73,23 +73,23 @@ class HttpTest extends TestCase
      */
     public function invalidSchemeProvider()
     {
-        return array(
-            array('file'),
-            array('mailto'),
-            array('g'),
-            array('http:')
-        );
+        return [
+            ['file'],
+            ['mailto'],
+            ['g'],
+            ['http:']
+        ];
     }
 
     public function portNormalizationTestsProvider()
     {
-        return array(
-            array('http://www.example.com:80/foo/bar', 'http://www.example.com/foo/bar'),
-            array('http://www.example.com:1234/foo/bar', 'http://www.example.com:1234/foo/bar'),
-            array('https://www.example.com:443/foo/bar', 'https://www.example.com/foo/bar'),
-            array('https://www.example.com:80/foo/bar', 'https://www.example.com:80/foo/bar'),
-            array('http://www.example.com:443/foo/bar', 'http://www.example.com:443/foo/bar'),
-        );
+        return [
+            ['http://www.example.com:80/foo/bar', 'http://www.example.com/foo/bar'],
+            ['http://www.example.com:1234/foo/bar', 'http://www.example.com:1234/foo/bar'],
+            ['https://www.example.com:443/foo/bar', 'https://www.example.com/foo/bar'],
+            ['https://www.example.com:80/foo/bar', 'https://www.example.com:80/foo/bar'],
+            ['http://www.example.com:443/foo/bar', 'http://www.example.com:443/foo/bar'],
+        ];
     }
 
     /**

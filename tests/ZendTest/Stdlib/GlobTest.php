@@ -59,14 +59,14 @@ class GlobTest extends TestCase
 
     public function patternsProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 "{{,*.}alph,{,*.}bet}a",
-                array(
+                [
                     'alpha', 'eta.alpha', 'zeta.alpha', 'beta', 'eta.beta',
                     'zeta.beta'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 }

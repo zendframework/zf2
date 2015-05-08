@@ -37,12 +37,12 @@ class MessageIdTest extends \PHPUnit_Framework_TestCase
 
     public function headerLines()
     {
-        return array(
-            'newline'      => array("Message-ID: foo\nbar"),
-            'cr-lf'        => array("Message-ID: bar\r\nfoo"),
-            'cr-lf-wsp'    => array("Message-ID: bar\r\n\r\n baz"),
-            'multiline'    => array("Message-ID: baz\r\nbar\r\nbau"),
-        );
+        return [
+            'newline'      => ["Message-ID: foo\nbar"],
+            'cr-lf'        => ["Message-ID: bar\r\nfoo"],
+            'cr-lf-wsp'    => ["Message-ID: bar\r\n\r\n baz"],
+            'multiline'    => ["Message-ID: baz\r\nbar\r\nbau"],
+        ];
     }
 
     /**
@@ -57,13 +57,13 @@ class MessageIdTest extends \PHPUnit_Framework_TestCase
 
     public function invalidIdentifiers()
     {
-        return array(
-            'newline'      => array("foo\nbar"),
-            'cr-lf'        => array("bar\r\nfoo"),
-            'cr-lf-wsp'    => array("bar\r\n\r\n baz"),
-            'multiline'    => array("baz\r\nbar\r\nbau"),
-            'folding'      => array("bar\r\n baz"),
-        );
+        return [
+            'newline'      => ["foo\nbar"],
+            'cr-lf'        => ["bar\r\nfoo"],
+            'cr-lf-wsp'    => ["bar\r\n\r\n baz"],
+            'multiline'    => ["baz\r\nbar\r\nbau"],
+            'folding'      => ["bar\r\n baz"],
+        ];
     }
 
     /**

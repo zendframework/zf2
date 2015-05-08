@@ -17,7 +17,7 @@ class FooFactory implements FactoryInterface, MutableCreationOptionsInterface
 {
     protected $creationOptions;
 
-    public function __construct(array $creationOptions = array())
+    public function __construct(array $creationOptions = [])
     {
         $this->creationOptions = $creationOptions;
     }

@@ -26,7 +26,7 @@ class ReferenceId extends RequestId implements ProcessorInterface
         }
 
         if (!isset($event['extra'])) {
-            $event['extra'] = array();
+            $event['extra'] = [];
         }
 
         $event['extra']['referenceId'] = $this->getIdentifier();

@@ -18,7 +18,7 @@ class BasicFieldset extends Fieldset implements \Zend\InputFilter\InputFilterPro
     {
         parent::__construct('basic_fieldset');
 
-        $field = new Element('field', array('label' => 'Name'));
+        $field = new Element('field', ['label' => 'Name']);
         $field->setAttribute('type', 'text');
         $this->add($field);
 
@@ -35,10 +35,10 @@ class BasicFieldset extends Fieldset implements \Zend\InputFilter\InputFilterPro
      */
     public function getInputFilterSpecification()
     {
-        return array(
-            'field' => array(
+        return [
+            'field' => [
                 'required' => true
-            )
-        );
+            ]
+        ];
     }
 }

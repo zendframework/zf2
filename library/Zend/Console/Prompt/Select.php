@@ -26,7 +26,7 @@ class Select extends Char
     /**
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Ask the user to select one of pre-defined options
@@ -39,7 +39,7 @@ class Select extends Char
      */
     public function __construct(
         $promptText = 'Please select one option',
-        $options = array(),
+        $options = [],
         $allowEmpty = false,
         $echo = false
     ) {
@@ -126,7 +126,7 @@ class Select extends Char
         }
 
         if (!is_array($options)) {
-            $this->options = array();
+            $this->options = [];
             foreach ($options as $k => $v) {
                 $this->options[$k] = $v;
             }

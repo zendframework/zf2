@@ -27,7 +27,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testCount()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $count = count($list);
         $this->assertEquals(7, $count);
@@ -35,21 +35,21 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testIsset()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->assertTrue(isset($list[1]));
     }
 
     public function testNotIsset()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->assertFalse(isset($list[10]));
     }
 
     public function testArrayGet()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $subject = $list[1]->subject;
         $this->assertEquals('Simple Message', $subject);
@@ -57,7 +57,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testArraySetFail()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->setExpectedException('Zend\Mail\Storage\Exception\RuntimeException');
         $list[1] = 'test';
@@ -65,7 +65,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testIterationKey()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $pos = 1;
         foreach ($list as $key => $message) {
@@ -76,7 +76,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testIterationIsMessage()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         foreach ($list as $key => $message) {
             $this->assertInstanceOf('Zend\Mail\Storage\Message\MessageInterface', $message, 'value in iteration is not a mail message');
@@ -85,7 +85,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testIterationRounds()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $count = 0;
         foreach ($list as $key => $message) {
@@ -97,7 +97,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testIterationWithSeek()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $count = 0;
         foreach (new \LimitIterator($list, 1, 3) as $key => $message) {
@@ -109,7 +109,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testIterationWithSeekCapped()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $count = 0;
         foreach (new \LimitIterator($list, 3, 7) as $key => $message) {
@@ -121,7 +121,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testFallback()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $result = $list->noop();
         $this->assertTrue($result);
@@ -129,7 +129,7 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testWrongVariable()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
         $list->thisdoesnotexist;
@@ -137,14 +137,14 @@ class MboxInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetHeaders()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
         $headers = $list[1]->getHeaders();
         $this->assertNotEmpty($headers);
     }
 
     public function testWrongHeader()
     {
-        $list = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $list = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
         $list[1]->thisdoesnotexist;

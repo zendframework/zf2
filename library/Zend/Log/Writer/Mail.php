@@ -33,7 +33,7 @@ class Mail extends AbstractWriter
      *
      * @var array
      */
-    protected $eventsToMail = array();
+    protected $eventsToMail = [];
 
     /**
      * Mail message instance to use
@@ -54,7 +54,7 @@ class Mail extends AbstractWriter
      *
      * @var array
      */
-    protected $numEntriesPerPriority = array();
+    protected $numEntriesPerPriority = [];
 
     /**
      * Subject prepend text.
@@ -212,7 +212,7 @@ class Mail extends AbstractWriter
      */
     protected function getFormattedNumEntriesPerPriority()
     {
-        $strings = array();
+        $strings = [];
 
         foreach ($this->numEntriesPerPriority as $priority => $numEntries) {
             $strings[] = "{$priority}={$numEntries}";

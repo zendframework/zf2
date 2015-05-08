@@ -68,7 +68,7 @@ class MboxMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchHeader()
     {
-        $mail = new MboxOldMessage(array('filename' => $this->_mboxFile));
+        $mail = new MboxOldMessage(['filename' => $this->_mboxFile]);
 
         $subject = $mail->getMessage(1)->subject;
         $this->assertEquals('Simple Message', $subject);
@@ -86,7 +86,7 @@ class MboxMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchMessageHeader()
     {
-        $mail = new MboxOldMessage(array('filename' => $this->_mboxFile));
+        $mail = new MboxOldMessage(['filename' => $this->_mboxFile]);
 
         $subject = $mail->getMessage(1)->subject;
         $this->assertEquals('Simple Message', $subject);
@@ -94,7 +94,7 @@ class MboxMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchMessageBody()
     {
-        $mail = new MboxOldMessage(array('filename' => $this->_mboxFile));
+        $mail = new MboxOldMessage(['filename' => $this->_mboxFile]);
 
         $content = $mail->getMessage(3)->getContent();
         list($content) = explode("\n", $content, 2);
@@ -107,7 +107,7 @@ class MboxMessageOldTest extends \PHPUnit_Framework_TestCase
         $fh = fopen($this->_mboxFile, 'w');
         fputs($fh, "From \r\nSubject: test\r\nFrom \r\nSubject: test2\r\n");
         fclose($fh);
-        $mail = new MboxOldMessage(array('filename' => $this->_mboxFile));
+        $mail = new MboxOldMessage(['filename' => $this->_mboxFile]);
         $this->assertEquals($mail->countMessages(), 2);
         $this->assertEquals($mail->getMessage(1)->subject, 'test');
         $this->assertEquals($mail->getMessage(1)->getContent(), '');

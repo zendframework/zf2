@@ -20,11 +20,11 @@ class UniqueKeyTest extends \PHPUnit_Framework_TestCase
     {
         $uk = new UniqueKey('foo', 'my_uk');
         $this->assertEquals(
-            array(array(
+            [[
                 'CONSTRAINT %s UNIQUE (%s)',
-                array('my_uk', 'foo'),
-                array($uk::TYPE_IDENTIFIER, $uk::TYPE_IDENTIFIER)
-            )),
+                ['my_uk', 'foo'],
+                [$uk::TYPE_IDENTIFIER, $uk::TYPE_IDENTIFIER]
+            ]],
             $uk->getExpressionData()
         );
     }

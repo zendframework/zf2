@@ -39,13 +39,13 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0));
         $mockAdapter = $this->getMockForAbstractClass(
             'Zend\Db\Adapter\Adapter',
-            array($mockDriver, new Sql92())
+            [$mockDriver, new Sql92()]
         );
 
         $tableName = 'foobar';
         $mockTableGateway = $this->getMockForAbstractClass(
             'Zend\Db\TableGateway\TableGateway',
-            array($tableName, $mockAdapter)
+            [$tableName, $mockAdapter]
         );
 
         $this->mockStatement = $mockStatement;
@@ -64,7 +64,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertEquals(array(), $items);
+        $this->assertEquals([], $items);
     }
 
     public function testCount()
@@ -74,7 +74,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
         $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
         $mockResult->expects($this->any())
                    ->method('current')
-                   ->will($this->returnValue(array(DbSelect::ROW_COUNT_COLUMN_NAME => 10)));
+                   ->will($this->returnValue([DbSelect::ROW_COUNT_COLUMN_NAME => 10]));
 
         $this->mockStatement->expects($this->any())
              ->method('execute')
@@ -97,7 +97,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertEquals(array(), $items);
+        $this->assertEquals([], $items);
     }
 
     public function testGetItemsWithWhereAndOrderAndGroup()
@@ -118,7 +118,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
              ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertEquals(array(), $items);
+        $this->assertEquals([], $items);
     }
 
     public function testGetItemsWithWhereAndOrderAndGroupAndHaving()
@@ -140,6 +140,6 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($mockResult));
 
         $items = $this->dbTableGateway->getItems(2, 10);
-        $this->assertEquals(array(), $items);
+        $this->assertEquals([], $items);
     }
 }

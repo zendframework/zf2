@@ -25,7 +25,7 @@ class ExtensionPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'atomentry'            => 'Zend\Feed\Reader\Extension\Atom\Entry',
         'atomfeed'             => 'Zend\Feed\Reader\Extension\Atom\Feed',
         'contententry'         => 'Zend\Feed\Reader\Extension\Content\Entry',
@@ -39,7 +39,7 @@ class ExtensionPluginManager extends AbstractPluginManager
         'syndicationfeed'      => 'Zend\Feed\Reader\Extension\Syndication\Feed',
         'threadentry'          => 'Zend\Feed\Reader\Extension\Thread\Entry',
         'wellformedwebentry'   => 'Zend\Feed\Reader\Extension\WellFormedWeb\Entry',
-    );
+    ];
 
     /**
      * Do not share instances

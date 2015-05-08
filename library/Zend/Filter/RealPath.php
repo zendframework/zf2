@@ -17,9 +17,9 @@ class RealPath extends AbstractFilter
     /**
      * @var array $options
      */
-    protected $options = array(
+    protected $options = [
         'exists' => true
-    );
+    ];
 
     /**
      * Class constructor
@@ -105,7 +105,7 @@ class RealPath extends AbstractFilter
             $path = getcwd() . DIRECTORY_SEPARATOR . $path;
         }
 
-        $stack = array();
+        $stack = [];
         $parts = explode(DIRECTORY_SEPARATOR, $path);
         foreach ($parts as $dir) {
             if (strlen($dir) && $dir !== '.') {

@@ -21,7 +21,7 @@ class Deleted
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
@@ -171,7 +171,7 @@ class Deleted
      */
     public function setBy(array $by)
     {
-        $author = array();
+        $author = [];
         if (!array_key_exists('name', $by)
             || empty($by['name'])
             || !is_string($by['name'])

@@ -38,31 +38,31 @@ class FormElementTest extends TestCase
 
     public function getInputElements()
     {
-        return array(
-            array('text'),
-            array('password'),
-            array('checkbox'),
-            array('radio'),
-            array('submit'),
-            array('reset'),
-            array('file'),
-            array('hidden'),
-            array('image'),
-            array('button'),
-            array('number'),
-            array('range'),
-            array('date'),
-            array('color'),
-            array('search'),
-            array('tel'),
-            array('email'),
-            array('url'),
-            array('datetime'),
-            array('datetime-local'),
-            array('month'),
-            array('week'),
-            array('time'),
-        );
+        return [
+            ['text'],
+            ['password'],
+            ['checkbox'],
+            ['radio'],
+            ['submit'],
+            ['reset'],
+            ['file'],
+            ['hidden'],
+            ['image'],
+            ['button'],
+            ['number'],
+            ['range'],
+            ['date'],
+            ['color'],
+            ['search'],
+            ['tel'],
+            ['email'],
+            ['url'],
+            ['datetime'],
+            ['datetime-local'],
+            ['month'],
+            ['week'],
+            ['time'],
+        ];
     }
 
     /**
@@ -81,7 +81,7 @@ class FormElementTest extends TestCase
         }
 
         $element->setAttribute('type', $type);
-        $element->setAttribute('options', array('option' => 'value'));
+        $element->setAttribute('options', ['option' => 'value']);
         $element->setAttribute('src', 'http://zend.com/img.png');
         $markup  = $this->helper->render($element);
 
@@ -91,11 +91,11 @@ class FormElementTest extends TestCase
 
     public function getMultiElements()
     {
-        return array(
-            array('radio', 'input', 'type="radio"'),
-            array('multi_checkbox', 'input', 'type="checkbox"'),
-            array('select', 'option', '<select'),
-        );
+        return [
+            ['radio', 'input', 'type="radio"'],
+            ['multi_checkbox', 'input', 'type="checkbox"'],
+            ['select', 'option', '<select'],
+        ];
     }
 
     /**
@@ -117,11 +117,11 @@ class FormElementTest extends TestCase
             $element = new Element('foo');
         }
         $element->setAttribute('type', $type);
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'value1' => 'option',
             'value2' => 'label',
             'value3' => 'last',
-        ));
+        ]);
         $element->setAttribute('value', 'value2');
         $markup  = $this->helper->render($element);
 
@@ -134,9 +134,9 @@ class FormElementTest extends TestCase
 
     public function testRendersCaptchaAsExpected()
     {
-        $captcha = new Captcha\Dumb(array(
+        $captcha = new Captcha\Dumb([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-        ));
+        ]);
         $element = new Element\Captcha('foo');
         $element->setCaptcha($captcha);
         $markup = $this->helper->render($element);

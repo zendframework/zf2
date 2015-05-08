@@ -60,7 +60,7 @@ class FormDateSelect extends FormMonthSelectHelper
             $monthElement->setEmptyOption('');
         }
 
-        $data = array();
+        $data = [];
         $data[$pattern['day']]   = $selectHelper->render($dayElement);
         $data[$pattern['month']] = $selectHelper->render($monthElement);
         $data[$pattern['year']]  = $selectHelper->render($yearElement);
@@ -90,7 +90,7 @@ class FormDateSelect extends FormMonthSelectHelper
         $valueFormatter = new IntlDateFormatter($this->getLocale(), null, null, null, null, $pattern);
         $date           = new DateTime('1970-01-01');
 
-        $result = array();
+        $result = [];
         for ($day = 1; $day <= 31; $day++) {
             $key   = $keyFormatter->format($date->getTimestamp());
             $value = $valueFormatter->format($date->getTimestamp());

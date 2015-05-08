@@ -18,7 +18,7 @@ class Reflection extends AbstractHydrator
      * Simple in-memory array cache of ReflectionProperties used.
      * @var \ReflectionProperty[]
      */
-    protected static $reflProperties = array();
+    protected static $reflProperties = [];
 
     /**
      * Extract values from an object
@@ -28,7 +28,7 @@ class Reflection extends AbstractHydrator
      */
     public function extract($object)
     {
-        $result = array();
+        $result = [];
         foreach (self::getReflProperties($object) as $property) {
             $propertyName = $this->extractName($property->getName(), $object);
             if (!$this->filterComposite->filter($propertyName)) {
@@ -81,7 +81,7 @@ class Reflection extends AbstractHydrator
             return static::$reflProperties[$input];
         }
 
-        static::$reflProperties[$input] = array();
+        static::$reflProperties[$input] = [];
         $reflClass                      = new ReflectionClass($input);
         $reflProperties                 = $reflClass->getProperties();
 

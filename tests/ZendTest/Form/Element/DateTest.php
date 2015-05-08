@@ -49,10 +49,10 @@ class DateTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Date',
             'Zend\Validator\DateStep',
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -71,23 +71,23 @@ class DateTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes()
     {
         $element = new DateElement('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'inclusive' => true,
             'min'       => '2000-01-01',
             'max'       => '2001-01-01',
             'step'      => '1',
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Date',
             'Zend\Validator\GreaterThan',
             'Zend\Validator\LessThan',
             'Zend\Validator\DateStep',
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -123,10 +123,10 @@ class DateTest extends TestCase
     public function testCorrectFormatPassedToDateValidator()
     {
         $element = new DateElement('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'min'       => '2012-01-01',
             'max'       => '2012-12-31',
-        ));
+        ]);
         $element->setFormat('d-m-Y');
 
         $inputSpec = $element->getInputSpecification();

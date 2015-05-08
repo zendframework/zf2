@@ -33,13 +33,13 @@ class Factory
      *
      * @var array
      */
-    protected static $extensions = array(
+    protected static $extensions = [
         'ini'         => 'ini',
         'json'        => 'json',
         'xml'         => 'xml',
         'yaml'        => 'yaml',
         'properties'  => 'javaproperties',
-    );
+    ];
 
     /**
      * Register config file extensions for writing
@@ -47,13 +47,13 @@ class Factory
      *
      * @var array
      */
-    protected static $writerExtensions = array(
+    protected static $writerExtensions = [
         'php'  => 'php',
         'ini'  => 'ini',
         'json' => 'json',
         'xml'  => 'xml',
         'yaml' => 'yaml',
-    );
+    ];
 
     /**
      * Read a config from a file.
@@ -136,7 +136,7 @@ class Factory
      */
     public static function fromFiles(array $files, $returnConfigObject = false, $useIncludePath = false)
     {
-        $config = array();
+        $config = [];
 
         foreach ($files as $file) {
             $config = ArrayUtils::merge($config, static::fromFile($file, false, $useIncludePath));

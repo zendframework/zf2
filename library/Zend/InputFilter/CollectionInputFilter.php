@@ -26,17 +26,17 @@ class CollectionInputFilter extends InputFilter
     /*
      * @var array
      */
-    protected $collectionValues = array();
+    protected $collectionValues = [];
 
     /*
      * @var array
      */
-    protected $collectionRawValues = array();
+    protected $collectionRawValues = [];
 
     /*
      * @var array
      */
-    protected $collectionMessages = array();
+    protected $collectionMessages = [];
 
     /**
      * @var BaseInputFilter
@@ -171,7 +171,7 @@ class CollectionInputFilter extends InputFilter
 
         foreach ($this->data as $key => $data) {
             if (!is_array($data)) {
-                $data = array();
+                $data = [];
             }
             $inputFilter->setData($data);
 
@@ -230,7 +230,7 @@ class CollectionInputFilter extends InputFilter
      */
     public function clearValues()
     {
-        return $this->collectionValues = array();
+        return $this->collectionValues = [];
     }
 
     /**
@@ -240,7 +240,7 @@ class CollectionInputFilter extends InputFilter
      */
     public function clearRawValues()
     {
-        return $this->collectionRawValues = array();
+        return $this->collectionRawValues = [];
     }
 
     /**

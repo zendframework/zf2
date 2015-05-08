@@ -35,12 +35,12 @@ class CurlTest extends CommonHttpTests
      *
      * @var array
      */
-    protected $config = array(
+    protected $config = [
         'adapter'     => 'Zend\Http\Client\Adapter\Curl',
-        'curloptions' => array(
+        'curloptions' => [
             CURLOPT_INFILESIZE => 102400000,
-        ),
-    );
+        ],
+    ];
 
     protected function setUp()
     {
@@ -60,10 +60,10 @@ class CurlTest extends CommonHttpTests
      */
     public function testConfigSetAsArray()
     {
-        $config = array(
+        $config = [
             'timeout'    => 500,
             'someoption' => 'hasvalue'
-        );
+        ];
 
         $this->_adapter->setOptions($config);
 
@@ -80,12 +80,12 @@ class CurlTest extends CommonHttpTests
      */
     public function testConfigSetAsZendConfig()
     {
-        $config = new Config(array(
+        $config = new Config([
             'timeout'  => 400,
-            'nested'   => array(
+            'nested'   => [
                 'item' => 'value',
-            )
-        ));
+            ]
+        ]);
 
         $this->_adapter->setOptions($config);
 
@@ -120,10 +120,10 @@ class CurlTest extends CommonHttpTests
             $this->markTestSkipped('Test is invalid for PHP version 7');
         }
 
-        $config = array(
+        $config = [
             'adapter'     => 'Zend\Http\Client\Adapter\Curl',
-            'curloptions' => array(CURLOPT_CLOSEPOLICY => true),
-        );
+            'curloptions' => [CURLOPT_CLOSEPOLICY => true],
+        ];
         $this->client = new \Zend\Http\Client($this->client->getUri(true), $config);
 
         $this->setExpectedException(
@@ -138,7 +138,7 @@ class CurlTest extends CommonHttpTests
         $this->client->setUri($this->baseuri . 'testRedirections.php');
 
         // Set some parameters
-        $this->client->setParameterGet(array('swallow', 'african'));
+        $this->client->setParameterGet(['swallow', 'african']);
 
         // Request
         $res = $this->client->send();
@@ -163,18 +163,18 @@ class CurlTest extends CommonHttpTests
     {
         $adapter = new Adapter\Curl();
         $this->client->setAdapter($adapter);
-        $adapter->setOptions(array(
-            'curloptions' => array(
+        $adapter->setOptions([
+            'curloptions' => [
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_TIMEOUT => 1,
-            ))
+            ]]
         );
 
         $this->client->setUri($this->baseuri . 'testRedirections.php');
 
         //  Set some parameters
-        $this->client->setParameterGet(array('swallow' => 'african'));
-        $this->client->setParameterPost(array('Camelot' => 'A silly place'));
+        $this->client->setParameterGet(['swallow' => 'african']);
+        $this->client->setParameterPost(['Camelot' => 'A silly place']);
         $this->client->setMethod('POST');
         $this->setExpectedException(
             'Zend\Http\Client\Adapter\Exception\RuntimeException',
@@ -217,9 +217,9 @@ class CurlTest extends CommonHttpTests
 
         $adapter = new Adapter\Curl();
         $this->client->setAdapter($adapter);
-        $adapter->setOptions(array(
-            'curloptions' => array(CURLOPT_INFILE => $putFileHandle, CURLOPT_INFILESIZE => $putFileSize)
-        ));
+        $adapter->setOptions([
+            'curloptions' => [CURLOPT_INFILE => $putFileHandle, CURLOPT_INFILESIZE => $putFileSize]
+        ]);
         $this->client->setMethod('PUT');
         $this->client->send();
         $this->assertEquals(gzcompress($putFileContents), gzcompress($this->client->getResponse()->getBody()));
@@ -248,7 +248,7 @@ class CurlTest extends CommonHttpTests
                 ->setCurlOption('bar', 'baz');
 
         $this->assertEquals(
-            array('curloptions' => array('foo' => 'bar', 'bar' => 'baz')),
+            ['curloptions' => ['foo' => 'bar', 'bar' => 'baz']],
             $this->readAttribute($adapter, 'config')
         );
     }
@@ -260,19 +260,19 @@ class CurlTest extends CommonHttpTests
     {
         $adapter = new Adapter\Curl();
 
-        $adapter->setOptions(array(
-            'curloptions' => array(
+        $adapter->setOptions([
+            'curloptions' => [
                 'foo' => 'bar',
-            ),
-        ));
-        $adapter->setOptions(array(
-            'curloptions' => array(
+            ],
+        ]);
+        $adapter->setOptions([
+            'curloptions' => [
                 'bar' => 'baz',
-            ),
-        ));
+            ],
+        ]);
 
         $this->assertEquals(
-            array('curloptions' => array('foo' => 'bar', 'bar' => 'baz')),
+            ['curloptions' => ['foo' => 'bar', 'bar' => 'baz']],
             $this->readAttribute($adapter, 'config')
         );
     }
@@ -280,20 +280,20 @@ class CurlTest extends CommonHttpTests
     public function testWorkWithProxyConfiguration()
     {
         $adapter = new Adapter\Curl();
-        $adapter->setOptions(array(
+        $adapter->setOptions([
             'proxy_host' => 'localhost',
             'proxy_port' => 80,
             'proxy_user' => 'foo',
             'proxy_pass' => 'baz',
-        ));
+        ]);
 
-        $expected = array(
-            'curloptions' => array(
+        $expected = [
+            'curloptions' => [
                 CURLOPT_PROXYUSERPWD => 'foo:baz',
                 CURLOPT_PROXY => 'localhost',
                 CURLOPT_PROXYPORT => 80,
-            ),
-        );
+            ],
+        ];
 
         $this->assertEquals(
             $expected, $this->readAttribute($adapter, 'config')
@@ -303,15 +303,15 @@ class CurlTest extends CommonHttpTests
     public function testSslVerifyPeerCanSetOverOption()
     {
         $adapter = new Adapter\Curl();
-        $adapter->setOptions(array(
+        $adapter->setOptions([
             'sslverifypeer' => true
-        ));
+        ]);
 
-        $expected = array(
-            'curloptions' => array(
+        $expected = [
+            'curloptions' => [
                 CURLOPT_SSL_VERIFYPEER => true
-            ),
-        );
+            ],
+        ];
 
         $this->assertEquals(
             $expected, $this->readAttribute($adapter, 'config')
@@ -324,7 +324,7 @@ class CurlTest extends CommonHttpTests
     public function testGetCurlHandle()
     {
         $adapter = new Adapter\Curl();
-        $adapter->setOptions(array('timeout' => 2, 'maxredirects' => 1));
+        $adapter->setOptions(['timeout' => 2, 'maxredirects' => 1]);
         $adapter->connect("http://framework.zend.com");
 
         $this->assertInternalType('resource', $adapter->getHandle());
@@ -372,11 +372,11 @@ class CurlTest extends CommonHttpTests
     {
         $this->client->setUri($this->baseuri . 'testCurlGzipData.php');
         $adapter = new Adapter\Curl();
-        $adapter->setOptions(array(
-            'curloptions' => array(
+        $adapter->setOptions([
+            'curloptions' => [
                 CURLOPT_ENCODING => '',
-            ),
-        ));
+            ],
+        ]);
         $this->client->setAdapter($adapter);
         $this->client->setMethod('GET');
         $this->client->send();
@@ -387,11 +387,11 @@ class CurlTest extends CommonHttpTests
     {
         $this->client->setUri($this->baseuri . 'testRawPostData.php');
         $adapter = new Adapter\Curl();
-        $adapter->setOptions(array(
-            'curloptions' => array(
+        $adapter->setOptions([
+            'curloptions' => [
                 CURLOPT_POSTFIELDS => 'foo=bar',
-            ),
-        ));
+            ],
+        ]);
         $this->client->setAdapter($adapter);
         $this->client->setMethod('POST');
         $this->client->send();

@@ -34,7 +34,7 @@ abstract class AbstractUploadHandler implements UploadHandlerInterface
      * @param  array|Traversable $options Optional options
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!empty($options)) {
             $this->setOptions($options);
@@ -112,13 +112,13 @@ abstract class AbstractUploadHandler implements UploadHandlerInterface
      */
     public function getProgress($id)
     {
-        $status  = array(
+        $status  = [
             'total'    => 0,
             'current'  => 0,
             'rate'     => 0,
             'message'  => 'No upload in progress',
             'done'     => true
-        );
+        ];
         if (empty($id)) {
             return $status;
         }
@@ -169,7 +169,7 @@ abstract class AbstractUploadHandler implements UploadHandlerInterface
      */
     protected function toByteString($size)
     {
-        $sizes = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $sizes = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         for ($i=0; $size >= 1024 && $i < 9; $i++) {
             $size /= 1024;
         }

@@ -28,11 +28,11 @@ class MongoDbTest extends CommonAdapterTest
             $this->markTestSkipped("Mongo extension is not loaded");
         }
 
-        $this->_options = new MongoDbOptions(array(
+        $this->_options = new MongoDbOptions([
             'server'     => TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING,
             'database'   => TESTS_ZEND_CACHE_MONGODB_DATABASE,
             'collection' => TESTS_ZEND_CACHE_MONGODB_COLLECTION,
-        ));
+        ]);
 
         $this->_storage = new MongoDb();
         $this->_storage->setOptions($this->_options);
@@ -52,11 +52,11 @@ class MongoDbTest extends CommonAdapterTest
 
     public function testSetOptionsNotMongoDbOptions()
     {
-        $this->_storage->setOptions(array(
+        $this->_storage->setOptions([
             'server'     => TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING,
             'database'   => TESTS_ZEND_CACHE_MONGODB_DATABASE,
             'collection' => TESTS_ZEND_CACHE_MONGODB_COLLECTION,
-        ));
+        ]);
 
         $this->assertInstanceOf('\Zend\Cache\Storage\Adapter\MongoDbOptions', $this->_storage->getOptions());
     }
@@ -84,13 +84,13 @@ class MongoDbTest extends CommonAdapterTest
         $value1 = 'bar';
         $value2 = 'value';
 
-        $this->assertEquals(array(), $this->_storage->setItems(array(
+        $this->assertEquals([], $this->_storage->setItems([
             $key1 => $value1,
             $key2 => $value2,
-        )));
+        ]));
 
         $this->assertTrue($this->_storage->flush());
 
-        $this->assertEquals(array(), $this->_storage->hasItems(array($key1, $key2)));
+        $this->assertEquals([], $this->_storage->hasItems([$key1, $key2]));
     }
 }

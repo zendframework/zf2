@@ -18,7 +18,7 @@ class AllowTest extends \PHPUnit_Framework_TestCase
         $allowHeader = Allow::fromString('Allow: GET, POST, PUT');
         $this->assertInstanceOf('Zend\Http\Header\HeaderInterface', $allowHeader);
         $this->assertInstanceOf('Zend\Http\Header\Allow', $allowHeader);
-        $this->assertEquals(array('GET', 'POST', 'PUT'), $allowHeader->getAllowedMethods());
+        $this->assertEquals(['GET', 'POST', 'PUT'], $allowHeader->getAllowedMethods());
     }
 
     public function testAllowFromStringSupportsExtensionMethods()
@@ -41,7 +41,7 @@ class AllowTest extends \PHPUnit_Framework_TestCase
 
     public function testAllowListAllDefinedMethods()
     {
-        $methods = array(
+        $methods = [
             'OPTIONS' => false,
             'GET'     => true,
             'HEAD'    => false,
@@ -51,7 +51,7 @@ class AllowTest extends \PHPUnit_Framework_TestCase
             'TRACE'   => false,
             'CONNECT' => false,
             'PATCH'   => false,
-        );
+        ];
         $allowHeader = new Allow();
         $this->assertEquals($methods, $allowHeader->getAllMethods());
     }
@@ -59,27 +59,27 @@ class AllowTest extends \PHPUnit_Framework_TestCase
     public function testAllowGetDefaultAllowedMethods()
     {
         $allowHeader = new Allow();
-        $this->assertEquals(array('GET', 'POST'), $allowHeader->getAllowedMethods());
+        $this->assertEquals(['GET', 'POST'], $allowHeader->getAllowedMethods());
     }
 
     public function testAllowGetFieldValueReturnsProperValue()
     {
         $allowHeader = new Allow();
-        $allowHeader->allowMethods(array('GET', 'POST', 'TRACE'));
+        $allowHeader->allowMethods(['GET', 'POST', 'TRACE']);
         $this->assertEquals('GET, POST, TRACE', $allowHeader->getFieldValue());
     }
 
     public function testAllowToStringReturnsHeaderFormattedString()
     {
         $allowHeader = new Allow();
-        $allowHeader->allowMethods(array('GET', 'POST', 'TRACE'));
+        $allowHeader->allowMethods(['GET', 'POST', 'TRACE']);
         $this->assertEquals('Allow: GET, POST, TRACE', $allowHeader->toString());
     }
 
     public function testAllowChecksAllowedMethod()
     {
         $allowHeader = new Allow();
-        $allowHeader->allowMethods(array('GET', 'POST', 'TRACE'));
+        $allowHeader->allowMethods(['GET', 'POST', 'TRACE']);
         $this->assertTrue($allowHeader->isAllowedMethod('TRACE'));
     }
 
@@ -95,10 +95,10 @@ class AllowTest extends \PHPUnit_Framework_TestCase
 
     public function injectionMethods()
     {
-        return array(
-            'string' => array("\rG\r\nE\nT"),
-            'array' => array(array("\rG\r\nE\nT")),
-        );
+        return [
+            'string' => ["\rG\r\nE\nT"],
+            'array' => [["\rG\r\nE\nT"]],
+        ];
     }
 
     /**

@@ -22,15 +22,15 @@ class CategoryFieldset extends Fieldset implements InputFilterProviderInterface
         $this->setHydrator(new ClassMethodsHydrator())
              ->setObject(new Category());
 
-        $this->add(array(
+        $this->add([
             'name' => 'name',
-            'options' => array(
+            'options' => [
                 'label' => 'Name of the category'
-            ),
-            'attributes' => array(
+            ],
+            'attributes' => [
                 'required' => 'required'
-            )
-        ));
+            ]
+        ]);
     }
 
     /**
@@ -41,10 +41,10 @@ class CategoryFieldset extends Fieldset implements InputFilterProviderInterface
      */
     public function getInputFilterSpecification()
     {
-        return array(
-            'name' => array(
+        return [
+            'name' => [
                 'required' => true,
-            )
-        );
+            ]
+        ];
     }
 }

@@ -39,17 +39,17 @@ class FormAnnotationsListener extends AbstractAnnotationsListener
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach('configureForm', array($this, 'handleAttributesAnnotation'));
-        $this->listeners[] = $events->attach('configureForm', array($this, 'handleFlagsAnnotation'));
-        $this->listeners[] = $events->attach('configureForm', array($this, 'handleHydratorAnnotation'));
-        $this->listeners[] = $events->attach('configureForm', array($this, 'handleInputFilterAnnotation'));
-        $this->listeners[] = $events->attach('configureForm', array($this, 'handleObjectAnnotation'));
-        $this->listeners[] = $events->attach('configureForm', array($this, 'handleOptionsAnnotation'));
-        $this->listeners[] = $events->attach('configureForm', array($this, 'handleTypeAnnotation'));
-        $this->listeners[] = $events->attach('configureForm', array($this, 'handleValidationGroupAnnotation'));
+        $this->listeners[] = $events->attach('configureForm', [$this, 'handleAttributesAnnotation']);
+        $this->listeners[] = $events->attach('configureForm', [$this, 'handleFlagsAnnotation']);
+        $this->listeners[] = $events->attach('configureForm', [$this, 'handleHydratorAnnotation']);
+        $this->listeners[] = $events->attach('configureForm', [$this, 'handleInputFilterAnnotation']);
+        $this->listeners[] = $events->attach('configureForm', [$this, 'handleObjectAnnotation']);
+        $this->listeners[] = $events->attach('configureForm', [$this, 'handleOptionsAnnotation']);
+        $this->listeners[] = $events->attach('configureForm', [$this, 'handleTypeAnnotation']);
+        $this->listeners[] = $events->attach('configureForm', [$this, 'handleValidationGroupAnnotation']);
 
-        $this->listeners[] = $events->attach('discoverName', array($this, 'handleNameAnnotation'));
-        $this->listeners[] = $events->attach('discoverName', array($this, 'discoverFallbackName'));
+        $this->listeners[] = $events->attach('discoverName', [$this, 'handleNameAnnotation']);
+        $this->listeners[] = $events->attach('discoverName', [$this, 'discoverFallbackName']);
     }
 
     /**

@@ -23,7 +23,7 @@ class ExtensionPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'atomrendererfeed'           => 'Zend\Feed\Writer\Extension\Atom\Renderer\Feed',
         'contentrendererentry'       => 'Zend\Feed\Writer\Extension\Content\Renderer\Entry',
         'dublincorerendererentry'    => 'Zend\Feed\Writer\Extension\DublinCore\Renderer\Entry',
@@ -35,7 +35,7 @@ class ExtensionPluginManager extends AbstractPluginManager
         'slashrendererentry'         => 'Zend\Feed\Writer\Extension\Slash\Renderer\Entry',
         'threadingrendererentry'     => 'Zend\Feed\Writer\Extension\Threading\Renderer\Entry',
         'wellformedwebrendererentry' => 'Zend\Feed\Writer\Extension\WellFormedWeb\Renderer\Entry',
-    );
+    ];
 
     /**
      * Do not share instances

@@ -21,7 +21,7 @@ class AddressFieldset extends Fieldset implements InputFilterProviderInterface
         $this->setHydrator(new ClassMethodsHydrator(false))
              ->setObject(new Entity\Address());
 
-        $street = new \Zend\Form\Element('street', array('label' => 'Street'));
+        $street = new \Zend\Form\Element('street', ['label' => 'Street']);
         $street->setAttribute('type', 'text');
 
         $city = new CityFieldset;
@@ -32,12 +32,12 @@ class AddressFieldset extends Fieldset implements InputFilterProviderInterface
 
         $phones = new \Zend\Form\Element\Collection('phones');
         $phones->setLabel('Phone numbers')
-               ->setOptions(array(
+               ->setOptions([
                     'count'          => 2,
                     'allow_add'      => true,
                     'allow_remove'   => true,
                     'target_element' => new PhoneFieldset(),
-               ));
+               ]);
         $this->add($phones);
     }
 
@@ -49,10 +49,10 @@ class AddressFieldset extends Fieldset implements InputFilterProviderInterface
      */
     public function getInputFilterSpecification()
     {
-        return array(
-            'street' => array(
+        return [
+            'street' => [
                 'required' => true,
-            )
-        );
+            ]
+        ];
     }
 }

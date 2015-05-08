@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-return array(
+return [
     'code' => '353',
-    'patterns' => array(
-        'national' => array(
+    'patterns' => [
+        'national' => [
             'general' => '/^[124-9]\\d{6,9}$/',
             'fixed' => '/^1\\d{7,8}|2(?:1\\d{6,7}|3\\d{7}|[24-9]\\d{5})|4(?:0[24]\\d{5}|[1-469]\\d{7}|5\\d{6}|7\\d{5}|8[0-46-9]\\d{7})|5(?:0[45]\\d{5}|1\\d{6}|[23679]\\d{7}|8\\d{5})|6(?:1\\d{6}|[237-9]\\d{5}|[4-6]\\d{7})|7[14]\\d{7}|9(?:1\\d{6}|[04]\\d{7}|[35-9]\\d{5})$/',
             'mobile' => '/^8(?:22\\d{6}|[35-9]\\d{7})$/',
@@ -22,8 +22,8 @@ return array(
             'uan' => '/^818\\d{6}$/',
             'voicemail' => '/^8[35-9]\\d{8}$/',
             'emergency' => '/^112|999$/',
-        ),
-        'possible' => array(
+        ],
+        'possible' => [
             'general' => '/^\\d{5,10}$/',
             'fixed' => '/^\\d{5,10}$/',
             'mobile' => '/^\\d{9}$/',
@@ -35,6 +35,6 @@ return array(
             'uan' => '/^\\d{9}$/',
             'voicemail' => '/^\\d{10}$/',
             'emergency' => '/^\\d{3}$/',
-        ),
-    ),
-);
+        ],
+    ],
+];

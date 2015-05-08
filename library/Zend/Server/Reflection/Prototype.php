@@ -26,7 +26,7 @@ class Prototype
      * @param ReflectionParameter[] $params
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct(ReflectionReturnValue $return, array $params = array())
+    public function __construct(ReflectionReturnValue $return, array $params = [])
     {
         $this->return = $return;
 

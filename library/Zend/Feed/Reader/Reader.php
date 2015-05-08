@@ -72,24 +72,24 @@ class Reader implements ReaderImportInterface
 
     protected static $extensionManager = null;
 
-    protected static $extensions = array(
-        'feed' => array(
+    protected static $extensions = [
+        'feed' => [
             'DublinCore\Feed',
             'Atom\Feed'
-        ),
-        'entry' => array(
+        ],
+        'entry' => [
             'Content\Entry',
             'DublinCore\Entry',
             'Atom\Entry'
-        ),
-        'core' => array(
+        ],
+        'core' => [
             'DublinCore\Feed',
             'Atom\Feed',
             'Content\Entry',
             'DublinCore\Entry',
             'Atom\Entry'
-        )
-    );
+        ]
+    ];
 
     /**
      * Get the Feed cache
@@ -619,24 +619,24 @@ class Reader implements ReaderImportInterface
         static::$httpMethodOverride = false;
         static::$httpConditionalGet = false;
         static::$extensionManager   = null;
-        static::$extensions         = array(
-            'feed' => array(
+        static::$extensions         = [
+            'feed' => [
                 'DublinCore\Feed',
                 'Atom\Feed'
-            ),
-            'entry' => array(
+            ],
+            'entry' => [
                 'Content\Entry',
                 'DublinCore\Entry',
                 'Atom\Entry'
-            ),
-            'core' => array(
+            ],
+            'core' => [
                 'DublinCore\Feed',
                 'Atom\Feed',
                 'Content\Entry',
                 'DublinCore\Entry',
                 'Atom\Entry'
-            )
-        );
+            ]
+        ];
     }
 
     /**

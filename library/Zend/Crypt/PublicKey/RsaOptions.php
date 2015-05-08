@@ -187,14 +187,14 @@ class RsaOptions extends AbstractOptions
      * @return RsaOptions
      * @throws Rsa\Exception\RuntimeException
      */
-    public function generateKeys(array $opensslConfig = array())
+    public function generateKeys(array $opensslConfig = [])
     {
         $opensslConfig = array_replace(
-            array(
+            [
                 'private_key_type' => OPENSSL_KEYTYPE_RSA,
                 'private_key_bits' => Rsa\PrivateKey::DEFAULT_KEY_SIZE,
                 'digest_alg'       => $this->getHashAlgorithm()
-            ),
+            ],
             $opensslConfig
         );
 

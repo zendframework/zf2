@@ -47,7 +47,7 @@ class PhpMemoryArrayTest extends TestCase
 
     public function testLoaderFailsToLoadMissingTextDomain()
     {
-        $loader = new PhpMemoryArrayLoader(array());
+        $loader = new PhpMemoryArrayLoader([]);
         $this->setExpectedException('Zend\I18n\Exception\InvalidArgumentException',
                                     'Expected textdomain "default" to be an array, but it is not set');
         $loader->load('en_US', 'default');
@@ -55,7 +55,7 @@ class PhpMemoryArrayTest extends TestCase
 
     public function testLoaderFailsToLoadNonArrayLocale()
     {
-        $loader = new PhpMemoryArrayLoader(array('default' => array()));
+        $loader = new PhpMemoryArrayLoader(['default' => []]);
         $this->setExpectedException('Zend\I18n\Exception\InvalidArgumentException',
                                     'Expected locale "en_US" to be an array, but it is not set');
         $loader->load('en_US', 'default');

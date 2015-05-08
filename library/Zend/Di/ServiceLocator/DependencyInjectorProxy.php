@@ -37,7 +37,7 @@ class DependencyInjectorProxy extends Di
      * {@inheritDoc}
      * @return GeneratorInstance
      */
-    public function get($name, array $params = array())
+    public function get($name, array $params = [])
     {
         return parent::get($name, $params);
     }
@@ -46,7 +46,7 @@ class DependencyInjectorProxy extends Di
      * {@inheritDoc}
      * @return GeneratorInstance
      */
-    public function newInstance($name, array $params = array(), $isShared = true)
+    public function newInstance($name, array $params = [], $isShared = true)
     {
         $instance = parent::newInstance($name, $params, $isShared);
 
@@ -70,13 +70,13 @@ class DependencyInjectorProxy extends Di
      */
     public function createInstanceViaConstructor($class, $params, $alias = null)
     {
-        $callParameters = array();
+        $callParameters = [];
 
         if ($this->di->definitions->hasMethod($class, '__construct')
             && (count($this->di->definitions->getMethodParameters($class, '__construct')) > 0)
         ) {
             $callParameters = $this->resolveMethodParameters($class, '__construct', $params, $alias, true, true);
-            $callParameters = $callParameters ?: array();
+            $callParameters = $callParameters ?: [];
         }
 
         return new GeneratorInstance($class, $alias, '__construct', $callParameters);
@@ -106,12 +106,12 @@ class DependencyInjectorProxy extends Di
         $class  = $callback[0];
         $method = $callback[1];
 
-        $callParameters = array();
+        $callParameters = [];
         if ($this->di->definitions->hasMethod($class, $method)) {
             $callParameters = $this->resolveMethodParameters($class, $method, $params, $alias, true, true);
         }
 
-        $callParameters = $callParameters ?: array();
+        $callParameters = $callParameters ?: [];
 
         return new GeneratorInstance(null, $alias, $callback, $callParameters);
     }
@@ -121,10 +121,10 @@ class DependencyInjectorProxy extends Di
      */
     public function handleInjectionMethodForObject($class, $method, $params, $alias, $isRequired)
     {
-        return array(
+        return [
             'method' => $method,
             'params' =>  $this->resolveMethodParameters($class, $method, $params, $alias, $isRequired),
-        );
+        ];
     }
 
     /**
@@ -141,10 +141,10 @@ class DependencyInjectorProxy extends Di
         $callParameters = $this->resolveMethodParameters($methodClass, $method, $params, $alias, $methodIsRequired);
 
         if ($callParameters !== false) {
-            $instance->addMethod(array(
+            $instance->addMethod([
                 'method' => $method,
                 'params' => $callParameters,
-            ));
+            ]);
 
             return true;
         }

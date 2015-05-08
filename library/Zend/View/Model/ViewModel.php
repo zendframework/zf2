@@ -30,13 +30,13 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      * Child models
      * @var array
      */
-    protected $children = array();
+    protected $children = [];
 
     /**
      * Renderer options
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Template to use when rendering this model
@@ -56,7 +56,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      * View variables
      * @var array|ArrayAccess&Traversable
      */
-    protected $variables = array();
+    protected $variables = [];
 
     /**
      * Is this append to child  with the same capture?
@@ -210,7 +210,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      */
     public function clearOptions()
     {
-        $this->options = array();
+        $this->options = [];
         return $this;
     }
 
@@ -375,7 +375,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      */
     public function clearChildren()
     {
-        $this->children = array();
+        $this->children = [];
         return $this;
     }
 
@@ -388,7 +388,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      */
     public function getChildrenByCaptureTo($capture, $recursive = true)
     {
-        $children = array();
+        $children = [];
 
         foreach ($this->children as $child) {
             if ($recursive === true) {

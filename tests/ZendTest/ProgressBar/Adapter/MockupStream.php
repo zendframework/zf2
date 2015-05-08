@@ -16,7 +16,7 @@ class MockupStream
 
     private $test;
 
-    public static $tests = array();
+    public static $tests = [];
 
     public function stream_open($path, $mode, $options, &$opened_path)
     {

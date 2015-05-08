@@ -28,32 +28,32 @@ class AdapterPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $aliases = array(
+    protected $aliases = [
         'null'                        => 'nullfill',
         'Zend\Paginator\Adapter\Null' => 'nullfill',
-    );
+    ];
 
     /**
      * Default set of adapters
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'array'         => 'Zend\Paginator\Adapter\ArrayAdapter',
         'iterator'      => 'Zend\Paginator\Adapter\Iterator',
         'nullfill'      => 'Zend\Paginator\Adapter\NullFill',
-    );
+    ];
 
     /**
      * Default set of adapter factories
      *
      * @var array
      */
-    protected $factories = array(
+    protected $factories = [
         'dbselect'         => 'Zend\Paginator\Adapter\Service\DbSelectFactory',
         'dbtablegateway'   => 'Zend\Paginator\Adapter\Service\DbTableGatewayFactory',
         'callback'         => 'Zend\Paginator\Adapter\Service\CallbackFactory',
-    );
+    ];
 
     /**
      * Attempt to create an instance via a factory

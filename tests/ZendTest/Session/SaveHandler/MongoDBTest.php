@@ -46,10 +46,10 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Zend\Session\SaveHandler\MongoDB tests are not enabled due to missing Mongo extension');
         }
 
-        $this->options = new MongoDBOptions(array(
+        $this->options = new MongoDBOptions([
             'database' => 'zf2_tests',
             'collection' => 'sessions',
-        ));
+        ]);
 
         $mongoClass = (version_compare(phpversion('mongo'), '1.3.0', '<')) ? '\Mongo' : '\MongoClient';
 
@@ -75,12 +75,12 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($saveHandler->open('savepath', 'sessionname'));
 
         $id = '242';
-        $data = array('foo' => 'bar', 'bar' => array('foo' => 'bar'));
+        $data = ['foo' => 'bar', 'bar' => ['foo' => 'bar']];
 
         $this->assertTrue($saveHandler->write($id, serialize($data)));
         $this->assertEquals($data, unserialize($saveHandler->read($id)));
 
-        $data = array('foo' => array(1, 2, 3));
+        $data = ['foo' => [1, 2, 3]];
 
         $this->assertTrue($saveHandler->write($id, serialize($data)));
         $this->assertEquals($data, unserialize($saveHandler->read($id)));
@@ -99,14 +99,14 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($saveHandler->open('savepath', 'sessionname'));
 
         $id = '242';
-        $data = array('foo' => 'bar');
+        $data = ['foo' => 'bar'];
 
-        $this->assertNull($this->mongoCollection->findOne(array('_id' => $id)));
+        $this->assertNull($this->mongoCollection->findOne(['_id' => $id]));
 
         $this->assertTrue($saveHandler->write($id, serialize($data)));
-        $this->assertNotNull($this->mongoCollection->findOne(array('_id' => $id)));
+        $this->assertNotNull($this->mongoCollection->findOne(['_id' => $id]));
         $this->assertEquals('', $saveHandler->read($id));
-        $this->assertNull($this->mongoCollection->findOne(array('_id' => $id)));
+        $this->assertNull($this->mongoCollection->findOne(['_id' => $id]));
 
         ini_set('session.gc_maxlifetime', $oldMaxlifetime);
     }
@@ -116,7 +116,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
         $saveHandler = new MongoDB($this->mongo, $this->options);
         $this->assertTrue($saveHandler->open('savepath', 'sessionname'));
 
-        $data = array('foo' => 'bar');
+        $data = ['foo' => 'bar'];
 
         $this->assertTrue($saveHandler->write(123, serialize($data)));
         $this->assertTrue($saveHandler->write(456, serialize($data)));
@@ -141,7 +141,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($saveHandler->open('savepath', 'sessionname'));
 
         $id = '242';
-        $data = array('foo' => 'bar');
+        $data = ['foo' => 'bar'];
 
         /* Note: a MongoCursorException will be thrown if a record with this ID
          * already exists with a different session name, since the upsert query

@@ -35,10 +35,10 @@ abstract class AbstractDecorator implements Decorator
      *
      * @var array
      */
-    protected $skipOptions = array(
+    protected $skipOptions = [
         'options',
         'config',
-    );
+    ];
 
     /**
      * Create a new decorator with options

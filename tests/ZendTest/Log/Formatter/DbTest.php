@@ -39,11 +39,11 @@ class DbTest extends \PHPUnit_Framework_TestCase
      */
     public function provideDateTimeFormats()
     {
-        return array(
-            array('r'),
-            array('U'),
-            array(DateTime::RSS),
-        );
+        return [
+            ['r'],
+            ['U'],
+            [DateTime::RSS],
+        ];
     }
 
     /**
@@ -59,7 +59,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testFormatDateTimeInEvent()
     {
         $datetime = new DateTime();
-        $event = array('timestamp' => $datetime);
+        $event = ['timestamp' => $datetime];
         $formatter = new DbFormatter();
 
         $format = DbFormatter::DEFAULT_DATETIME_FORMAT;

@@ -19,50 +19,50 @@ class RegexTest extends TestCase
 {
     public static function routeProvider()
     {
-        return array(
-            'simple-match' => array(
+        return [
+            'simple-match' => [
                 new Regex('/(?<foo>[^/]+)', '/%foo%'),
                 '/bar',
                 null,
-                array('foo' => 'bar')
-            ),
-            'no-match-without-leading-slash' => array(
+                ['foo' => 'bar']
+            ],
+            'no-match-without-leading-slash' => [
                 new Regex('(?<foo>[^/]+)', '%foo%'),
                 '/bar',
                 null,
                 null
-            ),
-            'no-match-with-trailing-slash' => array(
+            ],
+            'no-match-with-trailing-slash' => [
                 new Regex('/(?<foo>[^/]+)', '/%foo%'),
                 '/bar/',
                 null,
                 null
-            ),
-            'offset-skips-beginning' => array(
+            ],
+            'offset-skips-beginning' => [
                 new Regex('(?<foo>[^/]+)', '%foo%'),
                 '/bar',
                 1,
-                array('foo' => 'bar')
-            ),
-            'offset-enables-partial-matching' => array(
+                ['foo' => 'bar']
+            ],
+            'offset-enables-partial-matching' => [
                 new Regex('/(?<foo>[^/]+)', '/%foo%'),
                 '/bar/baz',
                 0,
-                array('foo' => 'bar')
-            ),
-            'url-encoded-parameters-are-decoded' => array(
+                ['foo' => 'bar']
+            ],
+            'url-encoded-parameters-are-decoded' => [
                 new Regex('/(?<foo>[^/]+)', '/%foo%'),
                 '/foo%20bar',
                 null,
-                array('foo' => 'foo bar')
-            ),
-            'empty-matches-are-replaced-with-defaults' => array(
-                new Regex('/foo(?:/(?<bar>[^/]+))?/baz-(?<baz>[^/]+)', '/foo/baz-%baz%', array('bar' => 'bar')),
+                ['foo' => 'foo bar']
+            ],
+            'empty-matches-are-replaced-with-defaults' => [
+                new Regex('/foo(?:/(?<bar>[^/]+))?/baz-(?<baz>[^/]+)', '/foo/baz-%baz%', ['bar' => 'bar']),
                 '/foo/baz-baz',
                 null,
-                array('bar' => 'bar', 'baz' => 'baz')
-            ),
-        );
+                ['bar' => 'bar', 'baz' => 'baz']
+            ],
+        ];
     }
 
     /**
@@ -127,9 +127,9 @@ class RegexTest extends TestCase
     public function testGetAssembledParams()
     {
         $route = new Regex('/(?<foo>.+)', '/%foo%');
-        $route->assemble(array('foo' => 'bar', 'baz' => 'bat'));
+        $route->assemble(['foo' => 'bar', 'baz' => 'bat']);
 
-        $this->assertEquals(array('foo'), $route->getAssembledParams());
+        $this->assertEquals(['foo'], $route->getAssembledParams());
     }
 
     public function testFactory()
@@ -137,14 +137,14 @@ class RegexTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Regex',
-            array(
+            [
                 'regex' => 'Missing "regex" in options array',
                 'spec'  => 'Missing "spec" in options array'
-            ),
-            array(
+            ],
+            [
                 'regex' => '/foo',
                 'spec'  => '/foo'
-            )
+            ]
         );
     }
 

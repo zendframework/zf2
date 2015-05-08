@@ -35,7 +35,7 @@ class IsFloatTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->locale    = Locale::getDefault();
-        $this->validator = new IsFloatValidator(array('locale' => 'en'));
+        $this->validator = new IsFloatValidator(['locale' => 'en']);
     }
 
     public function tearDown()
@@ -70,31 +70,31 @@ class IsFloatTest extends \PHPUnit_Framework_TestCase
 
     public function floatAndIntegerProvider()
     {
-        $trueArray       = array();
-        $testingLocales  = array('ar', 'bn', 'de', 'dz', 'en', 'fr-CH', 'ja', 'ks', 'ml-IN', 'mr', 'my', 'ps', 'ru');
-        $testingExamples = array(1000, -2000, +398.00, 0.04, -0.5, .6, -.70, 8E10, -9.3456E-2, 10.23E6,
-            123.1234567890987654321);
+        $trueArray       = [];
+        $testingLocales  = ['ar', 'bn', 'de', 'dz', 'en', 'fr-CH', 'ja', 'ks', 'ml-IN', 'mr', 'my', 'ps', 'ru'];
+        $testingExamples = [1000, -2000, +398.00, 0.04, -0.5, .6, -.70, 8E10, -9.3456E-2, 10.23E6,
+            123.1234567890987654321];
 
         //Loop locales and examples for a more thorough set of "true" test data
         foreach ($testingLocales as $locale) {
             foreach ($testingExamples as $example) {
-                $trueArray[] = array($example, true, $locale, 'raw');
+                $trueArray[] = [$example, true, $locale, 'raw'];
                 //Decimal Formatted
-                $trueArray[] = array(
+                $trueArray[] = [
                     NumberFormatter::create($locale, NumberFormatter::DECIMAL)
                         ->format($example, NumberFormatter::TYPE_DOUBLE),
                     true,
                     $locale,
                     'decimal'
-                );
+                ];
                 //Scientific Notation Formatted
-                $trueArray[] = array(
+                $trueArray[] = [
                     NumberFormatter::create($locale, NumberFormatter::SCIENTIFIC)
                         ->format($example, NumberFormatter::TYPE_DOUBLE),
                     true,
                     $locale,
                     'scientific'
-                );
+                ];
             }
         }
         return $trueArray;
@@ -124,15 +124,15 @@ class IsFloatTest extends \PHPUnit_Framework_TestCase
 
     public function lookAlikeProvider()
     {
-        $trueArray     = array();
-        $testingArray  = array(
+        $trueArray     = [];
+        $testingArray  = [
             'ar' => "\xD9\xA1'\xD9\xA1\xD9\xA1\xD9\xA1,\xD9\xA2\xD9\xA3",
             'ru' => '2 000,00'
-        );
+        ];
 
         //Loop locales and examples for a more thorough set of "true" test data
         foreach ($testingArray as $locale => $example) {
-            $trueArray[] = array($example, true, $locale);
+            $trueArray[] = [$example, true, $locale];
         }
         return $trueArray;
     }
@@ -161,18 +161,18 @@ class IsFloatTest extends \PHPUnit_Framework_TestCase
 
     public function validationFailureProvider()
     {
-        $trueArray     = array();
-        $testingArray  = array(
-            'ar'    => array('10.1', '66notflot.6'),
-            'ru'    => array('10.1', '66notflot.6', '2,000.00', '2 00'),
-            'en'    => array('10,1', '66notflot.6', '2.000,00', '2 000', '2,00'),
-            'fr-CH' => array('10,1', '66notflot.6', '2,000.00', "2'00")
-        );
+        $trueArray     = [];
+        $testingArray  = [
+            'ar'    => ['10.1', '66notflot.6'],
+            'ru'    => ['10.1', '66notflot.6', '2,000.00', '2 00'],
+            'en'    => ['10,1', '66notflot.6', '2.000,00', '2 000', '2,00'],
+            'fr-CH' => ['10,1', '66notflot.6', '2,000.00', "2'00"]
+        ];
 
         //Loop locales and examples for a more thorough set of "true" test data
         foreach ($testingArray as $locale => $exampleArray) {
             foreach ($exampleArray as $example) {
-                $trueArray[] = array($example, false, $locale);
+                $trueArray[] = [$example, false, $locale];
             }
         }
         return $trueArray;
@@ -185,7 +185,7 @@ class IsFloatTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     /**
@@ -202,7 +202,7 @@ class IsFloatTest extends \PHPUnit_Framework_TestCase
      */
     public function testNonStringValidation()
     {
-        $this->assertFalse($this->validator->isValid(array(1 => 1)));
+        $this->assertFalse($this->validator->isValid([1 => 1]));
     }
 
     /**

@@ -40,7 +40,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         fwrite($this->adapter->stream, "\n");
         rewind($this->adapter->stream);
 
-        $checkbox = new Checkbox('Check an option :', array('foo', 'bar'));
+        $checkbox = new Checkbox('Check an option :', ['foo', 'bar']);
         $checkbox->setConsole($this->adapter);
         ob_start();
         $response = $checkbox->show();
@@ -48,7 +48,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, substr_count($text, '0) [X] foo'));
         $this->assertSame(1, substr_count($text, '0) [ ] foo'));
         $this->assertSame(2, substr_count($text, '1) [ ] bar'));
-        $this->assertEquals(array('0' => 'foo'), $response);
+        $this->assertEquals(['0' => 'foo'], $response);
     }
 
     public function testCanUncheckOneOption()
@@ -58,7 +58,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         fwrite($this->adapter->stream, "\n");
         rewind($this->adapter->stream);
 
-        $checkbox = new Checkbox('Check an option :', array('foo', 'bar'));
+        $checkbox = new Checkbox('Check an option :', ['foo', 'bar']);
         $checkbox->setConsole($this->adapter);
         ob_start();
         $response = $checkbox->show();
@@ -66,7 +66,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, substr_count($text, '0) [X] foo'));
         $this->assertSame(2, substr_count($text, '0) [ ] foo'));
         $this->assertSame(3, substr_count($text, '1) [ ] bar'));
-        $this->assertEquals(array(), $response);
+        $this->assertEquals([], $response);
     }
 
     public function testCanCheckTwoOption()
@@ -76,7 +76,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         fwrite($this->adapter->stream, "\n");
         rewind($this->adapter->stream);
 
-        $checkbox = new Checkbox('Check an option :', array('foo', 'bar'));
+        $checkbox = new Checkbox('Check an option :', ['foo', 'bar']);
         $checkbox->setConsole($this->adapter);
         ob_start();
         $response = $checkbox->show();
@@ -85,7 +85,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, substr_count($text, '1) [X] bar'));
         $this->assertSame(1, substr_count($text, '0) [ ] foo'));
         $this->assertSame(2, substr_count($text, '1) [ ] bar'));
-        $this->assertEquals(array('0' => 'foo', '1' => 'bar'), $response);
+        $this->assertEquals(['0' => 'foo', '1' => 'bar'], $response);
     }
 
     public function testCanCheckOptionWithCustomIndex()
@@ -94,7 +94,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         fwrite($this->adapter->stream, "\n");
         rewind($this->adapter->stream);
 
-        $checkbox = new Checkbox('Check an option :', array('2' => 'foo', '6' => 'bar'));
+        $checkbox = new Checkbox('Check an option :', ['2' => 'foo', '6' => 'bar']);
         $checkbox->setConsole($this->adapter);
         ob_start();
         $response = $checkbox->show();
@@ -102,6 +102,6 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, substr_count($text, '2) [X] foo'));
         $this->assertSame(1, substr_count($text, '2) [ ] foo'));
         $this->assertSame(2, substr_count($text, '6) [ ] bar'));
-        $this->assertEquals(array('0' => 'foo'), $response);
+        $this->assertEquals(['0' => 'foo'], $response);
     }
 }

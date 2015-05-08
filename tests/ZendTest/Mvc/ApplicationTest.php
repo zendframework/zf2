@@ -38,30 +38,30 @@ class ApplicationTest extends TestCase
     {
         $serviceConfig = ArrayUtils::merge(
             $this->readAttribute(new ServiceListenerFactory, 'defaultServiceConfig'),
-            array(
+            [
                 'allow_override' => true,
-                'invokables' => array(
+                'invokables' => [
                     'Request'              => 'Zend\Http\PhpEnvironment\Request',
                     'Response'             => 'Zend\Http\PhpEnvironment\Response',
                     'ViewManager'          => 'ZendTest\Mvc\TestAsset\MockViewManager',
                     'SendResponseListener' => 'ZendTest\Mvc\TestAsset\MockSendResponseListener',
                     'BootstrapListener'    => 'ZendTest\Mvc\TestAsset\StubBootstrapListener',
-                ),
-                'aliases' => array(
+                ],
+                'aliases' => [
                     'Router'                 => 'HttpRouter',
-                ),
-                'services' => array(
-                    'Config' => array(),
-                    'ApplicationConfig' => array(
-                        'modules' => array(),
-                        'module_listener_options' => array(
+                ],
+                'services' => [
+                    'Config' => [],
+                    'ApplicationConfig' => [
+                        'modules' => [],
+                        'module_listener_options' => [
                             'config_cache_enabled' => false,
                             'cache_dir'            => 'data/cache',
-                            'module_paths'         => array(),
-                        ),
-                    ),
-                ),
-            )
+                            'module_paths'         => [],
+                        ],
+                    ],
+                ],
+            ]
         );
         $this->serviceManager = new ServiceManager(new ServiceManagerConfig($serviceConfig));
         $this->application = $this->serviceManager->get('Application');
@@ -110,7 +110,7 @@ class ApplicationTest extends TestCase
     {
         $events      = $this->application->getEventManager();
         $identifiers = $events->getIdentifiers();
-        $expected    = array('Zend\Mvc\Application');
+        $expected    = ['Zend\Mvc\Application'];
         $this->assertEquals($expected, array_values($identifiers));
     }
 
@@ -130,10 +130,10 @@ class ApplicationTest extends TestCase
     {
         $events = $this->application->getEventManager();
         $registeredEvents = $events->getEvents();
-        $this->assertEquals(array(), $registeredEvents);
+        $this->assertEquals([], $registeredEvents);
 
         $sharedEvents = $events->getSharedManager();
-        $this->assertAttributeEquals(array(), 'identifiers', $sharedEvents);
+        $this->assertAttributeEquals([], 'identifiers', $sharedEvents);
     }
 
     /**
@@ -146,14 +146,14 @@ class ApplicationTest extends TestCase
     public function testBootstrapRegistersListeners($listenerServiceName, $event, $method, $isCustom = false)
     {
         $listenerService = $this->serviceManager->get($listenerServiceName);
-        $this->application->bootstrap($isCustom ? (array) $listenerServiceName : array());
+        $this->application->bootstrap($isCustom ? (array) $listenerServiceName : []);
         $events = $this->application->getEventManager();
         $listeners = $events->getListeners($event);
 
         $foundListener = false;
         foreach ($listeners as $listener) {
             $callback = $listener->getCallback();
-            $foundListener = $callback === array($listenerService, $method);
+            $foundListener = $callback === [$listenerService, $method];
             if ($foundListener) {
                 break;
             }
@@ -163,14 +163,14 @@ class ApplicationTest extends TestCase
 
     public function bootstrapRegistersListenersProvider()
     {
-        return array(
-            array('RouteListener', MvcEvent::EVENT_ROUTE, 'onRoute'),
-            array('DispatchListener', MvcEvent::EVENT_DISPATCH, 'onDispatch'),
-            array('SendResponseListener', MvcEvent::EVENT_FINISH, 'sendResponse'),
-            array('ViewManager', MvcEvent::EVENT_BOOTSTRAP, 'onBootstrap'),
-            array('HttpMethodListener', MvcEvent::EVENT_ROUTE, 'onRoute'),
-            array('BootstrapListener', MvcEvent::EVENT_BOOTSTRAP, 'onBootstrap', true),
-        );
+        return [
+            ['RouteListener', MvcEvent::EVENT_ROUTE, 'onRoute'],
+            ['DispatchListener', MvcEvent::EVENT_DISPATCH, 'onDispatch'],
+            ['SendResponseListener', MvcEvent::EVENT_FINISH, 'sendResponse'],
+            ['ViewManager', MvcEvent::EVENT_BOOTSTRAP, 'onBootstrap'],
+            ['HttpMethodListener', MvcEvent::EVENT_ROUTE, 'onRoute'],
+            ['BootstrapListener', MvcEvent::EVENT_BOOTSTRAP, 'onBootstrap', true],
+        ];
     }
 
     public function testBootstrapAlwaysRegistersDefaultListeners()
@@ -178,15 +178,15 @@ class ApplicationTest extends TestCase
         $refl = new \ReflectionProperty($this->application, 'defaultListeners');
         $refl->setAccessible(true);
         $defaultListenersNames = $refl->getValue($this->application);
-        $defaultListeners = array();
+        $defaultListeners = [];
         foreach ($defaultListenersNames as $defaultListenerName) {
             $defaultListeners[] = $this->serviceManager->get($defaultListenerName);
         }
 
-        $this->application->bootstrap(array('BootstrapListener'));
+        $this->application->bootstrap(['BootstrapListener']);
         $eventManager = $this->application->getEventManager();
 
-        $registeredListeners = array();
+        $registeredListeners = [];
         foreach ($eventManager->getEvents() as $event) {
             $listeners = $eventManager->getListeners($event);
             foreach ($listeners as $listener) {
@@ -225,12 +225,12 @@ class ApplicationTest extends TestCase
         $request->setUri('http://example.local/path');
 
         $router = $this->serviceManager->get('HttpRouter');
-        $route  = Router\Http\Literal::factory(array(
+        $route  = Router\Http\Literal::factory([
             'route'    => '/path',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'path',
-            ),
-        ));
+            ],
+        ]);
         $router->addRoute('path', $route);
         if ($addService) {
             $controllerLoader = $this->serviceManager->get('ControllerLoader');
@@ -247,13 +247,13 @@ class ApplicationTest extends TestCase
         $request->setUri('http://example.local/sample');
 
         $router = $this->serviceManager->get('HttpRouter');
-        $route  = Router\Http\Literal::factory(array(
+        $route  = Router\Http\Literal::factory([
             'route'    => '/sample',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'sample',
                 'action'     => 'test',
-            ),
-        ));
+            ],
+        ]);
         $router->addRoute('sample', $route);
 
         $controllerLoader = $this->serviceManager->get('ControllerLoader');
@@ -269,13 +269,13 @@ class ApplicationTest extends TestCase
         $request->setUri('http://example.local/bad');
 
         $router = $this->serviceManager->get('HttpRouter');
-        $route  = Router\Http\Literal::factory(array(
+        $route  = Router\Http\Literal::factory([
             'route'    => '/bad',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'bad',
                 'action'     => 'test',
-            ),
-        ));
+            ],
+        ]);
         $router->addRoute('bad', $route);
 
         if ($addService) {
@@ -291,7 +291,7 @@ class ApplicationTest extends TestCase
     {
         $this->setupPathController();
 
-        $log = array();
+        $log = [];
         $this->application->getEventManager()->attach(MvcEvent::EVENT_ROUTE, function ($e) use (&$log) {
             $match = $e->getRouteMatch();
             if (!$match) {
@@ -650,13 +650,13 @@ class ApplicationTest extends TestCase
         $this->application->bootstrap();
 
         $response     = $this->getMock('Zend\Stdlib\ResponseInterface');
-        $finishMock   = $this->getMock('stdClass', array('__invoke'));
-        $routeMock    = $this->getMock('stdClass', array('__invoke'));
-        $dispatchMock = $this->getMock('stdClass', array('__invoke'));
+        $finishMock   = $this->getMock('stdClass', ['__invoke']);
+        $routeMock    = $this->getMock('stdClass', ['__invoke']);
+        $dispatchMock = $this->getMock('stdClass', ['__invoke']);
 
         $routeMock->expects($this->once())->method('__invoke')->will($this->returnCallback(function (MvcEvent $event) {
             $event->stopPropagation(true);
-            $event->setRouteMatch(new Router\RouteMatch(array()));
+            $event->setRouteMatch(new Router\RouteMatch([]));
         }));
         $dispatchMock->expects($this->once())->method('__invoke')->will($this->returnValue($response));
         $finishMock->expects($this->once())->method('__invoke')->will($this->returnCallback(function (MvcEvent $event) {
@@ -676,14 +676,14 @@ class ApplicationTest extends TestCase
         $this->application->bootstrap();
 
         $response     = $this->getMock('Zend\Stdlib\ResponseInterface');
-        $errorMock    = $this->getMock('stdClass', array('__invoke'));
-        $finishMock   = $this->getMock('stdClass', array('__invoke'));
-        $routeMock    = $this->getMock('stdClass', array('__invoke'));
-        $dispatchMock = $this->getMock('stdClass', array('__invoke'));
+        $errorMock    = $this->getMock('stdClass', ['__invoke']);
+        $finishMock   = $this->getMock('stdClass', ['__invoke']);
+        $routeMock    = $this->getMock('stdClass', ['__invoke']);
+        $dispatchMock = $this->getMock('stdClass', ['__invoke']);
 
         $errorMock->expects($this->once())->method('__invoke')->will($this->returnCallback(function (MvcEvent $event) {
             $event->stopPropagation(true);
-            $event->setRouteMatch(new Router\RouteMatch(array()));
+            $event->setRouteMatch(new Router\RouteMatch([]));
             $event->setError('');
         }));
         $routeMock->expects($this->once())->method('__invoke')->will($this->returnCallback(function (MvcEvent $event) {
@@ -707,10 +707,10 @@ class ApplicationTest extends TestCase
 
     public function eventPropagation()
     {
-        return array(
-            'route'    => array(array(MvcEvent::EVENT_ROUTE)),
-            'dispatch' => array(array(MvcEvent::EVENT_DISPATCH, MvcEvent::EVENT_RENDER, MvcEvent::EVENT_FINISH)),
-        );
+        return [
+            'route'    => [[MvcEvent::EVENT_ROUTE]],
+            'dispatch' => [[MvcEvent::EVENT_DISPATCH, MvcEvent::EVENT_RENDER, MvcEvent::EVENT_FINISH]],
+        ];
     }
 
     /**
@@ -733,7 +733,7 @@ class ApplicationTest extends TestCase
         $eventProp->setValue($this->application, $event);
 
         // Setup listeners that stop propagation, but do nothing else
-        $marker = array();
+        $marker = [];
         foreach ($events as $event) {
             $marker[$event] = true;
         }

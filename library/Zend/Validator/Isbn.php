@@ -22,15 +22,15 @@ class Isbn extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID => "Invalid type given. String or integer expected",
         self::NO_ISBN => "The input is not a valid ISBN number",
-    );
+    ];
 
-    protected $options = array(
+    protected $options = [
         'type'      => self::AUTO, // Allowed type
         'separator' => '',         // Separator character
-    );
+    ];
 
     /**
      * Detect input format.
@@ -41,8 +41,8 @@ class Isbn extends AbstractValidator
     {
         // prepare separator and pattern list
         $sep      = quotemeta($this->getSeparator());
-        $patterns = array();
-        $lengths  = array();
+        $patterns = [];
+        $lengths  = [];
         $type     = $this->getType();
 
         // check for ISBN-10
@@ -160,7 +160,7 @@ class Isbn extends AbstractValidator
     public function setSeparator($separator)
     {
         // check separator
-        if (!in_array($separator, array('-', ' ', ''))) {
+        if (!in_array($separator, ['-', ' ', ''])) {
             throw new Exception\InvalidArgumentException('Invalid ISBN separator.');
         }
 
@@ -188,7 +188,7 @@ class Isbn extends AbstractValidator
     public function setType($type)
     {
         // check type
-        if (!in_array($type, array(self::AUTO, self::ISBN10, self::ISBN13))) {
+        if (!in_array($type, [self::AUTO, self::ISBN10, self::ISBN13])) {
             throw new Exception\InvalidArgumentException('Invalid ISBN type');
         }
 

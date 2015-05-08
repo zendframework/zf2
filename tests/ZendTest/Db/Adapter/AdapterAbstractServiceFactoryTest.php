@@ -26,22 +26,22 @@ class AdapterAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->serviceManager = new ServiceManager(new ServiceManagerConfig(array(
-            'abstract_factories' => array('Zend\Db\Adapter\AdapterAbstractServiceFactory'),
-        )));
+        $this->serviceManager = new ServiceManager(new ServiceManagerConfig([
+            'abstract_factories' => ['Zend\Db\Adapter\AdapterAbstractServiceFactory'],
+        ]));
 
-        $this->serviceManager->setService('Config', array(
-            'db' => array(
-                'adapters' => array(
-                    'Zend\Db\Adapter\Writer' => array(
+        $this->serviceManager->setService('Config', [
+            'db' => [
+                'adapters' => [
+                    'Zend\Db\Adapter\Writer' => [
                         'driver' => 'mysqli',
-                    ),
-                    'Zend\Db\Adapter\Reader' => array(
+                    ],
+                    'Zend\Db\Adapter\Reader' => [
                         'driver' => 'mysqli',
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
     }
 
     /**
@@ -49,10 +49,10 @@ class AdapterAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function providerValidService()
     {
-        return array(
-            array('Zend\Db\Adapter\Writer'),
-            array('Zend\Db\Adapter\Reader'),
-        );
+        return [
+            ['Zend\Db\Adapter\Writer'],
+            ['Zend\Db\Adapter\Reader'],
+        ];
     }
 
     /**
@@ -60,9 +60,9 @@ class AdapterAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function providerInvalidService()
     {
-        return array(
-            array('Zend\Db\Adapter\Unknown'),
-        );
+        return [
+            ['Zend\Db\Adapter\Unknown'],
+        ];
     }
 
     /**

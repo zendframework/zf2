@@ -24,7 +24,7 @@ class ToNull extends AbstractFilter
     /**
      * @var array
      */
-    protected $constants = array(
+    protected $constants = [
         self::TYPE_BOOLEAN     => 'boolean',
         self::TYPE_INTEGER     => 'integer',
         self::TYPE_EMPTY_ARRAY => 'array',
@@ -32,14 +32,14 @@ class ToNull extends AbstractFilter
         self::TYPE_ZERO_STRING => 'zero',
         self::TYPE_FLOAT       => 'float',
         self::TYPE_ALL         => 'all',
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'type' => self::TYPE_ALL,
-    );
+    ];
 
     /**
      * Constructor
@@ -151,7 +151,7 @@ class ToNull extends AbstractFilter
         // EMPTY_ARRAY (array())
         if ($type >= self::TYPE_EMPTY_ARRAY) {
             $type -= self::TYPE_EMPTY_ARRAY;
-            if (is_array($value) && ($value == array())) {
+            if (is_array($value) && ($value == [])) {
                 return;
             }
         }

@@ -21,7 +21,7 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
     protected $_params;
     protected $_originalDir;
     protected $_tmpdir;
-    protected $_subdirs = array('.', '.subfolder', '.subfolder.test');
+    protected $_subdirs = ['.', '.subfolder', '.subfolder.test'];
 
     public function setUp()
     {
@@ -54,14 +54,14 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $this->_params = array();
+        $this->_params = [];
         $this->_params['dirname'] = $this->_tmpdir;
 
         foreach ($this->_subdirs as $dir) {
             if ($dir != '.') {
                 mkdir($this->_tmpdir . $dir);
             }
-            foreach (array('cur', 'new') as $subdir) {
+            foreach (['cur', 'new'] as $subdir) {
                 if (!file_exists($this->_originalDir . $dir . '/' . $subdir)) {
                     continue;
                 }
@@ -86,7 +86,7 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
             if (!file_exists($this->_tmpdir . $dir)) {
                 continue;
             }
-            foreach (array('cur', 'new', 'tmp') as $subdir) {
+            foreach (['cur', 'new', 'tmp'] as $subdir) {
                 if (!file_exists($this->_tmpdir . $dir . '/' . $subdir)) {
                     continue;
                 }
@@ -287,23 +287,23 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
     {
         $mail = new Writable\Maildir($this->_params);
 
-        $mail->setFlags(1, array(Storage::FLAG_SEEN));
+        $mail->setFlags(1, [Storage::FLAG_SEEN]);
         $message = $mail->getMessage(1);
         $this->assertTrue($message->hasFlag(Storage::FLAG_SEEN));
         $this->assertFalse($message->hasFlag(Storage::FLAG_FLAGGED));
 
-        $mail->setFlags(1, array(Storage::FLAG_SEEN, Storage::FLAG_FLAGGED));
+        $mail->setFlags(1, [Storage::FLAG_SEEN, Storage::FLAG_FLAGGED]);
         $message = $mail->getMessage(1);
         $this->assertTrue($message->hasFlag(Storage::FLAG_SEEN));
         $this->assertTrue($message->hasFlag(Storage::FLAG_FLAGGED));
 
-        $mail->setFlags(1, array(Storage::FLAG_FLAGGED));
+        $mail->setFlags(1, [Storage::FLAG_FLAGGED]);
         $message = $mail->getMessage(1);
         $this->assertFalse($message->hasFlag(Storage::FLAG_SEEN));
         $this->assertTrue($message->hasFlag(Storage::FLAG_FLAGGED));
 
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
-        $mail->setFlags(1, array(Storage::FLAG_RECENT));
+        $mail->setFlags(1, [Storage::FLAG_RECENT]);
     }
 
     public function testSetFlagsRemovedFile()
@@ -344,16 +344,16 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
     public function testCheckQuotaDetailed()
     {
         $mail = new Writable\Maildir($this->_params);
-        $quotaResult = array(
+        $quotaResult = [
             'size'  => 2129,
             'count' => 5,
-            'quota' => array(
+            'quota' => [
                     'count' => 10,
                     'L'     => 1,
                     'size'  => 3000
-                ),
+                ],
             'over_quota' => false
-        );
+        ];
         $this->assertEquals($quotaResult, $mail->checkQuota(true));
     }
 
@@ -368,28 +368,28 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
         $mail->setQuota(false);
         $this->assertFalse($mail->getQuota());
 
-        $mail->setQuota(array('size' => 100, 'count' => 2, 'X' => 0));
-        $this->assertEquals($mail->getQuota(), array('size' => 100, 'count' => 2, 'X' => 0));
-        $this->assertEquals($mail->getQuota(true), array('size' => 3000, 'L' => 1, 'count' => 10));
+        $mail->setQuota(['size' => 100, 'count' => 2, 'X' => 0]);
+        $this->assertEquals($mail->getQuota(), ['size' => 100, 'count' => 2, 'X' => 0]);
+        $this->assertEquals($mail->getQuota(true), ['size' => 3000, 'L' => 1, 'count' => 10]);
 
-        $quotaResult = array(
+        $quotaResult = [
             'size'  => 2129,
             'count' => 5,
-            'quota' => array(
+            'quota' => [
                     'size'  => 100,
                     'count' => 2,
                     'X'     => 0
-                ),
+                ],
             'over_quota' => true
-        );
+        ];
         $this->assertEquals($quotaResult, $mail->checkQuota(true, true));
-        $this->assertEquals(array('size' => 100, 'count' => 2, 'X' => 0), $mail->getQuota(true));
+        $this->assertEquals(['size' => 100, 'count' => 2, 'X' => 0], $mail->getQuota(true));
     }
 
     public function testMissingMaildirsize()
     {
         $mail = new Writable\Maildir($this->_params);
-        $this->assertEquals($mail->getQuota(true), array('size' => 3000, 'L' => 1, 'count' => 10));
+        $this->assertEquals($mail->getQuota(true), ['size' => 3000, 'L' => 1, 'count' => 10]);
 
         unlink($this->_tmpdir . 'maildirsize');
 
@@ -403,18 +403,18 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
     {
         $mail = new Writable\Maildir($this->_params);
         unlink($this->_tmpdir . 'maildirsize');
-        $mail->setQuota(array('size' => 100, 'count' => 2, 'X' => 0));
+        $mail->setQuota(['size' => 100, 'count' => 2, 'X' => 0]);
 
-        $quotaResult = array(
+        $quotaResult = [
             'size'  => 2129,
             'count' => 5,
-            'quota' => array(
+            'quota' => [
                     'size'  => 100,
                     'count' => 2,
                     'X'     => 0
-                ),
+                ],
             'over_quota' => true
-        );
+        ];
         $this->assertEquals($mail->checkQuota(true), $quotaResult);
 
         $this->assertEquals($mail->getQuota(true), $quotaResult['quota']);
@@ -424,19 +424,19 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete("Fail");
         $mail = new Writable\Maildir($this->_params);
-        $mail->setQuota(array('size' => 3000, 'count' => 6, 'X' => 0));
+        $mail->setQuota(['size' => 3000, 'count' => 6, 'X' => 0]);
         $this->assertFalse($mail->checkQuota(false, true));
         $mail->appendMessage("Subject: test\r\n\r\n");
-        $quotaResult = array(
+        $quotaResult = [
             'size'  => 2613,
             'count' => 7,
-            'quota' => array(
+            'quota' => [
                     'size'  => 3000,
                     'count' => 6,
                     'X'     => 0
-                ),
+                ],
             'over_quota' => true
-        );
+        ];
         $this->assertEquals($mail->checkQuota(true), $quotaResult);
 
         $mail->setQuota(false);
@@ -455,7 +455,7 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete("Fail");
         $mail = new Writable\Maildir($this->_params);
-        $mail->setQuota(array('size' => 3000, 'count' => 5, 'X' => 0));
+        $mail->setQuota(['size' => 3000, 'count' => 5, 'X' => 0]);
         $this->assertTrue($mail->checkQuota(false, true));
 
         $mail->removeMessage(1);
@@ -466,19 +466,19 @@ class MaildirWritableTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete("Fail");
         $mail = new Writable\Maildir($this->_params);
-        $mail->setQuota(array('size' => 3000, 'count' => 6, 'X' => 0));
+        $mail->setQuota(['size' => 3000, 'count' => 6, 'X' => 0]);
         $this->assertFalse($mail->checkQuota(false, true));
         $mail->copyMessage(1, 'subfolder');
-        $quotaResult = array(
+        $quotaResult = [
             'size'  => 2993,
             'count' => 7,
-            'quota' => array(
+            'quota' => [
                     'size'  => 3000,
                     'count' => 6,
                     'X'     => 0
-                ),
+                ],
             'over_quota' => true
-        );
+        ];
         $this->assertEquals($mail->checkQuota(true), $quotaResult);
     }
 

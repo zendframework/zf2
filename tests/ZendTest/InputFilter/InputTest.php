@@ -214,7 +214,7 @@ class InputTest extends TestCase
         $this->assertTrue($this->input->isRequired());
         $this->input->setValue('');
 
-        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', array('isValid'));
+        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', ['isValid']);
         $notEmptyMock->expects($this->exactly(1))
                      ->method('isValid')
                      ->will($this->returnValue(false));
@@ -230,11 +230,11 @@ class InputTest extends TestCase
 
     public function emptyValuesProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array(array()),
-        );
+        return [
+            [null],
+            [''],
+            [[]],
+        ];
     }
 
     /**
@@ -290,7 +290,7 @@ class InputTest extends TestCase
         $this->assertFalse($this->input->isValid());
         // Test reason for validation failure; ensures that failure was not
         // caused by accidentally injected NotEmpty validator
-        $this->assertEquals(array('callbackValue' => $message), $this->input->getMessages());
+        $this->assertEquals(['callbackValue' => $message], $this->input->getMessages());
     }
 
     public function testNotAllowEmptyWithFilterConvertsNonemptyToEmptyIsNotValid()
@@ -341,7 +341,7 @@ class InputTest extends TestCase
         $this->assertTrue($this->input->isRequired());
         $this->input->setValue('');
 
-        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', array('isValid'));
+        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', ['isValid']);
         $notEmptyMock->expects($this->exactly(1))
                      ->method('isValid')
                      ->will($this->returnValue(false));
@@ -358,17 +358,17 @@ class InputTest extends TestCase
 
     public function dataFallbackValue()
     {
-        return array(
-            array(
+        return [
+            [
                 'fallbackValue' => null
-            ),
-            array(
+            ],
+            [
                 'fallbackValue' => ''
-            ),
-            array(
+            ],
+            [
                 'fallbackValue' => 'some value'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -457,14 +457,14 @@ class InputTest extends TestCase
             ->setRequired(true)
             ->getValidatorChain()->attach($validator);
 
-        return array(
-            'required-first-null'  => array($requiredFirst, null),
-            'required-last-null'   => array($requiredLast, null),
-            'required-first-empty' => array($requiredFirst, ''),
-            'required-last-empty'  => array($requiredLast, ''),
-            'required-first-array' => array($requiredFirst, array()),
-            'required-last-array'  => array($requiredLast, array()),
-        );
+        return [
+            'required-first-null'  => [$requiredFirst, null],
+            'required-last-null'   => [$requiredLast, null],
+            'required-first-empty' => [$requiredFirst, ''],
+            'required-last-empty'  => [$requiredLast, ''],
+            'required-first-array' => [$requiredFirst, []],
+            'required-last-array'  => [$requiredLast, []],
+        ];
     }
 
     /**
@@ -495,7 +495,7 @@ class InputTest extends TestCase
 
         $requiredFirstInvalid = new Input('foo');
         $requiredFirstValid   = new Input('foo');
-        foreach (array($requiredFirstValid, $requiredFirstInvalid) as $input) {
+        foreach ([$requiredFirstValid, $requiredFirstInvalid] as $input) {
             $input->setRequired(true)
                 ->setAllowEmpty(true)
                 ->setContinueIfEmpty(true);
@@ -503,34 +503,34 @@ class InputTest extends TestCase
 
         $requiredLastInvalid = new Input('foo');
         $requiredLastValid   = new Input('foo');
-        foreach (array($requiredLastValid, $requiredLastInvalid) as $input) {
+        foreach ([$requiredLastValid, $requiredLastInvalid] as $input) {
             $input->setAllowEmpty(true)
                 ->setContinueIfEmpty(true)
                 ->setRequired(true);
         }
 
-        foreach (array($requiredFirstValid, $requiredLastValid) as $input) {
+        foreach ([$requiredFirstValid, $requiredLastValid] as $input) {
             $input->getValidatorChain()->attach($emptyIsValid);
         }
 
-        foreach (array($requiredFirstInvalid, $requiredLastInvalid) as $input) {
+        foreach ([$requiredFirstInvalid, $requiredLastInvalid] as $input) {
             $input->getValidatorChain()->attach($alwaysInvalid);
         }
 
-        return array(
-            'required-first-null-valid'    => array($requiredFirstValid, null, 'assertTrue'),
-            'required-first-null-invalid'  => array($requiredFirstInvalid, null, 'assertFalse'),
-            'required-last-null-valid'     => array($requiredLastValid, null, 'assertTrue'),
-            'required-last-null-invalid'   => array($requiredLastInvalid, null, 'assertFalse'),
-            'required-first-empty-valid'   => array($requiredFirstValid, '', 'assertTrue'),
-            'required-first-empty-invalid' => array($requiredFirstInvalid, '', 'assertFalse'),
-            'required-last-empty-valid'    => array($requiredLastValid, '', 'assertTrue'),
-            'required-last-empty-invalid'  => array($requiredLastInvalid, '', 'assertFalse'),
-            'required-first-array-valid'   => array($requiredFirstValid, array(), 'assertTrue'),
-            'required-first-array-invalid' => array($requiredFirstInvalid, array(), 'assertFalse'),
-            'required-last-array-valid'    => array($requiredLastValid, array(), 'assertTrue'),
-            'required-last-array-invalid'  => array($requiredLastInvalid, array(), 'assertFalse'),
-        );
+        return [
+            'required-first-null-valid'    => [$requiredFirstValid, null, 'assertTrue'],
+            'required-first-null-invalid'  => [$requiredFirstInvalid, null, 'assertFalse'],
+            'required-last-null-valid'     => [$requiredLastValid, null, 'assertTrue'],
+            'required-last-null-invalid'   => [$requiredLastInvalid, null, 'assertFalse'],
+            'required-first-empty-valid'   => [$requiredFirstValid, '', 'assertTrue'],
+            'required-first-empty-invalid' => [$requiredFirstInvalid, '', 'assertFalse'],
+            'required-last-empty-valid'    => [$requiredLastValid, '', 'assertTrue'],
+            'required-last-empty-invalid'  => [$requiredLastInvalid, '', 'assertFalse'],
+            'required-first-array-valid'   => [$requiredFirstValid, [], 'assertTrue'],
+            'required-first-array-invalid' => [$requiredFirstInvalid, [], 'assertFalse'],
+            'required-last-array-valid'    => [$requiredLastValid, [], 'assertTrue'],
+            'required-last-array-invalid'  => [$requiredLastInvalid, [], 'assertFalse'],
+        ];
     }
 
     /**
@@ -561,14 +561,14 @@ class InputTest extends TestCase
             ->setRequired(true)
             ->getValidatorChain()->attach($validator);
 
-        return array(
-            'required-first-null'  => array($requiredFirst, null),
-            'required-last-null'   => array($requiredLast, null),
-            'required-first-empty' => array($requiredFirst, ''),
-            'required-last-empty'  => array($requiredLast, ''),
-            'required-first-array' => array($requiredFirst, array()),
-            'required-last-array'  => array($requiredLast, array()),
-        );
+        return [
+            'required-first-null'  => [$requiredFirst, null],
+            'required-last-null'   => [$requiredLast, null],
+            'required-first-empty' => [$requiredFirst, ''],
+            'required-last-empty'  => [$requiredLast, ''],
+            'required-first-array' => [$requiredFirst, []],
+            'required-last-array'  => [$requiredLast, []],
+        ];
     }
 
     /**
@@ -599,7 +599,7 @@ class InputTest extends TestCase
 
         $requiredFirstInvalid = new Input('foo');
         $requiredFirstValid   = new Input('foo');
-        foreach (array($requiredFirstValid, $requiredFirstInvalid) as $input) {
+        foreach ([$requiredFirstValid, $requiredFirstInvalid] as $input) {
             $input->setRequired(true)
                 ->setAllowEmpty(false)
                 ->setContinueIfEmpty(true);
@@ -607,34 +607,34 @@ class InputTest extends TestCase
 
         $requiredLastInvalid = new Input('foo');
         $requiredLastValid   = new Input('foo');
-        foreach (array($requiredLastValid, $requiredLastInvalid) as $input) {
+        foreach ([$requiredLastValid, $requiredLastInvalid] as $input) {
             $input->setAllowEmpty(false)
                 ->setContinueIfEmpty(true)
                 ->setRequired(true);
         }
 
-        foreach (array($requiredFirstValid, $requiredLastValid) as $input) {
+        foreach ([$requiredFirstValid, $requiredLastValid] as $input) {
             $input->getValidatorChain()->attach($emptyIsValid);
         }
 
-        foreach (array($requiredFirstInvalid, $requiredLastInvalid) as $input) {
+        foreach ([$requiredFirstInvalid, $requiredLastInvalid] as $input) {
             $input->getValidatorChain()->attach($alwaysInvalid);
         }
 
-        return array(
-            'required-first-null-valid'    => array($requiredFirstValid, null, 'assertTrue'),
-            'required-first-null-invalid'  => array($requiredFirstInvalid, null, 'assertFalse'),
-            'required-last-null-valid'     => array($requiredLastValid, null, 'assertTrue'),
-            'required-last-null-invalid'   => array($requiredLastInvalid, null, 'assertFalse'),
-            'required-first-empty-valid'   => array($requiredFirstValid, '', 'assertTrue'),
-            'required-first-empty-invalid' => array($requiredFirstInvalid, '', 'assertFalse'),
-            'required-last-empty-valid'    => array($requiredLastValid, '', 'assertTrue'),
-            'required-last-empty-invalid'  => array($requiredLastInvalid, '', 'assertFalse'),
-            'required-first-array-valid'   => array($requiredFirstValid, array(), 'assertTrue'),
-            'required-first-array-invalid' => array($requiredFirstInvalid, array(), 'assertFalse'),
-            'required-last-array-valid'    => array($requiredLastValid, array(), 'assertTrue'),
-            'required-last-array-invalid'  => array($requiredLastInvalid, array(), 'assertFalse'),
-        );
+        return [
+            'required-first-null-valid'    => [$requiredFirstValid, null, 'assertTrue'],
+            'required-first-null-invalid'  => [$requiredFirstInvalid, null, 'assertFalse'],
+            'required-last-null-valid'     => [$requiredLastValid, null, 'assertTrue'],
+            'required-last-null-invalid'   => [$requiredLastInvalid, null, 'assertFalse'],
+            'required-first-empty-valid'   => [$requiredFirstValid, '', 'assertTrue'],
+            'required-first-empty-invalid' => [$requiredFirstInvalid, '', 'assertFalse'],
+            'required-last-empty-valid'    => [$requiredLastValid, '', 'assertTrue'],
+            'required-last-empty-invalid'  => [$requiredLastInvalid, '', 'assertFalse'],
+            'required-first-array-valid'   => [$requiredFirstValid, [], 'assertTrue'],
+            'required-first-array-invalid' => [$requiredFirstInvalid, [], 'assertFalse'],
+            'required-last-array-valid'    => [$requiredLastValid, [], 'assertTrue'],
+            'required-last-array-invalid'  => [$requiredLastInvalid, [], 'assertFalse'],
+        ];
     }
 
     /**
@@ -665,14 +665,14 @@ class InputTest extends TestCase
             ->setRequired(false)
             ->getValidatorChain()->attach($validator);
 
-        return array(
-            'required-first-null'  => array($requiredFirst, null),
-            'required-last-null'   => array($requiredLast, null),
-            'required-first-empty' => array($requiredFirst, ''),
-            'required-last-empty'  => array($requiredLast, ''),
-            'required-first-array' => array($requiredFirst, array()),
-            'required-last-array'  => array($requiredLast, array()),
-        );
+        return [
+            'required-first-null'  => [$requiredFirst, null],
+            'required-last-null'   => [$requiredLast, null],
+            'required-first-empty' => [$requiredFirst, ''],
+            'required-last-empty'  => [$requiredLast, ''],
+            'required-first-array' => [$requiredFirst, []],
+            'required-last-array'  => [$requiredLast, []],
+        ];
     }
 
     /**
@@ -703,14 +703,14 @@ class InputTest extends TestCase
             ->setRequired(false)
             ->getValidatorChain()->attach($validator);
 
-        return array(
-            'required-first-null'  => array($requiredFirst, null),
-            'required-last-null'   => array($requiredLast, null),
-            'required-first-empty' => array($requiredFirst, ''),
-            'required-last-empty'  => array($requiredLast, ''),
-            'required-first-array' => array($requiredFirst, array()),
-            'required-last-array'  => array($requiredLast, array()),
-        );
+        return [
+            'required-first-null'  => [$requiredFirst, null],
+            'required-last-null'   => [$requiredLast, null],
+            'required-first-empty' => [$requiredFirst, ''],
+            'required-last-empty'  => [$requiredLast, ''],
+            'required-first-array' => [$requiredFirst, []],
+            'required-last-array'  => [$requiredLast, []],
+        ];
     }
 
     /**
@@ -741,7 +741,7 @@ class InputTest extends TestCase
 
         $requiredFirstInvalid = new Input('foo');
         $requiredFirstValid   = new Input('foo');
-        foreach (array($requiredFirstValid, $requiredFirstInvalid) as $input) {
+        foreach ([$requiredFirstValid, $requiredFirstInvalid] as $input) {
             $input->setRequired(false)
                 ->setAllowEmpty(true)
                 ->setContinueIfEmpty(true);
@@ -749,34 +749,34 @@ class InputTest extends TestCase
 
         $requiredLastInvalid = new Input('foo');
         $requiredLastValid   = new Input('foo');
-        foreach (array($requiredLastValid, $requiredLastInvalid) as $input) {
+        foreach ([$requiredLastValid, $requiredLastInvalid] as $input) {
             $input->setAllowEmpty(true)
                 ->setContinueIfEmpty(true)
                 ->setRequired(false);
         }
 
-        foreach (array($requiredFirstValid, $requiredLastValid) as $input) {
+        foreach ([$requiredFirstValid, $requiredLastValid] as $input) {
             $input->getValidatorChain()->attach($emptyIsValid);
         }
 
-        foreach (array($requiredFirstInvalid, $requiredLastInvalid) as $input) {
+        foreach ([$requiredFirstInvalid, $requiredLastInvalid] as $input) {
             $input->getValidatorChain()->attach($alwaysInvalid);
         }
 
-        return array(
-            'required-first-null-valid'    => array($requiredFirstValid, null, 'assertTrue'),
-            'required-first-null-invalid'  => array($requiredFirstInvalid, null, 'assertFalse'),
-            'required-last-null-valid'     => array($requiredLastValid, null, 'assertTrue'),
-            'required-last-null-invalid'   => array($requiredLastInvalid, null, 'assertFalse'),
-            'required-first-empty-valid'   => array($requiredFirstValid, '', 'assertTrue'),
-            'required-first-empty-invalid' => array($requiredFirstInvalid, '', 'assertFalse'),
-            'required-last-empty-valid'    => array($requiredLastValid, '', 'assertTrue'),
-            'required-last-empty-invalid'  => array($requiredLastInvalid, '', 'assertFalse'),
-            'required-first-array-valid'   => array($requiredFirstValid, array(), 'assertTrue'),
-            'required-first-array-invalid' => array($requiredFirstInvalid, array(), 'assertFalse'),
-            'required-last-array-valid'    => array($requiredLastValid, array(), 'assertTrue'),
-            'required-last-array-invalid'  => array($requiredLastInvalid, array(), 'assertFalse'),
-        );
+        return [
+            'required-first-null-valid'    => [$requiredFirstValid, null, 'assertTrue'],
+            'required-first-null-invalid'  => [$requiredFirstInvalid, null, 'assertFalse'],
+            'required-last-null-valid'     => [$requiredLastValid, null, 'assertTrue'],
+            'required-last-null-invalid'   => [$requiredLastInvalid, null, 'assertFalse'],
+            'required-first-empty-valid'   => [$requiredFirstValid, '', 'assertTrue'],
+            'required-first-empty-invalid' => [$requiredFirstInvalid, '', 'assertFalse'],
+            'required-last-empty-valid'    => [$requiredLastValid, '', 'assertTrue'],
+            'required-last-empty-invalid'  => [$requiredLastInvalid, '', 'assertFalse'],
+            'required-first-array-valid'   => [$requiredFirstValid, [], 'assertTrue'],
+            'required-first-array-invalid' => [$requiredFirstInvalid, [], 'assertFalse'],
+            'required-last-array-valid'    => [$requiredLastValid, [], 'assertTrue'],
+            'required-last-array-invalid'  => [$requiredLastInvalid, [], 'assertFalse'],
+        ];
     }
 
     /**
@@ -807,7 +807,7 @@ class InputTest extends TestCase
 
         $requiredFirstInvalid = new Input('foo');
         $requiredFirstValid   = new Input('foo');
-        foreach (array($requiredFirstValid, $requiredFirstInvalid) as $input) {
+        foreach ([$requiredFirstValid, $requiredFirstInvalid] as $input) {
             $input->setRequired(false)
                 ->setAllowEmpty(false)
                 ->setContinueIfEmpty(true);
@@ -815,34 +815,34 @@ class InputTest extends TestCase
 
         $requiredLastInvalid = new Input('foo');
         $requiredLastValid   = new Input('foo');
-        foreach (array($requiredLastValid, $requiredLastInvalid) as $input) {
+        foreach ([$requiredLastValid, $requiredLastInvalid] as $input) {
             $input->setAllowEmpty(false)
                 ->setContinueIfEmpty(true)
                 ->setRequired(false);
         }
 
-        foreach (array($requiredFirstValid, $requiredLastValid) as $input) {
+        foreach ([$requiredFirstValid, $requiredLastValid] as $input) {
             $input->getValidatorChain()->attach($emptyIsValid);
         }
 
-        foreach (array($requiredFirstInvalid, $requiredLastInvalid) as $input) {
+        foreach ([$requiredFirstInvalid, $requiredLastInvalid] as $input) {
             $input->getValidatorChain()->attach($alwaysInvalid);
         }
 
-        return array(
-            'required-first-null-valid'    => array($requiredFirstValid, null, 'assertTrue'),
-            'required-first-null-invalid'  => array($requiredFirstInvalid, null, 'assertFalse'),
-            'required-last-null-valid'     => array($requiredLastValid, null, 'assertTrue'),
-            'required-last-null-invalid'   => array($requiredLastInvalid, null, 'assertFalse'),
-            'required-first-empty-valid'   => array($requiredFirstValid, '', 'assertTrue'),
-            'required-first-empty-invalid' => array($requiredFirstInvalid, '', 'assertFalse'),
-            'required-last-empty-valid'    => array($requiredLastValid, '', 'assertTrue'),
-            'required-last-empty-invalid'  => array($requiredLastInvalid, '', 'assertFalse'),
-            'required-first-array-valid'   => array($requiredFirstValid, array(), 'assertTrue'),
-            'required-first-array-invalid' => array($requiredFirstInvalid, array(), 'assertFalse'),
-            'required-last-array-valid'    => array($requiredLastValid, array(), 'assertTrue'),
-            'required-last-array-invalid'  => array($requiredLastInvalid, array(), 'assertFalse'),
-        );
+        return [
+            'required-first-null-valid'    => [$requiredFirstValid, null, 'assertTrue'],
+            'required-first-null-invalid'  => [$requiredFirstInvalid, null, 'assertFalse'],
+            'required-last-null-valid'     => [$requiredLastValid, null, 'assertTrue'],
+            'required-last-null-invalid'   => [$requiredLastInvalid, null, 'assertFalse'],
+            'required-first-empty-valid'   => [$requiredFirstValid, '', 'assertTrue'],
+            'required-first-empty-invalid' => [$requiredFirstInvalid, '', 'assertFalse'],
+            'required-last-empty-valid'    => [$requiredLastValid, '', 'assertTrue'],
+            'required-last-empty-invalid'  => [$requiredLastInvalid, '', 'assertFalse'],
+            'required-first-array-valid'   => [$requiredFirstValid, [], 'assertTrue'],
+            'required-first-array-invalid' => [$requiredFirstInvalid, [], 'assertFalse'],
+            'required-last-array-valid'    => [$requiredLastValid, [], 'assertTrue'],
+            'required-last-array-invalid'  => [$requiredLastInvalid, [], 'assertFalse'],
+        ];
     }
 
     /**

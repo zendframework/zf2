@@ -22,9 +22,9 @@ class EmailTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedValidators = array(
+        $expectedValidators = [
             'Zend\Validator\Regex'
-        );
+        ];
         foreach ($inputSpec['validators'] as $i => $validator) {
             $class = get_class($validator);
             $this->assertEquals($expectedValidators[$i], $class);
@@ -33,11 +33,11 @@ class EmailTest extends TestCase
 
     public function emailAttributesDataProvider()
     {
-        return array(
+        return [
                   // attributes               // expectedValidators
-            array(array('multiple' => true),  array('Zend\Validator\Explode')),
-            array(array('multiple' => false), array('Zend\Validator\Regex')),
-        );
+            [['multiple' => true],  ['Zend\Validator\Explode']],
+            [['multiple' => false], ['Zend\Validator\Regex']],
+        ];
     }
 
     /**

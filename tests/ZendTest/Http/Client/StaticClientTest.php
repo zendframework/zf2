@@ -68,7 +68,7 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testHttpMultiGetWithParam()
     {
-        $response = HTTPClient::get($this->baseuri . 'testGetData.php', array('foo' => 'bar'));
+        $response = HTTPClient::get($this->baseuri . 'testGetData.php', ['foo' => 'bar']);
         $this->assertTrue($response->isSuccess());
         $this->assertContains('foo', $response->getBody());
         $this->assertContains('bar', $response->getBody());
@@ -82,8 +82,8 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
         $getBody = 'baz';
 
         $response = HTTPClient::get($this->baseuri . 'testRawGetData.php',
-                                   array('foo' => 'bar'),
-                                   array(),
+                                   ['foo' => 'bar'],
+                                   [],
                                    $getBody);
 
         $this->assertTrue($response->isSuccess());
@@ -97,7 +97,7 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testHttpSimplePost()
     {
-        $response = HTTPClient::post($this->baseuri . 'testPostData.php', array('foo' => 'bar'));
+        $response = HTTPClient::post($this->baseuri . 'testPostData.php', ['foo' => 'bar']);
         $this->assertTrue($response->isSuccess());
         $this->assertContains('foo', $response->getBody());
         $this->assertContains('bar', $response->getBody());
@@ -109,8 +109,8 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
     public function testHttpPostContentType()
     {
         $response = HTTPClient::post($this->baseuri . 'testPostData.php',
-                                    array('foo' => 'bar'),
-                                    array('Content-Type' => Client::ENC_URLENCODED));
+                                    ['foo' => 'bar'],
+                                    ['Content-Type' => Client::ENC_URLENCODED]);
         $this->assertTrue($response->isSuccess());
         $this->assertContains('foo', $response->getBody());
         $this->assertContains('bar', $response->getBody());
@@ -124,8 +124,8 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
         $postBody = 'foo';
 
         $response = HTTPClient::post($this->baseuri . 'testRawPostData.php',
-                                    array('foo' => 'bar'),
-                                    array('Content-Type' => Client::ENC_URLENCODED),
+                                    ['foo' => 'bar'],
+                                    ['Content-Type' => Client::ENC_URLENCODED],
                                     $postBody);
 
         $this->assertTrue($response->isSuccess());
@@ -141,11 +141,11 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
     {
         $testUri = $this->baseuri . 'testSimpleRequests.php';
 
-        $config = array(
+        $config = [
             'useragent' => 'simplegettest'
-        );
+        ];
 
-        HTTPClient::get($testUri, array(), array(), null, $config);
+        HTTPClient::get($testUri, [], [], null, $config);
 
         $reflectedClass = new \ReflectionClass('Zend\Http\ClientStatic');
         $property = $reflectedClass->getProperty('client');
@@ -166,11 +166,11 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
     {
         $testUri = $this->baseuri . 'testPostData.php';
 
-        $config = array(
+        $config = [
             'useragent' => 'simpleposttest'
-        );
+        ];
 
-        HTTPClient::post($testUri, array('foo' => 'bar'), array(), null, $config);
+        HTTPClient::post($testUri, ['foo' => 'bar'], [], null, $config);
 
         $reflectedClass = new \ReflectionClass('Zend\Http\ClientStatic');
         $property = $reflectedClass->getProperty('client');

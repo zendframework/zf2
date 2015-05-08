@@ -72,12 +72,12 @@ class FormElementManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testArrayCreationOptions()
     {
-        $args = array(
+        $args = [
             'name' => 'foo',
-            'options' => array(
+            'options' => [
                 'label' => 'bar'
-            ),
-        );
+            ],
+        ];
         $element = $this->manager->get('element', $args);
         $this->assertEquals('foo', $element->getName(), 'Specified name in array[name]');
         $this->assertEquals('bar', $element->getLabel(), 'Specified options in array[options]');
@@ -85,9 +85,9 @@ class FormElementManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testOptionsCreationOptions()
     {
-        $args = array(
+        $args = [
             'label' => 'bar'
-        );
+        ];
         $element = $this->manager->get('element', $args);
         $this->assertEquals('element', $element->getName(), 'Invokable CNAME');
         $this->assertEquals('bar', $element->getLabel(), 'Specified options in array');
@@ -95,11 +95,11 @@ class FormElementManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testArrayOptionsCreationOptions()
     {
-        $args = array(
-            'options' => array(
+        $args = [
+            'options' => [
                 'label' => 'bar'
-            ),
-        );
+            ],
+        ];
         $element = $this->manager->get('element', $args);
         $this->assertEquals('element', $element->getName(), 'Invokable CNAME');
         $this->assertEquals('bar', $element->getLabel(), 'Specified options in array[options]');
@@ -110,7 +110,7 @@ class FormElementManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSharedFormElementsAreNotInitializedMultipleTimes()
     {
-        $element = $this->getMock('Zend\Form\Element', array('init'));
+        $element = $this->getMock('Zend\Form\Element', ['init']);
 
         $element->expects($this->once())->method('init');
 

@@ -1,27 +1,27 @@
 <?php
-return array(
-    'router' => array(
-        'routes' => array(
-            'barroute' => array(
+return [
+    'router' => [
+        'routes' => [
+            'barroute' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/bar-test',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'bar_index',
                         'action'     => 'unittests',
-                    ),
-                ),
-            ),
-        ),
-    ),
-    'controllers' => array(
-        'invokables' => array(
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'controllers' => [
+        'invokables' => [
             'bar_index' => 'Bar\Controller\IndexController',
-        ),
-    ),
-    'view_manager' => array(
-        'template_path_stack' => array(
+        ],
+    ],
+    'view_manager' => [
+        'template_path_stack' => [
             __DIR__ . '/../view',
-        ),
-    ),
-);
+        ],
+    ],
+];

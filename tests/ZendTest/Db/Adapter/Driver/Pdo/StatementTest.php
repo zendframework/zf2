@@ -43,7 +43,7 @@ class StatementTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDriver()
     {
-        $this->assertEquals($this->statement, $this->statement->setDriver(new Pdo(array())));
+        $this->assertEquals($this->statement, $this->statement->setDriver(new Pdo([])));
     }
 
     /**

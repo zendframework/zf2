@@ -35,10 +35,10 @@ class Operator extends AbstractExpression implements PredicateInterface
     /**
      * {@inheritDoc}
      */
-    protected $allowedTypes  = array(
+    protected $allowedTypes  = [
         self::TYPE_IDENTIFIER,
         self::TYPE_VALUE,
-    );
+    ];
 
     /**
      * @var int|float|bool|string
@@ -261,10 +261,10 @@ class Operator extends AbstractExpression implements PredicateInterface
         list($values[], $types[]) = $this->normalizeArgument($this->left, $this->leftType);
         list($values[], $types[]) = $this->normalizeArgument($this->right, $this->rightType);
 
-        return array(array(
+        return [[
             '%s ' . $this->operator . ' %s',
             $values,
             $types
-        ));
+        ]];
     }
 }

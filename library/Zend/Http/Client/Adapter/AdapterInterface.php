@@ -22,7 +22,7 @@ interface AdapterInterface
      *
      * @param array $options
      */
-    public function setOptions($options = array());
+    public function setOptions($options = []);
 
     /**
      * Connect to the remote server
@@ -43,7 +43,7 @@ interface AdapterInterface
      * @param string        $body
      * @return string Request as text
      */
-    public function write($method, $url, $httpVer = '1.1', $headers = array(), $body = '');
+    public function write($method, $url, $httpVer = '1.1', $headers = [], $body = '');
 
     /**
      * Read response from server

@@ -25,9 +25,9 @@ class CreateViewModelListenerTest extends TestCase
 
     public function testReCastsAssocArrayEventResultAsViewModel()
     {
-        $array = array(
+        $array = [
             'foo' => 'bar',
-        );
+        ];
         $this->event->setResult($array);
         $this->listener->createViewModelFromArray($this->event);
 
@@ -38,18 +38,18 @@ class CreateViewModelListenerTest extends TestCase
 
     public function nonAssocArrayResults()
     {
-        return array(
-            array(null),
-            array(false),
-            array(true),
-            array(0),
-            array(1),
-            array(0.00),
-            array(1.00),
-            array('string'),
-            array(array('foo', 'bar')),
-            array(new stdClass),
-        );
+        return [
+            [null],
+            [false],
+            [true],
+            [0],
+            [1],
+            [0.00],
+            [1.00],
+            ['string'],
+            [['foo', 'bar']],
+            [new stdClass],
+        ];
     }
 
     /**
@@ -72,8 +72,8 @@ class CreateViewModelListenerTest extends TestCase
         $events->attachAggregate($this->listener);
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
 
-        $expectedArrayCallback = array($this->listener, 'createViewModelFromArray');
-        $expectedNullCallback  = array($this->listener, 'createViewModelFromNull');
+        $expectedArrayCallback = [$this->listener, 'createViewModelFromArray'];
+        $expectedNullCallback  = [$this->listener, 'createViewModelFromNull'];
         $expectedPriority      = -80;
         $foundArray            = false;
         $foundNull             = false;
@@ -107,7 +107,7 @@ class CreateViewModelListenerTest extends TestCase
 
     public function testViewModelCreatesViewModelWithEmptyArray()
     {
-        $this->event->setResult(array());
+        $this->event->setResult([]);
         $this->listener->createViewModelFromArray($this->event);
         $result = $this->event->getResult();
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);

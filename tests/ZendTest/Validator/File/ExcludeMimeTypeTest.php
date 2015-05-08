@@ -24,20 +24,20 @@ class ExcludeMimeTypeTest extends \PHPUnit_Framework_TestCase
     public function basicBehaviorDataProvider()
     {
         $testFile = __DIR__ . '/_files/picture.jpg';
-        $fileUpload = array(
+        $fileUpload = [
             'tmp_name' => $testFile, 'name' => basename($testFile),
             'size' => 200, 'error' => 0, 'type' => 'image/jpeg'
-        );
-        return array(
+        ];
+        return [
             //    Options, isValid Param, Expected value
-            array('image/gif',                      $fileUpload, true),
-            array('image',                          $fileUpload, false),
-            array('test/notype',                    $fileUpload, true),
-            array('image/gif, image/jpeg',          $fileUpload, false),
-            array(array('image/vasa', 'image/gif'), $fileUpload, true),
-            array(array('image/gif', 'jpeg'),       $fileUpload, false),
-            array(array('image/gif', 'gif'),        $fileUpload, true),
-        );
+            ['image/gif',                      $fileUpload, true],
+            ['image',                          $fileUpload, false],
+            ['test/notype',                    $fileUpload, true],
+            ['image/gif, image/jpeg',          $fileUpload, false],
+            [['image/vasa', 'image/gif'], $fileUpload, true],
+            [['image/gif', 'jpeg'],       $fileUpload, false],
+            [['image/gif', 'gif'],        $fileUpload, true],
+        ];
     }
 
     /**
@@ -78,11 +78,11 @@ class ExcludeMimeTypeTest extends \PHPUnit_Framework_TestCase
         $validator = new ExcludeMimeType('image/gif');
         $this->assertEquals('image/gif', $validator->getMimeType());
 
-        $validator = new ExcludeMimeType(array('image/gif', 'video', 'text/test'));
+        $validator = new ExcludeMimeType(['image/gif', 'video', 'text/test']);
         $this->assertEquals('image/gif,video,text/test', $validator->getMimeType());
 
-        $validator = new ExcludeMimeType(array('image/gif', 'video', 'text/test'));
-        $this->assertEquals(array('image/gif', 'video', 'text/test'), $validator->getMimeType(true));
+        $validator = new ExcludeMimeType(['image/gif', 'video', 'text/test']);
+        $this->assertEquals(['image/gif', 'video', 'text/test'], $validator->getMimeType(true));
     }
 
     /**
@@ -95,15 +95,15 @@ class ExcludeMimeTypeTest extends \PHPUnit_Framework_TestCase
         $validator = new ExcludeMimeType('image/gif');
         $validator->setMimeType('image/jpeg');
         $this->assertEquals('image/jpeg', $validator->getMimeType());
-        $this->assertEquals(array('image/jpeg'), $validator->getMimeType(true));
+        $this->assertEquals(['image/jpeg'], $validator->getMimeType(true));
 
         $validator->setMimeType('image/gif, text/test');
         $this->assertEquals('image/gif,text/test', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text/test'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text/test'], $validator->getMimeType(true));
 
-        $validator->setMimeType(array('video/mpeg', 'gif'));
+        $validator->setMimeType(['video/mpeg', 'gif']);
         $this->assertEquals('video/mpeg,gif', $validator->getMimeType());
-        $this->assertEquals(array('video/mpeg', 'gif'), $validator->getMimeType(true));
+        $this->assertEquals(['video/mpeg', 'gif'], $validator->getMimeType(true));
     }
 
     /**
@@ -116,19 +116,19 @@ class ExcludeMimeTypeTest extends \PHPUnit_Framework_TestCase
         $validator = new ExcludeMimeType('image/gif');
         $validator->addMimeType('text');
         $this->assertEquals('image/gif,text', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text'], $validator->getMimeType(true));
 
         $validator->addMimeType('jpg, to');
         $this->assertEquals('image/gif,text,jpg,to', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to'], $validator->getMimeType(true));
 
-        $validator->addMimeType(array('zip', 'ti'));
+        $validator->addMimeType(['zip', 'ti']);
         $this->assertEquals('image/gif,text,jpg,to,zip,ti', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to', 'zip', 'ti'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to', 'zip', 'ti'], $validator->getMimeType(true));
 
         $validator->addMimeType('');
         $this->assertEquals('image/gif,text,jpg,to,zip,ti', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to', 'zip', 'ti'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to', 'zip', 'ti'], $validator->getMimeType(true));
     }
 
     public function testEmptyFileShouldReturnFalseAndDisplayNotFoundMessage()
@@ -138,13 +138,13 @@ class ExcludeMimeTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid(''));
         $this->assertArrayHasKey(ExcludeMimeType::NOT_READABLE, $validator->getMessages());
 
-        $filesArray = array(
+        $filesArray = [
             'name'      => '',
             'size'      => 0,
             'tmp_name'  => '',
             'error'     => UPLOAD_ERR_NO_FILE,
             'type'      => '',
-        );
+        ];
 
         $this->assertFalse($validator->isValid($filesArray));
         $this->assertArrayHasKey(ExcludeMimeType::NOT_READABLE, $validator->getMessages());

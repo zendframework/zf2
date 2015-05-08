@@ -19,7 +19,7 @@ class HeaderLoader extends PluginClassLoader
     /**
      * @var array Pre-aliased Header plugins
      */
-    protected $plugins = array(
+    protected $plugins = [
         'bcc'                       => 'Zend\Mail\Header\Bcc',
         'cc'                        => 'Zend\Mail\Header\Cc',
         'contenttype'               => 'Zend\Mail\Header\ContentType',
@@ -41,5 +41,5 @@ class HeaderLoader extends PluginClassLoader
         'sender'                    => 'Zend\Mail\Header\Sender',
         'subject'                   => 'Zend\Mail\Header\Subject',
         'to'                        => 'Zend\Mail\Header\To',
-    );
+    ];
 }

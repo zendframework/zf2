@@ -162,7 +162,7 @@ class Menu extends AbstractHelper
             }
 
             // render li tag and page
-            $liClasses = array();
+            $liClasses = [];
             // Is page active?
             if ($subPage->isActive(true)) {
                 $liClasses[] = $liActiveClass;
@@ -198,7 +198,7 @@ class Menu extends AbstractHelper
      * @param  array             $options   [optional] options for controlling rendering
      * @return string
      */
-    public function renderMenu($container = null, array $options = array())
+    public function renderMenu($container = null, array $options = [])
     {
         $this->parseContainer($container);
         if (null === $container) {
@@ -342,7 +342,7 @@ class Menu extends AbstractHelper
             }
 
             // render li tag and page
-            $liClasses = array();
+            $liClasses = [];
             // Is page active?
             if ($isActive) {
                 $liClasses[] = $liActiveClass;
@@ -411,9 +411,9 @@ class Menu extends AbstractHelper
             );
         }
 
-        $model = array(
+        $model = [
             'container' => $container
-        );
+        ];
 
         /** @var \Zend\View\Helper\Partial $partialHelper */
         $partialHelper = $this->view->plugin('partial');
@@ -474,7 +474,7 @@ class Menu extends AbstractHelper
         $indent = null,
         $liActiveClass = null
     ) {
-        return $this->renderMenu($container, array(
+        return $this->renderMenu($container, [
             'indent'             => $indent,
             'ulClass'            => $ulClass,
             'minDepth'           => null,
@@ -484,7 +484,7 @@ class Menu extends AbstractHelper
             'escapeLabels'       => true,
             'addClassToListItem' => false,
             'liActiveClass'      => $liActiveClass
-        ));
+        ]);
     }
 
     /**
@@ -501,10 +501,10 @@ class Menu extends AbstractHelper
     public function htmlify(AbstractPage $page, $escapeLabel = true, $addClassToListItem = false)
     {
         // get attribs for element
-        $attribs = array(
+        $attribs = [
             'id'     => $page->getId(),
             'title'  => $this->translate($page->getTitle(), $page->getTextDomain()),
-        );
+        ];
 
         if ($addClassToListItem === false) {
             $attribs['class'] = $page->getClass();
@@ -540,7 +540,7 @@ class Menu extends AbstractHelper
      * @param  array $options  [optional] options to normalize
      * @return array
      */
-    protected function normalizeOptions(array $options = array())
+    protected function normalizeOptions(array $options = [])
     {
         if (isset($options['indent'])) {
             $options['indent'] = $this->getWhitespace($options['indent']);

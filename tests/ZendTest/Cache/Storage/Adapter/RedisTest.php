@@ -36,18 +36,18 @@ class RedisTest extends CommonAdapterTest
             $this->markTestSkipped("Redis extension is not loaded");
         }
 
-        $this->_options  = new Cache\Storage\Adapter\RedisOptions(array(
+        $this->_options  = new Cache\Storage\Adapter\RedisOptions([
             'resource_id' => __CLASS__,
-        ));
+        ]);
 
         if (defined('TESTS_ZEND_CACHE_REDIS_HOST') && defined('TESTS_ZEND_CACHE_REDIS_PORT')) {
-            $this->_options->getResourceManager()->setServer(__CLASS__, array(
+            $this->_options->getResourceManager()->setServer(__CLASS__, [
                 TESTS_ZEND_CACHE_REDIS_HOST, TESTS_ZEND_CACHE_REDIS_PORT, 1
-            ));
+            ]);
         } elseif (defined('TESTS_ZEND_CACHE_REDIS_HOST')) {
-            $this->_options->getResourceManager()->setServer(__CLASS__, array(
+            $this->_options->getResourceManager()->setServer(__CLASS__, [
                 TESTS_ZEND_CACHE_REDIS_HOST
-            ));
+            ]);
         }
 
         if (defined('TESTS_ZEND_CACHE_REDIS_DATABASE')) {
@@ -85,15 +85,15 @@ class RedisTest extends CommonAdapterTest
         //assure that there's nothing under key
         $this->_storage->removeItem($key);
         $this->assertNull($this->_storage->getItem($key));
-        $this->_storage->setItem($key, serialize(array('test', array('one', 'two'))));
+        $this->_storage->setItem($key, serialize(['test', ['one', 'two']]));
 
         $this->assertCount(2, unserialize($this->_storage->getItem($key)), 'Get item should return array of two elements');
 
-        $expectedVals = array(
+        $expectedVals = [
             'key1' => 'val1',
             'key2' => 'val2',
-            'key3' => array('val3', 'val4'),
-        );
+            'key3' => ['val3', 'val4'],
+        ];
 
         $this->_storage->setItems($expectedVals);
 
@@ -107,7 +107,7 @@ class RedisTest extends CommonAdapterTest
     public function testRedisSerializer()
     {
         $this->_storage->addPlugin(new \Zend\Cache\Storage\Plugin\Serializer());
-        $value = array('test', 'of', 'array');
+        $value = ['test', 'of', 'array'];
         $this->_storage->setItem('key', $value);
 
         $this->assertCount(count($value), $this->_storage->getItem('key'), 'Problem with Redis serialization');
@@ -199,17 +199,17 @@ class RedisTest extends CommonAdapterTest
 
     public function testGetSetLibOptionsOnExistingRedisResourceInstance()
     {
-        $options = array('serializer', RedisResource::SERIALIZER_PHP);
+        $options = ['serializer', RedisResource::SERIALIZER_PHP];
         $this->_options->setLibOptions($options);
 
-        $value  = array('value');
+        $value  = ['value'];
         $key    = 'key';
         //test if it's still possible to set/get item and if lib serializer works
         $this->_storage->setItem($key, $value);
         $this->assertEquals($value, $this->_storage->getItem($key), 'Redis should return an array, lib options were not set correctly');
 
 
-        $options = array('serializer', RedisResource::SERIALIZER_NONE);
+        $options = ['serializer', RedisResource::SERIALIZER_NONE];
         $this->_options->setLibOptions($options);
         $this->_storage->setItem($key, $value);
         //should not serialize array correctly
@@ -218,18 +218,18 @@ class RedisTest extends CommonAdapterTest
 
     public function testGetSetLibOptionsWithCleanRedisResourceInstance()
     {
-        $options = array('serializer', RedisResource::SERIALIZER_PHP);
+        $options = ['serializer', RedisResource::SERIALIZER_PHP];
         $this->_options->setLibOptions($options);
 
         $redis = new Cache\Storage\Adapter\Redis($this->_options);
-        $value  = array('value');
+        $value  = ['value'];
         $key    = 'key';
         //test if it's still possible to set/get item and if lib serializer works
         $redis->setItem($key, $value);
         $this->assertEquals($value, $redis->getItem($key), 'Redis should return an array, lib options were not set correctly');
 
 
-        $options = array('serializer', RedisResource::SERIALIZER_NONE);
+        $options = ['serializer', RedisResource::SERIALIZER_NONE];
         $this->_options->setLibOptions($options);
         $redis->setItem($key, $value);
         //should not serialize array correctly
@@ -283,18 +283,18 @@ class RedisTest extends CommonAdapterTest
 
     public function testOptionsGetSetLibOptions()
     {
-        $options = array('serializer', RedisResource::SERIALIZER_PHP);
+        $options = ['serializer', RedisResource::SERIALIZER_PHP];
         $this->_options->setLibOptions($options);
         $this->assertEquals($options, $this->_options->getLibOptions(), 'Lib Options were not set correctly through RedisOptions');
     }
 
     public function testGetSetServer()
     {
-        $server = array(
+        $server = [
             'host' => '127.0.0.1',
             'port' => 6379,
             'timeout' => 0,
-        );
+        ];
         $this->_options->setServer($server);
         $this->assertEquals($server, $this->_options->getServer(), 'Server was not set correctly through RedisOptions');
     }

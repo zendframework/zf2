@@ -33,15 +33,15 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $server = new Server();
 
-        $this->assertEquals(array('soap_version' => SOAP_1_2), $server->getOptions());
+        $this->assertEquals(['soap_version' => SOAP_1_2], $server->getOptions());
 
-        $options = array('soap_version' => SOAP_1_1,
+        $options = ['soap_version' => SOAP_1_1,
                          'actor' => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
-                         'classmap' => array('TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
-                                             'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',),
+                         'classmap' => ['TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
+                                             'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',],
                          'encoding' => 'ISO-8859-1',
                          'uri' => 'http://framework.zend.com/Zend_Soap_ServerTest.php'
-                        );
+                        ];
         $server->setOptions($options);
 
         $this->assertEquals($options, $server->getOptions());
@@ -49,16 +49,16 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testSetOptionsViaSecondConstructorArgument()
     {
-        $options = array(
+        $options = [
             'soap_version' => SOAP_1_1,
             'actor' => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
-            'classmap' => array(
+            'classmap' => [
                 'TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
                 'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',
-            ),
+            ],
             'encoding' => 'ISO-8859-1',
             'uri' => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
-        );
+        ];
         $server = new Server(null, $options);
 
         $this->assertEquals($options, $server->getOptions());
@@ -69,9 +69,9 @@ class ServerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetOptionsWithFeaturesOption()
     {
-        $server = new Server(null, array(
+        $server = new Server(null, [
             'features' => SOAP_SINGLE_ELEMENT_ARRAYS
-        ));
+        ]);
 
         $this->assertEquals(
             SOAP_SINGLE_ELEMENT_ARRAYS,
@@ -82,7 +82,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testSetWsdlViaOptionsArrayIsPossible()
     {
         $server = new Server();
-        $server->setOptions(array('wsdl' => 'http://www.example.com/test.wsdl'));
+        $server->setOptions(['wsdl' => 'http://www.example.com/test.wsdl']);
 
         $this->assertEquals('http://www.example.com/test.wsdl', $server->getWSDL());
     }
@@ -91,11 +91,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $server = new Server();
 
-        $this->assertEquals(array('soap_version' => SOAP_1_2), $server->getOptions());
+        $this->assertEquals(['soap_version' => SOAP_1_2], $server->getOptions());
 
-        $options = array('soap_version' => SOAP_1_1,
+        $options = ['soap_version' => SOAP_1_1,
                          'uri' => 'http://framework.zend.com/Zend_Soap_ServerTest.php'
-                        );
+                        ];
         $server->setOptions($options);
 
         $this->assertEquals($options, $server->getOptions());
@@ -110,7 +110,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('ISO-8859-1', $server->getEncoding());
 
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid encoding specified');
-        $server->setEncoding(array('UTF-8'));
+        $server->setEncoding(['UTF-8']);
     }
 
     public function testSoapVersion()
@@ -181,8 +181,8 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $server = new Server();
 
-        $classmap = array('TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
-                          'TestData2' => '\ZendTest\Soap\TestAsset\TestData2');
+        $classmap = ['TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
+                          'TestData2' => '\ZendTest\Soap\TestAsset\TestData2'];
 
         $this->assertNull($server->getClassmap());
         $server->setClassmap($classmap);
@@ -202,15 +202,15 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $server = new Server();
 
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'Invalid class in class map');
-        $server->setClassmap(array('soapTypeName', 'bogusClassName'));
+        $server->setClassmap(['soapTypeName', 'bogusClassName']);
     }
 
     public function testGetClassmap()
     {
         $server = new Server();
 
-        $classmap = array('TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
-                          'TestData2' => '\ZendTest\Soap\TestAsset\TestData2');
+        $classmap = ['TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
+                          'TestData2' => '\ZendTest\Soap\TestAsset\TestData2'];
 
         $this->assertNull($server->getClassmap());
         $server->setClassmap($classmap);
@@ -246,13 +246,13 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $server->addFunction('\ZendTest\Soap\TestAsset\TestFunc');
 
         // Array of correct functions should pass
-        $functions = array('\ZendTest\Soap\TestAsset\TestFunc2',
+        $functions = ['\ZendTest\Soap\TestAsset\TestFunc2',
                            '\ZendTest\Soap\TestAsset\TestFunc3',
-                           '\ZendTest\Soap\TestAsset\TestFunc4');
+                           '\ZendTest\Soap\TestAsset\TestFunc4'];
         $server->addFunction($functions);
 
         $this->assertEquals(
-            array_merge(array('\ZendTest\Soap\TestAsset\TestFunc'), $functions),
+            array_merge(['\ZendTest\Soap\TestAsset\TestFunc'], $functions),
             $server->getFunctions()
         );
     }
@@ -277,9 +277,9 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $server = new Server();
 
-        $functions = array('\ZendTest\Soap\TestAsset\TestFunc5',
+        $functions = ['\ZendTest\Soap\TestAsset\TestFunc5',
                             'bogus_function',
-                            '\ZendTest\Soap\TestAsset\TestFunc6');
+                            '\ZendTest\Soap\TestAsset\TestFunc6'];
         $this->setExpectedException('Zend\Soap\Exception\InvalidArgumentException', 'One or more invalid functions specified in array');
         $server->addFunction($functions);
     }
@@ -291,7 +291,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         // SOAP_FUNCTIONS_ALL as a value should pass
         $server->addFunction(SOAP_FUNCTIONS_ALL);
         $server->addFunction('substr');
-        $this->assertEquals(array(SOAP_FUNCTIONS_ALL), $server->getFunctions());
+        $this->assertEquals([SOAP_FUNCTIONS_ALL], $server->getFunctions());
     }
 
     public function testSetClass()
@@ -405,24 +405,24 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
         $server->addFunction('\ZendTest\Soap\TestAsset\TestFunc');
 
-        $functions  =  array('\ZendTest\Soap\TestAsset\TestFunc2',
+        $functions  =  ['\ZendTest\Soap\TestAsset\TestFunc2',
                              '\ZendTest\Soap\TestAsset\TestFunc3',
-                             '\ZendTest\Soap\TestAsset\TestFunc4');
+                             '\ZendTest\Soap\TestAsset\TestFunc4'];
         $server->addFunction($functions);
 
-        $functions  =  array('\ZendTest\Soap\TestAsset\TestFunc3',
+        $functions  =  ['\ZendTest\Soap\TestAsset\TestFunc3',
                              '\ZendTest\Soap\TestAsset\TestFunc5',
-                             '\ZendTest\Soap\TestAsset\TestFunc6');
+                             '\ZendTest\Soap\TestAsset\TestFunc6'];
         $server->addFunction($functions);
 
-        $allAddedFunctions = array(
+        $allAddedFunctions = [
             '\ZendTest\Soap\TestAsset\TestFunc',
             '\ZendTest\Soap\TestAsset\TestFunc2',
             '\ZendTest\Soap\TestAsset\TestFunc3',
             '\ZendTest\Soap\TestAsset\TestFunc4',
             '\ZendTest\Soap\TestAsset\TestFunc5',
             '\ZendTest\Soap\TestAsset\TestFunc6'
-        );
+        ];
         $this->assertEquals($allAddedFunctions, $server->getFunctions());
     }
 
@@ -432,7 +432,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $server->setClass('\ZendTest\Soap\TestAsset\ServerTestClass');
 
         $this->assertEquals(
-            array('testFunc1', 'testFunc2', 'testFunc3', 'testFunc4', 'testFunc5'),
+            ['testFunc1', 'testFunc2', 'testFunc3', 'testFunc4', 'testFunc5'],
             $server->getFunctions()
         );
     }
@@ -443,7 +443,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $server->setObject(new TestAsset\ServerTestClass());
 
         $this->assertEquals(
-            array('testFunc1', 'testFunc2', 'testFunc3', 'testFunc4', 'testFunc5'),
+            ['testFunc1', 'testFunc2', 'testFunc3', 'testFunc4', 'testFunc5'],
             $server->getFunctions()
         );
     }
@@ -485,7 +485,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         }
 
         $server = new Server();
-        $server->setOptions(array('location'=>'test://', 'uri'=>'http://framework.zend.com'));
+        $server->setOptions(['location'=>'test://', 'uri'=>'http://framework.zend.com']);
         $server->setReturnResponse(true);
 
         $server->setClass('\ZendTest\Soap\TestAsset\ServerTestClass');
@@ -540,7 +540,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         }
 
         $server = new Server();
-        $server->setOptions(array('location'=>'test://', 'uri'=>'http://framework.zend.com'));
+        $server->setOptions(['location'=>'test://', 'uri'=>'http://framework.zend.com']);
         $server->setReturnResponse(true);
 
         $server->setClass('\ZendTest\Soap\TestAsset\ServerTestClass');
@@ -592,14 +592,14 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         }
 
         $server = new Server();
-        $server->setOptions(array('location'=>'test://', 'uri'=>'http://framework.zend.com'));
+        $server->setOptions(['location'=>'test://', 'uri'=>'http://framework.zend.com']);
 
         $server->setClass('\ZendTest\Soap\TestAsset\ServerTestClass');
 
         $localClient = new TestAsset\TestLocalSoapClient($server,
                                                          null,
-                                                         array('location'=>'test://',
-                                                               'uri'=>'http://framework.zend.com'));
+                                                         ['location'=>'test://',
+                                                               'uri'=>'http://framework.zend.com']);
 
         // Local SOAP client call automatically invokes handle method of the provided SOAP server
         $this->assertEquals('Hello World!', $localClient->testFunc2('World'));
@@ -636,7 +636,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
           . '</SOAP-ENV:Envelope>' . "\n";
 
         $server1 = new Server();
-        $server1->setOptions(array('location'=>'test://', 'uri'=>'http://framework.zend.com'));
+        $server1->setOptions(['location'=>'test://', 'uri'=>'http://framework.zend.com']);
 
         $server1->setClass('\ZendTest\Soap\TestAsset\ServerTestClass');
         $server1->setReturnResponse(true);
@@ -708,14 +708,14 @@ class ServerTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProviderForRegisterFaultException()
     {
-        return array(
-            array('Exception'),
-            array('Zend\Soap\Exception\InvalidArgumentException'),
-            array('InvalidArgumentException'),
-            array('Zend\Server\Exception\RuntimeException'),
-            array(array('Zend\Server\Exception\RuntimeException')),
-            array(array('Zend\Server\Exception\RuntimeException', 'InvalidArgumentException')),
-        );
+        return [
+            ['Exception'],
+            ['Zend\Soap\Exception\InvalidArgumentException'],
+            ['InvalidArgumentException'],
+            ['Zend\Server\Exception\RuntimeException'],
+            [['Zend\Server\Exception\RuntimeException']],
+            [['Zend\Server\Exception\RuntimeException', 'InvalidArgumentException']],
+        ];
     }
 
     public function testFaultWithTextMessage()
@@ -751,7 +751,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testFaultWithBogusInput()
     {
         $server = new Server();
-        $fault = $server->fault(array('Here', 'There', 'Bogus'));
+        $fault = $server->fault(['Here', 'There', 'Bogus']);
 
         $this->assertContains('Unknown error', $fault->getMessage());
     }
@@ -779,14 +779,14 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
         $wsdlFilename = __DIR__ . '/TestAsset/testHandlePhpErrors.wsdl';
         $autodiscover = new AutoDiscover();
-        $autodiscover->setOperationBodyStyle(array(
+        $autodiscover->setOperationBodyStyle([
             'use'           => 'literal',
-        ));
+        ]);
 
-        $autodiscover->setBindingStyle(array(
+        $autodiscover->setBindingStyle([
             'style'         => 'document',
             'transport'     => 'http://schemas.xmlsoap.org/soap/http'
-        ));
+        ]);
 
 
         $autodiscover->setServiceName('ExampleService');
@@ -823,7 +823,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         }
 
         $server = new Server();
-        $server->setOptions(array('location'=>'test://', 'uri'=>'http://framework.zend.com'));
+        $server->setOptions(['location'=>'test://', 'uri'=>'http://framework.zend.com']);
         $server->setReturnResponse(true);
 
         // Requesting Method with enforced parameter without it.
@@ -854,13 +854,13 @@ class ServerTest extends \PHPUnit_Framework_TestCase
      */
     public function testServerAcceptsZendConfigObject()
     {
-        $options = array('soap_version' => SOAP_1_1,
+        $options = ['soap_version' => SOAP_1_1,
                          'actor' => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
-                         'classmap' => array('TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
-                                             'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',),
+                         'classmap' => ['TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
+                                             'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',],
                          'encoding' => 'ISO-8859-1',
                          'uri' => 'http://framework.zend.com/Zend_Soap_ServerTest.php'
-                        );
+                        ];
         $config = new \Zend\Config\Config($options);
 
         $server = new Server();
@@ -912,7 +912,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testShouldThrowExceptionIfHandledRequestContainsDoctype()
     {
         $server = new Server();
-        $server->setOptions(array('location'=>'test://', 'uri'=>'http://framework.zend.com'));
+        $server->setOptions(['location'=>'test://', 'uri'=>'http://framework.zend.com']);
         $server->setReturnResponse(true);
 
         $server->setClass('\ZendTest\Soap\TestAsset\ServerTestClass');
@@ -962,7 +962,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testGetSoapInternalInstance()
     {
         $server = new Server();
-        $server->setOptions(array('location'=>'test://', 'uri'=>'http://framework.zend.com'));
+        $server->setOptions(['location'=>'test://', 'uri'=>'http://framework.zend.com']);
         $internalServer = $server->getSoap();
         $this->assertInstanceOf('\SoapServer', $internalServer);
         $this->assertSame($internalServer, $server->getSoap());
@@ -971,7 +971,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testDisableEntityLoaderAfterException()
     {
         $server = new Server();
-        $server->setOptions(array('location'=>'test://', 'uri'=>'http://framework.zend.com'));
+        $server->setOptions(['location'=>'test://', 'uri'=>'http://framework.zend.com']);
         $server->setReturnResponse(true);
         $server->setClass('\ZendTest\Soap\TestAsset\ServerTestClass');
         $loadEntities = libxml_disable_entity_loader(false);

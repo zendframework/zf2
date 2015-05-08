@@ -26,72 +26,72 @@ class PartTest extends TestCase
         $routePlugins->setInvokableClass('part', 'Zend\Mvc\Router\Http\Part');
 
         return new Part(
-            array(
+            [
                 'type'    => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/foo',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'foo'
-                    )
-                )
-            ),
+                    ]
+                ]
+            ],
             true,
             $routePlugins,
-            array(
-                'bar' => array(
+            [
+                'bar' => [
                     'type'    => 'Zend\Mvc\Router\Http\Literal',
-                    'options' => array(
+                    'options' => [
                         'route'    => '/bar',
-                        'defaults' => array(
+                        'defaults' => [
                             'controller' => 'bar'
-                        )
-                    )
-                ),
-                'baz' => array(
+                        ]
+                    ]
+                ],
+                'baz' => [
                     'type'    => 'Zend\Mvc\Router\Http\Literal',
-                    'options' => array(
+                    'options' => [
                         'route' => '/baz'
-                    ),
-                    'child_routes' => array(
-                        'bat' => array(
+                    ],
+                    'child_routes' => [
+                        'bat' => [
                             'type'    => 'Zend\Mvc\Router\Http\Segment',
-                            'options' => array(
+                            'options' => [
                                 'route' => '/:controller'
-                            ),
+                            ],
                             'may_terminate' => true,
-                            'child_routes'  => array(
-                                'wildcard' => array(
+                            'child_routes'  => [
+                                'wildcard' => [
                                     'type' => 'Zend\Mvc\Router\Http\Wildcard'
-                                )
-                            )
-                        )
-                    )
-                ),
-                'bat' => array(
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                'bat' => [
                     'type'    => 'Zend\Mvc\Router\Http\Segment',
-                    'options' => array(
+                    'options' => [
                         'route'    => '/bat[/:foo]',
-                        'defaults' => array(
+                        'defaults' => [
                             'foo' => 'bar'
-                        )
-                    ),
+                        ]
+                    ],
                     'may_terminate' => true,
-                    'child_routes'  => array(
-                        'literal' => array(
+                    'child_routes'  => [
+                        'literal' => [
                             'type'   => 'Zend\Mvc\Router\Http\Literal',
-                            'options' => array(
+                            'options' => [
                                 'route' => '/bar'
-                            )
-                        ),
-                        'optional' => array(
+                            ]
+                        ],
+                        'optional' => [
                             'type'   => 'Zend\Mvc\Router\Http\Segment',
-                            'options' => array(
+                            'options' => [
                                 'route' => '/bat[/:bar]'
-                            )
-                        ),
-                    )
-                )
-            )
+                            ]
+                        ],
+                    ]
+                ]
+            ]
         );
     }
 
@@ -101,26 +101,26 @@ class PartTest extends TestCase
         $routePlugins->setInvokableClass('part', 'Zend\Mvc\Router\Http\Part');
 
         return new Part(
-            array(
+            [
                 'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
+                'options' => [
                     'route' => '/[:controller[/:action]]',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'fo-fo',
                         'action' => 'index'
-                    )
-                )
-            ),
+                    ]
+                ]
+            ],
             true,
             $routePlugins,
-            array(
-                'wildcard' => array(
+            [
+                'wildcard' => [
                     'type' => 'Zend\Mvc\Router\Http\Wildcard',
-                    'options' => array(
+                    'options' => [
                         'key_value_delimiter' => '/',
                         'param_delimiter' => '/'
-                    )
-                ),
+                    ]
+                ],
                 /*
                 'query' => array(
                     'type' => 'Zend\Mvc\Router\Http\Query',
@@ -130,111 +130,111 @@ class PartTest extends TestCase
                     )
                 )
                 */
-            )
+            ]
         );
     }
 
     public static function routeProvider()
     {
-        return array(
-            'simple-match' => array(
+        return [
+            'simple-match' => [
                 self::getRoute(),
                 '/foo',
                 null,
                 null,
-                array('controller' => 'foo')
-            ),
-            'offset-skips-beginning' => array(
+                ['controller' => 'foo']
+            ],
+            'offset-skips-beginning' => [
                 self::getRoute(),
                 '/bar/foo',
                 4,
                 null,
-                array('controller' => 'foo')
-            ),
-            'simple-child-match' => array(
+                ['controller' => 'foo']
+            ],
+            'simple-child-match' => [
                 self::getRoute(),
                 '/foo/bar',
                 null,
                 'bar',
-                array('controller' => 'bar')
-            ),
-            'offset-does-not-enable-partial-matching' => array(
+                ['controller' => 'bar']
+            ],
+            'offset-does-not-enable-partial-matching' => [
                 self::getRoute(),
                 '/foo/foo',
                 null,
                 null,
                 null
-            ),
-            'offset-does-not-enable-partial-matching-in-child' => array(
+            ],
+            'offset-does-not-enable-partial-matching-in-child' => [
                 self::getRoute(),
                 '/foo/bar/baz',
                 null,
                 null,
                 null
-            ),
-            'non-terminating-part-does-not-match' => array(
+            ],
+            'non-terminating-part-does-not-match' => [
                 self::getRoute(),
                 '/foo/baz',
                 null,
                 null,
                 null
-            ),
-            'child-of-non-terminating-part-does-match' => array(
+            ],
+            'child-of-non-terminating-part-does-match' => [
                 self::getRoute(),
                 '/foo/baz/bat',
                 null,
                 'baz/bat',
-                array('controller' => 'bat')
-            ),
-            'parameters-are-used-only-once' => array(
+                ['controller' => 'bat']
+            ],
+            'parameters-are-used-only-once' => [
                 self::getRoute(),
                 '/foo/baz/wildcard/foo/bar',
                 null,
                 'baz/bat/wildcard',
-                array('controller' => 'wildcard', 'foo' => 'bar')
-            ),
-            'optional-parameters-are-dropped-without-child' => array(
+                ['controller' => 'wildcard', 'foo' => 'bar']
+            ],
+            'optional-parameters-are-dropped-without-child' => [
                 self::getRoute(),
                 '/foo/bat',
                 null,
                 'bat',
-                array('foo' => 'bar')
-            ),
-            'optional-parameters-are-not-dropped-with-child' => array(
+                ['foo' => 'bar']
+            ],
+            'optional-parameters-are-not-dropped-with-child' => [
                 self::getRoute(),
                 '/foo/bat/bar/bar',
                 null,
                 'bat/literal',
-                array('foo' => 'bar')
-            ),
-            'optional-parameters-not-required-in-last-part' => array(
+                ['foo' => 'bar']
+            ],
+            'optional-parameters-not-required-in-last-part' => [
                 self::getRoute(),
                 '/foo/bat/bar/bat',
                 null,
                 'bat/optional',
-                array('foo' => 'bar')
-            ),
-            'simple-match' => array(
+                ['foo' => 'bar']
+            ],
+            'simple-match' => [
                 self::getRouteAlternative(),
                 '/',
                 null,
                 null,
-                array(
+                [
                     'controller' => 'fo-fo',
                     'action' => 'index'
-                )
-            ),
-            'match-wildcard' => array(
+                ]
+            ],
+            'match-wildcard' => [
                 self::getRouteAlternative(),
                 '/fo-fo/index/param1/value1',
                 null,
                 'wildcard',
-                array(
+                [
                         'controller' => 'fo-fo',
                         'action' => 'index',
                         'param1' => 'value1'
-                )
-            ),
+                ]
+            ],
             /*
             'match-query' => array(
                 self::getRouteAlternative(),
@@ -247,7 +247,7 @@ class PartTest extends TestCase
                 )
             )
             */
-        );
+        ];
     }
 
     /**
@@ -296,7 +296,7 @@ class PartTest extends TestCase
             return;
         }
 
-        $result = $route->assemble($params, array('name' => $routeName));
+        $result = $route->assemble($params, ['name' => $routeName]);
 
         if ($offset !== null) {
             $this->assertEquals($offset, strpos($path, $result, $offset));
@@ -308,7 +308,7 @@ class PartTest extends TestCase
     public function testAssembleNonTerminatedRoute()
     {
         $this->setExpectedException('Zend\Mvc\Router\Exception\RuntimeException', 'Part route may not terminate');
-        self::getRoute()->assemble(array(), array('name' => 'baz'));
+        self::getRoute()->assemble([], ['name' => 'baz']);
     }
 
     public function testBaseRouteMayNotBePartRoute()
@@ -329,9 +329,9 @@ class PartTest extends TestCase
     public function testGetAssembledParams()
     {
         $route = self::getRoute();
-        $route->assemble(array('controller' => 'foo'), array('name' => 'baz/bat'));
+        $route->assemble(['controller' => 'foo'], ['name' => 'baz/bat']);
 
-        $this->assertEquals(array(), $route->getAssembledParams());
+        $this->assertEquals([], $route->getAssembledParams());
     }
 
     public function testFactory()
@@ -339,14 +339,14 @@ class PartTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Part',
-            array(
+            [
                 'route'         => 'Missing "route" in options array',
                 'route_plugins' => 'Missing "route_plugins" in options array'
-            ),
-            array(
+            ],
+            [
                 'route'         => new \Zend\Mvc\Router\Http\Literal('/foo'),
                 'route_plugins' => new RoutePluginManager()
-            )
+            ]
         );
     }
 
@@ -355,33 +355,33 @@ class PartTest extends TestCase
      */
     public function testFactoryShouldAcceptTraversableChildRoutes()
     {
-        $children = new ArrayObject(array(
-            'create' => array(
+        $children = new ArrayObject([
+            'create' => [
                 'type'    => 'Literal',
-                'options' => array(
+                'options' => [
                     'route' => 'create',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'user-admin',
                         'action'     => 'edit',
-                    ),
-                ),
-            ),
-        ));
-        $options = array(
-            'route'        => array(
+                    ],
+                ],
+            ],
+        ]);
+        $options = [
+            'route'        => [
                 'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
+                'options' => [
                     'route' => '/admin/users',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'Admin\UserController',
                         'action'     => 'index',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'route_plugins' => new RoutePluginManager(),
             'may_terminate' => true,
             'child_routes'  => $children,
-        );
+        ];
 
         $route = Part::factory($options);
         $this->assertInstanceOf('Zend\Mvc\Router\Http\Part', $route);
@@ -392,36 +392,36 @@ class PartTest extends TestCase
      */
     public function testPartRouteMarkedAsMayTerminateCanMatchWhenQueryStringPresent()
     {
-        $options = array(
-            'route' => array(
+        $options = [
+            'route' => [
                 'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
+                'options' => [
                     'route' => '/resource',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'ResourceController',
                         'action'     => 'resource',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'route_plugins' => new RoutePluginManager(),
             'may_terminate' => true,
-            'child_routes'  => array(
-                'child' => array(
+            'child_routes'  => [
+                'child' => [
                     'type' => 'Zend\Mvc\Router\Http\Literal',
-                    'options' => array(
+                    'options' => [
                         'route' => '/child',
-                        'defaults' => array(
+                        'defaults' => [
                             'action' => 'child',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $route = Part::factory($options);
         $request = new Request();
         $request->setUri('http://example.com/resource?foo=bar');
-        $query = new Parameters(array('foo' => 'bar'));
+        $query = new Parameters(['foo' => 'bar']);
         $request->setQuery($query);
         $query = $request->getQuery();
 
@@ -435,17 +435,17 @@ class PartTest extends TestCase
      */
     public function testPartRouteMarkedAsMayTerminateButWithQueryRouteChildWillMatchChildRoute()
     {
-        $options = array(
-            'route' => array(
+        $options = [
+            'route' => [
                 'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
+                'options' => [
                     'route' => '/resource',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'ResourceController',
                         'action'     => 'resource',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'route_plugins' => new RoutePluginManager(),
             'may_terminate' => true,
             /*
@@ -460,12 +460,12 @@ class PartTest extends TestCase
                 ),
             ),
             */
-        );
+        ];
 
         $route = Part::factory($options);
         $request = new Request();
         $request->setUri('http://example.com/resource?foo=bar');
-        $query = new Parameters(array('foo' => 'bar'));
+        $query = new Parameters(['foo' => 'bar']);
         $request->setQuery($query);
         $query = $request->getQuery();
 

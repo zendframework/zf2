@@ -19,13 +19,13 @@ class DefinitionListTest extends TestCase
     public function testGetClassSupertypes()
     {
         $definitionClassA = new ClassDefinition("A");
-        $superTypesA = array("superA");
+        $superTypesA = ["superA"];
         $definitionClassA->setSupertypes($superTypesA);
 
         $definitionClassB = new ClassDefinition("B");
-        $definitionClassB->setSupertypes(array("superB"));
+        $definitionClassB->setSupertypes(["superB"]);
 
-        $definitionList = new DefinitionList(array($definitionClassA, $definitionClassB));
+        $definitionList = new DefinitionList([$definitionClassA, $definitionClassB]);
 
         $this->assertEquals($superTypesA, $definitionList->getClassSupertypes("A"));
     }
@@ -34,7 +34,7 @@ class DefinitionListTest extends TestCase
     {
         $definitionClass = new ClassDefinition('foo');
         $definitionClass->addMethod('doFoo');
-        $definitionList = new DefinitionList(array($definitionClass));
+        $definitionList = new DefinitionList([$definitionClass]);
 
         $this->assertTrue($definitionList->hasMethod('foo', 'doFoo'));
         $this->assertFalse($definitionList->hasMethod('foo', 'doBar'));
@@ -51,7 +51,7 @@ class DefinitionListTest extends TestCase
         $definitionClass = new ClassDefinition('foo');
         $definitionClass->addMethod('doFoo');
 
-        $definitionList = new DefinitionList(array($builderDefinition, $definitionClass));
+        $definitionList = new DefinitionList([$builderDefinition, $definitionClass]);
 
         $this->assertTrue($definitionList->hasMethod('foo', 'doFoo'));
     }

@@ -19,7 +19,7 @@ class AddressList implements Countable, Iterator
      *
      * @var array
      */
-    protected $addresses = array();
+    protected $addresses = [];
 
     /**
      * Add an address to the list

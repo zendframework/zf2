@@ -52,7 +52,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
             'Content-Type: multipart/alternative; boundary="Apple-Mail=_1B852F10-F9C6-463D-AADD-CD503A5428DD";'
         );
         $params = $contentTypeHeader->getParameters();
-        $this->assertEquals(array('boundary' => 'Apple-Mail=_1B852F10-F9C6-463D-AADD-CD503A5428DD'), $params);
+        $this->assertEquals(['boundary' => 'Apple-Mail=_1B852F10-F9C6-463D-AADD-CD503A5428DD'], $params);
     }
 
     public function testProvidingParametersIntroducesHeaderFolding()
@@ -72,13 +72,13 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
             'Content-Type: multipart/alternative; boundary="Apple-Mail=_1B852F10-F9C6-463D-AADD-CD503A5428DD"'
         );
         $params = $contentTypeHeader->getParameters();
-        $this->assertEquals($params, array('boundary' => 'Apple-Mail=_1B852F10-F9C6-463D-AADD-CD503A5428DD'));
+        $this->assertEquals($params, ['boundary' => 'Apple-Mail=_1B852F10-F9C6-463D-AADD-CD503A5428DD']);
     }
 
     public function testExtractsExtraInformationWithoutBeingConfusedByTrailingSemicolon()
     {
         $header = ContentType::fromString('Content-Type: application/pdf;name="foo.pdf";');
-        $this->assertEquals($header->getParameters(), array('name' => 'foo.pdf'));
+        $this->assertEquals($header->getParameters(), ['name' => 'foo.pdf']);
     }
 
     /**
@@ -114,11 +114,11 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function headerLines()
     {
-        return array(
-            'newline'      => array("Content-Type: text/html;\nlevel=1"),
-            'cr-lf'        => array("Content-Type: text/html\r\n;level=1",),
-            'multiline'    => array("Content-Type: text/html;\r\nlevel=1\r\nq=0.1"),
-        );
+        return [
+            'newline'      => ["Content-Type: text/html;\nlevel=1"],
+            'cr-lf'        => ["Content-Type: text/html\r\n;level=1",],
+            'multiline'    => ["Content-Type: text/html;\r\nlevel=1\r\nq=0.1"],
+        ];
     }
 
     /**
@@ -138,7 +138,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
     {
         $header = ContentType::fromString("Content-Type: text/html;\r\n level=1");
         $this->assertEquals('text/html', $header->getType());
-        $this->assertEquals(array('level' => '1'), $header->getParameters());
+        $this->assertEquals(['level' => '1'], $header->getParameters());
     }
 
     /**

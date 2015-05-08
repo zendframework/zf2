@@ -23,17 +23,17 @@ class ModuleAutoloader implements SplAutoloader
     /**
      * @var array An array of module paths to scan
      */
-    protected $paths = array();
+    protected $paths = [];
 
     /**
      * @var array An array of modulename => path
      */
-    protected $explicitPaths = array();
+    protected $explicitPaths = [];
 
     /**
      * @var array An array of namespaceName => namespacePath
      */
-    protected $namespacedPaths = array();
+    protected $namespacedPaths = [];
 
     /**
      * @var string Will contain the absolute phar:// path to the executable when packaged as phar file
@@ -43,12 +43,12 @@ class ModuleAutoloader implements SplAutoloader
     /**
      * @var array An array of supported phar extensions (filled on constructor)
      */
-    protected $pharExtensions = array();
+    protected $pharExtensions = [];
 
     /**
      * @var array An array of module classes to their containing files
      */
-    protected $moduleClassMap = array();
+    protected $moduleClassMap = [];
 
     /**
      * Constructor
@@ -61,11 +61,11 @@ class ModuleAutoloader implements SplAutoloader
     {
         if (extension_loaded('phar')) {
             $this->pharBasePath = Phar::running(true);
-            $this->pharExtensions = array(
+            $this->pharExtensions = [
                 'phar',
                 'phar.tar',
                 'tar',
-            );
+            ];
 
             // ext/zlib enabled -> phar can read gzip & zip compressed files
             if (extension_loaded('zlib')) {
@@ -325,7 +325,7 @@ class ModuleAutoloader implements SplAutoloader
      */
     public function register()
     {
-        spl_autoload_register(array($this, 'autoload'));
+        spl_autoload_register([$this, 'autoload']);
     }
 
     /**
@@ -335,7 +335,7 @@ class ModuleAutoloader implements SplAutoloader
      */
     public function unregister()
     {
-        spl_autoload_unregister(array($this, 'autoload'));
+        spl_autoload_unregister([$this, 'autoload']);
     }
 
     /**
@@ -385,7 +385,7 @@ class ModuleAutoloader implements SplAutoloader
             ));
         }
         if ($moduleName) {
-            if (in_array(substr($moduleName, -2), array('\\*', '\\%'))) {
+            if (in_array(substr($moduleName, -2), ['\\*', '\\%'])) {
                 $this->namespacedPaths[substr($moduleName, 0, -2)] = static::normalizePath($path);
             } else {
                 $this->explicitPaths[$moduleName] = static::normalizePath($path);

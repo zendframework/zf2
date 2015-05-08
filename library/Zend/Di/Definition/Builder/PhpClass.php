@@ -32,12 +32,12 @@ class PhpClass
     /**
      * @var InjectionMethod[]
      */
-    protected $injectionMethods     = array();
+    protected $injectionMethods     = [];
 
     /**
      * @var array
      */
-    protected $superTypes           = array();
+    protected $superTypes           = [];
 
     /**
      * Set name

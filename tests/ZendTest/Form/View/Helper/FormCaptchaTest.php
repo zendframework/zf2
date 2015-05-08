@@ -76,9 +76,9 @@ class FormCaptchaTest extends CommonTestCase
 
     public function testPassingElementWithDumbCaptchaRendersCorrectly()
     {
-        $captcha = new Captcha\Dumb(array(
+        $captcha = new Captcha\Dumb([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-        ));
+        ]);
         $element = $this->getElement();
         $element->setCaptcha($captcha);
         $element->setAttribute('id', 'foo');
@@ -90,9 +90,9 @@ class FormCaptchaTest extends CommonTestCase
 
     public function testPassingElementWithFigletCaptchaRendersCorrectly()
     {
-        $captcha = new Captcha\Figlet(array(
+        $captcha = new Captcha\Figlet([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-        ));
+        ]);
         $element = $this->getElement();
         $element->setCaptcha($captcha);
         $element->setAttribute('id', 'foo');
@@ -121,11 +121,11 @@ class FormCaptchaTest extends CommonTestCase
             @mkdir($this->testDir);
         }
 
-        $captcha = new Captcha\Image(array(
+        $captcha = new Captcha\Image([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
             'imgDir'       => $this->testDir,
             'font'         => __DIR__. '/Captcha/_files/Vera.ttf',
-        ));
+        ]);
         $element = $this->getElement();
         $element->setCaptcha($captcha);
         $element->setAttribute('id', 'foo');
@@ -146,9 +146,9 @@ class FormCaptchaTest extends CommonTestCase
             $this->markTestSkipped('Enable TESTS_ZEND_FORM_RECAPTCHA_SUPPORT to test PDF render');
         }
 
-        $captcha = new Captcha\ReCaptcha(array(
+        $captcha = new Captcha\ReCaptcha([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-        ));
+        ]);
         $service = $captcha->getService();
         $service->setPublicKey($this->publicKey);
         $service->setPrivateKey($this->privateKey);

@@ -22,14 +22,14 @@ class Csrf extends Element implements InputProviderInterface, ElementPrepareAwar
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'hidden',
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $csrfValidatorOptions = array();
+    protected $csrfValidatorOptions = [];
 
     /**
      * @var CsrfValidator
@@ -81,7 +81,7 @@ class Csrf extends Element implements InputProviderInterface, ElementPrepareAwar
     {
         if (null === $this->csrfValidator) {
             $csrfOptions = $this->getCsrfValidatorOptions();
-            $csrfOptions = array_merge($csrfOptions, array('name' => $this->getName()));
+            $csrfOptions = array_merge($csrfOptions, ['name' => $this->getName()]);
             $this->setCsrfValidator(new CsrfValidator($csrfOptions));
         }
         return $this->csrfValidator;
@@ -134,16 +134,16 @@ class Csrf extends Element implements InputProviderInterface, ElementPrepareAwar
      */
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim'),
-            ),
-            'validators' => array(
+            'filters' => [
+                ['name' => 'Zend\Filter\StringTrim'],
+            ],
+            'validators' => [
                 $this->getCsrfValidator(),
-            ),
-        );
+            ],
+        ];
     }
 
     /**

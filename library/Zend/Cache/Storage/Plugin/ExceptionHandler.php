@@ -19,7 +19,7 @@ class ExceptionHandler extends AbstractPlugin
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $callback = array($this, 'onException');
+        $callback = [$this, 'onException'];
 
         // read
         $this->listeners[] = $events->attach('getItem.exception', $callback, $priority);

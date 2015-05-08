@@ -50,8 +50,8 @@ class SnappyTest extends \PHPUnit_Framework_TestCase
 
         // restore_error_handler can emit an E_WARNING; let's ignore that, as
         // we want to test the returned value
-        set_error_handler(array($this, 'errorHandler'), E_WARNING);
-        $content = $filter->compress(array());
+        set_error_handler([$this, 'errorHandler'], E_WARNING);
+        $content = $filter->compress([]);
         restore_error_handler();
 
         $this->assertNull($content);
@@ -87,7 +87,7 @@ class SnappyTest extends \PHPUnit_Framework_TestCase
 
         // restore_error_handler can emit an E_WARNING; let's ignore that, as
         // we want to test the returned value
-        set_error_handler(array($this, 'errorHandler'), E_WARNING);
+        set_error_handler([$this, 'errorHandler'], E_WARNING);
         $content = $filter->decompress('123');
         restore_error_handler();
     }

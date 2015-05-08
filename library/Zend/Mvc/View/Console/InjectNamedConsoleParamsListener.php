@@ -21,7 +21,7 @@ class InjectNamedConsoleParamsListener extends AbstractListenerAggregate
      */
     public function attach(Events $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'injectNamedParams'), -80);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, [$this, 'injectNamedParams'], -80);
     }
 
     /**

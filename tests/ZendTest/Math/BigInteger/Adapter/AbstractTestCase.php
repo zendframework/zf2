@@ -158,23 +158,23 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function validInitProvider()
     {
-        return array(
-            array('+0', '0'),
-            array('-0', '0'),
+        return [
+            ['+0', '0'],
+            ['-0', '0'],
             // decimal
-            array('12345678', '12345678'),
-            array('-12345678', '-12345678'),
+            ['12345678', '12345678'],
+            ['-12345678', '-12345678'],
             // octal
-            array('0726746425', '123456789'),
-            array('-0726746425', '-123456789'),
+            ['0726746425', '123456789'],
+            ['-0726746425', '-123456789'],
             // hex
-            array('0X75BCD15', '123456789'),
-            array('0x75bcd15', '123456789'),
-            array('-0X75BCD15', '-123456789'),
+            ['0X75BCD15', '123456789'],
+            ['0x75bcd15', '123456789'],
+            ['-0X75BCD15', '-123456789'],
             // scientific notation
-            array('1.23456e5', '123456'),
-            array('-1.23456789e8', '-123456789'),
-        );
+            ['1.23456e5', '123456'],
+            ['-1.23456789e8', '-123456789'],
+        ];
     }
 
     /**
@@ -185,13 +185,13 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function invalidInitProvider()
     {
-        return array(
-            array('zzz'),
-            array('1/2'),
-            array('1 + 2'),
-            array('0.2E12'),
-            array('1.2E-12'),
-        );
+        return [
+            ['zzz'],
+            ['1/2'],
+            ['1 + 2'],
+            ['0.2E12'],
+            ['1.2E-12'],
+        ];
     }
 
     /**
@@ -202,43 +202,43 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function basicCalcProvider()
     {
-        return array(
+        return [
             // addition
-            array('add', '0', '12345', '12345'),
-            array('add', '12345', '0', '12345'),
-            array('add', '2', '2', '4'),
-            array('add', '-2', '2', '0'),
-            array('add', '-2', '-2', '-4'),
+            ['add', '0', '12345', '12345'],
+            ['add', '12345', '0', '12345'],
+            ['add', '2', '2', '4'],
+            ['add', '-2', '2', '0'],
+            ['add', '-2', '-2', '-4'],
 
             // subtraction
-            array('sub', '2', '0', '2'),
-            array('sub', '0', '2', '-2'),
-            array('sub', '2', '1', '1'),
-            array('sub', '2', '-2', '4'),
+            ['sub', '2', '0', '2'],
+            ['sub', '0', '2', '-2'],
+            ['sub', '2', '1', '1'],
+            ['sub', '2', '-2', '4'],
 
             // multiplication
-            array('mul', '2', '2', '4'),
-            array('mul', '2', '-2', '-4'),
-            array('mul', '2', '0', '0'),
-            array('mul', '-2', '-2', '4'),
+            ['mul', '2', '2', '4'],
+            ['mul', '2', '-2', '-4'],
+            ['mul', '2', '0', '0'],
+            ['mul', '-2', '-2', '4'],
 
             // division
-            array('div', '4', '2', '2'),
-            array('div', '3', '2', '1'),
-            array('div', '1', '2', '0'),
-            array('div', '-2', '-2', '1'),
+            ['div', '4', '2', '2'],
+            ['div', '3', '2', '1'],
+            ['div', '1', '2', '0'],
+            ['div', '-2', '-2', '1'],
 
             // pow
-            array('pow', '2', '2', '4'),
-            array('pow', '2', '0', '1'),
-            array('pow', '2', '64', '18446744073709551616'),
-            array('pow', '-2', '64', '18446744073709551616'),
+            ['pow', '2', '2', '4'],
+            ['pow', '2', '0', '1'],
+            ['pow', '2', '64', '18446744073709551616'],
+            ['pow', '-2', '64', '18446744073709551616'],
 
             // modulus
-            array('mod', '3', '2', '1'),
-            array('mod', '2', '2', '0'),
-            array('mod', '2', '18446744073709551616', '2'),
-        );
+            ['mod', '3', '2', '1'],
+            ['mod', '2', '2', '0'],
+            ['mod', '2', '18446744073709551616', '2'],
+        ];
     }
 
     /**
@@ -248,11 +248,11 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function sqrtProvider()
     {
-        return array(
-            array('4', '2'),
-            array('4294967296', '65536'),
-            array('12345678901234567890', '3513641828'), // truncated to int
-        );
+        return [
+            ['4', '2'],
+            ['4294967296', '65536'],
+            ['12345678901234567890', '3513641828'], // truncated to int
+        ];
     }
 
     /**
@@ -262,9 +262,9 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function powmodProvider()
     {
-        return array(
-            array('2', '2', '3', '1'),
-        );
+        return [
+            ['2', '2', '3', '1'],
+        ];
     }
 
     /**
@@ -274,11 +274,11 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function absProvider()
     {
-        return array(
-            array('0', '0'),
-            array('2', '2'),
-            array('-2', '2'),
-        );
+        return [
+            ['0', '0'],
+            ['2', '2'],
+            ['-2', '2'],
+        ];
     }
 
     /**
@@ -288,14 +288,14 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function comparisonProvider()
     {
-        return array(
-            array('1', '0', 1),
-            array('1', '1', 0),
-            array('0', '1', -1),
-            array('12345678901234567890', '1234567890123456789', 1),
-            array('12345678901234567890', '12345678901234567890', 0),
-            array('1234567890123456789', '12345678901234567890', -1),
-        );
+        return [
+            ['1', '0', 1],
+            ['1', '1', 0],
+            ['0', '1', -1],
+            ['12345678901234567890', '1234567890123456789', 1],
+            ['12345678901234567890', '12345678901234567890', 0],
+            ['1234567890123456789', '12345678901234567890', -1],
+        ];
     }
 
     /**
@@ -305,20 +305,20 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function baseConversionProvider()
     {
-        return array(
-            array('1234567890', 10, 2,  '1001001100101100000001011010010'),
-            array('1234567890', 10, 8,  '11145401322'),
-            array('1234567890', 10, 16, '499602d2'),
-            array('1234567890', 10, 36, 'kf12oi'),
-            array('1234567890', 10, 62, '1ly7vk'),
+        return [
+            ['1234567890', 10, 2,  '1001001100101100000001011010010'],
+            ['1234567890', 10, 8,  '11145401322'],
+            ['1234567890', 10, 16, '499602d2'],
+            ['1234567890', 10, 36, 'kf12oi'],
+            ['1234567890', 10, 62, '1ly7vk'],
 
             // reverse
-            array('1001001100101100000001011010010', 2, 10, '1234567890'),
-            array('11145401322', 8, 10,  '1234567890'),
-            array('499602d2',    16, 10,  '1234567890'),
-            array('kf12oi',      36, 10,  '1234567890'),
-            array('1ly7vk',      62, 10,  '1234567890'),
-        );
+            ['1001001100101100000001011010010', 2, 10, '1234567890'],
+            ['11145401322', 8, 10,  '1234567890'],
+            ['499602d2',    16, 10,  '1234567890'],
+            ['kf12oi',      36, 10,  '1234567890'],
+            ['1ly7vk',      62, 10,  '1234567890'],
+        ];
     }
 
     /**
@@ -328,13 +328,13 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function binaryConversionProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '0',
                 'AA==',
                 'AA==',
-            ),
-            array(
+            ],
+            [
                 // integer
                 '1551728981814736974712322577637155399157248019669154044797077953140576293785419' .
                 '1758065122742369818899372781615264663143856159582568818888995127215884267541995' .
@@ -348,8 +348,8 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
                 // binary two's complement
                 'ANz5OguIOXLsDhmYmsWizjEOHTdxfo2Vcbt2I3MYZuYe91ouJ4mLBX+YkcLiemOcPym2CBRYHNOyyjmG0mg3B' .
                 'Vd9RcLn5S3IHHoXGHblzqdLFEi/368Ygo79JRnxTkXjgmY0rxlJ5bU1zIKaSDuKdiI+XUkKJX8Fvf8W8vsixYOr',
-            ),
-            array(
+            ],
+            [
                 '-1551728981814736974712322577637155399157248019669154044797077953140576293785419' .
                 '1758065122742369818899372781615264663143856159582568818888995127215884267541995' .
                 '0341258706556549803580104870537681476726513255747040765857479291291572334510643' .
@@ -362,7 +362,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
                 // negative binary, two's complement
                 '/yMGxfR3xo0T8eZnZTpdMc7x4siOgXJqjkSJ3IznmRnhCKXR2HZ0+oBnbj0dhZxjwNZJ9+un4yxNNcZ5LZfI+q' .
                 'iCuj0YGtI344Xo54kaMVi067dAIFDnfXEC2uYOsbocfZnLUOa2GkrKM31lt8R1id3Borb12oD6QgDpDQTdOnxV',
-            ),
-        );
+            ],
+        ];
     }
 }

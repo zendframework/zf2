@@ -20,7 +20,7 @@ abstract class AbstractCompressionAlgorithm implements CompressionAlgorithmInter
     /**
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Class constructor

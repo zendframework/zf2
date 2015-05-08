@@ -13,9 +13,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ServiceLocator implements ServiceLocatorInterface
 {
-    protected $services = array();
+    protected $services = [];
 
-    public function get($name, array $params = array())
+    public function get($name, array $params = [])
     {
         if (!isset($this->services[$name])) {
             return null;

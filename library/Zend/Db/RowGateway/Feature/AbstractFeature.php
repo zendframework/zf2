@@ -22,7 +22,7 @@ abstract class AbstractFeature extends AbstractRowGateway
     /**
      * @var array
      */
-    protected $sharedData = array();
+    protected $sharedData = [];
 
     /**
      * @return string
@@ -53,6 +53,6 @@ abstract class AbstractFeature extends AbstractRowGateway
      */
     public function getMagicMethodSpecifications()
     {
-        return array();
+        return [];
     }
 }

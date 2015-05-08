@@ -20,7 +20,7 @@ class MaildirFolderTest extends \PHPUnit_Framework_TestCase
     protected $_params;
     protected $_originalDir;
     protected $_tmpdir;
-    protected $_subdirs = array('.', '.subfolder', '.subfolder.test');
+    protected $_subdirs = ['.', '.subfolder', '.subfolder.test'];
 
     public function setUp()
     {
@@ -53,14 +53,14 @@ class MaildirFolderTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $this->_params = array();
+        $this->_params = [];
         $this->_params['dirname'] = $this->_tmpdir;
 
         foreach ($this->_subdirs as $dir) {
             if ($dir != '.') {
                 mkdir($this->_tmpdir . $dir);
             }
-            foreach (array('cur', 'new') as $subdir) {
+            foreach (['cur', 'new'] as $subdir) {
                 if (!file_exists($this->_originalDir . $dir . '/' . $subdir)) {
                     continue;
                 }
@@ -81,7 +81,7 @@ class MaildirFolderTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         foreach (array_reverse($this->_subdirs) as $dir) {
-            foreach (array('cur', 'new') as $subdir) {
+            foreach (['cur', 'new'] as $subdir) {
                 if (!file_exists($this->_tmpdir . $dir . '/' . $subdir)) {
                     continue;
                 }
@@ -118,13 +118,13 @@ class MaildirFolderTest extends \PHPUnit_Framework_TestCase
     public function testNoParams()
     {
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
-        new Folder\Maildir(array());
+        new Folder\Maildir([]);
     }
 
     public function testLoadFailure()
     {
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
-        new Folder\Maildir(array('dirname' => 'This/Folder/Does/Not/Exist'));
+        new Folder\Maildir(['dirname' => 'This/Folder/Does/Not/Exist']);
     }
 
     public function testLoadUnkownFolder()
@@ -174,10 +174,10 @@ class MaildirFolderTest extends \PHPUnit_Framework_TestCase
         $mail = new Folder\Maildir($this->_params);
         $iterator = new \RecursiveIteratorIterator($mail->getFolders(), \RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume an order while iterating
-        $search_folders = array('subfolder'      => 'subfolder',
+        $search_folders = ['subfolder'      => 'subfolder',
                                 'subfolder.test' => 'test',
-                                'INBOX'          => 'INBOX');
-        $found_folders = array();
+                                'INBOX'          => 'INBOX'];
+        $found_folders = [];
 
         foreach ($iterator as $localName => $folder) {
             if (!isset($search_folders[$folder->getGlobalName()])) {
@@ -197,10 +197,10 @@ class MaildirFolderTest extends \PHPUnit_Framework_TestCase
         $mail = new Folder\Maildir($this->_params);
         $iterator = new \RecursiveIteratorIterator($mail->getFolders(), \RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume an order while iterating
-        $search_folders = array('subfolder'      => 'subfolder',
+        $search_folders = ['subfolder'      => 'subfolder',
                                 'subfolder.test' => 'test',
-                                'INBOX'          => 'INBOX');
-        $found_folders = array();
+                                'INBOX'          => 'INBOX'];
+        $found_folders = [];
 
         foreach ($iterator as $localName => $folder) {
             if (!isset($search_folders[$folder->getGlobalName()])) {
@@ -220,8 +220,8 @@ class MaildirFolderTest extends \PHPUnit_Framework_TestCase
         $mail = new Folder\Maildir($this->_params);
         $iterator = new \RecursiveIteratorIterator($mail->getFolders('INBOX.subfolder'), \RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume an order while iterating
-        $search_folders = array('subfolder.test' => 'test');
-        $found_folders = array();
+        $search_folders = ['subfolder.test' => 'test'];
+        $found_folders = [];
 
         foreach ($iterator as $localName => $folder) {
             if (!isset($search_folders[$folder->getGlobalName()])) {
@@ -263,14 +263,14 @@ class MaildirFolderTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete("Fail");
         $mail = new Folder\Maildir($this->_params);
-        $shouldSizes = array(1 => 397, 89, 694, 452, 497);
+        $shouldSizes = [1 => 397, 89, 694, 452, 497];
 
         $sizes = $mail->getSize();
         $this->assertEquals($shouldSizes, $sizes);
 
         $mail->selectFolder('subfolder.test');
         $sizes = $mail->getSize();
-        $this->assertEquals(array(1 => 467), $sizes);
+        $this->assertEquals([1 => 467], $sizes);
     }
 
     public function testFetchHeader()

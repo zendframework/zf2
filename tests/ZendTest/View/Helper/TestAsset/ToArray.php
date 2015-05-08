@@ -11,7 +11,7 @@ namespace ZendTest\View\Helper\TestAsset;
 
 class ToArray
 {
-    public $array = array();
+    public $array = [];
 
     public function toArray()
     {

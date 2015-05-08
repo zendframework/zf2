@@ -51,13 +51,13 @@ class ReceivedTest extends \PHPUnit_Framework_TestCase
 
     public function headerLines()
     {
-        return array(
-            'newline'      => array("Received: xx\nx"),
-            'cr-lf'        => array("Received: xxx\r\n"),
-            'cr-lf-fold'   => array("Received: xxx\r\n\r\n zzz"),
-            'cr-lf-x2'     => array("Received: xx\r\n\r\nx"),
-            'multiline'    => array("Received: x\r\nx\r\nx"),
-        );
+        return [
+            'newline'      => ["Received: xx\nx"],
+            'cr-lf'        => ["Received: xxx\r\n"],
+            'cr-lf-fold'   => ["Received: xxx\r\n\r\n zzz"],
+            'cr-lf-x2'     => ["Received: xx\r\n\r\nx"],
+            'multiline'    => ["Received: x\r\nx\r\nx"],
+        ];
     }
 
     /**
@@ -72,12 +72,12 @@ class ReceivedTest extends \PHPUnit_Framework_TestCase
 
     public function invalidValues()
     {
-        return array(
-            'newline'      => array("xx\nx"),
-            'cr-lf'        => array("xxx\r\n"),
-            'cr-lf-wsp'    => array("xx\r\n\r\nx"),
-            'multiline'    => array("x\r\nx\r\nx"),
-        );
+        return [
+            'newline'      => ["xx\nx"],
+            'cr-lf'        => ["xxx\r\n"],
+            'cr-lf-wsp'    => ["xx\r\n\r\nx"],
+            'multiline'    => ["x\r\nx\r\nx"],
+        ];
     }
 
     /**

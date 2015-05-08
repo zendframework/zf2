@@ -30,7 +30,7 @@ class ObjectPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'codabar'           => 'Zend\Barcode\Object\Codabar',
         'code128'           => 'Zend\Barcode\Object\Code128',
         'code25'            => 'Zend\Barcode\Object\Code25',
@@ -49,7 +49,7 @@ class ObjectPluginManager extends AbstractPluginManager
         'royalmail'         => 'Zend\Barcode\Object\Royalmail',
         'upca'              => 'Zend\Barcode\Object\Upca',
         'upce'              => 'Zend\Barcode\Object\Upce',
-    );
+    ];
 
     /**
      * Validate the plugin

@@ -17,7 +17,7 @@ class Message extends Part implements Message\MessageInterface
      * flags for this message
      * @var array
      */
-    protected $flags = array();
+    protected $flags = [];
 
     /**
      * Public constructor

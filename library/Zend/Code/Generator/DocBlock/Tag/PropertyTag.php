@@ -21,7 +21,7 @@ class PropertyTag extends AbstractTypeableTag implements TagInterface
      * @param array $types
      * @param string $description
      */
-    public function __construct($propertyName = null, $types = array(), $description = null)
+    public function __construct($propertyName = null, $types = [], $description = null)
     {
         if (!empty($propertyName)) {
             $this->setPropertyName($propertyName);

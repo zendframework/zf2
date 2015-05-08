@@ -71,7 +71,7 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         $this->adapter->setProfiler($profiler = new Profiler\Profiler());
         $this->assertSame($profiler, $this->adapter->getProfiler());
 
-        $adapter = new Adapter(array('driver' => $this->mockDriver, 'profiler' => true), $this->mockPlatform);
+        $adapter = new Adapter(['driver' => $this->mockDriver, 'profiler' => true], $this->mockPlatform);
         $this->assertInstanceOf('Zend\Db\Adapter\Profiler\Profiler', $adapter->getProfiler());
     }
 
@@ -82,25 +82,25 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
     public function testCreateDriver()
     {
         if (extension_loaded('mysqli')) {
-            $adapter = new Adapter(array('driver' => 'mysqli'), $this->mockPlatform);
+            $adapter = new Adapter(['driver' => 'mysqli'], $this->mockPlatform);
             $this->assertInstanceOf('Zend\Db\Adapter\Driver\Mysqli\Mysqli', $adapter->driver);
             unset($adapter);
         }
 
         if (extension_loaded('pgsql')) {
-            $adapter = new Adapter(array('driver' => 'pgsql'), $this->mockPlatform);
+            $adapter = new Adapter(['driver' => 'pgsql'], $this->mockPlatform);
             $this->assertInstanceOf('Zend\Db\Adapter\Driver\Pgsql\Pgsql', $adapter->driver);
             unset($adapter);
         }
 
         if (extension_loaded('sqlsrv')) {
-            $adapter = new Adapter(array('driver' => 'sqlsrv'), $this->mockPlatform);
+            $adapter = new Adapter(['driver' => 'sqlsrv'], $this->mockPlatform);
             $this->assertInstanceOf('Zend\Db\Adapter\Driver\Sqlsrv\Sqlsrv', $adapter->driver);
             unset($adapter);
         }
 
         if (extension_loaded('pdo')) {
-            $adapter = new Adapter(array('driver' => 'pdo_sqlite'), $this->mockPlatform);
+            $adapter = new Adapter(['driver' => 'pdo_sqlite'], $this->mockPlatform);
             $this->assertInstanceOf('Zend\Db\Adapter\Driver\Pdo\Pdo', $adapter->driver);
             unset($adapter);
         }
@@ -155,7 +155,7 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
         unset($adapter, $driver);
 
         // ensure platform can created via string, and also that it passed in options to platform object
-        $driver = array('driver' => 'pdo_sqlite', 'platform' => 'Oracle', 'platform_options' => array('quote_identifiers' => false));
+        $driver = ['driver' => 'pdo_sqlite', 'platform' => 'Oracle', 'platform_options' => ['quote_identifiers' => false]];
         $adapter = new Adapter($driver);
         $this->assertInstanceOf('Zend\Db\Adapter\Platform\Oracle', $adapter->platform);
         $this->assertEquals('foo', $adapter->getPlatform()->quoteIdentifier('foo'));
@@ -216,7 +216,7 @@ class AdapterTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryWhenPreparedWithParameterArrayProducesResult()
     {
-        $parray = array('bar'=>'foo');
+        $parray = ['bar'=>'foo'];
         $sql = 'SELECT foo, :bar';
         $statement = $this->getMock('\Zend\Db\Adapter\Driver\StatementInterface');
         $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');

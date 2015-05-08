@@ -57,7 +57,7 @@ class StreamWriterTest extends \PHPUnit_Framework_TestCase
     public function testWrite()
     {
         $stream = fopen('php://memory', 'w+');
-        $fields = array('message' => 'message-to-log');
+        $fields = ['message' => 'message-to-log'];
 
         $writer = new StreamWriter($stream);
         $writer->write($fields);
@@ -76,18 +76,18 @@ class StreamWriterTest extends \PHPUnit_Framework_TestCase
         fclose($stream);
 
         $this->setExpectedException('Zend\Log\Exception\RuntimeException', 'Unable to write');
-        $writer->write(array('message' => 'foo'));
+        $writer->write(['message' => 'foo']);
     }
 
     public function testShutdownClosesStreamResource()
     {
         $writer = new StreamWriter('php://memory', 'w+');
-        $writer->write(array('message' => 'this write should succeed'));
+        $writer->write(['message' => 'this write should succeed']);
 
         $writer->shutdown();
 
         $this->setExpectedException('Zend\Log\Exception\RuntimeException', 'Unable to write');
-        $writer->write(array('message' => 'this write should fail'));
+        $writer->write(['message' => 'this write should fail']);
     }
 
     public function testSettingNewFormatter()
@@ -99,7 +99,7 @@ class StreamWriterTest extends \PHPUnit_Framework_TestCase
         $formatter = new SimpleFormatter($expected);
         $writer->setFormatter($formatter);
 
-        $writer->write(array('bar'=>'baz'));
+        $writer->write(['bar'=>'baz']);
         rewind($stream);
         $contents = stream_get_contents($stream);
         fclose($stream);
@@ -113,7 +113,7 @@ class StreamWriterTest extends \PHPUnit_Framework_TestCase
         $writer = new StreamWriter($stream);
         $writer->setLogSeparator('::');
 
-        $fields = array('message' => 'message1');
+        $fields = ['message' => 'message1'];
         $writer->write($fields);
         $fields['message'] = 'message2';
         $writer->write($fields);
@@ -134,11 +134,11 @@ class StreamWriterTest extends \PHPUnit_Framework_TestCase
 
     public function testAllowsSpecifyingLogSeparatorWithinArrayPassedToConstructor()
     {
-        $options = array(
+        $options = [
             'stream'        => 'php://memory',
             'mode'          => 'w+',
             'log_separator' => '::',
-        );
+        ];
         $writer = new StreamWriter($options);
         $this->assertEquals('::', $writer->getLogSeparator());
     }
@@ -147,14 +147,14 @@ class StreamWriterTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new \Zend\Log\Formatter\Simple();
         $filter    = new \Zend\Log\Filter\Mock();
-        $writer = new StreamWriter(array(
+        $writer = new StreamWriter([
                 'filters'   => $filter,
                 'formatter' => $formatter,
                 'stream'        => 'php://memory',
                 'mode'          => 'w+',
                 'log_separator' => '::',
 
-        ));
+        ]);
         $this->assertEquals('::', $writer->getLogSeparator());
         $this->assertAttributeEquals($formatter, 'formatter', $writer);
 

@@ -45,7 +45,7 @@ class Parser
      *
      * @var array
      */
-    protected $symbolTable = array();
+    protected $symbolTable = [];
 
     /**
      * Create a new plural parser.

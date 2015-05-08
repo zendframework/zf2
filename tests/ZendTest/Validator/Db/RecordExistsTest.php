@@ -57,7 +57,7 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
             ->method('getConnection')
             ->will($this->returnValue($mockConnection));
 
-        return $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockHasResultDriver));
+        return $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockHasResultDriver]);
     }
 
     /**
@@ -92,7 +92,7 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
             ->method('getConnection')
             ->will($this->returnValue($mockConnection));
 
-        return $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockNoResultDriver));
+        return $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockNoResultDriver]);
     }
 
     /**
@@ -102,9 +102,9 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasicFindsRecord()
     {
-        $validator = new RecordExists(array('table'   => 'users',
+        $validator = new RecordExists(['table'   => 'users',
                                             'field'   => 'field1',
-                                            'adapter' => $this->getMockHasResult()));
+                                            'adapter' => $this->getMockHasResult()]);
         $this->assertTrue($validator->isValid('value1'));
     }
 
@@ -115,9 +115,9 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasicFindsNoRecord()
     {
-        $validator = new RecordExists(array('table'   => 'users',
+        $validator = new RecordExists(['table'   => 'users',
                                             'field'   => 'field1',
-                                            'adapter' => $this->getMockNoResult()));
+                                            'adapter' => $this->getMockNoResult()]);
         $this->assertFalse($validator->isValid('nosuchvalue'));
     }
 
@@ -128,11 +128,11 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testExcludeWithArray()
     {
-        $validator = new RecordExists(array('table'   => 'users',
+        $validator = new RecordExists(['table'   => 'users',
                                             'field'   => 'field1',
-                                            'exclude' => array('field' => 'id',
-                                                               'value' => 1),
-                                            'adapter' => $this->getMockHasResult()));
+                                            'exclude' => ['field' => 'id',
+                                                               'value' => 1],
+                                            'adapter' => $this->getMockHasResult()]);
         $this->assertTrue($validator->isValid('value3'));
     }
 
@@ -144,11 +144,11 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testExcludeWithArrayNoRecord()
     {
-        $validator = new RecordExists(array('table'   => 'users',
+        $validator = new RecordExists(['table'   => 'users',
                                             'field'   => 'field1',
-                                            'exclude' => array('field' => 'id',
-                                                               'value' => 1),
-                                            'adapter' => $this->getMockNoResult()));
+                                            'exclude' => ['field' => 'id',
+                                                               'value' => 1],
+                                            'adapter' => $this->getMockNoResult()]);
         $this->assertFalse($validator->isValid('nosuchvalue'));
     }
 
@@ -160,10 +160,10 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testExcludeWithString()
     {
-        $validator = new RecordExists(array('table'   => 'users',
+        $validator = new RecordExists(['table'   => 'users',
                                             'field'   => 'field1',
                                             'exclude' => 'id != 1',
-                                            'adapter' => $this->getMockHasResult()));
+                                            'adapter' => $this->getMockHasResult()]);
         $this->assertTrue($validator->isValid('value3'));
     }
 
@@ -209,7 +209,7 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithSchema()
     {
-        $validator = new RecordExists(array('table' => 'users', 'schema' => 'my'),
+        $validator = new RecordExists(['table' => 'users', 'schema' => 'my'],
                                       'field1', null, $this->getMockHasResult());
         $this->assertTrue($validator->isValid('value1'));
     }
@@ -221,7 +221,7 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithSchemaNoResult()
     {
-        $validator = new RecordExists(array('table' => 'users', 'schema' => 'my'),
+        $validator = new RecordExists(['table' => 'users', 'schema' => 'my'],
                                       'field1', null, $this->getMockNoResult());
         $this->assertFalse($validator->isValid('value1'));
     }
@@ -232,11 +232,11 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSelectAcknowledgesTableAndSchema()
     {
-        $validator = new RecordExists(array('table' => 'users', 'schema' => 'my'),
+        $validator = new RecordExists(['table' => 'users', 'schema' => 'my'],
                                       'field1', null, $this->getMockHasResult());
         $table = $validator->getSelect()->getRawState('table');
         $this->assertInstanceOf('Zend\Db\Sql\TableIdentifier', $table);
-        $this->assertEquals(array('users', 'my'), $table->getTableAndSchema());
+        $this->assertEquals(['users', 'my'], $table->getTableAndSchema());
     }
 
     public function testEqualsMessageTemplates()
@@ -252,15 +252,15 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
     public function testGetSelect()
     {
         $validator = new RecordExists(
-            array(
+            [
                 'table' => 'users',
                 'schema' => 'my'
-            ),
+            ],
             'field1',
-            array(
+            [
                 'field' => 'foo',
                 'value' => 'bar'
-            ),
+            ],
             $this->getMockHasResult()
         );
         $select = $validator->getSelect();
@@ -281,15 +281,15 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
     public function testGetSelectWithSameValidatorTwice()
     {
         $validator = new RecordExists(
-            array(
+            [
                 'table' => 'users',
                 'schema' => 'my'
-            ),
+            ],
             'field1',
-            array(
+            [
                 'field' => 'foo',
                 'value' => 'bar'
-            ),
+            ],
             $this->getMockHasResult()
         );
         $select = $validator->getSelect();
@@ -300,10 +300,10 @@ class RecordExistsTest extends \PHPUnit_Framework_TestCase
         $validator->setTable('othertable');
         $validator->setSchema('otherschema');
         $validator->setField('fieldother');
-        $validator->setExclude(array(
+        $validator->setExclude([
             'field' => 'fieldexclude',
             'value' => 'fieldvalueexclude',
-        ));
+        ]);
         $select = $validator->getSelect();
         $this->assertInstanceOf('Zend\Db\Sql\Select', $select);
         $this->assertEquals('SELECT "otherschema"."othertable"."fieldother" AS "fieldother" FROM "otherschema"."othertable" WHERE "fieldother" = \'\' AND "fieldexclude" != \'fieldvalueexclude\'', $select->getSqlString(new TrustingSql92Platform()));

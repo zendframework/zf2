@@ -22,7 +22,7 @@ abstract class AutoloaderFactory
     /**
      * @var array All autoloaders registered using the factory
      */
-    protected static $loaders = array();
+    protected static $loaders = [];
 
     /**
      * @var StandardAutoloader StandardAutoloader instance for resolving
@@ -143,7 +143,7 @@ abstract class AutoloaderFactory
     public static function unregisterAutoloaders()
     {
         foreach (static::getRegisteredAutoloaders() as $class => $autoloader) {
-            spl_autoload_unregister(array($autoloader, 'autoload'));
+            spl_autoload_unregister([$autoloader, 'autoload']);
             unset(static::$loaders[$class]);
         }
     }
@@ -161,7 +161,7 @@ abstract class AutoloaderFactory
         }
 
         $autoloader = static::$loaders[$autoloaderClass];
-        spl_autoload_unregister(array($autoloader, 'autoload'));
+        spl_autoload_unregister([$autoloader, 'autoload']);
         unset(static::$loaders[$autoloaderClass]);
         return true;
     }

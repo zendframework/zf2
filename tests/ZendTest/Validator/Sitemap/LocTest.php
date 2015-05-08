@@ -32,7 +32,7 @@ class LocTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidLocs()
     {
-        $values = array(
+        $values = [
             'http://www.example.com',
             'http://www.example.com/',
             'http://www.exmaple.lan/',
@@ -40,7 +40,7 @@ class LocTest extends \PHPUnit_Framework_TestCase
             'http://www.exmaple.com:8080/foo/bar/',
             'https://user:pass@www.exmaple.com:8080/',
             'https://www.exmaple.com/?foo=&quot;bar&apos;&amp;bar=&lt;bat&gt;'
-        );
+        ];
 
         foreach ($values as $value) {
             $this->assertSame(true, $this->validator->isValid($value));
@@ -49,13 +49,13 @@ class LocTest extends \PHPUnit_Framework_TestCase
 
     public static function invalidLocs()
     {
-        return array(
-            array('www.example.com'),
-            array('/news/'),
-            array('#'),
-            array('http:/example.com/'),
-            array('https://www.exmaple.com/?foo="bar\'&bar=<bat>'),
-        );
+        return [
+            ['www.example.com'],
+            ['/news/'],
+            ['#'],
+            ['http:/example.com/'],
+            ['https://www.exmaple.com/?foo="bar\'&bar=<bat>'],
+        ];
     }
 
     /**
@@ -77,9 +77,9 @@ class LocTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotStrings()
     {
-        $values = array(
+        $values = [
             1, 1.4, null, new \stdClass(), true, false
-        );
+        ];
 
         foreach ($values as $value) {
             $this->assertSame(false, $this->validator->isValid($value));

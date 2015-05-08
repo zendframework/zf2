@@ -34,7 +34,7 @@ class FormElementManagerFactoryTest extends TestCase
     public function setUp()
     {
         $formElementManagerFactory = new FormElementManagerFactory();
-        $config = new ArrayObject(array('di' => array()));
+        $config = new ArrayObject(['di' => []]);
         $this->services = new ServiceManager();
         $this->services->setService('Zend\ServiceManager\ServiceLocatorInterface', $this->services);
         $this->services->setFactory('FormElementManager', $formElementManagerFactory);

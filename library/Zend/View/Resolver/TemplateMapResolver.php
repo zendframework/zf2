@@ -21,7 +21,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
     /**
      * @var array
      */
-    protected $map = array();
+    protected $map = [];
 
     /**
      * Constructor
@@ -30,7 +30,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      *
      * @param  array|Traversable $map
      */
-    public function __construct($map = array())
+    public function __construct($map = [])
     {
         $this->setMap($map);
     }

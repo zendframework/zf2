@@ -114,7 +114,7 @@ class Uri implements UriInterface
      *
      * @var array
      */
-    protected static $validSchemes = array();
+    protected static $validSchemes = [];
 
     /**
      * List of default ports per scheme
@@ -125,7 +125,7 @@ class Uri implements UriInterface
      *
      * @var array
      */
-    protected static $defaultPorts = array();
+    protected static $defaultPorts = [];
 
     /**
      * @var Escaper
@@ -655,7 +655,7 @@ class Uri implements UriInterface
      */
     public function getQueryAsArray()
     {
-        $query = array();
+        $query = [];
         if ($this->query) {
             parse_str($this->query, $query);
         }
@@ -1169,12 +1169,12 @@ class Uri implements UriInterface
      */
     protected static function isValidIpAddress($host, $allowed)
     {
-        $validatorParams = array(
+        $validatorParams = [
             'allowipv4'      => (bool) ($allowed & self::HOST_IPV4),
             'allowipv6'      => false,
             'allowipvfuture' => false,
             'allowliteral'   => false,
-        );
+        ];
 
         // Test only IPv4
         $validator = new Validator\Ip($validatorParams);
@@ -1184,12 +1184,12 @@ class Uri implements UriInterface
         }
 
         // IPv6 & IPvLiteral must be in literal format
-        $validatorParams = array(
+        $validatorParams = [
             'allowipv4'      => false,
             'allowipv6'      => (bool) ($allowed & self::HOST_IPV6),
             'allowipvfuture' => (bool) ($allowed & self::HOST_IPVFUTURE),
             'allowliteral'   => true,
-        );
+        ];
         static $regex = '/^\[.*\]$/';
         $validator->setOptions($validatorParams);
         return (preg_match($regex, $host) && $validator->isValid($host));
@@ -1203,9 +1203,9 @@ class Uri implements UriInterface
      */
     protected static function isValidDnsHostname($host)
     {
-        $validator = new Validator\Hostname(array(
+        $validator = new Validator\Hostname([
             'allow' => Validator\Hostname::ALLOW_DNS | Validator\Hostname::ALLOW_LOCAL,
-        ));
+        ]);
 
         return $validator->isValid($host);
     }

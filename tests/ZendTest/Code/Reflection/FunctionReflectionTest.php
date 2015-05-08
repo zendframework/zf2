@@ -37,25 +37,25 @@ class FunctionReflectionTest extends \PHPUnit_Framework_TestCase
         require_once __DIR__ . '/TestAsset/functions.php';
 
         $function = new FunctionReflection('ZendTest\Code\Reflection\TestAsset\function2');
-        $prototype = array(
+        $prototype = [
             'namespace' => 'ZendTest\Code\Reflection\TestAsset',
             'name' => 'function2',
             'return' => 'string',
-            'arguments' => array(
-                'one' => array(
+            'arguments' => [
+                'one' => [
                     'type'     => 'string',
                     'required' => true,
                     'by_ref'   => false,
                     'default'  => null,
-                ),
-                'two' => array(
+                ],
+                'two' => [
                     'type'     => 'string',
                     'required' => false,
                     'by_ref'   => false,
                     'default'  => 'two',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $this->assertEquals($prototype, $function->getPrototype());
         $this->assertEquals('string function2(string $one, string $two = \'two\')', $function->getPrototype(FunctionReflection::PROTOTYPE_AS_STRING));
     }

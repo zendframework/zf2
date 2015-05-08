@@ -41,10 +41,10 @@ class UriFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function registeringNewSchemeProvider()
     {
-        return array(
-            array('ssh', 'Foo\Bar\Class'),
-            array('ntp', 'No real class at all!!!'),
-        );
+        return [
+            ['ssh', 'Foo\Bar\Class'],
+            ['ntp', 'No real class at all!!!'],
+        ];
     }
 
     /**
@@ -68,12 +68,12 @@ class UriFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function createUriWithFactoryProvider()
     {
-        return array(
-            array('http://example.com', 'Zend\Uri\Http'),
-            array('https://example.com', 'Zend\Uri\Http'),
-            array('mailto://example.com', 'Zend\Uri\Mailto'),
-            array('file://example.com', 'Zend\Uri\File'),
-        );
+        return [
+            ['http://example.com', 'Zend\Uri\Http'],
+            ['https://example.com', 'Zend\Uri\Http'],
+            ['mailto://example.com', 'Zend\Uri\Mailto'],
+            ['file://example.com', 'Zend\Uri\File'],
+        ];
     }
 
     /**
@@ -95,9 +95,9 @@ class UriFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function unknownSchemeThrowsExceptionProvider()
     {
-        return array(
-            array('foo://bar'),
-            array('ssh://bar'),
-        );
+        return [
+            ['foo://bar'],
+            ['ssh://bar'],
+        ];
     }
 }

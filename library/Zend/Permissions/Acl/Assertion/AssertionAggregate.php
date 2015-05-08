@@ -20,7 +20,7 @@ class AssertionAggregate implements AssertionInterface
 
     const MODE_AT_LEAST_ONE = 'at_least_one';
 
-    protected $assertions = array();
+    protected $assertions = [];
 
     /**
      *
@@ -61,7 +61,7 @@ class AssertionAggregate implements AssertionInterface
      */
     public function clearAssertions()
     {
-        $this->assertions = array();
+        $this->assertions = [];
 
         return $this;
     }

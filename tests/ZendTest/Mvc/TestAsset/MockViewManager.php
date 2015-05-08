@@ -17,7 +17,7 @@ class MockViewManager extends AbstractListenerAggregate
 {
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), 10000);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_BOOTSTRAP, [$this, 'onBootstrap'], 10000);
     }
 
     public function onBootstrap($e)

@@ -24,18 +24,18 @@ class DefaultListenerAggregateTest extends TestCase
         if (!is_array($this->loaders)) {
             // spl_autoload_functions does not return empty array when no
             // autoloaders registered...
-            $this->loaders = array();
+            $this->loaders = [];
         }
 
         // Store original include_path
         $this->includePath = get_include_path();
 
         $this->defaultListeners = new DefaultListenerAggregate(
-            new ListenerOptions(array(
-                'module_paths'         => array(
+            new ListenerOptions([
+                'module_paths'         => [
                     realpath(__DIR__ . '/TestAsset'),
-                ),
-            ))
+                ],
+            ])
         );
     }
 
@@ -60,30 +60,30 @@ class DefaultListenerAggregateTest extends TestCase
 
     public function testDefaultListenerAggregateCanAttachItself()
     {
-        $moduleManager = new ModuleManager(array('ListenerTestModule'));
+        $moduleManager = new ModuleManager(['ListenerTestModule']);
         $moduleManager->getEventManager()->attachAggregate(new DefaultListenerAggregate);
 
         $events = $moduleManager->getEventManager()->getEvents();
-        $expectedEvents = array(
-            'loadModules' => array(
+        $expectedEvents = [
+            'loadModules' => [
                 'Zend\Loader\ModuleAutoloader',
                 'config-pre' => 'Zend\ModuleManager\Listener\ConfigListener',
                 'config-post' => 'Zend\ModuleManager\Listener\ConfigListener',
                 'Zend\ModuleManager\Listener\LocatorRegistrationListener',
                 'Zend\ModuleManager\ModuleManager',
-            ),
-            'loadModule.resolve' => array(
+            ],
+            'loadModule.resolve' => [
                 'Zend\ModuleManager\Listener\ModuleResolverListener',
-            ),
-            'loadModule' => array(
+            ],
+            'loadModule' => [
                 'Zend\ModuleManager\Listener\AutoloaderListener',
                 'Zend\ModuleManager\Listener\ModuleDependencyCheckerListener',
                 'Zend\ModuleManager\Listener\InitTrigger',
                 'Zend\ModuleManager\Listener\OnBootstrapListener',
                 'Zend\ModuleManager\Listener\ConfigListener',
                 'Zend\ModuleManager\Listener\LocatorRegistrationListener',
-            ),
-        );
+            ],
+        ];
         foreach ($expectedEvents as $event => $expectedListeners) {
             $this->assertContains($event, $events);
             $listeners = $moduleManager->getEventManager()->getListeners($event);
@@ -102,7 +102,7 @@ class DefaultListenerAggregateTest extends TestCase
     public function testDefaultListenerAggregateCanDetachItself()
     {
         $listenerAggregate = new DefaultListenerAggregate;
-        $moduleManager     = new ModuleManager(array('ListenerTestModule'));
+        $moduleManager     = new ModuleManager(['ListenerTestModule']);
 
         $this->assertEquals(1, count($moduleManager->getEventManager()->getEvents()));
 

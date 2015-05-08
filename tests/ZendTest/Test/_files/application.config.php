@@ -4,17 +4,17 @@ if (!is_dir($cacheDir)) {
     mkdir($cacheDir);
 }
 
-return array(
-    'modules' => array(
+return [
+    'modules' => [
         'Baz',
-    ),
-    'module_listener_options' => array(
+    ],
+    'module_listener_options' => [
         'config_cache_enabled' => true,
         'cache_dir'            => $cacheDir,
         'config_cache_key'     => 'phpunit',
-        'config_static_paths'  => array(),
-        'module_paths'         => array(
+        'config_static_paths'  => [],
+        'module_paths'         => [
             'Baz' => __DIR__ . '/Baz/',
-        ),
-    ),
-);
+        ],
+    ],
+];

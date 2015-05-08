@@ -45,20 +45,20 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function wildcardMatches()
     {
-        return array(
-            'wildcard' => array('*/*'),
-            'wildcard-format' => array('*/*+*'),
-            'wildcard-type-subtype-fixed-format' => array('*/*+json'),
-            'wildcard-type-partial-wildcard-subtype-fixed-format' => array('*/vnd.*+json'),
-            'wildcard-type-format-subtype' => array('*/json'),
-            'fixed-type-wildcard-subtype' => array('application/*'),
-            'fixed-type-wildcard-subtype-fixed-format' => array('application/*+json'),
-            'fixed-type-format-subtype' => array('application/json'),
-            'fixed-type-fixed-subtype-wildcard-format' => array('application/vnd.foobar+*'),
-            'fixed-type-partial-wildcard-subtype-fixed-format' => array('application/vnd.*+json'),
-            'fixed' => array('application/vnd.foobar+json'),
-            'fixed-mixed-case' => array('APPLICATION/vnd.FooBar+json'),
-        );
+        return [
+            'wildcard' => ['*/*'],
+            'wildcard-format' => ['*/*+*'],
+            'wildcard-type-subtype-fixed-format' => ['*/*+json'],
+            'wildcard-type-partial-wildcard-subtype-fixed-format' => ['*/vnd.*+json'],
+            'wildcard-type-format-subtype' => ['*/json'],
+            'fixed-type-wildcard-subtype' => ['application/*'],
+            'fixed-type-wildcard-subtype-fixed-format' => ['application/*+json'],
+            'fixed-type-format-subtype' => ['application/json'],
+            'fixed-type-fixed-subtype-wildcard-format' => ['application/vnd.foobar+*'],
+            'fixed-type-partial-wildcard-subtype-fixed-format' => ['application/vnd.*+json'],
+            'fixed' => ['application/vnd.foobar+json'],
+            'fixed-mixed-case' => ['APPLICATION/vnd.FooBar+json'],
+        ];
     }
 
     /**
@@ -73,15 +73,15 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function invalidMatches()
     {
-        return array(
-            'format' => array('application/vnd.foobar+xml'),
-            'wildcard-subtype' => array('application/vendor.*+json'),
-            'subtype' => array('application/vendor.foobar+json'),
-            'type' => array('text/vnd.foobar+json'),
-            'wildcard-type-format' => array('*/vnd.foobar+xml'),
-            'wildcard-type-wildcard-subtype' => array('*/vendor.*+json'),
-            'wildcard-type-subtype' => array('*/vendor.foobar+json'),
-        );
+        return [
+            'format' => ['application/vnd.foobar+xml'],
+            'wildcard-subtype' => ['application/vendor.*+json'],
+            'subtype' => ['application/vendor.foobar+json'],
+            'type' => ['text/vnd.foobar+json'],
+            'wildcard-type-format' => ['*/vnd.foobar+xml'],
+            'wildcard-type-wildcard-subtype' => ['*/vendor.*+json'],
+            'wildcard-type-subtype' => ['*/vendor.foobar+json'],
+        ];
     }
 
     /**
@@ -96,16 +96,16 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function multipleCriteria()
     {
-        $criteria = array(
+        $criteria = [
             'application/vnd.foobar+xml',
             'application/vnd.*+json',
             'application/vendor.foobar+xml',
             '*/vnd.foobar+json',
-        );
-        return array(
-            'array' => array($criteria),
-            'string' => array(implode(',', $criteria)),
-        );
+        ];
+        return [
+            'array' => [$criteria],
+            'string' => [implode(',', $criteria)],
+        ];
     }
 
     /**
@@ -120,12 +120,12 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function contentTypeParameterExamples()
     {
-        return array(
-            'no-quotes' => array('Content-Type: foo/bar; param=baz', 'baz'),
-            'with-quotes' => array('Content-Type: foo/bar; param="baz"', 'baz'),
-            'with-equals' => array('Content-Type: foo/bar; param=baz=bat', 'baz=bat'),
-            'with-equals-and-quotes' => array('Content-Type: foo/bar; param="baz=bat"', 'baz=bat'),
-        );
+        return [
+            'no-quotes' => ['Content-Type: foo/bar; param=baz', 'baz'],
+            'with-quotes' => ['Content-Type: foo/bar; param="baz"', 'baz'],
+            'with-equals' => ['Content-Type: foo/bar; param=baz=bat', 'baz=bat'],
+            'with-equals-and-quotes' => ['Content-Type: foo/bar; param="baz=bat"', 'baz=bat'],
+        ];
     }
 
     /**

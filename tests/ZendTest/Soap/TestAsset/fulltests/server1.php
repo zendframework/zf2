@@ -31,7 +31,7 @@ class Server1
 
         $a->baz[] = $request;
 
-        return array($a);
+        return [$a];
     }
 }
 
@@ -52,7 +52,7 @@ class ComplexTypeA
     /**
      * @var \ZendTest\Soap\TestAsset\fulltests\ComplexTypeB[]
      */
-    public $baz = array();
+    public $baz = [];
 }
 
 if (isset($_GET['wsdl'])) {

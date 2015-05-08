@@ -79,7 +79,7 @@ class FeedRenderer implements RendererInterface
                 } else {
                     $this->setFeedType($type);
                 }
-                $nameOrModel = new FeedModel($vars, array('feed_type' => $type));
+                $nameOrModel = new FeedModel($vars, ['feed_type' => $type]);
             }
         } elseif (is_string($nameOrModel)) {
             // Use case 2: string $nameOrModel + array|Traversable|Feed $values
@@ -116,7 +116,7 @@ class FeedRenderer implements RendererInterface
     public function setFeedType($feedType)
     {
         $feedType = strtolower($feedType);
-        if (!in_array($feedType, array('rss', 'atom'))) {
+        if (!in_array($feedType, ['rss', 'atom'])) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a string of either "rss" or "atom"',
                 __METHOD__

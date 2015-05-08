@@ -18,8 +18,8 @@ class UploadFileTest extends \PHPUnit_Framework_TestCase
 {
     public function uploadErrorsTestDataProvider()
     {
-        $data = array();
-        $errorTypes = array(
+        $data = [];
+        $errorTypes = [
             0 => 'fileUploadFileErrorAttack',
             1 => 'fileUploadFileErrorIniSize',
             2 => 'fileUploadFileErrorFormSize',
@@ -30,22 +30,22 @@ class UploadFileTest extends \PHPUnit_Framework_TestCase
             7 => 'fileUploadFileErrorCantWrite',
             8 => 'fileUploadFileErrorExtension',
             9 => 'fileUploadFileErrorUnknown',
-        );
+        ];
         $testSizeFile = __DIR__ . '/_files/testsize.mo';
 
         foreach ($errorTypes as $errorCode => $errorType) {
-            $data[] = array(
+            $data[] = [
                 // fileInfo
-                array(
+                [
                     'name'     => 'test' . $errorCode,
                     'type'     => 'text',
                     'size'     => 200 + $errorCode,
                     'tmp_name' => $testSizeFile,
                     'error'    => $errorCode,
-                ),
+                ],
                 // messageKey
                 $errorType,
-            );
+            ];
         }
         return $data;
     }
@@ -70,7 +70,7 @@ class UploadFileTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\UploadFile();
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', '$_FILES format');
-        $validator->isValid(array('foo', 'bar'));
+        $validator->isValid(['foo', 'bar']);
     }
 
     /**
@@ -96,13 +96,13 @@ class UploadFileTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\UploadFile();
 
-        $filesArray = array(
+        $filesArray = [
             'name'      => '',
             'size'      => 0,
             'tmp_name'  => '',
             'error'     => UPLOAD_ERR_NO_FILE,
             'type'      => '',
-        );
+        ];
 
         $this->assertFalse($validator->isValid($filesArray));
         $this->assertArrayHasKey(File\UploadFile::NO_FILE, $validator->getMessages());

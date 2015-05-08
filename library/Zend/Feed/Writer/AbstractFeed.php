@@ -20,7 +20,7 @@ class AbstractFeed
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Holds the value "atom" or "rss" depending on the feed type set when
@@ -221,7 +221,7 @@ class AbstractFeed
             if (empty($data['name']) || !is_string($data['name'])) {
                 throw new Exception\InvalidArgumentException('Invalid parameter: "name" must be a non-empty string');
             }
-            $generator = array('name' => $data['name']);
+            $generator = ['name' => $data['name']];
             if (isset($data['version'])) {
                 if (empty($data['version']) || !is_string($data['version'])) {
                     throw new Exception\InvalidArgumentException('Invalid parameter: "version" must be a non-empty string');
@@ -238,7 +238,7 @@ class AbstractFeed
             if (empty($name) || !is_string($name)) {
                 throw new Exception\InvalidArgumentException('Invalid parameter: "name" must be a non-empty string');
             }
-            $generator = array('name' => $name);
+            $generator = ['name' => $name];
             if (isset($version)) {
                 if (empty($version) || !is_string($version)) {
                     throw new Exception\InvalidArgumentException('Invalid parameter: "version" must be a non-empty string');
@@ -377,7 +377,7 @@ class AbstractFeed
         if (empty($link) || !is_string($link) || !Uri::factory($link)->isValid()) {
             throw new Exception\InvalidArgumentException('Invalid parameter: "link"" must be a non-empty string and valid URI/IRI');
         }
-        if (!in_array(strtolower($type), array('rss', 'rdf', 'atom'))) {
+        if (!in_array(strtolower($type), ['rss', 'rdf', 'atom'])) {
             throw new Exception\InvalidArgumentException('Invalid parameter: "type"; You must declare the type of feed the link points to, i.e. RSS, RDF or Atom');
         }
         $this->data['feedLinks'][strtolower($type)] = $link;
@@ -451,7 +451,7 @@ class AbstractFeed
             . ' must be a non-empty string and valid URI/IRI');
         }
         if (!isset($this->data['hubs'])) {
-            $this->data['hubs'] = array();
+            $this->data['hubs'] = [];
         }
         $this->data['hubs'][] = $url;
 
@@ -497,7 +497,7 @@ class AbstractFeed
             }
         }
         if (!isset($this->data['categories'])) {
-            $this->data['categories'] = array();
+            $this->data['categories'] = [];
         }
         $this->data['categories'][] = $category;
 
@@ -762,7 +762,7 @@ class AbstractFeed
      */
     public function reset()
     {
-        $this->data = array();
+        $this->data = [];
     }
 
     /**
@@ -815,7 +815,7 @@ class AbstractFeed
     {
         foreach ($this->extensions as $extension) {
             try {
-                return call_user_func_array(array($extension, $method), $args);
+                return call_user_func_array([$extension, $method], $args);
             } catch (Exception\BadMethodCallException $e) {
             }
         }

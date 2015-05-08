@@ -38,12 +38,12 @@ class CacheTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $usedSaveHandlers = array();
+    protected $usedSaveHandlers = [];
 
     public function setUp()
     {
-        $this->cache = CacheFactory::adapterFactory('memory', array('memory_limit' => 0));
-        $this->testArray = array('foo' => 'bar', 'bar' => array('foo' => 'bar'));
+        $this->cache = CacheFactory::adapterFactory('memory', ['memory_limit' => 0]);
+        $this->testArray = ['foo' => 'bar', 'bar' => ['foo' => 'bar']];
     }
 
     public function testReadWrite()

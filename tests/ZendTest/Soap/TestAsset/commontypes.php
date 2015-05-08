@@ -77,7 +77,7 @@ function TestFunc6()
  */
 function TestFunc7()
 {
-    return array('foo' => 'bar', 'baz' => true, 1 => false, 'bat' => 123);
+    return ['foo' => 'bar', 'baz' => true, 1 => false, 'bat' => 123];
 }
 
 /**
@@ -87,7 +87,7 @@ function TestFunc7()
  */
 function TestFunc8()
 {
-    $return = (object) array('foo' => 'bar', 'baz' => true, 'bat' => 123, 'qux' => false);
+    $return = (object) ['foo' => 'bar', 'baz' => true, 'bat' => 123, 'qux' => false];
     return $return;
 }
 
@@ -195,10 +195,10 @@ class AutoDiscoverTestClass2
      */
     public function fetchAll()
     {
-        return array(
+        return [
             new AutoDiscoverTestClass1(),
             new AutoDiscoverTestClass1(),
-        );
+        ];
     }
 
     /**
@@ -227,7 +227,7 @@ class ComplexTypeA
     /**
      * @var \ZendTest\Soap\TestAsset\ComplexTypeB[]
      */
-    public $baz = array();
+    public $baz = [];
 }
 
 class ComplexTest
@@ -258,7 +258,7 @@ class ComplexObjectStructure
     /**
      * @var array
      */
-    public $array = array(1, 2, 3);
+    public $array = [1, 2, 3];
 }
 
 class ComplexObjectWithObjectStructure

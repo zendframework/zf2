@@ -56,7 +56,7 @@ class MasterSlaveFeatureTest extends \PHPUnit_Framework_TestCase
         /** @var $table \Zend\Db\TableGateway\TableGateway */
         $this->getMockForAbstractClass(
             'Zend\Db\TableGateway\TableGateway',
-            array('foo', $this->mockMasterAdapter, $this->feature)
+            ['foo', $this->mockMasterAdapter, $this->feature]
         );
         // postInitialize is run
         $this->assertSame($this->mockSlaveAdapter, $this->feature->getSlaveSql()->getAdapter());
@@ -66,7 +66,7 @@ class MasterSlaveFeatureTest extends \PHPUnit_Framework_TestCase
     {
         $table = $this->getMockForAbstractClass(
             'Zend\Db\TableGateway\TableGateway',
-            array('foo', $this->mockMasterAdapter, $this->feature)
+            ['foo', $this->mockMasterAdapter, $this->feature]
         );
 
         $this->mockSlaveAdapter->getDriver()->createStatement()
@@ -80,7 +80,7 @@ class MasterSlaveFeatureTest extends \PHPUnit_Framework_TestCase
     {
         $table = $this->getMockForAbstractClass(
             'Zend\Db\TableGateway\TableGateway',
-            array('foo', $this->mockMasterAdapter, $this->feature)
+            ['foo', $this->mockMasterAdapter, $this->feature]
         );
         $this->mockSlaveAdapter->getDriver()->createStatement()
             ->expects($this->once())->method('execute')->will($this->returnValue(

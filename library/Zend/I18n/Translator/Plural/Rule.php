@@ -223,7 +223,7 @@ class Rule
      */
     protected static function createAst(Symbol $symbol)
     {
-        $ast = array('id' => $symbol->id, 'arguments' => array());
+        $ast = ['id' => $symbol->id, 'arguments' => []];
 
         switch ($symbol->id) {
             case 'n':

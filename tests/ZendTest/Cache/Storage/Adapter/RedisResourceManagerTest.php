@@ -56,11 +56,11 @@ class RedisResourceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $server      = 'redis://dummyuser:dummypass@testhost:1234';
         $dummyResId2 = '12345678901';
-        $resource    = array(
+        $resource    = [
             'persistent_id' => 1234,
             'server'        => $server,
             'password'      => 'abcd1234'
-        );
+        ];
 
         $this->resourceManager->setResource($dummyResId2, $resource);
 
@@ -79,11 +79,11 @@ class RedisResourceManagerTest extends \PHPUnit_Framework_TestCase
         $server      = 'redis://dummyuser:dummypass@testhost:1234';
         $server2     = 'redis://dummyuser:dummypass@testhost2:1234';
         $dummyResId2 = '12345678901';
-        $resource    = array(
+        $resource    = [
             'persistent_id' => 1234,
             'server'        => $server,
             'password'      => 'abcd1234'
-        );
+        ];
 
         $this->resourceManager->setResource($dummyResId2, $resource);
         $this->resourceManager->setServer($dummyResId2, $server2);
@@ -102,12 +102,12 @@ class RedisResourceManagerTest extends \PHPUnit_Framework_TestCase
     public function testValidPersistentId()
     {
         $resourceId = 'testValidPersistentId';
-        $resource   = array(
+        $resource   = [
             'persistent_id' => 1234,
-            'server' => array(
+            'server' => [
                 'host' => 'localhost'
-            ),
-        );
+            ],
+        ];
         $expectedPersistentId = '1234';
         $this->resourceManager->setResource($resourceId, $resource);
         $this->assertSame($expectedPersistentId, $this->resourceManager->getPersistentId($resourceId));
@@ -119,12 +119,12 @@ class RedisResourceManagerTest extends \PHPUnit_Framework_TestCase
     public function testNotValidPersistentId()
     {
         $resourceId = 'testNotValidPersistentId';
-        $resource   = array(
+        $resource   = [
             'persistend_id' => 1234,
-            'server' => array(
+            'server' => [
                 'host' => 'localhost'
-            ),
-        );
+            ],
+        ];
         $expectedPersistentId = '1234';
         $this->resourceManager->setResource($resourceId, $resource);
 

@@ -169,36 +169,36 @@ class RssTest extends \PHPUnit_Framework_TestCase
 
     public function testEntryHoldsAnyAuthorAdded()
     {
-        $this->validEntry->addAuthor(array('name' => 'Jane',
+        $this->validEntry->addAuthor(['name' => 'Jane',
                                             'email'=> 'jane@example.com',
-                                            'uri'  => 'http://www.example.com/jane'));
+                                            'uri'  => 'http://www.example.com/jane']);
         $renderer = new Renderer\Feed\Rss($this->validWriter);
         $feed     = Reader\Reader::importString($renderer->render()->saveXml());
         $entry    = $feed->current();
         $author   = $entry->getAuthor();
-        $this->assertEquals(array('name'=> 'Jane'), $entry->getAuthor());
+        $this->assertEquals(['name'=> 'Jane'], $entry->getAuthor());
     }
 
     public function testEntryAuthorCharDataEncoding()
     {
-        $this->validEntry->addAuthor(array('name' => '<>&\'"áéíóú',
+        $this->validEntry->addAuthor(['name' => '<>&\'"áéíóú',
                                             'email'=> 'jane@example.com',
-                                            'uri'  => 'http://www.example.com/jane'));
+                                            'uri'  => 'http://www.example.com/jane']);
         $renderer = new Renderer\Feed\Rss($this->validWriter);
         $feed     = Reader\Reader::importString($renderer->render()->saveXml());
         $entry    = $feed->current();
         $author   = $entry->getAuthor();
-        $this->assertEquals(array('name'=> '<>&\'"áéíóú'), $entry->getAuthor());
+        $this->assertEquals(['name'=> '<>&\'"áéíóú'], $entry->getAuthor());
     }
 
     public function testEntryHoldsAnyEnclosureAdded()
     {
         $renderer = new Renderer\Feed\Rss($this->validWriter);
-        $this->validEntry->setEnclosure(array(
+        $this->validEntry->setEnclosure([
                                               'type'   => 'audio/mpeg',
                                               'length' => '1337',
                                               'uri'    => 'http://example.com/audio.mp3'
-                                         ));
+                                         ]);
         $feed  = Reader\Reader::importString($renderer->render()->saveXml());
         $entry = $feed->current();
         $enc   = $entry->getEnclosure();
@@ -213,10 +213,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
     public function testAddsEnclosureThrowsExceptionOnMissingType()
     {
         $renderer = new Renderer\Feed\Rss($this->validWriter);
-        $this->validEntry->setEnclosure(array(
+        $this->validEntry->setEnclosure([
                                               'uri'    => 'http://example.com/audio.mp3',
                                               'length' => '1337'
-                                         ));
+                                         ]);
         $renderer->render();
     }
 
@@ -226,10 +226,10 @@ class RssTest extends \PHPUnit_Framework_TestCase
     public function testAddsEnclosureThrowsExceptionOnMissingLength()
     {
         $renderer = new Renderer\Feed\Rss($this->validWriter);
-        $this->validEntry->setEnclosure(array(
+        $this->validEntry->setEnclosure([
                                               'type' => 'audio/mpeg',
                                               'uri'  => 'http://example.com/audio.mp3'
-                                         ));
+                                         ]);
         $renderer->render();
     }
 
@@ -239,11 +239,11 @@ class RssTest extends \PHPUnit_Framework_TestCase
     public function testAddsEnclosureThrowsExceptionOnNonNumericLength()
     {
         $renderer = new Renderer\Feed\Rss($this->validWriter);
-        $this->validEntry->setEnclosure(array(
+        $this->validEntry->setEnclosure([
                                               'type'   => 'audio/mpeg',
                                               'uri'    => 'http://example.com/audio.mp3',
                                               'length' => 'abc'
-                                         ));
+                                         ]);
         $renderer->render();
     }
 
@@ -253,11 +253,11 @@ class RssTest extends \PHPUnit_Framework_TestCase
     public function testAddsEnclosureThrowsExceptionOnNegativeLength()
     {
         $renderer = new Renderer\Feed\Rss($this->validWriter);
-        $this->validEntry->setEnclosure(array(
+        $this->validEntry->setEnclosure([
                                               'type'   => 'audio/mpeg',
                                               'uri'    => 'http://example.com/audio.mp3',
                                               'length' => -23
-                                         ));
+                                         ]);
         $renderer->render();
     }
 
@@ -304,12 +304,12 @@ class RssTest extends \PHPUnit_Framework_TestCase
     public function testCommentFeedLinksRendered()
     {
         $renderer = new Renderer\Feed\Rss($this->validWriter);
-        $this->validEntry->setCommentFeedLinks(array(
-                                                     array('uri' => 'http://www.example.com/atom/id/1',
-                                                           'type'=> 'atom'),
-                                                     array('uri' => 'http://www.example.com/rss/id/1',
-                                                           'type'=> 'rss'),
-                                                ));
+        $this->validEntry->setCommentFeedLinks([
+                                                     ['uri' => 'http://www.example.com/atom/id/1',
+                                                           'type'=> 'atom'],
+                                                     ['uri' => 'http://www.example.com/rss/id/1',
+                                                           'type'=> 'rss'],
+                                                ]);
         $feed  = Reader\Reader::importString($renderer->render()->saveXml());
         $entry = $feed->current();
         // Skipped assertion is because RSS has no facility to show Atom feeds without an extension
@@ -319,23 +319,23 @@ class RssTest extends \PHPUnit_Framework_TestCase
 
     public function testCategoriesCanBeSet()
     {
-        $this->validEntry->addCategories(array(
-                                               array('term'   => 'cat_dog',
+        $this->validEntry->addCategories([
+                                               ['term'   => 'cat_dog',
                                                      'label'  => 'Cats & Dogs',
-                                                     'scheme' => 'http://example.com/schema1'),
-                                               array('term'=> 'cat_dog2')
-                                          ));
+                                                     'scheme' => 'http://example.com/schema1'],
+                                               ['term'=> 'cat_dog2']
+                                          ]);
         $renderer = new Renderer\Feed\Rss($this->validWriter);
         $feed     = Reader\Reader::importString($renderer->render()->saveXml());
         $entry    = $feed->current();
-        $expected = array(
-            array('term'   => 'cat_dog',
+        $expected = [
+            ['term'   => 'cat_dog',
                   'label'  => 'cat_dog',
-                  'scheme' => 'http://example.com/schema1'),
-            array('term'   => 'cat_dog2',
+                  'scheme' => 'http://example.com/schema1'],
+            ['term'   => 'cat_dog2',
                   'label'  => 'cat_dog2',
-                  'scheme' => null)
-        );
+                  'scheme' => null]
+        ];
         $this->assertEquals($expected, (array) $entry->getCategories());
     }
 
@@ -344,23 +344,23 @@ class RssTest extends \PHPUnit_Framework_TestCase
      */
     public function testCategoriesCharDataEncoding()
     {
-        $this->validEntry->addCategories(array(
-                                               array('term'   => '<>&\'"áéíóú',
+        $this->validEntry->addCategories([
+                                               ['term'   => '<>&\'"áéíóú',
                                                      'label'  => 'Cats & Dogs',
-                                                     'scheme' => 'http://example.com/schema1'),
-                                               array('term'=> 'cat_dog2')
-                                          ));
+                                                     'scheme' => 'http://example.com/schema1'],
+                                               ['term'=> 'cat_dog2']
+                                          ]);
         $renderer = new Renderer\Feed\Rss($this->validWriter);
         $feed     = Reader\Reader::importString($renderer->render()->saveXml());
         $entry    = $feed->current();
-        $expected = array(
-            array('term'   => '<>&\'"áéíóú',
+        $expected = [
+            ['term'   => '<>&\'"áéíóú',
                   'label'  => '<>&\'"áéíóú',
-                  'scheme' => 'http://example.com/schema1'),
-            array('term'   => 'cat_dog2',
+                  'scheme' => 'http://example.com/schema1'],
+            ['term'   => 'cat_dog2',
                   'label'  => 'cat_dog2',
-                  'scheme' => null)
-        );
+                  'scheme' => null]
+        ];
         $this->assertEquals($expected, (array) $entry->getCategories());
     }
 }

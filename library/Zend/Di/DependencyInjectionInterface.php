@@ -21,5 +21,5 @@ interface DependencyInjectionInterface extends LocatorInterface
      * @param  array       $params Parameters to pass to the constructor
      * @return object|null
      */
-    public function newInstance($name, array $params = array());
+    public function newInstance($name, array $params = []);
 }

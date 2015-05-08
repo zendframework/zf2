@@ -33,12 +33,12 @@ class ToTest extends \PHPUnit_Framework_TestCase
 
     public function headerLines()
     {
-        return array(
-            'newline'      => array("To: xxx yyy\n"),
-            'cr-lf'        => array("To: xxx yyy\r\n"),
-            'cr-lf-wsp'    => array("To: xxx yyy\r\n\r\n"),
-            'multiline'    => array("To: xxx\r\ny\r\nyy"),
-        );
+        return [
+            'newline'      => ["To: xxx yyy\n"],
+            'cr-lf'        => ["To: xxx yyy\r\n"],
+            'cr-lf-wsp'    => ["To: xxx yyy\r\n\r\n"],
+            'multiline'    => ["To: xxx\r\ny\r\nyy"],
+        ];
     }
 
     /**

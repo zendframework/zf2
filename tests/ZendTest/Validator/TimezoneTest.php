@@ -61,24 +61,24 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
      */
     public function locationProvider()
     {
-        return array(
-            array('America/Anguilla', true),
-            array('Antarctica/Palmer', true),
-            array('Asia/Dubai', true),
-            array('Atlantic/Cape_Verde', true),
-            array('Australia/Broken_Hill', true),
-            array('America/Sao_Paulo', true),
-            array('America/Toronto', true),
-            array('Pacific/Easter', true),
-            array('Europe/Copenhagen', true),
-            array('Indian/Maldives', true),
+        return [
+            ['America/Anguilla', true],
+            ['Antarctica/Palmer', true],
+            ['Asia/Dubai', true],
+            ['Atlantic/Cape_Verde', true],
+            ['Australia/Broken_Hill', true],
+            ['America/Sao_Paulo', true],
+            ['America/Toronto', true],
+            ['Pacific/Easter', true],
+            ['Europe/Copenhagen', true],
+            ['Indian/Maldives', true],
 
-            array('anast', false),              // abbreviation of Anadyr Summer Time
+            ['anast', false],              // abbreviation of Anadyr Summer Time
 
-            array('Asia/London', false),        // wrong location
-            array('', false),                   // empty string
-            array(null, false),                 // null value
-        );
+            ['Asia/London', false],        // wrong location
+            ['', false],                   // empty string
+            [null, false],                 // null value
+        ];
     }
 
     /**
@@ -114,24 +114,24 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
      */
     public function abbreviationProvider()
     {
-        return array(
-            array('anast', true),               // Anadyr Summer Time
-            array('bnt', true),                 // Brunei Darussalam Time
-            array('cest', true),                // Central European Summer Time
-            array('easst', true),               // Easter Island Summer Time
-            array('egst', true),                // Eastern Greenland Summer Time
-            array('hkt', true),                 // Hong Kong Time
-            array('irkst', true),               // Irkutsk Summer Time
-            array('krast', true),               // Krasnoyarsk Summer Time
-            array('nzdt', true),                // New Zealand Daylight Time
-            array('sast', true),                // South Africa Standard Time
+        return [
+            ['anast', true],               // Anadyr Summer Time
+            ['bnt', true],                 // Brunei Darussalam Time
+            ['cest', true],                // Central European Summer Time
+            ['easst', true],               // Easter Island Summer Time
+            ['egst', true],                // Eastern Greenland Summer Time
+            ['hkt', true],                 // Hong Kong Time
+            ['irkst', true],               // Irkutsk Summer Time
+            ['krast', true],               // Krasnoyarsk Summer Time
+            ['nzdt', true],                // New Zealand Daylight Time
+            ['sast', true],                // South Africa Standard Time
 
-            array('America/Toronto', false),    // location
+            ['America/Toronto', false],    // location
 
-            array('xyz', false),                // wrong abbreviation
-            array('', false),                   // empty string
-            array(null, false),                 // null value
-        );
+            ['xyz', false],                // wrong abbreviation
+            ['', false],                   // empty string
+            [null, false],                 // null value
+        ];
     }
 
     /**
@@ -156,7 +156,7 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
      */
     public function testlocationsAndAbbreviationsWithAllTypeAsArray($value, $valid)
     {
-        $this->validator->setType(array(Timezone::LOCATION, Timezone::ABBREVIATION));
+        $this->validator->setType([Timezone::LOCATION, Timezone::ABBREVIATION]);
         $this->checkValidationValue($value, $valid);
     }
 
@@ -169,7 +169,7 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
      */
     public function testlocationsAndAbbreviationsWithAllTypeAsArrayWithStrings($value, $valid)
     {
-        $this->validator->setType(array('location', 'abbreviation'));
+        $this->validator->setType(['location', 'abbreviation']);
         $this->checkValidationValue($value, $valid);
     }
 
@@ -180,25 +180,25 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
      */
     public function locationAndAbbreviationProvider()
     {
-        return array(
-            array('America/Anguilla', true),
-            array('Antarctica/Palmer', true),
-            array('Asia/Dubai', true),
-            array('Atlantic/Cape_Verde', true),
-            array('Australia/Broken_Hill', true),
+        return [
+            ['America/Anguilla', true],
+            ['Antarctica/Palmer', true],
+            ['Asia/Dubai', true],
+            ['Atlantic/Cape_Verde', true],
+            ['Australia/Broken_Hill', true],
 
-            array('hkt', true),                 // Hong Kong Time
-            array('irkst', true),               // Irkutsk Summer Time
-            array('krast', true),               // Krasnoyarsk Summer Time
-            array('nzdt', true),                // New Zealand Daylight Time
-            array('sast', true),                // South Africa Standard Time
+            ['hkt', true],                 // Hong Kong Time
+            ['irkst', true],               // Irkutsk Summer Time
+            ['krast', true],               // Krasnoyarsk Summer Time
+            ['nzdt', true],                // New Zealand Daylight Time
+            ['sast', true],                // South Africa Standard Time
 
-            array('xyz', false),                // wrong abbreviation
-            array('Asia/London', false),        // wrong location
+            ['xyz', false],                // wrong abbreviation
+            ['Asia/London', false],        // wrong location
 
-            array('', false),                   // empty string
-            array(null, false),                 // null value
-        );
+            ['', false],                   // empty string
+            [null, false],                 // null value
+        ];
     }
 
     /**
@@ -220,13 +220,13 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
      */
     public function wrongTypesProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array(array()),
-            array(0),
-            array(4),
-        );
+        return [
+            [null],
+            [''],
+            [[]],
+            [0],
+            [4],
+        ];
     }
 
     /**
@@ -244,7 +244,7 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($timezone2->isValid('Asia/Dubai'));
         $this->assertFalse($timezone2->isValid('sast'));
 
-        $timezone3 = new Timezone(array('type' => 'location'));
+        $timezone3 = new Timezone(['type' => 'location']);
         $this->assertTrue($timezone3->isValid('Asia/Dubai'));
         $this->assertFalse($timezone3->isValid('sast'));
 
@@ -256,7 +256,7 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($timezone5->isValid('Asia/Dubai'));
         $this->assertTrue($timezone5->isValid('sast'));
 
-        $timezone6 = new Timezone(array('type' => 'abbreviation'));
+        $timezone6 = new Timezone(['type' => 'abbreviation']);
         $this->assertFalse($timezone6->isValid('Asia/Dubai'));
         $this->assertTrue($timezone6->isValid('sast'));
 
@@ -265,7 +265,7 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($timezone7->isValid('Asia/Dubai'));
         $this->assertTrue($timezone7->isValid('sast'));
 
-        $timezone8 = new Timezone(array('type' => array('location', 'abbreviation')));
+        $timezone8 = new Timezone(['type' => ['location', 'abbreviation']]);
         $this->assertTrue($timezone8->isValid('Asia/Dubai'));
         $this->assertTrue($timezone8->isValid('sast'));
     }
@@ -279,7 +279,7 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException');
 
-        new Timezone(array('type' => $invalidType));
+        new Timezone(['type' => $invalidType]);
     }
 
     /**
@@ -321,12 +321,12 @@ class TimezoneTest extends \PHPUnit_Framework_TestCase
      */
     public function getInvalidTypes()
     {
-        return array(
-            array(new \stdClass()),
-            array(array()),
-            array(0),
-            array(10),
-            array('foo'),
-        );
+        return [
+            [new \stdClass()],
+            [[]],
+            [0],
+            [10],
+            ['foo'],
+        ];
     }
 }

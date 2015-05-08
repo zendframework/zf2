@@ -61,9 +61,9 @@ class JsonModel extends ViewModel
             $variables = ArrayUtils::iteratorToArray($variables);
         }
 
-        $options = array(
+        $options = [
             'prettyPrint' => $this->getOption('prettyPrint'),
-        );
+        ];
 
         if (null !== $this->jsonpCallback) {
             return $this->jsonpCallback.'('.Json::encode($variables, false, $options).');';

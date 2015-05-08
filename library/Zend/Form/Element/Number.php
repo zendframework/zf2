@@ -23,9 +23,9 @@ class Number extends Element implements InputProviderInterface
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'number',
-    );
+    ];
 
     /**
      * @var array
@@ -43,7 +43,7 @@ class Number extends Element implements InputProviderInterface
             return $this->validators;
         }
 
-        $validators = array();
+        $validators = [];
         // HTML5 always transmits values in the format "1000.01", without a
         // thousand separator. The prior use of the i18n Float validator
         // allowed the thousand separator, which resulted in wrong numbers
@@ -56,25 +56,25 @@ class Number extends Element implements InputProviderInterface
         }
 
         if (isset($this->attributes['min'])) {
-            $validators[] = new GreaterThanValidator(array(
+            $validators[] = new GreaterThanValidator([
                 'min' => $this->attributes['min'],
                 'inclusive' => $inclusive
-            ));
+            ]);
         }
         if (isset($this->attributes['max'])) {
-            $validators[] = new LessThanValidator(array(
+            $validators[] = new LessThanValidator([
                 'max' => $this->attributes['max'],
                 'inclusive' => $inclusive
-            ));
+            ]);
         }
 
         if (!isset($this->attributes['step'])
             || 'any' !== $this->attributes['step']
         ) {
-            $validators[] = new StepValidator(array(
+            $validators[] = new StepValidator([
                 'baseValue' => (isset($this->attributes['min']))  ? $this->attributes['min'] : 0,
                 'step'      => (isset($this->attributes['step'])) ? $this->attributes['step'] : 1,
-            ));
+            ]);
         }
 
         $this->validators = $validators;
@@ -90,13 +90,13 @@ class Number extends Element implements InputProviderInterface
      */
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim')
-            ),
+            'filters' => [
+                ['name' => 'Zend\Filter\StringTrim']
+            ],
             'validators' => $this->getValidators(),
-        );
+        ];
     }
 }

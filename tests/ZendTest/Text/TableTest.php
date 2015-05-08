@@ -144,7 +144,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $row->appendColumn(new Table\Column('Eté'));
         $row->appendColumn(new Table\Column('Ete'));
 
-        $this->assertEquals($row->render(array(10, 10), $decorator), "│Eté       │Ete       │\n");
+        $this->assertEquals($row->render([10, 10], $decorator), "│Eté       │Ete       │\n");
     }
 
     public function testRowColumnsWithColSpan()
@@ -156,7 +156,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $row->appendColumn(new Table\Column('foobar'));
         $row->appendColumn(new Table\Column('foobar', null, 2));
 
-        $this->assertEquals($row->render(array(10, 10, 10), $decorator), "│foobar    │foobar               │\n");
+        $this->assertEquals($row->render([10, 10, 10], $decorator), "│foobar    │foobar               │\n");
     }
 
     public function testRowWithNoColumns()
@@ -165,7 +165,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
         $row = new Table\Row();
 
-        $this->assertEquals($row->render(array(10, 10, 10), $decorator), "│                                │\n");
+        $this->assertEquals($row->render([10, 10, 10], $decorator), "│                                │\n");
     }
 
     public function testRowNotEnoughColumnWidths()
@@ -177,7 +177,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $row->appendColumn(new Table\Column());
 
         $this->setExpectedException('Zend\Text\Table\Exception\OverflowException', 'Too many columns');
-        $row->render(array(10), $decorator);
+        $row->render([10], $decorator);
     }
 
     public function testRowGetColumnWidthsBeforeRendering()
@@ -195,7 +195,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $row = new Table\Row();
         $row->appendColumn(new Table\Column('foobar'));
 
-        $this->assertEquals($row->render(array(10, 10, 10), $decorator), "│foobar    │                     │\n");
+        $this->assertEquals($row->render([10, 10, 10], $decorator), "│foobar    │                     │\n");
     }
 
     public function testRowMultiLine()
@@ -206,7 +206,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $row->appendColumn(new Table\Column("foo\nbar"));
         $row->appendColumn(new Table\Column("foobar"));
 
-        $this->assertEquals($row->render(array(10, 10), $decorator), "│foo       │foobar    │\n│bar       │          │\n");
+        $this->assertEquals($row->render([10, 10], $decorator), "│foo       │foobar    │\n│bar       │          │\n");
     }
 
     public function testUnicodeRowMultiLine()
@@ -217,18 +217,18 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $row->appendColumn(new Table\Column("föö\nbär"));
         $row->appendColumn(new Table\Column("fööbär"));
 
-        $this->assertEquals($row->render(array(3, 10), $decorator), "│föö│fööbär    │\n│bär│          │\n");
+        $this->assertEquals($row->render([3, 10], $decorator), "│föö│fööbär    │\n│bär│          │\n");
     }
 
     public function testTableConstructInvalidColumnWidthsItem()
     {
         $this->setExpectedException('Zend\Text\Table\Exception\InvalidArgumentException', 'invalid column width');
-        $table = new Table\Table(array('columnWidths' => array('foo')));
+        $table = new Table\Table(['columnWidths' => ['foo']]);
     }
 
     public function testTableDecoratorLoaderSimple()
     {
-        $table = new Table\Table(array('columnWidths' => array(10), 'decorator' => 'ascii'));
+        $table = new Table\Table(['columnWidths' => [10], 'decorator' => 'ascii']);
 
         $row = new Table\Row();
         $row->createColumn('foobar');
@@ -241,7 +241,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
     {
         Table\Table::setOutputCharset('iso-8859-15');
 
-        $table = new Table\Table(array('columnWidths' => array(10)));
+        $table = new Table\Table(['columnWidths' => [10]]);
 
         $row = new Table\Row();
         $row->createColumn('foobar');
@@ -252,7 +252,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
     public function testTableDecoratorLoaderAdvanced()
     {
-        $table = new Table\Table(array('columnWidths' => array(10), 'decorator' => new Decorator\Ascii()));
+        $table = new Table\Table(['columnWidths' => [10], 'decorator' => new Decorator\Ascii()]);
 
         $row = new Table\Row();
         $row->createColumn('foobar');
@@ -263,7 +263,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
     public function testTableSimpleRow()
     {
-        $table = new Table\Table(array('columnWidths' => array(10)));
+        $table = new Table\Table(['columnWidths' => [10]]);
 
         $row = new Table\Row();
         $row->createColumn('foobar');
@@ -274,11 +274,11 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
     public function testDefaultColumnAlign()
     {
-        $table = new Table\Table(array('columnWidths' => array(10)));
+        $table = new Table\Table(['columnWidths' => [10]]);
 
         $table->setDefaultColumnAlign(0, Table\Column::ALIGN_CENTER);
 
-        $table->appendRow(array('foobar'));
+        $table->appendRow(['foobar']);
 
         $this->assertEquals($table->render(), "┌──────────┐\n│  foobar  │\n└──────────┘\n");
     }
@@ -310,7 +310,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
     public function testTableWithoutRows()
     {
-        $table = new Table\Table(array('columnWidths' => array(10)));
+        $table = new Table\Table(['columnWidths' => [10]]);
 
         $this->setExpectedException('Zend\Text\Table\Exception\UnexpectedValueException', 'No rows were added');
         $table->render();
@@ -318,7 +318,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
     public function testTableColSpanWithMultipleRows()
     {
-        $table = new Table\Table(array('columnWidths' => array(10, 10)));
+        $table = new Table\Table(['columnWidths' => [10, 10]]);
 
         $row = new Table\Row();
         $row->appendColumn(new Table\Column('foobar'));
@@ -338,7 +338,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
     public function testTableComplex()
     {
-        $table = new Table\Table(array('columnWidths' => array(10, 10, 10)));
+        $table = new Table\Table(['columnWidths' => [10, 10, 10]]);
 
         $row = new Table\Row();
         $row->appendColumn(new Table\Column('foobar'));
@@ -373,7 +373,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
     public function testTableMagicToString()
     {
-        $table = new Table\Table(array('columnWidths' => array(10)));
+        $table = new Table\Table(['columnWidths' => [10]]);
 
         $row = new Table\Row();
         $row->appendColumn(new Table\Column('foobar'));

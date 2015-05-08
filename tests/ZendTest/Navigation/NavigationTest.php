@@ -45,11 +45,11 @@ class NavigationTest extends \PHPUnit_Framework_TestCase
      */
     public function testNavigationArraySortsCorrectly()
     {
-        $page1 = new Page\Uri(array('uri' => 'page1'));
-        $page2 = new Page\Uri(array('uri' => 'page2'));
-        $page3 = new Page\Uri(array('uri' => 'page3'));
+        $page1 = new Page\Uri(['uri' => 'page1']);
+        $page2 = new Page\Uri(['uri' => 'page2']);
+        $page3 = new Page\Uri(['uri' => 'page3']);
 
-        $this->_navigation->setPages(array($page1, $page2, $page3));
+        $this->_navigation->setPages([$page1, $page2, $page3]);
 
         $page1->setOrder(1);
         $page3->setOrder(0);

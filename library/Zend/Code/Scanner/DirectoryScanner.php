@@ -23,12 +23,12 @@ class DirectoryScanner implements ScannerInterface
     /**
      * @var string[]|DirectoryScanner[]
      */
-    protected $directories = array();
+    protected $directories = [];
 
     /**
      * @var FileScanner[]
      */
-    protected $fileScanners = array();
+    protected $fileScanners = [];
 
     /**
      * @var array
@@ -139,7 +139,7 @@ class DirectoryScanner implements ScannerInterface
     {
         $this->scan();
 
-        $return = array();
+        $return = [];
         foreach ($this->fileScanners as $fileScanner) {
             $return[] = ($returnFileScanners) ? $fileScanner : $fileScanner->getFile();
         }
@@ -173,7 +173,7 @@ class DirectoryScanner implements ScannerInterface
             $this->createClassToFileScannerCache();
         }
 
-        $returnClasses = array();
+        $returnClasses = [];
         foreach ($this->classToFileScanner as $className => $fsIndex) {
             $classScanner = $this->fileScanners[$fsIndex]->getClass($className);
             if ($returnDerivedScannerClass) {
@@ -240,7 +240,7 @@ class DirectoryScanner implements ScannerInterface
             return;
         }
 
-        $this->classToFileScanner = array();
+        $this->classToFileScanner = [];
         /** @var FileScanner $fileScanner */
         foreach ($this->fileScanners as $fsIndex => $fileScanner) {
             $fsClasses = $fileScanner->getClassNames();

@@ -84,7 +84,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
 
     public function testGoodHorizontalPosition()
     {
-        foreach (array('left', 'center', 'right') as $position) {
+        foreach (['left', 'center', 'right'] as $position) {
             $this->renderer->setHorizontalPosition($position);
             $this->assertSame($position,
                     $this->renderer->getHorizontalPosition());
@@ -99,7 +99,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
 
     public function testGoodVerticalPosition()
     {
-        foreach (array('top', 'middle', 'bottom') as $position) {
+        foreach (['top', 'middle', 'bottom'] as $position) {
             $this->renderer->setVerticalPosition($position);
             $this->assertSame($position,
                     $this->renderer->getVerticalPosition());
@@ -145,16 +145,16 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testConstructorWithArray()
     {
         $renderer = $this->getRendererObject(
-                array('automaticRenderError' => true,
-                        'unkownProperty' => 'aValue'));
+                ['automaticRenderError' => true,
+                        'unkownProperty' => 'aValue']);
         $this->assertEquals(true, $renderer->getAutomaticRenderError());
     }
 
     public function testConstructorWithZendConfig()
     {
         $config = new Config\Config(
-                array('automaticRenderError' => true,
-                        'unkownProperty' => 'aValue'));
+                ['automaticRenderError' => true,
+                        'unkownProperty' => 'aValue']);
         $renderer = $this->getRendererObject($config);
         $this->assertEquals(true, $renderer->getAutomaticRenderError());
     }
@@ -163,8 +163,8 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(false, $this->renderer->getAutomaticRenderError());
         $this->renderer->setOptions(
-                array('automaticRenderError' => true,
-                        'unkownProperty' => 'aValue'));
+                ['automaticRenderError' => true,
+                        'unkownProperty' => 'aValue']);
         $this->assertEquals(true, $this->renderer->getAutomaticRenderError());
     }
 
@@ -179,7 +179,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Zend\Barcode\Renderer\Exception\ExceptionInterface');
         $object = new TestAsset\BarcodeTest();
         $object->setText('test');
-        $object->addTestInstruction(array('type' => 'unknown'));
+        $object->addTestInstruction(['type' => 'unknown']);
         $this->renderer->setBarcode($object);
         $this->renderer->draw();
     }
@@ -200,7 +200,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
         $renderer->setModuleSize(1);
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(211, $barcode->getWidth());
         $renderer->setBarcode($barcode);
         $renderer->draw();
@@ -211,7 +211,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
         $renderer->setModuleSize(1);
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(211, $barcode->getWidth());
         $renderer->setBarcode($barcode);
         $renderer->setHorizontalPosition('center');
@@ -223,7 +223,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
         $renderer->setModuleSize(1);
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(211, $barcode->getWidth());
         $renderer->setBarcode($barcode);
         $renderer->setHorizontalPosition('right');
@@ -235,7 +235,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
         $renderer->setModuleSize(1);
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(211, $barcode->getWidth());
         $renderer->setBarcode($barcode);
         $renderer->setLeftOffset(12);
@@ -248,7 +248,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
         $renderer->setModuleSize(1);
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(62, $barcode->getHeight());
         $renderer->setBarcode($barcode);
         $renderer->setVerticalPosition('top');
@@ -260,7 +260,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
         $renderer->setModuleSize(1);
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(62, $barcode->getHeight());
         $renderer->setBarcode($barcode);
         $renderer->setVerticalPosition('middle');
@@ -272,7 +272,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
         $renderer->setModuleSize(1);
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(62, $barcode->getHeight());
         $renderer->setBarcode($barcode);
         $renderer->setVerticalPosition('bottom');
@@ -284,7 +284,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
         $renderer->setModuleSize(1);
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(62, $barcode->getHeight());
         $renderer->setBarcode($barcode);
         $renderer->setTopOffset(12);

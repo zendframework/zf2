@@ -32,7 +32,7 @@ abstract class AbstractKey
      *
      * @var array
      */
-    protected $details = array();
+    protected $details = [];
 
     /**
      * Get key size in bits

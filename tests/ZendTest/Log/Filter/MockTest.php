@@ -19,10 +19,10 @@ class MockTest extends \PHPUnit_Framework_TestCase
     public function testWrite()
     {
         $filter = new MockFilter();
-        $this->assertSame(array(), $filter->events);
+        $this->assertSame([], $filter->events);
 
-        $fields = array('foo' => 'bar');
+        $fields = ['foo' => 'bar'];
         $this->assertTrue($filter->filter($fields));
-        $this->assertSame(array($fields), $filter->events);
+        $this->assertSame([$fields], $filter->events);
     }
 }

@@ -83,7 +83,7 @@ class UpperCaseTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertContains('This is a File', file_get_contents($this->_newFile));
         $filter = new FileUpperCase();
-        $filter(array('tmp_name' => $this->_newFile));
+        $filter(['tmp_name' => $this->_newFile]);
         $this->assertContains('THIS IS A FILE', file_get_contents($this->_newFile));
     }
 
@@ -130,14 +130,14 @@ class UpperCaseTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 $this->_newFile,
                 'something invalid'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**

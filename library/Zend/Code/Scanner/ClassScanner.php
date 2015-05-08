@@ -79,17 +79,17 @@ class ClassScanner implements ScannerInterface
     /**
      * @var array
      */
-    protected $interfaces = array();
+    protected $interfaces = [];
 
     /**
      * @var array
      */
-    protected $shortInterfaces = array();
+    protected $shortInterfaces = [];
 
     /**
      * @var array
      */
-    protected $tokens = array();
+    protected $tokens = [];
 
     /**
      * @var NameInformation
@@ -99,17 +99,17 @@ class ClassScanner implements ScannerInterface
     /**
      * @var array
      */
-    protected $infos = array();
+    protected $infos = [];
 
     /**
      * @var array
      */
-    protected $traits = array();
+    protected $traits = [];
 
     /**
      * @var array
      */
-    protected $methods = array();
+    protected $methods = [];
 
     /**
      * @param  array $classTokens
@@ -303,7 +303,7 @@ class ClassScanner implements ScannerInterface
     {
         $this->scan();
 
-        $return = array();
+        $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] != 'constant') {
                 continue;
@@ -330,7 +330,7 @@ class ClassScanner implements ScannerInterface
 
         $this->scan();
 
-        $return = array();
+        $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] != 'constant') {
                 continue;
@@ -414,7 +414,7 @@ class ClassScanner implements ScannerInterface
     {
         $this->scan();
 
-        $return = array();
+        $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] != 'property') {
                 continue;
@@ -435,7 +435,7 @@ class ClassScanner implements ScannerInterface
     {
         $this->scan();
 
-        $return = array();
+        $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] != 'property') {
                 continue;
@@ -547,7 +547,7 @@ class ClassScanner implements ScannerInterface
      */
     public function getTraitNames()
     {
-        $return = array();
+        $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] !== 'use') {
                 continue;
@@ -575,7 +575,7 @@ class ClassScanner implements ScannerInterface
      */
     public function getTraitAliases()
     {
-        $return = array();
+        $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] !== 'use') {
                 continue;
@@ -645,7 +645,7 @@ class ClassScanner implements ScannerInterface
      */
     protected function getBlockedTraitMethods()
     {
-        $return = array();
+        $return = [];
         foreach ($this->infos as $info) {
             if ($info['type'] !== 'use') {
                 continue;
@@ -684,7 +684,7 @@ class ClassScanner implements ScannerInterface
         $this->scan();
 
         $methods = $this->getMethods();
-        $return = array();
+        $return = [];
         foreach ($methods as $method) {
             $return[] = $method->getName();
         }
@@ -712,7 +712,7 @@ class ClassScanner implements ScannerInterface
 
             // Merge in trait methods
             if ($info['type'] === "use") {
-                $traitMethods = array();
+                $traitMethods = [];
                 $traits       = $this->getTraits();
                 $insteadof    = $this->getBlockedTraitMethods();
                 $aliases      = $this->getTraitAliases();
@@ -1041,7 +1041,7 @@ class ClassScanner implements ScannerInterface
 
                 case T_CONST:
 
-                    $infos[$infoIndex] = array(
+                    $infos[$infoIndex] = [
                         'type'          => 'constant',
                         'tokenStart'    => $tokenIndex,
                         'tokenEnd'      => null,
@@ -1049,7 +1049,7 @@ class ClassScanner implements ScannerInterface
                         'lineEnd'       => null,
                         'name'          => null,
                         'value'         => null,
-                    );
+                    ];
 
                     SCANNER_CLASS_BODY_CONST_TOP:
 
@@ -1080,21 +1080,21 @@ class ClassScanner implements ScannerInterface
                         define('T_INSTEADOF', 24000);
                     }
 
-                    $infos[$infoIndex] = array(
+                    $infos[$infoIndex] = [
                         'type'           => 'use',
                         'tokenStart'     => $tokenIndex,
                         'tokenEnd'       => null,
                         'lineStart'      => $tokens[$tokenIndex][2],
                         'lineEnd'        => null,
                         'name'           => $namespace,
-                        'use_statements' => array(0 => null),
-                        'aliases'        => array(0 => null),
-                    );
+                        'use_statements' => [0 => null],
+                        'aliases'        => [0 => null],
+                    ];
 
-                    $isOriginalName = array(T_STRING, T_DOUBLE_COLON);
-                    $isAlias        = array(T_STRING);
-                    $isVisibility   = array(T_PRIVATE, T_PROTECTED, T_PUBLIC, T_STATIC);
-                    $isAliasType    = array(T_AS, T_INSTEADOF);
+                    $isOriginalName = [T_STRING, T_DOUBLE_COLON];
+                    $isAlias        = [T_STRING];
+                    $isVisibility   = [T_PRIVATE, T_PROTECTED, T_PUBLIC, T_STATIC];
+                    $isAliasType    = [T_AS, T_INSTEADOF];
                     $isValidAlias   = array_merge($isOriginalName, $isAlias, $isVisibility, $isAliasType);
 
                     $useStatementIndex   = 0;
@@ -1113,12 +1113,12 @@ class ClassScanner implements ScannerInterface
                         if ($tokenContent === "{") {
                             $useStatementIndex = 0;
                             $useAliasContext   = true;
-                            $infos[$infoIndex]['aliases'][$useStatementIndex] = array(
+                            $infos[$infoIndex]['aliases'][$useStatementIndex] = [
                                 'original'   => null,
                                 'alias'      => null,
                                 'visibility' => null,
                                 'type'       => 'as'
-                            );
+                            ];
                         } elseif ($tokenContent === "}") {
                             $useAliasContext = false;
                             goto SCANNER_USE_END;
@@ -1148,12 +1148,12 @@ class ClassScanner implements ScannerInterface
                             if (in_array($tokenType, $isValidAlias)
                                 && empty($infos[$infoIndex]['aliases'][$useStatementIndex])
                             ) {
-                                $infos[$infoIndex]['aliases'][$useStatementIndex] = array(
+                                $infos[$infoIndex]['aliases'][$useStatementIndex] = [
                                     'original'   => null,
                                     'visibility' => null,
                                     'alias'      => null,
                                     'type'       => null
-                                );
+                                ];
                             }
 
                             if ($tokenType == T_AS || $tokenType == T_INSTEADOF) {
@@ -1197,14 +1197,14 @@ class ClassScanner implements ScannerInterface
                 case T_VAR:
                 case T_FUNCTION:
 
-                    $infos[$infoIndex] = array(
+                    $infos[$infoIndex] = [
                         'type'        => null,
                         'tokenStart'  => $tokenIndex,
                         'tokenEnd'    => null,
                         'lineStart'   => $tokenLine,
                         'lineEnd'     => null,
                         'name'        => null,
-                    );
+                    ];
 
                     $memberContext     = null;
                     $methodBodyStarted = false;

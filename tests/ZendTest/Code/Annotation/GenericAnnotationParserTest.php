@@ -28,11 +28,11 @@ class GenericAnnotationParserTest extends TestCase
     public function getFooEvent()
     {
         $event = new Event();
-        $event->setParams(array(
+        $event->setParams([
             'class' => __NAMESPACE__ . '\TestAsset\Foo',
             'content' => '(test content)',
             'raw' => '@' . __NAMESPACE__ . '\TestAsset\Foo(test content)',
-        ));
+        ]);
         return $event;
     }
 
@@ -66,10 +66,10 @@ class GenericAnnotationParserTest extends TestCase
 
     public function testParserAllowsPassingArrayOfAnnotationInstances()
     {
-        $this->parser->registerAnnotations(array(
+        $this->parser->registerAnnotations([
             new TestAsset\Foo(),
             new TestAsset\Bar(),
-        ));
+        ]);
         $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Foo'));
         $this->assertTrue($this->parser->hasAnnotation(__NAMESPACE__ . '\TestAsset\Bar'));
     }
@@ -107,7 +107,7 @@ class GenericAnnotationParserTest extends TestCase
 
     public function testRegisterAnnotations()
     {
-        $this->parser->registerAnnotations(array(new TestAsset\Foo));
+        $this->parser->registerAnnotations([new TestAsset\Foo]);
         $event = $this->getFooEvent();
         $test  = $this->parser->onCreateAnnotation($event);
         $this->assertInstanceOf(__NAMESPACE__ . '\TestAsset\Foo', $test);

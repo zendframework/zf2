@@ -46,13 +46,13 @@ class Document
      * Error list generated from transformation of document to DOMDocument
      * @var array
      */
-    protected $errors = array();
+    protected $errors = [];
 
     /**
      * XPath namespaces
      * @var array
      */
-    protected $xpathNamespaces = array();
+    protected $xpathNamespaces = [];
 
     /**
      * XPath PHP Functions
@@ -112,7 +112,7 @@ class Document
 
         $this->setType($forcedType ?: (!empty($document) ? $type : null));
         $this->setEncoding($forcedEncoding);
-        $this->setErrors(array());
+        $this->setErrors([]);
 
         return $this;
     }

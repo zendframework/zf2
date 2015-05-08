@@ -29,42 +29,42 @@ class SeparatorToCamelCase extends AbstractSeparator
         $pregQuotedSeparator = preg_quote($this->separator, '#');
 
         if (StringUtils::hasPcreUnicodeSupport()) {
-            $patterns = array(
+            $patterns = [
                 '#(' . $pregQuotedSeparator.')(\P{Z}{1})#u',
                 '#(^\P{Z}{1})#u',
-            );
+            ];
             if (!extension_loaded('mbstring')) {
-                $replacements = array(
+                $replacements = [
                     function ($matches) {
                         return strtoupper($matches[2]);
                     },
                     function ($matches) {
                         return strtoupper($matches[1]);
                     },
-                );
+                ];
             } else {
-                $replacements = array(
+                $replacements = [
                     function ($matches) {
                         return mb_strtoupper($matches[2], 'UTF-8');
                     },
                     function ($matches) {
                         return mb_strtoupper($matches[1], 'UTF-8');
                     },
-                );
+                ];
             }
         } else {
-            $patterns = array(
+            $patterns = [
                 '#(' . $pregQuotedSeparator.')([\S]{1})#',
                 '#(^[\S]{1})#',
-            );
-            $replacements = array(
+            ];
+            $replacements = [
                 function ($matches) {
                     return strtoupper($matches[2]);
                 },
                 function ($matches) {
                     return strtoupper($matches[1]);
                 },
-            );
+            ];
         }
 
         $filtered = $value;

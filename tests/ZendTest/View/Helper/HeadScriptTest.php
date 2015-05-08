@@ -314,14 +314,14 @@ document.write(bar.strlen());');
 
     public function testRenderingDoesNotRenderArbitraryAttributesByDefault()
     {
-        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', array('bogus' => 'deferred'));
+        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['bogus' => 'deferred']);
         $test = $this->helper->__invoke()->toString();
         $this->assertNotContains('bogus="deferred"', $test);
     }
 
     public function testCanRenderArbitraryAttributesOnRequest()
     {
-        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', array('bogus' => 'deferred'))
+        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['bogus' => 'deferred'])
              ->setAllowArbitraryAttributes(true);
         $test = $this->helper->__invoke()->toString();
         $this->assertContains('bogus="deferred"', $test);
@@ -365,14 +365,14 @@ document.write(bar.strlen());');
 
     public function testConditionalScript()
     {
-        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', array('conditional' => 'lt IE 7'));
+        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
         $test = $this->helper->__invoke()->toString();
         $this->assertContains('<!--[if lt IE 7]>', $test);
     }
 
     public function testConditionalScriptWidthIndentation()
     {
-        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', array('conditional' => 'lt IE 7'));
+        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
         $this->helper->__invoke()->setIndent(4);
         $test = $this->helper->__invoke()->toString();
         $this->assertContains('    <!--[if lt IE 7]>', $test);
@@ -382,7 +382,7 @@ document.write(bar.strlen());');
     {
         $this->helper->setAllowArbitraryAttributes(true);
         $this->helper->appendFile(
-            '/js/foo.js', 'text/javascript', array('conditional' => '!IE')
+            '/js/foo.js', 'text/javascript', ['conditional' => '!IE']
         );
         $test = $this->helper->toString();
 
@@ -394,7 +394,7 @@ document.write(bar.strlen());');
     {
         $this->helper->setAllowArbitraryAttributes(true);
         $this->helper->appendFile(
-            '/js/foo.js', 'text/javascript', array('conditional' => '! IE')
+            '/js/foo.js', 'text/javascript', ['conditional' => '! IE']
         );
         $test = $this->helper->toString();
 
@@ -426,7 +426,7 @@ document.write(bar.strlen());');
     public function testConditionalWithAllowArbitraryAttributesDoesNotIncludeConditionalScript()
     {
         $this->helper->__invoke()->setAllowArbitraryAttributes(true);
-        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', array('conditional' => 'lt IE 7'));
+        $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
         $test = $this->helper->__invoke()->toString();
 
         $this->assertNotContains('conditional', $test);
@@ -435,7 +435,7 @@ document.write(bar.strlen());');
     public function testNoEscapeWithAllowArbitraryAttributesDoesNotIncludeNoEscapeScript()
     {
         $this->helper->__invoke()->setAllowArbitraryAttributes(true);
-        $this->helper->__invoke()->appendScript('// some script', 'text/javascript', array('noescape' => true));
+        $this->helper->__invoke()->appendScript('// some script', 'text/javascript', ['noescape' => true]);
         $test = $this->helper->__invoke()->toString();
 
         $this->assertNotContains('noescape', $test);
@@ -443,7 +443,7 @@ document.write(bar.strlen());');
 
     public function testNoEscapeDefaultsToFalse()
     {
-        $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', array());
+        $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', []);
         $test = $this->helper->__invoke()->toString();
 
         $this->assertContains('//<!--', $test);
@@ -452,7 +452,7 @@ document.write(bar.strlen());');
 
     public function testNoEscapeTrue()
     {
-        $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', array('noescape' => true));
+        $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', ['noescape' => true]);
         $test = $this->helper->__invoke()->toString();
 
         $this->assertNotContains('//<!--', $test);
@@ -465,7 +465,7 @@ document.write(bar.strlen());');
     public function testSupportsCrossOriginAttribute()
     {
         $this->helper->__invoke()->appendScript(
-            '// some script' . PHP_EOL, 'text/javascript', array('crossorigin' => true)
+            '// some script' . PHP_EOL, 'text/javascript', ['crossorigin' => true]
         );
         $test = $this->helper->__invoke()->toString();
 

@@ -62,13 +62,13 @@ class ArrayOfTypeSequenceStrategyTest extends WsdlTestHelper
 
     public function dataProviderForFunctionReturningSimpleArrayOfBasicTypes()
     {
-        return array(
-            array('int', 'ArrayOfInt'),
-            array('string', 'ArrayOfString'),
-            array('boolean', 'ArrayOfBoolean'),
-            array('float', 'ArrayOfFloat'),
-            array('double', 'ArrayOfDouble'),
-        );
+        return [
+            ['int', 'ArrayOfInt'],
+            ['string', 'ArrayOfString'],
+            ['boolean', 'ArrayOfBoolean'],
+            ['float', 'ArrayOfFloat'],
+            ['double', 'ArrayOfDouble'],
+        ];
     }
 
     /**
@@ -111,46 +111,46 @@ class ArrayOfTypeSequenceStrategyTest extends WsdlTestHelper
      */
     public function dataProviderForNestedTypesDefinitions()
     {
-        return array(
-            array(
+        return [
+            [
                 'string[][]',
                 'ArrayOfArrayOfString',
-                array(
+                [
                     'ArrayOfString'                             =>'xsd:string',
                     'ArrayOfArrayOfString'                      =>'tns:ArrayOfString'
-                )
-            ),
+                ]
+            ],
 
-            array(
+            [
                 'string[][][]',
                 'ArrayOfArrayOfArrayOfString',
-                array(
+                [
                     'ArrayOfString'                             =>'xsd:string',
                     'ArrayOfArrayOfString'                      =>'tns:ArrayOfString',
                     'ArrayOfArrayOfArrayOfString'               =>'tns:ArrayOfArrayOfString'
-                )
-            ),
+                ]
+            ],
 
-            array(
+            [
                 'string[][][][]',
                 'ArrayOfArrayOfArrayOfArrayOfString',
-                array(
+                [
                     'ArrayOfString'                             =>'xsd:string',
                     'ArrayOfArrayOfString'                      =>'tns:ArrayOfString',
                     'ArrayOfArrayOfArrayOfString'               =>'tns:ArrayOfArrayOfString',
                     'ArrayOfArrayOfArrayOfArrayOfString'        =>'tns:ArrayOfArrayOfArrayOfString'
-                )
-            ),
+                ]
+            ],
 
-            array(
+            [
                 'int[][]',
                 'ArrayOfArrayOfInt',
-                array(
+                [
                     'ArrayOfInt'                                =>'xsd:int',
                     'ArrayOfArrayOfInt'                         =>'tns:ArrayOfInt'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     public function testAddComplexTypeObject()
@@ -197,10 +197,10 @@ class ArrayOfTypeSequenceStrategyTest extends WsdlTestHelper
         $nodes = $this->xpath->query('//wsdl:types/xsd:schema/xsd:complexType[@name="ComplexTypeB"]');
         $this->assertEquals(1, $nodes->length, 'Missing complex type definition.');
 
-        foreach (array(
+        foreach ([
                      'bar'          => 'xsd:string',
                      'foo'          => 'xsd:string',
-                 ) as $name => $type) {
+                 ] as $name => $type) {
             $node = $this->xpath->query('xsd:all/xsd:element[@name="'.$name.'"]', $nodes->item(0));
 
             $this->assertEquals($name,      $node->item(0)->getAttribute('name'),
@@ -216,10 +216,10 @@ class ArrayOfTypeSequenceStrategyTest extends WsdlTestHelper
 
 
         // array of class a and class b
-        foreach (array(
+        foreach ([
             'ArrayOfComplexTypeB'       =>      'ComplexTypeB',
             'ArrayOfComplexTypeA'       =>      'ComplexTypeA'
-                ) as $arrayTypeName => $typeName) {
+                ] as $arrayTypeName => $typeName) {
             $nodes = $this->xpath->query(
                         '//wsdl:types/xsd:schema/xsd:complexType[@name="'.$arrayTypeName.'"]'
                     );

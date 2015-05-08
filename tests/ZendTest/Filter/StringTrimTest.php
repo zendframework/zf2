@@ -40,11 +40,11 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
     public function testBasic()
     {
         $filter = $this->_filter;
-        $valuesExpected = array(
+        $valuesExpected = [
             'string' => 'string',
             ' str '  => 'str',
             "\ns\t"  => 's'
-            );
+            ];
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
         }
@@ -138,15 +138,15 @@ class StringTrimTest extends \PHPUnit_Framework_TestCase
 
     public function getNonStringValues()
     {
-        return array(
-            array(1),
-            array(1.0),
-            array(true),
-            array(false),
-            array(null),
-            array(array(1, 2, 3)),
-            array(new stdClass()),
-        );
+        return [
+            [1],
+            [1.0],
+            [true],
+            [false],
+            [null],
+            [[1, 2, 3]],
+            [new stdClass()],
+        ];
     }
 
     /**

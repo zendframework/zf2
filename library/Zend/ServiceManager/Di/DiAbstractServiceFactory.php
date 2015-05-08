@@ -24,7 +24,7 @@ class DiAbstractServiceFactory extends DiServiceFactory implements AbstractFacto
     public function __construct(Di $di, $useServiceLocator = self::USE_SL_NONE)
     {
         $this->di = $di;
-        if (in_array($useServiceLocator, array(self::USE_SL_BEFORE_DI, self::USE_SL_AFTER_DI, self::USE_SL_NONE))) {
+        if (in_array($useServiceLocator, [self::USE_SL_BEFORE_DI, self::USE_SL_AFTER_DI, self::USE_SL_NONE])) {
             $this->useServiceLocator = $useServiceLocator;
         }
 
@@ -40,10 +40,10 @@ class DiAbstractServiceFactory extends DiServiceFactory implements AbstractFacto
     {
         $this->serviceLocator = $serviceLocator;
         if ($requestedName) {
-            return $this->get($requestedName, array());
+            return $this->get($requestedName, []);
         }
 
-        return $this->get($name, array());
+        return $this->get($name, []);
     }
 
     /**

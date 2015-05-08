@@ -21,8 +21,8 @@ class PubSubHubbubTest extends \PHPUnit_Framework_TestCase
     public function testCanDetectHubs()
     {
         $feed = FeedReader::importFile(__DIR__ . '/_files/rss20.xml');
-        $this->assertEquals(array(
+        $this->assertEquals([
             'http://www.example.com/hub', 'http://www.example.com/hub2'
-        ), PubSubHubbub::detectHubs($feed));
+        ], PubSubHubbub::detectHubs($feed));
     }
 }

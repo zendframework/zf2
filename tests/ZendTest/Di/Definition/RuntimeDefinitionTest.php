@@ -31,26 +31,26 @@ class RuntimeDefinitionTest extends TestCase
         $definition->forceLoadClass('ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters');
 
         $this->assertSame(
-            array(
-                'ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters::__construct:0' => array(
+            [
+                'ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters::__construct:0' => [
                     'a',
                     null,
                     false,
                     null,
-                ),
-                'ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters::__construct:1' => array(
+                ],
+                'ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters::__construct:1' => [
                     'b',
                     null,
                     false,
                     'defaultConstruct',
-                ),
-                'ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters::__construct:2' => array(
+                ],
+                'ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters::__construct:2' => [
                     'c',
                     null,
                     false,
-                    array(),
-                ),
-            ),
+                    [],
+                ],
+            ],
             $definition->getMethodParameters(
                 'ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters',
                 '__construct'
@@ -65,26 +65,26 @@ class RuntimeDefinitionTest extends TestCase
         $definition->forceLoadClass('RecursiveIteratorIterator');
 
         $this->assertSame(
-            array(
-                'RecursiveIteratorIterator::__construct:0' => array(
+            [
+                'RecursiveIteratorIterator::__construct:0' => [
                     'iterator',
                     'Traversable',
                     true,
                     null,
-                ),
-                'RecursiveIteratorIterator::__construct:1' => array(
+                ],
+                'RecursiveIteratorIterator::__construct:1' => [
                     'mode',
                     null,
                     true,
                     null,
-                ),
-                'RecursiveIteratorIterator::__construct:2' => array(
+                ],
+                'RecursiveIteratorIterator::__construct:2' => [
                     'flags',
                     null,
                     true,
                     null,
-                ),
-            ),
+                ],
+            ],
             $definition->getMethodParameters(
                 'RecursiveIteratorIterator',
                 '__construct'
@@ -108,10 +108,10 @@ class RuntimeDefinitionTest extends TestCase
     public function testExplicitClassesStillGetProccessedByIntrospectionStrategy()
     {
         $className = 'ZendTest\Di\TestAsset\ConstructorInjection\OptionalParameters';
-        $explicitClasses = array($className => true);
+        $explicitClasses = [$className => true];
         $definition = new RuntimeDefinition(null, $explicitClasses);
 
         $this->assertTrue($definition->hasClass($className));
-        $this->assertSame(array("__construct"=> 3), $definition->getMethods($className));
+        $this->assertSame(["__construct"=> 3], $definition->getMethods($className));
     }
 }

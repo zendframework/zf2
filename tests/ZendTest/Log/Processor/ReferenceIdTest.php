@@ -19,12 +19,12 @@ class ReferenceIdTest extends \PHPUnit_Framework_TestCase
     public function testProcessMixesInReferenceId()
     {
         $processor      = new ReferenceId();
-        $processedEvent = $processor->process(array(
+        $processedEvent = $processor->process([
             'timestamp'    => '',
             'priority'     => 1,
             'priorityName' => 'ALERT',
             'message'      => 'foo',
-        ));
+        ]);
 
         $this->assertArrayHasKey('extra', $processedEvent);
         $this->assertInternalType('array', $processedEvent['extra']);
@@ -37,15 +37,15 @@ class ReferenceIdTest extends \PHPUnit_Framework_TestCase
     {
         $processor      = new ReferenceId();
         $referenceId    = 'bar';
-        $processedEvent = $processor->process(array(
+        $processedEvent = $processor->process([
             'timestamp'    => '',
             'priority'     => 1,
             'priorityName' => 'ALERT',
             'message'      => 'foo',
-            'extra'        => array(
+            'extra'        => [
                 'referenceId' => $referenceId,
-            ),
-        ));
+            ],
+        ]);
 
         $this->assertArrayHasKey('extra', $processedEvent);
         $this->assertInternalType('array', $processedEvent['extra']);
@@ -71,12 +71,12 @@ class ReferenceIdTest extends \PHPUnit_Framework_TestCase
 
         $processor->setReferenceId($referenceId);
 
-        $processedEvent = $processor->process(array(
+        $processedEvent = $processor->process([
             'timestamp'    => '',
             'priority'     => 1,
             'priorityName' => 'ALERT',
             'message'      => 'foo',
-        ));
+        ]);
 
         $this->assertArrayHasKey('extra', $processedEvent);
         $this->assertInternalType('array', $processedEvent['extra']);

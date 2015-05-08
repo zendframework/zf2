@@ -39,7 +39,7 @@ class Logger implements LoggerInterface
      *
      * @var array
      */
-    public static $errorPriorityMap = array(
+    public static $errorPriorityMap = [
         E_NOTICE            => self::NOTICE,
         E_USER_NOTICE       => self::NOTICE,
         E_WARNING           => self::WARN,
@@ -55,7 +55,7 @@ class Logger implements LoggerInterface
         E_STRICT            => self::DEBUG,
         E_DEPRECATED        => self::DEBUG,
         E_USER_DEPRECATED   => self::DEBUG,
-    );
+    ];
 
     /**
      * Registered error handler
@@ -83,7 +83,7 @@ class Logger implements LoggerInterface
      *
      * @var array
      */
-    protected $priorities = array(
+    protected $priorities = [
         self::EMERG  => 'EMERG',
         self::ALERT  => 'ALERT',
         self::CRIT   => 'CRIT',
@@ -92,7 +92,7 @@ class Logger implements LoggerInterface
         self::NOTICE => 'NOTICE',
         self::INFO   => 'INFO',
         self::DEBUG  => 'DEBUG',
-    );
+    ];
 
     /**
      * Writers
@@ -415,7 +415,7 @@ class Logger implements LoggerInterface
      * @throws Exception\InvalidArgumentException if extra can't be iterated over
      * @throws Exception\RuntimeException if no log writer specified
      */
-    public function log($priority, $message, $extra = array())
+    public function log($priority, $message, $extra = [])
     {
         if (!is_int($priority) || ($priority<0) || ($priority>=count($this->priorities))) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -448,13 +448,13 @@ class Logger implements LoggerInterface
             $message = var_export($message, true);
         }
 
-        $event = array(
+        $event = [
             'timestamp'    => $timestamp,
             'priority'     => (int) $priority,
             'priorityName' => $this->priorities[$priority],
             'message'      => (string) $message,
             'extra'        => $extra,
-        );
+        ];
 
         foreach ($this->processors->toArray() as $processor) {
             $event = $processor->process($event);
@@ -472,7 +472,7 @@ class Logger implements LoggerInterface
      * @param array|Traversable $extra
      * @return Logger
      */
-    public function emerg($message, $extra = array())
+    public function emerg($message, $extra = [])
     {
         return $this->log(self::EMERG, $message, $extra);
     }
@@ -482,7 +482,7 @@ class Logger implements LoggerInterface
      * @param array|Traversable $extra
      * @return Logger
      */
-    public function alert($message, $extra = array())
+    public function alert($message, $extra = [])
     {
         return $this->log(self::ALERT, $message, $extra);
     }
@@ -492,7 +492,7 @@ class Logger implements LoggerInterface
      * @param array|Traversable $extra
      * @return Logger
      */
-    public function crit($message, $extra = array())
+    public function crit($message, $extra = [])
     {
         return $this->log(self::CRIT, $message, $extra);
     }
@@ -502,7 +502,7 @@ class Logger implements LoggerInterface
      * @param array|Traversable $extra
      * @return Logger
      */
-    public function err($message, $extra = array())
+    public function err($message, $extra = [])
     {
         return $this->log(self::ERR, $message, $extra);
     }
@@ -512,7 +512,7 @@ class Logger implements LoggerInterface
      * @param array|Traversable $extra
      * @return Logger
      */
-    public function warn($message, $extra = array())
+    public function warn($message, $extra = [])
     {
         return $this->log(self::WARN, $message, $extra);
     }
@@ -522,7 +522,7 @@ class Logger implements LoggerInterface
      * @param array|Traversable $extra
      * @return Logger
      */
-    public function notice($message, $extra = array())
+    public function notice($message, $extra = [])
     {
         return $this->log(self::NOTICE, $message, $extra);
     }
@@ -532,7 +532,7 @@ class Logger implements LoggerInterface
      * @param array|Traversable $extra
      * @return Logger
      */
-    public function info($message, $extra = array())
+    public function info($message, $extra = [])
     {
         return $this->log(self::INFO, $message, $extra);
     }
@@ -542,7 +542,7 @@ class Logger implements LoggerInterface
      * @param array|Traversable $extra
      * @return Logger
      */
-    public function debug($message, $extra = array())
+    public function debug($message, $extra = [])
     {
         return $this->log(self::DEBUG, $message, $extra);
     }
@@ -574,11 +574,11 @@ class Logger implements LoggerInterface
                 } else {
                     $priority = Logger::INFO;
                 }
-                $logger->log($priority, $message, array(
+                $logger->log($priority, $message, [
                     'errno'   => $level,
                     'file'    => $file,
                     'line'    => $line,
-                ));
+                ]);
             }
 
             return !$continueNativeHandler;
@@ -620,14 +620,14 @@ class Logger implements LoggerInterface
             if (null === $error
                 || ! in_array(
                     $error['type'],
-                    array(
+                    [
                         E_ERROR,
                         E_PARSE,
                         E_CORE_ERROR,
                         E_CORE_WARNING,
                         E_COMPILE_ERROR,
                         E_COMPILE_WARNING
-                    ),
+                    ],
                     true
                 )
             ) {
@@ -636,10 +636,10 @@ class Logger implements LoggerInterface
 
             $logger->log($errorPriorityMap[$error['type']],
                 $error['message'],
-                array(
+                [
                     'file' => $error['file'],
                     'line' => $error['line'],
-                )
+                ]
             );
         });
 
@@ -670,7 +670,7 @@ class Logger implements LoggerInterface
         $errorPriorityMap = static::$errorPriorityMap;
 
         set_exception_handler(function ($exception) use ($logger, $errorPriorityMap) {
-            $logMessages = array();
+            $logMessages = [];
 
             do {
                 $priority = Logger::ERR;
@@ -678,20 +678,20 @@ class Logger implements LoggerInterface
                     $priority = $errorPriorityMap[$exception->getSeverity()];
                 }
 
-                $extra = array(
+                $extra = [
                     'file'  => $exception->getFile(),
                     'line'  => $exception->getLine(),
                     'trace' => $exception->getTrace(),
-                );
+                ];
                 if (isset($exception->xdebug_message)) {
                     $extra['xdebug'] = $exception->xdebug_message;
                 }
 
-                $logMessages[] = array(
+                $logMessages[] = [
                     'priority' => $priority,
                     'message'  => $exception->getMessage(),
                     'extra'    => $extra,
-                );
+                ];
                 $exception = $exception->getPrevious();
             } while ($exception);
 

@@ -40,7 +40,7 @@ class ParameterClass
 
     }
 
-    public function defaultArray($array = array())
+    public function defaultArray($array = [])
     {
 
     }
@@ -70,7 +70,7 @@ class ParameterClass
 
     }
 
-    public function defaultArrayWithValues($array = array(0 => 1, 1 => 2, 2 => 3))
+    public function defaultArrayWithValues($array = [0 => 1, 1 => 2, 2 => 3])
     {
 
     }

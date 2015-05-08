@@ -24,13 +24,13 @@ class CountTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $valuesExpected = array(
-            array(5, true, true, true, true),
-            array(array('min' => 0, 'max' => 3), true, true, true, false),
-            array(array('min' => 2, 'max' => 3), false, true, true, false),
-            array(array('min' => 2), false, true, true, true),
-            array(array('max' => 5), true, true, true, true),
-            );
+        $valuesExpected = [
+            [5, true, true, true, true],
+            [['min' => 0, 'max' => 3], true, true, true, false],
+            [['min' => 2, 'max' => 3], false, true, true, false],
+            [['min' => 2], false, true, true, true],
+            [['max' => 5], true, true, true, true],
+            ];
 
         foreach ($valuesExpected as $element) {
             $validator = new File\Count($element[0]);
@@ -64,14 +64,14 @@ class CountTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMin()
     {
-        $validator = new File\Count(array('min' => 1, 'max' => 5));
+        $validator = new File\Count(['min' => 1, 'max' => 5]);
         $this->assertEquals(1, $validator->getMin());
     }
 
     public function testGetMinGreaterThanOrEqualThrowsException()
     {
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator = new File\Count(array('min' => 5, 'max' => 1));
+        $validator = new File\Count(['min' => 5, 'max' => 1]);
     }
 
     /**
@@ -81,7 +81,7 @@ class CountTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMin()
     {
-        $validator = new File\Count(array('min' => 1000, 'max' => 10000));
+        $validator = new File\Count(['min' => 1000, 'max' => 10000]);
         $validator->setMin(100);
         $this->assertEquals(100, $validator->getMin());
 
@@ -96,11 +96,11 @@ class CountTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMax()
     {
-        $validator = new File\Count(array('min' => 1, 'max' => 100));
+        $validator = new File\Count(['min' => 1, 'max' => 100]);
         $this->assertEquals(100, $validator->getMax());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator = new File\Count(array('min' => 5, 'max' => 1));
+        $validator = new File\Count(['min' => 5, 'max' => 1]);
     }
 
     /**
@@ -110,7 +110,7 @@ class CountTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMax()
     {
-        $validator = new File\Count(array('min' => 1000, 'max' => 10000));
+        $validator = new File\Count(['min' => 1000, 'max' => 10000]);
         $validator->setMax(1000000);
         $this->assertEquals(1000000, $validator->getMax());
 

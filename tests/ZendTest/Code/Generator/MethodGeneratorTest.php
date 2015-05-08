@@ -29,7 +29,7 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testMethodParameterAccessors()
     {
         $methodGenerator = new MethodGenerator();
-        $methodGenerator->setParameters(array('one'));
+        $methodGenerator->setParameters(['one']);
         $params = $methodGenerator->getParameters();
         $param = array_shift($params);
         $this->assertInstanceOf('Zend\Code\Generator\ParameterGenerator', $param);
@@ -40,8 +40,8 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
         $methodGenerator = new MethodGenerator();
 
         $methodGenerator->setParameter('foo');
-        $methodGenerator->setParameter(array('name' => 'bar', 'type' => 'array'));
-        $methodGenerator->setParameter(ParameterGenerator::fromArray(array('name' => 'baz', 'type' => '\stdClass')));
+        $methodGenerator->setParameter(['name' => 'bar', 'type' => 'array']);
+        $methodGenerator->setParameter(ParameterGenerator::fromArray(['name' => 'baz', 'type' => '\stdClass']));
 
         $params = $methodGenerator->getParameters();
         $this->assertCount(3, $params);
@@ -52,7 +52,7 @@ class MethodGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $foo->getName());
 
         $bar = array_shift($params);
-        $this->assertEquals(ParameterGenerator::fromArray(array('name' => 'bar', 'type' => 'array')), $bar);
+        $this->assertEquals(ParameterGenerator::fromArray(['name' => 'bar', 'type' => 'array']), $bar);
 
         /** @var $baz ParameterGenerator */
         $baz = array_shift($params);
@@ -131,7 +131,7 @@ EOS;
     {
         $methodGenerator = new MethodGenerator();
         $methodGenerator->setName('foo');
-        $methodGenerator->setParameters(array('one'));
+        $methodGenerator->setParameters(['one']);
         $methodGenerator->setStatic(true);
 
         $expected = <<<EOS
@@ -151,7 +151,7 @@ EOS;
     {
         $methodGenerator = new MethodGenerator();
         $methodGenerator->setName('foo');
-        $methodGenerator->setParameters(array('one'));
+        $methodGenerator->setParameters(['one']);
         $methodGenerator->setFinal(true);
 
         $expected = <<<EOS
@@ -170,7 +170,7 @@ EOS;
     {
         $methodGenerator = new MethodGenerator();
         $methodGenerator->setName('foo');
-        $methodGenerator->setParameters(array('one'));
+        $methodGenerator->setParameters(['one']);
         $methodGenerator->setFinal(true);
         $methodGenerator->setAbstract(true);
 
@@ -187,7 +187,7 @@ EOS;
     {
         $methodGeneratorProperty = new MethodGenerator(
             'someFoo',
-            array(),
+            [],
             MethodGenerator::FLAG_STATIC | MethodGenerator::FLAG_PROTECTED,
             null,
             '@var string $someVal This is some val'
@@ -212,7 +212,7 @@ EOS;
     {
         $method = new MethodGenerator('setOptions');
         $default = new ValueGenerator();
-        $default->setValue(array());
+        $default->setValue([]);
 
         $param   = new ParameterGenerator('options', 'array');
         $param->setDefaultValue($default);
@@ -224,17 +224,17 @@ EOS;
 
     public function testCreateFromArray()
     {
-        $methodGenerator = MethodGenerator::fromArray(array(
+        $methodGenerator = MethodGenerator::fromArray([
             'name'       => 'SampleMethod',
             'body'       => 'foo',
-            'docblock'   => array(
+            'docblock'   => [
                 'shortdescription' => 'foo',
-            ),
+            ],
             'abstract'   => true,
             'final'      => true,
             'static'     => true,
             'visibility' => MethodGenerator::VISIBILITY_PROTECTED,
-        ));
+        ]);
 
         $this->assertEquals('SampleMethod', $methodGenerator->getName());
         $this->assertEquals('foo', $methodGenerator->getBody());

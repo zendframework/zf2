@@ -87,7 +87,7 @@ class PropertyGenerator extends AbstractMemberGenerator
         $property = new static($array['name']);
         foreach ($array as $name => $value) {
             // normalize key
-            switch (strtolower(str_replace(array('.', '-', '_'), '', $name))) {
+            switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'const':
                     $property->setConst($value);
                     break;

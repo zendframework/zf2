@@ -84,7 +84,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetContainerCreatesRegistryEntry()
     {
-        $foo = new Container(array('foo', 'bar'));
+        $foo = new Container(['foo', 'bar']);
         $this->assertFalse($this->registry->containerExists('foo'));
         $this->registry->setContainer('foo', $foo);
         $this->assertTrue($this->registry->containerExists('foo'));
@@ -92,7 +92,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testSetContainerCreatesRegistersContainerInstance()
     {
-        $foo = new Container(array('foo', 'bar'));
+        $foo = new Container(['foo', 'bar']);
         $this->assertFalse($this->registry->containerExists('foo'));
         $this->registry->setContainer('foo', $foo);
         $container = $this->registry->getContainer('foo');
@@ -143,17 +143,17 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     public function testSetValueCreateContainer()
     {
         $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\MockContainer');
-        $data = array(
+        $data = [
             'ZF-10793'
-        );
+        ];
         $container = $this->registry->createContainer('foo', $data);
-        $this->assertEquals(array('ZF-10793'), $container->data);
+        $this->assertEquals(['ZF-10793'], $container->data);
     }
 }
 
 class MockContainer extends Container\AbstractContainer
 {
-    public $data = array();
+    public $data = [];
 
     public function __construct($data)
     {

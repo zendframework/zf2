@@ -64,14 +64,14 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testCanSpecifyArrayForVars()
     {
-        $vars = array('foo' => 'bar');
+        $vars = ['foo' => 'bar'];
         $this->renderer->setVars($vars);
         $this->assertEquals($vars, $this->renderer->vars()->getArrayCopy());
     }
 
     public function testPassingArgumentToVarsReturnsValueFromThatKey()
     {
-        $this->renderer->vars()->assign(array('foo' => 'bar'));
+        $this->renderer->vars()->assign(['foo' => 'bar']);
         $this->assertEquals('bar', $this->renderer->vars('foo'));
     }
 
@@ -100,13 +100,13 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function invalidPluginManagers()
     {
-        return array(
-            array(true),
-            array(1),
-            array(1.0),
-            array(array('foo')),
-            array(new \stdClass),
-        );
+        return [
+            [true],
+            [1],
+            [1.0],
+            [['foo']],
+            [new \stdClass],
+        ];
     }
 
     /**
@@ -139,7 +139,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testRenderingAllowsVariableSubstitutions()
     {
         $expected = 'foo INJECT baz';
-        $this->renderer->vars()->assign(array('bar' => 'INJECT'));
+        $this->renderer->vars()->assign(['bar' => 'INJECT']);
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');
         $this->assertContains($expected, $test);
@@ -151,7 +151,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->renderer->getFilterChain()->attach(function ($content) {
             return str_replace('INJECT', 'bar', $content);
         });
-        $this->renderer->vars()->assign(array('bar' => 'INJECT'));
+        $this->renderer->vars()->assign(['bar' => 'INJECT']);
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');
         $this->assertContains($expected, $test);
@@ -161,7 +161,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     {
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $content = $this->renderer->render('test-with-helpers.phtml');
-        foreach (array('foo', 'bar', 'baz') as $value) {
+        foreach (['foo', 'bar', 'baz'] as $value) {
             $this->assertContains("<li>$value</li>", $content);
         }
     }
@@ -171,7 +171,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanSpecifyArrayForVarsAndGetAlwaysArrayObject()
     {
-        $vars = array('foo' => 'bar');
+        $vars = ['foo' => 'bar'];
         $this->renderer->setVars($vars);
         $this->assertInstanceOf('Zend\View\Variables', $this->renderer->vars());
     }
@@ -181,7 +181,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testPassingVariablesObjectToSetVarsShouldUseItDirectory()
     {
-        $vars = new Variables(array('foo' => '<p>Bar</p>'));
+        $vars = new Variables(['foo' => '<p>Bar</p>']);
         $this->renderer->setVars($vars);
         $this->assertSame($vars, $this->renderer->vars());
     }
@@ -193,7 +193,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     {
         $expected = "inner\n<p>content</p>";
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
-        $test = $this->renderer->render('testNestedOuter.phtml', array('content' => '<p>content</p>'));
+        $test = $this->renderer->render('testNestedOuter.phtml', ['content' => '<p>content</p>']);
         $this->assertEquals($expected, $test);
     }
 
@@ -244,7 +244,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testRenderingLocalVariables()
     {
         $expected = '10 > 9';
-        $this->renderer->vars()->assign(array('foo' => '10 > 9'));
+        $this->renderer->vars()->assign(['foo' => '10 > 9']);
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('testLocalVars.phtml');
         $this->assertContains($expected, $test);
@@ -252,10 +252,10 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testRendersTemplatesInAStack()
     {
-        $resolver = new TemplateMapResolver(array(
+        $resolver = new TemplateMapResolver([
             'layout' => __DIR__ . '/_templates/layout.phtml',
             'block'  => __DIR__ . '/_templates/block.phtml',
-        ));
+        ]);
         $this->renderer->setResolver($resolver);
 
         $content = $this->renderer->render('block');
@@ -267,9 +267,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanRenderViewModel()
     {
-        $resolver = new TemplateMapResolver(array(
+        $resolver = new TemplateMapResolver([
             'empty' => __DIR__ . '/_templates/empty.phtml',
-        ));
+        ]);
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
@@ -294,9 +294,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testRendersViewModelWithVariablesSpecified()
     {
-        $resolver = new TemplateMapResolver(array(
+        $resolver = new TemplateMapResolver([
             'test' => __DIR__ . '/_templates/test.phtml',
-        ));
+        ]);
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
@@ -312,9 +312,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderedViewModelIsRegisteredAsCurrentViewModel()
     {
-        $resolver = new TemplateMapResolver(array(
+        $resolver = new TemplateMapResolver([
             'empty' => __DIR__ . '/_templates/empty.phtml',
-        ));
+        ]);
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
@@ -328,9 +328,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testRendererRaisesExceptionInCaseOfExceptionInView()
     {
-        $resolver = new TemplateMapResolver(array(
+        $resolver = new TemplateMapResolver([
             'exception' => __DIR__ . '../../Mvc/View/_files/exception.phtml',
-        ));
+        ]);
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
@@ -347,17 +347,17 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testRendererRaisesExceptionIfResolverCannotResolveTemplate()
     {
         $expected = '10 &gt; 9';
-        $this->renderer->vars()->assign(array('foo' => '10 > 9'));
+        $this->renderer->vars()->assign(['foo' => '10 > 9']);
         $this->setExpectedException('Zend\View\Exception\RuntimeException', 'could not resolve');
         $test = $this->renderer->render('should-not-find-this');
     }
 
     public function invalidTemplateFiles()
     {
-        return array(
-            array('/does/not/exists'),
-            array('.')
-        );
+        return [
+            ['/does/not/exists'],
+            ['.']
+        ];
     }
 
     /**
@@ -365,9 +365,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testRendererRaisesExceptionIfResolvedTemplateIsInvalid($template)
     {
-        $resolver = new TemplateMapResolver(array(
+        $resolver = new TemplateMapResolver([
             'invalid' => $template,
-        ));
+        ]);
 
         set_error_handler(function ($errno, $errstr) { return true; }, E_WARNING);
 
@@ -414,9 +414,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $vars  = $model->getVariables();
         $vars['foo'] = 'BAR-BAZ-BAT';
 
-        $resolver = new TemplateMapResolver(array(
+        $resolver = new TemplateMapResolver([
             'template' => __DIR__ . '/_templates/view-model-variables.phtml',
-        ));
+        ]);
         $this->renderer->setResolver($resolver);
         $test = $this->renderer->render($model);
         $this->assertContains('BAR-BAZ-BAT', $test);

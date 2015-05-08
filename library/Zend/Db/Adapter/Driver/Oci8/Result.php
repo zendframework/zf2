@@ -52,7 +52,7 @@ class Result implements Iterator, ResultInterface
      *
      * @var array
      */
-    protected $statementBindValues = array('keys' => null, 'values' => array());
+    protected $statementBindValues = ['keys' => null, 'values' => []];
 
     /**
      * @var mixed

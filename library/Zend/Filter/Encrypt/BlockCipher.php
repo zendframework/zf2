@@ -33,11 +33,11 @@ class BlockCipher implements EncryptionAlgorithmInterface
      *     'vector'        => initialization vector
      * )
      */
-    protected $encryption = array(
+    protected $encryption = [
         'key_iteration'       => 5000,
         'algorithm'           => 'aes',
         'hash'                => 'sha256',
-    );
+    ];
 
     /**
      * BlockCipher
@@ -71,7 +71,7 @@ class BlockCipher implements EncryptionAlgorithmInterface
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
         } elseif (is_string($options)) {
-            $options = array('key' => $options);
+            $options = ['key' => $options];
         } elseif (!is_array($options)) {
             throw new Exception\InvalidArgumentException('Invalid options argument provided to filter');
         }
@@ -223,7 +223,7 @@ class BlockCipher implements EncryptionAlgorithmInterface
     public function setCompression($compression)
     {
         if (is_string($this->compression)) {
-            $compression = array('adapter' => $compression);
+            $compression = ['adapter' => $compression];
         }
 
         $this->compression = $compression;

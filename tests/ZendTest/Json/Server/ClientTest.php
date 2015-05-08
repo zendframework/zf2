@@ -40,7 +40,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->httpAdapter = new TestAdapter();
         $this->httpClient = new HttpClient('http://foo',
-                                    array('adapter' => $this->httpAdapter));
+                                    ['adapter' => $this->httpAdapter]);
 
         $this->jsonClient = new Client('http://foo');
         $this->jsonClient->setHttpClient($this->httpClient);
@@ -101,7 +101,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $response = $this->jsonClient->getLastResponse();
 
         $this->assertSame($expectedMethod, $request->getMethod());
-        $this->assertSame(array(), $request->getParams());
+        $this->assertSame([], $request->getParams());
         $this->assertSame($expectedReturn, $response->getResult());
         $this->assertFalse($response->isError());
     }
@@ -109,8 +109,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSuccessfulRpcMethodCallWithParameters()
     {
         $expectedMethod = 'foobar';
-        $expectedParams = array(1, 1.1, true, 'foo' => 'bar');
-        $expectedReturn = array(7, false, 'foo' => 'bar');
+        $expectedParams = [1, 1.1, true, 'foo' => 'bar'];
+        $expectedReturn = [7, false, 'foo' => 'bar'];
 
         $this->setServerResponseTo($expectedReturn);
 
@@ -182,7 +182,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $baseUri = 'http://foo:80/';
         $this->httpAdapter = new TestAdapter();
-        $this->httpClient = new HttpClient(null, array('adapter' => $this->httpAdapter));
+        $this->httpClient = new HttpClient(null, ['adapter' => $this->httpAdapter]);
 
         $this->jsonClient = new Client($baseUri);
         $this->jsonClient->setHttpClient($this->httpClient);
@@ -210,7 +210,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedUserAgent = 'Zend_Json_Server_Client (custom)';
-        $this->httpClient->setHeaders(array('User-Agent' => $expectedUserAgent));
+        $this->httpClient->setHeaders(['User-Agent' => $expectedUserAgent]);
 
         $this->setServerResponseTo(null);
         $this->assertNull($this->jsonClient->call('method'));
@@ -247,11 +247,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function makeHttpResponseFrom($data, $status=200, $message='OK')
     {
-        $headers = array("HTTP/1.1 $status $message",
+        $headers = ["HTTP/1.1 $status $message",
                          "Status: $status",
                          'Content-Type: application/json',
                          'Content-Length: ' . strlen($data)
-                         );
+                         ];
         return implode("\r\n", $headers) . "\r\n\r\n$data\r\n\r\n";
     }
 

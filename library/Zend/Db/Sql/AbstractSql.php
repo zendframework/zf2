@@ -22,17 +22,17 @@ abstract class AbstractSql implements SqlInterface
      *
      * @var string[]|array[]
      */
-    protected $specifications = array();
+    protected $specifications = [];
 
     /**
      * @var string
      */
-    protected $processInfo = array('paramPrefix' => '', 'subselectCount' => 0);
+    protected $processInfo = ['paramPrefix' => '', 'subselectCount' => 0];
 
     /**
      * @var array
      */
-    protected $instanceParameterIndex = array();
+    protected $instanceParameterIndex = [];
 
     /**
      * {@inheritDoc}
@@ -56,8 +56,8 @@ abstract class AbstractSql implements SqlInterface
     ) {
         $this->localizeVariables();
 
-        $sqls       = array();
-        $parameters = array();
+        $sqls       = [];
+        $parameters = [];
 
         foreach ($this->specifications as $name => $specification) {
             $parameters[$name] = $this->{'process' . $name}(
@@ -145,7 +145,7 @@ abstract class AbstractSql implements SqlInterface
             // Process values and types (the middle and last position of the
             // expression data)
             $values = $part[1];
-            $types = isset($part[2]) ? $part[2] : array();
+            $types = isset($part[2]) ? $part[2] : [];
             foreach ($values as $vIndex => $value) {
                 if (!isset($types[$vIndex])) {
                     continue;
@@ -222,10 +222,10 @@ abstract class AbstractSql implements SqlInterface
             );
         }
 
-        $topParameters = array();
+        $topParameters = [];
         foreach ($parameters as $position => $paramsForPosition) {
             if (isset($paramSpecs[$position]['combinedby'])) {
-                $multiParamValues = array();
+                $multiParamValues = [];
                 foreach ($paramsForPosition as $multiParamsForPosition) {
                     $ppCount = count($multiParamsForPosition);
                     if (!isset($paramSpecs[$position][$ppCount])) {

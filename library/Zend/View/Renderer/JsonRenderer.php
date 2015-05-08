@@ -191,7 +191,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      */
     protected function recurseModel(Model $model, $mergeWithVariables = true)
     {
-        $values = array();
+        $values = [];
         if ($mergeWithVariables) {
             $values = $model->getVariables();
         }

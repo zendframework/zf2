@@ -25,14 +25,14 @@ class Curl implements HttpAdapter, StreamInterface
      *
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * What host/port are we connected to?
      *
      * @var array
      */
-    protected $connectedTo = array(null, null);
+    protected $connectedTo = [null, null];
 
     /**
      * The curl session handle
@@ -76,7 +76,7 @@ class Curl implements HttpAdapter, StreamInterface
                 'cURL extension has to be loaded to use this Zend\Http\Client adapter'
             );
         }
-        $this->invalidOverwritableCurlOptions = array(
+        $this->invalidOverwritableCurlOptions = [
             CURLOPT_HTTPGET,
             CURLOPT_POST,
             CURLOPT_UPLOAD,
@@ -89,7 +89,7 @@ class Curl implements HttpAdapter, StreamInterface
             CURLOPT_PORT,
             CURLOPT_MAXREDIRS,
             CURLOPT_CONNECTTIMEOUT,
-        );
+        ];
     }
 
     /**
@@ -99,7 +99,7 @@ class Curl implements HttpAdapter, StreamInterface
      * @return Curl
      * @throws AdapterException\InvalidArgumentException
      */
-    public function setOptions($options = array())
+    public function setOptions($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -113,7 +113,7 @@ class Curl implements HttpAdapter, StreamInterface
         /** Config Key Normalization */
         foreach ($options as $k => $v) {
             unset($options[$k]); // unset original value
-            $options[str_replace(array('-', '_', ' ', '.'), '', strtolower($k))] = $v; // replace w/ normalized
+            $options[str_replace(['-', '_', ' ', '.'], '', strtolower($k))] = $v; // replace w/ normalized
         }
 
         if (isset($options['proxyuser']) && isset($options['proxypass'])) {
@@ -167,7 +167,7 @@ class Curl implements HttpAdapter, StreamInterface
     public function setCurlOption($option, $value)
     {
         if (!isset($this->config['curloptions'])) {
-            $this->config['curloptions'] = array();
+            $this->config['curloptions'] = [];
         }
         $this->config['curloptions'][$option] = $value;
         return $this;
@@ -231,7 +231,7 @@ class Curl implements HttpAdapter, StreamInterface
         }
 
         // Update connected_to
-        $this->connectedTo = array($host, $port);
+        $this->connectedTo = [$host, $port];
     }
 
     /**
@@ -248,7 +248,7 @@ class Curl implements HttpAdapter, StreamInterface
      *     cURL option.
      * @throws AdapterException\InvalidArgumentException if $method is currently not supported
      */
-    public function write($method, $uri, $httpVersion = 1.1, $headers = array(), $body = '')
+    public function write($method, $uri, $httpVersion = 1.1, $headers = [], $body = '')
     {
         // Make sure we're properly connected
         if (!$this->curl) {
@@ -351,7 +351,7 @@ class Curl implements HttpAdapter, StreamInterface
         if ($this->outputStream) {
             // headers will be read into the response
             curl_setopt($this->curl, CURLOPT_HEADER, false);
-            curl_setopt($this->curl, CURLOPT_HEADERFUNCTION, array($this, "readHeader"));
+            curl_setopt($this->curl, CURLOPT_HEADERFUNCTION, [$this, "readHeader"]);
             // and data will be written into the file
             curl_setopt($this->curl, CURLOPT_FILE, $this->outputStream);
         } else {
@@ -373,7 +373,7 @@ class Curl implements HttpAdapter, StreamInterface
         if (!isset($headers['Accept'])) {
             $headers['Accept'] = '';
         }
-        $curlHeaders = array();
+        $curlHeaders = [];
         foreach ($headers as $key => $value) {
             $curlHeaders[] = $key . ': ' . $value;
         }
@@ -384,7 +384,7 @@ class Curl implements HttpAdapter, StreamInterface
          * Make sure POSTFIELDS is set after $curlMethod is set:
          * @link http://de2.php.net/manual/en/function.curl-setopt.php#81161
          */
-        if (in_array($method, array('POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'), true)) {
+        if (in_array($method, ['POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], true)) {
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);
         } elseif ($curlMethod == CURLOPT_UPLOAD) {
             // this covers a PUT by file-handle:
@@ -484,7 +484,7 @@ class Curl implements HttpAdapter, StreamInterface
             curl_close($this->curl);
         }
         $this->curl         = null;
-        $this->connectedTo = array(null, null);
+        $this->connectedTo = [null, null];
     }
 
     /**

@@ -17,18 +17,18 @@ class UrlTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes()
     {
         $element = new UrlElement();
-        $element->setAttributes(array(
+        $element->setAttributes([
             'allowAbsolute' => true,
             'allowRelative' => false
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Uri'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);

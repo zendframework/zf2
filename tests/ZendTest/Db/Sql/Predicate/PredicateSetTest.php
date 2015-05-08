@@ -35,10 +35,10 @@ class PredicateSetTest extends TestCase
     public function testCanPassPredicatesAndDefaultCombinationViaConstructor()
     {
         $predicateSet = new PredicateSet();
-        $set = new PredicateSet(array(
+        $set = new PredicateSet([
             new IsNull('foo'),
             new IsNull('bar'),
-        ), 'OR');
+        ], 'OR');
         $parts = $set->getExpressionData();
         $this->assertEquals(3, count($parts));
         $this->assertContains('OR', $parts[1]);
@@ -93,12 +93,12 @@ class PredicateSetTest extends TestCase
         $predicateSet = new PredicateSet();
 
         $predicateSet->addPredicates('x = y');
-        $predicateSet->addPredicates(array('foo > ?' => 5));
-        $predicateSet->addPredicates(array('id' => 2));
-        $predicateSet->addPredicates(array('a = b'), PredicateSet::OP_OR);
-        $predicateSet->addPredicates(array('c1' => null));
-        $predicateSet->addPredicates(array('c2' => array(1, 2, 3)));
-        $predicateSet->addPredicates(array(new \Zend\Db\Sql\Predicate\IsNotNull('c3')));
+        $predicateSet->addPredicates(['foo > ?' => 5]);
+        $predicateSet->addPredicates(['id' => 2]);
+        $predicateSet->addPredicates(['a = b'], PredicateSet::OP_OR);
+        $predicateSet->addPredicates(['c1' => null]);
+        $predicateSet->addPredicates(['c2' => [1, 2, 3]]);
+        $predicateSet->addPredicates([new \Zend\Db\Sql\Predicate\IsNotNull('c3')]);
 
         $predicates = $this->readAttribute($predicateSet, 'predicates');
         $this->assertEquals('AND', $predicates[0][0]);

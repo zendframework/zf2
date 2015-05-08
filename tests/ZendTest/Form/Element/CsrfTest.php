@@ -22,9 +22,9 @@ class CsrfTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Csrf'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -50,7 +50,7 @@ class CsrfTest extends TestCase
     public function testAllowSettingCsrfValidatorOptions()
     {
         $element = new CsrfElement('foo');
-        $element->setCsrfValidatorOptions(array('timeout' => 777));
+        $element->setCsrfValidatorOptions(['timeout' => 777]);
         $validator = $element->getCsrfValidator();
         $this->assertEquals('foo', $validator->getName());
         $this->assertEquals(777, $validator->getTimeout());
@@ -59,11 +59,11 @@ class CsrfTest extends TestCase
     public function testAllowSettingCsrfOptions()
     {
         $element = new CsrfElement('foo');
-        $element->setOptions(array(
-            'csrf_options' => array(
+        $element->setOptions([
+            'csrf_options' => [
                 'timeout' => 777,
-                'salt' => 'MySalt')
-            ));
+                'salt' => 'MySalt']
+            ]);
         $validator = $element->getCsrfValidator();
         $this->assertEquals('foo', $validator->getName());
         $this->assertEquals(777, $validator->getTimeOut());

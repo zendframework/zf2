@@ -60,7 +60,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
 
         $this->locale               = Locale::getDefault();
         $language                   = Locale::getPrimaryLanguage($this->locale);
-        self::$meansEnglishAlphabet = in_array($language, array('ja'));
+        self::$meansEnglishAlphabet = in_array($language, ['ja']);
         self::$unicodeEnabled       = (bool) @preg_match('/\pL/u', 'a');
     }
 
@@ -73,12 +73,12 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
     {
         if (!self::$unicodeEnabled) {
             // POSIX named classes are not supported, use alternative a-zA-Z match
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'        => 'abc',
                 'abc 123'       => 'abc',
                 'abcxyz'        => 'abcxyz',
                 ''              => ''
-            );
+            ];
         } elseif (self::$meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
             /**
@@ -89,16 +89,16 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
              * The forth  contains various multibyte or singlebyte characters.
              * The last contains only singlebyte alphabets.
              */
-            $valuesExpected = array(
+            $valuesExpected = [
                 'aＡBｂc'       => 'aBc',
                 'z Ｙ　x'       => 'zx',
                 'Ｗ1v３Ｕ4t'    => 'vt',
                 '，sй.rλ:qν＿p' => 'srqp',
                 'onml'          => 'onml'
-            );
+            ];
         } else {
             //The Alphabet means each language's alphabet.
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'        => 'abc',
                 'abc 123'       => 'abc',
                 'abcxyz'        => 'abcxyz',
@@ -107,7 +107,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
                 'grzegżółka'    => 'grzegżółka',
                 'België'        => 'België',
                 ''              => ''
-            );
+            ];
         }
 
         foreach ($valuesExpected as $input => $expected) {
@@ -127,24 +127,24 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
 
         if (!self::$unicodeEnabled) {
             // POSIX named classes are not supported, use alternative a-zA-Z match
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'   => 'abc',
                 'abc 123'  => 'abc ',
                 'abcxyz'   => 'abcxyz',
                 ''         => '',
                 "\n"       => "\n",
                 " \t "     => " \t "
-            );
+            ];
         }
         if (self::$meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
-            $valuesExpected = array(
+            $valuesExpected = [
                 'a B'    => 'a B',
                 'zＹ　x' => 'zx'
-            );
+            ];
         } else {
             //The Alphabet means each language's alphabet.
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'        => 'abc',
                 'abc 123'       => 'abc ',
                 'abcxyz'        => 'abcxyz',
@@ -155,7 +155,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
                 ''              => '',
                 "\n"            => "\n",
                 " \t "          => " \t "
-                );
+                ];
         }
 
         foreach ($valuesExpected as $input => $expected) {
@@ -168,12 +168,12 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new AlphaFilter();
 
-        $values = array(
+        $values = [
             'abc123'        => 'abc',
             'abc 123'       => 'abc',
             'abcxyz'        => 'abcxyz',
             ''              => ''
-        );
+        ];
 
         $actual = $filter->filter(array_keys($values));
 
@@ -182,10 +182,10 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass())
-        );
+        return [
+            [null],
+            [new \stdClass()]
+        ];
     }
 
     /**

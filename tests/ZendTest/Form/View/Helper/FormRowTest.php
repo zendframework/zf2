@@ -63,9 +63,9 @@ class FormRowTest extends TestCase
     public function testCanCreateLabelValueAfterInput()
     {
         $element = new Element('foo');
-        $element->setOptions(array(
+        $element->setOptions([
             'label' => 'The value for foo:',
-        ));
+        ]);
         $this->helper->setLabelPosition('append');
         $markup = $this->helper->render($element);
         $this->assertContains('<label><input', $markup);
@@ -75,17 +75,17 @@ class FormRowTest extends TestCase
     public function testCanOverrideLabelPosition()
     {
         $fooElement = new Element('foo');
-        $fooElement->setOptions(array(
+        $fooElement->setOptions([
             'label'         => 'The value for foo:',
-            'label_options' => array(
+            'label_options' => [
                 'label_position' =>'prepend'
-            ),
-        ));
+            ],
+        ]);
 
         $barElement = new Element('bar');
-        $barElement->setOptions(array(
+        $barElement->setOptions([
             'label' => 'The value for bar:',
-        ));
+        ]);
 
         $this->helper->setLabelPosition('append');
 
@@ -102,7 +102,7 @@ class FormRowTest extends TestCase
     {
         $element = new Element('foo');
         $element->setLabel('The value for foo:');
-        $element->setLabelAttributes(array('class' => 'bar'));
+        $element->setLabelAttributes(['class' => 'bar']);
         $this->helper->setLabelPosition('append');
         $markup = $this->helper->render($element);
         $this->assertContains("<label class=\"bar\">", $markup);
@@ -126,11 +126,11 @@ class FormRowTest extends TestCase
 
     public function testCanHandleMultiCheckboxesCorrectly()
     {
-        $options = array(
+        $options = [
             'This is the first label' => 'value1',
             'This is the second label' => 'value2',
             'This is the third label' => 'value3',
-        );
+        ];
 
         $element = new Element\MultiCheckbox('foo');
         $element->setAttribute('type', 'multi_checkbox');
@@ -157,11 +157,11 @@ class FormRowTest extends TestCase
     public function testCanRenderErrors()
     {
         $element  = new Element('foo');
-        $element->setMessages(array(
+        $element->setMessages([
             'First error message',
             'Second error message',
             'Third error message',
-        ));
+        ]);
 
         $markup = $this->helper->render($element);
         $this->assertRegexp('#<ul>\s*<li>First error message</li>\s*<li>Second error message</li>\s*<li>Third error message</li>\s*</ul>#s', $markup);
@@ -170,11 +170,11 @@ class FormRowTest extends TestCase
     public function testDoesNotRenderErrorsListIfSetToFalse()
     {
         $element  = new Element('foo');
-        $element->setMessages(array(
+        $element->setMessages([
             'First error message',
             'Second error message',
             'Third error message',
-        ));
+        ]);
 
         $markup = $this->helper->setRenderErrors(false)->render($element);
         $this->assertRegexp('/<input name="foo" class="input-error" type="text" [^\/>]*\/?>/', $markup);
@@ -183,9 +183,9 @@ class FormRowTest extends TestCase
     public function testCanModifyDefaultErrorClass()
     {
         $element  = new Element('foo');
-        $element->setMessages(array(
+        $element->setMessages([
             'Error message'
-        ));
+        ]);
 
         $markup = $this->helper->setInputErrorClass('custom-error-class')->render($element);
         $this->assertRegexp('/<input name="foo" class="custom-error-class" type="text" [^\/>]*\/?>/', $markup);
@@ -194,9 +194,9 @@ class FormRowTest extends TestCase
     public function testDoesNotOverrideClassesIfAlreadyPresentWhenThereAreErrors()
     {
         $element  = new Element('foo');
-        $element->setMessages(array(
+        $element->setMessages([
             'Error message'
-        ));
+        ]);
         $element->setAttribute('class', 'foo bar');
 
         $markup = $this->helper->setInputErrorClass('custom-error-class')->render($element);
@@ -282,8 +282,8 @@ class FormRowTest extends TestCase
 
     public function testSetLabelAttributes()
     {
-        $this->helper->setLabelAttributes(array('foo', 'bar'));
-        $this->assertEquals(array(0 => 'foo', 1 => 'bar'), $this->helper->getLabelAttributes());
+        $this->helper->setLabelAttributes(['foo', 'bar']);
+        $this->assertEquals([0 => 'foo', 1 => 'bar'], $this->helper->getLabelAttributes());
     }
 
     public function testWhenUsingIdAndLabelBecomesEmptyRemoveSpan()
@@ -306,13 +306,13 @@ class FormRowTest extends TestCase
     {
         $element = new Element\MultiCheckbox('hobby');
         $element->setLabel("Hobby");
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             '0'=>'working',
             '1'=>'coding'
-        ));
-        $element->setMessages(array(
+        ]);
+        $element->setMessages([
             'Error message'
-        ));
+        ]);
 
         $markup = $this->helper->__invoke($element);
         $this->assertContains('<ul><li>Error message</li></ul>', $markup);
@@ -322,13 +322,13 @@ class FormRowTest extends TestCase
     {
         $element = new Element\Radio('direction');
         $element->setLabel("Direction");
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             '0'=>'programming',
             '1'=>'design'
-        ));
-        $element->setMessages(array(
+        ]);
+        $element->setMessages([
             'Error message'
-        ));
+        ]);
 
         $markup = $this->helper->__invoke($element);
         $this->assertContains('<ul><li>Error message</li></ul>', $markup);
@@ -350,7 +350,7 @@ class FormRowTest extends TestCase
 
     public function testInvokeWithNoRenderErrors()
     {
-        $mock = $this->getMock(get_class($this->helper), array('setRenderErrors'));
+        $mock = $this->getMock(get_class($this->helper), ['setRenderErrors']);
         $mock->expects($this->never())
                 ->method('setRenderErrors');
 
@@ -359,7 +359,7 @@ class FormRowTest extends TestCase
 
     public function testInvokeWithRenderErrorsTrue()
     {
-        $mock = $this->getMock(get_class($this->helper), array('setRenderErrors'));
+        $mock = $this->getMock(get_class($this->helper), ['setRenderErrors']);
         $mock->expects($this->once())
                 ->method('setRenderErrors')
                 ->with(true);
@@ -419,7 +419,7 @@ class FormRowTest extends TestCase
         $label = '<span>foo</span>';
         $element = new Element('fooname');
         $element->setLabel($label);
-        $element->setLabelOptions(array('disable_html_escape' => true));
+        $element->setLabelOptions(['disable_html_escape' => true]);
 
         $markup = $this->helper->__invoke($element);
 
@@ -503,11 +503,11 @@ class FormRowTest extends TestCase
 
     public function testCanSetOptionToWrapElementInLabel()
     {
-        $element = new Element('foo', array(
-            'label_options' => array(
+        $element = new Element('foo', [
+            'label_options' => [
                 'always_wrap' => true
-            )
-        ));
+            ]
+        ]);
         $element->setAttribute('id', 'bar');
         $element->setLabel('baz');
 
@@ -526,10 +526,10 @@ class FormRowTest extends TestCase
             . '<input name="captcha&\#x5B;id&\#x5D;" type="hidden" value="[a-z0-9]{32}"\/?>'
             . '<input name="captcha&\#x5B;input&\#x5D;" type="text"\/?>'
             . '<\/fieldset>$#',
-            $this->helper->render(new Captcha('captcha', array(
-                'captcha' => array('class' => 'dumb'),
+            $this->helper->render(new Captcha('captcha', [
+                'captcha' => ['class' => 'dumb'],
                 'label' => 'baz'
-            )))
+            ]))
         );
     }
 }

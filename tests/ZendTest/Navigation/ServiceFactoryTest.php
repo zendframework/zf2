@@ -35,47 +35,47 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $config = array(
-            'modules'                 => array(),
-            'module_listener_options' => array(
+        $config = [
+            'modules'                 => [],
+            'module_listener_options' => [
                 'config_cache_enabled' => false,
                 'cache_dir'            => 'data/cache',
-                'module_paths'         => array(),
-                'extra_config'         => array(
-                    'service_manager' => array(
-                        'factories' => array(
+                'module_paths'         => [],
+                'extra_config'         => [
+                    'service_manager' => [
+                        'factories' => [
                             'Config' => function () {
-                                return array(
-                                    'navigation' => array(
+                                return [
+                                    'navigation' => [
                                         'file'    => __DIR__ . '/_files/navigation.xml',
-                                        'default' => array(
-                                            array(
+                                        'default' => [
+                                            [
                                                 'label' => 'Page 1',
                                                 'uri'   => 'page1.html'
-                                            ),
-                                            array(
+                                            ],
+                                            [
                                                 'label' => 'MVC Page',
                                                 'route' => 'foo',
-                                                'pages' => array(
-                                                    array(
+                                                'pages' => [
+                                                    [
                                                         'label' => 'Sub MVC Page',
                                                         'route' => 'foo'
-                                                    )
-                                                )
-                                            ),
-                                            array(
+                                                    ]
+                                                ]
+                                            ],
+                                            [
                                                 'label' => 'Page 3',
                                                 'uri'   => 'page3.html'
-                                            )
-                                        )
-                                    )
-                                );
+                                            ]
+                                        ]
+                                    ]
+                                ];
                             }
-                        )
-                    ),
-                )
-            ),
-        );
+                        ]
+                    ],
+                ]
+            ],
+        ];
 
         $sm = $this->serviceManager = new ServiceManager(new ServiceManagerConfig);
         $sm->setService('ApplicationConfig', $config);
@@ -83,11 +83,11 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $sm->get('Application')->bootstrap();
 
         $app = $this->serviceManager->get('Application');
-        $app->getMvcEvent()->setRouteMatch(new RouteMatch(array(
+        $app->getMvcEvent()->setRouteMatch(new RouteMatch([
             'controller' => 'post',
             'action'     => 'view',
             'id'         => '1337',
-        )));
+        ]));
     }
 
     /**
@@ -133,8 +133,8 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
     public function testConstructedNavigationFactoryInjectRouterAndMatcher()
     {
         $builder = $this->getMockBuilder('\Zend\Navigation\Service\ConstructedNavigationFactory');
-        $builder->setConstructorArgs(array(__DIR__ . '/_files/navigation_mvc.xml'))
-                ->setMethods(array('injectComponents'));
+        $builder->setConstructorArgs([__DIR__ . '/_files/navigation_mvc.xml'])
+                ->setMethods(['injectComponents']);
 
         $factory = $builder->getMock();
 
@@ -192,20 +192,20 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructedFromArray()
     {
-        $argument = array(
-            array(
+        $argument = [
+            [
                 'label' => 'Page 1',
                 'uri'   => 'page1.html'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri'   => 'page2.html'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 3',
                 'uri'   => 'page3.html'
-            )
-        );
+            ]
+        ];
 
         $factory = new ConstructedNavigationFactory($argument);
         $this->serviceManager->setFactory('Navigation', $factory);
@@ -232,20 +232,20 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructedFromConfig()
     {
-        $argument = new Config\Config(array(
-            array(
+        $argument = new Config\Config([
+            [
                 'label' => 'Page 1',
                 'uri'   => 'page1.html'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri'   => 'page2.html'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 3',
                 'uri'   => 'page3.html'
-            )
-        ));
+            ]
+        ]);
 
         $factory = new ConstructedNavigationFactory($argument);
         $this->serviceManager->setFactory('Navigation', $factory);

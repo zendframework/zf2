@@ -17,7 +17,7 @@ class MockDbAdapter extends DbAdapter
     public $plaftorm;
     public $driver;
 
-    public $calls = array();
+    public $calls = [];
 
     public function __call($method, $params)
     {

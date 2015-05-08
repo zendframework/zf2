@@ -50,7 +50,7 @@ class Links extends AbstractHelper
      *
      * @var array
      */
-    protected static $RELATIONS = array(
+    protected static $RELATIONS = [
         self::RENDER_ALTERNATE  => 'alternate',
         self::RENDER_STYLESHEET => 'stylesheet',
         self::RENDER_START      => 'start',
@@ -66,7 +66,7 @@ class Links extends AbstractHelper
         self::RENDER_APPENDIX   => 'appendix',
         self::RENDER_HELP       => 'help',
         self::RENDER_BOOKMARK   => 'bookmark',
-    );
+    ];
 
     /**
      * The helper's render flag
@@ -119,7 +119,7 @@ class Links extends AbstractHelper
      * @return mixed
      * @throws Exception\ExceptionInterface
      */
-    public function __call($method, array $arguments = array())
+    public function __call($method, array $arguments = [])
     {
         ErrorHandler::start(E_WARNING);
         $result = preg_match('/find(Rel|Rev)(.+)/', $method, $match);
@@ -196,7 +196,7 @@ class Links extends AbstractHelper
      */
     public function renderLink(AbstractPage $page, $attrib, $relation)
     {
-        if (!in_array($attrib, array('rel', 'rev'))) {
+        if (!in_array($attrib, ['rel', 'rev'])) {
             throw new Exception\DomainException(sprintf(
                 'Invalid relation attribute "%s", must be "rel" or "rev"',
                 $attrib
@@ -209,11 +209,11 @@ class Links extends AbstractHelper
 
         // TODO: add more attribs
         // http://www.w3.org/TR/html401/struct/links.html#h-12.2
-        $attribs = array(
+        $attribs = [
             $attrib  => $relation,
             'href'   => $href,
             'title'  => $page->getLabel()
-        );
+        ];
 
         return '<link' .
             $this->htmlAttribs($attribs) .
@@ -252,7 +252,7 @@ class Links extends AbstractHelper
             $flag = self::RENDER_ALL;
         }
 
-        $result = array('rel' => array(), 'rev' => array());
+        $result = ['rel' => [], 'rev' => []];
         $native = array_values(static::$RELATIONS);
 
         foreach (array_keys($result) as $rel) {
@@ -270,7 +270,7 @@ class Links extends AbstractHelper
                 $found = $this->findRelation($page, $rel, $type);
                 if ($found) {
                     if (!is_array($found)) {
-                        $found = array($found);
+                        $found = [$found];
                     }
                     $result[$rel][$type] = $found;
                 }
@@ -294,7 +294,7 @@ class Links extends AbstractHelper
      */
     public function findRelation(AbstractPage $page, $rel, $type)
     {
-        if (!in_array($rel, array('rel', 'rev'))) {
+        if (!in_array($rel, ['rel', 'rev'])) {
             throw new Exception\DomainException(sprintf(
                 'Invalid argument: $rel must be "rel" or "rev"; "%s" given',
                 $rel
@@ -325,7 +325,7 @@ class Links extends AbstractHelper
             $result = $this->convertToPages($result);
             if ($result) {
                 if (!is_array($result)) {
-                    $result = array($result);
+                    $result = [$result];
                 }
 
                 foreach ($result as $key => $page) {
@@ -470,7 +470,7 @@ class Links extends AbstractHelper
      */
     public function searchRelChapter(AbstractPage $page)
     {
-        $found = array();
+        $found = [];
 
         // find first level of pages
         $root = $this->findRoot($page);
@@ -478,7 +478,7 @@ class Links extends AbstractHelper
         // find start page(s)
         $start = $this->findRelation($page, 'rel', 'start');
         if (!is_array($start)) {
-            $start = array($start);
+            $start = [$start];
         }
 
         foreach ($root as $chapter) {
@@ -512,7 +512,7 @@ class Links extends AbstractHelper
      */
     public function searchRelSection(AbstractPage $page)
     {
-        $found = array();
+        $found = [];
 
         // check if given page has pages and is a chapter page
         if ($page->hasPages() && $this->findRoot($page)->hasPage($page)) {
@@ -546,7 +546,7 @@ class Links extends AbstractHelper
      */
     public function searchRelSubsection(AbstractPage $page)
     {
-        $found = array();
+        $found = [];
 
         if ($page->hasPages()) {
             // given page has child pages, loop chapters
@@ -674,7 +674,7 @@ class Links extends AbstractHelper
             return $mixed;
         } elseif ($mixed instanceof AbstractContainer) {
             // value is a container; return pages in it
-            $pages = array();
+            $pages = [];
             foreach ($mixed as $page) {
                 $pages[] = $page;
             }
@@ -683,16 +683,16 @@ class Links extends AbstractHelper
             $mixed = ArrayUtils::iteratorToArray($mixed);
         } elseif (is_string($mixed)) {
             // value is a string; make a URI page
-            return AbstractPage::factory(array(
+            return AbstractPage::factory([
                 'type' => 'uri',
                 'uri'  => $mixed
-            ));
+            ]);
         }
 
         if (is_array($mixed) && !empty($mixed)) {
             if ($recursive && is_numeric(key($mixed))) {
                 // first key is numeric; assume several pages
-                $pages = array();
+                $pages = [];
                 foreach ($mixed as $value) {
                     $value = $this->convertToPages($value, false);
                     if ($value) {

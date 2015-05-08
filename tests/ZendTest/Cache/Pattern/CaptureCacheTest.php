@@ -37,9 +37,9 @@ class CaptureCacheTest extends CommonPatternTest
             $this->fail("Can't create temporary cache directory: {$err['message']}");
         }
 
-        $this->_options = new Cache\Pattern\PatternOptions(array(
+        $this->_options = new Cache\Pattern\PatternOptions([
             'public_dir' => $this->_tmpCacheDir
-        ));
+        ]);
         $this->_pattern = new Cache\Pattern\CaptureCache();
         $this->_pattern->setOptions($this->_options);
 
@@ -147,9 +147,9 @@ class CaptureCacheTest extends CommonPatternTest
 
     public function testGetFilenameWithPublicDir()
     {
-        $options = new Cache\Pattern\PatternOptions(array(
+        $options = new Cache\Pattern\PatternOptions([
             'public_dir' => $this->_tmpCacheDir
-        ));
+        ]);
 
         $captureCache = new Cache\Pattern\CaptureCache();
         $captureCache->setOptions($options);
@@ -164,9 +164,9 @@ class CaptureCacheTest extends CommonPatternTest
     {
         $_SERVER['REQUEST_URI'] = '/dir1/test.html';
 
-        $options = new Cache\Pattern\PatternOptions(array(
+        $options = new Cache\Pattern\PatternOptions([
             'public_dir' => $this->_tmpCacheDir
-        ));
+        ]);
         $captureCache = new Cache\Pattern\CaptureCache();
         $captureCache->setOptions($options);
 

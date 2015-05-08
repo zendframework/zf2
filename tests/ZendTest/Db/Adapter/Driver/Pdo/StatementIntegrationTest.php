@@ -30,9 +30,9 @@ class StatementIntegrationTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->statement = new Statement;
-        $this->statement->setDriver($this->getMock('Zend\Db\Adapter\Driver\Pdo\Pdo', array('createResult'), array(), '', false));
+        $this->statement->setDriver($this->getMock('Zend\Db\Adapter\Driver\Pdo\Pdo', ['createResult'], [], '', false));
         $this->statement->initialize(new TestAsset\CtorlessPdo(
-            $this->pdoStatementMock = $this->getMock('PDOStatement', array('execute', 'bindParam')))
+            $this->pdoStatementMock = $this->getMock('PDOStatement', ['execute', 'bindParam']))
         );
     }
 
@@ -51,7 +51,7 @@ class StatementIntegrationTest extends \PHPUnit_Framework_TestCase
             $this->equalTo(false),
             $this->equalTo(\PDO::PARAM_BOOL)
         );
-        $this->statement->execute(array('foo' => false));
+        $this->statement->execute(['foo' => false]);
     }
 
     public function testStatementExecuteWillUsePdoStrByDefaultWhenBinding()
@@ -61,6 +61,6 @@ class StatementIntegrationTest extends \PHPUnit_Framework_TestCase
             $this->equalTo('bar'),
             $this->equalTo(\PDO::PARAM_STR)
         );
-        $this->statement->execute(array('foo' => 'bar'));
+        $this->statement->execute(['foo' => 'bar']);
     }
 }

@@ -58,7 +58,7 @@ class FingersCrossed extends AbstractWriter
      *
      * @var array
      */
-    protected $buffer = array();
+    protected $buffer = [];
 
     /**
      * Constructor

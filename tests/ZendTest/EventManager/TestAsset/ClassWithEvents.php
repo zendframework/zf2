@@ -32,6 +32,6 @@ class ClassWithEvents
 
     public function foo()
     {
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array());
+        $this->getEventManager()->trigger(__FUNCTION__, $this, []);
     }
 }

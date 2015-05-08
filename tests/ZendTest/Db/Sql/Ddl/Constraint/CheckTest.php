@@ -20,11 +20,11 @@ class CheckTest extends \PHPUnit_Framework_TestCase
     {
         $check = new Check('id>0', 'foo');
         $this->assertEquals(
-            array(array(
+            [[
                 'CONSTRAINT %s CHECK (%s)',
-                array('foo', 'id>0'),
-                array($check::TYPE_IDENTIFIER, $check::TYPE_LITERAL)
-            )),
+                ['foo', 'id>0'],
+                [$check::TYPE_IDENTIFIER, $check::TYPE_LITERAL]
+            ]],
             $check->getExpressionData()
         );
     }

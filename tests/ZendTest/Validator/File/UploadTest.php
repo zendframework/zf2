@@ -23,62 +23,62 @@ class UploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $_FILES = array(
-            'test'  => array(
+        $_FILES = [
+            'test'  => [
                 'name'     => 'test1',
                 'type'     => 'text',
                 'size'     => 200,
                 'tmp_name' => 'tmp_test1',
-                'error'    => 0),
-            'test2' => array(
+                'error'    => 0],
+            'test2' => [
                 'name'     => 'test2',
                 'type'     => 'text2',
                 'size'     => 202,
                 'tmp_name' => 'tmp_test2',
-                'error'    => 1),
-            'test3' => array(
+                'error'    => 1],
+            'test3' => [
                 'name'     => 'test3',
                 'type'     => 'text3',
                 'size'     => 203,
                 'tmp_name' => 'tmp_test3',
-                'error'    => 2),
-            'test4' => array(
+                'error'    => 2],
+            'test4' => [
                 'name'     => 'test4',
                 'type'     => 'text4',
                 'size'     => 204,
                 'tmp_name' => 'tmp_test4',
-                'error'    => 3),
-            'test5' => array(
+                'error'    => 3],
+            'test5' => [
                 'name'     => 'test5',
                 'type'     => 'text5',
                 'size'     => 205,
                 'tmp_name' => 'tmp_test5',
-                'error'    => 4),
-            'test6' => array(
+                'error'    => 4],
+            'test6' => [
                 'name'     => 'test6',
                 'type'     => 'text6',
                 'size'     => 206,
                 'tmp_name' => 'tmp_test6',
-                'error'    => 5),
-            'test7' => array(
+                'error'    => 5],
+            'test7' => [
                 'name'     => 'test7',
                 'type'     => 'text7',
                 'size'     => 207,
                 'tmp_name' => 'tmp_test7',
-                'error'    => 6),
-            'test8' => array(
+                'error'    => 6],
+            'test8' => [
                 'name'     => 'test8',
                 'type'     => 'text8',
                 'size'     => 208,
                 'tmp_name' => 'tmp_test8',
-                'error'    => 7),
-            'test9' => array(
+                'error'    => 7],
+            'test9' => [
                 'name'     => 'test9',
                 'type'     => 'text9',
                 'size'     => 209,
                 'tmp_name' => 'tmp_test9',
-                'error'    => 8)
-        );
+                'error'    => 8]
+        ];
 
         $validator = new File\Upload();
         $this->assertFalse($validator->isValid('test'));
@@ -136,35 +136,35 @@ class UploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFiles()
     {
-        $_FILES = array(
-            'test'  => array(
+        $_FILES = [
+            'test'  => [
                 'name'     => 'test1',
                 'type'     => 'text',
                 'size'     => 200,
                 'tmp_name' => 'tmp_test1',
-                'error'    => 0),
-            'test2' => array(
+                'error'    => 0],
+            'test2' => [
                 'name'     => 'test3',
                 'type'     => 'text2',
                 'size'     => 202,
                 'tmp_name' => 'tmp_test2',
-                'error'    => 1));
+                'error'    => 1]];
 
-        $files = array(
-            'test'  => array(
+        $files = [
+            'test'  => [
                 'name'     => 'test1',
                 'type'     => 'text',
                 'size'     => 200,
                 'tmp_name' => 'tmp_test1',
-                'error'    => 0));
+                'error'    => 0]];
 
-        $files1 = array(
-            'test2' => array(
+        $files1 = [
+            'test2' => [
                 'name'     => 'test3',
                 'type'     => 'text2',
                 'size'     => 202,
                 'tmp_name' => 'tmp_test2',
-                'error'    => 1));
+                'error'    => 1]];
 
         $validator = new File\Upload();
         $this->assertEquals($files, $validator->getFiles('test'));
@@ -172,7 +172,7 @@ class UploadTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($files1, $validator->getFiles('test3'));
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'was not found');
-        $this->assertEquals(array(), $validator->getFiles('test5'));
+        $this->assertEquals([], $validator->getFiles('test5'));
     }
 
     /**
@@ -182,31 +182,31 @@ class UploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFiles()
     {
-        $files = array(
-            'test'  => array(
+        $files = [
+            'test'  => [
                 'name'     => 'test1',
                 'type'     => 'text',
                 'size'     => 200,
                 'tmp_name' => 'tmp_test1',
-                'error'    => 0),
-            'test2' => array(
+                'error'    => 0],
+            'test2' => [
                 'name'     => 'test2',
                 'type'     => 'text2',
                 'size'     => 202,
                 'tmp_name' => 'tmp_test2',
-                'error'    => 1));
+                'error'    => 1]];
 
-        $_FILES = array(
-            'test'  => array(
+        $_FILES = [
+            'test'  => [
                 'name'     => 'test3',
                 'type'     => 'text3',
                 'size'     => 203,
                 'tmp_name' => 'tmp_test3',
-                'error'    => 2));
+                'error'    => 2]];
 
 
         $validator = new File\Upload();
-        $validator->setFiles(array());
+        $validator->setFiles([]);
         $this->assertEquals($_FILES, $validator->getFiles());
         $validator->setFiles();
         $this->assertEquals($_FILES, $validator->getFiles());
@@ -222,7 +222,7 @@ class UploadTest extends \PHPUnit_Framework_TestCase
         $_FILES = null;
         $validator = new File\Upload();
         $validator->setFiles();
-        $this->assertEquals(array(), $validator->getFiles());
+        $this->assertEquals([], $validator->getFiles());
     }
 
     /**
@@ -232,7 +232,7 @@ class UploadTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Upload();
         $validator->setFiles(null);
-        $this->assertEquals(array(), $validator->getFiles());
+        $this->assertEquals([], $validator->getFiles());
     }
 
     /**
@@ -251,23 +251,23 @@ class UploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testErrorMessage()
     {
-        $_FILES = array(
-            'foo' => array(
+        $_FILES = [
+            'foo' => [
                 'name'     => 'bar',
                 'type'     => 'text',
                 'size'     => 100,
                 'tmp_name' => 'tmp_bar',
                 'error'    => 7,
-            )
-        );
+            ]
+        ];
 
         $validator = new File\Upload;
         $validator->isValid('foo');
 
         $this->assertEquals(
-            array(
+            [
                 'fileUploadErrorCantWrite' => "File 'bar' can't be written",
-            ),
+            ],
             $validator->getMessages()
         );
     }

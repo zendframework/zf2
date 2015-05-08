@@ -49,7 +49,7 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $strategy = new ExplodeStrategy();
 
-        $this->assertSame(array(), $strategy->hydrate(null));
+        $this->assertSame([], $strategy->hydrate(null));
     }
 
     public function testGetExceptionWithEmptyDelimiter()
@@ -63,16 +63,16 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Zend\Stdlib\Hydrator\Strategy\Exception\InvalidArgumentException');
 
-        new ExplodeStrategy(array());
+        new ExplodeStrategy([]);
     }
 
     public function testHydrateWithExplodeLimit()
     {
         $strategy = new ExplodeStrategy('-', 2);
-        $this->assertSame(array('foo', 'bar-baz-bat'), $strategy->hydrate('foo-bar-baz-bat'));
+        $this->assertSame(['foo', 'bar-baz-bat'], $strategy->hydrate('foo-bar-baz-bat'));
 
         $strategy = new ExplodeStrategy('-', '3');
-        $this->assertSame(array('foo', 'bar', 'baz-bat'), $strategy->hydrate('foo-bar-baz-bat'));
+        $this->assertSame(['foo', 'bar', 'baz-bat'], $strategy->hydrate('foo-bar-baz-bat'));
     }
 
     public function testHydrateWithInvalidScalarType()
@@ -85,7 +85,7 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
             . ' array provided instead'
         );
 
-        $strategy->hydrate(array());
+        $strategy->hydrate([]);
     }
 
     public function testHydrateWithInvalidObjectType()
@@ -135,20 +135,20 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
      */
     public function getValidHydratedValues()
     {
-        return array(
-            array(null, ',', array()),
-            array('', ',', array('')),
-            array('foo', ',', array('foo')),
-            array('foo,bar', ',', array('foo', 'bar')),
-            array('foo.bar', '.', array('foo', 'bar')),
-            array('foo.bar', ',', array('foo.bar')),
-            array(123, ',', array('123')),
-            array(123, '2', array('1', '3')),
-            array(123.456, ',', array('123.456')),
-            array(123.456, '.', array('123', '456')),
-            array('foo,bar,dev,null', ',', array('foo', 'bar', 'dev', 'null')),
-            array('foo;bar;dev;null', ';', array('foo', 'bar', 'dev', 'null')),
-            array('', ',', array('')),
-        );
+        return [
+            [null, ',', []],
+            ['', ',', ['']],
+            ['foo', ',', ['foo']],
+            ['foo,bar', ',', ['foo', 'bar']],
+            ['foo.bar', '.', ['foo', 'bar']],
+            ['foo.bar', ',', ['foo.bar']],
+            [123, ',', ['123']],
+            [123, '2', ['1', '3']],
+            [123.456, ',', ['123.456']],
+            [123.456, '.', ['123', '456']],
+            ['foo,bar,dev,null', ',', ['foo', 'bar', 'dev', 'null']],
+            ['foo;bar;dev;null', ';', ['foo', 'bar', 'dev', 'null']],
+            ['', ',', ['']],
+        ];
     }
 }

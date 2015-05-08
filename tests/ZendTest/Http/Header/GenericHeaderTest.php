@@ -107,29 +107,29 @@ class GenericHeaderTest extends TestCase
      */
     public function validFieldNameChars()
     {
-        return array(
-            array('!'),
-            array('#'),
-            array('$'),
-            array('%'),
-            array('&'),
-            array("'"),
-            array('*'),
-            array('+'),
-            array('-'),
-            array('.'),
-            array('0'), // Begin numeric range
-            array('9'), // End numeric range
-            array('A'), // Begin upper range
-            array('Z'), // End upper range
-            array('^'),
-            array('_'),
-            array('`'),
-            array('a'), // Begin lower range
-            array('z'), // End lower range
-            array('|'),
-            array('~'),
-        );
+        return [
+            ['!'],
+            ['#'],
+            ['$'],
+            ['%'],
+            ['&'],
+            ["'"],
+            ['*'],
+            ['+'],
+            ['-'],
+            ['.'],
+            ['0'], // Begin numeric range
+            ['9'], // End numeric range
+            ['A'], // Begin upper range
+            ['Z'], // End upper range
+            ['^'],
+            ['_'],
+            ['`'],
+            ['a'], // Begin lower range
+            ['z'], // End lower range
+            ['|'],
+            ['~'],
+        ];
     }
 
     /**
@@ -139,29 +139,29 @@ class GenericHeaderTest extends TestCase
      */
     public function invalidFieldNameChars()
     {
-        return array(
-            array("\x00"), // Min CTL invalid character range.
-            array("\x1F"), // Max CTL invalid character range.
-            array('('),
-            array(')'),
-            array('<'),
-            array('>'),
-            array('@'),
-            array(','),
-            array(';'),
-            array(':'),
-            array('\\'),
-            array('"'),
-            array('/'),
-            array('['),
-            array(']'),
-            array('?'),
-            array('='),
-            array('{'),
-            array('}'),
-            array(' '),
-            array("\t"),
-            array("\x7F"), // DEL CTL invalid character.
-        );
+        return [
+            ["\x00"], // Min CTL invalid character range.
+            ["\x1F"], // Max CTL invalid character range.
+            ['('],
+            [')'],
+            ['<'],
+            ['>'],
+            ['@'],
+            [','],
+            [';'],
+            [':'],
+            ['\\'],
+            ['"'],
+            ['/'],
+            ['['],
+            [']'],
+            ['?'],
+            ['='],
+            ['{'],
+            ['}'],
+            [' '],
+            ["\t"],
+            ["\x7F"], // DEL CTL invalid character.
+        ];
     }
 }

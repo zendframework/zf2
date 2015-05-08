@@ -18,7 +18,7 @@ use Zend\Db\Adapter\Driver\Pdo\Connection;
  */
 class ConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
 {
-    protected $variables = array('pdodriver' => 'sqlite', 'database' => ':memory:');
+    protected $variables = ['pdodriver' => 'sqlite', 'database' => ':memory:'];
 
     /**
      * @covers Zend\Db\Adapter\Driver\Pdo\Connection::getCurrentSchema
@@ -35,7 +35,7 @@ class ConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
     public function testSetResource()
     {
         $resource = new TestAsset\SqliteMemoryPdo();
-        $connection = new Connection(array());
+        $connection = new Connection([]);
         $this->assertSame($connection, $connection->setResource($resource));
 
         $connection->disconnect();
@@ -171,7 +171,7 @@ class ConnectionIntegrationTest extends \PHPUnit_Framework_TestCase
     public function testConnectReturnsConnectionWhenResourceSet()
     {
         $resource = new TestAsset\SqliteMemoryPdo();
-        $connection = new Connection(array());
+        $connection = new Connection([]);
         $connection->setResource($resource);
         $this->assertSame($connection, $connection->connect());
 

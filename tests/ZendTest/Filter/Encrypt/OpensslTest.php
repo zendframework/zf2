@@ -33,15 +33,15 @@ class OpensslTest extends \PHPUnit_Framework_TestCase
     public function testBasicOpenssl()
     {
         $filter = new OpensslEncryption(__DIR__ . '/../_files/publickey.pem');
-        $valuesExpected = array(
+        $valuesExpected = [
             'STRING' => 'STRING',
             'ABC1@3' => 'ABC1@3',
             'A b C'  => 'A B C'
-        );
+        ];
 
         $key = $filter->getPublicKey();
         $this->assertEquals(
-            array(__DIR__ . '/../_files/publickey.pem' =>
+            [__DIR__ . '/../_files/publickey.pem' =>
                   '-----BEGIN CERTIFICATE-----
 MIIC3jCCAkegAwIBAgIBADANBgkqhkiG9w0BAQQFADCBtDELMAkGA1UEBhMCTkwx
 FjAUBgNVBAgTDU5vb3JkLUhvbGxhbmQxEDAOBgNVBAcTB1phYW5kYW0xFzAVBgNV
@@ -60,7 +60,7 @@ FDD4V7XpcNU63QIDAQABMA0GCSqGSIb3DQEBBAUAA4GBAFQ22OU/PAN7rRDr23NS
 5jYy6v3b+zwEvY82EUieMldovdnpsS1EScjjvPfQ1lSgcTHT2QX5MjNv13xLnOgh
 PIDs9E7uuizAKDhRRRvho8BS
 -----END CERTIFICATE-----
-'),
+'],
             $key);
         foreach ($valuesExpected as $input => $output) {
             $this->assertNotEquals($output, $filter->encrypt($input));
@@ -132,7 +132,7 @@ bK22CwD/l7SMBOz4M9XH0Jb0OhNxLza4XMDu0ANMIpnkn1KOcmQ4gB8fmAbBt';
     {
         $filter = new OpensslEncryption();
 
-        $r = $filter->setPublicKey(array('private' => __DIR__ . '/../_files/publickey.pem'));
+        $r = $filter->setPublicKey(['private' => __DIR__ . '/../_files/publickey.pem']);
         $this->assertSame($filter, $r);
 
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'not valid');
@@ -146,9 +146,9 @@ bK22CwD/l7SMBOz4M9XH0Jb0OhNxLza4XMDu0ANMIpnkn1KOcmQ4gB8fmAbBt';
     {
         $filter = new OpensslEncryption();
 
-        $filter->setPrivateKey(array('public' => __DIR__ . '/../_files/privatekey.pem'));
+        $filter->setPrivateKey(['public' => __DIR__ . '/../_files/privatekey.pem']);
         $test = $filter->getPrivateKey();
-        $this->assertEquals(array(
+        $this->assertEquals([
             __DIR__ . '/../_files/privatekey.pem' => '-----BEGIN RSA PRIVATE KEY-----
 MIICXgIBAAKBgQDKTIp7FntJt1BioBZ0lmWBE8CyzngeGCHNMcAC4JLbi1Y0LwT4
 CSaQarbvAqBRmc+joHX+rcURm89wOibRaThrrZcvgl2pomzu7shJc0ObiRZC8H7p
@@ -164,7 +164,7 @@ qxzHN7QGmjSn9g36hmH+/rhwKGK9MxfsGkt+/KOOqNi5X8kGIFkxBPGP5LtMisk8
 cAkcoMuBcgWhIn/46C1PAkEAzLK/ibrdMQLOdO4SuDgj/2nc53NZ3agl61ew8Os6
 d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
 -----END RSA PRIVATE KEY-----
-'), $test);
+'], $test);
 
 
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException', 'not valid');
@@ -193,7 +193,7 @@ d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
             $this->assertContains('Please give a private key', $e->getMessage());
         }
 
-        $filter->setPrivateKey(array('public' => __DIR__ . '/../_files/privatekey.pem'));
+        $filter->setPrivateKey(['public' => __DIR__ . '/../_files/privatekey.pem']);
         try {
             $filter->decrypt('unknown');
             $this->fail();
@@ -227,10 +227,10 @@ d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
     public function testMultipleOptionsAtInitiation()
     {
         $passphrase = 'test';
-        $filter = new OpensslEncryption(array(
+        $filter = new OpensslEncryption([
             'public' => __DIR__ . '/../_files/publickey_pass.pem',
             'passphrase' => $passphrase,
-            'private' => __DIR__ . '/../_files/privatekey_pass.pem'));
+            'private' => __DIR__ . '/../_files/privatekey_pass.pem']);
         $public = $filter->getPublicKey();
         $this->assertNotEmpty($public);
         $this->assertEquals($passphrase, $filter->getPassphrase());

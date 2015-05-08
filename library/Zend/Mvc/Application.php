@@ -63,13 +63,13 @@ class Application implements
      *
      * @var array
      */
-    protected $defaultListeners = array(
+    protected $defaultListeners = [
         'RouteListener',
         'DispatchListener',
         'HttpMethodListener',
         'ViewManager',
         'SendResponseListener',
-    );
+    ];
 
     /**
      * MVC event token
@@ -134,7 +134,7 @@ class Application implements
      * @param array $listeners List of listeners to attach.
      * @return Application
      */
-    public function bootstrap(array $listeners = array())
+    public function bootstrap(array $listeners = [])
     {
         $serviceManager = $this->serviceManager;
         $events         = $this->events;
@@ -206,10 +206,10 @@ class Application implements
      */
     public function setEventManager(EventManagerInterface $eventManager)
     {
-        $eventManager->setIdentifiers(array(
+        $eventManager->setIdentifiers([
             __CLASS__,
             get_class($this),
-        ));
+        ]);
         $this->events = $eventManager;
         return $this;
     }
@@ -245,16 +245,16 @@ class Application implements
      * @param array $configuration
      * @return Application
      */
-    public static function init($configuration = array())
+    public static function init($configuration = [])
     {
-        $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
+        $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : [];
         $serviceManager = new ServiceManager(new Service\ServiceManagerConfig($smConfig));
         $serviceManager->setService('ApplicationConfig', $configuration);
         $serviceManager->get('ModuleManager')->loadModules();
 
-        $listenersFromAppConfig     = isset($configuration['listeners']) ? $configuration['listeners'] : array();
+        $listenersFromAppConfig     = isset($configuration['listeners']) ? $configuration['listeners'] : [];
         $config                     = $serviceManager->get('Config');
-        $listenersFromConfigService = isset($config['listeners']) ? $config['listeners'] : array();
+        $listenersFromConfigService = isset($config['listeners']) ? $config['listeners'] : [];
 
         $listeners = array_unique(array_merge($listenersFromConfigService, $listenersFromAppConfig));
 

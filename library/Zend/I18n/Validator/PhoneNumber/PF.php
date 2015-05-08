@@ -7,18 +7,18 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-return array(
+return [
     'code' => '689',
-    'patterns' => array(
-        'national' => array(
+    'patterns' => [
+        'national' => [
             'general' => '/^[2-9]\\d{5}$/',
             'fixed' => '/^(?:4(?:[02-9]\\d|1[02-9])|[5689]\\d{2})\\d{3}$/',
             'mobile' => '/^(?:[27]\\d{2}|3[0-79]\\d|411)\\d{3}$/',
             'emergency' => '/^1[578]$/',
-        ),
-        'possible' => array(
+        ],
+        'possible' => [
             'general' => '/^\\d{6}$/',
             'emergency' => '/^\\d{2}$/',
-        ),
-    ),
-);
+        ],
+    ],
+];

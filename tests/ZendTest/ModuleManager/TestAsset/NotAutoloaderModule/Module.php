@@ -16,12 +16,12 @@ class Module
     public function getAutoloaderConfig()
     {
         $this->getAutoloaderConfigCalled = true;
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     'Foo' => __DIR__ . '/src/Foo',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

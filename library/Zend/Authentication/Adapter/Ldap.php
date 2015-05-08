@@ -44,7 +44,7 @@ class Ldap extends AbstractAdapter
      * @param  string $identity   The username of the account being authenticated
      * @param  string $credential The password of the account being authenticated
      */
-    public function __construct(array $options = array(), $identity = null, $credential = null)
+    public function __construct(array $options = [], $identity = null, $credential = null)
     {
         $this->setOptions($options);
         if ($identity !== null) {
@@ -74,7 +74,7 @@ class Ldap extends AbstractAdapter
      */
     public function setOptions($options)
     {
-        $this->options = is_array($options) ? $options : array();
+        $this->options = is_array($options) ? $options : [];
         if (array_key_exists('identity', $this->options)) {
             $this->options['username'] = $this->options['identity'];
         }
@@ -152,7 +152,7 @@ class Ldap extends AbstractAdapter
     {
         $this->ldap = $ldap;
 
-        $this->setOptions(array($ldap->getOptions()));
+        $this->setOptions([$ldap->getOptions()]);
 
         return $this;
     }
@@ -182,7 +182,7 @@ class Ldap extends AbstractAdapter
      */
     public function authenticate()
     {
-        $messages = array();
+        $messages = [];
         $messages[0] = ''; // reserved
         $messages[1] = ''; // reserved
 
@@ -207,7 +207,7 @@ class Ldap extends AbstractAdapter
 
         $code = AuthenticationResult::FAILURE;
         $messages[0] = "Authority not found: $username";
-        $failedAuthorities = array();
+        $failedAuthorities = [];
 
         /* Iterate through each server and try to authenticate the supplied
          * credentials against it.
@@ -326,7 +326,7 @@ class Ldap extends AbstractAdapter
      */
     protected function prepareOptions(ZendLdap\Ldap $ldap, array $options)
     {
-        $adapterOptions = array(
+        $adapterOptions = [
             'group'       => null,
             'groupDn'     => $ldap->getBaseDn(),
             'groupScope'  => ZendLdap\Ldap::SEARCH_SCOPE_SUB,
@@ -334,7 +334,7 @@ class Ldap extends AbstractAdapter
             'groupFilter' => 'objectClass=groupOfUniqueNames',
             'memberAttr'  => 'uniqueMember',
             'memberIsDn'  => true
-        );
+        ];
         foreach ($adapterOptions as $key => $value) {
             if (array_key_exists($key, $options)) {
                 $value = $options[$key];
@@ -344,11 +344,11 @@ class Ldap extends AbstractAdapter
                         $value = (int) $value;
                         if (in_array(
                             $value,
-                            array(
+                            [
                                 ZendLdap\Ldap::SEARCH_SCOPE_BASE,
                                 ZendLdap\Ldap::SEARCH_SCOPE_ONE,
                                 ZendLdap\Ldap::SEARCH_SCOPE_SUB,
-                            ),
+                            ],
                             true
                         )) {
                             $adapterOptions[$key] = $value;
@@ -416,7 +416,7 @@ class Ldap extends AbstractAdapter
      * @param  array $omitAttribs
      * @return stdClass|bool
      */
-    public function getAccountObject(array $returnAttribs = array(), array $omitAttribs = array())
+    public function getAccountObject(array $returnAttribs = [], array $omitAttribs = [])
     {
         if (!$this->authenticatedDn) {
             return false;

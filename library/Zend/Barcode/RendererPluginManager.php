@@ -30,11 +30,11 @@ class RendererPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'image' => 'Zend\Barcode\Renderer\Image',
         'pdf'   => 'Zend\Barcode\Renderer\Pdf',
         'svg'   => 'Zend\Barcode\Renderer\Svg'
-    );
+    ];
 
     /**
      * Validate the plugin

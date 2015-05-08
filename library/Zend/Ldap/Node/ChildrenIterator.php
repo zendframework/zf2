@@ -186,7 +186,7 @@ class ChildrenIterator implements Iterator, Countable, RecursiveIterator, ArrayA
      */
     public function toArray()
     {
-        $data = array();
+        $data = [];
         foreach ($this as $rdn => $node) {
             $data[$rdn] = $node;
         }

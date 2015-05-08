@@ -52,7 +52,7 @@ class Client implements ServerClient
      * Proxy object for more convenient method calls
      * @var array of Zend\XmlRpc\Client\ServerProxy
      */
-    protected $proxyCache = array();
+    protected $proxyCache = [];
 
     /**
      * Flag for skipping system lookup
@@ -205,10 +205,10 @@ class Client implements ServerClient
         }
 
         $headers = $httpRequest->getHeaders();
-        $headers->addHeaders(array(
+        $headers->addHeaders([
             'Content-Type: text/xml; charset=utf-8',
             'Accept: text/xml',
-        ));
+        ]);
 
         if (!$headers->get('user-agent')) {
             $headers->addHeaderLine('user-agent', 'Zend_XmlRpc_Client');
@@ -244,7 +244,7 @@ class Client implements ServerClient
      * @return mixed
      * @throws \Zend\XmlRpc\Client\Exception\FaultException
      */
-    public function call($method, $params = array())
+    public function call($method, $params = [])
     {
         if (!$this->skipSystemLookup() && ('system.' != substr($method, 0, 7))) {
             // Ensure empty array/struct params are cast correctly
@@ -256,7 +256,7 @@ class Client implements ServerClient
                 $success = false;
             }
             if ($success) {
-                $validTypes = array(
+                $validTypes = [
                     AbstractValue::XMLRPC_TYPE_ARRAY,
                     AbstractValue::XMLRPC_TYPE_BASE64,
                     AbstractValue::XMLRPC_TYPE_BOOLEAN,
@@ -267,10 +267,10 @@ class Client implements ServerClient
                     AbstractValue::XMLRPC_TYPE_NIL,
                     AbstractValue::XMLRPC_TYPE_STRING,
                     AbstractValue::XMLRPC_TYPE_STRUCT,
-                );
+                ];
 
                 if (!is_array($params)) {
-                    $params = array($params);
+                    $params = [$params];
                 }
                 foreach ($params as $key => $param) {
                     if ($param instanceof AbstractValue) {

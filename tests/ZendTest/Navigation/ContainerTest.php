@@ -38,20 +38,20 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithArray()
     {
-        $argument = array(
-            array(
+        $argument = [
+            [
                 'label' => 'Page 1',
                 'uri'   => 'page1.html'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri'   => 'page2.html'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 3',
                 'uri'   => 'page3.html'
-            )
-        );
+            ]
+        ];
 
         $container = new Navigation\Navigation($argument);
         $this->assertEquals(3, $container->count());
@@ -59,20 +59,20 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithConfig()
     {
-        $argument = new Config\Config(array(
-            array(
+        $argument = new Config\Config([
+            [
                 'label' => 'Page 1',
                 'uri'   => 'page1.html'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri'   => 'page2.html'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 3',
                 'uri'   => 'page3.html'
-            )
-        ));
+            ]
+        ]);
 
         $container = new Navigation\Navigation($argument);
         $this->assertEquals(3, $container->count());
@@ -114,46 +114,46 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddPagesWithNullValueSkipsPage()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
+            ],
             null
-        ));
+        ]);
         $count = count($nav->getPages());
         $this->assertEquals(1, $count);
     }
 
     public function testIterationShouldBeOrderAware()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#',
                 'order' => -1
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 3',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 4',
                 'uri' => '#',
                 'order' => 100
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 5',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $expected = array('Page 2', 'Page 1', 'Page 3', 'Page 5', 'Page 4');
-        $actual = array();
+        $expected = ['Page 2', 'Page 1', 'Page 3', 'Page 5', 'Page 4'];
+        $actual = [];
         foreach ($nav as $page) {
             $actual[] = $page->getLabel();
         }
@@ -162,49 +162,49 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testRecursiveIteration()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#',
-                'pages' => array(
-                    array(
+                'pages' => [
+                    [
                         'label' => 'Page 1.1',
                         'uri' => '#',
-                        'pages' => array(
-                            array(
+                        'pages' => [
+                            [
                                 'label' => 'Page 1.1.1',
                                 'uri' => '#'
-                            ),
-                            array(
+                            ],
+                            [
                                 'label' => 'Page 1.1.2',
                                 'uri' => '#'
-                            )
-                        )
-                    ),
-                    array(
+                            ]
+                        ]
+                    ],
+                    [
                         'label' => 'Page 1.2',
                         'uri' => '#'
-                    )
-                )
-            ),
-            array(
+                    ]
+                ]
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#',
-                'pages' => array(
-                    array(
+                'pages' => [
+                    [
                         'label' => 'Page 2.1',
                         'uri' => '#'
-                    )
-                )
-            ),
-            array(
+                    ]
+                ]
+            ],
+            [
                 'label' => 'Page 3',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $actual = array();
-        $expected = array(
+        $actual = [];
+        $expected = [
             'Page 1',
             'Page 1.1',
             'Page 1.1.1',
@@ -213,7 +213,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             'Page 2',
             'Page 2.1',
             'Page 3'
-        );
+        ];
 
         $iterator = new \RecursiveIteratorIterator($nav,
             \RecursiveIteratorIterator::SELF_FIRST);
@@ -232,46 +232,46 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasChildrenCompatibility()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#',
-                'pages' => array(
-                    array(
+                'pages' => [
+                    [
                         'label' => 'Page 1.1',
                         'uri' => '#',
-                        'pages' => array(
-                            array(
+                        'pages' => [
+                            [
                                 'label' => 'Page 1.1.1',
                                 'uri' => '#'
-                            ),
-                            array(
+                            ],
+                            [
                                 'label' => 'Page 1.1.2',
                                 'uri' => '#'
-                            )
-                        )
-                    ),
-                    array(
+                            ]
+                        ]
+                    ],
+                    [
                         'label' => 'Page 1.2',
                         'uri' => '#'
-                    )
-                )
-            ),
-            array(
+                    ]
+                ]
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#',
-                'pages' => array(
-                    array(
+                'pages' => [
+                    [
                         'label' => 'Page 2.1',
                         'uri' => '#'
-                    )
-                )
-            ),
-            array(
+                    ]
+                ]
+            ],
+            [
                 'label' => 'Page 3',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
         $page1 = $nav->findOneBy('label', 'Page 1');
         $this->assertTrue($page1->hasChildren(), "page1's first child has children 1.1.1 1.1.2");
@@ -287,48 +287,48 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDetailedRecursiveIteration()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#',
-                'pages' => array(
-                    array(
+                'pages' => [
+                    [
                         'label' => 'Page 1.1',
                         'uri' => '#',
-                        'pages' => array(
-                            array(
+                        'pages' => [
+                            [
                                 'label' => 'Page 1.1.1',
                                 'uri' => '#'
-                            ),
-                            array(
+                            ],
+                            [
                                 'label' => 'Page 1.1.2',
                                 'uri' => '#'
-                            )
-                        )
-                    ),
-                    array(
+                            ]
+                        ]
+                    ],
+                    [
                         'label' => 'Page 1.2',
                         'uri' => '#'
-                    )
-                )
-            ),
-            array(
+                    ]
+                ]
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#',
-                'pages' => array(
-                    array(
+                'pages' => [
+                    [
                         'label' => 'Page 2.1',
                         'uri' => '#'
-                    )
-                )
-            ),
-            array(
+                    ]
+                ]
+            ],
+            [
                 'label' => 'Page 3',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $expected = array(
+        $expected = [
             'beginIteration',
             'Page 1',
             'beginChildren',
@@ -345,10 +345,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             'endChildren',
             'Page 3',
             'endIteration',
-        );
+        ];
 
         $iterator = new TestAsset\RecursiveIteratorIterator($nav, \RecursiveIteratorIterator::SELF_FIRST);
-        $iterator->logger = array();
+        $iterator->logger = [];
         $iterator->rewind();
         //#4517 logging with walking through RecursiveIterator
         while ($iterator->valid()) {
@@ -360,33 +360,33 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingPageOrderShouldUpdateContainerOrder()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $page3 = Page\AbstractPage::factory(array(
+        $page3 = Page\AbstractPage::factory([
             'label' => 'Page 3',
             'uri' => '#'
-        ));
+        ]);
 
         $nav->addPage($page3);
 
-        $expected = array(
-            'before' => array('Page 1', 'Page 2', 'Page 3'),
-            'after'  => array('Page 3', 'Page 1', 'Page 2')
-        );
+        $expected = [
+            'before' => ['Page 1', 'Page 2', 'Page 3'],
+            'after'  => ['Page 3', 'Page 1', 'Page 2']
+        ];
 
-        $actual = array(
-            'before' => array(),
-            'after'  => array()
-        );
+        $actual = [
+            'before' => [],
+            'after'  => []
+        ];
 
         foreach ($nav as $page) {
             $actual['before'][] = $page->getLabel();
@@ -403,10 +403,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPageShouldWorkWithArray()
     {
-        $pageOptions = array(
+        $pageOptions = [
             'label' => 'From array',
             'uri' => '#array'
-        );
+        ];
 
         $nav = new Navigation\Navigation();
         $nav->addPage($pageOptions);
@@ -416,10 +416,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPageShouldWorkWithConfig()
     {
-        $pageOptions = array(
+        $pageOptions = [
             'label' => 'From config',
             'uri' => '#config'
-        );
+        ];
 
         $pageOptions = new Config\Config($pageOptions);
 
@@ -431,12 +431,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPageShouldWorkWithPageInstance()
     {
-        $pageOptions = array(
+        $pageOptions = [
             'label' => 'From array 1',
             'uri' => '#array'
-        );
+        ];
 
-        $nav = new Navigation\Navigation(array($pageOptions));
+        $nav = new Navigation\Navigation([$pageOptions]);
 
         $page = Page\AbstractPage::factory($pageOptions);
         $nav->addPage($page);
@@ -447,17 +447,17 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testAddPagesShouldWorkWithArray()
     {
         $nav = new Navigation\Navigation();
-        $nav->addPages(array(
-            array(
+        $nav->addPages([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'action' => 'index',
                 'controller' => 'index'
-            )
-        ));
+            ]
+        ]);
 
         $this->assertEquals(2, count($nav),
                             'Expected 2 pages, found ' . count($nav));
@@ -466,17 +466,17 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testAddPagesShouldWorkWithConfig()
     {
         $nav = new Navigation\Navigation();
-        $nav->addPages(new Config\Config(array(
-            array(
+        $nav->addPages(new Config\Config([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'action' => 'index',
                 'controller' => 'index'
-            )
-        )));
+            ]
+        ]));
 
         $this->assertEquals(2, count($nav),
                             'Expected 2 pages, found ' . count($nav));
@@ -485,21 +485,21 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testAddPagesShouldWorkWithMixedArray()
     {
         $nav = new Navigation\Navigation();
-        $nav->addPages(new Config\Config(array(
-            array(
+        $nav->addPages(new Config\Config([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            new Config\Config(array(
+            ],
+            new Config\Config([
                 'label' => 'Page 2',
                 'action' => 'index',
                 'controller' => 'index'
-            )),
-            Page\AbstractPage::factory(array(
+            ]),
+            Page\AbstractPage::factory([
                 'label' => 'Page 3',
                 'uri' => '#'
-            ))
-        )));
+            ])
+        ]));
 
         $this->assertEquals(3, count($nav),
                             'Expected 3 pages, found ' . count($nav));
@@ -554,16 +554,16 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testRemovingAllPages()
     {
         $nav = new Navigation\Navigation();
-        $nav->addPages(array(
-            array(
+        $nav->addPages([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
         $nav->removePages();
 
@@ -574,23 +574,23 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testSettingPages()
     {
         $nav = new Navigation\Navigation();
-        $nav->addPages(array(
-            array(
+        $nav->addPages([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $nav->setPages(array(
-            array(
+        $nav->setPages([
+            [
                 'label' => 'Page 3',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
         $this->assertEquals(1, count($nav),
                             'Expected 1 page, found ' . count($nav));
@@ -598,26 +598,26 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPagesShouldReturnAnArrayOfPages()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'uri' => 'Page 1'
-            ),
-            array(
+            ],
+            [
                 'uri' => 'Page 2'
-            )
-        ));
+            ]
+        ]);
 
         $pages = $nav->getPages();
 
-        $expected = array(
+        $expected = [
             'type' => 'array',
             'count' => 2
-        );
+        ];
 
-        $actual = array(
+        $actual = [
             'type' => gettype($pages),
             'count' => count($pages)
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
         $this->assertContainsOnly('Zend\Navigation\Page\Uri', $pages, false);
@@ -625,33 +625,33 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPagesShouldReturnUnorderedPages()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 2',
                 'uri' => '#',
                 'order' => -1
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 4',
                 'uri' => '#',
                 'order' => 100
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 5',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 3',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $expected = array('Page 2', 'Page 4', 'Page 1', 'Page 5', 'Page 3');
-        $actual = array();
+        $expected = ['Page 2', 'Page 4', 'Page 1', 'Page 5', 'Page 3'];
+        $actual = [];
         foreach ($nav->getPages() as $page) {
             $actual[] = $page->getLabel();
         }
@@ -660,64 +660,64 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testRemovingPageByOrder()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#',
                 'order' => 32
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 3',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 4',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $expected = array(
+        $expected = [
             'remove0'      => true,
             'remove32'     => true,
             'remove0again' => true,
             'remove1000'   => false,
             'count'        => 1,
             'current'      => 'Page 4'
-        );
+        ];
 
-        $actual = array(
+        $actual = [
             'remove0'      => $nav->removePage(0),
             'remove32'     => $nav->removePage(32),
             'remove0again' => $nav->removePage(0),
             'remove1000'   => $nav->removePage(1000),
             'count'        => $nav->count(),
             'current'      => $nav->current()->getLabel()
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testRemovingPageByInstance()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $page3 = Page\AbstractPage::factory(array(
+        $page3 = Page\AbstractPage::factory([
             'label' => 'Page 3',
             'uri' => '#'
-        ));
+        ]);
 
         $nav->addPage($page3);
 
@@ -726,87 +726,87 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testRemovingPageByInstanceShouldReturnFalseIfPageIsNotInContainer()
     {
-        $nav = new Navigation\Navigation(array(
-            array(
+        $nav = new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri' => '#'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'uri' => '#'
-            )
-        ));
+            ]
+        ]);
 
-        $page = Page\AbstractPage::factory(array(
+        $page = Page\AbstractPage::factory([
             'label' => 'Page lol',
             'uri' => '#'
-        ));
+        ]);
 
         $this->assertEquals(false, $nav->removePage($page));
     }
 
     public function testHasPage()
     {
-        $page0 = Page\AbstractPage::factory(array(
+        $page0 = Page\AbstractPage::factory([
             'label' => 'Page 0',
             'uri' => '#'
-        ));
+        ]);
 
-        $page1 = Page\AbstractPage::factory(array(
+        $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
             'uri' => '#'
-        ));
+        ]);
 
-        $page1_1 = Page\AbstractPage::factory(array(
+        $page1_1 = Page\AbstractPage::factory([
             'label' => 'Page 1.1',
             'uri' => '#'
-        ));
+        ]);
 
-        $page1_2 = Page\AbstractPage::factory(array(
+        $page1_2 = Page\AbstractPage::factory([
             'label' => 'Page 1.2',
             'uri' => '#'
-        ));
+        ]);
 
-        $page1_2_1 = Page\AbstractPage::factory(array(
+        $page1_2_1 = Page\AbstractPage::factory([
             'label' => 'Page 1.2.1',
             'uri' => '#'
-        ));
+        ]);
 
-        $page1_3 = Page\AbstractPage::factory(array(
+        $page1_3 = Page\AbstractPage::factory([
             'label' => 'Page 1.3',
             'uri' => '#'
-        ));
+        ]);
 
-        $page2 = Page\AbstractPage::factory(array(
+        $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
             'uri' => '#'
-        ));
+        ]);
 
-        $page3 = Page\AbstractPage::factory(array(
+        $page3 = Page\AbstractPage::factory([
             'label' => 'Page 3',
             'uri' => '#'
-        ));
+        ]);
 
-        $nav = new Navigation\Navigation(array($page1, $page2, $page3));
+        $nav = new Navigation\Navigation([$page1, $page2, $page3]);
 
         $page1->addPage($page1_1);
         $page1->addPage($page1_2);
         $page1_2->addPage($page1_2_1);
         $page1->addPage($page1_3);
 
-        $expected = array(
+        $expected = [
             'haspage0'            => false,
             'haspage2'            => true,
             'haspage1_1'          => false,
             'haspage1_1recursive' => true
-        );
+        ];
 
-        $actual = array(
+        $actual = [
             'haspage0'            => $nav->hasPage($page0),
             'haspage2'            => $nav->hasPage($page2),
             'haspage1_1'          => $nav->hasPage($page1_1),
             'haspage1_1recursive' => $nav->hasPage($page1_1, true)
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
     }
@@ -817,76 +817,76 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav2 = new Navigation\Navigation();
         $nav3 = new Navigation\Navigation();
         $nav4 = new Navigation\Navigation();
-        $nav2->addPage(array(
+        $nav2->addPage([
             'label' => 'Page 1',
             'uri' => '#'
-        ));
-        $nav3->addPage(array(
+        ]);
+        $nav3->addPage([
             'label' => 'Page 1',
             'uri' => '#',
             'visible' => true
-        ));
-        $nav4->addPage(array(
+        ]);
+        $nav4->addPage([
             'label' => 'Page 1',
             'uri' => '#',
             'visible' => false
-        ));
+        ]);
 
-        $expected = array(
+        $expected = [
             'empty' => false,
             'notempty' => true,
             'visible' => true,
             'notvisible' => false
-        );
+        ];
 
-        $actual = array(
+        $actual = [
             'empty' => $nav1->hasPages(),
             'notempty' => $nav2->hasPages(),
             'visible' => $nav3->hasPages(false),
             'notvisible' => $nav4->hasPages(true)
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testSetParentShouldWorkWithPage()
     {
-        $page1 = Page\AbstractPage::factory(array(
+        $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
             'uri' => '#'
-        ));
+        ]);
 
-        $page2 = Page\AbstractPage::factory(array(
+        $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
             'uri' => '#'
-        ));
+        ]);
 
         $page2->setParent($page1);
 
-        $expected = array(
+        $expected = [
             'parent' => 'Page 1',
             'hasPages' => true
-        );
+        ];
 
-        $actual = array(
+        $actual = [
             'parent' => $page2->getParent()->getLabel(),
             'hasPages' => $page1->hasPages()
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testSetParentShouldWorkWithNull()
     {
-        $page1 = Page\AbstractPage::factory(array(
+        $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
             'uri' => '#'
-        ));
+        ]);
 
-        $page2 = Page\AbstractPage::factory(array(
+        $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
             'uri' => '#'
-        ));
+        ]);
 
         $page2->setParent($page1);
         $page2->setParent(null);
@@ -896,28 +896,28 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testSetParentShouldRemoveFromOldParentPage()
     {
-        $page1 = Page\AbstractPage::factory(array(
+        $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
             'uri' => '#'
-        ));
+        ]);
 
-        $page2 = Page\AbstractPage::factory(array(
+        $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
             'uri' => '#'
-        ));
+        ]);
 
         $page2->setParent($page1);
         $page2->setParent(null);
 
-        $expected = array(
+        $expected = [
             'parent' => null,
             'haspages' => false
-        );
+        ];
 
-        $actual = array(
+        $actual = [
             'parent' => $page2->getParent(),
             'haspages' => $page2->hasPages()
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
     }
@@ -955,8 +955,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $found = $nav->findAllBy('id', 'page_2_and_3');
         $this->assertContainsOnly('Zend\Navigation\Page\AbstractPage', $found, false);
 
-        $expected = array('Page 2', 'Page 3');
-        $actual = array();
+        $expected = ['Page 2', 'Page 3'];
+        $actual = [];
 
         foreach ($found as $page) {
             $actual[] = $page->getLabel();
@@ -970,8 +970,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
         $found = $nav->findAllBy('id', 'non-existent');
 
-        $expected = array('type' => 'array', 'count' => 0);
-        $actual = array('type' => gettype($found), 'count' => count($found));
+        $expected = ['type' => 'array', 'count' => 0];
+        $actual = ['type' => gettype($found), 'count' => count($found)];
         $this->assertEquals($expected, $actual);
     }
 
@@ -1008,8 +1008,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $found = $nav->findAllById('page_2_and_3');
         $this->assertContainsOnly('Zend\Navigation\Page\\AbstractPage', $found, false);
 
-        $expected = array('Page 2', 'Page 3');
-        $actual = array();
+        $expected = ['Page 2', 'Page 3'];
+        $actual = [];
         foreach ($found as $page) {
             $actual[] = $page->getLabel();
         }
@@ -1024,8 +1024,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $found = $nav->findAllByAction('about');
         $this->assertContainsOnly('Zend\Navigation\Page\\AbstractPage', $found, false);
 
-        $expected = array('Page 3');
-        $actual = array();
+        $expected = ['Page 3'];
+        $actual = [];
         foreach ($found as $page) {
             $actual[] = $page->getLabel();
         }
@@ -1040,8 +1040,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $found = $nav->findAllByaction('about');
         $this->assertContainsOnly('Zend\Navigation\Page\\AbstractPage', $found, false);
 
-        $expected = array('Page 1.3', 'Page 3');
-        $actual = array();
+        $expected = ['Page 1.3', 'Page 3'];
+        $actual = [];
         foreach ($found as $page) {
             $actual[] = $page->getLabel();
         }
@@ -1093,63 +1093,63 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         // findOneById('page_2_and_3') // Page 2
         // findAllById('page_2_and_3') // Page 2, Page 3
         // findAllByAction('about')    // Page 1.3, Page 3
-        return new Navigation\Navigation(array(
-            array(
+        return new Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'uri'   => 'page-1',
                 'foo'   => 'bar',
-                'pages' => array(
-                    array(
+                'pages' => [
+                    [
                         'label' => 'Page 1.1',
                         'uri'   => 'page-1.1',
                         'foo'   => 'bar',
                         'title' => 'The given title'
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'Page 1.2',
                         'uri'   => 'page-1.2',
                         'title' => 'The given title'
-                    ),
-                    array(
+                    ],
+                    [
                         'type'   => 'uri',
                         'label'  => 'Page 1.3',
                         'uri'    => 'page-1.3',
                         'title'  => 'The given title',
                         'action' => 'about'
-                    )
-                )
-            ),
-            array(
+                    ]
+                ]
+            ],
+            [
                 'id'         => 'page_2_and_3',
                 'label'      => 'Page 2',
                 'module'     => 'page2',
                 'controller' => 'index',
                 'action'     => 'page1',
                 'page2'      => 'page2'
-            ),
-            array(
+            ],
+            [
                 'id'         => 'page_2_and_3',
                 'label'      => 'Page 3',
                 'module'     => 'page3',
                 'controller' => 'index',
                 'action'     => 'about'
-            )
-        ));
+            ]
+        ]);
     }
 
     public function testCurrent()
     {
-        $container = new Navigation\Navigation(array(
-            array(
+        $container = new Navigation\Navigation([
+            [
                 'label' => 'Page 2',
                 'type'  => 'uri'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 1',
                 'type'  => 'uri',
                 'order' => -1
-            )
-        ));
+            ]
+        ]);
 
         $page = $container->current();
         $this->assertEquals('Page 1', $page->getLabel());
@@ -1157,17 +1157,17 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testCurrentShouldThrowExceptionIfIndexIsInvalid()
     {
-        $container = new \ZendTest\Navigation\TestAsset\AbstractContainer(array(
-            array(
+        $container = new \ZendTest\Navigation\TestAsset\AbstractContainer([
+            [
                 'label' => 'Page 2',
                 'type'  => 'uri'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 1',
                 'type'  => 'uri',
                 'order' => -1
-            )
-        ));
+            ]
+        ]);
 
         try {
             $page = $container->current();
@@ -1188,9 +1188,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testKeyShouldReturnCurrentPageHash()
     {
         $container = new Navigation\Navigation();
-        $page = Page\AbstractPage::factory(array(
+        $page = Page\AbstractPage::factory([
             'type' => 'uri'
-        ));
+        ]);
         $container->addPage($page);
 
         $this->assertEquals($page->hashCode(), $container->key());
@@ -1199,9 +1199,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testGetChildrenShouldReturnTheCurrentPage()
     {
         $container = new Navigation\Navigation();
-        $page = Page\AbstractPage::factory(array(
+        $page = Page\AbstractPage::factory([
             'type' => 'uri'
-        ));
+        ]);
         $container->addPage($page);
 
         $this->assertEquals($page, $container->getChildren());
@@ -1219,21 +1219,21 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemovePageRecursively()
     {
-        $container = new Navigation\Navigation(array(
-            array(
+        $container = new Navigation\Navigation([
+            [
                 'route' => 'foo',
-                'pages' => array(
-                    array(
+                'pages' => [
+                    [
                         'route' => 'bar',
-                        'pages' => array(
-                            array(
+                        'pages' => [
+                            [
                                 'route' => 'baz',
-                            ),
-                        ),
-                    )
-                )
-            ),
-        ));
+                            ],
+                        ],
+                    ]
+                ]
+            ],
+        ]);
 
         $container->removePage($container->findOneBy('route', 'baz'), true);
         $this->assertNull($container->findOneBy('route', 'baz'));

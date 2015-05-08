@@ -140,9 +140,9 @@ class Uri extends AbstractPage
     {
         return array_merge(
             parent::toArray(),
-            array(
+            [
                 'uri' => $this->getUri(),
-            )
+            ]
         );
     }
 }

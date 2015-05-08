@@ -48,25 +48,25 @@ class IsCompressedTest extends \PHPUnit_Framework_TestCase
         // application/x-zip ...
         $expectedMimeType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $testFile);
 
-        $allowed          = array('application/zip', 'application/x-zip');
-        $fileUpload       = array(
+        $allowed          = ['application/zip', 'application/x-zip'];
+        $fileUpload       = [
             'tmp_name' => $testFile,
             'name'     => basename($testFile),
             'size'     => 200,
             'error'    => 0,
             'type'     => in_array($expectedMimeType, $allowed) ? $expectedMimeType : 'application/zip',
-        );
+        ];
 
-        return array(
+        return [
             //    Options, isValid Param, Expected value
-            array(null,                                                               $fileUpload, true),
-            array('zip',                                                              $fileUpload, true),
-            array('test/notype',                                                      $fileUpload, false),
-            array('application/x-zip, application/zip, application/x-tar',            $fileUpload, true),
-            array(array('application/x-zip', 'application/zip', 'application/x-tar'), $fileUpload, true),
-            array(array('zip', 'tar'),                                                $fileUpload, true),
-            array(array('tar', 'arj'),                                                $fileUpload, false),
-        );
+            [null,                                                               $fileUpload, true],
+            ['zip',                                                              $fileUpload, true],
+            ['test/notype',                                                      $fileUpload, false],
+            ['application/x-zip, application/zip, application/x-tar',            $fileUpload, true],
+            [['application/x-zip', 'application/zip', 'application/x-tar'], $fileUpload, true],
+            [['zip', 'tar'],                                                $fileUpload, true],
+            [['tar', 'arj'],                                                $fileUpload, false],
+        ];
     }
 
     /**
@@ -98,7 +98,7 @@ class IsCompressedTest extends \PHPUnit_Framework_TestCase
         // Sometimes finfo gives application/zip and sometimes
         // application/x-zip ...
         $expectedMimeType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), __DIR__ . '/_files/test.zip');
-        if (!in_array($expectedMimeType, array('application/zip', 'application/x-zip'))) {
+        if (!in_array($expectedMimeType, ['application/zip', 'application/x-zip'])) {
             $this->markTestSkipped('finfo exhibits buggy behavior on this system!');
         }
     }
@@ -149,11 +149,11 @@ class IsCompressedTest extends \PHPUnit_Framework_TestCase
         $validator = new File\IsCompressed('image/gif');
         $this->assertEquals('image/gif', $validator->getMimeType());
 
-        $validator = new File\IsCompressed(array('image/gif', 'video', 'text/test'));
+        $validator = new File\IsCompressed(['image/gif', 'video', 'text/test']);
         $this->assertEquals('image/gif,video,text/test', $validator->getMimeType());
 
-        $validator = new File\IsCompressed(array('image/gif', 'video', 'text/test'));
-        $this->assertEquals(array('image/gif', 'video', 'text/test'), $validator->getMimeType(true));
+        $validator = new File\IsCompressed(['image/gif', 'video', 'text/test']);
+        $this->assertEquals(['image/gif', 'video', 'text/test'], $validator->getMimeType(true));
     }
 
     /**
@@ -166,15 +166,15 @@ class IsCompressedTest extends \PHPUnit_Framework_TestCase
         $validator = new File\IsCompressed('image/gif');
         $validator->setMimeType('image/jpeg');
         $this->assertEquals('image/jpeg', $validator->getMimeType());
-        $this->assertEquals(array('image/jpeg'), $validator->getMimeType(true));
+        $this->assertEquals(['image/jpeg'], $validator->getMimeType(true));
 
         $validator->setMimeType('image/gif, text/test');
         $this->assertEquals('image/gif,text/test', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text/test'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text/test'], $validator->getMimeType(true));
 
-        $validator->setMimeType(array('video/mpeg', 'gif'));
+        $validator->setMimeType(['video/mpeg', 'gif']);
         $this->assertEquals('video/mpeg,gif', $validator->getMimeType());
-        $this->assertEquals(array('video/mpeg', 'gif'), $validator->getMimeType(true));
+        $this->assertEquals(['video/mpeg', 'gif'], $validator->getMimeType(true));
     }
 
     /**
@@ -187,19 +187,19 @@ class IsCompressedTest extends \PHPUnit_Framework_TestCase
         $validator = new File\IsCompressed('image/gif');
         $validator->addMimeType('text');
         $this->assertEquals('image/gif,text', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text'], $validator->getMimeType(true));
 
         $validator->addMimeType('jpg, to');
         $this->assertEquals('image/gif,text,jpg,to', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to'], $validator->getMimeType(true));
 
-        $validator->addMimeType(array('zip', 'ti'));
+        $validator->addMimeType(['zip', 'ti']);
         $this->assertEquals('image/gif,text,jpg,to,zip,ti', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to', 'zip', 'ti'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to', 'zip', 'ti'], $validator->getMimeType(true));
 
         $validator->addMimeType('');
         $this->assertEquals('image/gif,text,jpg,to,zip,ti', $validator->getMimeType());
-        $this->assertEquals(array('image/gif', 'text', 'jpg', 'to', 'zip', 'ti'), $validator->getMimeType(true));
+        $this->assertEquals(['image/gif', 'text', 'jpg', 'to', 'zip', 'ti'], $validator->getMimeType(true));
     }
 
     /**
@@ -207,13 +207,13 @@ class IsCompressedTest extends \PHPUnit_Framework_TestCase
      */
     public function testErrorMessages()
     {
-        $files = array(
+        $files = [
             'name'     => 'picture.jpg',
             'type'     => 'image/jpeg',
             'size'     => 200,
             'tmp_name' => __DIR__ . '/_files/picture.jpg',
             'error'    => 0
-        );
+        ];
 
         $validator = new File\IsCompressed('test/notype');
         $validator->enableHeaderCheck();
@@ -229,11 +229,11 @@ class IsCompressedTest extends \PHPUnit_Framework_TestCase
         }
 
         $magicFile = $this->getMagicMime();
-        $validator = new File\IsCompressed(array(
+        $validator = new File\IsCompressed([
             'image/gif',
             'image/jpg',
             'magicFile'   => $magicFile,
-            'enableHeaderCheck' => true));
+            'enableHeaderCheck' => true]);
 
         $this->assertEquals($magicFile, $validator->getMagicFile());
         $this->assertTrue($validator->getHeaderCheck());
@@ -242,9 +242,9 @@ class IsCompressedTest extends \PHPUnit_Framework_TestCase
 
     public function testNonMimeOptionsAtConstructorStillSetsDefaults()
     {
-        $validator = new File\IsCompressed(array(
+        $validator = new File\IsCompressed([
             'enableHeaderCheck' => true,
-        ));
+        ]);
 
         $this->assertNotEmpty($validator->getMimeType());
     }

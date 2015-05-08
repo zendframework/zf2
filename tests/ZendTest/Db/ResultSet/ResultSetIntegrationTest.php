@@ -59,14 +59,14 @@ class ResultSetIntegrationTest extends TestCase
 
     public function invalidReturnTypes()
     {
-        return array(
-            array(1),
-            array(1.0),
-            array(true),
-            array('string'),
-            array(array('foo')),
-            array(new stdClass),
-        );
+        return [
+            [1],
+            [1.0],
+            [true],
+            ['string'],
+            [['foo']],
+            [new stdClass],
+        ];
     }
 
     /**
@@ -92,7 +92,7 @@ class ResultSetIntegrationTest extends TestCase
 
     public function testCanProvideIteratorAggregateAsDataSource()
     {
-        $iteratorAggregate = $this->getMock('IteratorAggregate', array('getIterator'), array(new SplStack));
+        $iteratorAggregate = $this->getMock('IteratorAggregate', ['getIterator'], [new SplStack]);
         $iteratorAggregate->expects($this->any())->method('getIterator')->will($this->returnValue($iteratorAggregate));
         $this->resultSet->initialize($iteratorAggregate);
         $this->assertSame($iteratorAggregate->getIterator(), $this->resultSet->getDataSource());
@@ -118,12 +118,12 @@ class ResultSetIntegrationTest extends TestCase
 
     public function getArrayDataSource($count)
     {
-        $array = array();
+        $array = [];
         for ($i = 0; $i < $count; $i++) {
-            $array[] = array(
+            $array[] = [
                 'id'    => $i,
                 'title' => 'title ' . $i,
-            );
+            ];
         }
         return new ArrayIterator($array);
     }
@@ -192,7 +192,7 @@ class ResultSetIntegrationTest extends TestCase
     public function testCurrentWithBufferingCallsDataSourceCurrentOnce()
     {
         $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
-        $mockResult->expects($this->once())->method('current')->will($this->returnValue(array('foo' => 'bar')));
+        $mockResult->expects($this->once())->method('current')->will($this->returnValue(['foo' => 'bar']));
 
         $this->resultSet->initialize($mockResult);
         $this->resultSet->buffer();

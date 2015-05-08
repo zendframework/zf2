@@ -38,7 +38,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testResultAccessorsShouldWorkWithNormalInput()
     {
-        foreach (array(true, 'foo', 2, 2.0, array(), array('foo' => 'bar')) as $result) {
+        foreach ([true, 'foo', 2, 2.0, [], ['foo' => 'bar']] as $result) {
             $this->response->setResult($result);
             $this->assertEquals($result, $this->response->getResult());
         }
@@ -90,7 +90,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     {
         $this->response->setVersion('2.0');
         $this->assertEquals('2.0', $this->response->getVersion());
-        foreach (array('a', 1, '1.0', true) as $version) {
+        foreach (['a', 1, '1.0', true] as $version) {
             $this->response->setVersion($version);
             $this->assertNull($this->response->getVersion());
         }
@@ -191,18 +191,18 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
      */
     public function provideScalarJSONResponses()
     {
-        return array(array(''), array('true'), array('null'), array('3'), array('"invalid"'));
+        return [[''], ['true'], ['null'], ['3'], ['"invalid"']];
     }
 
     public function getOptions()
     {
-        return array(
-            'result' => array(
+        return [
+            'result' => [
                 5,
                 'four',
                 true,
-            ),
+            ],
             'id'  => 'foobar'
-        );
+        ];
     }
 }

@@ -42,15 +42,15 @@ class FileGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $codeGenFile = FileGenerator::fromArray(array(
-            'requiredFiles' => array('SampleClass.php'),
-            'class' => array(
+        $codeGenFile = FileGenerator::fromArray([
+            'requiredFiles' => ['SampleClass.php'],
+            'class' => [
                 'flags' => ClassGenerator::FLAG_ABSTRACT,
                 'name' => 'SampleClass',
                 'extendedClass' => 'ExtendedClassName',
-                'implementedInterfaces' => array('Iterator', 'Traversable')
-            )
-        ));
+                'implementedInterfaces' => ['Iterator', 'Traversable']
+            ]
+        ]);
 
 
         $expectedOutput = <<<EOS
@@ -75,11 +75,11 @@ EOS;
     {
         $tempFile = tempnam(sys_get_temp_dir(), 'UnitFile');
 
-        $codeGenFile = FileGenerator::fromArray(array(
-            'class' => array(
+        $codeGenFile = FileGenerator::fromArray([
+            'class' => [
                 'name' => 'SampleClass'
-            )
-        ));
+            ]
+        ]);
 
         file_put_contents($tempFile, $codeGenFile->generate());
 
@@ -147,15 +147,15 @@ EOS;
      */
     public function testFileLineEndingsAreAlwaysLineFeed()
     {
-        $codeGenFile = FileGenerator::fromArray(array(
-            'requiredFiles' => array('SampleClass.php'),
-            'class' => array(
+        $codeGenFile = FileGenerator::fromArray([
+            'requiredFiles' => ['SampleClass.php'],
+            'class' => [
                 'abstract' => true,
                 'name' => 'SampleClass',
                 'extendedClass' => 'ExtendedClassName',
-                'implementedInterfaces' => array('Iterator', 'Traversable'),
-            ),
-        ));
+                'implementedInterfaces' => ['Iterator', 'Traversable'],
+            ],
+        ]);
 
         // explode by newline, this would leave CF in place if it were generated
         $lines = explode("\n", $codeGenFile->generate());
@@ -172,9 +172,9 @@ EOS;
     {
         $file = new FileGenerator();
         $file->setUse('My\Baz')
-             ->setUses(array(
-                 array('use' => 'Your\Bar', 'as' => 'bar'),
-             ));
+             ->setUses([
+                 ['use' => 'Your\Bar', 'as' => 'bar'],
+             ]);
         $generated = $file->generate();
         $this->assertContains('use My\\Baz;', $generated);
         $this->assertContains('use Your\\Bar as bar;', $generated);
@@ -200,10 +200,10 @@ EOS;
     public function testSetUsesDoesntGenerateMultipleIdenticalUseStatements()
     {
         $file = new FileGenerator();
-        $file->setUses(array(
-                 array('use' => 'Your\Bar', 'as' => 'bar'),
-                 array('use' => 'Your\Bar', 'as' => 'bar'),
-        ));
+        $file->setUses([
+                 ['use' => 'Your\Bar', 'as' => 'bar'],
+                 ['use' => 'Your\Bar', 'as' => 'bar'],
+        ]);
         $generated = $file->generate();
         $this->assertSame(strpos($generated, 'use Your\\Bar as bar;'), strrpos($generated, 'use Your\\Bar as bar;'));
     }
@@ -211,10 +211,10 @@ EOS;
     public function testSetUseAllowsMultipleAliasedUseStatements()
     {
         $file = new FileGenerator();
-        $file->setUses(array(
-                 array('use' => 'Your\Bar', 'as' => 'bar'),
-                 array('use' => 'Your\Bar', 'as' => 'bar2'),
-        ));
+        $file->setUses([
+                 ['use' => 'Your\Bar', 'as' => 'bar'],
+                 ['use' => 'Your\Bar', 'as' => 'bar2'],
+        ]);
         $generated = $file->generate();
         $this->assertContains('use Your\\Bar as bar;', $generated);
         $this->assertContains('use Your\\Bar as bar2;', $generated);
@@ -223,10 +223,10 @@ EOS;
     public function testSetUsesWithArrays()
     {
         $file = new FileGenerator();
-        $file->setUses(array(
-                 array('use' => 'Your\\Bar', 'as' => 'bar'),
-                 array('use' => 'My\\Baz', 'as' => 'FooBaz')
-             ));
+        $file->setUses([
+                 ['use' => 'Your\\Bar', 'as' => 'bar'],
+                 ['use' => 'My\\Baz', 'as' => 'FooBaz']
+             ]);
         $generated = $file->generate();
         $this->assertContains('use My\\Baz as FooBaz;', $generated);
         $this->assertContains('use Your\\Bar as bar;', $generated);
@@ -235,11 +235,11 @@ EOS;
     public function testSetUsesWithString()
     {
         $file = new FileGenerator();
-        $file->setUses(array(
+        $file->setUses([
             'Your\\Bar',
             'My\\Baz',
-            array('use' => 'Another\\Baz', 'as' => 'Baz2')
-        ));
+            ['use' => 'Another\\Baz', 'as' => 'Baz2']
+        ]);
         $generated = $file->generate();
         $this->assertContains('use My\\Baz;', $generated);
         $this->assertContains('use Your\\Bar;', $generated);
@@ -249,11 +249,11 @@ EOS;
     public function testSetUsesWithGetUses()
     {
         $file = new FileGenerator();
-        $uses = array(
+        $uses = [
             'Your\\Bar',
             'My\\Baz',
-            array('use' => 'Another\\Baz', 'as' => 'Baz2')
-        );
+            ['use' => 'Another\\Baz', 'as' => 'Baz2']
+        ];
         $file->setUses($uses);
         $file->setUses($file->getUses());
         $generated = $file->generate();
@@ -264,22 +264,22 @@ EOS;
 
     public function testCreateFromArrayWithClassInstance()
     {
-        $fileGenerator = FileGenerator::fromArray(array(
+        $fileGenerator = FileGenerator::fromArray([
             'filename'  => 'foo.php',
             'class'     => new ClassGenerator('bar'),
-        ));
+        ]);
         $class = $fileGenerator->getClass('bar');
         $this->assertInstanceOf('Zend\Code\Generator\ClassGenerator', $class);
     }
 
     public function testCreateFromArrayWithClassFromArray()
     {
-        $fileGenerator = FileGenerator::fromArray(array(
+        $fileGenerator = FileGenerator::fromArray([
             'filename'  => 'foo.php',
-            'class'     => array(
+            'class'     => [
                 'name' => 'bar',
-            ),
-        ));
+            ],
+        ]);
         $class = $fileGenerator->getClass('bar');
         $this->assertInstanceOf('Zend\Code\Generator\ClassGenerator', $class);
     }
@@ -295,7 +295,7 @@ EOS;
         $generator = FileGenerator::fromReflectedFileName(__DIR__ . '/TestAsset/ClassWithUses.php');
         $class = $generator->getClass();
 
-        $expectedUses = array('ZendTest\Code\Generator\TestAsset\ClassWithNamespace');
+        $expectedUses = ['ZendTest\Code\Generator\TestAsset\ClassWithNamespace'];
 
         $this->assertEquals($expectedUses, $class->getUses());
     }

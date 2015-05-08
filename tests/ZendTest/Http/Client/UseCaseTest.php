@@ -48,9 +48,9 @@ class UseCaseTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $config = array(
+    protected $config = [
         'adapter'     => 'Zend\Http\Client\Adapter\Socket'
-    );
+    ];
 
     /**
      * Set up the test case

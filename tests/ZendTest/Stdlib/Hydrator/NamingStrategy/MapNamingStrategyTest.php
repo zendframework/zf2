@@ -15,7 +15,7 @@ class MapNamingStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testHydrateMap()
     {
-        $namingStrategy = new MapNamingStrategy(array('foo' => 'bar'));
+        $namingStrategy = new MapNamingStrategy(['foo' => 'bar']);
 
         $this->assertEquals('bar', $namingStrategy->hydrate('foo'));
         $this->assertEquals('foo', $namingStrategy->extract('bar'));
@@ -24,8 +24,8 @@ class MapNamingStrategyTest extends \PHPUnit_Framework_TestCase
     public function testHydrateAndExtractMaps()
     {
         $namingStrategy = new MapNamingStrategy(
-            array('foo' => 'foo-hydrated'),
-            array('bar' => 'bar-extracted')
+            ['foo' => 'foo-hydrated'],
+            ['bar' => 'bar-extracted']
         );
 
         $this->assertEquals('foo-hydrated', $namingStrategy->hydrate('foo'));
@@ -35,6 +35,6 @@ class MapNamingStrategyTest extends \PHPUnit_Framework_TestCase
     public function testSingleMapInvalidValue()
     {
         $this->setExpectedException('InvalidArgumentException');
-        new MapNamingStrategy(array('foo' => 3.1415));
+        new MapNamingStrategy(['foo' => 3.1415]);
     }
 }

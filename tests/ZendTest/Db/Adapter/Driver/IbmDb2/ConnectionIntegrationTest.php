@@ -37,7 +37,7 @@ class ConnectionIntegrationTest extends AbstractIntegrationTest
             $this->variables['username'],
             $this->variables['password']
         );
-        $connection = new Connection(array());
+        $connection = new Connection([]);
         $this->assertSame($connection, $connection->setResource($resource));
 
         $connection->disconnect();
@@ -202,7 +202,7 @@ class ConnectionIntegrationTest extends AbstractIntegrationTest
             $this->variables['username'],
             $this->variables['password']
         );
-        $connection = new Connection(array());
+        $connection = new Connection([]);
         $connection->setResource($resource);
         $this->assertSame($connection, $connection->connect());
 

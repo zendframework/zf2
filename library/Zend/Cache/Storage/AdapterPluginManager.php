@@ -26,7 +26,7 @@ class AdapterPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'apc'            => 'Zend\Cache\Storage\Adapter\Apc',
         'blackhole'      => 'Zend\Cache\Storage\Adapter\BlackHole',
         'dba'            => 'Zend\Cache\Storage\Adapter\Dba',
@@ -41,7 +41,7 @@ class AdapterPluginManager extends AbstractPluginManager
         'wincache'       => 'Zend\Cache\Storage\Adapter\WinCache',
         'zendserverdisk' => 'Zend\Cache\Storage\Adapter\ZendServerDisk',
         'zendservershm'  => 'Zend\Cache\Storage\Adapter\ZendServerShm',
-    );
+    ];
 
     /**
      * Do not share by default

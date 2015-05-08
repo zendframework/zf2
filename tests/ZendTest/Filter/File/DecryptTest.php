@@ -118,14 +118,14 @@ class DecryptTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 dirname(__DIR__).'/_files/nofile.txt',
                 dirname(__DIR__).'/_files/nofile2.txt'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**

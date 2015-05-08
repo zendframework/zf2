@@ -83,7 +83,7 @@ class LowerCaseTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertContains('This is a File', file_get_contents($this->_newFile));
         $filter = new FileLowerCase();
-        $filter(array('tmp_name' => $this->_newFile));
+        $filter(['tmp_name' => $this->_newFile]);
         $this->assertContains('this is a file', file_get_contents($this->_newFile));
     }
 
@@ -130,14 +130,14 @@ class LowerCaseTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 dirname(__DIR__).'/_files/nofile.txt',
                 dirname(__DIR__).'/_files/nofile2.txt'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**

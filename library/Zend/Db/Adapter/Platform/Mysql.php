@@ -19,7 +19,7 @@ class Mysql extends AbstractPlatform
     /**
      * {@inheritDoc}
      */
-    protected $quoteIdentifier = array('`', '`');
+    protected $quoteIdentifier = ['`', '`'];
 
     /**
      * {@inheritDoc}

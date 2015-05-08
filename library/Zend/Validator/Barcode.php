@@ -18,28 +18,28 @@ class Barcode extends AbstractValidator
     const INVALID_CHARS  = 'barcodeInvalidChars';
     const INVALID_LENGTH = 'barcodeInvalidLength';
 
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::FAILED         => "The input failed checksum validation",
         self::INVALID_CHARS  => "The input contains invalid characters",
         self::INVALID_LENGTH => "The input should have a length of %length% characters",
         self::INVALID        => "Invalid type given. String expected",
-    );
+    ];
 
     /**
      * Additional variables available for validation failure messages
      *
      * @var array
      */
-    protected $messageVariables = array(
-        'length' => array('options' => 'length'),
-    );
+    protected $messageVariables = [
+        'length' => ['options' => 'length'],
+    ];
 
-    protected $options = array(
+    protected $options = [
         'adapter'     => null,  // Barcode adapter Zend\Validator\Barcode\AbstractAdapter
         'options'     => null,  // Options for this adapter
         'length'      => null,
         'useChecksum' => null,
-    );
+    ];
 
     /**
      * Constructor for barcodes
@@ -49,11 +49,11 @@ class Barcode extends AbstractValidator
     public function __construct($options = null)
     {
         if (!is_array($options) && !($options instanceof Traversable)) {
-            $options = array('adapter' => $options);
+            $options = ['adapter' => $options];
         }
 
         if (array_key_exists('options', $options)) {
-            $options['options'] = array('options' => $options['options']);
+            $options['options'] = ['options' => $options['options']];
         }
 
         parent::__construct($options);

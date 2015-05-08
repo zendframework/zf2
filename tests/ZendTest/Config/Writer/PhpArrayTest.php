@@ -31,15 +31,15 @@ class PhpArrayTest extends AbstractWriterTestCase
      */
     public function testRender()
     {
-        $config = new Config(array(
+        $config = new Config([
             'test' => 'foo',
-            'bar' => array(0 => 'baz', 1 => 'foo'),
-            'emptyArray' => array(),
-            'object' => (object) array('foo' => 'bar'),
+            'bar' => [0 => 'baz', 1 => 'foo'],
+            'emptyArray' => [],
+            'object' => (object) ['foo' => 'bar'],
             'integer' => 123,
             'boolean' => false,
             'null' => null,
-        ));
+        ]);
 
         $configString = $this->writer->toString($config);
 
@@ -65,7 +65,7 @@ class PhpArrayTest extends AbstractWriterTestCase
 
     public function testRenderWithBracketArraySyntax()
     {
-        $config = new Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo'), 'emptyArray' => array()));
+        $config = new Config(['test' => 'foo', 'bar' => [0 => 'baz', 1 => 'foo'], 'emptyArray' => []]);
 
         $this->writer->setUseBracketArraySyntax(true);
         $configString = $this->writer->toString($config);
@@ -86,7 +86,7 @@ class PhpArrayTest extends AbstractWriterTestCase
 
     public function testRenderWithQuotesInString()
     {
-        $config = new Config(array('one' => 'Test with "double" quotes', 'two' => 'Test with \'single\' quotes'));
+        $config = new Config(['one' => 'Test with "double" quotes', 'two' => 'Test with \'single\' quotes']);
 
         $configString = $this->writer->toString($config);
 

@@ -41,11 +41,11 @@ class ConfigTest extends TestCase
         $this->assertContains('my-dbAdapter', $im->getTypePreferences('my-mapper'));
 
         $this->assertTrue($im->hasConfig('My\DbAdapter'));
-        $expected = array('parameters' => array('username' => 'readonly', 'password' => 'mypassword'), 'injections' => array(), 'shared' => true);
+        $expected = ['parameters' => ['username' => 'readonly', 'password' => 'mypassword'], 'injections' => [], 'shared' => true];
         $this->assertEquals($expected, $im->getConfig('My\DbAdapter'));
 
         $this->assertTrue($im->hasConfig('my-dbAdapter'));
-        $expected = array('parameters' => array('username' => 'readwrite'), 'injections' => array(), 'shared' => true);
+        $expected = ['parameters' => ['username' => 'readwrite'], 'injections' => [], 'shared' => true];
         $this->assertEquals($expected, $im->getConfig('my-dbAdapter'));
     }
 
@@ -60,21 +60,21 @@ class ConfigTest extends TestCase
         $this->assertTrue($definition->hasClass('My\DbAdapter'));
         $this->assertEquals('__construct', $definition->getInstantiator('My\DbAdapter'));
         $this->assertEquals(
-            array('username' => null, 'password' => null),
+            ['username' => null, 'password' => null],
             $definition->getInjectionMethodParameters('My\DbAdapter', '__construct')
             );
 
         $this->assertTrue($definition->hasClass('My\Mapper'));
         $this->assertEquals('__construct', $definition->getInstantiator('My\Mapper'));
         $this->assertEquals(
-            array('dbAdapter' => 'My\DbAdapter'),
+            ['dbAdapter' => 'My\DbAdapter'],
             $definition->getInjectionMethodParameters('My\Mapper', '__construct')
             );
 
         $this->assertTrue($definition->hasClass('My\Repository'));
         $this->assertEquals('__construct', $definition->getInstantiator('My\Repository'));
         $this->assertEquals(
-            array('mapper' => 'My\Mapper'),
+            ['mapper' => 'My\Mapper'],
             $definition->getInjectionMethodParameters('My\Repository', '__construct')
             );
     }

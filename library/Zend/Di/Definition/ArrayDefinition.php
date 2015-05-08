@@ -19,7 +19,7 @@ class ArrayDefinition implements DefinitionInterface
     /**
      * @var array
      */
-    protected $dataArray = array();
+    protected $dataArray = [];
 
     /**
      * @param array $dataArray
@@ -64,11 +64,11 @@ class ArrayDefinition implements DefinitionInterface
     public function getClassSupertypes($class)
     {
         if (!isset($this->dataArray[$class])) {
-            return array();
+            return [];
         }
 
         if (!isset($this->dataArray[$class]['supertypes'])) {
-            return array();
+            return [];
         }
 
         return $this->dataArray[$class]['supertypes'];
@@ -128,11 +128,11 @@ class ArrayDefinition implements DefinitionInterface
     public function getMethods($class)
     {
         if (!isset($this->dataArray[$class])) {
-            return array();
+            return [];
         }
 
         if (!isset($this->dataArray[$class]['methods'])) {
-            return array();
+            return [];
         }
 
         return $this->dataArray[$class]['methods'];
@@ -152,15 +152,15 @@ class ArrayDefinition implements DefinitionInterface
     public function getMethodParameters($class, $method)
     {
         if (!isset($this->dataArray[$class])) {
-            return array();
+            return [];
         }
 
         if (!isset($this->dataArray[$class]['parameters'])) {
-            return array();
+            return [];
         }
 
         if (!isset($this->dataArray[$class]['parameters'][$method])) {
-            return array();
+            return [];
         }
 
         return $this->dataArray[$class]['parameters'][$method];

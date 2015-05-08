@@ -96,13 +96,13 @@ class PhpRendererStrategyTest extends TestCase
 
     public function testContentPlaceholdersIncludeContentAndArticleByDefault()
     {
-        $this->assertEquals(array('article', 'content'), $this->strategy->getContentPlaceholders());
+        $this->assertEquals(['article', 'content'], $this->strategy->getContentPlaceholders());
     }
 
     public function testContentPlaceholdersListIsMutable()
     {
-        $this->strategy->setContentPlaceholders(array('foo', 'bar'));
-        $this->assertEquals(array('foo', 'bar'), $this->strategy->getContentPlaceholders());
+        $this->strategy->setContentPlaceholders(['foo', 'bar']);
+        $this->assertEquals(['foo', 'bar'], $this->strategy->getContentPlaceholders());
     }
 
     public function testAttachesListenersAtExpectedPriorities()
@@ -110,9 +110,9 @@ class PhpRendererStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (['renderer' => 'selectRenderer', 'response' => 'injectResponse'] as $event => $method) {
             $listeners        = $events->getListeners($event);
-            $expectedCallback = array($this->strategy, $method);
+            $expectedCallback = [$this->strategy, $method];
             $expectedPriority = 1;
             $found            = false;
             foreach ($listeners as $listener) {
@@ -133,9 +133,9 @@ class PhpRendererStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy, 100);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (['renderer' => 'selectRenderer', 'response' => 'injectResponse'] as $event => $method) {
             $listeners        = $events->getListeners($event);
-            $expectedCallback = array($this->strategy, $method);
+            $expectedCallback = [$this->strategy, $method];
             $expectedPriority = 100;
             $found            = false;
             foreach ($listeners as $listener) {

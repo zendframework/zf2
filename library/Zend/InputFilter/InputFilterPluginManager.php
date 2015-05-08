@@ -26,10 +26,10 @@ class InputFilterPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'inputfilter' => 'Zend\InputFilter\InputFilter',
         'collection'  => 'Zend\InputFilter\CollectionInputFilter',
-    );
+    ];
 
     /**
      * Whether or not to share by default
@@ -45,7 +45,7 @@ class InputFilterPluginManager extends AbstractPluginManager
     {
         parent::__construct($configuration);
 
-        $this->addInitializer(array($this, 'populateFactory'));
+        $this->addInitializer([$this, 'populateFactory']);
     }
 
     /**

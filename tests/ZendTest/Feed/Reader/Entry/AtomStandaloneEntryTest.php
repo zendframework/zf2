@@ -20,44 +20,44 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
 {
     protected $feedSamplePath = null;
 
-    protected $expectedCats = array();
+    protected $expectedCats = [];
 
-    protected $expectedCatsDc = array();
+    protected $expectedCatsDc = [];
 
     public function setup()
     {
         Reader\Reader::reset();
         $this->feedSamplePath = dirname(__FILE__) . '/_files/AtomStandaloneEntry';
 
-        $this->expectedCats = array(
-            array(
+        $this->expectedCats = [
+            [
                 'term' => 'topic1',
                 'scheme' => 'http://example.com/schema1',
                 'label' => 'topic1'
-            ),
-            array(
+            ],
+            [
                 'term' => 'topic1',
                 'scheme' => 'http://example.com/schema2',
                 'label' => 'topic1'
-            ),
-            array(
+            ],
+            [
                 'term' => 'cat_dog',
                 'scheme' => 'http://example.com/schema1',
                 'label' => 'Cat & Dog'
-            )
-        );
-        $this->expectedCatsDc = array(
-            array(
+            ]
+        ];
+        $this->expectedCatsDc = [
+            [
                 'term' => 'topic1',
                 'scheme' => null,
                 'label' => 'topic1'
-            ),
-            array(
+            ],
+            [
                 'term' => 'topic2',
                 'scheme' => null,
                 'label' => 'topic2'
-            )
-        );
+            ]
+        ];
     }
 
     public function testReaderImportOfAtomEntryDocumentReturnsEntryClass()
@@ -128,14 +128,14 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath . '/author/atom10.xml')
         );
 
-        $authors = array(
-            array('email'=>'joe@example.com','name'=>'Joe Bloggs','uri'=>'http://www.example.com'),
-            array('name'=>'Joe Bloggs','uri'=>'http://www.example.com'),
-            array('name'=>'Joe Bloggs'),
-            array('email'=>'joe@example.com','uri'=>'http://www.example.com'),
-            array('uri'=>'http://www.example.com'),
-            array('email'=>'joe@example.com')
-        );
+        $authors = [
+            ['email'=>'joe@example.com','name'=>'Joe Bloggs','uri'=>'http://www.example.com'],
+            ['name'=>'Joe Bloggs','uri'=>'http://www.example.com'],
+            ['name'=>'Joe Bloggs'],
+            ['email'=>'joe@example.com','uri'=>'http://www.example.com'],
+            ['uri'=>'http://www.example.com'],
+            ['email'=>'joe@example.com']
+        ];
 
         $this->assertEquals($authors, (array) $entry->getAuthors());
     }
@@ -149,7 +149,7 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
         $entry = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath . '/author/atom10.xml')
         );
-        $this->assertEquals(array('name'=>'Joe Bloggs', 'email'=>'joe@example.com', 'uri'=>'http://www.example.com'), $entry->getAuthor());
+        $this->assertEquals(['name'=>'Joe Bloggs', 'email'=>'joe@example.com', 'uri'=>'http://www.example.com'], $entry->getAuthor());
     }
 
     /**
@@ -264,6 +264,6 @@ class AtomStandaloneEntryTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath.'/category/atom10.xml')
         );
         $this->assertEquals($this->expectedCats, (array) $entry->getCategories());
-        $this->assertEquals(array('topic1', 'Cat & Dog'), array_values($entry->getCategories()->getValues()));
+        $this->assertEquals(['topic1', 'Cat & Dog'], array_values($entry->getCategories()->getValues()));
     }
 }

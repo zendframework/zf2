@@ -29,7 +29,7 @@ class SmtpOptions extends AbstractOptions
      *
      * @var array
      */
-    protected $connectionConfig = array();
+    protected $connectionConfig = [];
 
     /**
      * @var string Remote SMTP hostname or IP

@@ -23,13 +23,13 @@ class Oci8IntegrationTest extends AbstractIntegrationTest
      */
     public function testCheckEnvironment()
     {
-        $sqlserver = new Oci8(array());
+        $sqlserver = new Oci8([]);
         $this->assertNull($sqlserver->checkEnvironment());
     }
 
     public function testCreateStatement()
     {
-        $driver = new Oci8(array());
+        $driver = new Oci8([]);
         $resource = oci_connect($this->variables['username'], $this->variables['password'], $this->variables['hostname']);
 
         $driver->getConnection()->setResource($resource);

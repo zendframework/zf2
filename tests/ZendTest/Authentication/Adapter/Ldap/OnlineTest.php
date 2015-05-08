@@ -23,24 +23,24 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * @var array
      */
-    protected $names = array();
+    protected $names = [];
 
     public function setUp()
     {
         if (!constant('TESTS_ZEND_AUTH_ADAPTER_LDAP_ONLINE_ENABLED')) {
             $this->markTestSkipped('LDAP online tests are not enabled');
         }
-        $this->options = array(
+        $this->options = [
             'host'     => TESTS_ZEND_LDAP_HOST,
             'username' => TESTS_ZEND_LDAP_USERNAME,
             'password' => TESTS_ZEND_LDAP_PASSWORD,
             'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
-        );
+        ];
         if (defined('TESTS_ZEND_LDAP_PORT')) {
             $this->options['port'] = TESTS_ZEND_LDAP_PORT;
         }
@@ -79,7 +79,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function testSimpleAuth()
     {
         $adapter = new Adapter\Ldap(
-            array($this->options),
+            [$this->options],
             TESTS_ZEND_LDAP_ALT_USERNAME,
             TESTS_ZEND_LDAP_ALT_PASSWORD
         );
@@ -102,7 +102,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
         foreach ($this->names as $form => $formName) {
             $options = $this->options;
             $options['accountCanonicalForm'] = $form;
-            $adapter = new Adapter\Ldap(array($options));
+            $adapter = new Adapter\Ldap([$options]);
             $adapter->setPassword(TESTS_ZEND_LDAP_ALT_PASSWORD);
             foreach ($this->names as $username) {
                 $adapter->setUsername($username);
@@ -118,7 +118,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function testInvalidPassAuth()
     {
         $adapter = new Adapter\Ldap(
-            array($this->options),
+            [$this->options],
             TESTS_ZEND_LDAP_ALT_USERNAME,
             'invalid'
         );
@@ -132,7 +132,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function testInvalidUserAuth()
     {
         $adapter = new Adapter\Ldap(
-            array($this->options),
+            [$this->options],
             'invalid',
             'doesntmatter'
         );
@@ -149,7 +149,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function testMismatchDomainAuth()
     {
         $adapter = new Adapter\Ldap(
-            array($this->options),
+            [$this->options],
             'EXAMPLE\\doesntmatter',
             'doesntmatter'
         );
@@ -165,7 +165,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function testAccountObjectRetrieval()
     {
         $adapter = new Adapter\Ldap(
-            array($this->options),
+            [$this->options],
             TESTS_ZEND_LDAP_ALT_USERNAME,
             TESTS_ZEND_LDAP_ALT_PASSWORD
         );
@@ -181,13 +181,13 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
     public function testAccountObjectRetrievalWithOmittedAttributes()
     {
         $adapter = new Adapter\Ldap(
-            array($this->options),
+            [$this->options],
             TESTS_ZEND_LDAP_ALT_USERNAME,
             TESTS_ZEND_LDAP_ALT_PASSWORD
         );
 
         $result = $adapter->authenticate();
-        $account = $adapter->getAccountObject(array(), array('userPassword'));
+        $account = $adapter->getAccountObject([], ['userPassword']);
 
         $this->assertInternalType('object', $account);
         $this->assertFalse(isset($account->userpassword));

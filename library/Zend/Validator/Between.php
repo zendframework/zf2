@@ -22,31 +22,31 @@ class Between extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::NOT_BETWEEN        => "The input is not between '%min%' and '%max%', inclusively",
         self::NOT_BETWEEN_STRICT => "The input is not strictly between '%min%' and '%max%'"
-    );
+    ];
 
     /**
      * Additional variables available for validation failure messages
      *
      * @var array
      */
-    protected $messageVariables = array(
-        'min' => array('options' => 'min'),
-        'max' => array('options' => 'max'),
-    );
+    protected $messageVariables = [
+        'min' => ['options' => 'min'],
+        'max' => ['options' => 'max'],
+    ];
 
     /**
      * Options for the between validator
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'inclusive' => true,  // Whether to do inclusive comparisons, allowing equivalence to min and/or max
         'min'       => 0,
         'max'       => PHP_INT_MAX,
-    );
+    ];
 
     /**
      * Sets validator options

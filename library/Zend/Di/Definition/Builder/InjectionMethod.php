@@ -24,7 +24,7 @@ class InjectionMethod
     /**
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * @param  string|null $name
@@ -54,12 +54,12 @@ class InjectionMethod
      */
     public function addParameter($name, $class = null, $isRequired = null, $default = null)
     {
-        $this->parameters[] = array(
+        $this->parameters[] = [
             $name,
             $class,
             self::detectMethodRequirement($isRequired),
             $default,
-        );
+        ];
 
         return $this;
     }

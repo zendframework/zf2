@@ -17,9 +17,9 @@ use Zend\Di\Exception\ClassNotFoundException;
  */
 class Locator implements ServiceLocatorInterface
 {
-    protected $services = array();
+    protected $services = [];
 
-    public function get($name, array $params = array())
+    public function get($name, array $params = [])
     {
         if (!isset($this->services[$name])) {
             throw new ClassNotFoundException();

@@ -24,7 +24,7 @@ class ConsoleAdapter extends AbstractAdapter
 
     public $testIsUtf8 = true;
 
-    public $writtenData = array();
+    public $writtenData = [];
 
     /**
      * Construct.

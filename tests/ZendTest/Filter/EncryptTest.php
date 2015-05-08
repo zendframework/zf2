@@ -34,8 +34,8 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Mcrypt extension not installed');
         }
 
-        $filter = new EncryptFilter(array('adapter' => 'BlockCipher', 'key' => 'testkey'));
-        $valuesExpected = array(
+        $filter = new EncryptFilter(['adapter' => 'BlockCipher', 'key' => 'testkey']);
+        $valuesExpected = [
             'STRING' => 'STRING',
             'ABC1@3' => 'ABC1@3',
             'A b C'  => 'A B C',
@@ -43,7 +43,7 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
             -1       => -1,
             1.0      => 1.0,
             -1.0     => -1.0,
-        );
+        ];
 
         $enc = $filter->getEncryption();
         $filter->setVector('1234567890123456');
@@ -61,7 +61,7 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
         if (!extension_loaded('mcrypt')) {
             $this->markTestSkipped('Mcrypt extension not installed');
         }
-        $encrypt = new EncryptFilter(array('adapter' => 'BlockCipher', 'key' => 'testkey'));
+        $encrypt = new EncryptFilter(['adapter' => 'BlockCipher', 'key' => 'testkey']);
         $encrypt->setVector('1234567890123456890');
         $encrypted = $encrypt->filter('test');
         $this->assertEquals($encrypted, 'ec133eb7460682b0020b736ad6d2ef14c35de0f1e5976330ae1dd096ef3b4cb7MTIzNDU2Nzg5MDEyMzQ1NoZvxY1JkeL6TnQP3ug5F0k=');
@@ -78,17 +78,17 @@ class EncryptTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Openssl extension not installed');
         }
 
-        $filter = new EncryptFilter(array('adapter' => 'Openssl'));
-        $valuesExpected = array(
+        $filter = new EncryptFilter(['adapter' => 'Openssl']);
+        $valuesExpected = [
             'STRING' => 'STRING',
             'ABC1@3' => 'ABC1@3',
             'A b C'  => 'A B C'
-        );
+        ];
 
         $filter->setPublicKey(__DIR__ . '/_files/publickey.pem');
         $key = $filter->getPublicKey();
         $this->assertEquals(
-            array(__DIR__ . '/_files/publickey.pem' =>
+            [__DIR__ . '/_files/publickey.pem' =>
                   '-----BEGIN CERTIFICATE-----
 MIIC3jCCAkegAwIBAgIBADANBgkqhkiG9w0BAQQFADCBtDELMAkGA1UEBhMCTkwx
 FjAUBgNVBAgTDU5vb3JkLUhvbGxhbmQxEDAOBgNVBAcTB1phYW5kYW0xFzAVBgNV
@@ -107,7 +107,7 @@ FDD4V7XpcNU63QIDAQABMA0GCSqGSIb3DQEBBAUAA4GBAFQ22OU/PAN7rRDr23NS
 5jYy6v3b+zwEvY82EUieMldovdnpsS1EScjjvPfQ1lSgcTHT2QX5MjNv13xLnOgh
 PIDs9E7uuizAKDhRRRvho8BS
 -----END CERTIFICATE-----
-'),
+'],
             $key);
         foreach ($valuesExpected as $input => $output) {
             $this->assertNotEquals($output, $filter($input));
@@ -152,14 +152,14 @@ PIDs9E7uuizAKDhRRRvho8BS
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 'encrypt me',
                 'encrypt me too, please'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**
@@ -172,7 +172,7 @@ PIDs9E7uuizAKDhRRRvho8BS
             $this->markTestSkipped('Mcrypt extension not installed');
         }
 
-        $encrypt = new EncryptFilter(array('adapter' => 'BlockCipher', 'key' => 'testkey'));
+        $encrypt = new EncryptFilter(['adapter' => 'BlockCipher', 'key' => 'testkey']);
         $encrypt->setVector('1234567890123456890');
 
         $encrypted = $encrypt->filter($input);

@@ -31,7 +31,7 @@ class DateSelect extends MonthSelect
      * @param  null|int|string  $name    Optional name for the element
      * @param  array            $options Optional options for the element
      */
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         $this->dayElement = new Select('day');
 
@@ -71,7 +71,7 @@ class DateSelect extends MonthSelect
      */
     public function getElements()
     {
-        return array_merge(array($this->dayElement), parent::getElements());
+        return array_merge([$this->dayElement], parent::getElements());
     }
 
     /**
@@ -112,11 +112,11 @@ class DateSelect extends MonthSelect
         }
 
         if ($value instanceof PhpDateTime) {
-            $value = array(
+            $value = [
                 'year'  => $value->format('Y'),
                 'month' => $value->format('m'),
                 'day'   => $value->format('d'),
-            );
+            ];
         }
 
         $this->yearElement->setValue($value['year']);
@@ -161,7 +161,7 @@ class DateSelect extends MonthSelect
     protected function getValidator()
     {
         if (null === $this->validator) {
-            $this->validator = new DateValidator(array('format' => 'Y-m-d'));
+            $this->validator = new DateValidator(['format' => 'Y-m-d']);
         }
 
         return $this->validator;
@@ -175,16 +175,16 @@ class DateSelect extends MonthSelect
      */
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => false,
-            'filters' => array(
-                array('name' => 'DateSelect')
-            ),
-            'validators' => array(
+            'filters' => [
+                ['name' => 'DateSelect']
+            ],
+            'validators' => [
                 $this->getValidator(),
-            )
-        );
+            ]
+        ];
     }
 
     /**

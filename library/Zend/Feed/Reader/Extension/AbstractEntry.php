@@ -21,7 +21,7 @@ abstract class AbstractEntry
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * DOM document object

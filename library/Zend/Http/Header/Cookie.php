@@ -21,7 +21,7 @@ class Cookie extends ArrayObject implements HeaderInterface
 
     public static function fromSetCookieArray(array $setCookies)
     {
-        $nvPairs = array();
+        $nvPairs = [];
 
         foreach ($setCookies as $setCookie) {
             if (! $setCookie instanceof SetCookie) {
@@ -57,7 +57,7 @@ class Cookie extends ArrayObject implements HeaderInterface
 
         $nvPairs = preg_split('#;\s*#', $value);
 
-        $arrayInfo = array();
+        $arrayInfo = [];
         foreach ($nvPairs as $nvPair) {
             $parts = explode('=', $nvPair, 2);
             if (count($parts) != 2) {
@@ -72,7 +72,7 @@ class Cookie extends ArrayObject implements HeaderInterface
         return $header;
     }
 
-    public function __construct(array $array = array())
+    public function __construct(array $array = [])
     {
         parent::__construct($array, ArrayObject::ARRAY_AS_PROPS);
     }
@@ -95,7 +95,7 @@ class Cookie extends ArrayObject implements HeaderInterface
 
     public function getFieldValue()
     {
-        $nvPairs = array();
+        $nvPairs = [];
 
         foreach ($this as $name => $value) {
             $nvPairs[] = $name . '=' . (($this->encodeValue) ? urlencode($value) : $value);

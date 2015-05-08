@@ -20,9 +20,9 @@ class Color extends Element implements InputProviderInterface
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'color',
-    );
+    ];
 
     /**
      * @var \Zend\Validator\ValidatorInterface
@@ -51,16 +51,16 @@ class Color extends Element implements InputProviderInterface
      */
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim'),
-                array('name' => 'Zend\Filter\StringToLower'),
-            ),
-            'validators' => array(
+            'filters' => [
+                ['name' => 'Zend\Filter\StringTrim'],
+                ['name' => 'Zend\Filter\StringToLower'],
+            ],
+            'validators' => [
                 $this->getValidator(),
-            ),
-        );
+            ],
+        ];
     }
 }

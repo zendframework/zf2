@@ -27,21 +27,21 @@ class IsImage extends MimeType
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::FALSE_TYPE   => "File is no image, '%type%' detected",
         self::NOT_DETECTED => "The mimetype could not be detected from the file",
         self::NOT_READABLE => "File is not readable or does not exist",
-    );
+    ];
 
     /**
      * Sets validator options
      *
      * @param array|Traversable|string $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         // http://www.iana.org/assignments/media-types/media-types.xhtml#image
-        $default = array(
+        $default = [
             'application/cdf',
             'application/dicom',
             'application/fractals',
@@ -97,14 +97,14 @@ class IsImage extends MimeType
             'image/x-unknown',
             'image/x-windows-bmp',
             'image/x-xpmi',
-        );
+        ];
 
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
         }
 
         if ($options === null) {
-            $options = array();
+            $options = [];
         }
 
         parent::__construct($options);

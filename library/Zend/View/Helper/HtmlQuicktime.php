@@ -31,7 +31,7 @@ class HtmlQuicktime extends AbstractHtmlElement
      *
      * @var array
      */
-    protected $attribs = array('classid' => self::ATTRIB_CLASSID, 'codebase' => self::ATTRIB_CODEBASE);
+    protected $attribs = ['classid' => self::ATTRIB_CLASSID, 'codebase' => self::ATTRIB_CODEBASE];
 
     /**
      * Output a quicktime movie object tag
@@ -42,13 +42,13 @@ class HtmlQuicktime extends AbstractHtmlElement
      * @param  string $content Alternative content
      * @return string
      */
-    public function __invoke($data, array $attribs = array(), array $params = array(), $content = null)
+    public function __invoke($data, array $attribs = [], array $params = [], $content = null)
     {
         // Attrs
         $attribs = array_merge($this->attribs, $attribs);
 
         // Params
-        $params = array_merge(array('src' => $data), $params);
+        $params = array_merge(['src' => $data], $params);
 
         $htmlObject = $this->getView()->plugin('htmlObject');
         return $htmlObject($data, self::TYPE, $attribs, $params, $content);

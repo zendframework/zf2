@@ -26,12 +26,12 @@ class IntrospectionStrategy
     /**
      * @var string[]
      */
-    protected $methodNameInclusionPatterns = array('/^set[A-Z]{1}\w*/');
+    protected $methodNameInclusionPatterns = ['/^set[A-Z]{1}\w*/'];
 
     /**
      * @var string[]
      */
-    protected $interfaceInjectionInclusionPatterns = array('/\w*Aware\w*/');
+    protected $interfaceInjectionInclusionPatterns = ['/\w*Aware\w*/'];
 
     /**
      * @var AnnotationManager

@@ -20,7 +20,7 @@ class ClearExpiredByFactor extends AbstractPlugin
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $callback = array($this, 'clearExpiredByFactor');
+        $callback = [$this, 'clearExpiredByFactor'];
 
         $this->listeners[] = $events->attach('setItem.post', $callback, $priority);
         $this->listeners[] = $events->attach('setItems.post', $callback, $priority);

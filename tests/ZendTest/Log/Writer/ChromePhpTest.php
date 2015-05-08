@@ -46,10 +46,10 @@ class ChromePhpTest extends \PHPUnit_Framework_TestCase
     public function testWrite()
     {
         $writer = new ChromePhp($this->chromephp);
-        $writer->write(array(
+        $writer->write([
             'message' => 'my msg',
             'priority' => Logger::DEBUG
-        ));
+        ]);
         $this->assertEquals('my msg', $this->chromephp->calls['trace'][0]);
     }
 
@@ -57,10 +57,10 @@ class ChromePhpTest extends \PHPUnit_Framework_TestCase
     {
         $chromephp = new MockChromePhp(false);
         $writer = new ChromePhp($chromephp);
-        $writer->write(array(
+        $writer->write([
             'message' => 'my msg',
             'priority' => Logger::DEBUG
-        ));
+        ]);
         $this->assertEmpty($this->chromephp->calls);
     }
 
@@ -68,11 +68,11 @@ class ChromePhpTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new \Zend\Log\Formatter\Simple();
         $filter    = new \Zend\Log\Filter\Mock();
-        $writer = new ChromePhp(array(
+        $writer = new ChromePhp([
             'filters'   => $filter,
             'formatter' => $formatter,
             'instance'  => $this->chromephp,
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Log\Writer\ChromePhp\ChromePhpInterface', $writer->getChromePhp());
         $this->assertAttributeInstanceOf('Zend\Log\Formatter\ChromePhp', 'formatter', $writer);
 

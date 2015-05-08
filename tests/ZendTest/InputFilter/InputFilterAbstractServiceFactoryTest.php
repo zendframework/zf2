@@ -35,35 +35,35 @@ class InputFilterAbstractServiceFactoryTest extends TestCase
 
     public function testCannotCreateServiceIfConfigServiceDoesNotHaveInputFiltersConfiguration()
     {
-        $this->services->setService('Config', array());
+        $this->services->setService('Config', []);
         $this->assertFalse($this->factory->canCreateServiceWithName($this->filters, 'filter', 'filter'));
     }
 
     public function testCannotCreateServiceIfConfigInputFiltersDoesNotContainMatchingServiceName()
     {
-        $this->services->setService('Config', array(
-            'input_filter_specs' => array(),
-        ));
+        $this->services->setService('Config', [
+            'input_filter_specs' => [],
+        ]);
         $this->assertFalse($this->factory->canCreateServiceWithName($this->filters, 'filter', 'filter'));
     }
 
     public function testCanCreateServiceIfConfigInputFiltersContainsMatchingServiceName()
     {
-        $this->services->setService('Config', array(
-            'input_filter_specs' => array(
-                'filter' => array(),
-            ),
-        ));
+        $this->services->setService('Config', [
+            'input_filter_specs' => [
+                'filter' => [],
+            ],
+        ]);
         $this->assertTrue($this->factory->canCreateServiceWithName($this->filters, 'filter', 'filter'));
     }
 
     public function testCreatesInputFilterInstance()
     {
-        $this->services->setService('Config', array(
-            'input_filter_specs' => array(
-                'filter' => array(),
-            ),
-        ));
+        $this->services->setService('Config', [
+            'input_filter_specs' => [
+                'filter' => [],
+            ],
+        ]);
         $filter = $this->factory->createServiceWithName($this->filters, 'filter', 'filter');
         $this->assertInstanceOf('Zend\InputFilter\InputFilterInterface', $filter);
     }
@@ -84,22 +84,22 @@ class InputFilterAbstractServiceFactoryTest extends TestCase
 
         $this->services->setService('FilterManager', $filters);
         $this->services->setService('ValidatorManager', $validators);
-        $this->services->setService('Config', array(
-            'input_filter_specs' => array(
-                'filter' => array(
-                    'input' => array(
+        $this->services->setService('Config', [
+            'input_filter_specs' => [
+                'filter' => [
+                    'input' => [
                         'name' => 'input',
                         'required' => true,
-                        'filters' => array(
-                            array( 'name' => 'foo' ),
-                        ),
-                        'validators' => array(
-                            array( 'name' => 'foo' ),
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                        'filters' => [
+                            [ 'name' => 'foo' ],
+                        ],
+                        'validators' => [
+                            [ 'name' => 'foo' ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
 
         $inputFilter = $this->factory->createServiceWithName($this->filters, 'filter', 'filter');
         $this->assertTrue($inputFilter->has('input'));
@@ -132,22 +132,22 @@ class InputFilterAbstractServiceFactoryTest extends TestCase
 
         $this->services->setService('FilterManager', $filters);
         $this->services->setService('ValidatorManager', $validators);
-        $this->services->setService('Config', array(
-            'input_filter_specs' => array(
-                'foobar' => array(
-                    'input' => array(
+        $this->services->setService('Config', [
+            'input_filter_specs' => [
+                'foobar' => [
+                    'input' => [
                         'name' => 'input',
                         'required' => true,
-                        'filters' => array(
-                            array( 'name' => 'foo' ),
-                        ),
-                        'validators' => array(
-                            array( 'name' => 'foo' ),
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                        'filters' => [
+                            [ 'name' => 'foo' ],
+                        ],
+                        'validators' => [
+                            [ 'name' => 'foo' ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
         $this->services->get('InputFilterManager')->addAbstractFactory('Zend\InputFilter\InputFilterAbstractServiceFactory');
 
         $inputFilter = $this->services->get('InputFilterManager')->get('foobar');

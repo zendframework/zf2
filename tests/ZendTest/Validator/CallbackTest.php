@@ -23,42 +23,42 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $valid = new Callback(array($this, 'objectCallback'));
+        $valid = new Callback([$this, 'objectCallback']);
         $this->assertTrue($valid->isValid('test'));
     }
 
     public function testStaticCallback()
     {
         $valid = new Callback(
-            array('\ZendTest\Validator\CallbackTest', 'staticCallback')
+            ['\ZendTest\Validator\CallbackTest', 'staticCallback']
         );
         $this->assertTrue($valid->isValid('test'));
     }
 
     public function testSettingDefaultOptionsAfterwards()
     {
-        $valid = new Callback(array($this, 'objectCallback'));
+        $valid = new Callback([$this, 'objectCallback']);
         $valid->setCallbackOptions('options');
-        $this->assertEquals(array('options'), $valid->getCallbackOptions());
+        $this->assertEquals(['options'], $valid->getCallbackOptions());
         $this->assertTrue($valid->isValid('test'));
     }
 
     public function testSettingDefaultOptions()
     {
-        $valid = new Callback(array('callback' => array($this, 'objectCallback'), 'callbackOptions' => 'options'));
-        $this->assertEquals(array('options'), $valid->getCallbackOptions());
+        $valid = new Callback(['callback' => [$this, 'objectCallback'], 'callbackOptions' => 'options']);
+        $this->assertEquals(['options'], $valid->getCallbackOptions());
         $this->assertTrue($valid->isValid('test'));
     }
 
     public function testGettingCallback()
     {
-        $valid = new Callback(array($this, 'objectCallback'));
-        $this->assertEquals(array($this, 'objectCallback'), $valid->getCallback());
+        $valid = new Callback([$this, 'objectCallback']);
+        $this->assertEquals([$this, 'objectCallback'], $valid->getCallback());
     }
 
     public function testInvalidCallback()
     {
-        $valid = new Callback(array($this, 'objectCallback'));
+        $valid = new Callback([$this, 'objectCallback']);
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'Invalid callback given');
         $valid->setCallback('invalidcallback');
@@ -66,14 +66,14 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
     public function testAddingValueOptions()
     {
-        $valid = new Callback(array('callback' => array($this, 'optionsCallback'), 'callbackOptions' => 'options'));
-        $this->assertEquals(array('options'), $valid->getCallbackOptions());
+        $valid = new Callback(['callback' => [$this, 'optionsCallback'], 'callbackOptions' => 'options']);
+        $this->assertEquals(['options'], $valid->getCallbackOptions());
         $this->assertTrue($valid->isValid('test', 'something'));
     }
 
     public function testEqualsMessageTemplates()
     {
-        $validator = new Callback(array($this, 'objectCallback'));
+        $validator = new Callback([$this, 'objectCallback']);
         $this->assertAttributeEquals($validator->getOption('messageTemplates'),
                                      'messageTemplates', $validator);
     }
@@ -81,7 +81,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testCanAcceptContextWithoutOptions()
     {
         $value     = 'bar';
-        $context   = array('foo' => 'bar', 'bar' => 'baz');
+        $context   = ['foo' => 'bar', 'bar' => 'baz'];
         $validator = new Callback(function ($v, $c) use ($value, $context) {
             return (($value == $v) && ($context == $c));
         });
@@ -91,8 +91,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testCanAcceptContextWithOptions()
     {
         $value     = 'bar';
-        $context   = array('foo' => 'bar', 'bar' => 'baz');
-        $options   = array('baz' => 'bat');
+        $context   = ['foo' => 'bar', 'bar' => 'baz'];
+        $options   = ['baz' => 'bat'];
         $validator = new Callback(function ($v, $c, $baz) use ($value, $context, $options) {
             return (($value == $v) && ($context == $c) && ($options['baz'] == $baz));
         });

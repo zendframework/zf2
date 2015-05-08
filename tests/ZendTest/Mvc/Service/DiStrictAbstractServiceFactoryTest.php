@@ -19,7 +19,7 @@ class DiStrictAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     public function testSetGetAllowedServiceNames()
     {
         $instance = new DiStrictAbstractServiceFactory($this->getMock('Zend\Di\Di'));
-        $instance->setAllowedServiceNames(array('first-service', 'second-service'));
+        $instance->setAllowedServiceNames(['first-service', 'second-service']);
         $allowedServices = $instance->getAllowedServiceNames();
         $this->assertCount(2, $allowedServices);
         $this->assertContains('first-service', $allowedServices);
@@ -29,7 +29,7 @@ class DiStrictAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     public function testWillOnlyCreateServiceInWhitelist()
     {
         $instance = new DiStrictAbstractServiceFactory($this->getMock('Zend\Di\Di'));
-        $instance->setAllowedServiceNames(array('a-whitelisted-service-name'));
+        $instance->setAllowedServiceNames(['a-whitelisted-service-name']);
         $im = $instance->instanceManager();
         $im->addSharedInstance(new \stdClass(), 'a-whitelisted-service-name');
         $locator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
@@ -45,11 +45,11 @@ class DiStrictAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     public function testWillFetchDependenciesFromServiceManagerBeforeDi()
     {
         $controllerName = __NAMESPACE__ . '\TestAsset\ControllerWithDependencies';
-        $config = new Config(array(
-            'instance' => array(
-                $controllerName => array('parameters' => array('injected' => 'stdClass')),
-            ),
-        ));
+        $config = new Config([
+            'instance' => [
+                $controllerName => ['parameters' => ['injected' => 'stdClass']],
+            ],
+        ]);
         $locator = new ServiceManager();
         $testService = new \stdClass();
         $locator->setService('stdClass', $testService);
@@ -57,7 +57,7 @@ class DiStrictAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $di = new Di;
         $config->configure($di);
         $instance = new DiStrictAbstractServiceFactory($di, DiStrictAbstractServiceFactory::USE_SL_BEFORE_DI);
-        $instance->setAllowedServiceNames(array($controllerName));
+        $instance->setAllowedServiceNames([$controllerName]);
         $service = $instance->createServiceWithName($locator, $controllerName, $controllerName);
         $this->assertSame($testService, $service->injectedValue);
     }

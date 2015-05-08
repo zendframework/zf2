@@ -19,7 +19,7 @@ class FormSubmit extends FormInput
      *
      * @var array
      */
-    protected $validTagAttributes = array(
+    protected $validTagAttributes = [
         'name'           => true,
         'autofocus'      => true,
         'disabled'       => true,
@@ -31,16 +31,16 @@ class FormSubmit extends FormInput
         'formtarget'     => true,
         'type'           => true,
         'value'          => true,
-    );
+    ];
 
     /**
      * Translatable attributes
      *
      * @var array
      */
-    protected $translatableAttributes = array(
+    protected $translatableAttributes = [
         'value' => true
-    );
+    ];
 
     /**
      * Determine input type to use

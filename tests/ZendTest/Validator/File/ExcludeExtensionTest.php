@@ -22,30 +22,30 @@ class ExcludeExtensionTest extends \PHPUnit_Framework_TestCase
     public function basicBehaviorDataProvider()
     {
         $testFile   = __DIR__ . '/_files/testsize.mo';
-        $pictureTests = array(
+        $pictureTests = [
             //    Options, isValid Param, Expected value, Expected message
-            array('mo',                       $testFile, false,  'fileExcludeExtensionFalse'),
-            array('gif',                      $testFile, true, ''),
-            array(array('mo'),                $testFile, false,  'fileExcludeExtensionFalse'),
-            array(array('gif'),               $testFile, true, ''),
-            array(array('gif', 'mo', 'pict'), $testFile, false,  'fileExcludeExtensionFalse'),
-            array(array('gif', 'gz', 'hint'), $testFile, true, ''),
-        );
+            ['mo',                       $testFile, false,  'fileExcludeExtensionFalse'],
+            ['gif',                      $testFile, true, ''],
+            [['mo'],                $testFile, false,  'fileExcludeExtensionFalse'],
+            [['gif'],               $testFile, true, ''],
+            [['gif', 'mo', 'pict'], $testFile, false,  'fileExcludeExtensionFalse'],
+            [['gif', 'gz', 'hint'], $testFile, true, ''],
+        ];
 
         $testFile   = __DIR__ . '/_files/nofile.mo';
-        $noFileTests = array(
+        $noFileTests = [
             //    Options, isValid Param, Expected value, message
-            array('mo', $testFile, false, 'fileExcludeExtensionNotFound'),
-        );
+            ['mo', $testFile, false, 'fileExcludeExtensionNotFound'],
+        ];
 
         // Dupe data in File Upload format
         $testData = array_merge($pictureTests, $noFileTests);
         foreach ($testData as $data) {
-            $fileUpload = array(
+            $fileUpload = [
                 'tmp_name' => $data[1], 'name' => basename($data[1]),
                 'size' => 200, 'error' => 0, 'type' => 'text'
-            );
-            $testData[] = array($data[0], $fileUpload, $data[2], $data[3]);
+            ];
+            $testData[] = [$data[0], $fileUpload, $data[2], $data[3]];
         }
         return $testData;
     }
@@ -84,17 +84,17 @@ class ExcludeExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testCaseTesting()
     {
-        $files = array(
+        $files = [
             'name'     => 'testsize.mo',
             'type'     => 'text',
             'size'     => 200,
             'tmp_name' => __DIR__ . '/_files/testsize.mo',
             'error'    => 0
-        );
-        $validator = new File\ExcludeExtension(array('MO', 'case' => true));
+        ];
+        $validator = new File\ExcludeExtension(['MO', 'case' => true]);
         $this->assertEquals(true, $validator->isValid(__DIR__ . '/_files/testsize.mo', $files));
 
-        $validator = new File\ExcludeExtension(array('MO', 'case' => false));
+        $validator = new File\ExcludeExtension(['MO', 'case' => false]);
         $this->assertEquals(false, $validator->isValid(__DIR__ . '/_files/testsize.mo', $files));
     }
 
@@ -106,10 +106,10 @@ class ExcludeExtensionTest extends \PHPUnit_Framework_TestCase
     public function testGetExtension()
     {
         $validator = new File\ExcludeExtension('mo');
-        $this->assertEquals(array('mo'), $validator->getExtension());
+        $this->assertEquals(['mo'], $validator->getExtension());
 
-        $validator = new File\ExcludeExtension(array('mo', 'gif', 'jpg'));
-        $this->assertEquals(array('mo', 'gif', 'jpg'), $validator->getExtension());
+        $validator = new File\ExcludeExtension(['mo', 'gif', 'jpg']);
+        $this->assertEquals(['mo', 'gif', 'jpg'], $validator->getExtension());
     }
 
     /**
@@ -121,13 +121,13 @@ class ExcludeExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\ExcludeExtension('mo');
         $validator->setExtension('gif');
-        $this->assertEquals(array('gif'), $validator->getExtension());
+        $this->assertEquals(['gif'], $validator->getExtension());
 
         $validator->setExtension('jpg, mo');
-        $this->assertEquals(array('jpg', 'mo'), $validator->getExtension());
+        $this->assertEquals(['jpg', 'mo'], $validator->getExtension());
 
-        $validator->setExtension(array('zip', 'ti'));
-        $this->assertEquals(array('zip', 'ti'), $validator->getExtension());
+        $validator->setExtension(['zip', 'ti']);
+        $this->assertEquals(['zip', 'ti'], $validator->getExtension());
     }
 
     /**
@@ -139,16 +139,16 @@ class ExcludeExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\ExcludeExtension('mo');
         $validator->addExtension('gif');
-        $this->assertEquals(array('mo', 'gif'), $validator->getExtension());
+        $this->assertEquals(['mo', 'gif'], $validator->getExtension());
 
         $validator->addExtension('jpg, to');
-        $this->assertEquals(array('mo', 'gif', 'jpg', 'to'), $validator->getExtension());
+        $this->assertEquals(['mo', 'gif', 'jpg', 'to'], $validator->getExtension());
 
-        $validator->addExtension(array('zip', 'ti'));
-        $this->assertEquals(array('mo', 'gif', 'jpg', 'to', 'zip', 'ti'), $validator->getExtension());
+        $validator->addExtension(['zip', 'ti']);
+        $this->assertEquals(['mo', 'gif', 'jpg', 'to', 'zip', 'ti'], $validator->getExtension());
 
         $validator->addExtension('');
-        $this->assertEquals(array('mo', 'gif', 'jpg', 'to', 'zip', 'ti'), $validator->getExtension());
+        $this->assertEquals(['mo', 'gif', 'jpg', 'to', 'zip', 'ti'], $validator->getExtension());
     }
 
     /**
@@ -169,13 +169,13 @@ class ExcludeExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid(''));
         $this->assertArrayHasKey(File\ExcludeExtension::NOT_FOUND, $validator->getMessages());
 
-        $filesArray = array(
+        $filesArray = [
             'name'      => '',
             'size'      => 0,
             'tmp_name'  => '',
             'error'     => UPLOAD_ERR_NO_FILE,
             'type'      => '',
-        );
+        ];
 
         $this->assertFalse($validator->isValid($filesArray));
         $this->assertArrayHasKey(File\ExcludeExtension::NOT_FOUND, $validator->getMessages());

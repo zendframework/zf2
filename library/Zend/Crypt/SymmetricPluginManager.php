@@ -25,9 +25,9 @@ class SymmetricPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'mcrypt' => 'Zend\Crypt\Symmetric\Mcrypt',
-    );
+    ];
 
     /**
      * Do not share by default

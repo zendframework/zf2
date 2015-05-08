@@ -18,13 +18,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        $tag = new Tag\Item(array(
+        $tag = new Tag\Item([
             'title' => 'foo',
             'weight' => 10,
-            'params' => array(
+            'params' => [
                 'bar' => 'baz'
-            )
-        ));
+            ]
+        ]);
 
         $this->assertEquals('foo', $tag->getTitle());
         $this->assertEquals(10, $tag->getWeight());
@@ -33,14 +33,14 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     public function testSetOptions()
     {
-        $tag = new Tag\Item(array('title' => 'foo', 'weight' => 1));
-        $tag->setOptions(array(
+        $tag = new Tag\Item(['title' => 'foo', 'weight' => 1]);
+        $tag->setOptions([
             'title' => 'bar',
             'weight' => 10,
-            'params' => array(
+            'params' => [
                 'bar' => 'baz'
-            )
-        ));
+            ]
+        ]);
 
         $this->assertEquals('bar', $tag->getTitle());
         $this->assertEquals(10, $tag->getWeight());
@@ -49,7 +49,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     public function testSetParam()
     {
-        $tag = new Tag\Item(array('title' => 'foo', 'weight' => 1));
+        $tag = new Tag\Item(['title' => 'foo', 'weight' => 1]);
         $tag->setParam('bar', 'baz');
 
         $this->assertEquals('baz', $tag->getParam('bar'));
@@ -57,7 +57,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     public function testSetTitle()
     {
-        $tag = new Tag\Item(array('title' => 'foo', 'weight' => 1));
+        $tag = new Tag\Item(['title' => 'foo', 'weight' => 1]);
         $tag->setTitle('baz');
 
         $this->assertEquals('baz', $tag->getTitle());
@@ -66,12 +66,12 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     public function testInvalidTitle()
     {
         $this->setExpectedException('\Zend\Tag\Exception\InvalidArgumentException', 'Title must be a string');
-        $tag = new Tag\Item(array('title' => 10, 'weight' => 1));
+        $tag = new Tag\Item(['title' => 10, 'weight' => 1]);
     }
 
     public function testSetWeight()
     {
-        $tag = new Tag\Item(array('title' => 'foo', 'weight' => 1));
+        $tag = new Tag\Item(['title' => 'foo', 'weight' => 1]);
         $tag->setWeight('10');
 
         $this->assertEquals(10.0, $tag->getWeight());
@@ -81,12 +81,12 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     public function testInvalidWeight()
     {
         $this->setExpectedException('\Zend\Tag\Exception\InvalidArgumentException', 'Weight must be numeric');
-        $tag = new Tag\Item(array('title' => 'foo', 'weight' => 'foobar'));
+        $tag = new Tag\Item(['title' => 'foo', 'weight' => 'foobar']);
     }
 
     public function testSkipOptions()
     {
-        $tag = new Tag\Item(array('title' => 'foo', 'weight' => 1, 'param' => 'foobar'));
+        $tag = new Tag\Item(['title' => 'foo', 'weight' => 1, 'param' => 'foobar']);
         // In case would fail due to an error
     }
 
@@ -99,18 +99,18 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     public function testMissingTitle()
     {
         $this->setExpectedException('\Zend\Tag\Exception\InvalidArgumentException', 'Title was not set');
-        $tag = new Tag\Item(array('weight' => 1));
+        $tag = new Tag\Item(['weight' => 1]);
     }
 
     public function testMissingWeight()
     {
         $this->setExpectedException('\Zend\Tag\Exception\InvalidArgumentException', 'Weight was not set');
-        $tag = new Tag\Item(array('title' => 'foo'));
+        $tag = new Tag\Item(['title' => 'foo']);
     }
 
     public function testConfigOptions()
     {
-        $tag = new Tag\Item(new \Zend\Config\Config(array('title' => 'foo', 'weight' => 1)));
+        $tag = new Tag\Item(new \Zend\Config\Config(['title' => 'foo', 'weight' => 1]));
 
         $this->assertEquals($tag->getTitle(), 'foo');
         $this->assertEquals($tag->getWeight(), 1);
@@ -118,7 +118,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     public function testGetNonSetParam()
     {
-        $tag = new Tag\Item(array('title' => 'foo', 'weight' => 1));
+        $tag = new Tag\Item(['title' => 'foo', 'weight' => 1]);
 
         $this->assertNull($tag->getParam('foo'));
     }

@@ -68,12 +68,12 @@ class Gravatar extends AbstractHtmlElement
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'img_size'    => 80,
         'default_img' => self::DEFAULT_MM,
         'rating'      => self::RATING_G,
         'secure'      => null,
-    );
+    ];
 
     /**
      * Returns an avatar from gravatar's service.
@@ -91,7 +91,7 @@ class Gravatar extends AbstractHtmlElement
      * @param  array       $attribs Attributes for image tag (title, alt etc.)
      * @return Gravatar
      */
-    public function __invoke($email = "", $options = array(), $attribs = array())
+    public function __invoke($email = "", $options = [], $attribs = [])
     {
         if (!empty($email)) {
             $this->setEmail($email);

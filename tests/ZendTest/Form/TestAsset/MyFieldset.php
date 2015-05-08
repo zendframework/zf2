@@ -17,18 +17,18 @@ class MyFieldset extends Fieldset implements InputFilterProviderInterface
     public function __construct()
     {
         parent::__construct('my-fieldset');
-        $this->add(array(
+        $this->add([
             'type' => 'Email',
             'name' => 'email',
-        ));
+        ]);
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'email' => array(
+        return [
+            'email' => [
                 'required' => false,
-            ),
-        );
+            ],
+        ];
     }
 }

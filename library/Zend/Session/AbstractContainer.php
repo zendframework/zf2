@@ -72,7 +72,7 @@ abstract class AbstractContainer extends ArrayObject
         $this->setManager($manager);
 
         // Create namespace
-        parent::__construct(array(), ArrayObject::ARRAY_AS_PROPS);
+        parent::__construct([], ArrayObject::ARRAY_AS_PROPS);
 
         // Start session
         $this->getManager()->start();
@@ -173,7 +173,7 @@ abstract class AbstractContainer extends ArrayObject
      */
     protected function createContainer()
     {
-        return new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
+        return new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**
@@ -516,7 +516,7 @@ abstract class AbstractContainer extends ArrayObject
 
         if (null === $vars) {
             $this->expireKeys(); // first we need to expire global key, since it can already be expired
-            $data = array('EXPIRE' => $ts);
+            $data = ['EXPIRE' => $ts];
         } elseif (is_array($vars)) {
             // Cannot pass "$this" to a lambda
             $container = $this;
@@ -533,7 +533,7 @@ abstract class AbstractContainer extends ArrayObject
             }, $expires);
 
             // Create metadata array to merge in
-            $data = array('EXPIRE_KEYS' => $expires);
+            $data = ['EXPIRE_KEYS' => $expires];
         } else {
             throw new Exception\InvalidArgumentException(
                 'Unknown data provided as second argument to ' . __METHOD__
@@ -567,7 +567,7 @@ abstract class AbstractContainer extends ArrayObject
 
         if (null === $vars) {
             $this->expireKeys(); // first we need to expire global key, since it can already be expired
-            $data = array('EXPIRE_HOPS' => array('hops' => $hops, 'ts' => $ts));
+            $data = ['EXPIRE_HOPS' => ['hops' => $hops, 'ts' => $ts]];
         } elseif (is_array($vars)) {
             // Cannot pass "$this" to a lambda
             $container = $this;
@@ -580,11 +580,11 @@ abstract class AbstractContainer extends ArrayObject
             // Map item keys => timestamp
             $expires   = array_flip($expires);
             $expires   = array_map(function () use ($hops, $ts) {
-                return array('hops' => $hops, 'ts' => $ts);
+                return ['hops' => $hops, 'ts' => $ts];
             }, $expires);
 
             // Create metadata array to merge in
-            $data = array('EXPIRE_HOPS_KEYS' => $expires);
+            $data = ['EXPIRE_HOPS_KEYS' => $expires];
         } else {
             throw new Exception\InvalidArgumentException(
                 'Unknown data provided as second argument to ' . __METHOD__

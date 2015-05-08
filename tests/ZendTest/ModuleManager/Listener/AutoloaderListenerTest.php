@@ -25,18 +25,18 @@ class AutoloaderListenerTest extends TestCase
         if (!is_array($this->loaders)) {
             // spl_autoload_functions does not return empty array when no
             // autoloaders registered...
-            $this->loaders = array();
+            $this->loaders = [];
         }
 
         // Store original include_path
         $this->includePath = get_include_path();
 
-        $autoloader = new ModuleAutoloader(array(
+        $autoloader = new ModuleAutoloader([
             dirname(__DIR__) . '/TestAsset',
-        ));
+        ]);
         $autoloader->register();
 
-        $this->moduleManager = new ModuleManager(array());
+        $this->moduleManager = new ModuleManager([]);
         $this->moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE_RESOLVE, new ModuleResolverListener, 1000);
         $this->moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE, new AutoloaderListener, 2000);
     }
@@ -63,7 +63,7 @@ class AutoloaderListenerTest extends TestCase
     public function testAutoloadersRegisteredByAutoloaderListener()
     {
         $moduleManager = $this->moduleManager;
-        $moduleManager->setModules(array('ListenerTestModule'));
+        $moduleManager->setModules(['ListenerTestModule']);
         $moduleManager->loadModules();
         $modules = $moduleManager->getLoadedModules();
         $this->assertTrue($modules['ListenerTestModule']->getAutoloaderConfigCalled);
@@ -73,7 +73,7 @@ class AutoloaderListenerTest extends TestCase
     public function testAutoloadersRegisteredIfModuleDoesNotInheritAutoloaderProviderInterfaceButDefinesGetAutoloaderConfigMethod()
     {
         $moduleManager = $this->moduleManager;
-        $moduleManager->setModules(array('NotAutoloaderModule'));
+        $moduleManager->setModules(['NotAutoloaderModule']);
         $moduleManager->loadModules();
         $modules = $moduleManager->getLoadedModules();
         $this->assertTrue($modules['NotAutoloaderModule']->getAutoloaderConfigCalled);

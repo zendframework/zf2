@@ -168,9 +168,9 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
         }
 
         $loader = new TestAsset\ArrayTranslator();
-        $loader->translations = array(
+        $loader->translations = [
             'Message_1' => 'Message 1 (en)',
-        );
+        ];
         $translator = new Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);

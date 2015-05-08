@@ -25,25 +25,25 @@ class Exists extends AbstractValidator
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::DOES_NOT_EXIST => "File does not exist",
-    );
+    ];
 
     /**
      * Options for this validator
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'directory' => null,  // internal list of directories
-    );
+    ];
 
     /**
      * @var array Error message template variables
      */
-    protected $messageVariables = array(
-        'directory' => array('options' => 'directory'),
-    );
+    protected $messageVariables = [
+        'directory' => ['options' => 'directory'],
+    ];
 
     /**
      * Sets validator options
@@ -57,7 +57,7 @@ class Exists extends AbstractValidator
         }
 
         if (is_array($options) && !array_key_exists('directory', $options)) {
-            $options = array('directory' => $options);
+            $options = ['directory' => $options];
         }
 
         parent::__construct($options);
@@ -104,7 +104,7 @@ class Exists extends AbstractValidator
     {
         $directories = $this->getDirectory(true);
         if (!isset($directories)) {
-            $directories = array();
+            $directories = [];
         }
 
         if (is_string($directory)) {

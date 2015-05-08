@@ -17,14 +17,14 @@ abstract class Factory
     /**
      * @var array Known transport types
      */
-    protected static $classMap = array(
+    protected static $classMap = [
         'file'      => 'Zend\Mail\Transport\File',
         'inmemory'  => 'Zend\Mail\Transport\InMemory',
         'memory'    => 'Zend\Mail\Transport\InMemory',
         'null'      => 'Zend\Mail\Transport\InMemory',
         'sendmail'  => 'Zend\Mail\Transport\Sendmail',
         'smtp'      => 'Zend\Mail\Transport\Smtp',
-    );
+    ];
 
     /**
      * @param array $spec
@@ -32,7 +32,7 @@ abstract class Factory
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public static function create($spec = array())
+    public static function create($spec = [])
     {
         if ($spec instanceof Traversable) {
             $spec = ArrayUtils::iteratorToArray($spec);

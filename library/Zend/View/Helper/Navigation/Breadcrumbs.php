@@ -171,10 +171,10 @@ class Breadcrumbs extends AbstractHelper
         }
 
         // put breadcrumb pages in model
-        $model = array(
-            'pages' => array(),
+        $model = [
+            'pages' => [],
             'separator' => $this->getSeparator()
-        );
+        ];
         $active = $this->findActive($container);
         if ($active) {
             $active = $active['page'];

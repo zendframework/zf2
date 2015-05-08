@@ -31,7 +31,7 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped("Zend_Ldap online tests are not enabled");
         }
 
-        $this->options = array('host' => TESTS_ZEND_LDAP_HOST);
+        $this->options = ['host' => TESTS_ZEND_LDAP_HOST];
         if (defined('TESTS_ZEND_LDAP_PORT') && TESTS_ZEND_LDAP_PORT != 389) {
             $this->options['port'] = TESTS_ZEND_LDAP_PORT;
         }
@@ -42,7 +42,7 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
 
     public function testEmptyOptionsConnect()
     {
-        $ldap = new Ldap\Ldap(array());
+        $ldap = new Ldap\Ldap([]);
         try {
             $ldap->connect();
             $this->fail('Expected exception for empty options');
@@ -53,7 +53,7 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
 
     public function testUnknownHostConnect()
     {
-        $ldap = new Ldap\Ldap(array('host' => 'bogus.example.com'));
+        $ldap = new Ldap\Ldap(['host' => 'bogus.example.com']);
         try {
             // connect doesn't actually try to connect until bind is called
             $ldap->connect()->bind('CN=ignored,DC=example,DC=com', 'ignored');
@@ -80,7 +80,7 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
     public function testNetworkTimeoutConnect()
     {
         $networkTimeout = 1;
-        $ldap           = new Ldap\Ldap(array_merge($this->options, array('networkTimeout' => $networkTimeout)));
+        $ldap           = new Ldap\Ldap(array_merge($this->options, ['networkTimeout' => $networkTimeout]));
 
         $ldap->connect();
         ldap_get_option($ldap->getResource(), LDAP_OPT_NETWORK_TIMEOUT, $actual);

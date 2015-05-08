@@ -37,7 +37,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * Event handles of this adapter
      * @var array
      */
-    protected $eventHandles = array();
+    protected $eventHandles = [];
 
     /**
      * The plugin registry
@@ -188,7 +188,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     public function getEventManager()
     {
         if ($this->events === null) {
-            $this->events = new EventManager(array(__CLASS__, get_class($this)));
+            $this->events = new EventManager([__CLASS__, get_class($this)]);
         }
         return $this->events;
     }
@@ -341,9 +341,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         $this->normalizeKey($key);
 
         $argn = func_num_args();
-        $args = array(
+        $args = [
             'key' => & $key,
-        );
+        ];
         if ($argn > 1) {
             $args['success'] = & $success;
         }
@@ -398,13 +398,13 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     public function getItems(array $keys)
     {
         if (!$this->getOptions()->getReadable()) {
-            return array();
+            return [];
         }
 
         $this->normalizeKeys($keys);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keys' => & $keys,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -415,7 +415,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
-            $result = array();
+            $result = [];
             return $this->triggerException(__FUNCTION__, $args, $result, $e);
         }
     }
@@ -430,7 +430,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     protected function internalGetItems(array & $normalizedKeys)
     {
         $success = null;
-        $result  = array();
+        $result  = [];
         foreach ($normalizedKeys as $normalizedKey) {
             $value = $this->internalGetItem($normalizedKey, $success);
             if ($success) {
@@ -459,9 +459,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key' => & $key,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -505,13 +505,13 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     public function hasItems(array $keys)
     {
         if (!$this->getOptions()->getReadable()) {
-            return array();
+            return [];
         }
 
         $this->normalizeKeys($keys);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keys' => & $keys,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -522,7 +522,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
-            $result = array();
+            $result = [];
             return $this->triggerException(__FUNCTION__, $args, $result, $e);
         }
     }
@@ -536,7 +536,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalHasItems(array & $normalizedKeys)
     {
-        $result = array();
+        $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
             if ($this->internalHasItem($normalizedKey)) {
                 $result[] = $normalizedKey;
@@ -563,9 +563,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key' => & $key,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -594,7 +594,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             return false;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -611,13 +611,13 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     public function getMetadatas(array $keys)
     {
         if (!$this->getOptions()->getReadable()) {
-            return array();
+            return [];
         }
 
         $this->normalizeKeys($keys);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keys' => & $keys,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -628,7 +628,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
-            $result = array();
+            $result = [];
             return $this->triggerException(__FUNCTION__, $args, $result, $e);
         }
     }
@@ -642,7 +642,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalGetMetadatas(array & $normalizedKeys)
     {
-        $result = array();
+        $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
             $metadata = $this->internalGetMetadata($normalizedKey);
             if ($metadata !== false) {
@@ -673,10 +673,10 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key'   => & $key,
             'value' => & $value,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -720,9 +720,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKeyValuePairs($keyValuePairs);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keyValuePairs' => & $keyValuePairs,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -747,7 +747,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalSetItems(array & $normalizedKeyValuePairs)
     {
-        $failedKeys = array();
+        $failedKeys = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             if (!$this->internalSetItem($normalizedKey, $value)) {
                 $failedKeys[] = $normalizedKey;
@@ -775,10 +775,10 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key'   => & $key,
             'value' => & $value,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -828,9 +828,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKeyValuePairs($keyValuePairs);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keyValuePairs' => & $keyValuePairs,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -855,7 +855,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalAddItems(array & $normalizedKeyValuePairs)
     {
-        $result = array();
+        $result = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             if (!$this->internalAddItem($normalizedKey, $value)) {
                 $result[] = $normalizedKey;
@@ -883,10 +883,10 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key'   => & $key,
             'value' => & $value,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -937,9 +937,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKeyValuePairs($keyValuePairs);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keyValuePairs' => & $keyValuePairs,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -964,7 +964,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalReplaceItems(array & $normalizedKeyValuePairs)
     {
-        $result = array();
+        $result = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             if (!$this->internalReplaceItem($normalizedKey, $value)) {
                 $result[] = $normalizedKey;
@@ -994,11 +994,11 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'token' => & $token,
             'key'   => & $key,
             'value' => & $value,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1053,9 +1053,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key' => & $key,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1107,9 +1107,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKeys($keys);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keys' => & $keys,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1133,7 +1133,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalTouchItems(array & $normalizedKeys)
     {
-        $result = array();
+        $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
             if (!$this->internalTouchItem($normalizedKey)) {
                 $result[] = $normalizedKey;
@@ -1160,9 +1160,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key' => & $key,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1205,9 +1205,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKeys($keys);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keys' => & $keys,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1231,7 +1231,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalRemoveItems(array & $normalizedKeys)
     {
-        $result = array();
+        $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
             if (!$this->internalRemoveItem($normalizedKey)) {
                 $result[] = $normalizedKey;
@@ -1259,10 +1259,10 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key'   => & $key,
             'value' => & $value,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1316,13 +1316,13 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     public function incrementItems(array $keyValuePairs)
     {
         if (!$this->getOptions()->getWritable()) {
-            return array();
+            return [];
         }
 
         $this->normalizeKeyValuePairs($keyValuePairs);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keyValuePairs' => & $keyValuePairs,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1333,7 +1333,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
-            $result = array();
+            $result = [];
             return $this->triggerException(__FUNCTION__, $args, $result, $e);
         }
     }
@@ -1347,7 +1347,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalIncrementItems(array & $normalizedKeyValuePairs)
     {
-        $result = array();
+        $result = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             $newValue = $this->internalIncrementItem($normalizedKey, $value);
             if ($newValue !== false) {
@@ -1376,10 +1376,10 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         }
 
         $this->normalizeKey($key);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'key'   => & $key,
             'value' => & $value,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1433,13 +1433,13 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     public function decrementItems(array $keyValuePairs)
     {
         if (!$this->getOptions()->getWritable()) {
-            return array();
+            return [];
         }
 
         $this->normalizeKeyValuePairs($keyValuePairs);
-        $args = new ArrayObject(array(
+        $args = new ArrayObject([
             'keyValuePairs' => & $keyValuePairs,
-        ));
+        ]);
 
         try {
             $eventRs = $this->triggerPre(__FUNCTION__, $args);
@@ -1450,7 +1450,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
             return $this->triggerPost(__FUNCTION__, $args, $result);
         } catch (\Exception $e) {
-            $result = array();
+            $result = [];
             return $this->triggerException(__FUNCTION__, $args, $result, $e);
         }
     }
@@ -1464,7 +1464,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function internalDecrementItems(array & $normalizedKeyValuePairs)
     {
-        $result = array();
+        $result = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             $newValue = $this->decrementItem($normalizedKey, $value);
             if ($newValue !== false) {
@@ -1555,7 +1555,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             );
         }
 
-        array_walk($keys, array($this, 'normalizeKey'));
+        array_walk($keys, [$this, 'normalizeKey']);
         $keys = array_values(array_unique($keys));
     }
 
@@ -1568,7 +1568,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     protected function normalizeKeyValuePairs(array & $keyValuePairs)
     {
-        $normalizedKeyValuePairs = array();
+        $normalizedKeyValuePairs = [];
         foreach ($keyValuePairs as $key => $value) {
             $this->normalizeKey($key);
             $normalizedKeyValuePairs[$key] = $value;

@@ -19,7 +19,7 @@ class FormTextarea extends AbstractHelper
      *
      * @var array
      */
-    protected $validTagAttributes = array(
+    protected $validTagAttributes = [
         'autocomplete' => true,
         'autofocus'    => true,
         'cols'         => true,
@@ -33,7 +33,7 @@ class FormTextarea extends AbstractHelper
         'required'     => true,
         'rows'         => true,
         'wrap'         => true,
-    );
+    ];
 
     /**
      * Invoke helper as functor

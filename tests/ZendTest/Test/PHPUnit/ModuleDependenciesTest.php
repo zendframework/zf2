@@ -25,9 +25,9 @@ class ModuleDependenciesTest extends AbstractHttpControllerTestCase
         $this->assertEquals(true, $sm->has('FooObject'));
         $this->assertEquals(true, $sm->has('BarObject'));
 
-        $this->assertModulesLoaded(array('Foo', 'Bar'));
+        $this->assertModulesLoaded(['Foo', 'Bar']);
         $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertModulesLoaded(array('Foo', 'Bar', 'Unknow'));
+        $this->assertModulesLoaded(['Foo', 'Bar', 'Unknow']);
     }
 
     public function testBadDependenciesModules()
@@ -39,8 +39,8 @@ class ModuleDependenciesTest extends AbstractHttpControllerTestCase
         $this->assertEquals(false, $sm->has('FooObject'));
         $this->assertEquals(true, $sm->has('BarObject'));
 
-        $this->assertNotModulesLoaded(array('Foo'));
+        $this->assertNotModulesLoaded(['Foo']);
         $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
-        $this->assertNotModulesLoaded(array('Foo', 'Bar'));
+        $this->assertNotModulesLoaded(['Foo', 'Bar']);
     }
 }

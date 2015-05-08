@@ -52,17 +52,17 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingArrayMetadataMergesOnSubsequentRequests()
     {
-        $this->storage->setMetadata('TEST', array('foo' => 'bar', 'bar' => 'baz'));
-        $this->storage->setMetadata('TEST', array('foo' => 'baz', 'baz' => 'bat', 'lonesome'));
-        $expected = array('foo' => 'baz', 'bar' => 'baz', 'baz' => 'bat', 'lonesome');
+        $this->storage->setMetadata('TEST', ['foo' => 'bar', 'bar' => 'baz']);
+        $this->storage->setMetadata('TEST', ['foo' => 'baz', 'baz' => 'bat', 'lonesome']);
+        $expected = ['foo' => 'baz', 'bar' => 'baz', 'baz' => 'bat', 'lonesome'];
         $this->assertEquals($expected, $this->storage->getMetadata('TEST'));
     }
 
     public function testSettingArrayMetadataWithOverwriteFlagOverwritesExistingData()
     {
-        $this->storage->setMetadata('TEST', array('foo' => 'bar', 'bar' => 'baz'));
-        $this->storage->setMetadata('TEST', array('foo' => 'baz', 'baz' => 'bat', 'lonesome'), true);
-        $expected = array('foo' => 'baz', 'baz' => 'bat', 'lonesome');
+        $this->storage->setMetadata('TEST', ['foo' => 'bar', 'bar' => 'baz']);
+        $this->storage->setMetadata('TEST', ['foo' => 'baz', 'baz' => 'bat', 'lonesome'], true);
+        $expected = ['foo' => 'baz', 'baz' => 'bat', 'lonesome'];
         $this->assertEquals($expected, $this->storage->getMetadata('TEST'));
     }
 
@@ -167,7 +167,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
         $this->storage->clear();
         $data = $this->storage->toArray();
-        $this->assertSame(array(), $data);
+        $this->assertSame([], $data);
     }
 
     public function testClearWithNoArgumentsRemovesExistingMetadata()
@@ -188,7 +188,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
         $this->storage->clear('foo');
         $data = $this->storage->toArray();
-        $this->assertSame(array('bar' => 'baz'), $data);
+        $this->assertSame(['bar' => 'baz'], $data);
     }
 
     public function testClearWithArgumentRemovesExistingMetadataForThatKeyOnly()
@@ -220,7 +220,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     public function testRequestAccessTimeIsPreservedEvenInFactoryMethod()
     {
         $this->assertNotEmpty($this->storage->getRequestAccessTime());
-        $this->storage->fromArray(array());
+        $this->storage->fromArray([]);
         $this->assertNotEmpty($this->storage->getRequestAccessTime());
     }
 
@@ -229,20 +229,20 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->foo = 'bar';
         $this->storage->bar = 'baz';
         $this->storage->setMetadata('foo', 'bar');
-        $expected = array(
-            '__ZF' => array(
+        $expected = [
+            '__ZF' => [
                 '_REQUEST_ACCESS_TIME' => $this->storage->getRequestAccessTime(),
                 'foo' => 'bar',
-            ),
+            ],
             'foo' => 'bar',
             'bar' => 'baz',
-        );
+        ];
         $this->assertSame($expected, $this->storage->toArray(true));
     }
 
     public function testUnsetMultidimensional()
     {
-        $this->storage['foo'] = array('bar' => array('baz' => 'boo'));
+        $this->storage['foo'] = ['bar' => ['baz' => 'boo']];
         unset($this->storage['foo']['bar']['baz']);
         unset($this->storage['foo']['bar']);
     }

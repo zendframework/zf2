@@ -56,24 +56,24 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     public function toLdapDateTimeProvider()
     {
         $tz = new DateTimeZone('UTC');
-        return array(
-            array(array('date'=> 0,
-                        'utc' => true), '19700101000000Z'),
-            array(array('date'=> new DateTime('2010-05-12 13:14:45+0300', $tz),
-                        'utc' => false), '20100512131445+0300'),
-            array(array('date'=> new DateTime('2010-05-12 13:14:45+0300', $tz),
-                        'utc' => true), '20100512101445Z'),
-            array(array('date'=> '2010-05-12 13:14:45+0300',
-                        'utc' => false), '20100512131445+0300'),
-            array(array('date'=> '2010-05-12 13:14:45+0300',
-                        'utc' => true), '20100512101445Z'),
-            array(array('date'=> DateTime::createFromFormat(DateTime::ISO8601, '2010-05-12T13:14:45+0300'),
-                        'utc' => true), '20100512101445Z'),
-            array(array('date'=> DateTime::createFromFormat(DateTime::ISO8601, '2010-05-12T13:14:45+0300'),
-                        'utc' => false), '20100512131445+0300'),
-            array(array('date'=> date_timestamp_set(new DateTime(), 0),
-                        'utc' => true), '19700101000000Z'),
-        );
+        return [
+            [['date'=> 0,
+                        'utc' => true], '19700101000000Z'],
+            [['date'=> new DateTime('2010-05-12 13:14:45+0300', $tz),
+                        'utc' => false], '20100512131445+0300'],
+            [['date'=> new DateTime('2010-05-12 13:14:45+0300', $tz),
+                        'utc' => true], '20100512101445Z'],
+            [['date'=> '2010-05-12 13:14:45+0300',
+                        'utc' => false], '20100512131445+0300'],
+            [['date'=> '2010-05-12 13:14:45+0300',
+                        'utc' => true], '20100512101445Z'],
+            [['date'=> DateTime::createFromFormat(DateTime::ISO8601, '2010-05-12T13:14:45+0300'),
+                        'utc' => true], '20100512101445Z'],
+            [['date'=> DateTime::createFromFormat(DateTime::ISO8601, '2010-05-12T13:14:45+0300'),
+                        'utc' => false], '20100512131445+0300'],
+            [['date'=> date_timestamp_set(new DateTime(), 0),
+                        'utc' => true], '19700101000000Z'],
+        ];
     }
 
     /**
@@ -86,15 +86,15 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
     public function toLdapBooleanProvider()
     {
-        return array(
-            array('TRUE', true),
-            array('TRUE', 1),
-            array('TRUE', 'true'),
-            array('FALSE', 'false'),
-            array('FALSE', false),
-            array('FALSE', array('true')),
-            array('FALSE', array('false')),
-        );
+        return [
+            ['TRUE', true],
+            ['TRUE', 1],
+            ['TRUE', 'true'],
+            ['FALSE', 'false'],
+            ['FALSE', false],
+            ['FALSE', ['true']],
+            ['FALSE', ['false']],
+        ];
     }
 
     /**
@@ -107,13 +107,13 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
     public function toLdapSerializeProvider()
     {
-        return array(
-            array('N;', null),
-            array('i:1;', 1),
-            array(serialize(new DateTime('@0')), new DateTime('@0')),
-            array('a:3:{i:0;s:4:"test";i:1;i:1;s:3:"foo";s:3:"bar";}', array('test', 1,
-                                                                             'foo'=> 'bar')),
-        );
+        return [
+            ['N;', null],
+            ['i:1;', 1],
+            [serialize(new DateTime('@0')), new DateTime('@0')],
+            ['a:3:{i:0;s:4:"test";i:1;i:1;s:3:"foo";s:3:"bar";}', ['test', 1,
+                                                                             'foo'=> 'bar']],
+        ];
     }
 
     /**
@@ -126,44 +126,44 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
     public function toLdapProvider()
     {
-        return array(
-            array(null, array(
+        return [
+            [null, [
                 'value' => null,
                 'type'  => 0,
-            )),
-            array('19700101000000Z', array(
+            ]],
+            ['19700101000000Z', [
                 'value'=> 0,
                 'type' => 2,
-            )),
-            array('0', array(
+            ]],
+            ['0', [
                 'value'=> 0,
                 'type' => 0,
-            )),
-            array('FALSE', array(
+            ]],
+            ['FALSE', [
                 'value'=> 0,
                 'type' => 1,
-            )),
-            array('19700101000000Z', array(
+            ]],
+            ['19700101000000Z', [
                 'value'=> DateTime::createFromFormat(DateTime::ISO8601, '1970-01-01T00:00:00+0000'),
                 'type' => 0,
-            )),
-            array(Converter::toldapBoolean(true), array(
+            ]],
+            [Converter::toldapBoolean(true), [
                 'value' => (bool) true,
                 'type' => 0
-            )),
-            array(Converter::toLdapSerialize(new stdClass()), array(
+            ]],
+            [Converter::toLdapSerialize(new stdClass()), [
                 'value' => new stdClass(),
                 'type' => 0,
-            )),
-            array(Converter::toLdapSerialize(array('foo')), array(
-                'value' => array('foo'),
+            ]],
+            [Converter::toLdapSerialize(['foo']), [
+                'value' => ['foo'],
                 'type' => 0,
-            )),
-            array(stream_get_contents(fopen(__FILE__, 'r')), array(
+            ]],
+            [stream_get_contents(fopen(__FILE__, 'r')), [
                 'value' => fopen(__FILE__, 'r'),
                 'type' => 0,
-            )),
-        );
+            ]],
+        ];
     }
 
     /**
@@ -182,11 +182,11 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
     public function fromLdapUnserializeProvider()
     {
-        return array(
-            array(null, 'N;'),
-            array(1, 'i:1;'),
-            array(false, 'b:0;'),
-        );
+        return [
+            [null, 'N;'],
+            [1, 'i:1;'],
+            [false, 'b:0;'],
+        ];
     }
 
     public function testFromLdapBoolean()
@@ -215,17 +215,17 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
     public function fromLdapDateTimeProvider()
     {
-        return array(
-            array(new DateTime('2010-12-24 08:00:23+0300'), '20101224080023+0300', false),
-            array(new DateTime('2010-12-24 08:00:23+0300'), '20101224080023+03\'00\'', false),
-            array(new DateTime('2010-12-24 08:00:23+0000'), '20101224080023', false),
-            array(new DateTime('2010-12-24 08:00:00+0000'), '201012240800', false),
-            array(new DateTime('2010-12-24 08:00:00+0000'), '2010122408', false),
-            array(new DateTime('2010-12-24 00:00:00+0000'), '20101224', false),
-            array(new DateTime('2010-12-01 00:00:00+0000'), '201012', false),
-            array(new DateTime('2010-01-01 00:00:00+0000'), '2010', false),
-            array(new DateTime('2010-04-03 12:23:34+0000'), '20100403122334', true),
-        );
+        return [
+            [new DateTime('2010-12-24 08:00:23+0300'), '20101224080023+0300', false],
+            [new DateTime('2010-12-24 08:00:23+0300'), '20101224080023+03\'00\'', false],
+            [new DateTime('2010-12-24 08:00:23+0000'), '20101224080023', false],
+            [new DateTime('2010-12-24 08:00:00+0000'), '201012240800', false],
+            [new DateTime('2010-12-24 08:00:00+0000'), '2010122408', false],
+            [new DateTime('2010-12-24 00:00:00+0000'), '20101224', false],
+            [new DateTime('2010-12-01 00:00:00+0000'), '201012', false],
+            [new DateTime('2010-01-01 00:00:00+0000'), '2010', false],
+            [new DateTime('2010-04-03 12:23:34+0000'), '20100403122334', true],
+        ];
     }
 
     /**
@@ -239,17 +239,17 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
     public static function fromLdapDateTimeException()
     {
-        return array(
-            array('foobar'),
-            array('201'),
-            array('201013'),
-            array('20101232'),
-            array('2010123124'),
-            array('201012312360'),
-            array('20101231235960'),
-            array('20101231235959+13'),
-            array('20101231235959+1160'),
-        );
+        return [
+            ['foobar'],
+            ['201'],
+            ['201013'],
+            ['20101232'],
+            ['2010123124'],
+            ['201012312360'],
+            ['20101231235960'],
+            ['20101231235959+13'],
+            ['20101231235959+1160'],
+        ];
     }
 
     /**
@@ -262,14 +262,14 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
     public function fromLdapProvider()
     {
-        return array(
-            array('1', '1', 0, true),
-            array('0', '0', 0, true),
-            array(true, 'TRUE', 0, true),
-            array(false, 'FALSE', 0, true),
-            array('123456789', '123456789', 0, true),
+        return [
+            ['1', '1', 0, true],
+            ['0', '0', 0, true],
+            [true, 'TRUE', 0, true],
+            [false, 'FALSE', 0, true],
+            ['123456789', '123456789', 0, true],
             // ZF-11639
-            array('+123456789', '+123456789', 0, true),
-        );
+            ['+123456789', '+123456789', 0, true],
+        ];
     }
 }

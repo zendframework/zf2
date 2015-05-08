@@ -27,7 +27,7 @@ class PrototypeClassFactory
     /**
      * @var array
      */
-    protected $prototypes = array();
+    protected $prototypes = [];
 
     /**
      * @var PrototypeGenericInterface
@@ -38,7 +38,7 @@ class PrototypeClassFactory
      * @param PrototypeInterface[] $prototypes
      * @param PrototypeGenericInterface $genericPrototype
      */
-    public function __construct($prototypes = array(), PrototypeGenericInterface $genericPrototype = null)
+    public function __construct($prototypes = [], PrototypeGenericInterface $genericPrototype = null)
     {
         foreach ((array)$prototypes as $prototype) {
             $this->addPrototype($prototype);
@@ -83,7 +83,7 @@ class PrototypeClassFactory
      */
     protected function normalizeName($name)
     {
-        return str_replace(array('-', '_'), '', $name);
+        return str_replace(['-', '_'], '', $name);
     }
 
     /**

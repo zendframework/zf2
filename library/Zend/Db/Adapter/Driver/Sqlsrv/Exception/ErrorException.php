@@ -18,7 +18,7 @@ class ErrorException extends Exception\ErrorException implements ExceptionInterf
      *
      * @var array
      */
-    protected $errors = array();
+    protected $errors = [];
 
     /**
      * Construct

@@ -23,7 +23,7 @@ class ModuleLoaderListenerTest extends TestCase
         $this->tmpdir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'zend_module_cache_dir';
         @mkdir($this->tmpdir);
 
-        $this->moduleManager = new ModuleManager(array());
+        $this->moduleManager = new ModuleManager([]);
         $this->moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE_RESOLVE, new ModuleResolverListener, 1000);
     }
 
@@ -36,11 +36,11 @@ class ModuleLoaderListenerTest extends TestCase
 
     public function testModuleLoaderListenerFunctionsAsAggregateListenerEnabledCache()
     {
-        $options = new ListenerOptions(array(
+        $options = new ListenerOptions([
             'cache_dir'                => $this->tmpdir,
             'module_map_cache_enabled' => true,
             'module_map_cache_key'     => 'foo',
-        ));
+        ]);
 
         $moduleLoaderListener = new ModuleLoaderListener($options);
 
@@ -55,9 +55,9 @@ class ModuleLoaderListenerTest extends TestCase
 
     public function testModuleLoaderListenerFunctionsAsAggregateListenerDisabledCache()
     {
-        $options = new ListenerOptions(array(
+        $options = new ListenerOptions([
             'cache_dir' => $this->tmpdir,
-        ));
+        ]);
 
         $moduleLoaderListener = new ModuleLoaderListener($options);
 
@@ -72,11 +72,11 @@ class ModuleLoaderListenerTest extends TestCase
 
     public function testModuleLoaderListenerFunctionsAsAggregateListenerHasCache()
     {
-        $options = new ListenerOptions(array(
+        $options = new ListenerOptions([
             'cache_dir'                => $this->tmpdir,
             'module_map_cache_key'     => 'foo',
             'module_map_cache_enabled' => true,
-        ));
+        ]);
 
         file_put_contents($options->getModuleMapCacheFile(), '<?php return array();');
 

@@ -31,7 +31,7 @@ abstract class AbstractObject implements ObjectInterface
      *
      * @var array
      */
-    protected $instructions = array();
+    protected $instructions = [];
 
     /**
      * Barcode type
@@ -857,12 +857,12 @@ abstract class AbstractObject implements ObjectInterface
         if ($color === null) {
             $color = $this->foreColor;
         }
-        $this->addInstruction(array(
+        $this->addInstruction([
             'type'   => 'polygon',
             'points' => $points,
             'color'  => $color,
             'filled' => $filled,
-        ));
+        ]);
     }
 
     /**
@@ -888,7 +888,7 @@ abstract class AbstractObject implements ObjectInterface
         if ($color === null) {
             $color = $this->foreColor;
         }
-        $this->addInstruction(array(
+        $this->addInstruction([
             'type'        => 'text',
             'text'        => $text,
             'size'        => $size,
@@ -897,7 +897,7 @@ abstract class AbstractObject implements ObjectInterface
             'color'       => $color,
             'alignment'   => $alignment,
             'orientation' => $orientation,
-        ));
+        ]);
     }
 
     /**
@@ -1057,12 +1057,12 @@ abstract class AbstractObject implements ObjectInterface
     {
         if ($this->offsetLeft === null || $recalculate) {
             $this->offsetLeft = - min(
-                array(
+                [
                     0 * cos($this->orientation / 180 * pi()) - 0 * sin($this->orientation / 180 * pi()),
                     0 * cos($this->orientation / 180 * pi()) - $this->calculateBarcodeHeight() * sin($this->orientation / 180 * pi()),
                     $this->calculateBarcodeWidth() * cos($this->orientation / 180 * pi()) - $this->calculateBarcodeHeight() * sin($this->orientation / 180 * pi()),
                     $this->calculateBarcodeWidth() * cos($this->orientation / 180 * pi()) - 0 * sin($this->orientation / 180 * pi()),
-                )
+                ]
             );
         }
         return $this->offsetLeft;
@@ -1079,12 +1079,12 @@ abstract class AbstractObject implements ObjectInterface
     {
         if ($this->offsetTop === null || $recalculate) {
             $this->offsetTop = - min(
-                array(
+                [
                     0 * cos($this->orientation / 180 * pi()) + 0 * sin($this->orientation / 180 * pi()),
                     $this->calculateBarcodeHeight() * cos($this->orientation / 180 * pi()) + 0 * sin($this->orientation / 180 * pi()),
                     $this->calculateBarcodeHeight() * cos($this->orientation / 180 * pi()) + $this->calculateBarcodeWidth() * sin($this->orientation / 180 * pi()),
                     0 * cos($this->orientation / 180 * pi()) + $this->calculateBarcodeWidth() * sin($this->orientation / 180 * pi()),
-                )
+                ]
             );
         }
         return $this->offsetTop;
@@ -1105,7 +1105,7 @@ abstract class AbstractObject implements ObjectInterface
         $y2 = $y1 * cos($this->orientation / 180 * pi())
             + $x1 * sin($this->orientation / 180 * pi())
             + $this->getOffsetTop();
-        return array(intval($x2), intval($y2));
+        return [intval($x2), intval($y2)];
     }
 
     /**
@@ -1142,12 +1142,12 @@ abstract class AbstractObject implements ObjectInterface
         );
         $point4 = $this->rotate($this->calculateWidth() - 1, 0);
 
-        $this->addPolygon(array(
+        $this->addPolygon([
             $point1,
             $point2,
             $point3,
             $point4
-        ), $this->backgroundColor);
+        ], $this->backgroundColor);
 
         $xpos     += $this->getQuietZone();
         $barLength = $this->barHeight * $this->factor;
@@ -1165,12 +1165,12 @@ abstract class AbstractObject implements ObjectInterface
                     $xpos + $width - 1,
                     $ypos + $bar[2] * $barLength
                 );
-                $this->addPolygon(array(
+                $this->addPolygon([
                     $point1,
                     $point2,
                     $point3,
                     $point4,
-                ));
+                ]);
             }
             $xpos += $width;
         }
@@ -1191,13 +1191,13 @@ abstract class AbstractObject implements ObjectInterface
                 $this->calculateHeight() - 1
             );
             $point4 = $this->rotate(0, $this->calculateHeight() - 1);
-            $this->addPolygon(array(
+            $this->addPolygon([
                 $point1,
                 $point2,
                 $point3,
                 $point4,
                 $point1,
-            ), $this->foreColor, false);
+            ], $this->foreColor, false);
         }
     }
 
@@ -1259,14 +1259,14 @@ abstract class AbstractObject implements ObjectInterface
      * @param string $value
      * @param array  $options
      */
-    protected function validateSpecificText($value, $options = array())
+    protected function validateSpecificText($value, $options = [])
     {
         $validatorName = (isset($options['validator'])) ? $options['validator'] : $this->getType();
 
-        $validator = new BarcodeValidator(array(
+        $validator = new BarcodeValidator([
             'adapter'  => $validatorName,
             'usechecksum' => false,
-        ));
+        ]);
 
         $checksumCharacter = '';
         $withChecksum = false;

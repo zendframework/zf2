@@ -11,7 +11,7 @@ namespace Zend\Mime;
 
 class Message
 {
-    protected $parts = array();
+    protected $parts = [];
     protected $mime = null;
 
     /**
@@ -179,14 +179,14 @@ class Message
     protected static function _disassembleMime($body, $boundary)
     {
         $start  = 0;
-        $res    = array();
+        $res    = [];
         // find every mime part limiter and cut out the
         // string before it.
         // the part before the first boundary string is discarded:
         $p = strpos($body, '--' . $boundary."\n", $start);
         if ($p === false) {
             // no parts found!
-            return array();
+            return [];
         }
 
         // position after first boundary line
@@ -225,7 +225,7 @@ class Message
         $res = new static();
         foreach ($parts as $part) {
             // now we build a new MimePart for the current Message Part:
-            $properties = array();
+            $properties = [];
             foreach ($part['header'] as $header) {
                 /** @var \Zend\Mail\Header\HeaderInterface $header */
                 /**

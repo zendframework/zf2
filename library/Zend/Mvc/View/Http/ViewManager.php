@@ -81,7 +81,7 @@ class ViewManager extends AbstractListenerAggregate
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), 10000);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_BOOTSTRAP, [$this, 'onBootstrap'], 10000);
     }
 
     /**
@@ -100,7 +100,7 @@ class ViewManager extends AbstractListenerAggregate
 
         $this->config   = isset($config['view_manager']) && (is_array($config['view_manager']) || $config['view_manager'] instanceof ArrayAccess)
                         ? $config['view_manager']
-                        : array();
+                        : [];
         $this->services = $services;
         $this->event    = $event;
 
@@ -116,15 +116,15 @@ class ViewManager extends AbstractListenerAggregate
 
         $events->attach($routeNotFoundStrategy);
         $events->attach($exceptionStrategy);
-        $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($injectViewModelListener, 'injectViewModel'), -100);
-        $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($injectViewModelListener, 'injectViewModel'), -100);
+        $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$injectViewModelListener, 'injectViewModel'], -100);
+        $events->attach(MvcEvent::EVENT_RENDER_ERROR, [$injectViewModelListener, 'injectViewModel'], -100);
         $events->attach($mvcRenderingStrategy);
 
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($createViewModelListener, 'createViewModelFromArray'), -80);
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($routeNotFoundStrategy, 'prepareNotFoundViewModel'), -90);
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($createViewModelListener, 'createViewModelFromNull'), -80);
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($injectTemplateListener, 'injectTemplate'), -90);
-        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, array($injectViewModelListener, 'injectViewModel'), -100);
+        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, [$createViewModelListener, 'createViewModelFromArray'], -80);
+        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, [$routeNotFoundStrategy, 'prepareNotFoundViewModel'], -90);
+        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, [$createViewModelListener, 'createViewModelFromNull'], -80);
+        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, [$injectTemplateListener, 'injectTemplate'], -90);
+        $sharedEvents->attach('Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, [$injectViewModelListener, 'injectViewModel'], -100);
     }
 
     /**
@@ -371,7 +371,7 @@ class ViewManager extends AbstractListenerAggregate
         }
         $mvcStrategies = $this->config['mvc_strategies'];
         if (is_string($mvcStrategies)) {
-            $mvcStrategies = array($mvcStrategies);
+            $mvcStrategies = [$mvcStrategies];
         }
         if (!is_array($mvcStrategies) && !$mvcStrategies instanceof Traversable) {
             return;
@@ -407,7 +407,7 @@ class ViewManager extends AbstractListenerAggregate
         }
         $strategies = $this->config['strategies'];
         if (is_string($strategies)) {
-            $strategies = array($strategies);
+            $strategies = [$strategies];
         }
         if (!is_array($strategies) && !$strategies instanceof Traversable) {
             return;

@@ -38,7 +38,7 @@ class ItemListTest extends \PHPUnit_Framework_TestCase
     {
         $list = new Tag\ItemList();
 
-        $values = array('foo', 'bar', 'baz');
+        $values = ['foo', 'bar', 'baz'];
         foreach ($values as $value) {
             $list[] = $this->_getItem($value);
         }
@@ -55,7 +55,7 @@ class ItemListTest extends \PHPUnit_Framework_TestCase
     {
         $list = new Tag\ItemList();
 
-        $values = array('foo', 'bar', 'baz');
+        $values = ['foo', 'bar', 'baz'];
         foreach ($values as $value) {
             $list[] = $this->_getItem($value);
         }
@@ -81,14 +81,14 @@ class ItemListTest extends \PHPUnit_Framework_TestCase
         $list[] = $this->_getItem('bar', 5);
         $list[] = $this->_getItem('baz', 50);
 
-        $list->spreadWeightValues(array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        $list->spreadWeightValues([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-        $weightValues = array();
+        $weightValues = [];
         foreach ($list as $item) {
             $weightValues[] = $item->getParam('weightValue');
         }
 
-        $expectedWeightValues = array(1, 2, 10);
+        $expectedWeightValues = [1, 2, 10];
 
         $this->assertEquals($weightValues, $expectedWeightValues);
     }
@@ -101,14 +101,14 @@ class ItemListTest extends \PHPUnit_Framework_TestCase
         $list[] = $this->_getItem('bar', 5);
         $list[] = $this->_getItem('baz', 50);
 
-        $list->spreadWeightValues(array('foobar'));
+        $list->spreadWeightValues(['foobar']);
 
-        $weightValues = array();
+        $weightValues = [];
         foreach ($list as $item) {
             $weightValues[] = $item->getParam('weightValue');
         }
 
-        $expectedWeightValues = array('foobar', 'foobar', 'foobar');
+        $expectedWeightValues = ['foobar', 'foobar', 'foobar'];
 
         $this->assertEquals($weightValues, $expectedWeightValues);
     }
@@ -118,11 +118,11 @@ class ItemListTest extends \PHPUnit_Framework_TestCase
         $list = new Tag\ItemList();
 
         $this->setExpectedException('Zend\Tag\Exception\InvalidArgumentException', 'Value list may not be empty');
-        $list->spreadWeightValues(array());
+        $list->spreadWeightValues([]);
     }
 
     protected function _getItem($title = 'foo', $weight = 1)
     {
-        return new Tag\Item(array('title' => $title, 'weight' => $weight));
+        return new Tag\Item(['title' => $title, 'weight' => $weight]);
     }
 }

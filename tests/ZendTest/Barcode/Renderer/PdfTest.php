@@ -45,7 +45,7 @@ class PdfTest extends TestCommon
     public function testDrawReturnResource()
     {
         Barcode\Barcode::setBarcodeFont(__DIR__ . '/../Object/_fonts/Vera.ttf');
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->renderer->setBarcode($barcode);
         $resource = $this->renderer->draw();
         $this->assertInstanceOf('ZendPdf\PdfDocument', $resource);
@@ -55,7 +55,7 @@ class PdfTest extends TestCommon
     public function testDrawWithExistantResourceReturnResource()
     {
         Barcode\Barcode::setBarcodeFont(__DIR__ . '/../Object/_fonts/Vera.ttf');
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->renderer->setBarcode($barcode);
         $pdfResource = new Pdf\PdfDocument();
         $this->renderer->setResource($pdfResource);
@@ -75,7 +75,7 @@ class PdfTest extends TestCommon
     public function testHorizontalPositionToCenter()
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(211, $barcode->getWidth());
         $renderer->setBarcode($barcode);
         $renderer->setHorizontalPosition('center');
@@ -86,7 +86,7 @@ class PdfTest extends TestCommon
     public function testHorizontalPositionToRight()
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(211, $barcode->getWidth());
         $renderer->setBarcode($barcode);
         $renderer->setHorizontalPosition('right');
@@ -97,7 +97,7 @@ class PdfTest extends TestCommon
     public function testVerticalPositionToMiddle()
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(62, $barcode->getHeight());
         $renderer->setBarcode($barcode);
         $renderer->setVerticalPosition('middle');
@@ -108,7 +108,7 @@ class PdfTest extends TestCommon
     public function testVerticalPositionToBottom()
     {
         $renderer = $this->getRendererWithWidth500AndHeight300();
-        $barcode = new Object\Code39(array('text' => '0123456789'));
+        $barcode = new Object\Code39(['text' => '0123456789']);
         $this->assertEquals(62, $barcode->getHeight());
         $renderer->setBarcode($barcode);
         $renderer->setVerticalPosition('bottom');

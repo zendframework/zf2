@@ -23,9 +23,9 @@ class DateSelectTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Date'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -78,7 +78,7 @@ class DateSelectTest extends TestCase
 
     public function testConstructAcceptsDayAttributes()
     {
-        $sut = new DateSelectElement('dateSelect', array('day_attributes' => array('class' => 'test')));
+        $sut = new DateSelectElement('dateSelect', ['day_attributes' => ['class' => 'test']]);
         $dayAttributes = $sut->getDayAttributes();
         $this->assertEquals('test', $dayAttributes['class']);
     }

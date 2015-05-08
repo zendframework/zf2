@@ -53,32 +53,32 @@ class CopyRenameTest extends AbstractOnlineTestCase
         $this->newSubTreeDn    = $this->createDn('ou=NewSubtree,');
         $this->targetSubTreeDn = $this->createDn('ou=Target,');
 
-        $this->nodes = array(
-            $this->orgDn        => array("objectClass" => "organizationalUnit",
-                                         "ou"          => "OrgTest"),
-            $this->orgSubTreeDn => array("objectClass" => "organizationalUnit",
-                                         "ou"          => "OrgSubtree"),
+        $this->nodes = [
+            $this->orgDn        => ["objectClass" => "organizationalUnit",
+                                         "ou"          => "OrgTest"],
+            $this->orgSubTreeDn => ["objectClass" => "organizationalUnit",
+                                         "ou"          => "OrgSubtree"],
             'ou=Subtree1,' . $this->orgSubTreeDn              =>
-            array("objectClass" => "organizationalUnit",
-                  "ou"          => "Subtree1"),
+            ["objectClass" => "organizationalUnit",
+                  "ou"          => "Subtree1"],
             'ou=Subtree11,ou=Subtree1,' . $this->orgSubTreeDn =>
-            array("objectClass" => "organizationalUnit",
-                  "ou"          => "Subtree11"),
+            ["objectClass" => "organizationalUnit",
+                  "ou"          => "Subtree11"],
             'ou=Subtree12,ou=Subtree1,' . $this->orgSubTreeDn =>
-            array("objectClass" => "organizationalUnit",
-                  "ou"          => "Subtree12"),
+            ["objectClass" => "organizationalUnit",
+                  "ou"          => "Subtree12"],
             'ou=Subtree13,ou=Subtree1,' . $this->orgSubTreeDn =>
-            array("objectClass" => "organizationalUnit",
-                  "ou"          => "Subtree13"),
+            ["objectClass" => "organizationalUnit",
+                  "ou"          => "Subtree13"],
             'ou=Subtree2,' . $this->orgSubTreeDn              =>
-            array("objectClass" => "organizationalUnit",
-                  "ou"          => "Subtree2"),
+            ["objectClass" => "organizationalUnit",
+                  "ou"          => "Subtree2"],
             'ou=Subtree3,' . $this->orgSubTreeDn              =>
-            array("objectClass" => "organizationalUnit",
-                  "ou"          => "Subtree3"),
-            $this->targetSubTreeDn => array("objectClass" => "organizationalUnit",
-                                            "ou"          => "Target")
-        );
+            ["objectClass" => "organizationalUnit",
+                  "ou"          => "Subtree3"],
+            $this->targetSubTreeDn => ["objectClass" => "organizationalUnit",
+                                            "ou"          => "Target"]
+        ];
 
         $ldap = $this->getLDAP()->getResource();
         foreach ($this->nodes as $dn => $entry) {
@@ -114,13 +114,13 @@ class CopyRenameTest extends AbstractOnlineTestCase
 
     public function testSimpleLeafRename()
     {
-        $org = $this->getLDAP()->getEntry($this->orgDn, array(), true);
+        $org = $this->getLDAP()->getEntry($this->orgDn, [], true);
         $this->getLDAP()->rename($this->orgDn, $this->newDn, false);
         $this->assertFalse($this->getLDAP()->exists($this->orgDn));
         $this->assertTrue($this->getLDAP()->exists($this->newDn));
         $new = $this->getLDAP()->getEntry($this->newDn);
         $this->assertEquals($org['objectclass'], $new['objectclass']);
-        $this->assertEquals(array('NewTest'), $new['ou']);
+        $this->assertEquals(['NewTest'], $new['ou']);
     }
 
     public function testSimpleLeafMoveAlias()

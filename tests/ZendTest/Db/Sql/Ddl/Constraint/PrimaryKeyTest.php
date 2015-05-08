@@ -20,11 +20,11 @@ class PrimaryKeyTest extends \PHPUnit_Framework_TestCase
     {
         $pk = new PrimaryKey('foo');
         $this->assertEquals(
-            array(array(
+            [[
                 'PRIMARY KEY (%s)',
-                array('foo'),
-                array($pk::TYPE_IDENTIFIER)
-            )),
+                ['foo'],
+                [$pk::TYPE_IDENTIFIER]
+            ]],
             $pk->getExpressionData()
         );
     }

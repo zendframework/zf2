@@ -20,7 +20,7 @@ class BlobTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Blob('foo');
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'BLOB'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'BLOB'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
     }

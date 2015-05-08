@@ -58,43 +58,43 @@ class FormImageTest extends CommonTestCase
 
     public function validAttributes()
     {
-        return array(
-            array('name', 'assertContains'),
-            array('accept', 'assertNotContains'),
-            array('alt', 'assertContains'),
-            array('autocomplete', 'assertNotContains'),
-            array('autofocus', 'assertContains'),
-            array('checked', 'assertNotContains'),
-            array('dirname', 'assertNotContains'),
-            array('disabled', 'assertContains'),
-            array('form', 'assertContains'),
-            array('formaction', 'assertContains'),
-            array('formenctype', 'assertContains'),
-            array('formmethod', 'assertContains'),
-            array('formnovalidate', 'assertContains'),
-            array('formtarget', 'assertContains'),
-            array('height', 'assertContains'),
-            array('list', 'assertNotContains'),
-            array('max', 'assertNotContains'),
-            array('maxlength', 'assertNotContains'),
-            array('min', 'assertNotContains'),
-            array('multiple', 'assertNotContains'),
-            array('pattern', 'assertNotContains'),
-            array('placeholder', 'assertNotContains'),
-            array('readonly', 'assertNotContains'),
-            array('required', 'assertNotContains'),
-            array('size', 'assertNotContains'),
-            array('src', 'assertContains'),
-            array('step', 'assertNotContains'),
-            array('value', 'assertNotContains'),
-            array('width', 'assertContains'),
-        );
+        return [
+            ['name', 'assertContains'],
+            ['accept', 'assertNotContains'],
+            ['alt', 'assertContains'],
+            ['autocomplete', 'assertNotContains'],
+            ['autofocus', 'assertContains'],
+            ['checked', 'assertNotContains'],
+            ['dirname', 'assertNotContains'],
+            ['disabled', 'assertContains'],
+            ['form', 'assertContains'],
+            ['formaction', 'assertContains'],
+            ['formenctype', 'assertContains'],
+            ['formmethod', 'assertContains'],
+            ['formnovalidate', 'assertContains'],
+            ['formtarget', 'assertContains'],
+            ['height', 'assertContains'],
+            ['list', 'assertNotContains'],
+            ['max', 'assertNotContains'],
+            ['maxlength', 'assertNotContains'],
+            ['min', 'assertNotContains'],
+            ['multiple', 'assertNotContains'],
+            ['pattern', 'assertNotContains'],
+            ['placeholder', 'assertNotContains'],
+            ['readonly', 'assertNotContains'],
+            ['required', 'assertNotContains'],
+            ['size', 'assertNotContains'],
+            ['src', 'assertContains'],
+            ['step', 'assertNotContains'],
+            ['value', 'assertNotContains'],
+            ['width', 'assertContains'],
+        ];
     }
 
     public function getCompleteElement()
     {
         $element = new Element('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'accept'             => 'value',
             'alt'                => 'value',
             'autocomplete'       => 'on',
@@ -124,7 +124,7 @@ class FormImageTest extends CommonTestCase
             'src'                => 'value',
             'step'               => 'value',
             'width'              => 'value',
-        ));
+        ]);
         $element->setValue('value');
         return $element;
     }

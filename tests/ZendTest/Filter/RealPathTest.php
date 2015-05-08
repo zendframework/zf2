@@ -78,7 +78,7 @@ class RealPathTest extends \PHPUnit_Framework_TestCase
         $this->_filter->setExists(false);
         $this->assertFalse($this->_filter->getExists());
 
-        $this->_filter->setExists(array('unknown'));
+        $this->_filter->setExists(['unknown']);
         $this->assertTrue($this->_filter->getExists());
     }
 
@@ -105,16 +105,16 @@ class RealPathTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(
-                array(
+        return [
+            [null],
+            [new \stdClass()],
+            [
+                [
                     $this->_filesPath . DIRECTORY_SEPARATOR . 'file.1',
                     $this->_filesPath . DIRECTORY_SEPARATOR . 'file.2'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**

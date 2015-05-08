@@ -41,11 +41,11 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
     public function testBasic()
     {
         $filter = $this->_filter;
-        $valuesExpected = array(
+        $valuesExpected = [
             'STRING' => 'STRING',
             'ABC1@3' => 'ABC1@3',
             'A b C'  => 'A B C'
-        );
+        ];
 
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
@@ -61,11 +61,11 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
     public function testWithEncoding()
     {
         $filter = $this->_filter;
-        $valuesExpected = array(
+        $valuesExpected = [
             'ü'     => 'Ü',
             'ñ'     => 'Ñ',
             'üñ123' => 'ÜÑ123'
-        );
+        ];
 
         try {
             $filter->setEncoding('UTF-8');
@@ -95,14 +95,14 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitiationWithEncoding()
     {
-        $valuesExpected = array(
+        $valuesExpected = [
             'ü'     => 'Ü',
             'ñ'     => 'Ñ',
             'üñ123' => 'ÜÑ123'
-        );
+        ];
 
         try {
-            $filter = new StringToUpperFilter(array('encoding' => 'UTF-8'));
+            $filter = new StringToUpperFilter(['encoding' => 'UTF-8']);
             foreach ($valuesExpected as $input => $output) {
                 $this->assertEquals($output, $filter($input));
             }
@@ -117,11 +117,11 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
     public function testCaseInsensitiveEncoding()
     {
         $filter = $this->_filter;
-        $valuesExpected = array(
+        $valuesExpected = [
             'ü'     => 'Ü',
             'ñ'     => 'Ñ',
             'üñ123' => 'ÜÑ123'
-        );
+        ];
 
         try {
             $filter->setEncoding('UTF-8');
@@ -157,14 +157,14 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 'lower case written',
                 'This should stay the same'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**
@@ -181,7 +181,7 @@ class StringToUpperTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterUsesGetEncodingMethod()
     {
-        $filterMock = $this->getMock('Zend\Filter\StringToUpper', array('getEncoding'));
+        $filterMock = $this->getMock('Zend\Filter\StringToUpper', ['getEncoding']);
         $filterMock->expects($this->once())
                    ->method('getEncoding')
                    ->with();

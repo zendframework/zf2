@@ -29,7 +29,7 @@ class Json extends AbstractHelper
      * @param  array $jsonOptions Options to pass to JsonFormatter::encode()
      * @return string|void
      */
-    public function __invoke($data, array $jsonOptions = array())
+    public function __invoke($data, array $jsonOptions = [])
     {
         $data = JsonFormatter::encode($data, null, $jsonOptions);
 

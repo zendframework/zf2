@@ -359,7 +359,7 @@ class Factory
                 }
                 $name = $filter['name'];
                 $priority = isset($filter['priority']) ? $filter['priority'] : FilterChain::DEFAULT_PRIORITY;
-                $options = array();
+                $options = [];
                 if (isset($filter['options'])) {
                     $options = $filter['options'];
                 }
@@ -394,7 +394,7 @@ class Factory
                     );
                 }
                 $name    = $validator['name'];
-                $options = array();
+                $options = [];
                 if (isset($validator['options'])) {
                     $options = $validator['options'];
                 }

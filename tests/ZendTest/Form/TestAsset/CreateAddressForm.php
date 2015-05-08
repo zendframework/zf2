@@ -26,11 +26,11 @@ class CreateAddressForm extends Form
         $address->setUseAsBaseFieldset(true);
         $this->add($address);
 
-        $this->add(array(
+        $this->add([
             'name' => 'submit',
-            'attributes' => array(
+            'attributes' => [
                 'type' => 'submit'
-            )
-        ));
+            ]
+        ]);
     }
 }

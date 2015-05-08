@@ -48,21 +48,21 @@ class GlobalEventManagerTest extends \PHPUnit_Framework_TestCase
         });
         $this->assertInstanceOf('Zend\Stdlib\CallbackHandler', $listener);
 
-        GlobalEventManager::trigger('foo.bar', $this, array('foo' => 'bar'));
+        GlobalEventManager::trigger('foo.bar', $this, ['foo' => 'bar']);
         $this->assertSame($this, $test->target);
         $this->assertEquals('foo.bar', $test->event);
-        $this->assertEquals(array('foo' => 'bar'), $test->params);
+        $this->assertEquals(['foo' => 'bar'], $test->params);
 
-        $results = GlobalEventManager::trigger('foo.bar', $this, array('baz' => 'bat'), function ($r) {
+        $results = GlobalEventManager::trigger('foo.bar', $this, ['baz' => 'bat'], function ($r) {
             return is_array($r);
         });
 
         $this->assertTrue($results->stopped());
-        $this->assertEquals(array('baz' => 'bat'), $test->params);
-        $this->assertEquals(array('baz' => 'bat'), $results->last());
+        $this->assertEquals(['baz' => 'bat'], $test->params);
+        $this->assertEquals(['baz' => 'bat'], $results->last());
 
         $events = GlobalEventManager::getEvents();
-        $this->assertEquals(array('foo.bar'), $events);
+        $this->assertEquals(['foo.bar'], $events);
 
         $listeners = GlobalEventManager::getListeners('foo.bar');
         $this->assertEquals(1, count($listeners));
@@ -70,7 +70,7 @@ class GlobalEventManagerTest extends \PHPUnit_Framework_TestCase
 
         GlobalEventManager::detach($listener);
         $events = GlobalEventManager::getEvents();
-        $this->assertEquals(array(), $events);
+        $this->assertEquals([], $events);
 
         $listener = GlobalEventManager::attach('foo.bar', function ($e) use ($test) {
             $test->event  = $e->getEvent();
@@ -78,10 +78,10 @@ class GlobalEventManagerTest extends \PHPUnit_Framework_TestCase
             $test->params = $e->getParams();
         });
         $events = GlobalEventManager::getEvents();
-        $this->assertEquals(array('foo.bar'), $events);
+        $this->assertEquals(['foo.bar'], $events);
         GlobalEventManager::clearListeners('foo.bar');
         $events = GlobalEventManager::getEvents();
-        $this->assertEquals(array(), $events);
+        $this->assertEquals([], $events);
     }
 
     public function testTriggerUntilDeprecated()
@@ -91,7 +91,7 @@ class GlobalEventManagerTest extends \PHPUnit_Framework_TestCase
             $deprecated = true;
         }, E_USER_DEPRECATED);
 
-        GlobalEventManager::triggerUntil('foo.bar', $this, array('foo' => 'bar'), function () {});
+        GlobalEventManager::triggerUntil('foo.bar', $this, ['foo' => 'bar'], function () {});
         restore_error_handler();
 
         $this->assertTrue($deprecated, 'GlobalEventManager::triggerUntil not marked as E_USER_DEPRECATED');

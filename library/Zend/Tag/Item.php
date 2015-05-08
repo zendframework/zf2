@@ -33,17 +33,17 @@ class Item implements TaggableInterface
      *
      * @var string
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * Option keys to skip when calling setOptions()
      *
      * @var array
      */
-    protected $skipOptions = array(
+    protected $skipOptions = [
         'options',
         'param'
-    );
+    ];
 
     /**
      * Create a new tag according to the options

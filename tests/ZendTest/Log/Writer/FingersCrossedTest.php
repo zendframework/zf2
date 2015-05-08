@@ -22,7 +22,7 @@ class FingersCrossedTest extends \PHPUnit_Framework_TestCase
         $wrappedWriter = new MockWriter();
         $writer = new FingersCrossedWriter($wrappedWriter, 2);
 
-        $writer->write(array('priority' => 3, 'message' => 'foo'));
+        $writer->write(['priority' => 3, 'message' => 'foo']);
 
         $this->assertSame(count($wrappedWriter->events), 0);
     }
@@ -32,8 +32,8 @@ class FingersCrossedTest extends \PHPUnit_Framework_TestCase
         $wrappedWriter = new MockWriter();
         $writer = new FingersCrossedWriter($wrappedWriter, 2);
 
-        $writer->write(array('priority' => 3, 'message' => 'foo'));
-        $writer->write(array('priority' => 1, 'message' => 'bar'));
+        $writer->write(['priority' => 3, 'message' => 'foo']);
+        $writer->write(['priority' => 1, 'message' => 'bar']);
 
         $this->assertSame(count($wrappedWriter->events), 2);
     }
@@ -43,9 +43,9 @@ class FingersCrossedTest extends \PHPUnit_Framework_TestCase
         $wrappedWriter = new MockWriter();
         $writer = new FingersCrossedWriter($wrappedWriter, 2);
 
-        $writer->write(array('priority' => 3, 'message' => 'foo'));
-        $writer->write(array('priority' => 1, 'message' => 'bar'));
-        $writer->write(array('priority' => 3, 'message' => 'bar'));
+        $writer->write(['priority' => 3, 'message' => 'foo']);
+        $writer->write(['priority' => 1, 'message' => 'bar']);
+        $writer->write(['priority' => 3, 'message' => 'bar']);
 
         $this->assertSame(count($wrappedWriter->events), 3);
     }
@@ -58,7 +58,7 @@ class FingersCrossedTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorOptions()
     {
-        $options = array('writer' => 'mock', 'priority' => 3);
+        $options = ['writer' => 'mock', 'priority' => 3];
         $writer = new FingersCrossedWriter($options);
         $this->assertAttributeInstanceOf('Zend\Log\Writer\Mock', 'writer', $writer);
 
@@ -70,7 +70,7 @@ class FingersCrossedTest extends \PHPUnit_Framework_TestCase
 
     public function testFormattingIsNotSupported()
     {
-        $options = array('writer' => 'mock', 'priority' => 3);
+        $options = ['writer' => 'mock', 'priority' => 3];
         $writer = new FingersCrossedWriter($options);
 
         $writer->setFormatter($this->getMock('Zend\Log\Formatter\FormatterInterface'));

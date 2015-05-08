@@ -59,13 +59,13 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
     public function testWhere()
     {
         $this->delete->where('x = y');
-        $this->delete->where(array('foo > ?' => 5));
-        $this->delete->where(array('id' => 2));
-        $this->delete->where(array('a = b'), Where::OP_OR);
-        $this->delete->where(array('c1' => null));
-        $this->delete->where(array('c2' => array(1, 2, 3)));
-        $this->delete->where(array(new IsNotNull('c3')));
-        $this->delete->where(array('one' => 1, 'two' => 2));
+        $this->delete->where(['foo > ?' => 5]);
+        $this->delete->where(['id' => 2]);
+        $this->delete->where(['a = b'], Where::OP_OR);
+        $this->delete->where(['c1' => null]);
+        $this->delete->where(['c2' => [1, 2, 3]]);
+        $this->delete->where([new IsNotNull('c3')]);
+        $this->delete->where(['one' => 1, 'two' => 2]);
         $where = $this->delete->where;
 
         $predicates = $this->readAttribute($where, 'predicates');
@@ -112,7 +112,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
     public function testPrepareStatement()
     {
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
-        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
         $mockStatement->expects($this->at(2))
@@ -127,7 +127,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
         // with TableIdentifier
         $this->delete = new Delete;
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
-        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
         $mockStatement->expects($this->at(2))
@@ -164,7 +164,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
         $deleteIgnore = new DeleteIgnore();
 
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
-        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
         $mockStatement->expects($this->at(2))
@@ -182,7 +182,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
         $deleteIgnore = new DeleteIgnore();
 
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
-        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
         $mockStatement->expects($this->at(2))
@@ -218,10 +218,10 @@ class DeleteIgnore extends Delete
 {
     const SPECIFICATION_DELETE = 'deleteIgnore';
 
-    protected $specifications = array(
+    protected $specifications = [
         self::SPECIFICATION_DELETE => 'DELETE IGNORE FROM %1$s',
         self::SPECIFICATION_WHERE  => 'WHERE %1$s',
-    );
+    ];
 
     protected function processdeleteIgnore(\Zend\Db\Adapter\Platform\PlatformInterface $platform, \Zend\Db\Adapter\Driver\DriverInterface $driver = null, \Zend\Db\Adapter\ParameterContainer $parameterContainer = null)
     {

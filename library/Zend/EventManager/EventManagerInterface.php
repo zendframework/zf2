@@ -33,7 +33,7 @@ interface EventManagerInterface extends SharedEventManagerAwareInterface
      * @param  null|callable $callback
      * @return ResponseCollection
      */
-    public function trigger($event, $target = null, $argv = array(), $callback = null);
+    public function trigger($event, $target = null, $argv = [], $callback = null);
 
     /**
      * Trigger an event until the given callback returns a boolean true

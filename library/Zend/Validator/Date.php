@@ -38,18 +38,18 @@ class Date extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID      => "Invalid type given. String, integer, array or DateTime expected",
         self::INVALID_DATE => "The input does not appear to be a valid date",
         self::FALSEFORMAT  => "The input does not fit the date format '%format%'",
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $messageVariables = array(
+    protected $messageVariables = [
         'format' => 'format',
-    );
+    ];
 
     /**
      * @var string
@@ -61,7 +61,7 @@ class Date extends AbstractValidator
      *
      * @param  string|array|Traversable $options OPTIONAL
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Traversable) {
             $options = iterator_to_array($options);
@@ -133,7 +133,7 @@ class Date extends AbstractValidator
         }
 
         $type = gettype($param);
-        if (!in_array($type, array('string', 'integer', 'double', 'array'))) {
+        if (!in_array($type, ['string', 'integer', 'double', 'array'])) {
             if ($addErrors) {
                 $this->error(self::INVALID);
             }

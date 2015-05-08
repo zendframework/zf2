@@ -23,10 +23,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 {
     public function testIfCookiesAreSticky()
     {
-        $initialCookies = array(
+        $initialCookies = [
             new SetCookie('foo', 'far', null, '/', 'www.domain.com'),
             new SetCookie('bar', 'biz', null, '/', 'www.domain.com')
-        );
+        ];
 
         $requestString = "GET http://www.domain.com/index.php HTTP/1.1\r\nHost: domain.com\r\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:16.0) Gecko/20100101 Firefox/16.0\r\nAccept: */*\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\n";
         $request = Request::fromString($requestString);
@@ -95,7 +95,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIfCookieHeaderCanBeSet()
     {
-        $header = array(new SetCookie('foo', 'bar'));
+        $header = [new SetCookie('foo', 'bar')];
         $client = new Client();
         $client->addCookie($header);
 
@@ -106,10 +106,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIfArrayOfHeadersCanBeSet()
     {
-        $headers = array(
+        $headers = [
             new SetCookie('foo'),
             new SetCookie('bar')
-        );
+        ];
 
         $client = new Client();
         $client->addCookie($headers);
@@ -120,10 +120,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testIfArrayIteratorOfHeadersCanBeSet()
     {
-        $headers = new \ArrayIterator(array(
+        $headers = new \ArrayIterator([
             new SetCookie('foo'),
             new SetCookie('bar')
-        ));
+        ]);
 
         $client = new Client();
         $client->addCookie($headers);
@@ -220,11 +220,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
 
         // create a client which allows one redirect at most!
-        $client = new Client('http://www.example.org/part1', array(
+        $client = new Client('http://www.example.org/part1', [
             'adapter' => $testAdapter,
             'maxredirects' => 1,
             'storeresponse' => true
-        ));
+        ]);
 
         // do the request
         $response = $client->setMethod('GET')->send();
@@ -254,10 +254,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
 
         // create client with HTTP basic authentication
-        $client = new Client('http://www.example.org/part1', array(
+        $client = new Client('http://www.example.org/part1', [
             'adapter' => $testAdapter,
             'maxredirects' => 1
-        ));
+        ]);
         $client->setAuth($user, $password, Client::AUTH_BASIC);
 
         // do request
@@ -275,7 +275,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $encoded = Client::encodeAuthHeader($user, $password, Client::AUTH_BASIC);
 
         $testAdapter = new Test();
-        $client = new Client(null, array('adapter' => $testAdapter));
+        $client = new Client(null, ['adapter' => $testAdapter]);
 
         // set up two responses that simulate a redirection from example.org to example.com
         $testAdapter->setResponse(
@@ -341,16 +341,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testAdapterAlwaysReachableIfSpecified()
     {
         $testAdapter = new Test();
-        $client = new Client('http://www.example.org/', array(
+        $client = new Client('http://www.example.org/', [
             'adapter' => $testAdapter,
-        ));
+        ]);
 
         $this->assertSame($testAdapter, $client->getAdapter());
     }
 
     public function testPrepareHeadersCreateRightHttpField()
     {
-        $body = json_encode(array('foofoo'=>'barbar'));
+        $body = json_encode(['foofoo'=>'barbar']);
 
         $client = new Client();
         $prepareHeadersReflection = new \ReflectionMethod($client, 'prepareHeaders');
@@ -376,7 +376,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testPrepareHeadersCurlDigestAuthentication()
     {
-        $body = json_encode(array('foofoo'=>'barbar'));
+        $body = json_encode(['foofoo'=>'barbar']);
 
         $client = new Client();
         $prepareHeadersReflection = new \ReflectionMethod($client, 'prepareHeaders');
@@ -407,11 +407,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->setAuth('username', 'password', ExtendedClient::AUTH_CUSTOM);
 
         $this->assertAttributeEquals(
-            array(
+            [
                 'user'     => 'username',
                 'password' => 'password',
                 'type'     => ExtendedClient::AUTH_CUSTOM,
-            ),
+            ],
             'auth',
             $client
         );

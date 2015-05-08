@@ -27,12 +27,12 @@ class Iban extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::NOTSUPPORTED     => "Unknown country within the IBAN",
         self::SEPANOTSUPPORTED => "Countries outside the Single Euro Payments Area (SEPA) are not supported",
         self::FALSEFORMAT      => "The input has a false IBAN format",
         self::CHECKFAILED      => "The input has failed the IBAN check",
-    );
+    ];
 
     /**
      * Optional country code by ISO 3166-1
@@ -53,18 +53,18 @@ class Iban extends AbstractValidator
      *
      * @var array<ISO 3166-1>
      */
-    protected static $sepaCountries = array(
+    protected static $sepaCountries = [
         'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'FO', 'GL', 'EE', 'FI', 'FR', 'DE',
         'GI', 'GR', 'HU', 'IS', 'IE', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'MC',
         'NL', 'NO', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH', 'GB'
-    );
+    ];
 
     /**
      * IBAN regexes by country code
      *
      * @var array
      */
-    protected static $ibanRegex = array(
+    protected static $ibanRegex = [
         'AD' => 'AD[0-9]{2}[0-9]{4}[0-9]{4}[A-Z0-9]{12}',
         'AE' => 'AE[0-9]{2}[0-9]{3}[0-9]{16}',
         'AL' => 'AL[0-9]{2}[0-9]{8}[A-Z0-9]{16}',
@@ -129,14 +129,14 @@ class Iban extends AbstractValidator
         'TN' => 'TN59[0-9]{2}[0-9]{3}[0-9]{13}[0-9]{2}',
         'TR' => 'TR[0-9]{2}[0-9]{5}[A-Z0-9]{1}[A-Z0-9]{16}',
         'VG' => 'VG[0-9]{2}[A-Z]{4}[0-9]{16}',
-    );
+    ];
 
     /**
      * Sets validator options
      *
      * @param  array|Traversable $options OPTIONAL
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -248,10 +248,10 @@ class Iban extends AbstractValidator
 
         $format = substr($value, 4) . substr($value, 0, 4);
         $format = str_replace(
-            array('A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'I',  'J',  'K',  'L',  'M',
-                  'N',  'O',  'P',  'Q',  'R',  'S',  'T',  'U',  'V',  'W',  'X',  'Y',  'Z'),
-            array('10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
-                  '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35'),
+            ['A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'I',  'J',  'K',  'L',  'M',
+                  'N',  'O',  'P',  'Q',  'R',  'S',  'T',  'U',  'V',  'W',  'X',  'Y',  'Z'],
+            ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
+                  '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35'],
             $format
         );
 

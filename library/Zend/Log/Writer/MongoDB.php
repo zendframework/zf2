@@ -47,7 +47,7 @@ class MongoDB extends AbstractWriter
      * @param array $saveOptions
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($mongo, $database = null, $collection = null, array $saveOptions = array())
+    public function __construct($mongo, $database = null, $collection = null, array $saveOptions = [])
     {
         if ($mongo instanceof Traversable) {
             // Configuration may be multi-dimensional due to save options
@@ -55,7 +55,7 @@ class MongoDB extends AbstractWriter
         }
         if (is_array($mongo)) {
             parent::__construct($mongo);
-            $saveOptions = isset($mongo['save_options']) ? $mongo['save_options'] : array();
+            $saveOptions = isset($mongo['save_options']) ? $mongo['save_options'] : [];
             $collection  = isset($mongo['collection']) ? $mongo['collection'] : null;
             $database    = isset($mongo['database']) ? $mongo['database'] : null;
             $mongo       = isset($mongo['mongo']) ? $mongo['mongo'] : null;

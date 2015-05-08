@@ -61,19 +61,19 @@ class TranslatorServiceFactoryTest extends TestCase
 
     public function testReturnsTranslatorBasedOnConfigurationWhenNoTranslatorInterfaceServicePresent()
     {
-        $config = array('translator' => array(
+        $config = ['translator' => [
             'locale' => 'en_US',
-        ));
+        ]];
         $this->services->setService('Config', $config);
 
         $translator = $this->factory->createService($this->services);
         $this->assertInstanceOf('Zend\Mvc\I18n\Translator', $translator);
         $this->assertInstanceOf('Zend\I18n\Translator\Translator', $translator->getTranslator());
 
-        return array(
+        return [
             'translator' => $translator->getTranslator(),
             'services'   => $this->services,
-        );
+        ];
     }
 
     /**
@@ -91,10 +91,10 @@ class TranslatorServiceFactoryTest extends TestCase
         }
 
         //minimum bootstrap
-        $applicationConfig = array(
-            'module_listener_options' => array(),
-            'modules' => array(),
-        );
+        $applicationConfig = [
+            'module_listener_options' => [],
+            'modules' => [],
+        ];
         $serviceLocator = new ServiceManager(new ServiceManagerConfig());
         $serviceLocator->setService('ApplicationConfig', $applicationConfig);
         $serviceLocator->get('ModuleManager')->loadModules();
@@ -106,12 +106,12 @@ class TranslatorServiceFactoryTest extends TestCase
         $prop->setAccessible(true);
         $prop->setValue($serviceLocator, true);
 
-        $config = array(
-            'di' => array(),
-            'translator' => array(
+        $config = [
+            'di' => [],
+            'translator' => [
                 'locale' => 'en_US',
-            ),
-        );
+            ],
+        ];
 
         $serviceLocator->setService('Config', $config);
 
@@ -130,10 +130,10 @@ class TranslatorServiceFactoryTest extends TestCase
         }
 
         //minimum bootstrap
-        $applicationConfig = array(
-            'module_listener_options' => array(),
-            'modules' => array(),
-        );
+        $applicationConfig = [
+            'module_listener_options' => [],
+            'modules' => [],
+        ];
         $serviceLocator = new ServiceManager(new ServiceManagerConfig());
         $serviceLocator->setService('ApplicationConfig', $applicationConfig);
         $serviceLocator->get('ModuleManager')->loadModules();
@@ -145,12 +145,12 @@ class TranslatorServiceFactoryTest extends TestCase
         $prop->setAccessible(true);
         $prop->setValue($serviceLocator, true);
 
-        $config = array(
-            'di' => array(),
-            'translator' => array(
+        $config = [
+            'di' => [],
+            'translator' => [
                 'locale' => 'en_US',
-            ),
-        );
+            ],
+        ];
 
         $serviceLocator->setService('Config', $config);
 
@@ -177,9 +177,9 @@ class TranslatorServiceFactoryTest extends TestCase
 
     public function testPrefersTranslatorInterfaceImplementationOverConfig()
     {
-        $config = array('translator' => array(
+        $config = ['translator' => [
             'locale' => 'en_US',
-        ));
+        ]];
         $this->services->setService('Config', $config);
 
         $i18nTranslator = $this->getMock('Zend\I18n\Translator\TranslatorInterface');
@@ -192,7 +192,7 @@ class TranslatorServiceFactoryTest extends TestCase
 
     public function testReturnsDummyTranslatorWhenTranslatorConfigIsBooleanFalse()
     {
-        $config = array('translator' => false);
+        $config = ['translator' => false];
         $this->services->setService('Config', $config);
         $translator = $this->factory->createService($this->services);
         $this->assertInstanceOf('Zend\Mvc\I18n\Translator', $translator);

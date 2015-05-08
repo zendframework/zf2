@@ -177,7 +177,7 @@ class FaultTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(XmlRpc\Fault::isFault($xml), $xml);
         $this->assertFalse(XmlRpc\Fault::isFault('foo'));
-        $this->assertFalse(XmlRpc\Fault::isFault(array('foo')));
+        $this->assertFalse(XmlRpc\Fault::isFault(['foo']));
     }
 
     /**

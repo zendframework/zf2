@@ -23,13 +23,13 @@ class IbmDb2IntegrationTest extends AbstractIntegrationTest
      */
     public function testCheckEnvironment()
     {
-        $ibmdb2 = new IbmDb2(array());
+        $ibmdb2 = new IbmDb2([]);
         $this->assertNull($ibmdb2->checkEnvironment());
     }
 
     public function testCreateStatement()
     {
-        $driver = new IbmDb2(array());
+        $driver = new IbmDb2([]);
 
         $resource = db2_connect(
             $this->variables['database'],

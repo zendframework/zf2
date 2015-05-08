@@ -273,11 +273,11 @@ class FlashMessengerTest extends \PHPUnit_Framework_TestCase
     public function testIterationOccursOverMessages()
     {
         $this->seedMessages();
-        $test = array();
+        $test = [];
         foreach ($this->helper as $message) {
             $test[] = $message;
         }
-        $this->assertEquals(array('foo', 'bar'), $test);
+        $this->assertEquals(['foo', 'bar'], $test);
     }
 
     public function testCountIsOfMessages()

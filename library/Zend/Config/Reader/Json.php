@@ -64,7 +64,7 @@ class Json implements ReaderInterface
     public function fromString($string)
     {
         if (empty($string)) {
-            return array();
+            return [];
         }
 
         $this->directory = null;

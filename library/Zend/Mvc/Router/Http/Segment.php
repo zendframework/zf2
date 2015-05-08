@@ -25,7 +25,7 @@ class Segment implements RouteInterface
      *
      * @var array
      */
-    protected static $cacheEncode = array();
+    protected static $cacheEncode = [];
 
     /**
      * Map of allowed special chars in path segments.
@@ -39,7 +39,7 @@ class Segment implements RouteInterface
      *
      * @var array
      */
-    protected static $urlencodeCorrectionMap = array(
+    protected static $urlencodeCorrectionMap = [
         '%21' => "!", // sub-delims
         '%24' => "$", // sub-delims
         '%26' => "&", // sub-delims
@@ -57,7 +57,7 @@ class Segment implements RouteInterface
         '%40' => "@", // pchar
 //      '%5F' => "_", // unreserved - not touched by rawurlencode
 //      '%7E' => "~", // unreserved - not touched by rawurlencode
-    );
+    ];
 
     /**
      * Parts of the route.
@@ -78,7 +78,7 @@ class Segment implements RouteInterface
      *
      * @var array
      */
-    protected $paramMap = array();
+    protected $paramMap = [];
 
     /**
      * Default values.
@@ -92,14 +92,14 @@ class Segment implements RouteInterface
      *
      * @var array
      */
-    protected $assembledParams = array();
+    protected $assembledParams = [];
 
     /**
      * Translation keys used in the regex.
      *
      * @var array
      */
-    protected $translationKeys = array();
+    protected $translationKeys = [];
 
     /**
      * Create a new regex route.
@@ -108,7 +108,7 @@ class Segment implements RouteInterface
      * @param  array  $constraints
      * @param  array  $defaults
      */
-    public function __construct($route, array $constraints = array(), array $defaults = array())
+    public function __construct($route, array $constraints = [], array $defaults = [])
     {
         $this->defaults = $defaults;
         $this->parts    = $this->parseRouteDefinition($route);
@@ -123,7 +123,7 @@ class Segment implements RouteInterface
      * @return Segment
      * @throws Exception\InvalidArgumentException
      */
-    public static function factory($options = array())
+    public static function factory($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -136,11 +136,11 @@ class Segment implements RouteInterface
         }
 
         if (!isset($options['constraints'])) {
-            $options['constraints'] = array();
+            $options['constraints'] = [];
         }
 
         if (!isset($options['defaults'])) {
-            $options['defaults'] = array();
+            $options['defaults'] = [];
         }
 
         return new static($options['route'], $options['constraints'], $options['defaults']);
@@ -157,8 +157,8 @@ class Segment implements RouteInterface
     {
         $currentPos = 0;
         $length     = strlen($def);
-        $parts      = array();
-        $levelParts = array(&$parts);
+        $parts      = [];
+        $levelParts = [&$parts];
         $level      = 0;
 
         while ($currentPos < $length) {
@@ -167,7 +167,7 @@ class Segment implements RouteInterface
             $currentPos += strlen($matches[0]);
 
             if (!empty($matches['literal'])) {
-                $levelParts[$level][] = array('literal', $matches['literal']);
+                $levelParts[$level][] = ['literal', $matches['literal']];
             }
 
             if ($matches['token'] === ':') {
@@ -175,7 +175,7 @@ class Segment implements RouteInterface
                     throw new Exception\RuntimeException('Found empty parameter name');
                 }
 
-                $levelParts[$level][] = array('parameter', $matches['name'], isset($matches['delimiters']) ? $matches['delimiters'] : null);
+                $levelParts[$level][] = ['parameter', $matches['name'], isset($matches['delimiters']) ? $matches['delimiters'] : null];
 
                 $currentPos += strlen($matches[0]);
             } elseif ($matches['token'] === '{') {
@@ -185,9 +185,9 @@ class Segment implements RouteInterface
 
                 $currentPos += strlen($matches[0]);
 
-                $levelParts[$level][] = array('translated-literal', $matches['literal']);
+                $levelParts[$level][] = ['translated-literal', $matches['literal']];
             } elseif ($matches['token'] === '[') {
-                $levelParts[$level][] = array('optional', array());
+                $levelParts[$level][] = ['optional', []];
                 $levelParts[$level + 1] = &$levelParts[$level][count($levelParts[$level]) - 1][1];
 
                 $level++;
@@ -341,7 +341,7 @@ class Segment implements RouteInterface
      * @return RouteMatch|null
      * @throws Exception\RuntimeException
      */
-    public function match(Request $request, $pathOffset = null, array $options = array())
+    public function match(Request $request, $pathOffset = null, array $options = [])
     {
         if (!method_exists($request, 'getUri')) {
             return;
@@ -377,7 +377,7 @@ class Segment implements RouteInterface
         }
 
         $matchedLength = strlen($matches[0]);
-        $params        = array();
+        $params        = [];
 
         foreach ($this->paramMap as $index => $name) {
             if (isset($matches[$index]) && $matches[$index] !== '') {
@@ -396,9 +396,9 @@ class Segment implements RouteInterface
      * @param  array $options
      * @return mixed
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
-        $this->assembledParams = array();
+        $this->assembledParams = [];
 
         return $this->buildPath(
             $this->parts,

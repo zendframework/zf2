@@ -56,9 +56,9 @@ class HydratingResultSetTest extends \PHPUnit_Framework_TestCase
     public function testCurrent()
     {
         $hydratingRs = new HydratingResultSet;
-        $hydratingRs->initialize(array(
-            array('id' => 1, 'name' => 'one')
-        ));
+        $hydratingRs->initialize([
+            ['id' => 1, 'name' => 'one']
+        ]);
         $obj = $hydratingRs->current();
         $this->assertInstanceOf('ArrayObject', $obj);
     }
@@ -70,9 +70,9 @@ class HydratingResultSetTest extends \PHPUnit_Framework_TestCase
     public function testToArray()
     {
         $hydratingRs = new HydratingResultSet;
-        $hydratingRs->initialize(array(
-            array('id' => 1, 'name' => 'one')
-        ));
+        $hydratingRs->initialize([
+            ['id' => 1, 'name' => 'one']
+        ]);
         $obj = $hydratingRs->toArray();
         $this->assertInternalType('array', $obj);
     }

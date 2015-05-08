@@ -16,7 +16,7 @@ class MultiCheckboxTest extends TestCase
 {
     public function useHiddenAttributeDataProvider()
     {
-        return array(array(true), array(false));
+        return [[true], [false]];
     }
 
     /**
@@ -25,23 +25,23 @@ class MultiCheckboxTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes($useHiddenElement)
     {
         $element = new MultiCheckboxElement();
-        $options = array(
+        $options = [
             '1' => 'Option 1',
             '2' => 'Option 2',
             '3' => 'Option 3',
-        );
-        $element->setAttributes(array(
+        ];
+        $element->setAttributes([
             'options' => $options,
-        ));
+        ]);
         $element->setUseHiddenElement($useHiddenElement);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Explode'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -58,22 +58,22 @@ class MultiCheckboxTest extends TestCase
 
     public function multiCheckboxOptionsDataProvider()
     {
-        return array(
-            array(
-                array('foo', 'bar'),
-                array(
+        return [
+            [
+                ['foo', 'bar'],
+                [
                     'foo' => 'My Foo Label',
                     'bar' => 'My Bar Label',
-                )
-            ),
-            array(
-                array('foo', 'bar'),
-                array(
-                    0 => array('label' => 'My Foo Label', 'value' => 'foo'),
-                    1 => array('label' => 'My Bar Label', 'value' => 'bar'),
-                )
-            ),
-        );
+                ]
+            ],
+            [
+                ['foo', 'bar'],
+                [
+                    0 => ['label' => 'My Foo Label', 'value' => 'foo'],
+                    1 => ['label' => 'My Bar Label', 'value' => 'bar'],
+                ]
+            ],
+        ];
     }
 
     /**
@@ -82,9 +82,9 @@ class MultiCheckboxTest extends TestCase
     public function testInArrayValidationOfOptions($valueTests, $options)
     {
         $element = new MultiCheckboxElement('my-checkbox');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'options' => $options,
-        ));
+        ]);
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $explodeValidator = $inputSpec['validators'][0];
@@ -104,9 +104,9 @@ class MultiCheckboxTest extends TestCase
         $inputSpec = $element->getInputSpecification();
         $inArrayValidator=$inputSpec['validators'][0]->getValidator();
 
-        $element->setAttributes(array(
+        $element->setAttributes([
             'options' => $options,
-        ));
+        ]);
         $haystack=$inArrayValidator->getHaystack();
         $this->assertCount(count($options), $haystack);
     }
@@ -124,22 +124,22 @@ class MultiCheckboxTest extends TestCase
     public function testSetOptionsOptions()
     {
         $element = new MultiCheckboxElement();
-        $element->setOptions(array(
-                                  'value_options' => array('bar' => 'baz'),
-                                  'options' => array('foo' => 'bar'),
-                             ));
-        $this->assertEquals(array('bar' => 'baz'), $element->getOption('value_options'));
-        $this->assertEquals(array('foo' => 'bar'), $element->getOption('options'));
+        $element->setOptions([
+                                  'value_options' => ['bar' => 'baz'],
+                                  'options' => ['foo' => 'bar'],
+                             ]);
+        $this->assertEquals(['bar' => 'baz'], $element->getOption('value_options'));
+        $this->assertEquals(['foo' => 'bar'], $element->getOption('options'));
     }
 
     public function testDisableInputSpecification()
     {
         $element = new MultiCheckboxElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
         $element->setDisableInArrayValidator(true);
 
         $inputSpec = $element->getInputSpecification();
@@ -149,11 +149,11 @@ class MultiCheckboxTest extends TestCase
     public function testUnsetValueOption()
     {
         $element = new MultiCheckboxElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
         $element->unsetValueOption('Option 2');
 
         $valueOptions = $element->getValueOptions();
@@ -163,11 +163,11 @@ class MultiCheckboxTest extends TestCase
     public function testUnsetUndefinedValueOption()
     {
         $element = new MultiCheckboxElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
         $element->unsetValueOption('Option Undefined');
 
         $valueOptions = $element->getValueOptions();
@@ -177,14 +177,14 @@ class MultiCheckboxTest extends TestCase
     public function testOptionValueinSelectedOptions()
     {
         $element = new MultiCheckboxElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
 
         $optionValue = 'option3';
-        $selectedOptions = array('option1', 'option3');
+        $selectedOptions = ['option1', 'option3'];
         $element->setValue($selectedOptions);
         $this->assertContains($optionValue, $element->getValue());
     }

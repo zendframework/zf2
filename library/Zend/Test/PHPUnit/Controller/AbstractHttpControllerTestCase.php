@@ -23,7 +23,7 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
      * XPath namespaces
      * @var array
      */
-    protected $xpathNamespaces = array();
+    protected $xpathNamespaces = [];
 
     /**
      * Get response header by key
@@ -100,7 +100,7 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
         }
 
         if (!$responseHeader instanceof \ArrayIterator) {
-            $responseHeader = array($responseHeader);
+            $responseHeader = [$responseHeader];
         }
 
         $headerMatched = false;
@@ -141,7 +141,7 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
         }
 
         if (!$responseHeader instanceof \ArrayIterator) {
-            $responseHeader = array($responseHeader);
+            $responseHeader = [$responseHeader];
         }
 
         foreach ($responseHeader as $currentHeader) {
@@ -174,7 +174,7 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
         }
 
         if (!$responseHeader instanceof \ArrayIterator) {
-            $responseHeader = array($responseHeader);
+            $responseHeader = [$responseHeader];
         }
 
         $headerMatched = false;
@@ -216,7 +216,7 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
         }
 
         if (!$responseHeader instanceof \ArrayIterator) {
-            $responseHeader = array($responseHeader);
+            $responseHeader = [$responseHeader];
         }
 
         $headerMatched = false;
@@ -694,7 +694,7 @@ abstract class AbstractHttpControllerTestCase extends AbstractControllerTestCase
             ));
         }
 
-        $nodeValues = array();
+        $nodeValues = [];
 
         foreach ($result as $node) {
             if ($node->nodeValue == $match) {

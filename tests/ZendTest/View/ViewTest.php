@@ -50,10 +50,10 @@ class ViewTest extends TestCase
     public function testRendersViewModelWithNoChildren()
     {
         $this->attachTestStrategies();
-        $variables = array(
+        $variables = [
             'foo' => 'bar',
             'bar' => 'baz',
-        );
+        ];
         $this->model->setVariables($variables);
         $this->view->render($this->model);
 
@@ -67,9 +67,9 @@ class ViewTest extends TestCase
     {
         $this->attachTestStrategies();
 
-        $child1 = new ViewModel(array('foo' => 'bar'));
+        $child1 = new ViewModel(['foo' => 'bar']);
 
-        $child2 = new ViewModel(array('bar' => 'baz'));
+        $child2 = new ViewModel(['bar' => 'baz']);
 
         $this->model->setVariable('parent', 'node');
         $this->model->addChild($child1, 'child1');
@@ -77,11 +77,11 @@ class ViewTest extends TestCase
 
         $this->view->render($this->model);
 
-        $expected = var_export(new ViewVariables(array(
+        $expected = var_export(new ViewVariables([
             'parent' => 'node',
-            'child1' => var_export(array('foo' => 'bar'), true),
-            'child2' => var_export(array('bar' => 'baz'), true),
-        )), true);
+            'child1' => var_export(['foo' => 'bar'], true),
+            'child2' => var_export(['bar' => 'baz'], true),
+        ]), true);
         $this->assertEquals($expected, $this->result->content);
     }
 
@@ -89,10 +89,10 @@ class ViewTest extends TestCase
     {
         $this->attachTestStrategies();
 
-        $child1 = new ViewModel(array('foo' => 'bar'));
+        $child1 = new ViewModel(['foo' => 'bar']);
         $child1->setCaptureTo('child1');
 
-        $child2 = new ViewModel(array('bar' => 'baz'));
+        $child2 = new ViewModel(['bar' => 'baz']);
         $child2->setCaptureTo('child2');
         $child1->addChild($child2);
 
@@ -101,13 +101,13 @@ class ViewTest extends TestCase
 
         $this->view->render($this->model);
 
-        $expected = var_export(new ViewVariables(array(
+        $expected = var_export(new ViewVariables([
             'parent' => 'node',
-            'child1' => var_export(array(
+            'child1' => var_export([
                 'foo'    => 'bar',
-                'child2' => var_export(array('bar' => 'baz'), true),
-            ), true),
-        )), true);
+                'child2' => var_export(['bar' => 'baz'], true),
+            ], true),
+        ]), true);
         $this->assertEquals($expected, $this->result->content);
     }
 
@@ -132,10 +132,10 @@ class ViewTest extends TestCase
             $result->content = $e->getResult();
         });
 
-        $child1 = new ViewModel(array('foo' => 'bar'));
+        $child1 = new ViewModel(['foo' => 'bar']);
         $child1->setCaptureTo('child1');
 
-        $child2 = new JsonModel(array('bar' => 'baz'));
+        $child2 = new JsonModel(['bar' => 'baz']);
         $child2->setCaptureTo('child2');
         $child2->setTerminal(false);
 
@@ -145,11 +145,11 @@ class ViewTest extends TestCase
 
         $this->view->render($this->model);
 
-        $expected = var_export(new ViewVariables(array(
+        $expected = var_export(new ViewVariables([
             'parent' => 'node',
-            'child1' => var_export(array('foo' => 'bar'), true),
-            'child2' => json_encode(array('bar' => 'baz')),
-        )), true);
+            'child1' => var_export(['foo' => 'bar'], true),
+            'child2' => json_encode(['bar' => 'baz']),
+        ]), true);
         $this->assertEquals($expected, $this->result->content);
     }
 
@@ -157,7 +157,7 @@ class ViewTest extends TestCase
     {
         $this->attachTestStrategies();
 
-        $child1 = new ViewModel(array('foo' => 'bar'));
+        $child1 = new ViewModel(['foo' => 'bar']);
         $child1->setCaptureTo('child1');
         $child1->setTerminal(true);
 
@@ -178,11 +178,11 @@ class ViewTest extends TestCase
     {
         $this->attachTestStrategies();
 
-        $child1 = new ViewModel(array('foo' => 'bar'));
+        $child1 = new ViewModel(['foo' => 'bar']);
         $child1->setCaptureTo('child1');
 
         // Deliberately disable the "capture to" declaration
-        $child2 = new ViewModel(array('bar' => 'baz'));
+        $child2 = new ViewModel(['bar' => 'baz']);
         $child2->setCaptureTo(null);
 
         $this->model->setVariable('parent', 'node');
@@ -191,10 +191,10 @@ class ViewTest extends TestCase
 
         $this->view->render($this->model);
 
-        $expected = var_export(new ViewVariables(array(
+        $expected = var_export(new ViewVariables([
             'parent' => 'node',
-            'child1' => var_export(array('foo' => 'bar'), true),
-        )), true);
+            'child1' => var_export(['foo' => 'bar'], true),
+        ]), true);
         $this->assertEquals($expected, $this->result->content);
     }
 
@@ -215,10 +215,10 @@ class ViewTest extends TestCase
             $result[] = $e->getResult();
         });
 
-        $child1 = new ViewModel(array('foo' => 'bar'));
+        $child1 = new ViewModel(['foo' => 'bar']);
         $child1->setCaptureTo('child1');
 
-        $child2 = new ViewModel(array('bar' => 'baz'));
+        $child2 = new ViewModel(['bar' => 'baz']);
         $child2->setCaptureTo('child2');
 
         $this->model->setVariable('parent', 'node');
@@ -232,10 +232,10 @@ class ViewTest extends TestCase
 
     public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToPhpRenderer()
     {
-        $resolver    = new Resolver\TemplateMapResolver(array(
+        $resolver    = new Resolver\TemplateMapResolver([
             'layout'  => __DIR__ . '/_templates/nested-view-model-layout.phtml',
             'content' => __DIR__ . '/_templates/nested-view-model-content.phtml',
-        ));
+        ]);
         $phpRenderer = new PhpRenderer();
         $phpRenderer->setCanRenderTrees(true);
         $phpRenderer->setResolver($resolver);
@@ -276,17 +276,17 @@ class ViewTest extends TestCase
             $result->content = $e->getResult();
         });
 
-        $layout  = new ViewModel(array('status' => 200));
-        $content = new ViewModel(array('foo' => 'bar'));
+        $layout  = new ViewModel(['status' => 200]);
+        $content = new ViewModel(['foo' => 'bar']);
         $content->setCaptureTo('response');
         $layout->addChild($content);
 
         $this->view->render($layout);
 
-        $expected = json_encode(array(
+        $expected = json_encode([
             'status' => 200,
-            'response' => array('foo' => 'bar'),
-        ));
+            'response' => ['foo' => 'bar'],
+        ]);
 
         $this->assertEquals($expected, $result->content);
     }
@@ -294,14 +294,14 @@ class ViewTest extends TestCase
     public function testCanTriggerPostRendererEvent()
     {
         $this->attachTestStrategies();
-        $test = (object) array('flag' => false);
+        $test = (object) ['flag' => false];
         $this->view->getEventManager()->attach(ViewEvent::EVENT_RENDERER_POST, function ($e) use ($test) {
             $test->flag = true;
         });
-        $variables = array(
+        $variables = [
             'foo' => 'bar',
             'bar' => 'baz',
-        );
+        ];
         $this->model->setVariables($variables);
         $this->view->render($this->model);
         $this->assertTrue($test->flag);
@@ -314,7 +314,7 @@ class ViewTest extends TestCase
      */
     public function testModelFromEventIsUsedByRenderer()
     {
-        $renderer = $this->getMock('Zend\View\Renderer\PhpRenderer', array('render'));
+        $renderer = $this->getMock('Zend\View\Renderer\PhpRenderer', ['render']);
 
         $model1 = new ViewModel;
         $model2 = new ViewModel;

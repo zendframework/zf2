@@ -73,31 +73,31 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
         $this->_filesPath      = __DIR__ . '/TestAsset';
         $this->_basicResolver  = new Http\FileResolver("$this->_filesPath/htbasic.1");
         $this->_digestResolver = new Http\FileResolver("$this->_filesPath/htdigest.3");
-        $this->_basicConfig    = array(
+        $this->_basicConfig    = [
             'accept_schemes' => 'basic',
             'realm'          => 'Test Realm'
-        );
-        $this->_digestConfig   = array(
+        ];
+        $this->_digestConfig   = [
             'accept_schemes' => 'digest',
             'realm'          => 'Test Realm',
             'digest_domains' => '/ http://localhost/',
             'nonce_timeout'  => 300
-        );
-        $this->_bothConfig     = array(
+        ];
+        $this->_bothConfig     = [
             'accept_schemes' => 'basic digest',
             'realm'          => 'Test Realm',
             'digest_domains' => '/ http://localhost/',
             'nonce_timeout'  => 300
-        );
+        ];
     }
 
     public function testValidConfigs()
     {
-        $configs = array(
+        $configs = [
             $this->_basicConfig,
             $this->_digestConfig,
             $this->_bothConfig,
-        );
+        ];
         foreach ($configs as $config) {
             new Adapter\Http($config);
         }
@@ -105,30 +105,30 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidConfigs()
     {
-        $badConfigs = array(
-            'bad1' => array(
+        $badConfigs = [
+            'bad1' => [
                 'auth_type' => 'bogus',
                 'realm'     => 'Test Realm'
-            ),
-            'bad2' => array(
+            ],
+            'bad2' => [
                 'auth_type'      => 'digest',
                 'realm'          => 'Bad: "Chars"'."\n",
                 'digest_domains' => '/ /admin',
                 'nonce_timeout'  => 300
-            ),
-            'bad3' => array(
+            ],
+            'bad3' => [
                 'auth_type'      => 'digest',
                 'realm'          => 'Test Realm',
                 'digest_domains' => 'no"quotes'."\tor tabs",
                 'nonce_timeout'  => 300
-            ),
-            'bad4' => array(
+            ],
+            'bad4' => [
                 'auth_type'      => 'digest',
                 'realm'          => 'Test Realm',
                 'digest_domains' => '/ /admin',
                 'nonce_timeout'  => 'junk'
-            )
-        );
+            ]
+        ];
 
         foreach ($badConfigs as $cfg) {
             $t = null;

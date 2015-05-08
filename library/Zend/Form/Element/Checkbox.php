@@ -21,9 +21,9 @@ class Checkbox extends Element implements InputProviderInterface
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'checkbox'
-    );
+    ];
 
     /**
      * @var \Zend\Validator\ValidatorInterface
@@ -147,10 +147,10 @@ class Checkbox extends Element implements InputProviderInterface
     protected function getValidator()
     {
         if (null === $this->validator) {
-            $this->validator = new InArrayValidator(array(
-                'haystack' => array($this->checkedValue, $this->uncheckedValue),
+            $this->validator = new InArrayValidator([
+                'haystack' => [$this->checkedValue, $this->uncheckedValue],
                 'strict'   => false
-            ));
+            ]);
         }
         return $this->validator;
     }
@@ -164,15 +164,15 @@ class Checkbox extends Element implements InputProviderInterface
      */
     public function getInputSpecification()
     {
-        $spec = array(
+        $spec = [
             'name' => $this->getName(),
             'required' => true,
-        );
+        ];
 
         if ($validator = $this->getValidator()) {
-            $spec['validators'] = array(
+            $spec['validators'] = [
                 $validator,
-            );
+            ];
         }
 
         return $spec;

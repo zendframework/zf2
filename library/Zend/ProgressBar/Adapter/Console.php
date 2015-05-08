@@ -65,11 +65,11 @@ class Console extends AbstractAdapter
      *
      * @var array
      */
-    protected $elements = array(
+    protected $elements = [
         self::ELEMENT_PERCENT,
         self::ELEMENT_BAR,
         self::ELEMENT_ETA,
-    );
+    ];
 
     /**
      * Which action to do at finish call
@@ -248,10 +248,10 @@ class Console extends AbstractAdapter
      */
     public function setElements(array $elements)
     {
-        $allowedElements = array(self::ELEMENT_PERCENT,
+        $allowedElements = [self::ELEMENT_PERCENT,
                                  self::ELEMENT_BAR,
                                  self::ELEMENT_ETA,
-                                 self::ELEMENT_TEXT);
+                                 self::ELEMENT_TEXT];
 
         if (count(array_diff($elements, $allowedElements)) > 0) {
             throw new Exception\InvalidArgumentException('Invalid element found in $elements array');
@@ -347,9 +347,9 @@ class Console extends AbstractAdapter
      */
     public function setFinishAction($action)
     {
-        $allowedActions = array(self::FINISH_ACTION_CLEAR_LINE,
+        $allowedActions = [self::FINISH_ACTION_CLEAR_LINE,
                                 self::FINISH_ACTION_EOL,
-                                self::FINISH_ACTION_NONE);
+                                self::FINISH_ACTION_NONE];
 
         if (!in_array($action, $allowedActions)) {
             throw new Exception\InvalidArgumentException('Invalid finish action specified');
@@ -382,7 +382,7 @@ class Console extends AbstractAdapter
         }
 
         // Build all elements
-        $renderedElements = array();
+        $renderedElements = [];
 
         foreach ($this->elements as $element) {
             switch ($element) {

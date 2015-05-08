@@ -22,7 +22,7 @@ class HelperConfig implements ConfigInterface
      *
      * @var array
      */
-    protected $invokables = array(
+    protected $invokables = [
         'form'                    => 'Zend\Form\View\Helper\Form',
         'formbutton'              => 'Zend\Form\View\Helper\FormButton',
         'formcaptcha'             => 'Zend\Form\View\Helper\FormCaptcha',
@@ -71,7 +71,7 @@ class HelperConfig implements ConfigInterface
         'formtime'                => 'Zend\Form\View\Helper\FormTime',
         'formurl'                 => 'Zend\Form\View\Helper\FormUrl',
         'formweek'                => 'Zend\Form\View\Helper\FormWeek',
-    );
+    ];
 
     /**
      * Configure the provided service manager instance with the configuration

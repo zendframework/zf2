@@ -27,14 +27,14 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @var array
      */
-    protected $pages = array();
+    protected $pages = [];
 
     /**
      * An index that contains the order in which to iterate pages
      *
      * @var array
      */
-    protected $index = array();
+    protected $index = [];
 
     /**
      * Whether index is dirty and needs to be re-arranged
@@ -56,7 +56,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
             return;
         }
 
-        $newIndex = array();
+        $newIndex = [];
         $index    = 0;
 
         foreach ($this->pages as $hash => $page) {
@@ -238,8 +238,8 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      */
     public function removePages()
     {
-        $this->pages = array();
-        $this->index = array();
+        $this->pages = [];
+        $this->index = [];
         return $this;
     }
 
@@ -316,7 +316,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      */
     public function findAllBy($property, $value)
     {
-        $found = array();
+        $found = [];
 
         $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
 
@@ -389,7 +389,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     public function toArray()
     {
         $this->sort();
-        $pages   = array();
+        $pages   = [];
         $indexes = array_keys($this->index);
         foreach ($indexes as $hash) {
             $pages[] = $this->pages[$hash]->toArray();

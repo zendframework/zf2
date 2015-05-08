@@ -58,7 +58,7 @@ class GlobalEventManager
      * @param  null|callable $callback
      * @return ResponseCollection
      */
-    public static function trigger($event, $context, $argv = array(), $callback = null)
+    public static function trigger($event, $context, $argv = [], $callback = null)
     {
         return static::getEventCollection()->trigger($event, $context, $argv, $callback);
     }

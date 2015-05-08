@@ -17,15 +17,15 @@ use Zend\Session\Storage\ArrayStorage;
  */
 class ContainerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public $config = array(
-        'session_containers' => array(
+    public $config = [
+        'session_containers' => [
             'foo',
             'bar',
             'Baz\Bat',
             'Underscore_Separated',
             'With\Digits_0123',
-        ),
-    );
+        ],
+    ];
 
     public function setUp()
     {
@@ -40,10 +40,10 @@ class ContainerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function validContainers()
     {
-        $containers = array();
+        $containers = [];
         $config     = $this->config;
         foreach ($config['session_containers'] as $name) {
-            $containers[] = array($name, $name);
+            $containers[] = [$name, $name];
         }
 
         return $containers;
@@ -72,12 +72,12 @@ class ContainerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function invalidContainers()
     {
-        $containers = array();
+        $containers = [];
         $config = $this->config;
         foreach ($config['session_containers'] as $name) {
-            $containers[] = array('SomePrefix\\' . $name);
+            $containers[] = ['SomePrefix\\' . $name];
         }
-        $containers[] = array('DOES_NOT_EXIST');
+        $containers[] = ['DOES_NOT_EXIST'];
 
         return $containers;
     }

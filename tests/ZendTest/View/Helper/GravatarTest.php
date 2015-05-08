@@ -84,7 +84,7 @@ class GravatarTest extends TestCase
      */
     public function testGetAndSetMethods()
     {
-        $attribs = array('class' => 'gravatar', 'title' => 'avatar', 'id' => 'gravatar-1');
+        $attribs = ['class' => 'gravatar', 'title' => 'avatar', 'id' => 'gravatar-1'];
         $this->helper->setDefaultImg('monsterid')
                      ->setImgSize(150)
                      ->setSecure(true)
@@ -103,11 +103,11 @@ class GravatarTest extends TestCase
     {
         $this->helper->gravatar("example@example.com");
 
-        $img = array(
+        $img = [
             "wavatar",
             "http://www.example.com/images/avatar/example.png",
             Gravatar::DEFAULT_MONSTERID,
-        );
+        ];
 
         foreach ($img as $value) {
             $this->helper->setDefaultImg($value);
@@ -117,7 +117,7 @@ class GravatarTest extends TestCase
 
     public function testSetImgSize()
     {
-        $imgSizesRight = array(1, 500, "600");
+        $imgSizesRight = [1, 500, "600"];
         foreach ($imgSizesRight as $value) {
             $this->helper->setImgSize($value);
             $this->assertInternalType('int', $this->helper->getImgSize());
@@ -126,7 +126,7 @@ class GravatarTest extends TestCase
 
     public function testInvalidRatingParametr()
     {
-        $ratingsWrong = array( 'a', 'cs', 456);
+        $ratingsWrong = [ 'a', 'cs', 456];
         $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
         foreach ($ratingsWrong as $value) {
             $this->helper->setRating($value);
@@ -135,7 +135,7 @@ class GravatarTest extends TestCase
 
     public function testSetRating()
     {
-        $ratingsRight = array( 'g', 'pg', 'r', 'x', Gravatar::RATING_R);
+        $ratingsRight = [ 'g', 'pg', 'r', 'x', Gravatar::RATING_R];
         foreach ($ratingsRight as $value) {
             $this->helper->setRating($value);
             $this->assertEquals($value, $this->helper->getRating());
@@ -144,7 +144,7 @@ class GravatarTest extends TestCase
 
     public function testSetSecure()
     {
-        $values = array("true", "false", "text", $this->view, 100, true, "", null, 0, false);
+        $values = ["true", "false", "text", $this->view, 100, true, "", null, 0, false];
         foreach ($values as $value) {
             $this->helper->setSecure($value);
             $this->assertInternalType('bool', $this->helper->getSecure());
@@ -158,7 +158,7 @@ class GravatarTest extends TestCase
     {
         $this->assertRegExp(
             '#src="https\&\#x3A\;\&\#x2F\;\&\#x2F\;secure.gravatar.com\&\#x2F\;avatar\&\#x2F\;[a-z0-9]{32}.+"#',
-            $this->helper->__invoke("example@example.com", array('secure' => true))->__toString()
+            $this->helper->__invoke("example@example.com", ['secure' => true])->__toString()
         );
     }
 
@@ -169,7 +169,7 @@ class GravatarTest extends TestCase
     {
         $this->assertRegExp(
             '/class="gravatar" title="Gravatar"/',
-            $this->helper->__invoke("example@example.com", array(), array('class' => 'gravatar', 'title' => 'Gravatar'))->__toString()
+            $this->helper->__invoke("example@example.com", [], ['class' => 'gravatar', 'title' => 'Gravatar'])->__toString()
         );
     }
 
@@ -180,7 +180,7 @@ class GravatarTest extends TestCase
     {
         $this->assertRegExp(
             '#src="http\&\#x3A\;\&\#x2F\;\&\#x2F\;www.gravatar.com\&\#x2F\;avatar\&\#x2F\;[a-z0-9]{32}&\#x3F;s&\#x3D;125&amp;d&\#x3D;wavatar&amp;r&\#x3D;pg"#',
-            $this->helper->__invoke("example@example.com", array('rating' => 'pg', 'imgSize' => 125, 'defaultImg' => 'wavatar', 'secure' => false))->__toString()
+            $this->helper->__invoke("example@example.com", ['rating' => 'pg', 'imgSize' => 125, 'defaultImg' => 'wavatar', 'secure' => false])->__toString()
         );
     }
 
@@ -202,7 +202,7 @@ class GravatarTest extends TestCase
      */
     public function testAutoDetectLocation()
     {
-        $values = array("on", "", 1, true);
+        $values = ["on", "", 1, true];
 
         foreach ($values as $value) {
             $_SERVER['HTTPS'] = $value;
@@ -230,11 +230,11 @@ class GravatarTest extends TestCase
     {
         $email = 'example@example.com';
         $this->helper->setEmail($email);
-        $this->helper->setAttribs(array(
+        $this->helper->setAttribs([
             'class' => 'gravatar',
             'src'   => 'http://example.com',
             'id'    => 'gravatarID',
-        ));
+        ]);
 
         $this->assertRegExp(
             '#src="http\&\#x3A\;\&\#x2F\;\&\#x2F\;www.gravatar.com\&\#x2F\;avatar\&\#x2F\;[a-z0-9]{32}.+"#',
@@ -265,9 +265,9 @@ class GravatarTest extends TestCase
 
     public function testInvalidKeyPassedToSetOptionsMethod()
     {
-        $options = array(
-            'unknown' => array('val' => 1)
-        );
+        $options = [
+            'unknown' => ['val' => 1]
+        ];
         $this->helper->__invoke()->setOptions($options);
     }
 

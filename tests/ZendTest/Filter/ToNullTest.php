@@ -18,9 +18,9 @@ class ToNullTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructorOptions()
     {
-        $filter = new ToNullFilter(array(
+        $filter = new ToNullFilter([
             'type' => ToNullFilter::TYPE_INTEGER,
-        ));
+        ]);
 
         $this->assertEquals(ToNullFilter::TYPE_INTEGER, $filter->getType());
     }
@@ -72,7 +72,7 @@ class ToNullTest extends \PHPUnit_Framework_TestCase
     public function testCombinedTypes($typeData, $testData)
     {
         foreach ($typeData as $type) {
-            $filter = new ToNullFilter(array('type' => $type));
+            $filter = new ToNullFilter(['type' => $type]);
             foreach ($testData as $data) {
                 list($value, $expected) = $data;
                 $message = sprintf(
@@ -102,189 +102,189 @@ class ToNullTest extends \PHPUnit_Framework_TestCase
 
     public static function defaultTestProvider()
     {
-        return array(
-            array(null, null),
-            array(false, null),
-            array(true, true),
-            array(0, null),
-            array(1, 1),
-            array(0.0, null),
-            array(1.0, 1.0),
-            array('', null),
-            array('abc', 'abc'),
-            array('0', null),
-            array('1', '1'),
-            array(array(), null),
-            array(array(0), array(0)),
-        );
+        return [
+            [null, null],
+            [false, null],
+            [true, true],
+            [0, null],
+            [1, 1],
+            [0.0, null],
+            [1.0, 1.0],
+            ['', null],
+            ['abc', 'abc'],
+            ['0', null],
+            ['1', '1'],
+            [[], null],
+            [[0], [0]],
+        ];
     }
 
     public static function typeTestProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 ToNullFilter::TYPE_BOOLEAN,
-                array(
-                    array(null, null),
-                    array(false, null),
-                    array(true, true),
-                    array(0, 0),
-                    array(1, 1),
-                    array(0.0, 0.0),
-                    array(1.0, 1.0),
-                    array('', ''),
-                    array('abc', 'abc'),
-                    array('0', '0'),
-                    array('1', '1'),
-                    array(array(), array()),
-                    array(array(0), array(0)),
-                )
-            ),
-            array(
+                [
+                    [null, null],
+                    [false, null],
+                    [true, true],
+                    [0, 0],
+                    [1, 1],
+                    [0.0, 0.0],
+                    [1.0, 1.0],
+                    ['', ''],
+                    ['abc', 'abc'],
+                    ['0', '0'],
+                    ['1', '1'],
+                    [[], []],
+                    [[0], [0]],
+                ]
+            ],
+            [
                 ToNullFilter::TYPE_INTEGER,
-                array(
-                    array(null, null),
-                    array(false, false),
-                    array(true, true),
-                    array(0, null),
-                    array(1, 1),
-                    array(0.0, 0.0),
-                    array(1.0, 1.0),
-                    array('', ''),
-                    array('abc', 'abc'),
-                    array('0', '0'),
-                    array('1', '1'),
-                    array(array(), array()),
-                    array(array(0), array(0)),
-                )
-            ),
-            array(
+                [
+                    [null, null],
+                    [false, false],
+                    [true, true],
+                    [0, null],
+                    [1, 1],
+                    [0.0, 0.0],
+                    [1.0, 1.0],
+                    ['', ''],
+                    ['abc', 'abc'],
+                    ['0', '0'],
+                    ['1', '1'],
+                    [[], []],
+                    [[0], [0]],
+                ]
+            ],
+            [
                 ToNullFilter::TYPE_EMPTY_ARRAY,
-                array(
-                    array(null, null),
-                    array(false, false),
-                    array(true, true),
-                    array(0, 0),
-                    array(1, 1),
-                    array(0.0, 0.0),
-                    array(1.0, 1.0),
-                    array('', ''),
-                    array('abc', 'abc'),
-                    array('0', '0'),
-                    array('1', '1'),
-                    array(array(), null),
-                    array(array(0), array(0)),
-                )
-            ),
-            array(
+                [
+                    [null, null],
+                    [false, false],
+                    [true, true],
+                    [0, 0],
+                    [1, 1],
+                    [0.0, 0.0],
+                    [1.0, 1.0],
+                    ['', ''],
+                    ['abc', 'abc'],
+                    ['0', '0'],
+                    ['1', '1'],
+                    [[], null],
+                    [[0], [0]],
+                ]
+            ],
+            [
                 ToNullFilter::TYPE_STRING,
-                array(
-                    array(null, null),
-                    array(false, false),
-                    array(true, true),
-                    array(0, 0),
-                    array(1, 1),
-                    array(0.0, 0.0),
-                    array(1.0, 1.0),
-                    array('', null),
-                    array('abc', 'abc'),
-                    array('0', '0'),
-                    array('1', '1'),
-                    array(array(), array()),
-                    array(array(0), array(0)),
-                )
-            ),
-            array(
+                [
+                    [null, null],
+                    [false, false],
+                    [true, true],
+                    [0, 0],
+                    [1, 1],
+                    [0.0, 0.0],
+                    [1.0, 1.0],
+                    ['', null],
+                    ['abc', 'abc'],
+                    ['0', '0'],
+                    ['1', '1'],
+                    [[], []],
+                    [[0], [0]],
+                ]
+            ],
+            [
                 ToNullFilter::TYPE_ZERO_STRING,
-                array(
-                    array(null, null),
-                    array(false, false),
-                    array(true, true),
-                    array(0, 0),
-                    array(1, 1),
-                    array(0.0, 0.0),
-                    array(1.0, 1.0),
-                    array('', ''),
-                    array('abc', 'abc'),
-                    array('0', null),
-                    array('1', '1'),
-                    array(array(), array()),
-                    array(array(0), array(0)),
-                )
-            ),
-            array(
+                [
+                    [null, null],
+                    [false, false],
+                    [true, true],
+                    [0, 0],
+                    [1, 1],
+                    [0.0, 0.0],
+                    [1.0, 1.0],
+                    ['', ''],
+                    ['abc', 'abc'],
+                    ['0', null],
+                    ['1', '1'],
+                    [[], []],
+                    [[0], [0]],
+                ]
+            ],
+            [
                 ToNullFilter::TYPE_FLOAT,
-                array(
-                    array(null, null),
-                    array(false, false),
-                    array(true, true),
-                    array(0, 0),
-                    array(1, 1),
-                    array(0.0, null),
-                    array(1.0, 1.0),
-                    array('', ''),
-                    array('abc', 'abc'),
-                    array('0', '0'),
-                    array('1', '1'),
-                    array(array(), array()),
-                    array(array(0), array(0)),
-                )
-            ),
-            array(
+                [
+                    [null, null],
+                    [false, false],
+                    [true, true],
+                    [0, 0],
+                    [1, 1],
+                    [0.0, null],
+                    [1.0, 1.0],
+                    ['', ''],
+                    ['abc', 'abc'],
+                    ['0', '0'],
+                    ['1', '1'],
+                    [[], []],
+                    [[0], [0]],
+                ]
+            ],
+            [
                 ToNullFilter::TYPE_ALL,
-                array(
-                    array(null, null),
-                    array(false, null),
-                    array(true, true),
-                    array(0, null),
-                    array(1, 1),
-                    array(0.0, null),
-                    array(1.0, 1.0),
-                    array('', null),
-                    array('abc', 'abc'),
-                    array('0', null),
-                    array('1', '1'),
-                    array(array(), null),
-                    array(array(0), array(0)),
-                )
-            ),
-        );
+                [
+                    [null, null],
+                    [false, null],
+                    [true, true],
+                    [0, null],
+                    [1, 1],
+                    [0.0, null],
+                    [1.0, 1.0],
+                    ['', null],
+                    ['abc', 'abc'],
+                    ['0', null],
+                    ['1', '1'],
+                    [[], null],
+                    [[0], [0]],
+                ]
+            ],
+        ];
     }
 
     public static function combinedTypeTestProvider()
     {
-        return array(
-            array(
-                array(
-                    array(
+        return [
+            [
+                [
+                    [
                         ToNullFilter::TYPE_ZERO_STRING,
                         ToNullFilter::TYPE_STRING,
                         ToNullFilter::TYPE_BOOLEAN,
-                    ),
-                    array(
+                    ],
+                    [
                         'zero',
                         'string',
                         'boolean',
-                    ),
+                    ],
                     ToNullFilter::TYPE_ZERO_STRING | ToNullFilter::TYPE_STRING | ToNullFilter::TYPE_BOOLEAN,
                     ToNullFilter::TYPE_ZERO_STRING + ToNullFilter::TYPE_STRING + ToNullFilter::TYPE_BOOLEAN,
-                ),
-                array(
-                    array(null, null),
-                    array(false, null),
-                    array(true, true),
-                    array(0, 0),
-                    array(1, 1),
-                    array(0.0, 0.0),
-                    array(1.0, 1.0),
-                    array('', null),
-                    array('abc', 'abc'),
-                    array('0', null),
-                    array('1', '1'),
-                    array(array(), array()),
-                    array(array(0), array(0)),
-                )
-            )
-        );
+                ],
+                [
+                    [null, null],
+                    [false, null],
+                    [true, true],
+                    [0, 0],
+                    [1, 1],
+                    [0.0, 0.0],
+                    [1.0, 1.0],
+                    ['', null],
+                    ['abc', 'abc'],
+                    ['0', null],
+                    ['1', '1'],
+                    [[], []],
+                    [[0], [0]],
+                ]
+            ]
+        ];
     }
 }

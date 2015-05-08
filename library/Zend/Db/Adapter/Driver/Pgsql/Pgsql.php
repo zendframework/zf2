@@ -38,9 +38,9 @@ class Pgsql implements DriverInterface, Profiler\ProfilerAwareInterface
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'buffer_results' => false
-    );
+    ];
 
     /**
      * Constructor

@@ -42,7 +42,7 @@ class LautDeRdfTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath)
         );
-        $this->assertEquals(array(array('name'=>'laut.de')), (array) $feed->getAuthors());
+        $this->assertEquals([['name'=>'laut.de']], (array) $feed->getAuthors());
     }
 
     public function testGetsSingleAuthor()
@@ -50,7 +50,7 @@ class LautDeRdfTest extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath)
         );
-        $this->assertEquals(array('name'=>'laut.de'), $feed->getAuthor());
+        $this->assertEquals(['name'=>'laut.de'], $feed->getAuthor());
     }
 
     public function testGetsCopyright()
@@ -123,7 +123,7 @@ class LautDeRdfTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array(array('name'=>'laut.de')), (array) $entry->getAuthors());
+        $this->assertEquals([['name'=>'laut.de']], (array) $entry->getAuthors());
     }
 
     public function testGetsEntrySingleAuthor()
@@ -132,7 +132,7 @@ class LautDeRdfTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array('name'=>'laut.de'), $entry->getAuthor());
+        $this->assertEquals(['name'=>'laut.de'], $entry->getAuthor());
     }
 
     // Technically, the next two tests should not pass. However the source feed has an encoding
@@ -164,7 +164,7 @@ class LautDeRdfTest extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array('http://www.laut.de/vorlaut/news/2009/07/04/22426/index.htm'), $entry->getLinks());
+        $this->assertEquals(['http://www.laut.de/vorlaut/news/2009/07/04/22426/index.htm'], $entry->getLinks());
     }
 
     public function testGetsEntryLink()

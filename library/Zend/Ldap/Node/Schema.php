@@ -30,7 +30,7 @@ class Schema extends AbstractNode
     public static function create(Ldap\Ldap $ldap)
     {
         $dn   = $ldap->getRootDse()->getSchemaDn();
-        $data = $ldap->getEntry($dn, array('*', '+'), true);
+        $data = $ldap->getEntry($dn, ['*', '+'], true);
         switch ($ldap->getRootDse()->getServerType()) {
             case RootDse::SERVER_TYPE_ACTIVEDIRECTORY:
                 return new Schema\ActiveDirectory($dn, $data, $ldap);
@@ -76,7 +76,7 @@ class Schema extends AbstractNode
      */
     public function getAttributeTypes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -86,6 +86,6 @@ class Schema extends AbstractNode
      */
     public function getObjectClasses()
     {
-        return array();
+        return [];
     }
 }

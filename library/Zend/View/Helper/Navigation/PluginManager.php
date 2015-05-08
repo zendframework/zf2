@@ -26,12 +26,12 @@ class PluginManager extends HelperPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'breadcrumbs' => 'Zend\View\Helper\Navigation\Breadcrumbs',
         'links'       => 'Zend\View\Helper\Navigation\Links',
         'menu'        => 'Zend\View\Helper\Navigation\Menu',
         'sitemap'     => 'Zend\View\Helper\Navigation\Sitemap',
-    );
+    ];
 
     /**
      * Validate the plugin

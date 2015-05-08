@@ -37,7 +37,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     {
         fwrite($this->adapter->stream, "0");
 
-        $select = new Select('Select an option :', array('foo', 'bar'));
+        $select = new Select('Select an option :', ['foo', 'bar']);
         $select->setConsole($this->adapter);
         ob_start();
         $response = $select->show();
@@ -51,7 +51,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     {
         fwrite($this->adapter->stream, "2");
 
-        $select = new Select('Select an option :', array('2' => 'foo', '6' => 'bar'));
+        $select = new Select('Select an option :', ['2' => 'foo', '6' => 'bar']);
         $select->setConsole($this->adapter);
         ob_start();
         $response = $select->show();

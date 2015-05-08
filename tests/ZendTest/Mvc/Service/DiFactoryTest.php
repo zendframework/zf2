@@ -17,7 +17,7 @@ class DiFactoryTest extends \PHPUnit_Framework_TestCase
     public function testWillInitializeDiAndDiAbstractFactory()
     {
         $serviceManager = new ServiceManager();
-        $serviceManager->setService('Config', array('di' => array('')));
+        $serviceManager->setService('Config', ['di' => ['']]);
         $serviceManager->setFactory('Di', new DiFactory());
 
         $di = $serviceManager->get('Di');

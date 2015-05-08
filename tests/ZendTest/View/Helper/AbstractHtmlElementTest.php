@@ -45,7 +45,7 @@ class AbstractHtmlElementTest extends TestCase
 
         $this->assertSame(
             ' data-value="breaking&#x20;your&#x20;HTML&#x20;like&#x20;a&#x20;boss&#x21;&#x20;&#x5C;"',
-            $reflectionMethod->invoke($this->helper, array('data-value' => 'breaking your HTML like a boss! \\'))
+            $reflectionMethod->invoke($this->helper, ['data-value' => 'breaking your HTML like a boss! \\'])
         );
     }
 }

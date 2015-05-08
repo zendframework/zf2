@@ -54,21 +54,21 @@ class GzTest extends \PHPUnit_Framework_TestCase
     public function testGzGetSetOptions()
     {
         $filter = new GzCompression();
-        $this->assertEquals(array('mode' => 'compress', 'level' => 9, 'archive' => null), $filter->getOptions());
+        $this->assertEquals(['mode' => 'compress', 'level' => 9, 'archive' => null], $filter->getOptions());
 
         $this->assertEquals(9, $filter->getOptions('level'));
 
         $this->assertNull($filter->getOptions('nooption'));
-        $filter->setOptions(array('nooption' => 'foo'));
+        $filter->setOptions(['nooption' => 'foo']);
         $this->assertNull($filter->getOptions('nooption'));
 
-        $filter->setOptions(array('level' => 6));
+        $filter->setOptions(['level' => 6]);
         $this->assertEquals(6, $filter->getOptions('level'));
 
-        $filter->setOptions(array('mode' => 'deflate'));
+        $filter->setOptions(['mode' => 'deflate']);
         $this->assertEquals('deflate', $filter->getOptions('mode'));
 
-        $filter->setOptions(array('archive' => 'test.txt'));
+        $filter->setOptions(['archive' => 'test.txt']);
         $this->assertEquals('test.txt', $filter->getOptions('archive'));
     }
 
@@ -79,8 +79,8 @@ class GzTest extends \PHPUnit_Framework_TestCase
      */
     public function testGzGetSetOptionsInConstructor()
     {
-        $filter2= new GzCompression(array('level' => 8));
-        $this->assertEquals(array('mode' => 'compress', 'level' => 8, 'archive' => null), $filter2->getOptions());
+        $filter2= new GzCompression(['level' => 8]);
+        $this->assertEquals(['mode' => 'compress', 'level' => 8, 'archive' => null], $filter2->getOptions());
     }
 
     /**
@@ -160,7 +160,7 @@ class GzTest extends \PHPUnit_Framework_TestCase
      */
     public function testGzDeflate()
     {
-        $filter  = new GzCompression(array('mode' => 'deflate'));
+        $filter  = new GzCompression(['mode' => 'deflate']);
 
         $content = $filter->compress('compress me');
         $this->assertNotEquals('compress me', $content);

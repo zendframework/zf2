@@ -45,7 +45,7 @@ class Folder implements RecursiveIterator
      * @param bool   $selectable if true folder holds messages, if false it's just a parent for subfolders (Default: true)
      * @param array  $folders    init with given instances of \Zend\Mail\Storage\Folder as subfolders
      */
-    public function __construct($localName, $globalName = '', $selectable = true, array $folders = array())
+    public function __construct($localName, $globalName = '', $selectable = true, array $folders = [])
     {
         $this->localName  = $localName;
         $this->globalName = $globalName ? $globalName : $localName;

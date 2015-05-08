@@ -18,11 +18,11 @@ use Zend\Db\Adapter\Driver\Sqlsrv\Statement;
  */
 class StatementIntegrationTest extends \PHPUnit_Framework_TestCase
 {
-    protected $variables = array(
+    protected $variables = [
         'hostname' => 'ZEND_DB_ADAPTER_DRIVER_SQLSRV_HOSTNAME',
         'username' => 'ZEND_DB_ADAPTER_DRIVER_SQLSRV_USERNAME',
         'password' => 'ZEND_DB_ADAPTER_DRIVER_SQLSRV_PASSWORD',
-    );
+    ];
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -47,7 +47,7 @@ class StatementIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitialize()
     {
-        $sqlsrvResource = sqlsrv_connect($this->variables['hostname'], array('UID' => $this->variables['username'], 'PWD' => $this->variables['password']));
+        $sqlsrvResource = sqlsrv_connect($this->variables['hostname'], ['UID' => $this->variables['username'], 'PWD' => $this->variables['password']]);
 
         $statement = new Statement;
         $this->assertSame($statement, $statement->initialize($sqlsrvResource));
@@ -59,7 +59,7 @@ class StatementIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResource()
     {
-        $sqlsrvResource = sqlsrv_connect($this->variables['hostname'], array('UID' => $this->variables['username'], 'PWD' => $this->variables['password']));
+        $sqlsrvResource = sqlsrv_connect($this->variables['hostname'], ['UID' => $this->variables['username'], 'PWD' => $this->variables['password']]);
 
         $statement = new Statement;
         $statement->initialize($sqlsrvResource);
@@ -75,7 +75,7 @@ class StatementIntegrationTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrepare()
     {
-        $sqlsrvResource = sqlsrv_connect($this->variables['hostname'], array('UID' => $this->variables['username'], 'PWD' => $this->variables['password']));
+        $sqlsrvResource = sqlsrv_connect($this->variables['hostname'], ['UID' => $this->variables['username'], 'PWD' => $this->variables['password']]);
 
         $statement = new Statement;
         $statement->initialize($sqlsrvResource);

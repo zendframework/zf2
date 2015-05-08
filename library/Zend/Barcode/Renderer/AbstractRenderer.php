@@ -243,7 +243,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function setHorizontalPosition($value)
     {
-        if (!in_array($value, array('left', 'center', 'right'))) {
+        if (!in_array($value, ['left', 'center', 'right'])) {
             throw new Exception\UnexpectedValueException(
                 "Invalid barcode position provided must be 'left', 'center' or 'right'"
             );
@@ -269,7 +269,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function setVerticalPosition($value)
     {
-        if (!in_array($value, array('top', 'middle', 'bottom'))) {
+        if (!in_array($value, ['top', 'middle', 'bottom'])) {
             throw new Exception\UnexpectedValueException(
                 "Invalid barcode position provided must be 'top', 'middle' or 'bottom'"
             );
@@ -425,7 +425,7 @@ abstract class AbstractRenderer implements RendererInterface
             if ($this->automaticRenderError && !($e instanceof BarcodeException\RendererCreationException)) {
                 $barcode = Barcode::makeBarcode(
                     'error',
-                    array('text' => $e->getMessage())
+                    ['text' => $e->getMessage()]
                 );
                 $this->setBarcode($barcode);
                 $this->resource = null;

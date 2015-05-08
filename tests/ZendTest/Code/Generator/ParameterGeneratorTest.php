@@ -118,7 +118,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
         }
 
         $parameter = ParameterGenerator::fromReflection(
-            new ParameterReflection(array('ZendTest\Code\Generator\TestAsset\CallableTypeHintClass', 'foo'), 'bar')
+            new ParameterReflection(['ZendTest\Code\Generator\TestAsset\CallableTypeHintClass', 'foo'], 'bar')
         );
 
         $this->assertEquals('callable', $parameter->getType());
@@ -139,23 +139,23 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function dataFromReflectionGenerate()
     {
-        return array(
-            array('name', '$param'),
-            array('type', '\\stdClass $bar'),
-            array('reference', '&$baz'),
-            array('defaultValue', '$value = \'foo\''),
-            array('defaultNull', '$value = null'),
-            array('fromArray', 'array $array'),
-            array('hasNativeDocTypes', '$integer'),
-            array('defaultArray', '$array = array()'),
-            array('defaultArrayWithValues', '$array = array(1, 2, 3)'),
-            array('defaultFalse', '$val = false'),
-            array('defaultTrue', '$val = true'),
-            array('defaultZero', '$number = 0'),
-            array('defaultNumber', '$number = 1234'),
-            array('defaultFloat', '$float = 1.34'),
-            array('defaultConstant', '$con = \'foo\'')
-        );
+        return [
+            ['name', '$param'],
+            ['type', '\\stdClass $bar'],
+            ['reference', '&$baz'],
+            ['defaultValue', '$value = \'foo\''],
+            ['defaultNull', '$value = null'],
+            ['fromArray', 'array $array'],
+            ['hasNativeDocTypes', '$integer'],
+            ['defaultArray', '$array = array()'],
+            ['defaultArrayWithValues', '$array = array(1, 2, 3)'],
+            ['defaultFalse', '$val = false'],
+            ['defaultTrue', '$val = true'],
+            ['defaultZero', '$number = 0'],
+            ['defaultNumber', '$number = 1234'],
+            ['defaultFloat', '$float = 1.34'],
+            ['defaultConstant', '$con = \'foo\'']
+        ];
     }
 
     /**
@@ -176,7 +176,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFromArray()
     {
-        $parameterGenerator = ParameterGenerator::fromArray(array(
+        $parameterGenerator = ParameterGenerator::fromArray([
             'name'              => 'SampleParameter',
             'type'              => 'int',
             'defaultvalue'      => 'foo',
@@ -185,7 +185,7 @@ class ParameterGeneratorTest extends \PHPUnit_Framework_TestCase
             'sourcedirty'       => false,
             'sourcecontent'     => 'foo',
             'indentation'       => '-',
-        ));
+        ]);
 
         $this->assertEquals('SampleParameter', $parameterGenerator->getName());
         $this->assertEquals('int', $parameterGenerator->getType());

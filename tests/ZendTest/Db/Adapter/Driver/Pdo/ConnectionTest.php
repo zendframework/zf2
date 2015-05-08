@@ -46,7 +46,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDsn()
     {
         $dsn = "sqlite::memory:";
-        $this->connection->setConnectionParameters(array('dsn' => $dsn));
+        $this->connection->setConnectionParameters(['dsn' => $dsn]);
         try {
             $this->connection->connect();
         } catch (\Exception $e) {
@@ -61,13 +61,13 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayOfConnectionParametersCreatesCorrectDsn()
     {
-        $this->connection->setConnectionParameters(array(
+        $this->connection->setConnectionParameters([
             'driver'  => 'pdo_mysql',
             'host'    => '127.0.0.1',
             'charset' => 'utf8',
             'dbname'  => 'foo',
             'port'    => '3306',
-        ));
+        ]);
         try {
             $this->connection->connect();
         } catch (\Exception $e) {

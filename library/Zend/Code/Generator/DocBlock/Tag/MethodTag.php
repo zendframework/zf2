@@ -27,7 +27,7 @@ class MethodTag extends AbstractTypeableTag implements TagInterface
      * @param string $description
      * @param bool $isStatic
      */
-    public function __construct($methodName = null, $types = array(), $description = null, $isStatic = false)
+    public function __construct($methodName = null, $types = [], $description = null, $isStatic = false)
     {
         if (!empty($methodName)) {
             $this->setMethodName($methodName);

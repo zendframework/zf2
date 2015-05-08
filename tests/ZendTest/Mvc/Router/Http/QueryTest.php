@@ -27,32 +27,32 @@ class QueryTest extends TestCase
     {
         // Have to setup error handler here as well, as PHPUnit calls on
         // provider methods outside the scope of setUp().
-        return array(
-            'simple-match' => array(
+        return [
+            'simple-match' => [
                 new Query(),
                 'foo=bar&baz=bat',
                 null,
-                array('foo' => 'bar', 'baz' => 'bat')
-            ),
-            'empty-match' => array(
+                ['foo' => 'bar', 'baz' => 'bat']
+            ],
+            'empty-match' => [
                 new Query(),
                 '',
                 null,
-                array()
-            ),
-            'url-encoded-parameters-are-decoded' => array(
+                []
+            ],
+            'url-encoded-parameters-are-decoded' => [
                 new Query(),
                 'foo=foo%20bar',
                 null,
-                array('foo' => 'foo bar')
-            ),
-            'nested-params' => array(
+                ['foo' => 'foo bar']
+            ],
+            'nested-params' => [
                 new Query(),
                 'foo%5Bbar%5D=baz&foo%5Bbat%5D=foo%20bar',
                 null,
-                array('foo' => array('bar' => 'baz', 'bat' => 'foo bar'))
-            ),
-        );
+                ['foo' => ['bar' => 'baz', 'bat' => 'foo bar']]
+            ],
+        ];
     }
 
     /**
@@ -84,7 +84,7 @@ class QueryTest extends TestCase
         }
 
         $uri = new Http();
-        $result = $route->assemble($params, array('uri' => $uri));
+        $result = $route->assemble($params, ['uri' => $uri]);
 
         if ($offset !== null) {
             $this->assertEquals($offset, strpos($path, $uri->getQuery(), $offset));
@@ -99,17 +99,17 @@ class QueryTest extends TestCase
         $request = new BaseRequest();
         $match   = $route->match($request);
         $this->assertInstanceOf('Zend\Mvc\Router\RouteMatch', $match);
-        $this->assertEquals(array(), $match->getParams());
+        $this->assertEquals([], $match->getParams());
     }
 
     public function testGetAssembledParams()
     {
         $route = new Query();
         $uri = new Http();
-        $route->assemble(array('foo' => 'bar'), array('uri' => $uri));
+        $route->assemble(['foo' => 'bar'], ['uri' => $uri]);
 
 
-        $this->assertEquals(array('foo'), $route->getAssembledParams());
+        $this->assertEquals(['foo'], $route->getAssembledParams());
     }
 
     public function testFactory()
@@ -117,8 +117,8 @@ class QueryTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Query',
-            array(),
-            array()
+            [],
+            []
         );
     }
 }

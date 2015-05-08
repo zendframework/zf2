@@ -31,16 +31,16 @@ class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [''],
+            [new \stdClass()],
+            [[
                 '1',
                 -1
-            )),
-            array(0.53)
-        );
+            ]],
+            [0.53]
+        ];
     }
 
     /**

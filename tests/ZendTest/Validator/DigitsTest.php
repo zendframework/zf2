@@ -33,7 +33,7 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
      */
     public function testExpectedResultsWithBasicInputValues()
     {
-        $valuesExpected = array(
+        $valuesExpected = [
             'abc123'  => false,
             'abc 123' => false,
             'abcxyz'  => false,
@@ -43,7 +43,7 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
             '123'     => true,
             '09'      => true,
             ''        => false
-            );
+            ];
         foreach ($valuesExpected as $input => $result) {
             $this->assertEquals($result, $this->validator->isValid($input));
         }
@@ -56,7 +56,7 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
      */
     public function testMessagesEmptyInitially()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     /**
@@ -66,9 +66,9 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->validator->isValid(''));
         $messages = $this->validator->getMessages();
-        $arrayExpected = array(
+        $arrayExpected = [
             Digits::STRING_EMPTY => 'The input is an empty string'
-            );
+            ];
         $this->assertThat($messages, $this->identicalTo($arrayExpected));
     }
 
@@ -79,9 +79,9 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->validator->isValid('#'));
         $messages = $this->validator->getMessages();
-        $arrayExpected = array(
+        $arrayExpected = [
             Digits::NOT_DIGITS => 'The input must contain only digits'
-            );
+            ];
         $this->assertThat($messages, $this->identicalTo($arrayExpected));
     }
 
@@ -90,7 +90,7 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
      */
     public function testNonStringValidation()
     {
-        $this->assertFalse($this->validator->isValid(array(1 => 1)));
+        $this->assertFalse($this->validator->isValid([1 => 1]));
     }
 
     public function testEqualsMessageTemplates()

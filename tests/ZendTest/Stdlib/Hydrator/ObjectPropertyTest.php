@@ -50,7 +50,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
     public function testHydratorHydrateThrowsExceptionOnNonObjectParameter()
     {
         $this->setExpectedException('BadMethodCallException');
-        $this->hydrator->hydrate(array('some' => 'data'), 'thisIsNotAnObject');
+        $this->hydrator->hydrate(['some' => 'data'], 'thisIsNotAnObject');
     }
 
     /**
@@ -61,7 +61,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
         $object = new \stdClass();
         $object->foo = 'bar';
 
-        $this->assertSame(array('foo' => 'bar'), $this->hydrator->extract($object));
+        $this->assertSame(['foo' => 'bar'], $this->hydrator->extract($object));
     }
 
     /**
@@ -70,12 +70,12 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
     public function testCanExtractFromGenericClass()
     {
         $this->assertSame(
-            array(
+            [
                 'foo' => 'bar',
                 'bar' => 'foo',
                 'blubb' => 'baz',
                 'quo' => 'blubb'
-            ),
+            ],
             $this->hydrator->extract(new ObjectPropertyTestAsset())
         );
     }
@@ -88,7 +88,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
         $object = new \stdClass();
         $object->foo = 'bar';
 
-        $object = $this->hydrator->hydrate(array('foo' => 'baz'), $object);
+        $object = $this->hydrator->hydrate(['foo' => 'baz'], $object);
 
         $this->assertEquals('baz', $object->foo);
     }
@@ -101,7 +101,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
         $object = new \stdClass();
         $object->foo = 'bar';
 
-        $object = $this->hydrator->hydrate(array('foo' => 'baz', 'bar' => 'baz'), $object);
+        $object = $this->hydrator->hydrate(['foo' => 'baz', 'bar' => 'baz'], $object);
 
         $this->assertEquals('baz', $object->foo);
         $this->assertObjectHasAttribute('bar', $object);
@@ -114,13 +114,13 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
     public function testCanHydrateGenericClassPublicProperties()
     {
         $object = $this->hydrator->hydrate(
-            array(
+            [
                 'foo' => 'foo',
                 'bar' => 'bar',
                 'blubb' => 'blubb',
                 'quo' => 'quo',
                 'quin' => 'quin'
-            ),
+            ],
             new ObjectPropertyTestAsset()
         );
 
@@ -136,7 +136,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanHydrateGenericClassNonExistingProperties()
     {
-        $object = $this->hydrator->hydrate(array('newProperty' => 'newPropertyValue'), new ObjectPropertyTestAsset());
+        $object = $this->hydrator->hydrate(['newProperty' => 'newPropertyValue'], new ObjectPropertyTestAsset());
 
         $this->assertAttributeSame('newPropertyValue', 'newProperty', $object);
     }
@@ -147,7 +147,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
     public function testSkipsPublicStaticClassPropertiesHydration()
     {
         $this->hydrator->hydrate(
-            array('foo' => '1', 'bar' => '2', 'baz' => '3'),
+            ['foo' => '1', 'bar' => '2', 'baz' => '3'],
             new ClassWithPublicStaticProperties()
         );
 

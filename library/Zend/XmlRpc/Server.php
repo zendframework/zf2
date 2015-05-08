@@ -74,7 +74,7 @@ class Server extends AbstractServer
      * PHP types => XML-RPC types
      * @var array
      */
-    protected $typeMap = array(
+    protected $typeMap = [
         'i4'                         => 'i4',
         'int'                        => 'int',
         'integer'                    => 'int',
@@ -101,7 +101,7 @@ class Server extends AbstractServer
         'ex:nil'                     => 'nil',
         'void'                       => 'void',
         'mixed'                      => 'struct',
-    );
+    ];
 
     /**
      * Send arguments to all methods or just constructor?
@@ -149,7 +149,7 @@ class Server extends AbstractServer
         if (!method_exists($system, $method)) {
             throw new Server\Exception\BadMethodCallException('Unknown instance method called on server: ' . $method);
         }
-        return call_user_func_array(array($system, $method), $params);
+        return call_user_func_array([$system, $method], $params);
     }
 
     /**

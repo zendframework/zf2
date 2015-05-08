@@ -24,7 +24,7 @@ class StaticIntegrationTest extends TestCase
 
     public function testCanConnectStaticallyToClassWithEvents()
     {
-        $counter = (object) array('count' => 0);
+        $counter = (object) ['count' => 0];
         $events  = StaticEventManager::getInstance();
         $events->attach(
             'ZendTest\EventManager\TestAsset\ClassWithEvents',
@@ -41,7 +41,7 @@ class StaticIntegrationTest extends TestCase
 
     public function testLocalHandlersAreExecutedPriorToStaticHandlersWhenSetWithSamePriority()
     {
-        $test = (object) array('results' => array());
+        $test = (object) ['results' => []];
         $events = StaticEventManager::getInstance();
         $events->attach(
             'ZendTest\EventManager\TestAsset\ClassWithEvents',
@@ -56,12 +56,12 @@ class StaticIntegrationTest extends TestCase
         });
         $class->getEventManager()->setSharedManager($events);
         $class->foo();
-        $this->assertEquals(array('local', 'static'), $test->results);
+        $this->assertEquals(['local', 'static'], $test->results);
     }
 
     public function testLocalHandlersAreExecutedInPriorityOrderRegardlessOfStaticOrLocalRegistration()
     {
-        $test = (object) array('results' => array());
+        $test = (object) ['results' => []];
         $events = StaticEventManager::getInstance();
         $events->attach(
             'ZendTest\EventManager\TestAsset\ClassWithEvents',
@@ -83,12 +83,12 @@ class StaticIntegrationTest extends TestCase
         }, 15000); // highest priority
         $class->getEventManager()->setSharedManager($events);
         $class->foo();
-        $this->assertEquals(array('local3', 'static', 'local2', 'local'), $test->results);
+        $this->assertEquals(['local3', 'static', 'local2', 'local'], $test->results);
     }
 
     public function testCallingUnsetSharedManagerDisablesStaticManager()
     {
-        $counter = (object) array('count' => 0);
+        $counter = (object) ['count' => 0];
         StaticEventManager::getInstance()->attach(
             'ZendTest\EventManager\TestAsset\ClassWithEvents',
             'foo',
@@ -104,7 +104,7 @@ class StaticIntegrationTest extends TestCase
 
     public function testCanPassAlternateStaticConnectionsHolder()
     {
-        $counter = (object) array('count' => 0);
+        $counter = (object) ['count' => 0];
         StaticEventManager::getInstance()->attach(
             'ZendTest\EventManager\TestAsset\ClassWithEvents',
             'foo',
@@ -122,7 +122,7 @@ class StaticIntegrationTest extends TestCase
 
     public function testTriggerMergesPrioritiesOfStaticAndInstanceListeners()
     {
-        $test = (object) array('results' => array());
+        $test = (object) ['results' => []];
         $events = StaticEventManager::getInstance();
         $events->attach(
             'ZendTest\EventManager\TestAsset\ClassWithEvents',
@@ -138,6 +138,6 @@ class StaticIntegrationTest extends TestCase
         }, -100);
         $class->getEventManager()->setSharedManager($events);
         $class->foo();
-        $this->assertEquals(array('static', 'local'), $test->results);
+        $this->assertEquals(['static', 'local'], $test->results);
     }
 }

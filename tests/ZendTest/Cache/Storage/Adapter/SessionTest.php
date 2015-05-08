@@ -21,15 +21,15 @@ class SessionTest extends CommonAdapterTest
 {
     public function setUp()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         SessionContainer::setDefaultManager(null);
-        $sessionConfig    = new SessionConfig(array('storage' => 'Zend\Session\Storage\ArrayStorage'));
+        $sessionConfig    = new SessionConfig(['storage' => 'Zend\Session\Storage\ArrayStorage']);
         $sessionManager   = $manager = new TestSessionManager($sessionConfig);
         $sessionContainer = new SessionContainer('Default', $manager);
 
-        $this->_options = new Cache\Storage\Adapter\SessionOptions(array(
+        $this->_options = new Cache\Storage\Adapter\SessionOptions([
             'session_container' => $sessionContainer
-        ));
+        ]);
         $this->_storage = new Cache\Storage\Adapter\Session();
         $this->_storage->setOptions($this->_options);
 
@@ -38,7 +38,7 @@ class SessionTest extends CommonAdapterTest
 
     public function tearDown()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         SessionContainer::setDefaultManager(null);
     }
 }

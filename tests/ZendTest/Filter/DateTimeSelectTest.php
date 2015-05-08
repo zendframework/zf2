@@ -28,33 +28,33 @@ class DateTimeSelectTest extends \PHPUnit_Framework_TestCase
 
     public function provideFilter()
     {
-        return array(
-            array(
-                array(),
-                array('year' => '2014', 'month' => '10', 'day' => '26', 'hour' => '12', 'minute' => '35'),
+        return [
+            [
+                [],
+                ['year' => '2014', 'month' => '10', 'day' => '26', 'hour' => '12', 'minute' => '35'],
                 '2014-10-26 12:35:00'
-            ),
-            array(
-                array('nullOnEmpty' => true),
-                array('year' => null, 'month' => '10', 'day' => '26', 'hour' => '12', 'minute' => '35'),
+            ],
+            [
+                ['nullOnEmpty' => true],
+                ['year' => null, 'month' => '10', 'day' => '26', 'hour' => '12', 'minute' => '35'],
                 null
-            ),
-            array(
-                array('null_on_empty' => true),
-                array('year' => null, 'month' => '10', 'day' => '26', 'hour' => '12', 'minute' => '35'),
+            ],
+            [
+                ['null_on_empty' => true],
+                ['year' => null, 'month' => '10', 'day' => '26', 'hour' => '12', 'minute' => '35'],
                 null
-            ),
-            array(
-                array('nullOnAllEmpty' => true),
-                array('year' => null, 'month' => null, 'day' => null, 'hour' => null, 'minute' => null),
+            ],
+            [
+                ['nullOnAllEmpty' => true],
+                ['year' => null, 'month' => null, 'day' => null, 'hour' => null, 'minute' => null],
                 null
-            ),
-            array(
-                array('null_on_all_empty' => true),
-                array('year' => null, 'month' => null, 'day' => null, 'hour' => null, 'minute' => null),
+            ],
+            [
+                ['null_on_all_empty' => true],
+                ['year' => null, 'month' => null, 'day' => null, 'hour' => null, 'minute' => null],
                 null
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -63,6 +63,6 @@ class DateTimeSelectTest extends \PHPUnit_Framework_TestCase
     public function testInvalidInput()
     {
         $sut = new DateTimeSelectFilter();
-        $sut->filter(array('year' => '2120', 'month' => '10', 'day' => '26', 'hour' => '12'));
+        $sut->filter(['year' => '2120', 'month' => '10', 'day' => '26', 'hour' => '12']);
     }
 }

@@ -14,7 +14,7 @@ class ThrowsTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * @var array
      */
-    protected $types = array();
+    protected $types = [];
 
     /**
      * @var string
@@ -35,7 +35,7 @@ class ThrowsTag implements TagInterface, PhpDocTypedTagInterface
      */
     public function initialize($tagDocBlockLine)
     {
-        $matches = array();
+        $matches = [];
         preg_match('#([\w|\\\]+)(?:\s+(.*))?#', $tagDocBlockLine, $matches);
 
         $this->types = explode('|', $matches[1]);

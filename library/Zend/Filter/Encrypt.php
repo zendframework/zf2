@@ -105,7 +105,7 @@ class Encrypt extends AbstractFilter
         }
 
         if (!is_array($options)) {
-            $options = array();
+            $options = [];
         }
 
         if (class_exists('Zend\Filter\Encrypt\\' . ucfirst($adapter))) {
@@ -146,7 +146,7 @@ class Encrypt extends AbstractFilter
             throw new Exception\BadMethodCallException("Unknown method '{$method}'");
         }
 
-        return call_user_func_array(array($this->adapter, $method), $options);
+        return call_user_func_array([$this->adapter, $method], $options);
     }
 
     /**

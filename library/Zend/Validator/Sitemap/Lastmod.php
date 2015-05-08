@@ -37,10 +37,10 @@ class Lastmod extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::NOT_VALID => "The input is not a valid sitemap lastmod",
         self::INVALID   => "Invalid type given. String expected",
-    );
+    ];
 
     /**
      * Validates if a string is valid as a sitemap lastmod

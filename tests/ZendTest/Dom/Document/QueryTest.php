@@ -56,10 +56,10 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     {
         $test = Query::cssToXpath('div#foo .bar');
         $this->assertContains('|', $test);
-        $expected = array(
+        $expected = [
             "//div[@id='foo']//*[contains(concat(' ', normalize-space(@class), ' '), ' bar ')]",
             "//div[@id='foo'][contains(concat(' ', normalize-space(@class), ' '), ' bar ')]",
-        );
+        ];
         foreach ($expected as $path) {
             $this->assertContains($path, $test);
         }
@@ -80,10 +80,10 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $test);
         $this->assertContains('|', $test);
         $actual   = explode('|', $test);
-        $expected = array(
+        $expected = [
             "//div[@id='foo']//span[contains(concat(' ', normalize-space(@class), ' '), ' bar ')]",
             "//*[@id='bar']//li[contains(concat(' ', normalize-space(@class), ' '), ' baz ')]//a",
-        );
+        ];
         $this->assertEquals(count($expected), count($actual));
         foreach ($actual as $path) {
             $this->assertContains($path, $expected);
@@ -94,12 +94,12 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     {
         $test = Query::cssToXpath('div.foo .bar a .baz span');
         $this->assertContains('|', $test);
-        $segments = array(
+        $segments = [
             "//div[contains(concat(' ', normalize-space(@class), ' '), ' foo ')]//*[contains(concat(' ', normalize-space(@class), ' '), ' bar ')]//a//*[contains(concat(' ', normalize-space(@class), ' '), ' baz ')]//span",
             "//div[contains(concat(' ', normalize-space(@class), ' '), ' foo ')]//*[contains(concat(' ', normalize-space(@class), ' '), ' bar ')]//a[contains(concat(' ', normalize-space(@class), ' '), ' baz ')]//span",
             "//div[contains(concat(' ', normalize-space(@class), ' '), ' foo ')][contains(concat(' ', normalize-space(@class), ' '), ' bar ')]//a//*[contains(concat(' ', normalize-space(@class), ' '), ' baz ')]//span",
             "//div[contains(concat(' ', normalize-space(@class), ' '), ' foo ')][contains(concat(' ', normalize-space(@class), ' '), ' bar ')]//a[contains(concat(' ', normalize-space(@class), ' '), ' baz ')]//span",
-        );
+        ];
         foreach ($segments as $xpath) {
             $this->assertContains($xpath, $test);
         }

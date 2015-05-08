@@ -26,7 +26,7 @@ abstract class AbstractRole extends AbstractIterator implements RoleInterface
     /**
      * @var array
      */
-    protected $permissions = array();
+    protected $permissions = [];
 
     /**
      * Get the name of the role.

@@ -69,7 +69,7 @@ class JsonStrategyTest extends TestCase
         $this->event->setModel(new JsonModel());
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/javascript');
-        $request->setQuery(new Parameters(array('callback' => 'foo')));
+        $request->setQuery(new Parameters(['callback' => 'foo']));
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertSame($this->renderer, $result);
@@ -118,7 +118,7 @@ class JsonStrategyTest extends TestCase
 
     public function testMatchingRendererAndStringResultInjectsResponse()
     {
-        $expected = json_encode(array('foo' => 'bar'));
+        $expected = json_encode(['foo' => 'bar']);
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
         $this->event->setResult($expected);
@@ -133,7 +133,7 @@ class JsonStrategyTest extends TestCase
 
     public function testMatchingRendererAndStringResultInjectsResponseJsonp()
     {
-        $expected = json_encode(array('foo' => 'bar'));
+        $expected = json_encode(['foo' => 'bar']);
         $this->renderer->setJsonpCallback('foo');
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
@@ -162,9 +162,9 @@ class JsonStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (['renderer' => 'selectRenderer', 'response' => 'injectResponse'] as $event => $method) {
             $listeners        = $events->getListeners($event);
-            $expectedCallback = array($this->strategy, $method);
+            $expectedCallback = [$this->strategy, $method];
             $expectedPriority = 1;
             $found            = false;
             foreach ($listeners as $listener) {
@@ -185,9 +185,9 @@ class JsonStrategyTest extends TestCase
         $events = new EventManager();
         $events->attachAggregate($this->strategy, 1000);
 
-        foreach (array('renderer' => 'selectRenderer', 'response' => 'injectResponse') as $event => $method) {
+        foreach (['renderer' => 'selectRenderer', 'response' => 'injectResponse'] as $event => $method) {
             $listeners        = $events->getListeners($event);
-            $expectedCallback = array($this->strategy, $method);
+            $expectedCallback = [$this->strategy, $method];
             $expectedPriority = 1000;
             $found            = false;
             foreach ($listeners as $listener) {
@@ -220,7 +220,7 @@ class JsonStrategyTest extends TestCase
 
     public function testDefaultsToUtf8CharsetWhenCreatingJavascriptHeader()
     {
-        $expected = json_encode(array('foo' => 'bar'));
+        $expected = json_encode(['foo' => 'bar']);
         $this->renderer->setJsonpCallback('foo');
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
@@ -236,7 +236,7 @@ class JsonStrategyTest extends TestCase
 
     public function testDefaultsToUtf8CharsetWhenCreatingJsonHeader()
     {
-        $expected = json_encode(array('foo' => 'bar'));
+        $expected = json_encode(['foo' => 'bar']);
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
         $this->event->setResult($expected);
@@ -251,7 +251,7 @@ class JsonStrategyTest extends TestCase
 
     public function testUsesProvidedCharsetWhenCreatingJavascriptHeader()
     {
-        $expected = json_encode(array('foo' => 'bar'));
+        $expected = json_encode(['foo' => 'bar']);
         $this->renderer->setJsonpCallback('foo');
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
@@ -268,7 +268,7 @@ class JsonStrategyTest extends TestCase
 
     public function testUsesProvidedCharsetWhenCreatingJsonHeader()
     {
-        $expected = json_encode(array('foo' => 'bar'));
+        $expected = json_encode(['foo' => 'bar']);
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
         $this->event->setResult($expected);
@@ -295,10 +295,10 @@ class JsonStrategyTest extends TestCase
 
     public function multibyteCharsets()
     {
-        return array(
-            'utf-16' => array('utf-16'),
-            'utf-32' => array('utf-32'),
-        );
+        return [
+            'utf-16' => ['utf-16'],
+            'utf-32' => ['utf-32'],
+        ];
     }
 
     /**
@@ -310,7 +310,7 @@ class JsonStrategyTest extends TestCase
 
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
-        $this->event->setResult(json_encode(array('foo' => 'bar')));
+        $this->event->setResult(json_encode(['foo' => 'bar']));
 
         $this->strategy->injectResponse($this->event);
         $content = $this->response->getContent();

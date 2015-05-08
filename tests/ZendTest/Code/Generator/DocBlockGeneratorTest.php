@@ -48,9 +48,9 @@ class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testCanPassTagsToConstructor()
     {
-        $docBlockGenerator = new DocBlockGenerator(null, null, array(
-            array('name' => 'foo')
-        ));
+        $docBlockGenerator = new DocBlockGenerator(null, null, [
+            ['name' => 'foo']
+        ]);
 
         $tags = $docBlockGenerator->getTags();
         $this->assertCount(1, $tags);
@@ -78,7 +78,7 @@ class DocBlockGeneratorTest extends \PHPUnit_Framework_TestCase
         $returnTag = new Tag\ReturnTag();
         $returnTag->setDatatype('int');
 
-        $this->docBlockGenerator->setTag(array('name' => 'blah'));
+        $this->docBlockGenerator->setTag(['name' => 'blah']);
         $this->docBlockGenerator->setTag($paramTag);
         $this->docBlockGenerator->setTag($returnTag);
         $this->assertEquals(3, count($this->docBlockGenerator->getTags()));
@@ -106,16 +106,16 @@ EOS;
 
     public function testCreateFromArray()
     {
-        $docBlock = DocBlockGenerator::fromArray(array(
+        $docBlock = DocBlockGenerator::fromArray([
             'shortdescription' => 'foo',
             'longdescription'  => 'bar',
-            'tags' => array(
-                array(
+            'tags' => [
+                [
                     'name'        => 'foo',
                     'description' => 'bar',
-                )
-            ),
-        ));
+                ]
+            ],
+        ]);
 
         $this->assertEquals('foo', $docBlock->getShortDescription());
         $this->assertEquals('bar', $docBlock->getLongDescription());

@@ -1,10 +1,10 @@
 <?php
-return array(
-    'di' => array(
-        'definition' => array(
-            'compiler' => array(
+return [
+    'di' => [
+        'definition' => [
+            'compiler' => [
                 __DIR__ . '/definition-array.php',
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];

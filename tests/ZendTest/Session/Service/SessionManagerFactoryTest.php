@@ -66,9 +66,9 @@ class SessionManagerFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCanDisableContainerDefaultManagerInjectionViaConfiguration()
     {
-        $config = array('session_manager' => array(
+        $config = ['session_manager' => [
             'enable_default_container_manager' => false,
-        ));
+        ]];
         $this->services->setService('Config', $config);
         $manager = $this->services->get('Zend\Session\ManagerInterface');
         $this->assertNotSame($manager, Container::getDefaultManager());
@@ -79,11 +79,11 @@ class SessionManagerFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFactoryWillAddValidatorViaConfiguration()
     {
-        $config = array('session_manager' => array(
-            'validators' => array(
+        $config = ['session_manager' => [
+            'validators' => [
                 'Zend\Session\Validator\RemoteAddr',
-            ),
-        ));
+            ],
+        ]];
         $this->services->setService('Config', $config);
         $manager = $this->services->get('Zend\Session\ManagerInterface');
 
@@ -112,20 +112,20 @@ class SessionManagerFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFactoryDoesNotOverwriteValidatorStorageValues()
     {
         $storage = new ArrayStorage();
-        $storage->setMetadata('_VALID', array(
+        $storage->setMetadata('_VALID', [
             'Zend\Session\Validator\HttpUserAgent' => 'Foo',
             'Zend\Session\Validator\RemoteAddr'    => '1.2.3.4',
-        ));
+        ]);
         $this->services->setService('Zend\Session\Storage\StorageInterface', $storage);
 
-        $config = array(
-            'session_manager' => array(
-                'validators' => array(
+        $config = [
+            'session_manager' => [
+                'validators' => [
                     'Zend\Session\Validator\HttpUserAgent',
                     'Zend\Session\Validator\RemoteAddr',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $this->services->setService('Config', $config);
 
         // This call is needed to make sure session storage data is not overwritten by the factory
@@ -142,18 +142,18 @@ class SessionManagerFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFactoryDoesNotAttachValidatorTwoTimes()
     {
         $storage = new ArrayStorage();
-        $storage->setMetadata('_VALID', array(
+        $storage->setMetadata('_VALID', [
             'Zend\Session\Validator\RemoteAddr' => '1.2.3.4',
-        ));
+        ]);
         $this->services->setService('Zend\Session\Storage\StorageInterface', $storage);
 
-        $config = array(
-            'session_manager' => array(
-                'validators' => array(
+        $config = [
+            'session_manager' => [
+                'validators' => [
                     'Zend\Session\Validator\RemoteAddr',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $this->services->setService('Config', $config);
 
         $manager = $this->services->get('Zend\Session\ManagerInterface');

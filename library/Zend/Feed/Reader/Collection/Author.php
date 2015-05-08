@@ -19,7 +19,7 @@ class Author extends AbstractCollection
      */
     public function getValues()
     {
-        $authors = array();
+        $authors = [];
         foreach ($this->getIterator() as $element) {
             $authors[] = $element['name'];
         }

@@ -50,7 +50,7 @@ class PhpEnvironmentResponseSenderTest extends TestCase
         $returnValue = false;
         $mockSendResponseEvent = $this->getMock(
             'Zend\Mvc\ResponseSender\SendResponseEvent',
-            array('getResponse', 'contentSent', 'setContentSent')
+            ['getResponse', 'contentSent', 'setContentSent']
         );
         $mockSendResponseEvent->expects($this->any())
             ->method('contentSent')

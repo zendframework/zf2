@@ -77,20 +77,20 @@ class SubjectTest extends \PHPUnit_Framework_TestCase
 
     public function validSubjectValuesProvider()
     {
-        return array(
+        return [
             // Description => [decoded format, encoded format, encoding],
-            'Empty' => array('', '', 'ASCII'),
+            'Empty' => ['', '', 'ASCII'],
 
             // Encoding cases
-            'ASCII charset' => array('azAZ09-_', 'azAZ09-_', 'ASCII'),
-            'UTF-8 charset' => array('ázÁZ09-_', '=?UTF-8?Q?=C3=A1z=C3=81Z09-=5F?=', 'UTF-8'),
+            'ASCII charset' => ['azAZ09-_', 'azAZ09-_', 'ASCII'],
+            'UTF-8 charset' => ['ázÁZ09-_', '=?UTF-8?Q?=C3=A1z=C3=81Z09-=5F?=', 'UTF-8'],
 
             // CRLF @group ZF2015-04 cases
-            'newline' => array("xxx yyy\n", '=?UTF-8?Q?xxx=20yyy=0A?=', 'UTF-8'),
-            'cr-lf' => array("xxx yyy\r\n", '=?UTF-8?Q?xxx=20yyy=0D=0A?=', 'UTF-8'),
-            'cr-lf-wsp' => array("xxx yyy\r\n\r\n", '=?UTF-8?Q?xxx=20yyy=0D=0A=0D=0A?=', 'UTF-8'),
-            'multiline' => array("xxx\r\ny\r\nyy", '=?UTF-8?Q?xxx=0D=0Ay=0D=0Ayy?=', 'UTF-8'),
-        );
+            'newline' => ["xxx yyy\n", '=?UTF-8?Q?xxx=20yyy=0A?=', 'UTF-8'],
+            'cr-lf' => ["xxx yyy\r\n", '=?UTF-8?Q?xxx=20yyy=0D=0A?=', 'UTF-8'],
+            'cr-lf-wsp' => ["xxx yyy\r\n\r\n", '=?UTF-8?Q?xxx=20yyy=0D=0A=0D=0A?=', 'UTF-8'],
+            'multiline' => ["xxx\r\ny\r\nyy", '=?UTF-8?Q?xxx=0D=0Ay=0D=0Ayy?=', 'UTF-8'],
+        ];
     }
 
     public function invalidSubjectValuesProvider()
@@ -98,12 +98,12 @@ class SubjectTest extends \PHPUnit_Framework_TestCase
         $invalidArgumentException = 'Zend\Mail\Header\Exception\InvalidArgumentException';
         $invalidHeaderValueDetected = 'Invalid header value detected';
 
-        return array(
+        return [
             // Description => [decoded format, exception class, exception message],
-            'newline' => array("xxx yyy\n", $invalidArgumentException, $invalidHeaderValueDetected),
-            'cr-lf' => array("xxx yyy\r\n", $invalidArgumentException, $invalidHeaderValueDetected),
-            'cr-lf-wsp' => array("xxx yyy\r\n\r\n", $invalidArgumentException, $invalidHeaderValueDetected),
-            'multiline' => array("xxx\r\ny\r\nyy", $invalidArgumentException, $invalidHeaderValueDetected),
-        );
+            'newline' => ["xxx yyy\n", $invalidArgumentException, $invalidHeaderValueDetected],
+            'cr-lf' => ["xxx yyy\r\n", $invalidArgumentException, $invalidHeaderValueDetected],
+            'cr-lf-wsp' => ["xxx yyy\r\n\r\n", $invalidArgumentException, $invalidHeaderValueDetected],
+            'multiline' => ["xxx\r\ny\r\nyy", $invalidArgumentException, $invalidHeaderValueDetected],
+        ];
     }
 }

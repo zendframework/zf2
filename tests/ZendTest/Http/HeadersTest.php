@@ -96,10 +96,10 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersHasAndGetWorkProperly()
     {
         $headers = new Headers();
-        $headers->addHeaders(array(
+        $headers->addHeaders([
             $f = new Header\GenericHeader('Foo', 'bar'),
             new Header\GenericHeader('Baz', 'baz'),
-        ));
+        ]);
         $this->assertFalse($headers->has('foobar'));
         $this->assertTrue($headers->has('foo'));
         $this->assertTrue($headers->has('Foo'));
@@ -141,35 +141,35 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersAggregatesHeadersThroughAddHeaders()
     {
         $headers = new Headers();
-        $headers->addHeaders(array(new Header\GenericHeader('Foo', 'bar'), new Header\GenericHeader('Baz', 'baz')));
+        $headers->addHeaders([new Header\GenericHeader('Foo', 'bar'), new Header\GenericHeader('Baz', 'baz')]);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Http\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
         $this->assertEquals('baz', $headers->get('baz')->getFieldValue());
 
         $headers = new Headers();
-        $headers->addHeaders(array('Foo: bar', 'Baz: baz'));
+        $headers->addHeaders(['Foo: bar', 'Baz: baz']);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Http\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
         $this->assertEquals('baz', $headers->get('baz')->getFieldValue());
 
         $headers = new Headers();
-        $headers->addHeaders(array(array('Foo' => 'bar'), array('Baz' => 'baz')));
+        $headers->addHeaders([['Foo' => 'bar'], ['Baz' => 'baz']]);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Http\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
         $this->assertEquals('baz', $headers->get('baz')->getFieldValue());
 
         $headers = new Headers();
-        $headers->addHeaders(array(array('Foo', 'bar'), array('Baz', 'baz')));
+        $headers->addHeaders([['Foo', 'bar'], ['Baz', 'baz']]);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Http\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
         $this->assertEquals('baz', $headers->get('baz')->getFieldValue());
 
         $headers = new Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Http\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
@@ -186,7 +186,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersCanRemoveHeader()
     {
         $headers = new Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $header = $headers->get('foo');
         $this->assertEquals(2, $headers->count());
         $headers->removeHeader($header);
@@ -197,7 +197,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersCanClearAllHeaders()
     {
         $headers = new Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $this->assertEquals(2, $headers->count());
         $headers->clearHeaders();
         $this->assertEquals(0, $headers->count());
@@ -206,7 +206,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersCanBeIterated()
     {
         $headers = new Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $iterations = 0;
         /** @var \Zend\Http\Header\HeaderInterface $header */
         foreach ($headers as $index => $header) {
@@ -229,15 +229,15 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersCanBeCastToString()
     {
         $headers = new Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $this->assertEquals('Foo: bar' . "\r\n" . 'Baz: baz' . "\r\n", $headers->toString());
     }
 
     public function testHeadersCanBeCastToArray()
     {
         $headers = new Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
-        $this->assertEquals(array('Foo' => 'bar', 'Baz' => 'baz'), $headers->toArray());
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
+        $this->assertEquals(['Foo' => 'bar', 'Baz' => 'baz'], $headers->toArray());
     }
 
     public function testCastingToArrayReturnsMultiHeadersAsArrays()
@@ -248,12 +248,12 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $headers->addHeader($cookie1);
         $headers->addHeader($cookie2);
         $array   = $headers->toArray();
-        $expected = array(
-            'Set-Cookie' => array(
+        $expected = [
+            'Set-Cookie' => [
                 $cookie1->getFieldValue(),
                 $cookie2->getFieldValue(),
-            ),
-        );
+            ],
+        ];
         $this->assertEquals($expected, $array);
     }
 
@@ -265,10 +265,10 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $headers->addHeader($cookie1);
         $headers->addHeader($cookie2);
         $string  = $headers->toString();
-        $expected = array(
+        $expected = [
             'Set-Cookie: ' . $cookie1->getFieldValue(),
             'Set-Cookie: ' . $cookie2->getFieldValue(),
-        );
+        ];
         $expected = implode("\r\n", $expected) . "\r\n";
         $this->assertEquals($expected, $string);
     }

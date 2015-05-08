@@ -72,7 +72,7 @@ class FilePostRedirectGet extends AbstractPlugin
 
         // Change required flag to false for any previously uploaded files
         $inputFilter   = $form->getInputFilter();
-        $previousFiles = ($container->files) ?: array();
+        $previousFiles = ($container->files) ?: [];
         $this->traverseInputs(
             $inputFilter,
             $previousFiles,
@@ -93,14 +93,14 @@ class FilePostRedirectGet extends AbstractPlugin
         $prevFileData = $this->getEmptyUploadData($inputFilter, $previousFiles);
         $newFileData  = $this->getNonEmptyUploadData($inputFilter, $data);
         $postFiles = ArrayUtils::merge(
-            $prevFileData ?: array(),
-            $newFileData  ?: array(),
+            $prevFileData ?: [],
+            $newFileData  ?: [],
             true
         );
         $post = ArrayUtils::merge($postOther, $postFiles, true);
 
         // Save form data in session
-        $container->setExpirationHops(1, array('post', 'errors', 'isValid'));
+        $container->setExpirationHops(1, ['post', 'errors', 'isValid']);
         $container->post    = $post;
         $container->errors  = $errors;
         $container->isValid = $isValid;
@@ -299,8 +299,8 @@ class FilePostRedirectGet extends AbstractPlugin
     protected function redirect($redirect, $redirectToUrl)
     {
         $controller         = $this->getController();
-        $params             = array();
-        $options            = array();
+        $params             = [];
+        $options            = [];
         $reuseMatchedParams = false;
 
         if (null === $redirect) {

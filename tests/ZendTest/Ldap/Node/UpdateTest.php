@@ -39,8 +39,8 @@ class UpdateTest extends TestLdap\AbstractOnlineTestCase
 
     protected function stripActiveDirectorySystemAttributes(&$entry)
     {
-        $adAttributes = array('distinguishedname', 'instancetype', 'name', 'objectcategory',
-                              'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated');
+        $adAttributes = ['distinguishedname', 'instancetype', 'name', 'objectcategory',
+                              'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated'];
         foreach ($adAttributes as $attr) {
             if (array_key_exists($attr, $entry)) {
                 unset($entry[$attr]);
@@ -49,7 +49,7 @@ class UpdateTest extends TestLdap\AbstractOnlineTestCase
 
         if (array_key_exists('objectclass', $entry) && count($entry['objectclass']) > 0) {
             if ($entry['objectclass'][0] !== 'top') {
-                $entry['objectclass'] = array_merge(array('top'), $entry['objectclass']);
+                $entry['objectclass'] = array_merge(['top'], $entry['objectclass']);
             }
         }
     }
@@ -73,7 +73,7 @@ class UpdateTest extends TestLdap\AbstractOnlineTestCase
     public function testAddNewNode()
     {
         $dn       = $this->createDn('ou=Test,');
-        $node1    = Ldap\Node::create($dn, array('organizationalUnit'));
+        $node1    = Ldap\Node::create($dn, ['organizationalUnit']);
         $node1->l = 'a';
         $node1->update($this->getLDAP());
 
@@ -109,7 +109,7 @@ class UpdateTest extends TestLdap\AbstractOnlineTestCase
     {
         $dnOld    = $this->createDn('ou=Test,');
         $dnNew    = $this->createDn('ou=TestNew,');
-        $node1    = Ldap\Node::create($dnOld, array('organizationalUnit'));
+        $node1    = Ldap\Node::create($dnOld, ['organizationalUnit']);
         $node1->l = 'a';
         $node1->setDn($dnNew);
         $node1->update($this->getLDAP());
@@ -127,7 +127,7 @@ class UpdateTest extends TestLdap\AbstractOnlineTestCase
     public function testModifyDeletedNode()
     {
         $dn    = $this->createDn('ou=Test1,');
-        $node1 = Ldap\Node::create($dn, array('organizationalUnit'));
+        $node1 = Ldap\Node::create($dn, ['organizationalUnit']);
         $node1->delete();
         $node1->update($this->getLDAP());
 
@@ -142,7 +142,7 @@ class UpdateTest extends TestLdap\AbstractOnlineTestCase
     public function testAddDeletedNode()
     {
         $dn    = $this->createDn('ou=Test,');
-        $node1 = Ldap\Node::create($dn, array('organizationalUnit'));
+        $node1 = Ldap\Node::create($dn, ['organizationalUnit']);
         $node1->delete();
         $node1->update($this->getLDAP());
 
@@ -166,7 +166,7 @@ class UpdateTest extends TestLdap\AbstractOnlineTestCase
     {
         $dnOld = $this->createDn('ou=Test,');
         $dnNew = $this->createDn('ou=TestNew,');
-        $node1 = Ldap\Node::create($dnOld, array('organizationalUnit'));
+        $node1 = Ldap\Node::create($dnOld, ['organizationalUnit']);
         $node1->setDn($dnNew);
         $node1->delete();
         $node1->update($this->getLDAP());

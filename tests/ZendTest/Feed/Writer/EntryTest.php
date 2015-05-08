@@ -28,33 +28,33 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     public function testAddsAuthorNameFromArray()
     {
         $entry = new Writer\Entry;
-        $entry->addAuthor(array('name'=> 'Joe'));
-        $this->assertEquals(array(array('name'=> 'Joe')), $entry->getAuthors());
+        $entry->addAuthor(['name'=> 'Joe']);
+        $this->assertEquals([['name'=> 'Joe']], $entry->getAuthors());
     }
 
     public function testAddsAuthorEmailFromArray()
     {
         $entry = new Writer\Entry;
-        $entry->addAuthor(array('name' => 'Joe',
-                                'email'=> 'joe@example.com'));
-        $this->assertEquals(array(array('name'  => 'Joe',
-                                        'email' => 'joe@example.com')), $entry->getAuthors());
+        $entry->addAuthor(['name' => 'Joe',
+                                'email'=> 'joe@example.com']);
+        $this->assertEquals([['name'  => 'Joe',
+                                        'email' => 'joe@example.com']], $entry->getAuthors());
     }
 
     public function testAddsAuthorUriFromArray()
     {
         $entry = new Writer\Entry;
-        $entry->addAuthor(array('name'=> 'Joe',
-                                'uri' => 'http://www.example.com'));
-        $this->assertEquals(array(array('name'=> 'Joe',
-                                        'uri' => 'http://www.example.com')), $entry->getAuthors());
+        $entry->addAuthor(['name'=> 'Joe',
+                                'uri' => 'http://www.example.com']);
+        $this->assertEquals([['name'=> 'Joe',
+                                        'uri' => 'http://www.example.com']], $entry->getAuthors());
     }
 
     public function testAddAuthorThrowsExceptionOnInvalidNameFromArray()
     {
         $entry = new Writer\Entry;
         try {
-            $entry->addAuthor(array('name'=> ''));
+            $entry->addAuthor(['name'=> '']);
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
@@ -64,8 +64,8 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->addAuthor(array('name' => 'Joe',
-                                    'email' => ''));
+            $entry->addAuthor(['name' => 'Joe',
+                                    'email' => '']);
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
@@ -75,9 +75,9 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->addAuthor(array('name' => 'Joe',
+            $entry->addAuthor(['name' => 'Joe',
                                     'email' => 'joe@example.org',
-                                    'uri' => ''));
+                                    'uri' => '']);
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
@@ -87,7 +87,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->addAuthor(array('uri'=> 'notauri'));
+            $entry->addAuthor(['uri'=> 'notauri']);
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
@@ -96,34 +96,34 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     public function testAddsAuthorsFromArrayOfAuthors()
     {
         $entry = new Writer\Entry;
-        $entry->addAuthors(array(
-                                array('name'=> 'Joe',
-                                      'uri' => 'http://www.example.com'),
-                                array('name'=> 'Jane',
-                                      'uri' => 'http://www.example.com')
-                           ));
-        $expected = array(
-            array('name'=> 'Joe',
-                  'uri' => 'http://www.example.com'),
-            array('name'=> 'Jane',
-                  'uri' => 'http://www.example.com')
-        );
+        $entry->addAuthors([
+                                ['name'=> 'Joe',
+                                      'uri' => 'http://www.example.com'],
+                                ['name'=> 'Jane',
+                                      'uri' => 'http://www.example.com']
+                           ]);
+        $expected = [
+            ['name'=> 'Joe',
+                  'uri' => 'http://www.example.com'],
+            ['name'=> 'Jane',
+                  'uri' => 'http://www.example.com']
+        ];
         $this->assertEquals($expected, $entry->getAuthors());
     }
 
     public function testAddsEnclosure()
     {
         $entry = new Writer\Entry;
-        $entry->setEnclosure(array(
+        $entry->setEnclosure([
                                   'type'   => 'audio/mpeg',
                                   'uri'    => 'http://example.com/audio.mp3',
                                   'length' => '1337'
-                             ));
-        $expected = array(
+                             ]);
+        $expected = [
             'type'   => 'audio/mpeg',
             'uri'    => 'http://example.com/audio.mp3',
             'length' => '1337'
-        );
+        ];
         $this->assertEquals($expected, $entry->getEnclosure());
     }
 
@@ -134,10 +134,10 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete('Pending Zend\URI fix for validation');
         $entry = new Writer\Entry;
-        $entry->setEnclosure(array(
+        $entry->setEnclosure([
                                   'type'   => 'audio/mpeg',
                                   'length' => '1337'
-                             ));
+                             ]);
     }
 
     /**
@@ -147,11 +147,11 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete('Pending Zend\URI fix for validation');
         $entry = new Writer\Entry;
-        $entry->setEnclosure(array(
+        $entry->setEnclosure([
                                   'type'   => 'audio/mpeg',
                                   'uri'    => 'http://',
                                   'length' => '1337'
-                             ));
+                             ]);
     }
 
     public function testSetsCopyright()
@@ -446,10 +446,10 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
 
-        $entry->setCommentFeedLink(array('uri' => 'http://www.example.com/id/comments',
-                                         'type'=> 'rdf'));
-        $this->assertEquals(array(array('uri' => 'http://www.example.com/id/comments',
-                                        'type'=> 'rdf')), $entry->getCommentFeedLinks());
+        $entry->setCommentFeedLink(['uri' => 'http://www.example.com/id/comments',
+                                         'type'=> 'rdf']);
+        $this->assertEquals([['uri' => 'http://www.example.com/id/comments',
+                                        'type'=> 'rdf']], $entry->getCommentFeedLinks());
     }
 
     public function testSetCommentFeedLinkThrowsExceptionOnEmptyString()
@@ -457,8 +457,8 @@ class EntryTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('Pending Zend\URI fix for validation');
         $entry = new Writer\Entry;
         try {
-            $entry->setCommentFeedLink(array('uri' => '',
-                                             'type'=> 'rdf'));
+            $entry->setCommentFeedLink(['uri' => '',
+                                             'type'=> 'rdf']);
             $this->fail();
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
@@ -468,8 +468,8 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->setCommentFeedLink(array('uri' => 'http://',
-                                             'type'=> 'rdf'));
+            $entry->setCommentFeedLink(['uri' => 'http://',
+                                             'type'=> 'rdf']);
             $this->fail();
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
@@ -479,8 +479,8 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->setCommentFeedLink(array('uri' => 'http://www.example.com/id/comments',
-                                             'type'=> 'foo'));
+            $entry->setCommentFeedLink(['uri' => 'http://www.example.com/id/comments',
+                                             'type'=> 'foo']);
             $this->fail();
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
@@ -531,12 +531,12 @@ class EntryTest extends \PHPUnit_Framework_TestCase
 
     public function allowedCommentCounts()
     {
-        return array(
-            array(0, 0),
-            array(0.0, 0),
-            array(1, 1),
-            array(PHP_INT_MAX, PHP_INT_MAX),
-        );
+        return [
+            [0, 0],
+            [0.0, 0],
+            [1, 1],
+            [PHP_INT_MAX, PHP_INT_MAX],
+        ];
     }
 
     /**
@@ -551,17 +551,17 @@ class EntryTest extends \PHPUnit_Framework_TestCase
 
     public function disallowedCommentCounts()
     {
-        return array(
-            array(1.1),
-            array(-1),
-            array(-PHP_INT_MAX),
-            array(array()),
-            array(''),
-            array(false),
-            array(true),
-            array(new \stdClass),
-            array(null),
-        );
+        return [
+            [1.1],
+            [-1],
+            [-PHP_INT_MAX],
+            [[]],
+            [''],
+            [false],
+            [true],
+            [new \stdClass],
+            [null],
+        ];
     }
 
     /**
@@ -620,7 +620,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->addCategory(array('scheme' => 'http://www.example.com/schema1'));
+            $entry->addCategory(['scheme' => 'http://www.example.com/schema1']);
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
@@ -633,7 +633,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->addCategory(array('term' => 'cat_dog', 'scheme' => ''));
+            $entry->addCategory(['term' => 'cat_dog', 'scheme' => '']);
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
@@ -646,7 +646,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->setEnclosure(array('length' => '2'));
+            $entry->setEnclosure(['length' => '2']);
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
@@ -659,7 +659,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
         try {
-            $entry->setEnclosure(array('uri' => ''));
+            $entry->setEnclosure(['uri' => '']);
             $this->fail();
         } catch (Writer\Exception\InvalidArgumentException $e) {
         }
@@ -707,8 +707,8 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Entry;
 
-        $result = $entry->addAuthor(array('name' => 'foo'))
-                        ->addAuthors(array(array('name' => 'foo')))
+        $result = $entry->addAuthor(['name' => 'foo'])
+                        ->addAuthors([['name' => 'foo']])
                         ->setEncoding('utf-8')
                         ->setCopyright('copyright')
                         ->setContent('content')
@@ -719,12 +719,12 @@ class EntryTest extends \PHPUnit_Framework_TestCase
                         ->setLink('http://www.example.com')
                         ->setCommentCount(1)
                         ->setCommentLink('http://www.example.com')
-                        ->setCommentFeedLink(array('uri' => 'http://www.example.com', 'type' => 'rss'))
-                        ->setCommentFeedLinks(array(array('uri' => 'http://www.example.com', 'type' => 'rss')))
+                        ->setCommentFeedLink(['uri' => 'http://www.example.com', 'type' => 'rss'])
+                        ->setCommentFeedLinks([['uri' => 'http://www.example.com', 'type' => 'rss']])
                         ->setTitle('title')
-                        ->addCategory(array('term' => 'category'))
-                        ->addCategories(array(array('term' => 'category')))
-                        ->setEnclosure(array('uri' => 'http://www.example.com'))
+                        ->addCategory(['term' => 'category'])
+                        ->addCategories([['term' => 'category']])
+                        ->setEnclosure(['uri' => 'http://www.example.com'])
                         ->setType('type')
                         ->setSource(new \Zend\Feed\Writer\Source());
 

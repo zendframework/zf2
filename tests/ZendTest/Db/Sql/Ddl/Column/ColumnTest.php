@@ -78,7 +78,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
     public function testSetOptions()
     {
         $column = new Column;
-        $this->assertSame($column, $column->setOptions(array('autoincrement' => true)));
+        $this->assertSame($column, $column->setOptions(['autoincrement' => true]));
         return $column;
     }
 
@@ -97,7 +97,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOptions(Column $column)
     {
-        $this->assertEquals(array('autoincrement' => true), $column->getOptions());
+        $this->assertEquals(['autoincrement' => true], $column->getOptions());
     }
 
     /**
@@ -108,19 +108,19 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
         $column = new Column;
         $column->setName('foo');
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'INTEGER'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'INTEGER'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
 
         $column->setNullable(true);
         $this->assertEquals(
-            array(array('%s %s', array('foo', 'INTEGER'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s', ['foo', 'INTEGER'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
 
         $column->setDefault('bar');
         $this->assertEquals(
-            array(array('%s %s DEFAULT %s', array('foo', 'INTEGER', 'bar'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL, $column::TYPE_VALUE))),
+            [['%s %s DEFAULT %s', ['foo', 'INTEGER', 'bar'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL, $column::TYPE_VALUE]]],
             $column->getExpressionData()
         );
     }

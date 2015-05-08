@@ -79,7 +79,7 @@ class Received implements HeaderInterface, MultipleHeadersInterface
      */
     public function toStringMultipleHeaders(array $headers)
     {
-        $strings = array($this->toString());
+        $strings = [$this->toString()];
         foreach ($headers as $header) {
             if (! $header instanceof Received) {
                 throw new Exception\RuntimeException(

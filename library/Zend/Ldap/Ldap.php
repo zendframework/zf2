@@ -73,7 +73,7 @@ class Ldap
      * @param  array|Traversable $options Options used in connecting, binding, etc.
      * @throws Exception\LdapException
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!extension_loaded('ldap')) {
             throw new Exception\LdapException(null, 'LDAP extension not loaded',
@@ -137,7 +137,7 @@ class Ldap
     public function getLastError(&$errorCode = null, array &$errorMessages = null)
     {
         $errorCode     = $this->getLastErrorCode();
-        $errorMessages = array();
+        $errorMessages = [];
 
         /* The various error retrieval functions can return
          * different things so we just try to collect what we
@@ -221,7 +221,7 @@ class Ldap
             $options = iterator_to_array($options);
         }
 
-        $permittedOptions = array(
+        $permittedOptions = [
             'host'                   => null,
             'port'                   => 0,
             'useSsl'                 => false,
@@ -238,7 +238,7 @@ class Ldap
             'optReferrals'           => false,
             'tryUsernameSplit'       => true,
             'networkTimeout'         => null,
-        );
+        ];
 
         foreach ($permittedOptions as $key => $val) {
             if (array_key_exists($key, $options)) {
@@ -501,7 +501,7 @@ class Ldap
             return $acctname;
         }
         $acctname = $this->getCanonicalAccountName($acctname, self::ACCTNAME_FORM_USERNAME);
-        $acct     = $this->getAccount($acctname, array('dn'));
+        $acct     = $this->getAccount($acctname, ['dn']);
 
         return $acct['dn'];
     }
@@ -694,7 +694,7 @@ class Ldap
          * will actually occur during the ldap_bind call. Therefore, we save the
          * connect string here for reporting it in error handling in bind().
          */
-        $hosts = array();
+        $hosts = [];
         if (preg_match_all('~ldap(?:i|s)?://~', $host, $hosts, PREG_SET_ORDER) > 0) {
             $this->connectString = $host;
             $useUri              = true;
@@ -865,7 +865,7 @@ class Ldap
      * @return Collection
      * @throws Exception\LdapException
      */
-    public function search($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB, array $attributes = array(),
+    public function search($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB, array $attributes = [],
                            $sort = null, $collectionClass = null, $sizelimit = 0, $timelimit = 0
     ) {
         if (is_array($filter)) {
@@ -976,7 +976,7 @@ class Ldap
     public function count($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB)
     {
         try {
-            $result = $this->search($filter, $basedn, $scope, array('dn'), null);
+            $result = $this->search($filter, $basedn, $scope, ['dn'], null);
         } catch (Exception\LdapException $e) {
             if ($e->getCode() === Exception\LdapException::LDAP_NO_SUCH_OBJECT) {
                 return 0;
@@ -1037,7 +1037,7 @@ class Ldap
      * @throws Exception\LdapException
      */
     public function searchEntries($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB,
-                                  array $attributes = array(), $sort = null, $reverseSort = false, $sizelimit = 0,
+                                  array $attributes = [], $sort = null, $reverseSort = false, $sizelimit = 0,
                                   $timelimit = 0)
     {
         if (is_array($filter)) {
@@ -1068,7 +1068,7 @@ class Ldap
      * @return array
      * @throws null|Exception\LdapException
      */
-    public function getEntry($dn, array $attributes = array(), $throwOnNotFound = false)
+    public function getEntry($dn, array $attributes = [], $throwOnNotFound = false)
     {
         try {
             $result = $this->search(
@@ -1117,15 +1117,15 @@ class Ldap
                 $entry[$key] = array_values($value);
             } else {
                 if ($value === null) {
-                    $entry[$key] = array();
+                    $entry[$key] = [];
                 } elseif (!is_scalar($value)) {
                     throw new Exception\InvalidArgumentException('Only scalar values allowed in LDAP data');
                 } else {
                     $value = (string) $value;
                     if (strlen($value) == 0) {
-                        $entry[$key] = array();
+                        $entry[$key] = [];
                     } else {
-                        $entry[$key] = array($value);
+                        $entry[$key] = [$value];
                     }
                 }
             }
@@ -1157,13 +1157,13 @@ class Ldap
         foreach ($rdnParts as $key => $value) {
             $value = Dn::unescapeValue($value);
             if (!array_key_exists($key, $entry)) {
-                $entry[$key] = array($value);
+                $entry[$key] = [$value];
             } elseif (!in_array($value, $entry[$key])) {
-                $entry[$key] = array_merge(array($value), $entry[$key]);
+                $entry[$key] = array_merge([$value], $entry[$key]);
             }
         }
-        $adAttributes = array('distinguishedname', 'instancetype', 'name', 'objectcategory',
-                              'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated');
+        $adAttributes = ['distinguishedname', 'instancetype', 'name', 'objectcategory',
+                              'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated'];
         foreach ($adAttributes as $attr) {
             if (array_key_exists($attr, $entry)) {
                 unset($entry[$attr]);
@@ -1200,11 +1200,11 @@ class Ldap
         foreach ($rdnParts as $key => $value) {
             $value = Dn::unescapeValue($value);
             if (array_key_exists($key, $entry) && !in_array($value, $entry[$key])) {
-                $entry[$key] = array_merge(array($value), $entry[$key]);
+                $entry[$key] = array_merge([$value], $entry[$key]);
             }
         }
-        $adAttributes = array('distinguishedname', 'instancetype', 'name', 'objectcategory',
-                              'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated');
+        $adAttributes = ['distinguishedname', 'instancetype', 'name', 'objectcategory',
+                              'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated'];
         foreach ($adAttributes as $attr) {
             if (array_key_exists($attr, $entry)) {
                 unset($entry[$attr]);
@@ -1297,11 +1297,11 @@ class Ldap
         if ($parentDn instanceof Dn) {
             $parentDn = $parentDn->toString();
         }
-        $children = array();
+        $children = [];
 
         $resource = $this->getResource();
         ErrorHandler::start(E_WARNING);
-        $search = ldap_list($resource, $parentDn, '(objectClass=*)', array('dn'));
+        $search = ldap_list($resource, $parentDn, '(objectClass=*)', ['dn']);
         for (
             $entry = ldap_first_entry($resource, $search);
             $entry !== false;
@@ -1344,7 +1344,7 @@ class Ldap
             $newParentDnParts = Dn::explodeDn($to);
         }
 
-        $newDnParts = array_merge(array(array_shift($orgDnParts)), $newParentDnParts);
+        $newDnParts = array_merge([array_shift($orgDnParts)], $newParentDnParts);
         $newDn      = Dn::fromArray($newDnParts);
 
         return $this->rename($from, $newDn, $recursively, $alwaysEmulate);
@@ -1443,7 +1443,7 @@ class Ldap
             $newParentDnParts = Dn::explodeDn($to);
         }
 
-        $newDnParts = array_merge(array(array_shift($orgDnParts)), $newParentDnParts);
+        $newDnParts = array_merge([array_shift($orgDnParts)], $newParentDnParts);
         $newDn      = Dn::fromArray($newDnParts);
 
         return $this->copy($from, $newDn, $recursively);
@@ -1460,7 +1460,7 @@ class Ldap
      */
     public function copy($from, $to, $recursively = false)
     {
-        $entry = $this->getEntry($from, array(), true);
+        $entry = $this->getEntry($from, [], true);
 
         if ($to instanceof Dn) {
             $toDnParts = $to->toArray();
@@ -1473,7 +1473,7 @@ class Ldap
             $children = $this->getChildrenDns($from);
             foreach ($children as $c) {
                 $cDnParts      = Dn::explodeDn($c);
-                $newChildParts = array_merge(array(array_shift($cDnParts)), $toDnParts);
+                $newChildParts = array_merge([array_shift($cDnParts)], $toDnParts);
                 $newChild      = Dn::implodeDn($newChildParts);
                 $this->copy($c, $newChild, true);
             }

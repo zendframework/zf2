@@ -44,7 +44,7 @@ class SchemeTest extends TestCase
     {
         $uri   = new HttpUri();
         $route = new Scheme('https');
-        $path  = $route->assemble(array(), array('uri' => $uri));
+        $path  = $route->assemble([], ['uri' => $uri]);
 
         $this->assertEquals('', $path);
         $this->assertEquals('https', $uri->getScheme());
@@ -61,9 +61,9 @@ class SchemeTest extends TestCase
     public function testGetAssembledParams()
     {
         $route = new Scheme('https');
-        $route->assemble(array('foo' => 'bar'));
+        $route->assemble(['foo' => 'bar']);
 
-        $this->assertEquals(array(), $route->getAssembledParams());
+        $this->assertEquals([], $route->getAssembledParams());
     }
 
     public function testFactory()
@@ -71,12 +71,12 @@ class SchemeTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Scheme',
-            array(
+            [
                 'scheme' => 'Missing "scheme" in options array',
-            ),
-            array(
+            ],
+            [
                 'scheme' => 'http',
-            )
+            ]
         );
     }
 }

@@ -25,7 +25,7 @@ class ToIntTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new ToIntFilter();
 
-        $valuesExpected = array(
+        $valuesExpected = [
             'string' => 0,
             '1'      => 1,
             '-1'     => -1,
@@ -33,7 +33,7 @@ class ToIntTest extends \PHPUnit_Framework_TestCase
             '-1.1'   => -1,
             '0.9'    => 0,
             '-0.9'   => 0
-            );
+            ];
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
         }
@@ -41,14 +41,14 @@ class ToIntTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 '1',
                 -1
-            ))
-        );
+            ]]
+        ];
     }
 
     /**

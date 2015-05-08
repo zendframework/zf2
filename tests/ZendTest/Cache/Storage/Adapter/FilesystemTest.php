@@ -37,9 +37,9 @@ class FilesystemTest extends CommonAdapterTest
             $this->fail("Can't create temporary cache directory: {$err['message']}");
         }
 
-        $this->_options = new Cache\Storage\Adapter\FilesystemOptions(array(
+        $this->_options = new Cache\Storage\Adapter\FilesystemOptions([
             'cache_dir' => $this->_tmpCacheDir,
-        ));
+        ]);
         $this->_storage = new Cache\Storage\Adapter\Filesystem();
         $this->_storage->setOptions($this->_options);
 
@@ -298,7 +298,7 @@ class FilesystemTest extends CommonAdapterTest
         chmod($dirs[0], 0500); //make directory rx, unlink should fail
         sleep(1); //wait for the entry to expire
         $plugin = new ExceptionHandler();
-        $options = new PluginOptions(array('throw_exceptions' => false));
+        $options = new PluginOptions(['throw_exceptions' => false]);
         $plugin->setOptions($options);
         $this->_storage->addPlugin($plugin);
         $this->_storage->clearExpired();

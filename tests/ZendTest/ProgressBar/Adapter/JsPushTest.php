@@ -16,9 +16,9 @@ class JsPushTest extends \PHPUnit_Framework_TestCase
 {
     public function testJson()
     {
-        $result = array();
+        $result = [];
 
-        $adapter = new JsPushStub(array('finishMethodName' => 'Zend\ProgressBar\ProgressBar\Finish'));
+        $adapter = new JsPushStub(['finishMethodName' => 'Zend\ProgressBar\ProgressBar\Finish']);
         $adapter->notify(0, 2, 0.5, 1, 1, 'status');
         $output = $adapter->getLastOutput();
 

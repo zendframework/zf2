@@ -23,10 +23,10 @@ class FormCheckboxTest extends CommonTestCase
     public function getElement()
     {
         $element = new Element\Checkbox('foo');
-        $options = array(
+        $options = [
             'checked_value'   => 'checked',
             'unchecked_value' => 'unchecked',
-        );
+        ];
         $element->setOptions($options);
         return $element;
     }

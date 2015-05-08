@@ -31,12 +31,12 @@ class StandardAutoloader implements SplAutoloader
     /**
      * @var array Namespace/directory pairs to search; ZF library added by default
      */
-    protected $namespaces = array();
+    protected $namespaces = [];
 
     /**
      * @var array Prefix/directory pairs to search
      */
-    protected $prefixes = array();
+    protected $prefixes = [];
 
     /**
      * @var bool Whether or not the autoloader should also act as a fallback autoloader
@@ -240,7 +240,7 @@ class StandardAutoloader implements SplAutoloader
      */
     public function register()
     {
-        spl_autoload_register(array($this, 'autoload'));
+        spl_autoload_register([$this, 'autoload']);
     }
 
     /**
@@ -254,7 +254,7 @@ class StandardAutoloader implements SplAutoloader
     {
         // $class may contain a namespace portion, in  which case we need
         // to preserve any underscores in that portion.
-        $matches = array();
+        $matches = [];
         preg_match('/(?P<namespace>.+\\\)?(?P<class>[^\\\]+$)/', $class, $matches);
 
         $class     = (isset($matches['class'])) ? $matches['class'] : '';
@@ -276,7 +276,7 @@ class StandardAutoloader implements SplAutoloader
      */
     protected function loadClass($class, $type)
     {
-        if (!in_array($type, array(self::LOAD_NS, self::LOAD_PREFIX, self::ACT_AS_FALLBACK))) {
+        if (!in_array($type, [self::LOAD_NS, self::LOAD_PREFIX, self::ACT_AS_FALLBACK])) {
             require_once __DIR__ . '/Exception/InvalidArgumentException.php';
             throw new Exception\InvalidArgumentException();
         }
@@ -317,7 +317,7 @@ class StandardAutoloader implements SplAutoloader
     protected function normalizeDirectory($directory)
     {
         $last = $directory[strlen($directory) - 1];
-        if (in_array($last, array('/', '\\'))) {
+        if (in_array($last, ['/', '\\'])) {
             $directory[strlen($directory) - 1] = DIRECTORY_SEPARATOR;
             return $directory;
         }

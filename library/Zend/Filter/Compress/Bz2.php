@@ -25,10 +25,10 @@ class Bz2 extends AbstractCompressionAlgorithm
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'blocksize' => 4,
         'archive'   => null,
-    );
+    ];
 
     /**
      * Class constructor

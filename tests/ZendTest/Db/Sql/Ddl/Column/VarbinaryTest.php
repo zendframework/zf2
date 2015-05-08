@@ -20,7 +20,7 @@ class VarbinaryTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Varbinary('foo', 20);
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'VARBINARY(20)'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'VARBINARY(20)'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
     }

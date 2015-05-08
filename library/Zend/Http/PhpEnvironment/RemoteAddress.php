@@ -31,7 +31,7 @@ class RemoteAddress
      *
      * @var array
      */
-    protected $trustedProxies = array();
+    protected $trustedProxies = [];
 
     /**
      * HTTP header to introspect for proxies

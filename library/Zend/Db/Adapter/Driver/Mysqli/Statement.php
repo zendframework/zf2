@@ -283,7 +283,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
     {
         $parameters = $this->parameterContainer->getNamedArray();
         $type = '';
-        $args = array();
+        $args = [];
 
         foreach ($parameters as $name => &$value) {
             if ($this->parameterContainer->offsetHasErrata($name)) {
@@ -309,7 +309,7 @@ class Statement implements StatementInterface, Profiler\ProfilerAwareInterface
 
         if ($args) {
             array_unshift($args, $type);
-            call_user_func_array(array($this->resource, 'bind_param'), $args);
+            call_user_func_array([$this->resource, 'bind_param'], $args);
         }
     }
 }

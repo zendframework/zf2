@@ -27,9 +27,9 @@ class SegmentTest extends TestCase
         $enLoader     = new TestLoader();
         $deLoader     = new TestLoader();
         $domainLoader = new TestLoader();
-        $enLoader->textDomain     = new TextDomain(array('fw' => 'framework'));
-        $deLoader->textDomain     = new TextDomain(array('fw' => 'baukasten'));
-        $domainLoader->textDomain = new TextDomain(array('fw' => 'fw-alternative'));
+        $enLoader->textDomain     = new TextDomain(['fw' => 'framework']);
+        $deLoader->textDomain     = new TextDomain(['fw' => 'baukasten']);
+        $domainLoader->textDomain = new TextDomain(['fw' => 'fw-alternative']);
         $translator->getPluginManager()->setService('test-en',     $enLoader);
         $translator->getPluginManager()->setService('test-de',     $deLoader);
         $translator->getPluginManager()->setService('test-domain', $domainLoader);
@@ -37,206 +37,206 @@ class SegmentTest extends TestCase
         $translator->addTranslationFile('test-de', null, 'default', 'de-DE');
         $translator->addTranslationFile('test-domain', null, 'alternative', 'en-US');
 
-        return array(
-            'simple-match' => array(
+        return [
+            'simple-match' => [
                 new Segment('/:foo'),
                 '/bar',
                 null,
-                array('foo' => 'bar')
-            ),
-            'no-match-without-leading-slash' => array(
+                ['foo' => 'bar']
+            ],
+            'no-match-without-leading-slash' => [
                 new Segment(':foo'),
                 '/bar/',
                 null,
                 null
-            ),
-            'no-match-with-trailing-slash' => array(
+            ],
+            'no-match-with-trailing-slash' => [
                 new Segment('/:foo'),
                 '/bar/',
                 null,
                 null
-            ),
-            'offset-skips-beginning' => array(
+            ],
+            'offset-skips-beginning' => [
                 new Segment(':foo'),
                 '/bar',
                 1,
-                array('foo' => 'bar')
-            ),
-            'offset-enables-partial-matching' => array(
+                ['foo' => 'bar']
+            ],
+            'offset-enables-partial-matching' => [
                 new Segment('/:foo'),
                 '/bar/baz',
                 0,
-                array('foo' => 'bar')
-            ),
-            'match-overrides-default' => array(
-                new Segment('/:foo', array(), array('foo' => 'baz')),
+                ['foo' => 'bar']
+            ],
+            'match-overrides-default' => [
+                new Segment('/:foo', [], ['foo' => 'baz']),
                 '/bar',
                 null,
-                array('foo' => 'bar')
-            ),
-            'constraints-prevent-match' => array(
-                new Segment('/:foo', array('foo' => '\d+')),
+                ['foo' => 'bar']
+            ],
+            'constraints-prevent-match' => [
+                new Segment('/:foo', ['foo' => '\d+']),
                 '/bar',
                 null,
                 null
-            ),
-            'constraints-allow-match' => array(
-                new Segment('/:foo', array('foo' => '\d+')),
+            ],
+            'constraints-allow-match' => [
+                new Segment('/:foo', ['foo' => '\d+']),
                 '/123',
                 null,
-                array('foo' => '123')
-            ),
-            'constraints-override-non-standard-delimiter' => array(
-                new Segment('/:foo{-}/bar', array('foo' => '[^/]+')),
+                ['foo' => '123']
+            ],
+            'constraints-override-non-standard-delimiter' => [
+                new Segment('/:foo{-}/bar', ['foo' => '[^/]+']),
                 '/foo-bar/bar',
                 null,
-                array('foo' => 'foo-bar')
-            ),
-            'constraints-with-parantheses-dont-break-parameter-map' => array(
-                new Segment('/:foo/:bar', array('foo' => '(bar)')),
+                ['foo' => 'foo-bar']
+            ],
+            'constraints-with-parantheses-dont-break-parameter-map' => [
+                new Segment('/:foo/:bar', ['foo' => '(bar)']),
                 '/bar/baz',
                 null,
-                array('foo' => 'bar', 'bar' => 'baz')
-            ),
-            'simple-match-with-optional-parameter' => array(
-                new Segment('/[:foo]', array(), array('foo' => 'bar')),
+                ['foo' => 'bar', 'bar' => 'baz']
+            ],
+            'simple-match-with-optional-parameter' => [
+                new Segment('/[:foo]', [], ['foo' => 'bar']),
                 '/',
                 null,
-                array('foo' => 'bar')
-            ),
-            'optional-parameter-is-ignored' => array(
+                ['foo' => 'bar']
+            ],
+            'optional-parameter-is-ignored' => [
                 new Segment('/:foo[/:bar]'),
                 '/bar',
                 null,
-                array('foo' => 'bar')
-            ),
-            'optional-parameter-is-provided-with-default' => array(
-                new Segment('/:foo[/:bar]', array(), array('bar' => 'baz')),
+                ['foo' => 'bar']
+            ],
+            'optional-parameter-is-provided-with-default' => [
+                new Segment('/:foo[/:bar]', [], ['bar' => 'baz']),
                 '/bar',
                 null,
-                array('foo' => 'bar', 'bar' => 'baz')
-            ),
-            'optional-parameter-is-consumed' => array(
+                ['foo' => 'bar', 'bar' => 'baz']
+            ],
+            'optional-parameter-is-consumed' => [
                 new Segment('/:foo[/:bar]'),
                 '/bar/baz',
                 null,
-                array('foo' => 'bar', 'bar' => 'baz')
-            ),
-            'optional-group-is-discared-with-missing-parameter' => array(
-                new Segment('/:foo[/:bar/:baz]', array(), array('bar' => 'baz')),
+                ['foo' => 'bar', 'bar' => 'baz']
+            ],
+            'optional-group-is-discared-with-missing-parameter' => [
+                new Segment('/:foo[/:bar/:baz]', [], ['bar' => 'baz']),
                 '/bar',
                 null,
-                array('foo' => 'bar', 'bar' => 'baz')
-            ),
-            'optional-group-within-optional-group-is-ignored' => array(
-                new Segment('/:foo[/:bar[/:baz]]', array(), array('bar' => 'baz', 'baz' => 'bat')),
+                ['foo' => 'bar', 'bar' => 'baz']
+            ],
+            'optional-group-within-optional-group-is-ignored' => [
+                new Segment('/:foo[/:bar[/:baz]]', [], ['bar' => 'baz', 'baz' => 'bat']),
                 '/bar',
                 null,
-                array('foo' => 'bar', 'bar' => 'baz', 'baz' => 'bat')
-            ),
-            'non-standard-delimiter-before-parameter' => array(
+                ['foo' => 'bar', 'bar' => 'baz', 'baz' => 'bat']
+            ],
+            'non-standard-delimiter-before-parameter' => [
                 new Segment('/foo-:bar'),
                 '/foo-baz',
                 null,
-                array('bar' => 'baz')
-            ),
-            'non-standard-delimiter-between-parameters' => array(
+                ['bar' => 'baz']
+            ],
+            'non-standard-delimiter-between-parameters' => [
                 new Segment('/:foo{-}-:bar'),
                 '/bar-baz',
                 null,
-                array('foo' => 'bar', 'bar' => 'baz')
-            ),
-            'non-standard-delimiter-before-optional-parameter' => array(
+                ['foo' => 'bar', 'bar' => 'baz']
+            ],
+            'non-standard-delimiter-before-optional-parameter' => [
                 new Segment('/:foo{-/}[-:bar]/:baz'),
                 '/bar-baz/bat',
                 null,
-                array('foo' => 'bar', 'bar' => 'baz', 'baz' => 'bat')
-            ),
-            'non-standard-delimiter-before-ignored-optional-parameter' => array(
+                ['foo' => 'bar', 'bar' => 'baz', 'baz' => 'bat']
+            ],
+            'non-standard-delimiter-before-ignored-optional-parameter' => [
                 new Segment('/:foo{-/}[-:bar]/:baz'),
                 '/bar/bat',
                 null,
-                array('foo' => 'bar', 'baz' => 'bat')
-            ),
-            'parameter-with-dash-in-name' => array(
+                ['foo' => 'bar', 'baz' => 'bat']
+            ],
+            'parameter-with-dash-in-name' => [
                 new Segment('/:foo-bar'),
                 '/baz',
                 null,
-                array('foo-bar' => 'baz')
-            ),
-            'url-encoded-parameters-are-decoded' => array(
+                ['foo-bar' => 'baz']
+            ],
+            'url-encoded-parameters-are-decoded' => [
                 new Segment('/:foo'),
                 '/foo%20bar',
                 null,
-                array('foo' => 'foo bar')
-            ),
-            'urlencode-flaws-corrected' => array(
+                ['foo' => 'foo bar']
+            ],
+            'urlencode-flaws-corrected' => [
                 new Segment('/:foo'),
                 "/!$&'()*,-.:;=@_~+",
                 null,
-                array('foo' => "!$&'()*,-.:;=@_~+")
-            ),
-            'empty-matches-are-replaced-with-defaults' => array(
-                new Segment('/foo[/:bar]/baz-:baz', array(), array('bar' => 'bar')),
+                ['foo' => "!$&'()*,-.:;=@_~+"]
+            ],
+            'empty-matches-are-replaced-with-defaults' => [
+                new Segment('/foo[/:bar]/baz-:baz', [], ['bar' => 'bar']),
                 '/foo/baz-baz',
                 null,
-                array('bar' => 'bar', 'baz' => 'baz')
-            ),
-            'translate-with-default-locale' => array(
-                new Segment('/{fw}', array(), array()),
+                ['bar' => 'bar', 'baz' => 'baz']
+            ],
+            'translate-with-default-locale' => [
+                new Segment('/{fw}', [], []),
                 '/framework',
                 null,
-                array(),
-                array('translator' => $translator)
-            ),
-            'translate-with-specific-locale' => array(
-                new Segment('/{fw}', array(), array()),
+                [],
+                ['translator' => $translator]
+            ],
+            'translate-with-specific-locale' => [
+                new Segment('/{fw}', [], []),
                 '/baukasten',
                 null,
-                array(),
-                array('translator' => $translator, 'locale' => 'de-DE')
-            ),
-            'translate-uses-message-id-as-fallback' => array(
-                new Segment('/{fw}', array(), array()),
+                [],
+                ['translator' => $translator, 'locale' => 'de-DE']
+            ],
+            'translate-uses-message-id-as-fallback' => [
+                new Segment('/{fw}', [], []),
                 '/fw',
                 null,
-                array(),
-                array('translator' => $translator, 'locale' => 'fr-FR')
-            ),
-            'translate-with-specific-text-domain' => array(
-                new Segment('/{fw}', array(), array()),
+                [],
+                ['translator' => $translator, 'locale' => 'fr-FR']
+            ],
+            'translate-with-specific-text-domain' => [
+                new Segment('/{fw}', [], []),
                 '/fw-alternative',
                 null,
-                array(),
-                array('translator' => $translator, 'text_domain' => 'alternative')
-            ),
-        );
+                [],
+                ['translator' => $translator, 'text_domain' => 'alternative']
+            ],
+        ];
     }
 
     public static function parseExceptionsProvider()
     {
-        return array(
-            'unbalanced-brackets' => array(
+        return [
+            'unbalanced-brackets' => [
                 '[',
                 'Zend\Mvc\Router\Exception\RuntimeException',
                 'Found unbalanced brackets'
-            ),
-            'closing-bracket-without-opening-bracket' => array(
+            ],
+            'closing-bracket-without-opening-bracket' => [
                 ']',
                 'Zend\Mvc\Router\Exception\RuntimeException',
                 'Found closing bracket without matching opening bracket'
-            ),
-            'empty-parameter-name' => array(
+            ],
+            'empty-parameter-name' => [
                 ':',
                 'Zend\Mvc\Router\Exception\RuntimeException',
                 'Found empty parameter name'
-            ),
-            'translated-literal-without-closing-backet' => array(
+            ],
+            'translated-literal-without-closing-backet' => [
                 '{test',
                 'Zend\Mvc\Router\Exception\RuntimeException',
                 'Translated literal missing closing bracket'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -247,7 +247,7 @@ class SegmentTest extends TestCase
      * @param        array   $params
      * @param        array   $options
      */
-    public function testMatching(Segment $route, $path, $offset, array $params = null, array $options = array())
+    public function testMatching(Segment $route, $path, $offset, array $params = null, array $options = [])
     {
         $request = new Request();
         $request->setUri('http://example.com' . $path);
@@ -276,7 +276,7 @@ class SegmentTest extends TestCase
      * @param        array   $params
      * @param        array   $options
      */
-    public function testAssembling(Segment $route, $path, $offset, array $params = null, array $options = array())
+    public function testAssembling(Segment $route, $path, $offset, array $params = null, array $options = [])
     {
         if ($params === null) {
             // Data which will not match are not tested for assembling.
@@ -335,8 +335,8 @@ class SegmentTest extends TestCase
 
     public function testAssemblingWithExistingChild()
     {
-        $route = new Segment('/[:foo]', array(), array('foo' => 'bar'));
-        $path = $route->assemble(array(), array('has_child' => true));
+        $route = new Segment('/[:foo]', [], ['foo' => 'bar']);
+        $path = $route->assemble([], ['has_child' => true]);
 
         $this->assertEquals('/bar', $path);
     }
@@ -346,13 +346,13 @@ class SegmentTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Segment',
-            array(
+            [
                 'route' => 'Missing "route" in options array'
-            ),
-            array(
+            ],
+            [
                 'route'       => '/:foo[/:bar{-}]',
-                'constraints' => array('foo' => 'bar')
-            )
+                'constraints' => ['foo' => 'bar']
+            ]
         );
     }
 
@@ -384,9 +384,9 @@ class SegmentTest extends TestCase
 
     public function testEncodeCache()
     {
-        $params1 = array('p1' => 6.123, 'p2' => 7);
+        $params1 = ['p1' => 6.123, 'p2' => 7];
         $uri1 = 'example.com/'.implode('/', $params1);
-        $params2 = array('p1' => 6, 'p2' => 'test');
+        $params2 = ['p1' => 6, 'p2' => 'test'];
         $uri2 = 'example.com/'.implode('/', $params2);
 
         $route = new Segment('example.com/:p1/:p2');

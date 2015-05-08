@@ -37,7 +37,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
      * @todo handle passing resolver object, options
      * @param array $config Configuration key-value pairs.
      */
-    public function __construct($config = array())
+    public function __construct($config = [])
     {
         $this->init();
     }

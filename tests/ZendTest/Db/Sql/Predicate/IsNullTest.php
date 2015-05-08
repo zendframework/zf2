@@ -51,11 +51,11 @@ class IsNullTest extends TestCase
     {
         $isNotNull = new IsNotNull();
         $isNotNull->setIdentifier('foo.bar');
-        $expected = array(array(
+        $expected = [[
             $isNotNull->getSpecification(),
-            array('foo.bar'),
-            array(IsNotNull::TYPE_IDENTIFIER),
-        ));
+            ['foo.bar'],
+            [IsNotNull::TYPE_IDENTIFIER],
+        ]];
         $this->assertEquals($expected, $isNotNull->getExpressionData());
     }
 }

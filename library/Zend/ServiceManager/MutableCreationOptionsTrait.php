@@ -17,7 +17,7 @@ trait MutableCreationOptionsTrait
     /**
      * @var array
      */
-    protected $creationOptions = array();
+    protected $creationOptions = [];
 
     /**
      * Set creation options

@@ -109,27 +109,27 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->_helper->setContainer($this->_nav1);
 
         // setup service manager
-        $smConfig = array(
-            'modules'                 => array(),
-            'module_listener_options' => array(
+        $smConfig = [
+            'modules'                 => [],
+            'module_listener_options' => [
                 'config_cache_enabled' => false,
                 'cache_dir'            => 'data/cache',
-                'module_paths'         => array(),
-                'extra_config'         => array(
-                    'service_manager' => array(
-                        'factories' => array(
+                'module_paths'         => [],
+                'extra_config'         => [
+                    'service_manager' => [
+                        'factories' => [
                             'Config' => function () use ($config) {
-                                return array(
-                                    'navigation' => array(
+                                return [
+                                    'navigation' => [
                                         'default' => $config->get('nav_test1'),
-                                    ),
-                                );
+                                    ],
+                                ];
                             }
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $sm = $this->serviceManager = new ServiceManager(new ServiceManagerConfig);
         $sm->setService('ApplicationConfig', $smConfig);
@@ -141,11 +141,11 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $sm->setService('nav2', $this->_nav2);
 
         $app = $this->serviceManager->get('Application');
-        $app->getMvcEvent()->setRouteMatch(new RouteMatch(array(
+        $app->getMvcEvent()->setRouteMatch(new RouteMatch([
             'controller' => 'post',
             'action'     => 'view',
             'id'         => '1337',
-        )));
+        ]));
     }
 
     /**
@@ -183,7 +183,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $acl->allow('special', 'special_foo');
         $acl->allow('special', 'admin_foo', 'read');
 
-        return array('acl' => $acl, 'role' => 'special');
+        return ['acl' => $acl, 'role' => 'special'];
     }
 
     /**
@@ -194,7 +194,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     protected function _getTranslator()
     {
         $loader = new TestAsset\ArrayTranslator();
-        $loader->translations = array(
+        $loader->translations = [
             'Page 1'       => 'Side 1',
             'Page 1.1'     => 'Side 1.1',
             'Page 2'       => 'Side 2',
@@ -202,7 +202,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
             'Page 2.3.3.1' => 'Side 2.3.3.1',
             'Home'         => 'Hjem',
             'Go home'      => 'Gå hjem'
-        );
+        ];
         $translator = new Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
@@ -217,24 +217,24 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     protected function _getTranslatorWithTextDomain()
     {
         $loader1 = new TestAsset\ArrayTranslator();
-        $loader1->translations = array(
+        $loader1->translations = [
             'Page 1'       => 'TextDomain1 1',
             'Page 1.1'     => 'TextDomain1 1.1',
             'Page 2'       => 'TextDomain1 2',
             'Page 2.3'     => 'TextDomain1 2.3',
             'Page 2.3.3'   => 'TextDomain1 2.3.3',
             'Page 2.3.3.1' => 'TextDomain1 2.3.3.1',
-        );
+        ];
 
         $loader2 = new TestAsset\ArrayTranslator();
-        $loader2->translations = array(
+        $loader2->translations = [
             'Page 1'       => 'TextDomain2 1',
             'Page 1.1'     => 'TextDomain2 1.1',
             'Page 2'       => 'TextDomain2 2',
             'Page 2.3'     => 'TextDomain2 2.3',
             'Page 2.3.3'   => 'TextDomain2 2.3.3',
             'Page 2.3.3.1' => 'TextDomain2 2.3.3.1',
-        );
+        ];
 
         $translator = new Translator();
         $translator->getPluginManager()->setService('default1', $loader1);

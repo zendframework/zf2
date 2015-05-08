@@ -28,21 +28,21 @@ class RequestTest extends TestCase
      */
     public function setUp()
     {
-        $this->originalEnvironment = array(
+        $this->originalEnvironment = [
             'post'   => $_POST,
             'get'    => $_GET,
             'cookie' => $_COOKIE,
             'server' => $_SERVER,
             'env'    => $_ENV,
             'files'  => $_FILES,
-        );
+        ];
 
-        $_POST   = array();
-        $_GET    = array();
-        $_COOKIE = array();
-        $_SERVER = array();
-        $_ENV    = array();
-        $_FILES  = array();
+        $_POST   = [];
+        $_GET    = [];
+        $_COOKIE = [];
+        $_SERVER = [];
+        $_ENV    = [];
+        $_FILES  = [];
     }
 
     /**
@@ -63,158 +63,158 @@ class RequestTest extends TestCase
      */
     public static function baseUrlAndPathProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'REQUEST_URI'     => '/index.php/news/3?var1=val1&var2=val2',
                     'QUERY_URI'       => 'var1=val1&var2=val2',
                     'SCRIPT_NAME'     => '/index.php',
                     'PHP_SELF'        => '/index.php/news/3',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
-                ),
+                ],
                 '/index.php',
                 ''
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'     => '/public/index.php/news/3?var1=val1&var2=val2',
                     'QUERY_URI'       => 'var1=val1&var2=val2',
                     'SCRIPT_NAME'     => '/public/index.php',
                     'PHP_SELF'        => '/public/index.php/news/3',
                     'SCRIPT_FILENAME' => '/var/web/html/public/index.php',
-                ),
+                ],
                 '/public/index.php',
                 '/public'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'     => '/index.php/news/3?var1=val1&var2=val2',
                     'SCRIPT_NAME'     => '/home.php',
                     'PHP_SELF'        => '/index.php/news/3',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
-                ),
+                ],
                 '/index.php',
                 ''
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'      => '/index.php/news/3?var1=val1&var2=val2',
                     'SCRIPT_NAME'      => '/home.php',
                     'PHP_SELF'         => '/home.php',
                     'ORIG_SCRIPT_NAME' => '/index.php',
                     'SCRIPT_FILENAME'  => '/var/web/html/index.php',
-                ),
+                ],
                 '/index.php',
                 ''
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'     => '/index.php/news/3?var1=val1&var2=val2',
                     'PHP_SELF'        => '/index.php/news/3',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
-                ),
+                ],
                 '/index.php',
                 ''
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'HTTP_X_REWRITE_URL' => '/index.php/news/3?var1=val1&var2=val2',
                     'PHP_SELF'           => '/index.php/news/3',
                     'SCRIPT_FILENAME'    => '/var/web/html/index.php',
-                ),
+                ],
                 '/index.php',
                 ''
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'ORIG_PATH_INFO'  => '/index.php/news/3',
                     'QUERY_STRING'    => 'var1=val1&var2=val2',
                     'PHP_SELF'        => '/index.php/news/3',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
-                ),
+                ],
                 '/index.php',
                 ''
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'     => '/article/archive?foo=index.php',
                     'QUERY_STRING'    => 'foo=index.php',
                     'SCRIPT_FILENAME' => '/var/www/zftests/index.php',
-                ),
+                ],
                 '',
                 ''
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'     => '/html/index.php/news/3?var1=val1&var2=val2',
                     'PHP_SELF'        => '/html/index.php/news/3',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
-                ),
+                ],
                 '/html/index.php',
                 '/html'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'     => '/dir/action',
                     'PHP_SELF'        => '/dir/index.php',
                     'SCRIPT_FILENAME' => '/var/web/dir/index.php',
-                ),
+                ],
                 '/dir',
                 '/dir'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'SCRIPT_NAME'     => '/~username/public/index.php',
                     'REQUEST_URI'     => '/~username/public/',
                     'PHP_SELF'        => '/~username/public/index.php',
                     'SCRIPT_FILENAME' => '/Users/username/Sites/public/index.php',
                     'ORIG_SCRIPT_NAME'=> null
-                ),
+                ],
                 '/~username/public',
                 '/~username/public'
-            ),
+            ],
             // ZF2-206
-            array(
-                array(
+            [
+                [
                     'SCRIPT_NAME'     => '/zf2tut/index.php',
                     'REQUEST_URI'     => '/zf2tut/',
                     'PHP_SELF'        => '/zf2tut/index.php',
                     'SCRIPT_FILENAME' => 'c:/ZF2Tutorial/public/index.php',
                     'ORIG_SCRIPT_NAME'=> null
-                ),
+                ],
                 '/zf2tut',
                 '/zf2tut'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'     => '/html/index.php/news/3?var1=val1&var2=/index.php',
                     'PHP_SELF'        => '/html/index.php/news/3',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
-                ),
+                ],
                 '/html/index.php',
                 '/html'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'REQUEST_URI'     => '/html/index.php/news/index.php',
                     'PHP_SELF'        => '/html/index.php/news/index.php',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
-                ),
+                ],
                 '/html/index.php',
                 '/html'
-            ),
+            ],
 
             //Test when url quert contains a full http url
-            array(
-                array(
+            [
+                [
                     'REQUEST_URI' => '/html/index.php?url=http://test.example.com/path/&foo=bar',
                     'PHP_SELF' => '/html/index.php',
                     'SCRIPT_FILENAME' => '/var/web/html/index.php',
-                ),
+                ],
                 '/html/index.php',
                 '/html'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -237,57 +237,57 @@ class RequestTest extends TestCase
      */
     public static function serverHeaderProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'HTTP_USER_AGENT'     => 'Dummy',
-                ),
+                ],
                 'User-Agent',
                 'Dummy'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'HTTP_CUSTOM_COUNT'     => '0',
-                ),
+                ],
                 'Custom-Count',
                 '0'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'CONTENT_TYPE'     => 'text/html',
-                ),
+                ],
                 'Content-Type',
                 'text/html'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'CONTENT_LENGTH'     => 0,
-                ),
+                ],
                 'Content-Length',
                 0
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'CONTENT_LENGTH'     => 0,
-                ),
+                ],
                 'Content-Length',
                 0
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'CONTENT_LENGTH'     => 12,
-                ),
+                ],
                 'Content-Length',
                 12
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'CONTENT_MD5'     => md5('a'),
-                ),
+                ],
                 'Content-MD5',
                 md5('a')
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -325,114 +325,114 @@ class RequestTest extends TestCase
      */
     public static function serverHostnameProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'SERVER_NAME' => 'test.example.com',
                     'REQUEST_URI' => 'http://test.example.com/news',
-                ),
+                ],
                 'test.example.com',
                 '80',
                 '/news',
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'HTTP_HOST' => 'test.example.com',
                     'REQUEST_URI' => 'http://test.example.com/news',
-                ),
+                ],
                 'test.example.com',
                 '80',
                 '/news',
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'SERVER_NAME' => 'test.example.com',
                     'HTTP_HOST' => 'requested.example.com',
                     'REQUEST_URI' => 'http://test.example.com/news',
-                ),
+                ],
                 'requested.example.com',
                 '80',
                 '/news',
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'SERVER_NAME' => 'test.example.com',
                     'HTTP_HOST' => '<script>alert("Spoofed host");</script>',
                     'REQUEST_URI' => 'http://test.example.com/news',
-                ),
+                ],
                 'test.example.com',
                 '80',
                 '/news',
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'SERVER_NAME' => '[1:2:3:4:5:6::6]',
                     'SERVER_ADDR' => '1:2:3:4:5:6::6',
                     'SERVER_PORT' => '80',
                     'REQUEST_URI' => 'http://[1:2:3:4:5:6::6]/news',
-                ),
+                ],
                 '[1:2:3:4:5:6::6]',
                 '80',
                 '/news',
-            ),
+            ],
                // Test for broken $_SERVER implementation from Windows-Safari
-            array(
-                array(
+            [
+                [
                     'SERVER_NAME' => '[1:2:3:4:5:6:]',
                     'SERVER_ADDR' => '1:2:3:4:5:6::6',
                     'SERVER_PORT' => '6',
                     'REQUEST_URI' => 'http://[1:2:3:4:5:6::6]/news',
-                ),
+                ],
                 '[1:2:3:4:5:6::6]',
                 '80',
                 '/news',
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'SERVER_NAME' => 'test.example.com',
                     'SERVER_PORT' => '8080',
                     'REQUEST_URI' => 'http://test.example.com/news',
-                ),
+                ],
                 'test.example.com',
                 '8080',
                 '/news',
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'SERVER_NAME' => 'test.example.com',
                     'SERVER_PORT' => '443',
                     'HTTPS'       => 'on',
                     'REQUEST_URI' => 'https://test.example.com/news',
-                ),
+                ],
                 'test.example.com',
                 '443',
                 '/news',
-            ),
+            ],
             // Test for HTTPS requests which are forwarded over a reverse proxy/load balancer
-            array(
-                array(
+            [
+                [
                     'SERVER_NAME' => 'test.example.com',
                     'SERVER_PORT' => '443',
                     'HTTP_X_FORWARDED_PROTO' => 'https',
                     'REQUEST_URI' => 'https://test.example.com/news',
-                ),
+                ],
                 'test.example.com',
                 '443',
                 '/news',
-            ),
+            ],
 
             //Test when url quert contains a full http url
-            array(
-                array(
+            [
+                [
                     'SERVER_NAME' => 'test.example.com',
                     'REQUEST_URI' => '/html/index.php?url=http://test.example.com/path/&foo=bar',
-                ),
+                ],
                 'test.example.com',
                 '80',
                 '/html/index.php?url=http://test.example.com/path/&foo=bar',
-            ),
+            ],
 
-        );
+        ];
     }
 
     /**
@@ -469,218 +469,218 @@ class RequestTest extends TestCase
      */
     public static function filesProvider()
     {
-        return array(
+        return [
             // single file
-            array(
-                array(
-                    'file' => array(
+            [
+                [
+                    'file' => [
                         'name' => 'test1.txt',
                         'type' => 'text/plain',
                         'tmp_name' => '/tmp/phpXXX',
                         'error' => 0,
                         'size' => 1,
-                    ),
-                ),
-                array(
-                    'file' => array(
+                    ],
+                ],
+                [
+                    'file' => [
                         'name' => 'test1.txt',
                         'type' => 'text/plain',
                         'tmp_name' => '/tmp/phpXXX',
                         'error' => 0,
                         'size' => 1,
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
 
             // file name with brackets and int keys
             // file[], file[]
-            array(
-                array(
-                    'file' => array(
-                        'name' => array(
+            [
+                [
+                    'file' => [
+                        'name' => [
                             0 => 'test1.txt',
                             1 => 'test2.txt',
-                        ),
-                        'type' => array(
+                        ],
+                        'type' => [
                             0 => 'text/plain',
                             1 => 'text/plain',
-                        ),
-                        'tmp_name' => array(
+                        ],
+                        'tmp_name' => [
                             0 => '/tmp/phpXXX',
                             1 => '/tmp/phpXXX',
-                        ),
-                        'error' => array(
+                        ],
+                        'error' => [
                             0 => 0,
                             1 => 0,
-                        ),
-                        'size' => array(
+                        ],
+                        'size' => [
                             0 => 1,
                             1 => 1,
-                        ),
-                    ),
-                ),
-                array(
-                    'file' => array(
-                        0 => array(
+                        ],
+                    ],
+                ],
+                [
+                    'file' => [
+                        0 => [
                             'name' => 'test1.txt',
                             'type' => 'text/plain',
                             'tmp_name' => '/tmp/phpXXX',
                             'error' => 0,
                             'size' => 1,
-                        ),
-                        1 => array(
+                        ],
+                        1 => [
                             'name' => 'test2.txt',
                             'type' => 'text/plain',
                             'tmp_name' => '/tmp/phpXXX',
                             'error' => 0,
                             'size' => 1,
-                        ),
-                    ),
-                ),
-            ),
+                        ],
+                    ],
+                ],
+            ],
 
             // file name with brackets and string keys
             // file[one], file[two]
-            array(
-                array(
-                    'file' => array(
-                        'name' => array(
+            [
+                [
+                    'file' => [
+                        'name' => [
                             'one' => 'test1.txt',
                             'two' => 'test2.txt',
-                        ),
-                        'type' => array(
+                        ],
+                        'type' => [
                             'one' => 'text/plain',
                             'two' => 'text/plain',
-                        ),
-                        'tmp_name' => array(
+                        ],
+                        'tmp_name' => [
                             'one' => '/tmp/phpXXX',
                             'two' => '/tmp/phpXXX',
-                        ),
-                        'error' => array(
+                        ],
+                        'error' => [
                             'one' => 0,
                             'two' => 0,
-                        ),
-                        'size' => array(
+                        ],
+                        'size' => [
                             'one' => 1,
                             'two' => 1,
-                        ),
-                      ),
-                ),
-                array(
-                    'file' => array(
-                        'one' => array(
+                        ],
+                      ],
+                ],
+                [
+                    'file' => [
+                        'one' => [
                             'name' => 'test1.txt',
                             'type' => 'text/plain',
                             'tmp_name' => '/tmp/phpXXX',
                             'error' => 0,
                             'size' => 1,
-                        ),
-                        'two' => array(
+                        ],
+                        'two' => [
                             'name' => 'test2.txt',
                             'type' => 'text/plain',
                             'tmp_name' => '/tmp/phpXXX',
                             'error' => 0,
                             'size' => 1,
-                        ),
-                    ),
-                ),
-            ),
+                        ],
+                    ],
+                ],
+            ],
 
             // multilevel file name
             // file[], file[][], file[][][]
-            array(
-                array(
-                    'file' => array(
-                        'name' => array(
+            [
+                [
+                    'file' => [
+                        'name' => [
                             0 => 'test_0.txt',
-                            1 => array(
+                            1 => [
                                 0 => 'test_10.txt',
-                            ),
-                            2 => array(
-                                0 => array(
+                            ],
+                            2 => [
+                                0 => [
                                     0 => 'test_200.txt',
-                                ),
-                            ),
-                        ),
-                        'type' => array(
+                                ],
+                            ],
+                        ],
+                        'type' => [
                             0 => 'text/plain',
-                            1 => array(
+                            1 => [
                                 0 => 'text/plain',
-                            ),
-                            2 => array(
-                                0 => array(
+                            ],
+                            2 => [
+                                0 => [
                                     0 => 'text/plain',
-                                ),
-                            ),
-                        ),
-                        'tmp_name' => array(
+                                ],
+                            ],
+                        ],
+                        'tmp_name' => [
                             0 => '/tmp/phpXXX',
-                            1 => array(
+                            1 => [
                                 0 => '/tmp/phpXXX',
-                            ),
-                            2 => array(
-                                0 => array(
+                            ],
+                            2 => [
+                                0 => [
                                     0 => '/tmp/phpXXX',
-                                ),
-                            ),
-                        ),
-                        'error' => array(
+                                ],
+                            ],
+                        ],
+                        'error' => [
                             0 => 0,
-                            1 => array(
+                            1 => [
                                 0 => 0,
-                            ),
-                            2 => array(
-                                0 => array(
+                            ],
+                            2 => [
+                                0 => [
                                     0 => 0,
-                                ),
-                            ),
-                        ),
-                        'size' => array(
+                                ],
+                            ],
+                        ],
+                        'size' => [
                             0 => 1,
-                            1 => array(
+                            1 => [
                                 0 => 1,
-                            ),
-                            2 => array(
-                                0 => array(
+                            ],
+                            2 => [
+                                0 => [
                                     0 => 1,
-                                ),
-                            ),
-                        ),
-                    )
-                ),
-                array(
-                    'file' => array(
-                        0 => array(
+                                ],
+                            ],
+                        ],
+                    ]
+                ],
+                [
+                    'file' => [
+                        0 => [
                             'name' => 'test_0.txt',
                             'type' => 'text/plain',
                             'tmp_name' => '/tmp/phpXXX',
                             'error' => 0,
                             'size' => 1,
-                        ),
-                        1 => array(
-                            0 => array(
+                        ],
+                        1 => [
+                            0 => [
                                 'name' => 'test_10.txt',
                                 'type' => 'text/plain',
                                 'tmp_name' => '/tmp/phpXXX',
                                 'error' => 0,
                                 'size' => 1,
-                            ),
-                        ),
-                        2 => array(
-                            0 => array(
-                                0 => array(
+                            ],
+                        ],
+                        2 => [
+                            0 => [
+                                0 => [
                                     'name' => 'test_200.txt',
                                     'type' => 'text/plain',
                                     'tmp_name' => '/tmp/phpXXX',
                                     'error' => 0,
                                     'size' => 1,
-                                ),
-                            ),
-                        ),
-                    )
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ]
+                ],
+            ],
+        ];
     }
 
     /**
@@ -698,9 +698,9 @@ class RequestTest extends TestCase
     public function testParameterRetrievalDefaultValue()
     {
         $request = new Request();
-        $p = new \Zend\Stdlib\Parameters(array(
+        $p = new \Zend\Stdlib\Parameters([
             'foo' => 'bar'
-        ));
+        ]);
         $request->setQuery($p);
         $request->setPost($p);
         $request->setFiles($p);
@@ -720,9 +720,9 @@ class RequestTest extends TestCase
     public function testRetrievingASingleValueForParameters()
     {
         $request = new Request();
-        $p = new \Zend\Stdlib\Parameters(array(
+        $p = new \Zend\Stdlib\Parameters([
             'foo' => 'bar'
-        ));
+        ]);
         $request->setQuery($p);
         $request->setPost($p);
         $request->setFiles($p);

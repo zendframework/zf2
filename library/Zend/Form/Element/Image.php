@@ -18,7 +18,7 @@ class Image extends Element
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'image',
-    );
+    ];
 }

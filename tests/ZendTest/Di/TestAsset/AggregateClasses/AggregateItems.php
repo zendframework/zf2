@@ -11,7 +11,7 @@ namespace ZendTest\Di\TestAsset\AggregateClasses;
 
 class AggregateItems implements ItemInterface
 {
-    public $items = array();
+    public $items = [];
 
     public function addItem(ItemInterface $item)
     {

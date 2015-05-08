@@ -35,7 +35,7 @@ class Crammd5Test extends \PHPUnit_Framework_TestCase
 
         $result = $method->invokeArgs(
             $this->auth,
-            array('frodo', 'speakfriendandenter')
+            ['frodo', 'speakfriendandenter']
         );
 
         $this->assertEquals('be56fa81a5671e0c62e00134180aae2c', $result);

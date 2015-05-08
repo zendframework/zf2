@@ -14,11 +14,11 @@ abstract class AbstractIntegrationTest extends \PHPUnit_Framework_TestCase
     /**
      * @var array
      */
-    protected $variables = array(
+    protected $variables = [
         'database' => 'ZEND_DB_ADAPTER_DRIVER_IBMDB2_DATABASE',
         'username' => 'ZEND_DB_ADAPTER_DRIVER_IBMDB2_USERNAME',
         'password' => 'ZEND_DB_ADAPTER_DRIVER_IBMDB2_PASSWORD',
-    );
+    ];
 
     /**
      * Sets up the fixture, for example, opens a network connection.

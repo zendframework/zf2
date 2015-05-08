@@ -32,10 +32,10 @@ abstract class AbstractDb extends AbstractValidator
     /**
      * @var array Message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::ERROR_NO_RECORD_FOUND => "No record matching the input was found",
         self::ERROR_RECORD_FOUND    => "A record matching the input was found",
-    );
+    ];
 
     /**
      * Select object to use. can be set, or will be auto-generated
@@ -291,7 +291,7 @@ abstract class AbstractDb extends AbstractValidator
         // Build select object
         $select          = new Select();
         $tableIdentifier = new TableIdentifier($this->table, $this->schema);
-        $select->from($tableIdentifier)->columns(array($this->field));
+        $select->from($tableIdentifier)->columns([$this->field]);
         $select->where->equalTo($this->field, null);
 
         if ($this->exclude !== null) {

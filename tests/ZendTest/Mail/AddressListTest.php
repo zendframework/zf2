@@ -78,11 +78,11 @@ class AddressListTest extends \PHPUnit_Framework_TestCase
 
     public function testCanAddManyAddressesAtOnce()
     {
-        $addresses = array(
+        $addresses = [
             'zf-devteam@zend.com',
             'zf-contributors@lists.zend.com' => 'ZF Contributors List',
             new Address('fw-announce@lists.zend.com', 'ZF Announce List'),
-        );
+        ];
         $this->list->addMany($addresses);
         $this->assertEquals(3, count($this->list));
         $this->assertTrue($this->list->has('zf-devteam@zend.com'));
@@ -92,10 +92,10 @@ class AddressListTest extends \PHPUnit_Framework_TestCase
 
     public function testDoesNotStoreDuplicatesAndFirstWins()
     {
-        $addresses = array(
+        $addresses = [
             'zf-devteam@zend.com',
             new Address('zf-devteam@zend.com', 'ZF DevTeam'),
-        );
+        ];
         $this->list->addMany($addresses);
         $this->assertEquals(1, count($this->list));
         $this->assertTrue($this->list->has('zf-devteam@zend.com'));

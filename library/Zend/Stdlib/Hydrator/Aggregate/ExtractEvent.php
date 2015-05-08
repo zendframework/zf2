@@ -32,7 +32,7 @@ class ExtractEvent extends Event
     /**
      * @var array
      */
-    protected $extractedData = array();
+    protected $extractedData = [];
 
     /**
      * @param object $target

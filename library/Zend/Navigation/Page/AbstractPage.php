@@ -76,7 +76,7 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @var array
      */
-    protected $rel = array();
+    protected $rel = [];
 
     /**
      * Reverse links to other pages
@@ -85,7 +85,7 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @var array
      */
-    protected $rev = array();
+    protected $rev = [];
 
     /**
      * Page order used by parent container
@@ -148,14 +148,14 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @var array
      */
-    protected $properties = array();
+    protected $properties = [];
 
     /**
      * Static factories list for factory pages
      *
      * @var array
      */
-    protected static $factories = array();
+    protected static $factories = [];
 
     // Initialization:
 
@@ -515,7 +515,7 @@ abstract class AbstractPage extends AbstractContainer
      */
     public function setRel($relations = null)
     {
-        $this->rel = array();
+        $this->rel = [];
 
         if (null !== $relations) {
             if ($relations instanceof Traversable) {
@@ -581,7 +581,7 @@ abstract class AbstractPage extends AbstractContainer
      */
     public function setRev($relations = null)
     {
-        $this->rev = array();
+        $this->rev = [];
 
         if (null !== $relations) {
             if ($relations instanceof Traversable) {
@@ -1206,7 +1206,7 @@ abstract class AbstractPage extends AbstractContainer
      */
     public function toArray()
     {
-        return array_merge($this->getCustomProperties(), array(
+        return array_merge($this->getCustomProperties(), [
             'label'     => $this->getLabel(),
             'fragment'  => $this->getFragment(),
             'id'        => $this->getId(),
@@ -1223,7 +1223,7 @@ abstract class AbstractPage extends AbstractContainer
             'visible'   => $this->isVisible(),
             'type'      => get_class($this),
             'pages'     => parent::toArray(),
-        ));
+        ]);
     }
 
     // Internal methods:

@@ -47,7 +47,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     {
         $optionName = 'invalid';
         try {
-            $this->ldap->setOptions(array($optionName => 'irrelevant'));
+            $this->ldap->setOptions([$optionName => 'irrelevant']);
             $this->fail('Expected Zend\Ldap\Exception\LdapException not thrown');
         } catch (Exception\LdapException $e) {
             $this->assertEquals("Unknown Zend\Ldap\Ldap option: $optionName", $e->getMessage());
@@ -67,14 +67,14 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
 
     public function testOptionsGetter()
     {
-        $options = array(
+        $options = [
             'host'     => TESTS_ZEND_LDAP_HOST,
             'username' => TESTS_ZEND_LDAP_USERNAME,
             'password' => TESTS_ZEND_LDAP_PASSWORD,
             'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
-        );
+        ];
         $ldap    = new Ldap\Ldap($options);
-        $this->assertEquals(array(
+        $this->assertEquals([
                                  'host'                   => TESTS_ZEND_LDAP_HOST,
                                  'port'                   => 0,
                                  'useSsl'                 => false,
@@ -91,20 +91,20 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
                                  'optReferrals'           => false,
                                  'tryUsernameSplit'       => true,
                                  'networkTimeout'         => null,
-                            ), $ldap->getOptions()
+                            ], $ldap->getOptions()
         );
     }
 
     public function testConfigObject()
     {
-        $config = new Config\Config(array(
+        $config = new Config\Config([
                                          'host'     => TESTS_ZEND_LDAP_HOST,
                                          'username' => TESTS_ZEND_LDAP_USERNAME,
                                          'password' => TESTS_ZEND_LDAP_PASSWORD,
                                          'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
-                                    ));
+                                    ]);
         $ldap   = new Ldap\Ldap($config);
-        $this->assertEquals(array(
+        $this->assertEquals([
                                  'host'                   => TESTS_ZEND_LDAP_HOST,
                                  'port'                   => 0,
                                  'useSsl'                 => false,
@@ -121,7 +121,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
                                  'optReferrals'           => false,
                                  'tryUsernameSplit'       => true,
                                  'networkTimeout'         => null,
-                            ), $ldap->getOptions()
+                            ], $ldap->getOptions()
         );
     }
 }

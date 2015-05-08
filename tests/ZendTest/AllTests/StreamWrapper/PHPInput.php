@@ -36,9 +36,9 @@ class PHPInput
 {
     protected static $_data;
 
-    protected static $_returnValues = array();
+    protected static $_returnValues = [];
 
-    protected static $_arguments = array();
+    protected static $_arguments = [];
 
     protected $_position = 0;
 
@@ -52,8 +52,8 @@ class PHPInput
     public static function restoreDefault()
     {
         // Reset static values
-        static::$_returnValues = array();
-        static::$_arguments = array();
+        static::$_returnValues = [];
+        static::$_arguments = [];
 
         // Restore original stream wrapper
         stream_wrapper_restore('php');
@@ -125,6 +125,6 @@ class PHPInput
             return static::$_returnValues[__FUNCTION__];
         }
 
-        return array();
+        return [];
     }
 }

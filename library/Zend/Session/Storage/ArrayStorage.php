@@ -37,7 +37,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
      * @param string $iteratorClass
      */
     public function __construct(
-        $input = array(),
+        $input = [],
         $flags = ArrayObject::ARRAY_AS_PROPS,
         $iteratorClass = '\\ArrayIterator'
     ) {
@@ -114,7 +114,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
             return $this;
         }
         if (isset($this[$key])) {
-            $this->setMetadata('_LOCKS', array($key => true));
+            $this->setMetadata('_LOCKS', [$key => true]);
         }
 
         return $this;
@@ -238,7 +238,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
         }
 
         if (!isset($this['__ZF'])) {
-            $this['__ZF'] = array();
+            $this['__ZF'] = [];
         }
 
         if (isset($this['__ZF'][$key]) && is_array($value)) {
@@ -303,7 +303,7 @@ class ArrayStorage extends ArrayObject implements StorageInterface
             throw new Exception\RuntimeException('Cannot clear storage as it is marked immutable');
         }
         if (null === $key) {
-            $this->fromArray(array());
+            $this->fromArray([]);
 
             return $this;
         }

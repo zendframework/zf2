@@ -34,12 +34,12 @@ class Fault extends \Zend\XmlRpc\Fault
     /**
      * @var array Array of exception classes that may define xmlrpc faults
      */
-    protected static $faultExceptionClasses = array('Zend\\XmlRpc\\Server\\Exception\\ExceptionInterface' => true);
+    protected static $faultExceptionClasses = ['Zend\\XmlRpc\\Server\\Exception\\ExceptionInterface' => true];
 
     /**
      * @var array Array of fault observers
      */
-    protected static $observers = array();
+    protected static $observers = [];
 
     /**
      * Constructor
@@ -134,7 +134,7 @@ class Fault extends \Zend\XmlRpc\Fault
      */
     public static function attachObserver($class)
     {
-        if (!is_string($class) || !class_exists($class) || !is_callable(array($class, 'observe'))) {
+        if (!is_string($class) || !class_exists($class) || !is_callable([$class, 'observe'])) {
             return false;
         }
 

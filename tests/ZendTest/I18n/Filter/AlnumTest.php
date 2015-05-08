@@ -60,7 +60,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
 
         $this->locale               = Locale::getDefault();
         $language                   = Locale::getPrimaryLanguage($this->locale);
-        static::$meansEnglishAlphabet = in_array($language, array('ja'));
+        static::$meansEnglishAlphabet = in_array($language, ['ja']);
         static::$unicodeEnabled       = (bool) @preg_match('/\pL/u', 'a');
     }
 
@@ -73,13 +73,13 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
     {
         if (!static::$unicodeEnabled) {
             // POSIX named classes are not supported, use alternative a-zA-Z match
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'  => 'abc123',
                 'abc 123' => 'abc123',
                 'abcxyz'  => 'abcxyz',
                 'AZ@#4.3' => 'AZ43',
                 ''        => ''
-            );
+            ];
         } elseif (static::$meansEnglishAlphabet) {
             // The Alphabet means english alphabet.
 
@@ -90,14 +90,14 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
              * The second contains multibyte or singebyte space.
              * The third  contains various multibyte or singebyte characters.
              */
-            $valuesExpected = array(
+            $valuesExpected = [
                 'aＡBｂ3４5６'  => 'aB35',
                 'z７ Ｙ8　x９'  => 'z8x',
                 '，s1.2r３#:q,' => 's12rq',
-            );
+            ];
         } else {
             //The Alphabet means each language's alphabet.
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'        => 'abc123',
                 'abc 123'       => 'abc123',
                 'abcxyz'        => 'abcxyz',
@@ -105,7 +105,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
                 'grz5e4gżółka'  => 'grz5e4gżółka',
                 'Be3l5gië'      => 'Be3l5gië',
                 ''              => ''
-            );
+            ];
         }
 
         foreach ($valuesExpected as $input => $expected) {
@@ -125,7 +125,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
 
         if (!static::$unicodeEnabled) {
             // POSIX named classes are not supported, use alternative a-zA-Z match
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'  => 'abc123',
                 'abc 123' => 'abc 123',
                 'abcxyz'  => 'abcxyz',
@@ -133,16 +133,16 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
                 ''        => '',
                 "\n"      => "\n",
                 " \t "    => " \t "
-            );
+            ];
         } elseif (static::$meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
-            $valuesExpected = array(
+            $valuesExpected = [
                 'a B ４5' => 'a B 5',
                 'z3　x'   => 'z3x'
-            );
+            ];
         } else {
             //The Alphabet means each language's alphabet.
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'        => 'abc123',
                 'abc 123'       => 'abc 123',
                 'abcxyz'        => 'abcxyz',
@@ -150,7 +150,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
                 'gr z5e4gżółka' => 'gr z5e4gżółka',
                 'Be3l5 gië'     => 'Be3l5 gië',
                 ''              => '',
-            );
+            ];
         }
 
         foreach ($valuesExpected as $input => $expected) {
@@ -163,13 +163,13 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new AlnumFilter();
 
-        $values = array(
+        $values = [
             'abc123'  => 'abc123',
             'abc 123' => 'abc123',
             'abcxyz'  => 'abcxyz',
             'AZ@#4.3' => 'AZ43',
             ''        => ''
-        );
+        ];
 
         $actual = $filter->filter(array_keys($values));
 
@@ -178,10 +178,10 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass())
-        );
+        return [
+            [null],
+            [new \stdClass()]
+        ];
     }
 
     /**

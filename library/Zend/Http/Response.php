@@ -85,7 +85,7 @@ class Response extends AbstractMessage implements ResponseInterface
     /**
      * @var array Recommended Reason Phrases
      */
-    protected $recommendedReasonPhrases = array(
+    protected $recommendedReasonPhrases = [
         // INFORMATIONAL CODES
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -148,7 +148,7 @@ class Response extends AbstractMessage implements ResponseInterface
         507 => 'Insufficient Storage',
         508 => 'Loop Detected',
         511 => 'Network Authentication Required',
-    );
+    ];
 
     /**
      * @var int Status code
@@ -179,7 +179,7 @@ class Response extends AbstractMessage implements ResponseInterface
         $response = new static();
 
         $regex   = '/^HTTP\/(?P<version>1\.[01]) (?P<status>\d{3})(?:[ ]+(?P<reason>.*))?$/';
-        $matches = array();
+        $matches = [];
         if (!preg_match($regex, $firstLine, $matches)) {
             throw new Exception\InvalidArgumentException(
                 'A valid response status line was not found in the provided string'
@@ -195,7 +195,7 @@ class Response extends AbstractMessage implements ResponseInterface
         }
 
         $isHeader = true;
-        $headers = $content = array();
+        $headers = $content = [];
 
         foreach ($lines as $line) {
             if ($isHeader && $line == '') {

@@ -25,21 +25,21 @@ class MemcacheResourceManager
      *
      * @var array
      */
-    protected $resources = array();
+    protected $resources = [];
 
     /**
      * Default server values per resource
      *
      * @var array
      */
-    protected $serverDefaults = array();
+    protected $serverDefaults = [];
 
     /**
      * Failure callback per resource
      *
      * @var callable[]
      */
-    protected $failureCallbacks = array();
+    protected $failureCallbacks = [];
 
     /**
      * Check if a resource exists
@@ -99,7 +99,7 @@ class MemcacheResourceManager
      * @param array|Traversable $serverDefaults
      * @return MemcacheResourceManager
      */
-    public function setResource($id, $resource, $failureCallback = null, $serverDefaults = array())
+    public function setResource($id, $resource, $failureCallback = null, $serverDefaults = [])
     {
         $id = (string) $id;
 
@@ -125,11 +125,11 @@ class MemcacheResourceManager
                 unset($resource['server_defaults']);
             }
 
-            $resourceOptions = array(
-                'servers' => array(),
+            $resourceOptions = [
+                'servers' => [],
                 'auto_compress_threshold'   => null,
                 'auto_compress_min_savings' => null,
-            );
+            ];
             $resource = array_merge($resourceOptions, $resource);
 
             // normalize and validate params
@@ -233,9 +233,9 @@ class MemcacheResourceManager
     public function setAutoCompressThreshold($id, $threshold, $minSavings = false)
     {
         if (!$this->hasResource($id)) {
-            return $this->setResource($id, array(
+            return $this->setResource($id, [
                 'auto_compress_threshold' => $threshold,
-            ));
+            ]);
         }
 
         $this->normalizeAutoCompressThreshold($threshold, $minSavings);
@@ -284,9 +284,9 @@ class MemcacheResourceManager
     public function setAutoCompressMinSavings($id, $minSavings)
     {
         if (!$this->hasResource($id)) {
-            return $this->setResource($id, array(
+            return $this->setResource($id, [
                 'auto_compress_min_savings' => $minSavings,
-            ));
+            ]);
         }
 
         $minSavings = (float) $minSavings;
@@ -315,9 +315,9 @@ class MemcacheResourceManager
     public function setServerDefaults($id, array $serverDefaults)
     {
         if (!$this->hasResource($id)) {
-            return $this->setResource($id, array(
+            return $this->setResource($id, [
                 'server_defaults' => $serverDefaults
-            ));
+            ]);
         }
 
         $this->normalizeServerDefaults($serverDefaults);
@@ -354,12 +354,12 @@ class MemcacheResourceManager
         }
 
         // Defaults
-        $result = array(
+        $result = [
             'persistent' => true,
             'weight' => 1,
             'timeout' => 1, // seconds
             'retry_interval' => 15, // seconds
-        );
+        ];
 
         foreach ($serverDefaults as $key => $value) {
             switch ($key) {
@@ -388,7 +388,7 @@ class MemcacheResourceManager
     public function setFailureCallback($id, $failureCallback)
     {
         if (!$this->hasResource($id)) {
-            return $this->setResource($id, array(), $failureCallback);
+            return $this->setResource($id, [], $failureCallback);
         }
 
         $this->failureCallbacks[$id] = $failureCallback;
@@ -440,9 +440,9 @@ class MemcacheResourceManager
     public function addServers($id, $servers)
     {
         if (!$this->hasResource($id)) {
-            return $this->setResource($id, array(
+            return $this->setResource($id, [
                 'servers' => $servers
-            ));
+            ]);
         }
 
         $this->normalizeServers($servers);
@@ -461,7 +461,7 @@ class MemcacheResourceManager
             // don't add servers twice
             $resource['servers'] = array_merge(
                 $resource['servers'],
-                array_udiff($servers, $resource['servers'], array($this, 'compareServers'))
+                array_udiff($servers, $resource['servers'], [$this, 'compareServers'])
             );
         }
 
@@ -477,7 +477,7 @@ class MemcacheResourceManager
      */
     public function addServer($id, $server)
     {
-        return $this->addServers($id, array($server));
+        return $this->addServers($id, [$server]);
     }
 
     /**
@@ -496,7 +496,7 @@ class MemcacheResourceManager
         $server = array_merge($serverDefaults, $server);
 
         // Reorder parameters
-        $params = array(
+        $params = [
             $server['host'],
             $server['port'],
             $server['persistent'],
@@ -504,11 +504,11 @@ class MemcacheResourceManager
             $server['timeout'],
             $server['retry_interval'],
             $server['status'],
-        );
+        ];
         if (isset($failureCallback)) {
             $params[] = $failureCallback;
         }
-        call_user_func_array(array($resource, 'addServer'), $params);
+        call_user_func_array([$resource, 'addServer'], $params);
     }
 
     /**
@@ -524,7 +524,7 @@ class MemcacheResourceManager
             $servers = explode(',', $servers);
         }
 
-        $result = array();
+        $result = [];
         foreach ($servers as $server) {
             $this->normalizeServer($server);
             $result[$server['host'] . ':' . $server['port']] = $server;
@@ -549,7 +549,7 @@ class MemcacheResourceManager
         // WARNING: The order of this array is important.
         // Used for converting an ordered array to a keyed array.
         // Append new options, do not insert or you will break BC.
-        $sTmp = array(
+        $sTmp = [
             'host'           => null,
             'port'           => 11211,
             'weight'         => null,
@@ -557,7 +557,7 @@ class MemcacheResourceManager
             'persistent'     => null,
             'timeout'        => null,
             'retry_interval' => null,
-        );
+        ];
 
         // convert a single server into an array
         if ($server instanceof Traversable) {

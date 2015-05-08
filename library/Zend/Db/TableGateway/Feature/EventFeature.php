@@ -59,9 +59,9 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
                             ? $eventManager
                             : new EventManager;
 
-        $this->eventManager->addIdentifiers(array(
+        $this->eventManager->addIdentifiers([
             'Zend\Db\TableGateway\TableGateway',
-        ));
+        ]);
 
         $this->event = ($tableGatewayEvent) ?: new EventFeature\TableGatewayEvent();
     }
@@ -129,7 +129,7 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
     public function preSelect(Select $select)
     {
         $this->event->setName(static::EVENT_PRE_SELECT);
-        $this->event->setParams(array('select' => $select));
+        $this->event->setParams(['select' => $select]);
         $this->eventManager->trigger($this->event);
     }
 
@@ -149,11 +149,11 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
     public function postSelect(StatementInterface $statement, ResultInterface $result, ResultSetInterface $resultSet)
     {
         $this->event->setName(static::EVENT_POST_SELECT);
-        $this->event->setParams(array(
+        $this->event->setParams([
             'statement' => $statement,
             'result' => $result,
             'result_set' => $resultSet
-        ));
+        ]);
         $this->eventManager->trigger($this->event);
     }
 
@@ -169,7 +169,7 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
     public function preInsert(Insert $insert)
     {
         $this->event->setName(static::EVENT_PRE_INSERT);
-        $this->event->setParams(array('insert' => $insert));
+        $this->event->setParams(['insert' => $insert]);
         $this->eventManager->trigger($this->event);
     }
 
@@ -187,10 +187,10 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
     public function postInsert(StatementInterface $statement, ResultInterface $result)
     {
         $this->event->setName(static::EVENT_POST_INSERT);
-        $this->event->setParams(array(
+        $this->event->setParams([
             'statement' => $statement,
             'result' => $result,
-        ));
+        ]);
         $this->eventManager->trigger($this->event);
     }
 
@@ -206,7 +206,7 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
     public function preUpdate(Update $update)
     {
         $this->event->setName(static::EVENT_PRE_UPDATE);
-        $this->event->setParams(array('update' => $update));
+        $this->event->setParams(['update' => $update]);
         $this->eventManager->trigger($this->event);
     }
 
@@ -224,10 +224,10 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
     public function postUpdate(StatementInterface $statement, ResultInterface $result)
     {
         $this->event->setName(static::EVENT_POST_UPDATE);
-        $this->event->setParams(array(
+        $this->event->setParams([
             'statement' => $statement,
             'result' => $result,
-        ));
+        ]);
         $this->eventManager->trigger($this->event);
     }
 
@@ -243,7 +243,7 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
     public function preDelete(Delete $delete)
     {
         $this->event->setName(static::EVENT_PRE_DELETE);
-        $this->event->setParams(array('delete' => $delete));
+        $this->event->setParams(['delete' => $delete]);
         $this->eventManager->trigger($this->event);
     }
 
@@ -261,10 +261,10 @@ class EventFeature extends AbstractFeature implements EventsCapableInterface
     public function postDelete(StatementInterface $statement, ResultInterface $result)
     {
         $this->event->setName(static::EVENT_POST_DELETE);
-        $this->event->setParams(array(
+        $this->event->setParams([
             'statement' => $statement,
             'result' => $result,
-        ));
+        ]);
         $this->eventManager->trigger($this->event);
     }
 }

@@ -25,7 +25,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
     public function testMessageFilter()
     {
         $filter = new Regex('/accept/');
-        $this->assertTrue($filter->filter(array('message' => 'foo accept bar')));
-        $this->assertFalse($filter->filter(array('message' => 'foo reject bar')));
+        $this->assertTrue($filter->filter(['message' => 'foo accept bar']));
+        $this->assertFalse($filter->filter(['message' => 'foo reject bar']));
     }
 }

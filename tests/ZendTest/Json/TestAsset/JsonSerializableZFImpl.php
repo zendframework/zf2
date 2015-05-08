@@ -16,6 +16,6 @@ class JsonSerializableZFImpl implements JsonSerializable
 {
     public function jsonSerialize()
     {
-        return array(__FUNCTION__);
+        return [__FUNCTION__];
     }
 }

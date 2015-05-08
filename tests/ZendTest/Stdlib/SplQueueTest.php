@@ -31,11 +31,11 @@ class SplQueueTest extends \PHPUnit_Framework_TestCase
         $count = count($this->queue);
         $this->assertSame($count, count($unserialized));
 
-        $expected = array();
+        $expected = [];
         foreach ($this->queue as $item) {
             $expected[] = $item;
         }
-        $test = array();
+        $test = [];
         foreach ($unserialized as $item) {
             $test[] = $item;
         }
@@ -44,7 +44,7 @@ class SplQueueTest extends \PHPUnit_Framework_TestCase
 
     public function testCanRetrieveQueueAsArray()
     {
-        $expected = array('foo', 'bar', 'baz');
+        $expected = ['foo', 'bar', 'baz'];
         $this->assertSame($expected, $this->queue->toArray());
     }
 }

@@ -81,7 +81,7 @@ class NullFillTest extends \PHPUnit_Framework_TestCase
     {
         $this->adapter = new Adapter\NullFill(0);
         $actual = $this->adapter->getItems(0, 10);
-        $this->assertEquals(array(), $actual);
+        $this->assertEquals([], $actual);
     }
 
     /**

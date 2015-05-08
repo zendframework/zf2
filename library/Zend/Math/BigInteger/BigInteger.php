@@ -116,6 +116,6 @@ abstract class BigInteger
     public static function __callStatic($method, $args)
     {
         $adapter = static::getDefaultAdapter();
-        return call_user_func_array(array($adapter, $method), $args);
+        return call_user_func_array([$adapter, $method], $args);
     }
 }

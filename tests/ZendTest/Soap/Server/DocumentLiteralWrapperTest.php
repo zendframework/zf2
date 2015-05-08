@@ -36,7 +36,7 @@ class DocumentLiteralWrapperTest extends \PHPUnit_Framework_TestCase
         // The local client needs an abstraction for this pattern as well.
         // This is just a test so we use the messy way.
         $client = new SoapClient($server, __DIR__ . self::WSDL);
-        $ret = $client->add(array('x' => 10, 'y' => 20));
+        $ret = $client->add(['x' => 10, 'y' => 20]);
 
         $this->assertInstanceOf('stdClass', $ret);
         $this->assertEquals(30, $ret->addResult);

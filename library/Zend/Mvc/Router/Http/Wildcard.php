@@ -45,7 +45,7 @@ class Wildcard implements RouteInterface
      *
      * @var array
      */
-    protected $assembledParams = array();
+    protected $assembledParams = [];
 
     /**
      * Create a new wildcard route.
@@ -54,7 +54,7 @@ class Wildcard implements RouteInterface
      * @param  string $paramDelimiter
      * @param  array  $defaults
      */
-    public function __construct($keyValueDelimiter = '/', $paramDelimiter = '/', array $defaults = array())
+    public function __construct($keyValueDelimiter = '/', $paramDelimiter = '/', array $defaults = [])
     {
         $this->keyValueDelimiter = $keyValueDelimiter;
         $this->paramDelimiter    = $paramDelimiter;
@@ -69,7 +69,7 @@ class Wildcard implements RouteInterface
      * @return Wildcard
      * @throws Exception\InvalidArgumentException
      */
-    public static function factory($options = array())
+    public static function factory($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -89,7 +89,7 @@ class Wildcard implements RouteInterface
         }
 
         if (!isset($options['defaults'])) {
-            $options['defaults'] = array();
+            $options['defaults'] = [];
         }
 
         return new static($options['key_value_delimiter'], $options['param_delimiter'], $options['defaults']);
@@ -120,7 +120,7 @@ class Wildcard implements RouteInterface
             $path = substr($path, $pathOffset) ?: '';
         }
 
-        $matches = array();
+        $matches = [];
         $params  = explode($this->paramDelimiter, $path);
 
         if (count($params) > 1 && ($params[0] !== '' || end($params) === '')) {
@@ -158,11 +158,11 @@ class Wildcard implements RouteInterface
      * @param  array $options
      * @return mixed
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
-        $elements              = array();
+        $elements              = [];
         $mergedParams          = array_merge($this->defaults, $params);
-        $this->assembledParams = array();
+        $this->assembledParams = [];
 
         if ($mergedParams) {
             foreach ($mergedParams as $key => $value) {

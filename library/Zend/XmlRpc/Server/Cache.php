@@ -17,10 +17,10 @@ class Cache extends \Zend\Server\Cache
     /**
      * @var array Skip system methods when caching XML-RPC server
      */
-    protected static $skipMethods = array(
+    protected static $skipMethods = [
         'system.listMethods',
         'system.methodHelp',
         'system.methodSignature',
         'system.multicall',
-    );
+    ];
 }

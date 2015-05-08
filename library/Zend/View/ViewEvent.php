@@ -215,7 +215,7 @@ class ViewEvent extends Event
             return $this;
         }
 
-        foreach (array('model', 'renderer', 'request', 'response', 'result') as $param) {
+        foreach (['model', 'renderer', 'request', 'response', 'result'] as $param) {
             if (isset($params[$param])) {
                 $method = 'set' . $param;
                 $this->$method($params[$param]);

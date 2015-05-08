@@ -33,7 +33,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public static function rmdir($dir)
     {
-        $files = array_diff(scandir($dir), array('.', '..'));
+        $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
             (is_dir("$dir/$file")) ? static::rmdir("$dir/$file") : unlink("$dir/$file");
         }
@@ -287,7 +287,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public function testPutRequestParams()
     {
-        $this->dispatch('/tests', 'PUT', array('a' => 1));
+        $this->dispatch('/tests', 'PUT', ['a' => 1]);
         $this->assertEquals('a=1', $this->getRequest()->getContent());
     }
 
@@ -304,7 +304,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
      */
     public function testPatchRequestParams()
     {
-        $this->dispatch('/tests', 'PATCH', array('a' => 1));
+        $this->dispatch('/tests', 'PATCH', ['a' => 1]);
         $this->assertEquals('a=1', $this->getRequest()->getContent());
     }
 
@@ -322,7 +322,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
     public function testExplicityPutParamsOverrideRequestContent()
     {
         $this->getRequest()->setContent('my content');
-        $this->dispatch('/tests', 'PUT', array('a' => 1));
+        $this->dispatch('/tests', 'PUT', ['a' => 1]);
         $this->assertEquals('a=1', $this->getRequest()->getContent());
     }
 
@@ -332,7 +332,7 @@ class AbstractControllerTestCaseTest extends AbstractHttpControllerTestCase
      */
     public function testCanHandleMultidimensionalParams()
     {
-        $this->dispatch('/tests', 'PUT', array('a' => array('b' => 1)));
+        $this->dispatch('/tests', 'PUT', ['a' => ['b' => 1]]);
         $this->assertEquals('a[b]=1', urldecode($this->getRequest()->getContent()));
     }
 

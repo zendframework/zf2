@@ -24,7 +24,7 @@ class Parameters extends PhpArrayObject implements ParametersInterface
     public function __construct(array $values = null)
     {
         if (null === $values) {
-            $values = array();
+            $values = [];
         }
         parent::__construct($values, ArrayObject::ARRAY_AS_PROPS);
     }
@@ -48,7 +48,7 @@ class Parameters extends PhpArrayObject implements ParametersInterface
      */
     public function fromString($string)
     {
-        $array = array();
+        $array = [];
         parse_str($string, $array);
         $this->fromArray($array);
     }

@@ -48,7 +48,7 @@ class Entry extends Extension\AbstractEntry
             return $this->data['authors'];
         }
 
-        $authors = array();
+        $authors = [];
         $list = $this->getXpath()->query($this->getXpathPrefix() . '//atom:author');
 
         if (!$list->length) {
@@ -142,10 +142,10 @@ class Entry extends Extension\AbstractEntry
         if (!empty($prefix)) {
             $prefix = $prefix . ':';
         }
-        $matches = array(
+        $matches = [
             "/<\?xml[^<]*>[^<]*<" . $prefix . "div[^<]*/",
             "/<\/" . $prefix . "div>\s*$/"
-        );
+        ];
         $xhtml = preg_replace($matches, '', $xhtml);
         if (!empty($prefix)) {
             $xhtml = preg_replace("/(<[\/]?)" . $prefix . "([a-zA-Z]+)/", '$1$2', $xhtml);
@@ -347,7 +347,7 @@ class Entry extends Extension\AbstractEntry
             return $this->data['links'];
         }
 
-        $links = array();
+        $links = [];
 
         $list = $this->getXpath()->query(
             $this->getXpathPrefix() . '//atom:link[@rel="alternate"]/@href' . '|' .
@@ -505,11 +505,11 @@ class Entry extends Extension\AbstractEntry
         if ($list->length) {
             $categoryCollection = new Collection\Category;
             foreach ($list as $category) {
-                $categoryCollection[] = array(
+                $categoryCollection[] = [
                     'term' => $category->getAttribute('term'),
                     'scheme' => $category->getAttribute('scheme'),
                     'label' => $category->getAttribute('label')
-                );
+                ];
             }
         } else {
             return new Collection\Category;
@@ -573,7 +573,7 @@ class Entry extends Extension\AbstractEntry
      */
     protected function getAuthorFromElement(DOMElement $element)
     {
-        $author = array();
+        $author = [];
 
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');

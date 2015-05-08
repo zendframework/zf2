@@ -59,16 +59,16 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testConstructorWithArray()
     {
         $object = $this->getBarcodeObject(
-                array('barHeight' => 150,
-                        'unkownProperty' => 'aValue'));
+                ['barHeight' => 150,
+                        'unkownProperty' => 'aValue']);
         $this->assertEquals(150, $object->getBarHeight());
     }
 
     public function testConstructorWithZendConfig()
     {
         $config = new Config\Config(
-                array('barHeight' => 150,
-                        'unkownProperty' => 'aValue'));
+                ['barHeight' => 150,
+                        'unkownProperty' => 'aValue']);
         $object = $this->getBarcodeObject($config);
         $this->assertEquals(150, $object->getBarHeight());
     }
@@ -76,8 +76,8 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testSetOptions()
     {
         $this->object->setOptions(
-                array('barHeight' => 150,
-                        'unkownProperty' => 'aValue'));
+                ['barHeight' => 150,
+                        'unkownProperty' => 'aValue']);
         $this->assertEquals(150, $this->object->getBarHeight());
     }
 
@@ -270,7 +270,7 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped(
                     'GD extension is required to run this test');
         }
-        $gdFontSize = array(8 , 13 , 13 , 16 , 15);
+        $gdFontSize = [8 , 13 , 13 , 16 , 15];
         for ($i = 1; $i <= 5; $i ++) {
             $this->object->setFont($i);
             $this->assertSame($i, $this->object->getFont());
@@ -346,39 +346,39 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
     public function testAddInstruction()
     {
         $object = new TestAsset\BarcodeTest();
-        $instructions = array('type' => 'text' , 'text' => 'text' , 'size' => 10 ,
-                'position' => array(5 , 5) ,
+        $instructions = ['type' => 'text' , 'text' => 'text' , 'size' => 10 ,
+                'position' => [5 , 5] ,
                 'font' => 'my_font.ttf' ,
                 'color' => '#123456' ,
                 'alignment' => 'center' ,
-                'orientation' => 45);
+                'orientation' => 45];
         $object->addTestInstruction($instructions);
-        $this->assertSame(array($instructions), $object->getInstructions());
+        $this->assertSame([$instructions], $object->getInstructions());
     }
 
     public function testAddPolygon()
     {
         $object = new TestAsset\BarcodeTest();
-        $points = array();
+        $points = [];
         $color = '#123456';
         $filled = false;
-        $instructions = array('type' => 'polygon' , 'points' => $points ,
-                'color' => $color , 'filled' => $filled);
+        $instructions = ['type' => 'polygon' , 'points' => $points ,
+                'color' => $color , 'filled' => $filled];
         $object->addTestPolygon($points, $color, $filled);
-        $this->assertSame(array($instructions), $object->getInstructions());
+        $this->assertSame([$instructions], $object->getInstructions());
     }
 
     public function testAddPolygonWithDefaultColor()
     {
         $object = new TestAsset\BarcodeTest();
-        $points = array();
+        $points = [];
         $color = 123456;
         $object->setForeColor($color);
         $filled = false;
-        $instructions = array('type' => 'polygon' , 'points' => $points ,
-                'color' => $color , 'filled' => $filled);
+        $instructions = ['type' => 'polygon' , 'points' => $points ,
+                'color' => $color , 'filled' => $filled];
         $object->addTestPolygon($points, null, $filled);
-        $this->assertSame(array($instructions), $object->getInstructions());
+        $this->assertSame([$instructions], $object->getInstructions());
     }
 
     public function testAddText()
@@ -386,19 +386,19 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
         $object = new TestAsset\BarcodeTest();
         $size = 10;
         $text = 'foobar';
-        $position = array();
+        $position = [];
         $font = 'my_font.ttf';
         $color = '#123456';
         $alignment = 'right';
         $orientation = 45;
-        $instructions = array('type' => 'text' , 'text' => $text , 'size' => $size ,
+        $instructions = ['type' => 'text' , 'text' => $text , 'size' => $size ,
                 'position' => $position ,
                 'font' => $font , 'color' => $color ,
                 'alignment' => $alignment ,
-                'orientation' => $orientation);
+                'orientation' => $orientation];
         $object->addTestText($text, $size, $position, $font, $color, $alignment,
                 $orientation);
-        $this->assertSame(array($instructions), $object->getInstructions());
+        $this->assertSame([$instructions], $object->getInstructions());
     }
 
     public function testAddTextWithDefaultColor()
@@ -406,19 +406,19 @@ abstract class TestCommon extends \PHPUnit_Framework_TestCase
         $object = new TestAsset\BarcodeTest();
         $size = 10;
         $text = 'foobar';
-        $position = array();
+        $position = [];
         $font = 'my_font.ttf';
         $color = 123456;
         $object->setForeColor($color);
         $alignment = 'right';
         $orientation = 45;
-        $instructions = array('type' => 'text' , 'text' => $text , 'size' => $size ,
+        $instructions = ['type' => 'text' , 'text' => $text , 'size' => $size ,
                 'position' => $position ,
                 'font' => $font , 'color' => $color ,
                 'alignment' => $alignment ,
-                'orientation' => $orientation);
+                'orientation' => $orientation];
         $object->addTestText($text, $size, $position, $font, null, $alignment, $orientation);
-        $this->assertSame(array($instructions), $object->getInstructions());
+        $this->assertSame([$instructions], $object->getInstructions());
     }
 
     public function testCheckParamsFontWithOrientation()

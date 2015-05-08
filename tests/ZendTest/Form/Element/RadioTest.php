@@ -16,7 +16,7 @@ class RadioTest extends TestCase
 {
     public function useHiddenAttributeDataProvider()
     {
-        return array(array(true), array(false));
+        return [[true], [false]];
     }
 
     /**
@@ -25,23 +25,23 @@ class RadioTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes($useHiddenElement)
     {
         $element = new RadioElement();
-        $options = array(
+        $options = [
             '1' => 'Option 1',
             '2' => 'Option 2',
             '3' => 'Option 3',
-        );
-        $element->setAttributes(array(
+        ];
+        $element->setAttributes([
             'options' => $options,
-        ));
+        ]);
         $element->setUseHiddenElement($useHiddenElement);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\InArray'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -50,22 +50,22 @@ class RadioTest extends TestCase
 
     public function radioOptionsDataProvider()
     {
-        return array(
-            array(
-                array('foo', 'bar'),
-                array(
+        return [
+            [
+                ['foo', 'bar'],
+                [
                     'foo' => 'My Foo Label',
                     'bar' => 'My Bar Label',
-                )
-            ),
-            array(
-                array('foo', 'bar'),
-                array(
-                    0 => array('label' => 'My Foo Label', 'value' => 'foo'),
-                    1 => array('label' => 'My Bar Label', 'value' => 'bar'),
-                )
-            ),
-        );
+                ]
+            ],
+            [
+                ['foo', 'bar'],
+                [
+                    0 => ['label' => 'My Foo Label', 'value' => 'foo'],
+                    1 => ['label' => 'My Bar Label', 'value' => 'bar'],
+                ]
+            ],
+        ];
     }
 
     /**
@@ -74,9 +74,9 @@ class RadioTest extends TestCase
     public function testInArrayValidationOfOptions($valueTests, $options)
     {
         $element = new RadioElement('my-radio');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'options' => $options,
-        ));
+        ]);
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $inArrayValidator = $inputSpec['validators'][0];
@@ -89,11 +89,11 @@ class RadioTest extends TestCase
     public function testDisableInputSpecification()
     {
         $element = new RadioElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
         $element->setDisableInArrayValidator(true);
 
         $inputSpec = $element->getInputSpecification();

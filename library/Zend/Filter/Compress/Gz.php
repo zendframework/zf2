@@ -26,11 +26,11 @@ class Gz extends AbstractCompressionAlgorithm
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'level'   => 9,
         'mode'    => 'compress',
         'archive' => null,
-    );
+    ];
 
     /**
      * Class constructor

@@ -55,7 +55,7 @@ class HydratorListenerTest extends PHPUnit_Framework_TestCase
                 $this->logicalOr(HydrateEvent::EVENT_HYDRATE, ExtractEvent::EVENT_EXTRACT),
                 $this->logicalAnd(
                     $this->callback('is_callable'),
-                    $this->logicalOr(array($this->listener, 'onHydrate'), array($this->listener, 'onExtract'))
+                    $this->logicalOr([$this->listener, 'onHydrate'], [$this->listener, 'onExtract'])
                 )
             );
 
@@ -69,7 +69,7 @@ class HydratorListenerTest extends PHPUnit_Framework_TestCase
     {
         $object   = new stdClass();
         $hydrated = new stdClass();
-        $data     = array('foo' => 'bar');
+        $data     = ['foo' => 'bar'];
         $event    = $this
             ->getMockBuilder('Zend\Stdlib\Hydrator\Aggregate\HydrateEvent')
             ->disableOriginalConstructor()
@@ -95,7 +95,7 @@ class HydratorListenerTest extends PHPUnit_Framework_TestCase
     public function testOnExtract()
     {
         $object = new stdClass();
-        $data   = array('foo' => 'bar');
+        $data   = ['foo' => 'bar'];
         $event  = $this
             ->getMockBuilder('Zend\Stdlib\Hydrator\Aggregate\ExtractEvent')
             ->disableOriginalConstructor()

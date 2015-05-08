@@ -30,9 +30,9 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testDiConstructorCanTakeDependencies()
     {
-        $dl = new DefinitionList(array());
+        $dl = new DefinitionList([]);
         $im = new InstanceManager();
-        $cg = new Config(array());
+        $cg = new Config([]);
         $di = new Di($dl, $im, $cg);
 
         $this->assertSame($dl, $di->definitions());
@@ -54,13 +54,13 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRetrievesSameInstanceOnSubsequentCalls()
     {
-        $config = new Config(array(
-            'instance' => array(
-                'ZendTest\Di\TestAsset\BasicClass' => array(
+        $config = new Config([
+            'instance' => [
+                'ZendTest\Di\TestAsset\BasicClass' => [
                     'shared' => true,
-                    ),
-                ),
-        ));
+                    ],
+                ],
+        ]);
         $di = new Di(null, null, $config);
         $obj1 = $di->get('ZendTest\Di\TestAsset\BasicClass');
         $obj2 = $di->get('ZendTest\Di\TestAsset\BasicClass');
@@ -71,13 +71,13 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRetrievesDifferentInstanceOnSubsequentCallsIfSharingDisabled()
     {
-        $config = new Config(array(
-            'instance' => array(
-                'ZendTest\Di\TestAsset\BasicClass' => array(
+        $config = new Config([
+            'instance' => [
+                'ZendTest\Di\TestAsset\BasicClass' => [
                     'shared' => false,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $di = new Di(null, null, $config);
         $obj1 = $di->get('ZendTest\Di\TestAsset\BasicClass');
         $obj2 = $di->get('ZendTest\Di\TestAsset\BasicClass');
@@ -88,19 +88,19 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRetrievesSameSharedInstanceOnUsingInConstructor()
     {
-        $config = new Config(array(
-            'instance' => array(
-                'ZendTest\Di\TestAsset\BasicClass' => array(
+        $config = new Config([
+            'instance' => [
+                'ZendTest\Di\TestAsset\BasicClass' => [
                     'shared' => true,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $di = new Di(null, null, $config);
-        $obj1 = $di->get('ZendTest\Di\TestAsset\BasicClassWithParent', array('foo' => 0));
-        $obj2 = $di->get('ZendTest\Di\TestAsset\BasicClassWithParent', array('foo' => 1));
-        $obj3 = $di->get('ZendTest\Di\TestAsset\BasicClassWithParent', array('foo' => 2, 'non_exists' => 1));
+        $obj1 = $di->get('ZendTest\Di\TestAsset\BasicClassWithParent', ['foo' => 0]);
+        $obj2 = $di->get('ZendTest\Di\TestAsset\BasicClassWithParent', ['foo' => 1]);
+        $obj3 = $di->get('ZendTest\Di\TestAsset\BasicClassWithParent', ['foo' => 2, 'non_exists' => 1]);
         $objParent1 = $di->get('ZendTest\Di\TestAsset\BasicClass');
-        $objParent2 = $di->get('ZendTest\Di\TestAsset\BasicClass', array('foo' => 1));
+        $objParent2 = $di->get('ZendTest\Di\TestAsset\BasicClass', ['foo' => 1]);
 
         $this->assertInstanceOf('ZendTest\Di\TestAsset\BasicClassWithParent', $obj1);
         $this->assertInstanceOf('ZendTest\Di\TestAsset\BasicClassWithParent', $obj2);
@@ -150,7 +150,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
     public function testNewInstanceReturnsInstanceThatIsNotSharedWithGet()
     {
         $di = new Di();
-        $obj1 = $di->newInstance('ZendTest\Di\TestAsset\BasicClass', array(), false);
+        $obj1 = $di->newInstance('ZendTest\Di\TestAsset\BasicClass', [], false);
         $obj2 = $di->get('ZendTest\Di\TestAsset\BasicClass');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\BasicClass', $obj1);
         $this->assertInstanceOf('ZendTest\Di\TestAsset\BasicClass', $obj2);
@@ -159,10 +159,10 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testNewInstanceCanHandleClassesCreatedByCallback()
     {
-        $definitionList = new DefinitionList(array(
+        $definitionList = new DefinitionList([
             $classdef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\CallbackClasses\A'),
             new Definition\RuntimeDefinition()
-        ));
+        ]);
         $classdef->setInstantiator('ZendTest\Di\TestAsset\CallbackClasses\A::factory');
 
         $di = new Di($definitionList);
@@ -172,22 +172,22 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testNewInstanceCanHandleComplexCallback()
     {
-        $definitionList = new DefinitionList(array(
+        $definitionList = new DefinitionList([
             $classdefB = new Definition\ClassDefinition('ZendTest\Di\TestAsset\CallbackClasses\B'),
             $classdefC = new Definition\ClassDefinition('ZendTest\Di\TestAsset\CallbackClasses\C'),
             new Definition\RuntimeDefinition()
-        ));
+        ]);
 
         $classdefB->setInstantiator('ZendTest\Di\TestAsset\CallbackClasses\B::factory');
         $classdefB->addMethod('factory', true);
-        $classdefB->addMethodParameter('factory', 'c', array('type' => 'ZendTest\Di\TestAsset\CallbackClasses\C', 'required' => true));
-        $classdefB->addMethodParameter('factory', 'params', array('type' => 'Array', 'required'=>false));
+        $classdefB->addMethodParameter('factory', 'c', ['type' => 'ZendTest\Di\TestAsset\CallbackClasses\C', 'required' => true]);
+        $classdefB->addMethodParameter('factory', 'params', ['type' => 'Array', 'required'=>false]);
 
         $di = new Di($definitionList);
-        $b = $di->get('ZendTest\Di\TestAsset\CallbackClasses\B', array('params'=>array('foo' => 'bar')));
+        $b = $di->get('ZendTest\Di\TestAsset\CallbackClasses\B', ['params'=>['foo' => 'bar']]);
         $this->assertInstanceOf('ZendTest\Di\TestAsset\CallbackClasses\B', $b);
         $this->assertInstanceOf('ZendTest\Di\TestAsset\CallbackClasses\C', $b->c);
-        $this->assertEquals(array('foo' => 'bar'), $b->params);
+        $this->assertEquals(['foo' => 'bar'], $b->params);
     }
 
 
@@ -288,7 +288,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $di = new Di();
 
         $im = $di->instanceManager();
-        $im->setParameters('ZendTest\Di\TestAsset\ConstructorInjection\X', array('one' => 1, 'two' => 2));
+        $im->setParameters('ZendTest\Di\TestAsset\ConstructorInjection\X', ['one' => 1, 'two' => 2]);
 
         $y = $di->newInstance('ZendTest\Di\TestAsset\ConstructorInjection\Y');
         $this->assertEquals(1, $y->x->one);
@@ -314,7 +314,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $di = new Di();
 
         $im = $di->instanceManager();
-        $im->setParameters('ZendTest\Di\TestAsset\ConstructorInjection\X', array('one' => 1, 'two' => 2));
+        $im->setParameters('ZendTest\Di\TestAsset\ConstructorInjection\X', ['one' => 1, 'two' => 2]);
 
         $z = $di->newInstance('ZendTest\Di\TestAsset\ConstructorInjection\Z');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\ConstructorInjection\Y', $z->y);
@@ -330,7 +330,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
         // for setter injection, the dependency is not required, thus it must be forced
         $di->instanceManager()->setParameters(
             'ZendTest\Di\TestAsset\SetterInjection\B',
-            array('a' => new TestAsset\SetterInjection\A)
+            ['a' => new TestAsset\SetterInjection\A]
         );
         $b = $di->get('ZendTest\Di\TestAsset\SetterInjection\B');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\SetterInjection\B', $b);
@@ -346,7 +346,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
         // for setter injection, the dependency is not required, thus it must be forced
         $di->instanceManager()->setParameters(
             'ZendTest\Di\TestAsset\SetterInjection\B',
-            array('a' => $a = new TestAsset\SetterInjection\A)
+            ['a' => $a = new TestAsset\SetterInjection\A]
         );
 
         $b = $di->get('ZendTest\Di\TestAsset\SetterInjection\B');
@@ -371,7 +371,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
         // for setter injection, the dependency is not required, thus it must be forced
         $di->instanceManager()->setParameters(
             'ZendTest\Di\TestAsset\SetterInjection\B',
-            array('a' => new TestAsset\SetterInjection\A)
+            ['a' => new TestAsset\SetterInjection\A]
         );
 
         $b = $di->newInstance('ZendTest\Di\TestAsset\SetterInjection\B');
@@ -389,10 +389,10 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $di = new Di();
 
         $im = $di->instanceManager();
-        $im->setParameters('ZendTest\Di\TestAsset\SetterInjection\X', array('one' => 1, 'two' => 2));
+        $im->setParameters('ZendTest\Di\TestAsset\SetterInjection\X', ['one' => 1, 'two' => 2]);
 
         $x = $di->get('ZendTest\Di\TestAsset\SetterInjection\X');
-        $y = $di->newInstance('ZendTest\Di\TestAsset\SetterInjection\Y', array('x' => $x));
+        $y = $di->newInstance('ZendTest\Di\TestAsset\SetterInjection\Y', ['x' => $x]);
 
         $this->assertEquals(1, $y->x->one);
         $this->assertEquals(2, $y->x->two);
@@ -451,8 +451,8 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $di = new Di();
 
         $di->instanceManager()->addAlias('YA', 'ZendTest\Di\TestAsset\CircularClasses\Y');
-        $di->instanceManager()->addAlias('YB', 'ZendTest\Di\TestAsset\CircularClasses\Y', array('y' => 'YA'));
-        $di->instanceManager()->addAlias('YC', 'ZendTest\Di\TestAsset\CircularClasses\Y', array('y' => 'YB'));
+        $di->instanceManager()->addAlias('YB', 'ZendTest\Di\TestAsset\CircularClasses\Y', ['y' => 'YA']);
+        $di->instanceManager()->addAlias('YC', 'ZendTest\Di\TestAsset\CircularClasses\Y', ['y' => 'YB']);
 
         return $di;
     }
@@ -497,9 +497,9 @@ class DiTest extends \PHPUnit_Framework_TestCase
     {
         $di = new Di();
 
-        $di->instanceManager()->addAlias('YA', 'ZendTest\Di\TestAsset\CircularClasses\Y', array('y' => 'YC'));
-        $di->instanceManager()->addAlias('YB', 'ZendTest\Di\TestAsset\CircularClasses\Y', array('y' => 'YA'));
-        $di->instanceManager()->addAlias('YC', 'ZendTest\Di\TestAsset\CircularClasses\Y', array('y' => 'YB'));
+        $di->instanceManager()->addAlias('YA', 'ZendTest\Di\TestAsset\CircularClasses\Y', ['y' => 'YC']);
+        $di->instanceManager()->addAlias('YB', 'ZendTest\Di\TestAsset\CircularClasses\Y', ['y' => 'YA']);
+        $di->instanceManager()->addAlias('YC', 'ZendTest\Di\TestAsset\CircularClasses\Y', ['y' => 'YB']);
 
         $this->setExpectedException(
             'Zend\Di\Exception\CircularDependencyException',
@@ -522,7 +522,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $di->instanceManager()->addAlias(
             'YA',
             'ZendTest\Di\TestAsset\CircularClasses\Y',
-            array('y' => 'YA')
+            ['y' => 'YA']
         );
 
         $this->setExpectedException(
@@ -546,7 +546,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $di->instanceManager()->addAlias(
             'YA',
             'ZendTest\Di\TestAsset\CircularClasses\Y',
-            array('y' => 'ZendTest\Di\TestAsset\CircularClasses\Y')
+            ['y' => 'ZendTest\Di\TestAsset\CircularClasses\Y']
         );
 
         $this->setExpectedException(
@@ -554,7 +554,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
             'Circular dependency detected: ZendTest\Di\TestAsset\CircularClasses\Y depends on ZendTest\Di\TestAsset\CircularClasses\Y and viceversa (Aliased as YA)'
         );
 
-        $y = $di->get('ZendTest\Di\TestAsset\CircularClasses\Y', array('y' => 'YA'));
+        $y = $di->get('ZendTest\Di\TestAsset\CircularClasses\Y', ['y' => 'YA']);
     }
 
     /**
@@ -564,10 +564,10 @@ class DiTest extends \PHPUnit_Framework_TestCase
      */
     public function testNewInstanceWillUsePreferredClassForInterfaceHints()
     {
-        $definitionList = new DefinitionList(array(
+        $definitionList = new DefinitionList([
             $classdef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\PreferredImplClasses\C'),
             new Definition\RuntimeDefinition()
-        ));
+        ]);
         $classdef->addMethod('setA', Di::METHOD_IS_EAGER);
         $di = new Di($definitionList);
 
@@ -585,33 +585,33 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testNewInstanceWillThrowAnClassNotFoundExceptionWhenClassIsAnInterface()
     {
-        $definitionArray = array(
-            'ZendTest\Di\TestAsset\ConstructorInjection\D' => array(
-                'supertypes' => array(),
+        $definitionArray = [
+            'ZendTest\Di\TestAsset\ConstructorInjection\D' => [
+                'supertypes' => [],
                 'instantiator' => '__construct',
-                'methods' => array('__construct' => 3),
-                'parameters' => array(
+                'methods' => ['__construct' => 3],
+                'parameters' => [
                     '__construct' =>
-                    array(
-                        'ZendTest\Di\TestAsset\ConstructorInjection\D::__construct:0' => array(
+                    [
+                        'ZendTest\Di\TestAsset\ConstructorInjection\D::__construct:0' => [
                             0 => 'd',
                             1 => 'ZendTest\Di\TestAsset\DummyInterface',
                             2 => true,
                             3 => null,
-                        ),
-                    ),
-                ),
-            ),
-            'ZendTest\Di\TestAsset\DummyInterface' => array(
-                'supertypes' => array(),
+                        ],
+                    ],
+                ],
+            ],
+            'ZendTest\Di\TestAsset\DummyInterface' => [
+                'supertypes' => [],
                 'instantiator' => null,
-                'methods' => array(),
-                'parameters' => array(),
-            ),
-        );
-        $definitionList = new DefinitionList(array(
+                'methods' => [],
+                'parameters' => [],
+            ],
+        ];
+        $definitionList = new DefinitionList([
             new Definition\ArrayDefinition($definitionArray)
-        ));
+        ]);
         $di = new Di($definitionList);
 
         $this->setExpectedException('Zend\Di\Exception\ClassNotFoundException', 'Cannot instantiate interface');
@@ -649,19 +649,19 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testInjectionInstancesCanBeInjectedMultipleTimes()
     {
-        $definitionList = new DefinitionList(array(
+        $definitionList = new DefinitionList([
             $classdef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\InjectionClasses\A'),
             new Definition\RuntimeDefinition()
-        ));
+        ]);
         $classdef->addMethod('addB');
-        $classdef->addMethodParameter('addB', 'b', array('required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B'));
+        $classdef->addMethodParameter('addB', 'b', ['required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B']);
 
         $di = new Di($definitionList);
         $di->instanceManager()->setInjections(
             'ZendTest\Di\TestAsset\InjectionClasses\A',
-            array(
+            [
                 'ZendTest\Di\TestAsset\InjectionClasses\B'
-            )
+            ]
         );
         $a = $di->newInstance('ZendTest\Di\TestAsset\InjectionClasses\A');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\InjectionClasses\B', $a->bs[0]);
@@ -672,10 +672,10 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
         $di->instanceManager()->setInjections(
             'ZendTest\Di\TestAsset\InjectionClasses\A',
-            array(
+            [
                 'my-b1',
                 'my-b2'
-            )
+            ]
         );
         $a = $di->newInstance('ZendTest\Di\TestAsset\InjectionClasses\A');
 
@@ -689,22 +689,22 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testInjectionCanHandleDisambiguationViaPositions()
     {
-        $definitionList = new DefinitionList(array(
+        $definitionList = new DefinitionList([
             $classdef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\InjectionClasses\A'),
             new Definition\RuntimeDefinition()
-        ));
+        ]);
         $classdef->addMethod('injectBOnce');
         $classdef->addMethod('injectBTwice');
-        $classdef->addMethodParameter('injectBOnce', 'b', array('required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B'));
-        $classdef->addMethodParameter('injectBTwice', 'b', array('required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B'));
+        $classdef->addMethodParameter('injectBOnce', 'b', ['required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B']);
+        $classdef->addMethodParameter('injectBTwice', 'b', ['required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B']);
 
         $di = new Di($definitionList);
         $di->instanceManager()->setInjections(
             'ZendTest\Di\TestAsset\InjectionClasses\A',
-            array(
+            [
                 'ZendTest\Di\TestAsset\InjectionClasses\A::injectBOnce:0' => new \ZendTest\Di\TestAsset\InjectionClasses\B('once'),
                 'ZendTest\Di\TestAsset\InjectionClasses\A::injectBTwice:0' => new \ZendTest\Di\TestAsset\InjectionClasses\B('twice')
-            )
+            ]
         );
         $a = $di->newInstance('ZendTest\Di\TestAsset\InjectionClasses\A');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\InjectionClasses\B', $a->bs[0]);
@@ -715,22 +715,22 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testInjectionCanHandleDisambiguationViaNames()
     {
-        $definitionList = new DefinitionList(array(
+        $definitionList = new DefinitionList([
             $classdef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\InjectionClasses\A'),
             new Definition\RuntimeDefinition()
-        ));
+        ]);
         $classdef->addMethod('injectBOnce');
         $classdef->addMethod('injectBTwice');
-        $classdef->addMethodParameter('injectBOnce', 'b', array('required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B'));
-        $classdef->addMethodParameter('injectBTwice', 'b', array('required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B'));
+        $classdef->addMethodParameter('injectBOnce', 'b', ['required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B']);
+        $classdef->addMethodParameter('injectBTwice', 'b', ['required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B']);
 
         $di = new Di($definitionList);
         $di->instanceManager()->setInjections(
             'ZendTest\Di\TestAsset\InjectionClasses\A',
-            array(
+            [
                 'ZendTest\Di\TestAsset\InjectionClasses\A::injectBOnce:b' => new \ZendTest\Di\TestAsset\InjectionClasses\B('once'),
                 'ZendTest\Di\TestAsset\InjectionClasses\A::injectBTwice:b' => new \ZendTest\Di\TestAsset\InjectionClasses\B('twice')
-            )
+            ]
         );
         $a = $di->newInstance('ZendTest\Di\TestAsset\InjectionClasses\A');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\InjectionClasses\B', $a->bs[0]);
@@ -741,13 +741,13 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
     public function testInjectionCanHandleMultipleInjectionsWithMultipleArguments()
     {
-        $definitionList = new DefinitionList(array(
+        $definitionList = new DefinitionList([
             $classdef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\InjectionClasses\A'),
             new Definition\RuntimeDefinition()
-        ));
+        ]);
         $classdef->addMethod('injectSplitDependency');
-        $classdef->addMethodParameter('injectSplitDependency', 'b', array('required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B'));
-        $classdef->addMethodParameter('injectSplitDependency', 'somestring', array('required' => true, 'type' => null));
+        $classdef->addMethodParameter('injectSplitDependency', 'b', ['required' => true, 'type' => 'ZendTest\Di\TestAsset\InjectionClasses\B']);
+        $classdef->addMethodParameter('injectSplitDependency', 'somestring', ['required' => true, 'type' => null]);
 
         /**
          * First test that this works with a single call
@@ -755,9 +755,9 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $di = new Di($definitionList);
         $di->instanceManager()->setInjections(
             'ZendTest\Di\TestAsset\InjectionClasses\A',
-            array(
-                'injectSplitDependency' => array('b' => 'ZendTest\Di\TestAsset\InjectionClasses\B', 'somestring' => 'bs-id')
-            )
+            [
+                'injectSplitDependency' => ['b' => 'ZendTest\Di\TestAsset\InjectionClasses\B', 'somestring' => 'bs-id']
+            ]
         );
         $a = $di->newInstance('ZendTest\Di\TestAsset\InjectionClasses\A');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\InjectionClasses\B', $a->bs[0]);
@@ -769,12 +769,12 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $di = new Di($definitionList);
         $di->instanceManager()->setInjections(
             'ZendTest\Di\TestAsset\InjectionClasses\A',
-            array(
-                'injectSplitDependency' => array(
-                    array('b' => 'ZendTest\Di\TestAsset\InjectionClasses\B', 'somestring' => 'bs-id'),
-                    array('b' => 'ZendTest\Di\TestAsset\InjectionClasses\C', 'somestring' => 'bs-id-for-c')
-                )
-            )
+            [
+                'injectSplitDependency' => [
+                    ['b' => 'ZendTest\Di\TestAsset\InjectionClasses\B', 'somestring' => 'bs-id'],
+                    ['b' => 'ZendTest\Di\TestAsset\InjectionClasses\C', 'somestring' => 'bs-id-for-c']
+                ]
+            ]
         );
         $a = $di->newInstance('ZendTest\Di\TestAsset\InjectionClasses\A');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\InjectionClasses\B', $a->bs[0]);
@@ -793,7 +793,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
         // for setter injection, the dependency is not required, thus it must be forced
         $di->instanceManager()->setParameters(
             'ZendTest\Di\TestAsset\SetterInjection\C',
-            array('a' => new TestAsset\SetterInjection\A)
+            ['a' => new TestAsset\SetterInjection\A]
         );
         $c = $di->get('ZendTest\Di\TestAsset\SetterInjection\C');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\SetterInjection\C', $c);
@@ -824,13 +824,13 @@ class DiTest extends \PHPUnit_Framework_TestCase
     public function testMarkingClassAsNotSharedInjectsNewInstanceIntoAllRequestersButDependentsAreShared()
     {
         $di = new Di();
-        $di->configure(new Config(array(
-            'instance' => array(
-                'ZendTest\Di\TestAsset\SharedInstance\Lister' => array(
+        $di->configure(new Config([
+            'instance' => [
+                'ZendTest\Di\TestAsset\SharedInstance\Lister' => [
                     'shared' => false
-                )
-            )
-        )));
+                ]
+            ]
+        ]));
         $movie = $di->get('ZendTest\Di\TestAsset\SharedInstance\Movie');
         $venue = $di->get('ZendTest\Di\TestAsset\SharedInstance\Venue');
 
@@ -859,10 +859,10 @@ class DiTest extends \PHPUnit_Framework_TestCase
         // for setter injection, the dependency is not required, thus it must be forced
         $classDef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\SetterInjection\B');
         $classDef->addMethod('setA', false);
-        $classDef->addMethodParameter('setA', 'a', array('type' => 'ZendTest\Di\TestAsset\SetterInjection\A', 'required' => false));
+        $classDef->addMethodParameter('setA', 'a', ['type' => 'ZendTest\Di\TestAsset\SetterInjection\A', 'required' => false]);
         $di->definitions()->addDefinition($classDef, false);
         $di->instanceManager()->addAlias('b_alias', 'ZendTest\Di\TestAsset\SetterInjection\B');
-        $di->instanceManager()->setInjections('b_alias', array('ZendTest\Di\TestAsset\SetterInjection\A'));
+        $di->instanceManager()->setInjections('b_alias', ['ZendTest\Di\TestAsset\SetterInjection\A']);
 
         $b = $di->get('b_alias');
         $this->assertInstanceOf('ZendTest\Di\TestAsset\SetterInjection\A', $b->a);
@@ -878,11 +878,11 @@ class DiTest extends \PHPUnit_Framework_TestCase
         // for setter injection, the dependency is not required, thus it must be forced
         $di->instanceManager()->setParameters(
             'ZendTest\Di\TestAsset\InheritanceClasses\B',
-            array('test' => 'b')
+            ['test' => 'b']
         );
         $di->instanceManager()->setParameters(
             'ZendTest\Di\TestAsset\InheritanceClasses\A',
-            array('test' => 'a')
+            ['test' => 'a']
         );
 
         $b = $di->get('ZendTest\Di\TestAsset\InheritanceClasses\B');
@@ -901,12 +901,12 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
         $classDef = new Definition\ClassDefinition('ZendTest\Di\TestAsset\SetterInjection\D');
         $classDef->addMethod('setA', true);
-        $classDef->addMethodParameter('setA', 'a', array('type' => false, 'required' => true));
+        $classDef->addMethodParameter('setA', 'a', ['type' => false, 'required' => true]);
         $di->definitions()->addDefinition($classDef, false);
 
         $d = $di->get(
             'ZendTest\Di\TestAsset\SetterInjection\D',
-            array('a' => 'ZendTest\Di\TestAsset\SetterInjection\A')
+            ['a' => 'ZendTest\Di\TestAsset\SetterInjection\A']
         );
 
         $this->assertSame($d->a, 'ZendTest\Di\TestAsset\SetterInjection\A');
@@ -919,7 +919,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
     {
         $di = new Di;
         $di->definitions()->addDefinition(new Definition\RuntimeDefinition(), false);
-        $di->newInstance('ZendTest\Di\TestAsset\SetterInjection\StaticSetter', array('name' => 'testName'));
+        $di->newInstance('ZendTest\Di\TestAsset\SetterInjection\StaticSetter', ['name' => 'testName']);
 
         $this->assertSame(\ZendTest\Di\TestAsset\SetterInjection\StaticSetter::$name, 'originalName');
     }
@@ -936,17 +936,17 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $classDef->addMethodParameter(
             '__construct',
             'a',
-            array('type' => false, 'required' => false, 'default' => null)
+            ['type' => false, 'required' => false, 'default' => null]
         );
         $classDef->addMethodParameter(
             '__construct',
             'b',
-            array('type' => false, 'required' => false, 'default' => 'defaultConstruct')
+            ['type' => false, 'required' => false, 'default' => 'defaultConstruct']
         );
         $classDef->addMethodParameter(
             '__construct',
             'c',
-            array('type' => false, 'required' => false, 'default' => array())
+            ['type' => false, 'required' => false, 'default' => []]
         );
 
         $di->definitions()->addDefinition($classDef, false);
@@ -955,7 +955,7 @@ class DiTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(null, $optionalParams->a);
         $this->assertSame('defaultConstruct', $optionalParams->b);
-        $this->assertSame(array(), $optionalParams->c);
+        $this->assertSame([], $optionalParams->c);
     }
 
     /**
@@ -969,50 +969,50 @@ class DiTest extends \PHPUnit_Framework_TestCase
         $retrievedInstanceClass = 'ZendTest\Di\TestAsset\ConstructorInjection\C';
 
         // Provide definitions for $retrievedInstanceClass, but not for $sharedInstanceClass.
-        $arrayDefinition = array($retrievedInstanceClass => array(
-            'supertypes' => array( ),
+        $arrayDefinition = [$retrievedInstanceClass => [
+            'supertypes' => [ ],
             'instantiator' => '__construct',
-            'methods' => array('__construct' => true),
-            'parameters' => array( '__construct' => array(
-                "$retrievedInstanceClass::__construct:0" => array('a', $sharedInstanceClass, true, null),
-                "$retrievedInstanceClass::__construct:1" => array('params', null, false, array()),
-            )),
-        ));
+            'methods' => ['__construct' => true],
+            'parameters' => [ '__construct' => [
+                "$retrievedInstanceClass::__construct:0" => ['a', $sharedInstanceClass, true, null],
+                "$retrievedInstanceClass::__construct:1" => ['params', null, false, []],
+            ]],
+        ]];
 
         // This also disables scanning of class A.
         $di->setDefinitionList(new DefinitionList(new Definition\ArrayDefinition($arrayDefinition)));
 
         $di->instanceManager()->addSharedInstance(new $sharedInstanceClass, $sharedInstanceClass);
-        $returnedC = $di->get($retrievedInstanceClass, array('params' => array('test')));
+        $returnedC = $di->get($retrievedInstanceClass, ['params' => ['test']]);
         $this->assertInstanceOf($retrievedInstanceClass, $returnedC);
     }
 
     public function testGetInstanceWithParamsHasSameNameAsDependencyParam()
     {
-        $config = new Config(array(
-            'definition' => array(
-                'class' => array(
-                    'ZendTest\Di\TestAsset\AggregateClasses\AggregateItems' => array(
-                        'addItem' => array(
-                            'item' => array('type'=>'ZendTest\Di\TestAsset\AggregateClasses\ItemInterface',
-                                            'required'=>true)
-                        )
-                    )
-                )
-            ),
-            'instance' => array(
-                'ZendTest\Di\TestAsset\AggregateClasses\AggregateItems' => array(
-                    'injections' => array(
+        $config = new Config([
+            'definition' => [
+                'class' => [
+                    'ZendTest\Di\TestAsset\AggregateClasses\AggregateItems' => [
+                        'addItem' => [
+                            'item' => ['type'=>'ZendTest\Di\TestAsset\AggregateClasses\ItemInterface',
+                                            'required'=>true]
+                        ]
+                    ]
+                ]
+            ],
+            'instance' => [
+                'ZendTest\Di\TestAsset\AggregateClasses\AggregateItems' => [
+                    'injections' => [
                         'ZendTest\Di\TestAsset\AggregateClasses\Item'
-                    )
-                ),
-                'ZendTest\Di\TestAsset\AggregatedParamClass' => array(
-                    'parameters' => array(
+                    ]
+                ],
+                'ZendTest\Di\TestAsset\AggregatedParamClass' => [
+                    'parameters' => [
                         'item' => 'ZendTest\Di\TestAsset\AggregateClasses\AggregateItems'
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
         $di = new Di(null, null, $config);
         $this->assertCount(1, $di->get('ZendTest\Di\TestAsset\AggregatedParamClass')->aggregator->items);

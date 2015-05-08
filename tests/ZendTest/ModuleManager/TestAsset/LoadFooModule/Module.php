@@ -20,9 +20,9 @@ class Module
 
     public function getConfig()
     {
-        return array(
+        return [
             'bar' => 'foo',
             'foo' => 'foo',
-        );
+        ];
     }
 }

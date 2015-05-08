@@ -40,7 +40,7 @@ class Navigation extends AbstractNavigationHelper
      *
      * @var array
      */
-    protected $injected = array();
+    protected $injected = [];
 
     /**
      * Whether ACL should be injected when proxying
@@ -107,7 +107,7 @@ class Navigation extends AbstractNavigationHelper
      * @throws \Zend\Navigation\Exception\ExceptionInterface  if method does not exist in container
      * @return mixed                      returns what the proxied call returns
      */
-    public function __call($method, array $arguments = array())
+    public function __call($method, array $arguments = [])
     {
         // check if call should proxy to another helper
         $helper = $this->findHelper($method, false);

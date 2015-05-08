@@ -17,7 +17,7 @@ abstract class AbstractConnection implements ConnectionInterface, ProfilerAwareI
     /**
      * @var array
      */
-    protected $connectionParameters = array();
+    protected $connectionParameters = [];
 
     /**
      * @var string|null

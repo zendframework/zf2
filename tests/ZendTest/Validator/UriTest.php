@@ -44,11 +44,11 @@ class UriTest extends \PHPUnit_Framework_TestCase
     public function testConstructorWithArraySetsOptions()
     {
         $uriMock = $this->getMock('Zend\Uri\Uri');
-        $validator = new Validator\Uri(array(
+        $validator = new Validator\Uri([
             'uriHandler' => $uriMock,
             'allowRelative' => false,
             'allowAbsolute' => false,
-        ));
+        ]);
         $this->assertEquals($uriMock, $validator->getUriHandler());
         $this->assertFalse($validator->getAllowRelative());
         $this->assertFalse($validator->getAllowAbsolute());
@@ -65,18 +65,18 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     public function allowOptionsDataProvider()
     {
-        return array(
+        return [
             //    allowAbsolute allowRelative isAbsolute isRelative isValid expects
-            array(true,         true,         true,      false,     true,   true),
-            array(true,         true,         false,     true,      true,   true),
-            array(false,        true,         true,      false,     true,   false),
-            array(false,        true,         false,     true,      true,   true),
-            array(true,         false,        true,      false,     true,   true),
-            array(true,         false,        false,     true,      true,   false),
-            array(false,        false,        true,      false,     true,   false),
-            array(false,        false,        false,     true,      true,   false),
-            array(true,         true,         false,     false,     false,  false),
-        );
+            [true,         true,         true,      false,     true,   true],
+            [true,         true,         false,     true,      true,   true],
+            [false,        true,         true,      false,     true,   false],
+            [false,        true,         false,     true,      true,   true],
+            [true,         false,        true,      false,     true,   true],
+            [true,         false,        false,     true,      true,   false],
+            [false,        false,        true,      false,     true,   false],
+            [false,        false,        false,     true,      true,   false],
+            [true,         true,         false,     false,     false,  false],
+        ];
     }
 
     /**
@@ -87,7 +87,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     ) {
         $uriMock = $this->getMock(
             'Zend\Uri\Uri',
-            array('parse', 'isValid', 'isAbsolute', 'isValidRelative')
+            ['parse', 'isValid', 'isAbsolute', 'isValidRelative']
         );
         $uriMock->expects($this->once())
             ->method('isValid')->will($this->returnValue($isValid));
@@ -121,7 +121,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     public function testEqualsMessageTemplates()

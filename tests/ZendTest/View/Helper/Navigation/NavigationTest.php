@@ -61,10 +61,10 @@ class NavigationTest extends AbstractTest
         $this->_helper->setRole($acl['role']);
 
         $accepted = $this->_helper->accept(
-            new \Zend\Navigation\Page\Uri(array(
+            new \Zend\Navigation\Page\Uri([
                 'resource'  => 'unknownresource',
                 'privilege' => 'someprivilege'
-            ),
+            ],
             false)
         );
 
@@ -94,11 +94,11 @@ class NavigationTest extends AbstractTest
     {
         // setup
         $this->_helper->setContainer($this->_nav2);
-        $expected = array(
+        $expected = [
             'menu' => $this->_getExpected('menu/default2.html'),
             'breadcrumbs' => $this->_getExpected('bc/default.html')
-        );
-        $actual = array();
+        ];
+        $actual = [];
 
         // result
         $actual['menu'] = $this->_helper->render();
@@ -117,14 +117,14 @@ class NavigationTest extends AbstractTest
         $this->_helper->setContainer($this->_nav2);
 
         // result
-        $expected = array(
+        $expected = [
             'menu'        => '',
             'breadcrumbs' => ''
-        );
-        $actual = array(
+        ];
+        $actual = [
             'menu'        => $this->_helper->render(),
             'breadcrumbs' => $this->_helper->breadcrumbs()->render()
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
     }
@@ -223,11 +223,11 @@ class NavigationTest extends AbstractTest
 
     public function testSpecifyingDefaultProxy()
     {
-        $expected = array(
+        $expected = [
             'breadcrumbs' => $this->_getExpected('bc/default.html'),
             'menu' => $this->_getExpected('menu/default1.html')
-        );
-        $actual = array();
+        ];
+        $actual = [];
 
         // result
         $this->_helper->setDefaultProxy('breadcrumbs');
@@ -382,8 +382,8 @@ class NavigationTest extends AbstractTest
 
     public function testMagicToStringShouldNotThrowException()
     {
-        set_error_handler(array($this, 'toStringErrorHandler'));
-        $this->_helper->menu()->setPartial(array(1337));
+        set_error_handler([$this, 'toStringErrorHandler']);
+        $this->_helper->menu()->setPartial([1337]);
         $this->_helper->__toString();
         restore_error_handler();
 
@@ -394,18 +394,18 @@ class NavigationTest extends AbstractTest
     {
         $nl = PHP_EOL;
 
-        $container = new \Zend\Navigation\Navigation(array(
-            array(
+        $container = new \Zend\Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'id'    => 'p1',
                 'uri'   => 'p1'
-            ),
-            array(
+            ],
+            [
                 'label' => 'Page 2',
                 'id'    => 'p2',
                 'uri'   => 'p2'
-            )
-        ));
+            ]
+        ]);
 
         $expected = '<ul class="navigation">' . $nl
                   . '    <li>' . $nl
@@ -426,19 +426,19 @@ class NavigationTest extends AbstractTest
      */
     public function testRenderInvisibleItem()
     {
-        $container = new \Zend\Navigation\Navigation(array(
-            array(
+        $container = new \Zend\Navigation\Navigation([
+            [
                 'label' => 'Page 1',
                 'id'    => 'p1',
                 'uri'   => 'p1'
-            ),
-            array(
+            ],
+            [
                 'label'   => 'Page 2',
                 'id'      => 'p2',
                 'uri'     => 'p2',
                 'visible' => false
-            )
-        ));
+            ]
+        ]);
 
         $render = $this->_helper->menu()->render($container);
 

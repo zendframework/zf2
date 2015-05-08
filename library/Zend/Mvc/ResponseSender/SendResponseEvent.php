@@ -33,12 +33,12 @@ class SendResponseEvent extends Event
     /**
      * @var array
      */
-    protected $headersSent = array();
+    protected $headersSent = [];
 
     /**
      * @var array
      */
-    protected $contentSent = array();
+    protected $contentSent = [];
 
     /**
      * @param ResponseInterface $response
@@ -67,7 +67,7 @@ class SendResponseEvent extends Event
     public function setContentSent()
     {
         $response = $this->getResponse();
-        $contentSent = $this->getParam('contentSent', array());
+        $contentSent = $this->getParam('contentSent', []);
         $contentSent[spl_object_hash($response)] = true;
         $this->setParam('contentSent', $contentSent);
         $this->contentSent[spl_object_hash($response)] = true;
@@ -94,7 +94,7 @@ class SendResponseEvent extends Event
     public function setHeadersSent()
     {
         $response = $this->getResponse();
-        $headersSent = $this->getParam('headersSent', array());
+        $headersSent = $this->getParam('headersSent', []);
         $headersSent[spl_object_hash($response)] = true;
         $this->setParam('headersSent', $headersSent);
         $this->headersSent[spl_object_hash($response)] = true;

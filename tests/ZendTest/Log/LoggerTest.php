@@ -50,10 +50,10 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
     public static function provideInvalidClasses()
     {
-        return array(
-            array('stdClass'),
-            array(new \stdClass()),
-        );
+        return [
+            ['stdClass'],
+            [new \stdClass()],
+        ];
     }
 
     /**
@@ -154,7 +154,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
     {
         $writer = new MockWriter;
         $this->logger->addWriter($writer);
-        $this->logger->log(Logger::INFO, array('test'));
+        $this->logger->log(Logger::INFO, ['test']);
 
         $this->assertEquals(count($writer->events), 1);
         $this->assertContains('test', $writer->events[0]['message']);
@@ -166,7 +166,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $filter = new MockFilter;
         $writer->addFilter($filter);
         $this->logger->addWriter($writer);
-        $this->logger->log(Logger::INFO, array('test'));
+        $this->logger->log(Logger::INFO, ['test']);
 
         $this->assertEquals(count($filter->events), 1);
         $this->assertContains('test', $filter->events[0]['message']);
@@ -177,7 +177,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $writer = new MockWriter;
         $writer->addFilter('mock');
         $this->logger->addWriter($writer);
-        $this->logger->log(Logger::INFO, array('test'));
+        $this->logger->log(Logger::INFO, ['test']);
 
         $this->assertEquals(count($writer->events), 1);
         $this->assertContains('test', $writer->events[0]['message']);
@@ -188,11 +188,11 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
      */
     public function provideTestFilters()
     {
-        return array(
-            array('priority', array('priority' => Logger::INFO)),
-            array('regex', array( 'regex' => '/[0-9]+/' )),
-            array('validator', array('validator' => new DigitsFilter)),
-        );
+        return [
+            ['priority', ['priority' => Logger::INFO]],
+            ['regex', [ 'regex' => '/[0-9]+/' ]],
+            ['validator', ['validator' => new DigitsFilter]],
+        ];
     }
 
     /**
@@ -211,11 +211,11 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
     public static function provideAttributes()
     {
-        return array(
-            array(array()),
-            array(array('user' => 'foo', 'ip' => '127.0.0.1')),
-            array(new \ArrayObject(array('id' => 42))),
-        );
+        return [
+            [[]],
+            [['user' => 'foo', 'ip' => '127.0.0.1']],
+            [new \ArrayObject(['id' => 42])],
+        ];
     }
 
     /**
@@ -234,14 +234,14 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
     public static function provideInvalidArguments()
     {
-        return array(
-            array(new \stdClass(), array('valid')),
-            array('valid', null),
-            array('valid', true),
-            array('valid', 10),
-            array('valid', 'invalid'),
-            array('valid', new \stdClass()),
-        );
+        return [
+            [new \stdClass(), ['valid']],
+            ['valid', null],
+            ['valid', true],
+            ['valid', 10],
+            ['valid', 'invalid'],
+            ['valid', new \stdClass()],
+        ];
     }
 
     /**
@@ -275,11 +275,11 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
     public function testOptionsWithMock()
     {
-        $options = array('writers' => array(
-                             'first_writer' => array(
+        $options = ['writers' => [
+                             'first_writer' => [
                                  'name'     => 'mock',
-                             )
-                        ));
+                             ]
+                        ]];
         $logger = new Logger($options);
 
         $writers = $logger->getWriters()->toArray();
@@ -289,15 +289,15 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
     public function testOptionsWithWriterOptions()
     {
-        $options = array('writers' => array(
-                              array(
+        $options = ['writers' => [
+                              [
                                  'name'     => 'stream',
-                                 'options'  => array(
+                                 'options'  => [
                                      'stream' => 'php://output',
                                      'log_separator' => 'foo'
-                                 ),
-                              )
-                         ));
+                                 ],
+                              ]
+                         ]];
         $logger = new Logger($options);
 
         $writers = $logger->getWriters()->toArray();
@@ -308,18 +308,18 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
     public function testOptionsWithMockAndProcessor()
     {
-        $options = array(
-            'writers' => array(
-                'first_writer' => array(
+        $options = [
+            'writers' => [
+                'first_writer' => [
                     'name' => 'mock',
-                ),
-            ),
-            'processors' => array(
-                'first_processor' => array(
+                ],
+            ],
+            'processors' => [
+                'first_processor' => [
                     'name' => 'requestid',
-                ),
-            )
-        );
+                ],
+            ]
+        ];
         $logger = new Logger($options);
         $processors = $logger->getProcessors()->toArray();
         $this->assertCount(1, $processors);
@@ -381,11 +381,11 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $exceptionHandler(new ErrorException('user notice', 1000, E_USER_NOTICE, __FILE__, __LINE__));
 
         // check logged messages
-        $expectedEvents = array(
-            array('priority' => Logger::ERR,    'message' => 'previos',     'file' => __FILE__),
-            array('priority' => Logger::ERR,    'message' => 'error',       'file' => __FILE__),
-            array('priority' => Logger::NOTICE, 'message' => 'user notice', 'file' => __FILE__),
-        );
+        $expectedEvents = [
+            ['priority' => Logger::ERR,    'message' => 'previos',     'file' => __FILE__],
+            ['priority' => Logger::ERR,    'message' => 'error',       'file' => __FILE__],
+            ['priority' => Logger::NOTICE, 'message' => 'user notice', 'file' => __FILE__],
+        ];
         for ($i = 0; $i < count($expectedEvents); $i++) {
             $expectedEvent = $expectedEvents[$i];
             $event         = $writer->events[$i];
@@ -399,19 +399,19 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
     public function testLogExtraArrayKeyWithNonArrayValue()
     {
         $stream = fopen("php://memory", "r+");
-        $options = array(
-            'writers' => array(
-                array(
+        $options = [
+            'writers' => [
+                [
                     'name'     => 'stream',
-                    'options'  => array(
+                    'options'  => [
                         'stream' => $stream
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
         $logger = new Logger($options);
 
-        $this->assertInstanceOf('Zend\Log\Logger', $logger->info('Hi', array('extra' => '')));
+        $this->assertInstanceOf('Zend\Log\Logger', $logger->info('Hi', ['extra' => '']));
         fclose($stream);
     }
 
@@ -420,7 +420,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
      */
     public function testErrorHandlerWithStreamWriter()
     {
-        $options      = array('errorhandler' => true);
+        $options      = ['errorhandler' => true];
         $logger       = new Logger($options);
         $stream       = fopen('php://memory', 'w+');
         $streamWriter = new StreamWriter($stream);

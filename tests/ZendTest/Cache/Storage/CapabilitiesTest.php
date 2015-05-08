@@ -51,7 +51,7 @@ class CapabilitiesTest extends \PHPUnit_Framework_TestCase
         $this->_adapter = new MemoryAdapter();
 
         $this->_baseCapabilities = new Capabilities($this->_adapter, $this->_marker);
-        $this->_capabilities     = new Capabilities($this->_adapter, $this->_marker, array(), $this->_baseCapabilities);
+        $this->_capabilities     = new Capabilities($this->_adapter, $this->_marker, [], $this->_baseCapabilities);
     }
 
     public function testGetAdapter()

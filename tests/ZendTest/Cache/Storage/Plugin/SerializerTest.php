@@ -39,7 +39,7 @@ class SerializerTest extends CommonPluginTest
         $this->_adapter->addPlugin($this->_plugin, 100);
 
         // check attached callbacks
-        $expectedListeners = array(
+        $expectedListeners = [
             'getItem.post'        => 'onReadItemPost',
             'getItems.post'       => 'onReadItemsPost',
 
@@ -57,7 +57,7 @@ class SerializerTest extends CommonPluginTest
             'decrementItems.pre'  => 'onDecrementItemsPre',
 
             'getCapabilities.post' => 'onGetCapabilitiesPost',
-        );
+        ];
         foreach ($expectedListeners as $eventName => $expectedCallbackMethod) {
             $listeners = $this->_adapter->getEventManager()->getListeners($eventName);
 
@@ -103,7 +103,7 @@ class SerializerTest extends CommonPluginTest
 
     public function testUnserializeOnReadItems()
     {
-        $values = array('key1' => serialize(123), 'key2' => serialize(456));
+        $values = ['key1' => serialize(123), 'key2' => serialize(456)];
         $event = new PostEvent('getItems.post', $this->_adapter, new ArrayObject(), $values);
 
         $this->_plugin->onReadItemsPost($event);

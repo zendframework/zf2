@@ -20,7 +20,7 @@ class DecimalTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Decimal('foo', 10, 5);
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'DECIMAL(10,5)'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'DECIMAL(10,5)'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
     }

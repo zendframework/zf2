@@ -59,12 +59,12 @@ class MysqlTest extends \PHPUnit_Framework_TestCase
     public function testQuoteIdentifierChain()
     {
         $this->assertEquals('`identifier`', $this->platform->quoteIdentifierChain('identifier'));
-        $this->assertEquals('`identifier`', $this->platform->quoteIdentifierChain(array('identifier')));
-        $this->assertEquals('`schema`.`identifier`', $this->platform->quoteIdentifierChain(array('schema', 'identifier')));
+        $this->assertEquals('`identifier`', $this->platform->quoteIdentifierChain(['identifier']));
+        $this->assertEquals('`schema`.`identifier`', $this->platform->quoteIdentifierChain(['schema', 'identifier']));
 
         $this->assertEquals('`ident``ifier`', $this->platform->quoteIdentifierChain('ident`ifier'));
-        $this->assertEquals('`ident``ifier`', $this->platform->quoteIdentifierChain(array('ident`ifier')));
-        $this->assertEquals('`schema`.`ident``ifier`', $this->platform->quoteIdentifierChain(array('schema', 'ident`ifier')));
+        $this->assertEquals('`ident``ifier`', $this->platform->quoteIdentifierChain(['ident`ifier']));
+        $this->assertEquals('`schema`.`ident``ifier`', $this->platform->quoteIdentifierChain(['schema', 'ident`ifier']));
     }
 
     /**
@@ -142,20 +142,20 @@ class MysqlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('`cmis:$TableName` as `cmis:TableAlias`', $this->platform->quoteIdentifierInFragment('cmis:$TableName as cmis:TableAlias'));
 
         // single char words
-        $this->assertEquals('(`foo`.`bar` = `boo`.`baz`)', $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz)', array('(', ')', '=')));
-        $this->assertEquals('(`foo`.`bar`=`boo`.`baz`)', $this->platform->quoteIdentifierInFragment('(foo.bar=boo.baz)', array('(', ')', '=')));
-        $this->assertEquals('`foo`=`bar`', $this->platform->quoteIdentifierInFragment('foo=bar', array('=')));
+        $this->assertEquals('(`foo`.`bar` = `boo`.`baz`)', $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz)', ['(', ')', '=']));
+        $this->assertEquals('(`foo`.`bar`=`boo`.`baz`)', $this->platform->quoteIdentifierInFragment('(foo.bar=boo.baz)', ['(', ')', '=']));
+        $this->assertEquals('`foo`=`bar`', $this->platform->quoteIdentifierInFragment('foo=bar', ['=']));
 
         // case insensitive safe words
         $this->assertEquals(
             '(`foo`.`bar` = `boo`.`baz`) AND (`foo`.`baz` = `boo`.`baz`)',
-            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and'))
+            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', ['(', ')', '=', 'and'])
         );
 
         // case insensitive safe words in field
         $this->assertEquals(
             '(`foo`.`bar` = `boo`.baz) AND (`foo`.baz = `boo`.baz)',
-            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and', 'bAz'))
+            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', ['(', ')', '=', 'and', 'bAz'])
         );
     }
 }

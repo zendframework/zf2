@@ -98,11 +98,11 @@ abstract class AbstractServer implements Server
             $prototype = new Method\Prototype();
             $prototype->setReturnType($this->_fixType($proto->getReturnType()));
             foreach ($proto->getParameters() as $parameter) {
-                $param = new Method\Parameter(array(
+                $param = new Method\Parameter([
                     'type'     => $this->_fixType($parameter->getType()),
                     'name'     => $parameter->getName(),
                     'optional' => $parameter->isOptional(),
-                ));
+                ]);
                 if ($parameter->isDefaultValueAvailable()) {
                     $param->setDefaultValue($parameter->getDefaultValue());
                 }
@@ -138,7 +138,7 @@ abstract class AbstractServer implements Server
         $method = $callback->getMethod();
 
         if ('static' == $type) {
-            return call_user_func_array(array($class, $method), $params);
+            return call_user_func_array([$class, $method], $params);
         }
 
         $object = $invokable->getObject();
@@ -151,7 +151,7 @@ abstract class AbstractServer implements Server
                 $object = new $class;
             }
         }
-        return call_user_func_array(array($object, $method), $params);
+        return call_user_func_array([$object, $method], $params);
     }
 
     /**

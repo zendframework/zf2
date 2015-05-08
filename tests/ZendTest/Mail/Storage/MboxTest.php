@@ -62,63 +62,63 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadOk()
     {
-        new Storage\Mbox(array('filename' => $this->_mboxFile));
+        new Storage\Mbox(['filename' => $this->_mboxFile]);
     }
 
     public function testLoadConfig()
     {
-        new Storage\Mbox(new Config\Config(array('filename' => $this->_mboxFile)));
+        new Storage\Mbox(new Config\Config(['filename' => $this->_mboxFile]));
     }
 
     public function testNoParams()
     {
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
-        new Storage\Mbox(array());
+        new Storage\Mbox([]);
     }
 
     public function testLoadFailure()
     {
         $this->setExpectedException('Zend\Mail\Storage\Exception\RuntimeException');
-        new Storage\Mbox(array('filename' => 'ThisFileDoesNotExist'));
+        new Storage\Mbox(['filename' => 'ThisFileDoesNotExist']);
     }
 
     public function testLoadInvalid()
     {
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
-        new Storage\Mbox(array('filename' => __FILE__));
+        new Storage\Mbox(['filename' => __FILE__]);
     }
 
     public function testClose()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $mail->close();
     }
 
     public function testHasTop()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->assertTrue($mail->hasTop);
     }
 
     public function testHasCreate()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->assertFalse($mail->hasCreate);
     }
 
     public function testNoop()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $mail->noop();
     }
 
     public function testCount()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $count = $mail->countMessages();
         $this->assertEquals(7, $count);
@@ -126,8 +126,8 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testSize()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
-        $shouldSizes = array(1 => 397, 89, 694, 452, 497, 101, 139);
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
+        $shouldSizes = [1 => 397, 89, 694, 452, 497, 101, 139];
 
 
         $sizes = $mail->getSize();
@@ -136,7 +136,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testSingleSize()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $size = $mail->getSize(2);
         $this->assertEquals(89, $size);
@@ -144,7 +144,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchHeader()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $subject = $mail->getMessage(1)->subject;
         $this->assertEquals('Simple Message', $subject);
@@ -165,7 +165,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchMessageHeaderUnix()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->getUnixMboxFile(), 'messageEOL' => "\n"));
+        $mail = new Storage\Mbox(['filename' => $this->getUnixMboxFile(), 'messageEOL' => "\n"]);
 
         $subject = $mail->getMessage(1)->subject;
         $this->assertEquals('Simple Message', $subject);
@@ -173,7 +173,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchMessageHeader()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $subject = $mail->getMessage(1)->subject;
         $this->assertEquals('Simple Message', $subject);
@@ -181,7 +181,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchMessageBody()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $content = $mail->getMessage(3)->getContent();
         list($content) = explode("\n", $content, 2);
@@ -193,7 +193,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testFetchMessageBodyUnix()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->getUnixMboxFile(), 'messageEOL' => "\n"));
+        $mail = new Storage\Mbox(['filename' => $this->getUnixMboxFile(), 'messageEOL' => "\n"]);
 
         $content = $mail->getMessage(3)->getContent();
         list($content) = explode("\n", $content, 2);
@@ -202,7 +202,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testFailedRemove()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->setExpectedException('Zend\Mail\Storage\Exception\RuntimeException');
         $mail->removeMessage(1);
@@ -210,14 +210,14 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testCapa()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
         $capa = $mail->getCapabilities();
         $this->assertTrue(isset($capa['uniqueid']));
     }
 
     public function testValid()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->assertFalse($mail->valid());
         $mail->rewind();
@@ -227,7 +227,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testOutOfBounds()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->setExpectedException('Zend\Mail\Storage\Exception\OutOfBoundsException');
         $mail->seek(INF);
@@ -235,7 +235,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testSleepWake()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $count = $mail->countMessages();
         $content = $mail->getMessage(1)->getContent();
@@ -254,7 +254,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testSleepWakeRemoved()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $count = $mail->countMessages();
         $content = $mail->getMessage(1)->getContent();
@@ -296,7 +296,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
 
     public function testUniqueId()
     {
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
 
         $this->assertFalse($mail->hasUniqueId);
         $this->assertEquals(1, $mail->getNumberByUniqueId($mail->getUniqueId(1)));
@@ -316,7 +316,7 @@ class MboxTest extends \PHPUnit_Framework_TestCase
         $fh = fopen($this->_mboxFile, 'w');
         fputs($fh, "From \r\nSubject: test\r\nFrom \r\nSubject: test2\r\n");
         fclose($fh);
-        $mail = new Storage\Mbox(array('filename' => $this->_mboxFile));
+        $mail = new Storage\Mbox(['filename' => $this->_mboxFile]);
         $this->assertEquals($mail->countMessages(), 2);
         $this->assertEquals($mail->getMessage(1)->subject, 'test');
         $this->assertEquals($mail->getMessage(1)->getContent(), '');

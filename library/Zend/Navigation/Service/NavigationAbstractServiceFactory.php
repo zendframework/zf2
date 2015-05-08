@@ -93,7 +93,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
         }
 
         if (!$services->has('Config')) {
-            $this->config = array();
+            $this->config = [];
             return $this->config;
         }
 
@@ -101,7 +101,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
         if (!isset($config[self::CONFIG_KEY])
             || !is_array($config[self::CONFIG_KEY])
         ) {
-            $this->config = array();
+            $this->config = [];
             return $this->config;
         }
 

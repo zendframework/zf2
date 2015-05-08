@@ -20,7 +20,7 @@ class TimestampTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Timestamp('foo');
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'TIMESTAMP'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'TIMESTAMP'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
     }

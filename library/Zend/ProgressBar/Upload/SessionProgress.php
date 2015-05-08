@@ -35,13 +35,13 @@ class SessionProgress extends AbstractUploadHandler
             return false;
         }
 
-        $status  = array(
+        $status  = [
             'total'    => 0,
             'current'  => 0,
             'rate'     => 0,
             'message'  => '',
             'done'     => false,
-        );
+        ];
         $status = $uploadInfo + $status;
         $status['total']   = $status['content_length'];
         $status['current'] = $status['bytes_processed'];

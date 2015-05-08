@@ -98,7 +98,7 @@ class GenericHeader implements HeaderInterface, UnstructuredInterface
         }
 
         // Pre-filter to normalize valid characters, change underscore to dash
-        $fieldName = str_replace(' ', '-', ucwords(str_replace(array('_', '-'), ' ', $fieldName)));
+        $fieldName = str_replace(' ', '-', ucwords(str_replace(['_', '-'], ' ', $fieldName)));
 
         if (! HeaderName::isValid($fieldName)) {
             throw new Exception\InvalidArgumentException(

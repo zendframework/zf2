@@ -50,7 +50,7 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('"identifier"', $this->platform->quoteIdentifier('identifier'));
 
-        $platform = new IbmDb2(array('quote_identifiers' => false));
+        $platform = new IbmDb2(['quote_identifiers' => false]);
         $this->assertEquals('identifier', $platform->quoteIdentifier('identifier'));
     }
 
@@ -60,16 +60,16 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
     public function testQuoteIdentifierChain()
     {
         $this->assertEquals('"identifier"', $this->platform->quoteIdentifierChain('identifier'));
-        $this->assertEquals('"identifier"', $this->platform->quoteIdentifierChain(array('identifier')));
-        $this->assertEquals('"schema"."identifier"', $this->platform->quoteIdentifierChain(array('schema', 'identifier')));
+        $this->assertEquals('"identifier"', $this->platform->quoteIdentifierChain(['identifier']));
+        $this->assertEquals('"schema"."identifier"', $this->platform->quoteIdentifierChain(['schema', 'identifier']));
 
-        $platform = new IbmDb2(array('quote_identifiers' => false));
+        $platform = new IbmDb2(['quote_identifiers' => false]);
         $this->assertEquals('identifier', $platform->quoteIdentifierChain('identifier'));
-        $this->assertEquals('identifier', $platform->quoteIdentifierChain(array('identifier')));
-        $this->assertEquals('schema.identifier', $platform->quoteIdentifierChain(array('schema', 'identifier')));
+        $this->assertEquals('identifier', $platform->quoteIdentifierChain(['identifier']));
+        $this->assertEquals('schema.identifier', $platform->quoteIdentifierChain(['schema', 'identifier']));
 
-        $platform = new IbmDb2(array('identifier_separator' => '\\'));
-        $this->assertEquals('"schema"\"identifier"', $platform->quoteIdentifierChain(array('schema', 'identifier')));
+        $platform = new IbmDb2(['identifier_separator' => '\\']);
+        $this->assertEquals('"schema"\"identifier"', $platform->quoteIdentifierChain(['schema', 'identifier']));
     }
 
     /**
@@ -137,7 +137,7 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('.', $this->platform->getIdentifierSeparator());
 
-        $platform = new IbmDb2(array('identifier_separator' => '\\'));
+        $platform = new IbmDb2(['identifier_separator' => '\\']);
         $this->assertEquals('\\', $platform->getIdentifierSeparator());
     }
 
@@ -149,23 +149,23 @@ class IbmDb2Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals('"foo"."bar"', $this->platform->quoteIdentifierInFragment('foo.bar'));
         $this->assertEquals('"foo" as "bar"', $this->platform->quoteIdentifierInFragment('foo as bar'));
 
-        $platform = new IbmDb2(array('quote_identifiers' => false));
+        $platform = new IbmDb2(['quote_identifiers' => false]);
         $this->assertEquals('foo.bar', $platform->quoteIdentifierInFragment('foo.bar'));
         $this->assertEquals('foo as bar', $platform->quoteIdentifierInFragment('foo as bar'));
 
         // single char words
-        $this->assertEquals('("foo"."bar" = "boo"."baz")', $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz)', array('(', ')', '=')));
+        $this->assertEquals('("foo"."bar" = "boo"."baz")', $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz)', ['(', ')', '=']));
 
         // case insensitive safe words
         $this->assertEquals(
             '("foo"."bar" = "boo"."baz") AND ("foo"."baz" = "boo"."baz")',
-            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and'))
+            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', ['(', ')', '=', 'and'])
         );
 
         // case insensitive safe words in field
         $this->assertEquals(
             '("foo"."bar" = "boo".baz) AND ("foo".baz = "boo".baz)',
-            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', array('(', ')', '=', 'and', 'bAz'))
+            $this->platform->quoteIdentifierInFragment('(foo.bar = boo.baz) AND (foo.baz = boo.baz)', ['(', ')', '=', 'and', 'bAz'])
         );
     }
 }

@@ -13,17 +13,17 @@ use Zend\ServiceManager\AbstractPluginManager;
 
 class WriterPluginManager extends AbstractPluginManager
 {
-    protected $aliases = array(
+    protected $aliases = [
         'null'                 => 'noop',
         'Zend\Log\Writer\Null' => 'noop',
-    );
+    ];
 
     /**
      * Default set of writers
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'chromephp'      => 'Zend\Log\Writer\ChromePhp',
         'db'             => 'Zend\Log\Writer\Db',
         'fingerscrossed' => 'Zend\Log\Writer\FingersCrossed',
@@ -34,7 +34,7 @@ class WriterPluginManager extends AbstractPluginManager
         'stream'         => 'Zend\Log\Writer\Stream',
         'syslog'         => 'Zend\Log\Writer\Syslog',
         'zendmonitor'    => 'Zend\Log\Writer\ZendMonitor',
-    );
+    ];
 
     /**
      * Allow many writers of the same type

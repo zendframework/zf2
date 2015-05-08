@@ -1,130 +1,130 @@
 <?php
-return array(
-    'console' => array(
-        'router' => array(
-            'routes' => array(
-                'consoleroute' => array(
+return [
+    'console' => [
+        'router' => [
+            'routes' => [
+                'consoleroute' => [
                     'type' => 'simple',
-                    'options' => array(
+                    'options' => [
                         'route'    => '--console',
-                        'defaults' => array(
+                        'defaults' => [
                             'controller' => 'baz_index',
                             'action'     => 'console',
-                        ),
-                    ),
-                ),
-                'arguments' => array(
+                        ],
+                    ],
+                ],
+                'arguments' => [
                     'type' => 'simple',
-                    'options' => array(
+                    'options' => [
                         'route'    => 'filter --date= --id= --text=',
-                        'defaults' => array(
+                        'defaults' => [
                             'controller' => 'baz_index',
                             'action'     => 'console',
-                        ),
-                    ),
-                ),
-                'arguments-mandatory' => array(
+                        ],
+                    ],
+                ],
+                'arguments-mandatory' => [
                     'type' => 'simple',
-                    'options' => array(
+                    'options' => [
                         'route'    => 'foo --bar= --baz=',
-                        'defaults' => array(
+                        'defaults' => [
                             'controller' => 'baz_index',
                             'action'     => 'console',
-                        ),
-                    ),
-                )
-            ),
-        ),
-    ),
-    'router' => array(
-        'routes' => array(
-            'myroute' => array(
+                        ],
+                    ],
+                ]
+            ],
+        ],
+    ],
+    'router' => [
+        'routes' => [
+            'myroute' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/tests',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'baz_index',
                         'action'     => 'unittests',
-                    ),
-                ),
-            ),
-            'myroutebis' => array(
+                    ],
+                ],
+            ],
+            'myroutebis' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/tests-bis',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'baz_index',
                         'action'     => 'unittests',
-                    ),
-                ),
-            ),
-            'persistence' => array(
+                    ],
+                ],
+            ],
+            'persistence' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/tests-persistence',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'baz_index',
                         'action'     => 'persistencetest',
-                    ),
-                ),
-            ),
-            'exception' => array(
+                    ],
+                ],
+            ],
+            'exception' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/exception',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'baz_index',
                         'action'     => 'exception',
-                    ),
-                ),
-            ),
-            'redirect' => array(
+                    ],
+                ],
+            ],
+            'redirect' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/redirect',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'baz_index',
                         'action'     => 'redirect',
-                    ),
-                ),
-            ),
-            'dnsroute' => array(
+                    ],
+                ],
+            ],
+            'dnsroute' => [
                 'type' => 'hostname',
-                'options' => array(
+                'options' => [
                     'route' => ':subdomain.domain.tld',
-                    'constraints' => array(
+                    'constraints' => [
                         'subdomain' => '\w+'
-                    ),
-                    'defaults' => array(
+                    ],
+                    'defaults' => [
                         'controller' => 'baz_index',
                         'action'     => 'unittests',
-                    ),
-                ),
-            ),
-            'custom-response' => array(
+                    ],
+                ],
+            ],
+            'custom-response' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/custom-response',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'baz_index',
                         'action'     => 'custom-response',
-                    ),
-                ),
-            ),
-        ),
-    ),
-    'controllers' => array(
-        'invokables' => array(
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'controllers' => [
+        'invokables' => [
             'baz_index' => 'Baz\Controller\IndexController',
-        ),
-    ),
-    'view_manager' => array(
-        'template_map' => array(
+        ],
+    ],
+    'view_manager' => [
+        'template_map' => [
             '404' => __DIR__ . '/../view/baz/error/404.phtml',
             'error' => __DIR__ . '/../view/baz/error/error.phtml',
-        ),
-        'template_path_stack' => array(
+        ],
+        'template_path_stack' => [
             __DIR__ . '/../view',
-        ),
-    ),
-);
+        ],
+    ],
+];

@@ -17,22 +17,22 @@ class ListenerOptionsTest extends TestCase
 {
     public function testCanConfigureWithArrayInConstructor()
     {
-        $options = new ListenerOptions(array(
+        $options = new ListenerOptions([
             'cache_dir'               => __DIR__,
             'config_cache_enabled'    => true,
             'config_cache_key'        => 'foo',
-            'module_paths'            => array('module', 'paths'),
-            'config_glob_paths'       => array('glob', 'paths'),
-            'config_static_paths'       => array('static', 'custom_paths'),
-        ));
+            'module_paths'            => ['module', 'paths'],
+            'config_glob_paths'       => ['glob', 'paths'],
+            'config_static_paths'       => ['static', 'custom_paths'],
+        ]);
         $this->assertSame($options->getCacheDir(), __DIR__);
         $this->assertTrue($options->getConfigCacheEnabled());
         $this->assertNotNull(strstr($options->getConfigCacheFile(), __DIR__));
         $this->assertNotNull(strstr($options->getConfigCacheFile(), '.php'));
         $this->assertSame('foo', $options->getConfigCacheKey());
-        $this->assertSame(array('module', 'paths'), $options->getModulePaths());
-        $this->assertSame(array('glob', 'paths'), $options->getConfigGlobPaths());
-        $this->assertSame(array('static', 'custom_paths'), $options->getConfigStaticPaths());
+        $this->assertSame(['module', 'paths'], $options->getModulePaths());
+        $this->assertSame(['glob', 'paths'], $options->getConfigGlobPaths());
+        $this->assertSame(['static', 'custom_paths'], $options->getConfigStaticPaths());
     }
 
     /**
@@ -40,13 +40,13 @@ class ListenerOptionsTest extends TestCase
      */
     public function testConfigCacheFileWithEmptyCacheKey()
     {
-        $options = new ListenerOptions(array(
+        $options = new ListenerOptions([
            'cache_dir'               => __DIR__,
            'config_cache_enabled'    => true,
-           'module_paths'            => array('module', 'paths'),
-           'config_glob_paths'       => array('glob', 'paths'),
-           'config_static_paths'     => array('static', 'custom_paths'),
-       ));
+           'module_paths'            => ['module', 'paths'],
+           'config_glob_paths'       => ['glob', 'paths'],
+           'config_static_paths'     => ['static', 'custom_paths'],
+       ]);
 
         $this->assertEquals(__DIR__ . '/module-config-cache.php', $options->getConfigCacheFile());
         $options->setConfigCacheKey('foo');
@@ -58,13 +58,13 @@ class ListenerOptionsTest extends TestCase
      */
     public function testModuleMapCacheFileWithEmptyCacheKey()
     {
-        $options = new ListenerOptions(array(
+        $options = new ListenerOptions([
            'cache_dir'                => __DIR__,
            'module_map_cache_enabled' => true,
-           'module_paths'             => array('module', 'paths'),
-           'config_glob_paths'        => array('glob', 'paths'),
-           'config_static_paths'      => array('static', 'custom_paths'),
-       ));
+           'module_paths'             => ['module', 'paths'],
+           'config_glob_paths'        => ['glob', 'paths'],
+           'config_static_paths'      => ['static', 'custom_paths'],
+       ]);
 
         $this->assertEquals(__DIR__ . '/module-classmap-cache.php', $options->getModuleMapCacheFile());
         $options->setModuleMapCacheKey('foo');
@@ -73,14 +73,14 @@ class ListenerOptionsTest extends TestCase
 
     public function testCanAccessKeysAsProperties()
     {
-        $options = new ListenerOptions(array(
+        $options = new ListenerOptions([
             'cache_dir'               => __DIR__,
             'config_cache_enabled'    => true,
             'config_cache_key'        => 'foo',
-            'module_paths'            => array('module', 'paths'),
-            'config_glob_paths'       => array('glob', 'paths'),
-            'config_static_paths'       => array('static', 'custom_paths'),
-        ));
+            'module_paths'            => ['module', 'paths'],
+            'config_glob_paths'       => ['glob', 'paths'],
+            'config_static_paths'       => ['static', 'custom_paths'],
+        ]);
         $this->assertSame($options->cache_dir, __DIR__);
         $options->cache_dir = 'foo';
         $this->assertSame($options->cache_dir, 'foo');
@@ -92,14 +92,14 @@ class ListenerOptionsTest extends TestCase
         $options->config_cache_enabled = false;
         $this->assertFalse($options->config_cache_enabled);
         $this->assertEquals('foo', $options->config_cache_key);
-        $this->assertSame(array('module', 'paths'), $options->module_paths);
-        $this->assertSame(array('glob', 'paths'), $options->config_glob_paths);
-        $this->assertSame(array('static', 'custom_paths'), $options->config_static_paths);
+        $this->assertSame(['module', 'paths'], $options->module_paths);
+        $this->assertSame(['glob', 'paths'], $options->config_glob_paths);
+        $this->assertSame(['static', 'custom_paths'], $options->config_static_paths);
     }
 
     public function testSetModulePathsAcceptsConfigOrTraverable()
     {
-        $config = new Config(array(__DIR__));
+        $config = new Config([__DIR__]);
         $options = new ListenerOptions;
         $options->setModulePaths($config);
         $this->assertSame($config, $options->getModulePaths());
@@ -114,7 +114,7 @@ class ListenerOptionsTest extends TestCase
 
     public function testSetConfigGlobPathsAcceptsConfigOrTraverable()
     {
-        $config = new Config(array(__DIR__));
+        $config = new Config([__DIR__]);
         $options = new ListenerOptions;
         $options->setConfigGlobPaths($config);
         $this->assertSame($config, $options->getConfigGlobPaths());
@@ -136,7 +136,7 @@ class ListenerOptionsTest extends TestCase
 
     public function testSetExtraConfigAcceptsArrayOrTraverable()
     {
-        $array = array(__DIR__);
+        $array = [__DIR__];
         $traversable = new Config($array);
         $options = new ListenerOptions;
 

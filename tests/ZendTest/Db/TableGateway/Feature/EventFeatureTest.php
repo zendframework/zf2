@@ -31,7 +31,7 @@ class EventFeatureTest extends PHPUnit_Framework_TestCase
         $this->eventManager = new EventManager;
         $this->event = new EventFeature\TableGatewayEvent();
         $this->feature = new EventFeature($this->eventManager, $this->event);
-        $this->tableGateway = $this->getMockForAbstractClass('Zend\Db\TableGateway\TableGateway', array(), '', false);
+        $this->tableGateway = $this->getMockForAbstractClass('Zend\Db\TableGateway\TableGateway', [], '', false);
         $this->feature->setTableGateway($this->tableGateway);
 
         // typically runs before everything else

@@ -33,12 +33,12 @@ class ConnectionIntegrationTest extends AbstractIntegrationTest
     public function testSetResource()
     {
         $resource = sqlsrv_connect(
-            $this->variables['hostname'], array(
+            $this->variables['hostname'], [
                 'UID' => $this->variables['username'],
                 'PWD' => $this->variables['password']
-            )
+            ]
         );
-        $connection = new Connection(array());
+        $connection = new Connection([]);
         $this->assertSame($connection, $connection->setResource($resource));
 
         $connection->disconnect();
@@ -174,12 +174,12 @@ class ConnectionIntegrationTest extends AbstractIntegrationTest
     public function testConnectReturnsConnectionWhenResourceSet()
     {
         $resource = sqlsrv_connect(
-            $this->variables['hostname'], array(
+            $this->variables['hostname'], [
                 'UID' => $this->variables['username'],
                 'PWD' => $this->variables['password']
-            )
+            ]
         );
-        $connection = new Connection(array());
+        $connection = new Connection([]);
         $connection->setResource($resource);
         $this->assertSame($connection, $connection->connect());
 

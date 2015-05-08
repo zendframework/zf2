@@ -22,12 +22,12 @@ abstract class AbstractStorage implements
      * class capabilities with default values
      * @var array
      */
-    protected $has = array('uniqueid'  => true,
+    protected $has = ['uniqueid'  => true,
                             'delete'    => false,
                             'create'    => false,
                             'top'       => false,
                             'fetchPart' => true,
-                            'flags'     => false);
+                            'flags'     => false];
 
     /**
      * current iteration position

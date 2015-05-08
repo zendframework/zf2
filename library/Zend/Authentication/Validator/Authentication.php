@@ -36,13 +36,13 @@ class Authentication extends AbstractValidator
      * Error Messages
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::IDENTITY_NOT_FOUND => 'Invalid identity',
         self::IDENTITY_AMBIGUOUS => 'Identity is ambiguous',
         self::CREDENTIAL_INVALID => 'Invalid password',
         self::UNCATEGORIZED      => 'Authentication failed',
         self::GENERAL            => 'Authentication failed',
-    );
+    ];
 
     /**
      * Authentication Adapter

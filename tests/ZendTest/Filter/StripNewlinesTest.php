@@ -23,7 +23,7 @@ class StripNewlinesTest extends \PHPUnit_Framework_TestCase
     public function testBasic()
     {
         $filter = new StripNewLinesFilter();
-        $valuesExpected = array(
+        $valuesExpected = [
             '' => '',
             "\n" => '',
             "\r" => '',
@@ -32,7 +32,7 @@ class StripNewlinesTest extends \PHPUnit_Framework_TestCase
             '\r' => '\r',
             '\r\n' => '\r\n',
             "Some text\nthat we have\r\nstuff in" => 'Some textthat we havestuff in'
-        );
+        ];
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
         }
@@ -45,19 +45,19 @@ class StripNewlinesTest extends \PHPUnit_Framework_TestCase
     public function testArrayValues()
     {
         $filter = new StripNewLinesFilter();
-        $expected = array(
+        $expected = [
             "Some text\nthat we have\r\nstuff in" => 'Some textthat we havestuff in',
             "Some text\n" => 'Some text'
-        );
+        ];
         $this->assertEquals(array_values($expected), $filter(array_keys($expected)));
     }
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass())
-        );
+        return [
+            [null],
+            [new \stdClass()]
+        ];
     }
 
     /**

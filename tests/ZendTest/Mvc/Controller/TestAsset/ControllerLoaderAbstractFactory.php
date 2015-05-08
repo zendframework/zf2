@@ -14,9 +14,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ControllerLoaderAbstractFactory implements AbstractFactoryInterface
 {
-    protected $classmap = array(
+    protected $classmap = [
         'path' => 'ZendTest\Mvc\TestAsset\PathController',
-    );
+    ];
 
     public function canCreateServiceWithName(ServiceLocatorInterface $sl, $cName, $rName)
     {

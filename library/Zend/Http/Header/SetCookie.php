@@ -121,7 +121,7 @@ class SetCookie implements MultipleHeaderInterface
                     }
 
                     // Process the remaining elements
-                    switch (str_replace(array('-', '_'), '', strtolower($headerKey))) {
+                    switch (str_replace(['-', '_'], '', strtolower($headerKey))) {
                         case 'expires':
                             $header->setExpires($headerValue);
                             break;
@@ -168,7 +168,7 @@ class SetCookie implements MultipleHeaderInterface
         if (count($multipleHeaders) <= 1) {
             return $setCookieProcessor(array_pop($multipleHeaders));
         } else {
-            $headers = array();
+            $headers = [];
             foreach ($multipleHeaders as $headerLine) {
                 $headers[] = $setCookieProcessor($headerLine);
             }

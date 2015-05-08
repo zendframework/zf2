@@ -36,12 +36,12 @@ class Headers implements Countable, Iterator
     /**
      * @var array key names for $headers array
      */
-    protected $headersKeys = array();
+    protected $headersKeys = [];
 
     /**
      * @var  Header\HeaderInterface[] instances
      */
-    protected $headers = array();
+    protected $headers = [];
 
     /**
      * Header encoding; defaults to ASCII
@@ -291,7 +291,7 @@ class Headers implements Countable, Iterator
      */
     public function clearHeaders()
     {
-        $this->headers = $this->headersKeys = array();
+        $this->headers = $this->headersKeys = [];
         return $this;
     }
 
@@ -306,7 +306,7 @@ class Headers implements Countable, Iterator
     public function get($name)
     {
         $key = $this->normalizeFieldName($name);
-        $results = array();
+        $results = [];
 
         foreach (array_keys($this->headersKeys, $key) as $index) {
             if ($this->headers[$index] instanceof Header\GenericHeader) {
@@ -434,13 +434,13 @@ class Headers implements Countable, Iterator
      */
     public function toArray()
     {
-        $headers = array();
+        $headers = [];
         /* @var $header Header\HeaderInterface */
         foreach ($this->headers as $header) {
             if ($header instanceof Header\MultipleHeadersInterface) {
                 $name = $header->getFieldName();
                 if (!isset($headers[$name])) {
-                    $headers[$name] = array();
+                    $headers[$name] = [];
                 }
                 $headers[$name][] = $header->getFieldValue();
             } else {
@@ -502,6 +502,6 @@ class Headers implements Countable, Iterator
      */
     protected function normalizeFieldName($fieldName)
     {
-        return str_replace(array('-', '_', ' ', '.'), '', strtolower($fieldName));
+        return str_replace(['-', '_', ' ', '.'], '', strtolower($fieldName));
     }
 }

@@ -27,7 +27,7 @@ class EventManager implements EventManagerInterface
      * Subscribed events and their listeners
      * @var array Array of PriorityQueue objects
      */
-    protected $events = array();
+    protected $events = [];
 
     /**
      * @var string Class representing the event being emitted
@@ -38,7 +38,7 @@ class EventManager implements EventManagerInterface
      * Identifiers, used to pull shared signals from SharedEventManagerInterface instance
      * @var array
      */
-    protected $identifiers = array();
+    protected $identifiers = [];
 
     /**
      * Shared event manager
@@ -143,7 +143,7 @@ class EventManager implements EventManagerInterface
         if (is_array($identifiers) || $identifiers instanceof Traversable) {
             $this->identifiers = array_unique((array) $identifiers);
         } elseif ($identifiers !== null) {
-            $this->identifiers = array($identifiers);
+            $this->identifiers = [$identifiers];
         }
         return $this;
     }
@@ -159,7 +159,7 @@ class EventManager implements EventManagerInterface
         if (is_array($identifiers) || $identifiers instanceof Traversable) {
             $this->identifiers = array_unique(array_merge($this->identifiers, (array) $identifiers));
         } elseif ($identifiers !== null) {
-            $this->identifiers = array_unique(array_merge($this->identifiers, array($identifiers)));
+            $this->identifiers = array_unique(array_merge($this->identifiers, [$identifiers]));
         }
         return $this;
     }
@@ -174,7 +174,7 @@ class EventManager implements EventManagerInterface
      * @return ResponseCollection All listener return values
      * @throws Exception\InvalidCallbackException
      */
-    public function trigger($event, $target = null, $argv = array(), $callback = null)
+    public function trigger($event, $target = null, $argv = [], $callback = null)
     {
         if ($event instanceof EventInterface) {
             $e        = $event;
@@ -266,7 +266,7 @@ class EventManager implements EventManagerInterface
 
         // Array of events should be registered individually, and return an array of all listeners
         if (is_array($event)) {
-            $listeners = array();
+            $listeners = [];
             foreach ($event as $name) {
                 $listeners[] = $this->attach($name, $callback, $priority);
             }
@@ -279,7 +279,7 @@ class EventManager implements EventManagerInterface
         }
 
         // Create a callback handler, setting the event and priority in its metadata
-        $listener = new CallbackHandler($callback, array('event' => $event, 'priority' => $priority));
+        $listener = new CallbackHandler($callback, ['event' => $event, 'priority' => $priority]);
 
         // Inject the callback handler into the queue
         $this->events[$event]->insert($listener, $priority);
@@ -470,7 +470,7 @@ class EventManager implements EventManagerInterface
     protected function getSharedListeners($event)
     {
         if (!$sharedManager = $this->getSharedManager()) {
-            return array();
+            return [];
         }
 
         $identifiers     = $this->getIdentifiers();
@@ -478,7 +478,7 @@ class EventManager implements EventManagerInterface
         if (!in_array('*', $identifiers)) {
             $identifiers[] = '*';
         }
-        $sharedListeners = array();
+        $sharedListeners = [];
 
         foreach ($identifiers as $id) {
             if (!$listeners = $sharedManager->getListeners($id, $event)) {

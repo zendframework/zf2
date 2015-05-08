@@ -47,8 +47,8 @@ class DefaultRenderingStrategy extends AbstractListenerAggregate
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER, array($this, 'render'), -10000);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'render'), -10000);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER, [$this, 'render'], -10000);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, [$this, 'render'], -10000);
     }
 
     /**

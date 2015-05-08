@@ -53,10 +53,10 @@ class FirePhpTest extends \PHPUnit_Framework_TestCase
     public function testWrite()
     {
         $writer = new FirePhp($this->firephp);
-        $writer->write(array(
+        $writer->write([
             'message' => 'my msg',
             'priority' => Logger::DEBUG
-        ));
+        ]);
         $this->assertEquals('my msg', $this->firephp->calls['trace'][0]);
     }
     /**
@@ -66,10 +66,10 @@ class FirePhpTest extends \PHPUnit_Framework_TestCase
     {
         $firephp = new MockFirePhp(false);
         $writer = new FirePhp($firephp);
-        $writer->write(array(
+        $writer->write([
             'message' => 'my msg',
             'priority' => Logger::DEBUG
-        ));
+        ]);
         $this->assertEmpty($this->firephp->calls);
     }
 
@@ -77,11 +77,11 @@ class FirePhpTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new \Zend\Log\Formatter\Simple();
         $filter    = new \Zend\Log\Filter\Mock();
-        $writer = new FirePhp(array(
+        $writer = new FirePhp([
                 'filters'   => $filter,
                 'formatter' => $formatter,
                 'instance'  => $this->firephp,
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Log\Writer\FirePhp\FirePhpInterface', $writer->getFirePhp());
         $this->assertAttributeInstanceOf('Zend\Log\Formatter\FirePhp', 'formatter', $writer);
 

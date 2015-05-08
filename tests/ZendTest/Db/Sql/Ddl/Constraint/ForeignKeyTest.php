@@ -67,7 +67,7 @@ class ForeignKeyTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetReferenceColumn(ForeignKey $fk)
     {
-        $this->assertEquals(array('xxxx'), $fk->getReferenceColumn());
+        $this->assertEquals(['xxxx'], $fk->getReferenceColumn());
     }
 
     /**
@@ -115,11 +115,11 @@ class ForeignKeyTest extends \PHPUnit_Framework_TestCase
     {
         $fk = new ForeignKey('foo', 'bar', 'baz', 'bam', 'CASCADE', 'SET NULL');
         $this->assertEquals(
-            array(array(
+            [[
                 'CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s) ON DELETE %s ON UPDATE %s',
-                array('foo', 'bar', 'baz', 'bam', 'CASCADE', 'SET NULL'),
-                array($fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_LITERAL, $fk::TYPE_LITERAL)
-            )),
+                ['foo', 'bar', 'baz', 'bam', 'CASCADE', 'SET NULL'],
+                [$fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_IDENTIFIER, $fk::TYPE_LITERAL, $fk::TYPE_LITERAL]
+            ]],
             $fk->getExpressionData()
         );
     }

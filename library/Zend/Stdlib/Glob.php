@@ -56,7 +56,7 @@ abstract class Glob
     protected static function systemGlob($pattern, $flags)
     {
         if ($flags) {
-            $flagMap = array(
+            $flagMap = [
                 self::GLOB_MARK     => GLOB_MARK,
                 self::GLOB_NOSORT   => GLOB_NOSORT,
                 self::GLOB_NOCHECK  => GLOB_NOCHECK,
@@ -64,7 +64,7 @@ abstract class Glob
                 self::GLOB_BRACE    => GLOB_BRACE,
                 self::GLOB_ONLYDIR  => GLOB_ONLYDIR,
                 self::GLOB_ERR      => GLOB_ERR,
-            );
+            ];
 
             $globFlags = 0;
 
@@ -102,7 +102,7 @@ abstract class Glob
 
         $flags &= ~self::GLOB_BRACE;
         $length = strlen($pattern);
-        $paths  = array();
+        $paths  = [];
 
         if ($flags & self::GLOB_NOESCAPE) {
             $begin = strpos($pattern, '{');

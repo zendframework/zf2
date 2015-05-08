@@ -136,7 +136,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     public function getInterfaces()
     {
         $phpReflections  = parent::getInterfaces();
-        $zendReflections = array();
+        $zendReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance          = new ClassReflection($phpReflection->getName());
             $zendReflections[] = $instance;
@@ -168,7 +168,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getMethods($filter = -1)
     {
-        $methods = array();
+        $methods = [];
         foreach (parent::getMethods($filter) as $method) {
             $instance  = new MethodReflection($this->getName(), $method->getName());
             $methods[] = $instance;
@@ -184,7 +184,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
      */
     public function getTraits()
     {
-        $vals = array();
+        $vals = [];
         $traits = parent::getTraits();
         if ($traits === null) {
             return;
@@ -239,7 +239,7 @@ class ClassReflection extends ReflectionClass implements ReflectionInterface
     public function getProperties($filter = -1)
     {
         $phpReflections  = parent::getProperties($filter);
-        $zendReflections = array();
+        $zendReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance          = new PropertyReflection($this->getName(), $phpReflection->getName());
             $zendReflections[] = $instance;

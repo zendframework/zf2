@@ -30,13 +30,13 @@ class DbTableGatewayOptionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSetConstructor()
     {
-        $options = new DbTableGatewayOptions(array(
+        $options = new DbTableGatewayOptions([
             'idColumn' => 'testId',
             'nameColumn' => 'testName',
             'modifiedColumn' => 'testModified',
             'lifetimeColumn' => 'testLifetime',
             'dataColumn' => 'testData',
-        ));
+        ]);
 
         $this->assertEquals('testId', $options->getIdColumn());
         $this->assertEquals('testName', $options->getNameColumn());
@@ -66,9 +66,9 @@ class DbTableGatewayOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidIdColumn()
     {
-        $options = new DbTableGatewayOptions(array(
+        $options = new DbTableGatewayOptions([
             'idColumn' => null,
-        ));
+        ]);
     }
 
     /**
@@ -76,9 +76,9 @@ class DbTableGatewayOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidNameColumn()
     {
-        $options = new DbTableGatewayOptions(array(
+        $options = new DbTableGatewayOptions([
             'nameColumn' => null,
-        ));
+        ]);
     }
 
     /**
@@ -86,9 +86,9 @@ class DbTableGatewayOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidModifiedColumn()
     {
-        $options = new DbTableGatewayOptions(array(
+        $options = new DbTableGatewayOptions([
             'modifiedColumn' => null,
-        ));
+        ]);
     }
 
     /**
@@ -96,9 +96,9 @@ class DbTableGatewayOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidLifetimeColumn()
     {
-        $options = new DbTableGatewayOptions(array(
+        $options = new DbTableGatewayOptions([
             'lifetimeColumn' => null,
-        ));
+        ]);
     }
 
     /**
@@ -106,8 +106,8 @@ class DbTableGatewayOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDataColumn()
     {
-        $options = new DbTableGatewayOptions(array(
+        $options = new DbTableGatewayOptions([
             'dataColumn' => null,
-        ));
+        ]);
     }
 }

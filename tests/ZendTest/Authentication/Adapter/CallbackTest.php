@@ -118,7 +118,7 @@ class CallbackTest extends TestCase
         $result = $adapter->authenticate();
         $this->assertFalse($result->isValid());
         $this->assertEquals(Result::FAILURE_UNCATEGORIZED, $result->getCode());
-        $this->assertEquals(array($exception->getMessage()), $result->getMessages());
+        $this->assertEquals([$exception->getMessage()], $result->getMessages());
     }
 
     /**
@@ -128,7 +128,7 @@ class CallbackTest extends TestCase
     {
         $that    = $this;
         $adapter = $this->adapter;
-        $falsyValues = array(false, null, '', '0', array(), 0, 0.0);
+        $falsyValues = [false, null, '', '0', [], 0, 0.0];
         array_map(function ($falsy) use ($that, $adapter) {
             $callback = function () use ($falsy) {
                 return $falsy;
@@ -137,7 +137,7 @@ class CallbackTest extends TestCase
             $result = $adapter->authenticate();
             $that->assertFalse($result->isValid());
             $that->assertEquals(Result::FAILURE, $result->getCode());
-            $that->assertEquals(array('Authentication failure'), $result->getMessages());
+            $that->assertEquals(['Authentication failure'], $result->getMessages());
         }, $falsyValues);
     }
 
@@ -155,6 +155,6 @@ class CallbackTest extends TestCase
         $this->assertTrue($result->isValid());
         $this->assertEquals(Result::SUCCESS, $result->getCode());
         $this->assertEquals('identity', $result->getIdentity());
-        $this->assertEquals(array('Authentication success'), $result->getMessages());
+        $this->assertEquals(['Authentication success'], $result->getMessages());
     }
 }

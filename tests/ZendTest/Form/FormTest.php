@@ -65,7 +65,7 @@ class FormTest extends TestCase
         $secondCategory = new TestAsset\Entity\Category();
         $secondCategory->setName('Armchair');
 
-        $product->setCategories(array($firstCategory, $secondCategory));
+        $product->setCategories([$firstCategory, $secondCategory]);
 
         return $product;
     }
@@ -86,71 +86,71 @@ class FormTest extends TestCase
         $this->form->add($fieldset);
 
         $inputFilterFactory = new InputFilterFactory();
-        $inputFilter = $inputFilterFactory->createInputFilter(array(
-            'foo' => array(
+        $inputFilter = $inputFilterFactory->createInputFilter([
+            'foo' => [
                 'name'       => 'foo',
                 'required'   => false,
-                'validators' => array(
-                    array(
+                'validators' => [
+                    [
                         'name' => 'not_empty',
-                    ),
-                    array(
+                    ],
+                    [
                         'name' => 'string_length',
-                        'options' => array(
+                        'options' => [
                             'min' => 3,
                             'max' => 5,
-                        ),
-                    ),
-                ),
-            ),
-            'bar' => array(
+                        ],
+                    ],
+                ],
+            ],
+            'bar' => [
                 'allow_empty' => true,
-                'filters'     => array(
-                    array(
+                'filters'     => [
+                    [
                         'name' => 'string_trim',
-                    ),
-                    array(
+                    ],
+                    [
                         'name' => 'string_to_lower',
-                        'options' => array(
+                        'options' => [
                             'encoding' => 'ISO-8859-1',
-                        ),
-                    ),
-                ),
-            ),
-            'foobar' => array(
+                        ],
+                    ],
+                ],
+            ],
+            'foobar' => [
                 'type'   => 'Zend\InputFilter\InputFilter',
-                'foo' => array(
+                'foo' => [
                     'name'       => 'foo',
                     'required'   => true,
-                    'validators' => array(
-                        array(
+                    'validators' => [
+                        [
                             'name' => 'not_empty',
-                        ),
-                        array(
+                        ],
+                        [
                             'name' => 'string_length',
-                            'options' => array(
+                            'options' => [
                                 'min' => 3,
                                 'max' => 5,
-                            ),
-                        ),
-                    ),
-                ),
-                'bar' => array(
+                            ],
+                        ],
+                    ],
+                ],
+                'bar' => [
                     'allow_empty' => true,
-                    'filters'     => array(
-                        array(
+                    'filters'     => [
+                        [
                             'name' => 'string_trim',
-                        ),
-                        array(
+                        ],
+                        [
                             'name' => 'string_to_lower',
-                            'options' => array(
+                            'options' => [
                                 'encoding' => 'ISO-8859-1',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
         $this->form->setInputFilter($inputFilter);
     }
 
@@ -217,7 +217,7 @@ class FormTest extends TestCase
 
         $this->assertFalse($form->hasValidated());
 
-        $form->setData(array());
+        $form->setData([]);
         $form->isValid();
 
 
@@ -227,25 +227,25 @@ class FormTest extends TestCase
     public function testValidatesEntireDataSetByDefault()
     {
         $this->populateForm();
-        $invalidSet = array(
+        $invalidSet = [
             'foo' => 'a',
             'bar' => 'always valid',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'a',
                 'bar' => 'always valid',
-            ),
-        );
+            ],
+        ];
         $this->form->setData($invalidSet);
         $this->assertFalse($this->form->isValid());
 
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => 'always valid',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => 'always valid',
-            ),
-        );
+            ],
+        ];
         $this->form->setData($validSet);
         $this->assertTrue($this->form->isValid());
     }
@@ -258,16 +258,16 @@ class FormTest extends TestCase
         }
 
         $this->populateForm();
-        $invalidSet = array(
+        $invalidSet = [
             'foo' => 'a',
-        );
+        ];
         $this->form->setValidationGroup('foo');
         $this->form->setData($invalidSet);
         $this->assertFalse($this->form->isValid());
 
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
-        );
+        ];
         $this->form->setData($validSet);
         $this->assertTrue($this->form->isValid());
     }
@@ -280,19 +280,19 @@ class FormTest extends TestCase
         }
 
         $form = new TestAsset\NewProductForm();
-        $form->setData(array(
-            'product' => array(
+        $form->setData([
+            'product' => [
                 'name' => 'Chair'
-            )
-        ));
+            ]
+        ]);
 
         $this->assertFalse($form->isValid());
 
-        $form->setValidationGroup(array(
-            'product' => array(
+        $form->setValidationGroup([
+            'product' => [
                 'name'
-            )
-        ));
+            ]
+        ]);
 
         $this->assertTrue($form->isValid());
     }
@@ -302,9 +302,9 @@ class FormTest extends TestCase
         $this->populateForm();
         $this->form->setValidationGroup('foo');
 
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
-        );
+        ];
         $this->form->setData($validSet);
         $this->form->setValidationGroup(Form::VALIDATE_ALL);
         $this->assertFalse($this->form->isValid());
@@ -333,14 +333,14 @@ class FormTest extends TestCase
     public function testCanRetrieveDataWithoutErrorsFollowingValidation()
     {
         $this->populateForm();
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => ' ALWAYS valid ',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => ' ALWAYS valid',
-            ),
-        );
+            ],
+        ];
         $this->form->setData($validSet);
         $this->form->isValid();
 
@@ -355,7 +355,7 @@ class FormTest extends TestCase
     {
         $file = new Element\File('file_resource');
         $file
-            ->setOptions(array())
+            ->setOptions([])
             ->setLabel('File');
         $this->form->add($file);
 
@@ -372,16 +372,16 @@ class FormTest extends TestCase
     {
         $file = new Element\File('file_resource');
         $file
-            ->setOptions(array())
+            ->setOptions([])
             ->setLabel('File');
 
         $fileCollection = new Element\Collection('collection');
-        $fileCollection->setOptions(array(
+        $fileCollection->setOptions([
              'count' => 2,
              'allow_add' => false,
              'allow_remove' => false,
              'target_element' => $file,
-        ));
+        ]);
         $this->form->add($fileCollection);
 
         $this->form->prepare();
@@ -393,40 +393,40 @@ class FormTest extends TestCase
     public function testCallingGetDataReturnsNormalizedDataByDefault()
     {
         $this->populateForm();
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => ' ALWAYS valid ',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => ' ALWAYS valid',
-            ),
-        );
+            ],
+        ];
         $this->form->setData($validSet);
         $this->form->isValid();
         $data = $this->form->getData();
 
-        $expected = array(
+        $expected = [
             'foo' => 'abcde',
             'bar' => 'always valid',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => 'always valid',
-            ),
-        );
+            ],
+        ];
         $this->assertEquals($expected, $data);
     }
 
     public function testAllowsReturningRawValuesViaGetData()
     {
         $this->populateForm();
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => ' ALWAYS valid ',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => ' ALWAYS valid',
-            ),
-        );
+            ],
+        ];
         $this->form->setData($validSet);
         $this->form->isValid();
         $data = $this->form->getData(Form::VALUES_RAW);
@@ -438,7 +438,7 @@ class FormTest extends TestCase
         $model = new stdClass;
         $this->form->setHydrator(new Hydrator\ObjectProperty());
         $this->populateForm();
-        $this->form->setData(array());
+        $this->form->setData([]);
         $this->form->bind($model);
         $this->form->isValid();
         $data = $this->form->getData();
@@ -448,14 +448,14 @@ class FormTest extends TestCase
     public function testGetDataCanReturnValuesAsArrayWhenModelIsBound()
     {
         $model = new stdClass;
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => 'always valid',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => 'always valid',
-            ),
-        );
+            ],
+        ];
         $this->populateForm();
         $this->form->setHydrator(new Hydrator\ObjectProperty());
         $this->form->bind($model);
@@ -468,14 +468,14 @@ class FormTest extends TestCase
     public function testValuesBoundToModelAreNormalizedByDefault()
     {
         $model = new stdClass;
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => ' ALWAYS valid ',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => ' always VALID',
-            ),
-        );
+            ],
+        ];
         $this->populateForm();
         $this->form->setHydrator(new Hydrator\ObjectProperty());
         $this->form->bind($model);
@@ -487,23 +487,23 @@ class FormTest extends TestCase
         $this->assertObjectHasAttribute('bar', $model);
         $this->assertEquals('always valid', $model->bar);
         $this->assertObjectHasAttribute('foobar', $model);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'abcde',
             'bar' => 'always valid',
-        ), $model->foobar);
+        ], $model->foobar);
     }
 
     public function testCanBindRawValuesToModel()
     {
         $model = new stdClass;
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => ' ALWAYS valid ',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => ' always VALID',
-            ),
-        );
+            ],
+        ];
         $this->populateForm();
         $this->form->setHydrator(new Hydrator\ObjectProperty());
         $this->form->bind($model, Form::VALUES_RAW);
@@ -515,22 +515,22 @@ class FormTest extends TestCase
         $this->assertObjectHasAttribute('bar', $model);
         $this->assertEquals(' ALWAYS valid ', $model->bar);
         $this->assertObjectHasAttribute('foobar', $model);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'abcde',
             'bar' => ' always VALID',
-        ), $model->foobar);
+        ], $model->foobar);
     }
 
     public function testGetDataReturnsSubsetOfDataWhenValidationGroupSet()
     {
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => ' ALWAYS valid ',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => ' always VALID',
-            ),
-        );
+            ],
+        ];
         $this->populateForm();
         $this->form->setValidationGroup('foo');
         $this->form->setData($validSet);
@@ -545,14 +545,14 @@ class FormTest extends TestCase
     public function testSettingValidationGroupBindsOnlyThoseValuesToModel()
     {
         $model = new stdClass;
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => ' ALWAYS valid ',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => ' always VALID',
-            ),
-        );
+            ],
+        ];
         $this->populateForm();
         $this->form->setHydrator(new Hydrator\ObjectProperty());
         $this->form->bind($model);
@@ -569,14 +569,14 @@ class FormTest extends TestCase
     public function testCanBindModelsToArraySerializableObjects()
     {
         $model = new TestAsset\Model();
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => 'always valid',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => 'always valid',
-            ),
-        );
+            ],
+        ];
         $this->populateForm();
         $this->form->setHydrator(new Hydrator\ArraySerializable());
         $this->form->bind($model);
@@ -585,10 +585,10 @@ class FormTest extends TestCase
 
         $this->assertEquals('abcde', $model->foo);
         $this->assertEquals('always valid', $model->bar);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'abcde',
             'bar' => 'always valid',
-        ), $model->foobar);
+        ], $model->foobar);
     }
 
     public function testSetsInputFilterToFilterFromBoundModelIfModelImplementsInputLocatorAware()
@@ -603,18 +603,18 @@ class FormTest extends TestCase
     public function testSettingDataShouldSetElementValues()
     {
         $this->populateForm();
-        $data = array(
+        $data = [
             'foo' => 'abcde',
             'bar' => 'always valid',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => 'always valid',
-            ),
-        );
+            ],
+        ];
         $this->form->setData($data);
 
         $fieldset = $this->form->get('foobar');
-        foreach (array('foo', 'bar') as $name) {
+        foreach (['foo', 'bar'] as $name) {
             $element = $this->form->get($name);
             $this->assertEquals($data[$name], $element->getValue());
 
@@ -644,10 +644,10 @@ class FormTest extends TestCase
         $object         = new stdClass();
         $object->foo    = 'foos';
         $object->bar    = 'bar';
-        $object->foobar = array(
+        $object->foobar = [
             'foo' => 'foos',
             'bar' => 'bar',
-        );
+        ];
         $this->form->setHydrator(new Hydrator\ObjectProperty());
         $this->form->bind($object);
 
@@ -682,14 +682,14 @@ class FormTest extends TestCase
     public function testCallingBindValuesWhenBindOnValidateIsDisabledPopulatesBoundObject()
     {
         $model = new stdClass;
-        $validSet = array(
+        $validSet = [
             'foo' => 'abcde',
             'bar' => ' ALWAYS valid ',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => ' always VALID',
-            ),
-        );
+            ],
+        ];
         $this->populateForm();
         $this->form->setHydrator(new Hydrator\ObjectProperty());
         $this->form->setBindOnValidate(false);
@@ -708,10 +708,10 @@ class FormTest extends TestCase
         $this->assertObjectHasAttribute('bar', $model);
         $this->assertEquals('always valid', $model->bar);
         $this->assertObjectHasAttribute('foobar', $model);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'abcde',
             'bar' => 'always valid',
-        ), $model->foobar);
+        ], $model->foobar);
     }
 
     public function testHasFactoryComposedByDefault()
@@ -729,14 +729,14 @@ class FormTest extends TestCase
 
     public function testCanAddElementsUsingSpecs()
     {
-        $this->form->add(array(
+        $this->form->add([
             'name'       => 'foo',
-            'attributes' => array(
+            'attributes' => [
                 'type'         => 'text',
                 'class'        => 'foo-class',
                 'data-js-type' => 'my.form.text',
-            ),
-        ));
+            ],
+        ]);
         $this->assertTrue($this->form->has('foo'));
         $element = $this->form->get('foo');
         $this->assertInstanceOf('Zend\Form\ElementInterface', $element);
@@ -748,15 +748,15 @@ class FormTest extends TestCase
 
     public function testCanAddFieldsetsUsingSpecs()
     {
-        $this->form->add(array(
+        $this->form->add([
             'type'       => 'Zend\Form\Fieldset',
             'name'       => 'foo',
-            'attributes' => array(
+            'attributes' => [
                 'type'         => 'fieldset',
                 'class'        => 'foo-class',
                 'data-js-type' => 'my.form.fieldset',
-            ),
-        ));
+            ],
+        ]);
         $this->assertTrue($this->form->has('foo'));
         $fieldset = $this->form->get('foo');
         $this->assertInstanceOf('Zend\Form\FieldsetInterface', $fieldset);
@@ -769,25 +769,25 @@ class FormTest extends TestCase
     public function testFormAsFieldsetWillBindValuesToObject()
     {
         $parentForm        = new Form('parent');
-        $parentFormObject  = new \ArrayObject(array('parentId' => null));
+        $parentFormObject  = new \ArrayObject(['parentId' => null]);
         $parentFormElement = new Element('parentId');
         $parentForm->setObject($parentFormObject);
         $parentForm->add($parentFormElement);
 
         $childForm        = new Form('child');
-        $childFormObject  = new \ArrayObject(array('childId' => null));
+        $childFormObject  = new \ArrayObject(['childId' => null]);
         $childFormElement = new Element('childId');
         $childForm->setObject($childFormObject);
         $childForm->add($childFormElement);
 
         $parentForm->add($childForm);
 
-        $data = array(
+        $data = [
             'parentId' => 'mpinkston was here',
-            'child' => array(
+            'child' => [
                 'childId' => 'testing 123'
-            )
-        );
+            ]
+        ];
 
         $parentForm->setData($data);
         $this->assertTrue($parentForm->isValid());
@@ -865,12 +865,12 @@ class FormTest extends TestCase
         $element = new TestAsset\ElementWithFilter('foo');
         $filter  = new InputFilter();
         $filterFactory = new InputFilterFactory();
-        $filter = $filterFactory->createInputFilter(array(
-            'foo' => array(
+        $filter = $filterFactory->createInputFilter([
+            'foo' => [
                 'name'       => 'foo',
                 'required'   => false,
-            ),
-        ));
+            ],
+        ]);
         $this->form->setPreferFormInputFilter(true);
         $this->form->setInputFilter($filter);
         $this->form->add($element);
@@ -935,16 +935,16 @@ class FormTest extends TestCase
 
     public function testCanProperlyPrepareNestedFieldsets()
     {
-        $this->form->add(array(
+        $this->form->add([
             'name'       => 'foo',
-            'attributes' => array(
+            'attributes' => [
                 'type'         => 'text'
-            )
-        ));
+            ]
+        ]);
 
-        $this->form->add(array(
+        $this->form->add([
             'type' => 'ZendTest\Form\TestAsset\BasicFieldset'
-        ));
+        ]);
 
         $this->form->prepare();
 
@@ -980,19 +980,19 @@ class FormTest extends TestCase
         $form = new TestAsset\CreateAddressForm();
         $form->bind($emptyAddress);
 
-        $data = array(
-            'address' => array(
+        $data = [
+            'address' => [
                 'street' => '1 Rue des Champs Elysées',
-                'city' => array(
+                'city' => [
                     'name' => 'Paris',
                     'zipCode' => '75008',
-                    'country' => array(
+                    'country' => [
                         'name' => 'France',
                         'continent' => 'Europe'
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
 
         $form->setData($data);
 
@@ -1028,20 +1028,20 @@ class FormTest extends TestCase
         $form = new TestAsset\NewProductForm();
         $form->bind($emptyProduct);
 
-        $data = array(
-            'product' => array(
+        $data = [
+            'product' => [
                 'name' => 'Chair',
                 'price' => 10,
-                'categories' => array(
-                    array(
+                'categories' => [
+                    [
                         'name' => 'Office'
-                    ),
-                    array(
+                    ],
+                    [
                         'name' => 'Armchair'
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
 
         $form->setData($data);
 
@@ -1057,16 +1057,16 @@ class FormTest extends TestCase
 
         $form = new TestAsset\OrphansForm();
 
-        $data = array(
-            'test' => array(
-                array(
+        $data = [
+            'test' => [
+                [
                     'name' => 'Foo'
-                ),
-                array(
+                ],
+                [
                     'name' => 'Bar'
-                ),
-            )
-        );
+                ],
+            ]
+        ];
 
         $form->setData($data);
         $valid = $form->isValid();
@@ -1130,13 +1130,13 @@ class FormTest extends TestCase
     public function testUnsetValuesNotBound()
     {
         $model = new stdClass;
-        $validSet = array(
+        $validSet = [
             'bar' => 'always valid',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => 'always valid',
-            ),
-        );
+            ],
+        ];
         $this->populateForm();
         $this->form->setHydrator(new Hydrator\ObjectProperty());
         $this->form->bind($model);
@@ -1149,53 +1149,53 @@ class FormTest extends TestCase
 
     public function testRemoveCollectionFromValidationGroupWhenZeroCountAndNoData()
     {
-        $dataWithoutCollection = array(
+        $dataWithoutCollection = [
             'foo' => 'bar'
-        );
+        ];
         $this->populateForm();
-        $this->form->add(array(
+        $this->form->add([
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'categories',
-            'options' => array(
+            'options' => [
                 'count' => 0,
-                'target_element' => array(
+                'target_element' => [
                     'type' => 'ZendTest\Form\TestAsset\CategoryFieldset'
-                )
-            )
-        ));
-        $this->form->setValidationGroup(array(
+                ]
+            ]
+        ]);
+        $this->form->setValidationGroup([
             'foo',
-            'categories' => array(
+            'categories' => [
                 'name'
-            )
-        ));
+            ]
+        ]);
         $this->form->setData($dataWithoutCollection);
         $this->assertTrue($this->form->isValid());
     }
 
     public function testFieldsetValidationGroupStillPreparedWhenEmptyData()
     {
-        $emptyData = array();
+        $emptyData = [];
 
         $this->populateForm();
-        $this->form->get('foobar')->add(array(
+        $this->form->get('foobar')->add([
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'categories',
-            'options' => array(
+            'options' => [
                 'count' => 0,
-                'target_element' => array(
+                'target_element' => [
                     'type' => 'ZendTest\Form\TestAsset\CategoryFieldset'
-                )
-            )
-        ));
+                ]
+            ]
+        ]);
 
-        $this->form->setValidationGroup(array(
-            'foobar' => array(
-                'categories' => array(
+        $this->form->setValidationGroup([
+            'foobar' => [
+                'categories' => [
                     'name'
-                )
-            )
-        ));
+                ]
+            ]
+        ]);
 
         $this->form->setData($emptyData);
         $this->assertFalse($this->form->isValid());
@@ -1207,31 +1207,31 @@ class FormTest extends TestCase
         $fieldset->add(new Element('foo'));
         $fieldset->setUseAsBaseFieldset(true);
         $this->form->add($fieldset);
-        $this->form->setValidationGroup(array(
-            'foobar'=> array(
+        $this->form->setValidationGroup([
+            'foobar'=> [
                 'foo',
-            )
-        ));
+            ]
+        ]);
 
         $inputFilterFactory = new InputFilterFactory();
-        $inputFilter = $inputFilterFactory->createInputFilter(array(
-            'foo' => array(
+        $inputFilter = $inputFilterFactory->createInputFilter([
+            'foo' => [
                 'name'       => 'foo',
                 'required'   => true,
-            ),
-        ));
+            ],
+        ]);
         $model = new TestAsset\ValidatingModel();
         $model->setInputFilter($inputFilter);
         $this->form->bind($model);
 
-        $this->form->setData(array());
+        $this->form->setData([]);
         $this->assertFalse($this->form->isValid());
 
-        $validSet = array(
-            'foobar' => array(
+        $validSet = [
+            'foobar' => [
                 'foo' => 'abcde',
-            )
-        );
+            ]
+        ];
         $this->form->setData($validSet);
         $this->assertTrue($this->form->isValid());
     }
@@ -1247,12 +1247,12 @@ class FormTest extends TestCase
         $this->form->add($collection);
 
         $inputFilterFactory = new InputFilterFactory();
-        $inputFilter = $inputFilterFactory->createInputFilter(array(
-            'items' => array(
+        $inputFilter = $inputFilterFactory->createInputFilter([
+            'items' => [
                 'type'         => 'Zend\InputFilter\CollectionInputFilter',
                 'input_filter' => new InputFilter(),
-            ),
-        ));
+            ],
+        ]);
 
         $this->form->setInputFilter($inputFilter);
 
@@ -1262,32 +1262,32 @@ class FormTest extends TestCase
 
     public function testFormValidationCanHandleNonConsecutiveKeysOfCollectionInData()
     {
-        $dataWithCollection = array(
+        $dataWithCollection = [
             'foo' => 'bar',
-            'categories' => array(
-                0 => array('name' => 'cat1'),
-                1 => array('name' => 'cat2'),
-                3 => array('name' => 'cat3'),
-            ),
-        );
+            'categories' => [
+                0 => ['name' => 'cat1'],
+                1 => ['name' => 'cat2'],
+                3 => ['name' => 'cat3'],
+            ],
+        ];
         $this->populateForm();
-        $this->form->add(array(
+        $this->form->add([
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'categories',
-            'options' => array(
+            'options' => [
                 'count' => 1,
                 'allow_add' => true,
-                'target_element' => array(
+                'target_element' => [
                     'type' => 'ZendTest\Form\TestAsset\CategoryFieldset'
-                )
-            )
-        ));
-        $this->form->setValidationGroup(array(
+                ]
+            ]
+        ]);
+        $this->form->setValidationGroup([
             'foo',
-            'categories' => array(
+            'categories' => [
                 'name'
-            )
-        ));
+            ]
+        ]);
         $this->form->setData($dataWithCollection);
         $this->assertTrue($this->form->isValid());
     }
@@ -1300,12 +1300,12 @@ class FormTest extends TestCase
         $this->form->add($fieldset);
 
         $inputFilterFactory = new InputFilterFactory();
-        $inputFilter = $inputFilterFactory->createInputFilter(array(
-            'foo' => array(
+        $inputFilter = $inputFilterFactory->createInputFilter([
+            'foo' => [
                 'name'       => 'foo',
                 'required'   => true,
-            ),
-        ));
+            ],
+        ]);
         $model = new TestAsset\ValidatingModel();
         $model->setInputFilter($inputFilter);
 
@@ -1325,12 +1325,12 @@ class FormTest extends TestCase
         $model = new TestAsset\HydratorStrategyEntityA();
         $this->form->bind($model);
 
-        $validSet = array(
-            'entities' => array(
+        $validSet = [
+            'entities' => [
                 111,
                 333
-            ),
-        );
+            ],
+        ];
 
         $this->form->setData($validSet);
         $this->form->isValid();
@@ -1352,14 +1352,14 @@ class FormTest extends TestCase
     {
         $this->populateForm();
 
-        $set = array(
+        $set = [
             'foo' => null,
             'bar' => 'always valid',
-            'foobar' => array(
+            'foobar' => [
                 'foo' => 'abcde',
                 'bar' => 'always valid',
-            ),
-        );
+            ],
+        ];
         $this->form->setData($set);
         $this->assertTrue($this->form->isValid());
     }
@@ -1397,26 +1397,26 @@ class FormTest extends TestCase
 
     public function testSetDataIsTraversable()
     {
-        $this->form->setData(new \ArrayObject(array('foo' => 'bar')));
+        $this->form->setData(new \ArrayObject(['foo' => 'bar']));
         $this->assertTrue($this->form->isValid());
     }
 
     public function testResetPasswordValueIfFormIsNotValid()
     {
-        $this->form->add(array(
+        $this->form->add([
             'type' => 'Zend\Form\Element\Password',
             'name' => 'password'
-        ));
+        ]);
 
-        $this->form->add(array(
+        $this->form->add([
             'type' => 'Zend\Form\Element\Email',
             'name' => 'email'
-        ));
+        ]);
 
-        $this->form->setData(array(
+        $this->form->setData([
             'password' => 'azerty',
             'email'    => 'wrongEmail'
-        ));
+        ]);
 
         $this->assertFalse($this->form->isValid());
         $this->form->prepare();
@@ -1427,9 +1427,9 @@ class FormTest extends TestCase
     public function testCorrectlyHydrateBaseFieldsetWhenHydratorThatDoesNotIgnoreInvalidDataIsUsed()
     {
         $fieldset = new Fieldset('example');
-        $fieldset->add(array(
+        $fieldset->add([
             'name' => 'foo'
-        ));
+        ]);
 
         // Add a hydrator that ignores if values does not exist in the
         $fieldset->setObject(new Entity\SimplePublicProperty());
@@ -1440,20 +1440,20 @@ class FormTest extends TestCase
         $this->form->setHydrator(new \Zend\Stdlib\Hydrator\ObjectProperty());
 
         // Add some inputs that do not belong to the base fieldset
-        $this->form->add(array(
+        $this->form->add([
             'type' => 'Zend\Form\Element\Submit',
             'name' => 'submit'
-        ));
+        ]);
 
         $object = new Entity\SimplePublicProperty();
         $this->form->bind($object);
 
-        $this->form->setData(array(
+        $this->form->setData([
             'submit' => 'Confirm',
-            'example' => array(
+            'example' => [
                 'foo' => 'value example'
-            )
-        ));
+            ]
+        ]);
 
         $this->assertTrue($this->form->isValid());
 
@@ -1463,13 +1463,13 @@ class FormTest extends TestCase
 
     public function testPrepareBindDataAllowsFilterToConvertStringToArray()
     {
-        $data = array(
+        $data = [
             'foo' => '1,2',
-        );
+        ];
 
-        $filteredData = array(
-            'foo' => array(1, 2)
-        );
+        $filteredData = [
+            'foo' => [1, 2]
+        ];
 
         $element = new TestAsset\ElementWithStringToArrayFilter('foo');
         $hydrator = $this->getMock('Zend\Stdlib\Hydrator\ArraySerializable');
@@ -1484,7 +1484,7 @@ class FormTest extends TestCase
 
     public function testGetValidationGroup()
     {
-        $group = array('foo');
+        $group = ['foo'];
         $this->form->setValidationGroup($group);
         $this->assertEquals($group, $this->form->getValidationGroup());
     }
@@ -1517,21 +1517,21 @@ class FormTest extends TestCase
         $c2->setId(2);
         $c2->setName('Second Category');
 
-        $product->setCategories(array($c1, $c2));
+        $product->setCategories([$c1, $c2]);
 
         $this->form->add($fieldset);
         $this->form->bind($product);
 
-        $data = array(
-            'product' => array(
+        $data = [
+            'product' => [
                 'name' => 'Barbar',
                 'price' => 200,
-                'categories' => array(
-                    array('name' => 'Something else'),
-                    array('name' => 'Totally different'),
-                ),
-            ),
-        );
+                'categories' => [
+                    ['name' => 'Something else'],
+                    ['name' => 'Totally different'],
+                ],
+            ],
+        ];
 
         $hash1 = spl_object_hash($this->form->getObject()->getCategory(0));
         $this->form->setData($data);
@@ -1593,25 +1593,25 @@ class FormTest extends TestCase
     public function testComplexFormInputFilterMergesIntoExisting()
     {
         $this->form->setPreferFormInputFilter(true);
-        $this->form->add(array(
+        $this->form->add([
             'name' => 'importance',
             'type'  => 'Zend\Form\Element\Select',
-            'options' => array(
+            'options' => [
                 'label' => 'Importance',
                 'empty_option' => '',
-                'value_options' => array(
+                'value_options' => [
                     'normal' => 'Normal',
                     'important' => 'Important'
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         $inputFilter = new \Zend\InputFilter\BaseInputFilter();
         $factory     = new \Zend\InputFilter\Factory();
-        $inputFilter->add($factory->createInput(array(
+        $inputFilter->add($factory->createInput([
             'name'     => 'importance',
             'required' => false,
-        )));
+        ]));
 
         $this->assertTrue($this->form->getInputFilter()->get('importance')->isRequired());
         $this->assertFalse($inputFilter->get('importance')->isRequired());
@@ -1625,43 +1625,43 @@ class FormTest extends TestCase
      */
     public function testInputFilterOrderOfPrecedence1()
     {
-        $spec = array(
+        $spec = [
             'name' => 'test',
-            'elements' => array(
-                array(
-                    'spec' => array(
+            'elements' => [
+                [
+                    'spec' => [
                         'name' => 'element',
                         'type' => 'Zend\Form\Element\Checkbox',
-                        'options' => array(
+                        'options' => [
                             'use_hidden_element' => true,
                             'checked_value' => '1',
                             'unchecked_value' => '0'
-                        )
-                    )
-                )
-            ),
-            'input_filter' => array(
-                'element' => array(
+                        ]
+                    ]
+                ]
+            ],
+            'input_filter' => [
+                'element' => [
                     'required' => false,
-                    'filters' => array(
-                        array(
+                    'filters' => [
+                        [
                             'name' => 'Boolean'
-                        )
-                    ),
-                    'validators' => array(
-                        array(
+                        ]
+                    ],
+                    'validators' => [
+                        [
                             'name' => 'InArray',
-                            'options' => array(
-                                'haystack' => array(
+                            'options' => [
+                                'haystack' => [
                                     "0",
                                     "1"
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        );
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
 
         $factory = new Factory();
         $this->form = $factory->createForm($spec);
@@ -1677,9 +1677,9 @@ class FormTest extends TestCase
     public function testCanSetPreferFormInputFilterFlagViaSetOptions()
     {
         $flag = ! $this->form->getPreferFormInputFilter();
-        $this->form->setOptions(array(
+        $this->form->setOptions([
             'prefer_form_input_filter' => $flag,
-        ));
+        ]);
         $this->assertSame($flag, $this->form->getPreferFormInputFilter());
     }
 
@@ -1689,13 +1689,13 @@ class FormTest extends TestCase
     public function testFactoryCanSetPreferFormInputFilterFlag()
     {
         $factory = new Factory();
-        foreach (array(true, false) as $flag) {
-            $form = $factory->createForm(array(
+        foreach ([true, false] as $flag) {
+            $form = $factory->createForm([
                 'name'    => 'form',
-                'options' => array(
+                'options' => [
                     'prefer_form_input_filter' => $flag,
-                ),
-            ));
+                ],
+            ]);
             $this->assertSame($flag, $form->getPreferFormInputFilter());
         }
     }
@@ -1737,138 +1737,138 @@ class FormTest extends TestCase
 
     public function testFormWithNestedCollections()
     {
-        $spec = array(
+        $spec = [
             'name' => 'test',
-            'elements' => array(
-                array(
-                    'spec' => array(
+            'elements' => [
+                [
+                    'spec' => [
                         'name' => 'name',
                         'type' => 'Zend\Form\Element\Text',
-                    ),
-                    'spec' => array(
+                    ],
+                    'spec' => [
                         'name' => 'groups',
                         'type' => 'Zend\Form\Element\Collection',
-                        'options' => array(
-                            'target_element' => array(
+                        'options' => [
+                            'target_element' => [
                                 'type' => 'Zend\Form\Fieldset',
                                 'name' => 'group',
-                                'elements' => array(
-                                    array(
-                                        'spec' => array(
+                                'elements' => [
+                                    [
+                                        'spec' => [
                                             'type' => 'Zend\Form\Element\Text',
                                             'name' => 'group_class',
-                                        ),
-                                    ),
-                                    array(
-                                        'spec' => array(
+                                        ],
+                                    ],
+                                    [
+                                        'spec' => [
                                             'type' => 'Zend\Form\Element\Collection',
                                             'name' => 'items',
-                                            'options' => array(
-                                                'target_element' => array(
+                                            'options' => [
+                                                'target_element' => [
                                                     'type' => 'Zend\Form\Fieldset',
                                                     'name' => 'item',
-                                                    'elements' => array(
-                                                        array(
-                                                            'spec' => array(
+                                                    'elements' => [
+                                                        [
+                                                            'spec' => [
                                                                 'type' => 'Zend\Form\Element\Text',
                                                                 'name' => 'id',
-                                                            ),
-                                                        ),
-                                                        array(
-                                                            'spec' => array(
+                                                            ],
+                                                        ],
+                                                        [
+                                                            'spec' => [
                                                                 'type' => 'Zend\Form\Element\Text',
                                                                 'name' => 'type',
-                                                            ),
-                                                        ),
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    )
-                )
-            ),
-            'input_filter' => array(
+                                                            ],
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ]
+                ]
+            ],
+            'input_filter' => [
                 'type' => 'Zend\InputFilter\InputFilter',
-                'name' => array(
-                    'filters' => array(
-                        array('name' => 'StringTrim'),
-                        array('name' => 'Null'),
-                    ),
-                    'validators' => array(
-                        array(
+                'name' => [
+                    'filters' => [
+                        ['name' => 'StringTrim'],
+                        ['name' => 'Null'],
+                    ],
+                    'validators' => [
+                        [
                             'name' => 'StringLength',
-                            'options' => array(
+                            'options' => [
                                 'max' => 255,
-                            ),
-                        ),
-                    ),
-                ),
-                'groups' => array(
+                            ],
+                        ],
+                    ],
+                ],
+                'groups' => [
                     'type' => 'Zend\InputFilter\CollectionInputFilter',
-                    'input_filter' => array(
+                    'input_filter' => [
                         'type' => 'Zend\InputFilter\InputFilter',
-                        'group_class' => array(
+                        'group_class' => [
                             'required' => false,
-                        ),
-                        'items' => array(
+                        ],
+                        'items' => [
                             'type' => 'Zend\InputFilter\CollectionInputFilter',
-                            'input_filter' => array(
+                            'input_filter' => [
                                 'type' => 'Zend\InputFilter\InputFilter',
-                                'id' => array(
+                                'id' => [
                                     'required' => false,
-                                ),
-                                'type' => array(
+                                ],
+                                'type' => [
                                     'required' => false,
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $factory = new Factory();
         $this->form = $factory->createForm($spec);
 
-        $data = array(
+        $data = [
             'name' => 'foo',
-            'groups' => array(
-                array(
+            'groups' => [
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 100,
                             'type' => 'item-1',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 200,
                             'type' => 'item-2',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 300,
                             'type' => 'item-3',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 400,
                             'type' => 'item-4',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'group_class' => 'biz',
-                    'items' => array(),
-                ),
-            ),
-        );
+                    'items' => [],
+                ],
+            ],
+        ];
 
         $this->form->setData($data);
 
@@ -1878,17 +1878,17 @@ class FormTest extends TestCase
 
     public function testFormWithCollectionsAndNestedFieldsetsWithInputFilterProviderInterface()
     {
-        $this->form->add(array(
+        $this->form->add([
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'nested_fieldset_with_input_filter_provider',
-            'options' => array(
+            'options' => [
                 'label' => 'InputFilterProviderFieldset',
                 'count' => 1,
-                'target_element' => array(
+                'target_element' => [
                     'type' => 'ZendTest\Form\TestAsset\InputFilterProviderFieldset'
-                )
-            ),
-        ));
+                ]
+            ],
+        ]);
 
         $this->assertTrue(
             $this->form->getInputFilter()
@@ -1901,35 +1901,35 @@ class FormTest extends TestCase
 
     public function testFormElementValidatorsMergeIntoAppliedInputFilter()
     {
-        $this->form->add(array(
+        $this->form->add([
             'name' => 'importance',
             'type'  => 'Zend\Form\Element\Select',
-            'options' => array(
+            'options' => [
                 'label' => 'Importance',
                 'empty_option' => '',
-                'value_options' => array(
+                'value_options' => [
                     'normal' => 'Normal',
                     'important' => 'Important'
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         $inputFilter = new BaseInputFilter();
         $factory     = new InputFilterFactory();
-        $inputFilter->add($factory->createInput(array(
+        $inputFilter->add($factory->createInput([
             'name'     => 'importance',
             'required' => false,
-        )));
+        ]));
 
-        $data = array(
+        $data = [
             'importance' => 'unimporant'
-        );
+        ];
 
         $this->form->setInputFilter($inputFilter);
         $this->form->setData($data);
         $this->assertFalse($this->form->isValid());
 
-        $data = array();
+        $data = [];
 
         $this->form->setData($data);
         $this->assertTrue($this->form->isValid());
@@ -1950,20 +1950,20 @@ class FormTest extends TestCase
         $unselectedValue,
         $useHiddenElement
     ) {
-        $this->form->add(array(
+        $this->form->add([
             'name' => 'multipleSelect',
             'type'  => 'Zend\Form\Element\Select',
-            'attributes' => array('multiple' => 'multiple'),
-            'options' => array(
+            'attributes' => ['multiple' => 'multiple'],
+            'options' => [
                 'label' => 'Importance',
                 'use_hidden_element' => $useHiddenElement,
                 'unselected_value' => $unselectedValue,
-                'value_options' => array(
+                'value_options' => [
                     'foo' => 'Foo',
                     'bar' => 'Bar'
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         $actualIsValid = $this->form->setData($data)->isValid();
         $this->assertEquals($expectedIsValid, $actualIsValid);
@@ -1977,60 +1977,60 @@ class FormTest extends TestCase
      */
     public function formWithSelectMultipleAndEmptyUnselectedValueDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 true,
-                array('multipleSelect' => array('foo')),
-                array('multipleSelect' => array('foo')),
+                ['multipleSelect' => ['foo']],
+                ['multipleSelect' => ['foo']],
                 '',
                 true
-            ),
-            array(
+            ],
+            [
                 true,
-                array('multipleSelect' => array()),
-                array('multipleSelect' => ''),
+                ['multipleSelect' => []],
+                ['multipleSelect' => ''],
                 '',
                 true
-            ),
-            array(
+            ],
+            [
                 true,
-                array('multipleSelect' => array()),
-                array('multipleSelect' => 'empty'),
+                ['multipleSelect' => []],
+                ['multipleSelect' => 'empty'],
                 'empty',
                 true
-            ),
-            array(
+            ],
+            [
                 false,
-                array('multipleSelect' => ''),
-                array('multipleSelect' => ''),
+                ['multipleSelect' => ''],
+                ['multipleSelect' => ''],
                 'empty',
                 true
-            ),
-            array(
+            ],
+            [
                 false,
-                array('multipleSelect' => ''),
-                array('multipleSelect' => ''),
+                ['multipleSelect' => ''],
+                ['multipleSelect' => ''],
                 '',
                 false
-            ),
-            array(
+            ],
+            [
                 true,
-                array('multipleSelect' => array()),
-                array('multipleSelect' => 'foo'),
+                ['multipleSelect' => []],
+                ['multipleSelect' => 'foo'],
                 'foo',
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     public function testCanSetUseInputFilterDefaultsViaArray()
     {
-        $spec = array(
+        $spec = [
             'name' => 'test',
-            'options' => array(
+            'options' => [
                 'use_input_filter_defaults' => false
-            )
-        );
+            ]
+        ];
 
         $factory = new Factory();
         $this->form = $factory->createForm($spec);
@@ -2046,35 +2046,35 @@ class FormTest extends TestCase
     {
         $this->form = new TestAsset\NestedCollectionsForm;
 
-        $data = array(
-            'testFieldset' => array(
-                'groups' => array(
-                    array(
+        $data = [
+            'testFieldset' => [
+                'groups' => [
+                    [
                         'name' => 'first',
-                        'items' => array(
-                            array(
+                        'items' => [
+                            [
                                 'itemId' => 1,
-                            ),
-                            array(
+                            ],
+                            [
                                 'itemId' => 2,
-                            ),
-                        ),
-                    ),
-                    array(
+                            ],
+                        ],
+                    ],
+                    [
                         'name' => 'second',
-                        'items' => array(
-                            array(
+                        'items' => [
+                            [
                                 'itemId' => 3,
-                            ),
-                        ),
-                    ),
-                    array(
+                            ],
+                        ],
+                    ],
+                    [
                         'name' => 'third',
-                        'items' => array(),
-                    ),
-                ),
-            ),
-        );
+                        'items' => [],
+                    ],
+                ],
+            ],
+        ];
 
         $this->form->setData($data);
         $this->form->isValid();
@@ -2090,45 +2090,45 @@ class FormTest extends TestCase
     {
         $this->form = new TestAsset\NestedCollectionsForm;
 
-        $data = array(
-            'testFieldset' => array(
-                'groups' => array(
-                    array(
+        $data = [
+            'testFieldset' => [
+                'groups' => [
+                    [
                         'name' => 'first',
-                        'items' => array(
-                            array(
+                        'items' => [
+                            [
                                 'itemId' => 1,
-                            ),
-                            array(
+                            ],
+                            [
                                 'itemId' => 2,
-                            ),
-                        ),
-                    ),
-                    array(
+                            ],
+                        ],
+                    ],
+                    [
                         'name' => 'second',
-                        'items' => array(
-                            array(
+                        'items' => [
+                            [
                                 'itemId' => 3,
-                            ),
-                            array(
+                            ],
+                            [
                                 'itemId' => 4,
-                            ),
-                        ),
-                    ),
-                    array(
+                            ],
+                        ],
+                    ],
+                    [
                         'name' => 'third',
-                        'items' => array(
-                            array(
+                        'items' => [
+                            [
                                 'itemId' => 5,
-                            ),
-                            array(
+                            ],
+                            [
                                 'itemId' => 6,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->form->setData($data);
         $this->form->isValid();

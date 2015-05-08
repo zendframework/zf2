@@ -27,9 +27,9 @@ class DateTime extends Element implements InputProviderInterface
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'datetime',
-    );
+    ];
 
     /**
      * A valid format string accepted by date()
@@ -117,20 +117,20 @@ class DateTime extends Element implements InputProviderInterface
             return $this->validators;
         }
 
-        $validators = array();
+        $validators = [];
         $validators[] = $this->getDateValidator();
 
         if (isset($this->attributes['min'])) {
-            $validators[] = new GreaterThanValidator(array(
+            $validators[] = new GreaterThanValidator([
                 'min'       => $this->attributes['min'],
                 'inclusive' => true,
-            ));
+            ]);
         }
         if (isset($this->attributes['max'])) {
-            $validators[] = new LessThanValidator(array(
+            $validators[] = new LessThanValidator([
                 'max'       => $this->attributes['max'],
                 'inclusive' => true,
-            ));
+            ]);
         }
         if (!isset($this->attributes['step'])
             || 'any' !== $this->attributes['step']
@@ -149,7 +149,7 @@ class DateTime extends Element implements InputProviderInterface
      */
     protected function getDateValidator()
     {
-        return new DateValidator(array('format' => $this->format));
+        return new DateValidator(['format' => $this->format]);
     }
 
     /**
@@ -166,11 +166,11 @@ class DateTime extends Element implements InputProviderInterface
         $baseValue = (isset($this->attributes['min']))
                    ? $this->attributes['min'] : date($format, 0);
 
-        return new DateStepValidator(array(
+        return new DateStepValidator([
             'format'    => $format,
             'baseValue' => $baseValue,
             'step'      => new DateInterval("PT{$stepValue}M"),
-        ));
+        ]);
     }
 
     /**
@@ -182,13 +182,13 @@ class DateTime extends Element implements InputProviderInterface
      */
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim'),
-            ),
+            'filters' => [
+                ['name' => 'Zend\Filter\StringTrim'],
+            ],
             'validators' => $this->getValidators(),
-        );
+        ];
     }
 }

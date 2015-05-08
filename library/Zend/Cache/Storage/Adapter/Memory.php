@@ -47,7 +47,7 @@ class Memory extends AbstractAdapter implements
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Set options.
@@ -115,7 +115,7 @@ class Memory extends AbstractAdapter implements
     public function getIterator()
     {
         $ns   = $this->getOptions()->getNamespace();
-        $keys = array();
+        $keys = [];
 
         if (isset($this->data[$ns])) {
             foreach ($this->data[$ns] as $key => & $tmp) {
@@ -137,7 +137,7 @@ class Memory extends AbstractAdapter implements
      */
     public function flush()
     {
-        $this->data = array();
+        $this->data = [];
         return true;
     }
 
@@ -248,7 +248,7 @@ class Memory extends AbstractAdapter implements
             return false;
         }
 
-        return isset($this->data[$ns][$key]['tags']) ? $this->data[$ns][$key]['tags'] : array();
+        return isset($this->data[$ns][$key]['tags']) ? $this->data[$ns][$key]['tags'] : [];
     }
 
     /**
@@ -326,14 +326,14 @@ class Memory extends AbstractAdapter implements
         $options = $this->getOptions();
         $ns      = $options->getNamespace();
         if (!isset($this->data[$ns])) {
-            return array();
+            return [];
         }
 
         $data = & $this->data[$ns];
         $ttl  = $options->getTtl();
         $now  = microtime(true);
 
-        $result = array();
+        $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
             if (isset($data[$normalizedKey])) {
                 if (!$ttl || $now < ($data[$normalizedKey][1] + $ttl)) {
@@ -379,14 +379,14 @@ class Memory extends AbstractAdapter implements
         $options = $this->getOptions();
         $ns      = $options->getNamespace();
         if (!isset($this->data[$ns])) {
-            return array();
+            return [];
         }
 
         $data = & $this->data[$ns];
         $ttl  = $options->getTtl();
         $now  = microtime(true);
 
-        $result = array();
+        $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
             if (isset($data[$normalizedKey])) {
                 if (!$ttl || $now < ($data[$normalizedKey][1] + $ttl)) {
@@ -416,9 +416,9 @@ class Memory extends AbstractAdapter implements
         }
 
         $ns = $this->getOptions()->getNamespace();
-        return array(
+        return [
             'mtime' => $this->data[$ns][$normalizedKey][1],
-        );
+        ];
     }
 
     /* writing */
@@ -443,7 +443,7 @@ class Memory extends AbstractAdapter implements
         }
 
         $ns = $options->getNamespace();
-        $this->data[$ns][$normalizedKey] = array($value, microtime(true));
+        $this->data[$ns][$normalizedKey] = [$value, microtime(true)];
 
         return true;
     }
@@ -468,16 +468,16 @@ class Memory extends AbstractAdapter implements
 
         $ns = $options->getNamespace();
         if (!isset($this->data[$ns])) {
-            $this->data[$ns] = array();
+            $this->data[$ns] = [];
         }
 
         $data = & $this->data[$ns];
         $now  = microtime(true);
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
-            $data[$normalizedKey] = array($value, $now);
+            $data[$normalizedKey] = [$value, $now];
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -504,7 +504,7 @@ class Memory extends AbstractAdapter implements
             return false;
         }
 
-        $this->data[$ns][$normalizedKey] = array($value, microtime(true));
+        $this->data[$ns][$normalizedKey] = [$value, microtime(true)];
         return true;
     }
 
@@ -528,17 +528,17 @@ class Memory extends AbstractAdapter implements
 
         $ns = $options->getNamespace();
         if (!isset($this->data[$ns])) {
-            $this->data[$ns] = array();
+            $this->data[$ns] = [];
         }
 
-        $result = array();
+        $result = [];
         $data   = & $this->data[$ns];
         $now    = microtime(true);
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             if (isset($data[$normalizedKey])) {
                 $result[] = $normalizedKey;
             } else {
-                $data[$normalizedKey] = array($value, $now);
+                $data[$normalizedKey] = [$value, $now];
             }
         }
 
@@ -559,7 +559,7 @@ class Memory extends AbstractAdapter implements
         if (!isset($this->data[$ns][$normalizedKey])) {
             return false;
         }
-        $this->data[$ns][$normalizedKey] = array($value, microtime(true));
+        $this->data[$ns][$normalizedKey] = [$value, microtime(true)];
 
         return true;
     }
@@ -578,13 +578,13 @@ class Memory extends AbstractAdapter implements
             return array_keys($normalizedKeyValuePairs);
         }
 
-        $result = array();
+        $result = [];
         $data   = & $this->data[$ns];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             if (!isset($data[$normalizedKey])) {
                 $result[] = $normalizedKey;
             } else {
-                $data[$normalizedKey] = array($value, microtime(true));
+                $data[$normalizedKey] = [$value, microtime(true)];
             }
         }
 
@@ -653,7 +653,7 @@ class Memory extends AbstractAdapter implements
         } else {
             // initial value
             $newValue                        = $value;
-            $this->data[$ns][$normalizedKey] = array($newValue, microtime(true));
+            $this->data[$ns][$normalizedKey] = [$newValue, microtime(true)];
         }
 
         return $newValue;
@@ -678,7 +678,7 @@ class Memory extends AbstractAdapter implements
         } else {
             // initial value
             $newValue                        = -$value;
-            $this->data[$ns][$normalizedKey] = array($newValue, microtime(true));
+            $this->data[$ns][$normalizedKey] = [$newValue, microtime(true)];
         }
 
         return $newValue;
@@ -698,8 +698,8 @@ class Memory extends AbstractAdapter implements
             $this->capabilities = new Capabilities(
                 $this,
                 $this->capabilityMarker,
-                array(
-                    'supportedDatatypes' => array(
+                [
+                    'supportedDatatypes' => [
                         'NULL'     => true,
                         'boolean'  => true,
                         'integer'  => true,
@@ -708,8 +708,8 @@ class Memory extends AbstractAdapter implements
                         'array'    => true,
                         'object'   => true,
                         'resource' => true,
-                    ),
-                    'supportedMetadata'  => array('mtime'),
+                    ],
+                    'supportedMetadata'  => ['mtime'],
                     'minTtl'             => 1,
                     'maxTtl'             => PHP_INT_MAX,
                     'staticTtl'          => false,
@@ -718,7 +718,7 @@ class Memory extends AbstractAdapter implements
                     'maxKeyLength'       => 0,
                     'namespaceIsPrefix'  => false,
                     'namespaceSeparator' => '',
-                )
+                ]
             );
         }
 

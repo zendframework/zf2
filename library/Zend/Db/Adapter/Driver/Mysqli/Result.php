@@ -59,7 +59,7 @@ class Result implements
      *
      * @var array
      */
-    protected $statementBindValues = array('keys' => null, 'values' => array());
+    protected $statementBindValues = ['keys' => null, 'values' => []];
 
     /**
      * @var mixed
@@ -189,17 +189,17 @@ class Result implements
     {
         // build the default reference based bind structure, if it does not already exist
         if ($this->statementBindValues['keys'] === null) {
-            $this->statementBindValues['keys'] = array();
+            $this->statementBindValues['keys'] = [];
             $resultResource = $this->resource->result_metadata();
             foreach ($resultResource->fetch_fields() as $col) {
                 $this->statementBindValues['keys'][] = $col->name;
             }
             $this->statementBindValues['values'] = array_fill(0, count($this->statementBindValues['keys']), null);
-            $refs = array();
+            $refs = [];
             foreach ($this->statementBindValues['values'] as $i => &$f) {
                 $refs[$i] = &$f;
             }
-            call_user_func_array(array($this->resource, 'bind_result'), $this->statementBindValues['values']);
+            call_user_func_array([$this->resource, 'bind_result'], $this->statementBindValues['values']);
         }
 
         if (($r = $this->resource->fetch()) === null) {

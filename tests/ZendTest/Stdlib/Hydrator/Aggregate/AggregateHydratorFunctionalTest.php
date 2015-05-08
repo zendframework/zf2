@@ -43,12 +43,12 @@ class AggregateHydratorFunctionalTest extends PHPUnit_Framework_TestCase
      */
     public function testEmptyAggregate()
     {
-        $object = new ArrayObject(array('zaphod' => 'beeblebrox'));
+        $object = new ArrayObject(['zaphod' => 'beeblebrox']);
 
-        $this->assertSame(array(), $this->hydrator->extract($object));
-        $this->assertSame($object, $this->hydrator->hydrate(array('arthur' => 'dent'), $object));
+        $this->assertSame([], $this->hydrator->extract($object));
+        $this->assertSame($object, $this->hydrator->hydrate(['arthur' => 'dent'], $object));
 
-        $this->assertSame(array('zaphod' => 'beeblebrox'), $object->getArrayCopy());
+        $this->assertSame(['zaphod' => 'beeblebrox'], $object->getArrayCopy());
     }
 
     /**
@@ -116,7 +116,7 @@ class AggregateHydratorFunctionalTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(
             $object,
-            $this->hydrator->hydrate(array('maintainer' => 'Trillian', 'president' => '???'), $object)
+            $this->hydrator->hydrate(['maintainer' => 'Trillian', 'president' => '???'], $object)
         );
 
         $this->assertArrayHasKey('maintainer', $object->arrayData);
@@ -132,16 +132,16 @@ class AggregateHydratorFunctionalTest extends PHPUnit_Framework_TestCase
      */
     public function testStoppedPropagationInExtraction()
     {
-        $object   = new ArrayObject(array('president' => 'Zaphod'));
+        $object   = new ArrayObject(['president' => 'Zaphod']);
         $callback = function (ExtractEvent $event) {
-            $event->setExtractedData(array('Ravenous Bugblatter Beast of Traal'));
+            $event->setExtractedData(['Ravenous Bugblatter Beast of Traal']);
             $event->stopPropagation();
         };
 
         $this->hydrator->add(new ArraySerializable());
         $this->hydrator->getEventManager()->attach(ExtractEvent::EVENT_EXTRACT, $callback, 1000);
 
-        $this->assertSame(array('Ravenous Bugblatter Beast of Traal'), $this->hydrator->extract($object));
+        $this->assertSame(['Ravenous Bugblatter Beast of Traal'], $this->hydrator->extract($object));
     }
 
     /**
@@ -160,7 +160,7 @@ class AggregateHydratorFunctionalTest extends PHPUnit_Framework_TestCase
         $this->hydrator->add(new ArraySerializable());
         $this->hydrator->getEventManager()->attach(HydrateEvent::EVENT_HYDRATE, $callback, 1000);
 
-        $this->assertSame($swappedObject, $this->hydrator->hydrate(array('president' => 'Zaphod'), $object));
+        $this->assertSame($swappedObject, $this->hydrator->hydrate(['president' => 'Zaphod'], $object));
     }
 
     /**
@@ -170,8 +170,8 @@ class AggregateHydratorFunctionalTest extends PHPUnit_Framework_TestCase
      */
     public function getHydratorSet()
     {
-        return array(
-            array(new ArraySerializable(), new ArrayObject(array('zaphod' => 'beeblebrox')), array('arthur' => 'dent')),
-        );
+        return [
+            [new ArraySerializable(), new ArrayObject(['zaphod' => 'beeblebrox']), ['arthur' => 'dent']],
+        ];
     }
 }

@@ -50,13 +50,13 @@ class LazyServiceFactoryFactoryTest extends \PHPUnit_Framework_TestCase
 
         $serviceManager->setService(
             'Config',
-            array(
-                 'lazy_services' => array(
-                     'class_map'         => array('foo' => __CLASS__),
+            [
+                 'lazy_services' => [
+                     'class_map'         => ['foo' => __CLASS__],
                      'proxies_namespace' => $namespace,
                      'write_proxy_files' => true,
-                 ),
-            )
+                 ],
+            ]
         );
         $serviceManager->setFactory('foo-delegator', 'Zend\ServiceManager\Proxy\LazyServiceFactoryFactory');
         $serviceManager->setInvokableClass('foo', __CLASS__);
@@ -85,12 +85,12 @@ class LazyServiceFactoryFactoryTest extends \PHPUnit_Framework_TestCase
 
         $serviceManager->setService(
             'Config',
-            array(
-                 'lazy_services' => array(
-                     'class_map'         => array('foo' => __CLASS__),
+            [
+                 'lazy_services' => [
+                     'class_map'         => ['foo' => __CLASS__],
                      'proxies_namespace' => $namespace,
-                 ),
-            )
+                 ],
+            ]
         );
         $serviceManager->setFactory('foo-delegator', 'Zend\ServiceManager\Proxy\LazyServiceFactoryFactory');
         $serviceManager->setInvokableClass('foo', __CLASS__);
@@ -120,12 +120,12 @@ class LazyServiceFactoryFactoryTest extends \PHPUnit_Framework_TestCase
 
         $serviceManager->setService(
             'Config',
-            array(
-                 'lazy_services' => array(
-                     'class_map'             => array('foo' => __CLASS__),
+            [
+                 'lazy_services' => [
+                     'class_map'             => ['foo' => __CLASS__],
                      'proxies_namespace'     => $namespace,
-                 ),
-            )
+                 ],
+            ]
         );
         $serviceManager->setFactory('foo-delegator', 'Zend\ServiceManager\Proxy\LazyServiceFactoryFactory');
         $serviceManager->create('foo-delegator');
@@ -146,9 +146,9 @@ class LazyServiceFactoryFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidConfigProvider()
     {
-        return array(
-            array(array()),
-            array(array('lazy_services' => array()))
-        );
+        return [
+            [[]],
+            [['lazy_services' => []]]
+        ];
     }
 }

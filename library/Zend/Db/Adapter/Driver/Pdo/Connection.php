@@ -77,7 +77,7 @@ class Connection extends AbstractConnection
             $this->driverName = strtolower($connectionParameters['pdodriver']);
         } elseif (isset($connectionParameters['driver'])) {
             $this->driverName = strtolower(substr(
-                str_replace(array('-', '_', ' '), '', $connectionParameters['driver']),
+                str_replace(['-', '_', ' '], '', $connectionParameters['driver']),
                 3
             ));
         }
@@ -160,7 +160,7 @@ class Connection extends AbstractConnection
         }
 
         $dsn = $username = $password = $hostname = $database = null;
-        $options = array();
+        $options = [];
         foreach ($this->connectionParameters as $key => $value) {
             switch (strtolower($key)) {
                 case 'dsn':
@@ -169,7 +169,7 @@ class Connection extends AbstractConnection
                 case 'driver':
                     $value = strtolower((string) $value);
                     if (strpos($value, 'pdo') === 0) {
-                        $pdoDriver = str_replace(array('-', '_', ' '), '', $value);
+                        $pdoDriver = str_replace(['-', '_', ' '], '', $value);
                         $pdoDriver = substr($pdoDriver, 3) ?: '';
                         $pdoDriver = strtolower($pdoDriver);
                     }
@@ -211,7 +211,7 @@ class Connection extends AbstractConnection
         }
 
         if (!isset($dsn) && isset($pdoDriver)) {
-            $dsn = array();
+            $dsn = [];
             switch ($pdoDriver) {
                 case 'sqlite':
                     $dsn[] = $database;

@@ -35,7 +35,7 @@ class ConnectionIntegrationTest extends AbstractIntegrationTest
         $this->markTestIncomplete('edit this');
         $resource = oci_connect($this->variables['username'], $this->variables['password'], $this->variables['hostname']);
 
-        $connection = new Connection(array());
+        $connection = new Connection([]);
         $this->assertSame($connection, $connection->setResource($resource));
 
         $connection->disconnect();
@@ -161,7 +161,7 @@ class ConnectionIntegrationTest extends AbstractIntegrationTest
         $this->markTestIncomplete('edit this');
         $resource = oci_connect($this->variables['username'], $this->variables['password'], $this->variables['hostname']);
 
-        $connection = new Connection(array());
+        $connection = new Connection([]);
         $connection->setResource($resource);
         $this->assertSame($connection, $connection->connect());
 

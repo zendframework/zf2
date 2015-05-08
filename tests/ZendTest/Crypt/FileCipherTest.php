@@ -62,9 +62,9 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCipher()
     {
-        $cipher = new Mcrypt(array(
+        $cipher = new Mcrypt([
             'algo' => 'blowfish'
-        ));
+        ]);
         $this->fileCipher->setCipher($cipher);
         $this->assertInstanceOf('Zend\Crypt\Symmetric\SymmetricInterface', $this->fileCipher->getCipher());
         $this->assertEquals($cipher, $this->fileCipher->getCipher());

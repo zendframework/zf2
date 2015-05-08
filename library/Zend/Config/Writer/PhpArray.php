@@ -31,10 +31,10 @@ class PhpArray extends AbstractWriter
      */
     public function processConfig(array $config)
     {
-        $arraySyntax = array(
+        $arraySyntax = [
             'open' => $this->useBracketArraySyntax ? '[' : 'array(',
             'close' => $this->useBracketArraySyntax ? ']' : ')'
-        );
+        ];
 
         return "<?php\n" .
                "return " . $arraySyntax['open'] . "\n" . $this->processIndented($config, $arraySyntax) .
@@ -118,7 +118,7 @@ class PhpArray extends AbstractWriter
             $arrayString .= (is_int($key) ? $key : "'" . addslashes($key) . "'") . ' => ';
 
             if (is_array($value)) {
-                if ($value === array()) {
+                if ($value === []) {
                     $arrayString .= $arraySyntax['open'] . $arraySyntax['close'] . ",\n";
                 } else {
                     $indentLevel++;

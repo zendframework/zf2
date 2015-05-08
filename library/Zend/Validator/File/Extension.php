@@ -28,27 +28,27 @@ class Extension extends AbstractValidator
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::FALSE_EXTENSION => "File has an incorrect extension",
         self::NOT_FOUND       => "File is not readable or does not exist",
-    );
+    ];
 
     /**
      * Options for this validator
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'case'      => false,   // Validate case sensitive
         'extension' => '',      // List of extensions
-    );
+    ];
 
     /**
      * @var array Error message template variables
      */
-    protected $messageVariables = array(
-        'extension' => array('options' => 'extension'),
-    );
+    protected $messageVariables = [
+        'extension' => ['options' => 'extension'],
+    ];
 
     /**
      * Sets validator options
@@ -73,10 +73,10 @@ class Extension extends AbstractValidator
             }
 
             if (!array_key_exists('extension', $options)) {
-                $options = array('extension' => $options);
+                $options = ['extension' => $options];
             }
         } else {
-            $options = array('extension' => $options);
+            $options = ['extension' => $options];
         }
 
         if ($case !== null) {

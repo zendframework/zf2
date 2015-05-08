@@ -65,7 +65,7 @@ abstract class HeaderWrap
         $delimiter = $header->getDelimiter();
 
         $length = strlen($value);
-        $lines  = array();
+        $lines  = [];
         $temp   = '';
         for ($i = 0; $i < $length; $i++) {
             $temp .= $value[$i];
@@ -116,7 +116,7 @@ abstract class HeaderWrap
      */
     public static function canBeEncoded($value)
     {
-        $encoded = iconv_mime_encode('x-test', $value, array('scheme' => 'Q'));
+        $encoded = iconv_mime_encode('x-test', $value, ['scheme' => 'Q']);
 
         return (false !== $encoded);
     }

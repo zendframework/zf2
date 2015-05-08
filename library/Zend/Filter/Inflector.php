@@ -40,7 +40,7 @@ class Inflector extends AbstractFilter
     /**
      * @var array
      */
-    protected $rules = array();
+    protected $rules = [];
 
     /**
      * Constructor
@@ -54,7 +54,7 @@ class Inflector extends AbstractFilter
         }
         if (!is_array($options)) {
             $options = func_get_args();
-            $temp    = array();
+            $temp    = [];
 
             if (!empty($options)) {
                 $temp['target'] = array_shift($options);
@@ -317,7 +317,7 @@ class Inflector extends AbstractFilter
      */
     public function clearRules()
     {
-        $this->rules = array();
+        $this->rules = [];
         return $this;
     }
 
@@ -332,7 +332,7 @@ class Inflector extends AbstractFilter
     public function setFilterRule($spec, $ruleSet)
     {
         $spec = $this->_normalizeSpec($spec);
-        $this->rules[$spec] = array();
+        $this->rules[$spec] = [];
         return $this->addFilterRule($spec, $ruleSet);
     }
 
@@ -347,16 +347,16 @@ class Inflector extends AbstractFilter
     {
         $spec = $this->_normalizeSpec($spec);
         if (!isset($this->rules[$spec])) {
-            $this->rules[$spec] = array();
+            $this->rules[$spec] = [];
         }
 
         if (!is_array($ruleSet)) {
-            $ruleSet = array($ruleSet);
+            $ruleSet = [$ruleSet];
         }
 
         if (is_string($this->rules[$spec])) {
             $temp = $this->rules[$spec];
-            $this->rules[$spec] = array();
+            $this->rules[$spec] = [];
             $this->rules[$spec][] = $temp;
         }
 
@@ -414,7 +414,7 @@ class Inflector extends AbstractFilter
         }
 
         $pregQuotedTargetReplacementIdentifier = preg_quote($this->targetReplacementIdentifier, '#');
-        $processedParts = array();
+        $processedParts = [];
 
         foreach ($this->rules as $ruleName => $ruleValue) {
             if (isset($source[$ruleName])) {

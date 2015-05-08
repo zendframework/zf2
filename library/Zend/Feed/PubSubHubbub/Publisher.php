@@ -22,7 +22,7 @@ class Publisher
      *
      * @var array
      */
-    protected $hubUrls = array();
+    protected $hubUrls = [];
 
     /**
      * An array of topic (Atom or RSS feed) URLs which have been updated and
@@ -30,7 +30,7 @@ class Publisher
      *
      * @var array
      */
-    protected $updatedTopicUrls = array();
+    protected $updatedTopicUrls = [];
 
     /**
      * An array of any errors including keys for 'response', 'hubUrl'.
@@ -38,7 +38,7 @@ class Publisher
      *
      * @var array
      */
-    protected $errors = array();
+    protected $errors = [];
 
     /**
      * An array of topic (Atom or RSS feed) URLs which have been updated and
@@ -46,7 +46,7 @@ class Publisher
      *
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * Constructor; accepts an array or Zend\Config\Config instance to preset
@@ -254,15 +254,15 @@ class Publisher
             throw new Exception\RuntimeException('No Hub Server URLs'
                 . ' have been set so no notifications can be sent');
         }
-        $this->errors = array();
+        $this->errors = [];
         foreach ($hubs as $url) {
             $client->setUri($url);
             $response = $client->getResponse();
             if ($response->getStatusCode() !== 204) {
-                $this->errors[] = array(
+                $this->errors[] = [
                     'response' => $response,
                     'hubUrl' => $url
-                );
+                ];
             }
         }
     }
@@ -373,10 +373,10 @@ class Publisher
     {
         $client = PubSubHubbub::getHttpClient();
         $client->setMethod(HttpRequest::METHOD_POST);
-        $client->setOptions(array(
+        $client->setOptions([
             'useragent' => 'Zend_Feed_Pubsubhubbub_Publisher/' . Version::VERSION,
-        ));
-        $params   = array();
+        ]);
+        $params   = [];
         $params[] = 'hub.mode=publish';
         $topics   = $this->getUpdatedTopicUrls();
         if (empty($topics)) {

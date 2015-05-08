@@ -88,7 +88,7 @@ class Request extends AbstractMessage implements RequestInterface
             ? '[\w-]+'
             : implode(
                 '|',
-                array(
+                [
                     self::METHOD_OPTIONS,
                     self::METHOD_GET,
                     self::METHOD_HEAD,
@@ -98,7 +98,7 @@ class Request extends AbstractMessage implements RequestInterface
                     self::METHOD_TRACE,
                     self::METHOD_CONNECT,
                     self::METHOD_PATCH
-                )
+                ]
             );
 
         $regex     = '#^(?P<method>' . $methods . ')\s(?P<uri>[^ ]*)(?:\sHTTP\/(?P<version>\d+\.\d+)){0,1}#';
@@ -114,7 +114,7 @@ class Request extends AbstractMessage implements RequestInterface
 
         $parsedUri = parse_url($matches['uri']);
         if (array_key_exists('query', $parsedUri)) {
-            $parsedQuery = array();
+            $parsedQuery = [];
             parse_str($parsedUri['query'], $parsedQuery);
             $request->setQuery(new Parameters($parsedQuery));
         }
@@ -128,7 +128,7 @@ class Request extends AbstractMessage implements RequestInterface
         }
 
         $isHeader = true;
-        $headers = $rawBody = array();
+        $headers = $rawBody = [];
         while ($lines) {
             $nextLine = array_shift($lines);
             if ($nextLine == '') {

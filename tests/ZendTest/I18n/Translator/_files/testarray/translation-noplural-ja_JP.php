@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-return array(
-    '' => array(
+return [
+    '' => [
         'plural_forms' => 'nplurals=1; plural=0;'
-    ),
+    ],
     'Message 9' => 'Message 9 (ja)',
-);
+];

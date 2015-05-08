@@ -46,43 +46,43 @@ class FormColorTest extends CommonTestCase
 
     public function validAttributes()
     {
-        return array(
-            array('name', 'assertContains'),
-            array('accept', 'assertNotContains'),
-            array('alt', 'assertNotContains'),
-            array('autocomplete', 'assertContains'),
-            array('autofocus', 'assertContains'),
-            array('checked', 'assertNotContains'),
-            array('dirname', 'assertNotContains'),
-            array('disabled', 'assertContains'),
-            array('form', 'assertContains'),
-            array('formaction', 'assertNotContains'),
-            array('formenctype', 'assertNotContains'),
-            array('formmethod', 'assertNotContains'),
-            array('formnovalidate', 'assertNotContains'),
-            array('formtarget', 'assertNotContains'),
-            array('height', 'assertNotContains'),
-            array('list', 'assertContains'),
-            array('max', 'assertNotContains'),
-            array('maxlength', 'assertNotContains'),
-            array('min', 'assertNotContains'),
-            array('multiple', 'assertNotContains'),
-            array('pattern', 'assertNotContains'),
-            array('placeholder', 'assertNotContains'),
-            array('readonly', 'assertNotContains'),
-            array('required', 'assertNotContains'),
-            array('size', 'assertNotContains'),
-            array('src', 'assertNotContains'),
-            array('step', 'assertNotContains'),
-            array('value', 'assertContains'),
-            array('width', 'assertNotContains'),
-        );
+        return [
+            ['name', 'assertContains'],
+            ['accept', 'assertNotContains'],
+            ['alt', 'assertNotContains'],
+            ['autocomplete', 'assertContains'],
+            ['autofocus', 'assertContains'],
+            ['checked', 'assertNotContains'],
+            ['dirname', 'assertNotContains'],
+            ['disabled', 'assertContains'],
+            ['form', 'assertContains'],
+            ['formaction', 'assertNotContains'],
+            ['formenctype', 'assertNotContains'],
+            ['formmethod', 'assertNotContains'],
+            ['formnovalidate', 'assertNotContains'],
+            ['formtarget', 'assertNotContains'],
+            ['height', 'assertNotContains'],
+            ['list', 'assertContains'],
+            ['max', 'assertNotContains'],
+            ['maxlength', 'assertNotContains'],
+            ['min', 'assertNotContains'],
+            ['multiple', 'assertNotContains'],
+            ['pattern', 'assertNotContains'],
+            ['placeholder', 'assertNotContains'],
+            ['readonly', 'assertNotContains'],
+            ['required', 'assertNotContains'],
+            ['size', 'assertNotContains'],
+            ['src', 'assertNotContains'],
+            ['step', 'assertNotContains'],
+            ['value', 'assertContains'],
+            ['width', 'assertNotContains'],
+        ];
     }
 
     public function getCompleteElement()
     {
         $element = new Element('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'accept'             => 'value',
             'alt'                => 'value',
             'autocomplete'       => 'on',
@@ -112,7 +112,7 @@ class FormColorTest extends CommonTestCase
             'src'                => 'value',
             'step'               => 'value',
             'width'              => 'value',
-        ));
+        ]);
         $element->setValue('value');
         return $element;
     }

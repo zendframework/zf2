@@ -32,7 +32,7 @@ class AbstractHelperTest extends CommonTestCase
     {
         $this->assertSame(
             'data-value="breaking&#x20;your&#x20;HTML&#x20;like&#x20;a&#x20;boss&#x21;&#x20;&#x5C;"',
-            $this->helper->createAttributesString(array('data-value' => 'breaking your HTML like a boss! \\'))
+            $this->helper->createAttributesString(['data-value' => 'breaking your HTML like a boss! \\'])
         );
     }
 
@@ -44,7 +44,7 @@ class AbstractHelperTest extends CommonTestCase
 
         $this->assertSame(
             'data-value="' . $escaper->escapeHtmlAttr('Título') . '"',
-            $this->helper->createAttributesString(array('data-value' => 'Título'))
+            $this->helper->createAttributesString(['data-value' => 'Título'])
         );
     }
 
@@ -54,7 +54,7 @@ class AbstractHelperTest extends CommonTestCase
 
         $this->assertNotSame(
             'data-value="' . $escaper->escapeHtmlAttr('Título') . '"',
-            $this->helper->createAttributesString(array('data-value' => 'Título'))
+            $this->helper->createAttributesString(['data-value' => 'Título'])
         );
     }
 }

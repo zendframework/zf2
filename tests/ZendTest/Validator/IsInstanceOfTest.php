@@ -49,7 +49,7 @@ class IsInstanceOfTest extends \PHPUnit_Framework_TestCase
     public function testGetMessages()
     {
         $validator = new Validator\IsInstanceOf('DateTime');
-        $this->assertEquals(array(), $validator->getMessages());
+        $this->assertEquals([], $validator->getMessages());
     }
 
     /**
@@ -93,7 +93,7 @@ class IsInstanceOfTest extends \PHPUnit_Framework_TestCase
 
     public function testPassTraversableToConstructor()
     {
-        $validator = new Validator\IsInstanceOf(new \ArrayIterator(array('className' => 'DateTime')));
+        $validator = new Validator\IsInstanceOf(new \ArrayIterator(['className' => 'DateTime']));
         $this->assertEquals('DateTime', $validator->getClassName());
         $this->assertTrue($validator->isValid(new DateTime()));
         $this->assertFalse($validator->isValid(null));
@@ -104,7 +104,7 @@ class IsInstanceOfTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'Missing option "className"');
 
-        $options   = array('NotClassNameKey' => 'DateTime');
+        $options   = ['NotClassNameKey' => 'DateTime'];
         $validator = new Validator\IsInstanceOf($options);
     }
 }

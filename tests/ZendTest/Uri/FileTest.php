@@ -30,11 +30,11 @@ class FileTest extends TestCase
      */
     public static function validSchemeProvider()
     {
-        return array(
-            array('file'),
-            array('FILE'),
-            array('File'),
-        );
+        return [
+            ['file'],
+            ['FILE'],
+            ['File'],
+        ];
     }
 
     /**
@@ -44,51 +44,51 @@ class FileTest extends TestCase
      */
     public static function invalidSchemeProvider()
     {
-        return array(
-            array('mailto'),
-            array('http'),
-            array('g'),
-            array('file:')
-        );
+        return [
+            ['mailto'],
+            ['http'],
+            ['g'],
+            ['file:']
+        ];
     }
 
     public static function invalidUris()
     {
-        return array(
-            array('file:foo.bar/baz?bat=boo'),
-            array('file://foo.bar:80/baz?bat=boo'),
-            array('file://user:pass@foo.bar:80/baz?bat=boo'),
-            array('file:///baz?bat=boo'),
-        );
+        return [
+            ['file:foo.bar/baz?bat=boo'],
+            ['file://foo.bar:80/baz?bat=boo'],
+            ['file://user:pass@foo.bar:80/baz?bat=boo'],
+            ['file:///baz?bat=boo'],
+        ];
     }
 
     public static function validUris()
     {
-        return array(
-            array('file:///baz'),
-            array('file://example.com/baz'),
-            array('file://example.com:2132/baz'),
-            array('file://example.com:2132/baz#fragment'),
-            array('file://user:info@example.com:2132/baz'),
-            array('file://C:/foo bar/baz'),
-        );
+        return [
+            ['file:///baz'],
+            ['file://example.com/baz'],
+            ['file://example.com:2132/baz'],
+            ['file://example.com:2132/baz#fragment'],
+            ['file://user:info@example.com:2132/baz'],
+            ['file://C:/foo bar/baz'],
+        ];
     }
 
     public static function unixUris()
     {
-        return array(
-            array('/foo/bar/baz.bat', '/foo/bar/baz.bat'),
-            array('/foo/bar/../baz.bat', '/foo/baz.bat'),
-            array('/foo/bar/../../baz.bat', '/baz.bat'),
-            array('/foo/bar baz.bat', '/foo/bar%20baz.bat'),
-        );
+        return [
+            ['/foo/bar/baz.bat', '/foo/bar/baz.bat'],
+            ['/foo/bar/../baz.bat', '/foo/baz.bat'],
+            ['/foo/bar/../../baz.bat', '/baz.bat'],
+            ['/foo/bar baz.bat', '/foo/bar%20baz.bat'],
+        ];
     }
 
     public static function windowsUris()
     {
-        return array(
-            array('C:\Program Files\Zend Framework\README', 'C:/Program%20Files/Zend%20Framework/README'),
-        );
+        return [
+            ['C:\Program Files\Zend Framework\README', 'C:/Program%20Files/Zend%20Framework/README'],
+        ];
     }
 
     /**
@@ -139,7 +139,7 @@ class FileTest extends TestCase
     public function testInvalidFileUris($uri)
     {
         $uri = new FileUri($uri);
-        $parts = array(
+        $parts = [
             'scheme'    => $uri->getScheme(),
             'user_info' => $uri->getUserInfo(),
             'host'      => $uri->getHost(),
@@ -147,7 +147,7 @@ class FileTest extends TestCase
             'path'      => $uri->getPath(),
             'query'     => $uri->getQueryAsArray(),
             'fragment'  => $uri->getFragment(),
-        );
+        ];
         $this->assertFalse($uri->isValid(), var_export($parts, 1));
     }
 
@@ -157,7 +157,7 @@ class FileTest extends TestCase
     public function testValidFileUris($uri)
     {
         $uri = new FileUri($uri);
-        $parts = array(
+        $parts = [
             'scheme'    => $uri->getScheme(),
             'user_info' => $uri->getUserInfo(),
             'host'      => $uri->getHost(),
@@ -165,7 +165,7 @@ class FileTest extends TestCase
             'path'      => $uri->getPath(),
             'query'     => $uri->getQueryAsArray(),
             'fragment'  => $uri->getFragment(),
-        );
+        ];
         $this->assertTrue($uri->isValid(), var_export($parts, 1));
     }
 

@@ -78,15 +78,15 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
         $header   = Accept::fromString(
             'Accept: text/plain; q=0.5, text/html, text/xml; q=0, text/x-dvi; q=0.8, text/x-c'
         );
-        $expected = array(
+        $expected = [
             'text/html',
             'text/x-c',
             'text/x-dvi',
             'text/plain',
             'text/xml',
-        );
+        ];
 
-        $test = array();
+        $test = [];
         foreach ($header->getPrioritized() as $type) {
             $this->assertEquals(array_shift($expected), $type->typeString);
         }
@@ -95,8 +95,8 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
     public function testLevel()
     {
         $acceptHeader = new Accept();
-        $acceptHeader->addMediaType('text/html', 0.8, array('level' => 1))
-                     ->addMediaType('text/html', 0.4, array('level' => 2))
+        $acceptHeader->addMediaType('text/html', 0.8, ['level' => 1])
+                     ->addMediaType('text/html', 0.4, ['level' => 2])
                      ->addMediaType('application/atom+xml', 0.9);
 
         $this->assertEquals(
@@ -113,15 +113,15 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
             . 'text/html;level=2;q=0.4, */*;q=0.5'
         );
 
-        $expected = array(
+        $expected = [
             'text/html;level=1',
             'text/html;q=0.7',
             '*/*;q=0.5',
             'text/html;level=2;q=0.4',
             'text/*;q=0.3'
-        );
+        ];
 
-        $test = array();
+        $test = [];
         foreach ($header->getPrioritized() as $type) {
             $this->assertEquals(array_shift($expected), $type->raw);
         }
@@ -129,7 +129,7 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
 
     public function testPrios()
     {
-        $values = array('invalidPrio' => false,
+        $values = ['invalidPrio' => false,
                         -0.0001       => false,
                         1.0001        => false,
                         1.000         => true,
@@ -138,7 +138,7 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
                         0.001         => true,
                         1             => true,
                         0             => true
-                );
+                ];
 
         $header = new Accept();
         foreach ($values as $prio => $shouldPass) {
@@ -234,14 +234,14 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
                 'text/xml;level=2;q=0.4';
         $acceptHeader = Accept::fromString($acceptStr);
 
-        $expected = array('typeString' => 'text/html',
+        $expected = ['typeString' => 'text/html',
                 'type' => 'text',
                 'subtype' => 'html',
                 'subtypeRaw' => 'html',
                 'format' => 'html',
                 'priority' => 1,
-                'params' => array('q' => 1, 'version' => 23, 'level' => 5),
-                'raw' => 'text/html;q=1; version=23; level=5');
+                'params' => ['q' => 1, 'version' => 23, 'level' => 5],
+                'raw' => 'text/html;q=1; version=23; level=5'];
 
         $this->assertFalse($acceptHeader->match('text/html; version=22'));
 
@@ -321,18 +321,18 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
      */
     public function provideParamRanges()
     {
-        return array(
-            array('"3.1.1-DEV"-3.1.1', '3.1.1', true),
-            array('3.1.0-"3.1.1-DEV"', '3.1.1', false),
-            array('3.1.0-"3.1.1-DEV"', '3.1.1-DEV', true),
-            array('3.1.0-"3.1.1-DEV"', '3.1.2-DEV', false),
-            array('3.1.0-"3.1.1"', '3.1.2-DEV', false),
-            array('3.1.0-"3.1.1"', '3.1.0-DEV', false),
-            array('"3.1.0-DEV"-"3.1.1-BETA"', '3.1.0', true),
-            array('"3.1.0-DEV"-"3.1.1-BETA"', '3.1.1', false),
-            array('"3.1.0-DEV"-"3.1.1-BETA"', '3.1.1-BETA', true),
-            array('"3.1.0-DEV"-"3.1.1-BETA"', '3.1.0-DEV', true),
-        );
+        return [
+            ['"3.1.1-DEV"-3.1.1', '3.1.1', true],
+            ['3.1.0-"3.1.1-DEV"', '3.1.1', false],
+            ['3.1.0-"3.1.1-DEV"', '3.1.1-DEV', true],
+            ['3.1.0-"3.1.1-DEV"', '3.1.2-DEV', false],
+            ['3.1.0-"3.1.1"', '3.1.2-DEV', false],
+            ['3.1.0-"3.1.1"', '3.1.0-DEV', false],
+            ['"3.1.0-DEV"-"3.1.1-BETA"', '3.1.0', true],
+            ['"3.1.0-DEV"-"3.1.1-BETA"', '3.1.1', false],
+            ['"3.1.0-DEV"-"3.1.1-BETA"', '3.1.1-BETA', true],
+            ['"3.1.0-DEV"-"3.1.1-BETA"', '3.1.0-DEV', true],
+        ];
     }
 
     public function testVersioningAndPriorization()
@@ -341,14 +341,14 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
                 'text/html;level=2;q=0.4';
         $acceptHeader = Accept::fromString($acceptStr);
 
-        $expected = array('typeString' => 'text/json',
+        $expected = ['typeString' => 'text/json',
                 'type' => 'text',
                 'subtype' => 'json',
                 'subtypeRaw' => 'json',
                 'format' => 'json',
                 'priority' => 0.9,
-                'params' => array('q' => 0.9, 'version' => 15.3),
-                'raw' => 'text/json; version=15.3; q=0.9');
+                'params' => ['q' => 0.9, 'version' => 15.3],
+                'raw' => 'text/json; version=15.3; q=0.9'];
 
         $str = 'text/html; version=17, text/json; version=15-16';
         $res = $acceptHeader->match($str);
@@ -356,16 +356,16 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($value, $res->$key);
         }
 
-        $expected = (object) array(
+        $expected = (object) [
             'typeString' => 'text/html',
             'type' => 'text',
             'subtype' => 'html',
             'subtypeRaw' => 'html',
             'format' => 'html',
             'priority' => 0.4,
-            'params' => array('q' => 0.4, 'level' => 2),
+            'params' => ['q' => 0.4, 'level' => 2],
             'raw' => 'text/html;level=2;q=0.4'
-        );
+        ];
 
         $str = 'text/html; version=17,text/json; version=15-16; q=0.5';
         $res = $acceptHeader->match($str);
@@ -382,14 +382,14 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
                            . 'text/html;level=2;q=0.4, */*;q=0.5';
         $acceptHdr = Accept::fromString($acceptStr);
 
-        $expected = array('typeString' => 'text/html',
+        $expected = ['typeString' => 'text/html',
                 'type' => 'text',
                 'subtype' => 'html',
                 'subtypeRaw' => 'html',
                 'format' => 'html',
                 'priority' => 1,
-                'params' => array('level' => 1),
-                'raw' => 'text/html;level=1');
+                'params' => ['level' => 1],
+                'raw' => 'text/html;level=1'];
 
         $res = $acceptHdr->match('text/html');
         foreach ($expected as $key => $value) {
@@ -443,14 +443,14 @@ class AcceptTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete('No wildcard defaults implemented yet');
 
-        $expected = (object)array('typeString' => 'image',
+        $expected = (object)['typeString' => 'image',
                 'type' => 'image',
                 'subtype' => '*',
                 'subtypeRaw' => '',
                 'format' => 'jpeg',
                 'priority' => 1,
-                'params' => array(),
-                'raw' => 'image');
+                'params' => [],
+                'raw' => 'image'];
 
         $this->assertEquals($expected, $acceptHdr->match('image'));
         //  $this->assertEquals($expected, $this->_handler->match('text'));

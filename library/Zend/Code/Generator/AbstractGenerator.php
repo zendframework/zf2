@@ -36,7 +36,7 @@ abstract class AbstractGenerator implements GeneratorInterface
     /**
      * @param  array $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options) {
             $this->setOptions($options);

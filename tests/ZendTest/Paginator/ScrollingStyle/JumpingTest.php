@@ -75,7 +75,7 @@ class JumpingTest extends \PHPUnit_Framework_TestCase
     {
         $this->paginator->setCurrentPageNumber(11);
         $actual = $this->scrollingStyle->getPages($this->paginator);
-        $expected = array(11 => 11);
+        $expected = [11 => 11];
         $this->assertEquals($expected, $actual);
     }
 

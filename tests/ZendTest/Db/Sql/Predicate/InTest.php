@@ -24,9 +24,9 @@ class InTest extends TestCase
 
     public function testCanPassIdentifierAndValueSetToConstructor()
     {
-        $in = new In('foo.bar', array(1, 2));
+        $in = new In('foo.bar', [1, 2]);
         $this->assertEquals('foo.bar', $in->getIdentifier());
-        $this->assertEquals(array(1, 2), $in->getValueSet());
+        $this->assertEquals([1, 2], $in->getValueSet());
     }
 
     public function testIdentifierIsMutable()
@@ -39,33 +39,33 @@ class InTest extends TestCase
     public function testValueSetIsMutable()
     {
         $in = new In();
-        $in->setValueSet(array(1, 2));
-        $this->assertEquals(array(1, 2), $in->getValueSet());
+        $in->setValueSet([1, 2]);
+        $this->assertEquals([1, 2], $in->getValueSet());
     }
 
     public function testRetrievingWherePartsReturnsSpecificationArrayOfIdentifierAndValuesAndArrayOfTypes()
     {
         $in = new In();
         $in->setIdentifier('foo.bar')
-            ->setValueSet(array(1, 2, 3));
-        $expected = array(array(
+            ->setValueSet([1, 2, 3]);
+        $expected = [[
             '%s IN (%s, %s, %s)',
-            array('foo.bar', 1, 2, 3),
-            array(In::TYPE_IDENTIFIER, In::TYPE_VALUE, In::TYPE_VALUE, In::TYPE_VALUE),
-        ));
+            ['foo.bar', 1, 2, 3],
+            [In::TYPE_IDENTIFIER, In::TYPE_VALUE, In::TYPE_VALUE, In::TYPE_VALUE],
+        ]];
         $this->assertEquals($expected, $in->getExpressionData());
 
         $in->setIdentifier('foo.bar')
-            ->setValueSet(array(
-                array(1=>In::TYPE_LITERAL),
-                array(2=>In::TYPE_VALUE),
-                array(3=>In::TYPE_LITERAL),
-            ));
-        $expected = array(array(
+            ->setValueSet([
+                [1=>In::TYPE_LITERAL],
+                [2=>In::TYPE_VALUE],
+                [3=>In::TYPE_LITERAL],
+            ]);
+        $expected = [[
             '%s IN (%s, %s, %s)',
-            array('foo.bar', 1, 2, 3),
-            array(In::TYPE_IDENTIFIER, In::TYPE_LITERAL, In::TYPE_VALUE, In::TYPE_LITERAL),
-        ));
+            ['foo.bar', 1, 2, 3],
+            [In::TYPE_IDENTIFIER, In::TYPE_LITERAL, In::TYPE_VALUE, In::TYPE_LITERAL],
+        ]];
         $qqq = $in->getExpressionData();
         $this->assertEquals($expected, $in->getExpressionData());
     }
@@ -74,11 +74,11 @@ class InTest extends TestCase
     {
         $select = new Select;
         $in = new In('foo', $select);
-        $expected = array(array(
+        $expected = [[
             '%s IN %s',
-            array('foo', $select),
-            array($in::TYPE_IDENTIFIER, $in::TYPE_VALUE)
-        ));
+            ['foo', $select],
+            [$in::TYPE_IDENTIFIER, $in::TYPE_VALUE]
+        ]];
         $this->assertEquals($expected, $in->getExpressionData());
     }
 
@@ -86,23 +86,23 @@ class InTest extends TestCase
     {
         $select = new Select;
         $in = new In('foo', $select);
-        $expected = array(array(
+        $expected = [[
             '%s IN %s',
-            array('foo', $select),
-            array($in::TYPE_IDENTIFIER, $in::TYPE_VALUE)
-        ));
+            ['foo', $select],
+            [$in::TYPE_IDENTIFIER, $in::TYPE_VALUE]
+        ]];
         $this->assertEquals($expected, $in->getExpressionData());
     }
 
     public function testGetExpressionDataWithSubselectAndArrayIdentifier()
     {
         $select = new Select;
-        $in = new In(array('foo', 'bar'), $select);
-        $expected = array(array(
+        $in = new In(['foo', 'bar'], $select);
+        $expected = [[
             '(%s, %s) IN %s',
-            array('foo', 'bar', $select),
-            array($in::TYPE_IDENTIFIER, $in::TYPE_IDENTIFIER, $in::TYPE_VALUE)
-        ));
+            ['foo', 'bar', $select],
+            [$in::TYPE_IDENTIFIER, $in::TYPE_IDENTIFIER, $in::TYPE_VALUE]
+        ]];
         $this->assertEquals($expected, $in->getExpressionData());
     }
 }

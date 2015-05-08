@@ -135,10 +135,10 @@ class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function underscoreHandlingDataProvider()
     {
-        return array(
-            array(true, 'foo_bar'),
-            array(false, 'fooBar'),
-        );
+        return [
+            [true, 'foo_bar'],
+            [false, 'fooBar'],
+        ];
     }
 
     public function testContextAwarenessExtract()
@@ -158,7 +158,7 @@ class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
         $this->hydrator->addStrategy('field2', $strategy);
 
         $entityB = new TestAsset\HydratorStrategyEntityB('X', 'Y');
-        $data = array('field1' => 'A', 'field2' => 'B');
+        $data = ['field1' => 'A', 'field2' => 'B'];
         $attributes = $this->hydrator->hydrate($data, $entityB);
 
         $this->assertEquals($data, $strategy->data);

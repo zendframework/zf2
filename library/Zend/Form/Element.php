@@ -22,7 +22,7 @@ class Element implements
     /**
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * @var null|string
@@ -32,24 +32,24 @@ class Element implements
     /**
      * @var array
      */
-    protected $labelAttributes = array();
+    protected $labelAttributes = [];
 
     /**
      * Label specific options
      *
      * @var array
      */
-    protected $labelOptions = array();
+    protected $labelOptions = [];
 
     /**
      * @var array Validation error messages
      */
-    protected $messages = array();
+    protected $messages = [];
 
     /**
      * @var array custom options
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * @var mixed
@@ -61,7 +61,7 @@ class Element implements
      * @param  array            $options Optional options for the element
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         if (null !== $name) {
             $this->setName($name);
@@ -291,7 +291,7 @@ class Element implements
      */
     public function clearAttributes()
     {
-        $this->attributes = array();
+        $this->attributes = [];
         return $this;
     }
 
@@ -405,7 +405,7 @@ class Element implements
      */
     public function clearLabelOptions()
     {
-        $this->labelOptions = array();
+        $this->labelOptions = [];
         return $this;
     }
 

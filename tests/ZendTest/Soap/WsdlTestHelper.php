@@ -104,7 +104,7 @@ class WsdlTestHelper extends \PHPUnit_Framework_TestCase
 
         /** @var $node \DOMElement */
         foreach ($element->childNodes as $node) {
-            if (in_array($node->nodeType, array(XML_ELEMENT_NODE))) {
+            if (in_array($node->nodeType, [XML_ELEMENT_NODE])) {
                 $this->assertNotEmpty($node->namespaceURI, 'Document element: ' . $node->nodeName . ' has no valid namespace. Line: ' . $node->getLineNo());
                 $this->testDocumentNodes($node);
             }

@@ -20,13 +20,13 @@ class WhitelistTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructorOptions()
     {
-        $filter = new WhitelistFilter(array(
-            'list'    => array('test', 1),
+        $filter = new WhitelistFilter([
+            'list'    => ['test', 1],
             'strict'  => true,
-        ));
+        ]);
 
         $this->assertEquals(true, $filter->getStrict());
-        $this->assertEquals(array('test', 1), $filter->getList());
+        $this->assertEquals(['test', 1], $filter->getList());
     }
 
     public function testConstructorDefaults()
@@ -34,7 +34,7 @@ class WhitelistTest extends \PHPUnit_Framework_TestCase
         $filter = new WhitelistFilter();
 
         $this->assertEquals(false, $filter->getStrict());
-        $this->assertEquals(array(), $filter->getList());
+        $this->assertEquals([], $filter->getList());
     }
 
     public function testWithPluginManager()
@@ -48,26 +48,26 @@ class WhitelistTest extends \PHPUnit_Framework_TestCase
     public function testNullListShouldThrowException()
     {
         $this->setExpectedException('Zend\Stdlib\Exception\InvalidArgumentException');
-        $filter = new WhitelistFilter(array(
+        $filter = new WhitelistFilter([
             'list' => null,
-        ));
+        ]);
     }
 
     public function testTraversableConvertsToArray()
     {
-        $array = array('test', 1);
-        $obj = new ArrayObject(array('test', 1));
-        $filter = new WhitelistFilter(array(
+        $array = ['test', 1];
+        $obj = new ArrayObject(['test', 1]);
+        $filter = new WhitelistFilter([
             'list' => $obj,
-        ));
+        ]);
         $this->assertEquals($array, $filter->getList());
     }
 
     public function testSetStrictShouldCastToBoolean()
     {
-        $filter = new WhitelistFilter(array(
+        $filter = new WhitelistFilter([
             'strict' => 1
-        ));
+        ]);
         $this->assertSame(true, $filter->getStrict());
     }
 
@@ -89,10 +89,10 @@ class WhitelistTest extends \PHPUnit_Framework_TestCase
      */
     public function testList($strict, $list, $testData)
     {
-        $filter = new WhitelistFilter(array(
+        $filter = new WhitelistFilter([
             'strict' => $strict,
             'list'   => $list,
-        ));
+        ]);
         foreach ($testData as $data) {
             list($value, $expected) = $data;
             $message = sprintf(
@@ -108,43 +108,43 @@ class WhitelistTest extends \PHPUnit_Framework_TestCase
 
     public static function defaultTestProvider()
     {
-        return array(
-            array('test',   null),
-            array(0,        null),
-            array(0.1,      null),
-            array(array(),  null),
-            array(null,     null),
-        );
+        return [
+            ['test',   null],
+            [0,        null],
+            [0.1,      null],
+            [[],  null],
+            [null,     null],
+        ];
     }
 
     public static function listTestProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 true, //strict
-                array('test', 0),
-                array(
-                    array('test',   'test'),
-                    array(0,        0),
-                    array(null,     null),
-                    array(false,    null),
-                    array(0.0,      null),
-                    array(array(),  null),
-                ),
-            ),
-            array(
+                ['test', 0],
+                [
+                    ['test',   'test'],
+                    [0,        0],
+                    [null,     null],
+                    [false,    null],
+                    [0.0,      null],
+                    [[],  null],
+                ],
+            ],
+            [
                 false, //not strict
-                array('test', 0),
-                array(
-                    array('test',   'test'),
-                    array(0,        0),
-                    array(null,     null),
-                    array(false,    false),
-                    array(0.0,      0.0),
-                    array(0.1,      null),
-                    array(array(),  null),
-                ),
-            ),
-        );
+                ['test', 0],
+                [
+                    ['test',   'test'],
+                    [0,        0],
+                    [null,     null],
+                    [false,    false],
+                    [0.0,      0.0],
+                    [0.1,      null],
+                    [[],  null],
+                ],
+            ],
+        ];
     }
 }

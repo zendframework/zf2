@@ -19,12 +19,12 @@ class JsonModelTest extends TestCase
     {
         $model = new JsonModel();
         $this->assertInstanceOf('Zend\View\Variables', $model->getVariables());
-        $this->assertEquals(array(), $model->getOptions());
+        $this->assertEquals([], $model->getOptions());
     }
 
     public function testCanSerializeVariablesToJson()
     {
-        $array = array('foo' => 'bar');
+        $array = ['foo' => 'bar'];
         $model = new JsonModel($array);
         $this->assertEquals($array, $model->getVariables());
         $this->assertEquals(Json::encode($array), $model->serialize());
@@ -32,7 +32,7 @@ class JsonModelTest extends TestCase
 
     public function testCanSerializeWithJsonpCallback()
     {
-        $array = array('foo' => 'bar');
+        $array = ['foo' => 'bar'];
         $model = new JsonModel($array);
         $model->setJsonpCallback('callback');
         $this->assertEquals('callback(' . Json::encode($array) . ');', $model->serialize());
@@ -40,15 +40,15 @@ class JsonModelTest extends TestCase
 
     public function testPrettyPrint()
     {
-        $array = array(
+        $array = [
             'simple'=>'simple test string',
             'stringwithjsonchars'=>'\"[1,2]',
-            'complex'=>array(
+            'complex'=>[
                 'foo'=>'bar',
                 'far'=>'boo'
-            )
-        );
-        $model = new JsonModel($array, array('prettyPrint' => true));
-        $this->assertEquals(Json::encode($array, false, array('prettyPrint' => true)), $model->serialize());
+            ]
+        ];
+        $model = new JsonModel($array, ['prettyPrint' => true]);
+        $this->assertEquals(Json::encode($array, false, ['prettyPrint' => true]), $model->serialize());
     }
 }

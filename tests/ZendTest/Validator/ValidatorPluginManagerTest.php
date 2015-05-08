@@ -25,7 +25,7 @@ class ValidatorPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $translator = $this->getMock('ZendTest\Validator\TestAsset\Translator');
 
-        $slContents = array(array('MvcTranslator', $translator));
+        $slContents = [['MvcTranslator', $translator]];
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator->expects($this->once())
             ->method('get')

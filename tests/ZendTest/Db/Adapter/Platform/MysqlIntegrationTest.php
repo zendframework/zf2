@@ -19,7 +19,7 @@ use Zend\Db\Adapter\Driver\Pdo;
  */
 class MysqlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
-    public $adapters = array();
+    public $adapters = [];
 
     public function testQuoteValueWithMysqli()
     {

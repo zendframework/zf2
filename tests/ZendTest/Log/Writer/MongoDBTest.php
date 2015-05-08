@@ -32,12 +32,12 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
 
         $this->mongo = $this->getMockBuilder($mongoClass)
             ->disableOriginalConstructor()
-            ->setMethods(array('selectCollection'))
+            ->setMethods(['selectCollection'])
             ->getMock();
 
         $this->mongoCollection = $this->getMockBuilder('MongoCollection')
             ->disableOriginalConstructor()
-            ->setMethods(array('save'))
+            ->setMethods(['save'])
             ->getMock();
 
         $this->mongo->expects($this->any())
@@ -56,11 +56,11 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
 
     public function testWriteWithDefaultSaveOptions()
     {
-        $event = array('message'=> 'foo', 'priority' => 42);
+        $event = ['message'=> 'foo', 'priority' => 42];
 
         $this->mongoCollection->expects($this->once())
             ->method('save')
-            ->with($event, array());
+            ->with($event, []);
 
         $writer = new MongoDBWriter($this->mongo, $this->database, $this->collection);
 
@@ -69,8 +69,8 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
 
     public function testWriteWithCustomSaveOptions()
     {
-        $event = array('message' => 'foo', 'priority' => 42);
-        $saveOptions = array('safe' => false, 'fsync' => false, 'timeout' => 100);
+        $event = ['message' => 'foo', 'priority' => 42];
+        $saveOptions = ['safe' => false, 'fsync' => false, 'timeout' => 100];
 
         $this->mongoCollection->expects($this->once())
             ->method('save')
@@ -84,7 +84,7 @@ class MongoDBTest extends \PHPUnit_Framework_TestCase
     public function testWriteConvertsDateTimeToMongoDate()
     {
         $date = new DateTime();
-        $event = array('timestamp'=> $date);
+        $event = ['timestamp'=> $date];
 
         $this->mongoCollection->expects($this->once())
             ->method('save')

@@ -22,29 +22,29 @@ class ChainTest extends TestCase
         $routePlugins = new RoutePluginManager();
 
         return new Chain(
-            array(
-                array(
+            [
+                [
                     'type'    => 'Zend\Mvc\Router\Http\Segment',
-                    'options' => array(
+                    'options' => [
                         'route'    => '/:controller',
-                        'defaults' => array(
+                        'defaults' => [
                             'controller' => 'foo',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'type'    => 'Zend\Mvc\Router\Http\Segment',
-                    'options' => array(
+                    'options' => [
                         'route'    => '/:bar',
-                        'defaults' => array(
+                        'defaults' => [
                             'bar' => 'bar',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'type' => 'Zend\Mvc\Router\Http\Wildcard',
-                ),
-            ),
+                ],
+            ],
             $routePlugins
         );
     }
@@ -54,79 +54,79 @@ class ChainTest extends TestCase
         $routePlugins = new RoutePluginManager();
 
         return new Chain(
-            array(
-                array(
+            [
+                [
                     'type'    => 'Zend\Mvc\Router\Http\Segment',
-                    'options' => array(
+                    'options' => [
                         'route'    => '/:controller',
-                        'defaults' => array(
+                        'defaults' => [
                             'controller' => 'foo',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'type'    => 'Zend\Mvc\Router\Http\Segment',
-                    'options' => array(
+                    'options' => [
                         'route'    => '[/:bar]',
-                        'defaults' => array(
+                        'defaults' => [
                             'bar' => 'bar',
-                        ),
-                    ),
-                ),
-            ),
+                        ],
+                    ],
+                ],
+            ],
             $routePlugins
         );
     }
 
     public static function routeProvider()
     {
-        return array(
-            'simple-match' => array(
+        return [
+            'simple-match' => [
                 self::getRoute(),
                 '/foo/bar',
                 null,
-                array(
+                [
                     'controller' => 'foo',
                     'bar'        => 'bar',
-                ),
-            ),
-            'offset-skips-beginning' => array(
+                ],
+            ],
+            'offset-skips-beginning' => [
                 self::getRoute(),
                 '/baz/foo/bar',
                 4,
-                array(
+                [
                     'controller' => 'foo',
                     'bar'        => 'bar',
-                ),
-            ),
-            'parameters-are-used-only-once' => array(
+                ],
+            ],
+            'parameters-are-used-only-once' => [
                 self::getRoute(),
                 '/foo/baz',
                 null,
-                array(
+                [
                     'controller' => 'foo',
                     'bar' => 'baz',
-                ),
-            ),
-            'optional-parameter' => array(
+                ],
+            ],
+            'optional-parameter' => [
                 self::getRouteWithOptionalParam(),
                 '/foo/baz',
                 null,
-                array(
+                [
                     'controller' => 'foo',
                     'bar' => 'baz',
-                ),
-            ),
-            'optional-parameter-empty' => array(
+                ],
+            ],
+            'optional-parameter-empty' => [
                 self::getRouteWithOptionalParam(),
                 '/foo',
                 null,
-                array(
+                [
                     'controller' => 'foo',
                     'bar' => 'bar',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -186,14 +186,14 @@ class ChainTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Chain',
-            array(
+            [
                 'routes'        => 'Missing "routes" in options array',
                 'route_plugins' => 'Missing "route_plugins" in options array',
-            ),
-            array(
-                'routes'        => array(),
+            ],
+            [
+                'routes'        => [],
                 'route_plugins' => new RoutePluginManager(),
-            )
+            ]
         );
     }
 }

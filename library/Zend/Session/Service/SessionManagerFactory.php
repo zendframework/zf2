@@ -25,9 +25,9 @@ class SessionManagerFactory implements FactoryInterface
      *
      * @var array
      */
-    protected $defaultManagerConfig = array(
+    protected $defaultManagerConfig = [
         'enable_default_container_manager' => true,
-    );
+    ];
 
     /**
      * Create session manager object
@@ -65,7 +65,7 @@ class SessionManagerFactory implements FactoryInterface
         $config        = null;
         $storage       = null;
         $saveHandler   = null;
-        $validators    = array();
+        $validators    = [];
         $managerConfig = $this->defaultManagerConfig;
 
         if ($services->has('Zend\Session\Config\ConfigInterface')) {

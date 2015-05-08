@@ -26,21 +26,21 @@ class ResponseTest extends TestCase
      */
     public function setUp()
     {
-        $this->originalEnvironment = array(
+        $this->originalEnvironment = [
             'post'   => $_POST,
             'get'    => $_GET,
             'cookie' => $_COOKIE,
             'server' => $_SERVER,
             'env'    => $_ENV,
             'files'  => $_FILES,
-        );
+        ];
 
-        $_POST   = array();
-        $_GET    = array();
-        $_COOKIE = array();
-        $_SERVER = array();
-        $_ENV    = array();
-        $_FILES  = array();
+        $_POST   = [];
+        $_GET    = [];
+        $_COOKIE = [];
+        $_SERVER = [];
+        $_ENV    = [];
+        $_FILES  = [];
     }
 
     /**

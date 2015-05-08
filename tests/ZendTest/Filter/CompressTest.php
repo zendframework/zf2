@@ -54,16 +54,16 @@ class CompressTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetAdapterOptionsInConstructor()
     {
-        $filter = new CompressFilter(array(
+        $filter = new CompressFilter([
             'adapter' => 'bz2',
-            'options' => array(
+            'options' => [
                 'blocksize' => 6,
                 'archive'   => 'test.txt',
-            )
-        ));
+            ]
+        ]);
 
         $this->assertEquals(
-            array('blocksize' => 6, 'archive' => 'test.txt'),
+            ['blocksize' => 6, 'archive' => 'test.txt'],
             $filter->getAdapterOptions()
         );
 
@@ -80,12 +80,12 @@ class CompressTest extends \PHPUnit_Framework_TestCase
     public function testGetSetAdapterOptions()
     {
         $filter = new CompressFilter('bz2');
-        $filter->setAdapterOptions(array(
+        $filter->setAdapterOptions([
             'blocksize' => 6,
             'archive'   => 'test.txt',
-        ));
+        ]);
         $this->assertEquals(
-            array('blocksize' => 6, 'archive'   => 'test.txt'),
+            ['blocksize' => 6, 'archive'   => 'test.txt'],
             $filter->getAdapterOptions()
         );
         $adapter = $filter->getAdapter();
@@ -226,14 +226,14 @@ class CompressTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 'compress me',
                 'compress me too, please'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**

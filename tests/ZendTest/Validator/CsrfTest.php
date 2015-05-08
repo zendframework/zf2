@@ -29,10 +29,10 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         // Setup session handling
-        $_SESSION = array();
-        $sessionConfig = new StandardConfig(array(
+        $_SESSION = [];
+        $sessionConfig = new StandardConfig([
             'storage' => 'Zend\Session\Storage\ArrayStorage',
-        ));
+        ]);
         $sessionManager       = new TestAsset\SessionManager($sessionConfig);
         $this->sessionManager = $sessionManager;
         Container::setDefaultManager($sessionManager);
@@ -42,7 +42,7 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         Container::setDefaultManager(null);
     }
 
@@ -88,13 +88,13 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
 
     public function timeoutValuesDataProvider()
     {
-        return array(
+        return [
             //    timeout  expected
-            array(600,     600),
-            array(null,    null),
-            array("0",     0),
-            array("100",   100),
-        );
+            [600,     600],
+            [null,    null],
+            ["0",     0],
+            ["100",   100],
+        ];
     }
 
     /**
@@ -109,12 +109,12 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
     public function testAllOptionsMayBeSetViaConstructor()
     {
         $container = new Container('foo', $this->sessionManager);
-        $options   = array(
+        $options   = [
             'name'    => 'hash',
             'salt'    => 'hashful',
             'session' => $container,
             'timeout' => 600,
-        );
+        ];
         $validator = new Csrf($options);
         foreach ($options as $key => $value) {
             if ($key == 'session') {
@@ -147,7 +147,7 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
         $this->validator->setName('fieldset[csrf]');
         $class = get_class($this->validator);
         $class = str_replace('\\', '_', $class);
-        $name = strtr($this->validator->getName(), array('[' => '_', ']' => ''));
+        $name = strtr($this->validator->getName(), ['[' => '_', ']' => '']);
         $expected = sprintf('%s_%s_%s', $class, $this->validator->getSalt(), $name);
         $this->assertEquals($expected, $this->validator->getSessionName());
     }
@@ -220,7 +220,7 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
     public function testCannotValidateHashesOfOtherContainers()
     {
         $validatorOne = new Csrf();
-        $validatorTwo = new Csrf(array('name' => 'foo'));
+        $validatorTwo = new Csrf(['name' => 'foo']);
 
         $containerOne = $validatorOne->getSession();
         $containerTwo = $validatorTwo->getSession();
@@ -244,7 +244,7 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
 
         $this->sessionManager->getStorage()->setMetadata(
             $this->validator->getSession()->getName(),
-            array('EXPIRE' => $_SERVER['REQUEST_TIME'] - 18600)
+            ['EXPIRE' => $_SERVER['REQUEST_TIME'] - 18600]
         );
 
         $this->assertFalse($this->validator->isValid($hash));
@@ -263,16 +263,16 @@ class CsrfTest extends \PHPUnit_Framework_TestCase
 
     public function fakeValuesDataProvider()
     {
-        return array(
-            array(''),
-            array('-fakeTokenId'),
-            array('fakeTokenId-fakeTokenId'),
-            array('fakeTokenId-'),
-            array('fakeTokenId'),
-            array(md5(uniqid()) . '-'),
-            array(md5(uniqid()) . '-' . md5(uniqid())),
-            array('-' . md5(uniqid()))
-        );
+        return [
+            [''],
+            ['-fakeTokenId'],
+            ['fakeTokenId-fakeTokenId'],
+            ['fakeTokenId-'],
+            ['fakeTokenId'],
+            [md5(uniqid()) . '-'],
+            [md5(uniqid()) . '-' . md5(uniqid())],
+            ['-' . md5(uniqid())]
+        ];
     }
 
     /**

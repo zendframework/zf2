@@ -18,23 +18,23 @@ class ClosureStrategyTest extends \PHPUnit_Framework_TestCase
      */
     public function extractDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 function ($value) { return strtoupper($value); },
-                new \ArrayObject(array('foo' => 'foo', 'bar' => 'bar')),
-                array('foo' => 'FOO', 'bar' => 'BAR'),
-            ),
-            array(
+                new \ArrayObject(['foo' => 'foo', 'bar' => 'bar']),
+                ['foo' => 'FOO', 'bar' => 'BAR'],
+            ],
+            [
                 function ($value, $data) { return isset($data['bar']) ? strtoupper($value) : $value; },
-                new \ArrayObject(array('foo' => 'foo', 'bar' => 'bar')),
-                array('foo' => 'FOO', 'bar' => 'BAR'),
-            ),
-            array(
+                new \ArrayObject(['foo' => 'foo', 'bar' => 'bar']),
+                ['foo' => 'FOO', 'bar' => 'BAR'],
+            ],
+            [
                 function ($value, $data) { return isset($data['bar']) ? strtoupper($value) : $value; },
-                new \ArrayObject(array('foo' => 'foo', 'baz' => 'baz')),
-                array('foo' => 'foo', 'baz' => 'baz'),
-            ),
-        );
+                new \ArrayObject(['foo' => 'foo', 'baz' => 'baz']),
+                ['foo' => 'foo', 'baz' => 'baz'],
+            ],
+        ];
     }
 
     /**
@@ -42,28 +42,28 @@ class ClosureStrategyTest extends \PHPUnit_Framework_TestCase
      */
     public function hydrateDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 function ($value) { return strtoupper($value); },
-                array('foo' => 'foo', 'bar' => 'bar'),
-                array('foo' => 'FOO', 'bar' => 'BAR'),
-            ),
-            array(
+                ['foo' => 'foo', 'bar' => 'bar'],
+                ['foo' => 'FOO', 'bar' => 'BAR'],
+            ],
+            [
                 function ($value, $data) { return strtoupper($value); },
-                array('foo' => 'foo', 'bar' => 'bar'),
-                array('foo' => 'FOO', 'bar' => 'BAR'),
-            ),
-            array(
+                ['foo' => 'foo', 'bar' => 'bar'],
+                ['foo' => 'FOO', 'bar' => 'BAR'],
+            ],
+            [
                 function ($value, $data) { return isset($data['bar']) ? strtoupper($value) : $value; },
-                array('foo' => 'foo', 'bar' => 'bar'),
-                array('foo' => 'FOO', 'bar' => 'BAR'),
-            ),
-            array(
+                ['foo' => 'foo', 'bar' => 'bar'],
+                ['foo' => 'FOO', 'bar' => 'BAR'],
+            ],
+            [
                 function ($value, $data) { return isset($data['bar']) ? strtoupper($value) : $value; },
-                array('foo' => 'foo', 'baz' => 'baz'),
-                array('foo' => 'foo', 'baz' => 'baz'),
-            ),
-        );
+                ['foo' => 'foo', 'baz' => 'baz'],
+                ['foo' => 'foo', 'baz' => 'baz'],
+            ],
+        ];
     }
 
     /**
@@ -78,7 +78,7 @@ class ClosureStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $strategy = new ClosureStrategy($extractFunc);
 
-        $actual = array();
+        $actual = [];
         foreach ($data as $k => $value) {
             $actual[$k] = $strategy->extract($value, $data);
         }
@@ -98,7 +98,7 @@ class ClosureStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $strategy = new ClosureStrategy(null, $hydrateFunc);
 
-        $actual = array();
+        $actual = [];
         foreach ($data as $k => $value) {
             $actual[$k] = $strategy->hydrate($value, $data);
         }

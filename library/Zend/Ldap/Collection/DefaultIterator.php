@@ -195,7 +195,7 @@ class DefaultIterator implements Iterator, Countable
             return;
         }
 
-        $entry         = array('dn' => $this->key());
+        $entry         = ['dn' => $this->key()];
         $berIdentifier = null;
 
         $resource = $this->ldap->getResource();
@@ -212,7 +212,7 @@ class DefaultIterator implements Iterator, Countable
             ErrorHandler::stop();
 
             if (!$data) {
-                $data = array();
+                $data = [];
             }
 
             if (isset($data['count'])) {

@@ -39,12 +39,12 @@ class PartTest extends \PHPUnit_Framework_TestCase
 
     public function testHeaders()
     {
-        $expectedHeaders = array('Content-Type: text/plain',
+        $expectedHeaders = ['Content-Type: text/plain',
                                  'Content-Transfer-Encoding: ' . Mime\Mime::ENCODING_BASE64,
                                  'Content-Disposition: attachment',
                                  'filename="test.txt"',
                                  'charset=iso8859-1',
-                                 'Content-ID: <4711>');
+                                 'Content-ID: <4711>'];
 
         $actual = $this->part->getHeaders();
 
@@ -144,7 +144,7 @@ class PartTest extends \PHPUnit_Framework_TestCase
              ->setLocation('fiction1/fiction2')
              ->setLanguage('en')
              ->setIsStream(false)
-             ->setFilters(array('foo'))
+             ->setFilters(['foo'])
              ->setDescription('foobar');
 
         $this->assertEquals($this->testText, $part->getContent());
@@ -158,7 +158,7 @@ class PartTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('fiction1/fiction2', $part->getLocation());
         $this->assertEquals('en', $part->getLanguage());
         $this->assertEquals(false, $part->isStream());
-        $this->assertEquals(array('foo'), $part->getFilters());
+        $this->assertEquals(['foo'], $part->getFilters());
         $this->assertEquals('foobar', $part->getDescription());
     }
 

@@ -63,7 +63,7 @@ class ProxyAuthenticate implements MultipleHeaderInterface
 
     public function toStringMultipleHeaders(array $headers)
     {
-        $strings = array($this->toString());
+        $strings = [$this->toString()];
         foreach ($headers as $header) {
             if (!$header instanceof ProxyAuthenticate) {
                 throw new Exception\RuntimeException(

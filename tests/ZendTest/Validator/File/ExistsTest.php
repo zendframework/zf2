@@ -24,18 +24,18 @@ class ExistsTest extends \PHPUnit_Framework_TestCase
         $testFile = __DIR__ . '/_files/testsize.mo';
         $baseDir  = dirname($testFile);
         $baseName = basename($testFile);
-        $fileUpload = array(
+        $fileUpload = [
             'tmp_name' => $testFile, 'name' => basename($testFile),
             'size' => 200, 'error' => 0, 'type' => 'text'
-        );
-        return array(
+        ];
+        return [
             //    Options, isValid Param, Expected value
-            array(dirname($baseDir), $baseName,   false),
-            array($baseDir,          $baseName,   true),
-            array($baseDir,          $testFile,   true),
-            array(dirname($baseDir), $fileUpload, false),
-            array($baseDir,          $fileUpload, true),
-        );
+            [dirname($baseDir), $baseName,   false],
+            [$baseDir,          $baseName,   true],
+            [$baseDir,          $testFile,   true],
+            [dirname($baseDir), $fileUpload, false],
+            [$baseDir,          $fileUpload, true],
+        ];
     }
 
     /**
@@ -74,11 +74,11 @@ class ExistsTest extends \PHPUnit_Framework_TestCase
         $validator = new File\Exists('C:/temp');
         $this->assertEquals('C:/temp', $validator->getDirectory());
 
-        $validator = new File\Exists(array('temp', 'dir', 'jpg'));
+        $validator = new File\Exists(['temp', 'dir', 'jpg']);
         $this->assertEquals('temp,dir,jpg', $validator->getDirectory());
 
-        $validator = new File\Exists(array('temp', 'dir', 'jpg'));
-        $this->assertEquals(array('temp', 'dir', 'jpg'), $validator->getDirectory(true));
+        $validator = new File\Exists(['temp', 'dir', 'jpg']);
+        $this->assertEquals(['temp', 'dir', 'jpg'], $validator->getDirectory(true));
     }
 
     /**
@@ -91,15 +91,15 @@ class ExistsTest extends \PHPUnit_Framework_TestCase
         $validator = new File\Exists('temp');
         $validator->setDirectory('gif');
         $this->assertEquals('gif', $validator->getDirectory());
-        $this->assertEquals(array('gif'), $validator->getDirectory(true));
+        $this->assertEquals(['gif'], $validator->getDirectory(true));
 
         $validator->setDirectory('jpg, temp');
         $this->assertEquals('jpg,temp', $validator->getDirectory());
-        $this->assertEquals(array('jpg', 'temp'), $validator->getDirectory(true));
+        $this->assertEquals(['jpg', 'temp'], $validator->getDirectory(true));
 
-        $validator->setDirectory(array('zip', 'ti'));
+        $validator->setDirectory(['zip', 'ti']);
         $this->assertEquals('zip,ti', $validator->getDirectory());
-        $this->assertEquals(array('zip', 'ti'), $validator->getDirectory(true));
+        $this->assertEquals(['zip', 'ti'], $validator->getDirectory(true));
     }
 
     /**
@@ -112,19 +112,19 @@ class ExistsTest extends \PHPUnit_Framework_TestCase
         $validator = new File\Exists('temp');
         $validator->addDirectory('gif');
         $this->assertEquals('temp,gif', $validator->getDirectory());
-        $this->assertEquals(array('temp', 'gif'), $validator->getDirectory(true));
+        $this->assertEquals(['temp', 'gif'], $validator->getDirectory(true));
 
         $validator->addDirectory('jpg, to');
         $this->assertEquals('temp,gif,jpg,to', $validator->getDirectory());
-        $this->assertEquals(array('temp', 'gif', 'jpg', 'to'), $validator->getDirectory(true));
+        $this->assertEquals(['temp', 'gif', 'jpg', 'to'], $validator->getDirectory(true));
 
-        $validator->addDirectory(array('zip', 'ti'));
+        $validator->addDirectory(['zip', 'ti']);
         $this->assertEquals('temp,gif,jpg,to,zip,ti', $validator->getDirectory());
-        $this->assertEquals(array('temp', 'gif', 'jpg', 'to', 'zip', 'ti'), $validator->getDirectory(true));
+        $this->assertEquals(['temp', 'gif', 'jpg', 'to', 'zip', 'ti'], $validator->getDirectory(true));
 
         $validator->addDirectory('');
         $this->assertEquals('temp,gif,jpg,to,zip,ti', $validator->getDirectory());
-        $this->assertEquals(array('temp', 'gif', 'jpg', 'to', 'zip', 'ti'), $validator->getDirectory(true));
+        $this->assertEquals(['temp', 'gif', 'jpg', 'to', 'zip', 'ti'], $validator->getDirectory(true));
     }
 
     /**
@@ -145,13 +145,13 @@ class ExistsTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid(''));
         $this->assertArrayHasKey(File\Exists::DOES_NOT_EXIST, $validator->getMessages());
 
-        $filesArray = array(
+        $filesArray = [
             'name'      => '',
             'size'      => 0,
             'tmp_name'  => '',
             'error'     => UPLOAD_ERR_NO_FILE,
             'type'      => '',
-        );
+        ];
 
         $this->assertFalse($validator->isValid($filesArray));
         $this->assertArrayHasKey(File\Exists::DOES_NOT_EXIST, $validator->getMessages());

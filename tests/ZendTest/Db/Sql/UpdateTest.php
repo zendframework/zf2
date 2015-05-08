@@ -66,8 +66,8 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
      */
     public function testSet()
     {
-        $this->update->set(array('foo' => 'bar'));
-        $this->assertEquals(array('foo' => 'bar'), $this->update->getRawState('set'));
+        $this->update->set(['foo' => 'bar']);
+        $this->assertEquals(['foo' => 'bar'], $this->update->getRawState('set'));
     }
 
     /**
@@ -75,18 +75,18 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
      */
     public function testSortableSet()
     {
-        $this->update->set(array(
+        $this->update->set([
             'two'   => 'с_two',
             'three' => 'с_three',
-        ));
-        $this->update->set(array('one' => 'с_one'), 10);
+        ]);
+        $this->update->set(['one' => 'с_one'], 10);
 
         $this->assertEquals(
-            array(
+            [
                 'one'   => 'с_one',
                 'two'   => 'с_two',
                 'three' => 'с_three',
-            ),
+            ],
             $this->update->getRawState('set')
         );
     }
@@ -97,12 +97,12 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     public function testWhere()
     {
         $this->update->where('x = y');
-        $this->update->where(array('foo > ?' => 5));
-        $this->update->where(array('id' => 2));
-        $this->update->where(array('a = b'), Where::OP_OR);
-        $this->update->where(array('c1' => null));
-        $this->update->where(array('c2' => array(1, 2, 3)));
-        $this->update->where(array(new \Zend\Db\Sql\Predicate\IsNotNull('c3')));
+        $this->update->where(['foo > ?' => 5]);
+        $this->update->where(['id' => 2]);
+        $this->update->where(['a = b'], Where::OP_OR);
+        $this->update->where(['c1' => null]);
+        $this->update->where(['c2' => [1, 2, 3]]);
+        $this->update->where([new \Zend\Db\Sql\Predicate\IsNotNull('c3')]);
         $where = $this->update->where;
 
         $predicates = $this->readAttribute($where, 'predicates');
@@ -148,8 +148,8 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     {
         $update = clone $this->update;
         $update->table('table');
-        $update->set(array('fld1' => 'val1'));
-        $update->where(array('id1' => 'val1', 'id2' => 'val2'));
+        $update->set(['fld1' => 'val1']);
+        $update->where(['id1' => 'val1', 'id2' => 'val2']);
         $this->assertEquals('UPDATE "table" SET "fld1" = \'val1\' WHERE "id1" = \'val1\' AND "id2" = \'val2\'', $update->getSqlString(new TrustingSql92Platform()));
     }
 
@@ -159,12 +159,12 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     public function testGetRawState()
     {
         $this->update->table('foo')
-            ->set(array('bar' => 'baz'))
+            ->set(['bar' => 'baz'])
             ->where('x = y');
 
         $this->assertEquals('foo', $this->update->getRawState('table'));
         $this->assertEquals(true, $this->update->getRawState('emptyWhereProtection'));
-        $this->assertEquals(array('bar' => 'baz'), $this->update->getRawState('set'));
+        $this->assertEquals(['bar' => 'baz'], $this->update->getRawState('set'));
         $this->assertInstanceOf('Zend\Db\Sql\Where', $this->update->getRawState('where'));
     }
 
@@ -176,10 +176,10 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('getPrepareType')->will($this->returnValue('positional'));
         $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
-        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
-        $pContainer = new \Zend\Db\Adapter\ParameterContainer(array());
+        $pContainer = new \Zend\Db\Adapter\ParameterContainer([]);
         $mockStatement->expects($this->any())->method('getParameterContainer')->will($this->returnValue($pContainer));
 
         $mockStatement->expects($this->at(1))
@@ -187,7 +187,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('UPDATE "foo" SET "bar" = ?, "boo" = NOW() WHERE x = y'));
 
         $this->update->table('foo')
-            ->set(array('bar' => 'baz', 'boo' => new Expression('NOW()')))
+            ->set(['bar' => 'baz', 'boo' => new Expression('NOW()')])
             ->where('x = y');
 
         $this->update->prepareStatement($mockAdapter, $mockStatement);
@@ -197,10 +197,10 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('getPrepareType')->will($this->returnValue('positional'));
         $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
-        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
-        $pContainer = new \Zend\Db\Adapter\ParameterContainer(array());
+        $pContainer = new \Zend\Db\Adapter\ParameterContainer([]);
         $mockStatement->expects($this->any())->method('getParameterContainer')->will($this->returnValue($pContainer));
 
         $mockStatement->expects($this->at(1))
@@ -208,7 +208,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('UPDATE "sch"."foo" SET "bar" = ?, "boo" = NOW() WHERE x = y'));
 
         $this->update->table(new TableIdentifier('foo', 'sch'))
-            ->set(array('bar' => 'baz', 'boo' => new Expression('NOW()')))
+            ->set(['bar' => 'baz', 'boo' => new Expression('NOW()')])
             ->where('x = y');
 
         $this->update->prepareStatement($mockAdapter, $mockStatement);
@@ -220,7 +220,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     public function testGetSqlString()
     {
         $this->update->table('foo')
-            ->set(array('bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null))
+            ->set(['bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null])
             ->where('x = y');
 
         $this->assertEquals('UPDATE "foo" SET "bar" = \'baz\', "boo" = NOW(), "bam" = NULL WHERE x = y', $this->update->getSqlString(new TrustingSql92Platform()));
@@ -228,7 +228,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
         // with TableIdentifier
         $this->update = new Update;
         $this->update->table(new TableIdentifier('foo', 'sch'))
-            ->set(array('bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null))
+            ->set(['bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null])
             ->where('x = y');
 
         $this->assertEquals('UPDATE "sch"."foo" SET "bar" = \'baz\', "boo" = NOW(), "bam" = NULL WHERE x = y', $this->update->getSqlString(new TrustingSql92Platform()));
@@ -242,7 +242,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     {
         $this->update = new Update;
         $this->update->table(new TableIdentifier('foo', 'sch'))
-            ->set(array('bar' => false, 'boo' => 'test', 'bam' => true))
+            ->set(['bar' => false, 'boo' => 'test', 'bam' => true])
             ->where('x = y');
         $this->assertEquals('UPDATE "sch"."foo" SET "bar" = \'\', "boo" = \'test\', "bam" = \'1\' WHERE x = y', $this->update->getSqlString(new TrustingSql92Platform()));
     }
@@ -272,15 +272,15 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
     {
         $update1 = clone $this->update;
         $update1->table('foo')
-                ->set(array('bar' => 'baz'))
+                ->set(['bar' => 'baz'])
                 ->where('x = y');
 
         $update2 = clone $this->update;
         $update2->table('foo')
-            ->set(array('bar' => 'baz'))
-            ->where(array(
+            ->set(['bar' => 'baz'])
+            ->where([
                 'id = ?'=>1
-            ));
+            ]);
         $this->assertEquals('UPDATE "foo" SET "bar" = \'baz\' WHERE id = \'1\'', $update2->getSqlString(new TrustingSql92Platform));
     }
 
@@ -294,10 +294,10 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
         $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('getPrepareType')->will($this->returnValue('positional'));
         $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
-        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
-        $pContainer = new \Zend\Db\Adapter\ParameterContainer(array());
+        $pContainer = new \Zend\Db\Adapter\ParameterContainer([]);
         $mockStatement->expects($this->any())->method('getParameterContainer')->will($this->returnValue($pContainer));
 
         $mockStatement->expects($this->at(1))
@@ -305,7 +305,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('UPDATE IGNORE "foo" SET "bar" = ?, "boo" = NOW() WHERE x = y'));
 
         $updateIgnore->table('foo')
-            ->set(array('bar' => 'baz', 'boo' => new Expression('NOW()')))
+            ->set(['bar' => 'baz', 'boo' => new Expression('NOW()')])
             ->where('x = y');
 
         $updateIgnore->prepareStatement($mockAdapter, $mockStatement);
@@ -319,7 +319,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
         $this->update = new UpdateIgnore();
 
         $this->update->table('foo')
-            ->set(array('bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null))
+            ->set(['bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null])
             ->where('x = y');
 
         $this->assertEquals('UPDATE IGNORE "foo" SET "bar" = \'baz\', "boo" = NOW(), "bam" = NULL WHERE x = y', $this->update->getSqlString(new TrustingSql92Platform()));
@@ -327,7 +327,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
         // with TableIdentifier
         $this->update = new UpdateIgnore();
         $this->update->table(new TableIdentifier('foo', 'sch'))
-            ->set(array('bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null))
+            ->set(['bar' => 'baz', 'boo' => new Expression('NOW()'), 'bam' => null])
             ->where('x = y');
 
         $this->assertEquals('UPDATE IGNORE "sch"."foo" SET "bar" = \'baz\', "boo" = NOW(), "bam" = NULL WHERE x = y', $this->update->getSqlString(new TrustingSql92Platform()));
@@ -338,10 +338,10 @@ class UpdateIgnore extends Update
 {
     const SPECIFICATION_UPDATE = 'updateIgnore';
 
-    protected $specifications = array(
+    protected $specifications = [
         self::SPECIFICATION_UPDATE => 'UPDATE IGNORE %1$s SET %2$s',
         self::SPECIFICATION_WHERE  => 'WHERE %1$s'
-    );
+    ];
 
     protected function processupdateIgnore(\Zend\Db\Adapter\Platform\PlatformInterface $platform, \Zend\Db\Adapter\Driver\DriverInterface $driver = null, \Zend\Db\Adapter\ParameterContainer $parameterContainer = null)
     {

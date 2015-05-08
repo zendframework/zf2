@@ -45,7 +45,7 @@ class BlackHoleTest extends \PHPUnit_Framework_TestCase
 
     public function testSetOptions()
     {
-        $this->storage->setOptions(array('namespace' => 'test'));
+        $this->storage->setOptions(['namespace' => 'test']);
         $this->assertSame('test', $this->storage->getOptions()->getNamespace());
     }
 
@@ -72,16 +72,16 @@ class BlackHoleTest extends \PHPUnit_Framework_TestCase
 
     public function testMultiStorageOperatios()
     {
-        $this->assertSame(array('test'), $this->storage->setItems(array('test' => 1)));
-        $this->assertSame(array('test'), $this->storage->addItems(array('test' => 1)));
-        $this->assertSame(array('test'), $this->storage->replaceItems(array('test' => 1)));
-        $this->assertSame(array('test'), $this->storage->touchItems(array('test')));
-        $this->assertSame(array(), $this->storage->incrementItems(array('test' => 1)));
-        $this->assertSame(array(), $this->storage->decrementItems(array('test' => 1)));
-        $this->assertSame(array(), $this->storage->hasItems(array('test')));
-        $this->assertSame(array(), $this->storage->getItems(array('test')));
-        $this->assertSame(array(), $this->storage->getMetadatas(array('test')));
-        $this->assertSame(array('test'), $this->storage->removeItems(array('test')));
+        $this->assertSame(['test'], $this->storage->setItems(['test' => 1]));
+        $this->assertSame(['test'], $this->storage->addItems(['test' => 1]));
+        $this->assertSame(['test'], $this->storage->replaceItems(['test' => 1]));
+        $this->assertSame(['test'], $this->storage->touchItems(['test']));
+        $this->assertSame([], $this->storage->incrementItems(['test' => 1]));
+        $this->assertSame([], $this->storage->decrementItems(['test' => 1]));
+        $this->assertSame([], $this->storage->hasItems(['test']));
+        $this->assertSame([], $this->storage->getItems(['test']));
+        $this->assertSame([], $this->storage->getMetadatas(['test']));
+        $this->assertSame(['test'], $this->storage->removeItems(['test']));
     }
 
     public function testAvailableSpaceCapableInterface()
@@ -132,9 +132,9 @@ class BlackHoleTest extends \PHPUnit_Framework_TestCase
     public function testTaggableInterface()
     {
         $this->assertInstanceOf('Zend\Cache\Storage\TaggableInterface', $this->storage);
-        $this->assertFalse($this->storage->setTags('test', array('tag1')));
+        $this->assertFalse($this->storage->setTags('test', ['tag1']));
         $this->assertFalse($this->storage->getTags('test'));
-        $this->assertFalse($this->storage->clearByTags(array('tag1')));
+        $this->assertFalse($this->storage->clearByTags(['tag1']));
     }
 
     public function testTotalSpaceCapableInterface()

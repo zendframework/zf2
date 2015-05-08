@@ -129,23 +129,23 @@ class DiffieHellman
     public function generateKeys()
     {
         if (function_exists('openssl_dh_compute_key') && static::$useOpenssl !== false) {
-            $details = array(
+            $details = [
                 'p' => $this->convert($this->getPrime(), self::FORMAT_NUMBER, self::FORMAT_BINARY),
                 'g' => $this->convert($this->getGenerator(), self::FORMAT_NUMBER, self::FORMAT_BINARY)
-            );
+            ];
             if ($this->hasPrivateKey()) {
                 $details['priv_key'] = $this->convert(
                     $this->privateKey,
                     self::FORMAT_NUMBER,
                     self::FORMAT_BINARY
                 );
-                $opensslKeyResource = openssl_pkey_new(array('dh' => $details));
+                $opensslKeyResource = openssl_pkey_new(['dh' => $details]);
             } else {
-                $opensslKeyResource = openssl_pkey_new(array(
+                $opensslKeyResource = openssl_pkey_new([
                     'dh'               => $details,
                     'private_key_bits' => self::DEFAULT_KEY_SIZE,
                     'private_key_type' => OPENSSL_KEYTYPE_DH
-                ));
+                ]);
             }
 
             if (false === $opensslKeyResource) {

@@ -21,9 +21,9 @@ class Date extends DateTimeElement
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'date',
-    );
+    ];
 
     /**
      * Date format to use for DateTime values. By default, this is RFC-3339,
@@ -47,11 +47,11 @@ class Date extends DateTimeElement
         $baseValue = (isset($this->attributes['min']))
                      ? $this->attributes['min'] : date($format, 0);
 
-        return new DateStepValidator(array(
+        return new DateStepValidator([
             'format'    => $format,
             'baseValue' => $baseValue,
             'timezone'  => new DateTimezone('UTC'),
             'step'      => new DateInterval("P{$stepValue}D"),
-        ));
+        ]);
     }
 }

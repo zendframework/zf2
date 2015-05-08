@@ -34,7 +34,7 @@ class TestObjectCache
 
     public function __invoke()
     {
-        return call_user_func_array(array($this, 'bar'), func_get_args());
+        return call_user_func_array([$this, 'bar'], func_get_args());
     }
 
     public function emptyMethod()
@@ -55,13 +55,13 @@ class ObjectCacheTest extends CommonPatternTest
     public function setUp()
     {
         $class = __NAMESPACE__ . '\TestObjectCache';
-        $this->_storage = new Cache\Storage\Adapter\Memory(array(
+        $this->_storage = new Cache\Storage\Adapter\Memory([
             'memory_limit' => 0
-        ));
-        $this->_options = new Cache\Pattern\PatternOptions(array(
+        ]);
+        $this->_options = new Cache\Pattern\PatternOptions([
             'object'  => new $class(),
             'storage' => $this->_storage,
-        ));
+        ]);
         $this->_pattern = new Cache\Pattern\ObjectCache();
         $this->_pattern->setOptions($this->_options);
 
@@ -77,7 +77,7 @@ class ObjectCacheTest extends CommonPatternTest
     {
         $this->_testCall(
             'bar',
-            array('testCallEnabledCacheOutputByDefault', 'arg2')
+            ['testCallEnabledCacheOutputByDefault', 'arg2']
         );
     }
 
@@ -86,19 +86,19 @@ class ObjectCacheTest extends CommonPatternTest
         $this->_options->setCacheOutput(false);
         $this->_testCall(
             'bar',
-            array('testCallDisabledCacheOutput', 'arg2')
+            ['testCallDisabledCacheOutput', 'arg2']
         );
     }
 
     public function testCallInvoke()
     {
         $this->_options->setCacheOutput(false);
-        $this->_testCall('__invoke', array('arg1', 'arg2'));
+        $this->_testCall('__invoke', ['arg1', 'arg2']);
     }
 
     public function testGenerateKey()
     {
-        $args = array('arg1', 2, 3.33, null);
+        $args = ['arg1', 2, 3.33, null];
 
         $generatedKey = $this->_pattern->generateKey('emptyMethod', $args);
         $usedKey      = null;
@@ -153,7 +153,7 @@ class ObjectCacheTest extends CommonPatternTest
     {
         $returnSpec = 'foobar_return(' . implode(', ', $args) . ') : ';
         $outputSpec = 'foobar_output(' . implode(', ', $args) . ') : ';
-        $callback   = array($this->_pattern, $method);
+        $callback   = [$this->_pattern, $method];
 
         // first call - not cached
         $firstCounter = TestObjectCache::$fooCounter + 1;

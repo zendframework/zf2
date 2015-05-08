@@ -157,10 +157,10 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testSetMessages()
     {
         $this->validator->setMessages(
-            array(
+            [
                 StringLength::TOO_LONG  => 'Your value is too long',
                 StringLength::TOO_SHORT => 'Your value is too short'
-            )
+            ]
         );
 
         $this->assertFalse($this->validator->isValid('abcdefghij'));
@@ -229,7 +229,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $vars = $this->validator->getMessageVariables();
 
         $this->assertInternalType('array', $vars);
-        $this->assertEquals(array('min', 'max'), $vars);
+        $this->assertEquals(['min', 'max'], $vars);
         $message = 'variables: %notvar% ';
         foreach ($vars as $var) {
             $message .= "%$var% ";

@@ -27,7 +27,7 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
     {
         $this->adapter = $this->getMock(
             'Zend\Console\Adapter\AbstractAdapter',
-            array('write', 'writeLine', 'readChar')
+            ['write', 'writeLine', 'readChar']
         );
     }
 

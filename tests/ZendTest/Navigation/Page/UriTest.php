@@ -22,20 +22,20 @@ class UriTest extends \PHPUnit_Framework_TestCase
 {
     public function testUriOptionAsString()
     {
-        $page = new Page\Uri(array(
+        $page = new Page\Uri([
             'label' => 'foo',
             'uri' => '#'
-        ));
+        ]);
 
         $this->assertEquals('#', $page->getUri());
     }
 
     public function testUriOptionAsNull()
     {
-        $page = new Page\Uri(array(
+        $page = new Page\Uri([
             'label' => 'foo',
             'uri' => null
-        ));
+        ]);
 
         $this->assertNull($page->getUri(), 'getUri() should return null');
     }
@@ -43,7 +43,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     public function testUriOptionAsInteger()
     {
         try {
-            $page = new Page\Uri(array('uri' => 1337));
+            $page = new Page\Uri(['uri' => 1337]);
             $this->fail('An invalid \'uri\' was given, but ' .
                         'a Zend\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
@@ -56,7 +56,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
             $uri = new \stdClass();
             $uri->foo = 'bar';
 
-            $page = new Page\Uri(array('uri' => $uri));
+            $page = new Page\Uri(['uri' => $uri]);
             $this->fail('An invalid \'uri\' was given, but ' .
                         'a Zend\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
@@ -65,10 +65,10 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAndGetUri()
     {
-        $page = new Page\Uri(array(
+        $page = new Page\Uri([
             'label' => 'foo',
             'uri' => '#'
-        ));
+        ]);
 
         $page->setUri('http://www.example.com/')->setUri('about:blank');
 
@@ -87,10 +87,10 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     public function testIsActiveReturnsTrueWhenHasMatchingRequestUri()
     {
-        $page = new Page\Uri(array(
+        $page = new Page\Uri([
             'label' => 'foo',
             'uri' => '/bar'
-        ));
+        ]);
 
         $request = new Request();
         $request->setUri('/bar');
@@ -105,10 +105,10 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     public function testIsActiveReturnsFalseOnNonMatchingRequestUri()
     {
-        $page = new Page\Uri(array(
+        $page = new Page\Uri([
             'label' => 'foo',
             'uri' => '/bar'
-        ));
+        ]);
 
         $request = new Request();
         $request->setUri('/baz');

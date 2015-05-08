@@ -60,7 +60,7 @@ class SequenceFeature extends AbstractFeature
             return $insert;
         }
 
-        $insert->values(array($this->primaryKeyField => $this->sequenceValue),  Insert::VALUES_MERGE);
+        $insert->values([$this->primaryKeyField => $this->sequenceValue],  Insert::VALUES_MERGE);
         return $insert;
     }
 

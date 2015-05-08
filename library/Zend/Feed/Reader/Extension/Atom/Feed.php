@@ -48,7 +48,7 @@ class Feed extends Extension\AbstractFeed
 
         $list = $this->xpath->query('//atom:author');
 
-        $authors = array();
+        $authors = [];
 
         if ($list->length) {
             foreach ($list as $author) {
@@ -276,7 +276,7 @@ class Feed extends Extension\AbstractFeed
         if (!$imageUrl) {
             $image = null;
         } else {
-            $image = array('uri' => $imageUrl);
+            $image = ['uri' => $imageUrl];
         }
 
         $this->data['image'] = $image;
@@ -363,7 +363,7 @@ class Feed extends Extension\AbstractFeed
         if (array_key_exists('hubs', $this->data)) {
             return $this->data['hubs'];
         }
-        $hubs = array();
+        $hubs = [];
 
         $list = $this->xpath->query($this->getXpathPrefix()
             . '//atom:link[@rel="hub"]/@href');
@@ -429,11 +429,11 @@ class Feed extends Extension\AbstractFeed
         if ($list->length) {
             $categoryCollection = new Collection\Category;
             foreach ($list as $category) {
-                $categoryCollection[] = array(
+                $categoryCollection[] = [
                     'term' => $category->getAttribute('term'),
                     'scheme' => $category->getAttribute('scheme'),
                     'label' => $category->getAttribute('label')
-                );
+                ];
             }
         } else {
             return new Collection\Category;
@@ -452,7 +452,7 @@ class Feed extends Extension\AbstractFeed
      */
     protected function getAuthorFromElement(DOMElement $element)
     {
-        $author = array();
+        $author = [];
 
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');

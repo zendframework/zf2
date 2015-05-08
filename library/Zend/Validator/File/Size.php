@@ -28,20 +28,20 @@ class Size extends AbstractValidator
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::TOO_BIG   => "Maximum allowed size for file is '%max%' but '%size%' detected",
         self::TOO_SMALL => "Minimum expected size for file is '%min%' but '%size%' detected",
         self::NOT_FOUND => "File is not readable or does not exist",
-    );
+    ];
 
     /**
      * @var array Error message template variables
      */
-    protected $messageVariables = array(
-        'min'  => array('options' => 'min'),
-        'max'  => array('options' => 'max'),
+    protected $messageVariables = [
+        'min'  => ['options' => 'min'],
+        'max'  => ['options' => 'max'],
         'size' => 'size',
-    );
+    ];
 
     /**
      * Detected size
@@ -55,11 +55,11 @@ class Size extends AbstractValidator
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'min'           => null, // Minimum file size, if null there is no minimum
         'max'           => null, // Maximum file size, if null there is no maximum
         'useByteString' => true, // Use byte string?
-    );
+    ];
 
     /**
      * Sets validator options
@@ -75,7 +75,7 @@ class Size extends AbstractValidator
     public function __construct($options = null)
     {
         if (is_string($options) || is_numeric($options)) {
-            $options = array('max' => $options);
+            $options = ['max' => $options];
         }
 
         if (1 < func_num_args()) {
@@ -307,7 +307,7 @@ class Size extends AbstractValidator
      */
     protected function toByteString($size)
     {
-        $sizes = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $sizes = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         for ($i=0; $size >= 1024 && $i < 9; $i++) {
             $size /= 1024;
         }

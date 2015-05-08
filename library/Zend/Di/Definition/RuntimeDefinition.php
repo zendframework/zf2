@@ -21,7 +21,7 @@ class RuntimeDefinition implements DefinitionInterface
     /**
      * @var array
      */
-    protected $classes = array();
+    protected $classes = [];
 
     /**
      * @var bool
@@ -36,12 +36,12 @@ class RuntimeDefinition implements DefinitionInterface
     /**
      * @var array
      */
-    protected $injectionMethods = array();
+    protected $injectionMethods = [];
 
     /**
      * @var array
      */
-    protected $processedClass = array();
+    protected $processedClass = [];
 
     /**
      * Constructor
@@ -201,12 +201,12 @@ class RuntimeDefinition implements DefinitionInterface
         $matches = null; // used for regex below
 
         // setup the key in classes
-        $this->classes[$className] = array(
-            'supertypes'   => array(),
+        $this->classes[$className] = [
+            'supertypes'   => [],
             'instantiator' => null,
-            'methods'      => array(),
-            'parameters'   => array()
-        );
+            'methods'      => [],
+            'parameters'   => []
+        ];
 
         $def = &$this->classes[$className]; // localize for brevity
 
@@ -221,7 +221,7 @@ class RuntimeDefinition implements DefinitionInterface
         }
 
         $rTarget = $rClass;
-        $supertypes = array();
+        $supertypes = [];
         do {
             $supertypes = array_merge($supertypes, $rTarget->getInterfaceNames());
             if (!($rTargetParent = $rTarget->getParentClass())) {
@@ -319,7 +319,7 @@ class RuntimeDefinition implements DefinitionInterface
 
         // @todo annotations here for alternate names?
 
-        $def['parameters'][$methodName] = array();
+        $def['parameters'][$methodName] = [];
 
         foreach ($rMethod->getParameters() as $p) {
             /** @var $p \ReflectionParameter  */
@@ -327,7 +327,7 @@ class RuntimeDefinition implements DefinitionInterface
 
             $fqName = $rClass->getName() . '::' . $rMethod->getName() . ':' . $p->getPosition();
 
-            $def['parameters'][$methodName][$fqName] = array();
+            $def['parameters'][$methodName][$fqName] = [];
 
             // set the class name, if it exists
             $def['parameters'][$methodName][$fqName][] = $actualParamName;

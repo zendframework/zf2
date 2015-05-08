@@ -133,14 +133,14 @@ class ViewEventTest extends TestCase
         $response = new Response();
         $result   = 'some result';
 
-        $params   = array(
+        $params   = [
             'model'    => $model,
             'renderer' => $renderer,
             'request'  => $request,
             'response' => $response,
             'result'   => $result,
             'otherkey' => 'other value',
-        );
+        ];
 
         $this->event->setParams($params);
         $this->assertEquals($params, $this->event->getParams());

@@ -20,11 +20,11 @@ class FloatingTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Floating('foo', 10, 5);
         $this->assertEquals(
-            array(array(
+            [[
                 '%s %s NOT NULL',
-                array('foo', 'FLOAT(10,5)'),
-                array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL)
-            )),
+                ['foo', 'FLOAT(10,5)'],
+                [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]
+            ]],
             $column->getExpressionData()
         );
     }

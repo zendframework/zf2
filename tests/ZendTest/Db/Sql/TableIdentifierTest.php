@@ -42,7 +42,7 @@ class TableIdentifierTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTableFromObjectStringCast()
     {
-        $table = $this->getMock('stdClass', array('__toString'));
+        $table = $this->getMock('stdClass', ['__toString']);
 
         $table->expects($this->once())->method('__toString')->will($this->returnValue('castResult'));
 
@@ -54,7 +54,7 @@ class TableIdentifierTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSchemaFromObjectStringCast()
     {
-        $schema = $this->getMock('stdClass', array('__toString'));
+        $schema = $this->getMock('stdClass', ['__toString']);
 
         $schema->expects($this->once())->method('__toString')->will($this->returnValue('castResult'));
 
@@ -96,7 +96,7 @@ class TableIdentifierTest extends \PHPUnit_Framework_TestCase
     public function invalidTableProvider()
     {
         return array_merge(
-            array(array(null)),
+            [[null]],
             $this->invalidSchemaProvider()
         );
     }
@@ -108,10 +108,10 @@ class TableIdentifierTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidSchemaProvider()
     {
-        return array(
-            array(''),
-            array(new stdClass()),
-            array(array()),
-        );
+        return [
+            [''],
+            [new stdClass()],
+            [[]],
+        ];
     }
 }

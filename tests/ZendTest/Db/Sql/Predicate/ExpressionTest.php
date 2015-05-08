@@ -29,7 +29,7 @@ class ExpressionTest extends TestCase
     {
         $expression = new Expression('foo.bar = ?', 'bar');
         $this->assertEquals('foo.bar = ?', $expression->getExpression());
-        $this->assertEquals(array('bar'), $expression->getParameters());
+        $this->assertEquals(['bar'], $expression->getParameters());
     }
 
     /**
@@ -38,7 +38,7 @@ class ExpressionTest extends TestCase
     public function testCanPassNoParameterToConstructor()
     {
         $expression = new Expression('foo.bar');
-        $this->assertEquals(array(), $expression->getParameters());
+        $this->assertEquals([], $expression->getParameters());
     }
 
     /**
@@ -47,7 +47,7 @@ class ExpressionTest extends TestCase
     public function testCanPassSingleNullParameterToConstructor()
     {
         $expression = new Expression('?', null);
-        $this->assertEquals(array(null), $expression->getParameters());
+        $this->assertEquals([null], $expression->getParameters());
     }
 
     /**
@@ -56,7 +56,7 @@ class ExpressionTest extends TestCase
     public function testCanPassSingleZeroParameterValueToConstructor()
     {
         $predicate = new Expression('?', 0);
-        $this->assertEquals(array(0), $predicate->getParameters());
+        $this->assertEquals([0], $predicate->getParameters());
     }
 
     /**
@@ -66,7 +66,7 @@ class ExpressionTest extends TestCase
     {
         $predicate = new IsNull('foo.baz');
         $expression = new Expression('?', $predicate);
-        $this->assertEquals(array($predicate), $expression->getParameters());
+        $this->assertEquals([$predicate], $expression->getParameters());
     }
 
     /**
@@ -75,7 +75,7 @@ class ExpressionTest extends TestCase
     public function testCanPassMultiScalarParametersToConstructor()
     {
         $expression = new Expression('? OR ?', 'foo', 'bar');
-        $this->assertEquals(array('foo', 'bar'), $expression->getParameters());
+        $this->assertEquals(['foo', 'bar'], $expression->getParameters());
     }
 
     /**
@@ -84,7 +84,7 @@ class ExpressionTest extends TestCase
     public function testCanPassMultiNullParametersToConstructor()
     {
         $expression = new Expression('? OR ?', null, null);
-        $this->assertEquals(array(null, null), $expression->getParameters());
+        $this->assertEquals([null, null], $expression->getParameters());
     }
 
     /**
@@ -94,7 +94,7 @@ class ExpressionTest extends TestCase
     {
         $predicate = new IsNull('foo.baz');
         $expression = new Expression('? OR ?', $predicate, $predicate);
-        $this->assertEquals(array($predicate, $predicate), $expression->getParameters());
+        $this->assertEquals([$predicate, $predicate], $expression->getParameters());
     }
 
     /**
@@ -102,8 +102,8 @@ class ExpressionTest extends TestCase
      */
     public function testCanPassArrayOfOneScalarParameterToConstructor()
     {
-        $expression = new Expression('?', array('foo'));
-        $this->assertEquals(array('foo'), $expression->getParameters());
+        $expression = new Expression('?', ['foo']);
+        $this->assertEquals(['foo'], $expression->getParameters());
     }
 
     /**
@@ -111,8 +111,8 @@ class ExpressionTest extends TestCase
      */
     public function testCanPassArrayOfMultiScalarsParameterToConstructor()
     {
-        $expression = new Expression('? OR ?', array('foo', 'bar'));
-        $this->assertEquals(array('foo', 'bar'), $expression->getParameters());
+        $expression = new Expression('? OR ?', ['foo', 'bar']);
+        $this->assertEquals(['foo', 'bar'], $expression->getParameters());
     }
 
     /**
@@ -120,8 +120,8 @@ class ExpressionTest extends TestCase
      */
     public function testCanPassArrayOfOneNullParameterToConstructor()
     {
-        $expression = new Expression('?', array(null));
-        $this->assertEquals(array(null), $expression->getParameters());
+        $expression = new Expression('?', [null]);
+        $this->assertEquals([null], $expression->getParameters());
     }
 
     /**
@@ -129,8 +129,8 @@ class ExpressionTest extends TestCase
      */
     public function testCanPassArrayOfMultiNullsParameterToConstructor()
     {
-        $expression = new Expression('? OR ?', array(null, null));
-        $this->assertEquals(array(null, null), $expression->getParameters());
+        $expression = new Expression('? OR ?', [null, null]);
+        $this->assertEquals([null, null], $expression->getParameters());
     }
 
     /**
@@ -139,8 +139,8 @@ class ExpressionTest extends TestCase
     public function testCanPassArrayOfOnePredicateParameterToConstructor()
     {
         $predicate = new IsNull('foo.baz');
-        $expression = new Expression('?', array($predicate));
-        $this->assertEquals(array($predicate), $expression->getParameters());
+        $expression = new Expression('?', [$predicate]);
+        $this->assertEquals([$predicate], $expression->getParameters());
     }
 
     /**
@@ -149,8 +149,8 @@ class ExpressionTest extends TestCase
     public function testCanPassArrayOfMultiPredicatesParameterToConstructor()
     {
         $predicate = new IsNull('foo.baz');
-        $expression = new Expression('? OR ?', array($predicate, $predicate));
-        $this->assertEquals(array($predicate, $predicate), $expression->getParameters());
+        $expression = new Expression('? OR ?', [$predicate, $predicate]);
+        $this->assertEquals([$predicate, $predicate], $expression->getParameters());
     }
 
     public function testLiteralIsMutable()
@@ -163,20 +163,20 @@ class ExpressionTest extends TestCase
     public function testParameterIsMutable()
     {
         $expression = new Expression();
-        $expression->setParameters(array('foo', 'bar'));
-        $this->assertEquals(array('foo', 'bar'), $expression->getParameters());
+        $expression->setParameters(['foo', 'bar']);
+        $this->assertEquals(['foo', 'bar'], $expression->getParameters());
     }
 
     public function testRetrievingWherePartsReturnsSpecificationArrayOfLiteralAndParametersAndArrayOfTypes()
     {
         $expression = new Expression();
         $expression->setExpression('foo.bar = ? AND id != ?')
-                        ->setParameters(array('foo', 'bar'));
-        $expected = array(array(
+                        ->setParameters(['foo', 'bar']);
+        $expected = [[
             'foo.bar = %s AND id != %s',
-            array('foo', 'bar'),
-            array(Expression::TYPE_VALUE, Expression::TYPE_VALUE),
-        ));
+            ['foo', 'bar'],
+            [Expression::TYPE_VALUE, Expression::TYPE_VALUE],
+        ]];
         $test = $expression->getExpressionData();
         $this->assertEquals($expected, $test, var_export($test, 1));
     }

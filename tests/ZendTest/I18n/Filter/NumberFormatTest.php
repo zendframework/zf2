@@ -24,10 +24,10 @@ class NumberFormatTest extends TestCase
 
     public function testConstructWithOptions()
     {
-        $filter = new NumberFormatFilter(array(
+        $filter = new NumberFormatFilter([
             'locale' => 'en_US',
             'style'  => NumberFormatter::DECIMAL
-        ));
+        ]);
 
         $this->assertEquals('en_US', $filter->getLocale());
         $this->assertEquals(NumberFormatter::DECIMAL, $filter->getStyle());
@@ -76,33 +76,33 @@ class NumberFormatTest extends TestCase
             if (version_compare(\PHPUnit_Runner_Version::id(), '3.8.0-dev') === 1) {
                 $this->markTestSkipped('ext/intl not enabled');
             } else {
-                return array(array());
+                return [[]];
             }
         }
 
-        return array(
-            array(
+        return [
+            [
                 'en_US',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
                 1234567.8912346,
                 '1,234,567.891'
-            ),
-            array(
+            ],
+            [
                 'de_DE',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
                 1234567.8912346,
                 '1.234.567,891'
-            ),
-            array(
+            ],
+            [
                 'ru_RU',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
                 1234567.8912346,
                 '1 234 567,891'
-            ),
-        );
+            ],
+        ];
     }
 
     public function formattedToNumberProvider()
@@ -111,46 +111,46 @@ class NumberFormatTest extends TestCase
             if (version_compare(\PHPUnit_Runner_Version::id(), '3.8.0-dev') === 1) {
                 $this->markTestSkipped('ext/intl not enabled');
             } else {
-                return array(array());
+                return [[]];
             }
         }
 
-        return array(
-            array(
+        return [
+            [
                 'en_US',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
                 '1,234,567.891',
                 1234567.891,
-            ),
-            array(
+            ],
+            [
                 'de_DE',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
                 '1.234.567,891',
                 1234567.891,
-            ),
-            array(
+            ],
+            [
                 'ru_RU',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
                 '1 234 567,891',
                 1234567.891,
-            ),
-        );
+            ],
+        ];
     }
 
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 '1.234.567,891',
                 '1.567,891'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**

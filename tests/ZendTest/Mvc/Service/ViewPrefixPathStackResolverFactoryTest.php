@@ -21,13 +21,13 @@ class ViewPrefixPathStackResolverFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceLocator->expects($this->once())
             ->method('get')
             ->with('Config')
-            ->will($this->returnValue(array(
-                'view_manager' => array(
-                    'prefix_template_path_stack' => array(
-                        'album/' => array(),
-                    ),
-                ),
-            )));
+            ->will($this->returnValue([
+                'view_manager' => [
+                    'prefix_template_path_stack' => [
+                        'album/' => [],
+                    ],
+                ],
+            ]));
 
         $factory  = new ViewPrefixPathStackResolverFactory();
         $resolver = $factory->createService($serviceLocator);

@@ -25,16 +25,16 @@ class RouterFactoryTest extends TestCase
 
     public function testFactoryCanCreateRouterBasedOnConfiguredName()
     {
-        $this->services->setService('Config', array(
-            'router' => array(
+        $this->services->setService('Config', [
+            'router' => [
                 'router_class' => 'ZendTest\Mvc\Service\TestAsset\Router',
-            ),
-            'console' => array(
-                'router' => array(
+            ],
+            'console' => [
+                'router' => [
                     'router_class' => 'ZendTest\Mvc\Service\TestAsset\Router',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         $router = $this->factory->createService($this->services, 'router', 'Router');
         $this->assertInstanceOf('ZendTest\Mvc\Service\TestAsset\Router', $router);
@@ -42,11 +42,11 @@ class RouterFactoryTest extends TestCase
 
     public function testFactoryCanCreateRouterWhenOnlyHttpRouterConfigPresent()
     {
-        $this->services->setService('Config', array(
-            'router' => array(
+        $this->services->setService('Config', [
+            'router' => [
                 'router_class' => 'ZendTest\Mvc\Service\TestAsset\Router',
-            ),
-        ));
+            ],
+        ]);
 
         $router = $this->factory->createService($this->services, 'router', 'Router');
         $this->assertInstanceOf('Zend\Mvc\Router\Console\SimpleRouteStack', $router);

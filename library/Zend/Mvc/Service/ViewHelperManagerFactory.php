@@ -26,11 +26,11 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
      *
      * @var array
      */
-    protected $defaultHelperMapClasses = array(
+    protected $defaultHelperMapClasses = [
         'Zend\Form\View\HelperConfig',
         'Zend\I18n\View\HelperConfig',
         'Zend\Navigation\View\HelperConfig'
-    );
+    ];
 
     /**
      * Create and return the view helper manager
@@ -78,7 +78,7 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
         });
 
         $plugins->setFactory('basepath', function () use ($serviceLocator) {
-            $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
+            $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : [];
             $basePathHelper = new ViewHelper\BasePath;
 
             if (Console::isConsole()
@@ -98,7 +98,7 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
 
             $request = $serviceLocator->get('Request');
 
-            if (is_callable(array($request, 'getBasePath'))) {
+            if (is_callable([$request, 'getBasePath'])) {
                 $basePathHelper->setBasePath($request->getBasePath());
             }
 
@@ -112,8 +112,8 @@ class ViewHelperManagerFactory extends AbstractPluginManagerFactory
          * based on. This is why it must be set early instead of later in the layout phtml.
          */
         $plugins->setFactory('doctype', function () use ($serviceLocator) {
-            $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
-            $config = isset($config['view_manager']) ? $config['view_manager'] : array();
+            $config = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : [];
+            $config = isset($config['view_manager']) ? $config['view_manager'] : [];
             $doctypeHelper = new ViewHelper\Doctype;
             if (isset($config['doctype']) && $config['doctype']) {
                 $doctypeHelper->setDoctype($config['doctype']);

@@ -26,10 +26,10 @@ class IsInt extends AbstractValidator
     /**
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID => "Invalid type given. String or integer expected",
         self::NOT_INT => "The input does not appear to be an integer",
-    );
+    ];
 
     /**
      * Optional locale
@@ -44,7 +44,7 @@ class IsInt extends AbstractValidator
      * @param  array|Traversable $options
      * @throws Exception\ExtensionNotLoadedException if ext/intl is not present
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!extension_loaded('intl')) {
             throw new I18nException\ExtensionNotLoadedException(sprintf(

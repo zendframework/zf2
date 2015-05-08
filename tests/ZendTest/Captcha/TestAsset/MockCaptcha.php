@@ -14,7 +14,7 @@ use Zend\Captcha\AdapterInterface;
 class MockCaptcha implements AdapterInterface
 {
     public $name;
-    public $options = array();
+    public $options = [];
 
     public function __construct($options = null)
     {
@@ -47,6 +47,6 @@ class MockCaptcha implements AdapterInterface
 
     public function getMessages()
     {
-        return array();
+        return [];
     }
 }

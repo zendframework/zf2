@@ -20,13 +20,13 @@ class BacktraceTest extends \PHPUnit_Framework_TestCase
     {
         $processor = new Backtrace();
 
-        $event = array(
+        $event = [
                 'timestamp'    => '',
                 'priority'     => 1,
                 'priorityName' => 'ALERT',
                 'message'      => 'foo',
-                'extra'        => array()
-        );
+                'extra'        => []
+        ];
 
         $event = $processor->process($event);
 

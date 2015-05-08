@@ -71,25 +71,25 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $this->_filesPath      = __DIR__ . '/TestAsset';
         $this->_basicResolver  = new Http\FileResolver("{$this->_filesPath}/htbasic.1");
         $this->_digestResolver = new Http\FileResolver("{$this->_filesPath}/htdigest.3");
-        $this->_basicConfig    = array(
+        $this->_basicConfig    = [
             'accept_schemes' => 'basic',
             'realm'          => 'Test Realm',
             'proxy_auth'     => true
-        );
-        $this->_digestConfig   = array(
+        ];
+        $this->_digestConfig   = [
             'accept_schemes' => 'digest',
             'realm'          => 'Test Realm',
             'digest_domains' => '/ http://localhost/',
             'nonce_timeout'  => 300,
             'proxy_auth'     => true
-        );
-        $this->_bothConfig     = array(
+        ];
+        $this->_bothConfig     = [
             'accept_schemes' => 'basic digest',
             'realm'          => 'Test Realm',
             'digest_domains' => '/ http://localhost/',
             'nonce_timeout'  => 300,
             'proxy_auth'     => true
-        );
+        ];
     }
 
     public function testBasicChallenge()
@@ -99,10 +99,10 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         // false result.
 
         // The expected Basic Proxy-Authenticate header value
-        $basic = array(
+        $basic = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_bothConfig['realm'] . '"',
-        );
+        ];
 
         $data = $this->_doAuth('', 'basic');
         $this->_checkUnauthorized($data, $basic);
@@ -173,10 +173,10 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         // a bad username or password.
 
         // The expected Basic WWW-Authenticate header value
-        $basic = array(
+        $basic = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_basicConfig['realm'] . '"',
-        );
+        ];
 
         $data = $this->_doAuth('Basic ' . base64_encode("Bad\tChars:In:Creds"), 'basic');
         $this->_checkUnauthorized($data, $basic);
@@ -187,10 +187,10 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         // Attempt Basic Authentication with a bad username and password
 
         // The expected Basic Proxy-Authenticate header value
-        $basic = array(
+        $basic = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_basicConfig['realm'] . '"',
-        );
+        ];
 
         $data = $this->_doAuth('Basic ' . base64_encode('Nobody:NotValid'), 'basic');
         $this->_checkUnauthorized($data, $basic);
@@ -202,10 +202,10 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         // password
 
         // The expected Basic WWW-Authenticate header value
-        $basic = array(
+        $basic = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_basicConfig['realm'] . '"',
-        );
+        ];
 
         $data = $this->_doAuth('Basic ' . base64_encode('Bryce:Invalid'), 'basic');
         $this->_checkUnauthorized($data, $basic);
@@ -340,11 +340,11 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $a->setResponse($response);
         $result = $a->authenticate();
 
-        $return = array(
+        $return = [
             'result'  => $result,
             'status'  => $response->getStatusCode(),
             'headers' => $response->getHeaders(),
-        );
+        ];
         return $return;
     }
 
@@ -355,11 +355,11 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
      */
     protected function _digestChallenge()
     {
-        return array(
+        return [
             'type'   => 'Digest ',
             'realm'  => 'realm="' . $this->_digestConfig['realm'] . '"',
             'domain' => 'domain="' . $this->_bothConfig['digest_domains'] . '"',
-        );
+        ];
     }
 
     /**

@@ -38,11 +38,11 @@ $zfCoreTests   = "$zfRoot/tests";
  * loading other copies of the framework code and tests that would supersede
  * this copy.
  */
-$path = array(
+$path = [
     $zfCoreLibrary,
     $zfCoreTests,
     get_include_path(),
-);
+];
 set_include_path(implode(PATH_SEPARATOR, $path));
 
 /**

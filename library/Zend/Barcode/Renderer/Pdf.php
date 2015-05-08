@@ -104,8 +104,8 @@ class Pdf extends AbstractRenderer
     protected function drawPolygon($points, $color, $filled = true)
     {
         $page = $this->resource->pages[$this->page];
-        $x = array();
-        $y = array();
+        $x = [];
+        $y = [];
         foreach ($points as $point) {
             $x[] = $point[0] * $this->moduleSize + $this->leftOffset;
             $y[] = $page->getHeight() - $point[1] * $this->moduleSize - $this->topOffset;
@@ -203,7 +203,7 @@ class Pdf extends AbstractRenderer
     public function widthForStringUsingFontSize($text, $font, $fontSize)
     {
         $drawingString = iconv('UTF-8', 'UTF-16BE//IGNORE', $text);
-        $characters    = array();
+        $characters    = [];
         for ($i = 0, $len = strlen($drawingString); $i < $len; $i++) {
             $characters[] = (ord($drawingString[$i ++]) << 8) | ord($drawingString[$i]);
         }

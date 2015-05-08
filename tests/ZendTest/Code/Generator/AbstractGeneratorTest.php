@@ -17,11 +17,11 @@ class AbstractGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        $generator = $this->getMockForAbstractClass('Zend\Code\Generator\AbstractGenerator', array(
-            array(
+        $generator = $this->getMockForAbstractClass('Zend\Code\Generator\AbstractGenerator', [
+            [
                 'indentation' => 'foo',
-            )
-        ));
+            ]
+        ]);
 
         $this->assertInstanceOf('Zend\Code\Generator\GeneratorInterface', $generator);
         $this->assertEquals('foo', $generator->getIndentation());
@@ -32,8 +32,8 @@ class AbstractGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetOptionsThrowsExceptionOnInvalidArgument()
     {
-        $generator = $this->getMockForAbstractClass('Zend\Code\Generator\AbstractGenerator', array(
+        $generator = $this->getMockForAbstractClass('Zend\Code\Generator\AbstractGenerator', [
             'sss',
-        ));
+        ]);
     }
 }

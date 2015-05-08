@@ -17,23 +17,23 @@ class WeekTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes()
     {
         $element = new WeekElement('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'inclusive' => true,
             'min'       => '1970-W01',
             'max'       => '1970-W03',
             'step'      => '1',
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Regex',
             'Zend\Validator\GreaterThan',
             'Zend\Validator\LessThan',
             'Zend\Validator\DateStep',
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -58,15 +58,15 @@ class WeekTest extends TestCase
 
     public function weekValuesDataProvider()
     {
-        return array(
+        return [
                 //    value        expected
-                array('2012-W01',  true),
-                array('2012-W52',  true),
-                array('2012-01',   false),
-                array('W12-2012',  false),
-                array('2012-W1',   false),
-                array('12-W01',    false),
-        );
+                ['2012-W01',  true],
+                ['2012-W52',  true],
+                ['2012-01',   false],
+                ['W12-2012',  false],
+                ['2012-W1',   false],
+                ['12-W01',    false],
+        ];
     }
 
     /**

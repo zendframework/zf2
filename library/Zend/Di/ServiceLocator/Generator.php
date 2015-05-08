@@ -86,8 +86,8 @@ class Generator
         $im             = $injector->instanceManager();
         $indent         = '    ';
         $aliases        = $this->reduceAliases($im->getAliases());
-        $caseStatements = array();
-        $getters        = array();
+        $caseStatements = [];
+        $getters        = [];
         $definitions    = $injector->definitions();
 
         $fetched = array_unique(array_merge($definitions->getClasses(), $im->getAliases()));
@@ -212,7 +212,7 @@ class Generator
             $getters[] = $getterDef;
 
             // Get cases for case statements
-            $cases = array($name);
+            $cases = [$name];
             if (isset($aliases[$name])) {
                 $cases = array_merge($aliases[$name], $cases);
             }
@@ -238,18 +238,18 @@ class Generator
         $paramsParam = new ParameterGenerator();
         $paramsParam->setName('params')
                     ->setType('array')
-                    ->setDefaultValue(array());
+                    ->setDefaultValue([]);
 
         $get = new MethodGenerator();
         $get->setName('get');
-        $get->setParameters(array(
+        $get->setParameters([
             $nameParam,
             $paramsParam,
-        ));
+        ]);
         $get->setBody($switch);
 
         // Create getters for aliases
-        $aliasMethods = array();
+        $aliasMethods = [];
         foreach ($aliases as $class => $classAliases) {
             foreach ($classAliases as $alias) {
                 $aliasMethods[] = $this->getCodeGenMethodFromAlias($alias, $class);
@@ -292,7 +292,7 @@ class Generator
      */
     protected function reduceAliases(array $aliasList)
     {
-        $reduced = array();
+        $reduced = [];
         $aliases = array_keys($aliasList);
         foreach ($aliasList as $alias => $service) {
             if (in_array($service, $aliases)) {
@@ -301,7 +301,7 @@ class Generator
                 } while (in_array($service, $aliases));
             }
             if (!isset($reduced[$service])) {
-                $reduced[$service] = array();
+                $reduced[$service] = [];
             }
             $reduced[$service][] = $alias;
         }

@@ -31,18 +31,18 @@ class MemcacheTest extends CommonAdapterTest
             }
         }
 
-        $this->_options  = new Cache\Storage\Adapter\MemcacheOptions(array(
+        $this->_options  = new Cache\Storage\Adapter\MemcacheOptions([
             'resource_id' => __CLASS__
-        ));
+        ]);
 
         if (defined('TESTS_ZEND_CACHE_MEMCACHE_HOST') && defined('TESTS_ZEND_CACHE_MEMCACHE_PORT')) {
-            $this->_options->getResourceManager()->addServers(__CLASS__, array(
-                array(TESTS_ZEND_CACHE_MEMCACHE_HOST, TESTS_ZEND_CACHE_MEMCACHE_PORT)
-            ));
+            $this->_options->getResourceManager()->addServers(__CLASS__, [
+                [TESTS_ZEND_CACHE_MEMCACHE_HOST, TESTS_ZEND_CACHE_MEMCACHE_PORT]
+            ]);
         } elseif (defined('TESTS_ZEND_CACHE_MEMCACHE_HOST')) {
-            $this->_options->getResourceManager()->addServers(__CLASS__, array(
-                array(TESTS_ZEND_CACHE_MEMCACHE_HOST)
-            ));
+            $this->_options->getResourceManager()->addServers(__CLASS__, [
+                [TESTS_ZEND_CACHE_MEMCACHE_HOST]
+            ]);
         }
 
         $this->_storage = new Cache\Storage\Adapter\Memcache();
@@ -65,49 +65,49 @@ class MemcacheTest extends CommonAdapterTest
      */
     public function getServersDefinitions()
     {
-        $expectedServers = array(
-            array('host' => '127.0.0.1', 'port' => 12345, 'weight' => 1, 'status' => true),
-            array('host' => 'localhost', 'port' => 54321, 'weight' => 2, 'status' => true),
-            array('host' => 'examp.com', 'port' => 11211, 'status' => true),
-        );
+        $expectedServers = [
+            ['host' => '127.0.0.1', 'port' => 12345, 'weight' => 1, 'status' => true],
+            ['host' => 'localhost', 'port' => 54321, 'weight' => 2, 'status' => true],
+            ['host' => 'examp.com', 'port' => 11211, 'status' => true],
+        ];
 
-        return array(
+        return [
             // servers as array list
-            array(
-                array(
-                    array('127.0.0.1', 12345, 1),
-                    array('localhost', '54321', '2'),
-                    array('examp.com'),
-                ),
+            [
+                [
+                    ['127.0.0.1', 12345, 1],
+                    ['localhost', '54321', '2'],
+                    ['examp.com'],
+                ],
                 $expectedServers,
-            ),
+            ],
 
             // servers as array assoc
-            array(
-                array(
-                    array('127.0.0.1', 12345, 1),
-                    array('localhost', '54321', '2'),
-                    array('examp.com'),
-                ),
+            [
+                [
+                    ['127.0.0.1', 12345, 1],
+                    ['localhost', '54321', '2'],
+                    ['examp.com'],
+                ],
                 $expectedServers,
-            ),
+            ],
 
             // servers as string list
-            array(
-                array(
+            [
+                [
                     '127.0.0.1:12345?weight=1',
                     'localhost:54321?weight=2',
                     'examp.com',
-                ),
+                ],
                 $expectedServers,
-            ),
+            ],
 
             // servers as string
-            array(
+            [
                 '127.0.0.1:12345?weight=1, localhost:54321?weight=2,tcp://examp.com',
                 $expectedServers,
-            ),
-        );
+            ],
+        ];
     }
 
     /**

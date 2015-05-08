@@ -30,7 +30,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      *
      * @var string[]|bool[]
      */
-    private $hydrationMethodsCache = array();
+    private $hydrationMethodsCache = [];
 
     /**
      * A map of extraction methods to property name to be used during extraction, indexed
@@ -38,7 +38,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      *
      * @var string[][]
      */
-    private $extractionMethodsCache = array();
+    private $extractionMethodsCache = [];
 
     /**
      * Flag defining whether array keys are underscore-separated (true) or camel case (false)
@@ -142,14 +142,14 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
         // pass 1 - finding out which properties can be extracted, with which methods (populate hydration cache)
         if (! isset($this->extractionMethodsCache[$objectClass])) {
-            $this->extractionMethodsCache[$objectClass] = array();
+            $this->extractionMethodsCache[$objectClass] = [];
             $filter                                     = $this->filterComposite;
             $methods                                    = get_class_methods($object);
 
             if ($object instanceof FilterProviderInterface) {
                 $filter = new FilterComposite(
-                    array($object->getFilter()),
-                    array(new MethodMatchFilter('getFilter'))
+                    [$object->getFilter()],
+                    [new MethodMatchFilter('getFilter')]
                 );
             }
 
@@ -173,7 +173,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
             }
         }
 
-        $values = array();
+        $values = [];
 
         // pass 2 - actually extract data
         foreach ($this->extractionMethodsCache[$objectClass] as $methodName => $attributeName) {
@@ -211,7 +211,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
             if (! isset($this->hydrationMethodsCache[$propertyFqn])) {
                 $setterName = 'set' . ucfirst($this->hydrateName($property, $data));
 
-                $this->hydrationMethodsCache[$propertyFqn] = is_callable(array($object, $setterName))
+                $this->hydrationMethodsCache[$propertyFqn] = is_callable([$object, $setterName])
                     ? $setterName
                     : false;
             }
@@ -269,6 +269,6 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      */
     private function resetCaches()
     {
-        $this->hydrationMethodsCache = $this->extractionMethodsCache = array();
+        $this->hydrationMethodsCache = $this->extractionMethodsCache = [];
     }
 }

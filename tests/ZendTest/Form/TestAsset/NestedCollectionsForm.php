@@ -18,65 +18,65 @@ class NestedCollectionsForm extends Form
     {
         parent::__construct('nestedCollectionsForm');
 
-        $this->add(array(
+        $this->add([
             'name' => 'testFieldset',
             'type' => 'Zend\Form\Fieldset',
-            'options' => array(
+            'options' => [
                  'use_as_base_fieldset' => true,
-             ),
-            'elements' => array(
-                array(
-                    'spec' => array(
+             ],
+            'elements' => [
+                [
+                    'spec' => [
                         'name' => 'groups',
                         'type' => 'Zend\Form\Element\Collection',
-                        'options' => array(
-                            'target_element' => array(
+                        'options' => [
+                            'target_element' => [
                                 'type' => 'Zend\Form\Fieldset',
                                 'name' => 'group',
-                                'elements' => array(
-                                    array(
-                                        'spec' => array(
+                                'elements' => [
+                                    [
+                                        'spec' => [
                                             'type' => 'Zend\Form\Element\Text',
                                             'name' => 'name',
-                                        ),
-                                    ),
-                                    array(
-                                        'spec' => array(
+                                        ],
+                                    ],
+                                    [
+                                        'spec' => [
                                             'type' => 'Zend\Form\Element\Collection',
                                             'name' => 'items',
-                                            'options' => array(
-                                                'target_element' => array(
+                                            'options' => [
+                                                'target_element' => [
                                                     'type' => 'Zend\Form\Fieldset',
                                                     'name' => 'item',
-                                                    'elements' => array(
-                                                        array(
-                                                            'spec' => array(
+                                                    'elements' => [
+                                                        [
+                                                            'spec' => [
                                                                 'type' => 'Zend\Form\Element\Text',
                                                                 'name' => 'itemId',
-                                                            ),
-                                                        ),
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                                                            ],
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
 
-        $this->setValidationGroup(array(
-            'testFieldset' => array(
-                'groups' => array(
+        $this->setValidationGroup([
+            'testFieldset' => [
+                'groups' => [
                     'name',
-                    'items' => array(
+                    'items' => [
                         'itemId'
-                    )
-                ),
-            )
-        ));
+                    ]
+                ],
+            ]
+        ]);
     }
 }

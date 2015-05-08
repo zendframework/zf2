@@ -14,7 +14,7 @@ class ParamTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * @var array
      */
-    protected $types = array();
+    protected $types = [];
 
     /**
      * @var string
@@ -41,7 +41,7 @@ class ParamTag implements TagInterface, PhpDocTypedTagInterface
      */
     public function initialize($tagDocBlockLine)
     {
-        $matches = array();
+        $matches = [];
 
         if (!preg_match('#((?:[\w|\\\]+(?:\[\])*\|?)+)(?:\s+(\$\S+))?(?:\s+(.*))?#s', $tagDocBlockLine, $matches)) {
             return;

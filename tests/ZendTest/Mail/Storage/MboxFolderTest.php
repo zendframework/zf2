@@ -20,7 +20,7 @@ class MboxFolderTest extends \PHPUnit_Framework_TestCase
     protected $_params;
     protected $_originalDir;
     protected $_tmpdir;
-    protected $_subdirs = array('.', 'subfolder');
+    protected $_subdirs = ['.', 'subfolder'];
 
     public function setUp()
     {
@@ -47,7 +47,7 @@ class MboxFolderTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $this->_params = array();
+        $this->_params = [];
         $this->_params['dirname'] = $this->_tmpdir;
         $this->_params['folder']  = 'INBOX';
 
@@ -98,20 +98,20 @@ class MboxFolderTest extends \PHPUnit_Framework_TestCase
     public function testNoParams()
     {
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
-        new Folder\Mbox(array());
+        new Folder\Mbox([]);
     }
 
     public function testFilenameParam()
     {
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
         // filename is not allowed in this subclass
-        new Folder\Mbox(array('filename' => 'foobar'));
+        new Folder\Mbox(['filename' => 'foobar']);
     }
 
     public function testLoadFailure()
     {
         $this->setExpectedException('Zend\Mail\Storage\Exception\InvalidArgumentException');
-        new Folder\Mbox(array('dirname' => 'This/Folder/Does/Not/Exist'));
+        new Folder\Mbox(['dirname' => 'This/Folder/Does/Not/Exist']);
     }
 
     public function testLoadUnkownFolder()
@@ -164,10 +164,10 @@ class MboxFolderTest extends \PHPUnit_Framework_TestCase
         $mail = new Folder\Mbox($this->_params);
         $iterator = new \RecursiveIteratorIterator($mail->getFolders(), \RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume an order while iterating
-        $search_folders = array(DIRECTORY_SEPARATOR . 'subfolder'                                => 'subfolder',
+        $search_folders = [DIRECTORY_SEPARATOR . 'subfolder'                                => 'subfolder',
                                 DIRECTORY_SEPARATOR . 'subfolder' . DIRECTORY_SEPARATOR . 'test' => 'test',
-                                DIRECTORY_SEPARATOR . 'INBOX'                                    => 'INBOX');
-        $found_folders = array();
+                                DIRECTORY_SEPARATOR . 'INBOX'                                    => 'INBOX'];
+        $found_folders = [];
 
         foreach ($iterator as $localName => $folder) {
             if (!isset($search_folders[$folder->getGlobalName()])) {
@@ -186,10 +186,10 @@ class MboxFolderTest extends \PHPUnit_Framework_TestCase
         $mail = new Folder\Mbox($this->_params);
         $iterator = new \RecursiveIteratorIterator($mail->getFolders(), \RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume an order while iterating
-        $search_folders = array(DIRECTORY_SEPARATOR . 'subfolder'                                => 'subfolder',
+        $search_folders = [DIRECTORY_SEPARATOR . 'subfolder'                                => 'subfolder',
                                 DIRECTORY_SEPARATOR . 'subfolder' . DIRECTORY_SEPARATOR . 'test' => 'test',
-                                DIRECTORY_SEPARATOR . 'INBOX'                                    => 'INBOX');
-        $found_folders = array();
+                                DIRECTORY_SEPARATOR . 'INBOX'                                    => 'INBOX'];
+        $found_folders = [];
 
         foreach ($iterator as $localName => $folder) {
             if (!isset($search_folders[$folder->getGlobalName()])) {
@@ -229,14 +229,14 @@ class MboxFolderTest extends \PHPUnit_Framework_TestCase
     public function testSize()
     {
         $mail = new Folder\Mbox($this->_params);
-        $shouldSizes = array(1 => 397, 89, 694, 452, 497, 101, 139);
+        $shouldSizes = [1 => 397, 89, 694, 452, 497, 101, 139];
 
         $sizes = $mail->getSize();
         $this->assertEquals($shouldSizes, $sizes);
 
         $mail->selectFolder(DIRECTORY_SEPARATOR . 'subfolder' . DIRECTORY_SEPARATOR . 'test');
         $sizes = $mail->getSize();
-        $this->assertEquals(array(1 => 410), $sizes);
+        $this->assertEquals([1 => 410], $sizes);
     }
 
     public function testFetchHeader()

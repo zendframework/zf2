@@ -47,10 +47,10 @@ class FilterPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $search_separator = ';';
         $replacement_separator = '|';
-        $options = array(
+        $options = [
             'search_separator'      => $search_separator,
             'replacement_separator' => $replacement_separator,
-        );
+        ];
         $filter = $this->filters->get('wordseparatortoseparator', $options);
         $this->assertInstanceOf('Zend\Filter\Word\SeparatorToSeparator', $filter);
         $this->assertEquals(';', $filter->getSearchSeparator());
@@ -64,17 +64,17 @@ class FilterPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $filterOne = $this->filters->get(
             'wordseparatortoseparator',
-            array(
+            [
                 'search_separator'      => ';',
                 'replacement_separator' => '|',
-            )
+            ]
         );
         $filterTwo = $this->filters->get(
             'wordseparatortoseparator',
-            array(
+            [
                 'search_separator'      => '.',
                 'replacement_separator' => ',',
-            )
+            ]
         );
 
         $this->assertNotEquals($filterOne, $filterTwo);

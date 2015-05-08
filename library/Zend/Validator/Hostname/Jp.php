@@ -12,7 +12,7 @@ namespace Zend\Validator\Hostname;
 /**
  * Resource file for japanese idn validation
  */
-return array(
+return [
     1  => '/^[\x{002d}0-9a-z\x{3005}-\x{3007}\x{3041}-\x{3093}\x{309D}\x{309E}' .
           '\x{30A1}-\x{30F6}\x{30FC}' .
           '\x{30FD}\x{30FE}\x{4E00}\x{4E01}\x{4E03}\x{4E07}\x{4E08}\x{4E09}\x{4E0A}' .
@@ -722,4 +722,4 @@ return array(
           '\x{9F4B}\x{9F4E}\x{9F4F}\x{9F52}\x{9F54}\x{9F5F}\x{9F60}\x{9F61}\x{9F62}' .
           '\x{9F63}\x{9F66}\x{9F67}\x{9F6A}\x{9F6C}\x{9F72}\x{9F76}\x{9F77}\x{9F8D}' .
           '\x{9F95}\x{9F9C}\x{9F9D}\x{9FA0}]{1,15}$/iu',
-);
+];

@@ -38,7 +38,7 @@ class Part implements RecursiveIterator, Part\PartInterface
      * parts of multipart message
      * @var array
      */
-    protected $parts = array();
+    protected $parts = [];
 
     /**
      * count of parts of a multipart message
@@ -192,7 +192,7 @@ class Part implements RecursiveIterator, Part\PartInterface
         }
         $counter = 1;
         foreach ($parts as $part) {
-            $this->parts[$counter++] = new static(array('headers' => $part['header'], 'content' => $part['body']));
+            $this->parts[$counter++] = new static(['headers' => $part['header'], 'content' => $part['body']]);
         }
     }
 
@@ -314,9 +314,9 @@ class Part implements RecursiveIterator, Part\PartInterface
                 break;
             case 'array':
                 if ($header instanceof HeaderInterface) {
-                    $return = array($header->getFieldValue());
+                    $return = [$header->getFieldValue()];
                 } else {
-                    $return = array();
+                    $return = [];
                     foreach ($header as $h) {
                         $return[] = $h->getFieldValue(HeaderInterface::FORMAT_RAW);
                     }

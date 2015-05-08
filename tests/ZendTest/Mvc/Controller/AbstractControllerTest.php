@@ -80,7 +80,7 @@ class AbstractControllerTest extends TestCase
         $reflection = new ReflectionProperty($this->controller, 'eventIdentifier');
 
         $reflection->setAccessible(true);
-        $reflection->setValue($this->controller, array('customEventIdentifier1', 'customEventIdentifier2'));
+        $reflection->setValue($this->controller, ['customEventIdentifier1', 'customEventIdentifier2']);
 
         $this->controller->setEventManager($eventManager);
     }

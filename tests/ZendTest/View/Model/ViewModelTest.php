@@ -34,21 +34,21 @@ class ViewModelTest extends TestCase
     {
         $model = new ViewModel();
         $this->assertInstanceOf('Zend\View\Variables', $model->getVariables());
-        $this->assertEquals(array(), $model->getOptions());
+        $this->assertEquals([], $model->getOptions());
     }
 
     public function testAllowsEmptyOptionsArgumentToConstructor()
     {
-        $model = new ViewModel(array('foo' => 'bar'));
-        $this->assertEquals(array('foo' => 'bar'), $model->getVariables());
-        $this->assertEquals(array(), $model->getOptions());
+        $model = new ViewModel(['foo' => 'bar']);
+        $this->assertEquals(['foo' => 'bar'], $model->getVariables());
+        $this->assertEquals([], $model->getOptions());
     }
 
     public function testAllowsPassingBothVariablesAndOptionsArgumentsToConstructor()
     {
-        $model = new ViewModel(array('foo' => 'bar'), array('template' => 'foo/bar'));
-        $this->assertEquals(array('foo' => 'bar'), $model->getVariables());
-        $this->assertEquals(array('template' => 'foo/bar'), $model->getOptions());
+        $model = new ViewModel(['foo' => 'bar'], ['template' => 'foo/bar']);
+        $this->assertEquals(['foo' => 'bar'], $model->getVariables());
+        $this->assertEquals(['template' => 'foo/bar'], $model->getOptions());
     }
 
     public function testAllowsPassingTraversableArgumentsToVariablesAndOptionsInConstructor()
@@ -62,38 +62,38 @@ class ViewModelTest extends TestCase
 
     public function testAllowsPassingNonArrayAccessObjectsAsArrayInConstructor()
     {
-        $vars  = array('foo' => new Variable);
+        $vars  = ['foo' => new Variable];
         $model = new ViewModel($vars);
         $this->assertSame($vars, $model->getVariables());
     }
 
     public function testCanSetVariablesSingly()
     {
-        $model = new ViewModel(array('foo' => 'bar'));
+        $model = new ViewModel(['foo' => 'bar']);
         $model->setVariable('bar', 'baz');
-        $this->assertEquals(array('foo' => 'bar', 'bar' => 'baz'), $model->getVariables());
+        $this->assertEquals(['foo' => 'bar', 'bar' => 'baz'], $model->getVariables());
     }
 
     public function testCanOverwriteVariablesSingly()
     {
-        $model = new ViewModel(array('foo' => 'bar'));
+        $model = new ViewModel(['foo' => 'bar']);
         $model->setVariable('foo', 'baz');
-        $this->assertEquals(array('foo' => 'baz'), $model->getVariables());
+        $this->assertEquals(['foo' => 'baz'], $model->getVariables());
     }
 
     public function testSetVariablesMergesWithPreviouslyStoredVariables()
     {
-        $model = new ViewModel(array('foo' => 'bar', 'bar' => 'baz'));
-        $model->setVariables(array('bar' => 'BAZBAT'));
-        $this->assertEquals(array('foo' => 'bar', 'bar' => 'BAZBAT'), $model->getVariables());
+        $model = new ViewModel(['foo' => 'bar', 'bar' => 'baz']);
+        $model->setVariables(['bar' => 'BAZBAT']);
+        $this->assertEquals(['foo' => 'bar', 'bar' => 'BAZBAT'], $model->getVariables());
         return $model;
     }
 
     public function testCanUnsetVariable()
     {
-        $model = new ViewModel(array('foo' => 'bar'));
+        $model = new ViewModel(['foo' => 'bar']);
         $model->__unset('foo');
-        $this->assertEquals(array(), $model->getVariables());
+        $this->assertEquals([], $model->getVariables());
     }
 
     /**
@@ -108,29 +108,29 @@ class ViewModelTest extends TestCase
 
     public function testCanSetOptionsSingly()
     {
-        $model = new ViewModel(array(), array('foo' => 'bar'));
+        $model = new ViewModel([], ['foo' => 'bar']);
         $model->setOption('bar', 'baz');
-        $this->assertEquals(array('foo' => 'bar', 'bar' => 'baz'), $model->getOptions());
+        $this->assertEquals(['foo' => 'bar', 'bar' => 'baz'], $model->getOptions());
     }
 
     public function testCanOverwriteOptionsSingly()
     {
-        $model = new ViewModel(array(), array('foo' => 'bar'));
+        $model = new ViewModel([], ['foo' => 'bar']);
         $model->setOption('foo', 'baz');
-        $this->assertEquals(array('foo' => 'baz'), $model->getOptions());
+        $this->assertEquals(['foo' => 'baz'], $model->getOptions());
     }
 
     public function testSetOptionsOverwritesAllPreviouslyStored()
     {
-        $model = new ViewModel(array(), array('foo' => 'bar', 'bar' => 'baz'));
-        $model->setOptions(array('bar' => 'BAZBAT'));
-        $this->assertEquals(array('bar' => 'BAZBAT'), $model->getOptions());
+        $model = new ViewModel([], ['foo' => 'bar', 'bar' => 'baz']);
+        $model->setOptions(['bar' => 'BAZBAT']);
+        $this->assertEquals(['bar' => 'BAZBAT'], $model->getOptions());
         return $model;
     }
 
     public function testOptionsAreInternallyConvertedToAnArrayFromTraversables()
     {
-        $options = new ArrayObject(array('foo' => 'bar'));
+        $options = new ArrayObject(['foo' => 'bar']);
         $model = new ViewModel();
         $model->setOptions($options);
         $this->assertEquals($options->getArrayCopy(), $model->getOptions());
@@ -142,7 +142,7 @@ class ViewModelTest extends TestCase
     public function testCanClearOptions(ViewModel $model)
     {
         $model->clearOptions();
-        $this->assertEquals(array(), $model->getOptions());
+        $this->assertEquals([], $model->getOptions());
     }
 
     public function testPassingAnInvalidArgumentToSetVariablesRaisesAnException()
@@ -273,9 +273,9 @@ class ViewModelTest extends TestCase
 
     public function testPassingOverwriteFlagWhenSettingVariablesOverwritesContainer()
     {
-        $variables = new ViewVariables(array('foo' => 'bar'));
+        $variables = new ViewVariables(['foo' => 'bar']);
         $model     = new ViewModel($variables);
-        $overwrite = new ViewVariables(array('foo' => 'baz'));
+        $overwrite = new ViewVariables(['foo' => 'baz']);
         $model->setVariables($overwrite, true);
         $this->assertSame($overwrite, $model->getVariables());
     }
@@ -297,7 +297,7 @@ class ViewModelTest extends TestCase
     public function testPropertyOverloadingAllowsWritingPropertiesAfterSetVariablesHasBeenCalled()
     {
         $model = new ViewModel();
-        $model->setVariables(array('foo' => 'bar'));
+        $model->setVariables(['foo' => 'bar']);
         $model->bar = 'baz';
 
         $this->assertTrue(isset($model->bar));
@@ -313,7 +313,7 @@ class ViewModelTest extends TestCase
         $child = new ViewModel();
         $model->addChild($child, 'foo');
 
-        $this->assertEquals(array($child), $model->getChildrenByCaptureTo('foo'));
+        $this->assertEquals([$child], $model->getChildrenByCaptureTo('foo'));
     }
 
     public function testGetChildrenByCaptureToRecursive()
@@ -324,7 +324,7 @@ class ViewModelTest extends TestCase
         $child->addChild($subChild, 'bar');
         $model->addChild($child, 'foo');
 
-        $this->assertEquals(array($subChild), $model->getChildrenByCaptureTo('bar'));
+        $this->assertEquals([$subChild], $model->getChildrenByCaptureTo('bar'));
     }
 
     public function testGetChildrenByCaptureToNonRecursive()

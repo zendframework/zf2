@@ -38,7 +38,7 @@ class DiServiceFactory extends Di implements FactoryInterface
     /**
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * @var string
@@ -58,12 +58,12 @@ class DiServiceFactory extends Di implements FactoryInterface
      * @param array $parameters
      * @param string $useServiceLocator
      */
-    public function __construct(Di $di, $name, array $parameters = array(), $useServiceLocator = self::USE_SL_NONE)
+    public function __construct(Di $di, $name, array $parameters = [], $useServiceLocator = self::USE_SL_NONE)
     {
         $this->di = $di;
         $this->name = $name;
         $this->parameters = $parameters;
-        if (in_array($useServiceLocator, array(self::USE_SL_BEFORE_DI, self::USE_SL_AFTER_DI, self::USE_SL_NONE))) {
+        if (in_array($useServiceLocator, [self::USE_SL_BEFORE_DI, self::USE_SL_AFTER_DI, self::USE_SL_NONE])) {
             $this->useServiceLocator = $useServiceLocator;
         }
 
@@ -92,7 +92,7 @@ class DiServiceFactory extends Di implements FactoryInterface
      * @return object
      * @throws Exception\ServiceNotFoundException
      */
-    public function get($name, array $params = array())
+    public function get($name, array $params = [])
     {
         // allow this di service to get dependencies from the service locator BEFORE trying di
         if ($this->useServiceLocator == self::USE_SL_BEFORE_DI && $this->serviceLocator->has($name)) {

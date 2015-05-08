@@ -20,32 +20,32 @@ class Ean13 extends AbstractObject
      * - 1 = wide bar
      * @var array
      */
-    protected $codingMap = array(
-        'A' => array(
+    protected $codingMap = [
+        'A' => [
             0 => "0001101", 1 => "0011001", 2 => "0010011", 3 => "0111101", 4 => "0100011",
             5 => "0110001", 6 => "0101111", 7 => "0111011", 8 => "0110111", 9 => "0001011"
-        ),
-        'B' => array(
+        ],
+        'B' => [
             0 => "0100111", 1 => "0110011", 2 => "0011011", 3 => "0100001", 4 => "0011101",
             5 => "0111001", 6 => "0000101", 7 => "0010001", 8 => "0001001", 9 => "0010111"
-        ),
-        'C' => array(
+        ],
+        'C' => [
             0 => "1110010", 1 => "1100110", 2 => "1101100", 3 => "1000010", 4 => "1011100",
             5 => "1001110", 6 => "1010000", 7 => "1000100", 8 => "1001000", 9 => "1110100"
-        ));
+        ]];
 
-    protected $parities = array(
-        0 => array('A','A','A','A','A','A'),
-        1 => array('A','A','B','A','B','B'),
-        2 => array('A','A','B','B','A','B'),
-        3 => array('A','A','B','B','B','A'),
-        4 => array('A','B','A','A','B','B'),
-        5 => array('A','B','B','A','A','B'),
-        6 => array('A','B','B','B','A','A'),
-        7 => array('A','B','A','B','A','B'),
-        8 => array('A','B','A','B','B','A'),
-        9 => array('A','B','B','A','B','A')
-    );
+    protected $parities = [
+        0 => ['A','A','A','A','A','A'],
+        1 => ['A','A','B','A','B','B'],
+        2 => ['A','A','B','B','A','B'],
+        3 => ['A','A','B','B','B','A'],
+        4 => ['A','B','A','A','B','B'],
+        5 => ['A','B','B','A','A','B'],
+        6 => ['A','B','B','B','A','A'],
+        7 => ['A','B','A','B','A','B'],
+        8 => ['A','B','A','B','B','A'],
+        9 => ['A','B','B','A','B','A']
+    ];
 
     /**
      * Default options for Postnet barcode
@@ -86,13 +86,13 @@ class Ean13 extends AbstractObject
      */
     protected function prepareBarcode()
     {
-        $barcodeTable = array();
+        $barcodeTable = [];
         $height = ($this->drawText) ? 1.1 : 1;
 
         // Start character (101)
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
 
         $textTable = str_split($this->getText());
         $parity = $this->parities[$textTable[0]];
@@ -101,29 +101,29 @@ class Ean13 extends AbstractObject
         for ($i = 1; $i < 7; $i++) {
             $bars = str_split($this->codingMap[$parity[$i - 1]][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [$b, $this->barThinWidth, 0, 1];
             }
         }
 
         // Middle character (01010)
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
 
         // Second part
         for ($i = 7; $i < 13; $i++) {
             $bars = str_split($this->codingMap['C'][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [$b, $this->barThinWidth, 0, 1];
             }
         }
 
         // Stop character (101)
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
         return $barcodeTable;
     }
 

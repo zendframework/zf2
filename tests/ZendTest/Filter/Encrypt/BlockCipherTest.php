@@ -20,7 +20,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         try {
-            $filter = new BlockCipherEncryption(array('key' => 'testkey'));
+            $filter = new BlockCipherEncryption(['key' => 'testkey']);
         } catch (Exception\RuntimeException $e) {
             $this->markTestSkipped('This adapter needs the mcrypt extension');
         }
@@ -33,12 +33,12 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasicBlockCipher()
     {
-        $filter = new BlockCipherEncryption(array('key' => 'testkey'));
-        $valuesExpected = array(
+        $filter = new BlockCipherEncryption(['key' => 'testkey']);
+        $valuesExpected = [
             'STRING' => '5b68e3648f9136e5e9bfaa2242e5b668e7501b2c20e8f9e2c76638f017f62a8eWmVuZEZyYW1ld29yazIuMDpd5vWydswa0fyIo2dnF0Q=',
             'ABC1@3' => 'c7da11b89330f6bbbb15fcb6de574c7ec869ad7187a7d466e60f2437914d927aWmVuZEZyYW1ld29yazIuMKXsBdYXBLQx9elx0B20uxQ=',
             'A b C' => 'ca1b9df732facf9dfadc7c3fdf1ccdc211bf21f638d459f43fefc74bbc9c8e01WmVuZEZyYW1ld29yazIuMM1som/As52rdK/4g7uoYx4='
-        );
+        ];
         $filter->setVector('ZendFramework2.0');
         $enc = $filter->getEncryption();
         $this->assertEquals('testkey', $enc['key']);
@@ -54,7 +54,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetVector()
     {
-        $filter = new BlockCipherEncryption(array('key' => 'testkey'));
+        $filter = new BlockCipherEncryption(['key' => 'testkey']);
         $filter->setVector('1234567890123456');
         $this->assertEquals('1234567890123456', $filter->getVector());
     }
@@ -62,7 +62,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     public function testWrongSizeVector()
     {
         $this->setExpectedException('\Zend\Filter\Exception\InvalidArgumentException');
-        $filter = new BlockCipherEncryption(array('key' => 'testkey'));
+        $filter = new BlockCipherEncryption(['key' => 'testkey']);
         $filter->setVector('testvect');
     }
     /**
@@ -72,14 +72,14 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
      */
     public function testDefaultEncryption()
     {
-        $filter = new BlockCipherEncryption(array('key' => 'testkey'));
+        $filter = new BlockCipherEncryption(['key' => 'testkey']);
         $filter->setVector('1234567890123456');
         $this->assertEquals(
-            array('key'           => 'testkey',
+            ['key'           => 'testkey',
                   'algorithm'     => 'aes',
                   'vector'        => '1234567890123456',
                   'key_iteration' => 5000,
-                  'hash'          => 'sha256'),
+                  'hash'          => 'sha256'],
             $filter->getEncryption()
         );
     }
@@ -91,17 +91,17 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetEncryption()
     {
-        $filter = new BlockCipherEncryption(array('key' => 'testkey'));
+        $filter = new BlockCipherEncryption(['key' => 'testkey']);
         $filter->setVector('1234567890123456');
         $filter->setEncryption(
-            array('algorithm' => '3des')
+            ['algorithm' => '3des']
         );
         $this->assertEquals(
-            array('key'           => 'testkey',
+            ['key'           => 'testkey',
                   'algorithm'     => '3des',
                   'vector'        => '1234567890123456',
                   'key_iteration' => 5000,
-                  'hash'          => 'sha256'),
+                  'hash'          => 'sha256'],
             $filter->getEncryption()
         );
     }
@@ -113,7 +113,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncryptionWithDecryptionMcrypt()
     {
-        $filter = new BlockCipherEncryption(array('key' => 'testkey'));
+        $filter = new BlockCipherEncryption(['key' => 'testkey']);
         $filter->setVector('1234567890123456');
         $output = $filter->encrypt('teststring');
 
@@ -169,14 +169,14 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
         }
 
         try {
-            $filter->setEncryption(array('algorithm' => 'unknown'));
+            $filter->setEncryption(['algorithm' => 'unknown']);
             $filter->fail();
         } catch (\Zend\Filter\Exception\InvalidArgumentException $e) {
             $this->assertContains('The algorithm', $e->getMessage());
         }
 
         try {
-            $filter->setEncryption(array('mode' => 'unknown'));
+            $filter->setEncryption(['mode' => 'unknown']);
         } catch (\Zend\Filter\Exception\InvalidArgumentException $e) {
             $this->assertContains('The mode', $e->getMessage());
         }
@@ -203,7 +203,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('This adapter needs the bz2 extension');
         }
 
-        $filter = new BlockCipherEncryption(array('key' => 'testkey'));
+        $filter = new BlockCipherEncryption(['key' => 'testkey']);
         $filter->setVector('1234567890123456');
         $filter->setCompression('bz2');
         $output = $filter->encrypt('teststring');

@@ -35,14 +35,14 @@ class CredentialTreatmentAdapterDb2Test extends \PHPUnit_Framework_TestCase
     /**
      * Database adapter configuration
      */
-    protected $dbAdapterParams = array(
+    protected $dbAdapterParams = [
         'driver'           => 'IbmDb2',
         'dbname'           => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_DATABASE,
         'username'         => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_USERNAME,
         'password'         => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_DB2_PASSWORD,
-        'platform_options' => array('quote_identifiers' => false),
-        'driver_options'   => array(),
-    );
+        'platform_options' => ['quote_identifiers' => false],
+        'driver_options'   => [],
+    ];
 
     /**
      * DB2 table to use for testing
@@ -178,10 +178,10 @@ class CredentialTreatmentAdapterDb2Test extends \PHPUnit_Framework_TestCase
         $this->authAdapter->setCredential('my_password');
         $this->authAdapter->authenticate();
         // Since we did not set db2_attr_case, column names will be upper case, as expected
-        $resultRow = $this->authAdapter->getResultRowObject(array(
+        $resultRow = $this->authAdapter->getResultRowObject([
             'USERNAME',
             'REAL_NAME'
-        ));
+        ]);
         $this->assertEquals(
             'O:8:"stdClass":2:{s:8:"USERNAME";s:11:"my_username";s:9:"REAL_NAME";s:12:"My Real Name";}', serialize($resultRow)
         );
@@ -374,7 +374,7 @@ class CredentialTreatmentAdapterDb2Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals('my_username', $result2->getIdentity());
     }
 
-    protected function setupDbAdapter($optionalParams = array())
+    protected function setupDbAdapter($optionalParams = [])
     {
         $this->createDbAdapter($optionalParams);
 
@@ -384,7 +384,7 @@ class CredentialTreatmentAdapterDb2Test extends \PHPUnit_Framework_TestCase
         $this->db->query($sqlInsert, DbAdapter::QUERY_MODE_EXECUTE);
     }
 
-    protected function createDbAdapter($optionalParams = array())
+    protected function createDbAdapter($optionalParams = [])
     {
         if (! empty($optionalParams)) {
             $this->dbAdapterParams['options'] = $optionalParams;

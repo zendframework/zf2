@@ -34,15 +34,15 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
         $mockDriver->expects($this->any())->method('getConnection')->will($this->returnValue($mockConnection));
 
         // setup mock adapter
-        $this->mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $this->mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
 
         $this->rowGateway = $this->getMockForAbstractClass('Zend\Db\RowGateway\AbstractRowGateway');
 
-        $rgPropertyValues = array(
+        $rgPropertyValues = [
             'primaryKeyColumn' => 'id',
             'table' => 'foo',
             'sql' => new \Zend\Db\Sql\Sql($this->mockAdapter)
-        );
+        ];
         $this->setRowGatewayState($rgPropertyValues);
     }
 
@@ -142,9 +142,9 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
     public function testSaveInsert()
     {
         // test insert
-        $this->mockResult->expects($this->any())->method('current')->will($this->returnValue(array('id' => 5, 'name' => 'foo')));
+        $this->mockResult->expects($this->any())->method('current')->will($this->returnValue(['id' => 5, 'name' => 'foo']));
         $this->mockResult->expects($this->any())->method('getGeneratedValue')->will($this->returnValue(5));
-        $this->rowGateway->populate(array('name' => 'foo'));
+        $this->rowGateway->populate(['name' => 'foo']);
         $this->rowGateway->save();
         $this->assertEquals(5, $this->rowGateway->id);
         $this->assertEquals(5, $this->rowGateway['id']);
@@ -157,17 +157,17 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
     {
         $this->rowGateway = $this->getMockForAbstractClass('Zend\Db\RowGateway\AbstractRowGateway');
 
-        $mockSql = $this->getMockForAbstractClass('Zend\Db\Sql\Sql', array($this->mockAdapter));
+        $mockSql = $this->getMockForAbstractClass('Zend\Db\Sql\Sql', [$this->mockAdapter]);
 
-        $rgPropertyValues = array(
-            'primaryKeyColumn' => array('one', 'two'),
+        $rgPropertyValues = [
+            'primaryKeyColumn' => ['one', 'two'],
             'table' => 'foo',
             'sql' => $mockSql
-        );
+        ];
         $this->setRowGatewayState($rgPropertyValues);
 
         // test insert
-        $this->mockResult->expects($this->any())->method('current')->will($this->returnValue(array('one' => 'foo', 'two' => 'bar')));
+        $this->mockResult->expects($this->any())->method('current')->will($this->returnValue(['one' => 'foo', 'two' => 'bar']));
 
         // @todo Need to assert that $where was filled in
 
@@ -175,14 +175,14 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
         $refRowGatewayProp = $refRowGateway->getProperty('primaryKeyData');
         $refRowGatewayProp->setAccessible(true);
 
-        $this->rowGateway->populate(array('one' => 'foo', 'two' => 'bar'));
+        $this->rowGateway->populate(['one' => 'foo', 'two' => 'bar']);
 
         $this->assertNull($refRowGatewayProp->getValue($this->rowGateway));
 
         // save should setup the primaryKeyData
         $this->rowGateway->save();
 
-        $this->assertEquals(array('one' => 'foo', 'two' => 'bar'), $refRowGatewayProp->getValue($this->rowGateway));
+        $this->assertEquals(['one' => 'foo', 'two' => 'bar'], $refRowGatewayProp->getValue($this->rowGateway));
     }
 
     /**
@@ -191,8 +191,8 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
     public function testSaveUpdate()
     {
         // test update
-        $this->mockResult->expects($this->any())->method('current')->will($this->returnValue(array('id' => 6, 'name' => 'foo')));
-        $this->rowGateway->populate(array('id' => 6, 'name' => 'foo'), true);
+        $this->mockResult->expects($this->any())->method('current')->will($this->returnValue(['id' => 6, 'name' => 'foo']));
+        $this->rowGateway->populate(['id' => 6, 'name' => 'foo'], true);
         $this->rowGateway->save();
         $this->assertEquals(6, $this->rowGateway['id']);
     }
@@ -203,29 +203,29 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
     public function testSaveUpdateChangingPrimaryKey()
     {
         // this mock is the select to be used to re-fresh the rowobject's data
-        $selectMock = $this->getMock('Zend\Db\Sql\Select', array('where'));
+        $selectMock = $this->getMock('Zend\Db\Sql\Select', ['where']);
         $selectMock->expects($this->once())
             ->method('where')
-            ->with($this->equalTo(array('id' => 7)))
+            ->with($this->equalTo(['id' => 7]))
             ->will($this->returnValue($selectMock));
 
-        $sqlMock = $this->getMock('Zend\Db\Sql\Sql', array('select'), array($this->mockAdapter));
+        $sqlMock = $this->getMock('Zend\Db\Sql\Sql', ['select'], [$this->mockAdapter]);
         $sqlMock->expects($this->any())
             ->method('select')
             ->will($this->returnValue($selectMock));
 
-        $this->setRowGatewayState(array('sql' => $sqlMock));
+        $this->setRowGatewayState(['sql' => $sqlMock]);
 
         // original mock returning updated data
         $this->mockResult->expects($this->any())
             ->method('current')
-            ->will($this->returnValue(array('id' => 7, 'name' => 'fooUpdated')));
+            ->will($this->returnValue(['id' => 7, 'name' => 'fooUpdated']));
 
         // populate forces an update in save(), seeds with original data (from db)
-        $this->rowGateway->populate(array('id' => 6, 'name' => 'foo'), true);
+        $this->rowGateway->populate(['id' => 6, 'name' => 'foo'], true);
         $this->rowGateway->id = 7;
         $this->rowGateway->save();
-        $this->assertEquals(array('id' => 7, 'name' => 'fooUpdated'), $this->rowGateway->toArray());
+        $this->assertEquals(['id' => 7, 'name' => 'fooUpdated'], $this->rowGateway->toArray());
     }
 
     /**
@@ -245,12 +245,12 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
      */
     public function testPopulate()
     {
-        $this->rowGateway->populate(array('id' => 5, 'name' => 'foo'));
+        $this->rowGateway->populate(['id' => 5, 'name' => 'foo']);
         $this->assertEquals(5, $this->rowGateway['id']);
         $this->assertEquals('foo', $this->rowGateway['name']);
         $this->assertFalse($this->rowGateway->rowExistsInDatabase());
 
-        $this->rowGateway->populate(array('id' => 5, 'name' => 'foo'), true);
+        $this->rowGateway->populate(['id' => 5, 'name' => 'foo'], true);
         $this->assertTrue($this->rowGateway->rowExistsInDatabase());
     }
 
@@ -259,10 +259,10 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
      */
     public function testProcessPrimaryKeyData()
     {
-        $this->rowGateway->populate(array('id' => 5, 'name' => 'foo'), true);
+        $this->rowGateway->populate(['id' => 5, 'name' => 'foo'], true);
 
         $this->setExpectedException('Zend\Db\RowGateway\Exception\RuntimeException', 'a known key id was not found');
-        $this->rowGateway->populate(array('boo' => 5, 'name' => 'foo'), true);
+        $this->rowGateway->populate(['boo' => 5, 'name' => 'foo'], true);
     }
 
     /**
@@ -270,7 +270,7 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
      */
     public function testCount()
     {
-        $this->rowGateway->populate(array('id' => 5, 'name' => 'foo'), true);
+        $this->rowGateway->populate(['id' => 5, 'name' => 'foo'], true);
         $this->assertEquals(2, $this->rowGateway->count());
     }
 
@@ -279,8 +279,8 @@ class AbstractRowGatewayTest extends \PHPUnit_Framework_TestCase
      */
     public function testToArray()
     {
-        $this->rowGateway->populate(array('id' => 5, 'name' => 'foo'), true);
-        $this->assertEquals(array('id' => 5, 'name' => 'foo'), $this->rowGateway->toArray());
+        $this->rowGateway->populate(['id' => 5, 'name' => 'foo'], true);
+        $this->assertEquals(['id' => 5, 'name' => 'foo'], $this->rowGateway->toArray());
     }
 
     protected function setRowGatewayState(array $properties)

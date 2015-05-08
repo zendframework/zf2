@@ -16,7 +16,7 @@ namespace Zend\Uri;
  */
 class File extends Uri
 {
-    protected static $validSchemes = array('file');
+    protected static $validSchemes = ['file'];
 
     /**
      * Check if the URI is a valid File URI
@@ -88,7 +88,7 @@ class File extends Uri
         $url = new static('file:');
 
         // Convert directory separators
-        $path = str_replace(array('/', '\\'), array('%2F', '/'), $path);
+        $path = str_replace(['/', '\\'], ['%2F', '/'], $path);
 
         // Is this an absolute path?
         if (preg_match('|^([a-zA-Z]:)?/|', $path)) {

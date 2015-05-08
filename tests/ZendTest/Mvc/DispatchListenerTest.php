@@ -34,30 +34,30 @@ class DispatchListenerTest extends TestCase
     {
         $serviceConfig = ArrayUtils::merge(
             $this->readAttribute(new ServiceListenerFactory, 'defaultServiceConfig'),
-            array(
+            [
                 'allow_override' => true,
-                'invokables' => array(
+                'invokables' => [
                     'Request'              => 'Zend\Http\PhpEnvironment\Request',
                     'Response'             => 'Zend\Http\PhpEnvironment\Response',
                     'ViewManager'          => 'ZendTest\Mvc\TestAsset\MockViewManager',
                     'SendResponseListener' => 'ZendTest\Mvc\TestAsset\MockSendResponseListener',
                     'BootstrapListener'    => 'ZendTest\Mvc\TestAsset\StubBootstrapListener',
-                ),
-                'aliases' => array(
+                ],
+                'aliases' => [
                     'Router'                 => 'HttpRouter',
-                ),
-                'services' => array(
-                    'Config' => array(),
-                    'ApplicationConfig' => array(
-                        'modules' => array(),
-                        'module_listener_options' => array(
+                ],
+                'services' => [
+                    'Config' => [],
+                    'ApplicationConfig' => [
+                        'modules' => [],
+                        'module_listener_options' => [
                             'config_cache_enabled' => false,
                             'cache_dir'            => 'data/cache',
-                            'module_paths'         => array(),
-                        ),
-                    ),
-                ),
-            )
+                            'module_paths'         => [],
+                        ],
+                    ],
+                ],
+            ]
         );
         $this->serviceManager = new ServiceManager(new ServiceManagerConfig($serviceConfig));
         $this->application = $this->serviceManager->get('Application');
@@ -69,12 +69,12 @@ class DispatchListenerTest extends TestCase
         $request->setUri('http://example.local/path');
 
         $router = $this->serviceManager->get('HttpRouter');
-        $route  = Router\Http\Literal::factory(array(
+        $route  = Router\Http\Literal::factory([
             'route'    => '/path',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'path',
-            ),
-        ));
+            ],
+        ]);
         $router->addRoute('path', $route);
         $this->application->bootstrap();
     }
@@ -86,7 +86,7 @@ class DispatchListenerTest extends TestCase
         $controllerLoader = $this->serviceManager->get('ControllerLoader');
         $controllerLoader->addAbstractFactory('ZendTest\Mvc\Controller\TestAsset\ControllerLoaderAbstractFactory');
 
-        $log = array();
+        $log = [];
         $this->application->getEventManager()->attach(MvcEvent::EVENT_DISPATCH_ERROR, function ($e) use (&$log) {
             $log['error'] = $e->getError();
         });
@@ -109,7 +109,7 @@ class DispatchListenerTest extends TestCase
         $controllerLoader = $this->serviceManager->get('ControllerLoader');
         $controllerLoader->addAbstractFactory('ZendTest\Mvc\Controller\TestAsset\UnlocatableControllerLoaderAbstractFactory');
 
-        $log = array();
+        $log = [];
         $this->application->getEventManager()->attach(MvcEvent::EVENT_DISPATCH_ERROR, function ($e) use (&$log) {
             $log['error'] = $e->getError();
         });

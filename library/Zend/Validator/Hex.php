@@ -19,10 +19,10 @@ class Hex extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID => "Invalid type given. String expected",
         self::NOT_HEX => "The input contains non-hexadecimal characters",
-    );
+    ];
 
     /**
      * Returns true if and only if $value contains only hexadecimal digit characters

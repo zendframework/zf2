@@ -38,13 +38,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->mockAdapter = $this->getMockForAbstractClass(
             'Zend\Db\Adapter\Adapter',
-            array($mockDriver, $mockPlatform)
+            [$mockDriver, $mockPlatform]
         );
     }
 
     public function testCanFactoryPaginatorWithStringAdapterObject()
     {
-        $datas = array(1, 2, 3);
+        $datas = [1, 2, 3];
         $paginator = Paginator\Factory::factory($datas, new Adapter\ArrayAdapter($datas));
         $this->assertInstanceOf('Zend\Paginator\Adapter\ArrayAdapter', $paginator->getAdapter());
         $this->assertEquals(count($datas), $paginator->getCurrentItemCount());
@@ -52,7 +52,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCanFactoryPaginatorWithStringAdapterName()
     {
-        $datas = array(1, 2, 3);
+        $datas = [1, 2, 3];
         $paginator = Paginator\Factory::factory($datas, 'array');
         $this->assertInstanceOf('Zend\Paginator\Adapter\ArrayAdapter', $paginator->getAdapter());
         $this->assertEquals(count($datas), $paginator->getCurrentItemCount());
@@ -66,16 +66,16 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCanFactoryPaginatorWithDbSelect()
     {
-        $paginator = Paginator\Factory::factory(array($this->mockSelect, $this->mockAdapter), 'dbselect');
+        $paginator = Paginator\Factory::factory([$this->mockSelect, $this->mockAdapter], 'dbselect');
         $this->assertInstanceOf('Zend\Paginator\Adapter\DbSelect', $paginator->getAdapter());
     }
 
     public function testCanFactoryPaginatorWithOneParameterWithArrayAdapter()
     {
-        $datas = array(
-            'items' => array(1, 2, 3),
+        $datas = [
+            'items' => [1, 2, 3],
             'adapter' => 'array',
-        );
+        ];
         $paginator = Paginator\Factory::factory($datas);
         $this->assertInstanceOf('Zend\Paginator\Adapter\ArrayAdapter', $paginator->getAdapter());
         $this->assertEquals(count($datas['items']), $paginator->getCurrentItemCount());
@@ -83,20 +83,20 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCanFactoryPaginatorWithOneParameterWithDbAdapter()
     {
-        $datas = array(
-            'items' => array($this->mockSelect, $this->mockAdapter),
+        $datas = [
+            'items' => [$this->mockSelect, $this->mockAdapter],
             'adapter' => 'dbselect',
-        );
+        ];
         $paginator = Paginator\Factory::factory($datas);
         $this->assertInstanceOf('Zend\Paginator\Adapter\DbSelect', $paginator->getAdapter());
     }
 
     public function testCanFactoryPaginatorWithOneBadParameter()
     {
-        $datas = array(
-            array(1, 2, 3),
+        $datas = [
+            [1, 2, 3],
             'array',
-        );
+        ];
         $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException');
         $paginator = Paginator\Factory::factory($datas);
     }

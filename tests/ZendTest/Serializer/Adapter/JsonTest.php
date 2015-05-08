@@ -34,11 +34,11 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     public function testAdapterAcceptsOptions()
     {
         $adapter = new Serializer\Adapter\Json();
-        $options = new Serializer\Adapter\JsonOptions(array(
+        $options = new Serializer\Adapter\JsonOptions([
             'cycle_check'             => true,
             'enable_json_expr_finder' => true,
             'object_decode_type'      => 1,
-        ));
+        ]);
         $adapter->setOptions($options);
 
         $this->assertEquals(true, $adapter->getOptions()->getCycleCheck());
@@ -131,7 +131,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     public function testUnserializeAsArray()
     {
         $value    = '{"test":"test"}';
-        $expected = array('test' => 'test');
+        $expected = ['test' => 'test'];
 
         $data = $this->adapter->unserialize($value);
         $this->assertEquals($expected, $data);

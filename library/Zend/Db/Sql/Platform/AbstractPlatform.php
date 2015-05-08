@@ -26,7 +26,7 @@ class AbstractPlatform implements PlatformDecoratorInterface, PreparableSqlInter
     /**
      * @var PlatformDecoratorInterface[]
      */
-    protected $decorators = array();
+    protected $decorators = [];
 
     /**
      * {@inheritDoc}

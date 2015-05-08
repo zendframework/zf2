@@ -18,7 +18,7 @@ final class PrefixPathStackResolver implements ResolverInterface
      *
      * @var string[]|string[][]|ResolverInterface[]
      */
-    private $prefixes = array();
+    private $prefixes = [];
 
     /**
      * Constructor
@@ -29,7 +29,7 @@ final class PrefixPathStackResolver implements ResolverInterface
      *                                                          or a {@see \Zend\View\Resolver\ResolverInterface}
      *                                                          to use for view path starting with that prefix
      */
-    public function __construct(array $prefixes = array())
+    public function __construct(array $prefixes = [])
     {
         $this->prefixes = $prefixes;
     }
@@ -45,7 +45,7 @@ final class PrefixPathStackResolver implements ResolverInterface
             }
 
             if (! $resolver instanceof ResolverInterface) {
-                $resolver = new TemplatePathStack(array('script_paths' => (array) $resolver));
+                $resolver = new TemplatePathStack(['script_paths' => (array) $resolver]);
             }
 
             if ($result = $resolver->resolve(substr($name, strlen($prefix)), $renderer)) {
