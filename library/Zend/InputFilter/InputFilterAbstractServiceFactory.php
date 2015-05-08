@@ -9,10 +9,8 @@
 
 namespace Zend\InputFilter;
 
-use Zend\Filter\FilterPluginManager;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Validator\ValidatorPluginManager;
 
 class InputFilterAbstractServiceFactory implements AbstractFactoryInterface
 {
@@ -55,58 +53,10 @@ class InputFilterAbstractServiceFactory implements AbstractFactoryInterface
     public function createServiceWithName(ServiceLocatorInterface $inputFilters, $cName, $rName)
     {
         $services  = $inputFilters->getServiceLocator();
+        $factory   = $services->get('InputFilterFactory');
         $allConfig = $services->get('Config');
         $config    = $allConfig['input_filter_specs'][$rName];
 
-        $factory   = $this->getInputFilterFactory($services);
-
         return $factory->createInputFilter($config);
-    }
-
-    /**
-     * @param ServiceLocatorInterface $services
-     * @return Factory
-     */
-    protected function getInputFilterFactory(ServiceLocatorInterface $services)
-    {
-        if ($this->factory instanceof Factory) {
-            return $this->factory;
-        }
-
-        $this->factory = new Factory();
-        $this->factory
-            ->getDefaultFilterChain()
-            ->setPluginManager($this->getFilterPluginManager($services));
-        $this->factory
-            ->getDefaultValidatorChain()
-            ->setPluginManager($this->getValidatorPluginManager($services));
-
-        return $this->factory;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $services
-     * @return FilterPluginManager
-     */
-    protected function getFilterPluginManager(ServiceLocatorInterface $services)
-    {
-        if ($services->has('FilterManager')) {
-            return $services->get('FilterManager');
-        }
-
-        return new FilterPluginManager();
-    }
-
-    /**
-     * @param ServiceLocatorInterface $services
-     * @return ValidatorPluginManager
-     */
-    protected function getValidatorPluginManager(ServiceLocatorInterface $services)
-    {
-        if ($services->has('ValidatorManager')) {
-            return $services->get('ValidatorManager');
-        }
-
-        return new ValidatorPluginManager();
     }
 }

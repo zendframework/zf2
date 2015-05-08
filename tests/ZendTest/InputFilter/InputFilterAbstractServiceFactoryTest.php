@@ -64,6 +64,11 @@ class InputFilterAbstractServiceFactoryTest extends TestCase
                 'filter' => array(),
             ),
         ));
+        $inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
+
+        $inputFilterFactory = $this->getMockBuilder('Zend\InputFilter\Factory')->getMock();
+        $inputFilterFactory->expects($this->once())->method('createInputFilter')->willReturn($inputFilterMock);
+        $this->services->setService('InputFilterFactory', $inputFilterFactory);
         $filter = $this->factory->createServiceWithName($this->filters, 'filter', 'filter');
         $this->assertInstanceOf('Zend\InputFilter\InputFilterInterface', $filter);
     }
@@ -82,6 +87,11 @@ class InputFilterAbstractServiceFactoryTest extends TestCase
         $validator  = $this->getMock('Zend\Validator\ValidatorInterface');
         $validators->setService('foo', $validator);
 
+        $inputFilterFactory = new \Zend\InputFilter\Factory();
+        $inputFilterFactory->getDefaultFilterChain()->setPluginManager($filters);
+        $inputFilterFactory->getDefaultValidatorChain()->setPluginManager($validators);
+
+        $this->services->setService('InputFilterFactory', $inputFilterFactory);
         $this->services->setService('FilterManager', $filters);
         $this->services->setService('ValidatorManager', $validators);
         $this->services->setService('Config', array(
@@ -130,6 +140,11 @@ class InputFilterAbstractServiceFactoryTest extends TestCase
         $validator  = $this->getMock('Zend\Validator\ValidatorInterface');
         $validators->setService('foo', $validator);
 
+        $inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
+
+        $inputFilterFactory = $this->getMockBuilder('Zend\InputFilter\Factory')->getMock();
+        $inputFilterFactory->expects($this->once())->method('createInputFilter')->willReturn($inputFilterMock);
+        $this->services->setService('InputFilterFactory', $inputFilterFactory);
         $this->services->setService('FilterManager', $filters);
         $this->services->setService('ValidatorManager', $validators);
         $this->services->setService('Config', array(
