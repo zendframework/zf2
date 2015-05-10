@@ -523,6 +523,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $mime = new Mime('foo-bar');
         $part = new MimePart('<b>foo</b>');
         $part->type = 'text/html';
+        $part->boundary = 'any_boundary';
         $body = new MimeMessage();
         $body->setMime($mime);
         $body->addPart($part);
@@ -537,7 +538,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($headers->has('content-type'));
         $header = $headers->get('content-type');
-        $this->assertEquals('text/html', $header->getFieldValue());
+        $this->assertEquals('text/html;' . "\r\n " . 'boundary="any_boundary"', $header->getFieldValue());
     }
 
     public function testSettingUtf8MailBodyFromSinglePartMimeUtf8MessageSetsAppropriateHeaders()
