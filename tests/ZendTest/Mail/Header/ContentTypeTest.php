@@ -63,7 +63,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
         $string = $header->toString();
 
         $this->assertContains("Content-Type: application/x-unit-test;", $string);
-        $this->assertContains(";\r\n charset=\"us-ascii\"", $string);
+        $this->assertContains(';charset="us-ascii"', $string);
     }
 
     public function testExtractsExtraInformationFromContentType()

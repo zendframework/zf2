@@ -538,7 +538,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($headers->has('content-type'));
         $header = $headers->get('content-type');
-        $this->assertEquals('text/html;' . "\r\n " . 'boundary="any_boundary"', $header->getFieldValue());
+        $this->assertEquals('text/html;boundary="any_boundary"', $header->getFieldValue());
     }
 
     public function testSettingUtf8MailBodyFromSinglePartMimeUtf8MessageSetsAppropriateHeaders()
@@ -556,7 +556,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->message->setBody($body);
 
         $this->assertContains(
-            'Content-Type: text/plain;' . Headers::FOLDING . 'charset="utf-8"' . Headers::EOL
+            'Content-Type: text/plain;charset="utf-8"' . Headers::EOL
             . 'Content-Transfer-Encoding: quoted-printable' . Headers::EOL,
             $this->message->getHeaders()->toString()
         );
@@ -584,7 +584,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($headers->has('content-type'));
         $header = $headers->get('content-type');
-        $this->assertEquals("multipart/mixed;\r\n boundary=\"foo-bar\"", $header->getFieldValue());
+        $this->assertEquals('multipart/mixed;boundary="foo-bar"', $header->getFieldValue());
     }
 
     public function testRetrievingBodyTextFromMessageWithMultiPartMimeBodyReturnsMimeSerialization()
