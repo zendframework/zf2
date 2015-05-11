@@ -39,6 +39,14 @@ interface WriterInterface
     public function write(array $event);
 
     /**
+     * Check if a log message is filtered.
+     *
+     * @param array $event
+     * @return mixed
+     */
+    public function isFiltered(array $event);
+
+    /**
      * Perform shutdown activities
      *
      * @return void
