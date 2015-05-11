@@ -75,7 +75,8 @@ class FeedSet extends ArrayObject
                     $link = $uri->getPath() . '/' . $link;
                 }
 
-                $link = $uri->getScheme() . '://' . $uri->getHost() . '/' . $this->canonicalizePath($link);
+                $scheme = ($uri->getScheme() === null) ? 'http' : $uri->getScheme();
+                $link   = $scheme . '://' . $uri->getHost() . '/' . $this->canonicalizePath($link);
                 if (!Uri::factory($link)->isValid()) {
                     $link = null;
                 }
