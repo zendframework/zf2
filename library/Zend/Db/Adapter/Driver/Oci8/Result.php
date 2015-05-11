@@ -21,9 +21,9 @@ class Result implements Iterator, ResultInterface
     protected $resource = null;
 
     /**
-     * @var bool
+     * @var null
      */
-    protected $isBuffered = null;
+    protected $rowCount = null;
 
     /**
      * Cursor position
@@ -62,14 +62,18 @@ class Result implements Iterator, ResultInterface
     /**
      * Initialize
      * @param resource $resource
+     * @param null|int $generatedValue
+     * @param null|int $rowCount
      * @return Result
      */
-    public function initialize($resource /*, $generatedValue, $isBuffered = null*/)
+    public function initialize($resource, $generatedValue = null, $rowCount = null)
     {
         if (!is_resource($resource) && get_resource_type($resource) !== 'oci8 statement') {
             throw new Exception\InvalidArgumentException('Invalid resource provided.');
         }
         $this->resource = $resource;
+        $this->generatedValue = $generatedValue;
+        $this->rowCount = $rowCount;
         return $this;
     }
 
@@ -197,11 +201,17 @@ class Result implements Iterator, ResultInterface
 
     /**
      * Count
-     * @return int
+     * @return null|int
      */
     public function count()
     {
-        // @todo OCI8 row count in Driver Result
+        if (is_int($this->rowCount)) {
+            return $this->rowCount;
+        }
+        if ($this->rowCount instanceof \Closure) {
+            $this->rowCount = (int) call_user_func($this->rowCount);
+            return $this->rowCount;
+        }
         return;
     }
 
@@ -214,7 +224,7 @@ class Result implements Iterator, ResultInterface
     }
 
     /**
-     * @return mixed|null
+     * @return null
      */
     public function getGeneratedValue()
     {

@@ -65,7 +65,9 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
         $starSuffix = $platform->getIdentifierSeparator() . self::SQL_STAR;
         foreach ($selectParameters[0] as $i => $columnParameters) {
-            if ($columnParameters[0] == self::SQL_STAR || (isset($columnParameters[1]) && $columnParameters[1] == self::SQL_STAR) || strpos($columnParameters[0], $starSuffix)) {
+            if ($columnParameters[0] == self::SQL_STAR ||
+                (isset($columnParameters[1]) && $columnParameters[1] == self::SQL_STAR) ||
+                strpos($columnParameters[0], $starSuffix)) {
                 $selectParameters[0] = array(array(self::SQL_STAR));
                 break;
             }
@@ -85,28 +87,22 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         ));
 
         if ($parameterContainer) {
+            $number = $this->processInfo['subselectCount'] ? $this->processInfo['subselectCount'] : '';
             if ($this->limit === null) {
-                array_push($sqls, ') b ) WHERE b_rownum > (:offset)');
-                $parameterContainer->offsetSet('offset', $this->offset, $parameterContainer::TYPE_INTEGER);
+                array_push($sqls, ') b ) WHERE b_rownum > (:offset'.$number.')');
+                $parameterContainer->offsetSet('offset'.$number, $this->offset, $parameterContainer::TYPE_INTEGER);
             } else {
                 // create bottom part of query, with offset and limit using row_number
-                array_push($sqls, ') b WHERE rownum <= (:offset+:limit)) WHERE b_rownum >= (:offset + 1)');
-                $parameterContainer->offsetSet('offset', $this->offset, $parameterContainer::TYPE_INTEGER);
-                $parameterContainer->offsetSet('limit', $this->limit, $parameterContainer::TYPE_INTEGER);
+                array_push($sqls, ') b WHERE rownum <= (:offset'.$number.'+:limit'.$number.')) WHERE b_rownum >= (:offset'.$number.' + 1)');
+                $parameterContainer->offsetSet('offset'.$number, $this->offset, $parameterContainer::TYPE_INTEGER);
+                $parameterContainer->offsetSet('limit'.$number, $this->limit, $parameterContainer::TYPE_INTEGER);
             }
+            $this->processInfo['subselectCount']++;
         } else {
             if ($this->limit === null) {
-                array_push($sqls, ') b ) WHERE b_rownum > ('. (int) $this->offset. ')'
-                );
+                array_push($sqls, ') b ) WHERE b_rownum > ('. (int) $this->offset. ')');
             } else {
-                array_push($sqls, ') b WHERE rownum <= ('
-                        . (int) $this->offset
-                        . '+'
-                        . (int) $this->limit
-                        . ')) WHERE b_rownum >= ('
-                        . (int) $this->offset
-                        . ' + 1)'
-                );
+                array_push($sqls, ') b WHERE rownum <= ('. (int) $this->offset. '+'. (int) $this->limit. ')) WHERE b_rownum >= ('. (int) $this->offset. ' + 1)');
             }
         }
 
