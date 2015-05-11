@@ -38,7 +38,7 @@ class RestfulTestController extends AbstractRestfulController
      * @param  mixed $id
      * @return mixed
      */
-    public function delete($id)
+    public function delete($id, $data)
     {
         $this->entity = array();
         return array();

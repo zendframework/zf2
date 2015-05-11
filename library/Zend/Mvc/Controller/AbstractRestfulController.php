@@ -99,7 +99,7 @@ abstract class AbstractRestfulController extends AbstractController
      * @param  mixed $id
      * @return mixed
      */
-    public function delete($id)
+    public function delete($id, $data)
     {
         $this->response->setStatusCode(405);
 
@@ -351,7 +351,7 @@ abstract class AbstractRestfulController extends AbstractController
 
                 if ($id !== false) {
                     $action = 'delete';
-                    $return = $this->delete($id);
+                    $return = $this->delete($id, $data);
                     break;
                 }
 
